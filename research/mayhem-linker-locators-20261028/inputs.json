@@ -1,0 +1,139 @@
+{
+  "schema": "MAYHEM_CARGO_LINKER_LOCATORS_V1",
+  "parent_script": "research/mayhem-fresh-host-20261028/controller/ordered-native.ld",
+  "parent_script_sha256": "06324945a81c1e63dcf1f8e2e2e6e9d4b666f481301377ee2912bff8cb82965f",
+  "derived_script_sha256": "cdb817f6c1a3442d055858e36577958fa1ada07d1ab1e5f525277a53307f28be",
+  "source_builder_parent": "research/all-contract-completion-20261028/mayhem-proposal/source/build_exact.py",
+  "source_builder_parent_sha256": "cfc9688bfd993c7bef9eaa80738bde04599b529d25b7afbf61c9a5fba035a0d6",
+  "locator_changes": [
+    {
+      "old": "libanchor_lang-f9a98358274b17c0.rlib:anchor_lang-f9a98358274b17c0.anchor_lang.f942a28608b81895-cgu.0.rcgu.o",
+      "observed_new": "libanchor_lang-669f1f29b701094b.rlib:anchor_lang-669f1f29b701094b.anchor_lang.f942a28608b81895-cgu.0.rcgu.o",
+      "portable_glob": "libanchor_lang-*.rlib:anchor_lang-*.anchor_lang.f942a28608b81895-cgu.0.rcgu.o",
+      "selectors": 314
+    },
+    {
+      "old": "libanchor_spl-67fc0e1d49ccac2b.rlib:anchor_spl-67fc0e1d49ccac2b.anchor_spl.b486e8a5b399904a-cgu.0.rcgu.o",
+      "observed_new": "libanchor_spl-db28bf2ea40d41d4.rlib:anchor_spl-db28bf2ea40d41d4.anchor_spl.b486e8a5b399904a-cgu.0.rcgu.o",
+      "portable_glob": "libanchor_spl-*.rlib:anchor_spl-*.anchor_spl.b486e8a5b399904a-cgu.0.rcgu.o",
+      "selectors": 11
+    },
+    {
+      "old": "libborsh-b806611703c47f47.rlib:borsh-b806611703c47f47.borsh.dffbb1e563291a07-cgu.0.rcgu.o",
+      "observed_new": "libborsh-782d3b07141e02d0.rlib:borsh-782d3b07141e02d0.borsh.dffbb1e563291a07-cgu.0.rcgu.o",
+      "portable_glob": "libborsh-*.rlib:borsh-*.borsh.dffbb1e563291a07-cgu.0.rcgu.o",
+      "selectors": 2
+    },
+    {
+      "old": "libcurve_accounts-bb7da1f8062e57e3.rlib:curve_accounts-bb7da1f8062e57e3.curve_accounts.8b398f178c92b1a1-cgu.0.rcgu.o",
+      "observed_new": "libcurve_accounts-de957338179884b8.rlib:curve_accounts-de957338179884b8.curve_accounts.8b398f178c92b1a1-cgu.0.rcgu.o",
+      "portable_glob": "libcurve_accounts-*.rlib:curve_accounts-*.curve_accounts.8b398f178c92b1a1-cgu.0.rcgu.o",
+      "selectors": 39
+    },
+    {
+      "old": "libsolana_account_info-aea1cc47a4692775.rlib:solana_account_info-aea1cc47a4692775.solana_account_info.591c976e8af17f5-cgu.0.rcgu.o",
+      "observed_new": "libsolana_account_info-6c72429b9c0fcef4.rlib:solana_account_info-6c72429b9c0fcef4.solana_account_info.591c976e8af17f5-cgu.0.rcgu.o",
+      "portable_glob": "libsolana_account_info-*.rlib:solana_account_info-*.solana_account_info.591c976e8af17f5-cgu.0.rcgu.o",
+      "selectors": 11
+    },
+    {
+      "old": "libsolana_address-6f827130537816da.rlib:solana_address-6f827130537816da.solana_address.5b6ba6fef0ac183a-cgu.0.rcgu.o",
+      "observed_new": "libsolana_address-5f70194ac117bcf9.rlib:solana_address-5f70194ac117bcf9.solana_address.5b6ba6fef0ac183a-cgu.0.rcgu.o",
+      "portable_glob": "libsolana_address-*.rlib:solana_address-*.solana_address.5b6ba6fef0ac183a-cgu.0.rcgu.o",
+      "selectors": 10
+    },
+    {
+      "old": "libsolana_instruction-ba6a38e7d2ceb646.rlib:solana_instruction-ba6a38e7d2ceb646.solana_instruction.5e51609c6af3fab9-cgu.0.rcgu.o",
+      "observed_new": "libsolana_instruction-29b6eb3046ae48e8.rlib:solana_instruction-29b6eb3046ae48e8.solana_instruction.5e51609c6af3fab9-cgu.0.rcgu.o",
+      "portable_glob": "libsolana_instruction-*.rlib:solana_instruction-*.solana_instruction.5e51609c6af3fab9-cgu.0.rcgu.o",
+      "selectors": 2
+    },
+    {
+      "old": "libsolana_instructions_sysvar-226c185a131159a7.rlib:solana_instructions_sysvar-226c185a131159a7.solana_instructions_sysvar.dc50cba303356436-cgu.0.rcgu.o",
+      "observed_new": "libsolana_instructions_sysvar-acdd84dba2501631.rlib:solana_instructions_sysvar-acdd84dba2501631.solana_instructions_sysvar.dc50cba303356436-cgu.0.rcgu.o",
+      "portable_glob": "libsolana_instructions_sysvar-*.rlib:solana_instructions_sysvar-*.solana_instructions_sysvar.dc50cba303356436-cgu.0.rcgu.o",
+      "selectors": 2
+    },
+    {
+      "old": "libsolana_invoke-e379f31083ebf830.rlib:solana_invoke-e379f31083ebf830.solana_invoke.dfdcd03744ece765-cgu.0.rcgu.o",
+      "observed_new": "libsolana_invoke-fa56ab9d25e5a497.rlib:solana_invoke-fa56ab9d25e5a497.solana_invoke.dfdcd03744ece765-cgu.0.rcgu.o",
+      "portable_glob": "libsolana_invoke-*.rlib:solana_invoke-*.solana_invoke.dfdcd03744ece765-cgu.0.rcgu.o",
+      "selectors": 3
+    },
+    {
+      "old": "libsolana_program_entrypoint-39ecd8d6ecf45d92.rlib:solana_program_entrypoint-39ecd8d6ecf45d92.solana_program_entrypoint.f381c88f0091cdab-cgu.0.rcgu.o",
+      "observed_new": "libsolana_program_entrypoint-08bf5b2b7d4ee530.rlib:solana_program_entrypoint-08bf5b2b7d4ee530.solana_program_entrypoint.f381c88f0091cdab-cgu.0.rcgu.o",
+      "portable_glob": "libsolana_program_entrypoint-*.rlib:solana_program_entrypoint-*.solana_program_entrypoint.f381c88f0091cdab-cgu.0.rcgu.o",
+      "selectors": 22
+    },
+    {
+      "old": "libsolana_program_error-bdb0047a92dd3170.rlib:solana_program_error-bdb0047a92dd3170.solana_program_error.77a8c21d6749471d-cgu.0.rcgu.o",
+      "observed_new": "libsolana_program_error-c35c418aa7dcf459.rlib:solana_program_error-c35c418aa7dcf459.solana_program_error.77a8c21d6749471d-cgu.0.rcgu.o",
+      "portable_glob": "libsolana_program_error-*.rlib:solana_program_error-*.solana_program_error.77a8c21d6749471d-cgu.0.rcgu.o",
+      "selectors": 29
+    },
+    {
+      "old": "libsolana_rent-9f6fc7a0e6da736c.rlib:solana_rent-9f6fc7a0e6da736c.solana_rent.e996550a888ebe45-cgu.0.rcgu.o",
+      "observed_new": "libsolana_rent-7f012b3f03be1a10.rlib:solana_rent-7f012b3f03be1a10.solana_rent.e996550a888ebe45-cgu.0.rcgu.o",
+      "portable_glob": "libsolana_rent-*.rlib:solana_rent-*.solana_rent.e996550a888ebe45-cgu.0.rcgu.o",
+      "selectors": 4
+    },
+    {
+      "old": "libsolana_system_interface-7dc18e2ae518b3a4.rlib:solana_system_interface-7dc18e2ae518b3a4.solana_system_interface.71ab0bb93b9e7a82-cgu.0.rcgu.o",
+      "observed_new": "libsolana_system_interface-86e11e797b94425c.rlib:solana_system_interface-86e11e797b94425c.solana_system_interface.71ab0bb93b9e7a82-cgu.0.rcgu.o",
+      "portable_glob": "libsolana_system_interface-*.rlib:solana_system_interface-*.solana_system_interface.71ab0bb93b9e7a82-cgu.0.rcgu.o",
+      "selectors": 42
+    },
+    {
+      "old": "libsolana_sysvar-d9a2b60ef6951e45.rlib:solana_sysvar-d9a2b60ef6951e45.solana_sysvar.a081fd3bf1d74536-cgu.0.rcgu.o",
+      "observed_new": "libsolana_sysvar-eee1a6e9e432f1eb.rlib:solana_sysvar-eee1a6e9e432f1eb.solana_sysvar.a081fd3bf1d74536-cgu.0.rcgu.o",
+      "portable_glob": "libsolana_sysvar-*.rlib:solana_sysvar-*.solana_sysvar.a081fd3bf1d74536-cgu.0.rcgu.o",
+      "selectors": 2
+    },
+    {
+      "old": "libspl_associated_token_account_interface-134621de1d6441b7.rlib:spl_associated_token_account_interface-134621de1d6441b7.spl_associated_token_account_interface.3b2836850a8d22fe-cgu.0.rcgu.o",
+      "observed_new": "libspl_associated_token_account_interface-461a62dbe74a2a39.rlib:spl_associated_token_account_interface-461a62dbe74a2a39.spl_associated_token_account_interface.3b2836850a8d22fe-cgu.0.rcgu.o",
+      "portable_glob": "libspl_associated_token_account_interface-*.rlib:spl_associated_token_account_interface-*.spl_associated_token_account_interface.3b2836850a8d22fe-cgu.0.rcgu.o",
+      "selectors": 6
+    },
+    {
+      "old": "libspl_token_2022_interface-55e54af9002f0d4f.rlib:spl_token_2022_interface-55e54af9002f0d4f.spl_token_2022_interface.912155aa0f4230e2-cgu.0.rcgu.o",
+      "observed_new": "libspl_token_2022_interface-1b8ffdf342598bef.rlib:spl_token_2022_interface-1b8ffdf342598bef.spl_token_2022_interface.912155aa0f4230e2-cgu.0.rcgu.o",
+      "portable_glob": "libspl_token_2022_interface-*.rlib:spl_token_2022_interface-*.spl_token_2022_interface.912155aa0f4230e2-cgu.0.rcgu.o",
+      "selectors": 22
+    },
+    {
+      "old": "libspl_token_interface-045da35afaf09eb0.rlib:spl_token_interface-045da35afaf09eb0.spl_token_interface.6ff54d6023aeb658-cgu.0.rcgu.o",
+      "observed_new": "libspl_token_interface-39d994566141ab0d.rlib:spl_token_interface-39d994566141ab0d.spl_token_interface.6ff54d6023aeb658-cgu.0.rcgu.o",
+      "portable_glob": "libspl_token_interface-*.rlib:spl_token_interface-*.spl_token_interface.6ff54d6023aeb658-cgu.0.rcgu.o",
+      "selectors": 11
+    },
+    {
+      "old": "libspl_token_metadata_interface-5e4b07d8b862081e.rlib:spl_token_metadata_interface-5e4b07d8b862081e.spl_token_metadata_interface.2b455a22f7ec8994-cgu.0.rcgu.o",
+      "observed_new": "libspl_token_metadata_interface-d45623d1bde5d063.rlib:spl_token_metadata_interface-d45623d1bde5d063.spl_token_metadata_interface.2b455a22f7ec8994-cgu.0.rcgu.o",
+      "portable_glob": "libspl_token_metadata_interface-*.rlib:spl_token_metadata_interface-*.spl_token_metadata_interface.2b455a22f7ec8994-cgu.0.rcgu.o",
+      "selectors": 7
+    }
+  ],
+  "changed_selectors": 539,
+  "source_bytes_or_compiler_flags_changed": false,
+  "derivation_run": 40766148667,
+  "derivation_artifact_sha256": "00208169e4a436892f7ebd3e0bc02c868b7b7ea1113ecc1c257538738bf1dd35",
+  "normalized_window_census": {
+    "original_windows": 441,
+    "normalized": 435,
+    "raw_local": 86
+  },
+  "call_pairing": {
+    "source_windows_enumerated": 441,
+    "direct_calls_checked": 4768,
+    "unknown_pairings": [],
+    "inconsistent_pairings": [],
+    "pairing_basis": "Identical input section names/internal CGU identity and equal section sizes; Cargo archive/member filename digest is locator-only",
+    "current_actual_elf_identity_pass": false
+  },
+  "same_named_symbols": 550,
+  "identical_input_section_keys_sizes_alignments": 1253,
+  "identical_nonpointer_data_sections": 804,
+  "new_recipe_compiled": false
+}
