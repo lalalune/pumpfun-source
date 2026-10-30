@@ -1,0 +1,347 @@
+{
+  "schema": 1,
+  "reviewBase": "094a06f18df738d41e77070c1a009e135671ac1a",
+  "scope": "Complete original transient focus/context + row/section renderers, actual Settings caller bound; no preference or outer-modal acquisition",
+  "indexEntry": {
+    "ids": [
+      379288,
+      165228
+    ],
+    "sha256": "ab377b76367b582ab93f114fe047043fdf3289275a00fc3e878ed31da36aad2c",
+    "origins": [
+      {
+        "source": "evidence/web/objects/8401a8e00b4638cb.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/3388ean6o-_mt.js",
+        "start": 145,
+        "end": 5836
+      }
+    ],
+    "path": "recovered/modules/379288-ab377b76367b.js"
+  },
+  "factory": {
+    "id": 165228,
+    "ids": [
+      379288,
+      165228
+    ],
+    "label": "factory 165228",
+    "source": "evidence/web/objects/8401a8e00b4638cb.js",
+    "url": "https://pump.fun/_next/static/immutable/chunks/3388ean6o-_mt.js",
+    "sourceSha256": "b161b408239a968b9cfc15b49b9cacd535c077a2b5b555683e30b90787b0d2ca",
+    "sourceBytes": 39392,
+    "utf16": [
+      145,
+      5836
+    ],
+    "utf8": [
+      145,
+      5836
+    ],
+    "sha256": "ab377b76367b582ab93f114fe047043fdf3289275a00fc3e878ed31da36aad2c"
+  },
+  "retained": [
+    {
+      "label": "complete original focus context initialization",
+      "source": {
+        "label": "complete original focus context initialization",
+        "source": "evidence/web/objects/8401a8e00b4638cb.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/3388ean6o-_mt.js",
+        "sourceSha256": "b161b408239a968b9cfc15b49b9cacd535c077a2b5b555683e30b90787b0d2ca",
+        "sourceBytes": 39392,
+        "utf16": [
+          227,
+          254
+        ],
+        "utf8": [
+          227,
+          254
+        ],
+        "sha256": "245a098b05ac693e5578ef9e277bbebe536dfdbe616a720321d104372504c016"
+      },
+      "astSha256": "62c62a16f253dcdb21a21eb530d673a4889c14cb5828492929bbcb43c2fa9e3d"
+    },
+    {
+      "label": "complete original React.use focus-context reader",
+      "source": {
+        "label": "complete original React.use focus-context reader",
+        "source": "evidence/web/objects/8401a8e00b4638cb.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/3388ean6o-_mt.js",
+        "sourceSha256": "b161b408239a968b9cfc15b49b9cacd535c077a2b5b555683e30b90787b0d2ca",
+        "sourceBytes": 39392,
+        "utf16": [
+          255,
+          273
+        ],
+        "utf8": [
+          255,
+          273
+        ],
+        "sha256": "93cbae493c6f9477001561d734d2d5aeeb02fdae619de1fc53ccd871cb74b127"
+      },
+      "astSha256": "603e4142d239780b519da21dc06d8364ff88f6326060dd721c16ad768a7417cf"
+    },
+    {
+      "label": "complete2500ms transient-focus hook; original one-shot state/no-reset and cleanup",
+      "source": {
+        "label": "complete2500ms transient-focus hook; original one-shot state/no-reset and cleanup",
+        "source": "evidence/web/objects/8401a8e00b4638cb.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/3388ean6o-_mt.js",
+        "sourceSha256": "b161b408239a968b9cfc15b49b9cacd535c077a2b5b555683e30b90787b0d2ca",
+        "sourceBytes": 39392,
+        "utf16": [
+          274,
+          514
+        ],
+        "utf8": [
+          274,
+          514
+        ],
+        "sha256": "0b67d4bccf3a9cc59c2651dfd717e334cbb665f78197ca55da441d5b8fefbde9"
+      },
+      "astSha256": "42a6552cc4c077d99062fcf44c696a66de94317ba1163dc0b65a7eb0ad4adfd9"
+    },
+    {
+      "label": "complete exported transient-focus provider component",
+      "source": {
+        "label": "complete exported transient-focus provider component",
+        "source": "evidence/web/objects/8401a8e00b4638cb.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/3388ean6o-_mt.js",
+        "sourceSha256": "b161b408239a968b9cfc15b49b9cacd535c077a2b5b555683e30b90787b0d2ca",
+        "sourceBytes": 39392,
+        "utf16": [
+          821,
+          989
+        ],
+        "utf8": [
+          821,
+          989
+        ],
+        "sha256": "59cc152580374fe946c17c8685fe5de45547175b4d654c53e538d88f74e97b97"
+      },
+      "astSha256": "c3f9c6648bec7047c4994624c8a05cfe5962ba6b5e395e1c42825843bc430de0"
+    },
+    {
+      "label": "complete section header renderer",
+      "source": {
+        "label": "complete section header renderer",
+        "source": "evidence/web/objects/8401a8e00b4638cb.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/3388ean6o-_mt.js",
+        "sourceSha256": "b161b408239a968b9cfc15b49b9cacd535c077a2b5b555683e30b90787b0d2ca",
+        "sourceBytes": 39392,
+        "utf16": [
+          515,
+          802
+        ],
+        "utf8": [
+          515,
+          802
+        ],
+        "sha256": "70eb7d717b96bd611de95bd7e6814294e3b381ec816f16c8cefe5fd8ac9cd003"
+      },
+      "astSha256": "e9821084702f462487b79d4999cc7c977e19205a4d5ae4d7e889057ebd6dcdd1"
+    },
+    {
+      "label": "complete Settings row renderer including actual ref/scroll/highlight effect",
+      "source": {
+        "label": "complete Settings row renderer including actual ref/scroll/highlight effect",
+        "source": "evidence/web/objects/8401a8e00b4638cb.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/3388ean6o-_mt.js",
+        "sourceSha256": "b161b408239a968b9cfc15b49b9cacd535c077a2b5b555683e30b90787b0d2ca",
+        "sourceBytes": 39392,
+        "utf16": [
+          1026,
+          2726
+        ],
+        "utf8": [
+          1026,
+          2726
+        ],
+        "sha256": "1c55a3cd32b65e460437366835b4a02538f5f7a6349250978a3d54a65c0d9684"
+      },
+      "astSha256": "76f5a6940961d05d29bd93cae65cacc6756fa06f197efc11b51ae9c85485fec8"
+    },
+    {
+      "label": "complete Settings section renderer and header/description/children branch",
+      "source": {
+        "label": "complete Settings section renderer and header/description/children branch",
+        "source": "evidence/web/objects/8401a8e00b4638cb.js",
+        "url": "https://pump.fun/_next/static/immutable/chunks/3388ean6o-_mt.js",
+        "sourceSha256": "b161b408239a968b9cfc15b49b9cacd535c077a2b5b555683e30b90787b0d2ca",
+        "sourceBytes": 39392,
+        "utf16": [
+          4374,
+          5077
+        ],
+        "utf8": [
+          4374,
+          5077
+        ],
+        "sha256": "330962a9e4b2673a5d62d51cd4e3639b25548b39170d5ca0c7d989da9641acae"
+      },
+      "astSha256": "6a2001d3c8013d74b0e2567c5b7432fa6f17900c0ab824f78867d22286c27544"
+    }
+  ],
+  "witnesses": [
+    {
+      "label": "actual React createContext/use/state/effect/ref dependency",
+      "source": "evidence/web/objects/8401a8e00b4638cb.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3388ean6o-_mt.js",
+      "sourceSha256": "b161b408239a968b9cfc15b49b9cacd535c077a2b5b555683e30b90787b0d2ca",
+      "sourceBytes": 39392,
+      "utf16": [
+        209,
+        222
+      ],
+      "utf8": [
+        209,
+        222
+      ],
+      "sha256": "0583510fa6f3eddb1830672918368de3f74da98ab23e25e748774fffadf619da"
+    },
+    {
+      "label": "actual compiler memo dependency",
+      "source": "evidence/web/objects/8401a8e00b4638cb.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3388ean6o-_mt.js",
+      "sourceSha256": "b161b408239a968b9cfc15b49b9cacd535c077a2b5b555683e30b90787b0d2ca",
+      "sourceBytes": 39392,
+      "utf16": [
+        167,
+        180
+      ],
+      "utf8": [
+        167,
+        180
+      ],
+      "sha256": "f73505f6cb1493f4442d80b69da910dabf768e0474ba8d5b56f6aa120b7dbcef"
+    },
+    {
+      "label": "actual class combiner remains explicit port",
+      "source": "evidence/web/objects/8401a8e00b4638cb.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3388ean6o-_mt.js",
+      "sourceSha256": "b161b408239a968b9cfc15b49b9cacd535c077a2b5b555683e30b90787b0d2ca",
+      "sourceBytes": 39392,
+      "utf16": [
+        195,
+        208
+      ],
+      "utf8": [
+        195,
+        208
+      ],
+      "sha256": "357b543fd83eafed0817d436c04816e74aef9388f44ad7c686425f7e6b3109b9"
+    },
+    {
+      "label": "actual Settings focus import",
+      "source": "evidence/web/objects/4490d02ba2117672.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3fozwhf22_uer.js",
+      "sourceSha256": "17654c0cf0b8fe65da685a36840e41c570a2e70a49af81bd8133c2ac3a33b59e",
+      "sourceBytes": 52381,
+      "utf16": [
+        239,
+        252
+      ],
+      "utf8": [
+        239,
+        252
+      ],
+      "sha256": "f402df2e9c04afd716e6766fa327738bf9b2544d131ddd51a050806c3580683d"
+    },
+    {
+      "label": "actual Settings row/section import",
+      "source": "evidence/web/objects/4490d02ba2117672.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3fozwhf22_uer.js",
+      "sourceSha256": "17654c0cf0b8fe65da685a36840e41c570a2e70a49af81bd8133c2ac3a33b59e",
+      "sourceBytes": 52381,
+      "utf16": [
+        13833,
+        13846
+      ],
+      "utf8": [
+        13839,
+        13852
+      ],
+      "sha256": "5954cb04c25ac939e75f00fdd39c87fcb40b78bd49eee61a21d9b3fb38f74b23"
+    },
+    {
+      "label": "actual focusSettingId alias H passed into h; no provider state acquisition",
+      "source": "evidence/web/objects/4490d02ba2117672.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3fozwhf22_uer.js",
+      "sourceSha256": "17654c0cf0b8fe65da685a36840e41c570a2e70a49af81bd8133c2ac3a33b59e",
+      "sourceBytes": 52381,
+      "utf16": [
+        45453,
+        45466
+      ],
+      "utf8": [
+        45459,
+        45472
+      ],
+      "sha256": "76ad6217192c38fd491f3011dd21c59746a5773b98e966df859320b4c355fabf"
+    },
+    {
+      "label": "actual focus value passed to same context.Provider around section content",
+      "source": "evidence/web/objects/4490d02ba2117672.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3fozwhf22_uer.js",
+      "sourceSha256": "17654c0cf0b8fe65da685a36840e41c570a2e70a49af81bd8133c2ac3a33b59e",
+      "sourceBytes": 52381,
+      "utf16": [
+        49407,
+        49571
+      ],
+      "utf8": [
+        49413,
+        49577
+      ],
+      "sha256": "7ad17406a780790ff8a22206f64282083f8c64f481ad2f914c9a4915aa5d52c5"
+    },
+    {
+      "label": "actual definition row outputs settingId/title/description/control to379288.s; control implementation remains external",
+      "source": "evidence/web/objects/4490d02ba2117672.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3fozwhf22_uer.js",
+      "sourceSha256": "17654c0cf0b8fe65da685a36840e41c570a2e70a49af81bd8133c2ac3a33b59e",
+      "sourceBytes": 52381,
+      "utf16": [
+        26003,
+        26063
+      ],
+      "utf8": [
+        26009,
+        26069
+      ],
+      "sha256": "f46bd0993be5cbe2b9d96fe4e96fa2e936cbcf9e27b2b89abf347e808a5e1219"
+    },
+    {
+      "label": "actual Settings results section uses379288.X; supplied row/result logic credited separately",
+      "source": "evidence/web/objects/4490d02ba2117672.js",
+      "url": "https://pump.fun/_next/static/immutable/chunks/3fozwhf22_uer.js",
+      "sourceSha256": "17654c0cf0b8fe65da685a36840e41c570a2e70a49af81bd8133c2ac3a33b59e",
+      "sourceBytes": 52381,
+      "utf16": [
+        35025,
+        35109
+      ],
+      "utf8": [
+        35031,
+        35115
+      ],
+      "sha256": "c823dbaa43e31d6f2a79896498ac8d1c9e0e7f16b26483e52c08d32b4943fd9c"
+    }
+  ],
+  "module": {
+    "path": "reconstruction/settings-focus-frames/client.mjs",
+    "sha256": "9ad777c54badecf93131eafdaf11da1783aca25489fcd9e6402b4e5a3871dd08"
+  },
+  "capabilities": {
+    "react": "Actual JSX/compiler/hooks/createContext/React.use ports; no private provider acquisition.",
+    "timer": "Explicit window.setTimeout/clearTimeout capability, source delay2500ms retained. No global property overridden.",
+    "classNames": "Original426091 class combiner is an explicit port, no whole vendor/tailwind algorithm claim.",
+    "content": "Original Row/Section accept readonly React nodes for title/description/note/control/children; controls are not reconstructed or acquired here."
+  },
+  "credit": "Existing1839/1872/1898/1911 already retain actual callers with Row/Section/focus ports. This unit closes those distinct frame capabilities, without copying/importing unmerged implementations or retallying them. Generic shell/search/modal primitives and prior native Settings fixes remain unchanged.",
+  "limits": [
+    "Initial hook state is true once; changing target before expiry clears/restarts timer, but after expiry a new target does not reset state totrue. Falsey target returnsnull. Remount starts fresh.",
+    "Row scroll effect depends only on its focused boolean; same focus does not cause repeated scroll on unrelated props. Native scrollIntoView optional call uses center/smooth; it does not focus an input or implement parent focus trapping.",
+    "Actual124884 calls h(H) then context.Provider; exported w is a complete alternative exported wrapper, not falsely attributed as this caller's literal component. Both consume the same hook/context.",
+    "No preference state/control/mutation, actualcookies/storage/sessions/credentials/userdata/tenantrequest, protected availability/wallet/admin/trading path, full parentmodal/global mount/CSS/vendor/native/API/pixel/security/completion claim."
+  ]
+}
