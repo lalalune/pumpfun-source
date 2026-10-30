@@ -106,3 +106,9 @@ remain pinned to fd8. This packet proposes no program change and establishes
 neither native Linux preservation, runtime equivalence, complete data identity,
 historical source authentication nor security. The next provenance work should
 attribute the remaining 102 section differences before changing more inputs.
+
+The [Metaplex producer follow-up](../mpl-producer/NOTES.md) requalifies this
+result on fresh main `a7135a6a6`, traces the second Borsh path copy through a
+dependent object, and corrects five more bytes. Its final 97 section differences
+and unchanged memberships are measured separately; the fd8 receipts above
+remain preserved.

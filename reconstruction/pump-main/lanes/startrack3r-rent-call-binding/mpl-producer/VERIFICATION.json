@@ -1,0 +1,179 @@
+{
+  "result": "PASS",
+  "source_revision": "a7135a6a64c446166895f7e3ea4ca84ac1a9b848",
+  "inputs": {
+    "control": "15c29a714f16bbe749766f795d6c933d4905d4dfc9b5491942ad6b35b2d528ff",
+    "borsh_only": "324d2eae8324297e645c7cdae29003333d337f876a183714f7aee5dad7e4d1f5",
+    "import_only": "5087cd95257727420663f44ffece06da65d611d7c182b152377aafbafb36d97f",
+    "candidate": "532aa580aa308ec42d1436306041a03fa96e67acb7265fd19e02a66acd0e5acd",
+    "repeat": "532aa580aa308ec42d1436306041a03fa96e67acb7265fd19e02a66acd0e5acd",
+    "original": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
+    "mpl_control": "c5f27ffec7ad6e5fe2009149d60bd0408b73341c626dd80bd8dbc7c065838a68",
+    "mpl_import": "b5578e9a34c80bfba38f4d4284d2a1e9efa2348612843c6a8144a4f5aaefb548",
+    "mpl_candidate": "88d2859a9b6d0d01abfcfab62b1d26dd8a5247d850090f39b19519be7a18ef97",
+    "mpl_repeat": "88d2859a9b6d0d01abfcfab62b1d26dd8a5247d850090f39b19519be7a18ef97"
+  },
+  "stages": {
+    "control": {
+      "sha256": "15c29a714f16bbe749766f795d6c933d4905d4dfc9b5491942ad6b35b2d528ff",
+      "bytes": 2666344,
+      "whole_image_changes": [],
+      "original_rodata_differences": 104
+    },
+    "borsh_only": {
+      "sha256": "324d2eae8324297e645c7cdae29003333d337f876a183714f7aee5dad7e4d1f5",
+      "bytes": 2666344,
+      "whole_image_changes": [
+        [
+          1794477,
+          92,
+          47
+        ],
+        [
+          1794480,
+          92,
+          47
+        ]
+      ],
+      "original_rodata_differences": 102
+    },
+    "import_only": {
+      "sha256": "5087cd95257727420663f44ffece06da65d611d7c182b152377aafbafb36d97f",
+      "bytes": 2666344,
+      "whole_image_changes": [
+        [
+          1794477,
+          92,
+          47
+        ],
+        [
+          1794480,
+          92,
+          47
+        ],
+        [
+          1810855,
+          92,
+          47
+        ],
+        [
+          1810858,
+          92,
+          47
+        ]
+      ],
+      "original_rodata_differences": 100
+    },
+    "candidate": {
+      "sha256": "532aa580aa308ec42d1436306041a03fa96e67acb7265fd19e02a66acd0e5acd",
+      "bytes": 2666344,
+      "whole_image_changes": [
+        [
+          1794477,
+          92,
+          47
+        ],
+        [
+          1794480,
+          92,
+          47
+        ],
+        [
+          1810855,
+          92,
+          47
+        ],
+        [
+          1810858,
+          92,
+          47
+        ],
+        [
+          1811199,
+          92,
+          47
+        ],
+        [
+          1811209,
+          92,
+          47
+        ],
+        [
+          1811222,
+          92,
+          47
+        ]
+      ],
+      "original_rodata_differences": 97
+    }
+  },
+  "mpl_changes": {
+    "mpl_import": {
+      "/": [],
+      "//": [],
+      "lib.rmeta": [],
+      "mpl_token_metadata-ad6c93ea74c41088.mpl_token_metadata.dfe403df406082ec-cgu.0.rcgu.o": [
+        [
+          1726635,
+          92,
+          47
+        ],
+        [
+          1726638,
+          92,
+          47
+        ]
+      ]
+    },
+    "mpl_candidate": {
+      "/": [],
+      "//": [],
+      "lib.rmeta": [
+        [
+          7026962,
+          92,
+          47
+        ],
+        [
+          7026972,
+          92,
+          47
+        ],
+        [
+          7026985,
+          92,
+          47
+        ]
+      ],
+      "mpl_token_metadata-ad6c93ea74c41088.mpl_token_metadata.dfe403df406082ec-cgu.0.rcgu.o": [
+        [
+          1726635,
+          92,
+          47
+        ],
+        [
+          1726638,
+          92,
+          47
+        ],
+        [
+          1736539,
+          92,
+          47
+        ],
+        [
+          1736549,
+          92,
+          47
+        ],
+        [
+          1736562,
+          92,
+          47
+        ]
+      ]
+    }
+  },
+  "independent_repeats_equal": true,
+  "scope": "Seven raw section-relative data bytes corrected, including five beyond the earlier Borsh packet. No function-window gain, formatter-gap closure, native qualification or whole-original identity."
+}

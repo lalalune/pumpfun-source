@@ -224,6 +224,12 @@ these recorded `fd8b94dfa` measurements.
 
 ## Maintainer context and next step
 
+The [fresh-main Metaplex producer packet](mpl-producer/NOTES.md) extends the
+dependency evidence to a second compiler boundary. On `a7135a6a6`, seven raw
+data bytes are corrected with every other output byte unchanged; `.rodata`
+differences decrease from 104 to 97. No formatter-gap or function-match gain
+is claimed.
+
 The later [Borsh producer packet](borsh-producer/NOTES.md) reproduces the
 retained dependency and corrects its two path separators through compiler
 inputs. Two independent root outputs change only those two `.rodata` bytes;

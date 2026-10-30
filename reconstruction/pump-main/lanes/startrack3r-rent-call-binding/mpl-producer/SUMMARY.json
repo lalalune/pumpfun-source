@@ -1,0 +1,225 @@
+{
+  "source_revision": "a7135a6a64c446166895f7e3ea4ca84ac1a9b848",
+  "root_source_files": 112,
+  "source_git_blobs": 107,
+  "tool_files": 4,
+  "dependency_inputs": 207,
+  "root_compiles": 5,
+  "dependency_compiles": 4,
+  "target_executions": 0,
+  "stages": {
+    "01-main-a7135a6": {
+      "sha256": "15c29a714f16bbe749766f795d6c933d4905d4dfc9b5491942ad6b35b2d528ff",
+      "bytes": 2666344,
+      "sections_equal_control": true,
+      "whole_control_differences": [],
+      "rodata_differences_original": 104,
+      "rodata_sha256": "63186aec6292027d97b6c6a598e447e86eff5d90515d84b6383d8b4555ac3d17",
+      "text_identical_control": true,
+      "normalized": 1027,
+      "raw": 273,
+      "memberships_equal_control": true
+    },
+    "05-main-borsh": {
+      "sha256": "324d2eae8324297e645c7cdae29003333d337f876a183714f7aee5dad7e4d1f5",
+      "bytes": 2666344,
+      "sections_equal_control": true,
+      "whole_control_differences": [
+        [
+          1794477,
+          92,
+          47
+        ],
+        [
+          1794480,
+          92,
+          47
+        ]
+      ],
+      "rodata_differences_original": 102,
+      "rodata_sha256": "f675988efa6da698dd905add902d7b992323e293e1a690184ad8ff8ba05bfdfb",
+      "text_identical_control": true,
+      "normalized": 1027,
+      "raw": 273,
+      "memberships_equal_control": true
+    },
+    "06-main-mpl-import": {
+      "sha256": "5087cd95257727420663f44ffece06da65d611d7c182b152377aafbafb36d97f",
+      "bytes": 2666344,
+      "sections_equal_control": true,
+      "whole_control_differences": [
+        [
+          1794477,
+          92,
+          47
+        ],
+        [
+          1794480,
+          92,
+          47
+        ],
+        [
+          1810855,
+          92,
+          47
+        ],
+        [
+          1810858,
+          92,
+          47
+        ]
+      ],
+      "rodata_differences_original": 100,
+      "rodata_sha256": "8537f2e883aab505359c6bfbdf7d1b0852d483ecdefd70552523b48b25612867",
+      "text_identical_control": true,
+      "normalized": 1027,
+      "raw": 273,
+      "memberships_equal_control": true
+    },
+    "07-main-mpl-path": {
+      "sha256": "532aa580aa308ec42d1436306041a03fa96e67acb7265fd19e02a66acd0e5acd",
+      "bytes": 2666344,
+      "sections_equal_control": true,
+      "whole_control_differences": [
+        [
+          1794477,
+          92,
+          47
+        ],
+        [
+          1794480,
+          92,
+          47
+        ],
+        [
+          1810855,
+          92,
+          47
+        ],
+        [
+          1810858,
+          92,
+          47
+        ],
+        [
+          1811199,
+          92,
+          47
+        ],
+        [
+          1811209,
+          92,
+          47
+        ],
+        [
+          1811222,
+          92,
+          47
+        ]
+      ],
+      "rodata_differences_original": 97,
+      "rodata_sha256": "b632bff10cdff9fd27e265ca931022b125404c1f9efc1bc1c4c8fb62da3f1ea0",
+      "text_identical_control": true,
+      "normalized": 1027,
+      "raw": 273,
+      "memberships_equal_control": true
+    },
+    "08-main-mpl-repeat": {
+      "sha256": "532aa580aa308ec42d1436306041a03fa96e67acb7265fd19e02a66acd0e5acd",
+      "bytes": 2666344,
+      "sections_equal_control": true,
+      "whole_control_differences": [
+        [
+          1794477,
+          92,
+          47
+        ],
+        [
+          1794480,
+          92,
+          47
+        ],
+        [
+          1810855,
+          92,
+          47
+        ],
+        [
+          1810858,
+          92,
+          47
+        ],
+        [
+          1811199,
+          92,
+          47
+        ],
+        [
+          1811209,
+          92,
+          47
+        ],
+        [
+          1811222,
+          92,
+          47
+        ]
+      ],
+      "rodata_differences_original": 97,
+      "rodata_sha256": "b632bff10cdff9fd27e265ca931022b125404c1f9efc1bc1c4c8fb62da3f1ea0",
+      "text_identical_control": true,
+      "normalized": 1027,
+      "raw": 273,
+      "memberships_equal_control": true
+    }
+  },
+  "archive_sha256": {
+    "02-mpl-control": "c5f27ffec7ad6e5fe2009149d60bd0408b73341c626dd80bd8dbc7c065838a68",
+    "03-mpl-borsh-import": "b5578e9a34c80bfba38f4d4284d2a1e9efa2348612843c6a8144a4f5aaefb548",
+    "04-mpl-file-remap": "88d2859a9b6d0d01abfcfab62b1d26dd8a5247d850090f39b19519be7a18ef97",
+    "09-mpl-repeat": "88d2859a9b6d0d01abfcfab62b1d26dd8a5247d850090f39b19519be7a18ef97"
+  },
+  "validation": {
+    "result": "PASS",
+    "cases": [
+      {
+        "name": "normal",
+        "returncode": 0,
+        "expected": "pass"
+      },
+      {
+        "name": "optimized",
+        "returncode": 0,
+        "expected": "pass"
+      },
+      {
+        "name": "borsh-only-as-final",
+        "returncode": 1,
+        "expected": "reject"
+      },
+      {
+        "name": "import-only-as-final",
+        "returncode": 1,
+        "expected": "reject"
+      },
+      {
+        "name": "wrong-library-repeat",
+        "returncode": 1,
+        "expected": "reject"
+      }
+    ],
+    "normal_optimized_equal": true,
+    "inputs_unchanged": true,
+    "all_memberships_preserved": true,
+    "independent_census": {
+      "control": "all1035 agree",
+      "candidate": "all1035 agree"
+    },
+    "target_executions": 0
+  },
+  "remaining_data_differences": {
+    "path_separators": 16,
+    "string_order": 81
+  },
+  "scope": "Seven section-relative raw data bytes corrected: five beyond prior two-byte result. No changed program source, code bytes, function memberships or formatter-gap gain. No whole-original identity or native/runtime qualification."
+}
