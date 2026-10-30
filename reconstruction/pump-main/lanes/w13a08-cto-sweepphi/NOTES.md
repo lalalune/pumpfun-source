@@ -88,3 +88,32 @@ exact-window totals remain 1,034/1,035, with no missing, resized or lost windows
 All 363 signed admin comparisons and 408 one-hop swap/boundary comparisons pass.
 The latter disable AMM PDA signature verification; this is bounded runtime evidence,
 not a whole-program identity or all-input equivalence proof.
+
+## Landable on main 2f268ad (0.51857): skip tree in (collect_old, skip, sharing_update) order
+
+| build | bytes | ratio | slots_diff | normalized / raw | losses |
+| --- | ---: | ---: | ---: | --- | --- |
+| main 2f268ad | 27,400 | 0.51857 | 3,335 | 1034 / 1034 | - |
+| csu + pool holder from `holder` + `reset` local + `!holder&&st.cashback` | 27,400 | **0.51887** | 3,326 | 1034 / 1034 | 0 / 0 |
+
+Unstripped sha256 prefix `0c691d9e7175e5ae`; differential 363/0. Tuple orders on this main: (skip,collect,sharing) 27,312 / 0.52183,
+(skip,sharing,collect) and (sharing,skip,collect) 27,328 / 0.52197, (collect,skip,sharing) 27,384 / 0.51963. Only csu has a
+cheap +16 B companion: the pool CPI takes `holder` again (+32 B here), and `reset` / the cashback operand order give -8 B each.
+The skip-first orders still need +72..+88 B; `CollectCreatorFeeEvent` creator-first + fee unwrap store reach 27,400 but at 0.51528.
+
+(#2971 with the composite above was closed: main moved to 62eb841cb, #2903, 0.52277, before it landed.)
+
+## Tuple orders on main 62eb841 (0.52277)
+
+| variant | bytes | ratio |
+| --- | ---: | ---: |
+| (skip,sharing,collect) / (sharing,skip,collect) | 27,328 | **0.52527** |
+| (skip,collect,sharing) | 27,312 | 0.52513 |
+| (collect,skip,sharing) | 27,384 | 0.52322 |
+| csu + reset / + args after CtoState | 27,376 / 27,368 | 0.52330 / 0.52338 |
+| csu + pool holder from `holder` + reset + cashback order | 27,400 | 0.52187 |
+| csu + fee unwrap store | 27,392 | 0.52165 |
+| suc/scu + holder from `holder` + CollectCreatorFeeEvent creator-first + args after (+ reset/fu) | 27,456-27,472 | 0.399-0.401 (collapse) |
+
+The skip-first orders are the strongest single structural lever left in this angle (+0.0025 here), but none of the
+measured knobs repays their 72-88 B without collapsing the layout.
