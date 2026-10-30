@@ -114,7 +114,7 @@ def main():
     if args.captured_loader:
         bound_files.update({str(p): sha(p) for p in loader_inputs})
     loader_receipts = {}
-    scripts = {name: ROOT / filename if filename.startswith('repro/') else ROOT / 'scripts' / filename for name, filename in selected_suites}
+    scripts = {name: ROOT / filename if filename.startswith(('repro/', 'research/')) else ROOT / 'scripts' / filename for name, filename in selected_suites}
     if record.get('portable_source_binding') and 'tokenkeg_two_curve' in scripts:
         scripts['tokenkeg_two_curve'] = ROOT / 'scripts/pump_tokenkeg_checkpoint_differential.py'
     script_hashes = {name: sha(path) for name, path in scripts.items()}
