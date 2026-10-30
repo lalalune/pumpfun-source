@@ -275,7 +275,7 @@ def _build_packet(program_name, output_dir, output_label):
 ## .text Section
 - Start: `{hex(elf.lo)}`
 - End: `{hex(elf.hi)}`
-- Size: {total_text:,} bytes ({total_text // 8:,} BPF instructions)
+- Size: {total_text:,} bytes ({total_text // 8:,} 8-byte instruction slots)
 
 ## Window Summary
 | Metric | Value |
@@ -292,7 +292,7 @@ def _build_packet(program_name, output_dir, output_label):
 {chr(10).join(f'| {k} | {v} |' for k, v in buckets.items())}
 
 ## Largest Windows (potential handler bodies)
-| Address | Size (bytes) | BPF Instructions | Name |
+| Address | Size (bytes) | 8-byte Slots | Name |
 |---------|-------------|-----------------|------|
 {chr(10).join(f'| {w["address"]} | {w["size"]:,} | {w["size"]//8:,} | {w["name"] or "(unnamed)"} |' for w in large_windows[:20])}
 

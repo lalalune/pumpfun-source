@@ -3,6 +3,8 @@
 import contextlib
 import hashlib
 import io
+import json
+import re
 import os
 from pathlib import Path
 import tempfile
@@ -22,6 +24,37 @@ def packet_hashes(output):
 
 
 class AnalyzeProgramPublicationTests(unittest.TestCase):
+    def test_report_counts_eight_byte_slots_in_a_real_lddw_capture(self):
+        # LDDW is one logical instruction occupying two eight-byte slots.
+        elf = analyzer.Elf(analyzer.REPO / 'evidence/original/pump_fees/deployed.so')
+        text = elf.b[elf.file_offset(elf.lo, elf.hi - elf.lo):
+                     elf.file_offset(elf.lo, elf.hi - elf.lo) + elf.hi - elf.lo]
+        offset = logical = lddw = 0
+        while offset < len(text):
+            wide = text[offset] == 0x18
+            offset += 16 if wide else 8
+            logical += 1
+            lddw += wide
+        self.assertEqual(offset, len(text))
+        slots = len(text) // 8
+        self.assertGreater(lddw, 0)
+        self.assertEqual(slots, logical + lddw)
+        with tempfile.TemporaryDirectory() as temporary:
+            output = Path(temporary) / 'packet'
+            with contextlib.redirect_stdout(io.StringIO()):
+                self.assertEqual(analyze_program('pump_fees', output), 0)
+            summary = json.loads((output / 'summary.json').read_text())
+            self.assertEqual(summary['text_section']['size'], len(text))
+            readme = (output / 'README.md').read_text()
+            self.assertIn(f'{len(text):,} bytes ({slots:,} 8-byte instruction slots)', readme)
+            self.assertNotIn('BPF instructions', readme)
+            self.assertIn('| Address | Size (bytes) | 8-byte Slots | Name |', readme)
+            rows = re.findall(r'^\| (0x[0-9a-f]+) \| ([0-9,]+) \| ([0-9,]+) \|',
+                              readme, re.MULTILINE)
+            self.assertEqual(len(rows), 20)
+            for _, size, count in rows:
+                self.assertEqual(int(size.replace(',', '')) // 8, int(count.replace(',', '')))
+
     def test_unexpected_existing_entry_is_rejected_before_publication(self):
         with tempfile.TemporaryDirectory() as temporary:
             output = Path(temporary) / "packet"

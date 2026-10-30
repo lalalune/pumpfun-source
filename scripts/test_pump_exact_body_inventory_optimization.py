@@ -29,6 +29,9 @@ class ExactBodyInventoryOptimizationTests(unittest.TestCase):
             (checkout / "scripts").mkdir()
             for name in (TOOL, HELPER):
                 shutil.copy(SCRIPTS / name, checkout / "scripts" / name)
+            helper = checkout / 'reconstruction/harness/instruction_stream.py'
+            helper.parent.mkdir(parents=True)
+            shutil.copyfile(ROOT / 'reconstruction/harness/instruction_stream.py', helper)
             os.symlink(ROOT / "evidence", checkout / "evidence")
             inventory = checkout / WINDOWS
             inventory.parent.mkdir(parents=True)

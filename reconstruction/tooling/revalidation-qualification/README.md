@@ -13,10 +13,16 @@ changes only the lifecycle around those checks:
 6. publish a complete, self-verified audit directory with one rename.
 
 The exact reviewed root source is pinned as SHA-256
-`84594836782aeb5f535199a8a02cca364afcb61febf9e50be37cf7329bc28dc7`.
+`ca9f2245dcf0dffb334546bef3d0209d69ae866c1c355d9563bfe18d64a1c70a`.
 The adapter refuses to execute if those bytes change. This binding includes the retained manifest formats, path admission, UTF-8/LF
 report writer, and atomic no-replace publication helper. The adapter executes
 the bytes it checked and binds its source receipt to that same digest.
+
+The current binding includes the bounded whole-character prefix in the root
+runner's standalone temporary-directory helper. This reviewed naming-only
+transition leaves its manifest checks and publication semantics unchanged.
+Historical packets and their recorded source hashes are retained unchanged;
+the adapter still rejects any other unreviewed root-script bytes.
 
 ## Reproduced defects
 

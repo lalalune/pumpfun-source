@@ -5,7 +5,8 @@ from pathlib import Path
 import secrets
 
 
-def write_json_report(path, value):
+def write_json_report(path, value, *, overwrite=True):
+    """Publish JSON atomically; an optional fresh output never replaces a writer."""
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
     # A plain exclusive open keeps the umask-derived mode of a direct write.
@@ -24,12 +25,30 @@ def write_json_report(path, value):
         break
     else:
         raise FileExistsError("could not create a unique probe report staging file")
+    metadata = os.fstat(stream.fileno())
+    identity = metadata.st_dev, metadata.st_ino
     try:
         with stream:
             stream.write(json.dumps(value, indent=2) + "\n")
             stream.flush()
             os.fsync(stream.fileno())
-        os.replace(staged, path)
-    except BaseException:
-        staged.unlink(missing_ok=True)
-        raise
+        if overwrite:
+            os.replace(staged, path)
+            staged = None
+        elif os.name == "nt":
+            # Windows rename refuses an existing file without hard-link support.
+            os.rename(staged, path)
+            staged = None
+        else:
+            os.link(staged, path)
+    finally:
+        if staged is not None:
+            try:
+                metadata = staged.lstat()
+            except FileNotFoundError:
+                pass
+            else:
+                # A failed publisher may have lost its pathname to another
+                # writer. Only remove the file allocated by this invocation.
+                if (metadata.st_dev, metadata.st_ino) == identity:
+                    staged.unlink()

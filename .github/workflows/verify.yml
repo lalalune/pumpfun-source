@@ -76,6 +76,7 @@ jobs:
               python -B reconstruction/harness/test_integrate_build_input_recheck.py
               python -B reconstruction/harness/test_composition_boundaries.py
               python -B reconstruction/harness/test_build_pair_boundaries.py
+              python -B reconstruction/harness/test_build_pair_source_overlap.py
               python -B reconstruction/harness/test_composition_deadline.py
               python -B reconstruction/harness/test_fastbuild_stack.py
               python -B reconstruction/harness/test_integrate_empty_files.py
@@ -121,6 +122,8 @@ jobs:
               python -B tests/test_pump_set_mayhem_params_synthetic_cpi_pinned_image.py
               python -B tests/test_fees_donation_create_pinned_image.py
               python -B tests/test_fees_social_claim_pinned_image.py
+              python -B tests/test_fees_withdraw_output_inputs.py
+              python -B tests/test_fees_aggregate_output.py
               python -B tests/test_fees_donation_crank_pinned_image.py
               python -B tests/test_fees_differentials_normal_python.py
               python -B tests/test_amm_differentials_normal_python.py
@@ -132,7 +135,16 @@ jobs:
               python -B tests/test_build_partial_normal_python.py
               python -B tests/test_checkpoint_verifiers_normal_python.py
               python -B tests/test_pump_output_parents.py
+              python -B tests/test_pump_amm_buyback_report_publication.py
+              python -B tests/test_pump_amm_admin_report_publication.py
               python -B tests/test_remaining_output_parents.py
+              python -B tests/test_pump_admin_token_incentives_report_publication.py
+              python -B tests/test_pump_creator_collect_report_publication.py
+              python -B tests/test_pump_admin_cto_report_publication.py
+              python -B tests/test_pump_amm_accumulator_report_publication.py
+              python -B tests/test_pump_claim_incentives_report_publication.py
+              python -B tests/test_pump_creator_reports_publication.py
+              python -B tests/test_migration_quote_reports_publication.py
               python -B scripts/test_validation_report_boundaries.py
               python -B tests/test_create_mayhem_normal_python.py
               python -B tests/test_two_curve_optimization_guard.py
@@ -150,9 +162,13 @@ jobs:
               python -B scripts/test_admin_cto_optimization.py
               python -B scripts/test_build_token_dependency_optimization.py
               python -B scripts/test_revalidate_empty_manifest.py
+              python -B tests/test_packet_temporary_names.py
+              python -B tests/test_generated_packet_census.py
               python -B scripts/test_revalidate_all_manifest_records.py
               python -B scripts/test_revalidate_packet_root_link.py
               python -B scripts/test_revalidate_manifest_link.py
+              python -B scripts/test_target_library_profile_staging.py
+              python -B scripts/test_revalidate_verify_link.py
               python -B scripts/test_measure_relay13_v148_optimization.py
               python -B scripts/test_fees_withdraw_runtime_optimization.py
               python -B scripts/test_measure_relay_v148_optimization.py
@@ -199,6 +215,7 @@ jobs:
               python -B scripts/test_disassemble_output_mode.py
               python -B scripts/test_disassemble_tool_binding.py
               python -B scripts/test_disassemble_publication.py
+              python -B scripts/test_disassemble_staging_uniqueness.py
               python -B scripts/test_analyze_publication.py
               python -B scripts/test_verify_imported_lab_publication.py
               python -B scripts/test_verify_recovered_builds_receipts.py
@@ -210,6 +227,7 @@ jobs:
               python -B scripts/test_pump_quote_control_function_match_output.py
               python -B reconstruction/toolchain/test_dependency_cache.py
               python -B reconstruction/mayhem/native-linux-qualification/test_vendor_membership.py
+              python -B reconstruction/mayhem/native-linux-qualification/test_vendor_file_links.py
               python -B scripts/test_analyze_program_publication.py
               python -B scripts/test_reconstruction_roadmap_publication.py
               python -B tests/test_pump_planning_regressions.py

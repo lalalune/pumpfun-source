@@ -120,6 +120,53 @@ class TokenkegCheckpointOptimizationTests(unittest.TestCase):
                 self.assertEqual(completed.returncode, 0, completed.stderr)
                 self.assertIn("OK", completed.stdout)
 
+    def test_receipt_keys_use_the_tracked_spelling(self):
+        # The published 'report' and repository_inputs keys used
+        # str(relative_to(ROOT)), which is backslash-spelled on Windows and
+        # forked the receipt content per platform.
+        driver = DRIVER.replace(
+            "report_path = root / 'report.json'",
+            "report_path = pkg / 'report.json'",
+        ).replace(
+            "v.portable_binding(candidate, report_path)\n"
+            "print('OK')\n",
+            "binding = v.portable_binding(candidate, report_path)\n"
+            "print('KEYS ' + json.dumps({'report': binding['report']}))\n",
+        )
+        env = dict(os.environ)
+        env["PYTHONPATH"] = str(SCRIPTS) + os.pathsep + env.get("PYTHONPATH", "")
+        completed = subprocess.run(
+            [sys.executable, "-B", "-c", driver, "none", str(self.root)],
+            text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, env=env,
+        )
+        self.assertEqual(completed.returncode, 0, completed.stderr)
+        line = next(l for l in completed.stdout.splitlines() if l.startswith("KEYS "))
+        keys = json.loads(line[5:])
+        self.assertEqual(keys["report"], "pkg/report.json")
+
+
+
+    def test_repository_key_uses_actual_windows_path_rendering(self):
+        driver = DRIVER.replace(
+            "v.portable_binding(candidate, report_path)\nprint('OK')\n",
+            "from pathlib import PureWindowsPath\n"
+            "v.ROOT = PureWindowsPath('C:/repo')\n"
+            "v.__file__ = 'C:/repo/scripts/pump_tokenkeg_checkpoint_differential.py'\n"
+            "v.Path = PureWindowsPath\n"
+            "v.sha = lambda path: 'bound-sha'\n"
+            "result = v.bindings(candidate, report_path)\n"
+            "print('KEYS ' + json.dumps(result['repository_inputs']))\n",
+        )
+        env = dict(os.environ, PYTHONPATH=str(SCRIPTS) + os.pathsep + os.environ.get('PYTHONPATH', ''))
+        for mode in MODES:
+            with self.subTest(mode=mode):
+                completed = subprocess.run([sys.executable, *mode, '-c', driver, 'none', str(self.root)],
+                    capture_output=True, text=True, env=env, timeout=30)
+                self.assertEqual(completed.returncode, 0, completed.stderr)
+                line = next(line for line in completed.stdout.splitlines() if line.startswith('KEYS '))
+                self.assertEqual(json.loads(line[5:]), {'scripts/pump_tokenkeg_checkpoint_differential.py': 'bound-sha'})
+
+
 
 if __name__ == "__main__":
     unittest.main()

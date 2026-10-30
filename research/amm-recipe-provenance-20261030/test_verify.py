@@ -61,7 +61,7 @@ class RecipeLoadTests(unittest.TestCase):
 
 class HistoricalRecipeTests(unittest.TestCase):
     def run_record(self, record):
-        manifest = verifier.PACKET / 'manifest.json'
+        manifest = verifier.PACKET / 'recipe.json'
         original = Path.read_text
         def read(path, *args, **kwargs):
             return json.dumps(record) if path == manifest else original(path, *args, **kwargs)
@@ -69,7 +69,7 @@ class HistoricalRecipeTests(unittest.TestCase):
             return verifier.verify()
 
     def record(self):
-        return json.loads((verifier.PACKET / 'manifest.json').read_text())
+        return json.loads((verifier.PACKET / 'recipe.json').read_text())
 
     def test_exact_history_is_staged_without_current_recipe_or_sources(self):
         original = Path.read_bytes
@@ -99,6 +99,19 @@ class HistoricalRecipeTests(unittest.TestCase):
             with self.subTest(revision=revision):
                 changed = copy.deepcopy(record); changed['source_commit'] = revision
                 with self.assertRaises(ValueError): self.run_record(changed)
+
+
+class AuditIntegrationTests(unittest.TestCase):
+    def test_recipe_record_is_not_a_manifest_but_verifier_still_runs(self):
+        spec = importlib.util.spec_from_file_location('recipe_revalidator', verifier.ROOT/'scripts/revalidate_all.py')
+        revalidator = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(revalidator)
+        self.assertEqual(revalidator.check_manifest(verifier.PACKET), {'status': 'no_manifest', 'errors': []})
+        result = revalidator.run_verify(verifier.PACKET)
+        self.assertEqual(result['status'], 'pass', result)
+        self.assertEqual(result['returncode'], 0)
+        self.assertIn('"bytecode_identity_verified": false', result['output'])
+        self.assertIn('"source_inputs": 68', result['output'])
 
 
 if __name__ == '__main__':

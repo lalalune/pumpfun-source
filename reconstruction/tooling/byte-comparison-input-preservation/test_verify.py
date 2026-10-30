@@ -65,6 +65,10 @@ class ByteComparisonInputTests(unittest.TestCase):
             path = self.root / 'scripts' / name
             path.parent.mkdir(exist_ok=True)
             path.write_bytes(content)
+        # The maintained matcher shares logical instruction-boundary parsing.
+        helper = self.root / 'reconstruction/harness/instruction_stream.py'
+        helper.parent.mkdir(parents=True, exist_ok=True)
+        helper.write_bytes((ROOT / 'reconstruction/harness/instruction_stream.py').read_bytes())
         for name in ('evidence/original/pump/deployed.so', 'reconstruction/base/functions.tsv'):
             path = self.root / name
             path.parent.mkdir(parents=True, exist_ok=True)
