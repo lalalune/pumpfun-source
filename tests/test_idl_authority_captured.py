@@ -40,7 +40,7 @@ PUMP_ELF = ROOT / 'evidence/original/pump/deployed.so'
 PUMP_SHA256 = '7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d'
 HOST_SOURCE = ROOT / 'programs/pump/recovered/idl_authority_host.rs'
 
-IDL = json.loads((ROOT / 'evidence/upstream/pump.json').read_text())
+IDL = json.loads((ROOT / 'evidence/upstream/pump.json').read_text(encoding='utf-8'))
 PUMP = Pubkey.from_string(IDL['address'])
 SYSTEM = Pubkey.default()
 OTHER_PROGRAM = Pubkey.from_bytes(bytes([12]) * 32)

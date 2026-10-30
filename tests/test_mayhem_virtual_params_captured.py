@@ -49,7 +49,7 @@ ELF_SHA256 = {
 }
 HOST_SOURCE = ROOT / 'programs/pump/recovered/mayhem_virtual_params_host.rs'
 
-IDL = json.loads((ROOT / 'evidence/upstream/pump.json').read_text())
+IDL = json.loads((ROOT / 'evidence/upstream/pump.json').read_text(encoding='utf-8'))
 PUMP = Pubkey.from_string(IDL['address'])
 INSTRUCTION = next(i for i in IDL['instructions'] if i['name'] == 'set_mayhem_virtual_params')
 GLOBAL_DISC = next(bytes(a['discriminator']) for a in IDL['accounts'] if a['name'] == 'Global')
