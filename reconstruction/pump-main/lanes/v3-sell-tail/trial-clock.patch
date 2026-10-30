@@ -1,0 +1,26 @@
+--- a/programs/pump/src/trade_v3.rs
++++ b/programs/pump/src/trade_v3.rs
+@@ -1178,7 +1178,7 @@
+ 
+ 
+ 
+-    let event=crate::multi_hop_curve::trade_event(&a.bonding_curve,&a.global,&a.user_volume_accumulator,&a.user.key(),&a.base_mint.key(),false,amount,quote,&fees,crate::transfer_fee_recovered::post_fee_amount(&quote_fee,buyback_fee)?,quote_transfer_fee,"sell",Clock::get()?.unix_timestamp);
++    let event=crate::multi_hop_curve::trade_event(&a.bonding_curve,&a.global,&a.user_volume_accumulator,&a.user.key(),&a.base_mint.key(),false,amount,quote,&fees,crate::transfer_fee_recovered::post_fee_amount(&quote_fee,buyback_fee)?,quote_transfer_fee,"sell",sell_timestamp()?);
+ 
+ 
+ 
+@@ -1188,7 +1188,7 @@
+ 
+ 
+     emit!(event);
+-    emit_sell_cpi(&ctx,&event)?;
++    emit_cpi!(event);
+     Ok(())
+ }
+ 
+@@ -1305,3 +1305,5 @@
+ fn transfer_curve_mint_tokens<'info>(token_program:&Interface<'info,TokenInterface>,mint:&InterfaceAccount<'info,Mint>,destination:&InterfaceAccount<'info,TokenAccount>,source:&InterfaceAccount<'info,TokenAccount>,authority:&Account<'info,BondingCurve>,amount:u64,signer_seeds:&[&[&[u8]];1])->Result<()>{
+     crate::buy_v2::token_transfers::transfer_curve_tokens(token_program,source,destination,authority,mint.decimals,mint.as_ref(),amount,signer_seeds)
+ }
++
++#[inline(always)] fn sell_timestamp()->Result<i64>{Ok(Clock::get()?.unix_timestamp)}

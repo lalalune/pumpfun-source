@@ -1,0 +1,24 @@
+{
+  "tested_base": "665499915f9caedcd38921d415a90f0606686398",
+  "kind": "captured-program analysis publication; no reconstructed executable",
+  "before": {
+    "entrypoint": "scripts/analyze_program.py",
+    "first_program": "mayhem",
+    "first_windows": 441,
+    "second_program_at_same_output": "pump_fees",
+    "second_windows": 585,
+    "overwritten_files": ["call-graph.json", "function-index.json", "manifest.json", "README.md", "section-layout.json", "summary.json", "window-inventory.json"]
+  },
+  "after": {
+    "regressions_passed": 4,
+    "real_mayhem_output_files_equal_to_legacy_cli": 8,
+    "rejected_second_program_preserves_all_files": true,
+    "generated_packet_verifier_passed": true,
+    "missing_capture_does_not_publish": true,
+    "unreviewed_helper_rejected": true,
+    "existing_file_and_empty_directory_retained": true
+  },
+  "required_checks": {"captures_verified": 9, "tooling_tests_passed": 10},
+  "execution": "Python 3.11 on Windows; directory-rename test uses authorized local execution because the Windows sandbox denies reparenting temporary directories",
+  "limits": "No cross-process lock, source reconstruction, fresh VM replay, decoder-correctness claim or security acceptance"
+}

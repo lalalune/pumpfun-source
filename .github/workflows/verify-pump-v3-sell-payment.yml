@@ -1,0 +1,27 @@
+name: Verify Pump V3 Sell payment evidence
+on:
+  pull_request:
+    paths:
+      - 'reconstruction/pump-main/lanes/v3-sell-payment-layout/**'
+      - '.github/workflows/verify-pump-v3-sell-payment.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  retained-evidence:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            reconstruction/pump-main/lanes/v3-sell-payment-layout
+            reconstruction/base/functions.tsv
+            evidence/original/pump/deployed.so
+            scripts/pump_trade_fixture.py
+            scripts/pump_v3_configured_fee_differential.py
+          sparse-checkout-cone-mode: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install solders==0.27.1
+      - run: python reconstruction/pump-main/lanes/v3-sell-payment-layout/verify.py --signatures

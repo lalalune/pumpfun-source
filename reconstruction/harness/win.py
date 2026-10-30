@@ -12,12 +12,13 @@ Diff tokens use the scorer's normalization (internal call imm + section-pointer 
 import argparse, difflib, re, subprocess, sys
 from pathlib import Path
 from collections import Counter
+from llvm_tools import objdump
 
 H = Path(__file__).resolve().parent
 sys.path.insert(0, str(H))
 from score import sections, normalize, body, candidate_functions, original_windows, score, BASE  # noqa
+from instruction_stream import instruction_offsets
 
-OBJDUMP = str(Path.home() / '.cache/solana/v1.52/platform-tools/llvm/bin/llvm-objdump')
 
 
 def demangle(s):
@@ -27,7 +28,9 @@ def demangle(s):
     rest, parts = m.group(1), []
     while rest and rest[0].isdigit():
         n = re.match(r'^(\d+)', rest).group(1); rest = rest[len(n):]
-        parts.append(rest[:int(n)]); rest = rest[int(n):]
+        part = rest[:int(n)]
+        parts.append(part[1:] if part.startswith('_$') else part)
+        rest = rest[int(n):]
     if parts and re.fullmatch(r'h[0-9a-f]{16}', parts[-1]):
         parts = parts[:-1]
     t = '::'.join(parts)
@@ -48,7 +51,7 @@ def insns(raw, addr, secs):
 
 
 def objdump_text(path, start, end):
-    txt = subprocess.check_output([OBJDUMP, '-d', '--no-show-raw-insn', f'--start-address={start:#x}', f'--stop-address={end:#x}', str(path)], text=True)
+    txt = subprocess.check_output([objdump(), '-d', '--no-show-raw-insn', f'--start-address={start:#x}', f'--stop-address={end:#x}', str(path)], text=True)
     d = {}
     for line in txt.splitlines():
         m = re.match(r'^\s*([0-9a-f]+):\s+(.*)$', line)
@@ -61,13 +64,27 @@ class Cand:
     def __init__(self, path):
         self.path = Path(path); self.blob = self.path.read_bytes(); self.secs = sections(self.blob)
         self.funcs = candidate_functions(self.path)
+        self._opgrams = {}
+        self._tokens = {}
 
     def fn(self, start, size):
         return body(self.blob, self.secs, start, size)
 
+    def grams(self, start, size):
+        key = (start, size)
+        if key not in self._opgrams:
+            self._opgrams[key] = opgrams(self.fn(start, size))
+        return self._opgrams[key]
+
+    def tokens(self, start, size):
+        key = (start, size)
+        if key not in self._tokens:
+            self._tokens[key] = tuple(x[2] for x in insns(self.fn(start, size), start, self.secs))
+        return self._tokens[key]
+
 
 def opgrams(raw, k=3):
-    ops = [raw[i] for i in range(0, len(raw), 8)]
+    ops = [raw[i] for i in instruction_offsets(raw)]
     return Counter(tuple(ops[i:i + k]) for i in range(max(0, len(ops) - k + 1)))
 
 
@@ -80,13 +97,14 @@ def best_candidates(w, cand, top=3):
     for (s, n, name) in cand.funcs:
         if not (0.4 * w['bytes'] <= n <= 2.5 * w['bytes']):
             continue
-        cg = opgrams(cand.fn(s, n)); inter = sum((og & cg).values()); uni = sum((og | cg).values()) or 1
+        cg = cand.grams(s, n); inter = sum((og & cg).values()); uni = sum((og | cg).values()) or 1
         scored.append((inter / uni, s, n, name))
     scored.sort(reverse=True)
     res = []
     orig_tok = [x[2] for x in insns(w['raw'], w['start'], ORIG_SECS)]
-    for j, s, n, name in scored[:8]:
-        ct = [x[2] for x in insns(cand.fn(s, n), s, cand.secs)]
+    # Keep the usual eight-way shortlist, but do not silently cap --top N.
+    for j, s, n, name in scored[:max(8, top)]:
+        ct = cand.tokens(s, n)
         res.append((difflib.SequenceMatcher(None, orig_tok, ct, autojunk=False).ratio(), j, s, n, name))
     res.sort(reverse=True)
     return res[:top]
@@ -107,9 +125,20 @@ def cmd_list(a):
         print(f"{st:#08x} {b:6d}B  best={r:.3f} cand@{s:#x} {n:6d}B  {name}")
 
 
+def find_window(text):
+    """Return (start, window) for an original window start, or exit 2 with a message."""
+    try:
+        st = int(text, 0)
+    except ValueError:
+        print(f'win.py: error: {text!r} is not a numeric address (e.g. 0x14f4e0)', file=sys.stderr); sys.exit(2)
+    w = next((x for x in original_windows() if x['start'] == st), None)
+    if w is None:
+        print(f'win.py: error: {st:#x} is not an original window start (see `win.py list --all`)', file=sys.stderr); sys.exit(2)
+    return st, w
+
+
 def cmd_show(a):
-    st = int(a.start, 0)
-    w = next(x for x in original_windows() if x['start'] == st)
+    st, w = find_window(a.start)
     cand = Cand(a.cand)
     if a.sym:
         cs = [(s, n, nm) for (s, n, nm) in cand.funcs if re.search(a.sym, nm) or re.search(a.sym, demangle(nm))]
@@ -149,8 +178,7 @@ def cmd_show(a):
 
 
 def cmd_orig(a):
-    st = int(a.start, 0)
-    w = next(x for x in original_windows() if x['start'] == st)
+    st, w = find_window(a.start)
     for ad, t in objdump_text(BASE / 'original.so', st, st + w['bytes']).items():
         print(f"{ad:#07x}  {t}")
 

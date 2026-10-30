@@ -1,0 +1,17 @@
+--- a/programs/pump/src/trade_v3.rs
++++ b/programs/pump/src/trade_v3.rs
+@@ -1027,7 +1027,7 @@
+ fn sell_inner(ctx:Context<SellV3>,amount:u64,min_sol_output:u64)->Result<()> {
+     let a=&mut *ctx.accounts;
+ 
+-    crate::trade_types::prepare_bonding_curve(&a.bonding_curve, &a.system_program, &a.user)?;
++    prepare_sell_accounts(&a.system_program,&a.user,&a.bonding_curve)?;
+     validate_trade(a.bonding_curve.complete as u8,a.bonding_curve.is_cashback_coin as u64,0)?;
+ // layout-pad(94): aligns the next Source site with the original line
+ 
+@@ -1305,3 +1305,5 @@
+ fn transfer_curve_mint_tokens<'info>(token_program:&Interface<'info,TokenInterface>,mint:&InterfaceAccount<'info,Mint>,destination:&InterfaceAccount<'info,TokenAccount>,source:&InterfaceAccount<'info,TokenAccount>,authority:&Account<'info,BondingCurve>,amount:u64,signer_seeds:&[&[&[u8]];1])->Result<()>{
+     crate::buy_v2::token_transfers::transfer_curve_tokens(token_program,source,destination,authority,mint.decimals,mint.as_ref(),amount,signer_seeds)
+ }
++
++#[inline(always)] fn prepare_sell_accounts<'info>(system:&Program<'info,System>,payer:&Signer<'info>,curve:&Account<'info,BondingCurve>)->Result<()>{crate::trade_types::prepare_bonding_curve(curve,system,payer)}

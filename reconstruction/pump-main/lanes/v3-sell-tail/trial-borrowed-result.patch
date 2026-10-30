@@ -1,0 +1,11 @@
+--- a/programs/pump/src/trade_v3.rs
++++ b/programs/pump/src/trade_v3.rs
+@@ -1188,7 +1188,7 @@
+ 
+ 
+     emit!(event);
+-    emit_sell_cpi(&ctx,&event)?;
++    let emitted=emit_sell_cpi(&ctx,&event); if emitted.is_err(){return emitted;}
+     Ok(())
+ }
+ 

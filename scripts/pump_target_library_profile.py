@@ -81,14 +81,12 @@ def prepare(name, native_sdk, libraries, output):
     identity = {"name": name, "target": spec["target"], "profile_spec_sha256": sha(spec_path),
                 "native_sdk_manifest_sha256": digest(before), "prepared_sdk_manifest_sha256": digest(after),
                 "target_libraries": actual, "empty_directories": spec["empty_directories"]}
-    manifest = output.parent / "target-library-profile-files.json"
-    manifest.write_text(json.dumps({"native": before, "prepared": after}, indent=2) + "\n")
     record = {"scope": spec["scope"], "name": name, "native_sdk": str(native_sdk),
               "prepared_sdk": str(output), "library_source": str(libraries),
               "profile_spec": str(spec_path), "profile_spec_sha256": sha(spec_path),
               "implementation": str(Path(__file__)), "implementation_sha256": sha(Path(__file__)),
               "cache_context": identity, "changed_paths": changed,
-              "file_manifest": str(manifest), "file_manifest_sha256": sha(manifest),
+              "file_manifest": str(output.parent / "target-library-profile-files.json"),
               "copy_methods": dict(methods), "native_host_files_unchanged": True}
     return output, finish(record)
 
@@ -98,13 +96,10 @@ def finish(record):
     target_lib = target_library_path(target)
     assert sha(record["profile_spec"]) == record["profile_spec_sha256"]
     assert sha(record["implementation"]) == record["implementation_sha256"]
-    assert sha(record["file_manifest"]) == record["file_manifest_sha256"]
-    expected = json.loads(Path(record["file_manifest"]).read_text())
     native, prepared = Path(record["native_sdk"]), Path(record["prepared_sdk"])
-    assert inventory(native) == expected["native"], "native SDK changed"
-    assert inventory(prepared) == expected["prepared"], "prepared SDK changed"
-    assert digest(expected["native"]) == record["cache_context"]["native_sdk_manifest_sha256"]
-    assert digest(expected["prepared"]) == record["cache_context"]["prepared_sdk_manifest_sha256"]
+    native_files, prepared_files = inventory(native), inventory(prepared)
+    assert digest(native_files) == record["cache_context"]["native_sdk_manifest_sha256"]
+    assert digest(prepared_files) == record["cache_context"]["prepared_sdk_manifest_sha256"]
     validate_libraries(Path(record["library_source"]), record["cache_context"]["target_libraries"])
     queries = []
     for args in [["--print", "sysroot"], ["--print", "target-libdir", "--target", target]]:
@@ -113,4 +108,20 @@ def finish(record):
         queries.append({"command": command, "stdout": output})
     assert queries[0]["stdout"] == str(prepared / "rust")
     assert queries[1]["stdout"] == str(prepared / target_lib)
+    contents = {"native": native_files, "prepared": prepared_files}
+    manifest = Path(record["file_manifest"])
+    if "file_manifest_sha256" in record:
+        assert sha(manifest) == record["file_manifest_sha256"]
+        assert json.loads(manifest.read_text()) == contents, "profile manifest content changed"
+    else:
+        assert not manifest.exists(), "profile manifest already exists"
+        temporary = manifest.with_name(manifest.name + ".tmp")
+        try:
+            temporary.write_text(json.dumps(contents, indent=2) + "\n")
+            assert json.loads(temporary.read_text()) == contents
+            os.replace(temporary, manifest)
+        except BaseException:
+            temporary.unlink(missing_ok=True)
+            raise
+        record = dict(record, file_manifest_sha256=sha(manifest))
     return dict(record, status="verified", compiler_queries=queries)

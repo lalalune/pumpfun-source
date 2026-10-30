@@ -101,3 +101,14 @@ branch weights or polarity on the mayhem/memcmp branches (oracle E2-E5) change i
 MachineBlockPlacement worklist-frequency effect: the next chain is the ready block with the
 highest frequency. Next idea: find which error paths the original treats as unlikely (cold
 callee or `?` shape), so that the sell tail has a higher frequency than the 590 error.
+
+## Round 2026-10-29c — T11 + fee-config borrow reclaim + base==0 (beats #1830)
+
+`r3a-p02-base0` (gpt-6-astra + base0 cancel): T11 admit inline + borrowed fee-config data-length reclaim (no transfer_input bind) + `base==0` early return.
+
+| metric | main 094a06f | #1830 | this |
+|---|---:|---:|---:|
+| ratio | 0.60062 | 0.67063 | **0.7063** |
+| cand bytes | 18328 | 18328 | **18328** |
+| .text | 0x1b5818 | 0x1b5818 | **0x1b5818** |
+| official | 1024/277 | 1024/277 | **1024/277** |

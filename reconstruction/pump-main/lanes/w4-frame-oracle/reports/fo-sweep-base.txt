@@ -1,0 +1,127 @@
+# _ZN14pump_recovered5sweep7execute17h63039d4d7bb21efdE  window 0x72810
+cand bytes 7824 orig 7832  abstracted-ratio 0.8492  r10 pairs 352 equal 17  max-off cand 0x1000 orig 0x1000
+objects: allocas 60  surviving 35  merged 33  no-lifetime 20  PEI rule check: ok
+  fi      T   orig  delta  size al lt   votes  name  [merged: ...]
+   7   0x30   0x68    +56    48  8  1  33/37  quote_mint_info.i  [buf.i#4 _138#17 _126#19 _107#26 _64#32 expected#41]
+   8   0x50  0x180   +304    32  8  0   2/3   quote_token_program.i*
+   9   0x70  0x1a0   +304    32  8  0   2/2   quote_mint.i*
+  11   0x88   0xd0    +72    24  8  0   7/7   _7.sroa.5.i*
+  14   0x89    0x1   -136     1  1  1   2/2   _148
+  15   0xb0   0x28   -136    32  8  1  18/18  _144  [buf.i79#2 _67#31 _15#43]
+  16   0xc0   0x38   -136    16  8  1   4/4   _141  [_11.i77#0]
+  18   0xd8   0x80    -88    24  8  0   3/3   _134*
+  20  0x128   0xd0    -88    80  8  1  49/53  ix  [formatter.i78#1 formatter.i#3 quote_token_program_info.i#6 _6.i#12 _252#13 _109#25 _96#27 res#34 _30#39 _10#46]
+  21  0x158  0x100    -88    48  8  0   7/7   _118*
+  22  0x170  0x118    -88    24  8  1   7/7   ix_data  [_38#36]
+  23  0x188  0x130    -88    24  8  0   4/4   inner_data*
+  24  0x1b8  0x160    -88    48  8  0   2/2   authority_info*
+  37  0x258  0x240    -24   160  8  1 115/117 _37  [_11.i57#5 _8.i#10 event#28 _83#29 _69#30 _60#33 _44#35 _34#38 _27#40 _22#42 _14#44 _11#45]
+  47  0x268  0x250    -24    16  8  0   3/3   *
+  48  0x278  0x260    -24    16  8  0   3/3   *
+  49  0x288  0x270    -24    16  8  0   3/3   *
+  50  0x298  0x280    -24    16  8  0   3/3   *
+  51  0x2a8  0x290    -24    16  8  0   3/3   *
+  52  0x2b8  0x2a0    -24    16  8  0   3/3   *
+  53  0x2c8  0x2b0    -24    16  8  0   3/3   *
+  54  0x2d8      ?      ?    16  8  0   0/0   * ~
+  55  0x2e8  0x2d0    -24    16  8  0   3/3   *
+  56  0x2f8  0x2e0    -24    16  8  0   3/3   *
+  57  0x308  0x2f0    -24    16  8  0   3/3   *
+  58  0x318  0x300    -24    16  8  0   3/3   *
+  59  0x328  0x310    -24    16  8  0   3/3   *
+  60  0x330  0x318    -24     8  8  0   5/6   *
+  61  0x338  0x320    -24     8  8  0   2/2   *
+  62  0x340  0x328    -24     8  8  0   4/7   *
+  63  0x348  0x330    -24     8  8  0   6/6   *
+  64  0x350  0x340    -16     8  8  0   3/3   *
+  65  0x358  0x350     -8     8  8  0   2/3   *
+  66  0x360  0x330    -48     8  8  0   1/1   * ~
+  67  0x368  0x338    -48     8  8  0   1/2   * ~
+
+# delta breaks (orig has DIFF more bytes between A and B):
+   +248 between fi7 quote_mint_info.i (T 0x30) and fi8 quote_token_program.i (T 0x50)
+   -232 between fi9 quote_mint.i (T 0x70) and fi11 _7.sroa.5.i (T 0x88)
+   -208 between fi11 _7.sroa.5.i (T 0x88) and fi14 _148 (T 0x89)
+    +48 between fi16 _141 (T 0xc0) and fi18 _134 (T 0xd8)
+    +64 between fi24 authority_info (T 0x1b8) and fi37 _37 (T 0x258)
+     +8 between fi63  (T 0x348) and fi64  (T 0x350)
+     +8 between fi64  (T 0x350) and fi65  (T 0x358)
+
+# original layout implied by confident objects (sorted by orig T); gaps = orig bytes ours does not place there
+  orig    0x0..   0x1  fi14   _148                         size 1    ours T 0x89
+  orig    0x8..  0x28  fi15   _144                         size 32   ours T 0xb0   gap +7
+  orig   0x28..  0x38  fi16   _141                         size 16   ours T 0xc0
+  orig   0x38..  0x68  fi7    quote_mint_info.i            size 48   ours T 0x30
+  orig   0x68..  0x80  fi18   _134                         size 24   ours T 0xd8
+  orig   0xb8..  0xd0  fi11   _7.sroa.5.i                  size 24   ours T 0x88   gap +56
+  orig   0x80..  0xd0  fi20   ix                           size 80   ours T 0x128   gap -80
+  orig   0xd0.. 0x100  fi21   _118                         size 48   ours T 0x158
+  orig  0x100.. 0x118  fi22   ix_data                      size 24   ours T 0x170
+  orig  0x118.. 0x130  fi23   inner_data                   size 24   ours T 0x188
+  orig  0x130.. 0x160  fi24   authority_info               size 48   ours T 0x1b8
+  orig  0x160.. 0x180  fi8    quote_token_program.i        size 32   ours T 0x50
+  orig  0x180.. 0x1a0  fi9    quote_mint.i                 size 32   ours T 0x70
+  orig  0x1a0.. 0x240  fi37   _37                          size 160  ours T 0x258
+  orig  0x240.. 0x250  fi47   -                            size 16   ours T 0x268
+  orig  0x250.. 0x260  fi48   -                            size 16   ours T 0x278
+  orig  0x260.. 0x270  fi49   -                            size 16   ours T 0x288
+  orig  0x270.. 0x280  fi50   -                            size 16   ours T 0x298
+  orig  0x280.. 0x290  fi51   -                            size 16   ours T 0x2a8
+  orig  0x290.. 0x2a0  fi52   -                            size 16   ours T 0x2b8
+  orig  0x2a0.. 0x2b0  fi53   -                            size 16   ours T 0x2c8
+  orig  0x2c0.. 0x2d0  fi55   -                            size 16   ours T 0x2e8   gap +16
+  orig  0x2d0.. 0x2e0  fi56   -                            size 16   ours T 0x2f8
+  orig  0x2e0.. 0x2f0  fi57   -                            size 16   ours T 0x308
+  orig  0x2f0.. 0x300  fi58   -                            size 16   ours T 0x318
+  orig  0x300.. 0x310  fi59   -                            size 16   ours T 0x328
+  orig  0x310.. 0x318  fi60   -                            size 8    ours T 0x330
+  orig  0x318.. 0x320  fi61   -                            size 8    ours T 0x338
+  orig  0x320.. 0x328  fi62   -                            size 8    ours T 0x340
+  orig  0x328.. 0x330  fi63   -                            size 8    ours T 0x348
+  orig  0x338.. 0x340  fi64   -                            size 8    ours T 0x350   gap +8
+  orig  0x348.. 0x350  fi65   -                            size 8    ours T 0x358   gap +8
+
+# ORIGINAL StackColoring groups (per-alloca implied orig T from the -no-stack-coloring run)
+#   T_orig  members (ours: slot fi->T) ; "!" = alloca sits in a different group in ours; "*" = no lifetime marker in ours
+     0x1  ours slot fi14@0x89: _148#14/1
+    0x28  ours slot fi15@0xb0: buf.i79#2/24 _144#15/32 _67#31/1 _15#43/24
+    0x38  ours slot fi16@0xc0: _141#16/16
+    0x68  ours slot fi7@0x30: buf.i#4/24 _6.i#12/24! _138#17/48 _126#19/24 _107#26/16 _64#32/16 expected#41/32
+    0x80  ours slot fi18@0xd8: _134#18/24*
+    0xd0  ours slot fi20@0x128: formatter.i78#1/64 formatter.i#3/64 quote_token_program_info.i#6/48 _7.sroa.5.i#11/24*! _252#13/24 _109#25/24 _96#27/48 res#34/24 _30#39/32 _10#46/32
+   0x100  ours slot fi21@0x158: _118#21/48*
+   0x118  ours slot fi22@0x170: ix_data#22/24 _38#36/24
+   0x130  ours slot fi23@0x188: inner_data#23/24*
+   0x160  ours slot fi24@0x1b8: authority_info#24/48*
+   0x180  ours slot fi8@0x50: quote_token_program.i#8/32*
+   0x1a0  ours slot fi9@0x70: quote_mint.i#9/32*
+   0x240  ours slot fi37@0x258: _11.i57#5/48 _8.i#10/32 event#28/152 _83#29/48 _69#30/32 _60#33/48 _44#35/64 _37#37/160 _34#38/32 _27#40/33 _22#42/64 _14#44/160 _11#45/32
+   0x250  ours slot fi47@0x268: ##47/16*
+   0x260  ours slot fi48@0x278: ##48/16*
+   0x270  ours slot fi49@0x288: ##49/16*
+   0x280  ours slot fi50@0x298: ##50/16*
+   0x290  ours slot fi51@0x2a8: ##51/16*
+   0x2a0  ours slot fi52@0x2b8: ##52/16*
+   0x2b0  ours slot fi53@0x2c8: ##53/16*
+   0x2d0  ours slot fi55@0x2e8: ##55/16*
+   0x2e0  ours slot fi56@0x2f8: ##56/16*
+   0x2f0  ours slot fi57@0x308: ##57/16*
+   0x300  ours slot fi58@0x318: ##58/16*
+   0x310  ours slot fi59@0x328: ##59/16*
+   0x318  ours slot fi60@0x330: ##60/8*
+   0x320  ours slot fi61@0x338: ##61/8*
+   0x328  ours slot fi62@0x340: ##62/8*
+   0x330  ours slot fi63@0x348: ##63/8*
+   0x340  ours slot fi64@0x350: ##64/8*
+   0x350  ours slot fi65@0x358: ##65/8*
+
+# OUR groups whose members the original places in different slots
+  ours fi20@0x128: orig 0x68: _6.i#12 | orig 0xd0: formatter.i78#1,formatter.i#3,quote_token_program_info.i#6,_252#13,_109#25,_96#27,res#34,_30#39,_10#46
+
+# ALLOCA ORDER: original slot reps in orig-T order; out-of-order ones (not in the LIS of our fi) need a different alloca position
+  formatter.i78#1/64 at orig 0xd0: orig puts it between fi18 _134 and fi21 _118
+  quote_token_program.i#8/32 at orig 0x180: orig puts it between fi24 authority_info and fi37 _37
+  quote_mint.i#9/32 at orig 0x1a0: orig puts it between fi24 authority_info and fi37 _37
+
+# allocas without a confident orig slot: 3: _11.i77#0 quote_mint_info.i#7 ix#20
+# group mismatches: 2
