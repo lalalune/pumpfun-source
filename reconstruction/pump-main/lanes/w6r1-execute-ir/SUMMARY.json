@@ -1,0 +1,21 @@
+{
+  "lane": "w6r1-execute-ir",
+  "target": "0x1e7c0 pump_recovered::create_v2::execute",
+  "pr": 2175,
+  "base": {"main": "f101886 (g7 form via #2154)", "ratio": 0.82553, "bytes": 15544, "official": "1027/276"},
+  "best": {"build": "p1", "ratio": 0.851, "bytes": 15576, "orig_bytes": 15576, "slots_diff": 1489, "official": "1027/276", "losses": [], "unstripped_sha256": "a12ccddaa866c017bd7f3e282c0badf5c639109c3f5614d97fc8f1176035ac6e"},
+  "steps": [
+    "d1: exhaustive depth match -> orig jlt tag,3 select form (0.82400)",
+    "c1b: explicit Result match on control_account, Err arm after walk -> RA roles holder=r6, ctx=r7 as orig (0.84194)",
+    "t6: depth computed inside init_curve from source (0.84516)",
+    "p1: validate_quote_mint takes &CreateV2 (noalias readonly) -> global ptr reused, walk arg from spill, exact orig size (0.85100)"
+  ],
+  "rejected": ["d2 depth after validate", "d3 arm order", "c1/c2 without line balance (6 normalized losses)", "a1/a2 early creator field borrow (RefProp removes it)", "w1/w2 explicit matches for walk/quote_control (identical)", "e1/e2 Ok(found) forms", "v1/v2/v2b global binding in validate", "q1-q4 quote_source helper", "i1/i2 inline attrs on validate", "m1/m2 walk error via map/nested match (identical)", "p1d depth back in execute"],
+  "ir_oracle_findings": [
+    "Greedy RA runs on pre-layout block order: Err-block placement of validate's control/walk paths drives register roles",
+    "lategep (creator GEP in memcmp block + memcpy after tts) reproduces orig curve store order but not RA",
+    "Moving the walk Err block after validate's owner/extension checks gives large oracle gains on the c1b-form + noalias base; no source spelling found yet"
+  ],
+  "next_ideas": ["Find a spelling that emits the walk Err block after validate's mint-owner/extension checks", "Creator store via early GEP without MIR ReferencePropagation removing it", "walk block layout right after control_account test as in orig"],
+  "tools": "scripts/irsearch.py (IR block/instruction hill-climb on llc oracle), build.sh, capmir.py, trial.sh"
+}
