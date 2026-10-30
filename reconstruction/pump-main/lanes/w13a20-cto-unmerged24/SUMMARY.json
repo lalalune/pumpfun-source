@@ -1,0 +1,29 @@
+{
+  "lane": "w13a20-cto-unmerged24",
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27400 B",
+  "landed": {"pr": 2998, "merge_commit": "bf9a05d02", "before": {"main": "6af878b", "ratio": 0.53895, "slots_diff": 3223}, "after_branch": {"ratio": 0.55183, "slots_diff": 3324, "bytes": 27400, "sha16": "4b0db1986ba916e2"}, "after_land_merge": {"main": "1d45788df", "ratio_before": 0.55123, "ratio_after": 0.55872, "slots_diff": 3323, "sha16": "5fa9f2ee88ac4f86"}, "runtime_differential": "363/0"},
+  "mechanism": "33 B sk=(key,MaybeUninit<u8>::uninit()) sorts before validate's 32 B t.i in StackColoring (size desc, then frame index), so t.i and validate's error-name to_string buffers move to the 48 B group at 0x4b8 where the original builds them; zero added code (a 0u8 tail costs one stb, +8 B)",
+  "angle_result": "the unmerged-24 B lever (w13a07 nolt:_68, w13a01 nolt:buf.i32.i) is dead since #2917-#2933 and the Codex event_signers form: on 2f268ad every +8..+48 B of unmerged frame costs 0.03-0.04 and F1 is already delivered",
+  "attempts": 31,
+  "ir_findings": [
+    "2f268ad: mv:sk before t.i / mv:t.i after sk / sz:sk:33..48 all +0.01888",
+    "bf9a05d: frame 0x4c0..0x651 equals the original; residual is st (48 B) vs orig F7/G9/X24 (40 B); any -8 B before holder_key +0.0075; exact orig layout emulation 0.56591",
+    "#3011 head: size-pinned frame greedy over 393 items finds only sz:target.sroa.8:10 (+0.0003); frame-only levers exhausted"
+  ],
+  "rejected_mechanisms": [
+    "sk forms: (key,0u8) +8 B; (key,shared)/(key,holder) -208/-120 B; Some(key) +32 B; (key,) and #[inline] validate byte-identical; no sk / validate(&AccountInfo) -0.16",
+    "st escape removal (default check and target read a.bonding_curve.creator): 0.52292 @27384, + unmerged 24/40/48 B slot 0.538/0.535/0.496",
+    "max_fee out of CtoState: 0.56971 @27296 on bf9a05d, 0.56581 @27296 on #3011; unfaithful (orig stores max_fee in CtoState at -0x18) and -104 B unrepaid",
+    "#2989 tb scratch + 33 B sk together: 27392 B"
+  ],
+  "unresolved_residuals": [
+    "register allocation: original 109 spill slots vs ours 108; sweep CPI clone region 0x3800 register choice",
+    "to_string outlining at 307/312 (+2 lddw relocations, whole-ELF identity)"
+  ],
+  "next_ideas": [
+    "Find the original's extra spill slot: k1's skeleton gain (0.8532 -> 0.8642) shows one fewer live u64 across validate reshapes the 0x3800 region toward the original",
+    "size-tie trick (1-byte MaybeUninit tail) for any execute local vs same-size inlined allocas when a future main changes the coloring order"
+  ],
+  "tools": ["tools/frame2.py (named StackColoring group map via debug llc)", "tools/fdelta.py (orig-vs-candidate frame offset deltas)", "tools/addslot.py (emulate an extra kept alloca)"],
+  "ledger_keys": ["0x22a10-w13-2f268ad-unmerged24-*", "0x22a10-w13-1043a51-unmerged24-*", "0x22a10-w13-6af878b-unmerged24-*", "0x22a10-w13-bf9a05d-unmerged24-*", "0x22a10-w13-3011-unmerged24-*"]
+}

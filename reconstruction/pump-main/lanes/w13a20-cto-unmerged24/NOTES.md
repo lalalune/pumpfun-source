@@ -88,10 +88,51 @@ Source forms (raw-IR capture per trial, `tools/capvar.sh` from w13a01; scores eq
 - `tools/fdelta.py <m.o> [--pairs]`: aligns orig and candidate with registers, frame and jump offsets masked and
   prints the `orig_off - cand_off` histogram per 0x800 region (and per orig offset with `--pairs`).
 
+- `tools/addslot.py <in.ll> <out.ll> NAME:SIZE:BEFORE`: inserts an extra alloca before a named one, kept alive by one
+  volatile byte store (+8 B of code). Use it to emulate a source local that LLVM keeps unmerged.
+
+## After the landing (#2998 -> main bf9a05d, 0.55872)
+
+Raw IR of bf9a05d (`rx.py` eq_main), then the post-opt llc oracle:
+
+| edit | ratio |
+| --- | ---: |
+| main bf9a05d | 0.55872 |
+| size-pinned greedy (385 items: `nolt` and `sz:X:N+1` size ties on every lifetime alloca, execute moves) | 0.55902 (`sz:target.sroa.8:10` only) |
+| any -8 B before holder_key (`sz:st:40`, `sz:val6:32`, `sz:holder_key:24`, `sz:old_creator:24`) | 0.5635-0.5665 |
+| the original's layout: `target.i.sroa.0/9` unmerged after val6 (F7 0x658, G9 0x668), `st` as a 24 B X24 at 0x680, `_115.i` re-seated | 0.56591 |
+
+The frame from 0x4c0 to val6 at 0x651 already equals the original. The residual sits between val6 and holder_key.
+There, our CtoState `st` (48 B at 0x688) stands where the original keeps F7/G9/X24 (40 B). Matching the original's
+layout exactly is worth no more than shrinking that region by 8 B in any way.
+
+Source trials (capvar, raw-IR capture):
+
+| trial | form | bytes | ratio |
+| --- | --- | ---: | ---: |
+| c1 | default check reads `a.bonding_curve.creator` | 27,408 | 0.5149 |
+| c3 | c1 + shared arm `target=a.bonding_curve.creator` (st alloca gone) | 27,384 | 0.52292 |
+| c3 + IR pad | + a 24/40/48 B unmerged slot before holder_key (`addslot.py`) | 27,392 | 0.53813 / 0.53513 / 0.49618 |
+| m1-m3 | `max_fee` passed to validate instead of a CtoState field (st 38 B, align 1) | 27,296 | 0.52919 |
+| m4 | m1 + `#[repr(align(8))]` CtoState (st 40 B) | 27,296 | 0.56971 |
+| k1 | m1 on the w13a24 PR #3011 head (0.56291) | 27,296 | 0.56581 |
+
+m4/k1 raise the skeleton ratio from 0.8532 to 0.8642 because register allocation in the sweep CPI clone region
+(0x3800) gets closer to the original's. They are not faithful, though: the original stores `max_fee` into its
+CtoState at `[r10-0x18]` (orig 0x22ee0, as ours does), and the 104 missing bytes are not repaid.
+
+w13a24-cto-ctostatesroa (PR #3011) solves the top of the frame more faithfully: CtoState goes in the `_77.i` group at
+-0x38 and the PDA result is kept alive. It reverts this lane's 33 B `sk`, because with `st` in `_77.i` a plain
+`sk` lands at the original's 0x470. A size-pinned frame greedy over 393 items on the #3011 head finds only
+`sz:target.sroa.8:10` (+0.0003, an SROA piece). **Frame-only levers are exhausted.** What remains is register
+allocation (the original has 109 spill slots against our 108) and code shape.
+
 ## Next ideas
 
 - Rounds 2-4 above (`holder_key` earlier in frame-index order: +0.0057 after the `sharing_update` move) were
   re-checked on top of v1: `mv:sharing_update.sroa.3:ix` +0.0018, `mv:holder_key:ix` +0.0057, `mv:target1:END`
   +0.0003 (0.54524 from 0.53745 on 2f268ad). #2974 (e32late) already moves `target1`/P2; re-run the greedy on 1043a51.
-- The same size-tie trick (a 1-byte `MaybeUninit` tail) can reorder any other execute-level 32 B local against
-  inlined 32 B allocas.
+- The same size-tie trick (a 1-byte `MaybeUninit` tail) can reorder any other execute-level local against
+  inlined allocas of the same size. On bf9a05d and on #3011 no other tie pays (`sz:X:N+1` scan).
+- The regalloc residual: k1's skeleton gain shows that one fewer live u64 across validate reshapes the 0x3800
+  sweep-clone region toward the original. Look for the original's extra spill slot, not for a frame object.
