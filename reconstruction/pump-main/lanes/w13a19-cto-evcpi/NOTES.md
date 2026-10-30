@@ -7,7 +7,11 @@ deferred-init points and Vec forms. Screens use the w13a01 raw-IR oracle (`capva
 identity build) plus a post-opt `llc` what-if (`mv.py`/`lmv.py`: move an alloca or an IR line, re-run llc).
 Ledger keys: `0x22a10-w13-<main7>-evcpi-*`.
 
-## Landable step (main 6ac6f9b, 0.56291 / 3,315 slots)
+## Step 1 (main 6ac6f9b, 0.56291 / 3,315 slots): superseded on main d81d0f5
+
+Main d81d0f5 landed `let event_infos=[authority_info];` before the w13a23 block (0.571). On d81d0f5 the
+match-scrutinee form below is **byte-identical** to that main (unstripped sha dd7cd212c81617ce): both spell the
+same original order. The table and mechanism are kept as evidence of why it works.
 
 | | bytes | ratio | slots | normalized/raw | losses |
 | --- | ---: | ---: | ---: | --- | --- |

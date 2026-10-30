@@ -43,6 +43,12 @@ class PumpValidateAllRetentionTests(unittest.TestCase):
             self.addCleanup(patch.stop)
 
     def invoke(self, output, candidate, original, run_suite):
+        # These are publication-unit-test inputs only. The real compiler/VM
+        # reproduction separately authenticates genuine producer receipts.
+        for name in ('build-comparison.json', 'build-attempt.json'):
+            path = candidate.parent / name
+            if not path.exists():
+                path.write_text('{}\n', encoding='utf-8')
         argv = [
             str(Path(runner.__file__)),
             '--candidate', str(candidate),
@@ -269,6 +275,70 @@ class PumpValidateAllRetentionTests(unittest.TestCase):
                 self.assertEqual(candidate.read_bytes(), b'candidate')
                 self.assertFalse((root / (output.name + '.suites')).exists())
 
+
+    def test_pinned_two_curve_dispatch_retains_original_receipt_location(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            candidate = root / 'candidate.so'
+            candidate.write_bytes(b'candidate')
+            pinned = root / 'private-snapshot' / 'program.so'
+            pinned.parent.mkdir()
+            pinned.write_bytes(candidate.read_bytes())
+            original = runner.ROOT / 'evidence/original/pump/deployed.so'
+            output = root / 'aggregate/report.json'
+            complete = self.complete_suites(pinned, original)
+            seen = []
+
+            def child(command, **kwargs):
+                self.assertEqual(Path(command[command.index('--candidate') + 1]), pinned)
+                path = Path(command[command.index('--output') + 1])
+                if path.stem == 'tokenkeg_two_curve':
+                    self.assertIn('--build-report', command)
+                    self.assertEqual(Path(command[command.index('--build-report') + 1]),
+                                     (candidate.parent / 'build-comparison.json').resolve())
+                    seen.append(path.stem)
+                return complete(command, **kwargs)
+
+            with mock.patch.object(runner, 'pin_program', return_value=pinned):
+                self.assertFalse(self.invoke(output, candidate, original, child))
+            self.assertEqual(seen, ['tokenkeg_two_curve'])
+            report = json.loads(output.read_bytes())
+            for name in ('build-comparison.json', 'build-attempt.json'):
+                source = candidate.parent / name
+                self.assertEqual(report['build_inputs_sha256'][runner.bound_input_key(source, runner.ROOT)], sha(source))
+
+    def test_real_pinning_keeps_public_candidate_in_output_admission(self):
+        from pump_amm_reusable_harness import pin_program
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory); candidate = root / 'candidate.so'
+            candidate.write_bytes(b'candidate')
+            original = runner.ROOT / 'evidence/original/pump/deployed.so'
+            alias = root / 'candidate-alias.json'; os.link(candidate, alias)
+            for destination in (candidate, alias):
+                with self.subTest(destination=destination), mock.patch.object(runner, 'pin_program', side_effect=pin_program):
+                    with self.assertRaisesRegex(ValueError, 'output aliases a bound input'):
+                        self.invoke(destination, candidate, original,
+                            lambda *_a, **_k: self.fail('suite ran before public input admission'))
+                    self.assertEqual(candidate.read_bytes(), b'candidate')
+
+    def test_changed_producer_receipt_cannot_publish_complete_corpus(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            candidate = root / 'candidate.so'
+            candidate.write_bytes(b'candidate')
+            original = runner.ROOT / 'evidence/original/pump/deployed.so'
+            output = root / 'aggregate/report.json'
+            complete = self.complete_suites(candidate, original)
+
+            def child(command, **kwargs):
+                result = complete(command, **kwargs)
+                (root / 'build-comparison.json').write_text('{"changed":true}\n', encoding='utf-8')
+                return result
+
+            with self.assertRaisesRegex(AssertionError, 'build receipt changed during execution'):
+                self.invoke(output, candidate, original, child)
+            self.assertFalse(output.exists())
+            self.assertFalse((output.parent / (output.name + '.suites')).exists())
 
 if __name__ == '__main__':
     unittest.main()

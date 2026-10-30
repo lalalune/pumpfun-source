@@ -26,6 +26,7 @@ jobs:
               sudo apt-get update
               sudo apt-get install -y llvm
               python -B reconstruction/tooling/byte-comparison-input-preservation/test_verify.py --objdump /usr/bin/llvm-objdump
+              PUMP_OBJDUMP=/usr/bin/llvm-objdump python -I -B reconstruction/pump-main/lanes/multihop-reconstruction/test_rdiff.py
           - suite: contract-tests
             commands: |
               python -B -m unittest discover -s tests -v
@@ -151,6 +152,7 @@ jobs:
               python -B scripts/test_revalidate_empty_manifest.py
               python -B scripts/test_revalidate_all_manifest_records.py
               python -B scripts/test_revalidate_packet_root_link.py
+              python -B scripts/test_revalidate_manifest_link.py
               python -B scripts/test_measure_relay13_v148_optimization.py
               python -B scripts/test_fees_withdraw_runtime_optimization.py
               python -B scripts/test_measure_relay_v148_optimization.py
@@ -197,8 +199,6 @@ jobs:
               python -B scripts/test_disassemble_output_mode.py
               python -B scripts/test_disassemble_tool_binding.py
               python -B scripts/test_disassemble_publication.py
-              python -B research/amm-recipe-provenance-20261030/test_verify.py
-              python -B research/dispatch-evidence-root/test_verify.py
               python -B scripts/test_analyze_publication.py
               python -B scripts/test_verify_imported_lab_publication.py
               python -B scripts/test_verify_recovered_builds_receipts.py
@@ -215,7 +215,9 @@ jobs:
               python -B tests/test_pump_planning_regressions.py
               python -B tests/test_analyze_donation_relay_regression.py
               python -B reconstruction/diagnostics/roadmap-reviewed-regeneration/test_generate.py
+              python -B tests/test_roadmap_reviewed_regeneration_publication.py
               python -B reconstruction/diagnostics/roadmap-stable-attribution/test_generate.py
+              python -B tests/test_roadmap_stable_attribution_publication.py
               python -B reconstruction/diagnostics/defined-dynamic-calls/test_generate.py
               python -B reconstruction/diagnostics/amm-ledger-best/test_read.py
               python -B scripts/test_bytecode_signatures_publication.py
@@ -223,6 +225,7 @@ jobs:
               python -B scripts/test_revalidate_all_publication.py
               python -B scripts/test_revalidate_all_atomic_publication.py
               python -B reconstruction/diagnostics/manifest-admission/test_run.py
+              python -B reconstruction/diagnostics/manifest-admission/test_check_packet_root_link.py
               python -B scripts/test_donation_relay_oracle_optimization.py
               python -B tests/test_claim_token_incentives_pinned_image.py
               python -B tests/test_pump_admin_token_incentives_pinned_image.py
@@ -244,6 +247,7 @@ jobs:
               python -B reconstruction/pump-main/test_ledger_negative_limit.py
               python -B reconstruction/diagnostics/census-portability/test_output_guard.py
               python -B reconstruction/harness/test_census_argument_constants.py
+              python -B reconstruction/harness/test_census_original_input.py
               python -B reconstruction/harness/test_experiment_declared_name.py
               python -B reconstruction/harness/test_experiment_executable_snapshot.py
               python -B reconstruction/harness/test_experiment_worktree_source.py
@@ -252,6 +256,7 @@ jobs:
               python -B reconstruction/harness/test_bisect_missing_source.py
               python -B reconstruction/harness/test_experiment_directory_identity.py
               python -B reconstruction/harness/test_experiment_receipt_integrity.py
+              python -B reconstruction/harness/test_minimize_initial_report.py
               python -B reconstruction/harness/test_minimize_oracle_encoding.py
               python -B reconstruction/harness/test_minimize_patch_list_encoding.py
               python -B reconstruction/harness/test_treediff.py
@@ -274,6 +279,7 @@ jobs:
               python -B reconstruction/harness/test_coords_cli_admission.py
               python -B reconstruction/harness/test_report_scorer_inputs.py
               python -B reconstruction/harness/test_match_oracle.py
+              python -B reconstruction/harness/test_match_oracle_scoring_input_recheck.py
               python -B reconstruction/harness/test_score_atomic_report.py
               python -B reconstruction/harness/test_coords_report_destination.py
               python -B reconstruction/harness/test_short_window_ranking.py

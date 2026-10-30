@@ -45,7 +45,8 @@ PAIRS = {
     0x22a10: r'admin_cto::execute$',
 }
 
-ORIG_PATH = BASE / 'original.so'
+from original_input import resolve_original
+ORIG_PATH = resolve_original(BASE / 'original.so')
 
 
 def short(name):

@@ -20,8 +20,11 @@ def minimize(count, evaluate, budget, wanted='pass'):
             if value not in ('pass', 'fail', 'error'): raise ValueError('invalid oracle status')
             cache[key] = value
         return cache[key]
+    def tested(): return [{'selected': list(key), 'status': value} for key, value in cache.items()]
     current = list(range(count))
-    if test(current) != wanted: return {'status': 'initial-predicate-not-met', 'selected': current, 'one_minimal': False}
+    if test(current) != wanted:
+        return {'status': 'initial-predicate-not-met', 'selected': current, 'one_minimal': False,
+                'wanted': wanted, 'tested': tested()}
     if test([]) == wanted: current = []
     partitions = 2
     while len(current) >= 2 and len(cache) < budget:
@@ -36,8 +39,7 @@ def minimize(count, evaluate, budget, wanted='pass'):
             partitions = min(len(current), partitions * 2)
     one_minimal = all(test(current[:i] + current[i + 1:]) in ({'pass', 'fail'} - {wanted}) for i in range(len(current)))
     return {'status': 'complete' if one_minimal else 'bounded-result', 'selected': current,
-            'one_minimal': one_minimal, 'wanted': wanted,
-            'tested': [{'selected': list(key), 'status': value} for key, value in cache.items()]}
+            'one_minimal': one_minimal, 'wanted': wanted, 'tested': tested()}
 
 
 def load_oracle(path):

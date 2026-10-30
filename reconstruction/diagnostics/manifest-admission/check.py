@@ -11,6 +11,22 @@ def check_manifest(packet_dir):
     manifest_path = packet / 'manifest.json'
     if not manifest_path.exists():
         return {'status': 'no_manifest', 'errors': []}
+    # The payload walk below lstats every entry under the packet root but
+    # never the root itself, so a packet rooted in an external tree passed
+    # admission with the external tree's own manifest and payloads. This is
+    # the same gap merged #2980 closed in scripts/revalidate_all.py; the
+    # retained batch revalidator (run.py) substitutes this checker, so it
+    # needs the same root rejection here.
+    try:
+        root_metadata = packet.lstat()
+    except OSError:
+        root_metadata = None
+    if root_metadata is not None and (
+            stat.S_ISLNK(root_metadata.st_mode)
+            or getattr(root_metadata, 'st_file_attributes', 0)
+            & getattr(stat, 'FILE_ATTRIBUTE_REPARSE_POINT', 0)):
+        return {'status': 'fail', 'files_checked': 0, 'files_expected': 0,
+                'errors': ['linked_path: packet directory is a link']}
     errors, checked, expected_count = [], 0, 0
     try:
         if not stat.S_ISREG(manifest_path.lstat().st_mode) or manifest_path.is_symlink():
