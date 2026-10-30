@@ -32,7 +32,7 @@ ROOT = Path(__file__).resolve().parents[3]
 PACKAGE = Path(__file__).resolve().parent
 IDL_PATH = ROOT / "evidence/upstream/pump.json"
 FIXTURE_PATH = ROOT / "research/imported-lab/analysis/pump_fun/curve-migrate-v2-signed-surfpool.json"
-IDL = json.loads(IDL_PATH.read_text())
+IDL = json.loads(IDL_PATH.read_text(encoding="utf-8"))
 
 PUMP = Pubkey.from_string(IDL["address"])
 PUMP_AMM = Pubkey.from_string("pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA")
@@ -217,7 +217,7 @@ def failure_class(error):
 
 
 def fixture_before():
-    packet = json.loads(FIXTURE_PATH.read_text())
+    packet = json.loads(FIXTURE_PATH.read_text(encoding="utf-8"))
     return packet["missing_boost"]["before"]
 
 
@@ -695,7 +695,7 @@ def run_suite(candidate):
         "upstream_sha": "7e26cbf36c5c0c824e3eb36417ce8a35866f530a",
         "program_ids": PROGRAM_IDS,
         "program_sha256": hashes,
-        "fixture": str(FIXTURE_PATH.relative_to(ROOT)),
+        "fixture": FIXTURE_PATH.relative_to(ROOT).as_posix(),
         "fixture_sha256": fixture_hash,
         "idl_sha256": sha256_file(IDL_PATH),
         "case_count": len(rows),

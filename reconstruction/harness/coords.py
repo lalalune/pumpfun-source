@@ -149,7 +149,8 @@ def main():
             rows.append({'start': hex(w['start']), 'bytes': w['bytes'], 'original_sites': osites,
                          'coordinate_only_candidate': None if not best else {'addr': hex(best[0]), 'symbol': best[1], 'diff_slots': best[2], 'candidate_sites': best[3]}})
         if a.json:
-            a.json.write_text(json.dumps(rows, indent=1))
+            a.json.parent.mkdir(parents=True, exist_ok=True)
+            a.json.write_text(json.dumps(rows, indent=1) + '\n', encoding='utf-8', newline='\n')
         co = [r for r in rows if r['coordinate_only_candidate']]
         print(f"unmatched windows with Source sites: {len(rows)}; coordinate-only vs an equal-length candidate: {len(co)} ({sum(r['bytes'] for r in co)} B)")
 

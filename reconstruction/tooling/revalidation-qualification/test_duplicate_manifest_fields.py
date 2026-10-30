@@ -47,7 +47,7 @@ class DuplicateManifestTests(unittest.TestCase):
             if variant!='valid':
                 self.assertIn('duplicate manifest JSON field',str(row['manifest_check']['errors']))
                 self.assertNotEqual(row['manifest_check_after']['status'],'pass')
-            else:self.assertEqual(row['manifest_check']['files_checked'],7)
+            else:self.assertEqual(row['manifest_check']['files_checked'],len(manifest))
             self.assertEqual((packet/'manifest.json').read_text(encoding='utf-8'),text)
 
     def test_conflicting_flat_hashes(self):self.exercise('flat')
