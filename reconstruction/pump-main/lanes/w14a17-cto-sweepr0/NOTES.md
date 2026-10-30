@@ -87,3 +87,31 @@ orig 0x27a8. But it costs +16 B and 0.015, mostly as frame offsets in 0x3000.
 - `occ2.py <rxdir> [<ir key name>] [slot]`: from the debug-llc log, the final physreg occupancy at a slot index, with each
   interval traced back to its original vreg and MIR def.
 - `combo_gen.py`, `runq.sh`: the 27-combo generator and the 2-way capvar queue.
+
+## Part 2 (branch -2): TCF clone field-placement scan
+
+`tools/fscan.py <named m.ll> x <out.jsonl>` (with `XVAL=<AccountInfo ptr SSA name>`, after `opt -passes=instnamer`) is a
+post-opt `llc` oracle. For one inlined AccountInfo clone it moves the six scalar reads (key, owner, rent_epoch,
+is_signer, is_writable, executable) between three positions: P0 before the lamports Rc clone, P1 between the two Rc
+clones, P2 after the data clone. That gives all 729 placements, at about 1 minute per clone with 4 threads. Every
+placement can be written in source as an `AccountInfo{..}` literal: the order of the field reads is the literal order.
+`tools/fsall4.sh` runs the scan over all 11 TCF clones.
+
+Scans and results:
+- **Main 1b0ae70 (0.63661).** Only `pump_creator_vault_ata` (accounts+0x48) gained: owner in P1 gave 0.6393 at
+  27,400 B (source-confirmed). #3272 (w14a23) landed a different literal for the same clone first.
+- **Main 7e6aa9c (0.6414).** Two winners:
+  - `pump_creator_vault_ata` with the owner in P1: `key,lamports,owner,data,rent,flags` gives 0.6420. Main's own order is
+    `key,rent,lamports,signer,data,owner,..`.
+  - `coin_creator_vault_ata` (accounts+0x88) with the key in P1: `lamports,key,data,owner,rent,flags` gives 0.6417.
+- **Every other TCF clone is at its local optimum:** both pump_amm clones, payer, quote_mint, the token, system and ATA
+  programs, the vault authority and the event authority.
+
+| main | form | bytes | ratio |
+| --- | --- | ---: | ---: |
+| 7e6aa9c | main | 27,400 | 0.6414 |
+| 7e6aa9c | d1: pcva owner-mid | 27,400 | 0.6420 |
+| 7e6aa9c | d3: ccva key-mid | 27,400 | 0.6417 |
+| 7e6aa9c | d2: d1 + d3 | 27,400 | 0.6423 |
+| f100a59 | main | 27,400 | 0.6423 |
+| f100a59 | **d2** | 27,400 | **0.6432** (0 losses, differential 363/0, sha16 45e53ecb3dd66fcd) |
