@@ -47,3 +47,11 @@ Source changes (all in `execute`'s entry and `validate`'s call):
   holder arm t08) outline `to_string` at 307/312 like the original (26,8xx B).
 
 See SUMMARY.json for the attempt list.
+
+## Round 2: equal-size frontier
+
+#2524 (27400 B, 3297 slots), #2509 and #2528 reach the original size, which makes every normalized window raw (1032).
+On #2524 this lane's genes move the size off 27400: c1/c2 (unwrap+lit) 27368, c3 27568, c4 27304, c5 27144, c6 27440,
+c7 27344, c8 27488. Recommendation for the stitcher: start from #2524. Use the region-1 genes only together with a knob
+that restores 27400, then rank by slots_diff. IR hill-climb on v10 (`irclimb-v10a-best.json`) reached the original's
+error prefix 289 298 306 296 once, by block order alone.

@@ -1,0 +1,29 @@
+{
+  "lane": "w10r1-admincto-region1of6",
+  "target": "0x22a10 admin_cto::execute",
+  "region": "1 of 6, original bytes 0x0000..0x11d6 (entry, CtoState snapshot, validate 289/298/306/296)",
+  "pr": "https://github.com/lalalune/pumpfun-source/pull/2550",
+  "best": {"source": "t06", "bytes": 27432, "size_distance": 32, "ratio": 0.35778, "R1local_strict": 237, "R1local_loose": 370, "normalized": 1032, "raw": 347, "losses": 0, "unstripped_sha256": "5673f98f237349e42cf48575c5a2e2d0af8575ece617b398e871c61299e65527"},
+  "baseline_main_917ee61": {"bytes": 27344, "ratio": 0.37637, "R1local_strict": 230, "R1local_loose": 304},
+  "superseded_by": "PRs #2524/#2509/#2528 reach 27400 B (raw 1032); #2524 has the fewest slots_diff (3297). On #2524 this lane's genes move size off 27400 (c1 27368, c3 27568, c4 27304, c5 27144, c6 27440, c7 27344, c8 27488).",
+  "kept_mechanisms": [
+    "holder.unwrap_or(false) + cashback=!holder&st.cashback (orig uses the holder arg as x&1)",
+    "CtoState literal: curve bools, then quote_locked: global_quote(..), then creator/max_fee (orig loads 0xa3/0xa5/0xa2 before the quote_mint memcmps)",
+    "validate(.., sharing, holder_key) param order (by-value form only; no effect with the #2524 reference parameters)"
+  ],
+  "ir_oracle_findings": [
+    "e1: the hr==0 holder test must fall through to the non-holder (306) side; swapping that br gives the original jeq holder,0,+1; ja",
+    "e3: the original's 306 test is xor(trunc tag) with the error successor first (and64 1; jeq; ja): the tag has no range metadata (a local copy of new) and the is-None branch comes first",
+    "e7: moving the 296 error blocks after the 306 error chain raises R1local 247/377 -> 270/407 with errorder 289 298 330 306 296 326 312 307",
+    "296 enabled-check polarity and !prof weights alone do not move the 296 error body; IR block order does",
+    "v10/v14/v15/t08 (== false / != forms, 296 in the holder arm) make 307/312 cold, so to_string is outlined like in the original (26.8 KB); the original is larger because its fee checks are duplicated per arm"
+  ],
+  "rejected": ["t02 short-circuit cashback", "t04 literal cashback-first", "t08 296 in holder arm", "t09 296 conjunction reorder", "v11 enabled!=true", "v12 require! form (identical)", "v13 306 match form (identical)", "t10/t11 literal order without unwrap_or", "c2-c8 on #2524"],
+  "attempts": 47,
+  "next_ideas": [
+    "Source form giving the e3 shape: a local 8-aligned copy of new (args tuple or Result<Pubkey> slot) plus an is_none-first test, so the tag is trunc'd without range metadata",
+    "Source form whose MIR RPO puts the 296 error after the 306 error chain (e7)",
+    "Per-arm fee checks (an inlined helper called in both arms with the same line numbers) to explain the original's duplicated fee-tag test and its extra size",
+    "At equal size (27400), compose the region-1 genes with a size-neutral knob from #2509/#2528/#2524 and rank by slots_diff"
+  ]
+}
