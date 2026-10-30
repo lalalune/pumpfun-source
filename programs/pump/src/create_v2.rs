@@ -142,7 +142,7 @@ pub use crate::mayhem as mayhem_interface;
 
 pub use pump_token_ext::quote_extensions_supported;
 pub const MAX_NAME_LENGTH:usize=32;pub const MAX_SYMBOL_LENGTH:usize=13;pub const MAX_URI_LENGTH:usize=200;
-pub enum QuoteSource { Sol, Whitelisted, Controlled, Nested(u8) }
+pub enum QuoteSource { Sol, Whitelisted, Controlled, Nested(u8) }#[inline(always)] fn sol_key()->Pubkey{let mut b=core::mem::MaybeUninit::<[u8;32]>::uninit();let p=b.as_mut_ptr() as *mut u8;unsafe{p.add(8).write_bytes(0,24);(p as *mut *const u8).write_unaligned(core::ptr::null());Pubkey::new_from_array(b.assume_init())}}
 
 
 
@@ -194,7 +194,7 @@ pub enum QuoteSource { Sol, Whitelisted, Controlled, Nested(u8) }
 
 
 fn validate_quote_mint<'info>(accounts:&CreateV2<'info>,remaining_accounts:&[AccountInfo<'info>])->Result<(Pubkey,Option<u64>,QuoteSource)>{
- if remaining_accounts.is_empty() {return Ok((Pubkey::default(),None,QuoteSource::Sol));}
+ if remaining_accounts.is_empty() {return Ok((sol_key(),None,QuoteSource::Sol));}
  require_gte!(remaining_accounts.len(),3,PumpError::NotEnoughRemainingAccounts);
  let a=accounts;
  let mint=&remaining_accounts[0];
@@ -210,7 +210,7 @@ fn validate_quote_mint<'info>(accounts:&CreateV2<'info>,remaining_accounts:&[Acc
  require!(program.executable,PumpError::InvalidQuoteTokenProgram);
  let mint_key=mint.key();
  if mint_key==anchor_spl::token::spl_token::native_mint::ID || mint_key==Pubkey::default() {
-  return Ok((Pubkey::default(),None,QuoteSource::Sol));
+  return Ok((sol_key(),None,QuoteSource::Sol));
  }
 
 
