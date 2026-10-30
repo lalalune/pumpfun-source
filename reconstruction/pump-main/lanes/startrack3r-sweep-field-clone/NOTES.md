@@ -1,4 +1,86 @@
-# Current candidate: source composition closes the local call span
+# Current status: source superseded; reconstruction evidence retained
+
+Program source now equals upstream `1e04f5b34aa33c53f2b20b4200ba4ba266b4203e`.
+Merged #1479 combines #1539's exact execute-buy and #1565's exact sell-v2;
+merged #1845 supplies a stronger T11-based swap reconstruction. This PR is
+now **analysis only**, so it does not propose the superseded program source.
+The previous composition remains reproducible at source commit
+`07cf6d564a221fb5d5fc02e47ce070751078979a`; none of its evidence is discarded.
+
+## Same-revision native/local comparison
+
+`NATIVE-BASELINE.json` compares #1669's retained native control at main
+`094a06f18df738d41e77070c1a009e135671ac1a` with the actual local compiler
+outputs at that same source revision. The native receipts are pinned to
+`7701aaa881adc480447de456ef67d8a64dbd0048` and credited to #1669.
+The source archive verifies against its manifest: all **64 Rust files**,
+the package dependency/features configuration, release profile and lockfile
+bytes agree. The workspace/profile and lockfile placement differ; no Cargo
+identity, dependency archive, complete argv or toolchain equality follows.
+
+Both controls have the same 1,024 normalized memberships. Their raw counts
+273 and 277 conceal a **269-window intersection**, with eight native-only
+and four local-only windows. The historical local composition has 275 raw
+matches: **270** overlap the native receipt, seven are native-only and five
+are local-only. In particular, its raw `0xa7b0` gain is absent from that
+native control. Exact address sets and symbol names are retained.
+
+`verify_native_baseline.py` (Python 3.11+) reads the pinned native Git blobs,
+checks their manifest and complete source archive, then freshly scores the
+two local compiler images using the pinned unchanged scorer. It checks all
+1,035 window addresses and widths. **The native ELF is not in the cited
+packet and is not replayed**; native score/image hashes remain attributed
+receipts, not independently confirmed compiler output. This audit does not
+qualify native no-loss. Normal and optimized replays agree byte for byte;
+real wrong-source and wrong-image inputs are rejected.
+
+With the cited native commit already fetched and the historical local
+control/composition outputs available:
+
+```sh
+python3 reconstruction/pump-main/lanes/startrack3r-sweep-field-clone/verify_native_baseline.py \
+  --repo /path/to/repo-with-7701aaa-objects \
+  --control-source /path/to/retained-local-main094-source \
+  --control /path/to/local-main094-unstripped.so \
+  --candidate /path/to/local-composition-unstripped.so \
+  --original /path/to/original-allocation.so \
+  --inventory /path/to/functions.tsv \
+  --harness /path/to/pinned-2c8a790-harness \
+  --objdump /path/to/llvm-objdump \
+  --work /path/to/new-report-directory
+```
+
+The script runs no compiler, target program, VM or network request.
+
+## Fresh upstream qualification
+
+`CURRENT-MAIN.json` binds a new normal compiler output for `1e04f5b34`:
+**1,026 normalized / 273 raw**, all 1,035 memberships checked by both the
+current unmodified scorer and an independent ELF census. It preserves all
+memberships of local main `094a06f18`, adding normalized `0x83c00` and
+`0x144508`. Relative to the historical composition, it adds `0x144508`
+but lacks raw `0xa7b0` and `0xa868`; this is recorded, not treated as a
+no-loss replacement for that checkpoint.
+
+The complete output is 2,665,992 bytes, SHA-256
+`72dba00e08c982f07b80d6308f73a799c19adfa72053e321b650a60a66018021`.
+The unchanged local compiler/dependency recipe completed once, with no
+stack-offset warnings. Source, compiler and dependencies were rehashed.
+No repeat-build or native qualification is claimed for this fresh control.
+
+Its seven normalized formatter candidates include exactly one calling the
+complete original 1,088-byte callee. That instance spans `0xa820` to
+`0x1a26d0`: **360 bytes longer** than the original span. The earlier
+112-byte-short span belongs to the older main control, and its local
+closure remains valid evidence for that checkpoint. Future source work
+must start from the new main and remeasure complete membership sets.
+
+The original remains an allocation capture. No whole-ELF, authenticated
+historical-source, recursive/runtime equivalence or security claim is made.
+
+---
+
+# Historical candidate: source composition closes the local call span
 
 This revision supersedes the earlier field-clone source. Base is
 `094a06f18df738d41e77070c1a009e135671ac1a`; `sweep_fees.rs` is restored to

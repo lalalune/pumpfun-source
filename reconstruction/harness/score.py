@@ -7,15 +7,18 @@ direct-call immediates (op 0x85, src=1, imm!=-1) and lddw values pointing inside
 section. Raw matches are counted separately.
 
 Usage: score.py <unstripped.so> [--baseline inventory.json] [--json out.json] [--quiet]
-Prints counts and gains/losses vs the baseline (default: base/current/inventory.json).
+Prints counts and gains/losses vs the baseline (default: pump-main/baseline/score.json).
+A missing baseline file is an error; losses are never reported against an empty baseline.
 """
-import argparse, csv, hashlib, json, re, struct, subprocess, sys, pickle
+import argparse, csv, hashlib, json, re, struct, subprocess, sys, tempfile
 from pathlib import Path
+from llvm_tools import objdump
+from functools import lru_cache
+import io
 
 H = Path(__file__).resolve().parent
 SC = H.parent
 BASE = SC / 'base'
-OBJDUMP = str(Path.home() / '.cache/solana/v1.52/platform-tools/llvm/bin/llvm-objdump')
 
 
 def sections(blob):
@@ -45,42 +48,79 @@ def normalize(raw, address, secs):
 
 
 def body(image, secs, address, size):
-    t = secs['.text']; o = address - t['addr'] + t['offset']
+    t = secs['.text']
+    if any(type(value) is not int or value < 0 for value in
+           (address, size, t['addr'], t['offset'], t['size'])):
+        raise ValueError('function and .text bounds must be nonnegative integers')
+    if t['offset'] + t['size'] > len(image):
+        raise ValueError('.text section extends beyond the ELF file')
+    relative = address - t['addr']
+    if relative < 0 or relative > t['size'] or size > t['size'] - relative:
+        raise ValueError(f'function range {address:#x}+{size:#x} is outside .text')
+    o = relative + t['offset']
     return image[o:o + size]
 
 
 def candidate_functions(path):
-    text = subprocess.check_output([OBJDUMP, '-t', str(path)], text=True)
-    funcs = []
-    for line in text.splitlines():
-        m = re.match(r'^([0-9a-f]+) .* F \.text\s+([0-9a-f]+)\s+(?:\.hidden\s+)?(\S+)$', line)
-        if m:
-            addr, size, name = int(m.group(1), 16), int(m.group(2), 16), m.group(3)
-            if size:
-                funcs.append((addr, size, name))
-    return funcs
+    from elf_symbols import function_symbols
+    return function_symbols(Path(path).read_bytes())
+
+
+@lru_cache(maxsize=2)
+def _window_rows(orig, inventory):
+    """Cache immutable rows by input bytes, never by timestamps or a saved pickle."""
+    os_ = sections(orig)
+    reader = csv.DictReader(io.StringIO(inventory), delimiter='\t')
+    required = {'program', 'variant', 'original_start', 'original_end'}
+    if not required.issubset(reader.fieldnames or []):
+        raise ValueError('window inventory is missing required columns')
+    rows = []
+    seen = set()
+    text = os_['.text']
+    for r in reader:
+        if r['program'] != 'pump' or r['variant'] != 'selected':
+            continue
+        start, end = int(r['original_start']), int(r['original_end'])
+        if (start in seen or start % 8 or end % 8 or end <= start
+                or start < text['addr'] or end > text['addr'] + text['size']):
+            raise ValueError(f'invalid or duplicate selected window: {start}:{end}')
+        seen.add(start)
+        raw = body(orig, os_, start, end - start)
+        if len(raw) != end - start:
+            raise ValueError(f'truncated selected window: {start}:{end}')
+        rows.append((start, end - start, raw, normalize(raw, start, os_)))
+    if not rows:
+        raise ValueError('window inventory contains no selected Pump windows')
+    return tuple(rows)
 
 
 def original_windows():
-    cache = BASE / 'original-windows.pkl'
-    if cache.exists():
-        return pickle.loads(cache.read_bytes())
-    orig = (BASE / 'original.so').read_bytes(); os_ = sections(orig)
-    rows = []
-    for r in csv.DictReader((BASE / 'functions.tsv').open(), delimiter='\t'):
-        if r['program'] != 'pump' or r['variant'] != 'selected':
-            continue
-        s, e = int(r['original_start']), int(r['original_end'])
-        raw = body(orig, os_, s, e - s)
-        rows.append({'start': s, 'bytes': e - s, 'raw': raw, 'norm': normalize(raw, s, os_)})
-    cache.write_bytes(pickle.dumps(rows))
-    return rows
+    orig = (BASE / 'original.so').read_bytes()
+    inventory = (BASE / 'functions.tsv').read_text(encoding='utf-8')
+    # Return fresh containers so an analysis consumer cannot poison later scores.
+    return [dict(zip(('start', 'bytes', 'raw', 'norm'), row))
+            for row in _window_rows(orig, inventory)]
 
 
 def score(cand_path):
+    """Return window memberships, preserving the existing library interface."""
+    return score_with_hash(cand_path)[0]
+
+
+def score_with_hash(cand_path):
+    """Score one byte snapshot and return its memberships and SHA-256.
+
+    The external symbol reader must see the same bytes as normalization, even if
+    another build replaces the supplied path. The private copy is removed on
+    success or failure. This binds the result to bytes read, not source provenance.
+    """
     cand = Path(cand_path).read_bytes(); cs = sections(cand)
+    with tempfile.TemporaryDirectory(prefix='pump-score-') as temporary:
+        snapshot = Path(temporary) / 'candidate.so'
+        snapshot.write_bytes(cand)
+        funcs = candidate_functions(snapshot)
     by = {}
-    for start, length, name in candidate_functions(cand_path):
+    for start, length, name in funcs:
         raw = body(cand, cs, start, length)
         by.setdefault((length, hashlib.sha256(normalize(raw, start, cs)).digest()), []).append((start, name, raw))
     res = {}
@@ -88,7 +128,7 @@ def score(cand_path):
         ms = by.get((w['bytes'], hashlib.sha256(w['norm']).digest()), [])
         res[w['start']] = {'normalized': bool(ms), 'raw': any(m[2] == w['raw'] for m in ms),
                            'symbols': [m[1] for m in ms], 'bytes': w['bytes']}
-    return res
+    return res, hashlib.sha256(cand).hexdigest()
 
 
 def load_baseline(p):
@@ -101,19 +141,21 @@ def load_baseline(p):
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('candidate', type=Path)
-    ap.add_argument('--baseline', type=Path, default=BASE / 'current/inventory.json')
+    ap.add_argument('--baseline', type=Path, default=SC / 'pump-main/baseline/score.json')
     ap.add_argument('--json', type=Path)
     ap.add_argument('--quiet', action='store_true')
     a = ap.parse_args()
-    cur = score(a.candidate)
-    base = load_baseline(a.baseline) if a.baseline and a.baseline.exists() else {}
+    if not a.baseline.is_file():
+        ap.error(f'baseline not found: {a.baseline}')
+    cur, candidate_sha256 = score_with_hash(a.candidate)
+    base = load_baseline(a.baseline)
     n = sum(v['normalized'] for v in cur.values()); r = sum(v['raw'] for v in cur.values())
     tb = sum(v['bytes'] for v in cur.values() if v['normalized'])
     gains = sorted(k for k, v in cur.items() if v['normalized'] and not base.get(k, {}).get('normalized'))
     losses = sorted(k for k, v in cur.items() if not v['normalized'] and base.get(k, {}).get('normalized'))
     rg = sorted(k for k, v in cur.items() if v['raw'] and not base.get(k, {}).get('raw'))
     rl = sorted(k for k, v in cur.items() if not v['raw'] and base.get(k, {}).get('raw'))
-    summary = {'candidate_sha256': hashlib.sha256(a.candidate.read_bytes()).hexdigest(),
+    summary = {'candidate_sha256': candidate_sha256,
                'normalized': n, 'raw': r, 'total': len(cur), 'matched_text_bytes': tb,
                'gains': [hex(x) for x in gains], 'losses': [hex(x) for x in losses],
                'raw_gains': [hex(x) for x in rg], 'raw_losses': [hex(x) for x in rl]}

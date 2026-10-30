@@ -1,0 +1,302 @@
+{
+  "result": "PASS",
+  "source_revision": "1e04f5b34aa33c53f2b20b4200ba4ba266b4203e",
+  "source_inputs": 98,
+  "git_source_blobs": 93,
+  "counts": {
+    "candidate_sha256": "72dba00e08c982f07b80d6308f73a799c19adfa72053e321b650a60a66018021",
+    "total": 1035,
+    "normalized": 1026,
+    "raw": 273,
+    "versus_main094": {
+      "normalized": {
+        "gains": [
+          "0x83c00",
+          "0x144508"
+        ],
+        "losses": []
+      },
+      "raw": {
+        "gains": [],
+        "losses": []
+      }
+    },
+    "versus_prior_composition": {
+      "normalized": {
+        "gains": [
+          "0x144508"
+        ],
+        "losses": []
+      },
+      "raw": {
+        "gains": [],
+        "losses": [
+          "0xa7b0",
+          "0xa868"
+        ]
+      }
+    }
+  },
+  "harness": {
+    "elf_symbols.py": "7156bee72eaf1870dd1f8771a7172ea5090f6f19c1eba87ef48e05a3fb669e71",
+    "llvm_tools.py": "306a50b2ba57f350e250d7c7f596ac400627ecfd24248b2291578b5ddf3fe8af",
+    "score.py": "549862761d672586123c7085c3cc61fe27137f12ca75116f07c4de5dd9e7b983"
+  },
+  "original_inputs": {
+    "functions.tsv": "fb2c0a47514567d65eb45c1e268dacd5291e4659bb7dceb575a767dc20bcaff8",
+    "original.so": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d"
+  },
+  "independent_all_memberships_equal": true,
+  "root_compiler_commands": 1,
+  "cumulative_root_rustc": 501,
+  "target_executions": 0,
+  "scope": "Fresh main qualification under the existing local Windows recipe, not native recipe qualification or a newly proposed source change.",
+  "compiler_receipt": {
+    "returncode": 0,
+    "seconds": 23.82434868812561,
+    "source_unchanged": true,
+    "tools_unchanged": true,
+    "dependencies_unchanged": true,
+    "logs": {
+      "stdout.log": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr.log": {
+        "bytes": 197245,
+        "sha256": "788855b870cbc9ba024f3b624e2550a479795c38831a3adf88515a0baf152aa6"
+      }
+    },
+    "target_executions": 0,
+    "image_sha256": "72dba00e08c982f07b80d6308f73a799c19adfa72053e321b650a60a66018021",
+    "image_bytes": 2665992
+  },
+  "launch_sha256": "6eeaf6f9a01449648c0eeedeebec014bbbbe4b546a39b75c3c5c3353b187e291",
+  "formatter": {
+    "original": {
+      "image_sha256": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
+      "start": "0xa868",
+      "bytes": 24,
+      "raw": "791100000000000085100000a72f03009500000000000000",
+      "callee_start": "0x1a25b0",
+      "callee_bytes": 1088,
+      "callee_raw_sha256": "d7598b0c5e82b3e12d2fa225ae35835183ea852e1db36c186227e38c9d59da6b",
+      "callee_normalized_sha256": "dd57f23602c618b8b75b8d970b99299afbd61b7c15f741b6bff6974441f7a450",
+      "call_offset": 8,
+      "byte_span": 1670472
+    },
+    "candidate": {
+      "sha256": "72dba00e08c982f07b80d6308f73a799c19adfa72053e321b650a60a66018021",
+      "matches": [
+        {
+          "address": "0xa808",
+          "raw": "791100000000000085100000b00300009500000000000000",
+          "raw_equal": false,
+          "names": [
+            "_ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17hc49c56ffa469469bE"
+          ],
+          "call_target": "0xc598",
+          "byte_span": 7568,
+          "original_span_delta": -1662904,
+          "callee": {
+            "address": 50584,
+            "names": [
+              "_ZN4core5array69_$LT$impl$u20$core..fmt..Debug$u20$for$u20$$u5b$T$u3b$$u20$N$u5d$$GT$3fmt17h3b707ff253e65a4fE"
+            ],
+            "stable_names": [
+              "_ZN4core5array69_$LT$impl$u20$core..fmt..Debug$u20$for$u20$$u5b$T$u3b$$u20$N$u5d$$GT$3fmt17h<HASH>E"
+            ],
+            "bodies": [
+              {
+                "bytes": 1976,
+                "raw_sha256": "05b7df0ac1e4ef07e9da55f57de3bbfdad6b1c6d2435cc7d83082e46db002257",
+                "normalized_sha256": "101758bdba99fd61c44822a33318f4248b9a3841039450693672b8e37d0866a3",
+                "masked_operands": 62
+              }
+            ]
+          },
+          "callee_matches_original": false
+        },
+        {
+          "address": "0xa820",
+          "raw": "791100000000000085100000d42f03009500000000000000",
+          "raw_equal": false,
+          "names": [
+            "_ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17hfa916cc1caf72622E"
+          ],
+          "call_target": "0x1a26d0",
+          "byte_span": 1670832,
+          "original_span_delta": 360,
+          "callee": {
+            "address": 1713872,
+            "names": [
+              "_ZN69_$LT$solana_account_info..AccountInfo$u20$as$u20$core..fmt..Debug$GT$3fmt17h1056d54ef3137596E"
+            ],
+            "stable_names": [
+              "_ZN69_$LT$solana_account_info..AccountInfo$u20$as$u20$core..fmt..Debug$GT$3fmt17h<HASH>E"
+            ],
+            "bodies": [
+              {
+                "bytes": 1088,
+                "raw_sha256": "f2629667040dd10b6377a8dcc73b1dc8cdb08f9631530bae318701fef514a68d",
+                "normalized_sha256": "dd57f23602c618b8b75b8d970b99299afbd61b7c15f741b6bff6974441f7a450",
+                "masked_operands": 36
+              }
+            ]
+          },
+          "callee_matches_original": true
+        },
+        {
+          "address": "0xa838",
+          "raw": "791100000000000085100000c64303009500000000000000",
+          "raw_equal": false,
+          "names": [
+            "_ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17h4a074702d7895a98E"
+          ],
+          "call_target": "0x1ac678",
+          "byte_span": 1711680,
+          "original_span_delta": 41208,
+          "callee": {
+            "address": 1754744,
+            "names": [
+              "_ZN73_$LT$core..panic..panic_info..PanicInfo$u20$as$u20$core..fmt..Display$GT$3fmt17h4777505b2ae1d28dE"
+            ],
+            "stable_names": [
+              "_ZN73_$LT$core..panic..panic_info..PanicInfo$u20$as$u20$core..fmt..Display$GT$3fmt17h<HASH>E"
+            ],
+            "bodies": [
+              {
+                "bytes": 824,
+                "raw_sha256": "7cb0e3c1e0a16b380f228376921acf22dadc2975dcfa0f773bba8dc4820e3440",
+                "normalized_sha256": "f4647892167f4c89c9a500aa92573c4fe5d95f590e2cabd3aa4e42c1161e4ef3",
+                "masked_operands": 10
+              }
+            ]
+          },
+          "callee_matches_original": false
+        },
+        {
+          "address": "0x1a2460",
+          "raw": "7911000000000000851000008e0c00009500000000000000",
+          "raw_equal": false,
+          "names": [
+            "_ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h3f949b6726433815E"
+          ],
+          "call_target": "0x1a88e0",
+          "byte_span": 25728,
+          "original_span_delta": -1644744,
+          "callee": {
+            "address": 1738976,
+            "names": [
+              "_ZN58_$LT$solana_pubkey..Pubkey$u20$as$u20$core..fmt..Debug$GT$3fmt17h45f9cee000b25b6cE",
+              "_ZN60_$LT$solana_pubkey..Pubkey$u20$as$u20$core..fmt..Display$GT$3fmt17ha8931cc1d11532eaE"
+            ],
+            "stable_names": [
+              "_ZN58_$LT$solana_pubkey..Pubkey$u20$as$u20$core..fmt..Debug$GT$3fmt17h<HASH>E",
+              "_ZN60_$LT$solana_pubkey..Pubkey$u20$as$u20$core..fmt..Display$GT$3fmt17h<HASH>E"
+            ],
+            "bodies": [
+              {
+                "bytes": 40,
+                "raw_sha256": "6d9700d28e75bd65d0a9eeb8bb0fc1612f1400bd497379d8b717de5dfbabbc4b",
+                "normalized_sha256": "85d6864857fdc5d0ecfa8c05ed61f52ea54d4d0827e90490dbe2dc457f15ca10",
+                "masked_operands": 1
+              }
+            ]
+          },
+          "callee_matches_original": false
+        },
+        {
+          "address": "0x1a3128",
+          "raw": "791100000000000085100000bc1e00009500000000000000",
+          "raw_equal": false,
+          "names": [
+            "_ZN45_$LT$$RF$T$u20$as$u20$core..fmt..LowerHex$GT$3fmt17h64a4f179da3dbbc7E"
+          ],
+          "call_target": "0x1b2718",
+          "byte_span": 62960,
+          "original_span_delta": -1607512,
+          "callee": {
+            "address": 1779480,
+            "names": [
+              "_ZN4core3fmt3num53_$LT$impl$u20$core..fmt..LowerHex$u20$for$u20$i32$GT$3fmt17hba592a4ed6a952beE",
+              "_ZN4core3fmt3num53_$LT$impl$u20$core..fmt..LowerHex$u20$for$u20$u32$GT$3fmt17hb56ee4c3169df493E"
+            ],
+            "stable_names": [
+              "_ZN4core3fmt3num53_$LT$impl$u20$core..fmt..LowerHex$u20$for$u20$i32$GT$3fmt17h<HASH>E",
+              "_ZN4core3fmt3num53_$LT$impl$u20$core..fmt..LowerHex$u20$for$u20$u32$GT$3fmt17h<HASH>E"
+            ],
+            "bodies": [
+              {
+                "bytes": 360,
+                "raw_sha256": "4010d61cf60a7be38ccd21c1c6f34ca7ef6de6b106459de2f337c44a632ffea8",
+                "normalized_sha256": "c99e55c441713182a93bf6f8443ec2dd873c6652ac613b24ee2441817003ce68",
+                "masked_operands": 4
+              }
+            ]
+          },
+          "callee_matches_original": false
+        },
+        {
+          "address": "0x1a66b8",
+          "raw": "791100000000000085100000370600009500000000000000",
+          "raw_equal": false,
+          "names": [
+            "_ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17haa72f358db6aa22eE"
+          ],
+          "call_target": "0x1a9880",
+          "byte_span": 12744,
+          "original_span_delta": -1657728,
+          "callee": {
+            "address": 1742976,
+            "names": [
+              "_ZN58_$LT$std..io..error..Error$u20$as$u20$core..fmt..Debug$GT$3fmt17had9d55c5608fe73bE"
+            ],
+            "stable_names": [
+              "_ZN58_$LT$std..io..error..Error$u20$as$u20$core..fmt..Debug$GT$3fmt17h<HASH>E"
+            ],
+            "bodies": [
+              {
+                "bytes": 16,
+                "raw_sha256": "681c3fa8aeea1ee634d1ad82b6be1b0ac67ef4d88eab0a875e354289cdb7fae4",
+                "normalized_sha256": "792d00b45e56f714ae28e121efa3bc106d4994d86bb3519f5e8ceaae6c22519f",
+                "masked_operands": 1
+              }
+            ]
+          },
+          "callee_matches_original": false
+        },
+        {
+          "address": "0x1b32f8",
+          "raw": "79110000000000008510000032ffffff9500000000000000",
+          "raw_equal": false,
+          "names": [
+            "_ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h5cebf789a726af6bE"
+          ],
+          "call_target": "0x1b2c98",
+          "byte_span": -1632,
+          "original_span_delta": -1672104,
+          "callee": {
+            "address": 1780888,
+            "names": [
+              "_ZN4core3fmt3num52_$LT$impl$u20$core..fmt..Debug$u20$for$u20$usize$GT$3fmt17h92ca3aff4bf1c48dE"
+            ],
+            "stable_names": [
+              "_ZN4core3fmt3num52_$LT$impl$u20$core..fmt..Debug$u20$for$u20$usize$GT$3fmt17h<HASH>E"
+            ],
+            "bodies": [
+              {
+                "bytes": 632,
+                "raw_sha256": "d47d1c79d02e102e0529ed222f678548e36b00124dc6291e585844ec5e4bef81",
+                "normalized_sha256": "975a997e03ea355a29ffd3d7853e32b91ae471f218d7cb6289e006838ebd1550",
+                "masked_operands": 5
+              }
+            ]
+          },
+          "callee_matches_original": false
+        }
+      ]
+    }
+  },
+  "disposition": "Informational fresh upstream qualification. Program source in this PR is now identical to this main revision. Historical composition at 07cf6d564 remains retained; its two local raw gains are absent in fresh main. This is not a no-loss source proposal or native qualification."
+}

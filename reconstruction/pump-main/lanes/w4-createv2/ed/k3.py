@@ -1,0 +1,1 @@
+EDITS=[("if quote_mint==sol {global.initial_virtual_sol_reserves} else {reserves.unwrap_or(initial_virtual_quote_reserves)};","if quote_mint!=sol {reserves.unwrap_or(initial_virtual_quote_reserves)} else {global.initial_virtual_sol_reserves};")]

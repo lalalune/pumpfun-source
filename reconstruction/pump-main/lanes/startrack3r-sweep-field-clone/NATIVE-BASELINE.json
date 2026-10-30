@@ -1,0 +1,532 @@
+{
+  "result": "PASS",
+  "native_receipt_revision": "7701aaa881adc480447de456ef67d8a64dbd0048",
+  "base_revision": "094a06f18df738d41e77070c1a009e135671ac1a",
+  "native_elf_replayed": false,
+  "native_full_argv_available": false,
+  "native_image_receipt": {
+    "candidate_sha256": "2ec131ee13b63e93c22874562e8122c9bc45ed20a92c1ff6f957fb3c1c2c36ae",
+    "ok": true,
+    "recipe": "identity",
+    "runtime_valid": true,
+    "stack_warnings": [],
+    "triple": "sbpf-solana-solana",
+    "unstripped_sha256": "498103bb88e11727a59096c25386cb4fecce970f4d73b37591b8f53f691a21e2"
+  },
+  "local_images_replayed": {
+    "control": "1c0c18a87121998ee33b66597354dc36923c97deaf258e2acd02a3d5e87315f0",
+    "composition": "c74e553e1af2c3c7823d55dd5f5b57875c07f82b282fa725a2d967029ed027da"
+  },
+  "source": {
+    "native_files": 71,
+    "local_files": 71,
+    "same_paths_and_bytes": [
+      "programs/pump/idls/mayhem.json",
+      "programs/pump/idls/pump_amm.json",
+      "programs/pump/idls/pump_fees.json",
+      "programs/pump/pump-token-ext/Cargo.toml",
+      "programs/pump/pump-token-ext/src/lib.rs",
+      "programs/pump/recovered/constant_product.rs",
+      "programs/pump/recovered/constant_product_host.rs",
+      "programs/pump/recovered/sell_accounting.rs",
+      "programs/pump/recovered/sell_accounting_host.rs",
+      "programs/pump/src/admin_set_idl_authority.rs",
+      "programs/pump/src/buy.rs",
+      "programs/pump/src/buy_v2.rs",
+      "programs/pump/src/cashback.rs",
+      "programs/pump/src/create.rs",
+      "programs/pump/src/create_v2.rs",
+      "programs/pump/src/creator/admin_cto.rs",
+      "programs/pump/src/creator/collect_creator_fee.rs",
+      "programs/pump/src/creator/distribute_creator_fee_v2.rs",
+      "programs/pump/src/creator/distribute_creator_fees.rs",
+      "programs/pump/src/creator/distribute_fee_to_holders.rs",
+      "programs/pump/src/creator/migrate_bonding_curve_creator.rs",
+      "programs/pump/src/creator/set_creator.rs",
+      "programs/pump/src/creator/set_metaplex_creator.rs",
+      "programs/pump/src/curve_quote_payments.rs",
+      "programs/pump/src/extend_account.rs",
+      "programs/pump/src/fee_cpi.rs",
+      "programs/pump/src/fee_recipient.rs",
+      "programs/pump/src/global_init.rs",
+      "programs/pump/src/incentives.rs",
+      "programs/pump/src/legacy_native_payments.rs",
+      "programs/pump/src/lib.rs",
+      "programs/pump/src/mayhem_virtual_params.rs",
+      "programs/pump/src/migrate.rs",
+      "programs/pump/src/migrate_v2.rs",
+      "programs/pump/src/migration_native_payments.rs",
+      "programs/pump/src/multi_hop_curve_swap.rs",
+      "programs/pump/src/pump_quote.rs",
+      "programs/pump/src/quote_control/initialize_quote_control.rs",
+      "programs/pump/src/quote_control/mod.rs",
+      "programs/pump/src/quote_control/set_quote_control.rs",
+      "programs/pump/src/quote_control/state.rs",
+      "programs/pump/src/quote_control/update_quote_control_mints.rs",
+      "programs/pump/src/sell.rs",
+      "programs/pump/src/sell_v2.rs",
+      "programs/pump/src/set_params.rs",
+      "programs/pump/src/set_reserved_fee_recipients.rs",
+      "programs/pump/src/sweep_fees.rs",
+      "programs/pump/src/token_incentives/claim_token_incentives.rs",
+      "programs/pump/src/token_incentives/close_user_volume_accumulator.rs",
+      "programs/pump/src/token_incentives/init_user_volume_accumulator.rs",
+      "programs/pump/src/token_incentives/mod.rs",
+      "programs/pump/src/token_incentives/volume_accumulator.rs",
+      "programs/pump/src/trade_types.rs",
+      "programs/pump/src/trade_v3.rs",
+      "programs/pump/src/util/account_name.rs",
+      "programs/pump/src/util/constant_product.rs",
+      "programs/pump/src/util/fee.rs",
+      "programs/pump/src/util/payments.rs",
+      "programs/pump/src/util/transfer_fee.rs",
+      "programs/pump/src/util/user_payments.rs",
+      "programs/pump/src/util/withheld.rs",
+      "programs/pump/src/v2_native_payments.rs",
+      "programs/pump/src/v2_quote_token_transfers.rs",
+      "programs/pump/src/v2_recipient_payments.rs",
+      "programs/pump/src/v2_token_transfers.rs",
+      "programs/pump/src/v2_user_token_transfers.rs",
+      "programs/pump/src/v3_native_transfer_fee.rs",
+      "programs/pump/src/volume_sync.rs"
+    ],
+    "all_rust_files_equal": [
+      "programs/pump/pump-token-ext/src/lib.rs",
+      "programs/pump/recovered/constant_product.rs",
+      "programs/pump/recovered/constant_product_host.rs",
+      "programs/pump/recovered/sell_accounting.rs",
+      "programs/pump/recovered/sell_accounting_host.rs",
+      "programs/pump/src/admin_set_idl_authority.rs",
+      "programs/pump/src/buy.rs",
+      "programs/pump/src/buy_v2.rs",
+      "programs/pump/src/cashback.rs",
+      "programs/pump/src/create.rs",
+      "programs/pump/src/create_v2.rs",
+      "programs/pump/src/creator/admin_cto.rs",
+      "programs/pump/src/creator/collect_creator_fee.rs",
+      "programs/pump/src/creator/distribute_creator_fee_v2.rs",
+      "programs/pump/src/creator/distribute_creator_fees.rs",
+      "programs/pump/src/creator/distribute_fee_to_holders.rs",
+      "programs/pump/src/creator/migrate_bonding_curve_creator.rs",
+      "programs/pump/src/creator/set_creator.rs",
+      "programs/pump/src/creator/set_metaplex_creator.rs",
+      "programs/pump/src/curve_quote_payments.rs",
+      "programs/pump/src/extend_account.rs",
+      "programs/pump/src/fee_cpi.rs",
+      "programs/pump/src/fee_recipient.rs",
+      "programs/pump/src/global_init.rs",
+      "programs/pump/src/incentives.rs",
+      "programs/pump/src/legacy_native_payments.rs",
+      "programs/pump/src/lib.rs",
+      "programs/pump/src/mayhem_virtual_params.rs",
+      "programs/pump/src/migrate.rs",
+      "programs/pump/src/migrate_v2.rs",
+      "programs/pump/src/migration_native_payments.rs",
+      "programs/pump/src/multi_hop_curve_swap.rs",
+      "programs/pump/src/pump_quote.rs",
+      "programs/pump/src/quote_control/initialize_quote_control.rs",
+      "programs/pump/src/quote_control/mod.rs",
+      "programs/pump/src/quote_control/set_quote_control.rs",
+      "programs/pump/src/quote_control/state.rs",
+      "programs/pump/src/quote_control/update_quote_control_mints.rs",
+      "programs/pump/src/sell.rs",
+      "programs/pump/src/sell_v2.rs",
+      "programs/pump/src/set_params.rs",
+      "programs/pump/src/set_reserved_fee_recipients.rs",
+      "programs/pump/src/sweep_fees.rs",
+      "programs/pump/src/token_incentives/claim_token_incentives.rs",
+      "programs/pump/src/token_incentives/close_user_volume_accumulator.rs",
+      "programs/pump/src/token_incentives/init_user_volume_accumulator.rs",
+      "programs/pump/src/token_incentives/mod.rs",
+      "programs/pump/src/token_incentives/volume_accumulator.rs",
+      "programs/pump/src/trade_types.rs",
+      "programs/pump/src/trade_v3.rs",
+      "programs/pump/src/util/account_name.rs",
+      "programs/pump/src/util/constant_product.rs",
+      "programs/pump/src/util/fee.rs",
+      "programs/pump/src/util/payments.rs",
+      "programs/pump/src/util/transfer_fee.rs",
+      "programs/pump/src/util/user_payments.rs",
+      "programs/pump/src/util/withheld.rs",
+      "programs/pump/src/v2_native_payments.rs",
+      "programs/pump/src/v2_quote_token_transfers.rs",
+      "programs/pump/src/v2_recipient_payments.rs",
+      "programs/pump/src/v2_token_transfers.rs",
+      "programs/pump/src/v2_user_token_transfers.rs",
+      "programs/pump/src/v3_native_transfer_fee.rs",
+      "programs/pump/src/volume_sync.rs"
+    ],
+    "different_common_paths": [
+      "programs/pump/Cargo.toml"
+    ],
+    "native_only": [
+      "programs/pump/Cargo.lock",
+      "programs/pump/recovered/README.md"
+    ],
+    "local_only": [
+      "Cargo.lock",
+      "Cargo.toml"
+    ],
+    "package_fields_equal": true,
+    "release_profiles_equal": true,
+    "lockfile_bytes_equal": true,
+    "native_workspace": {},
+    "local_workspace": {
+      "members": [
+        "programs/pump"
+      ],
+      "resolver": "2"
+    }
+  },
+  "comparison": {
+    "local_control": {
+      "normalized": {
+        "native": 1024,
+        "local": 1024,
+        "common": 1024,
+        "native_only": [],
+        "local_only": []
+      },
+      "raw": {
+        "native": 277,
+        "local": 273,
+        "common": 269,
+        "native_only": [
+          "0xa868",
+          "0x188d30",
+          "0x188fe0",
+          "0x1891d8",
+          "0x189340",
+          "0x189728",
+          "0x18de90",
+          "0x18e568"
+        ],
+        "local_only": [
+          "0x18ec88",
+          "0x18fc98",
+          "0x199af0",
+          "0x199b18"
+        ]
+      }
+    },
+    "local_composition": {
+      "normalized": {
+        "native": 1024,
+        "local": 1025,
+        "common": 1024,
+        "native_only": [],
+        "local_only": [
+          "0x83c00"
+        ]
+      },
+      "raw": {
+        "native": 277,
+        "local": 275,
+        "common": 270,
+        "native_only": [
+          "0x188d30",
+          "0x188fe0",
+          "0x1891d8",
+          "0x189340",
+          "0x189728",
+          "0x18de90",
+          "0x18e568"
+        ],
+        "local_only": [
+          "0xa7b0",
+          "0x18ec88",
+          "0x18fc98",
+          "0x199af0",
+          "0x199b18"
+        ]
+      }
+    }
+  },
+  "raw_discrepancies": {
+    "0xa7b0": {
+      "bytes": 48,
+      "native_symbols": [
+        "_ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h3f746cf584c88d58E",
+        "_ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17hf09f119409077e23E",
+        "_ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17h3a9e8f4e899f047aE",
+        "_ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17h660bd7783ca09077E",
+        "_ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h12dcad81600c5d64E"
+      ],
+      "local_control_symbols": [
+        "_ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h53b179cc1d7f7e79E",
+        "_ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17hbcd50ba89bd92865E",
+        "_ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17hda853df0235f0a08E",
+        "_ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17he90b3dcfe1625903E",
+        "_ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h45d42afd53152014E"
+      ],
+      "local_composition_symbols": [
+        "_ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h53b179cc1d7f7e79E",
+        "_ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17hbcd50ba89bd92865E",
+        "_ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17hda853df0235f0a08E",
+        "_ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17he90b3dcfe1625903E",
+        "_ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h45d42afd53152014E"
+      ]
+    },
+    "0xa868": {
+      "bytes": 24,
+      "native_symbols": [
+        "_ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h0333b338da31ddcaE",
+        "_ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17hc7eb8f545b1bbf09E",
+        "_ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17hce86dbee7e23dfa8E",
+        "_ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h4559e188727ffbdfE",
+        "_ZN45_$LT$$RF$T$u20$as$u20$core..fmt..LowerHex$GT$3fmt17hdf06088e8216d91cE",
+        "_ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h8b29659473c3c701E",
+        "_ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h5cebf789a726af6bE"
+      ],
+      "local_control_symbols": [
+        "_ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17hc49c56ffa469469bE",
+        "_ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17hfa916cc1caf72622E",
+        "_ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17h4a074702d7895a98E",
+        "_ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h3f949b6726433815E",
+        "_ZN45_$LT$$RF$T$u20$as$u20$core..fmt..LowerHex$GT$3fmt17h64a4f179da3dbbc7E",
+        "_ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17haa72f358db6aa22eE",
+        "_ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h5cebf789a726af6bE"
+      ],
+      "local_composition_symbols": [
+        "_ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17hc49c56ffa469469bE",
+        "_ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17hfa916cc1caf72622E",
+        "_ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17h4a074702d7895a98E",
+        "_ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h3f949b6726433815E",
+        "_ZN45_$LT$$RF$T$u20$as$u20$core..fmt..LowerHex$GT$3fmt17h64a4f179da3dbbc7E",
+        "_ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17haa72f358db6aa22eE",
+        "_ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h5cebf789a726af6bE"
+      ]
+    },
+    "0x188d30": {
+      "bytes": 688,
+      "native_symbols": [
+        "_ZN58_$LT$alloc..string..String$u20$as$u20$core..fmt..Write$GT$10write_char17hfde5b685689164ccE",
+        "_ZN58_$LT$alloc..string..String$u20$as$u20$core..fmt..Write$GT$10write_char17hfde5b685689164ccE"
+      ],
+      "local_control_symbols": [
+        "_ZN58_$LT$alloc..string..String$u20$as$u20$core..fmt..Write$GT$10write_char17hfde5b685689164ccE",
+        "_ZN58_$LT$alloc..string..String$u20$as$u20$core..fmt..Write$GT$10write_char17hfde5b685689164ccE"
+      ],
+      "local_composition_symbols": [
+        "_ZN58_$LT$alloc..string..String$u20$as$u20$core..fmt..Write$GT$10write_char17hfde5b685689164ccE",
+        "_ZN58_$LT$alloc..string..String$u20$as$u20$core..fmt..Write$GT$10write_char17hfde5b685689164ccE"
+      ]
+    },
+    "0x188fe0": {
+      "bytes": 168,
+      "native_symbols": [
+        "_ZN58_$LT$alloc..string..String$u20$as$u20$core..fmt..Write$GT$9write_str17h4b62f46a222bd5b2E",
+        "_ZN58_$LT$alloc..string..String$u20$as$u20$core..fmt..Write$GT$9write_str17h4b62f46a222bd5b2E",
+        "_ZN58_$LT$alloc..string..String$u20$as$u20$core..fmt..Write$GT$9write_str17h4b62f46a222bd5b2E",
+        "_ZN58_$LT$alloc..string..String$u20$as$u20$core..fmt..Write$GT$9write_str17h4b62f46a222bd5b2E"
+      ],
+      "local_control_symbols": [
+        "_ZN58_$LT$alloc..string..String$u20$as$u20$core..fmt..Write$GT$9write_str17h4b62f46a222bd5b2E",
+        "_ZN58_$LT$alloc..string..String$u20$as$u20$core..fmt..Write$GT$9write_str17h4b62f46a222bd5b2E",
+        "_ZN58_$LT$alloc..string..String$u20$as$u20$core..fmt..Write$GT$9write_str17h4b62f46a222bd5b2E",
+        "_ZN58_$LT$alloc..string..String$u20$as$u20$core..fmt..Write$GT$9write_str17h4b62f46a222bd5b2E"
+      ],
+      "local_composition_symbols": [
+        "_ZN58_$LT$alloc..string..String$u20$as$u20$core..fmt..Write$GT$9write_str17h4b62f46a222bd5b2E",
+        "_ZN58_$LT$alloc..string..String$u20$as$u20$core..fmt..Write$GT$9write_str17h4b62f46a222bd5b2E",
+        "_ZN58_$LT$alloc..string..String$u20$as$u20$core..fmt..Write$GT$9write_str17h4b62f46a222bd5b2E",
+        "_ZN58_$LT$alloc..string..String$u20$as$u20$core..fmt..Write$GT$9write_str17h4b62f46a222bd5b2E"
+      ]
+    },
+    "0x1891d8": {
+      "bytes": 360,
+      "native_symbols": [
+        "_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$7reserve21do_reserve_and_handle17h601202fc52ac84a5E",
+        "_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$7reserve21do_reserve_and_handle17h32d7dfdbb45b39a5E"
+      ],
+      "local_control_symbols": [
+        "_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$7reserve21do_reserve_and_handle17he7f96b53942b99deE",
+        "_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$7reserve21do_reserve_and_handle17hbc5a049b6561d884E"
+      ],
+      "local_composition_symbols": [
+        "_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$7reserve21do_reserve_and_handle17he7f96b53942b99deE",
+        "_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$7reserve21do_reserve_and_handle17hbc5a049b6561d884E"
+      ]
+    },
+    "0x189340": {
+      "bytes": 328,
+      "native_symbols": [
+        "_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$7reserve21do_reserve_and_handle17h435205c6b11d6843E",
+        "_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$7reserve21do_reserve_and_handle17hd8c1fe82d50c50fcE",
+        "_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$7reserve21do_reserve_and_handle17h44b5592aebd1eda2E",
+        "_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$7reserve21do_reserve_and_handle17h831e6668823e9f84E",
+        "_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$7reserve21do_reserve_and_handle17h2b23e25bc4a44b8bE",
+        "_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$7reserve21do_reserve_and_handle17hdd501ebd6e3a4cbcE",
+        "_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$7reserve21do_reserve_and_handle17h19cbebac703ce804E",
+        "_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$7reserve21do_reserve_and_handle17hfb848a1eba01a183E"
+      ],
+      "local_control_symbols": [
+        "_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$7reserve21do_reserve_and_handle17h085215765f324cfaE",
+        "_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$7reserve21do_reserve_and_handle17h9c1916e91c48b25fE",
+        "_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$7reserve21do_reserve_and_handle17h0d917ab3047b22dfE",
+        "_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$7reserve21do_reserve_and_handle17h724eeefd0a46ad34E",
+        "_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$7reserve21do_reserve_and_handle17hf97d2ee6c63f2ef7E",
+        "_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$7reserve21do_reserve_and_handle17h6273a99bc657094fE",
+        "_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$7reserve21do_reserve_and_handle17h72c33a61c4d2ef93E",
+        "_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$7reserve21do_reserve_and_handle17hfb848a1eba01a183E"
+      ],
+      "local_composition_symbols": [
+        "_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$7reserve21do_reserve_and_handle17h085215765f324cfaE",
+        "_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$7reserve21do_reserve_and_handle17h9c1916e91c48b25fE",
+        "_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$7reserve21do_reserve_and_handle17h0d917ab3047b22dfE",
+        "_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$7reserve21do_reserve_and_handle17h724eeefd0a46ad34E",
+        "_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$7reserve21do_reserve_and_handle17hf97d2ee6c63f2ef7E",
+        "_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$7reserve21do_reserve_and_handle17h6273a99bc657094fE",
+        "_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$7reserve21do_reserve_and_handle17h72c33a61c4d2ef93E",
+        "_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$7reserve21do_reserve_and_handle17hfb848a1eba01a183E"
+      ]
+    },
+    "0x189728": {
+      "bytes": 648,
+      "native_symbols": [
+        "_ZN5borsh3ser14BorshSerialize10try_to_vec17he9ffeab2ac4212c8E"
+      ],
+      "local_control_symbols": [
+        "_ZN5borsh3ser14BorshSerialize10try_to_vec17hce8a7c6b88396983E"
+      ],
+      "local_composition_symbols": [
+        "_ZN5borsh3ser14BorshSerialize10try_to_vec17hce8a7c6b88396983E"
+      ]
+    },
+    "0x18de90": {
+      "bytes": 440,
+      "native_symbols": [
+        "_ZN122_$LT$mpl_token_metadata..generated..types..collection_details..CollectionDetails$u20$as$u20$borsh..ser..BorshSerialize$GT$9serialize17hf63498c85281a2faE"
+      ],
+      "local_control_symbols": [
+        "_ZN122_$LT$mpl_token_metadata..generated..types..collection_details..CollectionDetails$u20$as$u20$borsh..ser..BorshSerialize$GT$9serialize17h35130d0726648a52E"
+      ],
+      "local_composition_symbols": [
+        "_ZN122_$LT$mpl_token_metadata..generated..types..collection_details..CollectionDetails$u20$as$u20$borsh..ser..BorshSerialize$GT$9serialize17h35130d0726648a52E"
+      ]
+    },
+    "0x18e568": {
+      "bytes": 448,
+      "native_symbols": [
+        "_ZN95_$LT$mpl_token_metadata..generated..types..uses..Uses$u20$as$u20$borsh..ser..BorshSerialize$GT$9serialize17heef9d4727b66b2f7E"
+      ],
+      "local_control_symbols": [
+        "_ZN95_$LT$mpl_token_metadata..generated..types..uses..Uses$u20$as$u20$borsh..ser..BorshSerialize$GT$9serialize17h38f7645ef7e5265fE"
+      ],
+      "local_composition_symbols": [
+        "_ZN95_$LT$mpl_token_metadata..generated..types..uses..Uses$u20$as$u20$borsh..ser..BorshSerialize$GT$9serialize17h38f7645ef7e5265fE"
+      ]
+    },
+    "0x18ec88": {
+      "bytes": 320,
+      "native_symbols": [
+        "_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$8grow_one17h1348046c5a452d5cE",
+        "_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$8grow_one17h78a4337d67f43070E",
+        "_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$8grow_one17h965a993e4d5e7f09E",
+        "_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$8grow_one17haf3681b0c174580aE",
+        "_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$8grow_one17h3266ee234dbf1514E"
+      ],
+      "local_control_symbols": [
+        "_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$8grow_one17h4d6447b5a0b02522E",
+        "_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$8grow_one17h6d20bd6245a7f615E",
+        "_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$8grow_one17h95e1aab687a11838E",
+        "_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$8grow_one17hac569b46c36266b0E",
+        "_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$8grow_one17h3266ee234dbf1514E"
+      ],
+      "local_composition_symbols": [
+        "_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$8grow_one17h4d6447b5a0b02522E",
+        "_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$8grow_one17h6d20bd6245a7f615E",
+        "_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$8grow_one17h95e1aab687a11838E",
+        "_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$8grow_one17hac569b46c36266b0E",
+        "_ZN5alloc7raw_vec19RawVec$LT$T$C$A$GT$8grow_one17h3266ee234dbf1514E"
+      ]
+    },
+    "0x18fc98": {
+      "bytes": 2320,
+      "native_symbols": [
+        "_ZN14spl_token_20229extension12transfer_fee11instruction22TransferFeeInstruction4pack17h0c83bca80bc2754eE"
+      ],
+      "local_control_symbols": [
+        "_ZN14spl_token_20229extension12transfer_fee11instruction22TransferFeeInstruction4pack17h3f92637a5b5a8b98E"
+      ],
+      "local_composition_symbols": [
+        "_ZN14spl_token_20229extension12transfer_fee11instruction22TransferFeeInstruction4pack17h3f92637a5b5a8b98E"
+      ]
+    },
+    "0x199af0": {
+      "bytes": 40,
+      "native_symbols": [
+        "_ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17h74c3478a856f71b4E",
+        "_ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17hb3a48d441e166368E",
+        "_ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17h4a12aaf00bc6eb91E"
+      ],
+      "local_control_symbols": [
+        "_ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17haea9280deb4d3192E",
+        "_ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17hb3a48d441e166368E",
+        "_ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17h4a12aaf00bc6eb91E"
+      ],
+      "local_composition_symbols": [
+        "_ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17haea9280deb4d3192E",
+        "_ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17hb3a48d441e166368E",
+        "_ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17h4a12aaf00bc6eb91E"
+      ]
+    },
+    "0x199b18": {
+      "bytes": 48,
+      "native_symbols": [
+        "_ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h3f746cf584c88d58E",
+        "_ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17hf09f119409077e23E",
+        "_ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17h3a9e8f4e899f047aE",
+        "_ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17h660bd7783ca09077E",
+        "_ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h12dcad81600c5d64E"
+      ],
+      "local_control_symbols": [
+        "_ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h53b179cc1d7f7e79E",
+        "_ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17hbcd50ba89bd92865E",
+        "_ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17hda853df0235f0a08E",
+        "_ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17he90b3dcfe1625903E",
+        "_ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h45d42afd53152014E"
+      ],
+      "local_composition_symbols": [
+        "_ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h53b179cc1d7f7e79E",
+        "_ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17hbcd50ba89bd92865E",
+        "_ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17hda853df0235f0a08E",
+        "_ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17he90b3dcfe1625903E",
+        "_ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17h45d42afd53152014E"
+      ]
+    }
+  },
+  "native_inputs": {
+    "SUMMARY.json": {
+      "sha256": "a31fdecb628ba606ca6ea771eaba58a24e40866d57ef5f24490a632ecbe24b98",
+      "bytes": 2757,
+      "git_blob": "d4204c21ca41559f5005c064eab9413916af9566"
+    },
+    "control-source.tar.gz": {
+      "sha256": "cc5fb408c05a976612319174ced1cd33d4d335773ddd0919b79b45e9c8475eb1",
+      "bytes": 116405,
+      "git_blob": "8a351742b3d73d52ce855f0a89613a768cb0aaf2"
+    },
+    "source-inputs.json": {
+      "sha256": "ce2c99f08af783493247e6c348d34999c5eadd374bf4e56835a0471189e9bb2a",
+      "bytes": 24646,
+      "git_blob": "0307c06d7d755fe185b314732930a1d9bf676ff5"
+    },
+    "control-score.json.gz": {
+      "sha256": "3b2d3ab46cebee99d3050514abf7c0fe89ab87d6f0cc8b66fdf93dab612007c9",
+      "bytes": 36209,
+      "git_blob": "737a922e6f2351a438e63f68825f39af6c5adb1d"
+    },
+    "raw-loss.json": {
+      "sha256": "dfab54395973bb7884944e784450496778185618158d05836285e1cf76ae9225",
+      "bytes": 1354,
+      "git_blob": "a8f0ba4a304210adf8968aea6c27fd9256d4e7c3"
+    },
+    "control-build.log.gz": {
+      "sha256": "8426a69e8fc242021cf325aeaed385b1bde71cd2aa179f9d546bdc1f9e67669c",
+      "bytes": 3677,
+      "git_blob": "2ca0b4c249580cdb713d8485fdef772739b2c5c9"
+    }
+  },
+  "scope": "Native scores and image hashes are attributed to PR1669, not independently replayed native evidence. Local compiler images are freshly rescored across all 1035 windows. Source equality does not isolate host, dependencies, Cargo identity, flags or toolchain. Local composition gains do not qualify native no-loss or whole-image identity."
+}

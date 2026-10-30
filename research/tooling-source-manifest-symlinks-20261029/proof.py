@@ -12,6 +12,11 @@ This packet makes the same contract available for the archived helper without
 editing it: the reviewed helper is loaded, its real-repository output is
 compared unchanged, and a strict wrapper refuses symlinked inputs or symlinked
 ancestors inside the repository.
+
+`manifest_sha256` records the source-manifest identity at seal time.
+`programs/pump` changes in independent reconstruction lanes, so the verifier
+compares the guard's claims and keeps that hash as provenance for the sealed
+revision instead of requiring live source bytes to match it forever.
 """
 from pathlib import Path
 import gzip
@@ -30,7 +35,13 @@ from source_manifest_guard import _plain, strict_manifest as production_strict  
 
 SOURCE = 'scripts/build_source_manifest.py'
 LF_SHA256 = '05eb3446b95c0b7b80517fe05a98a9841fa53053fe39ca56fe2659daf6b58df0'
+CLAIM_KEYS = ('scope', 'script', 'script_sha256', 'program', 'files', 'symlinks')
 sha = lambda data: hashlib.sha256(data).hexdigest()
+
+
+def claims(report):
+    """Return the observation fields this packet asserts about the guard."""
+    return {key: report[key] for key in CLAIM_KEYS}
 
 
 def _reviewed(root=REPO):

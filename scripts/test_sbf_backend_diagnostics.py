@@ -16,4 +16,7 @@ class BackendDiagnosticTests(unittest.TestCase):
   raw=gzip.compress(('\x1b[31m'+ERROR+'\x1b[0m\n').encode(),mtime=0);self.p.write_bytes(raw);before=self.p.read_bytes();r=inspect(self.p);self.assertEqual(r['backend_errors'][0]['kind'],'stack_offset_exceeded');self.assertEqual(r['input_sha256'],hashlib.sha256(raw).hexdigest());self.assertEqual(self.p.read_bytes(),before)
  def test_multiple_and_unknown_backend_errors_reject(self):
   self.p.write_text(ERROR+'\nError: other backend failure\n');r=check([self.p]);self.assertEqual(r['backend_error_count'],2);self.assertFalse(r['diagnostic_gate_passed']);self.assertFalse(r['compiler_or_strip_exit_codes_rewritten'])
+ def test_malformed_utf8_does_not_mask_backend_error(self):
+  self.p.write_bytes(b'\xffError: other backend failure\n')
+  with self.assertRaisesRegex(UnicodeDecodeError,'utf-8'):check([self.p])
 if __name__=='__main__':unittest.main()

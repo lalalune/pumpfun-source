@@ -1,10 +1,6 @@
 *.so binary
 *.bin binary
 
-# Captured application artifacts and published SDK sources are byte evidence.
-app/evidence/** -text
-app/packages/sdk/src/** -text
-
 # Root capture/upstream evidence must keep exact bytes. Without -text, Windows
 # core.autocrlf rewrites *.json/*.txt and breaks scripts/verify_evidence.py.
 evidence/** -text
@@ -1556,6 +1552,22 @@ repro/pump_amm/v2-mint-clone-recovery-20261028/results/** -whitespace
 
 repro/pump_amm/v2-mint-clone-recovery-20261028/followup/** -whitespace
 
+# Preserve exact source, compiler and signed-runtime evidence bytes.
+research/pump-multihop-token-quote-20261029/** -text -whitespace
+
+research/pump-multihop-sell-fees-20261029/** -text -whitespace
 # Reconstruction harness inputs, ledger and toolchain libraries must keep exact bytes.
 reconstruction/** -text
 *.rlib binary
+
+# Preserve retained tooling packets and their hash-bound archived sources exactly.
+research/tooling-legacy-capture-metadata-20261029/** -text
+research/tooling-roadmap-call-classification-20261029/** -text
+research/tooling-source-manifest-symlinks-20261029/** -text
+research/tooling-token-program-constant-detector-20261029/** -text
+scripts/verify_evidence.py -text
+scripts/reconstruction_roadmap.py -text
+scripts/build_source_manifest.py -text
+scripts/source_manifest_guard.py -text
+scripts/pump_build_verified.py -text
+scripts/bytecode_signatures.py -text

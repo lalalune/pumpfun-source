@@ -546,7 +546,7 @@ pub fn transfer_input<'info>(a: &MultiHopCurve<'info>, previous: Option<&Previou
         let buy = if *current_mint == h.quote_mint.key() { true } else if *current_mint == h.base_mint.key() { false } else { return err!(PumpError::MultiHopDiscontinuousPath) };
         let mint_key = h.base_mint.to_account_info().key; let seeds: &[&[&[u8]];1] = &[&[b"bonding-curve",mint_key.as_ref(),&[curve_bump]]];
         let c = &h.bonding_curve;
-        let fee_config_len = a.fee_config.to_account_info().data_len(); let cap = crate::buy_fee_market_cap(c,&h.base_mint)?;
+        let fee_config_len = AsRef::<AccountInfo>::as_ref(&*a.fee_config).data_len(); let cap = crate::buy_fee_market_cap(c,&h.base_mint)?;
         let trade_amount = if buy {
             crate::transfer_fee_recovered::post_fee_amount(&quote_fee,amount)?
         }else{amount};
@@ -587,7 +587,7 @@ pub fn transfer_input<'info>(a: &MultiHopCurve<'info>, previous: Option<&Previou
 
 
             let base = u64::try_from(crate::constant_product::tokens_for_quote(c,q)?).map_err(|_| error!(PumpError::Truncation))?;
-            require_gt!(base,0,PumpError::BuyZeroAmount);
+            if base == 0 { return Err(error!(PumpError::BuyZeroAmount).with_values((base,0))); }
 
             let (base_amount,quote_amount,pf,cf,post_out) = if base > c.real_token_reserves {
 
