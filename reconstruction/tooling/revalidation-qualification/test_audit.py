@@ -3,6 +3,7 @@
 
 import hashlib
 import importlib.util
+import inspect
 import json
 import os
 import signal
@@ -452,16 +453,73 @@ class AuditTests(unittest.TestCase):
             proc.communicate(timeout=1)
         self.assertTrue(timed_out, "frozen run_verify unexpectedly returned")
 
-    def test_frozen_failed_publication_leaves_partial_destination(self):
+    def test_frozen_existing_destination_is_refused_before_verifier(self):
+        marker = self.root / "verifier-ran"
+        self.packet(verifier=f"from pathlib import Path\nPath({str(marker)!r}).write_text('ran')\n")
         output = self.root / "old-audit"
-        self.packet(verifier=(
-            "from pathlib import Path\n"
-            f"Path({str(output / 'results.json')!r}).mkdir()\n"
-        ))
+        output.mkdir()
+        prior = {"results.json": b"sealed prior results\n", "README.md": b"prior\n"}
+        for name, raw in prior.items():
+            (output / name).write_bytes(raw)
         result = self.run_frozen(output)
         self.assertNotEqual(result.returncode, 0)
+        self.assertFalse(marker.exists())
+        self.assertEqual({path.name: path.read_bytes() for path in output.iterdir()}, prior)
+
+    def test_frozen_failed_packet_still_publishes_one_complete_report(self):
+        # The frozen runner stages its reports and publishes them with a single
+        # rename, and it reports each packet's verdict in results.json rather
+        # than through the exit status. A failing verifier therefore leaves a
+        # complete destination, never a partial one.
+        self.seal(self.packet(verifier="raise SystemExit(1)\n"))
+        output = self.root / "failed-audit"
+        result = self.run_frozen(output)
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        row = json.loads((output / "results.json").read_text())[0]
+        self.assertEqual((row["manifest_check"]["status"], row["verify_check"]["status"],
+                          row["overall"]), ("pass", "fail", "fail"))
+        self.assertEqual(sorted(path.name for path in output.iterdir()),
+                         ["README.md", "failed.json", "manifest.json", "passed.json",
+                          "results.json", "skipped.json", "summary.json", "verify.py"])
+
+
+    def test_late_empty_destination_survives_native_publication(self):
+        self.seal(self.packet(verifier="raise SystemExit(0)\n"))
+        output = self.root / "late-audit"
+        lines, first = inspect.getsourcelines(audit.audit)
+        line = next(first + i for i, text in enumerate(lines)
+                    if "rename" in text and "stage, output" in text)
+        injected = []
+        def trace(frame, event, argument):
+            if frame.f_code is audit.audit.__code__ and event == "line" and frame.f_lineno == line:
+                sys.settrace(None)
+                output.mkdir()
+                injected.append(True)
+            return trace
+        sys.settrace(trace)
+        try:
+            with self.assertRaises(FileExistsError):
+                audit.audit(self.root, output)
+        finally:
+            sys.settrace(None)
+        self.assertEqual(injected, [True])
         self.assertTrue(output.is_dir())
-        self.assertTrue((output / "results.json").is_dir())
+        self.assertEqual(list(output.iterdir()), [])
+        self.assertEqual(list(self.root.glob('.late-audit.staging-*')), [])
+
+    def test_changed_source_after_admission_is_not_relabelled(self):
+        self.seal(self.packet(verifier="raise SystemExit(0)\n"))
+        output = self.root / "changed-source-audit"
+        original = audit.load_frozen
+        def admit_then_change(repo):
+            loaded = original(repo)
+            source = repo / audit.FROZEN_SOURCE
+            source.write_bytes(source.read_bytes() + b'\n# later source writer\n')
+            return loaded
+        with mock.patch.object(audit, 'load_frozen', admit_then_change):
+            with self.assertRaisesRegex(ValueError, 'implementation changed'):
+                audit.audit(self.root, output)
+        self.assertFalse(output.exists())
 
 
 if __name__ == "__main__":

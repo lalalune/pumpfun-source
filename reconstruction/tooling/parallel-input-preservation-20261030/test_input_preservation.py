@@ -28,8 +28,10 @@ class ParallelInputPreservationTests(unittest.TestCase):
             output, Path('packet/result.json.gz.failed.json'),
             Path('packet/result.json.gz.suites/buy.log'),
             Path('packet/result.json.gz.suites/buy.json.gz'),
+            Path('packet/result.json.gz.suites/buy.failed-output'),
             Path('packet/result.json.gz.suites/quote_control.log'),
             Path('packet/result.json.gz.suites/quote_control.json.gz'),
+            Path('packet/result.json.gz.suites/quote_control.failed-output'),
         }
         captured = ordinary | {
             Path('packet/result.json.gz.suites/buy.loader.json'),
@@ -42,8 +44,9 @@ class ParallelInputPreservationTests(unittest.TestCase):
 
     def check_aliases(self, kind):
         # Check the aggregate, failure report, both logs, both compressed suite
-        # reports and both captured-loader receipts without mocking filesystem APIs.
-        for index in range(8):
+        # reports, both rejected-output sidecars and both captured-loader
+        # receipts without mocking filesystem APIs.
+        for index in range(10):
             with self.subTest(kind=kind, destination=index), tempfile.TemporaryDirectory() as temporary:
                 root = Path(temporary)
                 output = root / 'reports' / 'result.json.gz'

@@ -32,6 +32,7 @@ class BinaryCompositionTests(unittest.TestCase):
         shutil.copyfile(TOOL, self.tool)
         # integrate.py imports its sibling treediff module.
         shutil.copyfile(TOOL.with_name('treediff.py'), self.tool.with_name('treediff.py'))
+        shutil.copyfile(TOOL.with_name('source_inputs.py'), self.tool.with_name('source_inputs.py'))
 
     def crate(self, name, files):
         root = self.root / name

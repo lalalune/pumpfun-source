@@ -13,10 +13,10 @@ changes only the lifecycle around those checks:
 6. publish a complete, self-verified audit directory with one rename.
 
 The exact reviewed root source is pinned as SHA-256
-`3f8e5965ddbebb9ff5947061ceffc4f661d3fc53eea32dbc5352f190c2fbb1b1`.
-The adapter refuses to execute if those bytes change. This binding includes
-#2522's empty-manifest rejection and #2559's UTF-8/LF packet writes; the adapter
-already rejects empty manifests, and the writer change preserves audit content.
+`84594836782aeb5f535199a8a02cca364afcb61febf9e50be37cf7329bc28dc7`.
+The adapter refuses to execute if those bytes change. This binding includes the retained manifest formats, path admission, UTF-8/LF
+report writer, and atomic no-replace publication helper. The adapter executes
+the bytes it checked and binds its source receipt to that same digest.
 
 ## Reproduced defects
 
@@ -54,11 +54,17 @@ if an escaped descendant retains the inherited output descriptor. For a timed
 out verifier it terminates same-group descendants and retains the output tail,
 byte count, SHA-256, truncation flag, command, return code, and elapsed time.
 
-### Failed generation exposes a partial final directory
+### Complete publication preserves prior and late destinations
 
-The frozen CLI creates the requested final directory before verification. A
-synthetic verifier can create `results.json` as a directory; the later report
-write fails and leaves that partial final destination in place.
+The currently pinned root runner already stages complete reports, refuses an
+existing destination before running verifiers, and uses atomic no-replace
+publication. Failed packet checks still produce a complete report with failure
+rows. Older root revisions could leave a partial destination after failed
+report generation; the qualification no longer attributes that defect to this
+pinned revision.
+
+The adapter uses the same pinned native no-replace helper at final publication,
+including when another writer creates an empty destination after its precheck.
 
 The adapter:
 
@@ -117,10 +123,10 @@ budget. Tests use shorter explicit deadlines.
 - #1709 supplies the documented repository argument to four retained packets.
 - #1721 supports the two retained manifest formats.
 - #2088 provides a separate reviewed-source manifest-admission diagnostic.
-- Open #2223 adds manifest path containment to the frozen root checker.
+- The pinned root checker includes manifest path containment.
 
-This package deliberately does **not** duplicate #2223. It calls the pinned
-root `check_manifest()` unchanged. When that reviewed source changes, the pin
+This package delegates path and digest checks to the pinned
+root `check_manifest()` and adds duplicate-JSON-field rejection. When that reviewed source changes, the pin
 must be intentionally reviewed and updated before this adapter will run.
 
 ## Limits
@@ -133,9 +139,9 @@ must be intentionally reviewed and updated before this adapter will run.
   from the Python standard library, so descendant cleanup is weaker there.
 - Pre/post identities detect final packet mutation but do not eliminate races
   while a verifier is reading or writing files.
-- The sibling lock and final existence check protect ordinary single-host
-  writers. Atomic no-replace directory rename is not claimed against a hostile
-  concurrent filesystem actor on every platform.
+- The sibling lock coordinates adapter writers; the pinned native helper refuses
+  a late destination on supported platforms and fails closed where atomic
+  no-replace directory publication is unavailable.
 - Manifest consistency does not prove authorship, semantic correctness,
   original program equivalence, or cryptographic trust in the manifest author.
 - No on-chain program source, compiler input, candidate ELF, scorer, or frozen

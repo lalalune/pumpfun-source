@@ -86,7 +86,13 @@ def execute(binary, instruction, arg, mutation):
 
 
 
-p=argparse.ArgumentParser();p.add_argument('--candidate',type=pathlib.Path,required=True);p.add_argument('--source-directory',type=pathlib.Path,default=ROOT/'programs/pump');p.add_argument('--output',type=pathlib.Path,required=True);a=p.parse_args();report_output=PumpReport(a.output,ROOT,a.candidate,__file__,extra_inputs=(a.source_directory,));a.candidate=pin_program(a.candidate)
+p=argparse.ArgumentParser();p.add_argument('--candidate',type=pathlib.Path,required=True);p.add_argument('--source-directory',type=pathlib.Path,default=ROOT/'programs/pump');p.add_argument('--output',type=pathlib.Path,required=True);a=p.parse_args()
+report_roots = (ROOT/"evidence", a.source_directory)
+report_inputs = [report_roots[1]] + [path for folder in report_roots
+                 for path in folder.rglob("*") if path.is_file()]
+report_inputs.append(ROOT/"research/imported-lab/analysis/pump_fun/curve-fresh-trades-v3-signed-surfpool.json")
+report_output = PumpReport(a.output, ROOT, a.candidate, __file__, extra_inputs=report_inputs)
+a.candidate=pin_program(a.candidate)
 import gzip
 original=ROOT/'evidence/original/pump/deployed.so';mutations=['none','global_owner','global_discriminator','global_truncated','global_address','global_readonly','authority_readonly','authority_unsigned','authority_wrong','event_wrong','program_wrong','missing_event','missing_program','initialized_invalid','length_1087','length_1088'];specs=[]
 for name in ['update_global_authority','set_reserved_fee_recipients']:

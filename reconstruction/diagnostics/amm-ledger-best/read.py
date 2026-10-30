@@ -8,8 +8,31 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
-RANK_SOURCE = 'scripts/amm_sell/try_sell.py'
-REVIEWED_RANK = '2ee89cb5049617f764f9a92e1e0f2b672d32b6828d5037f7b07c59c75275bed8'
+RANK_SOURCE = 'scripts/amm_sell/sell_score.py'
+REVIEWED_RANK = '8ea31923d34a776e1034da79ebf7eee6145eb8469a079e098177b976f619ddf7'
+
+
+def _first_line(node):
+    """First physical line of a statement, including any decorators above it."""
+    decorators = [item.lineno for item in getattr(node, 'decorator_list', [])]
+    return min([node.lineno, *decorators])
+
+
+def module_bindings(node):
+    """Name writes in module control flow, excluding unexecuted function/class bodies."""
+    if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)):
+        yield node.name
+        return
+    if isinstance(node, (ast.Import, ast.ImportFrom)):
+        for alias in node.names:
+            yield alias.asname or alias.name.split('.')[0]
+        return
+    if isinstance(node, ast.ExceptHandler) and node.name:
+        yield node.name
+    if isinstance(node, ast.Name) and isinstance(node.ctx, (ast.Store, ast.Del)):
+        yield node.id
+    for child in ast.iter_child_nodes(node):
+        yield from module_bindings(child)
 
 
 def canonical_rank():
@@ -21,14 +44,44 @@ def canonical_rank():
     if len(functions) != 1 or not isinstance(functions[0], ast.FunctionDef):
         raise ValueError('expected one reviewed rank function')
     function = functions[0]
-    start = min([function.lineno, *[node.lineno for node in function.decorator_list]])
-    # Bind the entire signature/body (and any decorators), excluding unrelated
-    # module statements. Physical LF lines avoid Python-version AST differences.
-    reviewed = ('\n'.join(source.split('\n')[start - 1:function.end_lineno]) + '\n').encode('utf-8')
+    # rank reads module-level constants (SELL_SIZE), so they are part of the
+    # reviewed slice: a changed constant must not silently re-rank the ledger.
+    loaded = {node.id for node in ast.walk(function)
+              if isinstance(node, ast.Name) and isinstance(node.ctx, ast.Load)}
+    local = {node.id for node in ast.walk(function)
+             if isinstance(node, ast.Name) and isinstance(node.ctx, (ast.Store, ast.Del))}
+    local.update(arg.arg for arg in (*function.args.posonlyargs, *function.args.args,
+                                   *function.args.kwonlyargs))
+    if function.args.vararg:
+        local.add(function.args.vararg.arg)
+    if function.args.kwarg:
+        local.add(function.args.kwarg.arg)
+    dependencies = loaded - local
+    constants = [node for node in parsed.body
+                 if isinstance(node, ast.Assign) and len(node.targets) == 1
+                 and isinstance(node.targets[0], ast.Name) and node.targets[0].id in dependencies]
+    writes = list(module_bindings(parsed))
+    if ('*' in writes or len(constants) != len(dependencies)
+            or any(writes.count(name) != 1 for name in dependencies)):
+        raise ValueError('reviewed AMM rank function changed')
+    # Only literal dependency definitions are supported. Another global hidden
+    # inside an expression would otherwise escape this reviewed slice.
+    for constant in constants:
+        try:
+            ast.literal_eval(constant.value)
+        except (ValueError, TypeError):
+            raise ValueError('reviewed AMM rank function changed') from None
+    # Bind the entire signature/body (and any decorators) plus those constants,
+    # excluding unrelated module statements. Physical LF lines avoid
+    # Python-version AST differences.
+    lines = source.split('\n')
+    reviewed = b'\0'.join('\n'.join(lines[_first_line(node) - 1:node.end_lineno]).encode('utf-8')
+                          for node in [function, *sorted(constants, key=lambda node: node.lineno)])
     if hashlib.sha256(reviewed).hexdigest() != REVIEWED_RANK:
         raise ValueError('reviewed AMM rank function changed')
     namespace = {}
-    exec(compile(ast.Module(body=functions, type_ignores=[]), str(ROOT / RANK_SOURCE), 'exec'), namespace)
+    exec(compile(ast.Module(body=[*constants, function], type_ignores=[]),
+                 str(ROOT / RANK_SOURCE), 'exec'), namespace)
     return namespace['rank'], hashlib.sha256(raw).hexdigest()
 
 

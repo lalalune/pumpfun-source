@@ -12,15 +12,69 @@ from pathlib import Path
 import subprocess
 import sys
 import tempfile
+import tomllib
 import traceback
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'scripts'))
+sys.path.insert(0, str(ROOT / 'reconstruction/harness'))
+from build_process import run_compiler, validate_timeout
 from pump_diagnostic_audit import audit
 import pump_validate_all as base
 from pump_amm_reusable_harness import pin_program
+import build_source_manifest
+from source_manifest_guard import strict_manifest
 sha = base.sha
 protect_inputs = base.protect_inputs
+DEFAULT_SUITE_TIMEOUT = 1800.0
+PROCESS_RUNNER = Path(run_compiler.__code__.co_filename).resolve()
+
+
+def validate_build_sources(record, source_directory, candidate):
+    """Admit the existing manifest contract, including its sealed portable form."""
+    sources = record['source_sha256']
+    assert isinstance(sources, dict) and sources, 'source binding is empty'
+    crate = source_directory.resolve()
+    package = tomllib.loads((crate / 'Cargo.toml').read_text(encoding='utf-8'))
+    workspace = crate
+    binding = record.get('portable_source_binding')
+    if not binding and 'workspace' not in package:
+        for parent in crate.parents:
+            manifest = parent / 'Cargo.toml'
+            if manifest.is_file() and 'workspace' in tomllib.loads(manifest.read_text(encoding='utf-8')):
+                workspace = parent
+                break
+            if parent == ROOT:
+                break
+    expected = strict_manifest(crate, workspace, ROOT, cwd=workspace)
+    assert expected and any(path.endswith('.rs') for path in expected), 'source manifest has no Rust inputs'
+    assert all(sources.get(path) == digest for path, digest in expected.items()), 'source binding omits or changes compiler inputs'
+    inputs = [Path(strict_manifest.__code__.co_filename).resolve(),
+              Path(build_source_manifest.__file__).resolve()]
+    if binding:
+        # Authenticate exactly the portable binding already supported by the
+        # two-curve adapter; it is not permission to omit arbitrary inputs.
+        import verify_pump_main_checkpoint as checkpoint
+        packet = ROOT / checkpoint.PACKAGE
+        seal = packet / 'MANIFEST.json'
+        assert sha(seal) == checkpoint.MANIFEST_SHA256, 'portable source manifest seal differs'
+        manifest = json.loads(seal.read_text())
+        origin_path = packet / 'canonical-build.json'
+        checkpoint_path = packet / 'CHECKPOINT.json'
+        assert binding['kind'] == 'verified-equal-canonical-primary-source', 'portable source binding kind'
+        assert binding['origin_build_record'] == checkpoint.PACKAGE + '/canonical-build.json', 'portable source origin path'
+        assert sha(origin_path) == manifest['canonical-build.json'] == binding['origin_build_record_sha256'], 'portable source origin hash'
+        assert sha(checkpoint_path) == manifest['CHECKPOINT.json'], 'portable source checkpoint hash'
+        origin = json.loads(origin_path.read_text())
+        saved = json.loads(checkpoint_path.read_text())
+        assert type(origin['returncode']) is int and origin['returncode'] == 0 and origin['source_unchanged'] is True, 'portable source origin failed'
+        assert binding['original_compiled_source_sha256'] == origin['source_sha256'], 'portable original source binding'
+        assert record['comparison'] == origin['comparison'], 'portable source comparison differs'
+        assert sha(candidate) == saved['candidate_sha256'] == origin['comparison']['candidate_sha256'], 'portable source candidate differs'
+        primary = {'programs/pump/' + path: digest for path, digest in saved['primary_source_sha256'].items()}
+        assert crate == (ROOT / 'programs/pump').resolve() and sources == expected == primary, 'portable source scope differs'
+        inputs.extend([Path(checkpoint.__file__).resolve(), seal, origin_path, checkpoint_path])
+    return sources, inputs, (crate, workspace, expected)
 
 
 def report_destinations(output, suites, captured_loader, execute):
@@ -30,7 +84,7 @@ def report_destinations(output, suites, captured_loader, execute):
         paths.append(output.with_name(output.name + '.failed.json'))
         retained = output.parent / (output.name + '.suites')
         for name in suites:
-            paths.extend(retained / (name + suffix) for suffix in ('.log', '.json.gz'))
+            paths.extend(retained / (name + suffix) for suffix in ('.log', '.json.gz', '.failed-output'))
             if captured_loader:
                 paths.append(retained / (name + '.loader.json'))
     return paths
@@ -63,6 +117,7 @@ def validate_result(name, result, candidate, original):
     if name == 'quote_control':
         count = base.validate_quote_control(result, candidate, original)
     elif name == 'multi_hop_curve_partial':
+        assert type(result['passed']) is type(result['case_count']) is int
         assert result['candidate_sha256'] == sha(candidate)
         assert result['original_pump_sha256'] == sha(original)
         assert result['passed'] == result['case_count'] == len(result['cases']) == 56
@@ -93,7 +148,11 @@ def validate_loader_receipt(name, path, script, candidate, original, inputs):
     expected_inputs = {str(p): sha(p) for p in [*inputs, script]}
     assert loaded['input_sha256'] == expected_inputs, (name, 'loader inputs differ')
     assert {row['elf_sha256'] for row in loaded['loads']} == {sha(candidate), sha(original)}, name
-    assert all(row['program_bytes'] == 36 and row['program_owner'] == 'BPFLoaderUpgradeab1e11111111111111111111111' and row['programdata_bytes'] == 10485760 and row['elf_prefix_unchanged'] and row['zero_allocation_tail'] for row in loaded['loads']), name
+    assert all(type(row['program_bytes']) is int and row['program_bytes'] == 36
+               and row['program_owner'] == 'BPFLoaderUpgradeab1e11111111111111111111111'
+               and type(row['programdata_bytes']) is int and row['programdata_bytes'] == 10485760
+               and row['elf_prefix_unchanged'] is True and row['zero_allocation_tail'] is True
+               for row in loaded['loads']), name
     return {'path': base.bound_input_key(path, ROOT), 'sha256': sha(path),
             'load_count': len(loaded['loads'])}
 
@@ -105,11 +164,17 @@ def main():
     parser.add_argument('--build-comparison', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--workers', type=int, choices=range(1, 5), default=2)
+    parser.add_argument('--suite-timeout', type=float, default=DEFAULT_SUITE_TIMEOUT,
+                        help='execution deadline per suite in seconds (default: 1800)')
     parser.add_argument('--validate-existing', type=Path)
     parser.add_argument('--captured-loader', action='store_true')
     parser.add_argument('--shard', type=int, default=1)
     parser.add_argument('--shards', type=int, choices=range(1, 5), default=1)
     args = parser.parse_args()
+    try:
+        validate_timeout(args.suite_timeout)
+    except ValueError:
+        parser.error('--suite-timeout must be a positive finite number of seconds')
     assert 1 <= args.shard <= args.shards
     buckets = [[] for _ in range(args.shards)]
     loads = [0] * args.shards
@@ -125,15 +190,16 @@ def main():
     candidate = pin_program(candidate_input)
     original = ROOT / 'evidence/original/pump/deployed.so'
     record = json.loads(args.build_comparison.read_text())
-    assert record['returncode'] == 0 and record['source_unchanged']
+    assert type(record['returncode']) is int and record['returncode'] == 0 and record['source_unchanged'] is True
     assert record['comparison']['candidate_sha256'] == sha(candidate)
-    sources = record['source_sha256']
+    sources, source_binding_inputs, admitted_source = validate_build_sources(record, args.source_directory, candidate)
     assert all(sha(ROOT / k) == v for k, v in sources.items())
-    bound_files = {str(p): sha(p) for p in [candidate, original, Path(__file__), Path(base.__file__), ROOT / 'scripts/pump_diagnostic_audit.py', args.build_comparison]}
+    bound_files = {str(p): sha(p) for p in [candidate, original, Path(__file__), Path(base.__file__), PROCESS_RUNNER, ROOT / 'scripts/pump_diagnostic_audit.py', args.build_comparison]}
     loader_wrapper = ROOT / 'scripts/pump_with_captured_loader.py'
     loader_inputs = [loader_wrapper, loader_wrapper.with_name('pump_captured_loader.py'), ROOT / 'evidence/original/pump/capture.json', ROOT / 'evidence/original/pump/program-account.bin', ROOT / 'evidence/original/pump/programdata-account.bin', original]
     if args.captured_loader:
         bound_files.update({str(p): sha(p) for p in loader_inputs})
+    bound_files.update({str(path): sha(path) for path in source_binding_inputs})
     loader_receipts = {}
     scripts = {name: ROOT / filename if filename.startswith(('repro/', 'research/')) else ROOT / 'scripts' / filename for name, filename in selected_suites}
     if record.get('portable_source_binding') and 'tokenkeg_two_curve' in scripts:
@@ -151,11 +217,16 @@ def main():
         protected.append(args.validate_existing)
         if args.captured_loader:
             protected.extend(ROOT / row['path'] for row in previous['loader_receipts'].values())
-    protect_inputs(report_destinations(args.output, scripts, args.captured_loader,
-                                      not args.validate_existing), protected)
+    destinations = report_destinations(args.output, scripts, args.captured_loader,
+                                       not args.validate_existing)
+    if any(path.resolve().is_relative_to(args.source_directory) for path in destinations):
+        raise ValueError('validation output is inside the source directory')
+    protect_inputs(destinations, protected)
     retained.mkdir(parents=True, exist_ok=True)
 
     def check_bound_files():
+        crate, workspace, expected = admitted_source
+        assert strict_manifest(crate, workspace, ROOT, cwd=workspace) == expected, 'compiler source inventory changed during execution'
         assert all(sha(Path(p)) == digest for p, digest in bound_files.items())
         assert all(sha(ROOT / k) == v for k, v in sources.items())
         assert all(sha(scripts[name]) == digest for name, digest in script_hashes.items())
@@ -175,20 +246,30 @@ def main():
                 command += ['--build-report', str(args.build_comparison)]
                 if '--source-directory' not in command:
                     command += ['--source-directory', str(args.source_directory.resolve())]
-            completed = subprocess.run(command, cwd=ROOT, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
-            (retained / (name + '.log')).write_text(completed.stdout)
-            if completed.returncode and output.is_file():
-                raw = output.read_bytes()
+            completed, timed_out = run_compiler(command, cwd=ROOT, timeout=args.suite_timeout)
+            (retained / (name + '.log')).write_text(completed.stdout, encoding='utf-8')
+
+            def retain_rejected(raw, reason):
                 rejected = retained / (name + '.failed-output')
                 rejected.write_bytes(raw)
                 failed_suite_outputs[name] = {
                     'path': base.bound_input_key(rejected, ROOT),
                     'sha256': sha(rejected), 'bytes': len(raw),
                     'returncode': completed.returncode,
+                    'timed_out': timed_out, 'reason': reason,
                 }
+
+            if (completed.returncode or timed_out) and output.is_file():
+                retain_rejected(output.read_bytes(), 'suite execution failed')
+            if timed_out:
+                raise subprocess.TimeoutExpired(command, args.suite_timeout, output=completed.stdout)
             completed.check_returncode()
             raw = output.read_bytes()
-            result = json.loads(gzip.decompress(raw) if raw.startswith(b'\x1f\x8b') else raw)
+            try:
+                result = json.loads(gzip.decompress(raw) if raw.startswith(b'\x1f\x8b') else raw)
+            except (ValueError, OSError, EOFError) as error:
+                retain_rejected(raw, repr(error))
+                raise
         (retained / (name + '.json.gz')).write_bytes(gzip.compress(json.dumps(result, separators=(',', ':')).encode(), mtime=0))
         count = validate_result(name, result, candidate, original)
         if args.captured_loader:
@@ -258,6 +339,7 @@ def main():
               'source_directory': str(args.source_directory.resolve()),
               'script_sha256': {str(scripts[name].relative_to(ROOT)): digest for name, digest in script_hashes.items()},
               'workers': 0 if args.validate_existing else args.workers,
+              'suite_timeout_seconds': args.suite_timeout,
               'shard': args.shard, 'shards': args.shards, 'suite_schedule': [name for name, _ in selected_suites],
               'loader_profile': 'captured-upgradeable' if args.captured_loader else 'legacy-raw',
               'loader_receipts': loader_receipts,

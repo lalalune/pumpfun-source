@@ -10,7 +10,7 @@ import tempfile
 import unittest
 
 SCRIPT = Path(__file__).resolve().parent / 'disassemble.py'
-NAMES = ('pump', 'pump_amm', 'pump_fees', 'mayhem')
+NAMES = ('pump', 'pump_amm', 'pump_fees', 'mayhem', 'donation_relay')
 
 class DisassembleToolBindingTests(unittest.TestCase):
     def run_fixture(self, mutation=''):
@@ -19,9 +19,11 @@ class DisassembleToolBindingTests(unittest.TestCase):
         root = Path(temporary.name)
         scripts = root/'scripts';scripts.mkdir()
         (scripts/'disassemble.py').write_bytes(SCRIPT.read_bytes())
-        (scripts/'analyze.py').write_text('def program_names(): return '+repr(list(NAMES))+'\n')
+        (scripts/'analyze.py').write_text('def program_names(): return '+repr(list(NAMES))+'\n' +
+            "def capture_directory(root,name): return root/'evidence'/('dependencies' if name=='donation_relay' else 'original')/name\n")
         for name in NAMES:
-            binary=root/f'evidence/original/{name}/deployed.so';binary.parent.mkdir(parents=True)
+            group='dependencies' if name=='donation_relay' else 'original'
+            binary=root/f'evidence/{group}/{name}/deployed.so';binary.parent.mkdir(parents=True)
             binary.write_bytes(('original-'+name).encode())
         tool=root/'objdump';out=root/'asm'
         code='#!'+sys.executable+'\nimport pathlib,sys\n'

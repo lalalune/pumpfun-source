@@ -47,7 +47,9 @@ EXPECTED_CASES['legacy_cashback'] = 14
 def validate_two_curve(result, candidate_sha, original_sha):
     assert result['candidate_sha256'] == candidate_sha
     assert result['provenance']['repository_inputs']['evidence/original/pump/deployed.so'] == original_sha
-    assert result['inputs_unchanged']
+    assert result['inputs_unchanged'] is True
+    for key in ('case_count', 'original_successes', 'original_pump_cpi_cases', 'verified_outer_signatures'):
+        assert type(result[key]) is int, f'{key} must be an integer'
     assert result['case_count'] == len(result['cases']) == 20
     assert result['original_successes'] == 16 and result['original_pump_cpi_cases'] == 18
     assert result['verified_outer_signatures'] == 40
@@ -59,6 +61,7 @@ def retained_case_count(result):
     cases = result.get('cases')
     assert isinstance(cases, list), 'a retained cases array is required'
     count = result.get('case_count', len(cases))
+    assert type(count) is int, 'case_count must be an integer'
     assert count == len(cases), ('case_count differs from retained cases', count, len(cases))
     return count
 
@@ -83,9 +86,28 @@ def validate_quote_control(result, candidate, original):
     assert bound[bound_input_key(candidate, ROOT)] == sha(candidate)
     assert bound[bound_input_key(original, ROOT)] == sha(original)
     count = result['cases']
+    assert type(count) is int, 'cases must be an integer'
+    assert isinstance(result['results'], list), 'results must be a list'
     assert count == len(result['results'])
-    assert all(row['matches'] and not row['different_fields'] for row in result['results'])
+    assert result['compare_keys'] == list(QUOTE_CONTROL_COMPARE_KEYS), 'comparison fields differ'
+    identities = set()
+    for row in result['results']:
+        identity = row.get('case')
+        assert isinstance(identity, str) and identity, 'case identity missing'
+        assert identity not in identities, f'duplicate quote-control case: {identity}'
+        identities.add(identity)
+        assert row['matches'] is True and row['different_fields'] == []
+        assert all(isinstance(row.get(side), dict) for side in ('original', 'candidate'))
+        assert all(key in row['original'] and key in row['candidate'] and
+                   row['original'][key] == row['candidate'][key]
+                   for key in QUOTE_CONTROL_COMPARE_KEYS), f'{identity}: retained comparison contradicts success'
     return count
+
+
+QUOTE_CONTROL_COMPARE_KEYS = ('error', 'before_accounts', 'after_accounts', 'rollback',
+                             'event_payloads', 'inner_instructions', 'return_data',
+                             'transaction_base64', 'signature_verification', 'blockhash',
+                             'sigverify_enabled', 'blockhash_check_enabled')
 
 
 CASE_DIFFERENCE_FIELDS = ('different_fields', 'diff', 'differences', 'mismatched_fields')
@@ -104,6 +126,23 @@ def validate_case_results(result):
             assert row['match'] is True, f'case {index}: match is not true'
         for name in fields:
             assert row[name] == [], f'case {index}: {name} is not an empty difference list'
+
+
+def publish_file(staged, output):
+    """Publish without replacement; return whether staging was consumed.
+
+    Rename on Windows, link elsewhere.
+
+    Windows sandboxes refuse hard links (WinError 5). The sibling staging
+    directory is on the same filesystem. Windows rename refuses an existing
+    destination; reporting whether it consumed the file preserves ownership
+    when cleaning up the staging directory.
+    """
+    if os.name == "nt":
+        os.rename(staged, output)
+        return True
+    os.link(staged, output)
+    return False
 
 
 def main():
@@ -134,7 +173,8 @@ def main():
             raise FileExistsError(destination)
     from deep_disassembly import rename_directory, temporary_sibling
     retained_staging = report_directory = None
-    published_retained = preserve_recovery = False
+    published_retained = preserve_recovery = report_consumed = report_published = False
+    report_identity = None
     try:
         retained_staging = temporary_sibling(retained, 'staging')
         report_directory = temporary_sibling(args.output, 'staging')
@@ -158,6 +198,7 @@ def main():
                 if name == 'quote_control':
                     count = validate_quote_control(result, candidate, original)
                 elif name == 'multi_hop_curve_partial':
+                    assert type(result['passed']) is type(result['case_count']) is int
                     assert result['candidate_sha256'] == candidate_sha
                     assert result['original_pump_sha256'] == original_sha
                     assert result['passed'] == result['case_count'] == 56
@@ -193,10 +234,13 @@ def main():
         raw = (json.dumps(report, separators=(',', ':')) + '\n').encode()
         report_staging.write_bytes(
             gzip.compress(raw, mtime=0) if args.output.suffix == '.gz' else raw)
+        report_stat = report_staging.stat()
+        report_identity = (report_stat.st_dev, report_stat.st_ino)
         rename_directory(retained_staging, retained)
         published_retained = True
         try:
-            os.link(report_staging, args.output)
+            report_consumed = publish_file(report_staging, args.output)
+            report_published = True
         except BaseException as error:
             # The complete suite directory is already public. A late writer
             # may have added files: retain it and the complete report for
@@ -208,7 +252,21 @@ def main():
         if retained_staging is not None and not published_retained:
             shutil.rmtree(retained_staging, ignore_errors=True)
         if report_directory is not None and not preserve_recovery:
-            shutil.rmtree(report_directory, ignore_errors=True)
+            if report_published:
+                if not report_consumed:
+                    try:
+                        current = report_staging.stat()
+                        if (current.st_dev, current.st_ino) == report_identity:
+                            report_staging.unlink()
+                    except FileNotFoundError:
+                        pass
+                # Do not recursively remove paths a later writer now owns.
+                try:
+                    report_directory.rmdir()
+                except OSError:
+                    pass
+            else:
+                shutil.rmtree(report_directory, ignore_errors=True)
     print(json.dumps({'cases': report['case_count'], 'diagnostic_log_cases': diagnostics['log_bearing_cases'], 'mismatches': len(report['mismatches'])}))
     return bool(report['mismatches'])
 

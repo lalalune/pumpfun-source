@@ -32,7 +32,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[3]
 VERSION = "pump-revalidation-qualification-v1"
 FROZEN_SOURCE = "scripts/revalidate_all.py"
-FROZEN_SHA256 = "3f8e5965ddbebb9ff5947061ceffc4f661d3fc53eea32dbc5352f190c2fbb1b1"
+FROZEN_SHA256 = "4f1d184a9e910dbcdad5d8574851837909caac57c189d270dadab9d8aeb644ec"
 REPORT_MEMBERS = (
     "README.md",
     "failed.json",
@@ -598,7 +598,7 @@ def audit(repo, output, timeout_seconds=60.0, cleanup_seconds=1.0):
     adapter_path = Path(__file__).resolve()
     control_inputs = {
         "adapter_sha256": sha256_file(adapter_path),
-        "reviewed_source_sha256": sha256_file(repo / FROZEN_SOURCE),
+        "reviewed_source_sha256": FROZEN_SHA256,
     }
     output = output_preflight(output)
     research = repo / "research"
@@ -699,7 +699,7 @@ def audit(repo, output, timeout_seconds=60.0, cleanup_seconds=1.0):
         verify_stage(stage)
         if output.exists() or output.is_symlink():
             raise FileExistsError("output appeared during audit; preserve it: " + str(output))
-        os.rename(stage, output)
+        frozen.standalone_rename_directory(stage, output)
         stage = None
         return summary
     finally:

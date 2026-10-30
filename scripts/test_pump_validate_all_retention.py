@@ -62,6 +62,7 @@ class PumpValidateAllRetentionTests(unittest.TestCase):
                     runner.bound_input_key(original, runner.ROOT): sha(original),
                 },
                 'cases': count,
+                'compare_keys': list(runner.QUOTE_CONTROL_COMPARE_KEYS),
                 'results': [],
             }
         if name == 'multi_hop_curve_partial':
