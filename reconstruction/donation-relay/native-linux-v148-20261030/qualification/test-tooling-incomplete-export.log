@@ -1,0 +1,35 @@
+.......................................................................................................................................................................EE
+======================================================================
+ERROR: test_default_baseline_reports_a_lost_window (__main__.WindowScorerBaselineTests.test_default_baseline_reports_a_lost_window)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 1926, in test_default_baseline_reports_a_lost_window
+    scorer = load_window_scorer()
+             ^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 1913, in load_window_scorer
+    spec.loader.exec_module(module)
+  File "<frozen importlib._bootstrap_external>", line 999, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/workspace/pump-relay-native-reproduction/reconstruction/harness/score.py", line 17, in <module>
+    from original_input import resolve_original
+ModuleNotFoundError: No module named 'original_input'
+
+======================================================================
+ERROR: test_missing_baseline_is_an_error (__main__.WindowScorerBaselineTests.test_missing_baseline_is_an_error)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 1937, in test_missing_baseline_is_an_error
+    scorer = load_window_scorer()
+             ^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/pump-relay-native-reproduction/scripts/test_tooling.py", line 1913, in load_window_scorer
+    spec.loader.exec_module(module)
+  File "<frozen importlib._bootstrap_external>", line 999, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/workspace/pump-relay-native-reproduction/reconstruction/harness/score.py", line 17, in <module>
+    from original_input import resolve_original
+ModuleNotFoundError: No module named 'original_input'
+
+----------------------------------------------------------------------
+Ran 169 tests in 45.318s
+
+FAILED (errors=2)
