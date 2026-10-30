@@ -17,17 +17,17 @@ and source line count are preserved. No build-input changes.
 
 | Identity build measurement | Fresh main | Candidate |
 | --- | ---: | ---: |
-| Target sequence similarity | 0.62403 | 0.62912 |
-| Aligned normalized instruction tokens | 2,083 | 2,100 |
+| Target sequence similarity | 0.62403 | 0.63062 |
+| Aligned normalized instruction tokens | 2,083 | 2,105 |
 | Handler bytes | 27,400 | 27,400 |
 | Positional differing slots | 3,325 | 3,260 |
 | Raw / normalized exact windows | 1,034 / 1,034 | 1,034 / 1,034 |
 | Raw / normalized losses | 0 / 0 | 0 / 0 |
 | Internal / syscall calls | 154 / 3 | 154 / 3 |
 
-This is an seventeen-token partial similarity gain, not a new complete-window match.
+This is an twenty-two-token partial similarity gain, not a new complete-window match.
 The positional difference count improves by 65. Measurements replace the earlier
-0.62552, 0.62732 and 0.62852 candidates. The changes are assessed as a compiled composition; no
+0.62552, 0.62732, 0.62852 and 0.62912 candidates. The changes are assessed as a compiled composition; no
 arithmetic additivity or individual-gene acceptance is assumed.
 
 All 363 signed synthetic runtime cases match the captured original with genuine
@@ -40,9 +40,9 @@ SHA-256:
 - Fresh-main unstripped:
   `946b912b999620b45cf02d7976de52c8f1b116f747aae5d86af0a97898c8da17`
 - Candidate unstripped:
-  `0261d1bfa9d9252be57521df512c1b50d2e5e4c631d2da79b9bb4a7e93796d23`
+  `3d28a04fefa4f622cac4019fa3b9b4a42eacd73d55a1a9c0297f1f95cab7221e`
 - Candidate runtime image:
-  `aa185f932cda0a6edad3b87cf8ad77ddc8cab910de84f407b4a1a446b867eeb0`
+  `31602ac50ae8f015c2fcbb5848a44df9791953da05f4549e4454d359c70a281f`
 
 Reproduce with the pinned SDK/cache and identity recipe:
 
@@ -56,9 +56,9 @@ python3 scripts/pump_admin_cto_differential.py --candidate <candidate>/candidate
 The source extends merged #3066 and retains #3131's associated-program copy,
 #3028/#3049's current transfer account ordering, control flow and event readback.
 
-The separately measured composition with #3152 is 0.62403 -> 0.63122,
-2,083 -> 2,107 aligned tokens, 27,400 bytes, 3,257 positional differences,
+The separately measured composition with #3152 is 0.62403 -> 0.63271,
+2,083 -> 2,112 aligned tokens, 27,400 bytes, 3,257 positional differences,
 1,034 raw/normalized exact windows, empty losses and 363/0 runtime. Two ordinary
-builds reproduce unstripped `91ef726130ab81560858f3bb9d897d4834f7aa80a66c61b0980e87510a0ea20d`
-and runtime `1985b7b66ef72c8cf6c7c320546fa148c25d6b00fc48049a7eaf3ccad282b3ff`.
+builds reproduce unstripped `956bccc592d596d30adf1c6f5a468b10d5c5344407638af07dfe13dd2cb487a0`
+and runtime `50ec0d7165c1afcc87fe1c8d0189b4b9b37a07341d70116074beb24cb2cd16f7`.
 Public PR descriptions record actual Git composition and overlapping open PRs.
