@@ -1,0 +1,49 @@
+{
+  "lane": "w12a02-cto-iroracle",
+  "wave": 12,
+  "target": {"window": "0x22a10", "function": "admin_cto::execute", "file": "programs/pump/src/creator/admin_cto.rs", "pinned_bytes": 27400},
+  "angle": "llc IR oracle master: capture post-opt IR, prove llc reproduces the build, edit IR to rank which differences from the original are worth the most",
+  "bases": {"20a1ae9c0": {"ratio": 0.43919, "slots_diff": 3352}, "b5975fa67": {"ratio": 0.45147, "slots_diff": 3308}, "70f27048e": {"ratio": 0.45177}},
+  "landed": false,
+  "prs": [{"number": 2772, "state": "merged (notes v1/v2)"}, {"number": 2828, "state": "draft (notes v3/v4)"}],
+  "oracle": {
+    "reproduction": "trimmed 3 MB module (trim.py + trim2.py); ctoracle.py cmp: tokens equal on 20a1ae9c0, b5975fa67 and sibling t23",
+    "tools": ["scripts/capture.py", "scripts/trim.py", "scripts/trim2.py", "scripts/ctoracle.py", "scripts/iredit.py", "scripts/greedy.py", "scripts/framebound.py", "scripts/regionmap.py", "scripts/pfboard.py"],
+    "decomposition_b5975fa": {"ratio": 0.45147, "heuristic_frame_remap_score": 0.58119, "abs_ratio": 0.66597}
+  },
+  "ranked_features_b5975fa_27400": [
+    {"rank": 1, "edit": "mv:_114.i (wallet emit_cpi signer slice out of the inlined region)", "ratio": 0.4967, "gain": 0.04523},
+    {"rank": 2, "edit": "+ nolt one 24 B validate/wallet buffer (proxy for the original's unmerged 7/9 piece pair)", "ratio": 0.50899, "gain": 0.01229},
+    {"rank": 3, "edit": "+ mv:val6 below old_creator", "ratio": 0.51618, "gain": 0.00719},
+    {"rank": 4, "edit": "+ mv:sharing_update.sroa.3", "ratio": 0.51648, "gain": 0.0003},
+    {"rank": "C1", "edit": "inv:bb11.i (validate holder test successors; 289 before 298)", "pf_gain": 0.0114, "ratio_gain_alone": 0.0018},
+    {"rank": "C2", "edit": "bw:bb1.i:2000:1 on F1+C1 (validate block frequencies)", "pf_ratio": 0.61174, "pf_gain": 0.0192},
+    {"rank": "C3", "edit": "any single branch weight elsewhere (pf objective)", "pf_gain_max": 0.003}
+  ],
+  "on_sibling_t23": {"base": 0.48449, "F1": 0.51026, "F1_buffer_val6": 0.52614, "plus_C1": 0.52718, "bytes": 27392},
+  "best_zero_loss_measurement": {"ratio": 0.45147, "slots_diff": 3308, "bytes": 27400, "note": "no source change of this lane improved main; best measurement is main b5975fa67 itself"},
+  "source_trials": [
+    {"key": "0x22a10-w12-20a1ae9-iroracle-state-block-nested-fn-v1", "result": "0.37845 at 27896 B: deep frame equals the original's pair A / pair B / E32 order, code regresses"},
+    {"key": "0x22a10-w12-b5975fa-iroracle-state-nested-fn-v1", "result": "0.3871 at 27808 B, pf 0.54259"},
+    {"key": "0x22a10-w12-b5975fa-iroracle-state-move-closure-v1", "result": "0.20254 at 28184 B"}
+  ],
+  "rejected_mechanisms": [
+    "branch weights as a layout lever once the frame is factored out (<= +0.003 pf)",
+    "dropping lifetime markers of validate's target pieces alone (frees _124.i and lets the 0 B _11.i to_string alloca merge: whole frame top shifts 8 B, 0.32)",
+    "forcing an H24 host slot in IR without keeping _11.i unmerged (0.268)",
+    "ending val.sroa.6.i's lifetime at its last use (re-pairs the 24 B groups, 0.435)",
+    "CtoState/validate block as nested fn or move closure (frame right, code worse)"
+  ],
+  "unresolved_residuals": [
+    "_114.i (wallet emit_cpi signer slice) needs the original's 24 B target[8..32) host slot above holder_key (8/24 target split)",
+    "+80 B after val.sroa.6.i: the original's unmerged 7/9 pieces of the inner and outer sharing/target values and a 32 B target",
+    "validate block frequencies: holder/new tests are trunc (50/50) in the original, icmp (62.5/37.5) in ours",
+    "CPI AccountInfo clone runs at orig 0x41f0 (193 unmatched tokens with a perfect frame): register allocation keeps the accounts pointer in r6 where the original reloads it from a spill slot",
+    "validate error chain 326/312/307 (orig 0x10b8, 160-190 unmatched tokens)"
+  ],
+  "next_ideas": [
+    "use pfboard.py to pick bases: a build with a higher pf is closer in code even when its frame hides it",
+    "apply the frame features (F1, 24 B unmerged piece, val6) on any new leading candidate with iredit.py before spending a build",
+    "find a source form whose validation join splits target 8/24 (framemir's layout probe: Pubkey at offset 16 of the Ok payload) while keeping the code shape of main"
+  ]
+}

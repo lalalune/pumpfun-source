@@ -126,23 +126,41 @@ still unmatched with a perfect frame, i.e. the code (not frame) gap per region.
 The validate error chain (0x850..0x1938, ~420 tokens) and the CPI AccountInfo clone runs
 (0x41f0, 193) hold the largest code-level (non-frame) mass.
 
-### Perfect-frame leaderboard of the swarm's builds (scripts/pfboard.py, 06:06 local)
+### Heuristic frame-remap leaderboard of the swarm's builds (scripts/pfboard.py, refreshed 06:20 local)
 
-`pf` ranks builds by code closeness with the frame factored out, so a build whose frame is still off
-but whose code is closer shows up here even when its plain ratio does not.
+`pf` is the heuristic frame-remap score (see the review boundary below): a build whose frame is still
+off but whose remaining code aligns better scores higher here even when its plain ratio does not.
+It is a ranking aid for choosing experiments, not a measurement of an emitted build.
 
 | pf | ratio | bytes | build |
 | ---: | ---: | ---: | --- |
+| **0.60877** | 0.48510 | 27,424 | w12a07-cto-sweepthread t/cb_skip_vsig |
+| 0.59946 | 0.48562 | 27,400 | w12a04-cto-k4size t/M3.p_seeds_nested |
+| 0.59876 | 0.40863 | 26,992 | w12a10-cto-optoracle t/v2 |
 | 0.59835 | 0.43631 | 27,312 | w12a08-cto-errorder t/k02 (= w12b10-cto-handler t/n6_keys_byval) |
-| 0.59566 | 0.48449 | 27,392 | w12a11-cto-sibling t/t23 |
-| 0.59545 | 0.48487 | 27,384 | w12a09-cto-cleanroom t/t03_fm_holderphi (= sibling t31, callgraph c2) |
-| 0.59517 | 0.41569 | 27,016 | w12a06-cto-relocs t/x1 |
-| 0.59479 | 0.48398 | 27,416 | w12a11-cto-sibling t/t24 |
-| 0.59374 | 0.48524 | 27,376 | w12a07-cto-sweepthread t/cb_oldbump |
-| 0.58478 | 0.45237 | 27,400 | w12b12-cto-cpi t/m2_seedsnested |
+| 0.59676 | 0.48562 | 27,400 | w12a04-cto-k4size t/Z.evfl_sue_fur |
+| 0.59655 | 0.48569 | 27,392 | w12a11-cto-sibling t/t32 |
+| 0.59527 | **0.48652** | 27,400 | w12b13-cto-callgraph t/d1 (best plain ratio at the pinned size) |
 | 0.58149 | 0.45177 | 27,400 | main 70f27048e (k4size-2) |
 | 0.58119 | 0.45147 | 27,400 | main b5975fa67 |
 | 0.54852 | 0.43538 | 27,152 | w12a06-cto-relocs t/w1 (original lddw/to_string set, but code further away) |
+
+### Probabilities and the register-allocation residual
+
+- Emulating the original's BPI in IR (1:1 weights on validate's holder tests bb6.i/bb11.i, new-tag
+  tests bb19.i/bb20.i and the mayhem test) on F1 lowers the heuristic frame-remap score pf (0.5677..0.5798 vs 0.58209) and moves the
+  size (27,224..27,416 B); only the validate error region gains (+17..19 tokens). The original's
+  probabilities come with its `and 1` instruction forms and per-arm fee threading; weights alone do
+  not reproduce it.
+- The CPI AccountInfo clone runs (orig 0x4180..0x4a00) are register allocation: the original reloads
+  the accounts pointer from a spill slot (`ldxdw r1,[r10-0x8d8]`) before each clone group, ours keeps
+  it in r6; the load offsets are the same sequence. No local IR edit near them changes that, but
+  block-frequency edits inside validate do (`global_quote.exit` 1:2000: +42 tokens there, +30 in the
+  native sweep, -38 in the sweep body; `inv:bb47.i`: +31). The clone-run residual is coupled to
+  validate's block frequencies through spill weights.
+- Re-creating the original's deep pieces directly (validate's target pieces unmerged, outer target
+  pieces and `target1` moved after them, `_11.i294` kept unmerged) on top of F1 gives 0.459..0.466:
+  without the matching code the exact deep order is worth less than the greedy frame edits.
 
 Frame reading (agrees with w12a01-cto-frame's slot map): the original has two 7+9 B Option<Pubkey>
 piece pairs and a 32 B Pubkey slot right after val.sroa.6.i (inlined region end), then `_184`…
