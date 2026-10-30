@@ -16,6 +16,10 @@ jobs:
       max-parallel: 12
       matrix:
         include:
+          - suite: composition-patch-bytes
+            commands: |
+              python -B reconstruction/harness/test_integrate_failures.py
+              python -I -B tests/test_integrate_patch_bytes.py
           - suite: pump-claim-v2-account-boundaries
             commands: |
               python -I -B research/pump-claim-v2-account-boundaries/verify.py
@@ -327,6 +331,7 @@ jobs:
             commands: |
               python scripts/verify_evidence.py
               python scripts/test_tooling.py
+              python -B reconstruction/harness/test_score_inputs.py
               python scripts/test_build_source_manifest.py
               python scripts/test_core_linux_v144_retention.py
               python repro/pump_fees/initializer-inline-runtime/verify.py

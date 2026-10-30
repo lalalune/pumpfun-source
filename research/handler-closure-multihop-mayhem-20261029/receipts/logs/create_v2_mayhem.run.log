@@ -1,0 +1,41 @@
+{"case": "mayhem-base", "original_error": null, "candidate_error": null, "mismatches": []}
+{"case": "mayhem-duration-7", "original_error": null, "candidate_error": null, "mismatches": []}
+{"case": "mayhem-name-32", "original_error": null, "candidate_error": null, "mismatches": []}
+{"case": "mayhem-quote-whitelisted", "original_error": null, "candidate_error": null, "mismatches": []}
+{"case": "mayhem-quote-wsol", "original_error": null, "candidate_error": null, "mismatches": []}
+{"case": "mayhem-quote-unlisted-no-control", "original_error": "TransactionErrorInstructionError((1, Tagged(InstructionErrorCustom(6063))))", "candidate_error": "TransactionErrorInstructionError((1, Tagged(InstructionErrorCustom(6063))))", "mismatches": []}
+{"case": "mayhem-quote-configured-unlisted", "original_error": "TransactionErrorInstructionError((1, Tagged(InstructionErrorCustom(6071))))", "candidate_error": "TransactionErrorInstructionError((1, Tagged(InstructionErrorCustom(6071))))", "mismatches": []}
+{"case": "mayhem-quote-unsupported-mint", "original_error": "TransactionErrorInstructionError((1, Tagged(InstructionErrorCustom(6063))))", "candidate_error": "TransactionErrorInstructionError((1, Tagged(InstructionErrorCustom(6063))))", "mismatches": []}
+{"case": "mayhem-holder-enabled", "original_error": null, "candidate_error": null, "mismatches": []}
+{"case": "mayhem-holder-disabled", "original_error": "TransactionErrorInstructionError((1, Tagged(InstructionErrorCustom(6084))))", "candidate_error": "TransactionErrorInstructionError((1, Tagged(InstructionErrorCustom(6084))))", "mismatches": []}
+{"case": "mayhem-cashback-deprecated", "original_error": "TransactionErrorInstructionError((1, Tagged(InstructionErrorCustom(6082))))", "candidate_error": "TransactionErrorInstructionError((1, Tagged(InstructionErrorCustom(6082))))", "mismatches": []}
+{"case": "mayhem-optional-fee-301", "original_error": null, "candidate_error": null, "mismatches": []}
+{"case": "mayhem-zero-creator", "original_error": "TransactionErrorInstructionError((1, Tagged(InstructionErrorCustom(6030))))", "candidate_error": "TransactionErrorInstructionError((1, Tagged(InstructionErrorCustom(6030))))", "mismatches": []}
+{"case": "mayhem-mode-disabled", "original_error": "TransactionErrorInstructionError((1, Tagged(InstructionErrorCustom(6048))))", "candidate_error": "TransactionErrorInstructionError((1, Tagged(InstructionErrorCustom(6048))))", "mismatches": []}
+{"case": "create-v2-disabled", "original_error": "TransactionErrorInstructionError((1, Tagged(InstructionErrorCustom(6046))))", "candidate_error": "TransactionErrorInstructionError((1, Tagged(InstructionErrorCustom(6046))))", "mismatches": []}
+{"case": "wrong-mayhem-program", "original_error": "TransactionErrorInstructionError((1, Tagged(InstructionErrorCustom(2012))))", "candidate_error": "TransactionErrorInstructionError((1, Tagged(InstructionErrorCustom(2012))))", "mismatches": []}
+{"case": "wrong-global-params", "original_error": "TransactionErrorInstructionError((1, Tagged(InstructionErrorCustom(2006))))", "candidate_error": "TransactionErrorInstructionError((1, Tagged(InstructionErrorCustom(2006))))", "mismatches": []}
+{"case": "wrong-sol-vault", "original_error": "TransactionErrorInstructionError((1, Tagged(InstructionErrorCustom(2006))))", "candidate_error": "TransactionErrorInstructionError((1, Tagged(InstructionErrorCustom(2006))))", "mismatches": []}
+{"case": "wrong-mayhem-state", "original_error": "TransactionErrorInstructionError((1, Tagged(InstructionErrorCustom(2006))))", "candidate_error": "TransactionErrorInstructionError((1, Tagged(InstructionErrorCustom(2006))))", "mismatches": []}
+{"case": "wrong-mint-authority", "original_error": "TransactionErrorInstructionError((1, Tagged(InstructionErrorCustom(2006))))", "candidate_error": "TransactionErrorInstructionError((1, Tagged(InstructionErrorCustom(2006))))", "mismatches": []}
+{"case": "readonly-mayhem-state", "original_error": "TransactionErrorInstructionError((1, Tagged(InstructionErrorCustom(2000))))", "candidate_error": "TransactionErrorInstructionError((1, Tagged(InstructionErrorCustom(2000))))", "mismatches": []}
+{"case": "readonly-mayhem-token-vault", "original_error": "TransactionErrorInstructionError((1, Tagged(InstructionErrorCustom(2000))))", "candidate_error": "TransactionErrorInstructionError((1, Tagged(InstructionErrorCustom(2000))))", "mismatches": []}
+{"case": "readonly-sol-vault", "original_error": "TransactionErrorInstructionError((1, Tagged(InstructionErrorCustom(2000))))", "candidate_error": "TransactionErrorInstructionError((1, Tagged(InstructionErrorCustom(2000))))", "mismatches": []}
+{"case": "mayhem-token-vault-bogus", "original_error": "TransactionErrorInstructionError((1, Fieldless(MissingAccount)))", "candidate_error": "TransactionErrorInstructionError((1, Fieldless(MissingAccount)))", "mismatches": []}
+{"case": "mayhem-state-preexisting", "original_error": "TransactionErrorInstructionError((1, Tagged(InstructionErrorCustom(0))))", "candidate_error": "TransactionErrorInstructionError((1, Tagged(InstructionErrorCustom(0))))", "mismatches": []}
+{"case": "missing-accounts-15", "original_error": "TransactionErrorInstructionError((1, Tagged(InstructionErrorCustom(3005))))", "candidate_error": "TransactionErrorInstructionError((1, Tagged(InstructionErrorCustom(3005))))", "mismatches": []}
+{"case": "missing-accounts-13", "original_error": "TransactionErrorInstructionError((1, Tagged(InstructionErrorCustom(3005))))", "candidate_error": "TransactionErrorInstructionError((1, Tagged(InstructionErrorCustom(3005))))", "mismatches": []}
+{"case": "name-33", "original_error": "TransactionErrorInstructionError((1, Tagged(InstructionErrorCustom(6043))))", "candidate_error": "TransactionErrorInstructionError((1, Tagged(InstructionErrorCustom(6043))))", "mismatches": []}
+{
+  "scope": "Bounded pump create_v2 Mayhem-mode differential with a fixed captured Mayhem.\n\nExtends the retained create_v2 coverage with its unresolved Mayhem mode: the\nreal pump `create_v2` Mayhem branch, which internally `invoke_signed`s into the\ncaptured Mayhem program's `initialize_mayhem_state` using pump's off-curve\n[\"mint-authority\"] PDA as the signer. One valid transaction exercises BOTH the\npump create_v2 Mayhem branch AND the genuine pump->mayhem CPI. The Mayhem\nexecutable is the captured ORIGINAL on both sides: the only variable under test\nis the Pump ELF (captured original vs candidate). No Mayhem source work, no\ninitializer reconstruction, no synthetic signer or oracle fake.\n\nMayhem preconditions are honest: mayhem `global_params` is created by sending\nmayhem's own `initialize_global_params` (ordinary admin signature); the pump\nglobal is seeded from the captured config snapshot with the create_v2 /\nmayhem-mode / holder toggles and the quote whitelist slot patched per case.\n\nNew bounded dimensions beyond `scripts/pump_create_mayhem_differential.py`:\n  - Mayhem + whitelisted quote-mint creation (line-758 whitelist admission),\n    Mayhem + WSOL quote (native normalization), unlisted quote rejections\n    (with and without a quote-control record) and the unsupported quote mint;\n  - Mayhem account boundaries (wrong program id, wrong PDA bindings, readonly\n    and bogus token vaults, pre-existing mayhem_state, missing accounts);\n  - holder-reward and deprecated-cashback option boundaries in Mayhem mode.\n",
+  "mode": "original-versus-candidate; captured Mayhem ELF fixed on both sides",
+  "original_pump_sha256": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
+  "candidate_pump_sha256": "d0377d7cef5b7378063f8bfabac5dc9c08d29eeaaaaa14022d36909688ff5e1b",
+  "original_mayhem_sha256": "a87fa9f866272514e6acb852b668c4a08aeb173d56c883039991d114d1199bdb",
+  "script_sha256": "17ad28a3a1ab7fa599696f5e2ab1cd84844ecad9f3ba1fb0adc9100198d0f717",
+  "python_version": "3.13.12 (main, Feb  4 2026, 15:06:39) [GCC 15.2.0]",
+  "case_count": 28,
+  "original_successes": 7,
+  "verified_outer_signatures": 112,
+  "mismatches": []
+}
