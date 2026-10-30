@@ -1,0 +1,21 @@
+{
+ "candidate": "recon-local/nine-swap-57/unstripped.so",
+ "rounds": 4,
+ "normalized_matched": 1033,
+ "bisimilar_matched": 1033,
+ "hidden_call_target_mismatch": [],
+ "pinned_targets": [
+  {
+   "window": "0x22a10",
+   "cand": "0x22a10",
+   "name": "admin_cto::execute",
+   "aligned_body_equal_but_wrong_callee": []
+  },
+  {
+   "window": "0x5b3b0",
+   "cand": "0x5b3b0",
+   "name": "multi_hop_curve::swap_hop",
+   "aligned_body_equal_but_wrong_callee": []
+  }
+ ]
+}
