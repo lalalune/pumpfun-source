@@ -105,7 +105,12 @@ def retain(build):
             if (build / name).is_file():
                 (EVIDENCE / (name + '.gz')).write_bytes(gzip.compress((build / name).read_bytes(), mtime=0))
         if (build / 'source').is_dir():
-            with tarfile.open(EVIDENCE / 'compiled-source.tar.gz', 'w:gz') as archive:
+            # Pin the gzip header mtime: the archive is hashed into the
+            # manifest, and a wall-clock header made identical inputs hash
+            # differently per run.
+            with open(EVIDENCE / 'compiled-source.tar.gz', 'wb') as raw_archive, tarfile.open(
+                    fileobj=gzip.GzipFile(filename='', fileobj=raw_archive, mode='wb', mtime=0),
+                    mode='w') as archive:
                 for path in sorted((build / 'source').rglob('*')):
                     if path.is_file():
                         archive.add(path, arcname=path.relative_to(build / 'source'), recursive=False)

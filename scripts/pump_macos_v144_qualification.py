@@ -22,7 +22,9 @@ def run(name,args,env=None):
     with (EVIDENCE/'commands.jsonl').open('a')as f:f.write(json.dumps(row)+'\n')
     p.check_returncode()
 def archive(destination,source):
-    with tarfile.open(destination,'w:gz')as t:
+    # Pin the gzip header mtime: the archives are hashed into MANIFEST.json,
+    # and a wall-clock header made identical inputs hash differently per run.
+    with open(destination,'wb')as raw,tarfile.open(fileobj=gzip.GzipFile(filename='',fileobj=raw,mode='wb',mtime=0),mode='w')as t:
         for p in sorted(source.rglob('*')):
             if p.is_file():t.add(p,arcname=p.relative_to(source))
 def retain(build,label):
