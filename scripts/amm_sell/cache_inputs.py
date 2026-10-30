@@ -26,7 +26,14 @@ def tree(root):
             raise RuntimeError('cache input directory link escapes or cycles: ' + str(directory))
         for path in sorted(directory.iterdir()):
             relative = path.relative_to(root).as_posix()
-            if path.is_dir():
+            if path.is_symlink():
+                if not path.resolve().is_relative_to(root):
+                    raise RuntimeError('cache input link escapes: ' + str(path))
+                # The vendor SDK includes intentional dangling debugger links.
+                # Preserve their spelling; real internal targets are inventoried
+                # at their ordinary tree paths, without traversing aliases.
+                result[relative] = {'symlink': os.readlink(path)}
+            elif path.is_dir():
                 visit(path, ancestors | {real})
             elif path.is_file() and path.resolve().is_relative_to(root):
                 result[relative] = {'sha256': sha(path), 'mode': path.stat().st_mode & 0o777}
