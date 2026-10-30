@@ -316,7 +316,15 @@ export class VideoDraftSession {
     )
       return;
     this.cancelPending();
+    if (this.disposed || this.state.preview !== preview) return;
     this.publish({ selected: index });
+    // A synchronous observer may clear/dispose or choose another cover.
+    if (
+      this.disposed ||
+      this.state.preview !== preview ||
+      this.state.selected !== index
+    )
+      return;
     this.selected({
       video: preview.file,
       cover: preview.covers[index].file,
