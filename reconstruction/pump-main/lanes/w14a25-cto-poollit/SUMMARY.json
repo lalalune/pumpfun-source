@@ -1,0 +1,21 @@
+{
+  "lane": "w14a25-cto-poollit",
+  "target": "0x22a10 admin_cto::execute",
+  "bases": {"1b0ae7021": {"ratio": 0.63661, "slots": 3173}, "7e6aa9caa": {"ratio": 0.6414, "slots": 3174}},
+  "best": {"ratio": 0.6414, "slots": 3174, "bytes": 27400, "note": "no candidate above main; call-preserving spellings are byte-identical to main"},
+  "attempts": 20,
+  "ledger": "approach poollit, keys 0x22a10-w14-{1b0ae70,7e6aa9c}-poollit-*",
+  "finding": "Pool CPI (8 clones) and collect emit_cpi authority clone are outlined <AccountInfo as Clone>::clone calls in the original, in main's order and with main's frame slots. Inline AccountInfo literals remove calls (154 -> 152/153) and lose 0.01-0.34. Every call-preserving spelling is byte-identical. AdminCtoPool field reorder loses. event_signers / bump-array / event_inner declaration positions in the collect emit_cpi all lose or are neutral.",
+  "rejected": ["pool literal (prog, pool)", "pool field order", "collect authority_info literal", "event_signers position x4", "bump array binding x2", "event_inner outside invoke block", "authority_bump before clone"],
+  "byte_identical": ["(*a.X).clone()", "a.X.as_ref().clone()", "AccountInfo::clone(..)", "ToAccountInfo::to_account_info(&..)", "event_authority .clone()/a. binding"],
+  "residuals": {
+    "pool_cpi": "55/59 raw; accounts ptr reloaded from [r10-0x8d8] (orig) vs kept in r6 (ours); holder arg from phi slot [r10-0x950] vs curve reload r8; pool_updated r8 vs r6",
+    "collect_emit_cpi": "sk 84/84, raw 66; orig temp class r9 (ours r7/r8) because orig keeps wallet coin flag in r8 across the collect region; bump/len spill 0x918/0x920 vs 0x940/0x948; bump byte/event_signers slot swap 0x548/0x680 vs 0x658/0x540",
+    "largest_tail_raw_deficits": "error tails -28, sweep native arm -27 (extra Result join + 0x968 phi slot), curve update -25, AdminCtoEvent build -18 (frame)"
+  },
+  "next_ideas": [
+    "wallet coin flag in r8 across collect region (w14a03 territory) would fix the collect emit_cpi r9 class",
+    "sweep native arm Result join shape (ensure_rent_exempt/transfer_native) is the biggest structural tail deficit",
+    "pool-CPI accounts-pointer reload needs the curve update to use a scratch register (r3), i.e. a shorter accounts-pointer live range across the curve stores"
+  ]
+}
