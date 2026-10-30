@@ -5,6 +5,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 import gzip
 import importlib.util
 import json
+import os
 from pathlib import Path
 import subprocess
 import sys
@@ -16,6 +17,29 @@ sys.path.insert(0, str(ROOT / 'scripts'))
 from pump_diagnostic_audit import audit
 import pump_validate_all as base
 sha = base.sha
+
+
+def publish_report(path, payload):
+    """Atomically replace a report, gzip-compressing only .gz destinations."""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    encoded = gzip.compress(payload, mtime=0) if path.suffix == '.gz' else payload
+    temporary = None
+    try:
+        with tempfile.NamedTemporaryFile(
+                dir=path.parent, prefix='.' + path.name + '.',
+                suffix='.tmp', delete=False) as stream:
+            temporary = Path(stream.name)
+            stream.write(encoded)
+            stream.flush()
+            os.fsync(stream.fileno())
+        os.replace(temporary, path)
+    except BaseException:
+        if temporary is not None:
+            try:
+                temporary.unlink(missing_ok=True)
+            except OSError:
+                pass
+        raise
 
 
 def validate_result(name, result, candidate, original):
@@ -158,7 +182,16 @@ def main():
                 suites[name], counts[name] = result, count
                 print(json.dumps({'completed': name, 'cases': count, 'suite_count': len(suites)}), flush=True)
             if errors:
-                args.output.with_name(args.output.name + '.failed.json').write_text(json.dumps({'complete': False, 'candidate_sha256': sha(candidate), 'completed_suites': list(suites), 'errors': errors, 'bound_files_sha256': bound_files}, indent=2) + '\n')
+                failure = {
+                    'complete': False,
+                    'candidate_sha256': sha(candidate),
+                    'completed_suites': list(suites),
+                    'errors': errors,
+                    'bound_files_sha256': bound_files,
+                }
+                publish_report(
+                    args.output.with_name(args.output.name + '.failed.json'),
+                    (json.dumps(failure, indent=2) + '\n').encode())
                 raise RuntimeError('suite failure; completed receipts and logs retained')
     check_bound_files()
     assert len(suites) == len(selected_suites) and sum(counts.values()) == loads[args.shard - 1]
@@ -176,7 +209,9 @@ def main():
               'validation_only_source_sha256': sha(args.validate_existing) if args.validate_existing else None,
               'case_count': sum(counts.values()), 'diagnostics': diagnostics,
               'mismatches': diagnostics['mismatches'], 'suites': suites}
-    args.output.write_bytes(gzip.compress(json.dumps(report, separators=(',', ':')).encode(), mtime=0))
+    publish_report(
+        args.output,
+        json.dumps(report, separators=(',', ':')).encode())
     print(json.dumps({'case_count': report['case_count'], 'suites': len(suites), 'diagnostic_log_cases': diagnostics['log_bearing_cases'], 'diagnostic_mismatches': len(diagnostics['mismatches'])}))
     return bool(diagnostics['mismatches'])
 

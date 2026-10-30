@@ -1,0 +1,97 @@
+{
+  "source_base": "4d4911e",
+  "target": "0x83c00",
+  "build_note": "Pinned v1.44 with diagnostic --emit=link,llvm-ir; no byte patches or scorer changes. Diagnostic unstripped hashes are not normal-build identity claims. Control stripped hash equals retained runtime candidate.",
+  "control_stripped_sha256": "726d56ed8ea76d20cf1466de6c3387325a6d99739e366ea1970a6174bb5f79f7",
+  "trials": [
+    {
+      "trial": "buy-error-exhaustive-return",
+      "bytes": 3456,
+      "ratio": 0.9669,
+      "calls": 22,
+      "diagnostic_unstripped_sha256": "77eb6bdc18647381a5cd574046f5fc78b20417faa63cce885bb70599ed36568d",
+      "stripped_sha256": "726d56ed8ea76d20cf1466de6c3387325a6d99739e366ea1970a6174bb5f79f7",
+      "stripped_identical_to_retained": true,
+      "stack_warnings": [],
+      "score": {
+        "normalized": 1020,
+        "raw": 188,
+        "total": 1035,
+        "gains": [],
+        "losses": [],
+        "raw_gains": [],
+        "raw_losses": []
+      },
+      "ordered_callee_signatures_equal": true,
+      "callee_multiset_equal": true,
+      "status": "rejected"
+    },
+    {
+      "trial": "buy-error-variant-projection",
+      "bytes": 3448,
+      "ratio": 0.92781,
+      "calls": 22,
+      "diagnostic_unstripped_sha256": "c27c46f1f2ccfbb633e4f19542cca40345d517c3c186996364d43b4da85a3121",
+      "stripped_sha256": "a97d21468906c83dd670c6e8389a8d76cc8846cb65ca5bbed61b6099dc58efbf",
+      "stripped_identical_to_retained": false,
+      "stack_warnings": [],
+      "score": {
+        "normalized": 1020,
+        "raw": 188,
+        "total": 1035,
+        "gains": [],
+        "losses": [],
+        "raw_gains": [],
+        "raw_losses": []
+      },
+      "ordered_callee_signatures_equal": false,
+      "callee_multiset_equal": true,
+      "status": "rejected"
+    },
+    {
+      "trial": "buy-error-result-adapter",
+      "bytes": 3456,
+      "ratio": 0.9669,
+      "calls": 22,
+      "diagnostic_unstripped_sha256": "77eb6bdc18647381a5cd574046f5fc78b20417faa63cce885bb70599ed36568d",
+      "stripped_sha256": "726d56ed8ea76d20cf1466de6c3387325a6d99739e366ea1970a6174bb5f79f7",
+      "stripped_identical_to_retained": true,
+      "stack_warnings": [],
+      "score": {
+        "normalized": 1020,
+        "raw": 188,
+        "total": 1035,
+        "gains": [],
+        "losses": [],
+        "raw_gains": [],
+        "raw_losses": []
+      },
+      "ordered_callee_signatures_equal": true,
+      "callee_multiset_equal": true,
+      "status": "rejected"
+    },
+    {
+      "trial": "buy-error-borrowed-result",
+      "bytes": 3512,
+      "ratio": 0.83705,
+      "calls": 23,
+      "diagnostic_unstripped_sha256": "8dc5b30bd82ffe4a27857105f1f533519e15b9ee5b9ce29a8e72b1441ca267c7",
+      "stripped_sha256": "bdb72b1cc5d520dc354009cc30cce8d0b574db1d1a53bc23b5356f8a4bc1db20",
+      "stripped_identical_to_retained": false,
+      "stack_warnings": [],
+      "score": {
+        "normalized": 1020,
+        "raw": 188,
+        "total": 1035,
+        "gains": [],
+        "losses": [],
+        "raw_gains": [],
+        "raw_losses": []
+      },
+      "ordered_callee_signatures_equal": false,
+      "callee_multiset_equal": false,
+      "status": "rejected"
+    }
+  ],
+  "outcome": "No improvement; restored qualified source exactly; no runtime execution of rejected trials."
+}

@@ -13,7 +13,7 @@ def known_instruction_names(name):
     path = ROOT / 'evidence/upstream' / f'{name}.json'
     if not path.is_file():
         return ()
-    data = json.loads(path.read_text())
+    data = json.loads(path.read_text(encoding='utf-8'))
     names = {
         ''.join(part[:1].upper() + part[1:] for part in item['name'].split('_'))
         for item in data.get('instructions', [])
@@ -22,16 +22,29 @@ def known_instruction_names(name):
     return tuple(sorted(names, key=len, reverse=True))
 
 
-def program_names():
+def program_names(root=ROOT):
     """Use the archived mapping when present, otherwise the captured programs."""
-    path = ROOT / 'repro/programs.json'
+    path = root / 'repro/programs.json'
     if path.is_file():
         return json.loads(path.read_text())
     order = ('pump', 'pump_amm', 'pump_fees', 'mayhem')
     return [
         name for name in order
-        if (ROOT / 'evidence/original' / name / 'deployed.so').is_file()
+        if (root / 'evidence/original' / name / 'deployed.so').is_file()
     ]
+
+
+def program_addresses():
+    """Map program names to addresses from the archive or each capture."""
+    path = ROOT / 'repro/programs.json'
+    if path.is_file():
+        return json.loads(path.read_text())
+    return {
+        name: json.loads(
+            (ROOT / 'evidence/original' / name / 'capture.json').read_text()
+        )['program']
+        for name in program_names()
+    }
 
 
 def instruction_log_names(b, known=()):
@@ -43,13 +56,15 @@ def instruction_log_names(b, known=()):
     an IDL keep the original alphanumeric fallback.
     """
     names = set()
+    fallback_pattern = re.compile(rb'[A-Z][A-Za-z0-9]*')
     for match in re.finditer(rb'Instruction: ', b):
-        rest = b[match.end():]
-        exact = next((name for name in known if rest.startswith(name.encode())), None)
+        # Match in place: a suffix slice copies the remaining ELF/allocation.
+        offset = match.end()
+        exact = next((name for name in known if b.startswith(name.encode(), offset)), None)
         if exact is not None:
             names.add(exact)
             continue
-        fallback = re.match(rb'[A-Z][A-Za-z0-9]*', rest)
+        fallback = fallback_pattern.match(b, offset)
         if fallback:
             name = fallback.group().decode()
             if name.endswith('Instruction') and name != 'Instruction':
@@ -92,7 +107,7 @@ def analyze():
     (ROOT/'evidence/binary-analysis.json').write_text(json.dumps(out,indent=2)+'\n')
     inventory={}
     for f in (ROOT/'evidence/upstream').glob('pump*.json'):
-        d=json.loads(f.read_text()); addresses={}
+        d=json.loads(f.read_text(encoding='utf-8')); addresses={}
         def walk(accounts,ix):
             for a in accounts:
                 if 'address' in a: addresses.setdefault(a['address'],[]).append({'instruction':ix,'account':a['name']})
