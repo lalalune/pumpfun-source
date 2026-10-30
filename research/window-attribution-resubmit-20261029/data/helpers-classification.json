@@ -1,0 +1,36 @@
+{
+  "snapshot": "pre-#1191 qualification candidate (Pump unstripped 0f50faa8..., AMM 86dbc2c6...)",
+  "method": "repository window metric (scripts/window_measure.py) against the candidate symbol build; per-window instruction multiset and opcode comparison",
+  "classification": "intra-body error-block duplication/sharing plus register allocation; not pure block ordering, not sub-function decomposition",
+  "windows": [
+    {
+      "target": "0x80df8",
+      "symbol": "trade::v3_buy_costs",
+      "deployed_bytes": 2120,
+      "candidate_bytes": 2056,
+      "delta": -64,
+      "tuples_equal": true,
+      "tuples": [["programs/pump/src/trade_v3.rs", 371, 6024], ["programs/pump/src/trade_v3.rs", 375, 6024]],
+      "normalized_multiset_only_deployed": 48,
+      "normalized_multiset_only_candidate": 40,
+      "opcodes_only_deployed": ["ja", "call", "ldxdw", "stxw", "stxdw x4"],
+      "opcodes_only_candidate": [],
+      "stack_offset_symmetric_difference": 2
+    },
+    {
+      "target": "0x83c00",
+      "symbol": "trade::v3_execute_buy",
+      "deployed_bytes": 3440,
+      "candidate_bytes": 3408,
+      "delta": -32,
+      "tuples_equal": true,
+      "tuples": [["programs/pump/src/trade_v3.rs", 691, 6024]],
+      "normalized_multiset_only_deployed": 107,
+      "normalized_multiset_only_candidate": 103,
+      "opcodes_only_deployed": ["ldxdw x3", "mov64"],
+      "opcodes_only_candidate": [],
+      "stack_offset_symmetric_difference": 13
+    }
+  ],
+  "call_graph_note": "0x147ba0 calls 0x80df8 and 0x1489f8 calls 0x83c00; call immediates are masked by the metric, so caller cascades are not proven"
+}

@@ -25,6 +25,7 @@ import argparse
 import hashlib
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -68,11 +69,26 @@ def check_sdk(mode):
 
 def check_linux_libs(root):
     expected = {}
-    for line in MANIFEST.read_text().splitlines():
-        digest, rel = line.split(maxsplit=1)
+    for number, line in enumerate(MANIFEST.read_text(encoding='utf-8').splitlines(), 1):
+        match = re.fullmatch(r'([0-9a-f]{64})\s+(sbpf-solana-solana/lib/[A-Za-z0-9_-]+\.rlib)', line)
+        if not match:
+            return [f'invalid manifest line {number}']
+        digest, rel = match.groups()
+        if rel in expected:
+            return [f'duplicate manifest path: {rel}']
         expected[rel] = digest
+    if not expected:
+        return ['empty library manifest']
     base = root / 'rust/lib/rustlib'
-    return [rel for rel, digest in expected.items() if not (base / rel).is_file() or sha(base / rel) != digest]
+    library = base / 'sbpf-solana-solana/lib'
+    if any(path.is_symlink() for path in (base, base / 'sbpf-solana-solana', library)):
+        return ['target library directory is a symlink']
+    problems = [rel for rel, digest in expected.items()
+                if (base / rel).is_symlink() or not (base / rel).is_file() or sha(base / rel) != digest]
+    actual = {path.relative_to(base).as_posix() for path in library.rglob('*')
+              if path.is_file() or path.is_symlink()}
+    problems.extend(f'unexpected library input: {rel}' for rel in sorted(actual - expected.keys()))
+    return problems
 
 
 def hybrid_ok():

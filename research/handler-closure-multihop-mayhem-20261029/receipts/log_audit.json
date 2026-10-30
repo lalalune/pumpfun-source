@@ -1,0 +1,408 @@
+{
+  "scope": "Post-process saved receipts with the repository's own log audits.\n\n1) `scripts/pump_diagnostic_audit.py`'s audit(): the bounded diagnostic oracle\n   used by pump_validate_all (panics, AnchorError codes, compared values).\n2) A strict ordered-log comparison that drops ONLY complete runtime\n   compute-meter lines (same rule as the strict-ordered-log policy), retaining\n   every other ordered line including Source coordinates.\n\nUsage: python3 audit_logs.py <output.json> <receipt.json.gz> [<label>=<path> ...]\n",
+  "inputs": {
+    "multi_hop_cu14": "work-handlers/packet/receipts/multi_hop_three_curve_cu14.json.gz",
+    "multi_hop_default200k": "work-handlers/packet/receipts/multi_hop_three_curve_default200k.json.gz",
+    "create_v2_mayhem_mode": "work-handlers/packet/receipts/create_v2_mayhem_mode.json.gz"
+  },
+  "diagnostic_audit": {
+    "coverage": {
+      "multi_hop_cu14": 50,
+      "multi_hop_default200k": 50,
+      "create_v2_mayhem_mode": 28
+    },
+    "log_bearing_cases": 128,
+    "mismatches": [
+      {
+        "path": "multi_hop_default200k/cases/9",
+        "case": "three-buy-final-slippage",
+        "original": {
+          "panic": [],
+          "anchor": [],
+          "compared": [],
+          "origins": []
+        },
+        "candidate": {
+          "panic": [],
+          "anchor": [
+            [
+              "ExceededSlippage",
+              "6004",
+              "ExceededSlippage."
+            ]
+          ],
+          "compared": [
+            [
+              "Left",
+              "32002976264793"
+            ],
+            [
+              "Right",
+              "18446744073709551615"
+            ]
+          ],
+          "origins": [
+            [
+              "source"
+            ]
+          ]
+        },
+        "original_logs": [
+          "Program pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA invoke [1]",
+          "Program log: Instruction: MultiHopSwap",
+          "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P invoke [2]",
+          "Program log: Instruction: MultiHopCurveSwap",
+          "Program 11111111111111111111111111111111 invoke [3]",
+          "Program 11111111111111111111111111111111 success",
+          "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P invoke [3]",
+          "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P consumed 2682 of 64220 compute units",
+          "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P success",
+          "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [3]",
+          "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 205 of 60012 compute units",
+          "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success",
+          "Program data: vdt/007mYe6qugcsoXMttk6hVWvvVohGXSy/XiiQGAQa3DK07SArK9gxCzsAAAAAExe4gzEfAAABujthHiiCwbaqSyrj7HjqBzbjrZkjg1NFAXFQekufFbXSApZJAAAAABBLLzcHAAAA7S6FiLGwAwAQnws7AAAAAO2WcjwgsgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABfAAAAAAAAACiYjwAAAAAAukTf33A7hKvH+gJ45ShMyrCA51tMLiZS0FTgeuwAU8kAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADgAAAG11bHRpX2hvcF9zd2FwAAAAAAAAAAAAAAAAAAAAAACIEwAAAAAAABTMRwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA2DELOwAAAAAQSy83BwAAABCfCzsAAAAAAAAAAAAAAAAAAAAAAAAAAFQAAAAAAAAAAAAAAAAAAAA=",
+          "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P invoke [3]",
+          "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P consumed 2170 of 52735 compute units",
+          "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P success",
+          "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [3]",
+          "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 105 of 29010 compute units",
+          "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success",
+          "Program data: vdt/007mYe5UVFRUVFRUVFRUVFRUVFRUVFRUVFRUVFRUVFRUVFRUVAAAAAAAAAAAnDqTtigeAAABujthHiiCwbaqSyrj7HjqBzbjrZkjg1NFAXFQekufFbXSApZJAAAAAAAAAAAAAAAAZEUz7lVvAwAAAAAAAAAAAGRFM+5VbwMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAukTf33A7hKvH+gJ45ShMyrCA51tMLiZS0FTgeuwAU8kAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADgAAAG11bHRpX2hvcF9zd2FwAAAAAAAAAAAAAAAAAAAAAACIEwAAAAAAAAAAAAAAAAAAAAAAAKq6Byyhcy22TqFVa+9WiEZdLL9eKJAYBBrcMrTtICsrExe4gzEfAAATl34osKwDABOXfiiwrAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=",
+          "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P invoke [3]",
+          "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P consumed 2170 of 21314 compute units",
+          "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P success",
+          "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P consumed 106439 of 106439 compute units",
+          "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P failed: exceeded CUs meter at BPF instruction",
+          "Program pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA consumed 200000 of 200000 compute units",
+          "Program pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA failed: Program failed to complete"
+        ],
+        "candidate_logs": [
+          "Program pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA invoke [1]",
+          "Program log: Instruction: MultiHopSwap",
+          "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P invoke [2]",
+          "Program log: Instruction: MultiHopCurveSwap",
+          "Program 11111111111111111111111111111111 invoke [3]",
+          "Program 11111111111111111111111111111111 success",
+          "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P invoke [3]",
+          "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P consumed 2682 of 97275 compute units",
+          "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P success",
+          "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [3]",
+          "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 205 of 93067 compute units",
+          "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success",
+          "Program data: vdt/007mYe6qugcsoXMttk6hVWvvVohGXSy/XiiQGAQa3DK07SArK9gxCzsAAAAAExe4gzEfAAABujthHiiCwbaqSyrj7HjqBzbjrZkjg1NFAXFQekufFbXSApZJAAAAABBLLzcHAAAA7S6FiLGwAwAQnws7AAAAAO2WcjwgsgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABfAAAAAAAAACiYjwAAAAAAukTf33A7hKvH+gJ45ShMyrCA51tMLiZS0FTgeuwAU8kAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADgAAAG11bHRpX2hvcF9zd2FwAAAAAAAAAAAAAAAAAAAAAACIEwAAAAAAABTMRwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA2DELOwAAAAAQSy83BwAAABCfCzsAAAAAAAAAAAAAAAAAAAAAAAAAAFQAAAAAAAAAAAAAAAAAAAA=",
+          "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P invoke [3]",
+          "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P consumed 2170 of 89095 compute units",
+          "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P success",
+          "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [3]",
+          "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 105 of 64054 compute units",
+          "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success",
+          "Program data: vdt/007mYe5UVFRUVFRUVFRUVFRUVFRUVFRUVFRUVFRUVFRUVFRUVAAAAAAAAAAAnDqTtigeAAABujthHiiCwbaqSyrj7HjqBzbjrZkjg1NFAXFQekufFbXSApZJAAAAAAAAAAAAAAAAZEUz7lVvAwAAAAAAAAAAAGRFM+5VbwMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAukTf33A7hKvH+gJ45ShMyrCA51tMLiZS0FTgeuwAU8kAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADgAAAG11bHRpX2hvcF9zd2FwAAAAAAAAAAAAAAAAAAAAAACIEwAAAAAAAAAAAAAAAAAAAAAAAKq6Byyhcy22TqFVa+9WiEZdLL9eKJAYBBrcMrTtICsrExe4gzEfAAATl34osKwDABOXfiiwrAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=",
+          "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P invoke [3]",
+          "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P consumed 2170 of 59627 compute units",
+          "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P success",
+          "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [3]",
+          "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 105 of 34308 compute units",
+          "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success",
+          "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [3]",
+          "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 105 of 31558 compute units",
+          "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success",
+          "Program data: vdt/007mYe5VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVQAAAAAAAAAAWTIIRhsdAAABujthHiiCwbaqSyrj7HjqBzbjrZkjg1NFAXFQekufFbXSApZJAAAAAAAAAAAAAAAAp02+XmNwAwAAAAAAAAAAAKdNvl5jcAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAukTf33A7hKvH+gJ45ShMyrCA51tMLiZS0FTgeuwAU8keAAAAAAAAAIq8xRcXAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADgAAAG11bHRpX2hvcF9zd2FwAAAAAAAAAAAAAAAAAAAAAACIEwAAAAAAAAAAAAAAAAAAAAAAAFRUVFRUVFRUVFRUVFRUVFRUVFRUVFRUVFRUVFRUVFRUEn7NnhEeAAAS/pNDkKsDABL+k0OQqwMAAAAAAAAAAAAAAAAAAAAAAIq8xRcXAAAAAAAAAAAAAAA=",
+          "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P invoke [3]",
+          "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P consumed 2170 of 27224 compute units",
+          "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P success",
+          "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P consumed 118164 of 140605 compute units",
+          "Program return: 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P WTIIRhsdAAAUzEcAAAAAAA==",
+          "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P success",
+          "Program log: AnchorError thrown in programs/pump-amm/src/instructions/swap/multi_hop_swap.rs:389. Error Code: ExceededSlippage. Error Number: 6004. Error Message: ExceededSlippage.",
+          "Program log: Left: 32002976264793",
+          "Program log: Right: 18446744073709551615",
+          "Program pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA consumed 182729 of 200000 compute units",
+          "Program return: pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA WTIIRhsdAAAUzEcAAAAAAA==",
+          "Program pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA failed: custom program error: 0x1774"
+        ]
+      },
+      {
+        "path": "multi_hop_default200k/cases/34",
+        "case": "three-sell-final-slippage",
+        "original": {
+          "panic": [],
+          "anchor": [],
+          "compared": [],
+          "origins": []
+        },
+        "candidate": {
+          "panic": [],
+          "anchor": [
+            [
+              "ExceededSlippage",
+              "6004",
+              "ExceededSlippage."
+            ]
+          ],
+          "compared": [
+            [
+              "Left",
+              "27610"
+            ],
+            [
+              "Right",
+              "18446744073709551615"
+            ]
+          ],
+          "origins": [
+            [
+              "source"
+            ]
+          ]
+        },
+        "original_logs": [
+          "Program pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA invoke [1]",
+          "Program log: Instruction: MultiHopSwap",
+          "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P invoke [2]",
+          "Program log: Instruction: MultiHopCurveSwap",
+          "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [3]",
+          "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 105 of 70185 compute units",
+          "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success",
+          "Program data: vdt/007mYe5VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVQAAAAAAAAAAAMqaOwAAAAAAujthHiiCwbaqSyrj7HjqBzbjrZkjg1NFAXFQekufFbXSApZJAAAAAAAAAAAAAAAAAEph4H6NAwAAAAAAAAAAAABKYeB+jQMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAukTf33A7hKvH+gJ45ShMyrCA51tMLiZS0FTgeuwAU8keAAAAAAAAAL3GLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADgAAAG11bHRpX2hvcF9zd2FwAAAAAAAAAAAAAAAAAAAAAACIEwAAAAAAAAAAAAAAAAAAAAAAAFRUVFRUVFRUVFRUVFRUVFRUVFRUVFRUVFRUVFRUVFRUGMaaOwAAAADouStpfo0DAOi5K2l+jQMAAAAAAAAAAAAAAAAAAAAAAL3GLQAAAAAAAAAAAAAAAAA=",
+          "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P invoke [3]",
+          "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P consumed 2170 of 62483 compute units",
+          "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P success",
+          "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [3]",
+          "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 105 of 39665 compute units",
+          "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success",
+          "Program data: vdt/007mYe5UVFRUVFRUVFRUVFRUVFRUVFRUVFRUVFRUVFRUVFRUVAAAAAAAAAAAW/9sOwAAAAAAujthHiiCwbaqSyrj7HjqBzbjrZkjg1NFAXFQekufFbXSApZJAAAAAAAAAAAAAAAAW38z4H6NAwAAAAAAAAAAAFt/M+B+jQMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAukTf33A7hKvH+gJ45ShMyrCA51tMLiZS0FTgeuwAU8kAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADgAAAG11bHRpX2hvcF9zd2FwAAAAAAAAAAAAAAAAAAAAAACIEwAAAAAAAAAAAAAAAAAAAAAAAKq6Byyhcy22TqFVa+9WiEZdLL9eKJAYBBrcMrTtICsrePtsOwAAAACIhFlpfo0DAIiEWWl+jQMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=",
+          "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P invoke [3]",
+          "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P consumed 2170 of 31963 compute units",
+          "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P success",
+          "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [3]",
+          "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 105 of 6144 compute units",
+          "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success",
+          "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P invoke [3]",
+          "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P consumed 2682 of 3484 compute units",
+          "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P success",
+          "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P consumed 106226 of 106226 compute units",
+          "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P failed: Computational budget exceeded",
+          "Program pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA consumed 200000 of 200000 compute units",
+          "Program pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA failed: Computational budget exceeded"
+        ],
+        "candidate_logs": [
+          "Program pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA invoke [1]",
+          "Program log: Instruction: MultiHopSwap",
+          "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P invoke [2]",
+          "Program log: Instruction: MultiHopCurveSwap",
+          "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [3]",
+          "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 105 of 103503 compute units",
+          "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success",
+          "Program data: vdt/007mYe5VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVQAAAAAAAAAAAMqaOwAAAAAAujthHiiCwbaqSyrj7HjqBzbjrZkjg1NFAXFQekufFbXSApZJAAAAAAAAAAAAAAAAAEph4H6NAwAAAAAAAAAAAABKYeB+jQMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAukTf33A7hKvH+gJ45ShMyrCA51tMLiZS0FTgeuwAU8keAAAAAAAAAL3GLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADgAAAG11bHRpX2hvcF9zd2FwAAAAAAAAAAAAAAAAAAAAAACIEwAAAAAAAAAAAAAAAAAAAAAAAFRUVFRUVFRUVFRUVFRUVFRUVFRUVFRUVFRUVFRUVFRUGMaaOwAAAADouStpfo0DAOi5K2l+jQMAAAAAAAAAAAAAAAAAAAAAAL3GLQAAAAAAAAAAAAAAAAA=",
+          "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P invoke [3]",
+          "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P consumed 2170 of 99062 compute units",
+          "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P success",
+          "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [3]",
+          "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 105 of 75068 compute units",
+          "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success",
+          "Program data: vdt/007mYe5UVFRUVFRUVFRUVFRUVFRUVFRUVFRUVFRUVFRUVFRUVAAAAAAAAAAAW/9sOwAAAAAAujthHiiCwbaqSyrj7HjqBzbjrZkjg1NFAXFQekufFbXSApZJAAAAAAAAAAAAAAAAW38z4H6NAwAAAAAAAAAAAFt/M+B+jQMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAukTf33A7hKvH+gJ45ShMyrCA51tMLiZS0FTgeuwAU8kAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADgAAAG11bHRpX2hvcF9zd2FwAAAAAAAAAAAAAAAAAAAAAACIEwAAAAAAAAAAAAAAAAAAAAAAAKq6Byyhcy22TqFVa+9WiEZdLL9eKJAYBBrcMrTtICsrePtsOwAAAACIhFlpfo0DAIiEWWl+jQMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=",
+          "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P invoke [3]",
+          "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P consumed 2170 of 70627 compute units",
+          "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P success",
+          "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [3]",
+          "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 105 of 43540 compute units",
+          "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success",
+          "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P invoke [3]",
+          "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P consumed 2682 of 40839 compute units",
+          "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P success",
+          "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [3]",
+          "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 205 of 36631 compute units",
+          "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success",
+          "Program data: vdt/007mYe6qugcsoXMttk6hVWvvVohGXSy/XiiQGAQa3DK07SArK+NsAAAAAAAAePtsOwAAAAAAujthHiiCwbaqSyrj7HjqBzbjrZkjg1NFAXFQekufFbXSApZJAAAAAFWsI/wGAAAAeEGqR+PPAwBVAAAAAAAAAHipl/tR0QIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABfAAAAAAAAAAkBAAAAAAAAukTf33A7hKvH+gJ45ShMyrCA51tMLiZS0FTgeuwAU8kAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADgAAAG11bHRpX2hvcF9zd2FwAAAAAAAAAAAAAAAAAAAAAACIEwAAAAAAAIQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA42wAAAAAAABVrCP8BgAAAFUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFQAAAAAAAAAAAAAAAAAAAA=",
+          "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P invoke [3]",
+          "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P consumed 2170 of 32452 compute units",
+          "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P success",
+          "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P consumed 112723 of 140392 compute units",
+          "Program return: 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P 2msAAAAAAACEAAAAAAAAAA==",
+          "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P success",
+          "Program log: AnchorError thrown in programs/pump-amm/src/instructions/swap/multi_hop_swap.rs:389. Error Code: ExceededSlippage. Error Number: 6004. Error Message: ExceededSlippage.",
+          "Program log: Left: 27610",
+          "Program log: Right: 18446744073709551615",
+          "Program pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA consumed 177351 of 200000 compute units",
+          "Program return: pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA 2msAAAAAAACEAAAAAAAAAA==",
+          "Program pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA failed: custom program error: 0x1774"
+        ]
+      }
+    ]
+  },
+  "strict_ordered_logs": {
+    "multi_hop_cu14": {
+      "cases_compared": 50,
+      "ordered_log_mismatches_excluding_compute_meter": []
+    },
+    "multi_hop_default200k": {
+      "cases_compared": 50,
+      "ordered_log_mismatches_excluding_compute_meter": [
+        {
+          "case": "three-buy-captured-1000000",
+          "first_difference_index": 18,
+          "original_line": "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P failed: exceeded CUs meter at BPF instruction",
+          "candidate_line": "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [3]",
+          "original_length": 20,
+          "candidate_length": 29
+        },
+        {
+          "case": "three-buy-captured-1000000000",
+          "first_difference_index": 18,
+          "original_line": "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P failed: exceeded CUs meter at BPF instruction",
+          "candidate_line": "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [3]",
+          "original_length": 20,
+          "candidate_length": 29
+        },
+        {
+          "case": "three-buy-exotic-1000000",
+          "first_difference_index": 18,
+          "original_line": "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P failed: exceeded CUs meter at BPF instruction",
+          "candidate_line": "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [3]",
+          "original_length": 20,
+          "candidate_length": 29
+        },
+        {
+          "case": "three-buy-exotic-1000000000",
+          "first_difference_index": 18,
+          "original_line": "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P failed: exceeded CUs meter at BPF instruction",
+          "candidate_line": "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [3]",
+          "original_length": 20,
+          "candidate_length": 29
+        },
+        {
+          "case": "three-buy-flat-fallback-1000000",
+          "first_difference_index": 18,
+          "original_line": "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P failed: exceeded CUs meter at BPF instruction",
+          "candidate_line": "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [3]",
+          "original_length": 20,
+          "candidate_length": 29
+        },
+        {
+          "case": "three-buy-flat-fallback-1000000000",
+          "first_difference_index": 18,
+          "original_line": "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P failed: exceeded CUs meter at BPF instruction",
+          "candidate_line": "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [3]",
+          "original_length": 20,
+          "candidate_length": 29
+        },
+        {
+          "case": "three-buy-legacy-flat-1000000",
+          "first_difference_index": 18,
+          "original_line": "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P failed: exceeded CUs meter at BPF instruction",
+          "candidate_line": "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [3]",
+          "original_length": 20,
+          "candidate_length": 29
+        },
+        {
+          "case": "three-buy-legacy-flat-1000000000",
+          "first_difference_index": 18,
+          "original_line": "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P failed: exceeded CUs meter at BPF instruction",
+          "candidate_line": "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [3]",
+          "original_length": 20,
+          "candidate_length": 29
+        },
+        {
+          "case": "three-buy-final-slippage",
+          "first_difference_index": 18,
+          "original_line": "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P failed: exceeded CUs meter at BPF instruction",
+          "candidate_line": "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [3]",
+          "original_length": 20,
+          "candidate_length": 32
+        },
+        {
+          "case": "three-buy-mid-curve-cashback",
+          "first_difference_index": 18,
+          "original_line": "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P failed: exceeded CUs meter at BPF instruction",
+          "candidate_line": "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [3]",
+          "original_length": 20,
+          "candidate_length": 29
+        },
+        {
+          "case": "three-sell-captured-1000000",
+          "first_difference_index": 17,
+          "original_line": "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P failed: exceeded CUs meter at BPF instruction",
+          "candidate_line": "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P invoke [3]",
+          "original_length": 19,
+          "candidate_length": 23
+        },
+        {
+          "case": "three-sell-captured-1000000000",
+          "first_difference_index": 18,
+          "original_line": "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P failed: Computational budget exceeded",
+          "candidate_line": "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [3]",
+          "original_length": 20,
+          "candidate_length": 27
+        },
+        {
+          "case": "three-sell-exotic-1000000",
+          "first_difference_index": 17,
+          "original_line": "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P failed: exceeded CUs meter at BPF instruction",
+          "candidate_line": "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P invoke [3]",
+          "original_length": 19,
+          "candidate_length": 23
+        },
+        {
+          "case": "three-sell-exotic-1000000000",
+          "first_difference_index": 18,
+          "original_line": "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P failed: Computational budget exceeded",
+          "candidate_line": "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [3]",
+          "original_length": 20,
+          "candidate_length": 27
+        },
+        {
+          "case": "three-sell-flat-fallback-1000000",
+          "first_difference_index": 17,
+          "original_line": "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P failed: exceeded CUs meter at BPF instruction",
+          "candidate_line": "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P invoke [3]",
+          "original_length": 19,
+          "candidate_length": 23
+        },
+        {
+          "case": "three-sell-flat-fallback-1000000000",
+          "first_difference_index": 18,
+          "original_line": "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P failed: Computational budget exceeded",
+          "candidate_line": "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [3]",
+          "original_length": 20,
+          "candidate_length": 27
+        },
+        {
+          "case": "three-sell-legacy-flat-1000000",
+          "first_difference_index": 17,
+          "original_line": "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P failed: exceeded CUs meter at BPF instruction",
+          "candidate_line": "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P invoke [3]",
+          "original_length": 19,
+          "candidate_length": 23
+        },
+        {
+          "case": "three-sell-legacy-flat-1000000000",
+          "first_difference_index": 18,
+          "original_line": "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P failed: Computational budget exceeded",
+          "candidate_line": "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [3]",
+          "original_length": 20,
+          "candidate_length": 27
+        },
+        {
+          "case": "three-sell-final-slippage",
+          "first_difference_index": 18,
+          "original_line": "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P failed: Computational budget exceeded",
+          "candidate_line": "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [3]",
+          "original_length": 20,
+          "candidate_length": 30
+        },
+        {
+          "case": "three-sell-mid-curve-cashback",
+          "first_difference_index": 18,
+          "original_line": "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P failed: Computational budget exceeded",
+          "candidate_line": "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [3]",
+          "original_length": 20,
+          "candidate_length": 27
+        }
+      ]
+    },
+    "create_v2_mayhem_mode": {
+      "cases_compared": 28,
+      "ordered_log_mismatches_excluding_compute_meter": []
+    }
+  }
+}

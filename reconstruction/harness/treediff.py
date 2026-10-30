@@ -4,7 +4,7 @@ from pathlib import Path
 
 def tree_files(root):
     root = Path(root)
-    return {str(p.relative_to(root)): p.read_bytes() for p in sorted(root.rglob('*')) if p.is_file()}
+    return {p.relative_to(root).as_posix(): p.read_bytes() for p in sorted(root.rglob('*')) if p.is_file()}
 
 
 def tree_diff(base, new, prefix='programs/pump'):

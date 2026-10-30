@@ -7,7 +7,7 @@ import hashlib
 from pathlib import Path
 
 
-def source_manifest(crate, workspace, repository, extra_inputs=(), cwd=None):
+def source_manifest(crate, workspace, repository, extra_inputs=(), cwd=None, before_read=None):
     crate, workspace, repository = map(lambda p: Path(p).resolve(), (crate, workspace, repository))
     cwd = Path(cwd or repository).resolve()
     crate.relative_to(workspace)
@@ -46,4 +46,9 @@ def source_manifest(crate, workspace, repository, extra_inputs=(), cwd=None):
             files.add(p)
         else:
             files.update(f for f in p.rglob('*') if f.is_file() and not {'target', '.git'}.intersection(f.relative_to(p).parts))
-    return {p.relative_to(repository).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(files)}
+    manifest = {}
+    for path in sorted(files):
+        if before_read is not None:
+            before_read(path)
+        manifest[path.relative_to(repository).as_posix()] = hashlib.sha256(path.read_bytes()).hexdigest()
+    return manifest

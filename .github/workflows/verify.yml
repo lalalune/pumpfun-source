@@ -16,6 +16,10 @@ jobs:
       max-parallel: 12
       matrix:
         include:
+          - suite: composition-patch-bytes
+            commands: |
+              python -B reconstruction/harness/test_integrate_failures.py
+              python -I -B tests/test_integrate_patch_bytes.py
           - suite: pump-claim-v2-account-boundaries
             commands: |
               python -I -B research/pump-claim-v2-account-boundaries/verify.py
@@ -327,6 +331,7 @@ jobs:
             commands: |
               python scripts/verify_evidence.py
               python scripts/test_tooling.py
+              python -B reconstruction/harness/test_score_inputs.py
               python scripts/test_build_source_manifest.py
               python scripts/test_core_linux_v144_retention.py
               python repro/pump_fees/initializer-inline-runtime/verify.py
@@ -368,6 +373,7 @@ jobs:
               git diff --exit-code -- audit/local-validation.json
           - suite: host-fragments
             commands: |
+              python -B tests/test_recovered_curve_arithmetic.py
               mkdir -p work && rustc --edition 2021 -O programs/pump-fees/recovered/fee_selection_host.rs -o work/fee-selector-host
               python scripts/validate_fee_selection.py --host work/fee-selector-host --output work/fee-selector-validation.json
               python scripts/build_quote_host.py --output work/quote-host
