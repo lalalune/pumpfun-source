@@ -97,7 +97,10 @@ def main():
     parser.add_argument('--target', required=True)
     parser.add_argument('--approach', required=True, help='exact recorded approach, never fuzzy mechanism matching')
     args = parser.parse_args()
-    result = inspect(args.ledger, parse(args.context.read_text()), args.target, args.approach, args.evidence_root)
+    try:
+        result = inspect(args.ledger, parse(args.context.read_text()), args.target, args.approach, args.evidence_root)
+    except (OSError, ValueError) as error:
+        parser.error(str(error))
     print(json.dumps(result, indent=2))
     return 2 if result['parse_errors'] else 0
 
