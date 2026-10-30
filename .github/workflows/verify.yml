@@ -71,6 +71,7 @@ jobs:
             commands: |
               python -B reconstruction/harness/test_integrate_failures.py
               python -B reconstruction/harness/test_integrate_no_build_cli.py
+              python -B reconstruction/harness/test_integrate_build_input_recheck.py
               python -B reconstruction/harness/test_composition_boundaries.py
               python -B reconstruction/harness/test_build_pair_boundaries.py
               python -B reconstruction/harness/test_composition_deadline.py
@@ -196,6 +197,8 @@ jobs:
               python -B scripts/test_analyze_publication.py
               python -B scripts/test_verify_imported_lab_publication.py
               python -B scripts/test_pump_compare_function_bytes_report.py
+              python -B tests/test_pump_compare_report_staging.py
+              python -B tests/test_experiment_placeholder_expansion.py
               python -B scripts/test_sbpf_disassembly_roundtrip_build_log.py
               python -B scripts/test_supported_sbpf_package_paths.py
               python -B scripts/test_pump_quote_control_function_match_output.py
