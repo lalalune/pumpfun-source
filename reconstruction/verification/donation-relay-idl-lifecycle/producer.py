@@ -213,8 +213,7 @@ class Pair:
             raise RuntimeError("locally signed transaction failed signature verification")
         addresses = self.fixture.watched() | set(watch or ()) | set(tx.message.account_keys)
         rows = {side: self._run(vm, tx, addresses) for side, vm in self.vms.items()}
-        compared = {side: self._comparable(row) for side, row in rows.items()}
-        mismatches = sorted(key for key in compared["original"] if compared["original"][key] != compared["candidate"][key])
+        mismatches = self.comparison_mismatches(rows["original"], rows["candidate"])
         return {
             "name": name,
             "signature": str(tx.signatures[0]),
@@ -251,6 +250,12 @@ class Pair:
             "before": before,
             "after": after,
         }
+
+    @classmethod
+    def comparison_mismatches(cls, original: dict[str, Any], candidate: dict[str, Any]) -> list[str]:
+        """One comparison path for real receipts and their mutation controls."""
+        left, right = cls._comparable(original), cls._comparable(candidate)
+        return sorted(key for key in left if left[key] != right[key])
 
     @staticmethod
     def _comparable(row: dict[str, Any]) -> dict[str, Any]:
@@ -438,9 +443,7 @@ def comparator_controls(step: dict[str, Any]) -> dict[str, Any]:
     ):
         changed = json.loads(json.dumps(step["candidate"]))
         mutate(changed)
-        left = Pair._comparable(step["original"])
-        right = Pair._comparable(changed)
-        mismatches = sorted(key for key in left if left[key] != right[key])
+        mismatches = Pair.comparison_mismatches(step["original"], changed)
         controls[label] = field in mismatches
     return {"kind": "comparator mutation controls replayed through the case comparison", "detected": controls, "all_detected": all(controls.values())}
 

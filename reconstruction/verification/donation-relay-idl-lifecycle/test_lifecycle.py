@@ -60,6 +60,13 @@ class LifecycleUnitTests(unittest.TestCase):
         self.assertEqual(controls["detected"],
                          {"account_state": False, "error": False, "event_payload": False})
 
+    def test_controls_fail_when_shared_mismatch_comparison_is_disabled(self) -> None:
+        with mock.patch.object(producer.Pair, "comparison_mismatches", return_value=[]):
+            controls = producer.comparator_controls(self.matching_step())
+        self.assertFalse(controls["all_detected"])
+        self.assertEqual(controls["detected"],
+                         {"account_state": False, "error": False, "event_payload": False})
+
     def test_output_refuses_overwrite_before_execution(self) -> None:
         root = HERE.parents[2]
         with tempfile.TemporaryDirectory() as directory:
