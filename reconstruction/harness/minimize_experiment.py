@@ -58,7 +58,7 @@ def main():
     if args.source == args.out or args.source in args.out.parents or args.out in args.source.parents:
         parser.error('source and output must be separate trees')
     source_identity = manifest(args.source)
-    paths = [Path(p).resolve() for p in json.loads(args.patches.read_text())]
+    paths = [Path(p).resolve() for p in json.loads(args.patches.read_text(encoding='utf-8'))]
     patches = [p.read_bytes() for p in paths]
     config = load_oracle(args.oracle)
     args.out.mkdir(parents=True, exist_ok=True)

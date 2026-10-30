@@ -52,6 +52,10 @@ observed along the (necessarily failing) validation chain, and
 `valid_init_transaction_constructible` is reported false with the precise reason.
 No binary patching, no synthetic-signer bypass, no fabricated success.
 """
+if not __debug__:
+    raise SystemExit('Normal Python is required; do not use -O or PYTHONOPTIMIZE.')
+
+
 import argparse, hashlib, json, pathlib, struct
 from solders.litesvm import LiteSVM
 from solders.pubkey import Pubkey

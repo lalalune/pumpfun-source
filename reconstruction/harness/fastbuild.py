@@ -13,6 +13,8 @@ Usage: fastbuild.py --src <crate dir with Cargo.toml/Cargo.lock/src[/recovered]>
   An explicit output directory may equal the work directory, including with a pinned link script.
 - Before compilation, archives previous outputs and their log under <out>/previous/build-*.
   Compiler failures leave no current binaries; callers must still check ok.
+- Concurrent trials must use distinct workspaces and output directories. A busy output is
+  rejected before staging/publication, so its binary and source receipt cannot come from different trials.
 - A crate carrying link/ordered.ld (a pinned link order, see link_order.py) is linked with that
   script in place of the SBF default one; the result reports its sha256 and selector counts and
   fails unless the linker hook ran in this build.
@@ -145,6 +147,24 @@ def workspace_lock(work: Path):
             fcntl.flock(lock, fcntl.LOCK_UN)
 
 
+@contextmanager
+def output_lock(out: Path):
+    """Serialize a canonical output directory even across distinct workspaces."""
+    out = out.resolve()
+    out.parent.mkdir(parents=True, exist_ok=True)
+    # Keep the lock beside outputs, so it is not part of the measured artifacts.
+    # As with the workspace lock, retain its inode after releasing it.
+    with (out.parent / f'.{out.name}.fastbuild-output.lock').open('a+b') as lock:
+        try:
+            fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except BlockingIOError as error:
+            raise RuntimeError(f'build output already in use: {out}') from error
+        try:
+            yield
+        finally:
+            fcntl.flock(lock, fcntl.LOCK_UN)
+
+
 def archive_previous_outputs(out: Path):
     """Keep old evidence separate from the next attempt's canonical output paths."""
     names = ('unstripped.so', 'candidate.so', 'build.log', 'link-receipt.json', 'link.map', 'source-inputs.json')
@@ -169,8 +189,13 @@ def build(src: Path, work: Path, out: Path, quiet=False, recipe=None, timeout=No
     if (src == work or src in work.parents or work in src.parents
             or src == out or src in out.parents or out in src.parents):
         raise ValueError('source must not overlap the build workspace or contain output')
+    # Staging uses rsync --delete before prior outputs are archived.
+    staged = (work / 'ws/programs/pump').resolve()
+    if out == staged or staged in out.parents:
+        raise ValueError('output must not be inside the staged source tree')
     with workspace_lock(work):
-        return _build_locked(src, work, out, quiet=quiet, recipe=recipe, timeout=timeout)
+        with output_lock(out):
+            return _build_locked(src, work, out, quiet=quiet, recipe=recipe, timeout=timeout)
 
 
 def _build_locked(src: Path, work: Path, out: Path, quiet=False, recipe=None, timeout=None):

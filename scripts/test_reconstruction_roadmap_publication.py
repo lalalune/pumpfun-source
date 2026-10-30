@@ -38,6 +38,33 @@ class ReconstructionRoadmapPublicationTests(unittest.TestCase):
             self.assertEqual([path.name for path in output.iterdir()],
                              ["foreign-retained.txt"])
 
+    def test_attribution_order_does_not_depend_on_the_hash_seed(self):
+        # trace_handler_attribution sorted (name, depth) sets by depth only, so
+        # depth ties kept set order and the published likely_callers/callees
+        # (and their [:5] cuts) varied with PYTHONHASHSEED between runs.
+        import os
+
+        probe = (
+            "from types import SimpleNamespace;"
+            "import json, sys;"
+            "sys.path.insert(0, r'%SCRIPTS%');"
+            "import reconstruction_roadmap as rr;"
+            "elf = SimpleNamespace(funcs=[{'start': 0x100 + i, 'name': 'caller_%02d' % i} for i in range(8)]);"
+            "reverse = {0x2000: {0x100 + i for i in range(8)}};"
+            "attrib = rr.trace_handler_attribution(elf, [0x2000], {}, reverse);"
+            "print(json.dumps([c[0] for c in attrib[0x2000]['likely_callers']]))"
+        ).replace("%SCRIPTS%", str(Path(__file__).resolve().parent))
+        results = []
+        for seed in ("0", "1", "2"):
+            completed = subprocess.run(
+                [sys.executable, "-B", "-c", probe],
+                env=dict(os.environ, PYTHONHASHSEED=seed),
+                capture_output=True, text=True, cwd=ROOT)
+            self.assertEqual(completed.returncode, 0, completed.stderr)
+            results.append(completed.stdout.strip())
+        self.assertEqual(results[0], results[1])
+        self.assertEqual(results[1], results[2])
+
     def test_packet_bytes_do_not_follow_the_host_line_ending(self):
         # Sibling of merged #2486/#2487 (analyze_program, deep_section_analysis):
         # roadmap packet files were written with host text-I/O defaults, so a

@@ -12,6 +12,9 @@ Layer 4: Anchor IDL Recovery — instruction discriminator extraction, account
 Layer 5: Bonding Curve Math — constant product arithmetic extraction, fee
          calculation patterns, overflow protection analysis, fixed-point math
 
+Successful replacements retain the prior packet in a printed .previous-* sibling.
+Publication reuses native atomic exchange/no-replace; unsupported hosts fail closed.
+
 Usage:
     python3 scripts/deep_section_analysis.py --program pump \
         --output research/pump-section-analysis-20261028
@@ -21,6 +24,7 @@ import collections
 import hashlib
 import json
 import os
+import shutil
 import struct
 import stat
 import sys
@@ -29,7 +33,7 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO / "scripts"))
 from window_elf_reader import Elf
-from deep_disassembly import load_idl_discriminators
+from deep_disassembly import load_idl_discriminators, directory_identity, publish_packet, temporary_sibling
 
 SYSCALL_NAMES = {
     # SBPF hash_symbol_name: seed-zero MurmurHash3 x86_32 of symbol bytes.
@@ -682,23 +686,13 @@ def analyze_math_patterns(elf):
 # Main
 # ──────────────────────────────────────────────────────────────
 
-def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--program", required=True)
-    parser.add_argument("--output", required=True)
-    args = parser.parse_args()
-
-    deployed_path = REPO / "evidence" / "original" / args.program / "deployed.so"
-    if not deployed_path.exists():
-        print(f"ERROR: {deployed_path} not found")
-        return 1
-
-    output_dir = Path(args.output)
+def prepare_destination(output_dir):
+    output_dir = Path(output_dir)
     if linked(output_dir):
         raise ValueError("output directory is a link")
-    output_dir.mkdir(parents=True, exist_ok=True)
-    if linked(output_dir):
-        raise ValueError("output directory is a link")
+    if output_dir.exists() and not output_dir.is_dir():
+        raise ValueError("output path is not a directory")
+    output_dir.parent.mkdir(parents=True, exist_ok=True)
 
     # The manifest hashes every file here and verify.py requires exactly the
     # generated set, so reject leftovers from another run before writing.
@@ -707,7 +701,8 @@ def main():
         "layer3-cross-section.json", "layer4-anchor-idl.json", "layer5-math-analysis.json",
         "manifest.json", "summary.json", "verify.py",
     }
-    unexpected = sorted(path.name for path in output_dir.iterdir() if path.name not in packet_files)
+    existing = list(output_dir.iterdir()) if output_dir.exists() else []
+    unexpected = sorted(path.name for path in existing if path.name not in packet_files)
     if unexpected:
         raise ValueError("unexpected packet entry: " + ", ".join(unexpected))
     invalid = sorted(name for name in packet_files
@@ -715,6 +710,14 @@ def main():
                      or ((output_dir / name).exists() and not (output_dir / name).is_file()))
     if invalid:
         raise ValueError("packet entry is not a regular file: " + ", ".join(invalid))
+    return output_dir, packet_files, directory_identity(output_dir)
+
+
+def build_packet(program, output_dir, output_label):
+    deployed_path = REPO / "evidence" / "original" / program / "deployed.so"
+    if not deployed_path.exists():
+        print(f"ERROR: {deployed_path} not found")
+        return 1
 
     print(f"[deep] Reading {deployed_path}")
     elf = Elf(deployed_path)
@@ -755,7 +758,7 @@ def main():
     # Summary
     text_bytes = elf.hi - elf.lo
     summary = {
-        "program": args.program,
+        "program": program,
         "deployed_sha256": sha256_bytes(elf.b),
         "text_bytes": text_bytes,
         "layer1_data_layout": {
@@ -794,10 +797,10 @@ def main():
     l3 = summary["layer3_cross_section"]
     l4 = summary["layer4_anchor_idl"]
     l5 = summary["layer5_math"]
-    readme = f"""# {args.program} — 5-Layer Deep Section Analysis
+    readme = f"""# {program} — 5-Layer Deep Section Analysis
 
 ## Scope
-Comprehensive cross-section analysis of the deployed {args.program} binary,
+Comprehensive cross-section analysis of the deployed {program} binary,
 covering data layout, relocations, data dependencies, Anchor IDL recovery,
 and mathematical pattern extraction.
 
@@ -899,7 +902,27 @@ if __name__ == "__main__": sys.exit(main())
         sum(1 for _ in open(output_dir / name, encoding="utf-8"))
         for name in os.listdir(output_dir) if (output_dir / name).is_file()
     )
-    print(f"[deep] wrote {len(manifest)+1} files, ~{total_lines:,} lines to {output_dir}")
+    print(f"[deep] wrote {len(manifest)+1} files, ~{total_lines:,} lines to {output_label}")
+    return 0
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--program", required=True)
+    parser.add_argument("--output", required=True)
+    args = parser.parse_args()
+
+    output_dir, _, expected_identity = prepare_destination(args.output)
+    staging = temporary_sibling(output_dir, "staging")
+    try:
+        result = build_packet(args.program, staging, output_dir)
+    except BaseException:
+        shutil.rmtree(staging, ignore_errors=True)
+        raise
+    if result != 0:
+        shutil.rmtree(staging, ignore_errors=True)
+        return result
+    publish_packet(staging, output_dir, expected_identity)
     return 0
 
 
