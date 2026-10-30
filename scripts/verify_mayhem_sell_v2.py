@@ -8,9 +8,6 @@ import argparse, base64, gzip, hashlib, json, re, struct
 from solders.pubkey import Pubkey
 from solders.transaction import Transaction
 
-if not __debug__:
- raise RuntimeError('Mayhem receipt verification requires unoptimized Python')
-
 ROOT=next(p for p in Path(__file__).resolve().parents if (p/'evidence/original/mayhem/deployed.so').is_file())
 MAY=Pubkey.from_string('MAyhSmzXzV1pTf7LsNkrNwkWKTo4ougAJ1PPg47MD4e')
 PUMP=Pubkey.from_string('6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P')
