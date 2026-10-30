@@ -1,0 +1,78 @@
+[
+  {
+    "name": "source-final",
+    "argv": [
+      "node",
+      "scripts/original-settings-section-content.mjs"
+    ],
+    "cwd": "app/",
+    "revision": "fc2d1ed580d41cf984664aa384165f5840db5507",
+    "exit": 0,
+    "seconds": 0.5774375390028581
+  },
+  {
+    "name": "focused-final",
+    "argv": [
+      "node",
+      "--test",
+      "tests/original_settings_section_content.test.mjs",
+      "tests/original_source.test.mjs"
+    ],
+    "cwd": "app/",
+    "revision": "fc2d1ed580d41cf984664aa384165f5840db5507",
+    "exit": 0,
+    "seconds": 0.6750467919919174
+  },
+  {
+    "name": "typecheck",
+    "argv": [
+      "node",
+      "/home/agent/.cache/node/corepack/v1/pnpm/10.24.0/bin/pnpm.cjs",
+      "typecheck"
+    ],
+    "cwd": "app/",
+    "revision": "fc2d1ed580d41cf984664aa384165f5840db5507",
+    "exit": 0,
+    "seconds": 5.576430797984358
+  },
+  {
+    "name": "evidence",
+    "argv": [
+      "python3",
+      "scripts/verify-evidence.py"
+    ],
+    "cwd": "app/",
+    "revision": "fc2d1ed580d41cf984664aa384165f5840db5507",
+    "exit": 0,
+    "seconds": 0.18415512799401768
+  },
+  {
+    "name": "progress",
+    "argv": [
+      "python3",
+      "scripts/progress.py",
+      "--check"
+    ],
+    "cwd": "app/",
+    "revision": "fc2d1ed580d41cf984664aa384165f5840db5507",
+    "exit": 0,
+    "seconds": 0.13595636299578473
+  },
+  {
+    "name": "progress-tests",
+    "argv": [
+      "python3",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_progress.py"
+    ],
+    "cwd": "app/",
+    "revision": "fc2d1ed580d41cf984664aa384165f5840db5507",
+    "exit": 0,
+    "seconds": 0.6612938189937267
+  }
+]

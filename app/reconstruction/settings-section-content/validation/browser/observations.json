@@ -1,0 +1,1640 @@
+{
+  "bundleSha256": "bdb61a2b740d6a178cded26f9b19aeb63f31cf831592ba86758b3aaf3e63e8d0",
+  "requests": [
+    {
+      "method": "GET",
+      "url": "/"
+    },
+    {
+      "method": "GET",
+      "url": "/fixture.js"
+    },
+    {
+      "method": "GET",
+      "url": "/"
+    },
+    {
+      "method": "GET",
+      "url": "/fixture.js"
+    }
+  ],
+  "results": [
+    {
+      "width": 390,
+      "initial": {
+        "host": {
+          "section": "chart",
+          "hidden": [],
+          "mounted": {
+            "chart.axis.synthetic": "_r_1_",
+            "chart.markers.b": "_r_3_",
+            "chart.markers.a": "_r_4_"
+          },
+          "frames": {
+            "_r_0_": "unlabelled",
+            "_r_2_": "Synthetic:web.settings.chart.bubbles"
+          },
+          "events": [
+            [
+              "field-mount",
+              "chart.axis.synthetic",
+              "_r_1_"
+            ],
+            [
+              "field-mount",
+              "chart.markers.b",
+              "_r_3_"
+            ],
+            [
+              "field-mount",
+              "chart.markers.a",
+              "_r_4_"
+            ]
+          ]
+        },
+        "ids": [
+          "chart.axis.synthetic",
+          "chart.markers.b",
+          "chart.markers.a"
+        ],
+        "compact": [
+          null,
+          "true",
+          "true"
+        ],
+        "labels": [
+          "unlabelled",
+          "Synthetic:web.settings.chart.bubbles"
+        ]
+      },
+      "filtered": {
+        "host": {
+          "section": "chart",
+          "hidden": [
+            "chart.markers.a"
+          ],
+          "mounted": {
+            "chart.axis.synthetic": "_r_1_",
+            "chart.markers.b": "_r_3_"
+          },
+          "frames": {
+            "_r_0_": "unlabelled",
+            "_r_2_": "Synthetic:web.settings.chart.bubbles"
+          },
+          "events": [
+            [
+              "field-mount",
+              "chart.axis.synthetic",
+              "_r_1_"
+            ],
+            [
+              "field-mount",
+              "chart.markers.b",
+              "_r_3_"
+            ],
+            [
+              "field-mount",
+              "chart.markers.a",
+              "_r_4_"
+            ],
+            [
+              "field-unmount",
+              "chart.markers.a",
+              "_r_4_"
+            ]
+          ]
+        },
+        "ids": [
+          "chart.axis.synthetic",
+          "chart.markers.b"
+        ],
+        "compact": [
+          null,
+          "true"
+        ],
+        "labels": [
+          "unlabelled",
+          "Synthetic:web.settings.chart.bubbles"
+        ]
+      },
+      "restored": {
+        "host": {
+          "section": "chart",
+          "hidden": [],
+          "mounted": {
+            "chart.axis.synthetic": "_r_1_",
+            "chart.markers.b": "_r_3_",
+            "chart.markers.a": "_r_5_"
+          },
+          "frames": {
+            "_r_0_": "unlabelled",
+            "_r_2_": "Synthetic:web.settings.chart.bubbles"
+          },
+          "events": [
+            [
+              "field-mount",
+              "chart.axis.synthetic",
+              "_r_1_"
+            ],
+            [
+              "field-mount",
+              "chart.markers.b",
+              "_r_3_"
+            ],
+            [
+              "field-mount",
+              "chart.markers.a",
+              "_r_4_"
+            ],
+            [
+              "field-unmount",
+              "chart.markers.a",
+              "_r_4_"
+            ],
+            [
+              "field-mount",
+              "chart.markers.a",
+              "_r_5_"
+            ]
+          ]
+        },
+        "ids": [
+          "chart.axis.synthetic",
+          "chart.markers.b",
+          "chart.markers.a"
+        ],
+        "compact": [
+          null,
+          "true",
+          "true"
+        ],
+        "labels": [
+          "unlabelled",
+          "Synthetic:web.settings.chart.bubbles"
+        ]
+      },
+      "emptyGroupRemoved": {
+        "host": {
+          "section": "chart",
+          "hidden": [
+            "chart.markers.a",
+            "chart.markers.b"
+          ],
+          "mounted": {
+            "chart.axis.synthetic": "_r_1_"
+          },
+          "frames": {
+            "_r_0_": "unlabelled"
+          },
+          "events": [
+            [
+              "field-mount",
+              "chart.axis.synthetic",
+              "_r_1_"
+            ],
+            [
+              "field-mount",
+              "chart.markers.b",
+              "_r_3_"
+            ],
+            [
+              "field-mount",
+              "chart.markers.a",
+              "_r_4_"
+            ],
+            [
+              "field-unmount",
+              "chart.markers.a",
+              "_r_4_"
+            ],
+            [
+              "field-mount",
+              "chart.markers.a",
+              "_r_5_"
+            ],
+            [
+              "field-unmount",
+              "chart.markers.b",
+              "_r_3_"
+            ],
+            [
+              "field-unmount",
+              "chart.markers.a",
+              "_r_5_"
+            ]
+          ]
+        },
+        "ids": [
+          "chart.axis.synthetic"
+        ],
+        "compact": [
+          null
+        ],
+        "labels": [
+          "unlabelled"
+        ]
+      },
+      "feed": {
+        "host": {
+          "section": "feed",
+          "hidden": [],
+          "mounted": {
+            "feed.second": "_r_7_",
+            "feed.first": "_r_8_"
+          },
+          "frames": {
+            "_r_6_": "unlabelled"
+          },
+          "events": [
+            [
+              "field-mount",
+              "chart.axis.synthetic",
+              "_r_1_"
+            ],
+            [
+              "field-mount",
+              "chart.markers.b",
+              "_r_3_"
+            ],
+            [
+              "field-mount",
+              "chart.markers.a",
+              "_r_4_"
+            ],
+            [
+              "field-unmount",
+              "chart.markers.a",
+              "_r_4_"
+            ],
+            [
+              "field-mount",
+              "chart.markers.a",
+              "_r_5_"
+            ],
+            [
+              "field-unmount",
+              "chart.markers.b",
+              "_r_3_"
+            ],
+            [
+              "field-unmount",
+              "chart.markers.a",
+              "_r_5_"
+            ],
+            [
+              "field-unmount",
+              "chart.axis.synthetic",
+              "_r_1_"
+            ],
+            [
+              "field-mount",
+              "feed.second",
+              "_r_7_"
+            ],
+            [
+              "field-mount",
+              "feed.first",
+              "_r_8_"
+            ]
+          ]
+        },
+        "ids": [
+          "feed.second",
+          "feed.first"
+        ],
+        "compact": [
+          null,
+          null
+        ],
+        "labels": [
+          "unlabelled"
+        ]
+      },
+      "privacy": {
+        "host": {
+          "section": "privacy",
+          "hidden": [],
+          "mounted": {
+            "privacy.synthetic": "_r_a_"
+          },
+          "frames": {
+            "_r_9_": "unlabelled"
+          },
+          "events": [
+            [
+              "field-mount",
+              "chart.axis.synthetic",
+              "_r_1_"
+            ],
+            [
+              "field-mount",
+              "chart.markers.b",
+              "_r_3_"
+            ],
+            [
+              "field-mount",
+              "chart.markers.a",
+              "_r_4_"
+            ],
+            [
+              "field-unmount",
+              "chart.markers.a",
+              "_r_4_"
+            ],
+            [
+              "field-mount",
+              "chart.markers.a",
+              "_r_5_"
+            ],
+            [
+              "field-unmount",
+              "chart.markers.b",
+              "_r_3_"
+            ],
+            [
+              "field-unmount",
+              "chart.markers.a",
+              "_r_5_"
+            ],
+            [
+              "field-unmount",
+              "chart.axis.synthetic",
+              "_r_1_"
+            ],
+            [
+              "field-mount",
+              "feed.second",
+              "_r_7_"
+            ],
+            [
+              "field-mount",
+              "feed.first",
+              "_r_8_"
+            ],
+            [
+              "field-unmount",
+              "feed.second",
+              "_r_7_"
+            ],
+            [
+              "field-unmount",
+              "feed.first",
+              "_r_8_"
+            ],
+            [
+              "field-mount",
+              "privacy.synthetic",
+              "_r_a_"
+            ]
+          ]
+        },
+        "ids": [
+          "privacy.synthetic"
+        ],
+        "compact": [
+          null
+        ],
+        "labels": [
+          "unlabelled"
+        ]
+      },
+      "emptyPrivacy": {
+        "host": {
+          "section": "privacy",
+          "hidden": [
+            "privacy.synthetic"
+          ],
+          "mounted": {},
+          "frames": {},
+          "events": [
+            [
+              "field-mount",
+              "chart.axis.synthetic",
+              "_r_1_"
+            ],
+            [
+              "field-mount",
+              "chart.markers.b",
+              "_r_3_"
+            ],
+            [
+              "field-mount",
+              "chart.markers.a",
+              "_r_4_"
+            ],
+            [
+              "field-unmount",
+              "chart.markers.a",
+              "_r_4_"
+            ],
+            [
+              "field-mount",
+              "chart.markers.a",
+              "_r_5_"
+            ],
+            [
+              "field-unmount",
+              "chart.markers.b",
+              "_r_3_"
+            ],
+            [
+              "field-unmount",
+              "chart.markers.a",
+              "_r_5_"
+            ],
+            [
+              "field-unmount",
+              "chart.axis.synthetic",
+              "_r_1_"
+            ],
+            [
+              "field-mount",
+              "feed.second",
+              "_r_7_"
+            ],
+            [
+              "field-mount",
+              "feed.first",
+              "_r_8_"
+            ],
+            [
+              "field-unmount",
+              "feed.second",
+              "_r_7_"
+            ],
+            [
+              "field-unmount",
+              "feed.first",
+              "_r_8_"
+            ],
+            [
+              "field-mount",
+              "privacy.synthetic",
+              "_r_a_"
+            ],
+            [
+              "field-unmount",
+              "privacy.synthetic",
+              "_r_a_"
+            ]
+          ]
+        },
+        "ids": [],
+        "compact": [],
+        "labels": []
+      },
+      "account": {
+        "host": {
+          "section": "account",
+          "hidden": [
+            "privacy.synthetic"
+          ],
+          "mounted": {},
+          "frames": {},
+          "events": [
+            [
+              "field-mount",
+              "chart.axis.synthetic",
+              "_r_1_"
+            ],
+            [
+              "field-mount",
+              "chart.markers.b",
+              "_r_3_"
+            ],
+            [
+              "field-mount",
+              "chart.markers.a",
+              "_r_4_"
+            ],
+            [
+              "field-unmount",
+              "chart.markers.a",
+              "_r_4_"
+            ],
+            [
+              "field-mount",
+              "chart.markers.a",
+              "_r_5_"
+            ],
+            [
+              "field-unmount",
+              "chart.markers.b",
+              "_r_3_"
+            ],
+            [
+              "field-unmount",
+              "chart.markers.a",
+              "_r_5_"
+            ],
+            [
+              "field-unmount",
+              "chart.axis.synthetic",
+              "_r_1_"
+            ],
+            [
+              "field-mount",
+              "feed.second",
+              "_r_7_"
+            ],
+            [
+              "field-mount",
+              "feed.first",
+              "_r_8_"
+            ],
+            [
+              "field-unmount",
+              "feed.second",
+              "_r_7_"
+            ],
+            [
+              "field-unmount",
+              "feed.first",
+              "_r_8_"
+            ],
+            [
+              "field-mount",
+              "privacy.synthetic",
+              "_r_a_"
+            ],
+            [
+              "field-unmount",
+              "privacy.synthetic",
+              "_r_a_"
+            ]
+          ]
+        },
+        "ids": [],
+        "compact": [],
+        "labels": []
+      },
+      "notifications": {
+        "host": {
+          "section": "notifications",
+          "hidden": [
+            "privacy.synthetic"
+          ],
+          "mounted": {},
+          "frames": {},
+          "events": [
+            [
+              "field-mount",
+              "chart.axis.synthetic",
+              "_r_1_"
+            ],
+            [
+              "field-mount",
+              "chart.markers.b",
+              "_r_3_"
+            ],
+            [
+              "field-mount",
+              "chart.markers.a",
+              "_r_4_"
+            ],
+            [
+              "field-unmount",
+              "chart.markers.a",
+              "_r_4_"
+            ],
+            [
+              "field-mount",
+              "chart.markers.a",
+              "_r_5_"
+            ],
+            [
+              "field-unmount",
+              "chart.markers.b",
+              "_r_3_"
+            ],
+            [
+              "field-unmount",
+              "chart.markers.a",
+              "_r_5_"
+            ],
+            [
+              "field-unmount",
+              "chart.axis.synthetic",
+              "_r_1_"
+            ],
+            [
+              "field-mount",
+              "feed.second",
+              "_r_7_"
+            ],
+            [
+              "field-mount",
+              "feed.first",
+              "_r_8_"
+            ],
+            [
+              "field-unmount",
+              "feed.second",
+              "_r_7_"
+            ],
+            [
+              "field-unmount",
+              "feed.first",
+              "_r_8_"
+            ],
+            [
+              "field-mount",
+              "privacy.synthetic",
+              "_r_a_"
+            ],
+            [
+              "field-unmount",
+              "privacy.synthetic",
+              "_r_a_"
+            ]
+          ]
+        },
+        "ids": [],
+        "compact": [],
+        "labels": []
+      },
+      "unknown": {
+        "host": {
+          "section": "unknown",
+          "hidden": [
+            "privacy.synthetic"
+          ],
+          "mounted": {},
+          "frames": {},
+          "events": [
+            [
+              "field-mount",
+              "chart.axis.synthetic",
+              "_r_1_"
+            ],
+            [
+              "field-mount",
+              "chart.markers.b",
+              "_r_3_"
+            ],
+            [
+              "field-mount",
+              "chart.markers.a",
+              "_r_4_"
+            ],
+            [
+              "field-unmount",
+              "chart.markers.a",
+              "_r_4_"
+            ],
+            [
+              "field-mount",
+              "chart.markers.a",
+              "_r_5_"
+            ],
+            [
+              "field-unmount",
+              "chart.markers.b",
+              "_r_3_"
+            ],
+            [
+              "field-unmount",
+              "chart.markers.a",
+              "_r_5_"
+            ],
+            [
+              "field-unmount",
+              "chart.axis.synthetic",
+              "_r_1_"
+            ],
+            [
+              "field-mount",
+              "feed.second",
+              "_r_7_"
+            ],
+            [
+              "field-mount",
+              "feed.first",
+              "_r_8_"
+            ],
+            [
+              "field-unmount",
+              "feed.second",
+              "_r_7_"
+            ],
+            [
+              "field-unmount",
+              "feed.first",
+              "_r_8_"
+            ],
+            [
+              "field-mount",
+              "privacy.synthetic",
+              "_r_a_"
+            ],
+            [
+              "field-unmount",
+              "privacy.synthetic",
+              "_r_a_"
+            ]
+          ]
+        },
+        "ids": [],
+        "compact": [],
+        "labels": []
+      },
+      "unmounted": {
+        "host": {
+          "section": "unknown",
+          "hidden": [
+            "privacy.synthetic"
+          ],
+          "mounted": {},
+          "frames": {},
+          "events": [
+            [
+              "field-mount",
+              "chart.axis.synthetic",
+              "_r_1_"
+            ],
+            [
+              "field-mount",
+              "chart.markers.b",
+              "_r_3_"
+            ],
+            [
+              "field-mount",
+              "chart.markers.a",
+              "_r_4_"
+            ],
+            [
+              "field-unmount",
+              "chart.markers.a",
+              "_r_4_"
+            ],
+            [
+              "field-mount",
+              "chart.markers.a",
+              "_r_5_"
+            ],
+            [
+              "field-unmount",
+              "chart.markers.b",
+              "_r_3_"
+            ],
+            [
+              "field-unmount",
+              "chart.markers.a",
+              "_r_5_"
+            ],
+            [
+              "field-unmount",
+              "chart.axis.synthetic",
+              "_r_1_"
+            ],
+            [
+              "field-mount",
+              "feed.second",
+              "_r_7_"
+            ],
+            [
+              "field-mount",
+              "feed.first",
+              "_r_8_"
+            ],
+            [
+              "field-unmount",
+              "feed.second",
+              "_r_7_"
+            ],
+            [
+              "field-unmount",
+              "feed.first",
+              "_r_8_"
+            ],
+            [
+              "field-mount",
+              "privacy.synthetic",
+              "_r_a_"
+            ],
+            [
+              "field-unmount",
+              "privacy.synthetic",
+              "_r_a_"
+            ]
+          ]
+        },
+        "ids": [],
+        "compact": [],
+        "labels": []
+      },
+      "overflow": 0,
+      "errors": [],
+      "limits": "Actual source section-owner withreadonlysyntheticmetadata/ports and actualReact/compiler. Host honors source section-keyed parent; useId/effects diagnosehostkeys, not preference/provider lifecycle."
+    },
+    {
+      "width": 1280,
+      "initial": {
+        "host": {
+          "section": "chart",
+          "hidden": [],
+          "mounted": {
+            "chart.axis.synthetic": "_r_1_",
+            "chart.markers.b": "_r_3_",
+            "chart.markers.a": "_r_4_"
+          },
+          "frames": {
+            "_r_0_": "unlabelled",
+            "_r_2_": "Synthetic:web.settings.chart.bubbles"
+          },
+          "events": [
+            [
+              "field-mount",
+              "chart.axis.synthetic",
+              "_r_1_"
+            ],
+            [
+              "field-mount",
+              "chart.markers.b",
+              "_r_3_"
+            ],
+            [
+              "field-mount",
+              "chart.markers.a",
+              "_r_4_"
+            ]
+          ]
+        },
+        "ids": [
+          "chart.axis.synthetic",
+          "chart.markers.b",
+          "chart.markers.a"
+        ],
+        "compact": [
+          null,
+          "true",
+          "true"
+        ],
+        "labels": [
+          "unlabelled",
+          "Synthetic:web.settings.chart.bubbles"
+        ]
+      },
+      "filtered": {
+        "host": {
+          "section": "chart",
+          "hidden": [
+            "chart.markers.a"
+          ],
+          "mounted": {
+            "chart.axis.synthetic": "_r_1_",
+            "chart.markers.b": "_r_3_"
+          },
+          "frames": {
+            "_r_0_": "unlabelled",
+            "_r_2_": "Synthetic:web.settings.chart.bubbles"
+          },
+          "events": [
+            [
+              "field-mount",
+              "chart.axis.synthetic",
+              "_r_1_"
+            ],
+            [
+              "field-mount",
+              "chart.markers.b",
+              "_r_3_"
+            ],
+            [
+              "field-mount",
+              "chart.markers.a",
+              "_r_4_"
+            ],
+            [
+              "field-unmount",
+              "chart.markers.a",
+              "_r_4_"
+            ]
+          ]
+        },
+        "ids": [
+          "chart.axis.synthetic",
+          "chart.markers.b"
+        ],
+        "compact": [
+          null,
+          "true"
+        ],
+        "labels": [
+          "unlabelled",
+          "Synthetic:web.settings.chart.bubbles"
+        ]
+      },
+      "restored": {
+        "host": {
+          "section": "chart",
+          "hidden": [],
+          "mounted": {
+            "chart.axis.synthetic": "_r_1_",
+            "chart.markers.b": "_r_3_",
+            "chart.markers.a": "_r_5_"
+          },
+          "frames": {
+            "_r_0_": "unlabelled",
+            "_r_2_": "Synthetic:web.settings.chart.bubbles"
+          },
+          "events": [
+            [
+              "field-mount",
+              "chart.axis.synthetic",
+              "_r_1_"
+            ],
+            [
+              "field-mount",
+              "chart.markers.b",
+              "_r_3_"
+            ],
+            [
+              "field-mount",
+              "chart.markers.a",
+              "_r_4_"
+            ],
+            [
+              "field-unmount",
+              "chart.markers.a",
+              "_r_4_"
+            ],
+            [
+              "field-mount",
+              "chart.markers.a",
+              "_r_5_"
+            ]
+          ]
+        },
+        "ids": [
+          "chart.axis.synthetic",
+          "chart.markers.b",
+          "chart.markers.a"
+        ],
+        "compact": [
+          null,
+          "true",
+          "true"
+        ],
+        "labels": [
+          "unlabelled",
+          "Synthetic:web.settings.chart.bubbles"
+        ]
+      },
+      "emptyGroupRemoved": {
+        "host": {
+          "section": "chart",
+          "hidden": [
+            "chart.markers.a",
+            "chart.markers.b"
+          ],
+          "mounted": {
+            "chart.axis.synthetic": "_r_1_"
+          },
+          "frames": {
+            "_r_0_": "unlabelled"
+          },
+          "events": [
+            [
+              "field-mount",
+              "chart.axis.synthetic",
+              "_r_1_"
+            ],
+            [
+              "field-mount",
+              "chart.markers.b",
+              "_r_3_"
+            ],
+            [
+              "field-mount",
+              "chart.markers.a",
+              "_r_4_"
+            ],
+            [
+              "field-unmount",
+              "chart.markers.a",
+              "_r_4_"
+            ],
+            [
+              "field-mount",
+              "chart.markers.a",
+              "_r_5_"
+            ],
+            [
+              "field-unmount",
+              "chart.markers.b",
+              "_r_3_"
+            ],
+            [
+              "field-unmount",
+              "chart.markers.a",
+              "_r_5_"
+            ]
+          ]
+        },
+        "ids": [
+          "chart.axis.synthetic"
+        ],
+        "compact": [
+          null
+        ],
+        "labels": [
+          "unlabelled"
+        ]
+      },
+      "feed": {
+        "host": {
+          "section": "feed",
+          "hidden": [],
+          "mounted": {
+            "feed.second": "_r_7_",
+            "feed.first": "_r_8_"
+          },
+          "frames": {
+            "_r_6_": "unlabelled"
+          },
+          "events": [
+            [
+              "field-mount",
+              "chart.axis.synthetic",
+              "_r_1_"
+            ],
+            [
+              "field-mount",
+              "chart.markers.b",
+              "_r_3_"
+            ],
+            [
+              "field-mount",
+              "chart.markers.a",
+              "_r_4_"
+            ],
+            [
+              "field-unmount",
+              "chart.markers.a",
+              "_r_4_"
+            ],
+            [
+              "field-mount",
+              "chart.markers.a",
+              "_r_5_"
+            ],
+            [
+              "field-unmount",
+              "chart.markers.b",
+              "_r_3_"
+            ],
+            [
+              "field-unmount",
+              "chart.markers.a",
+              "_r_5_"
+            ],
+            [
+              "field-unmount",
+              "chart.axis.synthetic",
+              "_r_1_"
+            ],
+            [
+              "field-mount",
+              "feed.second",
+              "_r_7_"
+            ],
+            [
+              "field-mount",
+              "feed.first",
+              "_r_8_"
+            ]
+          ]
+        },
+        "ids": [
+          "feed.second",
+          "feed.first"
+        ],
+        "compact": [
+          null,
+          null
+        ],
+        "labels": [
+          "unlabelled"
+        ]
+      },
+      "privacy": {
+        "host": {
+          "section": "privacy",
+          "hidden": [],
+          "mounted": {
+            "privacy.synthetic": "_r_a_"
+          },
+          "frames": {
+            "_r_9_": "unlabelled"
+          },
+          "events": [
+            [
+              "field-mount",
+              "chart.axis.synthetic",
+              "_r_1_"
+            ],
+            [
+              "field-mount",
+              "chart.markers.b",
+              "_r_3_"
+            ],
+            [
+              "field-mount",
+              "chart.markers.a",
+              "_r_4_"
+            ],
+            [
+              "field-unmount",
+              "chart.markers.a",
+              "_r_4_"
+            ],
+            [
+              "field-mount",
+              "chart.markers.a",
+              "_r_5_"
+            ],
+            [
+              "field-unmount",
+              "chart.markers.b",
+              "_r_3_"
+            ],
+            [
+              "field-unmount",
+              "chart.markers.a",
+              "_r_5_"
+            ],
+            [
+              "field-unmount",
+              "chart.axis.synthetic",
+              "_r_1_"
+            ],
+            [
+              "field-mount",
+              "feed.second",
+              "_r_7_"
+            ],
+            [
+              "field-mount",
+              "feed.first",
+              "_r_8_"
+            ],
+            [
+              "field-unmount",
+              "feed.second",
+              "_r_7_"
+            ],
+            [
+              "field-unmount",
+              "feed.first",
+              "_r_8_"
+            ],
+            [
+              "field-mount",
+              "privacy.synthetic",
+              "_r_a_"
+            ]
+          ]
+        },
+        "ids": [
+          "privacy.synthetic"
+        ],
+        "compact": [
+          null
+        ],
+        "labels": [
+          "unlabelled"
+        ]
+      },
+      "emptyPrivacy": {
+        "host": {
+          "section": "privacy",
+          "hidden": [
+            "privacy.synthetic"
+          ],
+          "mounted": {},
+          "frames": {},
+          "events": [
+            [
+              "field-mount",
+              "chart.axis.synthetic",
+              "_r_1_"
+            ],
+            [
+              "field-mount",
+              "chart.markers.b",
+              "_r_3_"
+            ],
+            [
+              "field-mount",
+              "chart.markers.a",
+              "_r_4_"
+            ],
+            [
+              "field-unmount",
+              "chart.markers.a",
+              "_r_4_"
+            ],
+            [
+              "field-mount",
+              "chart.markers.a",
+              "_r_5_"
+            ],
+            [
+              "field-unmount",
+              "chart.markers.b",
+              "_r_3_"
+            ],
+            [
+              "field-unmount",
+              "chart.markers.a",
+              "_r_5_"
+            ],
+            [
+              "field-unmount",
+              "chart.axis.synthetic",
+              "_r_1_"
+            ],
+            [
+              "field-mount",
+              "feed.second",
+              "_r_7_"
+            ],
+            [
+              "field-mount",
+              "feed.first",
+              "_r_8_"
+            ],
+            [
+              "field-unmount",
+              "feed.second",
+              "_r_7_"
+            ],
+            [
+              "field-unmount",
+              "feed.first",
+              "_r_8_"
+            ],
+            [
+              "field-mount",
+              "privacy.synthetic",
+              "_r_a_"
+            ],
+            [
+              "field-unmount",
+              "privacy.synthetic",
+              "_r_a_"
+            ]
+          ]
+        },
+        "ids": [],
+        "compact": [],
+        "labels": []
+      },
+      "account": {
+        "host": {
+          "section": "account",
+          "hidden": [
+            "privacy.synthetic"
+          ],
+          "mounted": {},
+          "frames": {},
+          "events": [
+            [
+              "field-mount",
+              "chart.axis.synthetic",
+              "_r_1_"
+            ],
+            [
+              "field-mount",
+              "chart.markers.b",
+              "_r_3_"
+            ],
+            [
+              "field-mount",
+              "chart.markers.a",
+              "_r_4_"
+            ],
+            [
+              "field-unmount",
+              "chart.markers.a",
+              "_r_4_"
+            ],
+            [
+              "field-mount",
+              "chart.markers.a",
+              "_r_5_"
+            ],
+            [
+              "field-unmount",
+              "chart.markers.b",
+              "_r_3_"
+            ],
+            [
+              "field-unmount",
+              "chart.markers.a",
+              "_r_5_"
+            ],
+            [
+              "field-unmount",
+              "chart.axis.synthetic",
+              "_r_1_"
+            ],
+            [
+              "field-mount",
+              "feed.second",
+              "_r_7_"
+            ],
+            [
+              "field-mount",
+              "feed.first",
+              "_r_8_"
+            ],
+            [
+              "field-unmount",
+              "feed.second",
+              "_r_7_"
+            ],
+            [
+              "field-unmount",
+              "feed.first",
+              "_r_8_"
+            ],
+            [
+              "field-mount",
+              "privacy.synthetic",
+              "_r_a_"
+            ],
+            [
+              "field-unmount",
+              "privacy.synthetic",
+              "_r_a_"
+            ]
+          ]
+        },
+        "ids": [],
+        "compact": [],
+        "labels": []
+      },
+      "notifications": {
+        "host": {
+          "section": "notifications",
+          "hidden": [
+            "privacy.synthetic"
+          ],
+          "mounted": {},
+          "frames": {},
+          "events": [
+            [
+              "field-mount",
+              "chart.axis.synthetic",
+              "_r_1_"
+            ],
+            [
+              "field-mount",
+              "chart.markers.b",
+              "_r_3_"
+            ],
+            [
+              "field-mount",
+              "chart.markers.a",
+              "_r_4_"
+            ],
+            [
+              "field-unmount",
+              "chart.markers.a",
+              "_r_4_"
+            ],
+            [
+              "field-mount",
+              "chart.markers.a",
+              "_r_5_"
+            ],
+            [
+              "field-unmount",
+              "chart.markers.b",
+              "_r_3_"
+            ],
+            [
+              "field-unmount",
+              "chart.markers.a",
+              "_r_5_"
+            ],
+            [
+              "field-unmount",
+              "chart.axis.synthetic",
+              "_r_1_"
+            ],
+            [
+              "field-mount",
+              "feed.second",
+              "_r_7_"
+            ],
+            [
+              "field-mount",
+              "feed.first",
+              "_r_8_"
+            ],
+            [
+              "field-unmount",
+              "feed.second",
+              "_r_7_"
+            ],
+            [
+              "field-unmount",
+              "feed.first",
+              "_r_8_"
+            ],
+            [
+              "field-mount",
+              "privacy.synthetic",
+              "_r_a_"
+            ],
+            [
+              "field-unmount",
+              "privacy.synthetic",
+              "_r_a_"
+            ]
+          ]
+        },
+        "ids": [],
+        "compact": [],
+        "labels": []
+      },
+      "unknown": {
+        "host": {
+          "section": "unknown",
+          "hidden": [
+            "privacy.synthetic"
+          ],
+          "mounted": {},
+          "frames": {},
+          "events": [
+            [
+              "field-mount",
+              "chart.axis.synthetic",
+              "_r_1_"
+            ],
+            [
+              "field-mount",
+              "chart.markers.b",
+              "_r_3_"
+            ],
+            [
+              "field-mount",
+              "chart.markers.a",
+              "_r_4_"
+            ],
+            [
+              "field-unmount",
+              "chart.markers.a",
+              "_r_4_"
+            ],
+            [
+              "field-mount",
+              "chart.markers.a",
+              "_r_5_"
+            ],
+            [
+              "field-unmount",
+              "chart.markers.b",
+              "_r_3_"
+            ],
+            [
+              "field-unmount",
+              "chart.markers.a",
+              "_r_5_"
+            ],
+            [
+              "field-unmount",
+              "chart.axis.synthetic",
+              "_r_1_"
+            ],
+            [
+              "field-mount",
+              "feed.second",
+              "_r_7_"
+            ],
+            [
+              "field-mount",
+              "feed.first",
+              "_r_8_"
+            ],
+            [
+              "field-unmount",
+              "feed.second",
+              "_r_7_"
+            ],
+            [
+              "field-unmount",
+              "feed.first",
+              "_r_8_"
+            ],
+            [
+              "field-mount",
+              "privacy.synthetic",
+              "_r_a_"
+            ],
+            [
+              "field-unmount",
+              "privacy.synthetic",
+              "_r_a_"
+            ]
+          ]
+        },
+        "ids": [],
+        "compact": [],
+        "labels": []
+      },
+      "unmounted": {
+        "host": {
+          "section": "unknown",
+          "hidden": [
+            "privacy.synthetic"
+          ],
+          "mounted": {},
+          "frames": {},
+          "events": [
+            [
+              "field-mount",
+              "chart.axis.synthetic",
+              "_r_1_"
+            ],
+            [
+              "field-mount",
+              "chart.markers.b",
+              "_r_3_"
+            ],
+            [
+              "field-mount",
+              "chart.markers.a",
+              "_r_4_"
+            ],
+            [
+              "field-unmount",
+              "chart.markers.a",
+              "_r_4_"
+            ],
+            [
+              "field-mount",
+              "chart.markers.a",
+              "_r_5_"
+            ],
+            [
+              "field-unmount",
+              "chart.markers.b",
+              "_r_3_"
+            ],
+            [
+              "field-unmount",
+              "chart.markers.a",
+              "_r_5_"
+            ],
+            [
+              "field-unmount",
+              "chart.axis.synthetic",
+              "_r_1_"
+            ],
+            [
+              "field-mount",
+              "feed.second",
+              "_r_7_"
+            ],
+            [
+              "field-mount",
+              "feed.first",
+              "_r_8_"
+            ],
+            [
+              "field-unmount",
+              "feed.second",
+              "_r_7_"
+            ],
+            [
+              "field-unmount",
+              "feed.first",
+              "_r_8_"
+            ],
+            [
+              "field-mount",
+              "privacy.synthetic",
+              "_r_a_"
+            ],
+            [
+              "field-unmount",
+              "privacy.synthetic",
+              "_r_a_"
+            ]
+          ]
+        },
+        "ids": [],
+        "compact": [],
+        "labels": []
+      },
+      "overflow": 0,
+      "errors": [],
+      "limits": "Actual source section-owner withreadonlysyntheticmetadata/ports and actualReact/compiler. Host honors source section-keyed parent; useId/effects diagnosehostkeys, not preference/provider lifecycle."
+    }
+  ],
+  "limits": "Owned GET-onlyfixture; onlyreadonlysyntheticregistry/visibility/renderer/translationports. No protected/provider/account/Hermes/cookie/request acquisition, actualstorage/credentials/userdata/preferences/controlmutation or originalglobalSettings/CSS/native/API/pixel/security/completion claim."
+}

@@ -1,0 +1,301 @@
+{
+  "schema": 1,
+  "testedHead": "fc2d1ed580d41cf984664aa384165f5840db5507",
+  "testedTree": "f8f01c76095d72121de384605cb1401f6ecf553a",
+  "sourceFrozenHead": "44d60804daf0b9966f33b2a76ecd77e3c812933f",
+  "reviewBase": "094a06f18df738d41e77070c1a009e135671ac1a",
+  "scope": "Complete original Settings section-content filter/group/key/empty display owner with readonly externalports; no protected/provider acquisition.",
+  "inputs": {
+    "evidence/web/manifest.json": {
+      "bytes": 3026513,
+      "sha256": "9e0fc00719eb8c919dd4205d3c118eb48c4927e056c77e8343e26d6f7189bbb5",
+      "gitBlob": "8ff3e62cd191592c2e2abd0e58153857af014bda"
+    },
+    "evidence/web/objects/4490d02ba2117672.js": {
+      "bytes": 52381,
+      "sha256": "17654c0cf0b8fe65da685a36840e41c570a2e70a49af81bd8133c2ac3a33b59e",
+      "gitBlob": "464a645f3fc99db61ab4cdab0395471031bc1715"
+    },
+    "package.json": {
+      "bytes": 3703,
+      "sha256": "2b1369ffa6711ccfeccdfd4533efb59bf7b2bae17798fe429313acd5b5421468",
+      "gitBlob": "6051965d2450d0c58a8271b69cdc78f79e2ad9f8"
+    },
+    "packages/backend/package.json": {
+      "bytes": 463,
+      "sha256": "deef3a248b10533227d49c0677462be32f8e41d3ef0f37059975132a274f42c7",
+      "gitBlob": "1d8fb185b7f5e5a1c370fd03213d299ed68ac64b"
+    },
+    "packages/frontend/package.json": {
+      "bytes": 1048,
+      "sha256": "35c8a968accdce5b7d0bd4159af1ce90abecef8fe3d749db7ae1f8523f281e6e",
+      "gitBlob": "f998048da959e90119cc58b720d6a09da9f897c0"
+    },
+    "pnpm-lock.yaml": {
+      "bytes": 113160,
+      "sha256": "734ff7a70c450e2320bfc1bfdf096cd25c62d737c41b1f91670ba741ed28670d",
+      "gitBlob": "049b2153aa789a6def6cbd55c7b375a74a091fd1"
+    },
+    "reconstruction/settings-section-content/client.mjs": {
+      "bytes": 5112,
+      "sha256": "b0a583d680d5af9811ba11a5ad11ab06bb7c450bd9c5e187b76b694dd7aaaa9b",
+      "gitBlob": "7a3c97a10c5c59882bd779e0d71292a1a11c1a55"
+    },
+    "reconstruction/settings-section-content/contract.json": {
+      "bytes": 12420,
+      "sha256": "c310baec980fe7cb606f8d72252b59f1fdd282d92328d2d4e46bfbf2281c5479",
+      "gitBlob": "6882a0a15ff70843c65963edf5359d5529db308c"
+    },
+    "recovered/modules.json": {
+      "bytes": 2928853,
+      "sha256": "1d268ae7f2eb0f61eaaffd222269bf29d9ce06e9946372861721b2f159d868e2",
+      "gitBlob": "ccf9340fc81c25579fcd19e4a9b11a26bee9748f"
+    },
+    "scripts/original-contracts/source.mjs": {
+      "bytes": 9493,
+      "sha256": "49b11417fd4d500d8821c94df6c215b77da2248875f943570f2b9df6c9b35213",
+      "gitBlob": "982ba8058c78f80bb3816529166920e5c74c43df"
+    },
+    "scripts/original-settings-section-content.mjs": {
+      "bytes": 10953,
+      "sha256": "aed55e47b6f6a1b313456967519e2c3ea813db95eb31220e2c6adcc9df0eb231",
+      "gitBlob": "e3e8a9cf249be395c191d1c1ddc789b353ad2e67"
+    },
+    "tests/fixtures/settings-section-content-browser.mjs": {
+      "bytes": 4038,
+      "sha256": "b88414997cedcfcf2be6afc0f96a224173a12101e6a234ecc55e71d9d288235b",
+      "gitBlob": "f9be5895fed18324c430a0ed047b06f443710fd1"
+    },
+    "tests/original_settings_section_content.test.mjs": {
+      "bytes": 7373,
+      "sha256": "6b4f020b3abbdae764c7e2a57748774f7ce5a1e3906d463a7035740344dd0622",
+      "gitBlob": "f4003a0c8c4d201b8e7b691b467b7820389a11c2"
+    },
+    "tests/original_settings_section_content_browser.test.mjs": {
+      "bytes": 11862,
+      "sha256": "45a3716cda95c0183c2ba597b2b1f3ce375f5081342ce3b57c13899577cbf525",
+      "gitBlob": "b7aacd7ce128e23d2f5ea66f29888d50cca325c0"
+    },
+    "tests/original_source.test.mjs": {
+      "bytes": 7401,
+      "sha256": "4e50daf92031d2a46fb9e716e039052adfdcb476187b81c850fbb5aa57c4dae3",
+      "gitBlob": "795e950492ee6e8e00bb5643c70902d24a1a2431"
+    }
+  },
+  "inputScope": "15 selected finalexecuted source/generator/tests/capture/index/manifest/package inputs, not exhaustive installed/cold/whole-app identity.",
+  "results": [
+    {
+      "name": "source-final",
+      "argv": [
+        "node",
+        "scripts/original-settings-section-content.mjs"
+      ],
+      "cwd": "app/",
+      "revision": "fc2d1ed580d41cf984664aa384165f5840db5507",
+      "exit": 0,
+      "seconds": 0.5774375390028581
+    },
+    {
+      "name": "focused-final",
+      "argv": [
+        "node",
+        "--test",
+        "tests/original_settings_section_content.test.mjs",
+        "tests/original_source.test.mjs"
+      ],
+      "cwd": "app/",
+      "revision": "fc2d1ed580d41cf984664aa384165f5840db5507",
+      "exit": 0,
+      "seconds": 0.6750467919919174
+    },
+    {
+      "name": "typecheck",
+      "argv": [
+        "node",
+        "/home/agent/.cache/node/corepack/v1/pnpm/10.24.0/bin/pnpm.cjs",
+        "typecheck"
+      ],
+      "cwd": "app/",
+      "revision": "fc2d1ed580d41cf984664aa384165f5840db5507",
+      "exit": 0,
+      "seconds": 5.576430797984358
+    },
+    {
+      "name": "evidence",
+      "argv": [
+        "python3",
+        "scripts/verify-evidence.py"
+      ],
+      "cwd": "app/",
+      "revision": "fc2d1ed580d41cf984664aa384165f5840db5507",
+      "exit": 0,
+      "seconds": 0.18415512799401768
+    },
+    {
+      "name": "progress",
+      "argv": [
+        "python3",
+        "scripts/progress.py",
+        "--check"
+      ],
+      "cwd": "app/",
+      "revision": "fc2d1ed580d41cf984664aa384165f5840db5507",
+      "exit": 0,
+      "seconds": 0.13595636299578473
+    },
+    {
+      "name": "progress-tests",
+      "argv": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_progress.py"
+      ],
+      "cwd": "app/",
+      "revision": "fc2d1ed580d41cf984664aa384165f5840db5507",
+      "exit": 0,
+      "seconds": 0.6612938189937267
+    },
+    {
+      "name": "browser-final",
+      "argv": [
+        "node",
+        "--test",
+        "tests/original_settings_section_content_browser.test.mjs"
+      ],
+      "cwd": "app/",
+      "revision": "fc2d1ed580d41cf984664aa384165f5840db5507",
+      "outputEnvironment": "PUMP_SETTINGS_SECTION_OUTPUT=<owned-output>",
+      "exit": 0,
+      "workflows": 1,
+      "widths": [
+        390,
+        1280
+      ],
+      "pageErrors": 0
+    }
+  ],
+  "browserBundleSha256": "bdb61a2b740d6a178cded26f9b19aeb63f31cf831592ba86758b3aaf3e63e8d0",
+  "priorAttempt": {
+    "revision": "44d60804daf0b9966f33b2a76ecd77e3c812933f",
+    "tree": "b9226492b33eb2ad95cb54dcc80c9f13fdaaf65c",
+    "inputs": {
+      "evidence/web/manifest.json": {
+        "bytes": 3026513,
+        "sha256": "9e0fc00719eb8c919dd4205d3c118eb48c4927e056c77e8343e26d6f7189bbb5",
+        "gitBlob": "8ff3e62cd191592c2e2abd0e58153857af014bda"
+      },
+      "evidence/web/objects/4490d02ba2117672.js": {
+        "bytes": 52381,
+        "sha256": "17654c0cf0b8fe65da685a36840e41c570a2e70a49af81bd8133c2ac3a33b59e",
+        "gitBlob": "464a645f3fc99db61ab4cdab0395471031bc1715"
+      },
+      "package.json": {
+        "bytes": 3703,
+        "sha256": "2b1369ffa6711ccfeccdfd4533efb59bf7b2bae17798fe429313acd5b5421468",
+        "gitBlob": "6051965d2450d0c58a8271b69cdc78f79e2ad9f8"
+      },
+      "packages/backend/package.json": {
+        "bytes": 463,
+        "sha256": "deef3a248b10533227d49c0677462be32f8e41d3ef0f37059975132a274f42c7",
+        "gitBlob": "1d8fb185b7f5e5a1c370fd03213d299ed68ac64b"
+      },
+      "packages/frontend/package.json": {
+        "bytes": 1048,
+        "sha256": "35c8a968accdce5b7d0bd4159af1ce90abecef8fe3d749db7ae1f8523f281e6e",
+        "gitBlob": "f998048da959e90119cc58b720d6a09da9f897c0"
+      },
+      "pnpm-lock.yaml": {
+        "bytes": 113160,
+        "sha256": "734ff7a70c450e2320bfc1bfdf096cd25c62d737c41b1f91670ba741ed28670d",
+        "gitBlob": "049b2153aa789a6def6cbd55c7b375a74a091fd1"
+      },
+      "reconstruction/settings-section-content/client.mjs": {
+        "bytes": 5112,
+        "sha256": "b0a583d680d5af9811ba11a5ad11ab06bb7c450bd9c5e187b76b694dd7aaaa9b",
+        "gitBlob": "7a3c97a10c5c59882bd779e0d71292a1a11c1a55"
+      },
+      "reconstruction/settings-section-content/contract.json": {
+        "bytes": 12420,
+        "sha256": "c310baec980fe7cb606f8d72252b59f1fdd282d92328d2d4e46bfbf2281c5479",
+        "gitBlob": "6882a0a15ff70843c65963edf5359d5529db308c"
+      },
+      "recovered/modules.json": {
+        "bytes": 2928853,
+        "sha256": "1d268ae7f2eb0f61eaaffd222269bf29d9ce06e9946372861721b2f159d868e2",
+        "gitBlob": "ccf9340fc81c25579fcd19e4a9b11a26bee9748f"
+      },
+      "scripts/original-contracts/source.mjs": {
+        "bytes": 9493,
+        "sha256": "49b11417fd4d500d8821c94df6c215b77da2248875f943570f2b9df6c9b35213",
+        "gitBlob": "982ba8058c78f80bb3816529166920e5c74c43df"
+      },
+      "scripts/original-settings-section-content.mjs": {
+        "bytes": 10953,
+        "sha256": "aed55e47b6f6a1b313456967519e2c3ea813db95eb31220e2c6adcc9df0eb231",
+        "gitBlob": "e3e8a9cf249be395c191d1c1ddc789b353ad2e67"
+      },
+      "tests/fixtures/settings-section-content-browser.mjs": {
+        "bytes": 4038,
+        "sha256": "b88414997cedcfcf2be6afc0f96a224173a12101e6a234ecc55e71d9d288235b",
+        "gitBlob": "f9be5895fed18324c430a0ed047b06f443710fd1"
+      },
+      "tests/original_settings_section_content.test.mjs": {
+        "bytes": 7373,
+        "sha256": "6b4f020b3abbdae764c7e2a57748774f7ce5a1e3906d463a7035740344dd0622",
+        "gitBlob": "f4003a0c8c4d201b8e7b691b467b7820389a11c2"
+      },
+      "tests/original_settings_section_content_browser.test.mjs": {
+        "bytes": 11841,
+        "sha256": "7353a6806f6acba4c95d79d09fd2cb100987ce334a8684acf0e281b55aaf8d7c",
+        "gitBlob": "89da766b49772f62714a22f89c34083902d9dc30"
+      },
+      "tests/original_source.test.mjs": {
+        "bytes": 7401,
+        "sha256": "4e50daf92031d2a46fb9e716e039052adfdcb476187b81c850fbb5aa57c4dae3",
+        "gitBlob": "795e950492ee6e8e00bb5643c70902d24a1a2431"
+      }
+    },
+    "browserExit": 1,
+    "result": "At390px all precedingassertions completed; waitForvisible timedout on attachedoriginalzero-heightunknownemptycontainer.1280pxnotreached.",
+    "logs": "prior-attempt/browser.tap.gz",
+    "bundleReceipt": null,
+    "limit": "No completedobservations/bundlehash waswrittenforfailedrun; do notinferone orretargetfailedphase. Rawtrace/firstPNGandall15Git-boundinputsarepreserved.",
+    "methodOnlyChange": [
+      "tests/original_settings_section_content_browser.test.mjs"
+    ],
+    "change": "Only waitFor()\u2192waitFor({state:attached}) for zero-heightunknowncontainer. Source/client/fixture/behavior assertions unchanged. No productfix isclaimed."
+  },
+  "versions": {
+    "node": "24.19.0",
+    "pnpm": "10.24.0",
+    "react": "19.2.3",
+    "playwright": "1.64.1",
+    "chromiumBuild": 1248,
+    "esbuild": "0.25.12",
+    "browserLocale": "en-US"
+  },
+  "cleanup": "BothattemptsclosedownedGET-onlyhost/Chromiumandremovedtemporarybundleinfinally; failedfirststatusretained. Finalexitzero andPRIMARYreservationexplicitlyreleased. No Next/process/cache owned.",
+  "preservation": "Finalmethodfc2dfrozenbeforefinalqualification; publication addsREADMEresulttext andsealedvalidationonly. All15selectedinputsunchanged.44d\u2192fc2d touchesonlyonebrowserreadinessline, notsource/fixture/assertions.",
+  "priorPhases": [
+    "Pre-freeze generatorwitness assembly referenced keyed beforedeclaringit; rawsourceCLIReferenceErrorsand18/19Nodephasefailure retained. Declarationfixedbefore44d, no retainedcomponentbodychanged. Corrected19Nodepassalso retained.",
+    "Two pre-freezecommandsranfromrepositoryrootinsteadapp/: MODULE_NOT_FOUND/test-file-not-found setupfailures. Logs retainedasfailures; corrected6-command44dpipelinePASSisretainedseparately, notrelabeled.",
+    "Frozen44dbrowserattempttimedout onzero-heightemptycontainerreadiness; finalmethodonlyattachedwaitcorrectedfc2d. All6normalchecksandactual2widthbrowserrerunatfinalmethodpass.",
+    "Sparsecheckoutomittedthreeunchangedprogressrefs;exactHEADGitblobsmaterializedbeforechecks, noledger/scorerchange."
+  ],
+  "runtimeAssertions": [
+    "Originalgroup/registryorder andcompactmetadata; filteredrows/groupsremoveandrestore, keyedhostidentitypreserved/remountedasexpected.",
+    "Finitehosthonors actualsection-keyedparent fromsource, withcaller section/onRequestClose shapes. DiagnosticReactuseId/effects describehostkeys, notprivatefield/provider lifecycle.",
+    "Privacyreadonlyfooteronlynonempty; accountheaderandnotificationearlyreturndelegateexactreadonlyports; no privateacquisition.",
+    "Unknownordinarysectionreturnsoriginalattachedemptycontainerwithnoinventedstatus; zeroerrors/overflow, sourceunmountclearsdiagnostichostDOM/effects."
+  ],
+  "limits": [
+    "Onlyreadonlysyntheticregistry/visibility/translation/rendererports withactualReact/compiler. Trade/chartprefixes areinertmetadata, notimplementedcontrols/financiallogic.",
+    "Noaccount/Hermes/permission/cookie/providerrequestacquisition, realpreferences/actualstorage/sessions/credentials/userdata orprotectedcontrol/mutation.",
+    "No originalwholemodal/globalSettings/provider/CSS/native/API/pixel/security/completionclaim;1872/1911/1898/1920/1839/675/683remaincreditedexternalports withoutunmergedruntimeimports/copy/retally."
+  ]
+}
