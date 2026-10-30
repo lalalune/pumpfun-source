@@ -1,0 +1,252 @@
+{
+  "schemaVersion": 1,
+  "baseCommit": "094a06f18df738d41e77070c1a009e135671ac1a",
+  "frozenSourceCommit": "4fdd2faa8827b80439f07e663b5bc9b6481afa03",
+  "scope": "Complete200-slot ordinary position read/display workflow; all financial/read/format/locale/provider algorithms remain required opaque APIs",
+  "frozenInputs": [
+    {
+      "path": "app/reconstruction/coin-position-display/PROVENANCE.json",
+      "gitBlob": "843b6a28138aac0b8bf884d6bfd4afba0be1d84f",
+      "bytes": 117072,
+      "sha256": "0462f0cc800532516045ddddd5deab2d5491339a72a6e516a74d90029ced1448",
+      "currentIdentical": true
+    },
+    {
+      "path": "app/reconstruction/coin-position-display/README.md",
+      "gitBlob": "55032c69829d132b77893a41b207a0e04e103640",
+      "bytes": 6460,
+      "sha256": "d48958585e73f7c2b64ebe092cb036f9d01cafd0095c05bab56d0630f74fee9a",
+      "currentIdentical": false
+    },
+    {
+      "path": "app/reconstruction/coin-position-display/client.mjs",
+      "gitBlob": "1f3b535208f675691ed427bd0fa71343535f63f8",
+      "bytes": 36007,
+      "sha256": "c72a4de928cbc31c4466ad7830e99b241f6504d55e810fad5abda7f48c34c95d",
+      "currentIdentical": true
+    },
+    {
+      "path": "app/reconstruction/coin-position-display/verify.mjs",
+      "gitBlob": "97afd5127385507a810d994f53ec21996ade2112",
+      "bytes": 18606,
+      "sha256": "873f91c3e2a1caac6352c4c066187f68280f977f44e9aa48bc352396fa0e4c03",
+      "currentIdentical": true
+    },
+    {
+      "path": "app/tests/coin_position_display.browser.mjs",
+      "gitBlob": "f3d6d14ca881b086fe2e3fe195a1da6b856f3dc2",
+      "bytes": 9158,
+      "sha256": "fd394149b1990c88c25d390fc95d28c78d596e5bca9edf521cb154547ff7414d",
+      "currentIdentical": true
+    },
+    {
+      "path": "app/tests/coin_position_display.test.mjs",
+      "gitBlob": "b4844c4db87c9a598da8dffeeba34a6adac842f8",
+      "bytes": 8148,
+      "sha256": "c4a1248bdfc610ce9115fb9eccfebed254e9642d7d863654688476ceae444fd8",
+      "currentIdentical": true
+    },
+    {
+      "path": "app/tests/fixtures/coin-position-ports.mjs",
+      "gitBlob": "68087a98d80dfc2adbf4da1f4392dc062ff169ad",
+      "bytes": 3508,
+      "sha256": "676813f05838f5c8f91f2521035c7aeeed61502b65a534732c7b5ba26269e9f1",
+      "currentIdentical": true
+    },
+    {
+      "path": "app/tests/fixtures/coin-position.mjs",
+      "gitBlob": "f06784d07553e9c23bd7348159c619886977f59d",
+      "bytes": 1543,
+      "sha256": "35f428fa0d64c3c24c34294d6e1def788f0e1cc5feb1278b82d3a9ece43acf7a",
+      "currentIdentical": true
+    }
+  ],
+  "sourceContexts": 35,
+  "rawWitnesses": 168,
+  "displayComparisons": 3,
+  "tests": {
+    "newNode": 13,
+    "sharedSource": 11,
+    "nodePass": 24,
+    "browserWorkflows": 1,
+    "browserWidths": [
+      390,
+      1280
+    ],
+    "appEvidence": 698,
+    "progress": "PASS"
+  },
+  "initialPreflights": {
+    "source": "Generator-local temporal-dead-zone error before emitted source; raw failure retained. Loop binding corrected before freeze; old attempted implementation not separately retained/qualified. Positive facade-to-CJS image binding added before final source/Node pass; older Node log not transferred."
+  },
+  "browser": {
+    "result": "PASS",
+    "actualBundledInputs": [
+      {
+        "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/cjs/react-dom-client.development.js",
+        "bytes": 1065698,
+        "sha256": "c5da0593f349c7f4de33318879716d1e35ff007bb1de47f731684e75a469e5e1"
+      },
+      {
+        "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/cjs/react-dom.development.js",
+        "bytes": 17673,
+        "sha256": "e85d6e1f6187c46c9969a8a03b4288167f1fd233ce7e4e56ba8aad555348db6c"
+      },
+      {
+        "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/client.js",
+        "bytes": 1373,
+        "sha256": "00e348ab3d6bc2eef908345d0bc4e008c95bcfecec060dfda5c4967953761396"
+      },
+      {
+        "path": "node_modules/.pnpm/react-dom@19.2.3_react@19.2.3/node_modules/react-dom/index.js",
+        "bytes": 1359,
+        "sha256": "ba1a3e33489f868371561777607e3ee5091df0f7ea3f1a10f789d6b86e4c1505"
+      },
+      {
+        "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/cjs/react-compiler-runtime.development.js",
+        "bytes": 1090,
+        "sha256": "7ae8fa77a54c404572cba7065e14fe599a3d8cc0b68d34d649d8acc776e4e096"
+      },
+      {
+        "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/cjs/react-jsx-runtime.development.js",
+        "bytes": 12452,
+        "sha256": "dd50fd0db2fba44e0eee66243a45c81cfa3774cf41e4e6c0c080a601815c694d"
+      },
+      {
+        "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/cjs/react.development.js",
+        "bytes": 47219,
+        "sha256": "1919eb95d51bdaed6c771bcd506d65a11639142032e44d0e9212e5c745be1b65"
+      },
+      {
+        "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/compiler-runtime.js",
+        "bytes": 412,
+        "sha256": "5c00456a0180b7b6b2366348f7218b0ea2c3a85c7fefe24c18533ed54126f601"
+      },
+      {
+        "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/index.js",
+        "bytes": 186,
+        "sha256": "60caffdecbdc5db3bc4ec4e83df9488345ccb271d07533b9210bf5750918d97e"
+      },
+      {
+        "path": "node_modules/.pnpm/react@19.2.3/node_modules/react/jsx-runtime.js",
+        "bytes": 210,
+        "sha256": "b392951a77d0a2e6a6bd017e49d768481ae5b63c4109c6c31f622cf7b2433edc"
+      },
+      {
+        "path": "node_modules/.pnpm/scheduler@0.27.0/node_modules/scheduler/cjs/scheduler.development.js",
+        "bytes": 12144,
+        "sha256": "646eb671c8585382baff16daf92fe16a4cdd10dcf1a363c58b2ae1f6bf3a2b8d"
+      },
+      {
+        "path": "node_modules/.pnpm/scheduler@0.27.0/node_modules/scheduler/index.js",
+        "bytes": 194,
+        "sha256": "145965504d60007bc25486ab930b0367867dcd5d579ccd343c148d69349a7cfb"
+      },
+      {
+        "path": "packages/frontend/src/original-contracts/positions-by-mint/reader.mjs",
+        "bytes": 2827,
+        "sha256": "e135b54361f954eac3918124503dbab9cb35f322423af09483bdfed54905f1db"
+      },
+      {
+        "path": "reconstruction/coin-position-display/client.mjs",
+        "bytes": 36007,
+        "sha256": "c72a4de928cbc31c4466ad7830e99b241f6504d55e810fad5abda7f48c34c95d"
+      },
+      {
+        "path": "tests/fixtures/coin-position-ports.mjs",
+        "bytes": 3508,
+        "sha256": "676813f05838f5c8f91f2521035c7aeeed61502b65a534732c7b5ba26269e9f1"
+      },
+      {
+        "path": "tests/fixtures/coin-position.mjs",
+        "bytes": 1543,
+        "sha256": "35f428fa0d64c3c24c34294d6e1def788f0e1cc5feb1278b82d3a9ece43acf7a"
+      }
+    ],
+    "declaredInputs": [
+      {
+        "path": "reconstruction/coin-position-display/client.mjs",
+        "bytes": 36007,
+        "sha256": "c72a4de928cbc31c4466ad7830e99b241f6504d55e810fad5abda7f48c34c95d"
+      },
+      {
+        "path": "reconstruction/coin-position-display/verify.mjs",
+        "bytes": 18606,
+        "sha256": "873f91c3e2a1caac6352c4c066187f68280f977f44e9aa48bc352396fa0e4c03"
+      },
+      {
+        "path": "reconstruction/coin-position-display/PROVENANCE.json",
+        "bytes": 117072,
+        "sha256": "0462f0cc800532516045ddddd5deab2d5491339a72a6e516a74d90029ced1448"
+      },
+      {
+        "path": "tests/coin_position_display.test.mjs",
+        "bytes": 8148,
+        "sha256": "c4a1248bdfc610ce9115fb9eccfebed254e9642d7d863654688476ceae444fd8"
+      },
+      {
+        "path": "tests/coin_position_display.browser.mjs",
+        "bytes": 9158,
+        "sha256": "fd394149b1990c88c25d390fc95d28c78d596e5bca9edf521cb154547ff7414d"
+      },
+      {
+        "path": "tests/fixtures/coin-position-ports.mjs",
+        "bytes": 3508,
+        "sha256": "676813f05838f5c8f91f2521035c7aeeed61502b65a534732c7b5ba26269e9f1"
+      },
+      {
+        "path": "tests/fixtures/coin-position.mjs",
+        "bytes": 1543,
+        "sha256": "35f428fa0d64c3c24c34294d6e1def788f0e1cc5feb1278b82d3a9ece43acf7a"
+      },
+      {
+        "path": "pnpm-lock.yaml",
+        "bytes": 113160,
+        "sha256": "734ff7a70c450e2320bfc1bfdf096cd25c62d737c41b1f91670ba741ed28670d"
+      }
+    ],
+    "requests": [
+      {
+        "method": "GET",
+        "path": "/"
+      },
+      {
+        "method": "GET",
+        "path": "/fixture.js"
+      },
+      {
+        "method": "GET",
+        "path": "/"
+      },
+      {
+        "method": "GET",
+        "path": "/fixture.js"
+      }
+    ],
+    "pageErrors": [],
+    "unexpectedAttempts": [],
+    "console": [
+      {
+        "width": 390,
+        "type": "info",
+        "text": "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"
+      },
+      {
+        "width": 1280,
+        "type": "info",
+        "text": "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"
+      }
+    ],
+    "cleanup": {
+      "browserClosed": true,
+      "serverListening": false
+    }
+  },
+  "MAINLimit": "Static conditional rootFlight/mobileHome/349919 admission only, no original returned-row/rendered Home/position observation;316917 detail-only contexts excluded",
+  "portLimit": "Required read/price/financial projections and locale/format/render policies are opaque capabilities; no query cache/service/financial/asset algorithm or acquisition implemented",
+  "hostLimit": "Synthetic Context/provider outputs and compatible money/locale/render ports; native inert action-slot callback and valid synthetic timestamp only, no financial/provider/CSS/UI/pixel parity",
+  "publicationMapping": "Eight frozen inputs; README gets only exact-prefix qualification addendum, otherwise receipt-only additions. No runtime rerun/source retarget.",
+  "requiredRootGates": "Pending initial exact-public53Git/9capture/10tooling; final PR body records actual author gates. No root independent/Next/fullapp/native/API/UI/security claim.",
+  "filesManifest": "MANIFEST.json",
+  "archiveIndex": "ARCHIVE-INDEX.json"
+}
