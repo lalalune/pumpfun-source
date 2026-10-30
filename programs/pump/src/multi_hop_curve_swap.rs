@@ -721,10 +721,10 @@ pub fn transfer_input<'info>(a: &MultiHopCurve<'info>, previous: Option<&Previou
 
 
         let buyback_raw = h.bonding_curve.accrue_fees(&a.global,fees.protocol_fee,fees.creator_fee)?;
-        let post_buyback_raw = if let Some(post)=post_fill.as_ref() {
+        let post_buyback_raw = if let Some(post)=post_fill.as_ref() { let global: &Global = &a.global;
             h.bonding_curve.post_complete_base_out=post.base_out;
             h.bonding_curve.post_complete_quote_in=post.quote_in;
-            h.bonding_curve.accrue_fees(&a.global,post.fees.protocol_fee,post.fees.creator_fee)?
+            h.bonding_curve.accrue_fees(global,post.fees.protocol_fee,post.fees.creator_fee)?
         }else{0};
 
 
