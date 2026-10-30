@@ -194,7 +194,38 @@ G['v7cH']=v7x('let mut target=(||->Result<Pubkey>{let st=&st;let holder_key=&hol
 G['v7cV']=v7x('let v=||->Result<Pubkey>{let st=&st;let holder_key=&holder_key;let sharing=&sk;let holder=hopt==Some(true);',' Ok(target)};let mut target=v()?;')
 G['v7cK']=v7x('let mut target=(||->Result<Pubkey>{let st=&st;let holder_key=&holder_key;let sharing=&sk;let holder=hopt==Some(true);',C0,body=VBODY.replace(' let cashback=if holder{false}else{st.cashback};',' let cashback=cashback;'))
 G['v7cM']=v7x('let (stp,hkp,skp)=(&st,&holder_key,&sk);let mut target=(move||->Result<Pubkey>{let (st,holder_key,sharing)=(stp,hkp,skp);let holder=hopt==Some(true);',C0)
+TN='crate::collect_v2::transfer_native(a.system_program.as_ref(),&a.creator_vault,&a.holder_creator_vault,amount,&vsigner).map(|()|amount)}else{Ok(amount)}}'
+TC='crate::collect_v2::transfer_native(a.system_program.as_ref(),&a.creator_vault,&a.holder_creator_vault,amount,&vsigner)'
+G['n1']=[(TN,TC+'?;Ok(amount)}else{Ok(amount)}}')]
+G['n2']=[(TN,'match '+TC+'{Ok(())=>Ok(amount),Err(e)=>Err(e)}}else{Ok(amount)}}')]
+G['n4']=[(TN,TC+'.and(Ok(amount))}else{Ok(amount)}}')]
+G['n5']=[(TN,'if let Err(e)='+TC+'{return Err(e);}Ok(amount)}else{Ok(amount)}}')]
+G['n6']=[('   if amount>0{crate::legacy_buy::native_payments::ensure_rent_exempt',' if amount>0{crate::legacy_buy::native_payments::ensure_rent_exempt'),(TN,TC+'?;}Ok(amount)}')]
+G['n7']=[(TN,TC+'.map(|_|amount)}else{Ok(amount)}}')]
+G['n8']=[(TN,TC+'.map(|()|amount)}else{Ok(0)}}')]
+G['wc']=[('if collect_old{wallet(&ctx)?;}fn wallet(ctx:&Context<AdminCto>)->Result<()>{let a=&ctx.accounts;','if collect_old{(||->Result<()>{let a=&ctx.accounts;'),(WE,''' }}Ok(())})()?;}
+ let swept;''')]
+G['wcr']=[('if collect_old{wallet(&ctx)?;}fn wallet(ctx:&Context<AdminCto>)->Result<()>{let a=&ctx.accounts;','if collect_old{(||->Result<()>{let ctx=&ctx;let a=&ctx.accounts;'),(WE,''' }}Ok(())})()?;}
+ let swept;''')]
+SWH='swept=(!skip).then(||sweep(&ctx,&holder_key)).transpose()?.unwrap_or(0);fn sweep(ctx:&Context<AdminCto>,holder_key:&Pubkey)->Result<u64>{let a=&ctx.accounts;'
+SWE='   Ok(amount)}\n\n\n\n\n\n }\n\n'
+G['swc']=[(SWH,'swept=(!skip).then(||->Result<u64>{let ctx=&ctx;let holder_key=&holder_key;let a=&ctx.accounts;'),(SWE,'   Ok(amount)}\n\n\n\n\n\n }).transpose()?.unwrap_or(0);\n\n')]
+G['swc2']=[(SWH,'swept=(!skip).then(||->Result<u64>{let a=&ctx.accounts;let holder_key=&holder_key;'),(SWE,'   Ok(amount)}\n\n\n\n\n\n }).transpose()?.unwrap_or(0);\n\n')]
 if __name__=='__main__':
     names=list(G) if sys.argv[2]=='all' else sys.argv[2:]
     for n in names:
         E=build(n); open(f'{O}/src_edits/{n}.py','w').write('EDITS='+repr(E)+'\n'); print('ok',n)
+G['v7f']=[('fn validate(st:&CtoState,hopt:Option<bool>,fee:Option<u64>,new:Option<Pubkey>,holder_key:&Pubkey,sharing:&Pubkey)->Result<Pubkey>{let holder=hopt==Some(true);','fn validate(st:&CtoState,hopt:&Option<bool>,fee:&Option<u64>,new:&Option<Pubkey>,holder_key:&Pubkey,sharing:&Pubkey)->Result<Pubkey>{let holder=*hopt==Some(true);'),
+ (' if st.holder_reward&&!(hopt==Some(true)){',' if st.holder_reward&&!(*hopt==Some(true)){'),
+ ('  let t=if let Some(t)=new{t}else{','  let t=if let Some(t)=*new{t}else{'),
+ (' match fee{Some(f)=>{if st.quote_locked{',' match *fee{Some(f)=>{if st.quote_locked{'),
+ ('let mut target=validate(&st,hopt,fee,new,&holder_key,&sk)?;','let mut target=validate(&st,&hopt,&fee,&new,&holder_key,&sk)?;')]
+SWC='swept=(!skip).then(||sweep(&ctx,&holder_key)).transpose()?.unwrap_or(0);'
+G['sg1']=[(SWC,'swept=(!skip).then(||sweep(&ctx,&holder_key)).unwrap_or(Ok(0))?;')]
+G['sg2']=[(SWC,'swept=match (!skip).then(||sweep(&ctx,&holder_key)){Some(r)=>r?,None=>0};')]
+G['sg3']=[(SWC,'swept=if skip{0}else{sweep(&ctx,&holder_key)?};')]
+G['sg4']=[(SWC,'swept=(!skip).then(||sweep(&ctx,&holder_key)).unwrap_or(Ok(0)).map_err(|e|e)?;')]
+G['sg5']=[(SWC,'swept=if !skip{sweep(&ctx,&holder_key)}else{Ok(0)}?;')]
+G['r1']=[('   if amount>0{crate::legacy_buy','   return if amount>0{crate::legacy_buy'),
+ ('.map(|()|amount)}else{Ok(amount)}}else{let amount=token_raw_amount','.map(|()|amount)}else{Ok(amount)};}let amount=token_raw_amount'),
+ ('   Ok(amount)}\n\n\n\n\n\n }\n\n','   Ok(amount)\n\n\n\n\n\n }\n\n')]

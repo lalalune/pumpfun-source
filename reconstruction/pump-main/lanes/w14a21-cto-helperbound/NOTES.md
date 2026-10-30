@@ -1,7 +1,7 @@
 # w14a21-cto-helperbound: helper-boundary screen for admin_cto::execute (0x22a10)
 
 Target `0x22a10` `admin_cto::execute` (`programs/pump/src/creator/admin_cto.rs`), pinned at 27,400 B.
-Base: main b174038c1 (0.63571, 3,173 slots, 27,400 B). Ledger: approach `helperbound`, keys `0x22a10-w14-b174038-helperbound-*-v1`.
+Bases: main b174038c1 (0.63571), then d2d1875 (0.6417), then 06967d378 (0.64649, M 2,158). Result 1 was measured on b174038c1; the closure leads were re-measured on each main. Ledger: approach `helperbound`, keys `0x22a10-w14-b174038-helperbound-*-v1`.
 
 ## Oracle
 
@@ -75,3 +75,45 @@ let mut target=(||->Result<Pubkey>{let st=&st;let holder_key=&holder_key;let sha
   from 0x5c00 on. v7c sits at -8..-32 B across 0x1c00-0x5a00 (closer to the original) but +32..+72 from 0x5b00 on.
   Size repay must remove about 40 B before orig 0x5c00, ideally in the sweep native arm (orig 0x5a00-0x5c00, where both
   main and v7c carry about 48 B more than the original: `jeq r1,0x2,+1; ja` pairs where the original has one `jne r1,0x2`).
+
+## Result 3: the mechanism is `new` read through a pointer that ArgPromotion cannot undo
+
+Capture screens on d2d1875 (closures with `move` and explicit reference captures):
+
+| variant | captured by reference | bytes | ratio | jm |
+| --- | --- | ---: | ---: | ---: |
+| v7c | st, hopt, fee, new, holder_key, sk | 27,440 | 0.62835 | 0.66876 |
+| vm_new | **new only** (hopt, fee by value) | 27,440 | 0.62835 (= v7c) | 0.66876 |
+| vm_fee_new, vm_hopt_new | new plus one other | 27,440 | = v7c | |
+| vm_hopt_fee, vm_fee, vm_hopt, vm_none | **new by value** | 27,440-27,456 | 0.457-0.459 | 0.49 |
+| v7f | `fn validate(.., hopt:&Option<bool>, fee:&Option<u64>, new:&Option<Pubkey>, ..)` | 27,400 | = main | |
+| pc* (23 capture-order permutations) | | 27,440 | = v7c | |
+
+- Only `new` (Option<Pubkey>, 33 B) matters. A plain fn with a `&Option<Pubkey>` parameter is promoted back to values
+  by ArgPromotion (v7f = main). The closure env adds a second indirection, so `new` stays behind a pointer.
+- Where the closure copies `new` matters (on d2d1875 and on 06967d3, exact matched original instructions per 0x400
+  region, `tools/exact.py`):
+
+| region | main 06967d3 (M) | v7c | vx1 (`let new=new;` at closure start) | **vy1** (`let new=new;` at the start of the non-holder arm, line 298 `}else{`) |
+| --- | ---: | ---: | ---: | ---: |
+| 0x400 | 38 | +1 | +4 | +4 |
+| 0x800 | 81 | +8 | -16 | +8 |
+| 0xc00 | 43 | -23 | -23 | -1 |
+| 0x1000 | 77 | -27 | -6 | -5 |
+| 0x1400 | 60 | -1 | -1 | -1 |
+| 0x2400-0x3c00 | | 0 | | -18 (spill-slot colours) |
+| total M | 2,158 | -47 | | -17 |
+| bytes / ratio / jm | 27,400 / 0.64649 / 0.65488 | 27,432 / 0.63204 / 0.67275 | | 27,440 / 0.64092 / **0.67744** |
+
+- vy1 is the best validate boundary found: the validate region gains (+5 exact, +80 jump-masked) and jm is +0.0226
+  over main. The holder-arm copy (vy2), copying before `let target` (vy3), `let new:Option<Pubkey>=new`, `*&new`, and copying
+  at line 306 (vz2) are equal or worse.
+- What blocks landing is size and the tail. vy1/v7c put the code from orig 0x1c00 to 0x5a00 at -8..-24 B from the original (main: -48..-80),
+  so the extra ~40 B are bytes the original also has. Main makes up its short validate with about 48-64 B too much in
+  the sweep native arm (orig 0x5a00-0x5c00): the `ensure_rent_exempt` Err edge has an inline `jeq 2,+1; ja` where the
+  original has a cold `ldxdw r9; mov r7,r1; ja` stub, and the `transfer_native` result goes through an unthreaded join
+  (`mov r7,r1; mov r2,r9; ldxdw/stxdw [r10-0x8e8]; jne r7,2; ja`, 48 B) where the original threads it. A source fix there
+  (it needs a CFG change, as w14a06 found) composes with vy1 directly: together they would put both regions at the original's offsets.
+- Size-repay screens on the closure base (all applicable genes47 `g.*` and size-knob `K.*` genes: 140 on v7c/d2d1875,
+  and the vy1/06967d3 screen) found no gene that reaches 27,400 B above main. Sweep-arm forms on vy1 (early-return native arm `r1`,
+  `native_arm` fn `w5n`, curve `update` fn, `pool_ok`) are all negative.
