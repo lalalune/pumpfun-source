@@ -2,8 +2,8 @@
 
 Target: `0x22a10 admin_cto::execute` (`programs/pump/src/creator/admin_cto.rs`), pinned at 27,400 B.
 Continues w14a07-cto-cold306 (#3223, next idea 3) and w14a08-cto-outlinefill (#3232).
-Bases: main 1b0ae70 (0.63661, M 2,125), then main 7e6aa9c (0.64140, M 2,141).
-Ledger keys: `0x22a10-w14-{1b0ae70,7e6aa9c}-rarregs-*-v1`.
+Bases: main 1b0ae70 (0.63661, M 2,125), then main 7e6aa9c (0.64140, M 2,141), and a final re-check on main b2e90aa
+(0.6444, M 2,151). Ledger keys: `0x22a10-w14-{1b0ae70,7e6aa9c,b2e90aa}-rarregs-*-v1` (about 190 rows).
 
 **Result: notes only, no landable change. The register gap this lane was meant to fix is gone, and no basin
 loses on registers: on registers alone, every basin matches main or does better. The basins' deficit is block
@@ -102,16 +102,39 @@ to test whether levers tuned to main's register map hurt the basin): only revers
 `to_account_info`) helps, by +2 (2,122). The other reversals give -2 to -6 (#3267 2,118, #3272 2,113, #3210 2,116, #3215/#3207 2,114,
 #3200 parts 2,112-2,115, #3168 parts 2,108-2,115), and #3200's cashback `!holder`-first hunk gives 1,791.
 
+### Register-map levers inside the and-1 basin (7e6aa9c)
+
+These screens are on base p3u+tu8+reverse(#3257) (M 2,122 at 27,336 B):
+
+- 46 size knobs. The best is **`sh_fees_key`** (`a.sharing_config.owner==a.pump_fees.key` in the shared test) at **2,132 (+10)**,
+  which is -1 on main. Everything else ties the base or is worse.
+- `tools/aig.py` (45 genes), which flips one CPI account field between `to_account_info()` and an `AccountInfo{..}` literal:
+  - **AL30** (CPI `authority:` admin authority as a literal) gives 2,129 (+7). Main later landed the same form as #3290.
+  - AT2 (pool_authority literal to `to_account_info`) gives 2,124 and AL18 gives 2,122.
+  - Literals that add clone code (+300 to +680 B) cost 25-1,086 M.
+- Composites do not add up: sh_fees_key+AL30 2,128, +AT2 2,130, +AL18 **2,133** (the best basin composite on
+  7e6aa9c, -8 M against main at -64 B). These are difflib-noise-level register-map moves.
+- Holder spellings (raw `Option<bool>` byte, `unwrap_or` inside the state block, `matches!`, and so on, 6 forms) are byte-identical
+  to p3u (2,120). PDA-first gives 1,871-1,906 (the clone-run collapse) in the basin and on main.
+
+Re-check on main b2e90aa (M 2,151): p3u+tu8 2,136 (-15) at 27,336 B. sh_fees_key now gives 2,135 on the basin and 2,150 on main.
+sh_fees_key+AT2+AL18 gives 2,123, and AL30 is on main already. **None of the 7e6aa9c basin levers carries over.** Each main landing
+re-tunes main's own register map, and the basin trails by the same 8-21 M after every move.
+
 ## Next ideas
 
 - The outline basins need a frame/spill-colouring change, not a register change. On frame-masked M, p3u+tu8 leads main
   by 103, but w14a18's legal-frame pin gives it only about +6. A source form that changes which intervals share a slot (StackColoring
   merges of `_112.i`/`_54.i`, per w14a18) is the only lever left in the basin.
-- p3u+tu8 is the closest source basin (-21 M at -56 B on 7e6aa9c, -14 on 1b0ae70). Each main landing tuned to main's
+- The fill is the real wall for every basin. `fillsim.py` shows that a neutral fill adds nothing, and no catalog knob of +8 to +64 B
+  is neutral in the basin (it costs 3-193 M). A faithful fill would be the original's entry SROA copy of `new` at orig 0x4c0-0x538:
+  7/9-byte pieces `[1..8)` to -0x658, `[8..16)` spilled, `[16..24)` in r9, and `[24..33)` to -0x668/-0x660. That is the w12 7/9 residual.
+- p3u+tu8 is the closest source basin (-15 M at -64 B on b2e90aa, -21 on 7e6aa9c, -14 on 1b0ae70; best composite -8 on 7e6aa9c). Each main landing tuned to main's
   register map widens the gap, so a basin landing gets harder with each main move.
 
 ## Tools (`tools/`; the w14a08/w14a07 oracle tools, plus these)
 
+- `aig.py <genes>`: AccountInfo-form genes (to_account_info <-> literal per CPI field) written to `aig.json`. `rec.py`: ledger rows.
 - `mkv.py` + `genes2.py`: gene applier on `var/m3` (w14a07 genes plus `P3U` `P3N` `P0U` `P1U` `P2U` `P4U` `P3M` `TU8`
   `RARH`, and reversal genes `R_<sha7>[_i]` built from `revg.json`).
 - `mm.py`: M raw, register-masked, frame-masked and both. `mms.py`: spill-slot-masked against object-masked M.

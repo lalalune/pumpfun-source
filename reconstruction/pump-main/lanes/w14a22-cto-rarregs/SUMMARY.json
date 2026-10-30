@@ -1,0 +1,56 @@
+{
+  "lane": "w14a22-cto-rarregs",
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27,400 B",
+  "bases": {"1b0ae70": {"ratio": 0.63661, "M": 2125}, "7e6aa9c": {"ratio": 0.64140, "M": 2141}, "b2e90aa": {"ratio": 0.6444, "M": 2151}},
+  "result": "notes only; no landable change. No basin has a register deficit. Basin deficit = t-copy block placement, frame/spill colouring and a size gap that no neutral fill repays.",
+  "oracle": "raw-IR capture + opt -O3 + extracted llc (w14a08 src.sh/fw.py); reproduces main exactly on all three bases",
+  "remeasure_7e6aa9c": {
+    "RAR": {"ratio": 0.62830, "bytes": 27368, "M": 2093},
+    "RAR+w12_oracle": {"ratio": 0.64158, "bytes": 26920, "M": 2123},
+    "f2": {"ratio": 0.63564, "bytes": 26912, "M": 2103},
+    "f2+llc2:1": {"ratio": 0.64017, "bytes": 26912, "M": 2118},
+    "p3u+tu8": {"ratio": 0.63578, "bytes": 27344, "M": 2120}
+  },
+  "register_census_7e6aa9c": {
+    "columns": "raw M / reg-masked / frame-masked / both / aligned register-only mismatches",
+    "main": [2141, 2501, 2288, 2656, 421],
+    "RAR+w12": [2123, 2485, 2326, 2700, 403],
+    "f2+2:1": [2118, 2479, 2321, 2694, null],
+    "p3u+tu8": [2120, 2495, 2391, 2780, 412],
+    "finding": "w14a07's 0x1900/0x2580 register hunks are gone after #3241; basins have fewer register-only mismatches than main"
+  },
+  "fill_bound": {
+    "p3u+tu8_64B": "no insertion point raises M (best = base)",
+    "RAR+w12_480B": "best +1 M -> pinned 0.63103 (1b0ae70)",
+    "jumps": "p3u jump-masked +81 over main is diffuse offset drift (125/263 aligned jumps differ vs main 112/252)"
+  },
+  "best_basin_composite": {
+    "base": "7e6aa9c",
+    "genes": "P3U,TU8,R_1b0ae70,K:sh_fees_key,AL30,AT2,AL18",
+    "ratio": 0.63968, "bytes": 27336, "M": 2133, "main_M": 2141,
+    "b2e90aa_recheck": "p3u+tu8 M 2136 vs main 2151; sh_fees_key/AT2/AL18 no longer help; AL30 landed on main as #3290"
+  },
+  "attempts": 190,
+  "rejected_mechanisms": [
+    "llc single-branch weights on f2 + 2:1 (best +3 M)",
+    "neutral fill at any position (fillsim)",
+    "46 size knobs on p3u (1b0ae70 and 7e6aa9c): only sh_fees_key +10, noise-level and non-transferable",
+    "45 AccountInfo literal/to_account_info flips in the basin (AL30 +7, AT2 +2)",
+    "reversal of each recent main landing inside the basin (only #3257 +2)",
+    "hb definition points p0-p4, raw Option<bool> byte, matches!, unwrap_or forms (byte-identical or -18)",
+    "and-1 holder x has-form/RAR composites (2075-2099)",
+    "PDA-first in basin and main (1871-1906)"
+  ],
+  "unresolved": [
+    "t-copy (306 Some arm) block placed after 306/296/326 in RAR/f2 basins",
+    "frame/spill colouring (w14a18 bound: no base beats main under any legal frame)",
+    "64-480 B size gap: needs a faithful fill such as the original's entry SROA copy of new (orig 0x4c0-0x538, 7/9 pieces)"
+  ],
+  "next_ideas": [
+    "entry SROA copy of new into 7/9-byte pieces (orig 0x4c0-0x538) as the faithful fill for the and-1 basin",
+    "a StackColoring-merge change (_112.i/_54.i) per w14a18, the only frame lever left in the basin",
+    "stop chasing the outline basins while main keeps gaining on its own register map; port basin-positive literal forms to main instead (AL30 did land as #3290)"
+  ],
+  "ledger_keys": "0x22a10-w14-{1b0ae70,7e6aa9c,b2e90aa}-rarregs-*-v1",
+  "pr": 3282
+}
