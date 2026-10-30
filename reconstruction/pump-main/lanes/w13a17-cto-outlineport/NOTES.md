@@ -32,7 +32,7 @@ every port keeps 88 lddw (ledger `0x22a10-w13-bf9a05d-outlineport-*`, 30 source 
   reference (`hb:&bool`, `let holder=*hb;`, called with `&holder`), so the split is a load and the zero heuristic applies.
   Line 289 is written `!matches!(hopt,Some(true))`. `HB` alone lowers validate's 307/312 frequency from 0.028 to 0.022, which is still inlined.
   `HB H892` outlines 307 and 312 but also 326 (85 lddw, 26,752 B, 0.47257; the frame moves). Keeping 326 inlined is open:
-  `FLE` and `match fee{None=>{}..}` keep 85 lddw (hd1 26,840 B 0.47814, hd2 = hc4).
+  `FLE`, `match fee{None=>{}..}`, `if let Some(f)=fee` and a `&(hopt==Some(true))` temp all keep 85 lddw with 326 outlined (hd1 26,840 B 0.47814, hd2 = hc4, hd3 26,776 B 0.52386).
 - So the remaining source question is which spelling makes the 306 `Some` edge colder than `None` in BPI.
   The zero/pointer heuristics always make the `None`/null side unlikely, so it has to be structural. The original also loads
   all of `new`'s pieces at entry (orig 0x4d8-0x538).
