@@ -1,17 +1,17 @@
 # Swap hop is now a raw and normalized match: 1,033 → 1,034 windows
 
 `multi_hop_curve::swap_hop` at original `0x5b3b0` now matches all **18,584 bytes**
-of the captured original. The target moves from **127 differing normalized slots
-to zero**, and its instruction-sequence ratio rises from **0.98907 to 1.0**.
+of the captured original. The target moves from **18 differing normalized slots
+to zero**, and its instruction-sequence ratio rises from **0.99913 to 1.0**.
 Whole-program matches rise from **1,033 to 1,034 normalized and raw windows**,
 with zero membership losses. Admin CTO remains the one unmatched window; this
 is not a whole-program identity claim.
 
-Base: `e15f7b654653e1130812096b6eda05140a41eb80`, freshly built after integrating
-the latest upstream Admin CTO harvest. `RESULTS.json` binds the final source,
+Base: `20a1ae9c0f243669f8ffb4633ee017b50f55958e`, freshly built after integrating
+the latest upstream Admin CTO harvest and swap PR #2686. `RESULTS.json` binds the final source,
 baseline/candidate builds, independent rebuild, full score delta and runtime report.
 
-## Source changes and mechanism
+## Development sequence and final source
 
 - Express `base <= reserves` as `!(!base).overflowing_sub(!reserves).1`.
   Complementing reverses unsigned order: `!base < !reserves` exactly when
@@ -74,7 +74,13 @@ Runtime replay uses the repository's solders 0.27.1/LiteSVM environment.
 ## Coordination and attribution
 
 The open-PR changed-file scan found no other open PR changing this swap source
-or evidence lane at publication preparation. Related and preceding work:
+or evidence lane at publication preparation. Immediately afterward, merged
+[#2686](https://github.com/lalalune/pumpfun-source/pull/2686) changed the same
+function and caused a confirmed textual conflict. It independently landed the
+buy-scope and None-first completion changes and reached 18 slots. This branch
+integrates that main revision, retains the independently verified exact-match
+source, and rebuilds the baseline comparison (18 → 0, still one new raw and
+normalized match). The resolved source fingerprints are unchanged. Related work:
 
 - [#2611](https://github.com/lalalune/pumpfun-source/pull/2611): merged work in
   this file establishing the 127-slot baseline; its adapter binding and final

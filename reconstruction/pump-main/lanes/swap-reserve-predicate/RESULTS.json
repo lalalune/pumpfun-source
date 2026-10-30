@@ -1,8 +1,8 @@
 {
-  "base_commit": "e15f7b654653e1130812096b6eda05140a41eb80",
+  "base_commit": "20a1ae9c0f243669f8ffb4633ee017b50f55958e",
   "baseline": {
     "ok": true,
-    "source_sha256": "125b321eb106d0dc38ee664b67842d14a395fd2c24dc14dd5e5b4432f37b2e86",
+    "source_sha256": "4300235deb4eff8541903774bedca0bece9d9261fd7bd92b9dacbd7da7832ccc",
     "link_order": {
       "script": "link/ordered.ld",
       "script_sha256": "6954d9901b005312be6e7f980cb5e74a1440c174547c2040a881acf2e5c25b45",
@@ -17,9 +17,9 @@
     "stack_warnings": [],
     "recipe": "identity",
     "triple": "sbpf-solana-solana",
-    "seconds": 19.3,
-    "unstripped_sha256": "e19ccc288e5070e0ae45df516041cb2a9e61a767dfb53715ba582435941f7430",
-    "candidate_sha256": "2591493483e9e04217d14b0c8ee7e8245e57a4ce74d436887e4c6d68460f6889"
+    "seconds": 18.7,
+    "unstripped_sha256": "8cd7695c3fc638fc8ccfaba49a55b7615421e6f1c4c02f623124d9cc67a8ebf2",
+    "candidate_sha256": "4eb9dc9e542e9b9a3e3873d10673067d6839a28703e5560fbc795524128830da"
   },
   "candidate": {
     "ok": true,
@@ -66,14 +66,14 @@
   "score": {
     "normalized": 1034,
     "raw": 1034,
-    "normalized_losses": [],
     "normalized_gains": [
       "0x5b3b0"
     ],
-    "raw_losses": [],
+    "normalized_losses": [],
     "raw_gains": [
       "0x5b3b0"
-    ]
+    ],
+    "raw_losses": []
   },
   "target": {
     "window": "0x5b3b0",
@@ -112,8 +112,8 @@
   },
   "baseline_target": {
     "bytes": 18584,
-    "ratio": 0.98907,
-    "slots_diff": 127
+    "ratio": 0.99913,
+    "slots_diff": 18
   },
   "calls": {
     "target": "0x5b3b0",
@@ -1219,5 +1219,6 @@
     "crossing_successes": 68,
     "crossing_successes_with_events": 28
   },
-  "model_attribution": "OpenAI / GPT-6.1 Sol High (operator-reported)"
+  "model_attribution": "OpenAI / GPT-6.1 Sol High (operator-reported)",
+  "integration_note": "Integrated merged #2686 and resolved the shared-file conflict by retaining the exact source already independently rebuilt. Reverified every candidate source fingerprint after resolution."
 }
