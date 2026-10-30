@@ -64,3 +64,13 @@ relocation successor tests pass against these bytes, including the captured
 Pump pair at file offset `0xd278` and every `overflow_checks` total recorded
 above. The reader pin remains
 `5a57f32949f983fc6f9ddf40916cd04bfcd2a73b6a16cc0e9d5d6872180dac32`.
+
+The reviewed tool bytes are now retained in this packet's `archived/` directory
+and bound by the same SHA-256 pins, because `scripts/deep_section_analysis.py`
+keeps moving for reasons unrelated to this comparison: #2745 translates `.text`
+relocation addresses to file offsets and later commits publish deep-section
+packets atomically. Binding the retained revision keeps the archived-versus-
+corrected comparison and every recorded `overflow_checks` total reproducible
+instead of requiring a fresh review on each analyzer change. Tracking the live
+predicate stays with the analyzer's own tests, and the reader pin remains
+`5a57f32949f983fc6f9ddf40916cd04bfcd2a73b6a16cc0e9d5d6872180dac32`.

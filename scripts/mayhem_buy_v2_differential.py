@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 """Unmodified original/candidate SBF comparison with ordinary signatures and synthetic accounts."""
+if not __debug__:
+    raise SystemExit('Normal Python is required; do not use -O or PYTHONOPTIMIZE.')
 from pathlib import Path
 import json,hashlib,base64,argparse,re
 import mayhem_buy_v2_fixture as p

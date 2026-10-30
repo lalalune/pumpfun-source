@@ -4,56 +4,33 @@ Target `0x22a10` `admin_cto::execute`, pinned at 27,400 B. Base: main 20a1ae9c0 
 re-checked on main b5975fa67 (#2749, 0.45147 / 3,308). Analysis lane: this notes PR changes no program
 source.
 
-## Tools (lane-local experiment tooling, never used in proposed source)
+## Retained diagnostic
 
-All in `tools/`. Paths point at this lane's worktree and `~/.cache/pumpfun-reconstruction/lanes/w12a10-cto-optoracle`.
+`tools/bfi.py INPUT --opt /path/to/debug-opt` snapshots caller-supplied LLVM IR
+or bitcode and reports the selected function's pre-inliner block frequencies.
+It writes only to a temporary directory and fails if a selected call has no
+frequency diagnostic. The executable must support this project's SBF pipeline.
+The default function pattern selects `admin_cto::validate`; `--function` can select
+another single definition. These frequencies describe the supplied candidate,
+not the unknown original source.
 
-- `capture.py <crate> <work> <out>`: identity fastbuild with `--emit=link,llvm-ir -C save-temps`.
-  Besides the post-opt `pump_recovered.ll` it keeps rustc's **pre-optimization module**
-  (`*.no-opt.bc`). The build's `candidate.so` equals the measured baseline (checked with `cmp`).
-- Debug LLVM 18.1.7 with assertions (`~/.cache/pumpfun-reconstruction/llvm-dbg/build/bin`: `opt`, `llc`,
-  `llvm-extract`). **`opt -O3 noopt.bc` followed by the SDK llc reproduces admin_cto byte for byte**
-  (masked bytes equal fastbuild's, 0.43919 / 27,400 B), so every LLVM pass of the real build can be
-  inspected, knocked out or re-tuned. The SBF target adds its own passes to `-O3`
-  (`SBFAbstractMemberAccess`, `SBFPreserveDIType`, `SBFIRPeephole`, `SBFAdjustOpt`, plus a
-  `simplifycfg<hoist-common-insts>` at the peephole extension point), so use `-O3`, not a hand-written
-  `-passes=` string, for the whole pipeline.
-- `oracle.py <ll|bc> <name> [--opt "<opt args>"] [--so unstripped.so] [-- <llc args>]`: optional opt
-  run, slim to execute, SDK llc (`-O3 -relocation-model=pic -mattr=+store-imm,+jmp-ext -function-sections`),
-  masked ratio and slots against the original window. On the captured IR it prints exactly
-  `target_metric.py`'s ratio and slots (0.43919 / 3,352) and `eq_so: true`. llc on one function is
-  under a second.
-- `scan.py`: runs a list of llc knobs (on post-opt IR) or opt knobs (`--opt`, on `noopt.bc`) through
-  `oracle.py` in parallel.
-- `knockout.py`: per-pass-instance knockout of execute's own post-inline pipeline. The input is a
-  module-scope dump taken right after the inliner ran on execute
-  (`opt -O3 -print-after=inline -print-module-scope -filter-print-funcs=<execute>`), slimmed to
-  execute. The replay pipeline is `cgscc(function-attrs,argpromotion,F1,function-attrs),...,F2`, where
-  F1 is the CGSCC function simplification pipeline (37 instances) and F2 the late optimization
-  pipeline (26 instances), both copied from `opt -O3 -print-pipeline-passes`. The replay gives
-  0.43912 / 27,408 against the exact 0.43919 / 27,400. Textual IR does not keep use-list order, and
-  that reorders the predecessors of one wallet exit block.
-- `bfi.py <noopt.bc>`: an inliner cold-call-site oracle for `validate`. It dumps the module just
-  before the inliner visits validate, computes BFI there, and lists each `error!` site's `to_string`
-  call with its frequency relative to validate's entry, marked COLD (< 2%) or hot.
-- `noinl.py`: IR what-if that puts a `noinline` attribute on the to_string call of chosen error!
-  lines.
-- `mkslim4.py`: keeps execute's call-graph closure plus every function that references an internal
-  closure function, and turns everything else into declarations. It still reproduces exactly, but
-  only saves about 35% of opt time. Plain `llvm-extract --recursive` does not reproduce: it changes
-  linkage and inlining, giving 27,816 B.
+During review, the retained diagnostic reproduced all eleven values in the table
+below using the lane's cached `ir-main/noopt.bc`. The input and compiler hashes
+are recorded with the review output. This did not rerun a source build or all
+historical scans. The `results/` tables below are reported experiment records;
+they bound those searches, not every possible compiler configuration.
+Private capture, module-rewriting, sweep and knockout runners are omitted.
 
 ## Pass map (results/*.tsv)
 
-1. **Codegen is not where the divergence comes from.** I ran 66 llc variants on the exact post-opt IR,
+1. **The tested codegen knobs did not fix the divergence.** I ran 66 llc variants on the exact post-opt IR,
    covering MBP (disable, ext-tsp, misfetch/jump cost, triangle, exit bias, static-likely-prob),
    branch folding and tail merging, tail duplication (placement thresholds, size, early taildup),
    machine sink (disable, split, bfi, avoid-spills), CodeGenPrepare (disable, branch opts,
    select2branch, freq-ratio-to-skip-merge), the pre-RA schedulers, misched and post-RA, greedy
    options and regalloc=basic, coalescing, and stack coloring and slot sharing. The best result is
    +0.00013 (`-disable-tail-duplicate`, which changes the size). Every other variant is equal or
-   worse, and `-no-stack-coloring` drops to 0.172. With identical IR, the SDK llc defaults are already
-   the best match, which fits an identical toolchain.
+   worse, and `-no-stack-coloring` drops to 0.172. With identical IR, the SDK llc defaults were the best match among those tested variants.
 2. **Global opt knobs do not help.** I tried JumpThreading thresholds (dup 0/3/12, phi 1/20,
    implication 0), SimplifyCFG hoist and sink, phi and two-entry folding, GVN PRE and load PRE,
    ConstraintElimination, InstCombine code sinking, DSE store merging, and the inliner settings
@@ -65,7 +42,7 @@ All in `tools/`. Paths point at this lane's worktree and `~/.cache/pumpfun-recon
    (-0.019), GVN (-0.013), the first SROA (-0.014), EarlyCSE (-0.10) or MemCpyOpt (-0.21) makes the
    result worse. The second JumpThreading changes nothing. So none of execute's own JumpThreading,
    SimplifyCFG, GVN, SROA, InstCombine or LICM runs creates a divergence that the original lacks.
-   The differences come from three places: rustc's MIR-to-IR for execute, the bodies of `validate`,
+   These measurements direct further investigation toward three places: rustc's MIR-to-IR for execute, the bodies of `validate`,
    `wallet` and `sweep` as optimized before they are inlined, and the inlining decisions.
    Execute's post-inline passes (print-changed, 28 changing passes): the inliner gives 291 blocks and
    194 allocas, JumpThreading threads validate's Err exits to execute's Err return (291 to 284
@@ -76,7 +53,7 @@ All in `tools/`. Paths point at this lane's worktree and `~/.cache/pumpfun-recon
    JumpThreading (62 to 60). **sweep has no JumpThreading change.** ArgumentPromotion changes sweep,
    and SimplifyCFG takes it from 96 to 93 blocks. The sweep's Ok/Err threading that earlier lanes saw
    therefore happens after inlining (see 3: not a pass-tuning fix).
-5. **Inliner: the one confirmed pass-decision divergence (to_string at lines 307 and 312).**
+5. **Inliner: an observed candidate/original call-pattern divergence (to_string at lines 307 and 312).**
    - Call-target histogram: the original has 7 `to_string` and 8 `<PumpError as Display>::fmt` calls,
      ours has 5 and 10. Ours inlines `to_string` at error sites 307 and 312. Those two inlined bodies
      are also the 2 extra lddw relocations (String `fmt::Write` vtable) behind the extra `.rel.dyn`
@@ -91,10 +68,10 @@ All in `tools/`. Paths point at this lane's worktree and `~/.cache/pumpfun-recon
 | ours | in | in | in | in | in | in | in | call | call | call | call |
 | original | in | in | in | in | in | **call** | **call** | **in** | call | call | call |
 
-   - So the original's validate must give 307 and 312 a frequency below 0.02, and 326 a frequency of
-     at least 0.02. The original reaches the quote_locked test (326) with more than 1.7 times our
-     probability, and the 307/312 tests with less. This is a hard, cheap acceptance test for any
-     validate restructuring: run `bfi.py` on the candidate's `no-opt.bc` before scoring it. The
+   - Under the hypothesis that the same inliner rule explains the original, a useful candidate
+     target is frequencies below 0.02 for 307/312 and at least 0.02 for 326. The original IR and
+     its branch-frequency metadata are unavailable; this is a search heuristic, not a recovered
+     original execution probability. To inspect a restructuring: run `tools/bfi.py` on the candidate's `no-opt.bc` with an explicit `--opt` before scoring it. The
      original's skeleton fits this. It tests the fee tag once per target arm, at 0x0af0 in the
      holder arm and at 0x0e20 in the non-holder arm.
    - A noinline-only IR what-if (`noinl.py` at 307 and 312) gives 0.40918 at 26,960 B, 440 B short.
