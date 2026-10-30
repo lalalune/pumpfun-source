@@ -25,8 +25,10 @@ import hashlib
 import json
 import os
 import shutil
+import stat
 import uuid
 from pathlib import Path
+from ledger_schema import inspect_ledger, validate_row
 
 HERE = Path(__file__).resolve().parent
 TRACKED = HERE / 'ATTEMPTS.jsonl'
@@ -35,16 +37,38 @@ LOCK = LEDGER.with_name('.attempts.lock')
 STATUSES = ['analyzed', 'built', 'compile-failed', 'rejected', 'partial', 'normalized-match', 'raw-match']
 
 
+def atomic_copy(source, destination):
+    """Publish complete ledger bytes without truncating the previous snapshot."""
+    destination = Path(destination)
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    try:
+        mode = stat.S_IMODE(destination.stat().st_mode)
+    except FileNotFoundError:
+        mode = None
+    temporary = destination.parent / f'.attempts-{uuid.uuid4().hex}.tmp'
+    # Exclusive creation applies the umask without reading/changing global state.
+    fd = os.open(temporary, os.O_CREAT | os.O_EXCL | os.O_RDWR, 0o666)
+    try:
+        if mode is None:
+            mode = stat.S_IMODE(os.fstat(fd).st_mode)
+        # Keep incomplete bytes private and writable even with a restrictive mask.
+        os.fchmod(fd, 0o600)
+        shutil.copyfile(source, temporary)
+        os.fchmod(fd, mode)
+        os.fsync(fd)
+        os.replace(temporary, destination)
+    finally:
+        os.close(fd)
+        temporary.unlink(missing_ok=True)
+
+
 def read_rows():
     if not LEDGER.exists():
         return []
-    rows = []
-    for number, line in enumerate(LEDGER.read_text().splitlines(), 1):
-        if line.strip():
-            try:
-                rows.append(json.loads(line))
-            except json.JSONDecodeError as exc:
-                raise SystemExit(f'corrupt ledger line {number}: {exc}')
+    rows, errors = inspect_ledger(LEDGER.read_text(encoding='utf-8'), STATUSES)
+    if errors:
+        first = errors[0]
+        raise SystemExit(f"corrupt ledger line {first['line']}: {first['message']}")
     return rows
 
 
@@ -54,7 +78,7 @@ def locked(fn):
     with LOCK.open('r+') as lock:
         fcntl.flock(lock, fcntl.LOCK_EX)
         if not LEDGER.exists() and TRACKED.exists():
-            shutil.copyfile(TRACKED, LEDGER)
+            atomic_copy(TRACKED, LEDGER)
         return fn(read_rows())
 
 
@@ -66,14 +90,20 @@ def matches(row, args):
     if getattr(args, 'status', None) and row.get('status') != args.status:
         return False
     if getattr(args, 'text', None):
-        blob = json.dumps(row).lower()
-        return all(word.lower() in blob for word in args.text.split())
+        blob = json.dumps(row, ensure_ascii=False).lower()
+        # Preserve serialized-metadata queries and also match literal text
+        # inside JSON strings (quotes and backslashes are escaped there).
+        return all(word.lower() in blob or
+                   json.dumps(word.lower(), ensure_ascii=False)[1:-1] in blob
+                   for word in args.text.split())
     return True
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = parser.add_subparsers(dest='command', required=True)
+    audit = sub.add_parser('audit', help='validate a saved ledger without seeding or mutating the live ledger')
+    audit.add_argument('--path', type=Path, default=TRACKED)
     check = sub.add_parser('check')
     check.add_argument('--dedupe-key', required=True)
     search = sub.add_parser('search')
@@ -97,6 +127,14 @@ def main():
     sync.add_argument('--to', type=Path, default=TRACKED)
     args = parser.parse_args()
 
+    if args.command == 'audit':
+        try:
+            rows, errors = inspect_ledger(args.path.read_text(encoding='utf-8'), STATUSES)
+        except (OSError, UnicodeError) as error:
+            parser.error(str(error))
+        print(json.dumps({'valid': not errors, 'attempts': len(rows), 'errors': errors}, indent=2))
+        return 1 if errors else 0
+
     if args.command == 'check':
         def run(rows):
             dupes = [r for r in rows if r.get('dedupe_key') == args.dedupe_key]
@@ -106,11 +144,13 @@ def main():
     if args.command == 'search':
         def run(rows):
             hits = [r for r in rows if matches(r, args)]
-            for r in hits[-args.limit:]:
+            # hits[-0:] is the whole list, so an explicit zero must be handled.
+            shown = hits[-args.limit:] if args.limit else []
+            for r in shown:
                 data = r.get('data') or {}
                 note = data.get('result') or data.get('notes') or data.get('outcome') or ''
                 print(json.dumps({k: r.get(k) for k in ['timestamp_utc', 'lane', 'target', 'status', 'dedupe_key', 'hypothesis']} | {'note': str(note)[:300]}))
-            print(f'# {len(hits)} matching rows ({min(len(hits), args.limit)} shown, newest last)')
+            print(f'# {len(hits)} matching rows ({len(shown)} shown, newest last)')
         return locked(run)
 
     if args.command == 'summary':
@@ -127,7 +167,7 @@ def main():
     if args.command == 'sync':
         def run(rows):
             args.to.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copyfile(LEDGER, args.to)
+            atomic_copy(LEDGER, args.to)
             print(json.dumps({'synced': str(args.to), 'attempts': len(rows), 'sha256': hashlib.sha256(args.to.read_bytes()).hexdigest()}))
         return locked(run)
 
@@ -150,7 +190,20 @@ def main():
             'status': args.status,
             'data': data | ({'pr': args.pr} if args.pr else {}),
         }
+        try:
+            validate_row(row, STATUSES)
+        except (ValueError, TypeError) as error:
+            raise SystemExit(f'invalid attempt: {error}')
+        # read_rows accepts a final JSON record without a newline. Keep that
+        # record separate when appending, under the existing exclusive lock.
+        separator = ''
+        if LEDGER.exists() and LEDGER.stat().st_size:
+            with LEDGER.open('rb') as current:
+                current.seek(-1, os.SEEK_END)
+                if current.read(1) != b'\n':
+                    separator = '\n'
         with LEDGER.open('a') as output:
+            output.write(separator)
             output.write(json.dumps(row, sort_keys=True, separators=(',', ':')) + '\n')
             output.flush()
             os.fsync(output.fileno())
@@ -159,4 +212,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    raise SystemExit(main())

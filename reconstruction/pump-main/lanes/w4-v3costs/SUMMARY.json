@@ -1,0 +1,62 @@
+{
+ "lane": "w4-v3costs",
+ "base": "630a074126a13d4133514d599129c6ac9a3179bc",
+ "targets": [
+  "0x80df8"
+ ],
+ "best": {
+  "source_changed": false,
+  "cand_bytes": 2136,
+  "orig_bytes": 2120,
+  "ratio": 0.92,
+  "slots_minus": 19,
+  "slots_plus": 21,
+  "calls": "17/17",
+  "official": {
+   "normalized": 1023,
+   "raw": 277,
+   "gains": [],
+   "losses": []
+  },
+  "unstripped_sha256": "5d661a63ecb1f1816e27e88e66d7c306be0ac2e8e2c49823f2893392d151b5f7"
+ },
+ "ir_level_matches": [
+  "%43 (375 to_string fmt-failure branch) branch_weights 1:N for N<=262000 (boundary exactly 2^18)",
+  "%_15.i17 (first protocol_fee_split try_from panic) 1:N for N>=6e6",
+  "%16+%43 1:2000",
+  "%43 1:2000 plus front try_from 1:2000 (but not with front expect_failed hints)"
+ ],
+ "decision_rule": "sret spill-vs-split flips iff MBFI freq(375 to_string panic block bb3.i.i39) > freq(first split try_from panic block bb5.i27); no other panic leak matters",
+ "attempts": {
+  "source_trials": 5,
+  "ir_trials": "about 1,100 (1,023 cold-call subsets, about 40 branch-weight probes, 6 panic merges, 1 module-wide weighting, 1 Linux-llc control)",
+  "ledger_ids": [
+   "063a2b17a1c34249af2f9565bd1a2094",
+   "5cfd7e6302e84252a12e7aa28e02f3c4",
+   "e082faf1d749462a9e8959d9349d0b30",
+   "5d1490c42a9e4cd6a9fd58d1776cd93c",
+   "d4ef2bfb9f6c446d8f4df120449c3f52",
+   "edd9ffc08d7f4edc9a7fe77df8afc327",
+   "5a958a2324e1482a9fae533ac4886a2d",
+   "5e52019a512d471a800b6c3efd03bd00",
+   "e7c7eb596bc9445b80f59cec41b70319"
+  ]
+ },
+ "rejected_mechanisms": [
+  "#[cold] closure for 375 (outlined, 0.543, raw loss 0xa868)",
+  "#[cold]#[inline] closure (same)",
+  "#[cold]#[inline(always)] closure for 375, or for 371+375 (byte-identical)",
+  "#[inline(always)] closure for 375 (byte-identical)",
+  "IR: cold on any subset of the 10 non-panic call sites (no match)",
+  "IR: merging identical panic blocks (RA fixed for 371+375 but layout changes; not source-reachable)",
+  "Uniform to_string-expect weighting toolchain (breaks 7 matched functions)",
+  "Host artifact at llc stage (Linux x86_64 v1.44 llc identical)",
+  "platform-tools v1.43 (lacks store-imm/jmp-ext)"
+ ],
+ "unresolved_residual": "Greedy RA sret tie decided by 2^-20-scale panic block frequencies; needs freq(bb29) > freq(bb3.i14)=0.375, but heuristic-only BPI gives bb29=0.094 and rustc 1.79 cannot place !prof on the fmt branch without extra code.",
+ "next_ideas": [
+  "Full Linux x86_64 host build of the current source (opt stage on Linux)",
+  "Find original-only code (Assert or likely/unlikely) whose weight survives on %43 or on the mayhem branch",
+  "Treat 0x80df8 as blocked pending new toolchain evidence"
+ ]
+}

@@ -16,6 +16,18 @@ jobs:
       max-parallel: 12
       matrix:
         include:
+          - suite: analysis-packet-encoding
+            commands: |
+              python -B research/tooling-analysis-encoding-20261030/test_verify.py
+          - suite: composition-patch-bytes
+            commands: |
+          - suite: fastbuild-staging
+            commands: |
+              python -I -B tests/test_fastbuild_stage.py
+          - suite: composition-patch-bytes
+            commands: |
+              python -B reconstruction/harness/test_integrate_failures.py
+              python -I -B tests/test_integrate_patch_bytes.py
           - suite: pump-claim-v2-account-boundaries
             commands: |
               python -I -B research/pump-claim-v2-account-boundaries/verify.py
@@ -323,52 +335,45 @@ jobs:
               python -B research/metaplex-utilize-exact-recovery/test_verify.py
               python -B research/metaplex-exact-independent/verify.py --execute
               python -B research/metaplex-exact-independent/test_verify.py
+          - suite: offline-cargo-cache
+            commands: |
+              python -I -B scripts/test_prepare_locked_cargo_home.py
           - suite: evidence
             commands: |
+              python -B research/tooling-relocated-data-pointers-20261030/test_pointer_analysis.py
               python scripts/verify_evidence.py
               python scripts/test_tooling.py
               python -B research/tooling-revalidation-invocation-20261030/test_verify.py
+              python -B research/tooling-interior-string-references-20261030/test_verify.py
+              python -I -B scripts/test_verify_evidence_paths.py
+              python -B reconstruction/relocation-text-addresses/test_analyze.py
+              python research/tooling-disassembly-reproducibility-20261030/test_verify.py
+              python -B reconstruction/math-register-comparisons/test_analyze.py
+              python -B tests/test_dependency_cache_manifest_state.py
+              python -B research/tooling-indirect-call-decoding-20261030/test_verify.py
+              python research/tooling-terminal-error-patterns-20261030/test_verify.py
+              python research/tooling-terminal-error-patterns-20261030/verify.py
+              python research/tooling-token-program-constant-detector-20261029/verify.py
+              python -B tests/test_checkpoint_manifest_paths.py
+              python -B reconstruction/capture-rpc-retry/test_capture.py
+              python -B reconstruction/harness/test_treediff_line_boundaries.py
+              python -B reconstruction/harness/test_score_inputs.py
               python scripts/test_build_source_manifest.py
               python scripts/test_core_linux_v144_retention.py
-              python repro/pump_fees/initializer-inline-runtime/verify.py
               python scripts/verify_recovered_builds.py
               python -B scripts/verify_current_reconstruction.py --repo .
-              python -B research/all-contract-completion-20261028/relay/verify_current_bridge.py --repo .
-              python -B research/all-contract-completion-20261028/relay/test_current_bridge.py
-              # The sealed Pump-only P27 transition assumes the old global workflow.
-              # verify_current_reconstruction checks the current multi-contract selections.
-              python -B repro/layered-passes/pass-19/ci-followup/verify.py --repo .
-              python -B repro/pump/wide-runtime-attribution/verify.py --repo .
               python scripts/pump_verify_dependencies.py
-              python repro/pump/metaplex-candidate-build-11/verify.py
-              python -B repro/identity-audit/2026-10-25/verify.py
-              python -I -B research/recovery-findings-20261027/verify.py
-              python -B research/claude-deps-metaplex-20261027/verify.py
-              python -B research/claude-layout-amm-20261027/verify.py
-              python -B research/claude-layout-pump-20261027/verify.py
-              python -B research/claude-layout-pump-20261027/test_scope.py
-              python -B research/claude-lanes-review-20261027/test_integrity.py
-              python -B repro/pump/metaplex-utilize-guard-source-recovery/verify.py
-              python -B repro/pump/metaplex-candidate-build-12-review/verify.py
-              python -B repro/pump/metaplex-candidate-build-13-review/verify.py
-              python -B repro/pump/metaplex-candidate-build-14-review/verify.py
-              python -B repro/pump/metaplex-authentic-source-history/verify.py
-              # Stopped BuyV3 research packets remain passive evidence in this reconciliation.
-              python -B repro/pump/metaplex-utilize-positive-guard-source-recovery/verify.py
-              python -B repro/pump/metaplex-utilize-unified-guard-source-recovery/verify.py
-              python -B repro/sdk/interface-audit-20261025/verify.py
-              python -B repro/build-tooling/supported-sbpf-proposal/verify.py
               python -B scripts/verify_supported_sbpf_history.py
               python -B scripts/test_supported_sbpf_history.py
               python -B scripts/test_supported_sbpf_policy.py
               python scripts/test_reconstruction_build_selection.py
               python scripts/test_reconstruction_identity_audit.py
               python scripts/test_localnet_sdk_plan.py
-              python repro/pump/mayhem-virtual-params-static/verify.py
               python scripts/local_validation.py
               git diff --exit-code -- audit/local-validation.json
           - suite: host-fragments
             commands: |
+              python -B tests/test_recovered_curve_arithmetic.py
               mkdir -p work && rustc --edition 2021 -O programs/pump-fees/recovered/fee_selection_host.rs -o work/fee-selector-host
               python scripts/validate_fee_selection.py --host work/fee-selector-host --output work/fee-selector-validation.json
               python scripts/build_quote_host.py --output work/quote-host

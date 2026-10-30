@@ -4,7 +4,9 @@ import argparse
 import base64
 import hashlib
 import json
+import os
 from pathlib import Path
+import stat
 import subprocess
 import sys
 
@@ -26,17 +28,107 @@ sha = lambda p: hashlib.sha256(p.read_bytes()).hexdigest()
 read = lambda p: json.loads(p.read_text())
 
 
-def verify_manifest(package, expected):
-    assert sha(package / 'manifest.json') == expected
-    manifest = read(package / 'manifest.json')
+def manifest_name(name):
+    relative = Path(name)
+    if relative.is_absolute() or not relative.parts or '..' in relative.parts:
+        raise AssertionError(('Manifest path', name))
+    return relative
+
+
+def _redirected(path):
+    """True when path is a symlink or any other reparse point.
+
+    Path.is_symlink() is false for an NTFS directory junction, and Windows has
+    no O_NOFOLLOW. lstat exposes the junction as st_reparse_tag 0xA0000003.
+    os.path.isjunction is the same fact on Python 3.12 and later.
+    """
+    try:
+        info = os.lstat(path)
+    except OSError:
+        return False
+    if stat.S_ISLNK(info.st_mode) or getattr(info, 'st_reparse_tag', 0) != 0:
+        return True
+    isjunction = getattr(os.path, 'isjunction', None)
+    return bool(isjunction and isjunction(path))
+
+
+def read_regular(bound, path):
+    """Read one regular file inside bound without following a redirected directory.
+
+    The walk includes the file, each ancestor, and the bound itself. A symlink
+    or a Windows reparse point such as an NTFS junction on any of those
+    components is rejected. A hard link to a regular file is still that file
+    and is accepted. Hash equality alone must not admit a directory that was
+    replaced by a link to another tree.
+    """
+    bound = Path(os.path.abspath(bound))
+    path = Path(os.path.abspath(path))
+    try:
+        path.relative_to(bound)
+    except ValueError:
+        raise AssertionError(('Path outside bound', str(path)))
+    current = path
+    while True:
+        if _redirected(current):
+            raise AssertionError(('Symlink ancestry', str(current)))
+        if current == bound:
+            break
+        parent = current.parent
+        if parent == current:
+            raise AssertionError(('Path outside bound', str(path)))
+        current = parent
+    # Reject a FIFO, socket or device before opening it: a blocking open of a
+    # FIFO with no writer never returns. The nonblocking open below keeps a
+    # file swapped for a FIFO after this check from blocking as well; the
+    # descriptor checks then reject it.
+    try:
+        listed = os.lstat(path)
+    except OSError as error:
+        raise AssertionError(('Unreadable path', str(path), error.errno)) from error
+    if not stat.S_ISREG(listed.st_mode):
+        raise AssertionError(('Nonregular path', str(path)))
+    flags = os.O_RDONLY | getattr(os, 'O_NOFOLLOW', 0) | getattr(os, 'O_NONBLOCK', 0) | getattr(os, 'O_BINARY', 0)
+    try:
+        fd = os.open(path, flags)
+    except OSError as error:
+        raise AssertionError(('Unreadable path', str(path), error.errno)) from error
+    with os.fdopen(fd, 'rb') as stream:
+        before = os.fstat(stream.fileno())
+        if not stat.S_ISREG(before.st_mode):
+            raise AssertionError(('Nonregular path', str(path)))
+        data = stream.read()
+        after = os.fstat(stream.fileno())
+    identity = lambda value: (value.st_dev, value.st_ino, value.st_size, value.st_mtime_ns)
+    current_stat = os.stat(path, follow_symlinks=False)
+    if (not stat.S_ISREG(current_stat.st_mode)
+            or identity(listed) != identity(before)
+            or identity(current_stat) != identity(before)
+            or identity(before) != identity(after)):
+        raise AssertionError(('Path changed during read', str(path)))
+    return data
+
+
+def file_sha(bound, path):
+    return hashlib.sha256(read_regular(bound, path)).hexdigest()
+
+
+def verify_manifest(package, expected, bound=None):
+    package = Path(os.path.abspath(package))
+    bound = package if bound is None else Path(os.path.abspath(bound))
+    try:
+        package.relative_to(bound)
+    except ValueError:
+        raise AssertionError(('Package outside bound', str(package)))
+    raw = read_regular(bound, package / 'manifest.json')
+    if hashlib.sha256(raw).hexdigest() != expected:
+        raise AssertionError(('Manifest seal', str(package / 'manifest.json')))
+    manifest = json.loads(raw)
     files = manifest.get('files', manifest)
     for name, value in files.items():
-        part = Path(name)
-        assert not part.is_absolute() and '..' not in part.parts, name
-        path = package / part
-        assert path.is_file() and not path.is_symlink(), path
+        data = read_regular(bound, package / manifest_name(name))
         digest = value['sha256'] if isinstance(value, dict) else value
-        assert sha(path) == digest, path
+        if hashlib.sha256(data).hexdigest() != digest:
+            raise AssertionError(('Manifest mismatch', name))
     return files
 
 
@@ -90,7 +182,7 @@ def _verify_amm_owner6048(root):
 
 
 def verify(program, root):
-    status = read(root / 'repro/status.json')[program]
+    status = json.loads(read_regular(root, root / 'repro/status.json'))[program]
     if program == 'pump' and status['candidate_artifact'] in ['repro/pump/canonical-frontier-20261028/candidate.so', 'research/pump-create-used-boundaries-20261028/artifacts/candidate.so', 'research/pump-final-composition-673-20261028/artifacts/candidate.so', 'research/pump-multihop-accrual-qualification-20261028/artifacts/candidate.so', 'research/pump-program-creator-notice-qualification-20261028/artifacts/candidate.so']:
         from verify_pump_main_checkpoint import verify as verify_pump
         return verify_pump(root)
@@ -138,7 +230,7 @@ def verify(program, root):
     assert name in CHECKPOINTS, ('Checkpoint needs explicit bridge review', name)
     seal, helper_prefix, final_readme = CHECKPOINTS[name]
     package = root / name
-    verify_manifest(package, seal)
+    verify_manifest(package, seal, root)
     scratch_bindings = {
         'repro/pump_fees/sharing-authorize-main-v144': ('repro/pump_fees/sharing-authorize-v144', '52cd978029f67b8c79e738131fa2bec3251de8fdfc2a22270e1464b210125ba7'),
         'repro/pump/admin-cto-error-batch-main-fortyeight': ('repro/pump/admin-cto-error-batch-fortyeight', 'd9d6adc2f5d1533c04999626f93d1aef6a6d0acfb100a11483b4ca777ef62cd6'),
@@ -146,31 +238,36 @@ def verify(program, root):
     }
     if name in scratch_bindings:
         scratch, scratch_seal = scratch_bindings[name]
-        verify_manifest(root / scratch, scratch_seal)
-    report = read(root / status['comparison_report'])
+        verify_manifest(root / scratch, scratch_seal, root)
+    report = json.loads(read_regular(root, root / status['comparison_report']))
     assert root / status['comparison_report'] == package / 'main/build-comparison.json'
     assert report['selected_toolchain'] in ('v1.44', 'v1.52')
     command = report['command']
     assert command[command.index('--tools-version') + 1] == report['selected_toolchain']
-    candidate = root / status['candidate_artifact']
-    assert sha(candidate) == report['comparison']['candidate_sha256'] == status['candidate_sha256']
-    for source, digest in report['source_sha256'].items():
-        assert sha(root / source) == digest, source
+    candidate_sha = file_sha(root, root / status['candidate_artifact'])
+    if candidate_sha != report['comparison']['candidate_sha256'] or candidate_sha != status['candidate_sha256']:
+        raise AssertionError(status['candidate_artifact'])
+    for source, expected_digest in report['source_sha256'].items():
+        if file_sha(root, root / source) != expected_digest:
+            raise AssertionError(source)
     if final_readme:
         crate = 'pump' if program == 'pump' else 'pump-amm'
-        assert (root / 'programs' / crate / 'README.md').read_bytes() == (package / final_readme).read_bytes()
+        if read_regular(root, root / 'programs' / crate / 'README.md') != read_regular(root, package / final_readme):
+            raise AssertionError(final_readme)
     controls_prefix = 'controls' if name == 'repro/pump_fees/sharing-authorize-main-v144' else 'main/controls'
-    gate = read(package / controls_prefix / 'gate-before.json')
+    gate = json.loads(read_regular(root, package / controls_prefix / 'gate-before.json'))
     transitions = []
     for helper, recorded in gate['helpers'].items():
-        assert sha(package / helper_prefix / helper) == recorded, helper
-        actual = sha(root / helper)
+        if file_sha(root, package / helper_prefix / helper) != recorded:
+            raise AssertionError(helper)
+        actual = file_sha(root, root / helper)
         if actual == recorded:
             continue
         assert helper == 'scripts/build_partial_candidate.py' and (recorded, actual) in ((OLD_HELPER, NEW_HELPER), (NEW_HELPER, OLD_HELPER)), helper
         proof = root / TRANSITION
-        verify_manifest(proof, TRANSITION_SEAL)
-        assert sha(proof / 'before.py') == OLD_HELPER and sha(proof / 'after.py') == NEW_HELPER
+        verify_manifest(proof, TRANSITION_SEAL, root)
+        if file_sha(root, proof / 'before.py') != OLD_HELPER or file_sha(root, proof / 'after.py') != NEW_HELPER:
+            raise AssertionError('helper transition bytes')
         # Discard only stdout; a failing proof must report its assertion on stderr.
         subprocess.run([sys.executable, '-B', str(proof / 'verify.py')], check=True, stdout=subprocess.DEVNULL)
         transitions.append({'path': helper, 'recorded_sha256': recorded, 'current_sha256': actual, 'proof_seal': TRANSITION_SEAL})
@@ -178,7 +275,7 @@ def verify(program, root):
     # evidence. Current-source and reviewed-helper checks are performed above.
     # Discard only stdout; a failing verifier must report its assertion on stderr.
     subprocess.run([sys.executable, '-B', str(package / 'verify.py')], check=True, stdout=subprocess.DEVNULL)
-    return {'status': 'PASS', 'program': program, 'candidate_sha256': sha(candidate), 'source_inputs': len(report['source_sha256']),
+    return {'status': 'PASS', 'program': program, 'candidate_sha256': candidate_sha, 'source_inputs': len(report['source_sha256']),
             'actual_current_sources_checked': True, 'reviewed_helper_transitions': transitions,
             'recorded_toolchain': report['selected_toolchain'], 'target_executions': 0, 'original_global_failure_exits_rewritten': False}
 
@@ -189,8 +286,9 @@ if __name__ == '__main__':
     parser.add_argument('--repo', type=Path, default=ROOT)
     args = parser.parse_args()
     root = args.repo.resolve()
-    if args.program == 'pump' and read(args.repo / 'repro/status.json')['pump'].get('candidate_artifact') == 'repro/pump/remaining-guards-main-fortyeight/main/candidate.so':
+    selection = json.loads(read_regular(args.repo, args.repo / 'repro/status.json'))
+    if args.program == 'pump' and selection['pump'].get('candidate_artifact') == 'repro/pump/remaining-guards-main-fortyeight/main/candidate.so':
         root = args.repo.absolute()
-    if args.program == 'pump' and read(args.repo / 'repro/status.json')['pump'].get('candidate_artifact') == 'repro/pump/admin-cto-compared-errors-main-fortyeight/main/candidate.so':
+    if args.program == 'pump' and selection['pump'].get('candidate_artifact') == 'repro/pump/admin-cto-compared-errors-main-fortyeight/main/candidate.so':
         root = args.repo.absolute()
     print(json.dumps(verify(args.program, root), indent=2))

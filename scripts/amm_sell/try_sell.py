@@ -95,6 +95,8 @@ def main():
         result = json.loads(cached.read_text())
         result['duplicate'] = True
         print(json.dumps(result, indent=1))
+        if result.get('status') == 'build_failed':
+            return 2
         return 3 if (result.get('metrics') or {}).get('sell_raw_equal') else 0
     (SOURCES / (key_doc['sell'] + '.rs')).write_bytes(sell_bytes)
     if patch_bytes:
@@ -103,7 +105,7 @@ def main():
     build_id = key[:16]
     record = native_build.build(lane_build, build_id, sell=a.sell, patch=a.patch,
                                 extra_root_flags=a.extra_root_flags, link_script=a.link_script)
-    out = lane_build / 'out' / build_id
+    out = Path(record.get('output_dir') or lane_build / 'out' / build_id)
     entry = {'schema': 'amm-sell-attempt-v1', 'attempt_id': uuid.uuid4().hex,
              'timestamp_utc': datetime.datetime.now(datetime.timezone.utc).isoformat(),
              'lane': a.lane, 'approach': a.approach, 'hypothesis': a.hypothesis, 'key': key,

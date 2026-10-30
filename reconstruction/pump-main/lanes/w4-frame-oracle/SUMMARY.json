@@ -1,0 +1,41 @@
+{
+  "lane": "w4-frame-oracle",
+  "wave": 4,
+  "base": "630a074 (1023 normalized / 277 raw)",
+  "targets": ["0x5b3b0", "0x22a10", "0x72810", "frame (cross-cutting)"],
+  "deliverable": "reconstruction/pump-main/lanes/w4-frame-oracle/frameoracle.py",
+  "best": {
+    "source_change": null,
+    "official": "1023/277, no gains, no losses (analysis-only PR)",
+    "ir_oracle": {
+      "0x5b3b0": "completion lifetime dropped: r10 eq 142->172/723; w4-swaphop then used nested completion + a:&mut (0.5698), whose frame matches the original from T 0 to event",
+      "0x22a10": "alloca-move plan: masked ratio 0.363->0.421, r10 eq 528->641/877 (_109.i alone 0.415)",
+      "0x72810": "base 17/352; w4-sweep head 340/354; residual is a Result<Rent> SROA split"
+    }
+  },
+  "rules": [
+    "PEI places surviving slots sequentially in frame-index order: T = alignup(T_prev + size, align); a size-1 object at SP-1 prints with no location",
+    "Frame-index order is alloca order: LLVM-inlined callee allocas first, then the function's own allocas in reverse MIR-local order; SROA pieces sit at the parent alloca's position in offset order",
+    "StackColoring: slots are sorted by size descending (stable on fi). A group sits at its largest, lowest-fi member. Allocas without lifetime markers never merge",
+    "Unnamed 16 B objects are SelectionDAG hidden return slots of calls returning {i64,ptr}, created in IR RPO and never merged; 8 B objects after them are spills",
+    "A -no-stack-coloring llc run aligned (offsets masked) to the original gives each alloca's implied original slot, which recovers the original's StackColoring partition in our names"
+  ],
+  "attempts": ["eb9ee26a tool+rules", "1a29fb5e swaphop completion", "d9217e95 admin groups", "c318a4b1 sweep groups", "cd5a1b8e S1 deferred completion (108 calls)", "7fff3a2e S8b nested completion fields", "d3ffbf64 S10 nested a.user.key", "ef91c1f6 admin alloca moves", "ef8808ce w4-swaphop head", "0949ac0e w4-sweep head", "ae7d2875 12-window census", "3aed791c ret-slot rule", "0e1d4147 admin orig slots", "51dd4c87 buy_handler ret-slot RPO", "4deda6a0 a1 let mut target"],
+  "rejected": [
+    "S1 deferred-init let completion spanning both ifs: own slot but +1 memcpy (108 calls), raw drift 0xa868",
+    "S8b nested post with completion.user/.mint args: copies elided, -64 frame shift, ratio 0.184",
+    "S10 nested post with a.user.key(): MIR GVN reuses _452=(*_934), ratio 0.221",
+    "admin a1 drop let mut target=target: byte-identical",
+    "buy_handler IR xor-inversion of the 498/500 overflow branches: 0.977->0.93"
+  ],
+  "unresolved": [
+    "0x22a10: source for an early 24 B local receiving the quote_mint tail (orig T 0x680) and for keeping new:Option<Pubkey> pieces 7 B/9 B in memory; remove the no-lifetime sharing_update2.sroa.3/target1",
+    "0x5b3b0 (w4-swaphop head): two no-lifetime 16 B val18 SROA pieces sit above post_fill; the original has 48 B more before quote_token_program",
+    "0x72810 (w4-sweep head): Result<Rent> 24 B tail merged into the ix slot in the original"
+  ],
+  "next_ideas": [
+    "Run frameoracle on every new head (12 s): read 'delta breaks' first, then 'ORIGINAL StackColoring groups' (! and * marks)",
+    "Use the ret:<callee> slot order to read the original's IR RPO and so its branch successor order; aim source spellings at success-first/err-first switches",
+    "admin_cto: hoist a quote_mint Pubkey local early in execute so its SROA tail becomes the 24 B slot at orig 0x680"
+  ]
+}

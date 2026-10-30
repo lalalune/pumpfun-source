@@ -1,0 +1,1 @@
+EDITS=[(" let global:&Global=&self.global;\n let bonding_curve:&mut trade_types::BondingCurve=&mut self.bonding_curve;\n"," let bonding_curve:&mut trade_types::BondingCurve=&mut self.bonding_curve;\n let global:&Global=&self.global;\n")]

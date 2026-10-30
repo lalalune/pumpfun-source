@@ -1,0 +1,100 @@
+{
+  "base_commit": "094a06f18df738d41e77070c1a009e135671ac1a",
+  "images": {
+    "candidate": {
+      "candidate_sha256": "654bc4bbe8c6028ed0b6b59637f6eca29a7e7ac7eee3c5250e6c129de7ad403d",
+      "ok": true,
+      "recipe": "identity",
+      "repeat_identical": true,
+      "runtime_valid": true,
+      "stack_warnings": [],
+      "triple": "sbpf-solana-solana",
+      "unstripped_sha256": "35aef7aaa758deb7560ff73bea7a7b08392edf9c5106bec34ec741f9dfe0fbac"
+    },
+    "control": {
+      "candidate_sha256": "2ec131ee13b63e93c22874562e8122c9bc45ed20a92c1ff6f957fb3c1c2c36ae",
+      "ok": true,
+      "recipe": "identity",
+      "runtime_valid": true,
+      "stack_warnings": [],
+      "triple": "sbpf-solana-solana",
+      "unstripped_sha256": "498103bb88e11727a59096c25386cb4fecce970f4d73b37591b8f53f691a21e2"
+    },
+    "experimental": {
+      "candidate_sha256": "d1c0718b7be9c4a6bc4139f7e4719caa1c50c74b0b08ff14710fb0afd6062b04",
+      "ok": true,
+      "recipe": "identity",
+      "repeat_identical": true,
+      "runtime_valid": true,
+      "stack_warnings": [],
+      "triple": "sbpf-solana-solana",
+      "unstripped_sha256": "caf35a9cebade2cc1c1916bac6606f7e8bcdfdac453b280639fe31ee3d769bc0"
+    }
+  },
+  "metrics": {
+    "candidate": {
+      "bytes": 3680,
+      "candidate_only": 29,
+      "original_only": 28,
+      "ratio": 0.9358830146231721
+    },
+    "control": {
+      "bytes": 3680,
+      "candidate_only": 31,
+      "original_only": 30,
+      "ratio": 0.9313835770528683
+    },
+    "experimental": {
+      "bytes": 3672,
+      "candidate_only": 0,
+      "original_only": 0,
+      "ratio": 1.0
+    }
+  },
+  "original_bytes": 3672,
+  "runtime": {
+    "cases": 153,
+    "differences": [],
+    "executions": 612,
+    "existing_cases": 117,
+    "expected_errors_per_image": 24,
+    "new_crossing_cases": 36,
+    "regressions": [],
+    "successes_per_image": 129
+  },
+  "scorer_sha256": "99475a567c96c2b8d609857fe96d1ed42058c795f19ac2374968c2905ee1fb3a",
+  "scores": {
+    "candidate": {
+      "normalized": 1024,
+      "normalized_gains": [],
+      "normalized_losses": [],
+      "raw": 277,
+      "raw_gains": [],
+      "raw_losses": []
+    },
+    "control": {
+      "normalized": 1024,
+      "normalized_gains": [],
+      "normalized_losses": [],
+      "raw": 277,
+      "raw_gains": [],
+      "raw_losses": []
+    },
+    "experimental": {
+      "normalized": 1025,
+      "normalized_gains": [
+        "0x147ba0"
+      ],
+      "normalized_losses": [],
+      "raw": 276,
+      "raw_gains": [],
+      "raw_losses": [
+        "0xa868"
+      ]
+    }
+  },
+  "source_applied": "load-order.patch only; full-match.patch is an unapplied experiment",
+  "source_files_per_cohort": 71,
+  "symbol": "pump_recovered::trade::buy",
+  "target": "0x147ba0"
+}

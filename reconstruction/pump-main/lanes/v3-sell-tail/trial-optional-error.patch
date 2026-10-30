@@ -1,0 +1,24 @@
+--- a/programs/pump/src/trade_v3.rs
++++ b/programs/pump/src/trade_v3.rs
+@@ -1188,7 +1188,7 @@
+ 
+ 
+     emit!(event);
+-    emit_sell_cpi(&ctx,&event)?;
++    if let Some(error)=emit_sell_cpi(&ctx,&event){return Err(error);}
+     Ok(())
+ }
+ 
+@@ -1297,9 +1297,9 @@
+ fn init_volume_user(uva:&mut crate::UserVolumeAccumulator,user:&Signer){if uva.user==Pubkey::default(){uva.user=user.key();}}
+ 
+ #[inline(always)]
+-fn emit_sell_cpi(ctx:&Context<SellV3>,event:&crate::TradeEvent)->Result<()>{
+-    emit_cpi!((*event));
+-    Ok(())
++fn emit_sell_cpi(ctx:&Context<SellV3>,event:&crate::TradeEvent)->Option<anchor_lang::error::Error>{ let authority_info = ctx.accounts.event_authority.to_account_info(); let authority_bump = ctx.bumps.event_authority; let disc = anchor_lang::event::EVENT_IX_TAG_LE; let inner_data = anchor_lang::Event::data(event); let ix_data: Vec<u8> = disc .into_iter() .map(|b| *b) .chain(inner_data.into_iter()) .collect(); let ix = anchor_lang::solana_program::instruction::Instruction::new_with_bytes( crate::ID, &ix_data, vec![ anchor_lang::solana_program::instruction::AccountMeta::new_readonly( *authority_info.key, true, ), ], ); anchor_lang::solana_program::program::invoke_signed( &ix, &[authority_info], &[&[b"__event_authority", &[authority_bump]]], ) .err().map(anchor_lang::error::Error::from)
++
++
+ }
+ #[inline(always)]
+ fn transfer_curve_mint_tokens<'info>(token_program:&Interface<'info,TokenInterface>,mint:&InterfaceAccount<'info,Mint>,destination:&InterfaceAccount<'info,TokenAccount>,source:&InterfaceAccount<'info,TokenAccount>,authority:&Account<'info,BondingCurve>,amount:u64,signer_seeds:&[&[&[u8]];1])->Result<()>{
