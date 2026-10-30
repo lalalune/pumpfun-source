@@ -149,6 +149,8 @@ def _build_locked(src: Path, work: Path, out: Path, quiet=False, recipe=None, ti
     ws = work / 'ws'
     crate = stage(src, ws)
     assert_unchanged(src, source_inputs)
+    manifest = tomllib.loads((crate / 'Cargo.toml').read_text(encoding='utf-8'))
+    library = manifest.get('lib', {}).get('name', manifest['package']['name'].replace('-', '_'))
     target = work / ('target' if recipe == 'mac' else f'target-{recipe}')
     if not target.exists() and R['template'].exists():
         subprocess.run(['cp', '-cRp', str(R['template']), str(target)], check=True)
@@ -186,8 +188,9 @@ def _build_locked(src: Path, work: Path, out: Path, quiet=False, recipe=None, ti
     for name in {'pump-recovered'} | local_packages(crate):
         for fp in list(target.glob(f'*/release/.fingerprint/{name}-*')) + list(target.glob(f'release/.fingerprint/{name}-*')):
             shutil.rmtree(fp, ignore_errors=True)
-    for so in target.glob('*/release/pump_recovered.so'):
-        so.unlink()
+    for so in target.glob('*/release/*.so'):
+        if so.name == f'{library}.so':
+            so.unlink()
     slot = acquire_slot()
     t0 = time.time()
     try:
@@ -217,7 +220,7 @@ def _build_locked(src: Path, work: Path, out: Path, quiet=False, recipe=None, ti
             raise RuntimeError('link receipt does not match the pinned link script')
         shutil.copy2(receipt, out / 'link-receipt.json')
         shutil.copy2(receipt.with_name('link.map'), out / 'link.map')
-    built = target / triple / 'release/pump_recovered.so'
+    built = target / triple / 'release' / f'{library}.so'
     shutil.copy2(built, out / 'unstripped.so')
     subprocess.run([str(SDK / 'llvm/bin/llvm-objcopy'), '--strip-all', str(built), str(out / 'candidate.so')], check=True)
     return {'ok': True, 'source_sha256': source_inputs['sha256'], 'link_order': link_record, 'runtime_valid': not stack, 'stack_warnings': stack, 'recipe': recipe, 'triple': triple, 'seconds': round(dt, 1), 'unstripped': str(out / 'unstripped.so'),

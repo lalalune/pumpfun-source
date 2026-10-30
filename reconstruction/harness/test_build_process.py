@@ -48,6 +48,8 @@ class CompilerDeadlineTests(unittest.TestCase):
     def test_builder_releases_slot_and_retains_log_without_publication(self):
         with tempfile.TemporaryDirectory() as temp:
             root=Path(temp);slot=io.StringIO();out=root/'out';(root/'src').mkdir()
+            (root/'crate').mkdir()
+            (root/'crate/Cargo.toml').write_text('[package]\nname="pump-recovered"\nversion="0.1.0"\n')
             out.mkdir()
             (out/'candidate.so').write_bytes(b'prior candidate')
             (out/'unstripped.so').write_bytes(b'prior unstripped')
