@@ -261,6 +261,12 @@ export class CompetitionStore {
             if (!Number.isFinite(member[key])) throw new TypeError(`Competition entry member ${key} must be finite`);
           }
         }
+        // The summary and detail describe this same snapshot roster. A stale
+        // leg may still contribute PnL, but it cannot count as a fresh member.
+        if (comp.kind === 'group' && entry.members !== undefined &&
+            entry.membersFresh !== entry.members.filter(member => member.fresh === true).length) {
+          throw new TypeError('Competition fresh member count does not match roster');
+        }
         for (const token of entry.highlightTokens ?? []) {
           for (const key of ['pnlUsd', 'realizedPnlUsd', 'unrealizedPnlUsd',
             'buySpendUsd'] as const) {
