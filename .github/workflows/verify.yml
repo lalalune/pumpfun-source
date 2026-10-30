@@ -55,6 +55,15 @@ jobs:
           - suite: admin-cto-call-report
             commands: |
               python -B reconstruction/pump-main/lanes/w12b13-cto-callgraph/test_callseq.py
+          - suite: admin-cto-stack-coloring
+            commands: |
+              python -B reconstruction/pump-main/lanes/w12b12-cto-cpi/test_scmerge.py
+          - suite: admin-cto-bfi
+            commands: |
+              python -B reconstruction/pump-main/lanes/w12a10-cto-optoracle/test_bfi.py
+          - suite: admin-frame-diagnostics
+            commands: |
+              python -B reconstruction/pump-main/lanes/w12a02-cto-iroracle/test_diagnostics.py
           - suite: composition-patch-bytes
             commands: |
               python -B reconstruction/harness/test_integrate_failures.py
@@ -88,6 +97,7 @@ jobs:
               python -B tests/test_mayhem_differential_pinned_image.py
               python -B tests/test_aggregate_pinned_image.py
               python -B tests/test_pump_validators_pinned_image.py
+              python -B tests/test_create_mayhem_candidate_pair.py
               python -B tests/test_fees_donation_create_pinned_image.py
               python -B tests/test_fees_social_claim_pinned_image.py
               python -B tests/test_fees_donation_crank_pinned_image.py
@@ -141,6 +151,7 @@ jobs:
               python -B scripts/test_disassemble_output_mode.py
               python -B scripts/test_disassemble_tool_binding.py
               python -B scripts/test_analyze_publication.py
+              python -B scripts/test_verify_imported_lab_publication.py
               python -B scripts/test_pump_compare_function_bytes_report.py
               python -B scripts/test_sbpf_disassembly_roundtrip_build_log.py
               python -B scripts/test_supported_sbpf_package_paths.py
@@ -170,6 +181,13 @@ jobs:
               python -B reconstruction/harness/test_experiment_matrix_overlap.py
               python -B reconstruction/harness/test_bisect_membership.py
               python -B reconstruction/harness/test_minimize_oracle_encoding.py
+              python -B reconstruction/harness/test_minimize_patch_list_encoding.py
+              python -B reconstruction/harness/test_treediff.py
+              python -B scripts/test_probe_report_mode.py
+              python -B scripts/test_prepare_pump_nested_runtime_publication.py
+              python -B scripts/test_prepare_fees_withdraw_runtime_publication.py
+              python -B scripts/test_current673_macos_archive_publication.py
+              python -B scripts/test_pump_strict_ordered_logs_output.py
               python -B reconstruction/harness/test_experiment_post_run_errors.py
               python -B reconstruction/harness/test_experiment_root_target.py
               python -B reconstruction/harness/test_coords_cli_admission.py
