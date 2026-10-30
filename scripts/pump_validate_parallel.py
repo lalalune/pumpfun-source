@@ -62,6 +62,7 @@ def validate_result(name, result, candidate, original):
     if name == 'quote_control':
         count = base.validate_quote_control(result, candidate, original)
     elif name == 'multi_hop_curve_partial':
+        assert type(result['passed']) is type(result['case_count']) is int
         assert result['candidate_sha256'] == sha(candidate)
         assert result['original_pump_sha256'] == sha(original)
         assert result['passed'] == result['case_count'] == len(result['cases']) == 56
@@ -87,7 +88,11 @@ def validate_loader_receipt(name, path, script, candidate, original, inputs):
     expected_inputs = {str(p): sha(p) for p in [*inputs, script]}
     assert loaded['input_sha256'] == expected_inputs, (name, 'loader inputs differ')
     assert {row['elf_sha256'] for row in loaded['loads']} == {sha(candidate), sha(original)}, name
-    assert all(row['program_bytes'] == 36 and row['program_owner'] == 'BPFLoaderUpgradeab1e11111111111111111111111' and row['programdata_bytes'] == 10485760 and row['elf_prefix_unchanged'] and row['zero_allocation_tail'] for row in loaded['loads']), name
+    assert all(type(row['program_bytes']) is int and row['program_bytes'] == 36
+               and row['program_owner'] == 'BPFLoaderUpgradeab1e11111111111111111111111'
+               and type(row['programdata_bytes']) is int and row['programdata_bytes'] == 10485760
+               and row['elf_prefix_unchanged'] is True and row['zero_allocation_tail'] is True
+               for row in loaded['loads']), name
     return {'path': base.bound_input_key(path, ROOT), 'sha256': sha(path),
             'load_count': len(loaded['loads'])}
 
