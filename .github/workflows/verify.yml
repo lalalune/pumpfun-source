@@ -26,6 +26,7 @@ jobs:
           - suite: analysis-packet-encoding
             commands: |
               python -B research/tooling-analysis-encoding-20261030/test_verify.py
+              python -B reconstruction/tooling/deep-analysis-output-links/test_verify.py
           - suite: fastbuild-staging
             commands: |
               python -I -B tests/test_fastbuild_stage.py
