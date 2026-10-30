@@ -6,6 +6,7 @@ from pathlib import Path
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -188,6 +189,103 @@ class FastbuildStageTests(unittest.TestCase):
         crate = fastbuild.stage(self.src, self.ws)
         self.assertTrue((crate / "target").is_file())
         self.assertEqual((crate / "target").read_bytes(), b"source asset\x00")
+
+
+class FastbuildStagedOutputTests(unittest.TestCase):
+    """Exercise real staging and retention, stopping at an absent compiler executable."""
+
+    previous = {
+        "candidate.so": b"prior candidate",
+        "unstripped.so": b"prior unstripped",
+        "build.log": b"prior compiler log",
+        "source-inputs.json": b"prior source receipt",
+        "link-receipt.json": b"prior link receipt",
+        "link.map": b"prior link map",
+    }
+
+    def fixture(self, root):
+        source, work = root / "source", root / "work"
+        (source / "src").mkdir(parents=True)
+        (source / "Cargo.toml").write_text(MANIFEST, encoding="utf-8")
+        (source / "Cargo.lock").write_text("version = 3\n", encoding="utf-8")
+        (source / "src/lib.rs").write_text("pub fn fixture() {}\n", encoding="utf-8")
+        return source, work
+
+    def seed(self, output):
+        output.mkdir(parents=True, exist_ok=True)
+        for name, data in self.previous.items():
+            (output / name).write_bytes(data)
+        older = output / "previous/build-old/receipt.json"
+        older.parent.mkdir(parents=True)
+        older.write_bytes(b"older retained evidence")
+
+    def tree(self, root):
+        return {path.relative_to(root).as_posix():
+                ("link", os.readlink(path)) if path.is_symlink() else
+                ("file", path.read_bytes()) if path.is_file() else ("directory",)
+                for path in root.rglob("*")}
+
+    def build(self, root, source, work, output):
+        # Configure locations only: staging, locking and archiving remain real.
+        # The absent SDK ensures no compiler can run even on the unfixed helper.
+        recipe = {"triple": "fixture", "rustc": root / "absent-rustc",
+                  "template": root / "absent-template"}
+        with patch.object(fastbuild, "SDK", root / "absent-sdk"), \
+             patch.object(fastbuild, "LOCKDIR", root / "locks"), \
+             patch.dict(fastbuild.RECIPES, {"isolated": recipe}):
+            return fastbuild.build(source, work, output, recipe="isolated", quiet=True)
+
+    def test_staged_outputs_are_rejected_before_existing_evidence_changes(self):
+        for layout in ("root", "nested", "alias"):
+            with self.subTest(layout=layout), tempfile.TemporaryDirectory() as temporary:
+                root = Path(temporary).resolve()
+                source, work = self.fixture(root)
+                staged = work / "ws/programs/pump"
+                output = staged if layout == "root" else staged / "published"
+                self.seed(output)
+                if layout == "alias":
+                    alias = root / "output-alias"
+                    alias.symlink_to(output, target_is_directory=True)
+                    output = alias
+                before = self.tree(root)
+                error = None
+                try:
+                    self.build(root, source, work, output)
+                except (ValueError, FileNotFoundError) as caught:
+                    error = caught
+                self.assertEqual(self.tree(root), before, "rejected build changed prior evidence")
+                self.assertIsInstance(error, ValueError)
+                self.assertIn("staged source", str(error))
+
+    def test_new_staged_output_is_rejected_before_workspace_creation(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary).resolve()
+            source, work = self.fixture(root)
+            before = self.tree(root)
+            with self.assertRaisesRegex(ValueError, "staged source"):
+                self.build(root, source, work, work / "ws/programs/pump/new-output")
+            self.assertEqual(self.tree(root), before)
+
+    def test_supported_outputs_archive_evidence_before_missing_tool_failure(self):
+        for layout in ("shared", "default", "separate"):
+            with self.subTest(layout=layout), tempfile.TemporaryDirectory() as temporary:
+                root = Path(temporary).resolve()
+                source, work = self.fixture(root)
+                output = {"shared": work, "default": work / "last",
+                          "separate": root / "output"}[layout]
+                self.seed(output)
+                before_source = self.tree(source)
+                with self.assertRaises(FileNotFoundError) as caught:
+                    self.build(root, source, work, output)
+                self.assertEqual(caught.exception.filename, str(root / "absent-sdk/rust/bin/cargo"))
+                self.assertEqual(self.tree(source), before_source)
+                archives = [path for path in (output / "previous").iterdir()
+                            if path.name != "build-old"]
+                self.assertEqual(len(archives), 1)
+                for name, data in self.previous.items():
+                    self.assertEqual((archives[0] / name).read_bytes(), data)
+                self.assertEqual((output / "previous/build-old/receipt.json").read_bytes(),
+                                 b"older retained evidence")
 
 
 if __name__ == "__main__":

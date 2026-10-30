@@ -50,6 +50,7 @@ jobs:
           - suite: fastbuild-staging
             commands: |
               python -I -B tests/test_fastbuild_stage.py
+              python -B reconstruction/harness/test_fastbuild_output_race.py
               python -B reconstruction/harness/test_fastbuild_library_name.py
           - suite: admin-cto-call-report
             commands: |
@@ -108,7 +109,9 @@ jobs:
               python -B tests/test_recovered_builds_optimization.py
               python -B scripts/test_mayhem_burn_sequence_optimization.py
               python -B scripts/test_macos_v144_qualification_optimization.py
+              python -B scripts/test_mayhem_initialize_state_optimization.py
               python -B scripts/test_constant_product_range_pinning.py
+              python -B scripts/test_pump_build_constant_product_binding.py
               python -B scripts/test_fees_validate_all_optimization.py
               python -B scripts/test_claim_differentials_optimization.py
               python -B scripts/test_differentials_optimization.py
@@ -126,6 +129,7 @@ jobs:
               python -B scripts/test_pump_data_order_publication.py
               python -B scripts/test_deep_disassembly_syscall_usage.py
               python -B scripts/test_disassemble_output_mode.py
+              python -B scripts/test_disassemble_tool_binding.py
               python -B scripts/test_analyze_publication.py
               python -B scripts/test_pump_compare_function_bytes_report.py
               python -B scripts/test_sbpf_disassembly_roundtrip_build_log.py
