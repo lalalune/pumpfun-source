@@ -162,6 +162,18 @@ def normalized_tokens(rows):
     return tokens
 
 
+def slot_differences(original, candidate):
+    """Count 8-byte sell slots that differ; an absent candidate tail is not zero.
+
+    Python slicing never raises: a candidate shorter than the sell window used
+    to shrink (or empty) the comparison, publishing `slot_diffs: 0` for a
+    missing window. Each slot the candidate does not fully cover counts as
+    differing instead.
+    """
+    return sum(1 for start in range(0, len(original), 8)
+               if original[start:start + 8] != candidate[start:start + 8])
+
+
 def alignment_distance(left, right):
     """Minimum unit-cost insertions, deletions and substitutions of tokens.
 
@@ -219,7 +231,7 @@ def score(out_dir, want_disasm=False):
     o_tok, c_tok = normalized_tokens(o_rows), normalized_tokens(c_rows)
     matcher = difflib.SequenceMatcher(None, o_tok, c_tok, autojunk=False)
     distance = alignment_distance(o_tok, c_tok)
-    slot_diffs = sum(1 for i in range(0, min(len(o_sell), len(c_sell)), 8) if o_sell[i:i + 8] != c_sell[i:i + 8])
+    slot_diffs = slot_differences(o_sell, c_sell)
     borrow = {}
     for name, rows in (('original', o_rows), ('candidate', c_rows)):
         window = [r for r in rows if 0xcd0 <= r['off'] <= 0xd10]

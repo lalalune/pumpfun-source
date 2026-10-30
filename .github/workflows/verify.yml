@@ -50,10 +50,20 @@ jobs:
           - suite: fastbuild-staging
             commands: |
               python -I -B tests/test_fastbuild_stage.py
+              python -B reconstruction/harness/test_fastbuild_output_race.py
               python -B reconstruction/harness/test_fastbuild_library_name.py
           - suite: admin-cto-call-report
             commands: |
               python -B reconstruction/pump-main/lanes/w12b13-cto-callgraph/test_callseq.py
+          - suite: admin-cto-stack-coloring
+            commands: |
+              python -B reconstruction/pump-main/lanes/w12b12-cto-cpi/test_scmerge.py
+          - suite: admin-cto-bfi
+            commands: |
+              python -B reconstruction/pump-main/lanes/w12a10-cto-optoracle/test_bfi.py
+          - suite: admin-frame-diagnostics
+            commands: |
+              python -B reconstruction/pump-main/lanes/w12a02-cto-iroracle/test_diagnostics.py
           - suite: composition-patch-bytes
             commands: |
               python -B reconstruction/harness/test_integrate_failures.py
@@ -86,6 +96,11 @@ jobs:
               python -B tests/test_pump_create_nested_pinned_image.py
               python -B tests/test_mayhem_differential_pinned_image.py
               python -B tests/test_aggregate_pinned_image.py
+              python -B tests/test_pump_validators_pinned_image.py
+              python -B tests/test_create_mayhem_candidate_pair.py
+              python -B tests/test_fees_donation_create_pinned_image.py
+              python -B tests/test_fees_social_claim_pinned_image.py
+              python -B tests/test_fees_donation_crank_pinned_image.py
               python -B tests/test_two_curve_optimization_guard.py
               python -O -B tests/test_two_curve_optimization_guard.py
               python -B scripts/test_dispatch_recovery.py
@@ -107,7 +122,13 @@ jobs:
               python -B tests/test_verify_dependencies_optimization.py
               python -B tests/test_recovered_builds_optimization.py
               python -B scripts/test_mayhem_burn_sequence_optimization.py
+              python -B scripts/test_rebuild_workflow_action_pins.py
+              python -B scripts/test_macos_v144_qualification_optimization.py
+              python -B scripts/test_mayhem_initialize_state_optimization.py
+              python -B scripts/test_fees_crank_probe_optimization.py
+              python -B scripts/test_surfpool_truncated_events.py
               python -B scripts/test_constant_product_range_pinning.py
+              python -B scripts/test_pump_build_constant_product_binding.py
               python -B scripts/test_fees_validate_all_optimization.py
               python -B scripts/test_claim_differentials_optimization.py
               python -B scripts/test_differentials_optimization.py
@@ -118,6 +139,9 @@ jobs:
               python -B scripts/test_current673_macos_optimized_mode.py
               python -B scripts/test_pump_differential_optimized_mode.py
               python -B scripts/test_pump_validate_constant_product_optimization.py
+              python -B scripts/test_pump_with_captured_loader_paths.py
+              python -B tests/test_fees_external_codec_pinned_image.py
+              python -B scripts/test_pump_validate_parallel.py
               python -B scripts/test_pump_validate_volume_optimization.py
               python -B scripts/test_pump_validate_sell_accounting_optimization.py
               python -B scripts/test_imported_lab_optimization.py
@@ -125,7 +149,9 @@ jobs:
               python -B scripts/test_pump_data_order_publication.py
               python -B scripts/test_deep_disassembly_syscall_usage.py
               python -B scripts/test_disassemble_output_mode.py
+              python -B scripts/test_disassemble_tool_binding.py
               python -B scripts/test_analyze_publication.py
+              python -B scripts/test_verify_imported_lab_publication.py
               python -B scripts/test_pump_compare_function_bytes_report.py
               python -B scripts/test_sbpf_disassembly_roundtrip_build_log.py
               python -B scripts/test_supported_sbpf_package_paths.py
@@ -137,6 +163,7 @@ jobs:
               python -B scripts/test_bytecode_signatures_publication.py
               python -B scripts/test_revalidate_all_publication.py
               python -B scripts/test_donation_relay_oracle_optimization.py
+              python -B tests/test_claim_token_incentives_pinned_image.py
               python -B -X utf8 tests/test_dispatch_idl_encoding.py
               python -B tests/test_local_validation_idl_encoding.py
               python -B tests/test_claim_token_incentives_idl_encoding.py
@@ -155,6 +182,13 @@ jobs:
               python -B reconstruction/harness/test_experiment_matrix_overlap.py
               python -B reconstruction/harness/test_bisect_membership.py
               python -B reconstruction/harness/test_minimize_oracle_encoding.py
+              python -B reconstruction/harness/test_minimize_patch_list_encoding.py
+              python -B reconstruction/harness/test_treediff.py
+              python -B scripts/test_probe_report_mode.py
+              python -B scripts/test_prepare_pump_nested_runtime_publication.py
+              python -B scripts/test_prepare_fees_withdraw_runtime_publication.py
+              python -B scripts/test_current673_macos_archive_publication.py
+              python -B scripts/test_pump_strict_ordered_logs_output.py
               python -B reconstruction/harness/test_experiment_post_run_errors.py
               python -B reconstruction/harness/test_experiment_root_target.py
               python -B reconstruction/harness/test_coords_cli_admission.py

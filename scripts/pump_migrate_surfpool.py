@@ -103,7 +103,12 @@ def layouts():
     offset+={'pubkey':32,'u64':8,'i64':8,'bool':1,'u8':1,'u16':2,'u32':4}[t]
  return out
 def normalize_event(data,offsets):
- data=bytearray(data);key=bytes(data[:8]);assert key in offsets,('unknown event',key.hex());off=offsets[key];data[off:off+8]=bytes(8);return bytes(data)
+ data=bytearray(data);key=bytes(data[:8])
+ if key not in offsets:raise ValueError(('unknown event',key.hex()))
+ off=offsets[key]
+ if len(data)<off+8:raise ValueError(('truncated event',key.hex(),len(data)))
+ data[off:off+8]=bytes(8)
+ return bytes(data)
 def decode58(s):
  alphabet='123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';n=0
  for c in s:n=n*58+alphabet.index(c)

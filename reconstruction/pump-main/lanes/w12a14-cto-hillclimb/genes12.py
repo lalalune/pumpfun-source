@@ -281,3 +281,54 @@ GENES.update({
     'cold312_inl': [(L312, "  if t==*holder_key||t==*sharing{#[cold]fn e312()->Error{error!(PumpError::InvalidCreator)}return Err(e312());}t};")],
     'cold307_inl': [(L307, "  if t==Pubkey::default(){#[cold]fn e307(t:Pubkey)->Error{error!(PumpError::CreatorShouldNotBeZero).with_pubkeys((t,Pubkey::default()))}return Err(e307(t));}")],
 })
+# ---------- curve store variants on the K5 family ----------
+FEEU = "  curve.creator_fee_bps=fee.unwrap_or(old_fee);\n"
+FEEI = "  if let Some(f)=fee{curve.creator_fee_bps=f;}\n"
+CE = "  curve.can_edit_creator_fee=false;\n"
+GENES.update({
+    'fee_iflet_match': [(FEEI, "  match fee{Some(f)=>{curve.creator_fee_bps=f;}None=>{}}\n")],
+    'fee_iflet_none_first': [(FEEI, "  match fee{None=>{}Some(f)=>{curve.creator_fee_bps=f;}}\n")],
+    'fee_iflet_isnone': [(FEEI, "  if fee.is_some(){curve.creator_fee_bps=fee.unwrap();}\n")],
+    'feeu_map_or': [(FEEU, "  curve.creator_fee_bps=fee.map_or(old_fee,|f|f);\n")],
+    'feeu_iflet_else': [(FEEU, "  curve.creator_fee_bps=if let Some(f)=fee{f}else{old_fee};\n")],
+    'feeu_match': [(FEEU, "  curve.creator_fee_bps=match fee{Some(f)=>f,None=>old_fee};\n")],
+    'ce_after_creator': [("  curve.creator=target;\n", "  curve.creator=target;curve.can_edit_creator_fee=false;\n"), (CE, "\n")],
+    'ce_after_holder': [("  curve.is_holder_reward=holder;\n", "  curve.is_holder_reward=holder;curve.can_edit_creator_fee=false;\n"), (CE, "\n")],
+    'ce_after_cb': [("  curve.is_cashback_coin=cashback;\n", "  curve.is_cashback_coin=cashback;curve.can_edit_creator_fee=false;\n"), (CE, "\n")],
+})
+# ---------- CtoState literal order with quote_locked evaluated inside (orig loads the curve bools before global_quote) ----------
+GQ = "crate::pump_quote::global_quote(a.bonding_curve.quote_mint,&a.global)"
+GENES.update({
+    'st_lit_A1': [(QL, ""), (ST, "let st=CtoState{mayhem:a.bonding_curve.is_mayhem_mode,holder_reward:a.bonding_curve.is_holder_reward,cashback:a.bonding_curve.is_cashback_coin,quote_locked:" + GQ + ",creator:a.bonding_curve.creator,max_fee:a.global.max_configurable_creator_fee_bps,holder_enabled:a.global.is_holder_reward_enabled,fee_configurable:a.global.creator_fee_configurable}; ")],
+    'st_lit_bools_ql_first': [(QL, ""), (ST, "let st=CtoState{mayhem:a.bonding_curve.is_mayhem_mode,cashback:a.bonding_curve.is_cashback_coin,holder_reward:a.bonding_curve.is_holder_reward,quote_locked:" + GQ + ",creator:a.bonding_curve.creator,max_fee:a.global.max_configurable_creator_fee_bps,holder_enabled:a.global.is_holder_reward_enabled,fee_configurable:a.global.creator_fee_configurable}; ")],
+    'ql_after_bools_locals': [(QL, "let (mayhem,holder_reward,cashback)=(a.bonding_curve.is_mayhem_mode,a.bonding_curve.is_holder_reward,a.bonding_curve.is_cashback_coin);" + QL),
+                              ("mayhem:a.bonding_curve.is_mayhem_mode,holder_reward:a.bonding_curve.is_holder_reward,cashback:a.bonding_curve.is_cashback_coin,", "mayhem,holder_reward,cashback,")],
+})
+# ---------- w12a11-cto-sibling AMM per-arm cashback (t18: K5 + amm_cb_local = 27,384 B / 0.48367) and compensation knobs ----------
+PAD13 = "// layout-pad(13): aligns the next Source site with the original line\n\n"
+GENES.update({
+    'amm_cb_local': [(PAD13, "// layout-pad(13): aligns the next Source site with the original line\n let cashback=if holder{false}else{st.cashback};\n"),
+                     (L330, "  if cashback{return Err(error!(PumpError::CreatorFeeNotAllowedForCashbackCoin));}")],
+    # w12a11 k4_oldfee_after: old_fee read after the cashback store (+16 B on k4+bump)
+    'k4_oldfee_after': [("let old_fee=curve.creator_fee_bps;let old_creator=curve.creator;curve.can_edit_creator_fee=false;\n", "let old_creator=curve.creator;curve.can_edit_creator_fee=false;\n"),
+                        ("  curve.is_cashback_coin=cashback;\n  curve.creator_fee_bps=fee.unwrap_or(old_fee);\n", "  curve.is_cashback_coin=cashback;let old_fee=curve.creator_fee_bps;\n  curve.creator_fee_bps=fee.unwrap_or(old_fee);\n")],
+    # original curve-store order (sizeknobs notes): creator, is_cashback_coin, is_holder_reward, if-let fee, can_edit last
+    'cs_orig_order': [("let old_fee=curve.creator_fee_bps;let old_creator=curve.creator;curve.can_edit_creator_fee=false;\n  curve.creator=target;\n  curve.is_holder_reward=holder;\n  curve.is_cashback_coin=cashback;\n  curve.creator_fee_bps=fee.unwrap_or(old_fee);\n\n",
+                       "let old_fee=curve.creator_fee_bps;let old_creator=curve.creator;\n  curve.creator=target;\n  curve.is_cashback_coin=cashback;\n  curve.is_holder_reward=holder;\n  if let Some(f)=fee{curve.creator_fee_bps=f;}\n  curve.can_edit_creator_fee=false;\n")],
+    'cs_orig_order_unwrap': [("let old_fee=curve.creator_fee_bps;let old_creator=curve.creator;curve.can_edit_creator_fee=false;\n  curve.creator=target;\n  curve.is_holder_reward=holder;\n  curve.is_cashback_coin=cashback;\n  curve.creator_fee_bps=fee.unwrap_or(old_fee);\n\n",
+                              "let old_fee=curve.creator_fee_bps;let old_creator=curve.creator;\n  curve.creator=target;\n  curve.is_cashback_coin=cashback;\n  curve.is_holder_reward=holder;\n  curve.creator_fee_bps=fee.unwrap_or(old_fee);\n  curve.can_edit_creator_fee=false;\n")],
+})
+# ---------- curve-store variants on A2 (A + k4_oldfee_after) ----------
+A2CS = ("  let curve=&mut ctx.accounts.bonding_curve;let old_creator=curve.creator;curve.can_edit_creator_fee=false;\n"
+        "  curve.creator=target;\n  curve.is_holder_reward=holder;\n  curve.is_cashback_coin=cashback;let old_fee=curve.creator_fee_bps;\n"
+        "  curve.creator_fee_bps=fee.unwrap_or(old_fee);\n\n")
+def _a2cs(body):
+    assert body.count('\n') == A2CS.count('\n'), body
+    return [(A2CS, body)]
+GENES.update({
+    'a2_orig_order': _a2cs("  let curve=&mut ctx.accounts.bonding_curve;let old_creator=curve.creator;\n  curve.creator=target;\n  curve.is_cashback_coin=cashback;\n  curve.is_holder_reward=holder;let old_fee=curve.creator_fee_bps;\n  if let Some(f)=fee{curve.creator_fee_bps=f;}\n  curve.can_edit_creator_fee=false;\n"),
+    'a2_orig_order_unwrap': _a2cs("  let curve=&mut ctx.accounts.bonding_curve;let old_creator=curve.creator;\n  curve.creator=target;\n  curve.is_cashback_coin=cashback;\n  curve.is_holder_reward=holder;let old_fee=curve.creator_fee_bps;\n  curve.creator_fee_bps=fee.unwrap_or(old_fee);\n  curve.can_edit_creator_fee=false;\n"),
+    'a2_cb_first': _a2cs("  let curve=&mut ctx.accounts.bonding_curve;let old_creator=curve.creator;curve.can_edit_creator_fee=false;\n  curve.creator=target;\n  curve.is_cashback_coin=cashback;\n  curve.is_holder_reward=holder;let old_fee=curve.creator_fee_bps;\n  curve.creator_fee_bps=fee.unwrap_or(old_fee);\n\n"),
+    'a2_ce_last': _a2cs("  let curve=&mut ctx.accounts.bonding_curve;let old_creator=curve.creator;\n  curve.creator=target;\n  curve.is_holder_reward=holder;\n  curve.is_cashback_coin=cashback;let old_fee=curve.creator_fee_bps;\n  curve.creator_fee_bps=fee.unwrap_or(old_fee);\n  curve.can_edit_creator_fee=false;\n"),
+    'a2_fee_iflet': _a2cs("  let curve=&mut ctx.accounts.bonding_curve;let old_creator=curve.creator;curve.can_edit_creator_fee=false;\n  curve.creator=target;\n  curve.is_holder_reward=holder;\n  curve.is_cashback_coin=cashback;let old_fee=curve.creator_fee_bps;\n  if let Some(f)=fee{curve.creator_fee_bps=f;}\n\n"),
+})

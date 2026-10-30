@@ -213,8 +213,11 @@ def trace_handler_attribution(elf, entries, forward, reverse):
 
         if ancestors or descendants:
             attributions[start] = {
-                "likely_callers": sorted(ancestors, key=lambda x: x[1]),
-                "likely_callees": sorted(descendants, key=lambda x: x[1]),
+                # Depth ties must break on the name: sets of (name, depth)
+                # iterate in hash order, so a depth-only key made the
+                # published attribution order depend on PYTHONHASHSEED.
+                "likely_callers": sorted(ancestors, key=lambda x: (x[1], x[0])),
+                "likely_callees": sorted(descendants, key=lambda x: (x[1], x[0])),
             }
 
     return attributions

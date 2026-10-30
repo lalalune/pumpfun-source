@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Recover donation-PDA creation with normally signed synthetic local transactions."""
-import argparse, base64, hashlib, json, pathlib
+import argparse, base64, hashlib, json, pathlib, sys
 from solders.account import Account
 from solders.instruction import AccountMeta, Instruction
 from solders.transaction import Transaction
@@ -9,6 +9,8 @@ from solders.pubkey import Pubkey
 from fees_admin_differential import IDL, PROGRAM, GLOBAL, BUMP, EVENT, AUTH, OTHER, PAYER, BASE
 from solders.litesvm import LiteSVM
 ROOT=pathlib.Path(__file__).resolve().parents[1]
+sys.path.insert(0,str(ROOT/'scripts'))
+from pump_amm_reusable_harness import pin_program
 PUMP=Pubkey.from_string('6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P')
 AMM=Pubkey.from_string('pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA')
 MINT=Pubkey.from_bytes(bytes([61])*32);CONFIG=Pubkey.from_bytes(bytes([62])*32);POOL=Pubkey.from_bytes(bytes([63])*32)
@@ -91,12 +93,12 @@ def cases():
  return rows
 def main():
  p=argparse.ArgumentParser();p.add_argument('--candidate',type=pathlib.Path);p.add_argument('--output',type=pathlib.Path,required=True);a=p.parse_args()
- original=ROOT/'evidence/original/pump_fees/deployed.so';o=Fixture(original);b=Fixture(a.candidate) if a.candidate else None;rows=[];failures=[]
+ original=pin_program(ROOT/'evidence/original/pump_fees/deployed.so');o=Fixture(original);b=Fixture(pin_program(a.candidate)) if a.candidate else None;rows=[];failures=[]
  for c in cases():
   x=o.run(c);y=b.run(c) if b else None;match=all(x[k]==y[k] for k in ['error','data','owner','lamports','payer_delta','authority_delta','events','inner']) if b else None
   rows.append({'case':c,'original':x,'candidate':y,'match':match})
   if match is False:failures.append(c['name'])
- report={'scope':'Synthetic signed local creation fixtures; no crank or full program identity claim.','original_sha256':hashlib.sha256(original.read_bytes()).hexdigest(),'candidate_sha256':hashlib.sha256(a.candidate.read_bytes()).hexdigest() if a.candidate else None,'cases':rows,'mismatches':failures}
+ report={'scope':'Synthetic signed local creation fixtures; no crank or full program identity claim.','original_sha256':hashlib.sha256(original.read_bytes()).hexdigest(),'candidate_sha256':hashlib.sha256(pin_program(a.candidate).read_bytes()).hexdigest() if a.candidate else None,'cases':rows,'mismatches':failures}
  a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(report,indent=2)+'\n');print('Cases',len(rows),'mismatches',failures)
  if failures:raise SystemExit(1)
 if __name__=='__main__':main()

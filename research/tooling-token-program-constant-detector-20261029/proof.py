@@ -172,7 +172,7 @@ def seal(packet=P):
             'kind': 'tooling',
             'scope': 'Token-program constant detection; no transfer or payload-byte claim.',
             'totals': report['totals'],
-        }, indent=2) + '\n'
+        }, indent=2) + '\n', encoding='utf-8', newline='\n'
     )
     inventory = {
         str(path.relative_to(packet)): sha(path.read_bytes())
@@ -180,7 +180,7 @@ def seal(packet=P):
         if path.is_file() and path.name != 'manifest.json'
         and '__pycache__' not in path.parts and path.suffix != '.pyc'
     }
-    (packet / 'manifest.json').write_text(json.dumps(inventory, indent=2) + '\n')
+    (packet / 'manifest.json').write_text(json.dumps(inventory, indent=2) + '\n', encoding='utf-8', newline='\n')
     return report['totals']
 
 

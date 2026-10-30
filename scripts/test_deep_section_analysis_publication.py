@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Deep section analysis packets are published only into clean output directories."""
 import contextlib
+import hashlib
 import io
 import struct
 import subprocess
@@ -14,6 +15,7 @@ from unittest import mock
 SCRIPTS = Path(__file__).resolve().parent
 sys.path.insert(0, str(SCRIPTS))
 import deep_section_analysis  # noqa: E402
+import deep_disassembly as publisher
 
 
 def fake_elf_with_relocations(section_header, blob_size):
@@ -102,6 +104,19 @@ def generate(output):
         return deep_section_analysis.main()
 
 
+def generate_program(program, output):
+    argv = ["deep_section_analysis.py", "--program", program, "--output", str(output)]
+    with mock.patch.object(sys, "argv", argv), contextlib.redirect_stdout(io.StringIO()):
+        return deep_section_analysis.main()
+
+
+def packet_hashes(output):
+    return {
+        path.name: hashlib.sha256(path.read_bytes()).hexdigest()
+        for path in output.iterdir()
+    }
+
+
 class DeepSectionStringAddressTests(unittest.TestCase):
     def test_run_reaching_the_section_end_uses_the_virtual_address_base(self):
         # .rodata mapped at 0x2000 but stored at file offset 0x40; the last
@@ -170,6 +185,131 @@ class DeepSectionPublicationTests(unittest.TestCase):
             completed = subprocess.run([sys.executable, "-I", "-B", str(output / "verify.py")],
                                        capture_output=True, text=True)
             self.assertEqual(completed.returncode, 0, completed.stdout + completed.stderr)
+
+    def test_failed_replacement_preserves_the_prior_complete_packet(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            output = Path(temporary) / "packet"
+            self.assertEqual(generate(output), 0)
+            before = packet_hashes(output)
+            real_write_text = Path.write_text
+
+            def fail_cross_section_report(path, *args, **kwargs):
+                if path.name == "layer3-cross-section.json":
+                    raise OSError("injected packet write failure")
+                return real_write_text(path, *args, **kwargs)
+
+            with mock.patch.object(Path, "write_text", fail_cross_section_report):
+                with self.assertRaisesRegex(OSError, "injected packet write failure"):
+                    generate_program("pump_fees", output)
+
+            after = packet_hashes(output)
+            self.assertEqual(sorted(after), sorted(before))
+            changed = sorted(name for name in before if after[name] != before[name])
+            self.assertFalse(
+                changed, f"failed analysis partially replaced the prior packet: {changed}"
+            )
+            self.assertEqual(
+                sorted(path.name for path in output.parent.iterdir()),
+                ["packet"],
+                "failed analysis left a staging directory behind",
+            )
+
+    def test_failure_does_not_publish_a_new_partial_packet(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            output = Path(temporary) / "packet"
+            real_write_text = Path.write_text
+
+            def fail_cross_section_report(path, *args, **kwargs):
+                if path.name == "layer3-cross-section.json":
+                    raise OSError("injected packet write failure")
+                return real_write_text(path, *args, **kwargs)
+
+            with mock.patch.object(Path, "write_text", fail_cross_section_report):
+                with self.assertRaisesRegex(OSError, "injected packet write failure"):
+                    generate(output)
+
+            self.assertFalse(output.exists(), "failed analysis published a partial packet")
+            self.assertEqual(list(output.parent.iterdir()), [])
+
+    def test_missing_program_removes_staging(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            self.assertEqual(generate_program('does-not-exist-test-only', root / 'packet'), 1)
+            self.assertEqual(list(root.iterdir()), [])
+
+    def test_late_empty_directory_is_preserved(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            output = root / 'packet'
+            build = deep_section_analysis.build_packet
+            def late_writer(*args):
+                result = build(*args)
+                output.mkdir()
+                return result
+            with mock.patch.object(deep_section_analysis, 'build_packet', late_writer):
+                with self.assertRaisesRegex(ValueError, 'changed during analysis'):
+                    generate(output)
+            self.assertEqual(list(output.iterdir()), [])
+            self.assertEqual(list(root.iterdir()), [output])
+
+    def test_replacement_retains_prior_packet_and_late_additions(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            output = root / 'packet'
+            self.assertEqual(generate(output), 0)
+            before = packet_hashes(output)
+            output.chmod(0o700)
+            build = deep_section_analysis.build_packet
+            def late_writer(*args):
+                result = build(*args)
+                (output / 'late.txt').write_bytes(b'late evidence')
+                return result
+            with mock.patch.object(deep_section_analysis, 'build_packet', late_writer):
+                self.assertEqual(generate_program('pump_fees', output), 0)
+            backups = list(root.glob('.packet.previous-*'))
+            self.assertEqual(len(backups), 1)
+            after = packet_hashes(backups[0])
+            self.assertEqual({name: after[name] for name in before}, before)
+            self.assertEqual((backups[0] / 'late.txt').read_bytes(), b'late evidence')
+            self.assertEqual(output.stat().st_mode & 0o777, 0o700)
+
+    def test_native_publish_failure_preserves_late_output(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            output = root / 'packet'
+            rename = publisher.rename_directory
+            def late_writer(source, destination, **kwargs):
+                output.mkdir()
+                return rename(source, destination, **kwargs)
+            with mock.patch.object(publisher, 'rename_directory', late_writer):
+                with self.assertRaises(FileExistsError):
+                    generate(output)
+            self.assertEqual(list(output.iterdir()), [])
+            self.assertEqual(list(root.iterdir()), [output])
+
+    def test_exchange_race_preserves_recovery_packet(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            output = root / 'packet'
+            self.assertEqual(generate(output), 0)
+            rename = publisher.rename_directory
+            calls = 0
+            def late_writer(source, destination, **kwargs):
+                nonlocal calls
+                calls += 1
+                if calls == 1:
+                    output.rename(root / 'moved-old')
+                    output.mkdir()
+                    (output / 'other.txt').write_bytes(b'other writer')
+                return rename(source, destination, **kwargs)
+            with mock.patch.object(publisher, 'rename_directory', late_writer):
+                with self.assertRaisesRegex(ValueError, 'changed during publication'):
+                    generate_program('pump_fees', output)
+            self.assertEqual((output / 'other.txt').read_bytes(), b'other writer')
+            staged = list(root.glob('.packet.staging-*'))
+            self.assertEqual(len(staged), 1)
+            self.assertTrue((staged[0] / 'manifest.json').is_file())
+            self.assertTrue((root / 'moved-old' / 'manifest.json').is_file())
 
 
 if __name__ == "__main__":

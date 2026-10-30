@@ -34,6 +34,19 @@ class AlignmentDistanceTests(unittest.TestCase):
             with self.subTest(left=left, right=right):
                 self.assertEqual(score.alignment_distance(left, right), expected)
 
+    def test_absent_candidate_tail_counts_as_differing_slots(self):
+        # A candidate shorter than the sell window used to shrink the slice
+        # and publish slot_diffs: 0 for a window that is simply missing.
+        original = bytes(range(8)) * 3                      # three full slots
+        same = score.slot_differences(original, original)
+        one_changed = score.slot_differences(original, bytes(8) + original[8:])
+        truncated = score.slot_differences(original, original[:20])   # last slot absent
+        missing = score.slot_differences(original, b'')               # whole window absent
+        self.assertEqual(same, 0)
+        self.assertEqual(one_changed, 1)
+        self.assertEqual(truncated, 1)
+        self.assertEqual(missing, 3)
+
 
 if __name__ == '__main__':
     unittest.main()
