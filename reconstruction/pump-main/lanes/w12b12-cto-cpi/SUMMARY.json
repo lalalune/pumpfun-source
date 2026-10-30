@@ -42,13 +42,18 @@
       "state": "merged (61625db87)"
     },
     {
+      "pr": 2808,
       "branch": "swarm/w12b12-cto-cpi-2",
-      "kind": "source (nested signer seeds) + notes + tools",
-      "pr": 2808
+      "kind": "source (nested pool-authority signer seeds) + notes + scmerge.py",
+      "state": "merged (17f9dc11d)"
+    },
+    {
+      "branch": "swarm/w12b12-cto-cpi-3",
+      "kind": "final notes + SUMMARY"
     }
   ],
   "best": {
-    "source_change_landed": false,
+    "source_change_landed": true,
     "mechanism": "pool-authority signer seeds as one nested literal binding: let signer_seeds:&[&[&[u8]]]=&[&[b\"pool-authority\",mint.as_ref(),&[ctx.bumps.pool_authority]]];",
     "admin_cto": {
       "before": {
@@ -73,7 +78,13 @@
     "differential": "363 cases, 0 mismatches",
     "unstripped_sha256_prefix": "9a06045fc5ac1ac7",
     "branch": "swarm/w12b12-cto-cpi-2",
-    "pr": 2808
+    "pr": 2808,
+    "merge": {
+      "pr": 2808,
+      "merge_commit": "17f9dc11d8fa8d7e8664ff0dc6fb59da8a9bae35",
+      "merged_by": "repository owner's merge (Merge pull request #2808), before land.py reached it",
+      "land_py": "land.py 2808 -> {\"merged\": false, \"reason\": \"PR is MERGED\"}"
+    }
   },
   "oracles": [
     {
@@ -216,6 +227,20 @@
       "ratio": 0.45237,
       "slots_diff": 3308,
       "verdict": "zero-loss gain, landed via PR #2808"
+    },
+    {
+      "variant": "m3_sweepseeds",
+      "base": "70f2704+#2792+nested pool seeds",
+      "bytes": 27352,
+      "ratio": 0.37541,
+      "verdict": "size, worse"
+    },
+    {
+      "variant": "m3_sweepseeds3",
+      "base": "70f2704+#2792+nested pool seeds",
+      "bytes": 27360,
+      "ratio": 0.37266,
+      "verdict": "size, worse"
     }
   ],
   "rejected_mechanisms": [
@@ -226,7 +251,8 @@
     "accounts struct bound with let before the CpiContext (pool: 0 B, -0.068; sharing: -32 B)",
     "wallet body inline in execute, or #[inline(always)] wallet (MIR-inlined)",
     "validate returning Result<()> with target by out-param or recomputed in execute",
-    "sharing CPI val built from the validated target instead of Some(new)"
+    "sharing CPI val built from the validated target instead of Some(new)",
+    "sweep creator-vault signer seeds as a nested literal / signer slice built once (-40..-48 B, about -0.08)"
   ],
   "unresolved": [
     "source form that gives the original's fourth 24 B target-tail copy at the validation join (T 0x680). It would host the emit_cpi! signer slice and is worth about +0.05",

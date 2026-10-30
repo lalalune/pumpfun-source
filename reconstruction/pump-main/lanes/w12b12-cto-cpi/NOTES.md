@@ -66,6 +66,38 @@ What it shows for the emit signer slice `%_117.i74` (#41) on main 20a1ae9 IR:
 | --- | --- | ---: | ---: | --- |
 | m2_shvalt | sharing CPI `val` built from the validated target (`Some(Some(t))`, t = target before the `st.creator` override) instead of `Some(new)` | 27,568 | 0.42736 | size |
 
+## Round 3 (main 17f9dc11d and later)
+
+PR #2808 (the nested pool-authority signer seeds) was merged into main as `17f9dc11d` by the repository
+owner's merge. The `land.py 2808` run that was waiting for the landing lock then returned
+`{"merged": false, "reason": "PR is MERGED"}`. Main now carries both #2792 (k4size-2, `can_edit` after the fee store)
+and this change. Each was measured alone; the combination is checked by the post-merge build below.
+
+Sweep `creator-vault` signer seeds in the same nested form (measure.sh, on 70f2704 + #2792 + nested pool seeds):
+
+| variant | change | bytes | ratio |
+| --- | --- | ---: | ---: |
+| m3_sweepseeds | `let vaultseeds:&[&[&[u8]];1]=&[&[b"creator-vault",old.as_ref(),&[ctx.bumps.creator_vault]]];`, passed directly to both transfers | 27,352 | 0.37541 |
+| m3_sweepseeds3 | the same with the `bump` array local kept (`let bump=[..];let old=..;`) | 27,360 | 0.37266 |
+
+| m3_sweepseeds4 | `let old=..;let vaultseeds:&[&[u8]]=&[b"creator-vault",old.as_ref(),&[ctx.bumps.creator_vault]];` (bump inline, no `bump` local; `&[vaultseeds]` kept at both calls) | **27,392** | **0.45423** |
+| m3_ss4bumpvar | sweepseeds4 with a scalar `let bump=ctx.bumps.creator_vault;` | 27,392 | 0.45423 (same code) |
+| m3_ss4vsig | sweepseeds4 + `let vsigner:&[&[&[u8]];1]=&[vaultseeds];` hoisted once | 27,352 | 0.37481 |
+
+Post-merge check of main 17f9dc11d (#2792 + #2808), measure.sh against `$BASE` ab83c4c66 (#2792 only, 0.45177):
+admin_cto **0.45267**, 3,308 slots, 27,400 B, 1034/1034, 0/0 losses, differential 363/0 mismatches.
+
+`m3_sweepseeds4` is the best measurement of this lane: 0.45423 (+0.0016 over main), but at 27,392 B, 8 B short.
+It undoes the 8 B that k4size's `bump`-before-`old` (l1) added, which on k4 cost 0.00156. Now the bump byte is stored after the
+pointer stores, as in the original (`0x24a70 ldxdw r1,[r10-0x910]; 0x24a78 stxb [r10-0x4d0],r1`). The missing 8 B
+are the original's bump reload from its spill slot; ours keeps the bump in r7. Landing it needs a +8 B knob
+that costs less than 0.0016. The CPI-form knobs tried on top of it are listed below.
+
+The full nested forms are rejected. The original builds the sweep's `[seeds]` slice once (`0x24a18 stxdw [r10-0x488]`,
+`0x24a80 stdw [r10-0x480],0x3`) and stores the bump byte after the pointers, as it does for the pool seeds.
+In the sweep, though, the nested form shrinks the code by 40-48 B and loses about 0.08 ratio. The sweep keeps
+its let-bound `vaultseeds`. The k4 `bump`-before-`old` gene is in main.
+
 ## Review boundary
 
 The trace helper was rerun on the cached 20a1ae9 candidate IR. It reports
