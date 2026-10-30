@@ -1,0 +1,235 @@
+{
+  "artifactId": 12982692412,
+  "artifactMembers": {
+    "PREFLIGHT.json": {
+      "bytes": 2154,
+      "sha256": "1ab0b4dc730781d35cbf4e8ed18fc7a8dc73688faa1c79711b4afe852114b8c5"
+    },
+    "RESULT.json": {
+      "bytes": 16919,
+      "sha256": "0a04979a2e42db3a5187bd8a025ad66468bc2833ad8c537f591fca3f11443adf"
+    },
+    "baseline-input.json": {
+      "bytes": 241,
+      "sha256": "0ae11a0ad853ee38dff47f8c47ecf74df45d386746fc1b418e1f10a4e3669969"
+    },
+    "bootstrap-after.log": {
+      "bytes": 199,
+      "sha256": "326aec33bf8b06d4426cbbaeaa72f4ccd9e708ac1ca243655f5da91aee3e0e69"
+    },
+    "bootstrap-before.log": {
+      "bytes": 404,
+      "sha256": "df8ee5f0b3f033130a22cbb9bb23da70b9fe1522c9abb4bbbe8ed9f0e89decd2"
+    },
+    "build.json": {
+      "bytes": 850,
+      "sha256": "4c556bacb35c23b1f1a0beb81db37c8f233c4682a32c1b5ddaa97a8cce25ca68"
+    },
+    "build.log": {
+      "bytes": 31075,
+      "sha256": "0ca29569bb2c9974729c9d929198a7843d7efaf34f78d9d3c3e06357a94d4453"
+    },
+    "candidate.so": {
+      "bytes": 1934832,
+      "sha256": "b1cc01495e331a220d1c150c9be21810f172118e45bc45201fe223a8bf783703"
+    },
+    "cargo-fingerprints.json": {
+      "bytes": 1859,
+      "sha256": "d9daf85e10aa01fb4499961c7ed25256fad08fd6eb499c2eeee524dd4eb7e136"
+    },
+    "cold-build.log": {
+      "bytes": 850,
+      "sha256": "4c556bacb35c23b1f1a0beb81db37c8f233c4682a32c1b5ddaa97a8cce25ca68"
+    },
+    "cold-target-inputs.json": {
+      "bytes": 1589,
+      "sha256": "7b9bd6ce4bb27ff7dea2d2791d23d7bf2aca4cecedd7f3fb4b0035e0e4a5baa5"
+    },
+    "commands.jsonl": {
+      "bytes": 1718,
+      "sha256": "2c95d154e246560dc30ffaa9d088c0f74cb76a4a77ab99f7e886900a4ba8960f"
+    },
+    "compiled-workspace-inputs.json": {
+      "bytes": 24395,
+      "sha256": "62e37b1278d7159b72be161661486113eaeb2864d4c3783192b14df40eeb27a0"
+    },
+    "compiled-workspace.tar.gz": {
+      "bytes": 207835,
+      "sha256": "56d2757857277ddc6a46d57f4ddfe10aaf43365d7412796a2c100fbf0fa50efd"
+    },
+    "controller-inputs.json": {
+      "bytes": 695,
+      "sha256": "7e0455717843e56b7a7db351e6bf27a9fc0521d809e42968203fbc0a275c07ef"
+    },
+    "fetch-locked.log": {
+      "bytes": 9003,
+      "sha256": "e10ae9753fbabbed168f6530a8bc278517a8e5bcf3d038806b138d37a9461ae7"
+    },
+    "host.json": {
+      "bytes": 230,
+      "sha256": "0b949c5ab3d53623bd1dd91c42b31daf1c4d9fc86a93957ed42cb017ce331e66"
+    },
+    "link-inputs.json": {
+      "bytes": 1604,
+      "sha256": "7d846b3fbae5ed839a45b7f99c471bfae4af3922493f37a7c4af61e4ea0b4b9a"
+    },
+    "link-order-admission.json": {
+      "bytes": 1537,
+      "sha256": "9b9fb48d55c4ee300daf6ba53ba87c9e6e86c5cb8875f59c7dc8766bf24382c6"
+    },
+    "link-receipt.json": {
+      "bytes": 19579,
+      "sha256": "ab7abd62ff70f413f0821e3c990b81740e3af8919fcde2493b1d01e04556d484"
+    },
+    "link.map": {
+      "bytes": 2196617,
+      "sha256": "050f12b94dbe7daf0dda5fd375f7faaf3fe75933fa89a863ab6b14bf747f065a"
+    },
+    "native-lld-input-after.json": {
+      "bytes": 457,
+      "sha256": "60b7eb107ee81d60ffd0d1efe66af50fc9f797caf139fb120bf7eabf1cec9d0f"
+    },
+    "native-lld-input-before.json": {
+      "bytes": 457,
+      "sha256": "60b7eb107ee81d60ffd0d1efe66af50fc9f797caf139fb120bf7eabf1cec9d0f"
+    },
+    "operational-inputs.json": {
+      "bytes": 924,
+      "sha256": "eef304f5ebd5b50a9ba03117d2e7aa83a76aeab0b06057c3fe188a4f11e31b51"
+    },
+    "pinned-link-inputs/link_order.py": {
+      "bytes": 7669,
+      "sha256": "0b840e609ed6afab298799c6878795e0166196c348718264ae4a424ee72b1d7f"
+    },
+    "pinned-link-inputs/ordered.ld": {
+      "bytes": 73681,
+      "sha256": "6954d9901b005312be6e7f980cb5e74a1440c174547c2040a881acf2e5c25b45"
+    },
+    "pinned-link-inputs/pump_link_lld.py": {
+      "bytes": 218,
+      "sha256": "10593121ecc457f22b574b20ea5af810e9e1e627dfac38140369ccd33a9a24ba"
+    },
+    "pinned-link-inputs/pump_link_rustc.py": {
+      "bytes": 218,
+      "sha256": "94ab1290caee5bb9152fb4e49974960e53c4a5e1f9833c20cd6060ec514a360d"
+    },
+    "pinned-link-inputs/sbf_default.ld": {
+      "bytes": 452,
+      "sha256": "5e8370b9380f55411d827721e2e43c8cfd1eac71d1383e20b938397bc0bd82c3"
+    },
+    "preflight-builder-source-inputs.json": {
+      "bytes": 25746,
+      "sha256": "cc49950d7e78da4aada33afaf4fbdaa6cc02ca83d1147204a5a62eb9c71906a1"
+    },
+    "program-source-inputs.json": {
+      "bytes": 35403,
+      "sha256": "4c18248945af22babece6ab58fe4833aa38ac92dc8cfcd148b5bf1cb964109e9"
+    },
+    "program-source.tar.gz": {
+      "bytes": 208677,
+      "sha256": "5e732a02c75d02087b19800c2f93c852c4c8485865faae58f9fc8d1bcc061b77"
+    },
+    "registry-source-inputs-after.json": {
+      "bytes": 1258468,
+      "sha256": "8edb1e4e5d38fdc18f1965226b7025feeb03cf587ff82c40f35f9d764d3d3a6a"
+    },
+    "registry-source-inputs.json": {
+      "bytes": 1258468,
+      "sha256": "8edb1e4e5d38fdc18f1965226b7025feeb03cf587ff82c40f35f9d764d3d3a6a"
+    },
+    "score.json": {
+      "bytes": 336314,
+      "sha256": "1d2a83d5b58eb0f600587ca46736468badea842930fc91922229a995814fbeaa"
+    },
+    "score.log": {
+      "bytes": 11769,
+      "sha256": "1a177ff6ad0bd5b99548ce1df4e38fbd2cb858c19a7470a21398566df939b885"
+    },
+    "sdk-downloads.json": {
+      "bytes": 797,
+      "sha256": "6f379e6d35ee86b3239c86127424565bf003081a4d2d0df9b5f4ee9e32ba621b"
+    },
+    "source-inputs.json": {
+      "bytes": 25746,
+      "sha256": "cc49950d7e78da4aada33afaf4fbdaa6cc02ca83d1147204a5a62eb9c71906a1"
+    },
+    "source-selection.json": {
+      "bytes": 544,
+      "sha256": "fe3fecda7f0779d537af60b5e1f0409998e88bcd5a58924a3ad9c433dd71363b"
+    },
+    "tool-inputs-after.json": {
+      "bytes": 1256,
+      "sha256": "b158b9c883509967665704fc3a43ecc2ac608f6de1480397a1a6de7c6ead1e5e"
+    },
+    "tool-inputs-before.json": {
+      "bytes": 1256,
+      "sha256": "b158b9c883509967665704fc3a43ecc2ac608f6de1480397a1a6de7c6ead1e5e"
+    },
+    "toolchain-source-inputs.json": {
+      "bytes": 59331,
+      "sha256": "8e504f73fc8cc2e2d44aae834bd84921c72a69a72c1cbdab0b5d9bbbc1bb118f"
+    },
+    "unstripped.so": {
+      "bytes": 2665760,
+      "sha256": "481ba72865f36b52b3cc27e824ef3762a0baff5509c48135aa627fb927418c2b"
+    }
+  },
+  "artifactZip": {
+    "bytes": 2515348,
+    "sha256": "4a1e1d7ebd4ffa8911bbf8a9904593d917fc7e798f7911039598c914a8dbc69a"
+  },
+  "controllerCommit": "49bf18401f5138b4d0bdb9446d7a3ef1a129509b",
+  "coreFiles": 215,
+  "historicalPass13": {
+    "additionalCurrentSelectedPaths": [
+      "recovered/v3_exact_quote.rs",
+      "recovered/v3_exact_quote_host.rs"
+    ],
+    "currentStrippedEqualsHistorical": true,
+    "currentUnstrippedEqualsHistorical": true,
+    "label": "separate historical133-input measurement, never expected current output",
+    "normalizedChangedStarts": [],
+    "rawChangedStarts": [],
+    "retainedSourceFiles": 133,
+    "sourceSha256": "4b5048e59f11c029ba17f6bad4cc8f3eea784e212105a3cce272826521193428",
+    "strippedSha256": "b1cc01495e331a220d1c150c9be21810f172118e45bc45201fe223a8bf783703",
+    "unstrippedSha256": "481ba72865f36b52b3cc27e824ef3762a0baff5509c48135aa627fb927418c2b"
+  },
+  "limits": [
+    "Frozen1ddb, not latest main",
+    "No new source match or helper mechanism",
+    "No compiler/runtime/provider action in verifier",
+    "Authentic external ZIP required; hosted30dayretention may expire",
+    "Git/local immutable object availability required; no automatic network fallback"
+  ],
+  "noGitEmittedBinaries": true,
+  "operationalTree": "687251140df8f2b1f4e3bc50185efd191ffd1c2c",
+  "programGitFiles": 135,
+  "recordedSdkVersusPhysical": "Full SDK/archive/tool/LLD before-after checks are authentic hosted records. Default replay does not rehash an installed native SDK or Cargo registry. Optional explicit roots rehash; absence is NOT RUN. Frozen Git CORE payloads are independently rehashed from the supplied local repository object store.",
+  "remaining": [
+    "0x22a10"
+  ],
+  "run": 41065537974,
+  "schema": "pump-frozen-native-1ddb-checkpoint-v1",
+  "selectedSourceFiles": 135,
+  "sourceCommit": "1ddb12553ccdb4ed45407ffe53f12f4644be172a",
+  "sourceSha256": "6e061e8785371cbe427c8ff591bc1a35846deafad89b8d922137a6c52c5579b9",
+  "stripped": {
+    "bytes": 1934832,
+    "sha256": "b1cc01495e331a220d1c150c9be21810f172118e45bc45201fe223a8bf783703",
+    "wholeCapturedOriginalEqual": false
+  },
+  "summary": {
+    "candidate_sha256": "481ba72865f36b52b3cc27e824ef3762a0baff5509c48135aa627fb927418c2b",
+    "matched_text_bytes": 1764808,
+    "normalized": 1034,
+    "raw": 1034,
+    "total": 1035
+  },
+  "unstripped": {
+    "bytes": 2665760,
+    "sha256": "481ba72865f36b52b3cc27e824ef3762a0baff5509c48135aa627fb927418c2b",
+    "wholeCapturedOriginalEqual": false
+  },
+  "workspaceFiles": 136
+}

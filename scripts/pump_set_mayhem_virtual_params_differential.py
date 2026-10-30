@@ -25,6 +25,7 @@ if not __debug__:
     raise SystemExit("Normal Python is required; do not use -O or PYTHONOPTIMIZE.")
 
 import argparse, base64, hashlib, json, struct
+from pump_differential_output import PumpReport
 from pathlib import Path
 from solders.account import Account
 from solders.instruction import AccountMeta, Instruction
@@ -145,6 +146,8 @@ def main():
     p.add_argument('--candidate', type=Path)
     p.add_argument('--output', type=Path)
     a = p.parse_args()
+    report_output = PumpReport(a.output, ROOT, a.candidate, __file__,
+                               extra_inputs=(ORIGINAL, STUB, *DEPENDENCIES.values())) if a.output else None
     a.candidate = pin_program(a.candidate) if a.candidate else None
     original = pin_program(ORIGINAL)
     stub = pin_program(STUB)
@@ -165,7 +168,7 @@ def main():
               'stub_sha256': sha(stub.read_bytes()), 'cases': rows, 'mismatches': bad}
     if a.output:
         import gzip
-        a.output.write_bytes(gzip.compress(json.dumps(report, indent=2).encode(), mtime=0))
+        report_output.write(gzip.compress(json.dumps(report, indent=2).encode(), mtime=0))
     print(len(rows), 'cases', len(bad), 'mismatches')
     if bad:
         print('MISMATCHES at', bad[:10])

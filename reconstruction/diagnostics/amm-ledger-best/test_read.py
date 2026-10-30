@@ -113,7 +113,7 @@ class SavedAmmRankingTests(unittest.TestCase):
             self.assertFalse(sentinel.exists())
             # Whole signatures/bodies/decorators are admitted, not only returns.
             controls = [
-                (changed.replace(b'== 9024', b'== 9025'), 'reviewed AMM rank function changed'),
+                (changed.replace(b'SELL_SIZE = 9024', b'SELL_SIZE = 9025'), 'reviewed AMM rank function changed'),
                 (changed.replace(b'def rank(entry):', b'def rank(entry, unused=None):'), 'reviewed AMM rank function changed'),
                 (changed.replace(b'def rank(entry):', b'@unreviewed\ndef rank(entry):'), 'reviewed AMM rank function changed'),
                 (changed + b'\ndef rank(entry):\n    return None\n', 'expected one reviewed rank function'),

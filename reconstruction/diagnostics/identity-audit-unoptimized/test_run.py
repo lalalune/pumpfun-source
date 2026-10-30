@@ -1,5 +1,6 @@
 """Actual optimized CLI regressions over a retained Associated Token ELF."""
 import hashlib
+import importlib.util
 import json
 import os
 from pathlib import Path
@@ -8,6 +9,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from unittest import mock
 
 ROOT = Path(__file__).resolve().parents[3]
 PACKAGE = Path(__file__).resolve().parent
@@ -41,22 +43,28 @@ class UnoptimizedIdentityTests(unittest.TestCase):
             initial = invoke(legacy, 'index-a.json', output)
             self.assertEqual(initial.returncode, 0, initial.stdout + initial.stderr)
             prior = output.read_bytes()
-            overwrite = invoke(legacy, 'index-b.json', output, optimized=True)
-            self.assertEqual(overwrite.returncode, 0, overwrite.stdout + overwrite.stderr)
-            self.assertNotEqual(output.read_bytes(), prior)
-            output.write_bytes(prior)
-            guarded = invoke(PACKAGE / 'run.py', 'index-b.json', output, optimized=True)
-            self.assertNotEqual(guarded.returncode, 0)
-            self.assertEqual(output.read_bytes(), prior)
+            # The retained audit now refuses to replace a published report, so an
+            # optimized rerun preserves the earlier bytes instead of erasing them.
+            # Previously this case asserted the opposite: that optimized Python let
+            # the legacy run overwrite its own report.
+            for name, script in [('legacy', legacy), ('entrypoint', PACKAGE / 'run.py')]:
+                with self.subTest(runner=name):
+                    repeat = invoke(script, 'index-b.json', output, optimized=True)
+                    self.assertNotEqual(repeat.returncode, 0)
+                    self.assertEqual(output.read_bytes(), prior)
             for field in ['original_sha256', 'candidate_sha256']:
                 wrong = {**row, field: '0' * 64}
                 (root / 'wrong.json').write_text(json.dumps({'programs': {'wrong-control': wrong}}), encoding='utf-8')
-                accepted = invoke(legacy, 'wrong.json', root / f'old-{field}.json', optimized=True)
-                self.assertEqual(accepted.returncode, 0, accepted.stdout + accepted.stderr)
-                denied = invoke(PACKAGE / 'run.py', 'wrong.json', root / f'fixed-{field}.json', optimized=True,
-                                env=dict(os.environ, PYTHONOPTIMIZE='2'))
-                self.assertNotEqual(denied.returncode, 0)
-                self.assertFalse((root / f'fixed-{field}.json').exists())
+                # The legacy run rejects a wrong digest under -O as well; both
+                # runners must fail without publishing a report.
+                for name, script in [('legacy', legacy), ('entrypoint', PACKAGE / 'run.py')]:
+                    with self.subTest(field=field, runner=name):
+                        target = root / f'rejected-{name}-{field}.json'
+                        denied = invoke(script, 'wrong.json', target, optimized=True,
+                                        env=dict(os.environ, PYTHONOPTIMIZE='2'))
+                        self.assertNotEqual(denied.returncode, 0)
+                        self.assertIn(f"{field.split('_')[0]} SHA-256 mismatch", denied.stderr)
+                        self.assertFalse(target.exists())
             fresh = root / 'fresh.json'
             valid = invoke(PACKAGE / 'run.py', 'index-a.json', fresh, optimized=True,
                            env=dict(os.environ, PYTHONOPTIMIZE='2'))
@@ -68,6 +76,77 @@ class UnoptimizedIdentityTests(unittest.TestCase):
             self.assertFalse(control['historical_compiler_identity_proven'])
             self.assertEqual(report['input_sha256']['candidate-control.so'], sha)
             self.assertEqual((root / 'candidate-control.so').read_bytes(), raw)
+
+
+class ReviewedSourceControls(unittest.TestCase):
+    def setUp(self):
+        temporary = tempfile.TemporaryDirectory(prefix='identity-reviewed-')
+        self.addCleanup(temporary.cleanup)
+        self.root = Path(temporary.name)
+        self.sources = {}
+        for name in ('reconstruction_identity_audit.py', 'analyze.py', 'compare.py'):
+            path = self.root / 'scripts' / name
+            path.parent.mkdir(exist_ok=True)
+            self.sources[path] = (ROOT / 'scripts' / name).read_bytes()
+            path.write_bytes(self.sources[path])
+        raw = (ROOT / 'evidence/dependencies/associated_token/deployed.so').read_bytes()
+        (self.root / 'original.so').write_bytes(raw)
+        (self.root / 'candidate.so').write_bytes(raw)
+        sha = hashlib.sha256(raw).hexdigest()
+        (self.root / 'index.json').write_text(json.dumps({'programs': {'control': {
+            'original_path': 'original.so', 'candidate_path': 'candidate.so',
+            'original_sha256': sha, 'candidate_sha256': sha}}}))
+        spec = importlib.util.spec_from_file_location('identity_entrypoint', PACKAGE / 'run.py')
+        self.runner = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(self.runner)
+
+    def test_each_modified_reviewed_source_is_rejected(self):
+        for index, (path, raw) in enumerate(self.sources.items()):
+            with self.subTest(source=path.name):
+                path.write_bytes(raw + b'\n# source mutation\n')
+                output = self.root / f'rejected-{index}.json'
+                result = subprocess.run([sys.executable, '-O', '-B', str(PACKAGE / 'run.py'),
+                    '--repo', str(self.root), '--index', 'index.json', '--output', str(output)],
+                    capture_output=True, text=True)
+                self.assertNotEqual(result.returncode, 0)
+                self.assertIn('reviewed identity audit source changed', result.stderr)
+                self.assertFalse(output.exists())
+                path.write_bytes(raw)
+
+    def test_child_uses_admitted_sources_after_public_paths_change(self):
+        for index, (path, raw) in enumerate(self.sources.items()):
+            with self.subTest(source=path.name):
+                output = self.root / f'bound-{index}.json'
+                def mutate_then_run(command):
+                    path.write_text("raise RuntimeError('unreviewed source executed')\n")
+                    result = subprocess.run(command, capture_output=True, text=True)
+                    self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+                    return result.returncode
+                try:
+                    with mock.patch.object(sys, 'argv', [str(PACKAGE/'run.py'), '--repo', str(self.root),
+                         '--index', 'index.json', '--output', str(output)]), \
+                         mock.patch.object(self.runner.subprocess, 'call', mutate_then_run):
+                        self.assertEqual(self.runner.main(), 0)
+                    self.assertNotEqual(path.read_bytes(), raw)
+                    report = json.loads(output.read_text())
+                    self.assertTrue(report['snapshot_programs']['control']['allocation_comparison']['full_byte_equality'])
+                    self.assertFalse(report['current_status_file']['exists'])
+                finally:
+                    path.write_bytes(raw)
+
+    def test_late_report_is_preserved_by_child(self):
+        output = self.root / 'late.json'
+        def publish_then_run(command):
+            output.write_bytes(b'late writer receipt')
+            result = subprocess.run(command, capture_output=True, text=True)
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn('Preserve prior audits', result.stderr)
+            return result.returncode
+        with mock.patch.object(sys, 'argv', [str(PACKAGE/'run.py'), '--repo', str(self.root),
+             '--index', 'index.json', '--output', str(output)]), \
+             mock.patch.object(self.runner.subprocess, 'call', publish_then_run):
+            self.assertNotEqual(self.runner.main(), 0)
+        self.assertEqual(output.read_bytes(), b'late writer receipt')
 
 
 if __name__ == '__main__':

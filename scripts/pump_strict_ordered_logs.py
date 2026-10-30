@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-"""Read-only ordered whole-log audit of an actual Pump report; only compute-meter lines excluded."""
+"""Read-only ordered whole-log audit; only compute-meter lines excluded.
+
+A completed receipt remains published if a subsequent input check fails. Its
+digests identify the audited bytes; a later writer may already own the output.
+"""
 from pathlib import Path
 import argparse,gzip,hashlib,json,os,re,tempfile
 ORIGINAL='7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d'
@@ -8,6 +12,15 @@ ORIGINAL='7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d'
 UNITS=re.compile(r'^Program [1-9A-HJ-NP-Za-km-z]{32,44} consumed [0-9]+ of [0-9]+ compute units$')
 def require(ok,message):
  if not ok:raise ValueError(message)
+def publish_file(staged, output):
+ """Publish without replacement; return whether staging was consumed."""
+ if os.name == 'nt':
+  # Windows sandboxes refuse hard links (WinError 5); same-directory
+  # rename refuses an existing destination, preserving no-replace.
+  os.rename(staged, output)
+  return True
+ os.link(staged, output)
+ return False
 def audit(report,candidate_sha256,expected_pairs=None):
  require(report['original_sha256']==ORIGINAL and report['candidate_sha256']==candidate_sha256,'Actual report/image binding differs');expected=report['case_count']if expected_pairs is None else expected_pairs;require(type(expected)is int and expected>0 and type(report['case_count'])is int and report['case_count']==expected,'Expected actual case count differs');pairs=0;mismatches=[]
  def getlogs(outcome):
@@ -34,9 +47,12 @@ def main():
  try:
   with tempfile.NamedTemporaryFile('w',dir=a.output.parent,prefix='.'+a.output.name+'.',delete=False,encoding='utf-8',newline='\n')as stream:
    staged=Path(stream.name);stream.write(json.dumps(result,indent=2)+'\n');stream.flush();os.fsync(stream.fileno())
-  require(a.report.read_bytes()==raw and a.candidate.read_bytes()==candidate,'Input changed during audit');os.link(staged,a.output);published=True;require(a.report.read_bytes()==raw and a.candidate.read_bytes()==candidate,'Input changed during audit')
- except BaseException:
-  if published:a.output.unlink(missing_ok=True)
+  require(a.report.read_bytes()==raw and a.candidate.read_bytes()==candidate,'Input changed during audit')
+  if publish_file(staged,a.output):staged=None
+  published=True
+  require(a.report.read_bytes()==raw and a.candidate.read_bytes()==candidate,'Input changed during audit')
+ except BaseException as error:
+  if published:error.add_note('Audit output was already published; leaving output path untouched: '+str(a.output))
   raise
  finally:
   if staged is not None:staged.unlink(missing_ok=True)

@@ -9,8 +9,11 @@ LEADING=re.compile(r'^[\s\ufeff]+')
 STACK=re.compile(r'^Error: Function (.*?) Stack offset of (-?\d+) exceeded max offset of (\d+) by (\d+) bytes.*?Estimated function frame size: (\d+) bytes\.')
 def inspect(path):
  path=Path(path);raw=path.read_bytes();decoded=gzip.decompress(raw) if raw.startswith(b'\x1f\x8b') else raw
+ text=decoded.decode('utf-8-sig')
+ # A failed capture leaves nothing to scan; no reported error needs build output.
+ if not text.strip():raise ValueError('empty diagnostic log: '+str(path))
  errors=[]
- for number,line in enumerate(decoded.decode('utf-8-sig').splitlines(),1):
+ for number,line in enumerate(text.splitlines(),1):
   plain=ANSI.sub('',line).lstrip()
   plain=LEADING.sub('',plain)
   if not plain.startswith('Error:'):continue

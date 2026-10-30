@@ -253,5 +253,121 @@ class IntegrationScratchOverlapTests(unittest.TestCase):
             self.assertEqual(json.loads((out / 'report.json').read_text())['parts'], [])
 
 
+def directory_contents(root):
+    return {p.relative_to(root).as_posix() for p in root.rglob('*') if p.is_dir()}
+
+
+def crate_tree(path, files, directories):
+    (path / 'src').mkdir(parents=True)
+    (path / 'Cargo.toml').write_bytes(b'[package]\nname="fixture"\nversion="0.0.0"\n')
+    (path / 'Cargo.lock').write_bytes(b'version = 3\n')
+    for name in directories:
+        (path / name).mkdir(parents=True, exist_ok=True)
+    for name, data in files.items():
+        target = path / name
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_bytes(data)
+
+
+@unittest.skipUnless(shutil.which('diff') and shutil.which('patch'), 'requires real diff and patch')
+class DirectoryCompositionTests(unittest.TestCase):
+    """Composition matches the part's directory set, not only its files."""
+
+    def compose(self, base_files, base_dirs, parts):
+        root = Path(tempfile.mkdtemp(prefix='integrate-directories-'))
+        self.addCleanup(shutil.rmtree, root, True)
+        base = root / 'base'
+        crate_tree(base, base_files, base_dirs)
+        inputs = [base]
+        name = 'test-no-build-' + uuid.uuid4().hex
+        arguments = ['--name', name, '--base-src', str(base), '--no-build']
+        for label, files, dirs in parts:
+            part = root / label
+            crate_tree(part, files, dirs)
+            inputs.append(part)
+            arguments += ['--part', label + '=' + str(part)]
+        def snapshot(path):
+            return ({p.relative_to(path).as_posix(): (p.read_bytes(), bool(p.stat().st_mode & 0o111))
+                     for p in path.rglob('*') if p.is_file()}, directory_contents(path))
+        before = [snapshot(path) for path in inputs]
+        integ = TOOL.parent.parent / 'integ'
+        self.addCleanup(shutil.rmtree, integ / name, True)
+        self.addCleanup(shutil.rmtree, integ / '.tmp' / name, True)
+        result = subprocess.run([sys.executable, '-B', str(TOOL), *arguments],
+                                capture_output=True, text=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual([snapshot(path) for path in inputs], before)
+        src = integ / name / 'src'
+        files = {p.relative_to(src).as_posix(): p.read_bytes() for p in src.rglob('*') if p.is_file()}
+        report = json.loads((integ / name / 'report.json').read_text())
+        return files, directory_contents(src), report
+
+    def source_files(self, files):
+        return {name: data for name, data in files.items() if name not in ('Cargo.toml', 'Cargo.lock')}
+
+    def test_deleted_last_file_removes_directories_absent_from_the_part(self):
+        base = {'src/lib.rs': b'pub fn fixture() {}\n', 'src/old/deep/only.rs': b'// removed\n'}
+        part = {'src/lib.rs': b'pub fn fixture() {}\n'}
+        files, dirs, report = self.compose(base, (), [('change', part, ())])
+        self.assertEqual(dirs, {'src'})
+        self.assertEqual(self.source_files(files), part)
+        self.assertEqual(report['parts'], [{'label': 'change', 'status': 'applied',
+                                           'files': ['src/old/deep/only.rs'],
+                                           'directories': {'removed': ['src/old', 'src/old/deep']}}])
+
+    def test_part_that_only_adds_empty_directories_is_applied(self):
+        base = {'src/lib.rs': b'pub fn fixture() {}\n'}
+        files, dirs, report = self.compose(base, (), [('change', dict(base), ('src/new/leaf',))])
+        self.assertEqual(dirs, {'src', 'src/new', 'src/new/leaf'})
+        self.assertEqual(self.source_files(files), base)
+        self.assertEqual(report['parts'], [{'label': 'change', 'status': 'applied', 'files': [],
+                                           'directories': {'added': ['src/new', 'src/new/leaf']}}])
+
+    def test_part_that_only_removes_an_empty_directory_is_applied(self):
+        base = {'src/lib.rs': b'pub fn fixture() {}\n'}
+        files, dirs, report = self.compose(base, ('src/empty',), [('change', dict(base), ())])
+        self.assertEqual(dirs, {'src'})
+        self.assertEqual(self.source_files(files), base)
+        self.assertEqual(report['parts'], [{'label': 'change', 'status': 'applied', 'files': [],
+                                           'directories': {'removed': ['src/empty']}}])
+
+    def test_directory_removal_keeps_files_composed_by_another_part(self):
+        base = {'src/lib.rs': b'pub fn fixture() {}\n'}
+        kept = {'src/shared/keep.rs': b'// kept\n'}
+        files, dirs, report = self.compose(
+            base, ('src/shared',),
+            [('add', {**base, **kept}, ('src/shared',)), ('remove', dict(base), ())])
+        self.assertEqual(files['src/shared/keep.rs'], b'// kept\n')
+        self.assertIn('src/shared', dirs)
+        self.assertEqual(report['parts'][1], {'label': 'remove', 'status': 'applied', 'files': [],
+                                              'directories': {'removed': ['src/shared'],
+                                                              'retained': ['src/shared']}})
+
+    def test_unchanged_part_stays_empty(self):
+        base = {'src/lib.rs': b'pub fn fixture() {}\n'}
+        _, dirs, report = self.compose(base, (), [('same', dict(base), ())])
+        self.assertEqual(dirs, {'src'})
+        self.assertEqual(report['parts'], [{'label': 'same', 'status': 'empty'}])
+
+    def test_directory_conflict_preserves_earlier_parts_and_skips_all_new_changes(self):
+        base = {'src/lib.rs': b'pub fn before() {}\n'}
+        first = {**base, 'occupied': b'earlier file'}
+        second = {'src/lib.rs': b'pub fn should_not_apply() {}\n'}
+        files, dirs, report = self.compose(
+            base, (), [('first', first, ()), ('second', second, ('occupied',))])
+        self.assertEqual(self.source_files(files), first)
+        self.assertNotIn('occupied', dirs)
+        self.assertEqual(report['parts'][1]['status'], 'conflict')
+        self.assertIn('directory composition conflict', report['parts'][1]['detail'])
+
+    def test_file_replacing_directory_is_not_reported_as_retained_directory(self):
+        base = {'src/lib.rs': b'pub fn fixture() {}\n', 'src/node/child.rs': b'old'}
+        part = {'src/lib.rs': base['src/lib.rs'], 'src/node': b'replacement file'}
+        files, dirs, report = self.compose(base, (), [('replace', part, ())])
+        self.assertEqual(self.source_files(files), part)
+        self.assertNotIn('src/node', dirs)
+        self.assertEqual(report['parts'][0]['directories'], {'removed': ['src/node']})
+
+
 if __name__ == '__main__':
     unittest.main()

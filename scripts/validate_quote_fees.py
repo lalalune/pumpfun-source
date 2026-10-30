@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """Compare recovered native quote-selection Rust against original SBF queries."""
 import argparse,hashlib,json,pathlib,random,subprocess
+from pump_differential_output import PumpReport
 from solders.pubkey import Pubkey
 from fee_recovery_fixture import FeeFixture,ROOT
-ap=argparse.ArgumentParser();ap.add_argument('--host',type=pathlib.Path,required=True);ap.add_argument('--output',type=pathlib.Path,required=True);args=ap.parse_args()
+ap=argparse.ArgumentParser();ap.add_argument('--host',type=pathlib.Path,required=True);ap.add_argument('--output',type=pathlib.Path,required=True);args=ap.parse_args();report_output=PumpReport(args.output,ROOT,None,__file__,extra_inputs=(args.host,ROOT/'programs/pump-fees/recovered'))
 f=FeeFixture();rng=random.Random(10425)
 quotes=[bytes(32)]+[bytes(Pubkey.from_string(s)) for s in ['So11111111111111111111111111111111111111112','9pan9bMn5HatX4EJdBwg9VgCa7Uz5HL8N1m5D3NdXejP','EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v']]+[bytes([1])*32]
 configs=[([],[]),([(100,(10,20,30)),(1000,(40,50,60))],[(50,(70,80,90)),(100,(100,200,300))]),([(200,(1,2,3)),(0,(4,5,6)),(100,(7,8,9))],[(0,(20,30,40)),(0,(50,60,70))])]
@@ -33,5 +34,5 @@ r=subprocess.run([str(args.host.resolve())],input='\n'.join(lines)+'\n',text=Tru
 if len(actual)!=len(expected): raise ValueError(f'native quote host result count mismatch: expected {len(expected)}, received {len(actual)}')
 failures=[i for i,(a,b) in enumerate(zip(actual,expected)) if a!=b]
 report={'original_sha256':hashlib.sha256((ROOT/'evidence/original/pump_fees/deployed.so').read_bytes()).hexdigest(),'source_sha256':{p:hashlib.sha256((ROOT/'programs/pump-fees/recovered'/p).read_bytes()).hexdigest() for p in ['fee_selection.rs','quote_fees.rs','quote_fees_host.rs','memory_compare.rs']},'host_sha256':hashlib.sha256(args.host.read_bytes()).hexdigest(),'case_count':len(rows),'mismatches':failures,'scope':'Native recovered quote routing versus original get_fees_with_quote_mint. Synthetic state including unreachable candidates; not complete handler or SBF byte identity.','cases':rows}
-args.output.write_text(json.dumps(report,separators=(',',':'))+'\n');print('Cases',len(rows),'mismatches',len(failures))
+report_output.write((json.dumps(report,separators=(',',':'))+'\n').encode("utf-8"));print('Cases',len(rows),'mismatches',len(failures))
 if failures: raise ValueError(f'native quote host mismatches at results {failures[:10]}')
