@@ -38,7 +38,7 @@ def recover(name, root=ROOT):
  return {'binary_sha256':hashlib.sha256(b).hexdigest(),'basis':'official IDL' if idl.exists() else 'SHA256(global:snake_case(instruction log name)) hypothesis','instructions':result}
 def dispatch(root=ROOT):
  """Dispatch report for every selected program, in selector order."""
- return {n:recover(n, root) for n in program_names()}
+ return {n:recover(n, root) for n in program_names(root)}
 if __name__=='__main__':
  out=dispatch(ROOT)
  (ROOT/'evidence/dispatch-map.json').write_text(json.dumps(out,indent=2)+'\n')

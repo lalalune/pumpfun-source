@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "1",
+  "status": "proposed asset transition; maintainer review required",
+  "baseRevision": "abfda9f14a99e03785e57afbb1e4018b1785219f",
+  "asset": {
+    "path": "scripts/recover_dispatch.py",
+    "beforeSha256": "4ad747f662ebbe8f60910550d3780bfc8b0883cb090ce2d9c56aa64f34aa708e",
+    "afterSha256": "59e26534c1fa893f151002856bb3ddcb9126df5c5155ffe688925e89310b622c"
+  },
+  "directPythonScriptSet": {
+    "count": 275,
+    "sha256": "8eb63099b191ba15ce76b8279ed0151d0db96c348a4cc70690409abd687f826e",
+    "encoding": "sorted repository-relative paths, UTF-8, one LF per path"
+  },
+  "unchangedCaptures": {
+    "evidence/original/pump_fees/deployed.so": "4f2955d0f6b40cc9ff7daa18ccad7d19119ba1249759f4e7e3bb691beee6b35e",
+    "evidence/original/pump_amm/deployed.so": "6a7ad34596d83b4c435b32f458a56e718e9f82eb4ad38e4316616d15d24d8ff7"
+  }
+}
