@@ -6,6 +6,27 @@ import json
 import pathlib
 import shutil
 import struct
+import contextlib
+import hashlib
+import io
+import json
+from pathlib import Path
+import shutil
+import sys
+import tempfile
+import unittest
+import warnings
+
+
+import hashlib
+import json
+import os
+from pathlib import Path
+import shutil
+import subprocess
+import sys
+
+
 import os
 import subprocess
 import sys
@@ -69,8 +90,191 @@ from unittest.mock import patch
 import deep_section_analysis
 import deep_disassembly
 import analyze
+import analyze_program
+import deep_disassembly
+from window_elf_reader import Elf
+from compare import compare
+
+
+class AnalysisInputSnapshotTests(unittest.TestCase):
+    def check_generation(self, module, replace):
+        parent = analyze.ROOT / 'work'
+        parent.mkdir(exist_ok=True)
+        with tempfile.TemporaryDirectory(prefix='analysis-input-', dir=parent) as folder:
+            view = Path(folder)
+            source = view / 'evidence/original/mayhem/deployed.so'
+            source.parent.mkdir(parents=True)
+            shutil.copyfile(analyze.ROOT / 'evidence/original/mayhem/deployed.so', source)
+            snapshot = Elf(source)
+            original = snapshot.b
+            replacement = bytearray(original)
+            replacement[snapshot.entries[0] + 4] ^= 1
+            replacement.extend(b'\0' * 8)
+            output = view / 'packet'
+            original_repo, original_reader, original_argv = module.REPO, module.Elf, sys.argv
+
+            class ReplaceAfterRealRead(original_reader):
+                def __init__(self, path):
+                    super().__init__(path)
+                    if replace:
+                        path.write_bytes(replacement)
+
+            try:
+                module.REPO = view
+                module.Elf = ReplaceAfterRealRead
+                sys.argv = [module.__file__, '--program', 'mayhem', '--output', str(output)]
+                with contextlib.redirect_stdout(io.StringIO()), warnings.catch_warnings():
+                    warnings.simplefilter("ignore", ResourceWarning)
+                    if module is analyze_program:
+                        result = module.analyze_program('mayhem', output)
+                    else:
+                        result = module.main()
+                self.assertEqual(result, 0)
+            finally:
+                module.REPO, module.Elf, sys.argv = original_repo, original_reader, original_argv
+
+            self.assertEqual(source.read_bytes(), replacement if replace else original)
+            summary = json.loads((output / 'summary.json').read_bytes())
+            digest = hashlib.sha256(original).hexdigest()
+            self.assertEqual(summary['deployed_sha256'], digest)
+            self.assertIn(digest, (output / 'README.md').read_text(encoding='utf-8'))
+            if module is analyze_program:
+                self.assertEqual(summary['file_size'], len(original))
+                self.assertIn(f'File size: {len(original):,} bytes', (output / 'README.md').read_text(encoding='utf-8'))
+                windows = json.loads((output / 'window-inventory.json').read_bytes())
+                first = windows[0]
+                self.assertEqual(first['raw_sha256'], hashlib.sha256(original[first['address_decimal']:first['address_decimal'] + first['size']]).hexdigest())
+
+    def test_replaced_files_do_not_rebind_already_parsed_analysis(self):
+        # The instrumented read parses real ELF bytes before replacing only
+        # the temporary path. No analysis results or digest values are mocked.
+        for module in (analyze_program, deep_disassembly, deep_section_analysis):
+            with self.subTest(generator=module.__name__):
+                self.check_generation(module, True)
+
+    def test_unchanged_inputs_keep_their_existing_identity(self):
+        for module in (analyze_program, deep_disassembly, deep_section_analysis):
+            with self.subTest(generator=module.__name__):
+                self.check_generation(module, False)
+
+
+
+
 import pump_diagnostic_audit
 from compare import compare
+
+
+class GeneratedPacketMembershipTests(unittest.TestCase):
+    generators = (
+        ('analyze_program.py', 'function-index.json'),
+        ('deep_disassembly.py', 'fingerprints.json'),
+        ('deep_section_analysis.py', 'summary.json'),
+        ('bytecode_signatures.py', 'shared-signatures.json'),
+    )
+
+    @classmethod
+    def run_python(cls, script, *arguments):
+        env = dict(os.environ, PYTHONUTF8='1')
+        return subprocess.run([sys.executable, str(script), *map(str, arguments)],
+                              env=env, capture_output=True, timeout=60)
+
+    @classmethod
+    def setUpClass(cls):
+        folder = analyze.ROOT / 'work'
+        folder.mkdir(exist_ok=True)
+        cls.temporary = tempfile.TemporaryDirectory(prefix='packet-membership-', dir=folder)
+        cls.addClassCleanup(cls.temporary.cleanup)
+        cls.root = Path(cls.temporary.name)
+        cls.packets = {}
+        for script, _ in cls.generators:
+            output = cls.root / Path(script).stem
+            arguments = [] if script == 'bytecode_signatures.py' else ['--program', 'mayhem']
+            result = cls.run_python(analyze.ROOT / 'scripts' / script, *arguments, '--output', output)
+            if result.returncode:
+                raise AssertionError(result.stdout + result.stderr)
+            cls.packets[script] = output
+
+    def test_complete_generated_packets_verify(self):
+        for name, output in self.packets.items():
+            with self.subTest(generator=name):
+                result = self.run_python(output / 'verify.py')
+                self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
+    def test_missing_artifact_cannot_be_removed_from_the_manifest(self):
+        for script, target in self.generators:
+            with self.subTest(generator=script):
+                output = self.packets[script]
+                manifest_path = output / 'manifest.json'
+                raw, artifact = manifest_path.read_bytes(), (output / target).read_bytes()
+                manifest = json.loads(raw)
+                del manifest[target]
+                try:
+                    (output / target).unlink()
+                    manifest_path.write_text(json.dumps(manifest), encoding='utf-8')
+                    self.assertNotEqual(self.run_python(output / 'verify.py').returncode, 0)
+                finally:
+                    (output / target).write_bytes(artifact)
+                    manifest_path.write_bytes(raw)
+
+    def test_existing_artifact_cannot_be_left_unmanifested(self):
+        for script, target in self.generators:
+            with self.subTest(generator=script):
+                output = self.packets[script]
+                path = output / 'manifest.json'
+                raw = path.read_bytes()
+                manifest = json.loads(raw)
+                del manifest[target]
+                try:
+                    path.write_text(json.dumps(manifest), encoding='utf-8')
+                    self.assertNotEqual(self.run_python(output / 'verify.py').returncode, 0)
+                finally:
+                    path.write_bytes(raw)
+
+    def test_unrelated_file_cannot_be_admitted_by_adding_its_hash(self):
+        for script, _ in self.generators:
+            with self.subTest(generator=script):
+                output = self.packets[script]
+                path = output / 'manifest.json'
+                raw = path.read_bytes()
+                manifest = json.loads(raw)
+                extra = output / 'unrelated.txt'
+                data = b'not produced by the generator'
+                try:
+                    extra.write_bytes(data)
+                    manifest[extra.name] = hashlib.sha256(data).hexdigest()
+                    path.write_text(json.dumps(manifest), encoding='utf-8')
+                    self.assertNotEqual(self.run_python(output / 'verify.py').returncode, 0)
+                finally:
+                    extra.unlink()
+                    path.write_bytes(raw)
+
+    def test_existing_digest_checks_still_reject_changed_bytes(self):
+        for script, target in self.generators:
+            with self.subTest(generator=script):
+                output = self.packets[script]
+                artifact = output / target
+                raw = artifact.read_bytes()
+                try:
+                    artifact.write_bytes(raw + b'\n ')
+                    self.assertNotEqual(self.run_python(output / 'verify.py').returncode, 0)
+                finally:
+                    artifact.write_bytes(raw)
+
+    def test_partial_signature_packet_keeps_its_generated_program_set(self):
+        view = self.root / 'partial-view'
+        (view / 'scripts').mkdir(parents=True)
+        capture = view / 'evidence/original/mayhem/deployed.so'
+        capture.parent.mkdir(parents=True)
+        shutil.copyfile(analyze.ROOT / 'evidence/original/mayhem/deployed.so', capture)
+        for name in ('bytecode_signatures.py', 'window_elf_reader.py'):
+            shutil.copyfile(analyze.ROOT / 'scripts' / name, view / 'scripts' / name)
+        output = view / 'packet'
+        generated = self.run_python(view / 'scripts/bytecode_signatures.py', '--output', output)
+        self.assertEqual(generated.returncode, 0, generated.stdout + generated.stderr)
+        self.assertEqual(self.run_python(output / 'verify.py').returncode, 0)
+        manifest = json.loads((output / 'manifest.json').read_bytes())
+        self.assertIn('mayhem-signatures.json', manifest)
+        self.assertNotIn('pump-signatures.json', manifest)
 
 
 class CorpusOptimizationTests(unittest.TestCase):

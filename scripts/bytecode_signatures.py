@@ -485,6 +485,7 @@ python3 verify.py
 import hashlib, json, os, sys
 
 PACKET = os.path.dirname(os.path.abspath(__file__))
+EXPECTED_FILES = frozenset(__EXPECTED_PACKET_FILES__)
 
 def sha256_file(path):
     h = hashlib.sha256()
@@ -495,6 +496,8 @@ def sha256_file(path):
 
 def main():
     manifest = json.load(open(os.path.join(PACKET, "manifest.json")))
+    if not isinstance(manifest, dict) or set(manifest) != EXPECTED_FILES:
+        print("FAIL: manifest artifact set mismatch"); return 1
     errors = 0
     for name, expected in manifest.items():
         path = os.path.join(PACKET, name)
@@ -512,6 +515,10 @@ def main():
 if __name__ == "__main__":
     sys.exit(main())
 '''
+    verify_py = verify_py.replace('__EXPECTED_PACKET_FILES__', repr([
+        'README.md', 'shared-signatures.json', 'summary.json', 'top-ngrams.json', 'verify.py',
+        *[f'{program}-{kind}.json' for program in program_summaries for kind in ('patterns', 'signatures')],
+    ]))
     (output_dir / "verify.py").write_text(verify_py)
 
     # 8. Manifest

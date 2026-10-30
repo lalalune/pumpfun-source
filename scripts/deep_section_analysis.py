@@ -676,7 +676,7 @@ def main():
     text_bytes = elf.hi - elf.lo
     summary = {
         "program": args.program,
-        "deployed_sha256": sha256_file(str(deployed_path)),
+        "deployed_sha256": sha256_bytes(elf.b),
         "text_bytes": text_bytes,
         "layer1_data_layout": {
             "sections_analyzed": len(data_layout),
@@ -774,6 +774,7 @@ python3 verify.py
     verify_py = '''#!/usr/bin/env python3
 import hashlib, json, os, sys
 PACKET = os.path.dirname(os.path.abspath(__file__))
+EXPECTED_FILES = frozenset(__EXPECTED_PACKET_FILES__)
 def sha256_file(p):
     h = hashlib.sha256()
     with open(p, "rb") as f:
@@ -781,6 +782,8 @@ def sha256_file(p):
     return h.hexdigest()
 def main():
     m = json.load(open(os.path.join(PACKET, "manifest.json")))
+    if not isinstance(m, dict) or set(m) != EXPECTED_FILES:
+        print("FAIL: manifest artifact set mismatch"); return 1
     e = 0
     for n, x in m.items():
         p = os.path.join(PACKET, n)
@@ -796,6 +799,11 @@ def main():
     print("\\nAll checks passed."); return 0
 if __name__ == "__main__": sys.exit(main())
 '''
+    verify_py = verify_py.replace('__EXPECTED_PACKET_FILES__', repr([
+        'README.md', 'layer1-data-layout.json', 'layer2-relocation-map.json',
+        'layer3-cross-section.json', 'layer4-anchor-idl.json', 'layer5-math-analysis.json',
+        'summary.json', 'verify.py',
+    ]))
     (output_dir / "verify.py").write_text(verify_py)
 
     manifest = {}

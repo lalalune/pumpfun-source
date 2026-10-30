@@ -723,7 +723,7 @@ def main():
     # 9. Summary
     summary = {
         "program": args.program,
-        "deployed_sha256": sha256_file(str(deployed_path)),
+        "deployed_sha256": hashlib.sha256(elf.b).hexdigest(),
         "text_section_bytes": elf.hi - elf.lo,
         "total_windows": len(entries),
         "total_instructions": sum(w["instruction_count"] for w in all_windows),
@@ -802,6 +802,7 @@ python3 verify.py
 import hashlib, json, os, sys
 
 PACKET = os.path.dirname(os.path.abspath(__file__))
+EXPECTED_FILES = frozenset(__EXPECTED_PACKET_FILES__)
 
 def sha256_file(path):
     h = hashlib.sha256()
@@ -812,6 +813,8 @@ def sha256_file(path):
 
 def main():
     manifest = json.load(open(os.path.join(PACKET, "manifest.json")))
+    if not isinstance(manifest, dict) or set(manifest) != EXPECTED_FILES:
+        print("FAIL: manifest artifact set mismatch"); return 1
     errors = 0
     for name, expected in manifest.items():
         path = os.path.join(PACKET, name)
@@ -835,6 +838,14 @@ def main():
 if __name__ == "__main__":
     sys.exit(main())
 '''
+    verify_py = verify_py.replace('__EXPECTED_PACKET_FILES__', repr([
+        'README.md', 'disassembly.json.gz', 'dispatch-table.json', 'error-strings.json',
+        'extern-usage.json', 'fingerprints.json', 'rodata-strings.json', 'summary.json',
+        'syscall-usage.json', 'verify.py', 'windows-deep.json',
+    ]))
+    (output_dir / "verify.py").write_text(verify_py)
+
+
     (output_dir / "verify.py").write_text(verify_py, encoding="utf-8", newline="\n")
 
     # 12. Manifest
