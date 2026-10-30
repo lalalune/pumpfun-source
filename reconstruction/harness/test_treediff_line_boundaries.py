@@ -51,6 +51,28 @@ class SourcePatchLineBoundaries(unittest.TestCase):
                 self.assert_round_trip(b'const N: u8 = 1;' + ending,
                                        b'const N: u8 = 2;' + ending)
 
+    def test_undecodable_files_report_as_binary_without_losing_the_diff(self):
+        with tempfile.TemporaryDirectory(prefix='pump-treediff-binary-') as temp:
+            root = Path(temp)
+            base = root / 'base'
+            candidate = root / 'candidate'
+            base.mkdir()
+            candidate.mkdir()
+            (base / 'lib.rs').write_bytes(b'pub const N: u8 = 1;\n')
+            (candidate / 'lib.rs').write_bytes(b'pub const N: u8 = 2;\n')
+            (base / 'fixture.bin').write_bytes(b'abc\x00\xfe\xff')
+            (candidate / 'fixture.bin').write_bytes(b'abc\x00\xfd\xfe')
+            (base / 'latin.cfg').write_bytes(b'caf\xe9\n')
+            (candidate / 'latin.cfg').write_bytes(b'caf\xe8\n')
+            (base / 'unchanged.bin').write_bytes(b'\x00\x01same')
+            (candidate / 'unchanged.bin').write_bytes(b'\x00\x01same')
+            patch = tree_diff(base, candidate)
+            self.assertIn('Binary files "a/programs/pump/fixture.bin" and "b/programs/pump/fixture.bin" differ', patch)
+            self.assertIn('Binary files "a/programs/pump/latin.cfg" and "b/programs/pump/latin.cfg" differ', patch)
+            self.assertNotIn('unchanged.bin', patch)
+            self.assertIn('-pub const N: u8 = 1;', patch)
+            self.assertIn('+pub const N: u8 = 2;', patch)
+
 
 if __name__ == '__main__':
     unittest.main()
