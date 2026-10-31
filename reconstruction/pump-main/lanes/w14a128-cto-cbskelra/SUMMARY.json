@@ -1,0 +1,19 @@
+{
+  "lane": "w14a128-cto-cbskelra",
+  "target": "0x22a10 admin_cto::execute",
+  "base": "ebe5387e1 (0.67316, 3123 slots, 27400 B, difflib M 2247)",
+  "result": "notes only: no zero-loss improvement; angle exhausted",
+  "best": {"ratio": 0.67316, "slots_diff": 3123, "bytes": 27400, "note": "= main; no candidate beat it"},
+  "findings": [
+    "ev_cb_local rfjM +62 and w14a106 F0 L2 +62 (+58 in orig 0x4000-0x4800) are difflib greedy-alignment flips: true-LCS rfj main 3007, ev_cb_local 3006, F0 3009 (w14a106 m0 3007), GPF 3028 (+21, entry chunk)",
+    "true-LCS traceback of main in orig 0x3a00-0x4a00: no unmatched run > 11 tokens; the first sharing clone run is already in the original's place",
+    "ev_cb_local real loss (true LCS, ev-main): --- -20, --j -14, -f- -8, -fj -4, r-- -14, rf- -6, rfj -1: frame drift from the extra cashback spill plus jump drift, no structure",
+    "census of 3511 distinct w13/w14 captures: true-LCS skeleton max 3038 (+31 over main), true M max 2253 @27472; all >3020 skeletons gain only in orig 0x4000-0x4800 (s1 accounts-pointer reload family) or the entry chunk (PDA-first)",
+    "76 landed mains: true-LCS rfj flat at 2978-3007 while true M rose 2008 -> 2252; wave 13/14 gains were all registers and frame"
+  ],
+  "attempts": ["cbskelra-lcs-evcb", "cbskelra-lcs-F0 (13fe453)", "cbskelra-lcsmap", "cbskelra-cb_curveread 0.66836@27424", "cbskelra-cb_aftervalidate 0.53094@27120", "cbskelra-cb_aftershared 0.55040@27248", "cbskelra-cbev_aftershared 0.55032@27256"],
+  "rejected_mechanisms": ["ev_cb_local + any size repair (no skeleton to recover)", "cashback let moved after validate / after the shared arm", "event cashback read in the curve-store block"],
+  "unresolved": ["s1 (per-clone accounts-pointer reload) is the only real skeleton lead in 0x4000-0x4800 (+20..+28 true LCS) and needs the original register naming of the region", "~330 scattered skeleton tokens, no run > 23"],
+  "next_ideas": ["re-rank all skM/L2-based leads with tools/lcs.py and lcschunk.py before building on them", "use true-LCS rfj per chunk as the structural screen for whole-region rewrites"],
+  "tools": ["tools/lcs.py", "tools/lcsalign.py", "tools/lcschunk.py", "tools/fact.py", "tools/scan.py"]
+}
