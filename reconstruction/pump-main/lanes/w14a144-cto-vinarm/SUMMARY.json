@@ -1,0 +1,30 @@
+{
+  "lane": "w14a144-cto-vinarm",
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27,400 B",
+  "base": "main ebe5387e1 (0.67316 / 3,123)",
+  "landed": {"pr": 3621, "merge_commit": "e88f9d559", "ratio_before": 0.67316, "ratio_after": 0.67346, "slots_after": 3124, "bytes": 27400,
+             "normalized": 1034, "raw": 1034, "losses": [], "runtime": "363 cases, 0 mismatches", "unstripped_sha": "e9df54086dcfc8ca",
+             "mechanism": "execute sharing tree: sharing_update as a per-arm Option<Option<Pubkey>> mut local (None init; Some(None) holder arm, Some(args.0) shared non-holder arm) instead of a tuple field"},
+  "best": {"ratio": 0.67346, "slots_diff": 3124, "bytes": 27400},
+  "attempts": 57,
+  "ledger_keys": "0x22a10-w14-ebe5387-vinarm-*, 0x22a10-w14-e88f9d5-vinarm-*",
+  "angle_findings": [
+    "vin (tree inside validate before match fee) on main/O/O312: M 1555/1550/1570, true-LCS rfj -60/-54/-51 vs its base; collapse is frame (L1 0.619 vs regonly 0.443)",
+    "vin RA ceiling (w14a84 private llc, cclimb 12 forces): 0.46788 -> 0.49872; not RA-recoverable",
+    "vin+ha (vinh) collapses to M 1234 on every base; per-arm payload local inside validate (vpl1-3) M 1230-1522",
+    "true-LCS (lcschunk) removes ha's difflib skeleton lead: ha -21 vs main",
+    "validate &mut out-param per arm (vo1) keeps L2 0.785 = main, +5 LCS in validate chunk 0x1000, but frame-masked L1 0.656 vs 0.703: 0.52086",
+    "splitting validate into validate + validate_fee un-inlines sweep (execute 9,096 B) even with #[inline]/#[inline(always)]",
+    "pl5_O +75 M and pl7_O +61 M over base O (outline base only)",
+    "w2d/w2e/w3c are frame-only permutations (fM/rfjM/L1 equal to main), all worse",
+    "d338pl2 (pl2 on #3510 devol338st) ties main at 0.67346 and removes one read_volatile placeholder"
+  ],
+  "rejected_mechanisms": ["vin","vinh","vinr","vins","vpl1","vpl2","vpl3","pl1","pl5","pl6","pl7","pl12","pl17","w2a","w2c","w2d","w2e","w2f","w2g","w2h","w3c","v5","v6","vsp0","vsp1","vsp2","vsp*i","vsp*a","vo1","vo1n","vo1b","vo1c","vo1d","vo3","vo5","vo6"],
+  "unresolved_residuals": ["the original's per-arm tree inside validate is a frame/slot-order problem in our LLVM, not RA", "vo1's frame shift (address-taken out-param) is the closest skeleton-preserving tree-in-validate form"],
+  "next_ideas": [
+    "land d338pl2 with --allow-neutral (removes the line-338 read_volatile at a tie), owner decision",
+    "pl5/pl7 on a landed 307+312 outline base (they are +75/+61 M on O)",
+    "vo1 + a frame-only permutation search (MIR local order of the out-param and the outer tuple) to recover its L1 gap",
+    "apply the tuple -> per-arm mut-local respelling to other execute tuples not yet covered (pargs, the outer block tuple fields one at a time)"
+  ]
+}
