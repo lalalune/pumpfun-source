@@ -26,6 +26,13 @@ Rules (name: what it rewrites):
   issome   X.is_some() -> matches!(X,Some(_)) / X!=None / !X.is_none() ; X.is_none() likewise
            X==Some(true) -> matches!(X,Some(true)) / X.unwrap_or(false) / X.is_some_and(|v|v) / Some(true)==X
   inline   let N=E; with exactly one later use of N in its block -> use site (E), binding removed
+  ifq      if C{f()?;} -> if C{f()}else{Ok(())}?; / C.then(||f()).transpose()?;
+  thenopt  (c).then(||f).transpose()?.unwrap_or(d) -> if/match/Ok-wrapped/flipped/then_some forms
+  letswap  let A=E1;let B=E2; -> let B=E2;let A=E1;  (independent, pure)
+  fieldswap adjacent field-init swaps in CtoState / associated_token::Create literals
+  reread   one use of a multi-use pure binding -> its expression
+  reuse    a later recomputation of a bound pure expression -> the binding
+  opswap   L&&R -> R&&L, L||R -> R||L, a&b -> b&a (pure operands)
 Variants that do not compile are dropped by the build; behaviour is checked by the 363-case differential at landing.
 """
 import sys, os, re, json
@@ -543,12 +550,31 @@ class Gen:
                 else:
                     self.add('reuse', p, p + len(core), n, tag=n[:6])
 
+    def r_opswap(self):
+        """L&&R -> R&&L, L||R -> R||L, a&b -> b&a for pure operands (short-circuit block order)"""
+        s, S = self.s, self.S
+        for mm in self.sites(r'&&|\|\||(?<=[\w)])&(?=[\w(])'):
+            p = mm.start(); op = mm.group()
+            if op == '&' and (s[p - 1] == '&' or s[p + 1] == '&'): continue
+            if op == '&&' and (s[p - 1] == '&' or s[p + 2] == '&'): continue
+            if op == '||':
+                prev = s[:p].rstrip()[-1:]
+                if prev in '(,=' or s[:p].rstrip().endswith('move'): continue
+            L = S.left(p, 'logic'); R = S.right(p + len(op), 'logic')
+            l, r = s[L:p].strip(), s[p + len(op):R].strip()
+            if not (pure(l) and pure(r)) or not l or not r: continue
+            if op == '&': 
+                a = re.search(r'\w+$', s[:p]).group(); b = re.match(r'\w+', s[p + 1:]).group()
+                self.add('opswap', p - len(a), p + 1 + len(b), f'{b}&{a}'); continue
+            sp = s[p - 1] == ' '
+            self.add('opswap', L, R, f'{r} {op} {l}' if sp else f'{r}{op}{l}')
+
     def run(self, rules):
         for r in rules: getattr(self, 'r_' + r)()
         return self.out
 
 RULES = ['andand', 'oror', 'bitand', 'not', 'eqfalse', 'cmpswap', 'cmpneg', 'keyspell', 'iflet', 'match', 'letelse',
-         'unwrapor', 'andthen', 'require', 'ifreq', 'issome', 'inline', 'ifq', 'thenopt', 'letswap', 'fieldswap', 'reread', 'reuse']
+         'unwrapor', 'andthen', 'require', 'ifreq', 'issome', 'inline', 'ifq', 'thenopt', 'letswap', 'fieldswap', 'reread', 'reuse', 'opswap']
 
 if __name__ == '__main__':
     a = sys.argv[1:]; src, out = a[0], a[1]; fl = 283; rules = RULES

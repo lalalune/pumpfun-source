@@ -1,0 +1,33 @@
+{
+  "lane": "w14a73-cto-autospell",
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27400 B",
+  "bases": {"39eb377": {"ratio": 0.66477, "M": 2219}, "0d04cf4": {"ratio": 0.66507, "slots": 3228, "M": 2220},
+            "95a64ba": {"ratio": 0.66986, "slots": 3204, "M": 2236}, "963d1ee": {"ratio": 0.67226, "slots": 3123, "M": 2244}},
+  "result": "no zero-loss improvement; no landing. The single-site spelling lattice (24 rules) found the -8 B wallet !is_writable and sharing match/if-let levers, but #3393, #3430 and #3437 landed them first (from other lanes)",
+  "best_zero_loss_at_pinned": {"ratio": 0.67226, "slots": 3123, "bytes": 27400, "note": "= main 963d1ee; no variant beat it"},
+  "tools": ["tools/autospell.py (generator, rerun after each landing)", "tools/capraw2.py (IR-only capture, 13.9 s, byte-identical raw IR)",
+            "tools/runlist.sh / capvar.sh / rec.py (screen + M + ledger)", "tools/shift.py, mr.py, rx.py, oracle.py, jm.py (copied oracles)"],
+  "attempts": {"39eb377": 193, "0d04cf4": 296, "95a64ba": 134, "963d1ee": 41, "ledger_rows": 596},
+  "leads_found": [
+    {"base": "39eb377", "variants": "iflet-L746 + not-L556", "note": "M-neutral size knobs; landed by w14a72 (#3393) with the pump_fees re-read drop"},
+    {"base": "95a64ba", "variant": "eqfalse-L556-0", "bytes": 27392, "M": 2238, "note": "+2 M at -8 B; landed by w14a88 (#3430) with a validate volatile repay"},
+    {"base": "95a64ba", "variant": "match-L746-0i", "bytes": 27392, "M": 2237, "note": "+1 M at -8 B; landed by w14a86 (#3437)"}
+  ],
+  "rejected_mechanisms": [
+    "&& -> & and || -> | on pure bool operands: -40..-430 M (short-circuit CFG collapses)",
+    "require!/if-return/err! respellings: token-identical (same MIR)",
+    "x==false vs x!=true vs !x: token-identical except the size knobs at L334/L556/L559/L561",
+    "hopt==Some(true) respellings (matches!/unwrap_or/is_some_and/swap): collapse to 0.42-0.57",
+    "operand swaps of && / || chains: -7..-631 M except 3 M-equal sites",
+    "-8/+8 pairs of the wallet knobs (L556 x L561): the jump-distance gains cancel (same block)",
+    "-16/+16 triples with inline-L339-6 or k-wl_ts_clockvar: -2..-6 M",
+    "bundles of all 16 M-equal zero-size edits: inert (M unchanged)",
+    "44 sizeknobs-cto.json knobs that still apply on 0d04cf4: none above main"
+  ],
+  "unresolved": "the lattice on 963d1ee is only 41/264 screened; the pure +8 repay positions found by shift.py (entry data_is_empty at cand 0x180, validate 0x6d8-0xca8) have no source knob in the lattice",
+  "next_ideas": [
+    "rerun tools/autospell.py after each landing, skipping the always-identical families (require, ifreq, cmpneg, x!=true), with capraw2.py",
+    "search for a source +8 knob in validate (cand 0x6d8-0xca8) to pair with any future -8 lever",
+    "extend the lattice to 2-site moves within one statement (e.g. operand swap + polarity) and to CPI-literal field orders"
+  ]
+}
