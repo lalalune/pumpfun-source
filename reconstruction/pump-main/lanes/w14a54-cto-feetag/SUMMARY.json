@@ -1,0 +1,38 @@
+{
+  "lane": "w14a54-cto-feetag",
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27400 B",
+  "bases": ["0fbf8daa1 (0.65578, 3279 slots)", "c3e5b51f4 (0.65698, 3182 slots)"],
+  "result": "notes only; no landable source change",
+  "best_zero_loss": {"ratio": 0.65698, "slots": 3182, "bytes": 27400, "note": "= main c3e5b51; no source form beat main"},
+  "ir_bounds_c3e5b51": {
+    "edge_block_asm": {"ratio": 0.66447, "bytes": 27400, "slots": 3127},
+    "edge_block_real_8B_instr": {"ratio": 0.66467, "bytes": 27408},
+    "h7_hoist_7B_target_piece_into_validate_arms": {"ratio": 0.65827, "bytes": 27368, "fm": 0.71583, "sk": 0.80066},
+    "h7_plus_edge_block": {"ratio": 0.66577, "bytes": 27368, "fm": 0.72242, "sk": 0.80785},
+    "h7_plus_ftag_plus_edge_block": {"ratio": 0.58718, "bytes": 27400}
+  },
+  "attempts": 44,
+  "findings": [
+    "17 source spellings of the original fee-tag data flow (validate tuple returns, is_some at the exit, if-let bool, bool/u64/u8/Option out-params, 757 only / CPI only / both) all lose: return-type changes 0.34-0.40, out-params 0.574-0.595; none puts a block on the fee-Some edge (errseq stays 330 338 410 334)",
+    "the out-param forms equal w14a49's ftag/ftag2 IR probes token for token; their loss is one 8 B spill slot shifting every deeper frame slot (offmap: 320 remapped tokens), or -8 B plus an RA reshuffle when the argument tag dies",
+    "the phi constant is materialised at the top of bb58.i; branch weights, llc -machine-sink-split-probability-threshold=100 and -phi-elim-split-all-critical-edges=1 change nothing, because BPF analyzeBranch cannot analyse conditional branches, so codegen never splits an edge out of a conditional-jump block",
+    "therefore the original's +0x1800 block is an IR block (a JumpThreading/tail-dup copy of the join for the fee-Some exit), not a phi-copy edge block",
+    "any surviving instruction on the edge reaches the bound (volatile-load diagnostic 0.66467@27408 on c3e5b51)",
+    "holder-first sharing-tree spellings do not thread the join (its target memcpys exceed the JT threshold); the nested form gives the original 330 338 334 410 order but 0.64073; hand-threaded IR 0.638-0.639 at +128..240 B",
+    "new lead: h7 (7-byte target piece written into execute's target in validate's arms) +0.0013 with fm/sk +0.012 at -32 B in IR"
+  ],
+  "rejected": [
+    "opt_both/opt_757/opt_cpi", "bool_757uod/bool_757nest/bool_both/bool_cpi_then", "issome", "iflet_bool",
+    "ob_757/ob_both", "oo_757/oo_cpi/oo_both/oo_757m", "ou_757/ou8_757",
+    "t_hs_and/t_h_nest/t_m_hs/t_m_sh/t_nh_and/t_sh_and", "w1a/w1d/w1e/w1g target out-param", "r1/r1b Result<&Pubkey>",
+    "IR: ftag + weights, ftag + llc split flags, two-phi ftag, load-fed phi, opt jump-threading on hoisted IR, thr.py threading, JT threshold 12/24"
+  ],
+  "unresolved": [
+    "a faithful IR block on validate's fee-Some exit (bound +0.0075 on c3e5b51) needs the join to be threaded for the fee-None exits, which needs a cheap join at JT time",
+    "h7 has no source analogue yet that keeps validate's Result<Pubkey> return and frame"
+  ],
+  "next_ideas": [
+    "look for a source form of h7 that keeps Result<Pubkey>, then repay 32 B from sizeknobs-cto.json",
+    "per-arm shared knowledge (w13a05) on top of h1/h7, so JumpThreading can thread the fee-None exits off a cheap join and leave the fee-Some exit its own block"
+  ]
+}
