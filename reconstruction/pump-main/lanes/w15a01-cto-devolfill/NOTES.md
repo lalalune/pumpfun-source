@@ -75,10 +75,42 @@ After this PR lands, main is 2,249, so F_d_maxf is one short of a tie on the new
 | CtoState literal: one field moved first or last (14), then a second field after fee_configurable (13) | 27 | **lf_fee_configurable +1** (27,392 / 2,248 on Q3); the rest identical or -24 to -606 |
 | validate call-site spellings (`&a.sharing_config.key()`, `&hk.0`, `args.0`) | 3 | -170, identical, -785 |
 
+## Round 2 on main 86e2a6b (this lane's #3666 landed: 0.67376, M 2,249)
+
+`devol` gene = devol338st + vol334_back on the new main (no `read_volatile` left). M relative to the new main (2,249).
+
+| key | genes | bytes | M | dM |
+| --- | --- | ---: | ---: | ---: |
+| N_main | - | 27,400 | 2,249 | 0 (eq_main) |
+| N_devol | devol (338 constant store) | 27,392 | 2,248 | -1 |
+| V_d_maxf | devol + `st.max_fee=f;` at 338 | 27,400 | 2,248 | -1 (3,124 slots) |
+| W_dm_a / dm_b / dm_h / dm_repl | `st.max_fee=f` spellings (`let mx`, `else{}`, `f.min(max)`, `mem::replace`) | 27,400 | 2,248 | -1 |
+| W_dm_f / dm_g / dm_r / dm_take2 | two stores, `max-f`, `mem::take` at 334 + max store | 27,408 | 2,247 | -2 |
+| W_dm_take | `mem::take(&mut st.fee_configurable)` at 334, no 338 store | 27,392 | 2,226 | -23 (no 338 anchor) |
+| V_* (17) | devol / devol+d_maxf + CtoState declaration orders (13) or neutral literal moves mv_2_4..7 | 27,392 / 27,400 | 2,248 | -1 (all) |
+| X_* (14) | devol+d_maxf + small main losers (mv_0_*, mv_1_0, qo_*, i_rev, z_rev, h_298ne, N6, N6s) | | <= 2,248 | additive, -1 to -12 |
+
+V_d_maxf against main differs only in (a) `mov64 r1,r2` in place of the line-334 `ldxb` (f must survive the `add -1`
+for the store) and (b) an r4/r5/r0 rotation of the `new`/target pieces in the holder/shared arm (0xa90, 0x1438, 0x1890,
+0x18d8, 0x1960 regions). (b) is the -1.
+
+Main-side order knobs on 86e2a6b (no gain): second literal moves after fee_configurable (`mv_i_j`, 33 rows: 4 eq_main, the
+rest -1 to -633), quote_locked disjunct orders (5: -7 to -19), shared conjunct orders (5: -82 to -335), CtoState
+declaration orders (13: all M-neutral, frame tokens move), block-result tuple element orders and the `Ok::<..>(..)?`
+re-bind order (22: 11 eq_main, -1 to -5 otherwise).
+
+**measure.sh of V_d_maxf** (`devol-dmaxf.patch`): 0.67346, 3,124 slots, 27,400 B, 1034/1034, 0 losses, differential 388/0,
+sha 9a029b66641d3789. It has zero `read_volatile`/`black_box` and one value store (`st.max_fee=f;`) into the local `st`. It is
+-0.0003 against the new main and equals the pre-#3666 main. This is the owner's devolatilization candidate if a one-token cost
+is acceptable. It is not proposed for landing.
+
+A further 30 Q3-identical spellings on V_d_maxf (`Y_*`) are all 2,248 or lower. The rotation does not respond to validate
+spelling.
+
 ## Next ideas
 
-1. On the new main (with lf_fee_configurable): F_d_maxf is 27,400 / 2,248, one short of the new main (2,249). It needs one
-   ordinary instruction anywhere in validate's fill range, or a 338 form that also adds one.
+1. On the new main, V_d_maxf (no volatile, one value store) is 27,400 / 2,248, one short. Its only loss is an RA rotation in
+   the holder/shared arm; a zero-byte RA-neutral knob that rotates r4/r5/r0 back would tie, one matching an original token +1.
 2. F_N6 is +1 at +8 B (27,408 / 2,249). Pair it with an M-neutral -8 B knob. None is known: no ledger row on 90300f9 /
    e88f9d5 / ebe5387 has 27,392 B with M >= 2,248 except the volatile removal itself.
 3. Second-field literal orders after fee_configurable are now exhausted. The struct's DECLARATION order is untried (it

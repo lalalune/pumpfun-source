@@ -1,0 +1,26 @@
+{
+ "lane": "w15a01-cto-devolfill",
+ "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27400 B",
+ "bases": {"90300f9d2": {"ratio": 0.67346, "slots": 3124, "M": 2248}, "86e2a6b74": {"ratio": 0.67376, "slots": 3124, "M": 2249}},
+ "landed": {"pr": 3666, "merge_commit": "86e2a6b74", "change": "CtoState literal initialises fee_configurable first", "before": 0.67346, "after": 0.67376, "slots": 3124, "bytes": 27400, "normalized": 1034, "raw": 1034, "sha": "dc79dde734b0cfb2", "differential": "388/0"},
+ "devolatilization": {
+  "best_placeholder_free": {"source": "devol338st + vol334_back + st.max_fee=f at line 338 (devol-dmaxf.patch)", "main": "86e2a6b", "ratio": 0.67346, "slots": 3124, "bytes": 27400, "M": 2248, "dM_vs_main": -1, "sha": "9a029b66641d3789", "differential": "388/0", "note": "zero read_volatile/black_box; one value store into the local st; loss is an r4/r5/r0 RA rotation in the holder/shared arm"},
+  "no_store_floor": {"source": "both volatiles and the 338 store removed (D4)", "bytes": 27384, "dM": -23}
+ },
+ "findings": [
+  "Field init order of the CtoState literal is a code-shape lever: fee_configurable first is +1 M (landed #3666); 46 other literal orders are identical or lose.",
+  "The line-334 volatile is pure fill (any junk slot in validate restores it); the line-338 one is a placement anchor: without any instruction on the range-OK edge the line-334 error block moves and M drops 22-23.",
+  "insmatch.py: inserting one original token instead of junk is worth at most +1 M over junk (2249 vs 2248 on Q3, 726 of 748 pairs).",
+  "st.max_fee=f at 338 fills both placeholders (its f copy replaces the 334 load) but costs one RA rotation (-1 M); 9 spellings and 61 combinations stay at -1 or worse.",
+  "CtoState declaration order, block-result tuple order and the Ok::<..>(..)? rebind order are M-neutral or worse on main 86e2a6b."
+ ],
+ "attempts": 300,
+ "rejected": ["fee range / holder / new / t / InvalidCreator / zero-check spellings", "validate parameter passing", "fee-arm return forms", "validated-fee tuple returns (frame shift)", "require! / ? error forms", "cashback placement", "size knobs N6/N6s/N0s/ev_mint_key/ev_cb_local/cu_fee_replace", "quote_locked and shared operand orders", "store-kind variants at 338 (two stores, mem::take, mem::replace, min, subtraction)"],
+ "unresolved": ["V_d_maxf's r4/r5/r0 rotation in the holder/shared arm (the -1)", "the original's fee-tag phi (mov r7,1) on the range-OK edge costs 276 M on main's RA (w14a110)"],
+ "next_ideas": [
+  "A zero-byte RA lever that rotates V_d_maxf's holder/shared-arm r4/r5/r0 back would tie the new main with no placeholders; one that matches an original token would gain.",
+  "F_N6 (lf_fc + devol + N6) is +1 at +8 B: pair it with an M-neutral -8 B knob (none known).",
+  "Other struct/tuple literal init orders in execute (CPI account structs, event struct) have not been screened as a family on main 86e2a6b."
+ ],
+ "ledger_keys": "0x22a10-w15-90300f9-devolfill-*, 0x22a10-w15-86e2a6b-devolfill-*"
+}
