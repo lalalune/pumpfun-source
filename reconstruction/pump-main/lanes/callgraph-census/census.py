@@ -91,6 +91,7 @@ class Image:
         self.secs = sections(self.blob)
         self.funcs = funcs  # start -> (size, [names])
         self._txt = {}
+        self._call_symbols = None
 
     def raw(self, s):
         return body(self.blob, self.secs, s, self.funcs[s][0])
@@ -102,6 +103,24 @@ class Image:
 
     def calls(self, s):
         return direct_calls(self.raw(s), s)
+
+    def external_counts(self, s):
+        """Keep relocated symbol identity separate from hash-immediate calls."""
+        if self._call_symbols is None:
+            from io import BytesIO
+            from elftools.elf.elffile import ELFFile
+            elf = ELFFile(BytesIO(self.blob))
+            relocations = elf.get_section_by_name('.rel.dyn')
+            self._call_symbols = {}
+            if relocations is not None:
+                symbols = elf.get_section(relocations['sh_link'])
+                self._call_symbols = {
+                    row['r_offset']: symbols.get_symbol(row['r_info_sym']).name
+                    for row in relocations.iter_relocations() if row['r_info_type'] == 10
+                }
+        return Counter('symbol:' + self._call_symbols[site]
+                       if self._call_symbols.get(site) else '%08x' % target[1]
+                       for site, target in self.calls(s) if isinstance(target, tuple))
 
 
 def arg_setup(img, s, call_sites):
@@ -321,8 +340,8 @@ def main():
         oc = O.calls(o); cc = C.calls(c)
         ocalls = [(site, t) for site, t in oc if not isinstance(t, tuple)]
         ccalls = [(site, t) for site, t in cc if not isinstance(t, tuple)]
-        osys = Counter('%08x' % t[1] for _, t in oc if isinstance(t, tuple))
-        csys = Counter('%08x' % t[1] for _, t in cc if isinstance(t, tuple))
+        osys = O.external_counts(o)
+        csys = C.external_counts(c)
         ok = [okey(t) for _, t in ocalls]
         ck = [ckey(t) for _, t in ccalls]
         oargs = arg_setup(O, o, [s for s, _ in ocalls])
@@ -345,7 +364,9 @@ def main():
                     extra.append((j1, k, ck[k], ccalls[k][0] - c))
         omult, cmult = Counter(ok), Counter(ck)
         multiset_diff = []
-        for k in sorted(set(omult) | set(cmult), key=lambda k: kname(k)):
+        # Distinct monomorphizations can have the same display name. Use their
+        # identity as a tiebreak so hash randomization cannot reorder reports.
+        for k in sorted(set(omult) | set(cmult), key=lambda k: (kname(k), k)):
             if omult[k] != cmult[k]:
                 d = {'callee': kname(k), 'key': k, 'orig': omult[k], 'ours': cmult[k]}
                 # classification
