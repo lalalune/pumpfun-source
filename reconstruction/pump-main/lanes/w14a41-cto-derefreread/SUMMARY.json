@@ -1,0 +1,32 @@
+{
+  "lane": "w14a41-cto-derefreread",
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27400 B",
+  "bases": {"faf996242": {"ratio": 0.65129, "M": 2174, "slots": 3170}, "6db95a764": {"ratio": 0.65458, "M": 2185, "slots": 3279}},
+  "result": "no zero-loss gain; notes PR #3332",
+  "best_zero_loss": {"ratio": 0.65458, "slots_diff": 3279, "bytes": 27400, "note": "= main 6db95a7; no source change"},
+  "ir_bounds_6db95a7": {
+    "reread_best": "+1 M @ +8 B (%_382@bb1 sharing_config ptr; %_232.i130 clone-run x ptr)",
+    "lead_a_holder_enabled": "0 M @ -40 B (faf9962: +1 M @ -40 B)",
+    "lead_b_ctx_accounts_pool_updated": "no positive per-block variant (best 0 M @ +16)",
+    "lead_c_global_ptr": "none (taken by qlin2 #3241)",
+    "hold_best": "+1 M @ -8 B",
+    "remat_best": "+2 M @ 27400 (%327@bb44.i117 = &holder_creator_vault gep recomputed in the sweep token arm; 0.65518, 3275 slots); no source form"
+  },
+  "attempts": {"source_screens": 36, "ir_oracle_variants": 977, "ledger_rows": 7},
+  "rejected_mechanisms": [
+    "holder_enabled re-read via g:&Global / deref behind || or && / &Account<Global> / inline(always) accessor (fold or lose)",
+    "pool gate via fresh ctx.accounts (fold) or to_account_info().owner (-3 M, +152 B)",
+    "contains / st max_fee via ctx.accounts.global or &**a.global (fold)",
+    "lead (a) + w14a31 faithful knobs k3, wl_writ_eq, n_ensiflet, s_rent_get and combos K24/K32a/K32b/K40 (no pair reaches 27400 with M >= main)",
+    "flaghoist: curve flags read before quote_locked, any order / tuple / curve binding, with or without a held g:&Global (M -145 / -153)",
+    "g:&Global binding for contains+st (undoes qlin2 reload, M -32)",
+    "event is_holder_reward read back from the curve (evhr, M -10 @ -8 B)",
+    "holder_creator_vault spellings in the sweep head/token arm (fold, or -12 M @ -80 B)"
+  ],
+  "oracle_caveats": ["irre.py %_196.1.i (+5 M @ -160 B) re-reads collect's sret alloca after lifetime.end: invalid IR, not a lead"],
+  "unresolved_residuals": ["accounts+0x108 (&holder_creator_vault) held in r6 across the sweep; original spills it at its definition (orig 0x24958 [r10-0x8e0]) and reloads"],
+  "next_ideas": [
+    "an RA partner that makes greedy split/spill &holder_creator_vault at its definition (use-count change in the sweep head, call count unchanged) to take the +2 M remat lead",
+    "irre.py: skip variants whose pointer is an alloca after its lifetime.end"
+  ]
+}
