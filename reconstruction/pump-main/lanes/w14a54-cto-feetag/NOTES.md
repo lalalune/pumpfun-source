@@ -2,7 +2,7 @@
 
 Target `0x22a10` `admin_cto::execute` (`programs/pump/src/creator/admin_cto.rs`), pinned at 27,400 B.
 Continues w14a49-cto-sink76ra (#3347) and w14a36-cto-blockplace (#3325). Bases: main 0fbf8da (0.65578 / 3,279 slots),
-then c3e5b51 (0.65698 / 3,182). Ledger approach `feetag`, keys `0x22a10-w14-{0fbf8da,c3e5b51}-feetag-*` (44 rows).
+then c3e5b51 (0.65698 / 3,182). Ledger approach `feetag`, keys `0x22a10-w14-{0fbf8da,c3e5b51}-feetag-*` (45 rows).
 Result: **notes only, no landable source change.** Best zero-loss measurement = main (0.65698 / 3,182 @ 27,400).
 
 ## 1. Source forms of the original fee-tag data flow (raw-IR capture + rx opt/llc oracle)

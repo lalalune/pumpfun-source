@@ -11,7 +11,7 @@
     "h7_plus_edge_block": {"ratio": 0.66577, "bytes": 27368, "fm": 0.72242, "sk": 0.80785},
     "h7_plus_ftag_plus_edge_block": {"ratio": 0.58718, "bytes": 27400}
   },
-  "attempts": 44,
+  "attempts": 45,
   "findings": [
     "17 source spellings of the original fee-tag data flow (validate tuple returns, is_some at the exit, if-let bool, bool/u64/u8/Option out-params, 757 only / CPI only / both) all lose: return-type changes 0.34-0.40, out-params 0.574-0.595; none puts a block on the fee-Some edge (errseq stays 330 338 410 334)",
     "the out-param forms equal w14a49's ftag/ftag2 IR probes token for token; their loss is one 8 B spill slot shifting every deeper frame slot (offmap: 320 remapped tokens), or -8 B plus an RA reshuffle when the argument tag dies",
