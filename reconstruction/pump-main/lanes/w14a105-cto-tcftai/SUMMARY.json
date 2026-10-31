@@ -1,0 +1,29 @@
+{
+  "lane": "w14a105-cto-tcftai",
+  "wave": 14,
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27,400 B",
+  "base": "main 963d1eefb (0.67226, 3,123, 1034/1034); rechecked on 13fe4536b (0.67256, 3,123)",
+  "result": "notes only: tai (TCF program = a.pump_amm.to_account_info()) is dominated on current main, even under ideal RA overrides",
+  "best": {"ratio": 0.67256, "slots_diff": 3123, "bytes": 27400, "note": "= main, no source change"},
+  "attempts": {
+    "src_tai_963d1ee": {"ratio": 0.6484, "bytes": 27416},
+    "src_tai_13fe453": {"ratio": 0.6487, "bytes": 27416},
+    "blame_0x2800_0x4000": {"main": "160 reg-only misses (r6 holder_creator_vault ref 22, r9 bump 18)", "tai": "177 (r6 21, r9 bump 20, r5 clone1 lamports 17)", "press_0x2600_0x3600": "orig 7.22, main 7.82, tai 8.21"},
+    "ra_ceiling_private_llc": {"main_pinned": "0.67226 -> 0.68005 (8 forces)", "tai_any_size": "0.6484 -> 0.67316 @27384 (11 forces)", "tai_pinned": "0.6484 -> 0.67046 (7 forces)"},
+    "tai_plus_16B_repays_at_27400": {"amp_inline": 0.65009, "ev_nf_inline": 0.64859, "nf_back": 0.64859, "vol334_back+su_to_st": 0.64829, "crl_kd+vol334_back": 0.64799, "crl_kd+su_to_st": 0.64739}
+  },
+  "rejected_mechanisms": [
+    "tai on 963d1ee and 13fe453 (head occupants unchanged by #3437/#3480)",
+    "tai + every -16 B repay on 963d1ee (amp_inline, ev_nf_inline, nf_back, crl_kd/vol334_back/su_to_st pairs)",
+    "tai under greedy RA overrides: ceiling 0.67316 (any size) / 0.67046 (pinned) < main's 0.68005"
+  ],
+  "residuals": [
+    "the original spills the bump ([r10-0x910]) and &holder_creator_vault ([r10-0x8e0]) right after computing them, freeing r9/r6 for clone1's key/owner; ours keeps them in r9/r6 across the TCF clone run (greedy decision, no source handle known)",
+    "main's RA-only ceiling at 27,400 on 963d1ee is 0.68005; top forces are accounts-pointer pieces 1687=r6 (0x4e80) and 1674=r7 (0x5cc0) and 1911=r6 (0x3ea0), outside clone1"
+  ],
+  "next_ideas": [
+    "drop tai: its shape gain is smaller than its RA cost even with ideal colouring",
+    "RA-gain lanes should target the accounts-pointer pieces at 0x4e80/0x5cc0 (1687, 1674), the top forces on main",
+    "ledger keys 0x22a10-w14-963d1ee-tcftai-*, 0x22a10-w14-13fe453-tcftai-src-tai-v1"
+  ]
+}

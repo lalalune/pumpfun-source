@@ -1,0 +1,131 @@
+{"lo": "0x2600", "hi": "0x2a00", "clo": "0x25d0", "chi": "0x29d0", "n_orig": 127, "n_cand": 127, "miss": 52, "fm": 0, "rm": 40, "jm": 9, "sk": 3, "del": {"frame-store-dw": 2, "jump": 1}, "ins": {"frame-store-dw": 2, "jump": 1}}
+   2600 ldxdw r7, [r10-2016]               |  25d0 ldxdw r7, [r10-2016]
+*                                          |  25d8 ja +717
+~  2608 ldxdw r1, [r10-2384]               |  25e0 ldxdw r3, [r10-712]
+*  2610 jne r7, 2, +1610                   |  25e8 ja +715
+*  2618 ja +713                            |       
+   2620 ldxb r1, [r6+209]                  |  25f0 ldxb r1, [r6+209]
+*  2628 jeq r1, 0, +1521                   |  25f8 jeq r1, 0, +1522
+   2630 ldxdw r2, [r6+64]                  |  2600 ldxdw r2, [r6+64]
+   2638 mov64 r1, r10                      |  2608 mov64 r1, r10
+   2640 add64 r1, -720                     |  2610 add64 r1, -720
+   2648 call rel                           |  2618 call rel
+   2650 ldxdw r7, [r10-720]                |  2620 ldxdw r7, [r10-720]
+*  2658 jne r7, 2, +1952                   |  2628 jne r7, 2, +1961
+   2660 ldxb r1, [r10-712]                 |  2630 ldxb r1, [r10-712]
+*  2668 jeq r1, 0, +1688                   |  2638 jeq r1, 0, +1693
+~  2670 lddw r1, 0x1b6922                  |  2640 lddw r1, 0x0
+   2680 mov64 r2, 62                       |  2650 mov64 r2, 62
+*  2688 ja -302                            |  2658 ja -296
+   2690 ldxdw r2, [r8+88]                  |  2660 ldxdw r2, [r8+88]
+~  2698 ldxdw r7, [r2+8]                   |  2668 ldxdw r5, [r2+8]
+~  26a0 ldxdw r1, [r7+0]                   |  2670 ldxdw r1, [r5+0]
+   26a8 add64 r1, 1                        |  2678 add64 r1, 1
+   26b0 mov64 r3, 1                        |  2680 mov64 r3, 1
+   26b8 jeq r1, 0, +1                      |  2688 jeq r1, 0, +1
+   26c0 mov64 r3, 0                        |  2690 mov64 r3, 0
+~  26c8 ldxdw r9, [r2+0]                   |  2698 ldxdw r4, [r2+0]
+~  26d0 stxdw [r7+0], r1                   |  26a0 stxdw [r5+0], r1
+   26d8 jne r3, 1, +1                      |  26a8 jne r3, 1, +1
+   26e0 call rel                           |  26b0 call rel
+~  26e8 ldxdw r0, [r2+16]                  |  26b8 ldxdw r7, [r2+16]
+~  26f0 ldxdw r1, [r0+0]                   |  26c0 ldxdw r1, [r7+0]
+   26f8 add64 r1, 1                        |  26c8 add64 r1, 1
+   2700 mov64 r3, 1                        |  26d0 mov64 r3, 1
+   2708 jeq r1, 0, +1                      |  26d8 jeq r1, 0, +1
+   2710 mov64 r3, 0                        |  26e0 mov64 r3, 0
+~  2718 stxdw [r0+0], r1                   |  26e8 stxdw [r7+0], r1
+   2720 jne r3, 1, +1                      |  26f0 jne r3, 1, +1
+   2728 ja -10                             |  26f8 ja -10
+*                                          |  2700 stxdw [r10-2392], r4
+   2730 ldxdw r1, [r8+0]                   |  2708 ldxdw r1, [r8+0]
+   2738 ldxdw r3, [r1+8]                   |  2710 ldxdw r3, [r1+8]
+   2740 stxdw [r10-2336], r3               |  2718 stxdw [r10-2336], r3
+   2748 ldxdw r3, [r3+0]                   |  2720 ldxdw r3, [r3+0]
+   2750 add64 r3, 1                        |  2728 add64 r3, 1
+   2758 mov64 r4, 1                        |  2730 mov64 r4, 1
+   2760 jeq r3, 0, +1                      |  2738 jeq r3, 0, +1
+   2768 mov64 r4, 0                        |  2740 mov64 r4, 0
+~  2770 ldxb r5, [r2+42]                   |  2748 ldxb r0, [r2+42]
+*                                          |  2750 stxdw [r10-2496], r0
+~  2778 ldxb r6, [r2+41]                   |  2758 ldxb r0, [r2+41]
+~  2780 stxdw [r10-2512], r6               |  2760 stxdw [r10-2512], r0
+~  2788 ldxb r6, [r2+40]                   |  2768 ldxb r0, [r2+40]
+~  2790 stxdw [r10-2520], r6               |  2770 stxdw [r10-2520], r0
+~  2798 ldxdw r6, [r2+32]                  |  2778 ldxdw r0, [r2+32]
+~  27a0 stxdw [r10-2504], r6               |  2780 stxdw [r10-2504], r0
+~  27a8 ldxdw r6, [r2+24]                  |  2788 ldxdw r0, [r2+24]
+   27b0 ldxdw r2, [r1+0]                   |  2790 ldxdw r2, [r1+0]
+   27b8 stxdw [r10-2528], r2               |  2798 stxdw [r10-2528], r2
+   27c0 ldxdw r2, [r10-2336]               |  27a0 ldxdw r2, [r10-2336]
+   27c8 stxdw [r2+0], r3                   |  27a8 stxdw [r2+0], r3
+   27d0 jne r4, 1, +1                      |  27b0 jne r4, 1, +1
+*  27d8 ja -32                             |  27b8 ja -34
+   27e0 ldxdw r4, [r1+16]                  |  27c0 ldxdw r4, [r1+16]
+   27e8 ldxdw r2, [r4+0]                   |  27c8 ldxdw r2, [r4+0]
+   27f0 add64 r2, 1                        |  27d0 add64 r2, 1
+   27f8 mov64 r3, 1                        |  27d8 mov64 r3, 1
+   2800 jeq r2, 0, +1                      |  27e0 jeq r2, 0, +1
+   2808 mov64 r3, 0                        |  27e8 mov64 r3, 0
+   2810 stxdw [r10-2536], r4               |  27f0 stxdw [r10-2536], r4
+   2818 stxdw [r4+0], r2                   |  27f8 stxdw [r4+0], r2
+   2820 jne r3, 1, +1                      |  2800 jne r3, 1, +1
+*  2828 ja -42                             |  2808 ja -44
+*  2830 stxdw [r10-2416], r6               |       
+~  2838 stxdw [r10-2424], r5               |  2810 stxdw [r10-2408], r0
+   2840 ldxdw r2, [r8+24]                  |  2818 ldxdw r2, [r8+24]
+   2848 ldxdw r2, [r2+88]                  |  2820 ldxdw r2, [r2+88]
+   2850 ldxdw r3, [r2+8]                   |  2828 ldxdw r3, [r2+8]
+   2858 stxdw [r10-2344], r3               |  2830 stxdw [r10-2344], r3
+   2860 ldxdw r3, [r3+0]                   |  2838 ldxdw r3, [r3+0]
+   2868 add64 r3, 1                        |  2840 add64 r3, 1
+   2870 mov64 r4, 1                        |  2848 mov64 r4, 1
+   2878 jeq r3, 0, +1                      |  2850 jeq r3, 0, +1
+   2880 mov64 r4, 0                        |  2858 mov64 r4, 0
+~  2888 ldxb r5, [r1+42]                   |  2860 ldxb r0, [r1+42]
+~  2890 stxdw [r10-2576], r5               |  2868 stxdw [r10-2576], r0
+~  2898 ldxb r5, [r1+41]                   |  2870 ldxb r0, [r1+41]
+~  28a0 stxdw [r10-2568], r5               |  2878 stxdw [r10-2568], r0
+~  28a8 ldxb r5, [r1+40]                   |  2880 ldxb r0, [r1+40]
+~  28b0 stxdw [r10-2560], r5               |  2888 stxdw [r10-2560], r0
+~  28b8 ldxdw r5, [r1+32]                  |  2890 ldxdw r0, [r1+32]
+~  28c0 stxdw [r10-2552], r5               |  2898 stxdw [r10-2552], r0
+   28c8 ldxdw r1, [r1+24]                  |  28a0 ldxdw r1, [r1+24]
+   28d0 stxdw [r10-2544], r1               |  28a8 stxdw [r10-2544], r1
+~  28d8 ldxdw r6, [r2+0]                   |  28b0 ldxdw r0, [r2+0]
+   28e0 ldxdw r1, [r10-2344]               |  28b8 ldxdw r1, [r10-2344]
+   28e8 stxdw [r1+0], r3                   |  28c0 stxdw [r1+0], r3
+   28f0 jne r4, 1, +1                      |  28c8 jne r4, 1, +1
+*  28f8 ja -68                             |  28d0 ja -69
+   2900 ldxdw r4, [r2+16]                  |  28d8 ldxdw r4, [r2+16]
+   2908 ldxdw r1, [r4+0]                   |  28e0 ldxdw r1, [r4+0]
+   2910 add64 r1, 1                        |  28e8 add64 r1, 1
+   2918 mov64 r3, 1                        |  28f0 mov64 r3, 1
+   2920 jeq r1, 0, +1                      |  28f8 jeq r1, 0, +1
+   2928 mov64 r3, 0                        |  2900 mov64 r3, 0
+   2930 stxdw [r10-2584], r4               |  2908 stxdw [r10-2584], r4
+   2938 stxdw [r4+0], r1                   |  2910 stxdw [r4+0], r1
+   2940 jne r3, 1, +1                      |  2918 jne r3, 1, +1
+*  2948 ja -78                             |  2920 ja -79
+*  2950 stxdw [r10-2440], r7               |       
+~  2958 stxdw [r10-2448], r9               |  2928 stxdw [r10-2416], r0
+   2960 ldxdw r1, [r8+32]                  |  2930 ldxdw r1, [r8+32]
+   2968 ldxdw r3, [r1+8]                   |  2938 ldxdw r3, [r1+8]
+   2970 stxdw [r10-2368], r3               |  2940 stxdw [r10-2368], r3
+   2978 ldxdw r3, [r3+0]                   |  2948 ldxdw r3, [r3+0]
+   2980 add64 r3, 1                        |  2950 add64 r3, 1
+   2988 mov64 r4, 1                        |  2958 mov64 r4, 1
+   2990 jeq r3, 0, +1                      |  2960 jeq r3, 0, +1
+   2998 mov64 r4, 0                        |  2968 mov64 r4, 0
+~  29a0 ldxb r9, [r2+42]                   |  2970 ldxb r0, [r2+42]
+~  29a8 stxdw [r10-2624], r9               |  2978 stxdw [r10-2624], r0
+~  29b0 ldxb r9, [r2+41]                   |  2980 ldxb r0, [r2+41]
+~  29b8 stxdw [r10-2616], r9               |  2988 stxdw [r10-2616], r0
+~  29c0 ldxb r9, [r2+40]                   |  2990 ldxb r0, [r2+40]
+~  29c8 stxdw [r10-2608], r9               |  2998 stxdw [r10-2608], r0
+~  29d0 ldxdw r9, [r2+32]                  |  29a0 ldxdw r0, [r2+32]
+~  29d8 stxdw [r10-2600], r9               |  29a8 stxdw [r10-2600], r0
+   29e0 ldxdw r2, [r2+24]                  |  29b0 ldxdw r2, [r2+24]
+   29e8 stxdw [r10-2592], r2               |  29b8 stxdw [r10-2592], r2
+~  29f0 ldxdw r7, [r1+0]                   |  29c0 ldxdw r0, [r1+0]
+   29f8 ldxdw r2, [r10-2368]               |  29c8 ldxdw r2, [r10-2368]

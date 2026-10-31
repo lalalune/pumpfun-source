@@ -1,0 +1,11 @@
+aligned L2 pairs 2619 in [0x0,0x40000000), untagged 307; vregs with register votes 1042, with misses 203, total misses 438
+{"round": 0, "full": 1, "name": "", "ratio": 0.67226, "slots": 3123, "bytes": 27400, "eq_main": true, "L1": 0.70252, "L2": 0.7846}
+{"round": 1, "force": "1687=r6", "full": 1, "name": "cfr6_1687", "ratio": 0.67496, "slots": 3123, "bytes": 27400, "eq_main": false, "L1": 0.70521, "L2": 0.7852}
+{"round": 2, "force": "1687=r6,1674=r7", "full": 1, "name": "cfr6_1687+cfr7_1674", "ratio": 0.67705, "slots": 3116, "bytes": 27400, "eq_main": false, "L1": 0.70731, "L2": 0.7852}
+{"round": 3, "force": "1687=r6,1674=r7,1911=r6", "full": 1, "name": "cfr6_1687+cfr7_1674+cfr6_1911", "ratio": 0.67825, "slots": 3116, "bytes": 27400, "eq_main": false, "L1": 0.71001, "L2": 0.7852}
+{"round": 4, "force": "1687=r6,1674=r7,1911=r6,1622=r3", "full": 1, "name": "cfr6_1687+cfr7_1674+cfr6_1911+cfr3_1622", "ratio": 0.67915, "slots": 3116, "bytes": 27400, "eq_main": false, "L1": 0.7109, "L2": 0.7852}
+{"round": 5, "force": "1687=r6,1674=r7,1911=r6,1622=r3,2077=r4", "full": 1, "name": "cfr6_1687+cfr7_1674+cfr6_1911+cfr3_1622+cfr4_2077", "ratio": 0.67945, "slots": 3116, "bytes": 27400, "eq_main": false, "L1": 0.7112, "L2": 0.7852}
+{"round": 6, "force": "1687=r6,1674=r7,1911=r6,1622=r3,2077=r4,1711=r4", "full": 1, "name": "cfr6_1687+cfr7_1674+cfr6_1911+cfr3_1622+cfr4_2077+cfr4_1711", "ratio": 0.67975, "slots": 3116, "bytes": 27400, "eq_main": false, "L1": 0.7112, "L2": 0.7852}
+{"round": 7, "force": "1687=r6,1674=r7,1911=r6,1622=r3,2077=r4,1711=r4,1314=r7", "full": 1, "name": "cfr6_1687+cfr7_1674+cfr6_1911+cfr3_1622+cfr4_2077+cfr4_1711+cfr7_1314", "ratio": 0.68005, "slots": 3116, "bytes": 27400, "eq_main": false, "L1": 0.7115, "L2": 0.7852}
+{"round": 8, "force": "1687=r6,1674=r7,1911=r6,1622=r3,2077=r4,1711=r4,1314=r7,2256=r2", "full": 1, "name": "cfr6_1687+cfr7_1674+cfr6_1911+cfr3_1622+cfr4_2077+cfr4_1711+cfr7_1314+cfr2_2256", "ratio": 0.68035, "slots": 3116, "bytes": 27400, "eq_main": false, "L1": 0.7121, "L2": 0.7849}
+no improvement

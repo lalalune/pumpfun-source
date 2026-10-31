@@ -1,0 +1,94 @@
+{"round": 0, "full": 1, "name": "", "ratio": 0.6484, "slots": null, "bytes": 27416, "eq_main": false, "L1": 0.68673, "L2": 0.78047}
+{"round": 1, "force": "1823=r9", "full": 1, "name": "cfr9_1823", "ratio": 0.65339, "slots": 3115, "bytes": 27400, "eq_main": false, "L1": 0.68364, "L2": 0.77741}
+{"round": 2, "force": "1823=r9,1842=r5", "full": 1, "name": "cfr9_1823+cfr5_1842", "ratio": 0.66357, "slots": 3117, "bytes": 27400, "eq_main": false, "L1": 0.68304, "L2": 0.77771}
+{"round": 3, "force": "1823=r9,1842=r5,1687=r6", "full": 1, "name": "cfr9_1823+cfr5_1842+cfr6_1687", "ratio": 0.66627, "slots": 3117, "bytes": 27400, "eq_main": false, "L1": 0.68574, "L2": 0.77831}
+{"round": 4, "force": "1823=r9,1842=r5,1687=r6,1674=r7", "full": 1, "name": "cfr9_1823+cfr5_1842+cfr6_1687+cfr7_1674", "ratio": 0.66836, "slots": 3110, "bytes": 27400, "eq_main": false, "L1": 0.68784, "L2": 0.77831}
+{"round": 5, "force": "1823=r9,1842=r5,1687=r6,1674=r7,1622=r3", "full": 1, "name": "cfr9_1823+cfr5_1842+cfr6_1687+cfr7_1674+cfr3_1622", "ratio": 0.66926, "slots": 3110, "bytes": 27400, "eq_main": false, "L1": 0.68874, "L2": 0.77831}
+{"round": 6, "force": "1823=r9,1842=r5,1687=r6,1674=r7,1622=r3,1795=r5", "full": 1, "name": "cfr9_1823+cfr5_1842+cfr6_1687+cfr7_1674+cfr3_1622+cfr5_1795", "ratio": 0.67016, "slots": 3114, "bytes": 27400, "eq_main": false, "L1": 0.69023, "L2": 0.78041}
+{"round": 7, "force": "1823=r9,1842=r5,1687=r6,1674=r7,1622=r3,1795=r5,2259=r2", "full": 1, "name": "cfr9_1823+cfr5_1842+cfr6_1687+cfr7_1674+cfr3_1622+cfr5_1795+cfr2_2259", "ratio": 0.67046, "slots": 3114, "bytes": 27400, "eq_main": false, "L1": 0.69083, "L2": 0.78011}
+Process SpawnPoolWorker-2:
+Traceback (most recent call last):
+  File "/opt/miniconda3/lib/python3.13/multiprocessing/pool.py", line 131, in worker
+    put((job, i, result))
+    ~~~^^^^^^^^^^^^^^^^^^
+  File "/opt/miniconda3/lib/python3.13/multiprocessing/queues.py", line 397, in put
+    self._writer.send_bytes(obj)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/opt/miniconda3/lib/python3.13/multiprocessing/connection.py", line 200, in send_bytes
+    self._send_bytes(m[offset:offset + size])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/miniconda3/lib/python3.13/multiprocessing/connection.py", line 427, in _send_bytes
+    self._send(header + buf)
+    ~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/opt/miniconda3/lib/python3.13/multiprocessing/connection.py", line 384, in _send
+    n = write(self._handle, buf)
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/miniconda3/lib/python3.13/multiprocessing/process.py", line 313, in _bootstrap
+    self.run()
+    ~~~~~~~~^^
+  File "/opt/miniconda3/lib/python3.13/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/miniconda3/lib/python3.13/multiprocessing/pool.py", line 136, in worker
+    put((job, i, (False, wrapped)))
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/miniconda3/lib/python3.13/multiprocessing/queues.py", line 397, in put
+    self._writer.send_bytes(obj)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/opt/miniconda3/lib/python3.13/multiprocessing/connection.py", line 200, in send_bytes
+    self._send_bytes(m[offset:offset + size])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/miniconda3/lib/python3.13/multiprocessing/connection.py", line 427, in _send_bytes
+    self._send(header + buf)
+    ~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/opt/miniconda3/lib/python3.13/multiprocessing/connection.py", line 384, in _send
+    n = write(self._handle, buf)
+BrokenPipeError: [Errno 32] Broken pipe
+Process SpawnPoolWorker-1:
+Traceback (most recent call last):
+  File "/opt/miniconda3/lib/python3.13/multiprocessing/pool.py", line 131, in worker
+    put((job, i, result))
+    ~~~^^^^^^^^^^^^^^^^^^
+  File "/opt/miniconda3/lib/python3.13/multiprocessing/queues.py", line 397, in put
+    self._writer.send_bytes(obj)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/opt/miniconda3/lib/python3.13/multiprocessing/connection.py", line 200, in send_bytes
+    self._send_bytes(m[offset:offset + size])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/miniconda3/lib/python3.13/multiprocessing/connection.py", line 427, in _send_bytes
+    self._send(header + buf)
+    ~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/opt/miniconda3/lib/python3.13/multiprocessing/connection.py", line 384, in _send
+    n = write(self._handle, buf)
+BrokenPipeError: [Errno 32] Broken pipe
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/miniconda3/lib/python3.13/multiprocessing/process.py", line 313, in _bootstrap
+    self.run()
+    ~~~~~~~~^^
+  File "/opt/miniconda3/lib/python3.13/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/miniconda3/lib/python3.13/multiprocessing/pool.py", line 136, in worker
+    put((job, i, (False, wrapped)))
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/miniconda3/lib/python3.13/multiprocessing/queues.py", line 397, in put
+    self._writer.send_bytes(obj)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/opt/miniconda3/lib/python3.13/multiprocessing/connection.py", line 200, in send_bytes
+    self._send_bytes(m[offset:offset + size])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/miniconda3/lib/python3.13/multiprocessing/connection.py", line 427, in _send_bytes
+    self._send(header + buf)
+    ~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/opt/miniconda3/lib/python3.13/multiprocessing/connection.py", line 384, in _send
+    n = write(self._handle, buf)
+BrokenPipeError: [Errno 32] Broken pipe
+/opt/miniconda3/lib/python3.13/multiprocessing/resource_tracker.py:277: UserWarning: resource_tracker: There appear to be 6 leaked semaphore objects to clean up at shutdown: {'/mp-weg9y8lm', '/mp-rmv6d0u5', '/mp-2tpsvgey', '/mp-1c0vgu2w', '/mp-jpmg6_ja', '/mp-02313_m4'}
+  warnings.warn(
