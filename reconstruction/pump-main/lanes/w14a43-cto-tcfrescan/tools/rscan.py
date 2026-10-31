@@ -49,5 +49,7 @@ for X in clones:
     xi,G,f=info(X); fs=sorted(f)
     J+=[[(X,a)] for a in fs]
     if os.environ.get('PAIRS'): J+=[[(X,a),(X,b)] for a,b in itertools.combinations(fs,2)]
+if os.environ.get('JOBS'):
+    J=[[tuple(t.rsplit('@',1)) for t in l.strip().split('+')] for l in open(os.environ['JOBS']) if l.strip()]
 with ThreadPoolExecutor(NT) as ex, open(out,'w') as fo:
     for r in ex.map(run,J): fo.write(json.dumps(r)+'\n'); fo.flush()
