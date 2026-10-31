@@ -1,0 +1,22 @@
+{
+  "schema": "s5-borrowed-selection-public-packet-v1",
+  "files": {
+    "NOTES.md": {
+      "bytes": 8532,
+      "sha256": "5ff983e22ea4855db41f2eab90fb34dbd21837dce05f920916732fa6f5223ed1"
+    },
+    "SOURCE.patch": {
+      "bytes": 5316,
+      "sha256": "46c8d7146e8fa6c37862419e67349d13387f39c2df99cafbb1ae075dc93ca631"
+    },
+    "inputs.json": {
+      "bytes": 3280,
+      "sha256": "9a8eb190cdd380acf7631952d7c9877bca5d55be946ab86ed3e54ab5699470a5"
+    },
+    "verify.py": {
+      "bytes": 17716,
+      "sha256": "d8bcd02d0905b92f59c8369fd4e8f08c11d18034c348363ef300ebdaa1265f53"
+    }
+  },
+  "role": "Bounded actual raw-prefix evidence and rejected source counterexample; no program-source promotion or progress-table change."
+}

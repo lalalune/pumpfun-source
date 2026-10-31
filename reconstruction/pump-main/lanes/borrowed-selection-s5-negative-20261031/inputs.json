@@ -1,0 +1,57 @@
+{
+  "schema": "s5-borrowed-selected-key-negative-replay-v1",
+  "source": "bb4a6fcaca179a8a49882a6acac3b503a1206882",
+  "sourceTree": "f981d5c90d5137be84c5f5d2438cf96dd3af5f17",
+  "parent": "d4219123cf0fbbefcfc7e77450efeda6684b812b",
+  "operational": "e3d97702e33feb979b94bd7572ec1c9c5468bb55",
+  "referenceOperational": "5b09cc4f3afb11eaba2479700ac67411ce976750",
+  "run": 41212621615,
+  "artifact": 13047416013,
+  "inputs": {
+    "nativeZip": {
+      "bytes": 2903978,
+      "sha256": "3f2e92eac544dfcef2592d9a9904d8eac1771a9e55aa438efda25311aedc3d35",
+      "url": "https://raw.githubusercontent.com/shawkkkkk/pumpfun-source/f526e4b4155e638da9826ff9b7cd31334bfe1f0a/reconstruction/pump-main/lanes/source-s1-native-retained-20261031/s5-borrowed-selection-raw.zip"
+    },
+    "capsule": {
+      "bytes": 998660,
+      "sha256": "404f0b732df5dcf30be68bcaddb37e89de2d20664280713bc35df8c7414aede5",
+      "url": "https://raw.githubusercontent.com/shawkkkkk/pumpfun-source/f526e4b4155e638da9826ff9b7cd31334bfe1f0a/reconstruction/pump-main/lanes/source-s1-native-retained-20261031/s5-borrowed-selection-admission.tar.xz"
+    },
+    "controlZip": {
+      "bytes": 2911025,
+      "sha256": "6ce20ac22fa9d7d2852d0e2c47d129c5c72936a5664592bf1b17db0871ea73e7",
+      "url": "https://raw.githubusercontent.com/shawkkkkk/pumpfun-source/730b9ca0a3ea07aa3d2db0ae11967666b21dda6f/reconstruction/pump-main/lanes/source-s1-native-retained-20261031/d421-current-raw.zip"
+    },
+    "controlCapsule": {
+      "bytes": 968052,
+      "sha256": "34292f0e2e1302d5c9042cc8952fcede6af3dd79b5871e484199d124063af945",
+      "url": "https://raw.githubusercontent.com/shawkkkkk/pumpfun-source/730b9ca0a3ea07aa3d2db0ae11967666b21dda6f/reconstruction/pump-main/lanes/source-s1-native-retained-20261031/d421-current-admission.tar.xz"
+    }
+  },
+  "original": {
+    "path": "evidence/original/pump/deployed.so",
+    "bytes": 10485715,
+    "sha256": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
+    "bodySHA256": "6a7659fd34097683cbfdae56187f5f73a3ecae20e52ac06a3fd25837e4137a96"
+  },
+  "images": {
+    "unstripped.so": "1591191d1bf12e3710fd68619fef5d5171844f5f2b98154adcbbe8d393519e7b",
+    "candidate.so": "ccfd8fcb2b6bfd38d38f7283dfacbedc9912cac734488a575b99064c1902aa21"
+  },
+  "referenceImages": {
+    "unstripped.so": "e9df54086dcfc8ca1a4833d3577bc5092e3e23eae2c4492d52bdea661ba82a85",
+    "candidate.so": "bfd0b071d7169f2c5cb6fd0b3a2b2ae006e57c16869367f398c8f4ed94b70bb5"
+  },
+  "candidateCTO": {
+    "bodyBytes": 26936,
+    "bodySHA256": "48784a7d7d3cac788248a10084405330a589aceaded79ce5f55cd221614dc108",
+    "prefixSHA256": "6b238c4240f8d648e156171816fce5e354e7a5ae1270be7c78556fdeae2d2ba5"
+  },
+  "referenceCTO": {
+    "bodyBytes": 27400,
+    "bodySHA256": "14a4654f0e151edae32446955a7f71c86e7cf7fcf76d5e86ebf72ce8f14e17aa",
+    "prefixSHA256": "4a338a96c6fbc3022e95daec5b9860ba992635b8d5cb0ba3db984a02f7a67b62"
+  },
+  "premises": "Semantic role labels combine exact tested source/public valid Rust values with bound native field producers. All-call-return direct FP/register queries kill R0..R5 at calls and exclude opaque indirect aliases. No original private Result/reference ABI/lifetime follows. Entry CtoState creator snapshot and final target slot are distinct objects."
+}
