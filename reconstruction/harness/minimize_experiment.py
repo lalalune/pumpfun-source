@@ -7,7 +7,7 @@ from pathlib import Path
 import shutil
 import subprocess
 import tempfile
-from experiment_runner import run_trial, atomic_json, digest, stage_ignore, manifest
+from experiment_runner import run_trial, atomic_json, digest, stage_ignore, manifest, separate_trees
 
 
 def minimize(count, evaluate, budget, wanted='pass'):
@@ -59,8 +59,9 @@ def main():
     args = parser.parse_args()
     if args.max_trials < 1:
         parser.error('--max-trials must be positive')
-    args.source = args.source.resolve(); args.out = args.out.resolve()
-    if args.source == args.out or args.source in args.out.parents or args.out in args.source.parents:
+    try:
+        args.source, args.out = separate_trees(args.source, args.out)
+    except ValueError:
         parser.error('source and output must be separate trees')
     source_identity = manifest(args.source)
     paths = [Path(p).resolve() for p in json.loads(args.patches.read_text(encoding='utf-8'))]

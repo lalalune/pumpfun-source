@@ -341,6 +341,7 @@ jobs:
               python -B reconstruction/harness/test_minimize_initial_report.py
               python -B reconstruction/harness/test_minimize_oracle_encoding.py
               python -B reconstruction/harness/test_minimize_patch_list_encoding.py
+              python -B reconstruction/harness/test_minimize_physical_overlap.py
               python -B reconstruction/harness/test_treediff.py
               python -B reconstruction/harness/test_inventory_fidelity.py
               python -B reconstruction/harness/test_attempt_applicability.py
