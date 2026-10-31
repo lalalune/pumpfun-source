@@ -1,0 +1,29 @@
+{
+  "lane": "w14a137-cto-tcfrentlate2",
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs line 661, TCF CPI)",
+  "base": {"main": "ebe5387e1", "ratio": 0.67316, "slots_diff": 3123, "bytes": 27400, "M": 2247, "normalized": 1034, "raw": 1034},
+  "best": {"ratio": 0.67316, "slots_diff": 3123, "bytes": 27400, "note": "no form beats main; program-first CpiContext literals are byte-identical to main"},
+  "ir_lead_reproduced": {"edit": "post-opt: rent_epoch load %_60.i144 after lifetime.start(_64.sroa.20.sroa.11)", "ratio": 0.67436, "M": 2251, "slots": 3125,
+    "mechanism": "spill-slot rotation of 5 values in the TCF head block (program is_signer/is_writable/executable/rent_epoch + payer key); lead matches orig slots for is_signer -0x9d8, is_writable -0x9d0, payer key -0x9e0"},
+  "attempts": 27,
+  "ledger_keys": "0x22a10-w14-ebe5387-tcfrentlate2-*",
+  "rejected_mechanisms": [
+    "accounts-first CpiContext literal (af2, w133-lit1): 0.58412 @27488",
+    "let accounts=ACCTS before CpiContext::new (w133-acc1/acc2/acc_fru1): 0.571-0.581",
+    "deferred init let accs; (def4/defx/defrl/def1): 0.594-0.606 @27264-27304",
+    "tuple temps (tup/tup2): 0.59589 @27264",
+    "bound ctx (ctxb): 0.33823 frame shift",
+    "bound program (w133-bindp): 0.66817 @27368",
+    "FRU ..*x program literals (w133-fru1/fru2, fru3, fru4): 0.632-0.670",
+    "rent_epoch moved earlier (rkey/rown/rfirst/rmid): 0.597-0.614"
+  ],
+  "unresolved_residuals": [
+    "TCF rent-late lead +0.0012 (M +4) needs a chain node between the program flag loads and the rent load in one block with _64 still a call-arg temp; Rust left-to-right operand evaluation gives no source form",
+    "w14a114 IR-only composite bound 0.67496 (rent-late + drop-glue pair + bb84.i138) remains source-less"
+  ],
+  "next_ideas": [
+    "Reach the same spill-slot rotation from the RA side: price is_signer/is_writable/payer-key slot order with w14a84 RAPRIO llc (cclimb.sh) to see if any source-reachable vreg priority change (e.g. w14a117 1684/1671 levers) yields the slot match without the load move",
+    "Payer to_account_info key-load timing (payer key spilled first) via a payer literal is RA-capped per w14a105; only revisit with a size repay from sizeknobs-cto.json"
+  ],
+  "exhausted": true
+}
