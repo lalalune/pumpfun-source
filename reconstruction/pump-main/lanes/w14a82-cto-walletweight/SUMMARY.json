@@ -1,0 +1,36 @@
+{
+  "lane": "w14a82-cto-walletweight",
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27400 B",
+  "base": "main 0d04cf460 (0.66507 / 3228)",
+  "landed": [{"pr": 3409, "merge_commit": "95a64ba75", "before": {"ratio": 0.66507, "slots_diff": 3228, "bytes": 27400}, "after": {"ratio": 0.66986, "slots_diff": 3204, "bytes": 27400}, "normalized": 1034, "raw": 1034, "losses": [], "differential": "363/0", "unstripped_sha": "8a32bd24917d4989", "change": "curve.is_holder_reward and AdminCtoEvent.is_holder_reward read the holder Option<bool> argument (holder.unwrap_or(false)); the tuple's computed holder bool is unused (_holder)"}],
+  "best": {"ratio": 0.66986, "slots_diff": 3204, "bytes": 27400},
+  "findings": [
+    "Wallet spill-weight order (main 0d04cf4): flag remainder 3.7e-06 (r9) >> wallet locals 1e-8..1e-7 (do_collect 4.6e-08 r6, clone buffer 7.4e-08, coin_present 1.9e-08, do_coin 1.5e-08 spilled, tag piece 1.0e-08); no wallet use edit can move a wallet value past the flag",
+    "Wallet registers are set by greedy queue order (hints, then global size, then local position), not spill weight: clone buffer (hint r1) step 24/323 -> r7, %0 region split -> r8 clone-run piece, flag remainder evicts tag pieces -> r9, do_coin dequeued last",
+    "Payload word 1 (ptr half of the shared Err-return phi, MIR %1659) is r9 across the whole original (20 orig r9 / ours r8 substitutions); IR hint oracle pb9 vs pb8 control +56 frame-masked tokens, wallet reg diffs 53 -> 29; holds on 95a64ba (+54)",
+    "Word 1 lands in r8 because the new pointer %390 (4496 slots) is dequeued 112 slots ahead of word 1 (4384) and evicts %0 from r8; links the wallet RA to the entry-copy-of-new residual",
+    "Late uses that read an argument instead of a computed head bool change the head RA cascade: holder at the curve store + event gives +0.0048 (landed); IR (h&-3)!=0 recompute would be +0.0022 more at +16 B but GVN merges every source spelling"
+  ],
+  "rejected": [
+    "k1/kw/cpm/g1 flag/coin_present/gate IR bounds and combos (F 0.668-0.754 < main 0.755)",
+    "new-pointer hoist oracles nh 0.48173, nf 0.21532",
+    "wallet single branch weights (best +0.0003 positional luck)",
+    "zero-byte size oracles for word 1 (sz8 r8, sz16 r6)",
+    "MIR -stop-before/-start-before greedy round trip not exact",
+    "holder from arg at only one site (0.602-0.607 @27408); ==Some(true) folds",
+    "event re-read q7 (-16 B) + 43 knobs (best 0.66806 @27400)",
+    "cashback re-derived at store (0.54-0.58), gates from args (outlined / 0.51), tuple hopt.unwrap_or (0.48-0.66347), late re-reads (0.63-0.66)",
+    "43 size knobs alone on 95a64ba and -8/+8 pairs (none above main)"
+  ],
+  "unresolved": [
+    "payload word 1 r9 (needs an assignment-order change: word 1 dequeued before %0 is evicted from r8 with r9 the cheapest eviction)",
+    "flag in a CSR over the wallet (r9 on main, r8 under pb9); do_coin spilled",
+    "m2v2 (h&-3)!=0 holder recompute +0.0022 at +16 B, no non-GVN spelling"
+  ],
+  "next_ideas": [
+    "Entry copy of new (orig 0x4d8-0x538) paired with the pb9 check (regmap.py r9->r8 should vanish)",
+    "Other late-use-from-argument / computed-value swaps in the head (fee tag/value, new) screened with wtl.py on the head cascade steps 311-433",
+    "With word 1 in r9, find what in the original keeps the flag out of r6-r8 over [bb26,bb35] (wtl.py <log> 17000 34000 %60)"
+  ],
+  "ledger": "approach walletweight, keys 0x22a10-w14-0d04cf4-walletweight-* and 0x22a10-w14-95a64ba-walletweight-*"
+}

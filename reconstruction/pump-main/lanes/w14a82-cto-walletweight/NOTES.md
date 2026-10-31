@@ -144,7 +144,23 @@ Source forms (`edits/src/`, raw-IR capture + rx, then measure.sh):
 
 r5 is landed. The tuple's `holder` is renamed `_holder` because nothing reads it now, so the shadowed `holder` is the argument again.
 
-## 6. Next ideas
+## 6. Post-landing screens on main 95a64ba (#3409 landed: 0.66986 / 3,204)
+
+Raw-IR capture + rx oracle (`eq_main: true` on the unedited capture), keys `0x22a10-w14-95a64ba-walletweight-*`.
+
+| family | forms | best |
+| --- | --- | --- |
+| holder spellings at store + event | `if let Some(true)=holder{..}`, `is_some_and`, `map_or` (= main tokens, `h&1`); `holder==Some(true)` | folds to the pre-#3409 main (0.66507): GVN merges it with the entry `(h&-3)!=0` |
+| IR: other recomputes of the holder byte | `h==1` (m2v1), `(h&-3)!=0` (m2v2), per-site splits (ea/eb/ec) | m2v2 0.67206 @27,416 (M 2,244 vs 2,236); has no spelling that GVN does not merge |
+| event re-reads `a.bonding_curve.is_holder_reward` (q7, -16 B) | q7 + each of the 43 applicable size knobs; q7 + m2v2 | 0.66806 @27,400 (g_w_clock_local); q7 alone 0.66916 @27,384 |
+| cashback re-derived at its store (from the arg and the curve field) | 4 source forms, 3 IR forms | 0.54751 @27,120 (source), 0.57695 (IR): the two long-lived cashback operands (%465/%466) are original-like |
+| gates re-derived from args | sweep gate from `holder.unwrap_or(false)` + `sharing_update`/`shared`; collect_old from `shared` + curve fields | 0.51741 @27,520, or sweep/wallet outlined |
+| tuple uses `hopt.unwrap_or(false)` | shared-arm holder test, cashback, both | t1 0.66347 @27,336 |
+| late re-reads | event `mint:a.mint.key()`, pargs holder from the arg | 0.66128 / 0.63123 |
+| size knobs alone, and -8/+8 pairs | 43 knobs; 4 fee-knob x `ev_cb_local` pairs | 14 knobs give main tokens; best other 0.66956; pairs 0.66567-0.66687 |
+| pw9 lead recheck | pb9 vs pb8 | +54 frame-masked tokens, so the lead holds |
+
+## 7. Next ideas
 
 0. On top of r5: r7 (event re-reads the curve field) is -16 B at 0.66916, so pair it with a +16 B knob. hr (the `(h&-3)!=0` recompute)
    is +0.0023 over r5 at +8 B in IR, but it needs a source spelling that GVN does not merge with the entry compare.

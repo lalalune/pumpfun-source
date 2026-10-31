@@ -1,0 +1,1 @@
+EDITS=[('  curve.is_holder_reward=holder.unwrap_or(false);\n', '  curve.is_holder_reward=if let Some(true)=holder{true}else{false};\n'), ('is_holder_reward:holder.unwrap_or(false),', 'is_holder_reward:if let Some(true)=holder{true}else{false},')]
