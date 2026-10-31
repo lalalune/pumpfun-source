@@ -313,6 +313,7 @@ jobs:
               python -O -B tests/test_function_body_file_ranges.py
               python -B reconstruction/harness/test_treediff_line_boundaries.py
               python -B reconstruction/harness/test_source_input_directories.py
+              python -B reconstruction/harness/test_source_input_execute_bits.py
               python -B reconstruction/harness/test_score_inputs.py
               python -B reconstruction/harness/test_score_empty_baseline.py
               python -B reconstruction/harness/test_score_baseline_option_conflict.py

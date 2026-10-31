@@ -74,11 +74,12 @@ def snapshot(root):
             if identity(before) != identity(after):
                 raise ValueError(f'source input changed while hashing: {path.relative_to(root)}')
             files.append({'path': path.relative_to(root).as_posix(), 'bytes': before.st_size,
-                          'executable': bool(before.st_mode & 0o111), 'sha256': digest.hexdigest()})
+                          'executable': bool(before.st_mode & 0o111),
+                          'execute_bits': before.st_mode & 0o111, 'sha256': digest.hexdigest()})
     files.sort(key=lambda row: row['path'])
     inputs = {'files': files, 'directories': sorted(directories)}
     encoded = json.dumps(inputs, sort_keys=True, separators=(',', ':'), ensure_ascii=False).encode('utf-8')
-    return {'schema': 'pump-source-inputs-v2', 'sha256': hashlib.sha256(encoded).hexdigest(), **inputs}
+    return {'schema': 'pump-source-inputs-v3', 'sha256': hashlib.sha256(encoded).hexdigest(), **inputs}
 
 
 def assert_unchanged(root, expected):
