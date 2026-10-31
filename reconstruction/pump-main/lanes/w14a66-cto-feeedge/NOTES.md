@@ -5,7 +5,7 @@ Continues w14a54-cto-feetag (#3375, section 5 idea 1), w14a49 (#3347), w14a36 (#
 Bases: main 2e1379d (0.65728 / 3,192), then 304b03a (0.65788 / 3,223). Ledger approach `feeedge`,
 keys `0x22a10-w14-{2e1379d,304b03a}-feeedge-*`.
 
-## Result (main 304b03a)
+## Result (main 304b03a): landed as #3386 (merge 39eb377)
 
 | | ratio | slots | bytes | normalized / raw | errseq (lines 7-10) |
 | --- | ---: | ---: | ---: | --- | --- |
@@ -99,3 +99,51 @@ w14a52/w14a54/w13a05 priced each at -0.01 to -0.3.
 - `fx.py`: execute-scoped raw-IR edits.
 - `dis.py`: a minimal BPF disassembler for fn.bin diffs.
 - `batch.sh`: 2-worker queue.
+
+## 4. After landing (#3386, main 39eb377: 0.66477 / 3,230 @27,400)
+
+Branch `swarm/w14a66-cto-feeedge-2`. The base round-trips through the oracle (`eq_main` true, errseq 330 338 334 410).
+
+**Critical-edge map** (`tools/edges.py` + `tools/esplit.py` + `tools/emap.sh`). Each of the 66 critical edges in
+execute (a predecessor ending in a conditional branch, a successor with several predecessors) gets its own empty-asm
+block, and `px.py` scores the result. No other edge is worth much: the best is +0.0003 at 0 B (`bb13.i -> bb27.i81`), and
+a real instruction there would cost 8 B more. The fee-Some exit was the only edge with a large block-placement payoff.
+
+| pred -> succ | ratio | bytes | errseq |
+| --- | ---: | ---: | --- |
+| `bb13.i` -> `bb27.i81` | 0.66507 | 27,400 | 330 338 334 410 |
+| `"_ZN4core3ptr84drop_in_place$LT$alloc..` -> `"_ZN4core3ptr74drop_in_place$LT$$u5b$..` | 0.66497 | 27,408 | 330 338 334 410 |
+| `bb130` -> `"_ZN4core3ptr84drop_in_place$LT$alloc..` | 0.66497 | 27,408 | 330 338 334 410 |
+| `bb7.i` -> `bb22.i` | 0.66477 | 27,400 | 330 338 334 410 |
+| `bb38.i` -> `bb39.i` | 0.66477 | 27,400 | 330 338 334 410 |
+| `bb94.i` -> `bb48.i` | 0.66477 | 27,400 | 330 338 334 410 |
+| `bb52.i` -> `bb54.i` | 0.66477 | 27,400 | 330 338 334 410 |
+| `bb26.i` -> `bb43.i` | 0.66477 | 27,400 | 330 338 334 410 |
+| `bb44` -> `bb65` | 0.60057 | 27,408 | 330 338 334 410 |
+| `_ZN5alloc2rc10RcInnerPtr10inc_strong1..` -> `bb65` | 0.48767 | 27,504 | 330 338 334 410 |
+| `_ZN5alloc2rc10RcInnerPtr10inc_strong1..` -> `bb38` | 0.48669 | 27,480 | 330 338 334 410 |
+| `bb89` -> `bb38` | 0.48647 | 27,504 | 330 338 334 410 |
+
+**Re-screens with the edge block present** (all below or equal to main):
+
+- The 24 w14a52 prep410 bridge spellings that still apply:
+  - `ok_ord_stc`/`ok_ord_cst` 0.66297, `tp` 0.66397 @27,392, `r_ne` 0.64151 @27,416.
+  - `c_after410`/`c_afterprep`/`p_beforeok` 0.558 @27,544, `p_inblk` 0.3988, `ts_pa` 0.54687.
+  - The rest are token-identical.
+- Post-tree target copy (`tools/postjoin.py`, w14a52): `pj` 0.36853 @27,480, `pjk` 0.6541 @27,464.
+- h7 (`tools/hoist76.py seven`, 7-byte target piece written in validate's arms): 0.66517 @27,368 (+0.0004 at -32 B).
+  `both` 0.61458.
+- Late target in validate (`Ok(if holder{*holder_key}else{new.unwrap_or_default()})` and 3 other spellings, so no
+  validate target local lives across the fee checks): 0.28-0.52 on 0d04cf4 (main 0.66507).
+- Edge-block filler on 0d04cf4 (`sharing` u8, `holder_key` u64, `holder_key` byte 31): all tie main exactly.
+- Gene-pool screen on 39eb377 (54 of 297 genes from genes47, sizeknobs, knob8, s11 and w14a53; stopped when main moved):
+  nothing above main. Closest: `g_ev_ts_map` (tie), `g_x_co_then` 0.66457 @27,392.
+
+## 5. Next ideas
+
+- Replace the volatile-read placeholder with the original's contents. That means the per-exit copies of the join
+  (2-block JumpThreading of the holder test). It needs, at the same time, no validate target alloca in the inlined
+  return block (cost 6 or less at JT1) and the target copy after the tree.
+- With the block in place, the remaining differences in the bridge are w14a52's #5-#9 (holder test polarity and
+  `and 0xff`, sharing payload read through `&(new,)`, and the slot and register naming).
+

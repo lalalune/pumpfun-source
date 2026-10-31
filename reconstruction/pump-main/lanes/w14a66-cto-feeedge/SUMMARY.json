@@ -1,0 +1,55 @@
+{
+ "lane": "w14a66-cto-feeedge",
+ "target": "0x22a10 admin_cto::execute",
+ "pinned_bytes": 27400,
+ "landed": [
+  {
+   "pr": 3386,
+   "merge": "39eb377aa",
+   "before": {
+    "main": "304b03a",
+    "ratio": 0.65788,
+    "slots": 3223
+   },
+   "after": {
+    "ratio": 0.66477,
+    "slots": 3230,
+    "bytes": 27400
+   },
+   "change": "volatile u8 read through holder_key at the end of validate's fee-Some arm (IR block on the fee-Some exit edge; errseq 330 338 334 410) + curve fee if-let (-8 B repay)"
+  }
+ ],
+ "best": {
+  "ratio": 0.66477,
+  "slots": 3230,
+  "bytes": 27400,
+  "normalized": 1034,
+  "raw": 1034,
+  "differential": "363/363"
+ },
+ "mechanism": "BPF analyzeBranch cannot split the fee-Some exit edge, so the block must be in IR with a real instruction; the original's version is the per-exit tail copy of the join made by maybeThreadThroughTwoBasicBlocks on the holder test, blocked here because the join costs 11 to 40+ (threshold 6) at JT time",
+ "rejected": [
+  "black_box/compiler_fence/read_volatile of allocas in the fee-Some arm",
+  "match/if-let instead of ? on validate (validate duplicated, not inlined)",
+  "fee None early return (let-else etc.)",
+  "branch weights on 334/338 tests",
+  "raw-IR ? chain collapse (token-identical)",
+  "raw-IR target copy sunk into tree arms (0.557) and with JT threshold 8 (0.435)",
+  "post-opt JT (0.643)",
+  "late target materialisation in validate (0.28-0.52)",
+  "w14a52 prep410 spellings re-screened (24)",
+  "postjoin pj/pjk",
+  "critical-edge empty-block map (best +0.0003)",
+  "partial gene-pool screen (54 genes)"
+ ],
+ "unresolved": [
+  "placeholder volatile read instead of the original's spill copies + r7=1 fee flag",
+  "per-exit join copies (fee-None holder copy falls straight into the shared&&holder arm)",
+  "pre-tree target copy (original copies after the tree)"
+ ],
+ "next_ideas": [
+  "make validate's inlined return block cost <= 6 at JT1 (no target alloca lifetimes/memcpys) together with the post-tree target copy, so LLVM 2-block-threads the holder test and the placeholder can go",
+  "with the block in place, re-screen w14a52 #5-#9 bridge differences"
+ ],
+ "ledger_keys": "0x22a10-w14-{2e1379d,304b03a,39eb377,0d04cf4}-feeedge-*"
+}
