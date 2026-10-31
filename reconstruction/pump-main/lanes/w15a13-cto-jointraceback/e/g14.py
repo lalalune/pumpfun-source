@@ -1,0 +1,2 @@
+EDITS=[('let sk=a.sharing_config.key();let mut target=validate(', 'let sk=a.sharing_config.key();let creator=st.creator;let mut target=validate('), ('sharing_update=Some(args.0);target=a.bonding_curve.creator;', 'sharing_update=Some(args.0);target=creator;'), ('(!st.holder_reward&&st.creator!=Pubkey::default(),true)', '(!st.holder_reward&&creator!=Pubkey::default(),true)')]
+HYP='g1 + the non-shared arm tests the creator local (st.creator no longer escapes to the memcmp there)'
