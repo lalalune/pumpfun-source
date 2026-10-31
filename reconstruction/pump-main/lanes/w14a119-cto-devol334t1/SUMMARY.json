@@ -1,0 +1,43 @@
+{
+ "lane": "w14a119-cto-devol334t1",
+ "target": "0x22a10 admin_cto::execute",
+ "base": "ebe5387",
+ "main": {
+  "bytes": 27400,
+  "M": 2247,
+  "ratio": 0.67316,
+  "slots": 3123
+ },
+ "best_no_placeholder_at_pin": {
+  "genes": "vol334_back+I6s",
+  "bytes": 27400,
+  "M": 2244,
+  "ratio": 0.67226,
+  "slots": 3124,
+  "oracle": "raw-IR",
+  "landable": false
+ },
+ "best_tie_M": {
+  "genes": "vol334_back+I6",
+  "bytes": 27408,
+  "M": 2247
+ },
+ "attempts": 49,
+ "landed": false,
+ "rejected": [
+  "t1 with I6 (-40 B, -3 M)",
+  "-8 B partners for VI6: cu_match, ev_reset_early, sm_iflet, sh_iflet, lf_pr, ur9l, ur3o, amp_inline, r_inl, tl_nf_late (-5 to -27 M)",
+  "-16/-24 B partners: nf_back, ev_nf_inline, n_andthen, n_ensmatch, K_cu_typed, K_sh_prog_let (-8 to -13 M)",
+  "I6sn (-644 M)"
+ ],
+ "tools": [
+  "tools/delmap.py",
+  "tools/scr2.py",
+  "tools/genes_x.py"
+ ],
+ "next": [
+  "0-byte k_*/cb* genes on vol334_back+I6s for +3 M",
+  "validate/entry spelling killing VI6 0x608 mov",
+  "Hsw/Hsw6/I6sb/I6s+T1s unmeasured"
+ ]
+}
