@@ -1,0 +1,6 @@
+{"lane":"w14a131-cto-occrest3","target":"0x22a10","base":"ebe5387e1","result":"notes only, no gain",
+ "renumber":{"2077":2072,"1711":1706,"2256":2251},
+ "values":{"2072":"piece of head vreg %8, sites 0x428/0x4d0, free R0","1706":"!holder bool %465 piece at curve store 0x4a98, free R3","2251":"stage-6 spill temp of %347 in sharing clone run 0x46a8, free R1"},
+ "prices":{"main":[0.67316,27400],"1706=r4":[0.67376,27400],"2072=r4":[0.67356,27392],"2251=r2":[0.67206,27416],"1706+2072":[0.67416,27392],"1706+2251":[0.67266,27416],"2072+2251":[0.67246,27408],"all":[0.67306,27408]},
+ "best":{"ratio":0.67316,"slots":3123,"bytes":27400,"note":"main; no source candidate built"},
+ "next":["1706 only via cashback/!holder interval (owned by w14a124/w14a128)","2072/2251 only inside size-neutral composites with sizeknobs-cto.json"]}
