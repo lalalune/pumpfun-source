@@ -77,6 +77,7 @@ position in its block (1,830 on ebe5387). Exactly one class of moves gains:
   | d4: `key, lamports, data, rent_epoch, is_signer, is_writable, executable, owner` | 0.6483 | 27,424 |
   | e1: Rc clone between bools and rent (`owner, key, lamports, exec, writ, signer, data, rent`) | 0.65368 | 27,400 |
   | e2: `owner, key, exec, writ, signer, lamports, data, rent` | 0.58093 | 27,424 |
+  | r1 / r2: re-read `rent_epoch:a.pump_amm.rent_epoch` / `ctx.accounts.pump_amm.rent_epoch` | 0.63112 | 27,408 |
 
   On d1, sinking owner, rent and the flags after the lifetime in IR does not recover it (0.619 to 0.649). The TCF clone-run
   RA collapse decides that literal, and the load order does not. Main's literal form is the best of every spelling known.

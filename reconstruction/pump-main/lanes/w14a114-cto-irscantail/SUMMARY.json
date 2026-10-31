@@ -1,8 +1,50 @@
-{"lane":"w14a114-cto-irscantail","target":"0x22a10 admin_cto::execute","bases":["main 13fe453 (0.67256/3123 @27400, M 2245)","main ebe5387 (0.67316/3123 @27400, M 2247)"],
- "result":"notes only, no landing: outside validate the post-opt IR block order is a local optimum (single moves, far moves, if/else arm-region swaps), on both mains",
- "best_zero_loss":"main ebe5387 0.67316 / 3123 @27400 (no source change beat it)",
- "attempts":{"s1_13fe453_W8L3":4827,"s2_13fe453_far_9to30":4727,"a1_13fe453_armswap":229,"p1_13fe453_pairs":2415,"g2_greedy":"2 steps","s3_ebe5387_W8L3":4827,"a2_ebe5387_armswap":229,"i1_13fe453_insn_endpoints":1033,"i2_ebe5387_load_allpos":1830,"i3_ebe5387_insn_endpoints":1033,"source_captures":["tp08","tp09","d1","d4","e1","e2"]},
- "oracle_leads":{"rent_epoch_late_TCF_program_literal":"0.67436 M2251 @27400 on ebe5387 (IR-only: rent load after _64 lifetime.start)","drop_glue_pair_plus_bb84.i138":"+2 M (2249 on ebe5387), IR-only","composite_bound":"0.67496 M2253 @27400 on ebe5387"},
- "rejected_mechanisms":["non-validate IR block moves (all regions capped at main M)","if/else arm order outside validate","TCF program literal field orders tp08/tp09/d1/d4/e1/e2 (0.58-0.654; TCF clone-run RA collapse)"],
- "unresolved_residuals":["TCF program literal: original loads flags 2a/29/28, rent 0x20 and owner 0x18 after the payer lamports add (declaration-order IR); our source cannot place them after the accounts-struct StorageLive without the clone-run RA collapse","head short-circuit blocks are size-neutral +8/-8 B movers but have no source form"],
- "next_ideas":["a source form that evaluates the TCF program AccountInfo literal after the accounts struct starts (e.g. CpiContext built from a pre-built accounts struct) combined with a clone-run RA fix","price the d1 (declaration-order literal) clone-run collapse with w14a84's private greedy RA to see if the faithful literal is RA-recoverable"]}
+{
+ "lane": "w14a114-cto-irscantail",
+ "target": "0x22a10 admin_cto::execute",
+ "bases": [
+  "main 13fe453 (0.67256/3123 @27400, M 2245)",
+  "main ebe5387 (0.67316/3123 @27400, M 2247)"
+ ],
+ "result": "notes only, no landing: outside validate the post-opt IR block order is a local optimum (single moves, far moves, if/else arm-region swaps), on both mains",
+ "best_zero_loss": "main ebe5387 0.67316 / 3123 @27400 (no source change beat it)",
+ "attempts": {
+  "s1_13fe453_W8L3": 4827,
+  "s2_13fe453_far_9to30": 4727,
+  "a1_13fe453_armswap": 229,
+  "p1_13fe453_pairs": 2415,
+  "g2_greedy": "2 steps",
+  "s3_ebe5387_W8L3": 4827,
+  "a2_ebe5387_armswap": 229,
+  "i1_13fe453_insn_endpoints": 1033,
+  "i2_ebe5387_load_allpos": 1830,
+  "i3_ebe5387_insn_endpoints": 1033,
+  "source_captures": [
+   "tp08",
+   "tp09",
+   "d1",
+   "d4",
+   "e1",
+   "e2",
+   "r1",
+   "r2"
+  ]
+ },
+ "oracle_leads": {
+  "rent_epoch_late_TCF_program_literal": "0.67436 M2251 @27400 on ebe5387 (IR-only: rent load after _64 lifetime.start)",
+  "drop_glue_pair_plus_bb84.i138": "+2 M (2249 on ebe5387), IR-only",
+  "composite_bound": "0.67496 M2253 @27400 on ebe5387"
+ },
+ "rejected_mechanisms": [
+  "non-validate IR block moves (all regions capped at main M)",
+  "if/else arm order outside validate",
+  "TCF program literal field orders tp08/tp09/d1/d4/e1/e2 and rent_epoch re-reads r1/r2 (0.58-0.654; TCF clone-run RA collapse)"
+ ],
+ "unresolved_residuals": [
+  "TCF program literal: original loads flags 2a/29/28, rent 0x20 and owner 0x18 after the payer lamports add (declaration-order IR); our source cannot place them after the accounts-struct StorageLive without the clone-run RA collapse",
+  "head short-circuit blocks are size-neutral +8/-8 B movers but have no source form"
+ ],
+ "next_ideas": [
+  "a source form that evaluates the TCF program AccountInfo literal after the accounts struct starts (e.g. CpiContext built from a pre-built accounts struct) combined with a clone-run RA fix",
+  "price the d1 (declaration-order literal) clone-run collapse with w14a84's private greedy RA to see if the faithful literal is RA-recoverable"
+ ]
+}
