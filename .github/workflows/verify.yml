@@ -278,6 +278,7 @@ jobs:
               python -B scripts/test_analyze_publication.py
               python -B scripts/test_analyze_inventory_order.py
               python -B scripts/test_verify_imported_lab_publication.py
+              python -B scripts/test_verify_imported_lab_coverage.py
               python -B scripts/test_deep_disassembly_publication.py
               python -B scripts/test_pump_macos_frontier_archive_publication.py
               python -B scripts/test_sbpf_disassembly_inventory_publication.py
