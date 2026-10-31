@@ -30,13 +30,19 @@ def source_receipt(repo):
     for entry in (repo, repo / 'programs', repo / 'programs/pump'):
         _reject_directory_link(entry)
     repo = repo.resolve(strict=True)
-    toplevel = subprocess.check_output(['git', '-C', str(repo), 'rev-parse', '--show-toplevel'], text=True).rstrip('\r\n')
+    # -C does not override repository routing inherited from a Git hook/shell.
+    # All receipt queries must describe this explicitly selected checkout.
+    git_env = {key: value for key, value in os.environ.items()
+               if not key.upper().startswith('GIT_')}
+    toplevel = subprocess.check_output(['git', '-C', str(repo), 'rev-parse', '--show-toplevel'],
+                                      text=True, env=git_env).rstrip('\r\n')
     if Path(toplevel).resolve(strict=True) != repo:
         raise ValueError('Pump source checkout must be a Git worktree root')
-    revision = subprocess.check_output(['git', '-C', str(repo), 'rev-parse', 'HEAD'], text=True).strip()
+    revision = subprocess.check_output(['git', '-C', str(repo), 'rev-parse', 'HEAD'],
+                                      text=True, env=git_env).strip()
     dirty = subprocess.check_output(
         ['git', '-C', str(repo), 'status', '--porcelain=v1', '-z',
-         '--untracked-files=all', '--ignored=traditional', '--', 'programs/pump'])
+         '--untracked-files=all', '--ignored=traditional', '--', 'programs/pump'], env=git_env)
     if any(not entry.startswith(b'!! programs/pump/target/')
            for entry in dirty.split(b'\0') if entry):
         raise ValueError('Pump source checkout must be clean')

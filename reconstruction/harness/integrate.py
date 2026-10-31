@@ -31,6 +31,13 @@ from treediff import reject_source_link
 from source_inputs import snapshot, assert_unchanged
 
 
+def git_environment():
+    # -C/cwd does not override repository/index paths exported by Git hooks or
+    # another worktree. Git operations must belong to the owned composition.
+    return {key: value for key, value in os.environ.items()
+            if not key.upper().startswith('GIT_')}
+
+
 def build_source(*args, **kwargs):
     # File-only composition does not need the builder's POSIX locking support.
     import fastbuild
@@ -189,8 +196,9 @@ def make_patch(base: Path, part: Path, out: Path, tmp: Path):
 
     def run_diff(command):
         # Binary-file diagnostics are parsed below; do not inherit a translated locale.
+        environment = git_environment() if command[0] == 'git' else dict(os.environ)
         result = subprocess.run(command, cwd=tmp, capture_output=True,
-                                env=dict(os.environ, LC_ALL='C'))
+                                env=dict(environment, LC_ALL='C'))
         if result.returncode not in (0, 1):
             raise subprocess.CalledProcessError(result.returncode, result.args,
                                                 output=result.stdout, stderr=result.stderr)
@@ -209,7 +217,7 @@ def git_patch_command(source):
     # git apply invoked from a repository subdirectory silently filters paths
     # outside that prefix. Anchor at the root and prepend the owned output tree.
     found = subprocess.run(['git', '-C', str(source), 'rev-parse', '--show-toplevel'],
-                           capture_output=True, text=True)
+                           capture_output=True, text=True, env=git_environment())
     root = Path(found.stdout.rstrip('\r\n')).resolve() if found.returncode == 0 else source.resolve()
     directory = source.resolve().relative_to(root).as_posix()
     command = ['git', '-c', 'core.autocrlf=false', 'apply', '--no-index',
@@ -222,7 +230,7 @@ def git_patch_command(source):
 def git_patched_files(command, root, directory, patch):
     # NUL-delimited metadata covers empty files and arbitrary quoted filenames.
     result = subprocess.run(command + ['--numstat', '-z', str(patch)], cwd=root,
-                            capture_output=True, check=True)
+                            capture_output=True, check=True, env=git_environment())
     names = [entry.split(b'\t', 2)[2].decode('utf-8', errors='surrogateescape')
              for entry in result.stdout.split(b'\0') if entry]
     return sorted(Path(name).relative_to(directory).as_posix() for name in names)
@@ -253,7 +261,7 @@ def apply_file_patch(source, patch, text, patch_command):
     if text.startswith('diff --git '):
         command, root, directory = git_patch_command(source)
         subprocess.run(command + [str(patch)], cwd=root, check=True,
-                       capture_output=True)
+                       capture_output=True, env=git_environment())
         return git_patched_files(command, root, directory, patch)
     subprocess.run(patch_command + ['-s', '-p2', '--forward', '-E', '-d', str(source),
                                    '-i', str(patch)], check=True, capture_output=True)
@@ -341,7 +349,8 @@ def apply_part(src, pf, text, patch_command, diagnostic):
             common = patch_command + ['-p2', '--forward', '-E', '-d', str(src), '-i', str(pf)]
             dry_command, apply_command = common + ['--dry-run'], common
         for phase, argv in [('check', dry_command), ('apply', apply_command)]:
-            result = subprocess.run(argv, cwd=root, capture_output=True, text=True)
+            result = subprocess.run(argv, cwd=root, capture_output=True, text=True,
+                                    env=git_environment() if git_format else None)
             if result.returncode:
                 detail = result.stdout + result.stderr
                 diagnostic.write_text(detail, encoding='utf-8', newline='\n')
