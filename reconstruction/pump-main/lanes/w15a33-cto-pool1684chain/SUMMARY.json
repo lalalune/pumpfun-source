@@ -1,0 +1,38 @@
+{
+  "lane": "w15a33-cto-pool1684chain",
+  "wave": "w15 (continued in w16)",
+  "target": {"window": "0x22a10", "function": "admin_cto::execute", "file": "programs/pump/src/creator/admin_cto.rs", "pinned_bytes": 27400},
+  "base": {"main": "9120883a9 (programs/ unchanged on 303422390)", "ratio": 0.67376, "slots_diff": 3124, "bytes": 27400, "normalized": 1034, "raw": 1034},
+  "result": "notes only, no source change; best zero-loss candidate at 27,400 B is main",
+  "best": {"ratio": 0.67376, "slots_diff": 3124, "bytes": 27400, "source": "main"},
+  "mechanism": {
+    "1684": "event accounts piece (split of %0, step 1172) misses hint r2 and takes FREE r8; r6 = pool_updated %1649 + emit_cpi buffer ptr %1396, r7 = %1391, r9 = nf %358",
+    "1649": "pool_updated (step 588) evicts old_fee %288 from r6: r7/r8 hold the Result tag/payload phis %1658/%1657 over the pool-CPI check (66624-66752); old_fee (w 1.37e-6, 3,456 slots) is cheaper than nf (w 1.47e-6, 3,184 slots)",
+    "1657": "Result payload phi (step 432) takes free r8 because r6 = %60 (sweep-gate flag) and r9 = %465 (!holder) overlap its wallet/sharing error-site segments; %465/%466/%389/%56 overlap it at the same 6-7 sites",
+    "original": "payload phi r9 (22/24 return preds load r9; the sharing CPI, pool CPI and an Rc-drop path go through mov64 r9,r1 trampoline 0x54e0 because swept holds r9), so r8 is free at the pool-CPI check for pool_updated; tag piece keeps r6 to 0x4f28; event accounts split r2/r6",
+    "359_mpo": "owner-first gate pool pointer is hinted (r1), priority 0xE0000130 beats every unhinted range incl. the tag; at its dequeue r6, r7 and r9 are free, so it takes r6 by allocation order"
+  },
+  "attempts": [
+    {"key": "0x22a10-w15-9120883-pool1684chain-chain-v1", "status": "analyzed"},
+    {"key": "0x22a10-w15-9120883-pool1684chain-raforces-v1", "status": "analyzed", "best_force": "1684=r6 0.67645@27400; 1657=r9 0.66867@27280 L2 0.79838 (+0.0132)"},
+    {"key": "0x22a10-w15-9120883-pool1684chain-mpo359-v1", "status": "analyzed", "mpo": "0.63374@27440"},
+    {"key": "0x22a10-w15-9120883-pool1684chain-mpo_pu-v1", "status": "rejected", "ratio": 0.63205, "bytes": 27456},
+    {"key": "0x22a10-w15-9120883-pool1684chain-mpo_hrpre-v1", "status": "rejected", "ratio": 0.63205, "bytes": 27456}
+  ],
+  "rejected_mechanisms": [
+    "flip old_fee/nf eviction (weights): pool_updated -> r9 but old_fee keeps r6 to the event, 1684 still free r8 (0.66946@27408)",
+    "pool_updated -> r8/r7 forces: evict the Result phis (0.5887/0.5896)",
+    "465=spill, 60=r9, sticky 56=r6: cascade (0.660/0.609/0.564)",
+    "owner-first gate with a hinted holder-arg range across the gate (mpo_pu, mpo_hrpre): holder byte takes r7, pool pointer stays r6"
+  ],
+  "unresolved_residuals": [
+    "Result payload phi register r8 (orig r9) across every error return; blocked by head-to-tail intervals %465/%466/%389/%56 (w15a14 r9 refill chain)",
+    "sharing tag not held in r6 over the second half (evicted by %60 at step 330, split at 1216)",
+    "nf local (n1 form) and swept spill (orig r9 across both CPIs)"
+  ],
+  "next_ideas": [
+    "whole-region validate rewrite that removes the four head-to-tail intervals, priced jointly with 1657=r9 as the RA target (+0.013 L2 as a force) and a ~120 B + 1 frame-slot repay",
+    "on such a base, check that swept takes r9 across the CPIs and the payload phi splits into the original's mov64 r9,r1 trampoline at 0x54e0"
+  ],
+  "tools": ["tools/dbgocc.py (live-interval occupancy replay of llc -debug-only=regalloc)", "tools/evck.py (event-region colour summary)"]
+}

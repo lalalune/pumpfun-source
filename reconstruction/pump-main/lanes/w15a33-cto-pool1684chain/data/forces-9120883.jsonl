@@ -1,0 +1,36 @@
+{"name": "main", "ratio": 0.67376, "slots": 3124, "bytes": 27400, "eq_main": true, "L1": 0.70371, "L2": 0.7852}
+{"name": "f1684r6", "force": "1684=r6", "ratio": 0.67645, "slots": 3124, "bytes": 27400, "eq_main": false, "L1": 0.70641, "L2": 0.7858}
+{"name": "f1649r9", "force": "1649=r9", "ratio": 0.67006, "slots": null, "bytes": 27408, "eq_main": false, "L1": 0.70001, "L2": 0.78388}
+{"name": "f1649r8", "force": "1649=r8", "ratio": 0.58871, "slots": null, "bytes": 27424, "eq_main": false, "L1": 0.69232, "L2": 0.77557}
+{"name": "f1649r8_1684r6", "force": "1649=r8,1684=r6", "ratio": 0.58811, "slots": null, "bytes": 27424, "eq_main": false, "L1": 0.69202, "L2": 0.77557}
+{"name": "f1684r6_1671r7", "force": "1684=r6,1671=r7", "ratio": 0.67855, "slots": 3117, "bytes": 27400, "eq_main": false, "L1": 0.70851, "L2": 0.7858}
+{"name": "f1649r7", "force": "1649=r7", "ratio": 0.58958, "slots": null, "bytes": 27264, "eq_main": false, "L1": 0.66887, "L2": 0.77189}
+{"name": "f1657r1", "force": "1657=r1", "ratio": 0.67376, "slots": 3124, "bytes": 27400, "eq_main": true, "L1": 0.70371, "L2": 0.7852}
+{"name": "s465", "force": "465=spill", "keep": "t2/k/s465.bin", "ratio": 0.65978, "slots": null, "bytes": 27416, "eq_main": false, "L1": 0.69302, "L2": 0.78407}
+{"name": "s465_f60r9", "force": "465=spill,60=r9", "keep": "t2/k/s465_f60r9.bin", "ratio": 0.59916, "slots": null, "bytes": 27320, "eq_main": false, "L1": 0.67057, "L2": 0.76328}
+{"name": "f60r9", "force": "60=r9", "keep": "t2/k/f60r9.bin", "ratio": 0.60864, "slots": null, "bytes": 27304, "eq_main": false, "L1": 0.67017, "L2": 0.7617}
+{"name": "f56r6", "force": "56=r6", "keep": "t2/k/f56r6.bin", "ratio": 0.67376, "slots": 3124, "bytes": 27400, "eq_main": true, "L1": 0.70371, "L2": 0.7852}
+{"name": "s465_f56r6", "force": "465=spill,56=r6", "keep": "t2/k/s465_f56r6.bin", "ratio": 0.65978, "slots": null, "bytes": 27416, "eq_main": false, "L1": 0.69302, "L2": 0.78407}
+{"name": "f60r9_f56r6", "force": "60=r9,56=r6", "keep": "t2/k/f60r9_f56r6.bin", "ratio": 0.60864, "slots": null, "bytes": 27304, "eq_main": false, "L1": 0.67017, "L2": 0.7617}
+{"name": "st_f56r6", "force": "56=r6", "keep": "t2/k/st_f56r6.bin", "ratio": 0.56389, "slots": null, "bytes": 27336, "eq_main": false, "L1": 0.59148, "L2": 0.79214}
+{"name": "st_f60r9", "force": "60=r9", "keep": "t2/k/st_f60r9.bin", "ratio": 0.61328, "slots": null, "bytes": 27240, "eq_main": false, "L1": 0.66947, "L2": 0.75691}
+{"name": "st_f1684r6", "force": "1684=r6", "keep": "t2/k/st_f1684r6.bin", "ratio": 0.67645, "slots": 3124, "bytes": 27400, "eq_main": false, "L1": 0.70641, "L2": 0.7858}
+{"name": "st_s465_f56r6", "force": "465=spill,56=r6", "keep": "t2/k/st_s465_f56r6.bin", "ratio": 0.55009, "slots": null, "bytes": 27336, "eq_main": false, "L1": 0.59088, "L2": 0.79214}
+{"args": [], "weight": "358=1.2e-06", "name": "w358lo", "keep": "t2/k/w358lo.bin", "ratio": 0.66946, "slots": null, "bytes": 27408, "eq_main": false, "L1": 0.69792, "L2": 0.78329}
+{"weight": "358=1.2e-06,1396=1e-09", "name": "w358lo_w1396lo", "keep": "t2/k/w358lo_w1396lo.bin", "ratio": 0.66946, "slots": null, "bytes": 27408, "eq_main": false, "L1": 0.69792, "L2": 0.78329}
+{"weight": "288=1.6e-06", "name": "w288hi", "keep": "t2/k/w288hi.bin", "ratio": 0.66946, "slots": null, "bytes": 27408, "eq_main": false, "L1": 0.69792, "L2": 0.78329}
+{"weight": "1649=1.0e-06", "name": "w1649lo", "keep": "t2/k/w1649lo.bin", "ratio": 0.66926, "slots": 3125, "bytes": 27400, "eq_main": false, "L1": 0.69952, "L2": 0.7846}
+{"weight": "288=1.6e-06,1396=1e-09", "name": "w288hi_w1396lo", "keep": "t2/k/w288hi_w1396lo.bin", "ratio": 0.66946, "slots": null, "bytes": 27408, "eq_main": false, "L1": 0.69792, "L2": 0.78329}
+{"weight": "1396=1e-09", "name": "w1396lo", "keep": "t2/k/w1396lo.bin", "ratio": 0.67376, "slots": 3124, "bytes": 27400, "eq_main": true, "L1": 0.70371, "L2": 0.7852}
+{"weight": "288=1e-09", "name": "w288lo", "keep": "t2/k/w288lo.bin", "ratio": 0.67136, "slots": 3124, "bytes": 27400, "eq_main": false, "L1": 0.70132, "L2": 0.7852}
+{"weight": "465=1e-06", "name": "w465lo", "keep": "t2/k/w465lo.bin", "ratio": 0.67376, "slots": 3124, "bytes": 27400, "eq_main": true, "L1": 0.70371, "L2": 0.7852}
+{"weight": "465=1e-08", "name": "w465lo2", "keep": "t2/k/w465lo2.bin", "ratio": 0.67376, "slots": 3124, "bytes": 27400, "eq_main": true, "L1": 0.70371, "L2": 0.7852}
+{"weight": "56=4e-05", "name": "w56hi", "keep": "t2/k/w56hi.bin", "ratio": 0.58757, "slots": null, "bytes": 27392, "eq_main": false, "L1": 0.66307, "L2": 0.77633}
+{"weight": "56=5e-06", "name": "w56hi2", "keep": "t2/k/w56hi2.bin", "ratio": 0.58757, "slots": null, "bytes": 27392, "eq_main": false, "L1": 0.66307, "L2": 0.77633}
+{"weight": "60=1e-06", "name": "w60lo", "keep": "t2/k/w60lo.bin", "ratio": 0.58757, "slots": null, "bytes": 27392, "eq_main": false, "L1": 0.66307, "L2": 0.77633}
+{"force": "1657=r9", "name": "f1657r9", "keep": "t2/k/f1657r9.bin", "ratio": 0.66867, "slots": null, "bytes": 27280, "eq_main": false, "L1": 0.72482, "L2": 0.79838}
+{"force": "1657=r6", "name": "f1657r6", "keep": "t2/k/f1657r6.bin", "ratio": 0.48817, "slots": null, "bytes": 27416, "eq_main": false, "L1": 0.47769, "L2": 0.59569}
+{"force": "1657=r9,1684=r6", "name": "f1657r9_1684r6", "keep": "t2/k/f1657r9_1684r6.bin", "ratio": 0.66867, "slots": null, "bytes": 27280, "eq_main": false, "L1": 0.72482, "L2": 0.79838}
+{"force": "1657=r6", "name": "st_f1657r6", "keep": "t2/k/st_f1657r6.bin", "ratio": 0.48817, "slots": null, "bytes": 27416, "eq_main": false, "L1": 0.47769, "L2": 0.59569}
+{"force": "1657=r9,1684=r6", "name": "st_f1657r9_1684r6", "keep": "t2/k/st_f1657r9_1684r6.bin", "ratio": 0.66867, "slots": null, "bytes": 27280, "eq_main": false, "L1": 0.72482, "L2": 0.79838}
+{"force": "1657=r9", "name": "st_f1657r9", "keep": "t2/k/st_f1657r9.bin", "ratio": 0.66867, "slots": null, "bytes": 27280, "eq_main": false, "L1": 0.72482, "L2": 0.79838}

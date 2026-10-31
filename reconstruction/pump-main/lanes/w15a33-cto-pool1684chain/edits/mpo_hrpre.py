@@ -1,0 +1,1 @@
+EDITS=[("let pool_updated=!a.pool.data_is_empty() && a.pool.owner==&AMM;let pargs=(target,a.bonding_curve.is_holder_reward,fee);","let hrw=a.bonding_curve.is_holder_reward;let pool_updated=a.pool.owner==&AMM && !a.pool.data_is_empty();let pargs=(target,hrw,fee);")]
