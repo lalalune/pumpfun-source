@@ -1,0 +1,18 @@
+{
+  "lane": "w14a113-cto-pw9src",
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27400 B",
+  "bases": {"963d1ee": {"ratio": 0.67226, "slots": 3123}, "13fe453": {"ratio": 0.67256, "slots": 3123}, "ebe5387": {"ratio": 0.67316, "slots": 3123}},
+  "result": "no source change; angle exhausted",
+  "best_zero_loss": {"ratio": 0.67256, "slots": 3123, "bytes": 27400, "note": "byte-identical spellings only (v01, w10); w06 ties main's ratio/slots with different tokens"},
+  "attempts": 33,
+  "mechanisms": {
+    "validate_exit_join_flip": "10 of 14 v spellings, w01/w02/w08/w11/w12 and the nfa/ne entry-copy oracles move the 119-block validate arm chain behind %bb56.i. MBP decides it: greedy leaves a cold-edge-only reload (LDD r5,[r10-2264]) at the join head, the split head loses its non-cold CFG conflict and the to_string error arm falls through into it.",
+    "flip_undone_still_loses": "jfix2 relayout: best relaid 0.59434 (v11/w08/w11/w12); best legal-frame rfR 2566 vs main 2622; nfa 0.27789, rfR 2547",
+    "word1_force": "private RAPRIO llc %1657=r9 on 13fe453: 0.66717 @27280 (r9->r8 21->0, L1 +0.020, L2 +0.013 mostly from -120 B), fR -30 M, rfR -7 M, rfjR +32 M only",
+    "w04_free_minus40": "args placed after quote_locked: 0.66587 @27360 on 13fe453 (0.66647 on ebe5387), no join flip; knob repays lose (best pinned-size pair x_po 0.62642)"
+  },
+  "rejected": ["v02-v14 new-entry spellings", "w01-w08, w11, w12 args placement / sharing-arm spellings", "w04 + 14 size knobs", "RA forces 1657=r9/spill/r7/r6, 1729=r9", "nfa/ne entry-copy IR oracles (relaid)"],
+  "unresolved": ["original's SROA split of new (tag, 7B, +8, +16 in r9, 9B) at orig 0x4d8-0x538 has no source form that beats main", "cold-edge reload at the validate-exit join head is the J-flip trigger"],
+  "next_ideas": ["Run tools/jfix2.py on any collapsed spelling near validate before rejecting it; price the relaid ratio", "A spelling whose relaid rfR beats main would need the join-head reload removed (value in its spill slot or the same register on every incoming edge)", "Word-1 colouring is bounded at rfjR +32 M with a 120 B jump-placed repay; not worth more screens"],
+  "ledger_keys": "0x22a10-w14-{963d1ee,13fe453}-pw9src-*"
+}
