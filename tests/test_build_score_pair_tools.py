@@ -40,11 +40,16 @@ class ReceiptToolIdentityTests(unittest.TestCase):
         self.addCleanup(setattr, pair.fastbuild, 'LOCKDIR', pair.fastbuild.LOCKDIR)
         self.addCleanup(pair.fastbuild.RECIPES.__setitem__, 'identity', pair.fastbuild.RECIPES['identity'])
 
-    def receipt_tools(self):
+    def tools(self):
         sdk, hybrid = self.root / 'sdk', self.root / 'hybrid'
-        for path in (sdk / 'llvm/bin/llvm-objdump', hybrid / 'rust/bin/rustc'):
-            path.parent.mkdir(parents=True)
+        for path in (sdk / 'llvm/bin/llvm-objdump', sdk / 'llvm/bin/llvm-objcopy',
+                     sdk / 'llvm/bin/clang', sdk / 'rust/bin/cargo', hybrid / 'rust/bin/rustc'):
+            path.parent.mkdir(parents=True, exist_ok=True)
             path.write_bytes(b'tool fixture')
+        return sdk, hybrid
+
+    def receipt_tools(self):
+        sdk, hybrid = self.tools()
 
         def build(source, work, out, **kwargs):
             out.mkdir(parents=True)
@@ -58,6 +63,17 @@ class ReceiptToolIdentityTests(unittest.TestCase):
              patch.object(pair.score, 'score', return_value=windows):
             self.assertEqual(pair.run_pair(self.root / 'base', self.root / 'candidate', out, sdk, hybrid), 0)
         return json.loads((out / 'receipt.json').read_text())['tools']
+
+    def test_tool_binding_covers_every_tool_the_build_invokes(self):
+        sdk, hybrid = self.tools()
+        before = pair.bound_inputs(pair.score.BASE, sdk, hybrid)
+        for name in ('llvm/bin/llvm-objcopy', 'llvm/bin/clang', 'rust/bin/cargo'):
+            with self.subTest(tool=name):
+                path = sdk / name
+                original = path.read_bytes()
+                path.write_bytes(original + b'x')
+                self.assertNotEqual(pair.bound_inputs(pair.score.BASE, sdk, hybrid), before)
+                path.write_bytes(original)
 
     def test_receipt_binds_every_harness_module_the_gate_executes(self):
         tools = self.receipt_tools()

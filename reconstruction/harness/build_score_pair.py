@@ -65,7 +65,10 @@ def bound_inputs(scoring_inputs, sdk, hybrid):
             'sdk_inventory_sha256': sha(canonical.parent / 'toolchain/v1.44-macos-inventory.json'),
             'target_library_manifest_sha256': sha(Path(__file__).parent / 'linux144-sbpf-target-libs.sha256'),
             'compiler_sha256': sha(hybrid / 'rust/bin/rustc'),
-            'objdump_sha256': sha(sdk / 'llvm/bin/llvm-objdump')}
+            'cargo_sha256': sha(sdk / 'rust/bin/cargo'),
+            'clang_sha256': sha(sdk / 'llvm/bin/clang'),
+            'objdump_sha256': sha(sdk / 'llvm/bin/llvm-objdump'),
+            'objcopy_sha256': sha(sdk / 'llvm/bin/llvm-objcopy')}
 
 
 def run_pair(base, candidate, out, sdk, hybrid, timeout=None):
