@@ -1,0 +1,21 @@
+### ebe5387 (main M 2247): s3 single moves W<=8 len<=3 + a2 arm-region swaps
+regions (first block): head=start, validate=bb6.i, post-validate=bb75, wallet=bb2.i72, sweep=bb83, sharing-CPI arm + clone run=bb88, curve/event/pool tail=bb38
+| region | variants | = main M | best M (bytes) | best M at 27,400 | worst M |
+| --- | ---: | ---: | --- | ---: | ---: |
+| head | 34 | 7 | 2247 (27400) | 2247 | 2169 |
+| post-validate | 298 | 94 | 2247 (27400) | 2247 | 2166 |
+| wallet | 1294 | 426 | 2247 (27400) | 2247 | 1755 |
+| sweep | 2032 | 301 | 2247 (27400) | 2247 | 1080 |
+| sharing-CPI arm + clone run | 817 | 16 | 2247 (27400) | 2247 | 1657 |
+| curve/event/pool tail | 579 | 207 | 2247 (27400) | 2247 | 1648 |
+
+### 13fe453 (main M 2245): s1 W<=8 len<=3 + s2 single blocks 9..30 away + a1 arm-region swaps
+regions (first block): head=start, validate=bb6.i, post-validate=bb76, wallet=bb2.i72, sweep=bb84, sharing-CPI arm + clone run=bb89, curve/event/pool tail=bb39
+| region | variants | = main M | best M (bytes) | best M at 27,400 | worst M |
+| --- | ---: | ---: | --- | ---: | ---: |
+| head | 34 | 7 | 2245 (27400) | 2245 | 2167 |
+| post-validate | 501 | 155 | 2245 (27400) | 2245 | 2164 |
+| wallet | 2566 | 879 | 2245 (27400) | 2245 | 1722 |
+| sweep | 4037 | 424 | 2245 (27400) | 2245 | 1078 |
+| sharing-CPI arm + clone run | 1644 | 26 | 2245 (27400) | 2245 | 1655 |
+| curve/event/pool tail | 999 | 345 | 2245 (27400) | 2245 | 1646 |
