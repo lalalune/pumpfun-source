@@ -1,0 +1,30 @@
+{
+  "lane": "w14a95-cto-devol334",
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27400 B",
+  "angle": "replace the line-334 read_volatile(holder_key) placeholder (#3430) with ordinary source",
+  "result": "negative: no ordinary +8 B spelling ties the placeholder; no landing",
+  "bases": {
+    "B0 = ecea702 minus vol334": {"bytes": 27392, "M": 2238, "ratio": 0.67056, "tie": "27400 / M 2239"},
+    "B1 = 963d1ee minus vol334": {"bytes": 27392, "M": 2243, "ratio": 0.67206, "tie": "27400 / M 2244"},
+    "B2 = 13fe453 minus vol334": {"bytes": 27392, "M": 2244, "ratio": 0.67236, "tie": "27400 / M 2245"}
+  },
+  "best_zero_loss_at_pinned_size": "none above or equal to main without the placeholder",
+  "attempts": 126,
+  "mechanisms_rejected": [
+    "334 `!st.fee_configurable` -> `==false`/`!=true`: +8 B but a block reorder (bb58 before bb59), M -42",
+    "validate respellings (require!/err!/if-else, matches!/!=None, &t==sharing, split/merged compares, let-else/match/ok_or, holder_key/sk binding forms): MIR-identical or block moves",
+    "+8 B knobs elsewhere (not-L556/559/561, ifq-L561, unwrapor-L757, iflet-L746, ev_cb_local): -1..-48 M against the fill bound",
+    "+16/-8 pairs: inline-L339-6 or g_w_clock_local/wl_ts_clockvar with ifq-L556, iflet-L757, rL, tp, nO, reread-L578, issome-L767: 2205-2239 vs 2244",
+    "removing the 338 placeholder too (with or without inline-L339-6): M -22 on 963d1ee, so 338 is structural"
+  ],
+  "findings": [
+    "the placeholder is a dead ldxb r1,[r10-0x6a0] at the head of the fee_configurable test block; the original has no load there (orig 0x24048)",
+    "volscan on B1: the same 35 block heads as on 95a64ba give exactly main's M; pure fill can only tie",
+    "inline-L339-6 (`target=a.bonding_curve.creator;((false,Some(args.0),true))` instead of `let r=..;..;r`) is +16 B, +1 M on B1 and on B2"
+  ],
+  "next_ideas": [
+    "find an M-neutral faithful -8 B knob to pair with inline-L339-6 (+16 B, +1 M) on 13fe453; with it, the 334 placeholder can go",
+    "finish the remaining ~38 validate-line lattice rows on 13fe453 (t/w0, t/w1 lists)",
+    "iflet-L746 / unwrapor-L757 are +8 B at -1/-2 M: look for a companion that recovers 2 M"
+  ]
+}
