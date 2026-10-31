@@ -1,25 +1,35 @@
 {
-  "lane": "w14a140-cto-stitch14",
-  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27,400 B",
-  "landed": false,
-  "mains_worked": {"ebe5387": "M 2247 (0.67316 / 3123), 40 rows", "e88f9d5": "M 2248 (0.67346 / 3124), 41 rows"},
-  "best_zero_loss_at_pinned_size": {"ratio": 0.67346, "slots_diff": 3124, "cand_bytes": 27400, "note": "main e88f9d5 itself"},
-  "near_misses": {
-    "P1 I6n+t1n (e88f9d5)": "27376 B, M 2247, ratio = main; needs +24 B faithful fill worth >= +1 M",
-    "N_crl2 (e88f9d5)": "+72 B, M 2249 (+1); free deletions only at 0x0-0x800",
-    "C1 crl2+t1 (ebe5387)": "+48 B, M = main"
-  },
-  "rejected": [
-    "ha family filled back to 27400-27472 B: M -145..-188 (frame/RA cascade, not size)",
-    "crl2+t1 with every -48 B repay: -13..-20",
-    "rw7 + wallet genes: = rw7 (-8) or worse",
-    "I6n/I6ssn + -8/-16 knobs: -6..-9",
-    "P1 + library +24 B fills (Q1-Q8): -9..-32",
-    "sunew -644, han -186"
-  ],
-  "tools": "tools/scr.py, tools/genes_s14.py (stitch12/13 + w14a119 + w14a108 mine108 + w14a123 og + e88f9d5 spellings t1n/t3n/han/I6n/I6sn/I6ssn/sunew/rw7/rw7b/ct), tools/lcs.py, tools/delmap.py",
-  "next_ideas": [
-    "P1 (I6n+t1n) plus a +24 B faithful entry-region construct (only 0x0-0x800 is junk-neutral)",
-    "crl2 plus a loss-free -72 B entry change"
-  ]
+ "lane": "w14a140-cto-stitch14",
+ "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27,400 B",
+ "landed": false,
+ "mains_worked": {
+  "ebe5387": "M 2247 (0.67316 / 3123), 40 rows",
+  "e88f9d5": "M 2248 (0.67346 / 3124), 61 rows"
+ },
+ "best_zero_loss_at_pinned_size": {
+  "ratio": 0.67346,
+  "slots_diff": 3124,
+  "cand_bytes": 27400,
+  "note": "main e88f9d5 itself"
+ },
+ "near_misses": {
+  "P1 I6n+t1n (e88f9d5)": "27376 B, M 2247, ratio = main; needs +24 B faithful fill worth >= +1 M",
+  "N_crl2 (e88f9d5)": "+72 B, M 2249 (+1); free deletions only at 0x0-0x800",
+  "C1 crl2+t1 (ebe5387)": "+48 B, M = main"
+ },
+ "rejected": [
+  "ha family filled back to 27400-27472 B: M -145..-188 (frame/RA cascade, not size)",
+  "crl2+t1 with every -48 B repay: -13..-20",
+  "rw7 + wallet genes: = rw7 (-8) or worse",
+  "I6n/I6ssn + -8/-16 knobs: -6..-9",
+  "P1 + library +24 B fills (Q1-Q8): -9..-32",
+  "sunew -644, han -186",
+  "P1 + every library entry gene (hk_copy, sk_ref2, m_k_*, m_cb*, v_hkclone): 0 B, M <= 2247; m_pdaf* -310, m_i312a/b -354..-361"
+ ],
+ "tools": "tools/scr.py, tools/genes_s14.py (stitch12/13 + w14a119 + w14a108 mine108 + w14a123 og + e88f9d5 spellings t1n/t3n/han/I6n/I6sn/I6ssn/sunew/rw7/rw7b/ct), tools/lcs.py, tools/delmap.py",
+ "next_ideas": [
+  "P1 (I6n+t1n) plus a +24 B faithful entry-region construct (only 0x0-0x800 is junk-neutral)",
+  "crl2 plus a loss-free -72 B entry change"
+ ],
+ "pr": 3631
 }
