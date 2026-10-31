@@ -1,0 +1,18 @@
+start 1939 27400
+  r0 bot_229        M 2098 bytes 27384
+  r0 bot_219        M 2081 bytes 27352
+  r0 bot_185        M 2073 bytes 27416
+step 0: +bot_229 -> M 2098 bytes 27384 ratio 0.62871
+  r1 bot_193        M 2106 bytes 27360
+  r1 top_156        M 2105 bytes 27376
+  r1 top_970        M 2100 bytes 27384
+step 1: +bot_193 -> M 2106 bytes 27360 ratio 0.63139
+  r2 casc_195       M 2114 bytes 27400
+  r2 casc_212       M 2098 bytes 27408
+  r2 casc_218       M 2097 bytes 27416
+step 2: +casc_195 -> M 2114 bytes 27400 ratio 0.63331
+  r3 top_970        M 2112 bytes 27400
+  r3 top_1596       M 2104 bytes 27400
+  r3 top_1105       M 2103 bytes 27400
+stop
+FINAL {"prio": "229=1,193=1", "casc": "195=0x7ffffff0", "name": "base+bot_229+bot_193+casc_195", "add": "casc_195", "M": 2114, "ratio": 0.63331, "bytes": 27400}

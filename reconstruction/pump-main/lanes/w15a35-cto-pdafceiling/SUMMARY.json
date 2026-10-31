@@ -1,0 +1,9 @@
+{
+  "lane": "w15a35-cto-pdafceiling",
+  "target": "0x22a10 admin_cto::execute",
+  "base": "main 9120883a9 (raw-IR oracle eq_main true); branch merged with 9bd38c7d5 (same admin_cto.rs)",
+  "status": "in progress (provisional first push)",
+  "result": "kill test met: PDA-first greedy-decision ceiling below main's on the same tool; notes only",
+  "main": {"ratio": 0.67376, "slots_diff": 3124, "bytes": 27400, "M": 2249, "greedy_ceiling": {"M": 2261, "bytes": 27368, "decisions": 6}},
+  "best_zero_loss": {"ratio": 0.67376, "slots_diff": 3124, "bytes": 27400, "note": "main itself; nothing landable"}
+}
