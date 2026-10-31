@@ -150,6 +150,9 @@ as an IR probe (s1 +0.018, still below main).
   (IR probe only).
 
 The private llc is `~/.cache/pumpfun-reconstruction/lanes/w15a18-cto-s1greedy/llvmb/bin/llc` (w15a18 `build.sh`).
+Slim post-opt modules kept for reuse: `~/.cache/pumpfun-reconstruction/lanes/w15a34-cto-s1clonearray/rx/{m0,s1,a7p,a7}/m.ll`
+(captured on 9120883; `admin_cto.rs` is unchanged on 9bd38c7d5, which only touched buy_v2/sell_v2/v2_native_payments). m0
+reproduces main exactly (`eq_main`). `fn.bin` is kept for every form.
 
 ## 6. Next ideas (not this lane's angle)
 
