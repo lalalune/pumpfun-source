@@ -1,0 +1,36 @@
+{
+  "lane": "w14a26-cto-stitch10",
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27,400 B",
+  "approach": "stitch10",
+  "landed": [
+    {"pr": 3287, "merge_commit": "f100a59c1", "main_before": "d2d187555", "ratio": "0.6417 -> 0.6423", "slots": 3173, "bytes": 27400,
+     "mechanism": "event is_holder_reward:holder (+8 B) + curve update if let Some(f)=fee (-8 B) on the #3267/#3272 stack", "differential": "363/0"}
+  ],
+  "verified_not_landed": [
+    {"pr": 3291, "base": "ca03a2b41", "ratio": "0.6432 -> 0.6444", "slots": 3173, "bytes": 27400,
+     "mechanism": "#3277 (w14a24-cto-shareauth, kutluhaneth46) sharing authority clone with Rc locals first", "note": "landed first by w14a30-cto-shareauthport #3290; #3291 is notes only"}
+  ],
+  "step1": "#3267 + #3272 were already stacked on main 7e6aa9c (0.6414) before this lane started; reproduced 0.6414 with measure.sh",
+  "main_at_end": {"sha": "6db95a764", "ratio": 0.65458, "slots": 3280, "bytes": 27400},
+  "attempts": 480,
+  "rejected_mechanisms": [
+    "sharing CPI pa/gl/ea/mi as to_account_info on the stack (sibclone fm subset): 0.6276-0.63841",
+    "field orders LKDORSWE/KLDORSWE/kL/kD/kF + adjacent swaps on pa/gl/mi/ea (43): best ties",
+    "16 tail size knobs and 22 size-balanced pairs on 7e6aa9c: only hr+cuif positive (landed)",
+    "AdminCtoEvent literal evaluation order (17): size-neutral moves are byte-identical, others grow 64-256 B",
+    "Rc-locals-first clone class on the other sharing accounts and on TCF/wallet/pool/holder-vault CPI fields (54)",
+    "curve-store order, tail nf/pool_updated/pargs order, pool_updated/sharing_update polarity",
+    "v7c validate closure repaid with tail knobs: 0.604-0.622 at 27,400 (fewer slots, lower ratio)",
+    "w13a47 genes47 library (249 applicable genes) on e87e001: none beats main, 65 ties"
+  ],
+  "unresolved_residuals": [
+    "tail region (curve update, pool CPI, event) sits one ratio quantum above every knob tried on 5 consecutive mains",
+    "chunk match on 1b0ae7..e87e001: orig 0x0-0x800 (0.40) and 0x4000-0x4800 (0.41, sharing CPI) are the weakest 0x800 chunks"
+  ],
+  "next_ideas": [
+    "re-run the near-tie panel (cs_swap3, pu_amm_key, c_ce_cr, n_hk_direct, cmp_pool_rev, cmp_fees_rev, sh_iflet+cu_unwrapcur) after each sharing-literal landing; they are one quantum below",
+    "v7c needs its 32 B repaid before the sharing region (validate/head), not in the tail",
+    "distinct-sha ties v_hr_ne / pre_cb_match / pre_cb_not as bases for other genes"
+  ],
+  "tools": "genes.py (gene library incl. Rc-locals class lf_*/lfx_*, event-order evo_*, curve/tail order cs_*/tl_*, x47_ wrapper for genes47) and run.py (2-worker measure.sh screen that records each trial in the ledger)"
+}

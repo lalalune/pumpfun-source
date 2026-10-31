@@ -101,3 +101,24 @@ token arm's fallthrough and tests the tag once (`jne r7,0x2,+0x380`):
 Main instead joins the native arm locally (payload through a stack slot), re-tests the tag there
 (`jne r7,2 -> Err; ja Ok`) and sends the ensure_rent_exempt Err straight to the token arm's tag test with the payload
 load hoisted above the branch (`jeq r1,2,+1; ja`). The constant Ok tags are threaded; the original's are not.
+
+## Tail polarity knobs (06967d3 / e87e001)
+
+`if !pool_updated{msg}else{CPI}` and `match sharing_update{None=>{}Some(val)=>..}` are byte-identical to main.
+`if let Some(val)=sharing_update` and `let reset=sharing_update.is_some()` before the match are -8 B (0.64509 @27,392 on
+06967d3); with +8 B partners on e87e001 (main 0.64709): +cu_unwrapcur 0.64679, +lf_pr_dl 0.64679, +ev_cb_local 0.6453.
+cs_swap3 0.64679, pu_amm_key 0.6464, ev_hr_curve+ev_cb_local 0.6462. The tail sits one ratio quantum (0.0003) above
+every knob tried.
+
+## Historical gene library re-screen (w13a47 genes47 = genes30 + knobs34 + stitch9 genes) on e87e001 (0.64709)
+
+249 of 326 genes still apply to the source. 247 built, 122 at 27,400 B. **None beats main.** 65 tie (61 byte-identical
+to main; distinct-sha ties: `v_hr_ne`, `pre_cb_match`, `pre_cb_not`). Next quanta: 0.64679 (`c_ce_cr`, `n_hk_direct`,
+`cmp_pool_rev`, `cmp_fees_rev`, `shq_kore`), 0.64649 (`w_destrev`, `cmp_hcv_rev`, `cmp_sys_rev`, `cmp_co_rev`,
+`cmp_v_tzero`). Best off-size: `e_reset` / `s_su_iflet` 0.64569 @27,392, `e_hr_curve` / `x_co_then` 0.64539 @27,392.
+Results are in the ledger under `0x22a10-w14-e87e001-stitch10-y_*`.
+
+## Final near-tie panel on 6db95a7 (0.65458, after #3308/#3309/w14a33 nativejoin)
+
+v_hr_ne, pre_cb_match, pre_cb_not tie (v_hr_ne costs 1 raw window). cs_swap3, n_hk_direct, c_ce_cr, cmp_pool_rev,
+cmp_fees_rev, sh_iflet+cu_unwrapcur 0.65428; pu_amm_key 0.65389. Nothing beats main. Lane stopped here.
