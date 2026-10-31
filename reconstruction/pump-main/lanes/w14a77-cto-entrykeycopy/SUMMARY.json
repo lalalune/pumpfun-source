@@ -1,0 +1,993 @@
+{
+ "lane": "w14a77-cto-entrykeycopy",
+ "wave": 14,
+ "target": {
+  "window": "0x22a10",
+  "function": "admin_cto::execute",
+  "pinned_bytes": 27400
+ },
+ "base": {
+  "main": "0d04cf460",
+  "ratio": 0.66507,
+  "slots_diff": 3228,
+  "normalized": 1034,
+  "raw": 1034
+ },
+ "result": "no zero-loss gain; notes only",
+ "best": {
+  "ratio": 0.66507,
+  "slots_diff": 3228,
+  "bytes": 27400,
+  "note": "= main; 10 spellings byte-identical to main"
+ },
+ "oracle": "raw-IR capture + rx opt/llc oracle (w14a02 capvar.sh/rx.py), eq_main true on 0d04cf4",
+ "attempts": 94,
+ "ledger": {
+  "approach": "entry-key-spelling",
+  "keys": "0x22a10-w14-0d04cf4-entrykeycopy-<trial>-v1"
+ },
+ "mechanism": "the original copy-then-memcmp idiom at orig 0x148-0x1c8 is the shared test with by-value a.sharing_config.key(), i.e. main's spelling; deref/ref spellings drop the 10-insn copy (-80 B). The 36-insn mismatch is PDA-vs-shared call order; shared-first caps entry local rm at 150/246.",
+ "entry_local_rm": {
+  "main": 150,
+  "full_original_entry_pda+hL+fl+hkc": 198
+ },
+ "rejected_mechanisms": [
+  "deref/ref sharing key compare (kd,kr,kdL,krL,sciL: -80 B, -0.0011..-0.0014)",
+  "creator-left hL (-0.0018)",
+  "holder_key PDA direct/tuple/block spellings hkd,hkt,hkblk (-0.105)",
+  "named seeds slice/array sdl,sda (-0.093)",
+  "seed via a.mint.key / to_bytes",
+  "mint via to_account_info / ctx.program_id",
+  "quote_mint by ref (-0.042)",
+  "shared after quote_locked",
+  "fl curve bools before quote_locked (-0.024, %0 r8->r6)",
+  "fl + 43 applicable size knobs (best = fl alone)",
+  "hkc &{holder_key} (frame-colour cascade)",
+  "cr3 creator last in CtoState (-0.027, frame cascade)",
+  "pda+hL / +fl / +hkc unions (0.426-0.575)"
+ ],
+ "unresolved_residuals": [
+  "PDA-first order (RA: %0 split to r6)",
+  "curve bools before quote memcmps (same %0 cascade)",
+  "holder_key copy to -0x518 (frame colour)",
+  "new Option entry copy orig 0x4e0-0x538 (not source-expressible)",
+  "CtoState.creator copy ascending from curve+8 after the bools"
+ ],
+ "next_ideas": [
+  "pin the accounts-pointer %0 split to r8 independent of entry order, then rescreen fl and pda together",
+  "mask the orig 0x3e00-0x4800 clone run in rm screens (difflib re-pairing yields fake +60..90 rm)",
+  "rescreen pda+hL+fl+hkc (full original entry, local rm 198/246) on any future tail RA fix"
+ ],
+ "trials": {
+  "hL": {
+   "ratio": 0.66327,
+   "bytes": 27400,
+   "slots_diff": 3228,
+   "eq_main": false,
+   "L_rm": 150,
+   "L_ex": 73,
+   "G_rm0800": 131,
+   "G_rmT": 2782
+  },
+  "kd": {
+   "ratio": 0.66367,
+   "bytes": 27320,
+   "slots_diff": null,
+   "eq_main": false,
+   "L_rm": 150,
+   "L_ex": 73,
+   "G_rm0800": 131,
+   "G_rmT": 2782
+  },
+  "kdL": {
+   "ratio": 0.66397,
+   "bytes": 27320,
+   "slots_diff": null,
+   "eq_main": false,
+   "L_rm": 150,
+   "L_ex": 73,
+   "G_rm0800": 131,
+   "G_rmT": 2782
+  },
+  "kr": {
+   "ratio": 0.66367,
+   "bytes": 27320,
+   "slots_diff": null,
+   "eq_main": false,
+   "L_rm": 150,
+   "L_ex": 73,
+   "G_rm0800": 131,
+   "G_rmT": 2782
+  },
+  "sci": {
+   "ratio": 0.66507,
+   "bytes": 27400,
+   "slots_diff": 3228,
+   "eq_main": true,
+   "L_rm": 150,
+   "L_ex": 78,
+   "G_rm0800": 131,
+   "G_rmT": 2782
+  },
+  "krL": {
+   "ratio": 0.66397,
+   "bytes": 27320,
+   "slots_diff": null,
+   "eq_main": false,
+   "L_rm": 150,
+   "L_ex": 73,
+   "G_rm0800": 131,
+   "G_rmT": 2782
+  },
+  "ownd": {
+   "ratio": 0.66507,
+   "bytes": 27400,
+   "slots_diff": 3228,
+   "eq_main": true,
+   "L_rm": 150,
+   "L_ex": 78,
+   "G_rm0800": 131,
+   "G_rmT": 2782
+  },
+  "sciL": {
+   "ratio": 0.66397,
+   "bytes": 27320,
+   "slots_diff": null,
+   "eq_main": false,
+   "L_rm": 150,
+   "L_ex": 73,
+   "G_rm0800": 131,
+   "G_rmT": 2782
+  },
+  "crl": {
+   "ratio": 0.66477,
+   "bytes": 27472,
+   "slots_diff": null,
+   "eq_main": false,
+   "L_rm": 150,
+   "L_ex": 79,
+   "G_rm0800": 131,
+   "G_rmT": 2782
+  },
+  "skl": {
+   "ratio": 0.66507,
+   "bytes": 27400,
+   "slots_diff": 3228,
+   "eq_main": true,
+   "L_rm": 150,
+   "L_ex": 78,
+   "G_rm0800": 131,
+   "G_rmT": 2782
+  },
+  "peq": {
+   "ratio": 0.66507,
+   "bytes": 27400,
+   "slots_diff": 3228,
+   "eq_main": true,
+   "L_rm": 150,
+   "L_ex": 78,
+   "G_rm0800": 131,
+   "G_rmT": 2782
+  },
+  "crr": {
+   "ratio": 0.66327,
+   "bytes": 27400,
+   "slots_diff": 3228,
+   "eq_main": false,
+   "L_rm": 150,
+   "L_ex": 73,
+   "G_rm0800": 131,
+   "G_rmT": 2782
+  },
+  "mintk": {
+   "ratio": 0.57522,
+   "bytes": 27648,
+   "slots_diff": null,
+   "eq_main": false,
+   "L_rm": 142,
+   "L_ex": 71,
+   "G_rm0800": 129,
+   "G_rmT": 2670
+  },
+  "mintd": {
+   "ratio": 0.66507,
+   "bytes": 27400,
+   "slots_diff": 3228,
+   "eq_main": true,
+   "L_rm": 150,
+   "L_ex": 78,
+   "G_rm0800": 131,
+   "G_rmT": 2782
+  },
+  "seeda": {
+   "ratio": 0.66507,
+   "bytes": 27400,
+   "slots_diff": 3228,
+   "eq_main": true,
+   "L_rm": 150,
+   "L_ex": 78,
+   "G_rm0800": 131,
+   "G_rmT": 2782
+  },
+  "seedk": {
+   "ratio": 0.65908,
+   "bytes": 27400,
+   "slots_diff": 3236,
+   "eq_main": false,
+   "L_rm": 149,
+   "L_ex": 77,
+   "G_rm0800": 130,
+   "G_rmT": 2781
+  },
+  "hkd": {
+   "ratio": 0.55992,
+   "bytes": 27400,
+   "slots_diff": 3241,
+   "eq_main": false,
+   "L_rm": 151,
+   "L_ex": 76,
+   "G_rm0800": 132,
+   "G_rmT": 2674
+  },
+  "seedr": {
+   "ratio": 0.66038,
+   "bytes": 27464,
+   "slots_diff": null,
+   "eq_main": false,
+   "L_rm": 150,
+   "L_ex": 82,
+   "G_rm0800": 131,
+   "G_rmT": 2782
+  },
+  "hkt": {
+   "ratio": 0.55992,
+   "bytes": 27400,
+   "slots_diff": 3241,
+   "eq_main": false,
+   "L_rm": 151,
+   "L_ex": 76,
+   "G_rm0800": 132,
+   "G_rmT": 2674
+  },
+  "hkb": {
+   "ratio": 0.66507,
+   "bytes": 27400,
+   "slots_diff": 3228,
+   "eq_main": true,
+   "L_rm": 150,
+   "L_ex": 78,
+   "G_rm0800": 131,
+   "G_rmT": 2782
+  },
+  "qlr": {
+   "ratio": 0.62295,
+   "bytes": 27184,
+   "slots_diff": null,
+   "eq_main": false,
+   "L_rm": 103,
+   "L_ex": 68,
+   "G_rm0800": 75,
+   "G_rmT": 2718
+  },
+  "mintpid": {
+   "ratio": 0.47201,
+   "bytes": 27576,
+   "slots_diff": null,
+   "eq_main": false,
+   "L_rm": 147,
+   "L_ex": 74,
+   "G_rm0800": 126,
+   "G_rmT": 2172
+  },
+  "sdl": {
+   "ratio": 0.5722,
+   "bytes": 27400,
+   "slots_diff": 3232,
+   "eq_main": false,
+   "L_rm": 149,
+   "L_ex": 77,
+   "G_rm0800": 130,
+   "G_rmT": 2672
+  },
+  "sda": {
+   "ratio": 0.5722,
+   "bytes": 27400,
+   "slots_diff": 3232,
+   "eq_main": false,
+   "L_rm": 149,
+   "L_ex": 77,
+   "G_rm0800": 130,
+   "G_rmT": 2672
+  },
+  "hkblk": {
+   "ratio": 0.55902,
+   "bytes": 27400,
+   "slots_diff": 3241,
+   "eq_main": false,
+   "L_rm": 151,
+   "L_ex": 73,
+   "G_rm0800": 132,
+   "G_rmT": 2674
+  },
+  "hkty": {
+   "ratio": 0.66507,
+   "bytes": 27400,
+   "slots_diff": 3228,
+   "eq_main": true,
+   "L_rm": 150,
+   "L_ex": 78,
+   "G_rm0800": 131,
+   "G_rmT": 2782
+  },
+  "hkblk2": {
+   "ratio": 0.55902,
+   "bytes": 27400,
+   "slots_diff": 3241,
+   "eq_main": false,
+   "L_rm": 151,
+   "L_ex": 73,
+   "G_rm0800": 132,
+   "G_rmT": 2674
+  },
+  "hklate": {
+   "ratio": 0.66507,
+   "bytes": 27400,
+   "slots_diff": 3232,
+   "eq_main": false,
+   "L_rm": 159,
+   "L_ex": 78,
+   "G_rm0800": 140,
+   "G_rmT": 2791
+  },
+  "hkpair": {
+   "ratio": 0.66507,
+   "bytes": 27400,
+   "slots_diff": 3228,
+   "eq_main": true,
+   "L_rm": 150,
+   "L_ex": 78,
+   "G_rm0800": 131,
+   "G_rmT": 2782
+  },
+  "hkmut": {
+   "ratio": 0.66467,
+   "bytes": 27432,
+   "slots_diff": null,
+   "eq_main": false,
+   "L_rm": 150,
+   "L_ex": 78,
+   "G_rm0800": 131,
+   "G_rmT": 2782
+  },
+  "mintlate": {
+   "ratio": 0.63971,
+   "bytes": 27416,
+   "slots_diff": null,
+   "eq_main": false,
+   "L_rm": 150,
+   "L_ex": 73,
+   "G_rm0800": 131,
+   "G_rmT": 2787
+  },
+  "hkcp": {
+   "ratio": 0.66507,
+   "bytes": 27400,
+   "slots_diff": 3228,
+   "eq_main": true,
+   "L_rm": 150,
+   "L_ex": 78,
+   "G_rm0800": 131,
+   "G_rmT": 2782
+  },
+  "shqm": {
+   "ratio": 0.58013,
+   "bytes": 27304,
+   "slots_diff": null,
+   "eq_main": false,
+   "L_rm": 142,
+   "L_ex": 69,
+   "G_rm0800": 122,
+   "G_rmT": 2770
+  },
+  "hL+hklate": {
+   "ratio": 0.66327,
+   "bytes": 27400,
+   "slots_diff": 3232,
+   "eq_main": false,
+   "L_rm": 160,
+   "L_ex": 73,
+   "G_rm0800": 141,
+   "G_rmT": 2792
+  },
+  "hkc": {
+   "ratio": 0.54159,
+   "bytes": 27464,
+   "slots_diff": null,
+   "eq_main": false,
+   "L_rm": 157,
+   "L_ex": 80,
+   "G_rm0800": 137,
+   "G_rmT": 2677
+  },
+  "fl": {
+   "ratio": 0.64071,
+   "bytes": 27408,
+   "slots_diff": null,
+   "eq_main": false,
+   "L_rm": 155,
+   "L_ex": 89,
+   "G_rm0800": 134,
+   "G_rmT": 2852
+  },
+  "fl+hkc": {
+   "ratio": 0.5323,
+   "bytes": 27496,
+   "slots_diff": null,
+   "eq_main": false,
+   "L_rm": 164,
+   "L_ex": 86,
+   "G_rm0800": 142,
+   "G_rmT": 2740
+  },
+  "pda+hL": {
+   "ratio": 0.57519,
+   "bytes": 27400,
+   "slots_diff": 3248,
+   "eq_main": false,
+   "L_rm": 184,
+   "L_ex": 92,
+   "G_rm0800": 163,
+   "G_rmT": 2832
+  },
+  "pda+hL+fl": {
+   "ratio": 0.47564,
+   "bytes": 27512,
+   "slots_diff": null,
+   "eq_main": false,
+   "L_rm": 191,
+   "L_ex": 100,
+   "G_rm0800": 170,
+   "G_rmT": 2200
+  },
+  "pda+hL+hkc": {
+   "ratio": 0.5205,
+   "bytes": 27448,
+   "slots_diff": null,
+   "eq_main": false,
+   "L_rm": 193,
+   "L_ex": 89,
+   "G_rm0800": 172,
+   "G_rmT": 2694
+  },
+  "pda+hL+fl+hkc": {
+   "ratio": 0.42646,
+   "bytes": 27568,
+   "slots_diff": null,
+   "eq_main": false,
+   "L_rm": 198,
+   "L_ex": 104,
+   "G_rm0800": 178,
+   "G_rmT": 2111
+  },
+  "pda+fl+hkc": {
+   "ratio": 0.42556,
+   "bytes": 27568,
+   "slots_diff": null,
+   "eq_main": false,
+   "L_rm": 197,
+   "L_ex": 101,
+   "G_rm0800": 177,
+   "G_rmT": 2110
+  },
+  "fl+hL": {
+   "ratio": 0.63891,
+   "bytes": 27408,
+   "slots_diff": null,
+   "eq_main": false,
+   "L_rm": 155,
+   "L_ex": 83,
+   "G_rm0800": 134,
+   "G_rmT": 2852
+  },
+  "fl+k_prep_match": {
+   "ratio": 0.63551,
+   "bytes": 27392,
+   "slots_diff": null,
+   "eq_main": false,
+   "L_rm": 155,
+   "L_ex": 89,
+   "G_rm0800": 134,
+   "G_rmT": 2832
+  },
+  "fl+k_s_dest_borrow": {
+   "ratio": 0.63927,
+   "bytes": 27328,
+   "slots_diff": null,
+   "eq_main": false,
+   "L_rm": 155,
+   "L_ex": 89,
+   "G_rm0800": 134,
+   "G_rmT": 2842
+  },
+  "fl+k_s_old_borrow": {
+   "ratio": 0.62997,
+   "bytes": 27328,
+   "slots_diff": null,
+   "eq_main": false,
+   "L_rm": 155,
+   "L_ex": 89,
+   "G_rm0800": 134,
+   "G_rmT": 2836
+  },
+  "fl+k_L_fee_unwrap_again": {
+   "ratio": 0.63951,
+   "bytes": 27408,
+   "slots_diff": null,
+   "eq_main": false,
+   "L_rm": 155,
+   "L_ex": 89,
+   "G_rm0800": 134,
+   "G_rmT": 2850
+  },
+  "fl+k_L_share_none_first": {
+   "ratio": 0.64071,
+   "bytes": 27408,
+   "slots_diff": null,
+   "eq_main": false,
+   "L_rm": 155,
+   "L_ex": 89,
+   "G_rm0800": 134,
+   "G_rmT": 2852
+  },
+  "fl+k_p_ev_ts_last": {
+   "ratio": 0.48629,
+   "bytes": 27656,
+   "slots_diff": null,
+   "eq_main": false,
+   "L_rm": 151,
+   "L_ex": 73,
+   "G_rm0800": 151,
+   "G_rmT": 2680
+  },
+  "fl+k_g_old_fee_first": {
+   "ratio": 0.64041,
+   "bytes": 27408,
+   "slots_diff": null,
+   "eq_main": false,
+   "L_rm": 155,
+   "L_ex": 89,
+   "G_rm0800": 134,
+   "G_rmT": 2850
+  },
+  "fl+k_w_ev_creator_first": {
+   "ratio": 0.63665,
+   "bytes": 27472,
+   "slots_diff": null,
+   "eq_main": false,
+   "L_rm": 155,
+   "L_ex": 89,
+   "G_rm0800": 134,
+   "G_rmT": 2845
+  },
+  "fl+k_w_create_rev": {
+   "ratio": 0.49471,
+   "bytes": 27680,
+   "slots_diff": null,
+   "eq_main": false,
+   "L_rm": 151,
+   "L_ex": 72,
+   "G_rm0800": 151,
+   "G_rmT": 2673
+  },
+  "fl+k_cu_replace": {
+   "ratio": 0.63762,
+   "bytes": 27416,
+   "slots_diff": null,
+   "eq_main": false,
+   "L_rm": 155,
+   "L_ex": 89,
+   "G_rm0800": 134,
+   "G_rmT": 2850
+  },
+  "fl+k_cu_fee_oldunwrap": {
+   "ratio": 0.63951,
+   "bytes": 27408,
+   "slots_diff": null,
+   "eq_main": false,
+   "L_rm": 155,
+   "L_ex": 89,
+   "G_rm0800": 134,
+   "G_rmT": 2850
+  },
+  "fl+k_cu_typed": {
+   "ratio": 0.6353,
+   "bytes": 27384,
+   "slots_diff": null,
+   "eq_main": false,
+   "L_rm": 155,
+   "L_ex": 89,
+   "G_rm0800": 134,
+   "G_rmT": 2844
+  },
+  "fl+k_ev_auth_deref": {
+   "ratio": 0.64071,
+   "bytes": 27408,
+   "slots_diff": null,
+   "eq_main": false,
+   "L_rm": 155,
+   "L_ex": 89,
+   "G_rm0800": 134,
+   "G_rmT": 2852
+  },
+  "fl+k_ev_cb_local": {
+   "ratio": 0.63911,
+   "bytes": 27416,
+   "slots_diff": null,
+   "eq_main": false,
+   "L_rm": 155,
+   "L_ex": 89,
+   "G_rm0800": 134,
+   "G_rmT": 2851
+  },
+  "fl+k_ev_hr_curve": {
+   "ratio": 0.63921,
+   "bytes": 27408,
+   "slots_diff": null,
+   "eq_main": false,
+   "L_rm": 155,
+   "L_ex": 89,
+   "G_rm0800": 134,
+   "G_rmT": 2851
+  },
+  "fl+k_ev_mint_key": {
+   "ratio": 0.63183,
+   "bytes": 27424,
+   "slots_diff": null,
+   "eq_main": false,
+   "L_rm": 155,
+   "L_ex": 89,
+   "G_rm0800": 134,
+   "G_rmT": 2831
+  },
+  "fl+k_ev_nc_target": {
+   "ratio": 0.37287,
+   "bytes": 27416,
+   "slots_diff": null,
+   "eq_main": false,
+   "L_rm": 145,
+   "L_ex": 55,
+   "G_rm0800": 145,
+   "G_rmT": 2621
+  },
+  "fl+k_ev_reset_shared": {
+   "ratio": 0.58716,
+   "bytes": 27456,
+   "slots_diff": null,
+   "eq_main": false,
+   "L_rm": 155,
+   "L_ex": 94,
+   "G_rm0800": 134,
+   "G_rmT": 2832
+  },
+  "fl+k_ev_newfee_unwrap": {
+   "ratio": 0.63293,
+   "bytes": 27432,
+   "slots_diff": null,
+   "eq_main": false,
+   "L_rm": 155,
+   "L_ex": 89,
+   "G_rm0800": 134,
+   "G_rmT": 2849
+  },
+  "fl+k_ev_ts_clockvar": {
+   "ratio": 0.63771,
+   "bytes": 27408,
+   "slots_diff": null,
+   "eq_main": false,
+   "L_rm": 155,
+   "L_ex": 89,
+   "G_rm0800": 134,
+   "G_rmT": 2850
+  },
+  "fl+k_ev_ts_map": {
+   "ratio": 0.64071,
+   "bytes": 27408,
+   "slots_diff": null,
+   "eq_main": false,
+   "L_rm": 155,
+   "L_ex": 89,
+   "G_rm0800": 134,
+   "G_rmT": 2852
+  },
+  "fl+k_ev_ts_presig": {
+   "ratio": 0.6033,
+   "bytes": 26768,
+   "slots_diff": null,
+   "eq_main": false,
+   "L_rm": 155,
+   "L_ex": 89,
+   "G_rm0800": 134,
+   "G_rmT": 2736
+  },
+  "fl+k_pool_prog_let": {
+   "ratio": 0.64071,
+   "bytes": 27408,
+   "slots_diff": null,
+   "eq_main": false,
+   "L_rm": 155,
+   "L_ex": 89,
+   "G_rm0800": 134,
+   "G_rmT": 2852
+  },
+  "fl+k_sh_prog_let": {
+   "ratio": 0.6366,
+   "bytes": 27376,
+   "slots_diff": null,
+   "eq_main": false,
+   "L_rm": 155,
+   "L_ex": 89,
+   "G_rm0800": 134,
+   "G_rmT": 2833
+  },
+  "fl+k_sh_accs_let": {
+   "ratio": 0.61543,
+   "bytes": 27392,
+   "slots_diff": null,
+   "eq_main": false,
+   "L_rm": 155,
+   "L_ex": 89,
+   "G_rm0800": 134,
+   "G_rmT": 2799
+  },
+  "fl+k_sh_fees_key": {
+   "ratio": 0.64031,
+   "bytes": 27408,
+   "slots_diff": null,
+   "eq_main": false,
+   "L_rm": 155,
+   "L_ex": 89,
+   "G_rm0800": 134,
+   "G_rmT": 2852
+  },
+  "fl+k_tail_a_ctx": {
+   "ratio": 0.64071,
+   "bytes": 27408,
+   "slots_diff": null,
+   "eq_main": false,
+   "L_rm": 155,
+   "L_ex": 89,
+   "G_rm0800": 134,
+   "G_rmT": 2852
+  },
+  "fl+k_sig_mint_acct": {
+   "ratio": 0.49604,
+   "bytes": 27472,
+   "slots_diff": null,
+   "eq_main": false,
+   "L_rm": 155,
+   "L_ex": 89,
+   "G_rm0800": 134,
+   "G_rmT": 2179
+  },
+  "fl+k_wl_ts_map": {
+   "ratio": 0.64071,
+   "bytes": 27408,
+   "slots_diff": null,
+   "eq_main": false,
+   "L_rm": 155,
+   "L_ex": 89,
+   "G_rm0800": 134,
+   "G_rmT": 2852
+  },
+  "fl+k_pu_match": {
+   "ratio": 0.64071,
+   "bytes": 27408,
+   "slots_diff": null,
+   "eq_main": false,
+   "L_rm": 155,
+   "L_ex": 89,
+   "G_rm0800": 134,
+   "G_rmT": 2852
+  },
+  "fl+k_wl_ts_clockvar": {
+   "ratio": 0.64041,
+   "bytes": 27408,
+   "slots_diff": null,
+   "eq_main": false,
+   "L_rm": 155,
+   "L_ex": 89,
+   "G_rm0800": 134,
+   "G_rmT": 2850
+  },
+  "fl+k_sig_arr": {
+   "ratio": 0.64071,
+   "bytes": 27408,
+   "slots_diff": null,
+   "eq_main": false,
+   "L_rm": 155,
+   "L_ex": 89,
+   "G_rm0800": 134,
+   "G_rmT": 2852
+  },
+  "fl+k_cu_fee_replace": {
+   "ratio": 0.63721,
+   "bytes": 27400,
+   "slots_diff": 3307,
+   "eq_main": false,
+   "L_rm": 155,
+   "L_ex": 89,
+   "G_rm0800": 134,
+   "G_rmT": 2843
+  },
+  "fl+k_wl_cr_deref": {
+   "ratio": 0.64071,
+   "bytes": 27408,
+   "slots_diff": null,
+   "eq_main": false,
+   "L_rm": 155,
+   "L_ex": 89,
+   "G_rm0800": 134,
+   "G_rmT": 2852
+  },
+  "fl+k_rent_checked": {
+   "ratio": 0.64071,
+   "bytes": 27408,
+   "slots_diff": null,
+   "eq_main": false,
+   "L_rm": 155,
+   "L_ex": 89,
+   "G_rm0800": 134,
+   "G_rmT": 2852
+  },
+  "fl+k_g_s7_tokamtne": {
+   "ratio": 0.64071,
+   "bytes": 27408,
+   "slots_diff": null,
+   "eq_main": false,
+   "L_rm": 155,
+   "L_ex": 89,
+   "G_rm0800": 134,
+   "G_rmT": 2852
+  },
+  "fl+k_g_s7_destscope": {
+   "ratio": 0.52514,
+   "bytes": 27616,
+   "slots_diff": null,
+   "eq_main": false,
+   "L_rm": 155,
+   "L_ex": 90,
+   "G_rm0800": 134,
+   "G_rmT": 2416
+  },
+  "fl+k_g_fee_unwrap": {
+   "ratio": 0.63951,
+   "bytes": 27408,
+   "slots_diff": null,
+   "eq_main": false,
+   "L_rm": 155,
+   "L_ex": 89,
+   "G_rm0800": 134,
+   "G_rmT": 2850
+  },
+  "fl+k_g_s7_destrev": {
+   "ratio": 0.64011,
+   "bytes": 27408,
+   "slots_diff": null,
+   "eq_main": false,
+   "L_rm": 155,
+   "L_ex": 89,
+   "G_rm0800": 134,
+   "G_rmT": 2850
+  },
+  "fl+k_g_s7_dborrow": {
+   "ratio": 0.63927,
+   "bytes": 27328,
+   "slots_diff": null,
+   "eq_main": false,
+   "L_rm": 155,
+   "L_ex": 89,
+   "G_rm0800": 134,
+   "G_rmT": 2842
+  },
+  "fl+k_g_s7_tokzero": {
+   "ratio": 0.64071,
+   "bytes": 27408,
+   "slots_diff": null,
+   "eq_main": false,
+   "L_rm": 155,
+   "L_ex": 89,
+   "G_rm0800": 134,
+   "G_rmT": 2852
+  },
+  "fl+k_g_w_clock_local": {
+   "ratio": 0.64041,
+   "bytes": 27408,
+   "slots_diff": null,
+   "eq_main": false,
+   "L_rm": 155,
+   "L_ex": 89,
+   "G_rm0800": 134,
+   "G_rmT": 2850
+  },
+  "fl+k_g_canedit_first": {
+   "ratio": 0.64011,
+   "bytes": 27408,
+   "slots_diff": null,
+   "eq_main": false,
+   "L_rm": 155,
+   "L_ex": 89,
+   "G_rm0800": 134,
+   "G_rmT": 2848
+  },
+  "cr2": {
+   "ratio": 0.66507,
+   "bytes": 27400,
+   "slots_diff": 3228,
+   "eq_main": true,
+   "L_rm": 150,
+   "L_ex": 78,
+   "G_rm0800": 131,
+   "G_rmT": 2782
+  },
+  "cr1": {
+   "ratio": 0.66507,
+   "bytes": 27400,
+   "slots_diff": 3228,
+   "eq_main": true,
+   "L_rm": 150,
+   "L_ex": 78,
+   "G_rm0800": 131,
+   "G_rmT": 2782
+  },
+  "cr4": {
+   "ratio": 0.66507,
+   "bytes": 27400,
+   "slots_diff": 3228,
+   "eq_main": true,
+   "L_rm": 150,
+   "L_ex": 78,
+   "G_rm0800": 131,
+   "G_rmT": 2782
+  },
+  "cr3": {
+   "ratio": 0.63831,
+   "bytes": 27408,
+   "slots_diff": null,
+   "eq_main": false,
+   "L_rm": 143,
+   "L_ex": 77,
+   "G_rm0800": 125,
+   "G_rmT": 2876
+  },
+  "fl+cr3": {
+   "ratio": 0.64214,
+   "bytes": 27264,
+   "slots_diff": null,
+   "eq_main": false,
+   "L_rm": 149,
+   "L_ex": 79,
+   "G_rm0800": 131,
+   "G_rmT": 2843
+  },
+  "cr5": {
+   "ratio": 0.66507,
+   "bytes": 27400,
+   "slots_diff": 3228,
+   "eq_main": true,
+   "L_rm": 150,
+   "L_ex": 78,
+   "G_rm0800": 131,
+   "G_rmT": 2782
+  },
+  "fl+cr5": {
+   "ratio": 0.64071,
+   "bytes": 27408,
+   "slots_diff": null,
+   "eq_main": false,
+   "L_rm": 155,
+   "L_ex": 89,
+   "G_rm0800": 134,
+   "G_rmT": 2852
+  }
+ }
+}

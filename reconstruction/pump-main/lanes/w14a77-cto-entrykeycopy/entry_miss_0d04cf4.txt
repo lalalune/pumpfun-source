@@ -1,0 +1,247 @@
+    0 mov64 r6, r5                                 0 mov64 r9, r5
+    8 stxdw [r10 - 0x928], r4                      8 stxdw [r10 - 0x908], r4
+   10 stxdw [r10 - 0x918], r3                     10 stxdw [r10 - 0x8d8], r3
+   18 stxdw [r10 - 0x8f0], r1                     18 stxdw [r10 - 0x8f0], r1
+   20 stxdw [r10 - 0x938], r2                     20 stxdw [r10 - 0x930], r2
+   28 ldxdw r8, [r2 + 0x8]                        28 ldxdw r8, [r2 + 0x8]
+   30 ldxdw r1, [r8 + 0x10]                       30 ldxdw r1, [r8 + 0x10]
+   38 ldxdw r1, [r1 + 0x0]                        38 ldxdw r1, [r1 + 0x0]
+   40 ldxdw r2, [r1 + 0x18]                       40 ldxdw r2, [r1 + 0x18]
+   48 stxdw [r10 - 0x6a8], r2                     48 stxdw [r10 - 0x6a8], r2
+   50 ldxdw r2, [r1 + 0x10]                       50 ldxdw r2, [r1 + 0x10]
+   58 stxdw [r10 - 0x6b0], r2                     58 stxdw [r10 - 0x6b0], r2
+   60 ldxdw r2, [r1 + 0x8]                        60 ldxdw r2, [r1 + 0x8]
+   68 stxdw [r10 - 0x6b8], r2                     68 stxdw [r10 - 0x6b8], r2
+   70 ldxdw r1, [r1 + 0x0]                        70 ldxdw r1, [r1 + 0x0]
+   78 stxdw [r10 - 0x6c0], r1                     78 stxdw [r10 - 0x6c0], r1
+   80 mov64 r1, r10                              1a8 mov64 r1, r10
+   88 add64 r1, -0x6c0                           1b0 add64 r1, -0x6c0
+   90 stxdw [r10 - 0x440], r1                    1b8 stxdw [r10 - 0x2c0], r1
+   98 lddw r1, 0x1b68be                          1c0 lddw r1, 0x0
+   a8 stxdw [r10 - 0x450], r1                    1d0 stxdw [r10 - 0x2d0], r1
+   b0 stdw [r10 - 0x438], 0x20                   1d8 stdw [r10 - 0x2b8], 0x20
+   b8 stdw [r10 - 0x448], 0xe                    1e0 stdw [r10 - 0x2c8], 0xe
+   c0 mov64 r1, r10                              1e8 mov64 r1, r10
+   c8 add64 r1, -0x2d0                           200 add64 r2, -0x2d0
+   d0 mov64 r2, r10                               --
+   d8 add64 r2, -0x450                            --
+   e0 mov64 r3, 0x2                              208 mov64 r3, 0x2
+   e8 lddw r4, 0x1b79df                          210 lddw r4, 0x0
+   f8 call 0x30a75                               220 call -0x1
+  100 ldxdw r1, [r10 - 0x2b8]                    228 ldxdw r1, [r10 - 0x679]
+  108 stxdw [r10 - 0x688], r1                    230 stxdw [r10 - 0x6a0], r1
+  110 ldxdw r1, [r10 - 0x2c0]                    238 ldxdw r1, [r10 - 0x671]
+  118 stxdw [r10 - 0x690], r1                    240 stxdw [r10 - 0x698], r1
+  120 ldxdw r1, [r10 - 0x2c8]                    248 ldxdw r1, [r10 - 0x669]
+  128 stxdw [r10 - 0x698], r1                    250 stxdw [r10 - 0x690], r1
+  130 ldxdw r1, [r10 - 0x2d0]                    258 ldxdw r1, [r10 - 0x661]
+  138 stxdw [r10 - 0x6a0], r1                    260 stxdw [r10 - 0x688], r1
+  140 ldxdw r9, [r8 + 0x38]                      268 ldxdw r7, [r8 + 0x38]
+  148 ldxdw r1, [r8 + 0x90]                       --
+  150 stxdw [r10 - 0x8e0], r1                     --
+  158 ldxdw r1, [r1 + 0x0]                        --
+  160 ldxdw r2, [r1 + 0x18]                       --
+  168 stxdw [r10 - 0x2b8], r2                     --
+  170 ldxdw r2, [r1 + 0x10]                       --
+  178 stxdw [r10 - 0x2c0], r2                     --
+  180 ldxdw r2, [r1 + 0x8]                        --
+  188 stxdw [r10 - 0x2c8], r2                     --
+  190 ldxdw r1, [r1 + 0x0]                        --
+  198 stxdw [r10 - 0x2d0], r1                     --
+  1a0 mov64 r2, r10                               --
+  1a8 add64 r2, -0x2d0                            --
+  1b0 mov64 r1, r9                                --
+  1b8 add64 r1, 0x8                               --
+  1c0 mov64 r3, 0x20                              --
+  1c8 call 0x32153                                --
+  1d0 mov64 r1, 0x0                               --
+  1d8 stxdw [r10 - 0x920], r1                     --
+  1e0 ldxdw r7, [r6 - 0xff8]                      --
+  1e8 ldxdw r1, [r6 - 0x1000]                     --
+  1f0 stxdw [r10 - 0x930], r1                     --
+  1f8 lsh64 r0, 0x20                              --
+  200 rsh64 r0, 0x20                              --
+  208 jne r0, 0x0, +0xe                           --
+  210 ldxdw r1, [r10 - 0x8e0]                     --
+  218 ldxdw r1, [r1 + 0x18]                       --
+  220 lddw r2, 0x1b7a61                           --
+  230 mov64 r3, 0x20                              --
+  238 call 0x32145                                --
+  240 lsh64 r0, 0x20                              --
+  248 rsh64 r0, 0x20                              --
+  250 jne r0, 0x0, +0x5                           --
+  258 ldxdw r1, [r10 - 0x8e0]                     --
+  260 call 0x2ffd8                                --
+  268 ldxdw r9, [r8 + 0x38]                       --
+  270 xor64 r0, 0x1                               --
+  278 stxdw [r10 - 0x920], r0                     --
+  280 stxdw [r10 - 0x8d8], r8                     --
+  288 ldxdw r6, [r8 + 0x8]                        --
+  290 ldxb r1, [r9 + 0xa3]                        --
+  298 stxdw [r10 - 0x8e8], r1                     --
+  2a0 ldxb r1, [r9 + 0xa5]                        --
+  2a8 stxdw [r10 - 0x8e0], r1                     --
+  2b0 ldxb r8, [r9 + 0xa2]                        --
+  2b8 ldxdw r1, [r9 + 0x40]                      270 ldxdw r1, [r7 + 0x40]
+  2c0 stxdw [r10 - 0x438], r1                    278 stxdw [r10 - 0x438], r1
+  2c8 ldxdw r1, [r9 + 0x38]                      280 ldxdw r1, [r7 + 0x38]
+  2d0 stxdw [r10 - 0x440], r1                    288 stxdw [r10 - 0x440], r1
+  2d8 ldxdw r1, [r9 + 0x30]                      290 ldxdw r1, [r7 + 0x30]
+  2e0 stxdw [r10 - 0x448], r1                    298 stxdw [r10 - 0x448], r1
+  2e8 ldxdw r1, [r9 + 0x28]                      2a0 ldxdw r1, [r7 + 0x28]
+  2f0 stxdw [r10 - 0x450], r1                    2a8 stxdw [r10 - 0x450], r1
+  2f8 stdw [r10 - 0x2b8], 0x0                    2b0 stdw [r10 - 0x2b8], 0x0
+  300 stdw [r10 - 0x2c0], 0x0                    2b8 stdw [r10 - 0x2c0], 0x0
+  308 stdw [r10 - 0x2c8], 0x0                    2c0 stdw [r10 - 0x2c8], 0x0
+  310 stdw [r10 - 0x2d0], 0x0                    2c8 stdw [r10 - 0x2d0], 0x0
+  318 mov64 r1, r10                              2d0 mov64 r1, r10
+  320 add64 r1, -0x450                           2d8 add64 r1, -0x450
+  328 mov64 r2, r10                              2e0 mov64 r2, r10
+  330 add64 r2, -0x2d0                           2e8 add64 r2, -0x2d0
+  338 mov64 r3, 0x20                             2f0 mov64 r3, 0x20
+  340 call 0x32124                               2f8 call -0x1
+  348 mov64 r3, 0x1                              300 mov64 r1, 0x1
+  350 stxdw [r10 - 0x910], r9                    308 stxdw [r10 - 0x8f8], r1
+  358 add64 r9, 0x8                               --
+  360 lsh64 r0, 0x20                             310 lsh64 r0, 0x20
+  368 rsh64 r0, 0x20                             318 rsh64 r0, 0x20
+  370 jeq r0, 0x0, +0x15                         328 jeq r0, 0x0, +0x15
+  378 mov64 r1, r10                              330 mov64 r1, r10
+  380 add64 r1, -0x450                           338 add64 r1, -0x450
+  388 lddw r2, 0x1b5cc8                          340 lddw r2, 0x0
+  398 mov64 r3, 0x20                             350 mov64 r3, 0x20
+  3a0 call 0x32118                               358 call -0x1
+  3a8 mov64 r3, 0x1                               --
+  3b0 lsh64 r0, 0x20                             360 lsh64 r0, 0x20
+  3b8 rsh64 r0, 0x20                             368 rsh64 r0, 0x20
+  3c0 jeq r0, 0x0, +0xb                          378 jeq r0, 0x0, +0xb
+  3c8 mov64 r1, r6                                --
+  3d0 add64 r1, 0x3a8                            388 add64 r1, 0x3a8
+  3d8 mov64 r2, r10                              390 mov64 r2, r10
+  3e0 add64 r2, -0x450                           398 add64 r2, -0x450
+  3e8 mov64 r3, 0x20                             3a0 mov64 r3, 0x20
+  3f0 call 0x3210e                               3a8 call -0x1
+  3f8 lsh64 r0, 0x20                             3b0 lsh64 r0, 0x20
+  400 rsh64 r0, 0x20                             3b8 rsh64 r0, 0x20
+  408 mov64 r3, 0x1                              3c0 mov64 r3, 0x1
+  410 jeq r0, 0x0, +0x1                          3c8 jeq r0, 0x0, +0x1
+  418 mov64 r3, 0x0                              3d0 mov64 r3, 0x0
+  420 stxdw [r10 - 0x908], r3                    3e0 stxdw [r10 - 0x20], r1
+  428 ldxdw r4, [r6 + 0x430]                     428 ldxdw r0, [r2 + 0x430]
+  430 ldxb r1, [r6 + 0x43f]                      430 ldxb r8, [r2 + 0x43f]
+  438 ldxb r5, [r6 + 0x43e]                      438 ldxb r6, [r2 + 0x43e]
+  440 ldxdw r2, [r10 - 0x8e8]                     --
+  448 stxb [r10 - 0xe], r2                       468 stxb [r10 - 0xd], r3
+  450 ldxdw r0, [r10 - 0x8e0]                    470 ldxdw r3, [r10 - 0x8d8]
+  458 stxb [r10 - 0xf], r0                       4c0 stxb [r10 - 0xb], r6
+  460 stxb [r10 - 0x10], r8                      4c8 stxb [r10 - 0xc], r8
+  468 ldxdw r2, [r9 + 0x0]                        --
+  470 stxdw [r10 - 0x38], r2                      --
+  478 ldxdw r2, [r9 + 0x8]                        --
+  480 stxdw [r10 - 0x30], r2                      --
+  488 ldxdw r2, [r9 + 0x10]                       --
+  490 stxdw [r10 - 0x28], r2                      --
+  498 ldxdw r2, [r9 + 0x18]                       --
+  4a0 stxdw [r10 - 0x20], r2                      --
+  4a8 mov64 r2, r3                                --
+  4b0 and64 r2, 0x1                               --
+  4b8 stxb [r10 - 0xd], r2                       4d0 stxb [r10 - 0xe], r5
+  4c0 stxb [r10 - 0xb], r5                       4d8 stxb [r10 - 0xf], r4
+  4c8 stxb [r10 - 0xc], r1                       4e0 stxb [r10 - 0x10], r2
+  4d0 stxdw [r10 - 0x18], r4                     4e8 stxdw [r10 - 0x18], r0
+  4d8 ldxb r2, [r7 + 0x0]                        510 ldxb r0, [r9 + 0x0]
+  4e0 stxdw [r10 - 0x8f8], r2                     --
+  4e8 ldxw r2, [r7 + 0x4]                         --
+  4f0 stxw [r10 - 0x655], r2                      --
+  4f8 ldxw r2, [r7 + 0x1]                         --
+  500 stxw [r10 - 0x658], r2                      --
+  508 ldxdw r2, [r7 + 0x8]                        --
+  510 stxdw [r10 - 0x900], r2                     --
+  518 ldxdw r9, [r7 + 0x10]                       --
+  520 ldxb r2, [r7 + 0x20]                        --
+  528 stxb [r10 - 0x660], r2                      --
+  530 ldxdw r2, [r7 + 0x18]                       --
+  538 stxdw [r10 - 0x668], r2                     --
+  540 ldxdw r6, [r10 - 0x8d8]                    518 ldxdw r3, [r10 - 0x8e0]
+  548 ldxdw r2, [r6 + 0x90]                      520 ldxdw r3, [r3 + 0x90]
+  550 ldxdw r2, [r2 + 0x0]                       528 ldxdw r3, [r3 + 0x0]
+  558 ldxdw r3, [r2 + 0x18]                      538 ldxdw r4, [r3 + 0x18]
+  560 stxdw [r10 - 0x458], r3                    540 stxdw [r10 - 0x500], r4
+  568 ldxdw r3, [r2 + 0x10]                      548 ldxdw r4, [r3 + 0x10]
+  570 stxdw [r10 - 0x460], r3                    550 stxdw [r10 - 0x508], r4
+  578 ldxdw r3, [r2 + 0x8]                       558 ldxdw r4, [r3 + 0x8]
+  580 stxdw [r10 - 0x468], r3                    560 stxdw [r10 - 0x510], r4
+  588 ldxdw r2, [r2 + 0x0]                       568 ldxdw r3, [r3 + 0x0]
+  590 stxdw [r10 - 0x470], r2                    570 stxdw [r10 - 0x518], r3
+  598 ldxdw r2, [r10 - 0x688]                    5a8 ldxdw r0, [r10 - 0x8d8]
+  5a0 stxdw [r10 - 0x500], r2                     --
+  5a8 ldxdw r2, [r10 - 0x690]                     --
+  5b0 stxdw [r10 - 0x508], r2                     --
+  5b8 ldxdw r2, [r10 - 0x698]                     --
+  5c0 stxdw [r10 - 0x510], r2                     --
+  5c8 ldxdw r2, [r10 - 0x6a0]                     --
+  5d0 stxdw [r10 - 0x518], r2                     --
+  5d8 mov64 r2, r8                               5b8 mov64 r2, r6
+  5e0 jne r2, 0x0, +0xa13                         --
+  5e8 mov64 r3, r9                                --
+  5f0 ldxdw r2, [r10 - 0x900]                     --
+  5f8 ldxdw r2, [r10 - 0x8f8]                     --
+  600 stxdw [r10 - 0x940], r5                     --
+  608 ldxdw r2, [r10 - 0x908]                     --
+  610 ldxdw r8, [r10 - 0x918]                     --
+  618 and64 r8, 0x1                               --
+  620 mov64 r2, r0                               5c0 mov64 r3, r6
+  628 jeq r2, 0x0, +0x1c                         5c8 jeq r2, 0x0, +0x1e
+  630 ldxdw r2, [r10 - 0x910]                    5e8 ldxdw r1, [r10 - 0x938]
+  638 mov64 r9, r4                               6d8 mov64 r1, r8
+  640 jne r8, 0x0, +0x57                         6e0 jne r1, 0x0, -0x20
+  648 mov64 r1, r10                              6e8 mov64 r1, r10
+  650 add64 r1, -0x488                            --
+  658 lddw r2, 0x1b5e78                          6f8 lddw r2, 0x0
+  668 call 0x26860                               708 call -0x1
+  670 stdw [r10 - 0x4a8], 0x0                    710 stdw [r10 - 0x4a8], 0x0
+  678 stdw [r10 - 0x4b0], 0x1                    718 stdw [r10 - 0x4b0], 0x1
+  680 stdw [r10 - 0x4b8], 0x0                    720 stdw [r10 - 0x4b8], 0x0
+  688 lddw r1, 0x1bd838                          728 lddw r1, 0x0
+  698 stxdw [r10 - 0x428], r1                    738 stxdw [r10 - 0x428], r1
+  6a0 mov64 r1, r10                              740 mov64 r1, r10
+  6a8 add64 r1, -0x4b8                           748 add64 r1, -0x4b8
+  6b0 stxdw [r10 - 0x430], r1                    750 stxdw [r10 - 0x430], r1
+  6b8 stb [r10 - 0x418], 0x3                     758 stb [r10 - 0x418], 0x3
+  6c0 stdw [r10 - 0x420], 0x20                   760 stdw [r10 - 0x420], 0x20
+  6c8 stdw [r10 - 0x440], 0x0                    768 stdw [r10 - 0x440], 0x0
+  6d0 stdw [r10 - 0x450], 0x0                    770 stdw [r10 - 0x450], 0x0
+  6d8 mov64 r2, r10                              778 mov64 r2, r10
+  6e0 add64 r2, -0x450                           780 add64 r2, -0x450
+  6e8 lddw r1, 0x1b5e78                          788 lddw r1, 0x0
+  6f8 call 0x275af                               798 call -0x1
+  700 jeq r0, 0x0, +0x22                         7a0 jeq r0, 0x0, +0xc0
+  708 ja +0xa06                                  7a8 ja +0x9eb
+  710 ldxdw r2, [r10 - 0x910]                    7b0 ldxdw r1, [r10 - 0x4a8]
+  718 mov64 r9, r4                                --
+  720 jeq r8, 0x0, +0x1                           --
+  728 ja +0x39                                    --
+  730 ldxdw r1, [r10 - 0x8f8]                    7c0 ldxdw r1, [r10 - 0x4b0]
+  738 and64 r1, 0x1                               --
+  740 jeq r1, 0x0, +0x1                           --
+  748 ja +0x97                                   888 ja +0x9f4
+  750 mov64 r1, r10                              890 mov64 r1, r10
+  758 add64 r1, -0x4d0                            --
+  760 lddw r2, 0x1b5e7c                          8a0 lddw r2, 0x0
+  770 call 0x2683f                               8b0 call -0x1
+  778 stdw [r10 - 0x478], 0x0                    8b8 stdw [r10 - 0x4a8], 0x0
+  780 stdw [r10 - 0x480], 0x1                    8c0 stdw [r10 - 0x4b0], 0x1
+  788 stdw [r10 - 0x488], 0x0                    8c8 stdw [r10 - 0x4b8], 0x0
+  790 lddw r1, 0x1bd838                          8d0 lddw r1, 0x0
+  7a0 stxdw [r10 - 0x428], r1                    8e0 stxdw [r10 - 0x428], r1
+  7a8 mov64 r1, r10                              8e8 mov64 r1, r10
+  7b0 add64 r1, -0x488                            --
+  7b8 stxdw [r10 - 0x430], r1                    8f8 stxdw [r10 - 0x430], r1
+  7c0 stb [r10 - 0x418], 0x3                     900 stb [r10 - 0x418], 0x3
+  7c8 stdw [r10 - 0x420], 0x20                   908 stdw [r10 - 0x420], 0x20
+  7d0 stdw [r10 - 0x440], 0x0                    910 stdw [r10 - 0x440], 0x0
+  7d8 stdw [r10 - 0x450], 0x0                    918 stdw [r10 - 0x450], 0x0
+  7e0 mov64 r2, r10                              920 mov64 r2, r10
+  7e8 add64 r2, -0x450                           928 add64 r2, -0x450
+  7f0 lddw r1, 0x1b5e7c                          930 lddw r1, 0x0
+{"name": "main0", "bytes": 27400, "L_rm": 150, "L_fm": 112, "L_ex": 78, "G_rm0800": 131, "G_rmT": 2782, "n": [246, 305]}
