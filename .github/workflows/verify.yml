@@ -339,6 +339,7 @@ jobs:
               python -B reconstruction/harness/test_experiment_output_walk_errors.py
               python -B reconstruction/harness/test_experiment_receipt_integrity.py
               python -B reconstruction/harness/test_minimize_initial_report.py
+              python -B reconstruction/harness/test_minimize_linked_patch.py
               python -B reconstruction/harness/test_minimize_oracle_encoding.py
               python -B reconstruction/harness/test_minimize_patch_list_encoding.py
               python -B reconstruction/harness/test_treediff.py

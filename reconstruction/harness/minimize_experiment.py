@@ -74,6 +74,7 @@ def main():
                if not name.upper().startswith('GIT_')}
     args.out.mkdir(parents=True, exist_ok=True)
     patch_errors = []
+    source_errors = []
     def evaluate(selected):
         with tempfile.TemporaryDirectory(prefix='reduce-source-', dir=args.out) as temporary:
             stage = Path(temporary) / 'source'
@@ -86,12 +87,21 @@ def main():
                 if applied.returncode:
                     patch_errors.append({'selected': selected, 'patch_index': index, 'stderr': applied.stderr.decode(errors='replace')[-4000:]})
                     return 'error'
+            # A successfully applied patch may introduce an unsupported source
+            # link. Keep that subset unknown instead of aborting the search.
+            try:
+                manifest(stage)
+            except (OSError, ValueError) as error:
+                source_errors.append({'selected': selected, 'detail': str(error)})
+                return 'error'
             key = digest(json.dumps(selected).encode())[:16]
             return run_trial(stage, config['command'], args.out / 'trials' / key,
                              config.get('inputs', []), config.get('timeout', 300))['status']
     result = minimize(len(paths), evaluate, args.max_trials, args.want)
     result['source'] = source_identity
     result['patch_errors'] = patch_errors
+    if source_errors:
+        result['source_errors'] = source_errors
     result['patches'] = [{'index': i, 'sha256': digest(raw)} for i, raw in enumerate(patches)]
     atomic_json(args.out / 'minimized.json', result)
     print(json.dumps(result, indent=2))
