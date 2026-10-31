@@ -27,6 +27,40 @@ def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def assert_quote_regression_recount(quote):
+    """Recount the quote-control receipt's result list against its header.
+
+    The header's ``cases``/``mismatches`` are claims; the shipped ``results``
+    list is the data. When the list is present, the claims must agree with a
+    recount of it. Count-only shapes keep the caller's claimed-count check.
+    """
+    results = quote.get("results")
+    if isinstance(results, list):
+        assert len(results) == quote["cases"], \
+            "quote-control header disagrees with its result list"
+        assert sum(not row["matches"] for row in results) == quote["mismatches"], \
+            "quote-control header disagrees with its result list"
+
+
+def assert_curve_regression_recount(curve):
+    """Recount the multi-hop receipt's case list against its header.
+
+    The header's ``case_count``/``passed``/``mismatches`` are claims; the
+    shipped ``cases`` list is the data. When the list is present, the claims
+    must agree with a recount of it. Count-only shapes keep the caller's
+    claimed-count check.
+    """
+    cases = curve.get("cases")
+    if isinstance(cases, list):
+        assert len(cases) == curve["case_count"], \
+            "multi-hop header disagrees with its case list"
+        failures = [i for i, row in enumerate(cases) if row["mismatches"]]
+        assert failures == curve["mismatches"], \
+            "multi-hop header disagrees with its case list"
+        assert curve["passed"] == len(cases) - len(failures), \
+            "multi-hop header disagrees with its case list"
+
+
 def main():
     first = json.loads((PACKAGE / "build-comparison.json").read_text())
     second = json.loads((PACKAGE / "second-build-comparison.json").read_text())
@@ -72,8 +106,10 @@ def main():
     assert isinstance(quote["bound_inputs_sha256"], dict) and quote["bound_inputs_sha256"], \
         "quote-control regression binds no input"
     assert all(sha(ROOT / path) == digest for path, digest in quote["bound_inputs_sha256"].items())
+    assert_quote_regression_recount(quote)
     assert curve["case_count"] == curve["passed"] == 56
     assert curve["candidate_sha256"] == sha(candidate)
+    assert_curve_regression_recount(curve)
 
     with tempfile.TemporaryDirectory() as directory:
         output = Path(directory) / "replay.json.gz"
