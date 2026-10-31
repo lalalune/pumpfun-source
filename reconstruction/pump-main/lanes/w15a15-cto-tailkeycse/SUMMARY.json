@@ -1,0 +1,38 @@
+{
+  "lane": "w15a15-cto-tailkeycse",
+  "target": "0x22a10 admin_cto::execute",
+  "base": {"main": "86e2a6b", "ratio": 0.67376, "slots_diff": 3124, "bytes": 27400},
+  "result": "notes only; angle premise falsified (original tail key/lamports pieces are fresh in-run spills, not long-lived key copies)",
+  "best": {"ratio": 0.67376, "slots_diff": 3124, "bytes": 27400, "source": "main (no gain)"},
+  "findings": [
+    "tools/webs.py: CFG-aware reaching-definition slot webs on the final disassembly (orig or candidate); abort syscall and unwrap_failed end blocks, which removes a fake 1,214-insn cycle; --why/--live-at/--path/--per-def",
+    "orig 0x910/0x8e0/0x908 are multi-occupancy colours; inside the sharing-CPI run they hold in-run spills defined at 0x3f30 (E0 key piece), 0x3f50, 0x4190; the 'live past 0x5a00' reading was linear-layout conflation (sweep blocks are placed after post-sweep code)",
+    "slots live across the admin_cto_sharing_config call: orig 8, main 9; common accounts/r1/r2/fee value/sharing tag; orig-only fee-tag phi 0x8e8 (def 0x1998), holder phi 0x950, cashback phi 0x958; main-only fee-tag ARG 0x910, holder ARG 0x8e8, !holder 0x908 (0x4a0) and st.cashback 0x8f8 (0x4c0)",
+    "the +1 is the MachineSunk cashback AND; the colour clash comes from entry/head-defined long intervals in ours vs validate-exit phis in the original (entry arg spills die at 0x610/0x1500 in the original)",
+    "main splits the sharing tag interval at the run entry with a same-slot copy (0x3ce0/0x3ce8); the original keeps one interval and reloads it after the CPI (0x4a90)"
+  ],
+  "attempts": [
+    {"v": "k0top", "ratio": 0.61465, "bytes": 27408},
+    {"v": "k2top", "ratio": 0.58901, "bytes": 27424},
+    {"v": "k02top", "ratio": 0.60141, "bytes": 27440},
+    {"v": "k0mid", "ratio": 0.48690, "bytes": 27424},
+    {"v": "k02mid", "ratio": 0.49268, "bytes": 27512},
+    {"v": "j_all", "ratio": 0.30884, "bytes": 27560},
+    {"v": "j_nofee", "ratio": 0.35759, "bytes": 27640},
+    {"v": "j_nohr", "ratio": 0.34089, "bytes": 27264}
+  ],
+  "rejected_mechanisms": [
+    "binding sharing-CPI E0/E2 keys once early (entry or before the match) and using key:k in the literals",
+    "validate returning (target,holder,cashback,fee) so every late use reads validate-exit values (sret frame re-lay)"
+  ],
+  "unresolved": [
+    "fee tag and holder flag as validate-exit phis without changing validate's signature",
+    "cashback AND sunk past the CPI (+1 long value; w15a14 is pricing it)",
+    "sharing tag interval split at the run entry"
+  ],
+  "next_ideas": [
+    "find a validate-signature-preserving spelling whose fee/holder late uses read validate-exit phis; check with webs.py --live-at that the entry arg spills die in validate before building",
+    "use webs.py on any candidate to compare frame-slot occupancy with the original instead of linear spans"
+  ],
+  "ledger_keys": "0x22a10-w15-86e2a6b-tailkeycse-*"
+}
