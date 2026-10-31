@@ -1,0 +1,69 @@
+{
+ "lane": "w14a87-cto-skelunion2",
+ "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27,400 B",
+ "bases": {
+  "0d04cf4": {
+   "ratio": 0.66507,
+   "M": 2220
+  },
+  "95a64ba": {
+   "ratio": 0.66986,
+   "M": 2236
+  },
+  "ecea702": {
+   "ratio": 0.67076,
+   "M": 2239
+  },
+  "963d1ee": {
+   "ratio": 0.67226,
+   "M": 2244
+  }
+ },
+ "pr": 3416,
+ "landed": false,
+ "source_change": false,
+ "result": "no zero-loss gain; ranked composite-base table by M and RA-recoverable bounds (fR legal frame, rfR + ideal registers, rfjR + jump offsets, skM all masked)",
+ "best_pinned_oracle_composite": {
+  "base": "95a64ba",
+  "spec": "K.L_fee_unwrap_again + Br (post-opt validate order B with polarity flips)",
+  "ratio": 0.67705,
+  "bytes": 27400,
+  "M": 2260,
+  "note": "oracle only: Br is a post-opt relayout"
+ },
+ "best_by_bound": {
+  "ecea702": "t1 + h7 + Br: M 2265 @27384, rfR 2666, rfjR 2754 (main M 2239, rfR 2623)",
+  "95a64ba": "t1 + h7 + Br: M 2263 @27384, rfR 2664; main+Br M 2264 @27408",
+  "963d1ee": "t1 + h7 + Br: M 2270 @27384 (oracle 0.68025), rfR 2665; t1+B M 2267 @27448; main+B M 2258"
+ },
+ "findings": [
+  "B (w14a78 orig-like validate error-block order) is the only structural component with an RA-recoverable gain: +28 M on 0d04cf4/95a64ba (+14 on ecea702), all in orig 0x800-0x1000, rfR +40; it composes additively with a1, t1, h7 and size knobs",
+  "Br (B with branch-condition reversal: bb7.i, bb14.i, bb16.i, bb23.i) keeps B's M at +8 B instead of +40 B on 95a64ba (+16 B on ecea702)",
+  "s1 and p1 skeleton gains (skM/L2 +91..+148 with B) are not recoverable under a legal frame: rfR -15..-64 below main; do not move to s1 or p1 bases",
+  "the and-1 basin k75 (w14a75) gains +9 M in validate vs B +28 and loses -35 elsewhere; rfR = main; unchanged by #3409",
+  "h7 is size-only (-32 B, M +-0) on main/a1/t1",
+  "on ecea702 t1 composes with B better than main (t1+B M 2262 vs main+B 2253)",
+  "on 963d1ee: t1+B M 2267 vs main+B 2258 vs main 2244; t1 is the partner that makes B pay most"
+ ],
+ "rejected": [
+  "p1 unions (RA cascade -249 M orig 0x2800-0x3800)",
+  "s1 unions (-96 M orig 0x4000-0x4800)",
+  "k75 unions with s1/t1/a1",
+  "q2+tu8, q5+tu8",
+  "h7 on and-1 bases",
+  "43 size knobs alone on 95a64ba (none above main)",
+  "73 genes47 alone on 95a64ba/ecea702 (none above main)",
+  "t1+g.s_su_iflet / t1+g.e_reset / t1+K.L_fee_unwrap_again pinned at 27400 on ecea702 (0.66956/0.66956/0.66777 < 0.67076)"
+ ],
+ "unresolved": [
+  "source form of B/Br (w14a78-valerrplace)",
+  "why B loses -8 in orig 0x2000 on ecea702"
+ ],
+ "next_ideas": [
+  "w14a78: realize B with the Br polarity (flip the bb7.i/bb14.i/bb16.i/bb23.i tests together with the order); then repay +8 B with curve.creator_fee_bps=fee.unwrap_or(old_fee) or g.s_su_iflet",
+  "try t1 (w14a70) together with any source B: on ecea702 t1+B is +9 M over main+B",
+  "re-run tools/post.py + postr.py on each new main: B's gain moved from +28 to +14 after the 334 placeholder"
+ ],
+ "tools": "reconstruction/pump-main/lanes/w14a87-cto-skelunion2/tools: sc.py fbound.py relayn.py (run/run_rev) h7.py post.py postr.py postlean.py run.py cap.sh capvar.sh ledg.py; e/gen.py + e/extra.py",
+ "ledger": "approach skelunion2, keys 0x22a10-w14-{0d04cf4,95a64ba,ecea702}-skelunion2-*"
+}

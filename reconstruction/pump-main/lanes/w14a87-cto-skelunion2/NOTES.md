@@ -1,7 +1,7 @@
 # w14a87-cto-skelunion2: structural-composite oracle re-run on current main
 
 Target `0x22a10` `admin_cto::execute` (`programs/pump/src/creator/admin_cto.rs`), pinned at 27,400 B.
-Bases: main 0d04cf4 (0.66507, M 2,220), then main 95a64ba (#3409, 0.66986, M 2,236). It re-runs w14a15-cto-skelunion
+Bases: main 0d04cf4 (0.66507, M 2,220), main 95a64ba (#3409, 0.66986, M 2,236), ecea702 (#3430) and 963d1ee (#3437, 0.67226). It re-runs w14a15-cto-skelunion
 (#3240), which last ran on cef0574.
 Ledger: approach `skelunion2`, keys `0x22a10-w14-<main7>-skelunion2-*`.
 
@@ -115,9 +115,20 @@ Per 0x800 chunk, M/jM against main 95a64ba (`tbl_chunks_95a64ba.txt`):
   - t1+`K.L_fee_unwrap_again` 0.66777.
 - s1 (rfR 2,571-2,599) and k75 (2,622) stay at or below main's 2,623.
 
+## Re-check on main 963d1ee (#3437, 0.67226, M 2,244; `tbl_rank_963d1ee.md`)
+
+- main+B: M 2,258 (+14) at 27,448 B; main+Br: 27,416 B.
+- **t1+B: M 2,267 (+23) at 27,448 B.** t1+Br is 27,416 B, and **t1+h7+Br reaches M 2,270 (+26) at 27,384 B**
+  (oracle 0.68025). rfR is 2,665 against main's 2,622.
+- t1 alone: M 2,238 at 27,408 B (-6). a1+B: M 2,258.
+- s1 (rfR 2,570-2,597), p1 (2,572-2,581) and k75 (2,618) stay below main.
+- Across the last two mains, **t1 + B is the best structural base**. t1's token-arm Err shape (`create_idempotent(..)?;
+  transfer_vault_tokens(..)?;`, w14a70) only pays once the validate order is original.
+
 ## Hand-off to source search (step 4)
 
-- The structural base to move to is **main's own RA plus the validate error-block order B with the polarity of Br**.
+- The structural base to move to is **main's own RA plus the validate error-block order B with the polarity of Br**,
+  together with t1 on the newest mains (+9 M over main+B on ecea702 and 963d1ee).
   It is not an s1, p1 or and-1 base.
 - A source form of B (w14a78-valerrplace) should flip the conditions of the bb7.i, bb14.i, bb16.i and bb23.i tests
   along with the order. Then it costs only +8 B, and `curve.creator_fee_bps=fee.unwrap_or(old_fee)` repays that
