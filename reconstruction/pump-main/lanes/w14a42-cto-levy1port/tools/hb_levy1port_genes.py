@@ -1,3 +1,4 @@
+# w14a42 levy1port genes (vy1 copy, 306 let-else) applied on top of v7c
 G['ny']=[('*holder_key}else{\n','*holder_key}else{let new=new;\n')]
 G['le']=[('  let t=if let Some(t)=new{t}else{return Err(error!(PumpError::CtoNewCreatorRequired));};','  let Some(t)=new else{return Err(error!(PumpError::CtoNewCreatorRequired));};')]
 _L306='  let t=if let Some(t)=new{t}else{return Err(error!(PumpError::CtoNewCreatorRequired));};'
@@ -18,3 +19,22 @@ G['sh_iflet']=[(" match sharing_update{Some(val)=>{\n"," if let Some(val)=sharin
 G['sh_none1']=[(" match sharing_update{Some(val)=>{\n"," match sharing_update{None=>{}Some(val)=>{\n"),("signer_seeds),val)?;\n\n }None=>{}}\n","signer_seeds),val)?;\n\n }}\n")]
 G['sh_ifelse']=[(" match sharing_update{Some(val)=>{\n"," if let Some(val)=sharing_update{{\n"),("signer_seeds),val)?;\n\n }None=>{}}\n","signer_seeds),val)?;\n\n }}else{}\n")]
 G['sh_isnone']=[(" match sharing_update{Some(val)=>{\n"," if sharing_update.is_none(){}else{let val=sharing_update.unwrap();{\n"),("signer_seeds),val)?;\n\n }None=>{}}\n","signer_seeds),val)?;\n\n }}\n")]
+_CO='let mut target=(||->Result<Pubkey>{let st=&st;let holder_key=&holder_key;let sharing=&sk;let holder=hopt==Some(true);'
+G['cf_skc']=[(_CO,_CO.replace('let sharing=&sk;','let sharing=&{sk};'))]
+G['cf_hkc']=[(_CO,_CO.replace('let holder_key=&holder_key;','let holder_key=&{holder_key};'))]
+G['cf_both']=[(_CO,_CO.replace('let sharing=&sk;','let sharing=&{sk};').replace('let holder_key=&holder_key;','let holder_key=&{holder_key};'))]
+G['cf_order']=[(_CO,'let mut target=(||->Result<Pubkey>{let holder_key=&holder_key;let sharing=&sk;let st=&st;let holder=hopt==Some(true);')]
+G['cf_skfirst']=[(_CO,'let mut target=(||->Result<Pubkey>{let sharing=&sk;let st=&st;let holder_key=&holder_key;let holder=hopt==Some(true);')]
+G['cf_hopt']=[(_CO,_CO.replace('let holder=hopt==Some(true);','let hopt=hopt;let holder=hopt==Some(true);'))]
+G['cf_fee']=[(_CO,_CO.replace('let holder=hopt==Some(true);','let fee=fee;let holder=hopt==Some(true);'))]
+G['cf_stc']=[(_CO,_CO.replace('let st=&st;','let st=&&st;'))]
+_CO2='let sharing=&{sk};let holder=hopt==Some(true);'
+G['hu1']=[(_CO2,'let sharing=&{sk};let holder=hopt.unwrap_or(false);')]
+G['hu3']=[(_CO2,'let sharing=&{sk};let holder=matches!(hopt,Some(true));')]
+G['h289']=[(' if st.holder_reward&&!(hopt==Some(true)){',' if st.holder_reward&&!holder{')]
+G['h289u']=[(' if st.holder_reward&&!(hopt==Some(true)){',' if st.holder_reward&&!hopt.unwrap_or(false){')]
+G['cf_skcl']=[(_CO,_CO.replace('let sharing=&sk;','let sharing=&sk.clone();'))]
+G['cf_skv']=[(_CO,_CO.replace('let sharing=&sk;','let sharing=sk;')),('if t==*sharing||','if t==sharing||')]
+G['cf_skv2']=[(_CO,_CO.replace('let sharing=&sk;','let sharing=sk;')),('if t==*sharing||','if t==sharing||'),('||t==*holder_key{','||t==*holder_key{')]
+G['e3c']=[('let hopt=holder;let holder=hopt==Some(true);','let hopt=holder;let hb=hopt.unwrap_or(false);let holder=hopt==Some(true);'),('let sharing=&{sk};let holder=hopt==Some(true);','let sharing=&{sk};let holder=hb;'),(' if st.holder_reward&&!(hopt==Some(true)){',' if st.holder_reward&&!hb{')]
+G['e3d']=[('let hopt=holder;let holder=hopt==Some(true);','let hopt=holder;let hb=hopt==Some(true);let holder=hb;'),('let sharing=&{sk};let holder=hopt==Some(true);','let sharing=&{sk};let holder=hb;'),(' if st.holder_reward&&!(hopt==Some(true)){',' if st.holder_reward&&!hb{')]

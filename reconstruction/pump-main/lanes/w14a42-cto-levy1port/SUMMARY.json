@@ -1,0 +1,35 @@
+{
+  "lane": "w14a42-cto-levy1port",
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27,400 B",
+  "continues": "w14a21-cto-helperbound (#3273)",
+  "bases": {"6db95a7": {"ratio": 0.65458, "M": 2185}, "6330811": {"ratio": 0.65698, "M": 2193}, "2e1379d": {"ratio": 0.65728, "M": 2194}},
+  "result": "no zero-loss gain; le_vy1 family is -5 M vs main 2e1379d before repay, best pinned 0.65488 (measure.sh, 1034/1034, zero losses) vs main 0.65728",
+  "best_pinned": {"name": "p_N3cl", "spec": "v7c+ny+le+cf_skc+K.g_w_clock_local", "main": "2e1379d", "ratio": 0.65488, "slots_diff": 3375, "bytes": 27400, "M": 2186, "normalized": 1034, "raw": 1034, "losses": []},
+  "best_unpinned": {"name": "p_N3h", "spec": "v7c+ny+le+cf_skc+h289", "main": "2e1379d", "ratio": 0.65608, "bytes": 27376, "M": 2189},
+  "mechanisms": [
+    "le_vy1 vs le_v7c differ in post-opt IR by exactly one `and i8 new.tag,1` (the original's and-1 306 test); every copy spelling gives the same object",
+    "on 6db95a7 that and emptied the sweep Err exit bb88 after RA (COPY gone), branch-folder deleted it, the curve-update block bb38 became the ISel fallthrough of the sharing test and MBP pre-merged it (~400 B move, -69 M); sh_iflet (if let, no None arm) restores the layout",
+    "the residual cost of the copy is RA colour churn outside validate (-21..-23 M) against a +17 M validate gain (0x400-0x1000)",
+    "closure `let sharing=&{sk};` (cf_skc) removes 56 B of unmatched validate code with identical per-region exact counts, so the family can be sized anywhere in 27,368-27,432 B",
+    "the sweep native arm Err edge is tail-duplicated in ours (join test is 1 insn) while the original's join holds two spill reloads, so it is not duplicated: RA outcome, about 32-40 B"
+  ],
+  "attempts": "about 520 raw-IR oracle trials and 1 measure.sh build; ledger keys 0x22a10-w14-{6db95a7,6330811,2e1379d}-levy1port-*-v1",
+  "rejected": [
+    "copy spellings (z_der, z_cl, z_ref, z_ny, ny_r, c_ny_h, c_ny_t, c_ny_c): identical or worse",
+    "306 match / None-first match / ok_or_else forms: worse",
+    "sharing match None-first: identical to main form; sh_isnone/sh_ifelse = sh_iflet",
+    "capture forms: order, hopt/fee rebinds identical; holder_key copy and &&st far worse",
+    "holder unwrap_or/matches! inside the closure: 0.41; w14a10 e3 holder (e3c): M -1",
+    "62 knob8 + 44 size-knob genes on b_sh_iflet (6db95a7); 16 shrink knobs on n_b2, 98 K./k8. + 77 genes47 on N3 (6330811): none raises M",
+    "pads: ev_cb_local (+8, -2 M), g_w_clock_local / wl_ts_clockvar (+16, -3 M), cu_replace (+8, -8 M)"
+  ],
+  "unresolved": [
+    "RA churn caused by the and-1 306 tag outside validate (0x1000 -5, 0x2400-0x3c00 -10, 0x5400-0x5c00 -5, 0x6800 -2 on 6330811)",
+    "sweep native arm Err edge tail-dup (orig 0x5b18) vs original join with reloads at 0x3c50"
+  ],
+  "next_ideas": [
+    "re-test p_N3 (v7c+ny+le+cf_skc) on every new main; it tracks main's tail gains (-6 M on 6330811, -5 M on 2e1379d)",
+    "combine the and-1 306 tag with other faithful RA-perturbing validate changes (w14a10 a1 holder via a source spelling that does not break the closure)",
+    "IR oracle: force the original's join-block reloads (e.g. sink the r1/r6 reloads into the sweep join) to measure the native-arm tail-dup bound with the closure family"
+  ]
+}
