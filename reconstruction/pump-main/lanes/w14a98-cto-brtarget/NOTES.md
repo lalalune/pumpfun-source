@@ -156,6 +156,17 @@ between hot blocks.
 - 478 pairs (top 12 by jM x top 45): none above main. The best is 289 glue + ts296 at 2,242 @ 27,392 (ratio 0.67176).
 - The 306 glue flip (cold bb27.i right after bb23.i) gives 2,239.
 
+## 7. Re-check on main 13fe453 (#3480, 0.67256, M 2,245)
+
+#3480 changed only the curve store and the event, so validate is unchanged:
+- the main capture is `eq_main: true`;
+- Br is 2,273 @ 27,408 (+28);
+- mN306 is identical to main;
+- le306 is 2,230 (-15);
+- sw312 is 2,238 (-7).
+
+Every result above carries over with the same deltas.
+
 ## Next ideas (untried)
 
 1. Price brhead and brtarget as one change. The and-1 union is the source form (e3 holder bool param + a range-free 306
