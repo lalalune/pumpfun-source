@@ -13,7 +13,7 @@ Read-only evidence. For each unmatched original window and its paired candidate 
   * argument setup (writes to r1..r5 since the previous call, normalized text) per aligned call.
 Only score.py decides acceptance; this is diagnostic.
 """
-import argparse, difflib, hashlib, json, re, struct, subprocess, sys
+import argparse, difflib, hashlib, json, re, struct, subprocess, sys, tempfile
 from collections import Counter, defaultdict
 from pathlib import Path
 
@@ -97,7 +97,12 @@ class Image:
 
     def text(self, s):
         if s not in self._txt:
-            self._txt[s] = objdump_text(self.path, s, s + self.funcs[s][0])
+            # Another build can replace the candidate after this image is
+            # loaded. Decode the same bytes used for raw bodies and call sites.
+            with tempfile.TemporaryDirectory(prefix='pump-census-') as temporary:
+                snapshot = Path(temporary) / 'image.so'
+                snapshot.write_bytes(self.blob)
+                self._txt[s] = objdump_text(snapshot, s, s + self.funcs[s][0])
         return self._txt[s]
 
     def calls(self, s):

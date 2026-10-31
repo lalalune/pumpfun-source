@@ -66,3 +66,9 @@ retained `sol_memcpy_` call, plus unchanged scalar/pointer controls. It invokes
 the production API with text decoded from actual capture bytes by the repository
 decoder, without replacing analysis functions. This API test does not qualify
 a complete SDK/objdump census run or establish argument liveness across branches.
+
+Census disassembly uses a temporary snapshot of each loaded image. If a build
+replaces or removes the original candidate path during analysis, argument text
+still describes the bytes used for call sites and the recorded candidate hash.
+`test_census_disassembly_snapshot.py` exercises unchanged, replaced and removed
+paths with retained compiler artifacts when `PUMP_OBJDUMP` names an SBF tool.
