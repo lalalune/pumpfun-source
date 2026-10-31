@@ -1,0 +1,23 @@
+{
+  "lane": "w15a13-cto-jointraceback",
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27400 B",
+  "bases": {"ed47ac7": {"ratio": 0.67346, "slots": 3124, "M": 2248}, "86e2a6b": {"ratio": 0.67376, "slots": 3124, "M": 2249}},
+  "best_zero_loss": {"source": "main 86e2a6b (unchanged)", "ratio": 0.67376, "slots_diff": 3124, "bytes": 27400},
+  "landed": false,
+  "attempts": {"source_raw_ir_oracle": 255, "post_opt_ir": 13, "debug_llc": 1},
+  "ledger": "approach jointrb, keys 0x22a10-w15-{ed47ac7,86e2a6b}-jointrb-*-v1",
+  "region_bound": "orig 0x1800-0x2600: 119 of 490 full tokens differ (~+0.036 ratio ceiling), only ~40 skeleton (rfj); rest is register/frame",
+  "families": {
+    "join_tree_forms_a": "a3/a6/a7/a10 = main M; a1/a4/a5 basin A (27448, M 1710); a2 0.569; a8 (+16 B, M -1); a9 0.573",
+    "okhop_tuple_b": "b1/b2/b4-b7 = main bytes; b3 -5 M; b8 -1 M",
+    "consumers_c": "c1/c3/c4 = main; c2 -8 B -5 M; c5 -632 B 0.642; c6 0.475; c7-c9 basin B",
+    "bindings_d": "d1/d2/d3 = main; d5 0.559@27544; d8 (sk before args) -192 B M -68; d10 (matches! holder) -248 B M -257",
+    "creator_override_g_h": "g1 +120 B M +2 (re-check); every in-between spelling = g0 class (27392, M 2246, rfj +2) or g1; g14 collapses",
+    "skip_polarity_f": "13 spellings: all byte-identical basin B (27440, M 1777) or basin A (27448, M 1711); x 11 sweep/tail forms (55) all collapse",
+    "size_repay_g": "a8, c2, a8+c2 x 41 applicable knobs (123): none at 27400 >= main; knob delta table on 86e2a6b in NOTES"
+  },
+  "mechanism": "skip-polarity gate: main's xor is folded into the phi (do_sweep in r9). Without the not, post-opt IR orders sweep Err (bb87) before the post join (bb38); BPF pre-merge makes Err the fallthrough (basin B). Moving bb87 after bb38 gives basin A: orig-like gate (ldxdw [0x8e0]; jne -> post; bump in r7) but MBP takes the post chain as a CFG break right after the 660 to_string.exit (main: non-cold CFG conflict there). Gate weights 1:16..2:1 do not restore it.",
+  "rejected_mechanisms": ["join tuple/phi constant forms", "Ok hop field order and carried fields", "wallet-gate spellings", "sweep-gate spellings in both polarities", "target-override creator bindings between g0 and g1", "size repay of a8/c2 with sizeknobs", "post-opt gate branch weights", "post-opt block move bb87 after bb38"],
+  "unresolved_residuals": ["skip polarity of the sweep gate (join spill of skip, gate reload)", "OV per-exit join (fee tag, holder, cashback phis) - owned elsewhere", "sharing payload by pointer (args) - w15a10", "target 8/24 split copy at the join", "sweep.exit tail duplication into the sweep error preds"],
+  "next_ideas": ["compare first-pass MBP chains in rx/m0mv0/bp.txt vs rx/q1mv1/bp.txt to find the chain decision that turns bb56.i into a CFG break at the 660 pred", "use d8/d10 as negative byte knobs for forms that are about 200 B too big", "g11/g13 (-8 B, -3 M, rfj +2) need a +8 B knob better than -3 M (none in the catalog)"]
+}

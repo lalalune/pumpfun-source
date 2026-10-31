@@ -1,0 +1,2 @@
+EDITS=[('swept=(!skip).then(||sweep(&ctx,&holder_key)).transpose()?.unwrap_or(0);', 'let r=if skip{None}else{Some(sweep(&ctx,&holder_key))};if let Some(Err(e))=r{return Err(e);}swept=match r{Some(Ok(v))=>v,_=>0};')]
+HYP='sweep gate with an if-let Err early return (RPO puts the continuation before the Err block): let r=if skip{None}else{Some(sweep(&ctx,&holder_key))};if let Some(Err(e))=r{return Err(e);}swept=match r{Some(Ok(v))=>v,_=>0};'
