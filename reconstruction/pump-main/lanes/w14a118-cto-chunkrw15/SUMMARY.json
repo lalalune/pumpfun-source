@@ -1,0 +1,22 @@
+{
+  "lane": "w14a118-cto-chunkrw15",
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27,400 B",
+  "base": {"main": "ebe5387", "ratio": 0.67316, "M": 2247, "skM": 2810, "slots_diff": 3123, "bytes": 27400, "normalized": 1034, "raw": 1034},
+  "best": {"ratio": 0.67316, "slots_diff": 3123, "bytes": 27400, "source": "main (no source change)"},
+  "result": "notes only: fresh per-0x200 orig-chunk residual table on ebe5387 (M/rM/fM/sk orig-only tokens, region labels, owners) + 28 priced region rewrites, none above main",
+  "attempts": 28,
+  "ledger": {"approach": "chunkrw15", "keys": "0x22a10-w14-ebe5387-chunkrw15-<trial>-v1"},
+  "tools": ["tools/chunkprof.py", "tools/side.py", "tools/labels.py", "tools/cs.sh", "tools/q.sh", "tools/rec.py"],
+  "findings": [
+    "Totals on ebe5387: 1,092 orig tokens unmatched under the scorer mask; register mask recovers 315, frame mask 99, skeleton mask 563 (529 left).",
+    "Every unowned region already has the original skeleton (sk_oo <= 30 per region): validate join 0x1800-0x1c00 sk 29, sweep head 14, TCF clone run 26, sharing tail 0, event+cold tail 21.",
+    "Unowned loss is register/spill naming: TCF clone run 216 M_oo (119 register-only), cold tail 161, join 57, sweep head 42, sharing tail 0x4800-0x4a00 26 (pure frame: 21 clone-run spill-slot reloads in a different slot order).",
+    "Skeleton work left is in the owned regions: validate 0x0-0x1800 sk_oo 258, sharing clone run 0x3c00-0x4800 sk_oo 169.",
+    "10 of 28 sibling-style region rewrites fold to main's exact tokens; 8 cascade by 114-958 M with little skeleton change (j1 Ok-hop removal: skM -3, M -409; rw3a Rent block scope: M -291); 10 lose 1-38 M.",
+    "rw7 (wallet gate `if do_coin`) is the only skeleton gain (+1 skM, ours-only/orig-only -9 each) but -8 M through the wallet do_collect flag spill (orig keeps it in r8)."
+  ],
+  "rejected": ["rw1 rw1a rw6 rw6b rw7c n3 n8 n9 ev1 k1 (identical)", "rw2 rw3 rw3a rw5 rw8 s1b j1 pa1 (cascade)", "rw7 rw7b t1rw7 ev2 n5 n7 s1 w3 w4 t1 (small losses)"],
+  "unresolved_residuals": ["TCF clone-run register naming (orig r6/r7/r9 free over the run)", "sharing-tail spill-slot permutation", "function-exit Err payload class r9 (ours r8/r3+copy)", "wallet do_collect flag in r8"],
+  "next_ideas": ["t1 + a +24 B fill worth >= +2 M (no unowned-region rewrite provides it)", "rw7 skeleton gain paired with a wallet-r8 RA partner", "sharing-tail spill order belongs to the sharing clone-run owner"],
+  "pr": 3503
+}
