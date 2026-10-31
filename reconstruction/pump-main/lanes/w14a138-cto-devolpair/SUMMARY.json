@@ -1,0 +1,26 @@
+{
+ "lane": "w14a138-cto-devolpair",
+ "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27400 B",
+ "bases": {"ebe5387e1": {"ratio": 0.67316, "slots": 3123, "M": 2247}, "90300f9d2": {"ratio": 0.67346, "slots": 3124, "M": 2248}},
+ "result": "negative: no placeholder-free form without a dead store ties or beats main; best is vol334_back+I6s / +N6s at 27400 B, M -3",
+ "best_placeholder_free_no_dead_store": {"genes": "devol338st + vol334_back + N6s", "main": "90300f9", "bytes": 27400, "M": 2245, "slots": 3125},
+ "placeholder_free_tie_with_two_dead_stores": {"genes": "devol338st + st334m (st.mayhem=false at 334)", "main": "90300f9", "bytes": 27400, "M": 2248, "slots": 3124, "note": "dummy writes under the BRIEF RULE; not proposed as source"},
+ "pair_table_ebe5387": {"P0 devol338st": [27400, 2247], "P1 +vol334_back+I6s": [27400, 2244], "P2 +vol334_back+I6": [27408, 2247], "P3 +vol334_back": [27392, 2246]},
+ "pair_table_90300f9": {"Q0": [27400, 2248], "Q3": [27392, 2247], "QV N6": [27408, 2248], "QS N6s": [27400, 2245], "QT N0s": [27384, 2245], "Z1 st334m": [27400, 2248], "Z2 st334f": [27320, 2220]},
+ "findings": [
+  "The line-334 read_volatile is 8 B of pure fill: removing it deletes exactly one instruction (ldxb r1,[r10-0x6a0] at 0x1580) and shifts later jumps.",
+  "Insertion map: one junk slot anywhere in 0x6d8-0x18d0 (519 positions) restores M on both mains; no single insertion gains +1 over main.",
+  "Gene effects are additive on vol334_back: ~200 library genes, 15 validate spellings, 10 state-field bindings and 9 I6 spellings never repay the -1 M / -8 B.",
+  "State-field local bindings in validate (fc, mx, ql, cb, he, may) are all byte-identical to their bases.",
+  "VI6's 0x608 copy comes from the new tag staying live into the shared arm's Some(args.0); every arm spelling that keeps args.0 gives the same bytes and Some(new) collapses the arm (-644 M)."
+ ],
+ "attempts": 230,
+ "rejected": ["q_* validate spellings", "h_* field bindings", "I6a/I6t/I6b/I6sb/I6st/I6n/I6nb/T1s/T3s", "library genes on P3/VI6 (X3_/XV_)", "st334f"],
+ "unresolved": ["334 fill needs one ordinary instruction in validate (0x6d8-0x18d0)", "338 store is still a dead store (w14a115)"],
+ "next_ideas": [
+  "Partial faithful fee-arm phi constant (one mov of the original's r5/r6/r7 fee-flag flow) instead of the whole #3485 flow.",
+  "crl2/crl3 on Q3 tie main's M at +64 B: pair with a -64 B M-neutral knob.",
+  "Finish the library scan on Q3 (90300f9) for genes not reached (evo_*, lf*, tl_*, wl_*, K_* remainder)."
+ ],
+ "ledger_keys": "0x22a10-w14-ebe5387-devolpair-*, 0x22a10-w14-e88f9d5-devolpair-* (stale-base rows: source was the ebe5387 devol338st crate), 0x22a10-w14-90300f9-devolpair-*"
+}
