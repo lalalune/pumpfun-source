@@ -57,6 +57,21 @@ class _ResettableVM:
         for index, key in enumerate(message.account_keys):
             if index < signed_end or signed <= index < unsigned_end:
                 self._remember(key)
+        lookups = getattr(message, 'address_table_lookups', ())
+        if lookups:
+            from solders.address_lookup_table_account import AddressLookupTable
+            for lookup in lookups:
+                table = self._vm.get_account(lookup.account_key)
+                if table is None:
+                    continue
+                try:
+                    addresses = AddressLookupTable.deserialize(table.data).addresses
+                except ValueError:
+                    # Let LiteSVM return its normal malformed-table error.
+                    continue
+                for index in lookup.writable_indexes:
+                    if index < len(addresses):
+                        self._remember(addresses[index])
         return self._vm.send_transaction(tx)
 
     def reset(self):

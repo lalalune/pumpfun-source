@@ -430,6 +430,7 @@ jobs:
             commands: |
               python -B -m unittest discover -s tests -p 'test_global_*_captured.py' -v
               python -B tests/test_pump_amm_liquidity_captured.py
+              python -B tests/test_amm_versioned_reset.py
               python -B scripts/test_fee_host_validation.py
               python -B scripts/test_native_host_receipt.py
               python -B tests/test_recovered_curve_arithmetic.py
