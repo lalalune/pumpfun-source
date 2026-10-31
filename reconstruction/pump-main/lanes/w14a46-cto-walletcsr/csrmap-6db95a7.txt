@@ -1,0 +1,23 @@
+r6
+   2096 %1581  [24400,26848) root %1581  uses=6  24400B	  %1581:gpr = MOV_ri 0
+   1016 %1674  [21304,23920) root %0     uses=122  96B	  %0:gpr = LDD_V1 %380:gpr, 8 :: (dereferenceable load (s64) from %ir.2)
+    904 %1668  [31960,32864) root %0     uses=122  96B	  %0:gpr = LDD_V1 %380:gpr, 8 :: (dereferenceable load (s64) from %ir.2)
+    584 %1667  [28216,28800) root %0     uses=122  96B	  %0:gpr = LDD_V1 %380:gpr, 8 :: (dereferenceable load (s64) from %ir.2)
+    520 %2256  [29800,30320) root %811   uses=3  29744B	  %811:gpr = MOV_rr %stack.21._54.i
+     56 %2257  [29744,29800) root %811   uses=3  29744B	  %811:gpr = MOV_rr %stack.21._54.i
+     32 %761   [27344,27376) root %761   uses=3  27344B	  %761:gpr = COPY %0:gpr
+r7
+   2160 %1652  [4960,71744) root %1652  uses=65  4960B	  %1652:gpr = LDD_V1 %stack.145, 0 :: (load (s64) from %stack.145)
+    912 %848   [32128,33040) root %848   uses=3  32128B	  %848:gpr = MOV_rr %stack.36._130.i
+    704 %737   [25520,26224) root %737   uses=3  25520B	  %737:gpr = MOV_rr %stack.36._130.i
+    448 %802   [29376,29824) root %802   uses=2  29376B	  %802:gpr = LDD_V1 %stack.45.ix_data.i, 8 :: (dereferenceable load (s64) from %ir.259)
+    448 %785   [28544,28992) root %785   uses=3  28544B	  %785:gpr = MOV_rr %stack.36._130.i
+    416 %814   [29920,30336) root %814   uses=3  29920B	  %814:gpr = MOV_rr %stack.14._106.i
+    248 %1666  [27224,27472) root %0     uses=122  96B	  %0:gpr = LDD_V1 %380:gpr, 8 :: (dereferenceable load (s64) from %ir.2)
+    192 %717   [23904,24096) root %717   uses=4  23904B	  %717:gpr = COPY killed $r0
+r8
+   1936 %1651  [4944,71744) root %1651  uses=30  4944B	  %1651:gpr = LDD_V1 %stack.145, 8 :: (load (s64) from %stack.145 + 8)
+   1120 %791   [28848,29968) root %791   uses=3  28848B	  %791:gpr = MOV_rr %stack.47.authority_info.i
+    680 %1665  [25368,26048) root %0     uses=122  96B	  %0:gpr = LDD_V1 %380:gpr, 8 :: (dereferenceable load (s64) from %ir.2)
+r9
+  11456 %1731  [18728,33488) root %60    uses=5  17952B	  %60:gpr = MOV_ri 0
