@@ -81,11 +81,44 @@ bb20.i = holder arm (298 test), bb21.i = non-holder arm (306 tag test), bb25.i =
 | h289 + target `match hopt{Some(true)=>..,_=>..}` / `Some(false)\|None` first | 0.486 / 0.505 |
 | h289 + `let target=if !holder{else}else{holder}` | 2,229 (same layout) |
 | h289 + let-else 298 / let-else 306 / t1 / tu8 | eq / 2,215 / 2,226 @ 27,408 / 2,203 @ 27,416 |
+| h289 + target as `match holder{true if !hr&&!en=>Err296, true=>.., false=>..}` (also `!(hr\|\|en)` guard, `(holder,hr\|\|en)` tuple) | outline basin 0.414-0.434 |
+| h289 + holder target as `Option<Pubkey>` then `if let` | 0.580 @ 26,992 |
 | validate-local holder via `unwrap_or(false)`, `unwrap_or_default`, `is_some_and`, `matches!`, `if let` | and-1 basin 0.533-0.540 @ ~26,850 |
 | e3b/e3d (holder bool param via unwrap_or/matches!) | 0.545 @ 27,232 |
 
 The outline basin is the original's to_string shape (h289+in298 outlines exactly the two non-holder-arm to_strings,
 307 and 312, as the original does) but with a global frame/RA cascade (0x2000-0x4000 chunks -86..-180 M).
+
+## 5. Why the head stops at h289 (mechanism)
+
+Three rules fix the head, and source can only reach the first:
+
+1. **rustc first-reference order.** A block is appended when a codegened terminator first names it. Err296 is named
+   by the enabled test (MIR bb14), and bb14 always comes before the target's holder join (bb19) in RPO. So Err296 and
+   the 296 chain are always created before the target arms (bb21/bb20). Operand order, `!`/`==false`, nesting, guards
+   and the `holder&&!(hr||en)` forms cannot change this. The only exception is a form that tests holder once
+   (296 inside the holder arm), and that form triggers rule 3.
+2. **BPI zero heuristic.** Our holder test is `icmp eq (and hopt,-3),0` (12:20). bb12.i is not glued, because its IR
+   successor is bb7.i. So MBP lays out the holder side first. The original's `and 1` tests are 50/50.
+   Every spelling that yields `and 1` (`unwrap_or(false)`, `matches!`, `is_some_and`, `if let`, bool param via those)
+   falls into the and-1 RA basin (0.53-0.55).
+3. **Outline basin = the LLVM inliner's cold-callsite rule.** Without a profile, a call site whose BFI frequency is below
+   2% of the caller's entry gets the cold threshold (45), and to_string is then not inlined. BFI of validate, from
+   `opt sroa,early-cse,simplifycfg,instcombine + print<block-freq>`:
+
+| sites | h289 (inlined) | h289 + 296 inside holder arm (outlined) |
+| --- | ---: | ---: |
+| non-holder arm entry | 0.117 | 0.070 |
+| 307 to_string block | 0.0220 | 0.0132 |
+| 312 to_string block | 0.0223 | 0.0134 |
+
+   Main stays inlined only because BFI treats the target's second `holder` test as independent of the 296 chain's
+   first one. That counts the non-holder arm about 1.7x too often, and the 307/312 sites end up just 10% above the
+   2% line. Any single-holder-test structure (nest/in298/closure/nested fn/match guard) drops them below it, which
+   outlines 307/312 exactly as the original does. Each of those forms then moves frame and RA everywhere (the outline
+   basin, 0.41-0.43).
+   - For a single-test structure to stay inlined, the non-holder arm needs about 1.5x more frequency from some other
+     branch. The mayhem test's error side gets 0.625, because a bool test against 0 favours the nonzero side.
 
 ## Next ideas
 
