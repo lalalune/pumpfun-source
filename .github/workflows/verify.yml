@@ -174,6 +174,7 @@ jobs:
               python -B tests/test_pump_amm_config_reports_publication.py
               python -B tests/test_pump_amm_trade_reports_publication.py
               python -B tests/test_mayhem_reports_publication.py
+              python -B tests/test_pump_virtual_reserve_report_publication.py
               python -B tests/test_fees_admin_reports_publication.py
               python -B scripts/test_validation_report_boundaries.py
               python -B tests/test_create_mayhem_normal_python.py

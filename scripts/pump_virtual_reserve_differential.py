@@ -20,6 +20,7 @@ from pathlib import Path
 import pump_set_mayhem_virtual_params_differential as f
 from build_source_manifest import source_manifest
 from pump_amm_reusable_harness import pin_program
+from pump_differential_output import PumpReport
 
 FIELDS = ('error', 'before', 'after', 'events', 'inner', 'return_data')
 U64 = 2**64 - 1
@@ -195,9 +196,16 @@ def main():
     report = {'scope': __doc__, 'original_sha256': sha(programs['original']), 'candidate_sha256': sha(candidate),
               'inputs_sha256': inputs, 'compiled_source_sha256': build['source_sha256'] if supplied_build else None,
               'case_count': len(rows), 'mismatches': [r['case']['name'] for r in rows if r['differences']], 'cases': rows}
-    args.output.parent.mkdir(parents=True, exist_ok=True)
-    with args.output.open('xb') as stream:
-        stream.write(gzip.compress(json.dumps(report, separators=(',',':')).encode(),mtime=0))
+    # Publish through the shared bound publisher, as the sibling differentials
+    # do: the report is staged beside the output and linked into place only
+    # once complete, so an interrupted publish never leaves a truncated
+    # receipt at the final path, and the output may not alias an input.
+    publisher = PumpReport(args.output, f.ROOT, args.candidate, __file__,
+                           extra_inputs=[Path(f.__file__),
+                                         Path(pin_program.__code__.co_filename),
+                                         config_path, *program_paths().values()],
+                           overwrite=False)
+    publisher.write(gzip.compress(json.dumps(report, separators=(',', ':')).encode(), mtime=0))
     print(json.dumps({'cases':len(rows), 'mismatches':report['mismatches']}))
     if report['mismatches']:raise SystemExit(1)
 
