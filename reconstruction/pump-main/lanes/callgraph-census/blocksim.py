@@ -3,6 +3,8 @@
 
   blocksim.py <unstripped.so> <orig_start> --sym REGEX
 
+--sym matches either the ELF symbol reported by score.py or its demangled name.
+
 Diagnostic only (score.py decides). win.py's ratio is a difflib alignment of the instruction stream,
 which collapses when LLVM lays the same blocks out in another order. Here each function is cut into
 basic blocks (leaders: entry, jump targets, after jumps/exit); each block becomes a token tuple with
@@ -69,7 +71,7 @@ def main():
     st = int(a.start, 0)
     w = next(x for x in original_windows() if x['start'] == st)
     c = Cand(a.cand)
-    picks = [(s, n, nm) for s, n, nm in c.funcs if re.search(a.sym, demangle(nm))]
+    picks = [(s, n, nm) for s, n, nm in c.funcs if re.search(a.sym, nm) or re.search(a.sym, demangle(nm))]
     if not picks:
         raise SystemExit(f'no candidate function matches --sym {a.sym!r}')
     ob = blocks(w['raw'], st, ORIG_SECS)

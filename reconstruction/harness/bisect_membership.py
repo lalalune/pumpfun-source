@@ -102,7 +102,9 @@ def main():
                                        'stderr': error.stderr.decode('utf-8', errors='replace')})
                 return 'error'
             with tarfile.open(fileobj=io.BytesIO(blob)) as archive:
-                if any(m.issym() or m.islnk() for m in archive.getmembers()): raise ValueError('source links unsupported')
+                if any(m.issym() or m.islnk() for m in archive.getmembers()):
+                    archive_errors.append({'revision': revision, 'reason': 'source links unsupported'})
+                    return 'error'
                 archive.extractall(temporary, filter='data')
             return run_trial(Path(temporary) / subdir, config['command'], args.out / 'trials' / revision,
                              config.get('inputs', []), config.get('timeout', 300))['status']

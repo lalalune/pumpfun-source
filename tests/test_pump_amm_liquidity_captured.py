@@ -305,6 +305,55 @@ def run_captured(c):
             'before': before, 'after': after, 'same': same, 'meta_same': meta_same, 'metas': built['metas']}
 
 
+def delegated_overflow_cases():
+    """Joint authority/overflow controls over synthetic inconsistent totals."""
+    def delegated(mint, authority, allowance, amount):
+        data = bytearray(token_account(mint, OTHER, amount))
+        struct.pack_into('<I', data, 72, 1)
+        data[76:108] = bytes(authority)
+        struct.pack_into('<Q', data, 121, allowance)
+        return bytes(data)
+
+    cases = []
+    credit = (U64_MAX + 999_999) // 1_000_000
+    for kind in ('deposit', 'withdraw'):
+        for leg, mint in (('base', BASE), ('quote', QUOTE)):
+            short = 'b' if leg == 'base' else 'q'
+            source = ('u' if kind == 'deposit' else 'v') + short
+            dest = ('v' if kind == 'deposit' else 'u') + short
+            reserve = 400_000_000 if leg == 'base' else 200_000_000
+            transfer = credit if kind == 'deposit' else reserve // 1_000_000
+            authority = USER.pubkey() if kind == 'deposit' else POOL
+            for program in (TOKEN, TOKEN22):
+                for offset in (-1, 0, 1):
+                    case = {'ix': kind, 'amount': 1, leg + '_owner': program,
+                            dest + '_amt': U64_MAX,
+                            source + '_data': delegated(mint, authority, transfer + offset,
+                                                        U64_MAX if kind == 'deposit' else reserve)}
+                    cases.append((f'{kind}-{leg}-{program}-allowance-{offset}', case))
+    for program in (TOKEN, TOKEN22):
+        for delegate in (False, True):
+            case = {'base_owner': program, 'vb_amt': U64_MAX, 'ub_amt': U64_MAX}
+            if delegate:
+                case['ub_data'] = delegated(BASE, USER.pubkey(), U64_MAX, U64_MAX)
+            cases.append((f'prior-max-max-{program}-delegate-{delegate}', case))
+    wrapped = {'amount': 1, 'vb_amt': U64_MAX,
+               'ub_data': delegated(BASE, USER.pubkey(), credit, U64_MAX)}
+    for name, changes in (
+        ('quote-balance', {'uq_amt': 0}),
+        ('quote-allowance', {'uq_data': delegated(QUOTE, USER.pubkey(), 199, 10**12)}),
+        ('quote-mint', {'uq_data': delegated(BASE, USER.pubkey(), 200, 10**12)}),
+        ('quote-2022-overflow', {'quote_owner': TOKEN22, 'vq_amt': U64_MAX, 'uq_amt': U64_MAX}),
+        ('lp-overflow', {'ul_amt': U64_MAX}),
+    ):
+        cases.append(('wrapped-delegated-base-then-' + name, {**wrapped, **changes}))
+    cases.append(('withdraw-wrapped-delegated-base-then-quote-allowance', {
+        'ix': 'withdraw', 'amount': 1, 'ub_amt': U64_MAX,
+        'vb_data': delegated(BASE, POOL, 400, 400_000_000),
+        'vq_data': delegated(QUOTE, POOL, 199, 200_000_000)}))
+    return cases
+
+
 class PumpAmmLiquidityCapturedTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
@@ -392,6 +441,41 @@ class PumpAmmLiquidityCapturedTests(unittest.TestCase):
         cases += [{'ub_amt': 1, 'ub_mint': OTHER}, {'ub_amt': 1, 'ub_owner': OTHER},
                   {'ub_data': delegated(BASE, OTHER, 400_000, amount=1)}]
         self.run_cases(cases)
+
+    def test_synthetic_destination_overflow_matches_captured_program(self):
+        # These deliberately inconsistent token totals describe a bounded
+        # model edge, not a reachable on-chain balance configuration.
+        cases = []
+        for kind in ('deposit', 'withdraw'):
+            for leg in ('base', 'quote'):
+                short = 'b' if leg == 'base' else 'q'
+                destination = ('v' if kind == 'deposit' else 'u') + short
+                source = ('u' if kind == 'deposit' else 'v') + short
+                if kind == 'deposit':
+                    threshold = U64_MAX * 1_000_000 // 1_000_001
+                else:
+                    threshold = U64_MAX - (400 if leg == 'base' else 200)
+                for program in (TOKEN, TOKEN22):
+                    # Credits end below max, exactly at max, and one past max.
+                    for offset in (-1, 0, 1):
+                        case = {'ix': kind, 'amount': 1, leg + '_owner': program,
+                                destination + '_amt': threshold + offset}
+                        if kind == 'deposit':
+                            case[source + '_amt'] = U64_MAX
+                        cases.append(case)
+        for program in (TOKEN, TOKEN22):
+            cases.append({'base_owner': program, 'vb_amt': U64_MAX,
+                          'ub_amt': U64_MAX, 'amount': 1})
+        cases += [
+            {'vb_amt': U64_MAX, 'ub_amt': U64_MAX, 'uq_amt': 0, 'amount': 1},
+            {'vb_amt': U64_MAX, 'ub_amt': U64_MAX, 'vq_amt': U64_MAX,
+             'uq_amt': U64_MAX, 'quote_owner': TOKEN22, 'amount': 1},
+            {'vb_amt': U64_MAX, 'ub_amt': U64_MAX, 'ul_amt': U64_MAX, 'amount': 1},
+        ]
+        self.run_cases(cases)
+
+    def test_delegated_overflow_and_late_failure_rollback(self):
+        self.run_cases([case for _, case in delegated_overflow_cases()])
 
     def test_captured_image_identity_is_required(self):
         with tempfile.TemporaryDirectory() as temporary:

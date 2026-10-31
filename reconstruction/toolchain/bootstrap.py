@@ -247,8 +247,9 @@ def check_linux_libs(root):
     return problems
 
 
-def hybrid_ok():
-    rust = HYBRID / 'rust'
+def hybrid_ok(root=None):
+    root = HYBRID if root is None else Path(root)
+    rust = root / 'rust'
     expected = {lib.name: lib for lib in (SDK / 'rust/lib').glob('lib*.dylib')}
     copied = {lib.name: lib for lib in (rust / 'lib').glob('lib*.dylib')}
     # A stale/replaced library is an invalid cache, not a new SDK filename
@@ -262,7 +263,52 @@ def hybrid_ok():
     host = rust / 'lib/rustlib/aarch64-apple-darwin'
     if not host.is_symlink() or host.resolve() != (SDK / 'rust/lib/rustlib/aarch64-apple-darwin').resolve():
         return False
-    return not check_linux_libs(HYBRID)
+    return not check_linux_libs(root)
+
+
+def assemble_macos():
+    """Publish a complete verified replacement without removing the live path."""
+    HYBRID.parent.mkdir(parents=True, exist_ok=True)
+    with (HYBRID.parent / (HYBRID.name + '.lock')).open('a+b') as lock:
+        fcntl.flock(lock, fcntl.LOCK_EX)
+        if hybrid_ok():
+            return False
+        replace_existing = HYBRID.exists() or HYBRID.is_symlink()
+        stage = Path(tempfile.mkdtemp(prefix=HYBRID.name + '.stage.', dir=HYBRID.parent))
+        stage.rmdir()
+        staged_identity = None
+        try:
+            # The shell helper only creates a fresh private tree. Its ordinary
+            # move/backup sequence never handles the canonical installation.
+            subprocess.run(['bash', str(HARNESS / 'make_hybrid144.sh'), str(stage),
+                            str(SDK / 'rust'), str(LINUX), str(MANIFEST)], check=True)
+            (stage / 'rust/lib/rustlib/sbpf-solana-solana/lib/self-contained').mkdir(exist_ok=True)
+            if not hybrid_ok(stage):
+                raise ValueError('staged macOS identity toolchain did not verify')
+            info = stage.lstat()
+            staged_identity = info.st_dev, info.st_ino
+            if replace_existing:
+                rename_toolchain(stage, HYBRID, exchange=True)
+                previous, stage = stage, None
+                backup = Path(tempfile.mkdtemp(prefix=HYBRID.name + '.backup.', dir=HYBRID.parent))
+                backup.rmdir()
+                try:
+                    rename_toolchain(previous, backup)
+                except BaseException as error:
+                    error.add_note('Previous toolchain retained at: ' + str(previous))
+                    raise
+                print(f'previous identity toolchain retained at {backup}')
+            else:
+                rename_toolchain(stage, HYBRID)
+                stage = None
+            return True
+        finally:
+            if stage is not None and stage.exists():
+                info = stage.lstat()
+                # An interrupt immediately after exchange may leave the old
+                # tree at this pathname before Python updates its local state.
+                if staged_identity is None or (info.st_dev, info.st_ino) == staged_identity:
+                    shutil.rmtree(stage, ignore_errors=True)
 
 
 def publish_dependency_cache(source, template):
@@ -331,17 +377,11 @@ def main():
             print(f'identity toolchain assembled at {HYBRID}')
         else:
             print(f'identity toolchain already assembled at {HYBRID}')
-    elif hybrid_ok():
-        print(f'hybrid144 already assembled at {HYBRID}')
     else:
-        HYBRID.parent.mkdir(parents=True, exist_ok=True)
-        subprocess.run(['bash', str(HARNESS / 'make_hybrid144.sh'), str(HYBRID), str(SDK / 'rust'), str(LINUX), str(MANIFEST)], check=True)
-        # The official archive ships an empty lib/self-contained directory, which git cannot track.
-        (HYBRID / 'rust/lib/rustlib/sbpf-solana-solana/lib/self-contained').mkdir(exist_ok=True)
-        if not hybrid_ok():
-            print('hybrid144 assembly did not verify', file=sys.stderr)
-            return 1
-        print(f'hybrid144 assembled at {HYBRID}')
+        if assemble_macos():
+            print(f'hybrid144 assembled at {HYBRID}')
+        else:
+            print(f'hybrid144 already assembled at {HYBRID}')
     sysroot = subprocess.check_output([str(HYBRID / 'rust/bin/rustc'), '--print', 'sysroot'], text=True).strip()
     if Path(sysroot).resolve() != (HYBRID / 'rust').resolve():
         print(f'identity toolchain reports sysroot {sysroot}, expected {HYBRID / "rust"}', file=sys.stderr)

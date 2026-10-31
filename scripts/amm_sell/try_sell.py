@@ -24,6 +24,7 @@ import hashlib
 import json
 import os
 import sys
+import tempfile
 import uuid
 
 HERE = Path(__file__).resolve().parent
@@ -44,6 +45,31 @@ PRISTINE_SELL = SWARM / 'baselines/pristine-ws' / native_build.SELL_REL
 
 def sha(data):
     return hashlib.sha256(data).hexdigest()
+
+
+def input_snapshot(baseline, *, sell, patch, flags, link_script, want_disasm):
+    blobs = {'sell': Path(sell).read_bytes() if sell else (baseline / native_build.SELL_REL).read_bytes(),
+             'patch': Path(patch).read_bytes() if patch is not None else None,
+             'link': Path(link_script).read_bytes() if link_script is not None else None}
+    key_doc = {'score_version': sell_score.SCORE_VERSION,
+               **{name: sha(data) if data is not None else None for name, data in blobs.items()},
+               'flags': flags.strip(),
+               'context': cache_inputs.context(SWARM, HERE, baseline, Path(sell_score.elf_reader.__file__), want_disasm)}
+    return key_doc, blobs
+
+
+def retain_input(data, suffix):
+    """Publish complete admitted bytes before another attempt can read them."""
+    path = SOURCES / (sha(data) + suffix)
+    descriptor, temporary = tempfile.mkstemp(prefix='.input-', dir=SOURCES)
+    try:
+        with os.fdopen(descriptor, 'wb') as stream:
+            stream.write(data)
+        os.replace(temporary, path)
+    finally:
+        if os.path.exists(temporary):
+            os.unlink(temporary)
+    return path
 
 
 def locked_append(entry):
@@ -86,13 +112,8 @@ def main():
     baseline = lane_build / 'baseline-ws'
     if not baseline.exists():
         baseline = native_build.PRISTINE
-    sell_bytes = Path(a.sell).read_bytes() if a.sell else (baseline / native_build.SELL_REL).read_bytes()
-    patch_bytes = Path(a.patch).read_bytes() if a.patch else b''
-    link_bytes = Path(a.link_script).read_bytes() if a.link_script else b''
-    key_doc = {'score_version': sell_score.SCORE_VERSION,
-               'sell': sha(sell_bytes), 'patch': sha(patch_bytes) if patch_bytes else None,
-               'flags': a.extra_root_flags.strip(), 'link': sha(link_bytes) if link_bytes else None,
-               'context': cache_inputs.context(SWARM, HERE, baseline, Path(sell_score.elf_reader.__file__), a.disasm)}
+    key_doc, blobs = input_snapshot(baseline, sell=a.sell, patch=a.patch,
+                                    flags=a.extra_root_flags, link_script=a.link_script, want_disasm=a.disasm)
     key = sha(json.dumps(key_doc, sort_keys=True).encode())
     CACHE.mkdir(exist_ok=True)
     SOURCES.mkdir(exist_ok=True)
@@ -108,12 +129,12 @@ def main():
             if result.get('status') == 'build_failed':
                 return 2
             return 3 if (result.get('metrics') or {}).get('sell_raw_equal') else 0
-    (SOURCES / (key_doc['sell'] + '.rs')).write_bytes(sell_bytes)
-    if patch_bytes:
-        (SOURCES / (key_doc['patch'] + '.patch')).write_bytes(patch_bytes)
+    retained = {name: retain_input(data, {'sell': '.rs', 'patch': '.patch', 'link': '.ld'}[name])
+                for name, data in blobs.items() if data is not None}
     build_id = key[:16]
-    record = native_build.build(lane_build, build_id, sell=a.sell, patch=a.patch,
-                                extra_root_flags=a.extra_root_flags, link_script=a.link_script)
+    record = native_build.build(lane_build, build_id, sell=retained['sell'] if a.sell else None,
+                                patch=retained.get('patch'), extra_root_flags=a.extra_root_flags,
+                                link_script=str(retained['link']) if 'link' in retained else None)
     out = Path(record.get('output_dir') or lane_build / 'out' / build_id)
     entry = {'schema': 'amm-sell-attempt-v1', 'attempt_id': uuid.uuid4().hex,
              'timestamp_utc': datetime.datetime.now(datetime.timezone.utc).isoformat(),

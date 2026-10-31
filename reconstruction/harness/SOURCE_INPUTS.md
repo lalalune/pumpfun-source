@@ -2,7 +2,9 @@
 
 Each fastbuild run writes `source-inputs.json` beside its build log and includes
 `source_sha256` in its result. The receipt lists relative POSIX paths, file sizes,
-executable flags and SHA-256 hashes; its digest covers the canonical sorted list.
+executable flags and SHA-256 hashes, plus directory paths including empty directories.
+The `pump-source-inputs-v2` digest covers both canonical sorted lists. Earlier v1
+receipts omitted directory membership and cannot identify these same inputs.
 Absolute source paths, usernames and filesystem timestamps are not included.
 
 The builder snapshots the input crate before staging and checks it again afterward.

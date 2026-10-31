@@ -13,6 +13,7 @@ import gzip
 import hashlib
 import json
 import os
+import re
 import shutil
 import sys
 import tempfile
@@ -115,8 +116,99 @@ QUOTE_CONTROL_COMPARE_KEYS = ('error', 'before_accounts', 'after_accounts', 'rol
 CASE_DIFFERENCE_FIELDS = ('different_fields', 'diff', 'differences', 'mismatched_fields')
 
 
-def validate_case_results(result):
-    """Reject explicit failed/incomplete pairs even if the summary says zero."""
+# These are the direct semantic fields compared by each maintained producer.
+# Nested metadata and normalized diagnostics are projected below; incidental
+# raw logs and compute usage remain outside the comparison contract.
+# QuoteControl and the two specialized multi-hop receipts have separate gates.
+CASE_COMPARE_KEYS = {
+    'volume': ('error', 'account', 'payer_lamports', 'user_lamports', 'events', 'inner_instructions'),
+    'administration': ('error', 'data_hex', 'lamports'),
+    'creator_collection': ('transaction_base64', 'signature_verification', 'error', 'account',
+                           'creator', 'payer_lamports', 'events', 'inner_instructions'),
+    'quote': ('error', 'accounts', 'event_payloads', 'inner'),
+    'minimum_distribution': ('error', 'before', 'after', 'events'),
+    'fee_sweeps': ('error', 'before', 'after'),
+    'legacy_cashback': ('error', 'before', 'accounts', 'events', 'inner', 'return_data'),
+    'virtual_reserve_sync': ('error', 'before', 'after', 'events', 'inner', 'return_data'),
+    **dict.fromkeys(('authority', 'configuration'),
+                    ('error', 'data_hex', 'lamports', 'payer_lamports', 'authority_lamports',
+                     'event_payloads', 'inner_instructions')),
+    **dict.fromkeys(('buy', 'sell'), ('error', 'accounts', 'event_payloads', 'inner_instructions')),
+    **dict.fromkeys(('exact_quote_v3', 'v3_configured_fee'),
+                    ('error', 'accounts', 'inner_instructions', 'event_payloads', 'return_data')),
+    **dict.fromkeys(('creator_collection_v2', 'set_params'),
+                    ('error', 'before', 'after', 'events', 'inner', 'returns')),
+    **dict.fromkeys(('incentive_claim', 'claim_panic_diagnostics'),
+                    ('error', 'before', 'after', 'event_data_base64', 'inner', 'transaction_base64')),
+    **dict.fromkeys(('legacy_sell', 'legacy_sell_configured_fee', 'sell_v2', 'legacy_buy',
+                     'buy_v2', 'cashback', 'global_init', 'earned_cashback'),
+                    ('error', 'accounts', 'events', 'inner', 'return_data')),
+    **dict.fromkeys(('creator_distribution', 'extension', 'volume_sync', 'creator_migration',
+                     'admin_cto', 'set_creator', 'idl_authority', 'legacy_create', 'create_v2',
+                     'create_control', 'migration', 'migrate_v2', 'holder_distribution',
+                     'nested_create', 'incentive_schedule'),
+                    ('error', 'before', 'after', 'events', 'inner', 'return')),
+}
+CASE_COMPARE_KEYS['virtual_reserve_sync'] += ('transaction_base64',)
+CASE_COMPARE_KEYS['incentive_schedule'] += ('transaction_base64',)
+
+
+def same_json_value(left, right):
+    """Compare retained values without Python's bool/int or int/float coercion."""
+    if type(left) is not type(right):
+        return False
+    if isinstance(left, dict):
+        return left.keys() == right.keys() and all(same_json_value(left[key], right[key]) for key in left)
+    if isinstance(left, (list, tuple)):
+        return len(left) == len(right) and all(same_json_value(a, b) for a, b in zip(left, right))
+    return left == right
+
+
+def compared_outcome(outcome, suite, index):
+    """Project exactly the direct, nested and normalized producer comparisons."""
+    def field(name):
+        value = outcome
+        for part in name.split('.'):
+            assert isinstance(value, dict) and part in value, \
+                f'{suite} case {index}: compared field {name} missing'
+            value = value[part]
+        return value
+
+    def logs(name='logs'):
+        value = field(name)
+        assert isinstance(value, list) and all(isinstance(line, str) for line in value), \
+            f'{suite} case {index}: compared field {name} must contain log strings'
+        return value
+
+    values = {name: field(name) for name in CASE_COMPARE_KEYS[suite]}
+    if suite in ('minimum_distribution', 'fee_sweeps'):
+        for name in ('metadata.return_data', 'metadata.inner_instructions'):
+            values[name] = field(name)
+    if suite == 'fee_sweeps':
+        values['event_logs'] = [line for line in logs() if line.startswith('Program data: ')]
+    if suite in ('cashback', 'earned_cashback', 'legacy_cashback', 'incentive_schedule'):
+        lines = logs()
+        values['panic_messages'] = [line.split('\n', 1)[-1] for line in lines
+                                    if line.startswith('Program log: panicked at ')]
+        if suite == 'legacy_cashback':
+            values['anchor_diagnostics'] = [match.groups() for line in lines if (match := re.search(
+                r'Error Code: (.*?)\. Error Number: (\d+)\. Error Message: (.*)', line))]
+        if suite == 'incentive_schedule':
+            values['anchor_diagnostics'] = [re.sub(r' thrown in .*?:\d+\.', '.', line)
+                                            for line in lines if line.startswith((
+                                                'Program log: AnchorError', 'Program log: Left:',
+                                                'Program log: Right:'))]
+    if suite == 'claim_panic_diagnostics':
+        panics = [line for line in logs('relevant_logs') if line.startswith('Program log: panicked at ')]
+        assert len(panics) == 1 and '\n' in panics[0], \
+            f'{suite} case {index}: exactly one complete panic diagnostic is required'
+        values['panic_message'] = panics[0].split('\n', 1)[1]
+    return values
+
+
+def validate_case_results(result, suite):
+    """Recompare promised fields as well as checking the retained success claims."""
+    assert suite in CASE_COMPARE_KEYS, f'unknown comparison contract: {suite}'
     assert isinstance(result['cases'], list), 'case results must be a list'
     for index, row in enumerate(result['cases']):
         assert isinstance(row, dict), f'case {index}: result must be an object'
@@ -128,6 +220,15 @@ def validate_case_results(result):
             assert row['match'] is True, f'case {index}: match is not true'
         for name in fields:
             assert row[name] == [], f'case {index}: {name} is not an empty difference list'
+        original = compared_outcome(row['original'], suite, index)
+        candidate = compared_outcome(row['candidate'], suite, index)
+        for field in original:
+            assert same_json_value(original[field], candidate[field]), \
+                f'{suite} case {index}: retained comparison contradicts success for {field}'
+        if suite == 'claim_panic_diagnostics':
+            assert isinstance(row.get('expected_message'), str), f'{suite} case {index}: expected panic message missing'
+            assert original['panic_message'] == row['expected_message'], \
+                f'{suite} case {index}: retained panic contradicts expected message'
 
 
 def publish_file(staged, output):
@@ -243,7 +344,7 @@ def main():
                     assert result.get('original_sha256', result.get('provenance', {}).get(str(original))) == original_sha
                     assert result.get('candidate_sha256', result.get('provenance', {}).get(str(candidate))) == candidate_sha
                     count = retained_case_count(result)
-                    validate_case_results(result)
+                    validate_case_results(result, name)
                 assert count == EXPECTED_CASES[name], (name, count, EXPECTED_CASES[name])
                 assert not result.get('mismatches', result.get('failures', [])), name
                 result['case_count'] = count
@@ -251,7 +352,7 @@ def main():
                 scripts[filename] = before
                 (retained_staging / (name + '.json.gz')).write_bytes(
                     gzip.compress(json.dumps(result, separators=(',', ':')).encode(), mtime=0))
-        assert sum(s['case_count'] for s in suites.values()) == 10468
+        assert sum(s['case_count'] for s in suites.values()) == sum(EXPECTED_CASES.values())
         diagnostics = audit_diagnostics(suites)
         report = {
             'scope': 'Published 44-suite bounded Pump differential corpus. Per-suite limits remain in receipts; not full source recovery or binary identity.',

@@ -1,0 +1,203 @@
+{
+  "base": "90300f9d2efe3ef014b116172251a41bfb104d78",
+  "observed_on": "2026-10-31",
+  "environment": {
+    "python": "3.12.13",
+    "solders": "0.27.1"
+  },
+  "introduced_by": "d811fd0e2341f219eeebcc90f1a5b6b28f0653e2",
+  "cause": "admin_cto expected cases increased363 to388; the fixed10468 aggregate total was not updated.",
+  "before_guard": {
+    "scope": "Actual final production assertion executed in isolation; catalogue counts only, not a full serial CLI or a compiled candidate.",
+    "source_sha256": "c8aca19fa1b292bba24f752a5f3981c6622adb1052548b2d8585ca6407888eb7",
+    "guard": "assert sum(s['case_count'] for s in suites.values()) == 10468",
+    "guard_line": 254,
+    "suite_count": 44,
+    "catalogue_total": 10493,
+    "case_counts": {
+      "volume": 66,
+      "administration": 93,
+      "creator_collection_v2": 154,
+      "extension": 308,
+      "exact_quote_v3": 352,
+      "sell_v2": 206,
+      "legacy_buy": 284,
+      "migrate_v2": 827,
+      "global_init": 40,
+      "buy": 334,
+      "creator_collection": 119,
+      "creator_distribution": 298,
+      "admin_cto": 388,
+      "set_params": 169,
+      "legacy_create": 87,
+      "migration": 228,
+      "holder_distribution": 649,
+      "multi_hop_curve_partial": 56,
+      "authority": 59,
+      "configuration": 351,
+      "sell": 301,
+      "minimum_distribution": 181,
+      "creator_migration": 139,
+      "set_creator": 509,
+      "legacy_sell": 115,
+      "legacy_sell_configured_fee": 28,
+      "v3_configured_fee": 372,
+      "cashback": 283,
+      "quote": 130,
+      "volume_sync": 341,
+      "fee_sweeps": 504,
+      "idl_authority": 171,
+      "create_v2": 297,
+      "create_control": 85,
+      "buy_v2": 216,
+      "nested_create": 48,
+      "quote_control": 507,
+      "tokenkeg_two_curve": 20,
+      "incentive_claim": 334,
+      "virtual_reserve_sync": 192,
+      "claim_panic_diagnostics": 2,
+      "incentive_schedule": 575,
+      "earned_cashback": 61,
+      "legacy_cashback": 14
+    },
+    "outcomes": [
+      {
+        "change": "current-catalogue",
+        "accepted": false,
+        "case_total": 10493
+      },
+      {
+        "change": "missing-suite",
+        "accepted": false,
+        "case_total": 10400
+      },
+      {
+        "change": "wrong-count",
+        "accepted": false,
+        "case_total": 10494
+      }
+    ]
+  },
+  "after_guard": {
+    "scope": "Actual final production assertion executed in isolation; catalogue counts only, not a full serial CLI or a compiled candidate.",
+    "source_sha256": "c1aa8997d481ed482adfcd0792739f74ac48c02ef0aabe02b320e099cc3ea226",
+    "guard": "assert sum(s['case_count'] for s in suites.values()) == sum(EXPECTED_CASES.values())",
+    "guard_line": 254,
+    "suite_count": 44,
+    "catalogue_total": 10493,
+    "case_counts": {
+      "volume": 66,
+      "administration": 93,
+      "creator_collection_v2": 154,
+      "extension": 308,
+      "exact_quote_v3": 352,
+      "sell_v2": 206,
+      "legacy_buy": 284,
+      "migrate_v2": 827,
+      "global_init": 40,
+      "buy": 334,
+      "creator_collection": 119,
+      "creator_distribution": 298,
+      "admin_cto": 388,
+      "set_params": 169,
+      "legacy_create": 87,
+      "migration": 228,
+      "holder_distribution": 649,
+      "multi_hop_curve_partial": 56,
+      "authority": 59,
+      "configuration": 351,
+      "sell": 301,
+      "minimum_distribution": 181,
+      "creator_migration": 139,
+      "set_creator": 509,
+      "legacy_sell": 115,
+      "legacy_sell_configured_fee": 28,
+      "v3_configured_fee": 372,
+      "cashback": 283,
+      "quote": 130,
+      "volume_sync": 341,
+      "fee_sweeps": 504,
+      "idl_authority": 171,
+      "create_v2": 297,
+      "create_control": 85,
+      "buy_v2": 216,
+      "nested_create": 48,
+      "quote_control": 507,
+      "tokenkeg_two_curve": 20,
+      "incentive_claim": 334,
+      "virtual_reserve_sync": 192,
+      "claim_panic_diagnostics": 2,
+      "incentive_schedule": 575,
+      "earned_cashback": 61,
+      "legacy_cashback": 14
+    },
+    "outcomes": [
+      {
+        "change": "current-catalogue",
+        "accepted": true,
+        "case_total": 10493
+      },
+      {
+        "change": "missing-suite",
+        "accepted": false,
+        "case_total": 10400
+      },
+      {
+        "change": "wrong-count",
+        "accepted": false,
+        "case_total": 10494
+      }
+    ]
+  },
+  "runtime_controls": {
+    "generic_suites": 41,
+    "generic_admitted_cases": 9910,
+    "generic_summary_sha256": "8365439068b4beaac3f336742205ef90b6b30f15e12f8f9b6de44e801147e336",
+    "special_suites": [
+      {
+        "suite": "quote_control",
+        "receipt": "quote-control.json.gz",
+        "sha256": "70d8911a6da803e64304043bbc72c6e57ff5ac25e0594fe0a055385a1f59637a",
+        "admitted_cases": 507
+      },
+      {
+        "suite": "multi_hop_curve_partial",
+        "receipt": "partial-multi-hop.json",
+        "sha256": "9bdaf11cfa789fb52e640eff2d89db2f2cb30f6282fa9e288bfae0a10e82aa90",
+        "admitted_cases": 56
+      }
+    ],
+    "executed_suites": 43,
+    "executed_cases": 10473,
+    "unexecuted": {
+      "suite": "tokenkeg_two_curve",
+      "expected_cases": 20,
+      "reason": "No genuine matching current SBF compiler receipt; no build receipt fabricated."
+    }
+  },
+  "publication_test": {
+    "kind": "existing mocked-producer integration test exercising actual serial main",
+    "before": "Fails at main finaltotal assertion after44 shaped fixture receipts are admitted.",
+    "after": "Passes and publishes10493 aggregate count; all10 retention tests pass."
+  },
+  "checks": [
+    {
+      "command": "python -B scripts/test_pump_validate_all_retention.py",
+      "tests": 10,
+      "seconds": 3.713,
+      "result": "pass"
+    },
+    {
+      "command": "python scripts/verify_evidence.py",
+      "captures": 9,
+      "result": "pass"
+    },
+    {
+      "command": "python scripts/test_tooling.py",
+      "tests": 242,
+      "seconds": 53.973,
+      "result": "pass"
+    }
+  ],
+  "scope_limit": "The actual final production assertion was executed in isolation against catalogue counts. 43 real producers ran separately. This is not a full44-suite serial CLI run or a rebuilt-source claim."
+}

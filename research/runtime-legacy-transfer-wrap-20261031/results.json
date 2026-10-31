@@ -1,0 +1,334 @@
+{
+  "base": "ed47ac72a632e54a4d5ca9a192912c8d5b40faf2",
+  "compiler": "rustc 1.99.1 (58cf8f9c3 2026-10-13), aarch64-apple-darwin",
+  "compile_argv": [
+    "rustc",
+    "--edition=2021",
+    "-O",
+    "-D",
+    "warnings",
+    "programs/pump-amm/recovered/liquidity_host.rs",
+    "-o",
+    "HOST"
+  ],
+  "source_sha256": {
+    "programs/pump-amm/recovered/liquidity.rs": {
+      "base": "32ac8b014305788e6425fec65f0698961b7917e7548c332664cff0137324f0c2",
+      "candidate": "20c14364dde792bb1b3c5805369bb38ac45dc1af57ddb86cd40dcca187056c82"
+    },
+    "programs/pump-amm/recovered/liquidity_host.rs": {
+      "base": "174faa51f2b64a651ab317e1923736b043cfd7bb70019d5582c996d3312c3eb0",
+      "candidate": "174faa51f2b64a651ab317e1923736b043cfd7bb70019d5582c996d3312c3eb0"
+    },
+    "tests/test_pump_amm_liquidity_captured.py": {
+      "base": "3e12c23334f2cfa9f0589b8ad24a9f616ceb262d05e4bc948afd5db03b3e8360",
+      "candidate": "8d96635c5b841f0a2031c28280ecab3b356a67114d0aa2cd4d52649be6747d47"
+    }
+  },
+  "captured_images": {
+    "evidence/original/pump_amm/deployed.so": "6a7ad34596d83b4c435b32f458a56e718e9f82eb4ad38e4316616d15d24d8ff7",
+    "evidence/dependencies/spl_token/deployed.so": "8190d3f7ceb6cb7a7a8d8924bff89f9f611e15ce1f806f2b6237f3311a98f697",
+    "evidence/dependencies/spl_token_2022/deployed.so": "15a2e615a42e20f31714bbaaee43002ae6f1cda2e8d7118243117ab3c1342e2d"
+  },
+  "host_sha256": {
+    "before": "f6a580974c5d44a2b876206140c80b3ad28137ba8997aaf93a2e825a1f20653a",
+    "after": "680187964da45297474d8b8ab87c3dbce1425562e570664ba088346d270d73e3"
+  },
+  "external_probe": {
+    "cases": 29,
+    "before_mismatches": 6,
+    "after_mismatches": 0,
+    "rows": [
+      {
+        "name": "deposit_base_spl_edge_-1",
+        "base_host_outcome": "ok",
+        "fixed_host_outcome": "ok",
+        "captured_error": null,
+        "destination_before": 18446725626983924630,
+        "destination_after": 18446744073709551614,
+        "account_rollback": false
+      },
+      {
+        "name": "deposit_base_spl_edge_0",
+        "base_host_outcome": "ok",
+        "fixed_host_outcome": "ok",
+        "captured_error": null,
+        "destination_before": 18446725626983924631,
+        "destination_after": 18446744073709551615,
+        "account_rollback": false
+      },
+      {
+        "name": "deposit_base_spl_edge_1",
+        "base_host_outcome": "error:14",
+        "fixed_host_outcome": "ok",
+        "captured_error": null,
+        "destination_before": 18446725626983924632,
+        "destination_after": 0,
+        "account_rollback": false
+      },
+      {
+        "name": "deposit_base_2022_edge_-1",
+        "base_host_outcome": "ok",
+        "fixed_host_outcome": "ok",
+        "captured_error": null,
+        "destination_before": 18446725626983924630,
+        "destination_after": 18446744073709551614,
+        "account_rollback": false
+      },
+      {
+        "name": "deposit_base_2022_edge_0",
+        "base_host_outcome": "ok",
+        "fixed_host_outcome": "ok",
+        "captured_error": null,
+        "destination_before": 18446725626983924631,
+        "destination_after": 18446744073709551615,
+        "account_rollback": false
+      },
+      {
+        "name": "deposit_base_2022_edge_1",
+        "base_host_outcome": "error:14",
+        "fixed_host_outcome": "error:14",
+        "captured_error": "14",
+        "destination_before": 18446725626983924632,
+        "destination_after": 18446725626983924632,
+        "account_rollback": true
+      },
+      {
+        "name": "deposit_quote_spl_edge_-1",
+        "base_host_outcome": "ok",
+        "fixed_host_outcome": "ok",
+        "captured_error": null,
+        "destination_before": 18446725626983924630,
+        "destination_after": 18446744073709551614,
+        "account_rollback": false
+      },
+      {
+        "name": "deposit_quote_spl_edge_0",
+        "base_host_outcome": "ok",
+        "fixed_host_outcome": "ok",
+        "captured_error": null,
+        "destination_before": 18446725626983924631,
+        "destination_after": 18446744073709551615,
+        "account_rollback": false
+      },
+      {
+        "name": "deposit_quote_spl_edge_1",
+        "base_host_outcome": "error:14",
+        "fixed_host_outcome": "ok",
+        "captured_error": null,
+        "destination_before": 18446725626983924632,
+        "destination_after": 0,
+        "account_rollback": false
+      },
+      {
+        "name": "deposit_quote_2022_edge_-1",
+        "base_host_outcome": "ok",
+        "fixed_host_outcome": "ok",
+        "captured_error": null,
+        "destination_before": 18446725626983924630,
+        "destination_after": 18446744073709551614,
+        "account_rollback": false
+      },
+      {
+        "name": "deposit_quote_2022_edge_0",
+        "base_host_outcome": "ok",
+        "fixed_host_outcome": "ok",
+        "captured_error": null,
+        "destination_before": 18446725626983924631,
+        "destination_after": 18446744073709551615,
+        "account_rollback": false
+      },
+      {
+        "name": "deposit_quote_2022_edge_1",
+        "base_host_outcome": "error:14",
+        "fixed_host_outcome": "error:14",
+        "captured_error": "14",
+        "destination_before": 18446725626983924632,
+        "destination_after": 18446725626983924632,
+        "account_rollback": true
+      },
+      {
+        "name": "withdraw_base_spl_edge_-1",
+        "base_host_outcome": "ok",
+        "fixed_host_outcome": "ok",
+        "captured_error": null,
+        "destination_before": 18446744073709551214,
+        "destination_after": 18446744073709551614,
+        "account_rollback": false
+      },
+      {
+        "name": "withdraw_base_spl_edge_0",
+        "base_host_outcome": "ok",
+        "fixed_host_outcome": "ok",
+        "captured_error": null,
+        "destination_before": 18446744073709551215,
+        "destination_after": 18446744073709551615,
+        "account_rollback": false
+      },
+      {
+        "name": "withdraw_base_spl_edge_1",
+        "base_host_outcome": "error:14",
+        "fixed_host_outcome": "ok",
+        "captured_error": null,
+        "destination_before": 18446744073709551216,
+        "destination_after": 0,
+        "account_rollback": false
+      },
+      {
+        "name": "withdraw_base_2022_edge_-1",
+        "base_host_outcome": "ok",
+        "fixed_host_outcome": "ok",
+        "captured_error": null,
+        "destination_before": 18446744073709551214,
+        "destination_after": 18446744073709551614,
+        "account_rollback": false
+      },
+      {
+        "name": "withdraw_base_2022_edge_0",
+        "base_host_outcome": "ok",
+        "fixed_host_outcome": "ok",
+        "captured_error": null,
+        "destination_before": 18446744073709551215,
+        "destination_after": 18446744073709551615,
+        "account_rollback": false
+      },
+      {
+        "name": "withdraw_base_2022_edge_1",
+        "base_host_outcome": "error:14",
+        "fixed_host_outcome": "error:14",
+        "captured_error": "14",
+        "destination_before": 18446744073709551216,
+        "destination_after": 18446744073709551216,
+        "account_rollback": true
+      },
+      {
+        "name": "withdraw_quote_spl_edge_-1",
+        "base_host_outcome": "ok",
+        "fixed_host_outcome": "ok",
+        "captured_error": null,
+        "destination_before": 18446744073709551414,
+        "destination_after": 18446744073709551614,
+        "account_rollback": false
+      },
+      {
+        "name": "withdraw_quote_spl_edge_0",
+        "base_host_outcome": "ok",
+        "fixed_host_outcome": "ok",
+        "captured_error": null,
+        "destination_before": 18446744073709551415,
+        "destination_after": 18446744073709551615,
+        "account_rollback": false
+      },
+      {
+        "name": "withdraw_quote_spl_edge_1",
+        "base_host_outcome": "error:14",
+        "fixed_host_outcome": "ok",
+        "captured_error": null,
+        "destination_before": 18446744073709551416,
+        "destination_after": 0,
+        "account_rollback": false
+      },
+      {
+        "name": "withdraw_quote_2022_edge_-1",
+        "base_host_outcome": "ok",
+        "fixed_host_outcome": "ok",
+        "captured_error": null,
+        "destination_before": 18446744073709551414,
+        "destination_after": 18446744073709551614,
+        "account_rollback": false
+      },
+      {
+        "name": "withdraw_quote_2022_edge_0",
+        "base_host_outcome": "ok",
+        "fixed_host_outcome": "ok",
+        "captured_error": null,
+        "destination_before": 18446744073709551415,
+        "destination_after": 18446744073709551615,
+        "account_rollback": false
+      },
+      {
+        "name": "withdraw_quote_2022_edge_1",
+        "base_host_outcome": "error:14",
+        "fixed_host_outcome": "error:14",
+        "captured_error": "14",
+        "destination_before": 18446744073709551416,
+        "destination_after": 18446744073709551416,
+        "account_rollback": true
+      },
+      {
+        "name": "maintainer_max_spl",
+        "base_host_outcome": "error:14",
+        "fixed_host_outcome": "ok",
+        "captured_error": null,
+        "destination_before": 18446744073709551615,
+        "destination_after": 18446744073709,
+        "account_rollback": false
+      },
+      {
+        "name": "maintainer_max_2022",
+        "base_host_outcome": "error:14",
+        "fixed_host_outcome": "error:14",
+        "captured_error": "14",
+        "destination_before": 18446744073709551615,
+        "destination_after": 18446744073709551615,
+        "account_rollback": true
+      },
+      {
+        "name": "wrapped_base_then_insufficient_quote",
+        "base_host_outcome": "error:14",
+        "fixed_host_outcome": "error:1",
+        "captured_error": "1",
+        "destination_before": 18446744073709551615,
+        "destination_after": 18446744073709551615,
+        "account_rollback": true
+      },
+      {
+        "name": "wrapped_base_then_2022_quote_overflow",
+        "base_host_outcome": "error:14",
+        "fixed_host_outcome": "error:14",
+        "captured_error": "14",
+        "destination_before": 18446744073709551615,
+        "destination_after": 18446744073709551615,
+        "account_rollback": true
+      },
+      {
+        "name": "wrapped_base_then_lp_overflow",
+        "base_host_outcome": "error:14",
+        "fixed_host_outcome": "error:14",
+        "captured_error": "14",
+        "destination_before": 18446744073709551615,
+        "destination_after": 18446744073709551615,
+        "account_rollback": true
+      }
+    ]
+  },
+  "validation": {
+    "liquidity": {
+      "methods": 7,
+      "seconds": 5.063,
+      "result": "pass",
+      "normal_differential_subcases": {
+        "fixed": 124,
+        "seeded": 40,
+        "delegate": 24,
+        "new_overflow": 29
+      },
+      "additional_checks": "existing image identity, tampered outcomes and fixed-case outcome coverage"
+    },
+    "tooling": {
+      "tests": 250,
+      "seconds": 53.579,
+      "result": "pass"
+    },
+    "evidence": {
+      "captures": 9,
+      "result": "pass"
+    },
+    "diff_check": "pass"
+  },
+  "limits": [
+    "The token balances are synthetic and inconsistent with aggregate mint supply; no reachable on-chain balance configuration is established.",
+    "Finite parity against three retained binaries only; no complete equivalence, byte identity or security clearance claim.",
+    "Only the recovered native host model changes. Production AMM source, SBF artifacts and historical evidence remain unchanged."
+  ]
+}

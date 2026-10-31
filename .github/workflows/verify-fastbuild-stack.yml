@@ -9,6 +9,18 @@ permissions:
   contents: read
 
 jobs:
+  macos-toolchain-publication:
+    runs-on: macos-15
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test native toolchain publication and recovery
+        run: python -B reconstruction/toolchain/test_bootstrap_macos_publication.py
   stack-rejection:
     runs-on: ubuntu-latest
     timeout-minutes: 5

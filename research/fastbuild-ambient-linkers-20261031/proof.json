@@ -1,0 +1,13 @@
+{
+  "base_commit": "d530a712c5d430399e06a70a3fcfd9106e54f6c9",
+  "production_path": "reconstruction/harness/fastbuild.py",
+  "production_before_sha256": "190bb686147c3e1eb9523f9176cd1a70e2047fdba9fb325a24e94f97625855de",
+  "production_after_sha256": "c3083d7fa1fa48c1d4ed2286c8a51970130e9b914603a5662d916fdcfd4a6a1f",
+  "probe_path": "reconstruction/harness/test_fastbuild_ambient_linkers.py",
+  "probe_sha256": "a982f37d354e7330a8baf68e3da8187c86db6997d8c61cdc883c206a7b92b95c",
+  "observations": {
+    "before.json": "517966d20610525810b39e6ad5842978481476ac2ca245abf6f10e5fc27bd039",
+    "after.json": "11451d2cb929dd963a403f76f349cd876b95814d00245317d6503f73782ae5f7"
+  },
+  "method": "real fastbuild staging and compiler process with an authored native host fixture; no SBF publication or bytecode score claimed"
+}

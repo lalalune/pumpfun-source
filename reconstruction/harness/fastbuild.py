@@ -133,9 +133,12 @@ def stage(src: Path, ws: Path, expected_inputs=None):
     # selected input in the copy, including nested path-crate Cargo metadata.
     generated = {'Cargo.toml', 'Cargo.lock'}
     expected = {row['path']: row for row in expected_inputs['files'] if row['path'] not in generated}
-    actual = {row['path']: row for row in snapshot(crate)['files'] if row['path'] not in generated}
-    if actual != expected:
-        changed = sorted(name for name in actual.keys() | expected.keys() if actual.get(name) != expected.get(name))
+    staged_inputs = snapshot(crate)
+    actual = {row['path']: row for row in staged_inputs['files'] if row['path'] not in generated}
+    changed_dirs = set(staged_inputs['directories']) ^ set(expected_inputs['directories'])
+    if actual != expected or changed_dirs:
+        changed_files = {name for name in actual.keys() | expected.keys() if actual.get(name) != expected.get(name)}
+        changed = sorted(changed_files | changed_dirs)
         raise ValueError('staged source inputs differ from admitted inputs: ' + ', '.join(changed[:10]))
     def put(p, t):
         if not p.exists() or p.read_text(encoding='utf-8') != t:
@@ -284,11 +287,14 @@ def _build_locked(src: Path, work: Path, out: Path, quiet=False, recipe=None, ti
     )
     env['CARGO_TARGET_' + triple.upper().replace('-', '_') + '_RUSTFLAGS'] = '-Zremap-cwd-prefix='
     env.pop('RUSTFLAGS', None); env.pop('CARGO_ENCODED_RUSTFLAGS', None)
-    # These outrank the staged [profile.release] or wrap only the local crates.
+    # These outrank the staged release recipe, replace its target/host linker,
+    # or wrap only the local crates. Keep linker choice in the pinned recipe.
     for name in list(env):
-        if name.startswith('CARGO_PROFILE_') or name in (
+        if (name.startswith('CARGO_PROFILE_')
+                or (name.startswith('CARGO_TARGET_') and name.endswith('_LINKER'))
+                or name in (
                 'CARGO_INCREMENTAL', 'CARGO_BUILD_INCREMENTAL',
-                'RUSTC_WORKSPACE_WRAPPER', 'CARGO_BUILD_RUSTC_WORKSPACE_WRAPPER'):
+                'RUSTC_WORKSPACE_WRAPPER', 'CARGO_BUILD_RUSTC_WORKSPACE_WRAPPER')):
             del env[name]
     receipt = work / 'link-receipt.json'
     link_env, link_record = link_order.configure(crate, R['rustc'], receipt)

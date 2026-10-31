@@ -171,6 +171,21 @@ def separate_trees(source, destination):
     source, destination = Path(source).resolve(), Path(destination).resolve()
     if destination == source or source in destination.parents or destination in source.parents:
         raise ValueError('source and destination must be separate trees')
+    # resolve() removes symlinks but can preserve alternate case spellings on
+    # case-insensitive volumes. Compare existing ancestors by filesystem identity
+    # as well; the destination itself may not have been created yet.
+    for root, descendant in ((source, destination), (destination, source)):
+        try:
+            root_info = root.stat()
+        except FileNotFoundError:
+            continue
+        for path in (descendant, *descendant.parents):
+            try:
+                info = path.stat()
+            except FileNotFoundError:
+                continue
+            if os.path.samestat(root_info, info):
+                raise ValueError('source and destination must be separate trees')
     return source, destination
 
 

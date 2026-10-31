@@ -7,6 +7,7 @@ import struct
 import unittest
 
 import lifecycle
+import verify
 
 
 class LifecycleUnitTests(unittest.TestCase):
@@ -102,6 +103,38 @@ class LifecycleUnitTests(unittest.TestCase):
         self.assertEqual(
             archived["fixture"],
             lifecycle.FIXTURE_PATH.relative_to(lifecycle.ROOT).as_posix())
+
+
+class ReportOracleReceiptTests(unittest.TestCase):
+    """Per-case oracle fields must agree with the receipts they summarize."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.candidate = (lifecycle.ROOT / "evidence/original/pump/deployed.so").resolve()
+        cls.report = lifecycle.run_suite(cls.candidate)
+        cls.report["negative_controls"] = lifecycle.negative_control(cls.report)
+
+    def problems_after(self, mutate):
+        report = copy.deepcopy(self.report)
+        mutate(report["cases"][0])
+        return verify.verify(report, self.candidate)
+
+    def test_unmodified_report_verifies(self):
+        self.assertEqual(verify.verify(self.report, self.candidate), [])
+
+    def test_contradicted_observed_outcomes_are_rejected(self):
+        def mutate(row):
+            row["observed_original_outcomes"] = ["ok"]
+
+        self.assertIn("legacy/native-success-repeat:oracle_receipt",
+                      self.problems_after(mutate))
+
+    def test_invented_oracle_mismatches_are_rejected(self):
+        def mutate(row):
+            row["oracle_mismatches"] = [{"expected": ["ok"], "observed": ["ok"]}]
+
+        self.assertIn("legacy/native-success-repeat:oracle_receipt",
+                      self.problems_after(mutate))
 
 
 if __name__ == "__main__":

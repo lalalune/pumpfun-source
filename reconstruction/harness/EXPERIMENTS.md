@@ -1,5 +1,8 @@
 # Resumable, bounded experiments
 
+Source/output separation checks existing filesystem identities as well as
+resolved paths, including alternate case spellings on case-insensitive volumes.
+
 `python reconstruction/harness/experiment_runner.py matrix.json --out /tmp/trials --max-trials 20`
 
 A matrix is a JSON array of objects with unique simple `name`, absolute `source` directory, `command` argv array, optional `inputs` file paths and `timeout` seconds (default 300, maximum 86400). Use `{source}`, `{work}` and `{out}` in arguments. Commands run sequentially in an isolated working directory, without a shell. Source is copied; `.git`, `__pycache__` and the source root's `target` directory are omitted. A regular file named `target` and nested `target` directories remain source inputs. Source symlinks and special files are refused. The output tree must be separate from the source.
@@ -45,7 +48,7 @@ snapshot of every executable or script byte read during the child process.
 
 `python reconstruction/harness/bisect_membership.py --repo /repo --good GOOD_SHA --bad BAD_SHA --source-subdir programs/pump --oracle oracle.json --out /tmp/bisect --max-trials 20`
 
-The oracle JSON contains the same `command`, `inputs` and `timeout` fields as a matrix row. Both endpoints are evaluated. Only pass/fail move bounds; build errors are skipped and can leave an unresolved interval. The first-parent chain must contain the good endpoint. Source comes from git archives in temporary directories; no checkout, branch or index is changed. The report identifies adjacent passing/failing revisions only when qualified, and otherwise lists the possible first failures. The binary-search inference assumes a monotonic transition; it does not prove no later recovery or a unique causal commit across a merge's other parents.
+The oracle JSON contains the same `command`, `inputs` and `timeout` fields as a matrix row. Both endpoints are evaluated. Only pass/fail move bounds; build errors are skipped and can leave an unresolved interval. Archived source links remain unsupported and are recorded as unknown revisions in `archive_errors`; they are never extracted or passed to the oracle. The first-parent chain must contain the good endpoint. Source comes from git archives in temporary directories; no checkout, branch or index is changed. The report identifies adjacent passing/failing revisions only when qualified, and otherwise lists the possible first failures. The binary-search inference assumes a monotonic transition; it does not prove no later recovery or a unique causal commit across a merge's other parents.
 
 ## Minimize an ordered patch set
 

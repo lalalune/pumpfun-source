@@ -1,0 +1,131 @@
+{
+  "schema": "pump-completion-pass105-v1",
+  "date": "2026-10-31",
+  "source_pr": 3666,
+  "source_merge_commit": {
+    "oid": "86e2a6b745a22e5109d1454db4882b409c8141b8"
+  },
+  "built_revision": "34a92da94282df3f52c0d6de4bc1f03643588ab4",
+  "validated_merged_revision": "fd0383e159bb018a228274f76239b2ee71c74f05",
+  "recipe": "identity",
+  "source_sha256": "6f5926830f08711a09d4b680f941338019217aaa48868b1afac8284619c0d6f3",
+  "source_files": 263,
+  "unstripped_sha256": "dc79dde734b0cfb2ba84e505d62b5d3bdd801649e04e7ed9741366d07d095c8c",
+  "stripped_sha256": "d96c89272aa4fac9101d0bc5328596caecb63715b6514f554305bf8deb7cd3b8",
+  "runtime_valid": true,
+  "stack_warnings": [],
+  "baseline_checkpoint": "../completion-pass104-20261031",
+  "baseline_revision": "90300f9d2efe3ef014b116172251a41bfb104d78",
+  "baseline_unstripped_sha256": "e9df54086dcfc8ca1a4833d3577bc5092e3e23eae2c4492d52bdea661ba82a85",
+  "pump": {
+    "raw": 1034,
+    "normalized": 1034,
+    "total": 1035,
+    "matched_percent": 99.9,
+    "matched_code_bytes": 1764808,
+    "total_code_bytes": 1792208,
+    "unmatched": [
+      {
+        "address": "0x22a10",
+        "symbol": "admin_cto::execute",
+        "bytes": 27400
+      }
+    ]
+  },
+  "aggregate": {
+    "raw": 3337,
+    "normalized": 3337,
+    "total": 3338,
+    "matched_percent": 99.97,
+    "matched_code_bytes": 5185728,
+    "total_code_bytes": 5213128,
+    "whole_meaningful_elf_equal_programs": 4,
+    "programs": 5
+  },
+  "comparison": {
+    "gains": [],
+    "losses": [],
+    "raw_gains": [],
+    "raw_losses": []
+  },
+  "remaining_window": {
+    "window": "0x22a10",
+    "window_bytes": 27400,
+    "symbol": "pump_recovered::admin_cto::execute",
+    "cand_start": "0x22a10",
+    "cand_bytes": 27400,
+    "normalized_equal": false,
+    "raw_equal": false,
+    "ratio": 0.67376,
+    "calls_original": [
+      154,
+      3
+    ],
+    "calls_candidate": [
+      154,
+      3
+    ],
+    "call_counts_original": {
+      "internal": 154,
+      "syscall_or_relocated": 3,
+      "indirect": 0
+    },
+    "call_counts_candidate": {
+      "internal": 154,
+      "syscall_or_relocated": 3,
+      "indirect": 0
+    },
+    "normalized_field_differences": {
+      "comparable": false,
+      "reason": "instruction boundaries or byte lengths differ"
+    },
+    "slots_diff": 3124,
+    "first_diff_offsets": [
+      "0x0",
+      "0x8",
+      "0x10",
+      "0x80",
+      "0x88",
+      "0x90",
+      "0x98",
+      "0xa0",
+      "0xa8",
+      "0xb0",
+      "0xb8",
+      "0xc0"
+    ]
+  },
+  "partial_progress": {
+    "baseline_ratio": 0.67346,
+    "candidate_ratio": 0.67376,
+    "baseline_positional_differences": 3124,
+    "candidate_positional_differences": 3124,
+    "bytes": 27400
+  },
+  "semantic_review": {
+    "source_file_sha256": "b40f37cc7a01707134efe5e39069e801b42b1e3c0bca2edb63e4cc3e5a659be3",
+    "description": "The same eight infallible field-copy expressions initialize the same CtoState fields; fee_configurable moves from last to first. The struct layout, all 25 macro coordinates and call order remain unchanged.",
+    "independent_review": "../completion-pass104-20261031/semantic-review.json"
+  },
+  "runtime": {
+    "case_count": 388,
+    "mismatches": 0,
+    "candidate_sha256": "d96c89272aa4fac9101d0bc5328596caecb63715b6514f554305bf8deb7cd3b8",
+    "report": "../completion-pass104-20261031/admin-runtime.json.gz",
+    "uncompressed_sha256": "7c8e194df921977b6ec086a089dcc28ba238a2a2bbad7a694ad38e8e6b865df6",
+    "producer_sha256": "77d63d3bc70d49f59107133896c104f90f0d4ebd34b0c1fae0b294e19c4b0b09",
+    "reused": true,
+    "scope": "Signed synthetic captured Pump admin_cto calling Fees by genuine CPI. Pool authority nonsigner at transaction boundary; no privileged signer injection. Not full program identity.",
+    "reuse_basis": "Both fresh stripped and unstripped binary SHA256 values equal checkpoint104. Its 388-case candidate-vs-original receipt was admitted by the repaired consumers; this checkpoint does not claim another VM run."
+  },
+  "limits": [
+    "No new exact window; Pump whole meaningful ELF remains unequal.",
+    "Reference models remain unlinked, with bounded captured-program tests and separately documented limits.",
+    "Other four program checkpoints remain retained evidence, not fresh builds in this pass."
+  ],
+  "source_schema": "pump-source-inputs-v2",
+  "source_directories": 10,
+  "prior_source_schema": "pump-source-inputs-v1",
+  "prior_source_sha256": "be807c57090f2c8af8112c0b26504cd8614ac7572ee01d8b2187307a3952b18e",
+  "source_receipt_note": "Fresh build with directory-bound v2 admission; the 263-file vector and both output binaries are identical to checkpoint104. The historical v1 receipt is unchanged."
+}
