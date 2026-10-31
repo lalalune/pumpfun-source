@@ -1,0 +1,137 @@
+# MBP pass-2 decision at the 648 with_pubkeys tail (to_string.exit.i, pass-2 %bb.84); debug llc -debug-only=block-placement
+## main (m0mv0), dec2.txt lines 427-434 and 789-793
+Selecting best successor for: %bb.84 ('to_string.exit.i')
+    Not a candidate: %bb.85 ('bb56.i') -> 0x80000000 / 0x80000000 = 100.00% (prob) (non-cold CFG conflict)
+    %bb.178 ('bb4.i') -> 0.0005143231505 (freq)
+    %bb.173 ('bb9.i115') -> 0.0006574461566 (freq)
+    %bb.182 ('bb22.i144') -> 0.0003903586555 (freq)
+    %bb.289 ('bb26.i137') -> 0.0002340207673 (freq)
+    %bb.319 ('bb43.i134') -> 0.00003656574489 (freq)
+Merging from %bb.84 ('to_string.exit.i') to %bb.173 ('bb9.i115')
+  ...
+Selecting best successor for: %bb.290 ('bb84.i139')
+    Candidate: %bb.85 ('bb56.i'), probability: 0x80000000 / 0x80000000 = 100.00% (CFG break)
+    Setting it as best candidate
+    Selected: %bb.85 ('bb56.i')
+Merging from %bb.290 ('bb84.i139') to %bb.85 ('bb56.i')
+
+## basin A (q1mv1), dec2.txt lines 417-432
+    %bb.295 ('bb3.i.i61') -> Mid chain!
+Selecting best successor for: %bb.83 ('bb3.i.i109')
+    %bb.178 ('bb4.i') -> 0.0005143231505 (freq)
+    %bb.173 ('bb9.i112') -> 0.0006574461566 (freq)
+    %bb.182 ('bb22.i141') -> 0.0003903586555 (freq)
+    %bb.289 ('bb26.i134') -> 0.0002340207673 (freq)
+    %bb.291 ('bb93.i') -> 0.0001950173061 (freq)
+    %bb.302 ('bb95.i126') -> 0.00009750865303 (freq)
+    %bb.319 ('bb43.i131') -> 0.00003656574489 (freq)
+    %bb.84 ('to_string.exit.i') -> 0.002191485099 (freq)
+Merging from %bb.83 ('bb3.i.i109') to %bb.84 ('to_string.exit.i')
+Selecting best successor for: %bb.84 ('to_string.exit.i')
+    Candidate: %bb.85 ('bb56.i'), probability: 0x80000000 / 0x80000000 = 100.00% (CFG break)
+    Setting it as best candidate
+    Selected: %bb.85 ('bb56.i')
+Merging from %bb.84 ('to_string.exit.i') to %bb.85 ('bb56.i')
+
+# Pass-2 worklist freqs of the sweep.exit (bb56.i) Err-reload preds
+## m0mv0
+%bb.288 ('bb60.i117') -> 0.0007239749994 (freq)
+%bb.296 ('to_string.exit.i') -> 0.624999404 (freq)
+%bb.311 ('bb60.i') -> 0.0000602722442 (freq)
+%bb.84 ('to_string.exit.i') -> 0.002191485099 (freq)
+## q1mv1
+%bb.288 ('bb60.i114') -> 0.0004314490402 (freq)
+%bb.291 ('bb93.i') -> 0.0001950173061 (freq)
+%bb.296 ('to_string.exit.i') -> 0.624999404 (freq)
+%bb.302 ('bb95.i126') -> 0.00009750865303 (freq)
+%bb.311 ('bb60.i') -> 0.0000602722442 (freq)
+%bb.84 ('to_string.exit.i') -> 0.002191485099 (freq)
+
+# Post-placement tail merge of the bb56.i preds (debug llc -debug-only=branch-folder, bf.txt)
+## main
+Looking for common tails of at least 5 instructions
+
+TryTailMergeBlocks: %bb.123, %bb.230, %bb.233, %bb.234, %bb.239, %bb.244, %bb.245, %bb.246, %bb.252, %bb.255, %bb.258
+  with successor %bb.259
+  which has fall-through from %bb.258
+Looking for common tails of at least 5 instructions
+Common tail length of %bb.246 and %bb.239 is 1
+Common tail length of %bb.246 and %bb.233 is 1
+Common tail length of %bb.246 and %bb.123 is 1
+Common tail length of %bb.239 and %bb.233 is 1
+Common tail length of %bb.239 and %bb.123 is 1
+Common tail length of %bb.233 and %bb.123 is 1
+
+Using common tail in %bb.123 for %bb.246, %bb.239, %bb.233, 
+
+## basin A
+TryTailMergeBlocks: %bb.123, %bb.230, %bb.233, %bb.234, %bb.239, %bb.244, %bb.245, %bb.246, %bb.252, %bb.255, %bb.258
+  with successor %bb.259
+  which has fall-through from %bb.258
+Looking for common tails of at least 5 instructions
+Common tail length of %bb.246 and %bb.233 is 1
+Common tail length of %bb.246 and %bb.123 is 1
+Common tail length of %bb.233 and %bb.123 is 1
+
+Using common tail in %bb.123 for %bb.233, 
+Common tail length of %bb.246 and %bb.123 is 1
+
+# The four Err reload blocks in the pre-MBP MIR (pre.mir)
+## m0mv0
+  bb.123.bb60.i117:
+    successors: %bb.259(0x80000000)
+    liveins: $r7
+    $r3 = LDD_V1 $r10, -712 :: (dereferenceable load (s64) from %ir.sunkaddr24)
+    JMP %bb.259
+  bb.233.bb62.i120:
+    successors: %bb.259(0x80000000)
+    liveins: $r7
+    $r3 = LDD_V1 $r10, -712 :: (dereferenceable load (s64) from %ir.sunkaddr81)
+    JMP %bb.259
+  bb.239.bb95.i129:
+    successors: %bb.259(0x80000000)
+    liveins: $r7
+    $r3 = LDD_V1 $r10, -712 :: (dereferenceable load (s64) from %ir.i526)
+    JMP %bb.259
+  bb.246.bb93.i:
+    successors: %bb.259(0x80000000)
+    liveins: $r7
+    $r3 = LDD_V1 $r10, -712 :: (dereferenceable load (s64) from %ir.sunkaddr83)
+    JMP %bb.259
+## q1mv1
+  bb.123.bb60.i114:
+    successors: %bb.259(0x80000000)
+    liveins: $r7, $r9
+    $r3 = LDD_V1 $r10, -712 :: (dereferenceable load (s64) from %ir.sunkaddr24)
+    JMP %bb.259
+  bb.233.bb62.i117:
+    successors: %bb.259(0x80000000)
+    liveins: $r7, $r9
+    $r3 = LDD_V1 $r10, -712 :: (dereferenceable load (s64) from %ir.sunkaddr81)
+    JMP %bb.259
+  bb.239.bb95.i126:
+    successors: %bb.259(0x80000000)
+    liveins: $r6, $r7
+    $r3 = LDD_V1 $r10, -712 :: (dereferenceable load (s64) from %ir.i526)
+    $r9 = MOV_rr killed $r6
+    JMP %bb.259
+  bb.246.bb93.i:
+    successors: %bb.259(0x80000000)
+    liveins: $r6, $r7
+    $r9 = MOV_rr killed $r6
+    $r3 = LDD_V1 $r10, -712 :: (dereferenceable load (s64) from %ir.sunkaddr83)
+    JMP %bb.259
+
+# Machine block frequencies (pre-MBP numbering, q1mv1 last MBFI dump)
+ - BB116[bb35]: float = 0.0035064, int = 63165317669288
+ - BB118[bb2.i106]: float = 0.0021915, int = 39478323543305
+ - BB123[bb60.i114]: float = 0.00032872, int = 5921748531495
+ - BB230[bb82.i150]: float = 0.00019517, int = 3515951009576
+ - BB233[bb62.i117]: float = 0.00010273, int = 1850546416092
+ - BB234[bb16.i118]: float = 0.000064204, int = 1156591510057
+ - BB239[bb95.i126]: float = 0.000097509, int = 1756559733869
+ - BB245[bb39.i128]: float = 0.000038089, int = 686156146042
+ - BB246[bb93.i]: float = 0.00019502, int = 3513119467738
+ - BB252[bb84.i136]: float = 0.00014626, int = 2634839600803
+ - BB258[to_string.exit.i (648 tail)]: float = 0.0021915, int = 39478285893842
+ - BB259[bb56.i]: float = 0.003404, int = 61320717937265

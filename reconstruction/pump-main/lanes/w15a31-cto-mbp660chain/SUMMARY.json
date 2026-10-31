@@ -1,0 +1,40 @@
+{
+  "lane": "w15a31-cto-mbp660chain",
+  "target": {"window": "0x22a10", "function": "admin_cto::execute", "file": "programs/pump/src/creator/admin_cto.rs", "pinned_bytes": 27400},
+  "base": {"main": "9120883a9 (admin_cto unchanged through 1cc487926 and 303422390)", "ratio": 0.67376, "slots_diff": 3124, "M": 2249, "Mperm": 2292},
+  "result": "notes only: no landable change; best zero-loss measurement is main",
+  "best": {"ratio": 0.67376, "slots_diff": 3124, "bytes": 27400, "normalized": 1034, "raw": 1034},
+  "ledger": {"approach": "mbp660", "keys": "0x22a10-w15-9120883-mbp660-*-v1", "rows": 7},
+  "mechanism": "Second MBP pass, hasBetterLayoutPredecessor(648 with_pubkeys tail, bb56.i sweep.exit pre-merged with the post join): conflict iff a chain-tail pred has freq >= 0.25*0.0021915 = 0.000548. In main that pred is bb60.i117, the post-placement BranchFolder tail merge of four identical ? Err reload blocks (0.000724). In basin A the sharing tag is live into bb56.i in r9 and greedy puts it in r6 on the two amm_frozen ? Err edges, so bb93.i/bb95.i126 get $r9 = MOV_rr $r6 copies, only two blocks merge (0.000431), no conflict, the post chain is a CFG break after the 648 tail (27,448 B). The block w15a13 called the 660 block is the 648 tail.",
+  "bounds": [
+    {"oracle": "t_q1nomov (basin A, copies deleted in pre-MBP MIR, main's placement)", "bytes": 27400, "ratio": 0.58778, "M": 1962, "Mperm": 2243, "lcs": "2141/2265/2585/3005"},
+    {"oracle": "d1asm1 (dest lifetime.end dropped = threaded sweep exit, chunk X moved back by asm)", "bytes": 27440, "ratio": 0.63164, "M": 2110, "Mperm": 2202, "lcs": "2165/2284/2559/3014"},
+    {"oracle": "q1d1asm1 (skip polarity + threaded exit + chunk move)", "bytes": 27472, "ratio": 0.56006, "M": 1872, "Mperm": 2155, "lcs": "2072/2202/2551/3011"}
+  ],
+  "attempts": [
+    {"key": "mbp-pass2-tailmerge-copy", "status": "analyzed"},
+    {"key": "mir-nomov-bound", "status": "rejected", "M": 1962, "Mperm": 2243},
+    {"key": "mir-jmp-sweepexit", "status": "analyzed", "note": "byte-identical to main"},
+    {"key": "mir-errw-bb9", "status": "rejected", "M": 1412},
+    {"key": "ir-dest-ltend-thread", "status": "rejected", "M": 1671, "ratio": 0.50022, "bytes": 27440},
+    {"key": "asm-thread-chunkmove", "status": "rejected", "M": 2110, "Mperm": 2202},
+    {"key": "ir-skip-thread-chunkmove", "status": "rejected", "M": 1872, "Mperm": 2155}
+  ],
+  "rejected_mechanisms": [
+    "skip-polarity sweep gate (basin A) with main's block placement: Mperm 2243 < main M 2249 (frame of the sweep body, RA before MBP)",
+    "gate / Err-edge branch weights as an MBP lever: relays pass 1",
+    "explicit JMP after sweep.exit to allow MBP tail dup: folds back, main bytes",
+    "threaded sweep exit (no dest lifetime at the Err join): post chain pre-merged behind the native-path tag-test instance; placement-fixed bound Mperm 2202",
+    "joint skip polarity + threaded exit: Mperm 2155"
+  ],
+  "unresolved_residuals": [
+    "sweep body spill colouring (0x2800-0x3c00) moves with every sweep-exit CFG change (basin A, d1, w14a142)",
+    "original's tail shape: one tag-test instance after the Rent::get Err From block, copies in the 648/660 tails, ? Err edges and the token Ok path threaded"
+  ],
+  "next_ideas": [
+    "frame model of the sweep body (which value the original spills where) before any further sweep-exit layout work",
+    "a source form with no dest lifetime at the sweep Err join (d1, rfj +7) still needs a native-path tag-test instance that does not pre-merge with the post join, and costs -40 -fj"
+  ],
+  "tools": ["tools/mirx.py", "tools/mirg.py", "tools/bpsplit.py", "tools/asmmv.py", "tools/asmsc.py", "tools/mperm.py", "tools/e_d1_dest_ltend.py", "tools/e_q1_skip.py"],
+  "data": ["data/mbp-decisions.txt"]
+}
