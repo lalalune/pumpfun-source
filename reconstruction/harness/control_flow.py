@@ -8,6 +8,7 @@ import struct
 from pathlib import Path
 from score import sections, body
 from instruction_stream import require_instruction_range
+from compare_scores import publish_report
 
 
 def cycle_regions(blocks):
@@ -173,9 +174,7 @@ def main(argv=None):
     output = json.dumps(report, indent=2) + '\n'
     if args.json:
         try:
-            args.json.parent.mkdir(parents=True, exist_ok=True)
-            with args.json.open('x', encoding='utf-8') as stream:
-                stream.write(output)
+            publish_report(args.json, output)
         except OSError as error:
             parser.error(f'cannot create diagnostic report: {error}')
     print(output, end='')
