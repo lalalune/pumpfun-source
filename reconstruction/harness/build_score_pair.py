@@ -31,7 +31,7 @@ def source_receipt(repo):
         _reject_directory_link(entry)
     repo = repo.resolve(strict=True)
     toplevel = subprocess.check_output(['git', '-C', str(repo), 'rev-parse', '--show-toplevel'], text=True).rstrip('\r\n')
-    if Path(toplevel).resolve(strict=True) != repo:
+    if not Path(toplevel).samefile(repo):
         raise ValueError('Pump source checkout must be a Git worktree root')
     revision = subprocess.check_output(['git', '-C', str(repo), 'rev-parse', 'HEAD'], text=True).strip()
     dirty = subprocess.check_output(

@@ -75,6 +75,7 @@ jobs:
           - suite: composition-patch-bytes
             commands: |
               python -B reconstruction/harness/test_integrate_failures.py
+              python -B reconstruction/harness/test_pair_case_alias.py
               python -B reconstruction/harness/test_integrate_no_build_cli.py
               python -B reconstruction/harness/test_integrate_build_input_recheck.py
               python -B reconstruction/harness/test_integrate_scoring_reference_recheck.py
