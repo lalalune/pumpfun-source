@@ -1,0 +1,1 @@
+EDITS=[('let pargs=(target,a.bonding_curve.is_holder_reward,fee);', 'let pargs=(target,a.bonding_curve.is_holder_reward,fee.map(|_|nf));'), ('if !collection_native||coin_present{', 'if collection_native==false||coin_present{')]

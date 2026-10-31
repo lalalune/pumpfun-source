@@ -1,0 +1,1 @@
+EDITS=[('let pargs=(target,a.bonding_curve.is_holder_reward,fee);', 'let pargs=(target,a.bonding_curve.is_holder_reward,fee.map(|_|nf));'), ('if !a.current_creator.is_writable{return', 'if a.current_creator.is_writable==false{return')]

@@ -1,0 +1,1 @@
+EDITS=[('let holder_key;let hk=Pubkey::find_program_address(&[b"holder-rewards",mint.as_ref()],&crate::ID);holder_key=hk.0;', 'let hk=Pubkey::find_program_address(&[b"holder-rewards",mint.as_ref()],&crate::ID);let holder_key=hk.0;')]

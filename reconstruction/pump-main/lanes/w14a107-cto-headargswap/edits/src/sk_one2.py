@@ -1,0 +1,1 @@
+EDITS=[('let shared={let sk=a.sharing_config.key();a.bonding_curve.creator==sk}&&', 'let sk=a.sharing_config.key();let shared={a.bonding_curve.creator==sk}&&'), ('let args=&(new,);let sk=a.sharing_config.key();let mut target=validate(&st,hopt,fee,new,&holder_key,&sk)?;', 'let args=&(new,);let mut target=validate(&st,hopt,fee,new,&holder_key,&sk)?;')]

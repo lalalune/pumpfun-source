@@ -1,0 +1,1 @@
+EDITS=[('if let Some(f)=fee{curve.creator_fee_bps=f;}', 'match fee{Some(f)=>curve.creator_fee_bps=f,None=>{}}'), ('rent_epoch:x.rent_epoch,is_signer:x.is_signer,is_writable:x.is_writable,key:x.key,executable:x.executable}},authority:', 'rent_epoch:a.pool_authority.rent_epoch,is_signer:x.is_signer,is_writable:x.is_writable,key:x.key,executable:x.executable}},authority:')]

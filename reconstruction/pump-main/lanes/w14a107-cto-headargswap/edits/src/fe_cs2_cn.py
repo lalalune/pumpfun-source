@@ -1,0 +1,1 @@
+EDITS=[('if let Some(f)=fee{curve.creator_fee_bps=f;}', 'match fee{Some(f)=>curve.creator_fee_bps=f,None=>{}}'), ('if !collection_native||coin_present{', 'if collection_native==false||coin_present{')]

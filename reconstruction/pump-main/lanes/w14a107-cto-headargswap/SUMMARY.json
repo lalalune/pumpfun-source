@@ -1,0 +1,34 @@
+{
+  "lane": "w14a107-cto-headargswap",
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27400 B",
+  "angle": "late-use-from-argument vs computed-value swaps in the head and validate (w14a82 next ideas 1-2)",
+  "bases": {"963d1ee": [0.67226, 3123, 2244], "13fe453": [0.67256, 3123, 2245], "ebe5387": [0.67316, 3123, 2247]},
+  "result": "notes only; no zero-loss gain at 27400 B",
+  "best_zero_loss": {"ratio": 0.67316, "slots": 3123, "bytes": 27400, "note": "= main ebe5387; best non-main composite fe_cs2_rp 0.67286 @27400 (oracle)"},
+  "attempts": {"source_spellings": 49, "ir_probes": 5, "ledger_keys": "0x22a10-w14-{963d1ee,13fe453,ebe5387}-headargswap-*"},
+  "rejected_mechanisms": [
+    "holder_key via hk.0 / let / destructure / reference (fold or -1 M; destructure -0.11)",
+    "new via Some(new) / Some(Some(target)) / args.0 in validate / args after validate (-0.14..-0.24)",
+    "holder test arg<->computed swaps in validate 289/296/298/314 and execute (fold, or -14 M / -440 B)",
+    "holder at curve store from the computed tuple bool (original provenance 0x950): 0.66018 @27408",
+    "pargs.1 from the holder arg: 0.63054 @27432",
+    "event cashback from the local: -25 M",
+    "curve fee tag test spellings (fold, or -8 B anti-original single jeq at -6 M)",
+    "pool fee from nf (-8 B, -8 M)",
+    "pool target from curve re-read (0.546)",
+    "one sharing-key local for the shared test and validate (0.54-0.62)",
+    "-8 B fee forms + +8 B knobs (best 0.67286)",
+    "IR: holder byte recomputed at the store ((h&-3)!=0 etc.): w14a82 hr lead gone after #3480"
+  ],
+  "findings": [
+    "Original curve store and pool CPI read computed values: holder phi [r10-0x950], cashback phi [r10-0x958], fee-tag validate phi [r10-0x8e8]; only the fee value comes from the arg spill [r10-0x930]. Main reads arguments or the curve at all of them.",
+    "pw9 lead holds on 13fe453: q9 +52 M over q8 control, wallet reg diffs 54->30, regmap r9->r8 gone.",
+    "Under q9 the sweep-gate flag %60 is evicted from r6 by new's tag byte %15 (sharing-arm Some(args.0) read, [3504,19760)) at step 457, then takes the free r8; never spilled. The extra head occupants vs the original are new's %15/%16 (entry copy, pw9entry) and the cashback operand phis %466/%467."
+  ],
+  "unresolved_residuals": ["entry copy of new (pw9entry)", "computed holder/cashback/fee-tag provenance at curve store + pool CPI (only as a joint change)"],
+  "next_ideas": [
+    "Retry the three computed provenances together (holder 0x950, cashback 0x958, fee-tag phi) on a skeleton where the entry copy of new frees %15/%16",
+    "Check any entry-copy spelling with regmap (r9->r8 drop) and wtl.py ra.log 17000 34000 %60 (no free r6-r8 after step ~457)",
+    "fe_cs2_we / fe_pa_we cut slots by 29 at 27400 B (ratio -0.0006): a frame-position lever if ranking ever weighs slots"
+  ]
+}
