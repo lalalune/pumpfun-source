@@ -1,0 +1,26 @@
+{
+  "lane": "w14a111-cto-tag660",
+  "target": "0x22a10 admin_cto::execute",
+  "pinned_bytes": 27400,
+  "bases": {"963d1eefb": {"ratio": 0.67226, "M": 2244, "slots": 3123}, "13fe4536b": {"ratio": 0.67256, "M": 2245, "slots": 3123}},
+  "result": "notes only; no landable source change",
+  "best_zero_loss": {"ratio": 0.67256, "slots": 3123, "bytes": 27400, "note": "= main 13fe453 (eq_main source forms v_m1/v_m2/v_m3/v_h8)"},
+  "ledger_approach": "tag660",
+  "ledger_keys": ["0x22a10-w14-963d1ee-tag660-*", "0x22a10-w14-13fe453-tag660-*"],
+  "findings": [
+    "IR copy of the sweep join test into the AMM 660 pred: M -2, slots -203 (963d1ee) / -204 (13fe453). The slot gain is pure alignment: +2 insns at the site and the near-exit ja;mov64 r8,r3 block (-2) shift ours [0x25e0,0x5b00) by +2 slots.",
+    "Original [r10-0x950] is the holder flag, a phi of constants from the head tree, stored to curve+0xa5 and passed as the pool CPI r4. It is reloaded inside the join (0x26660) and at the 660/648 copies.",
+    "Non-fallthrough join via block order (m1-m7, 279-placement mvscan of bb56.i) copies the test into both 660 sites and collapses the layout (<=2234).",
+    "J2-free join (w14a51 r4d) on 13fe453: best 2223@27384 (2232 with 660-edge weight 1:100); no layout-mode copy at any weight or placement tail-dup threshold, because the J2-free join is a single reload-free jne.",
+    "Holder flag live across the sweep (IR tree phi or source _holder) puts reloads in the preds, not in the join, and costs 8-72 B.",
+    "shiftmap.py: +16 B in ours 0x1e00-0x3400 (sweep body) plus -16 B in ours 0x3be0-0x5de0 (post-sweep) is worth about -200 slots at equal M. It predicts dup660 exactly (204)."
+  ],
+  "rejected": ["dup into other bb56.i preds", "block moves m1-m7", "mvscan bb56.i", "r4d J2-free at 3 weights + 660-edge weights + placement thresholds", "tree holder phi flag IR (h1, x_*)", "v_a1 660 early return", "v_a2 require! || (compile error)", "v_h1/v_h3/v_h4/v_h6/v_h7/v_h1m1 holder flag from the tree", "global llc tail-dup/merge flags"],
+  "eq_main": ["v_m1 Err-first match on transpose", "v_m2 Err-first match on Option<Result>", "v_m3 match None=>0,Some(r)=>r?", "v_h8 tuple holder flag unused"],
+  "unresolved": ["source form of a J2-free join (w14a51)", "reload of the holder flag inside the join block rather than in the preds", "layout-mode tail-dup of the join into the call-result preds (orig 0x24a8/0x2610/0x6398)"],
+  "next_ideas": [
+    "Use shiftmap.py to pair an M-neutral +16 B change in the sweep body with an M-neutral -16 B change in the post-sweep region: equal M plus ~-200 slots is landable.",
+    "Delete-window candidates that are absent from the original: J2 (~0x5af8), the [0x8e0] reload/store-back pairs at 0x3ce0 and 0x5938, the near-exit ja;mov64 r8,r3.",
+    "Re-run shiftmap after each landing: the windows move with the drift profile."
+  ]
+}
