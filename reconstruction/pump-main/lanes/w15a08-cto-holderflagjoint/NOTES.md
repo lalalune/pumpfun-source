@@ -101,3 +101,13 @@ restores main's layout exactly. The flag then still costs 0x4c00 −13 (pool CPI
 - `mdel.py <in.mir> <out.mir> <blocks> <regex>`: delete matching lines in named pre-BF blocks (the dead-reload restore).
 - `mscore.py <obj> <pei.mir>`: M and Mperm for a resumed (`rt.sh`) object.
 - `joint.py <dir>`: the section-2 pins.
+
+## 5. Why the tag gets `-2272` and not `-2384` (StackSlotColoring log, main)
+
+`llcd -debug-only=stack-slot-coloring` on main's module: colour `fi#179` is `-2272`, and its members are SS#186 (the
+long-lived sharing-tag piece starting at 17992r, weight 1.077, 8th heaviest of 181) and SS#260 (weight 0.0008).
+Colour `fi#193` is `-2384`, with members SS#194 (weight 0.050, rank 16), SS#262 and SS#320. Colours are handed out in
+weight order, so the tag takes an early colour because it is one of the heaviest spills. For the tag to land on `-2384`,
+it would have to be about the 16th heaviest, the rank of the original's holder flag. That means less reload traffic on
+the spilled piece, which the r9 region split decides, not source. This is the same register-allocation role swap, so the
++13 cycle has no ordinary-source lever known.
