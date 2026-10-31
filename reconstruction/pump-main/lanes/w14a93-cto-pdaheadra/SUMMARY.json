@@ -1,0 +1,15 @@
+{
+  "lane": "w14a93-cto-pdaheadra",
+  "target": "0x22a10 admin_cto::execute (pinned 27,400 B)",
+  "bases": {"ecea702": {"ratio": 0.67076, "slots": 3123}, "963d1ee": {"ratio": 0.67226, "slots": 3123}},
+  "result": "no zero-loss gain, notes only",
+  "best_pda_first": {"name": "o_PQSF = pda+hL+fl+qlB (PDA, bool locals, quote_locked, shared)", "ratio_963d1ee": 0.65256, "bytes": 27296, "ra_climb_ceiling_ecea702": 0.66977, "ra_climb_bytes": 27336},
+  "ra_ceilings_ecea702": {"main": [0.67076, 0.68085], "pda": [0.58906, 0.65806], "pda+hL": [0.58996, 0.65896], "pda+hL+6sp": [0.58301, 0.65486], "pda+hL+fl": [0.47166, 0.51187], "pda+hL+fl+hkc": [0.42759, 0.6126], "pda+hL+fl+qlB": [0.65226, 0.66977]},
+  "legal_frame_bound_rfR_ecea702": {"main": 2623, "pda": 2573, "pda+hL": 2574, "pda+hL+fl(J relaid)": 2548, "full(J relaid)": 2565, "pda+hL+fl+qlB": 2583},
+  "mechanism": "PDA-first: at greedy step 21 the sharing pointer [%0+144] (live across the three chain calls) finds R6=shared phi, R7=curve ptr (live across memcmp under hL), R9=args and evicts %0 from R8 (weight 1.3e-4 vs 2.0e-3); %0's region pieces then follow r6 (w14a77 r8->r6 cascade). The original spills the shared phi (-0x920) and the sharing ptr (-0x8e0), keeping r6=args, r8=%0, r9=curve.",
+  "collapse_mechanism": "pda+hL+fl / full entry collapse (L2 0.607) is a post-RA layout flip of the validate exit join %bb56.i (+800 insns move); asm relayout gives 0.5924 / 0.5153.",
+  "attempts": "about 60 source variants (head levers, 30 head orders) plus RA force/climb screens; ledger approach pdaheadra",
+  "rejected": ["hb", "hbm", "hbu", "mkl", "mkr", "mki", "hkd", "hkt", "hkl", "sif", "smut", "sc", "sai", "bc", "st_* field orders", "qlA", "qlB", "all 30 S/P/Q/F head orders", "shared phi forced spill", "original head colouring forced"],
+  "unresolved": ["source form that reloads the curve pointer after the chain under PDA-first (removes the step-21 eviction)", "source fix for the validate-exit join flip under pda+fl", "full entry is 184 B over the original: jump-distance loss (rfjR +92 M over main)"],
+  "next": ["re-price o_PQSF whenever main's tail RA changes", "size-knob search inside validate/sweep on the full entry once the J flip is fixed in source"]
+}
