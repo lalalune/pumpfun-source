@@ -1,0 +1,27 @@
+{
+  "lane": "w14a124-cto-cbskelra",
+  "target": "0x22a10 admin_cto::execute",
+  "base": "ebe5387e1 (0.67316, M 2247, 3123 slots, 27400 B)",
+  "result": "no gain; notes only",
+  "best": {"ratio": 0.67316, "slots_diff": 3123, "bytes": 27400, "note": "main itself (m0 capture eq_main)"},
+  "attempts": [
+    {"key": "0x22a10-w14-ebe5387-cbskelra-m0-v1", "result": "eq_main 0.67316"},
+    {"key": "0x22a10-w14-ebe5387-cbskelra-evcb-placement-diag-v1", "result": "no block move; rfjM +62 is a global difflib artifact (anchored skM main 246 / ev 247 in the clone run; whole-function anchored 2917 = 2917)"},
+    {"key": "0x22a10-w14-ebe5387-cbskelra-F0-placement-diag-v1", "result": "same artifact (anchored 245 vs 246; whole-function -4)"},
+    {"key": "0x22a10-w14-ebe5387-cbskelra-evcb-repay8-v1", "result": "ev_cb_local + rP_back/cu_unwrapcur/wl_writ_eq/p_colnat at 27400: 0.66477-0.66537"}
+  ],
+  "rejected_mechanisms": [
+    "ev_cb_local (unfaithful: the original event re-reads curve +0xa3; loses at every mask: M -25 jM -20 fM -31 rM -20)",
+    "first sharing clone run placement (already equal to the original)",
+    "cashback phi / cashback-before-sharing spellings (ledger: hcbools, cbflagphi, cbnosink)"
+  ],
+  "map": "anchored gaps on main: shape ~422 tok (277 in orig 0x0-0x1800), immediates ~113, colouring ~389, frame ~267",
+  "unresolved_residuals": [
+    "validate-Ok join block (orig 0xd60-0xe58: cashback phi, shared test, twin target-piece copies, fee-tag test) laid in a different call interval than ours (seg 20/24/41)",
+    "sharing clone run: intra-clone interleave (w14a122), colouring (w14a117), frame slot offsets"
+  ],
+  "next_ideas": [
+    "use segall.py --ref main to screen code-shape changes without global-alignment artifacts",
+    "target segs 20/24/41 (validate-Ok join placement) with whole-region rewrites of the validate exit"
+  ]
+}
