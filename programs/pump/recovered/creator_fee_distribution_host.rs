@@ -7,7 +7,7 @@
 #[path = "creator_fee_distribution.rs"]
 mod creator_fee_distribution;
 
-use creator_fee_distribution::{Distribution, Shareholder, Slot};
+use creator_fee_distribution::{Distribution, Failure, Shareholder, Slot};
 use std::io::{self, BufRead, Write};
 
 fn answer(line: &str) -> String {
@@ -46,7 +46,8 @@ fn answer(line: &str) -> String {
         }
     } else {
         match creator_fee_distribution::distribute(&d) {
-            Err(code) => format!("error:{code}"),
+            Err(Failure::Custom(code)) => format!("error:{code}"),
+            Err(Failure::ArithmeticOverflow) => "ArithmeticOverflow".into(),
             Ok(r) => {
                 let transfers: Vec<String> = r.transfers.iter().map(u64::to_string).collect();
                 format!("ok,{},{},{}", r.distributed, u8::from(r.event), transfers.join(";"))

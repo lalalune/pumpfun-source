@@ -29,6 +29,7 @@ fn stop(s: &Stop) -> String {
         Stop::Code(code) => format!("error:{code}"),
         Stop::PrivilegeEscalation => "PrivilegeEscalation".into(),
         Stop::IllegalOwner => "IllegalOwner".into(),
+        Stop::ArithmeticOverflow => "ArithmeticOverflow".into(),
     }
 }
 
