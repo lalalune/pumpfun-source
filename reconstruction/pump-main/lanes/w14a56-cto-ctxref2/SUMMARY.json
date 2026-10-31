@@ -1,0 +1,26 @@
+{
+  "lane": "w14a56-cto-ctxref2",
+  "wave": 14,
+  "target": "0x22a10 admin_cto::execute",
+  "base": {"main": "63308119b", "ratio": 0.65698, "slots_diff": 3193, "bytes": 27400, "normalized": 1034, "raw": 1034},
+  "result": "no gain; notes only",
+  "best": {"ratio": 0.65698, "slots_diff": 3193, "bytes": 27400, "note": "best forms are byte-identical to main (w1, w2, v1, s3, p0)"},
+  "mechanism_findings": [
+    "ArgPromotion fires on only one admin_cto helper: sweep (ctx.8 accounts and ctx.35 creator_vault bump are promoted to the call site). wallet reads 3 ctx fields (+8,+35,+46), so it is not promoted; validate is not promoted either.",
+    "All five ctx field loads (+35 sweep head, +39 sharing signer, +46 final emit_cpi, +35 wallet collect, +46 wallet event) are already at the same block and point as in the original; only registers and slots differ.",
+    "&&Context and &mut &Context on wallet, &&CtoState on validate and &&Pubkey on sweep's holder_key are all byte-identical to main.",
+    "sweep(&&ctx) moves the bump to its source position: at the head it is byte-identical to main (p0); every later position loses (0.579-0.619). A late bump improves the TCF seg 69 lvl2 by +15 but raises the regdiff from 127 to 169."
+  ],
+  "attempts": ["w1","w2","v1","s1","s2","s3","w1s1","p0","p2","p3","p5","p6"],
+  "ledger_keys": "0x22a10-w14-6330811-ctxref2-<name>-v1",
+  "rejected": ["sweep(&&ctx) 0.61674@27408", "sweep(&mut &ctx) 0.61674@27408", "bump after the dest compare 0.59886@27400", "bump after amm_frozen 0.57921@27472", "bump before vsigner 0.61674@27408", "bump after old 0.61944@27408"],
+  "unresolved_residuals": [
+    "sweep head RA: orig bump r7 spilled to [-0x910] after the dest compare, ours bump r9 held across the TCF",
+    "final emit_cpi: orig keeps the event_authority bump in r6 and spills &authority_info to -2264; ours does the reverse",
+    "the accounts spill slot is orig -2264 vs ours -2272; the ctx spill slot is orig -2360 vs ours -2352"
+  ],
+  "next_ideas": [
+    "the late-bump TCF structure gain (+15 lvl2) only pays off when the TCF colouring is fixed at the same time; try it with any future lever that frees r9 in the sweep head",
+    "use tools/argprom.sh on any new helper boundary: &&T only matters when ArgPromotion fires (at most 2 promotable loads)"
+  ]
+}
