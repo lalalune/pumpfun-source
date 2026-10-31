@@ -1,0 +1,162 @@
+{
+  "build": {
+    "argv_display_paths_sanitized": true,
+    "argv_equality_checked_before_sanitization": true,
+    "diagnostics": "exact-function-filtered before/after jump-threading on reconstructed execute",
+    "direct_extern_rlibs": {
+      "anchor_lang": {
+        "path": "${WORK}/target/sbpf-solana-solana/release/deps/libanchor_lang-2bbc3c85c4fcbec5.rlib",
+        "sha256": "b1713e886b7addb4056ec5e2335eac4edd22b4fee978cc207c3f3412b454cfbb"
+      },
+      "anchor_spl": {
+        "path": "${WORK}/target/sbpf-solana-solana/release/deps/libanchor_spl-20e675a88e329cf4.rlib",
+        "sha256": "c46f5153cf36f7bb94365bc9cccaba45effb58a0429776dd5b9c0ffd7d02b1e6"
+      },
+      "pump_token_ext": {
+        "path": "${WORK}/target/sbpf-solana-solana/release/deps/libpump_token_ext-ff36bdaa66bf1525.rlib",
+        "sha256": "243845cf1d7adb81645e003e0f3d9cd3dfb18e1833ff64054772af7fdf323a48"
+      },
+      "spl_type_length_value": {
+        "path": "${WORK}/target/sbpf-solana-solana/release/deps/libspl_type_length_value-cde4571545023b3c.rlib",
+        "sha256": "4062c8e7490e2e2543fd4fe0eed5646871826b7754e4fa82c6007ab9ccd27cad"
+      }
+    },
+    "link_script_sha256": "6954d9901b005312be6e7f980cb5e74a1440c174547c2040a881acf2e5c25b45",
+    "one_member_workspace": true,
+    "ordinary_emission_parity_for_stages": "not separately measured",
+    "profile": {
+      "codegen-units": 1,
+      "embed-bitcode": false,
+      "lto": false,
+      "opt-level": 3,
+      "overflow-checks": true,
+      "panic": "abort"
+    },
+    "root_argv": [
+      "${SDK}/rust/bin/rustc",
+      "--crate-name",
+      "pump_recovered",
+      "--edition=2021",
+      "programs/pump/src/lib.rs",
+      "--error-format=json",
+      "--json=diagnostic-rendered-ansi,artifacts,future-incompat",
+      "--crate-type",
+      "cdylib",
+      "--crate-type",
+      "lib",
+      "--emit=dep-info,link",
+      "-C",
+      "opt-level=3",
+      "-C",
+      "panic=abort",
+      "-C",
+      "embed-bitcode=no",
+      "-C",
+      "codegen-units=1",
+      "-C",
+      "overflow-checks=on",
+      "--cfg",
+      "feature=\"default\"",
+      "-C",
+      "metadata=24d30ce9b10afd16",
+      "--out-dir",
+      "${WORK}/target/sbpf-solana-solana/release/deps",
+      "--target",
+      "sbpf-solana-solana",
+      "-C",
+      "strip=debuginfo",
+      "-L",
+      "dependency=${WORK}/target/sbpf-solana-solana/release/deps",
+      "-L",
+      "dependency=${WORK}/target/release/deps",
+      "--extern",
+      "anchor_lang=${WORK}/target/sbpf-solana-solana/release/deps/libanchor_lang-2bbc3c85c4fcbec5.rlib",
+      "--extern",
+      "anchor_spl=${WORK}/target/sbpf-solana-solana/release/deps/libanchor_spl-20e675a88e329cf4.rlib",
+      "--extern",
+      "pump_token_ext=${WORK}/target/sbpf-solana-solana/release/deps/libpump_token_ext-ff36bdaa66bf1525.rlib",
+      "--extern",
+      "spl_type_length_value=${WORK}/target/sbpf-solana-solana/release/deps/libspl_type_length_value-cde4571545023b3c.rlib",
+      "-Zremap-cwd-prefix=",
+      "-C",
+      "linker=${PINNED_SOURCE}/reconstruction/harness/pump_link_lld.sh",
+      "-C",
+      "llvm-args=-print-before=jump-threading",
+      "-C",
+      "llvm-args=-print-after=jump-threading",
+      "-C",
+      "llvm-args=-filter-print-funcs=_ZN14pump_recovered9admin_cto7execute17hcbb105431818f6d1E"
+    ],
+    "root_argv_cwd_output_direct_externs_identical_across_stages": true,
+    "root_cwd": "${WORK}/ws",
+    "target": "sbpf-solana-solana"
+  },
+  "control_diagnostic": {
+    "execute_byte_equal_to_ordinary_control": true,
+    "unstripped_sha256": "8c88a6255798a4bb697ff89fc1332aa2080f6b81ed2a1695c2699be53a9bc739"
+  },
+  "measurement": {
+    "a": {
+      "build_returncode": 0,
+      "exact_positional_slots": 30,
+      "length": 27312,
+      "sha256": "8074378e18d3c6f87d091d942b192bc3ebbaf9fba301ef4a7c398889b4707497",
+      "slots_compared": 3414,
+      "stack_warnings": []
+    },
+    "b": {
+      "build_returncode": 0,
+      "exact_positional_slots": 26,
+      "length": 27528,
+      "sha256": "8a43c185f249c43cae79cdafe71e77a154891e39eaedcdcd57b079b12de24cb4",
+      "slots_compared": 3425,
+      "stack_warnings": []
+    },
+    "c": {
+      "build_returncode": 0,
+      "exact_positional_slots": 56,
+      "length": 27440,
+      "sha256": "36465a3b5c9d34100231d9b6145faec22226d0d29dd9766e4bf01355d0e76c7c",
+      "slots_compared": 3425,
+      "stack_warnings": []
+    },
+    "control": {
+      "exact_positional_slots": 187,
+      "length": 27400,
+      "sha256": "cd1f79e5fb620c13b24f94b52586f1bd3f0fd1eafdf9c157015110ef88b6743e",
+      "slots_compared": 3425
+    },
+    "original_window_length": 27400,
+    "original_window_sha256": "6a7659fd34097683cbfdae56187f5f73a3ecae20e52ac06a3fd25837e4137a96"
+  },
+  "source": {
+    "admin_cto_blob": "c5e94190b1967ae20914625615ce362667fe16eb",
+    "base_commit": "304b03a82dff9db633edb48ea2e1bbe99734fadd",
+    "clean_admin_cto_sha256": "2c080b8715e85ed289eb869ca5e4abaff8f68a6a4b401f1978c6cf37f9276865",
+    "patch_sha256": {
+      "a": "fc5be18181050a87db80c417ffc19b739b10fb90f95d13df1e8fcc37356b01f4",
+      "b": "3524f416d7b4f699c5ef01a87849631cf1f12de2fa61f161e7a51b32c73996d0",
+      "c": "5d302dd8d4729f7fc64da9602c566b7bfc25f14a6b0c96a2beb88e7aea4db030"
+    },
+    "source_manifest_file_sha256": "536d7ff0e0c86f8f2e68b802fc8268a4a043c0f34a48ea942844afa20574dfc8",
+    "source_path_count": 141,
+    "stage_admin_cto_sha256": {
+      "a": "bd762f688b1adddbb0e84fe4c5989cbcf168bc4010b83ca7e815ba2f37b649a0",
+      "b": "1d6fa6204adbee54cb194a1fa713a3116123fbd4d216dcd61c0fa9ed83eef768",
+      "c": "2ff118f2b49061e7a2f2d0c6a4d366848434f64564c5d140be2254ad57871355"
+    },
+    "staged_lock_sha256": "65498a93b0e9c1c11f292ccb71b0ce6392d3d568783859e23a2fc8142da545da",
+    "staged_workspace_manifest_sha256": "adfeee82af4178636813c170b650934d552ec08954a5abb369f7512b21a0b20c"
+  },
+  "toolchain": {
+    "archive_sha256": "6719b889d60677a8a2fcf4c82f68441a1afe0ab093edd2efe9f84a67a808b3e9",
+    "cargo_sha256": "d28444578306fe5a4f40524331411340123004e9e6556322fcabdbe351fe265d",
+    "official_release": "Anza platform-tools-linux-x86_64 v1.44",
+    "rust_lld_sha256": "f28db3647fcf67bd47f012a1c47fe679f5787a4e2bf9cd5b6fe4914b10622bda",
+    "rust_revision": "08b7341888ab480dfaaa0698300cbbbbb2d75b53",
+    "rustc_sha256": "c8807b7ebede8578ac5a257ea333780f9d89bd356064fd8184af7e996cb71a97",
+    "rustc_version": "rustc 1.79.0-dev\nbinary: rustc\ncommit-hash: unknown\ncommit-date: unknown\nhost: x86_64-unknown-linux-gnu\nrelease: 1.79.0-dev\nLLVM version: 18.1.7",
+    "target_libraries": "reconstruction/toolchain/linux-v1.44-x86_64/rust/lib/rustlib/sbpf-solana-solana/lib",
+    "target_library_manifest_sha256": "d9b506af7d0b3681776aae5ed3dd7ec99309db1a95ba40ae1fa0db767586f389"
+  }
+}
