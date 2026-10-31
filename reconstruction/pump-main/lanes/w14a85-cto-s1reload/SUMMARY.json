@@ -69,5 +69,14 @@
   "apply fixframe-style frame undo to other alloca-adding IR probes so they can be ranked by plain ratio",
   "rank spill/IR probes by arm-chunk tokens (0x3800-0x4800) rather than total L1, which is contaminated by jump-distance coincidences when size changes"
  ],
- "ledger_keys": "0x22a10-w14-{0d04cf4,95a64ba}-s1reload-*-v1"
+ "ledger_keys": "0x22a10-w14-{0d04cf4,95a64ba}-s1reload-*-v1",
+ "ideal_register_bound": {
+  "s1_95a64ba_region": 0.67356,
+  "s1_reload_c5_region": 0.67755,
+  "ours_r9_only": 0.64718,
+  "ours_r6_r9": 0.65168,
+  "ours_r0_r5": 0.67206,
+  "main_rewrite_noise": -0.007,
+  "verdict": "s1 needs the original's register naming in the whole sharing region (155 misses) to clear main by +0.004; within noise and before the -32 B repay"
+ }
 }

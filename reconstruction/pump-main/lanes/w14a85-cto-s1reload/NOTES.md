@@ -87,6 +87,38 @@ plain ratios are slightly pessimistic.
   reloads. Registers alone cannot rescue s1. Its frame order (w14a81: under any colour order s1 stays 55-68 M below
   main's best) is the other half.
 
+## 3b. How much register naming s1 needs: an ideal-register rewrite (`tools/regideal.py`)
+
+`regideal.py` takes each L2-aligned instruction pair in a range that differs only by registers and copies the
+original's register byte into ours. The frame and code shape stay as built, and the plain ratio is re-scored.
+`RF=<regs>` restricts the rewrite to pairs where ours uses one of those registers.
+
+Read this as a bound with noise. Applied to main itself, where the region has almost no true register misses, the
+rewrite mis-pairs some instructions and costs 0.007 (0d04cf4: 0.66507 -> 0.65818). Treat differences under about
+0.007 as noise.
+
+| base (95a64ba unless noted) | rewrite | pairs rewritten | plain | L1 |
+| --- | --- | ---: | ---: | ---: |
+| main | none | | 0.66986 | 0.69982 |
+| main | region 0x3c38-0x46b8 | 77 | 0.66327 | 0.69712 |
+| s1 | none | | 0.63969 | 0.68076 |
+| s1 | ours r9 only (the swept effect) | 48 | 0.64718 | 0.70474 |
+| s1 | ours r6-r9 | 82 | 0.65168 | 0.71373 |
+| s1 | ours r0-r5 | 121 | 0.67206 | 0.72362 |
+| s1 | **whole region** | 155 | **0.67356** | 0.73351 |
+| s1 + reload from clone 5 (frame undone) | whole region | | 0.67755 @27,408 | 0.73596 |
+| s1 + reload, all clones (frame undone) | whole region | | 0.67296 @27,416 | 0.73645 |
+| s1 0d04cf4 | whole region | | 0.66497 @27,360 | 0.72733 |
+| s1+acc 0d04cf4 (frame undone) | whole region | | 0.68254 @27,416 | 0.72866 |
+
+**Priced answer.** For s1 to beat main, the sharing region's register naming has to be essentially the original's.
+- The bound is +0.004 over main 95a64ba at 27,368 B for s1, and +0.008 with the per-clone reload.
+- Swept/r9 alone (ours-r9 pairs) is worth +0.0075. All callee-saved pairs together are worth +0.012.
+- The other two thirds is the caller-saved rotation inside the run (orig to ours r3->r2, r2->r1, r1->r3, r2->r0,
+  r0->r9), a cascade of the missing r9 occupant. No source lever reaches it.
+- The bound does not survive the noise margin plus s1's -32 B size repay (the size-knob catalog moves about
+  +-0.003 per knob), so s1 is not a base worth moving to (w14a87 #3416 reaches the same verdict through legal-frame bounds).
+
 ## 4. Source forms screened on s1 (raw-IR capture + rx oracle = build tokens, 0d04cf4)
 
 | form | ratio | bytes | L1 | L2 | note |
@@ -105,6 +137,7 @@ None gives per-clone reloads. This matches w14a01 on main: ctx is `noalias reado
 
 ## 5. Tools (`tools/`, experiment only; paths point at this lane)
 
+- `regideal.py fn.bin out.bin [lo hi]` (env `RF=r,..`): ideal-register rewrite bound for a range.
 - `fixframe.py fn.bin out.bin <probe slot> <map-to slot> [shift]`: undoes one probe alloca's frame shift, so
   IR probes that add an alloca can be scored on the plain ratio.
 - `score.py fn.bin...`: rx metric plus fmr L0/L1/L2 and per-0x800 L1 tokens.
