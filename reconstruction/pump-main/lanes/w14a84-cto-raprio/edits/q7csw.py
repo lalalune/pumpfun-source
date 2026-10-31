@@ -1,0 +1,1 @@
+EDITS=[("is_holder_reward:holder.unwrap_or(false),is_cashback_coin","is_holder_reward:a.bonding_curve.is_holder_reward,is_cashback_coin"),("  curve.is_cashback_coin=cashback;\n  curve.is_holder_reward=holder.unwrap_or(false);\n","  curve.is_holder_reward=holder.unwrap_or(false);\n  curve.is_cashback_coin=cashback;\n")]

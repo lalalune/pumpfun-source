@@ -1,0 +1,1 @@
+EDITS=[("is_holder_reward:holder.unwrap_or(false),is_cashback_coin","is_holder_reward:a.bonding_curve.is_holder_reward,is_cashback_coin"),("old_creator_fee_bps:old_fee,","old_creator_fee_bps:if fee.is_some(){old_fee}else{a.bonding_curve.creator_fee_bps},")]

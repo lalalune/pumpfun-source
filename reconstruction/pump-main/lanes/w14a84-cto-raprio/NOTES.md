@@ -11,9 +11,12 @@ Bases:
 Scratch is in `~/.cache/pumpfun-reconstruction/lanes/w14a84-cto-raprio/`. The private build dir is deleted at the end;
 `llc-patch/build.sh` rebuilds it in about a minute. Ledger: approach `raprio`, keys `0x22a10-w14-{0d04cf4,95a64ba}-raprio-*`.
 
-**Result: no source change.** RA decisions alone are worth at most about +0.005 at 27,400 B (+0.010 at other sizes).
+**Result: no source change.** RA decisions alone are worth at most about +0.0066 at 27,400 B (+0.011 at other sizes).
 s1 cannot pass main through RA decisions. The colour map, below, names the vregs whose register differs from the
-original's, and every gain the search finds is one of them.
+original's, and every gain the search finds is one of them. One lead: w14a82's q7 (event re-reads the curve's
+`is_holder_reward`, -16 B) plus a single RA decision (the `%0` piece over the curve-store block on r6, which pushes old_fee
+into a spill as in the original) is **0.67286 at exactly 27,400**, +0.003 over main (section 5b'). No source form reaching
+that decision was found.
 
 ## 1. Private llc (`llc-patch/`)
 
@@ -101,7 +104,9 @@ all to `%0`'s r8.
 | 4 | %1704 -> r4 | `%465` (bb12 MOV 1/0 flag) piece in bb38 | 0.67436 | 3,197 | 0.70581 |
 | 5 | %2125 -> r0 | `%292` piece (sharing first clone lamports Rc ptr) | 0.67466 | 3,196 | 0.70641 |
 
-L2 stays at 0.78400 throughout, so every step is pure register naming.
+L2 stays at 0.78400 throughout, so every step is pure register naming. A second pass reruns `colmap.py` with the five forces
+applied and re-targets the 425 misses still left: %1275 -> r2 (a sharing clone-run local) gives **0.67645 / 3,196**. That is
++0.0066 over main with 6 forces, and about the RA-only ceiling at the pinned size.
 
 ### 5b. Any size (95a64ba)
 
@@ -111,6 +116,39 @@ L2 stays at 0.78400 throughout, so every step is pure register naming.
 | 2 | + %1669 -> r7 | 0.67715 | 27,392 | 0.70742 | 0.78502 |
 | 3 | + %467 -> r2 (`[%0+144]` local, bb12) | 0.67856 | 27,376 | 0.71003 | 0.78585 |
 | 4 | + %1615 -> r3 | 0.67945 | 27,376 | 0.71092 | 0.78585 |
+| 7 | + %1700 -> r3, %2235 -> r1, %1704 -> r4 | 0.68065 | 27,376 | 0.71092 | 0.78525 |
+
+### 5b'. q7, priced with RA (w14a82's next idea 0: event `is_holder_reward:a.bonding_curve.is_holder_reward`)
+
+The original re-reads `[curve+165]` for the event (`ldxb r5,[r3+165]` at 0x4fe0), so q7 is the original's data flow.
+On 95a64ba it gives 0.66916 at 27,384 (-16 B), which matches w14a82. With RA taken into account (`tools/cclimb.sh`):
+
+| | ratio | bytes | L1 |
+| --- | ---: | ---: | ---: |
+| q7 | 0.66916 | 27,384 | 0.69913 |
+| **q7 + force %1680 -> r6** | **0.67286** | **27,400** | 0.70282 |
+| q7 + 10 colour forces | 0.68395 | 27,376 | 0.71872 |
+| main + 7 colour forces | 0.68065 | 27,376 | 0.71092 |
+
+- With RA taken into account, q7 is 0.0033 ahead of main.
+- One RA decision puts q7 at exactly 27,400 and above main. %1680 is `%0`'s region piece over bb38-bb44 (the curve-store
+  block: `ldxdw rX,[r10-2264]; ldxdw r1,[rX+56]` before every curve store). Ours gives it r8; the original gives it r6 (8 votes)
+  or reloads it into r3 (6 votes).
+  - Forcing r6 evicts `old_creator_fee_bps` (%288). Greedy allocates %288 by size before `%0` is region-split, and
+    nothing else wants r6 over bb38..event, so %288 sits in r6.
+  - After the eviction, %288 is split and spilled at `[r10-2296]` and reloaded at the event. This is the original's shape:
+    `ldxdw r1,[r1+112]; stxdw [r10-2272],r1` at 0x4b48, then a reload at 0x5018.
+- None of these reach it:
+  - priority overrides of %1680 or %288 are no-ops, because %1680 only exists after the split;
+  - `288=spill` (a whole-range spill) gives 0.59599, and `288=r8` gives 0.66447;
+  - source forms on q7 (`edits/`): old_fee read before old_creator, or after the creator store, are equal to q7;
+    `old_creator_fee_bps: if fee.is_some(){old_fee}else{curve fee}` gives 0.66737 at 27,408.
+  - the curve store order holder-before-cashback (the original stores `+165` before `+163`) does not move main or q7;
+  - execute `cashback` spellings on q7: `if holder{false}else{..}`, `!holder&st.cashback` and `st.cashback&!holder` equal q7;
+    `st.cashback&&!holder` and `!(holder||!st.cashback)` give 0.66697 at 27,392. q7k2 + 8 colour forces at 27,400 reaches
+    0.67525 / 3,088, below main's colour climb (0.67645).
+- **Lead for w14a82's continuation:** any source change that leaves q7 intact and makes r6 busy over the curve-store block
+  (or makes old_fee lose r6 there) is worth about +0.003 at 27,400.
 
 ### 5c. Priority and force screens on 0d04cf4 (`s/r1.jsonl`, 5,859 runs; `s/r2.jsonl`, a second pass)
 
@@ -158,17 +196,30 @@ force evicts the accounts-pointer pieces and the cascade costs more than the 22 
 | `old_creator_fee_bps` %288 | live from bb38 to the event in bb122; spilled after eviction by a sharing value | read at the event site | 492 ledger rows; GVN keeps one load |
 | bb12 locals %459/%467/%468 | local ranges in instruction order | load order in the validate inputs | +0.0003 only |
 
+### 5f. Greedy heuristic options (95a64ba, `s/rfl.jsonl`)
+
+None of the 32 `llc` options beat stock greedy. 24 are byte-identical: CSR first-time cost 0/10/100, exhaustive search, last-chance
+recolouring depth/interference 0, huge-size-for-split, split threshold with hint, regclass-priority-trumps-globalness,
+join-globalcopies=false, terminal rule, no spill hoist, local reassign, and others. The rest lose:
+- `greedy-reverse-local-assignment` 0.60297;
+- `enable-deferred-spilling` 0.56924;
+- `split-spill-mode=size` 0.54704;
+- `grow-region-complexity-budget=0` 0.55058.
+
+So the original's colouring is stock greedy run on different input, not a different RA setting.
+
 ## 7. Conclusion and next ideas
 
 - The greedy decisions that differ from the original are mostly the register names of `%0`'s split pieces, the payload class
-  and swept. The search finds no small set of priority changes that fixes them. Colour forces at the pinned size give +0.0048
-  on 95a64ba. Of the 125 colour-target forces (the original's register for each missed vreg), only 16 gain on their own; the
+  and swept. The search finds no small set of priority changes that fixes them. Colour forces at the pinned size give +0.0066
+  on 95a64ba (6 forces, two passes). Of the 125 colour-target forces (the original's register for each missed vreg), only 16 gain on their own; the
   others start a cascade that costs more than they fix.
 - For the s1 and PDA-first lanes, the RA bound on s1 is 0.66128 (0d04cf4), 0.004 below that main.
 - Ideas for other lanes, ranked:
+  0. q7 + "r6 busy over the curve-store block" (5b'): +0.003 at 27,400 if a source form reaches it.
   1. Run `colmap.py` on any candidate. A source change that removes accounts-pointer piece misses (rows %1669, %1681)
      without adding others is worth about +0.002 each at 27,400.
-  2. Run `climb.py` on a candidate's `m.ll` to learn how much of its loss is RA (an RA-recoverable loss shows up as a
+  2. Run `tools/cclimb.sh <m.ll> <name>` (colour map + colour-target screen + climb) on a candidate's `m.ll` to learn how much of its loss is RA (an RA-recoverable loss shows up as a
      colour-force gain), before spending builds on partners.
   3. Tested here, and dead: hint-free split pieces (`RAPRIO_NOHINT`). Clearing the simple hint of the accounts-pointer pieces
      (%1669, %1681, %1679, %1680, %1678, alone or together) is byte-identical to main. r8 is the first free callee-saved

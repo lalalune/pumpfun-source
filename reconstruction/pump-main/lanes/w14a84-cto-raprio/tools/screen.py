@@ -23,7 +23,9 @@ def run(job):
     fd,o=tempfile.mkstemp(suffix='.o'); os.close(fd)
     r=subprocess.run([LLC,'-O3','-relocation-model=pic','-mattr=+store-imm,+jmp-ext','-function-sections',M,'-filetype=obj','-o',o,*job.get('args',[])],env=env,capture_output=True,text=True)
     res=dict(job)
-    if r.returncode: os.remove(o); res['error']=r.stderr[-300:]; return res
+    if r.returncode:
+        if os.path.exists(o): os.remove(o)
+        res['error']=r.stderr[-300:]; return res
     c=g['elf_fn'](o,g['KEEP'])
     if job.get('keep'): open(job['keep'],'wb').write(c)
     os.remove(o)
