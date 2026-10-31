@@ -33,7 +33,8 @@
   "c1 to_bytes": "0.56301@27504",
   "c2 move closure": "0.61831@27480",
   "c3 contains": "0.50158@27200",
-  "s5,s6,c4,c5,m1,m2": "byte-identical to main"
+  "s5,s6,c4,c5,m1,m2": "byte-identical to main",
+  "s1 full build (measure.sh, fc628cf)": "0.53539@27456, normalized 1034, raw 347 (size shift)"
  },
  "rejected": [
   "holder_key copy (any order/placement) without repay and frame cascade fix",
@@ -58,6 +59,7 @@
  "ledger_keys": [
   "0x22a10-w14-2e1379d-hkcopy-ir-hkc-screen-v1",
   "0x22a10-w14-2e1379d-hkcopy-ir-k12-v1",
-  "0x22a10-w14-2e1379d-hkcopy-src-<s1..s6,c1..c5,m1,m2>-v1"
+  "0x22a10-w14-2e1379d-hkcopy-src-<s1..s6,c1..c5,m1,m2>-v1",
+  "0x22a10-w14-fc628cf-hkcopy-s1-fullbuild-v1"
  ]
 }
