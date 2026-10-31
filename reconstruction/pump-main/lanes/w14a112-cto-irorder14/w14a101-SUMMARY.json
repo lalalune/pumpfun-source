@@ -1,0 +1,8 @@
+{"lane":"w14a101-cto-mirorder296","target":"0x22a10 admin_cto::execute","base":"main 963d1ee (0.67226 / 3123 slots @27400)",
+ "result":"notes only, no landing",
+ "measurements":{"b0_and1_basin":"0.66137 @27360","b0_plus_296_ir_move":"0.66687 @27352","b0_best_second_flip":"0.66757 @27344 (bb37->bb38)",
+  "main_296_ir_move":"0.66467 @27408","main_fscan":"no single fallthrough flip beats main","asm_B_relayout_on_main":"M 2244->2272 (+28) at +40 B; Br +8 B; no source form",
+  "ir_level_B_emulation":"0.61213-0.63331 (does not reproduce asm B)","greedy_ir_order_interim":"bb14.i before bb2.i 0.67506 @27392 oracle-only, unverified"},
+ "spellings_screened":{"n2,n3,n4":"token-identical to main","n1 (new.is_some()&&holder)":"collapse 0.41702 @27000","n5-n8":"not completed"},
+ "rule_flag":"b0 relies on gene tu8 (unsafe Option tag-byte read + unwrap_unchecked), a compiler-steering construct under the brief's rule; do not build on it",
+ "next_ideas":["source form for the asm B validate order on main (not the and-1 basin)","verify the bb14.i@bb2.i IR-order lead with a full measure before trusting it"]}
