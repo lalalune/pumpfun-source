@@ -1,0 +1,18 @@
+{
+ "lane": "w14a135-cto-tailslotperm",
+ "target": "0x22a10 admin_cto::execute",
+ "base": {"main": "ebe5387", "ratio": 0.67316, "slots": 3123, "M": 2247, "bytes": 27400},
+ "best_zero_loss": {"ratio": 0.67316, "slots": 3123, "bytes": 27400, "note": "no source change"},
+ "bounds": {
+  "tail_perm_0x4800_arm_local": {"M": 2279, "ratio": 0.68274},
+  "tail_perm_0x4600_arm_local": {"M": 2296, "ratio": 0.68784},
+  "tail_perm_0x4800_function_wide": {"M": 2256, "ratio": 0.67585},
+  "tail_perm_0x4700_function_wide": {"M": 2269, "ratio": 0.67975},
+  "canon_all_plus_tail_perm": {"M_0x4800": 2228, "M_0x4600": 2256}
+ },
+ "mechanism": "StackSlotColoring sorts spill intervals by weight (block-frequency sum), ties by FI; clone-run weights fall monotonically along the Rc chain, so tail slots are monotonic in spill-store position in both orig and main. The permutation is a function of the clone-run window form, not an independent order.",
+ "llc_flags": {"-no-stack-slot-sharing": 0.60365, "-disable-ssc": 0.59227},
+ "ledger_keys": ["0x22a10-w14-ebe5387-tailslotperm-perm-bound-v1", "0x22a10-w14-ebe5387-tailslotperm-slotorder-mech-v1", "0x22a10-w14-ebe5387-tailslotperm-canon-perm-v1"],
+ "rejected": ["canonical window form to fix tail colouring (below main even perfectly coloured)", "separate eviction/FI-order lever (only within-block ties)"],
+ "next_ideas": ["port w14a18 slotpin interval-level legal pin to ebe5387, restricted to tail intervals", "rerun permb/slotord when the clone-run window form changes"]
+}
