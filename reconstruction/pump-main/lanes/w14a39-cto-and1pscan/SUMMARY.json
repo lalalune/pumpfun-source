@@ -1,0 +1,18 @@
+{
+  "lane": "w14a39-cto-and1pscan",
+  "target": "0x22a10 admin_cto::execute",
+  "pinned_bytes": 27400,
+  "landed": [{"pr": 3340, "merge_commit": "6e011ea42", "change": "TCF pump_creator_vault_ata AccountInfo literal clones data before lamports (K,D,O,L,R,S,W,E)", "before": {"main": "28ab23a", "ratio": 0.65488, "M": 2186}, "after": {"ratio": 0.65548, "M": 2188, "slots_diff": 3280, "bytes": 27400, "normalized": 1034, "raw": 1034, "differential": "363/0"}}],
+  "notes_pr": 3352,
+  "basin": {
+    "faf9962": {"main_M": 2174, "p3u_tu8": {"M": 2164, "bytes": 27336, "ratio": 0.64907}, "with_cd_and_rc2": 2168, "fill_bound_64B": 4, "ceiling": 2172},
+    "28ab23a": {"main_M": 2186, "p3u_tu8": {"M": 2094, "bytes": 27288}},
+    "6e011ea": {"main_M": 2188, "best": {"M": 2096, "bytes": 27288}},
+    "0fbf8da": {"main_M": 2189, "p3u_tu8_revert_3315_join": {"M": 2168, "bytes": 27336, "ratio": 0.65027}}
+  },
+  "attempts": ["hb positions x validate hopt u8/bool (13)", "entry copy of new (w13a41 t8 pieces) on basin", "48 catalog size knobs on basin", "cd3 single-read CD over 18 clones (basin, main, 6 hop bases, basin+RVJ)", "729-placement scans x 11 clones in basin", "pp and event_authority 720 orders", "Rc-order swap per literal (basin, main)", "to_account_info -> literal in 3 orders for 10 fields", "338 fee test spellings (6)", "field reload via account struct (63)", "#3315 hunk reverts on basin", "curve flag store order"],
+  "rejected_mechanisms": ["entry copy of new as size repay (layout collapse)", "catalog size knobs as fill (each +8..+16 B costs 3-15 M)", "pure fill (bound +4 M per 64 B)", "and-1 basin on mains with #3315 (Result<()> native join breaks it)"],
+  "unresolved": ["and-1 basin jM +69..+84 over main but M -10..-21: jump offsets/block placement of validate error tails", "native-arm join spelling compatible with both the and-1 basin and #3315's gain"],
+  "next_ideas": ["jump-target/block placement oracle for validate error tails on the basin", "native-arm join spellings on basin+RVJ that recover #3315's +11 M"],
+  "best": {"ratio": 0.65548, "slots": 3280, "bytes": 27400, "main": "6e011ea (after #3340)"}
+}

@@ -75,6 +75,43 @@ and #3315 is worth +11 M on main by itself.
   `f.wrapping_sub(1)>=max`, `checked_sub(1).map_or`, `!(f>0&&f<=max)`, `f>max||f<1`, `(f==0)|(f>max)`. All fold
   to the same compare: M unchanged.
 
+### Which #3315 hunk breaks the basin (main 0fbf8da, M 2,189)
+
+p3u+tu8 with one #3315 hunk reverted at a time:
+
+| revert | bytes | M |
+| --- | ---: | ---: |
+| none | 27,288 | 2,096 |
+| W (wallet `is_writable==false`) | 27,280 | 2,096 |
+| N (rent scope) | 27,336 | 2,163 |
+| **J** (`(if amount>0{..}else{Ok(())}).map(\|()\|amount)` -> per-arm `.map`) | 27,336 | **2,168** |
+| T (token arm `return Ok(amount)`) | 27,312 | 1,839 |
+| E (event `nf` local) | 27,312 | 2,105 |
+| all five | 27,344 | 2,162 |
+| main with all five reverted | 27,408 | 2,165 |
+
+The Result<()> join (J) is the incompatible piece. Basin+RVJ is 2,168 at -64 B (jM 2,292 against main's 2,223). cd3
+finds no clone move there, and the holder-first curve store order (`sw`) is token-neutral. Its ceiling (+4 fill bound)
+is about 2,172, 17 M below main.
+
+### Other main-level checks on 0fbf8da
+
+- Field reload through the account struct (`a.X.field` instead of `x.field`, the #3344 family) for every field of 8
+  literals: 63 variants. Lamports/key/owner reloads are token-equal (GVN folds them); every other reload loses.
+- tu8 alone on main: 2,164 @ 27,416; p3u alone: 2,136; p3n alone: 2,135.
+- `sw` (curve `is_holder_reward` store before `is_cashback_coin`) on main: 2,177 @ 27,408.
+- Basin-hopping cd3 from the near-main variants (RC9 = main, cva/TCF event_authority data-first at -1, RC3/7/8 at -2):
+  no move from any base.
+
+## Next ideas
+
+- The and-1 outline would need a native-arm join spelling that keeps #3315's gain without its block move at orig
+  0x3c00-0x4800. One that both keeps the basin and matches main's native-arm M has not been found. Each such spelling
+  costs one 20 s capture: `e/genes.py` has `RVJ` as the starting point.
+- The basin's real deficit is jump-offset and block placement (jM +69..+84 over main, M -10..-21). A jump-target
+  placement oracle, which moves whole error blocks of validate to the original's tail positions, would show whether
+  any placement reaches main's M before more source spellings are tried.
+
 ## Tools (`$OUT/tools`, experiment only)
 
 `capvar.sh` (accepts callable edits), `rx.py` (prints M), `renum.py` (renames numbered IR values so lines can be
