@@ -118,6 +118,16 @@ s289G on 95a64ba: 0.66567 @27,400 (main 0.66986), sk 0.79688 (main 0.79599). The
 each other validate site (284, 296, 298, 307, 312, 330, 334, 338) together with s289G gives exactly the s289G bytes. At
 326 it gives 0.61919 @27,352, and at every site at once (`qall`) 0.45178. Only the 289 site responds to the spelling.
 
+## 7. 963d1ee (after #3437, 0.67226 / 3,123)
+
+The census is unchanged (53/40/53, `eq_main: true`).
+- Reachable singles (`rsweep.py`, now also 2:1 and 1:2 on none-class branches): the best is +0.0003 @27,400. It comes
+  from `bb95.i` 20:12 (`quote_locked`), `bb62.i` 12:20 or 1:2 (the 338 range test) and one Rc trap at 1:16. jm and fm do
+  not change: this is the same spill-colour-swap family.
+- Pairs over the top 32 changing singles (483 pairs): nothing above that single.
+
+The weight lever is flat on three consecutive mains.
+
 ## Next ideas
 
 - Find a partner for s289G. The 289/298 placement is original, and fm +0.009 shows that the validate head is closer

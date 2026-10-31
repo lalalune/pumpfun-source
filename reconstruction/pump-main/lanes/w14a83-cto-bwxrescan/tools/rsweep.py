@@ -14,7 +14,7 @@ mod=open(m).read(); o=bwx.orig_toks(); items=[]
 for lab,c,a,b,_ in bwx.brs(mod):
     p=prob.get(lab,[0])[0]
     if p in (0x30000000,0x50000000): ws=['1:1','16:1','1:16']
-    elif p==0x40000000: ws=['20:12','12:20','16:1','1:16']
+    elif p==0x40000000: ws=['20:12','12:20','2:1','1:2','16:1','1:16']
     else: continue
     items+=[f'bw:{lab}:{w}' for w in ws]
 f=open(out,'w')
