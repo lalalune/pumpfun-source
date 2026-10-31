@@ -264,6 +264,9 @@ def _build_locked(src: Path, work: Path, out: Path, quiet=False, recipe=None, ti
     ws = work / 'ws'
     crate = stage(src, ws, expected_inputs=source_inputs)
     assert_unchanged(src, source_inputs)
+    # Bind the transformed copy that Cargo actually reads. A build script may
+    # generate Rust in src/; that must not be attributed to the admitted tree.
+    staged_inputs = snapshot(crate)
     manifest = tomllib.loads((crate / 'Cargo.toml').read_text(encoding='utf-8'))
     library = manifest.get('lib', {}).get('name', manifest['package']['name'].replace('-', '_'))
     target = work / ('target' if recipe == 'mac' else f'target-{recipe}')
@@ -341,6 +344,7 @@ def _build_locked(src: Path, work: Path, out: Path, quiet=False, recipe=None, ti
                 'source_sha256': source_inputs['sha256'],
                 'recipe': recipe, 'triple': triple, 'seconds': round(dt, 1),
                 'log': str(out / 'build.log')}
+    assert_unchanged(crate, staged_inputs, phase='compilation')
     if link_record:
         if not receipt.is_file():
             raise RuntimeError('pinned link script configured but the linker hook did not run')

@@ -81,7 +81,7 @@ def snapshot(root):
     return {'schema': 'pump-source-inputs-v2', 'sha256': hashlib.sha256(encoded).hexdigest(), **inputs}
 
 
-def assert_unchanged(root, expected):
+def assert_unchanged(root, expected, *, phase='staging'):
     actual = snapshot(root)
     if actual != expected:
         before = {row['path']: row for row in expected['files']}
@@ -89,4 +89,4 @@ def assert_unchanged(root, expected):
         changed_files = {path for path in before.keys() | after.keys() if before.get(path) != after.get(path)}
         changed_dirs = set(expected.get('directories', ())) ^ set(actual['directories'])
         changed = sorted(changed_files | changed_dirs)
-        raise ValueError('source inputs changed during staging: ' + ', '.join(changed[:10]))
+        raise ValueError(f'source inputs changed during {phase}: ' + ', '.join(changed[:10]))

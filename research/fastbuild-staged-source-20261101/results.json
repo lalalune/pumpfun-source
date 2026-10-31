@@ -1,0 +1,212 @@
+{
+  "before": [
+    {
+      "case": "unchanged",
+      "result": {
+        "ok": true,
+        "source_sha256": "9aea497aa234a041c5394837d8b54e89571a63cf6cacbf42376dbb829dbedade",
+        "link_order": null,
+        "runtime_valid": true,
+        "stack_warnings": [],
+        "recipe": "mac",
+        "triple": "sbf-solana-solana",
+        "seconds": 1.5,
+        "unstripped": "<probe-root>/unchanged/out/unstripped.so",
+        "unstripped_sha256": "514dd481fadd75af4e69586b9cb91d914d68a07e27bd9f95c1f9b6989d4624b6",
+        "candidate_sha256": "115275272733f68b49f6b74f175efd97ef9821fd3ed592d8186e4bdfc98243af"
+      },
+      "error": null,
+      "caller_source_unchanged": true,
+      "receipt_source_sha256": "9aea497aa234a041c5394837d8b54e89571a63cf6cacbf42376dbb829dbedade",
+      "candidate_exists": true,
+      "caller_generated_sha256": "acbc52f34a8833ced5948f0d9eecc92a3175683dc3dc7e4049a997561cafb801",
+      "staged_generated_sha256": "acbc52f34a8833ced5948f0d9eecc92a3175683dc3dc7e4049a997561cafb801",
+      "build_log": "   Compiling pump-recovered v0.1.0 (<probe-root>/unchanged/work/ws/programs/pump)\n    Finished `release` profile [optimized] target(s) in 1.48s\n"
+    },
+    {
+      "case": "rewrite_source",
+      "result": {
+        "ok": true,
+        "source_sha256": "e127096cb8eb1614be7badc7e0862d09c9f6b6ae55bb835dfcc20fab3ae37524",
+        "link_order": null,
+        "runtime_valid": true,
+        "stack_warnings": [],
+        "recipe": "mac",
+        "triple": "sbf-solana-solana",
+        "seconds": 0.7,
+        "unstripped": "<probe-root>/rewrite_source/out/unstripped.so",
+        "unstripped_sha256": "4992cd319bc670fdad18ffda8795fff082d483ff099550808cfd572d4ef170bd",
+        "candidate_sha256": "8ada743c90a292ea69a7a0a8fa15afef29ea5bf3c517e06017e1f7d95dec9b59"
+      },
+      "error": null,
+      "caller_source_unchanged": true,
+      "receipt_source_sha256": "e127096cb8eb1614be7badc7e0862d09c9f6b6ae55bb835dfcc20fab3ae37524",
+      "candidate_exists": true,
+      "caller_generated_sha256": "acbc52f34a8833ced5948f0d9eecc92a3175683dc3dc7e4049a997561cafb801",
+      "staged_generated_sha256": "7f327a41527301ff5377b8af327d2e37340aed7c241536b977ed7230d3cf7562",
+      "build_log": "   Compiling pump-recovered v0.1.0 (<probe-root>/rewrite_source/work/ws/programs/pump)\n    Finished `release` profile [optimized] target(s) in 0.71s\n"
+    },
+    {
+      "case": "add_source",
+      "result": {
+        "ok": true,
+        "source_sha256": "aa433a13d3b4c2e8b32dcd91bcdbca522e5a6f1cdf13b19d3a890371b4cc237e",
+        "link_order": null,
+        "runtime_valid": true,
+        "stack_warnings": [],
+        "recipe": "mac",
+        "triple": "sbf-solana-solana",
+        "seconds": 0.8,
+        "unstripped": "<probe-root>/add_source/out/unstripped.so",
+        "unstripped_sha256": "4992cd319bc670fdad18ffda8795fff082d483ff099550808cfd572d4ef170bd",
+        "candidate_sha256": "8ada743c90a292ea69a7a0a8fa15afef29ea5bf3c517e06017e1f7d95dec9b59"
+      },
+      "error": null,
+      "caller_source_unchanged": true,
+      "receipt_source_sha256": "aa433a13d3b4c2e8b32dcd91bcdbca522e5a6f1cdf13b19d3a890371b4cc237e",
+      "candidate_exists": true,
+      "caller_generated_sha256": null,
+      "staged_generated_sha256": "7f327a41527301ff5377b8af327d2e37340aed7c241536b977ed7230d3cf7562",
+      "build_log": "   Compiling pump-recovered v0.1.0 (<probe-root>/add_source/work/ws/programs/pump)\n    Finished `release` profile [optimized] target(s) in 0.73s\n"
+    },
+    {
+      "case": "out_dir",
+      "result": {
+        "ok": true,
+        "source_sha256": "0a98dbb8dad70304dd5f3450e0738e6c7a33c512a5e1cb34a55628ed03c6a1fe",
+        "link_order": null,
+        "runtime_valid": true,
+        "stack_warnings": [],
+        "recipe": "mac",
+        "triple": "sbf-solana-solana",
+        "seconds": 0.8,
+        "unstripped": "<probe-root>/out_dir/out/unstripped.so",
+        "unstripped_sha256": "4992cd319bc670fdad18ffda8795fff082d483ff099550808cfd572d4ef170bd",
+        "candidate_sha256": "8ada743c90a292ea69a7a0a8fa15afef29ea5bf3c517e06017e1f7d95dec9b59"
+      },
+      "error": null,
+      "caller_source_unchanged": true,
+      "receipt_source_sha256": "0a98dbb8dad70304dd5f3450e0738e6c7a33c512a5e1cb34a55628ed03c6a1fe",
+      "candidate_exists": true,
+      "caller_generated_sha256": null,
+      "staged_generated_sha256": null,
+      "build_log": "   Compiling pump-recovered v0.1.0 (<probe-root>/out_dir/work/ws/programs/pump)\n    Finished `release` profile [optimized] target(s) in 0.82s\n"
+    },
+    {
+      "case": "pre_generated",
+      "result": {
+        "ok": true,
+        "source_sha256": "6d46e60f1e9863096066b4200195d4cb121a415d0730b3d13a4cb96219f83471",
+        "link_order": null,
+        "runtime_valid": true,
+        "stack_warnings": [],
+        "recipe": "mac",
+        "triple": "sbf-solana-solana",
+        "seconds": 0.6,
+        "unstripped": "<probe-root>/pre_generated/out/unstripped.so",
+        "unstripped_sha256": "4992cd319bc670fdad18ffda8795fff082d483ff099550808cfd572d4ef170bd",
+        "candidate_sha256": "8ada743c90a292ea69a7a0a8fa15afef29ea5bf3c517e06017e1f7d95dec9b59"
+      },
+      "error": null,
+      "caller_source_unchanged": true,
+      "receipt_source_sha256": "6d46e60f1e9863096066b4200195d4cb121a415d0730b3d13a4cb96219f83471",
+      "candidate_exists": true,
+      "caller_generated_sha256": "7f327a41527301ff5377b8af327d2e37340aed7c241536b977ed7230d3cf7562",
+      "staged_generated_sha256": "7f327a41527301ff5377b8af327d2e37340aed7c241536b977ed7230d3cf7562",
+      "build_log": "   Compiling pump-recovered v0.1.0 (<probe-root>/pre_generated/work/ws/programs/pump)\n    Finished `release` profile [optimized] target(s) in 0.59s\n"
+    }
+  ],
+  "after": [
+    {
+      "case": "unchanged",
+      "result": {
+        "ok": true,
+        "source_sha256": "9aea497aa234a041c5394837d8b54e89571a63cf6cacbf42376dbb829dbedade",
+        "link_order": null,
+        "runtime_valid": true,
+        "stack_warnings": [],
+        "recipe": "mac",
+        "triple": "sbf-solana-solana",
+        "seconds": 1.2,
+        "unstripped": "<probe-root>/unchanged/out/unstripped.so",
+        "unstripped_sha256": "514dd481fadd75af4e69586b9cb91d914d68a07e27bd9f95c1f9b6989d4624b6",
+        "candidate_sha256": "115275272733f68b49f6b74f175efd97ef9821fd3ed592d8186e4bdfc98243af"
+      },
+      "error": null,
+      "caller_source_unchanged": true,
+      "receipt_source_sha256": "9aea497aa234a041c5394837d8b54e89571a63cf6cacbf42376dbb829dbedade",
+      "candidate_exists": true,
+      "caller_generated_sha256": "acbc52f34a8833ced5948f0d9eecc92a3175683dc3dc7e4049a997561cafb801",
+      "staged_generated_sha256": "acbc52f34a8833ced5948f0d9eecc92a3175683dc3dc7e4049a997561cafb801",
+      "build_log": "   Compiling pump-recovered v0.1.0 (<probe-root>/unchanged/work/ws/programs/pump)\n    Finished `release` profile [optimized] target(s) in 1.17s\n"
+    },
+    {
+      "case": "rewrite_source",
+      "result": null,
+      "error": "source inputs changed during compilation: src/generated.rs",
+      "caller_source_unchanged": true,
+      "receipt_source_sha256": "e127096cb8eb1614be7badc7e0862d09c9f6b6ae55bb835dfcc20fab3ae37524",
+      "candidate_exists": false,
+      "caller_generated_sha256": "acbc52f34a8833ced5948f0d9eecc92a3175683dc3dc7e4049a997561cafb801",
+      "staged_generated_sha256": "7f327a41527301ff5377b8af327d2e37340aed7c241536b977ed7230d3cf7562",
+      "build_log": "   Compiling pump-recovered v0.1.0 (<probe-root>/rewrite_source/work/ws/programs/pump)\n    Finished `release` profile [optimized] target(s) in 0.92s\n"
+    },
+    {
+      "case": "add_source",
+      "result": null,
+      "error": "source inputs changed during compilation: src/generated.rs",
+      "caller_source_unchanged": true,
+      "receipt_source_sha256": "aa433a13d3b4c2e8b32dcd91bcdbca522e5a6f1cdf13b19d3a890371b4cc237e",
+      "candidate_exists": false,
+      "caller_generated_sha256": null,
+      "staged_generated_sha256": "7f327a41527301ff5377b8af327d2e37340aed7c241536b977ed7230d3cf7562",
+      "build_log": "   Compiling pump-recovered v0.1.0 (<probe-root>/add_source/work/ws/programs/pump)\n    Finished `release` profile [optimized] target(s) in 0.68s\n"
+    },
+    {
+      "case": "out_dir",
+      "result": {
+        "ok": true,
+        "source_sha256": "0a98dbb8dad70304dd5f3450e0738e6c7a33c512a5e1cb34a55628ed03c6a1fe",
+        "link_order": null,
+        "runtime_valid": true,
+        "stack_warnings": [],
+        "recipe": "mac",
+        "triple": "sbf-solana-solana",
+        "seconds": 0.7,
+        "unstripped": "<probe-root>/out_dir/out/unstripped.so",
+        "unstripped_sha256": "4992cd319bc670fdad18ffda8795fff082d483ff099550808cfd572d4ef170bd",
+        "candidate_sha256": "8ada743c90a292ea69a7a0a8fa15afef29ea5bf3c517e06017e1f7d95dec9b59"
+      },
+      "error": null,
+      "caller_source_unchanged": true,
+      "receipt_source_sha256": "0a98dbb8dad70304dd5f3450e0738e6c7a33c512a5e1cb34a55628ed03c6a1fe",
+      "candidate_exists": true,
+      "caller_generated_sha256": null,
+      "staged_generated_sha256": null,
+      "build_log": "   Compiling pump-recovered v0.1.0 (<probe-root>/out_dir/work/ws/programs/pump)\n    Finished `release` profile [optimized] target(s) in 0.64s\n"
+    },
+    {
+      "case": "pre_generated",
+      "result": {
+        "ok": true,
+        "source_sha256": "6d46e60f1e9863096066b4200195d4cb121a415d0730b3d13a4cb96219f83471",
+        "link_order": null,
+        "runtime_valid": true,
+        "stack_warnings": [],
+        "recipe": "mac",
+        "triple": "sbf-solana-solana",
+        "seconds": 0.6,
+        "unstripped": "<probe-root>/pre_generated/out/unstripped.so",
+        "unstripped_sha256": "4992cd319bc670fdad18ffda8795fff082d483ff099550808cfd572d4ef170bd",
+        "candidate_sha256": "8ada743c90a292ea69a7a0a8fa15afef29ea5bf3c517e06017e1f7d95dec9b59"
+      },
+      "error": null,
+      "caller_source_unchanged": true,
+      "receipt_source_sha256": "6d46e60f1e9863096066b4200195d4cb121a415d0730b3d13a4cb96219f83471",
+      "candidate_exists": true,
+      "caller_generated_sha256": "7f327a41527301ff5377b8af327d2e37340aed7c241536b977ed7230d3cf7562",
+      "staged_generated_sha256": "7f327a41527301ff5377b8af327d2e37340aed7c241536b977ed7230d3cf7562",
+      "build_log": "   Compiling pump-recovered v0.1.0 (<probe-root>/pre_generated/work/ws/programs/pump)\n    Finished `release` profile [optimized] target(s) in 0.60s\n"
+    }
+  ]
+}

@@ -12,6 +12,13 @@ Detected changes stop the trial before compilation, avoiding a build from a mixe
 source copy. Keep source editing and staging serialized: these checks are not a
 filesystem snapshot or a guarantee against every concurrent-writer race.
 
+After compilation succeeds, the builder also rechecks the transformed source
+copy that Cargo read, before publishing either binary. Build scripts must place
+generated Rust in Cargo's `OUT_DIR`; adding or rewriting an admitted source file
+stops publication while retaining the compiler log and original input receipt.
+The crate-root `target` directory remains excluded. This before/after check does
+not detect a transient rewrite restored before the final check.
+
 Only the real crate-root `target` build directory and Git metadata are excluded.
 Nested directories such as `src/target` and `assets/target` are source inputs,
 matching the builder's rsync policy. Source symlinks and nonregular files are
