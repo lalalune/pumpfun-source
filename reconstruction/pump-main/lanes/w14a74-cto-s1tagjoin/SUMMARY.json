@@ -1,0 +1,31 @@
+{
+  "lane": "w14a74-cto-s1tagjoin",
+  "target": "0x22a10 admin_cto::execute",
+  "pinned_bytes": 27400,
+  "bases": {"39eb377": {"main": 0.66477, "slots": 3230}, "0d04cf4": {"main": 0.66507, "slots": 3228}},
+  "result": "no source change; priced table: no tag/swept live-range change rescues s1",
+  "best_zero_loss": null,
+  "s1": {"39eb377": {"ratio": 0.63638, "bytes": 27344, "L1": 0.69186, "L2": 0.81302}, "0d04cf4": {"ratio": 0.63589, "bytes": 27360, "L1": 0.69135, "L2": 0.81247}},
+  "s1_loss_decomposition_vs_main": {"structure_L2": 0.029, "registers_L1_minus_L2": -0.038, "frame_plain_minus_L1": -0.019, "chunks_tokens": {"0x3800": -9, "0x4000": -60, "0x4800": -27}},
+  "attempts": [
+    {"probe": "a1 event re-test from tag SSA", "s1": "identical", "main": "identical"},
+    {"probe": "swept fake use (join/arm/before/after CPI)", "s1": "0.63638/0.63568", "main": "0.66477/0.66347/0.66467"},
+    {"probe": "tag fake use (arm/before/after CPI)", "s1": "identical/0.63718 @27352", "main": "identical/0.66467 @27408"},
+    {"probe": "swept+tag fake uses", "s1": "0.63439-0.63718", "main": "0.66347-0.66467"},
+    {"probe": "inline-asm r9/r6 pins", "s1": "0.477-0.590", "main": "0.496-0.607", "note": "asm in join block moves block placement; not a usable bound"},
+    {"probe": "per-clone accounts pointer reload (volatile alloca)", "s1_L1": "0.670-0.692"},
+    {"probe": "src reset bool before sweep", "s1": "identical"},
+    {"probe": "src if let ... as_ref() + *val", "s1": 0.53367},
+    {"probe": "src reset bool + if reset{unwrap}", "s1": "0.63718 @27352", "main": "0.66467 @27408"},
+    {"probe": "sharing gate branch_weights 8:1", "s1": "0.64657 (frame-only, fm 123->90)", "main": 0.65279},
+    {"probe": "146-branch weight sweep + greedy", "s1_best": "0.65037 @27352", "main_best_single": "0.66657 (Rc trap 1:2000, not source-expressible)"}
+  ],
+  "rejected_mechanisms": ["tag SSA / event re-test (already original data flow)", "extra uses of swept or tag before/after the sharing CPI", "reset bool forms", "as_ref binding", "branch weights as an s1 rescue"],
+  "unresolved_residuals": ["s1 clone-run register permutation (accounts pointer in r7 vs original per-clone reload of [r10-0x8d8]; orig r6 scratch, r9 swept)", "s1 clone-run spill-slot order (offsets -24/-32 vs original)", "swept spilled at [r10-0x968] at the sweep join (w14a06/w14a69 coalescing route)"],
+  "next_ideas": [
+    "s1 is the better structural base (L2 +0.029 over main); w14a18's interval slot pin of s1 reached 0.67866 when main was 0.63421. Look for source-expressible block-frequency or spill-weight changes that move frame slots: the sharing gate weight alone is worth +0.010 on s1 (frame-only) and -0.012 on main",
+    "a BPI-visible sharing gate on s1 (zero-heuristic compare that survives InstCombine) would give ~5:3, close to the 2:1 result (+0.0099)",
+    "re-screen s1 with tools/fmr.py (plain/L1/L2) after any landing that changes the clone-run register assignment"
+  ],
+  "ledger_keys": "0x22a10-w14-39eb377-s1tagjoin-*-v1, 0x22a10-w14-0d04cf4-s1tagjoin-recheck-v1"
+}

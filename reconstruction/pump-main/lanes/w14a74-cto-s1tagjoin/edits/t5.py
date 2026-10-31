@@ -1,0 +1,1 @@
+EDITS=[(' let swept;',' let swept;let reset=sharing_update.is_some();'),('sharing_config_reset:sharing_update.is_some()','sharing_config_reset:reset'),(' if let Some(val)=sharing_update{',' if reset{let val=sharing_update.unwrap();')]
