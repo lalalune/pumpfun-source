@@ -60,6 +60,13 @@ that region are in `data/colmap-3c00-4800-ebe5387.tsv`.
   - Step 1418: 1858 takes R9.
   - Step 1486: the temps (stage 6) find no free register and evict the cheaper of the two, the key, from R9.
   - Forcing 1906=r6 evicts 1855, and 1855 then evicts 1858 from R9.
+- **Original load provenance** (w14a106 `prov.py orig`). The program is `R2.8.98` (accounts+0x98): pointer at 0x3d90,
+  lamports `.98.8` at 0x3d98, key `.98.0` at 0x3dc8, data `.98.10` at 0x3de8, flags `.98.2a/29/28` at 0x3e70-0x3e90,
+  rent `.98.20` at 0x3ea0 and owner `.98.18` at 0x3eb0. The second read at 0x4500 is the accounts-struct `program:`
+  literal. The original holds the program owner in r6 up to the CpiContext store, where ours spills it at once to
+  `[r10-2416]`. That makes the owner the original's r6 occupant.
+  - Forcing the owner %293=r6 is a no-op (`eq_main`). Other owner probes: %293=r9 0.62622; its piece 1904=r6 0.67376;
+    293=r6 with 1855=r9 0.67436. Top priority for %293 gives 0.64968.
 - **Equivalent forces.** 1855=r9 and 1858=r6 each give exactly 0.67436, so the gain is a swap of R6 and R9 between the
   two pieces.
   - The original's own registers lose: 1855=r0 gives 0.6474, 291=r0 0.65148 and 1858=r5 0.6499.
