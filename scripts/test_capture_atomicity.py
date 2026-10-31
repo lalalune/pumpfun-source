@@ -1,6 +1,12 @@
 """Failed RPC captures must not publish partial evidence directories."""
 
 import base64
+import contextlib
+import errno
+import io
+import json
+import os
+import sys
 import tempfile
 import unittest
 from pathlib import Path
@@ -57,6 +63,72 @@ class CapturePublicationTests(unittest.TestCase):
                 {"capture.json", "deployed.so", "program-account.bin"},
             )
             self.assertEqual(list(output.parent.glob(".pump.capture-*")), [])
+
+    @unittest.skipUnless(
+        os.name == "nt" or sys.platform == "darwin" or sys.platform.startswith("linux"),
+        "native no-replace directory publication requires Windows, macOS or Linux",
+    )
+    def test_concurrent_empty_destination_is_not_replaced(self):
+        # Supply real retained bytes at the RPC boundary. All capture writes,
+        # existence checks and the final native publication still run normally.
+        source = Path(__file__).resolve().parents[1] / "evidence/dependencies/associated_token"
+        payload = (source / "deployed.so").read_bytes()
+        record = json.loads((source / "capture.json").read_text(encoding="utf-8"))
+        account = self.account(payload)
+        native_exists = Path.exists
+        with tempfile.TemporaryDirectory(prefix="capture-race-") as directory:
+            output = Path(directory) / "associated_token"
+            observations = []
+            checks = 0
+
+            def create_competing_directory_after_check(path):
+                nonlocal checks
+                existed = native_exists(path)
+                if path == output:
+                    checks += 1
+                    if checks == 2:
+                        self.assertFalse(existed)
+                        # Schedule the other writer immediately after the final
+                        # real absent observation; do not mock the rename.
+                        output.mkdir()
+                        metadata = output.stat()
+                        observations.append((metadata.st_dev, metadata.st_ino))
+                return existed
+
+            with (
+                mock.patch.object(capture, "account", side_effect=[(account, payload), (account, payload)]),
+                mock.patch.object(capture, "rpc", return_value=record["genesis_hash"]),
+                mock.patch.object(Path, "exists", create_competing_directory_after_check),
+                contextlib.redirect_stdout(io.StringIO()),
+            ):
+                with self.assertRaises(FileExistsError):
+                    capture.capture("https://rpc.invalid", "associated_token", record["program"], output)
+
+            metadata = output.stat()
+            self.assertEqual(observations, [(metadata.st_dev, metadata.st_ino)])
+            self.assertEqual(list(output.iterdir()), [])
+            self.assertEqual(list(output.parent.iterdir()), [output])
+
+    @unittest.skipIf(os.name == "nt", "Windows provides native no-replace publication")
+    def test_unsupported_no_replace_cleans_up_without_publishing(self):
+        import deep_disassembly as publication
+
+        payload = b"\x7fELF" + bytes(60)
+        account = self.account(payload)
+        with tempfile.TemporaryDirectory(prefix="capture-unsupported-") as directory:
+            output = Path(directory) / "pump"
+            with (
+                mock.patch.object(capture, "account", side_effect=[(account, payload), (account, payload)]),
+                mock.patch.object(capture, "rpc", return_value="genesis"),
+                mock.patch.object(publication.sys, "platform", "unsupported"),
+                contextlib.redirect_stdout(io.StringIO()),
+            ):
+                with self.assertRaises(OSError) as error:
+                    capture.capture("https://rpc.invalid", "pump", "program", output)
+
+            self.assertEqual(error.exception.errno, errno.ENOTSUP)
+            self.assertFalse(output.exists())
+            self.assertEqual(list(output.parent.iterdir()), [])
 
 
 if __name__ == "__main__":
