@@ -30,7 +30,9 @@ def source_receipt(repo):
     for entry in (repo, repo / 'programs', repo / 'programs/pump'):
         _reject_directory_link(entry)
     repo = repo.resolve(strict=True)
-    toplevel = subprocess.check_output(['git', '-C', str(repo), 'rev-parse', '--show-toplevel'], text=True).rstrip('\r\n')
+    # Repository paths use the filesystem codec, independently of text locale.
+    toplevel = os.fsdecode(subprocess.check_output(
+        ['git', '-C', str(repo), 'rev-parse', '--show-toplevel'])).rstrip('\r\n')
     if Path(toplevel).resolve(strict=True) != repo:
         raise ValueError('Pump source checkout must be a Git worktree root')
     revision = subprocess.check_output(['git', '-C', str(repo), 'rev-parse', 'HEAD'], text=True).strip()

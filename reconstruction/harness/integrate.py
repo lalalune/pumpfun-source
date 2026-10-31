@@ -209,8 +209,8 @@ def git_patch_command(source):
     # git apply invoked from a repository subdirectory silently filters paths
     # outside that prefix. Anchor at the root and prepend the owned output tree.
     found = subprocess.run(['git', '-C', str(source), 'rev-parse', '--show-toplevel'],
-                           capture_output=True, text=True)
-    root = Path(found.stdout.rstrip('\r\n')).resolve() if found.returncode == 0 else source.resolve()
+                           capture_output=True)
+    root = Path(os.fsdecode(found.stdout).rstrip('\r\n')).resolve() if found.returncode == 0 else source.resolve()
     directory = source.resolve().relative_to(root).as_posix()
     command = ['git', '-c', 'core.autocrlf=false', 'apply', '--no-index',
                '--whitespace=nowarn', '-p2']
@@ -341,7 +341,10 @@ def apply_part(src, pf, text, patch_command, diagnostic):
             common = patch_command + ['-p2', '--forward', '-E', '-d', str(src), '-i', str(pf)]
             dry_command, apply_command = common + ['--dry-run'], common
         for phase, argv in [('check', dry_command), ('apply', apply_command)]:
-            result = subprocess.run(argv, cwd=root, capture_output=True, text=True)
+            # Patch diagnostics can contain UTF-8 filenames even under LC_ALL=C.
+            # They are display text only; patch input stays byte-preserving.
+            result = subprocess.run(argv, cwd=root, capture_output=True,
+                                    encoding='utf-8', errors='replace')
             if result.returncode:
                 detail = result.stdout + result.stderr
                 diagnostic.write_text(detail, encoding='utf-8', newline='\n')

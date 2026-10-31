@@ -87,6 +87,8 @@ jobs:
               python -B reconstruction/harness/test_integrate_binary_files.py
               python -B reconstruction/harness/test_integrate_file_directory.py
               python -B reconstruction/harness/test_integrate_git_metadata.py
+              python -B reconstruction/harness/test_integrate_locale.py
+              python -B reconstruction/harness/test_pair_locale.py
               python -B reconstruction/harness/test_integrate_source_links.py
               python -B reconstruction/harness/test_integrate_orig_sources.py
               python -I -B tests/test_integrate_patch_bytes.py
