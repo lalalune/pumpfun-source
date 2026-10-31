@@ -42,9 +42,23 @@ T is 27 tokens short at M 2,199. A perfect 216 B fill that matched every one of 
 | `vcb` / `vcb2` | validate takes `cashback:bool` | 27,368 | 1,570 | 1,612 | 1,796 | 2,089 | fee chain no longer duplicated per arm |
 | `pcb` / `pcb2` / `pcb3` | validate returns `(target,cashback)` per arm | 26,944 | 1,206 | 2,138 | 1,194 | **2,812** | skeleton above main (2,810), but the frame shifts by 8 (see 4) |
 
-Size knobs: of the 80 entries in `sizeknobs-cto.json`, 41 still apply on T. The positive-byte ones are all downstream and
-cost 0.0004 to 0.22 on main (`w_create_rev` +272, `p_ev_ts_last` +280, `ev_nc_target` +96 ...). None of them can add the
-23 tokens that section 1 requires.
+Size knobs: of the 80 entries in `sizeknobs-cto.json`, 41 still apply on T. All 14 that add bytes were measured on
+`Tb` = `T+dv1+le306` (86e2a6b: 27,176 B, M 2,203). Every one loses:
+
+| knob on Tb | bytes | M | rfjM |
+| --- | ---: | ---: | ---: |
+| `g_old_fee_first` | 27,176 | 2,202 | 2,762 |
+| `wl_ts_clockvar`, `g_w_clock_local` | 27,192 | 2,200 | 2,763 |
+| `L_fee_unwrap_again`, `cu_fee_oldunwrap`, `g_fee_unwrap` | 27,184 | 2,186 | 2,760 |
+| `w_ev_creator_first` | 27,240 | 2,186 | 2,756 |
+| `ev_cb_local` | 27,168 | 2,180 | 2,826 (difflib flip, see w14a128) |
+| `ev_mint_key` | 27,192 | 2,173 | 2,746 |
+| `g_s7_destscope` / `w_create_rev` / `sig_mint_acct` / `p_ev_ts_last` / `ev_nc_target` | 27,216-27,448 | 1,733 / 1,681 / 1,651 / 1,646 / 1,302 | |
+
+w15a09's creator binding on T (`g1`: `let creator=st.creator;` before `validate`, then `target=creator` in the shared
+arm) gives `Tb+g1` = 27,296 B, M 2,206 (+3 for +120 B). `g3a`, `g0` and `f7` give 2,201 to 2,203. On main, `g1` is
+27,520 B, M 2,251. The `(new,)` temporary forms (`noargs`, `argsaft`, `argsv`: `Some(new)`, args after validate, by
+value) all collapse on T as well (M 1,560, the J flip of w14a127).
 
 ## 3. Why T moves 330/338 into validate (debug-llc mechanism)
 
@@ -80,6 +94,19 @@ block then sits right after the compares, and difflib matches it to orig 0x1258 
 orig's 306/296/326 runs. Restoring 330/338 alone is therefore worth 0 M. The full repay would need the original's order
 306 296 326 312 307 330 338, with 312 placed after 326. That needs the OV per-arm structure, the family that collapses.
 
+### 3b. Leftover error blocks go in decreasing block frequency (main)
+
+On main, after the 312 to_string head chain ends, MBP places the unchained blocks in decreasing frequency: 296 exit
+0.03296 > 326 0.02612 > 306 (`bb27.i`) 0.01978 > 312 0.01255 > 307 0.01236 > 312 success `bb45.i` 0.00805. That gives
+main's 296 326 306 312 307. The original's 306 296 326 312 307 implies freq(306) > freq(296).
+
+IR bound: weighting main's 306 None edge 2:1 gives errseq 298 289 **306 296 326 312 307 330 338** 334 (the original's,
+except 289/298) at 27,400 B. fM rises to 2,381 (+31), rfM to 2,659 (+38) and rfjM to 2,801. But M falls to 2,218 (-31,
+all in chunk 0x0800), and Mperm is 2,261 against main's 2,293. A hot 306 makes MBP chain its error block *before* the
+memcmp run, while the original places it as the first leftover after the non-holder success chain. Raising the
+non-holder arm's frequency instead (`bb14.i` 5:3 / 2:1 / 3:2) gives M 2,066-2,067. The original order needs freq(306) >
+freq(296) while P(Some) at the 306 test stays above 0.5. Neither single weight does both.
+
 ## 4. The per-arm cashback return (`pcb`): the best skeleton, lost to an 8-byte frame shift
 
 If validate returns `(target,cashback)` from each arm, the frame loses one `[16 x i8]` slot: the `Result<Pubkey>`
@@ -88,11 +115,39 @@ Every frame offset then shifts by +8 (`-0x2d0` -> `-0x2c8`, `-0x38` -> `-0x30`).
 but fM is only 2,138. Even a perfect frame fix stays below T. Adding an unused `[16 x i8]` alloca at IR level does not
 restore the slot (M 1,291). This is the same 8 B CtoState colouring that w13a04/w13a38 found.
 
+## 5. OV on T: the layout fix, at a downstream price (evidence only)
+
+The OV family is known to collapse. It was measured on T only to locate where the loss lands:
+
+| gene | form | bytes | M | rfjM | errseq | chunk delta vs T |
+| --- | --- | ---: | ---: | ---: | --- | --- |
+| `ov15` | validate takes `shared`; arm `if shared{st.creator}else{t}` | 27,152 | 1,485 | 2,195 | 298 289 **296 326 306 312 307 330 338** 334 | 0x0800 **+23**; 0x2000-0x3800 -83 -180 -158 -124 |
+| `ove15` | validate takes `shared.then_some(st.creator)`; arm `ov.unwrap_or(t)` | 27,104 | 1,771 | 2,790 | same | 0x1000 **+28**; every later chunk -6 to -86 |
+
+OV does restore the original's error order on T (330/338 after 307), as section 3 predicts. Validate gains, and the loss
+lands downstream. The w15a08 spill-permutation bound (`relab.py`: the best permutation of a build's own spill slots)
+shows that this loss is not just spill colouring:
+
+| build | bytes | M | Mperm |
+| --- | ---: | ---: | ---: |
+| main 86e2a6b | 27,400 | 2,249 | 2,293 |
+| T | 27,184 | 2,200 | 2,243 |
+| Tb+g1 | 27,296 | 2,206 | 2,244 |
+| T+ove15 | 27,104 | 1,771 | 2,036 |
+| T+ov15 | 27,152 | 1,485 | 1,544 |
+
+The skeleton does not rescue it either. With registers and frame masked, `ove15` scores rfM 2,573 at 27,104 B (T 2,563;
+main 2,621 at 27,400). A perfect 37-token repay would reach 2,610, still below main. `Tb+ove15` (27,096 B, M 1,786,
+rfM 2,573) and `ove15b` (`match ov{Some(c)=>c,None=>t}`, M 1,200) agree.
+
 ## Next ideas
 
 - An ordinary source form whose 312 success block has a second predecessor, which makes MBP place the non-holder fee
   chain late as the original does. The only form known so far is OV. A non-OV form would also fix T's 330/338 relayout.
 - `dv1` is free on any T-based candidate: drop the line-334 volatile there.
+- OV + T is the faithful validate shape: right error order, validate chunks positive. The open problem is its
+  downstream register and frame assignment (0x2000-0x3800 and later), which a spill permutation alone does not recover.
+  A lane with a register-assignment oracle (w14a84) could price `ove15` with registers and spills both relabelled.
 
 ## Tools (`tools/`, experiment only)
 

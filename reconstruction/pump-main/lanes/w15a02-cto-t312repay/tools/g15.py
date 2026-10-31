@@ -66,3 +66,21 @@ G['vcb']=[("fn validate(st:&CtoState,hopt:Option<bool>,fee:Option<u64>,new:Optio
  (_CB," "),("let mut target=validate(&st,hopt,fee,new,&holder_key,&sk)?;","let mut target=validate(&st,hopt,fee,new,&holder_key,&sk,cashback)?;")]
 G['vcb2']=[("fn validate(st:&CtoState,hopt:Option<bool>,fee:Option<u64>,new:Option<Pubkey>,holder_key:&Pubkey,sharing:&Pubkey)->Result<Pubkey>{","fn validate(cashback:bool,st:&CtoState,hopt:Option<bool>,fee:Option<u64>,new:Option<Pubkey>,holder_key:&Pubkey,sharing:&Pubkey)->Result<Pubkey>{"),
  (_CB," "),("let mut target=validate(&st,hopt,fee,new,&holder_key,&sk)?;","let mut target=validate(cashback,&st,hopt,fee,new,&holder_key,&sk)?;")]
+G['noargs']=[("let args=&(new,);",""),("sharing_update=Some(args.0);","sharing_update=Some(new);")]
+G['argsv']=[("let args=&(new,);","let args=(new,);")]
+G['argsaft']=[("let args=&(new,);let sk=a.sharing_config.key();let mut target=validate(&st,hopt,fee,new,&holder_key,&sk)?;","let sk=a.sharing_config.key();let mut target=validate(&st,hopt,fee,new,&holder_key,&sk)?;let args=&(new,);")]
+G['newcp']=[("let args=&(new,);","let args=&(new,);let new=args.0;")]
+_VC1="let mut target=validate(&st,hopt,fee,new,&holder_key,&sk)?;"
+G['g1']=[(_VC1,"let creator=st.creator;"+_VC1),("target=a.bonding_curve.creator;","target=creator;")]
+G['g3a']=[("{ let st=CtoState{","{ let creator=a.bonding_curve.creator;let st=CtoState{"),("target=a.bonding_curve.creator;","target=creator;")]
+G['g3b']=[("{ let st=CtoState{","{ let creator=st_creator(a);let st=CtoState{")]
+G['g0']=[("target=a.bonding_curve.creator;","target=st.creator;")]
+G['f7']=[(_VC1,_VC1+"let creator=a.bonding_curve.creator;"),("target=a.bonding_curve.creator;","target=creator;")]
+_VSIG="new:Option<Pubkey>,holder_key:&Pubkey,sharing:&Pubkey)->Result<Pubkey>{"
+_T312E="return Err(error!(PumpError::InvalidCreator));}t};"
+G['ov15']=[(_VSIG,"new:Option<Pubkey>,holder_key:&Pubkey,sharing:&Pubkey,shared:bool)->Result<Pubkey>{"),(_T312E,"return Err(error!(PumpError::InvalidCreator));}if shared{st.creator}else{t}};"),
+ (_VC1,"let mut target=validate(&st,hopt,fee,new,&holder_key,&sk,shared)?;"),("target=a.bonding_curve.creator;","")]
+G['ove15']=[(_VSIG,"new:Option<Pubkey>,holder_key:&Pubkey,sharing:&Pubkey,ov:Option<Pubkey>)->Result<Pubkey>{"),(_T312E,"return Err(error!(PumpError::InvalidCreator));}ov.unwrap_or(t)};"),
+ (_VC1,"let mut target=validate(&st,hopt,fee,new,&holder_key,&sk,shared.then_some(st.creator))?;"),("target=a.bonding_curve.creator;","")]
+G['ove15b']=[(_VSIG,"new:Option<Pubkey>,holder_key:&Pubkey,sharing:&Pubkey,ov:Option<Pubkey>)->Result<Pubkey>{"),(_T312E,"return Err(error!(PumpError::InvalidCreator));}match ov{Some(c)=>c,None=>t}};"),
+ (_VC1,"let ov=if shared{Some(st.creator)}else{None};let mut target=validate(&st,hopt,fee,new,&holder_key,&sk,ov)?;"),("target=a.bonding_curve.creator;","")]

@@ -1,0 +1,35 @@
+{
+  "lane": "w15a02-cto-t312repay",
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27400 B",
+  "bases": {
+    "90300f9": {"ratio": 0.67346, "slots": 3124, "M": 2248},
+    "86e2a6b": {"ratio": 0.67376, "slots": 3124, "M": 2249, "Mperm": 2293}
+  },
+  "result": "notes only; no landable change (best zero-loss measurement = main 86e2a6b 0.67376 / 3124 / 27400)",
+  "pr": 3669,
+  "T": {"source": "w14a141 trigger: fn is_zero (307) + fn invalid_creator (312)", "bytes": 27184, "M": 2200, "Mperm": 2243, "ratio_at_size": 0.66165},
+  "best_T_variant": {"name": "T+dv1+le306", "bytes": 27176, "M": 2203, "ratio_at_size": 0.66266, "note": "dv1 = drop the line-334 read_volatile placeholder (M-neutral on T; on main -1 M / -8 B); le306 = 306 as let-else (+3 on T, -16 on main)"},
+  "arithmetic": "a perfect 216 B / 27-token fill on T gives only M 2226 (0.6668); beating main needs M >= 2250 at 27400, so a repay must also recover ~23 tokens of T's own alignment loss",
+  "repay_price_table": "NOTES.md section 2 (40+ genes) and the size-knob table (all 14 positive-byte knobs lose on Tb)",
+  "mechanisms": [
+    "BPF analyzeBranch cannot analyze conditional branches, so MachineBlockPlacement pre-merges each cond-branch block with its IR-order next block; layout fallthroughs follow IR block order",
+    "main: cmp2 is IR-followed by the 312 error and pre-merges; the 312 success (freq 0.008) is placed last among the leftovers, after 307",
+    "T: the inlined cmp2 is IR-followed by the 307 block, so MBP picks the 62.5% success and chains bb46->bb48->bb53->bb54 (330, error 62.5% by the zero heuristic) right behind the 312 tests; the join is a CFG-conflict non-candidate",
+    "the original's non-holder Some chain head (0x1510) has two preds (the OV shared/non-shared duplication), which is why the original's fee chain sits after 307; OV on T reproduces that order (296 326 306 312 307 330 338) and validate chunks gain (+23/+28), but downstream RA/frame collapses (M 1485/1771; spill-permutation bound Mperm 1544/2036 vs T 2243)",
+    "leftover blocks are placed in decreasing block freq on main (296 .033 > 326 .026 > 306 .020 > 312 .0126 > 307 .0124 > 312-success .008); the original's 306-first order implies freq(306)>freq(296)",
+    "pcb (validate returns (target,cashback)): best skeleton rfjM 2812 but the Result<Pubkey> 16 B piece vanishes and the whole frame shifts by 8; fM 2138 < T"
+  ],
+  "ir_bounds": [
+    {"name": "T 312 weights 5:3 / r2 (312 error block after cmp2)", "M": 2196, "fM": 2346, "note": "330/338 back after 307 but the outlined 312 block then crosses orig 306/296/326 in difflib"},
+    {"name": "main 306 None 2:1", "M": 2218, "fM": 2381, "rfM": 2659, "Mperm": 2261, "note": "orig error order except 289/298; local -31 in chunk 0x800"},
+    {"name": "T fee-tag weights, JT threshold 2/4, IR reorder of 306 blocks", "note": "no layout change"}
+  ],
+  "attempts": 90,
+  "rejected_mechanisms": ["fee-range split (fsp, +208 B, arg spill-slot shift)", "validate takes cashback (vcb)", "validate returns cashback (pcb)", "execute cashback after validate (cav)", "(new,) temporary removal/move (noargs/argsaft/argsv/newcp)", "every 312 helper if/match/require spelling (byte-identical to T)", "306 spellings other than let-else", "all positive-byte size knobs on Tb", "w15a09 creator bindings g1/g3a/g0/f7 on Tb (+3 max)", "OV forms ov15/ove15/ove15b on T (evidence only)"],
+  "unresolved": ["an ordinary non-OV form that gives T's non-holder fee-chain head a second predecessor", "OV+T downstream register/frame assignment"],
+  "next_ideas": [
+    "price ove15 (T+OV) with a register+spill relabel oracle (w14a84 RA ceiling + w15a08 relab) to see whether its validate-local gain survives",
+    "use dv1 on any T-based candidate",
+    "find a source form that raises freq(306) above freq(296) while P(Some) at the 306 test stays > 0.5"
+  ]
+}
