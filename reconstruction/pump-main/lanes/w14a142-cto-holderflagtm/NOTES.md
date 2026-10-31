@@ -74,6 +74,32 @@ reload, and llc resumes with `-start-before=branch-folder`. With no edit, the ro
 | per-arm cashback phi (original `[0x958]`), alone / with the holder phi (IR) | 1,872 / 1,609 | | 27,136 / 27,424 | |
 | pool-CPI phi / i8 alloca (w14a132 hpa / halpa) on e88f9d5 | 1,855 / 2,114 | | 27,448 / 27,472 | another move: the post-sweep error group bb5.i/bb3.i/bb2.i (main 0x54e0, 8 blocks) is placed at 0x3bf8 |
 
+## 3b. Keeping the holder arg live, and the frame-masked value
+
+The variant that keeps the layout without the MIR restore is `e1`. It is the per-arm phi at the curve store, with the event's
+`is_holder_reward` from `and %0,1`, so `%0` stays live past the store. With `%0` live, greedy no longer carries the accounts
+pointer across bb56.i (no `COPY r6` predecessors), and default llc gives main's block layout. Validate (0x0–0x2400) is
+almost byte-equal to main, but the plain score is still M 1,993.
+
+`tools/fm.py` compares decoded instructions (call, lddw and jump immediates masked) against the original:
+
+| build | bytes | M plain | M, frame offsets masked | M, frame + registers masked |
+| --- | ---: | ---: | ---: | ---: |
+| main e88f9d5 | 27,400 | 2,274 | 2,510 | 2,787 |
+| e1 (phi + `%0` kept live) | 27,424 | 2,018 | 2,508 | 2,790 |
+| hc2A (phi, MIR-restored join) | 27,440 | 2,097 | 2,376 | 2,780 |
+| h1 (`_holder`) | 27,416 | 2,235 | 2,490 | 2,784 |
+| e0 (event from `%0` only) | 27,408 | 2,274 | 2,508 | 2,786 |
+| tv1 (source tuple) / restored | 27,480 / 27,440 | 1,146 / 1,438 | 1,628 / 2,205 | 1,973 / 2,599 |
+
+- e1's whole loss is spill-slot numbering. Its holder gets the spill slot `-2304`, and every spill slot created after it
+  moves by 8. One example: main's clone run `-2496/-2504/…` matches the original's, and in e1 it becomes `-2504/-2512/…`.
+- Main uses the original's holder slot `[r10-2384]` (`0x950`) for a different value, `stxdw [r10-2384], r5` in the sweep
+  clone run at 0x2710.
+- **With the frame masked, the per-arm flag ties main (−2 / +3) at +24 B.** So even with a perfect frame it carries no
+  code-shape value. The original's flag only pays if the spill-slot assignment follows the original, which is a frame
+  problem, not a holder problem.
+
 ## 4. Reading for other lanes
 
 - Many variants show a ~6 KB "chunk A/B swap" around 0x2460/0x3bd0, or lose 300–500 M with the curve store moving up. Those
@@ -98,5 +124,6 @@ reload, and llc resumes with `-start-before=branch-folder`. With no edit, the ro
 - `bins.py`: per-orig-bin matched tokens for two candidates.
 - `var.sh`: post-opt IR edits on main's capture, with a layout diff.
 - `fnx.py`: extracts the function from an object file.
+- `fm.py`: plain, frame-masked and frame+register-masked M; `idiff.py`: instruction diff between two builds; `scr.sh`: IR screen with join check.
 - `pe.sh`, `wr.py`, `rx.py`, `capvar.sh` and `capraw.py` come from w14a132 and w14a84, with this lane's paths.
 - `edits/`: the IR edits (`hphi`, `hcs`, `hpa`, `hal*` from w14a132, plus `cbphi`) and the source edit `src_h1.py`.

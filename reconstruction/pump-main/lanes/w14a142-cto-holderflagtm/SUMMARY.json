@@ -1,0 +1,47 @@
+{
+  "lane": "w14a142-cto-holderflagtm",
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27,400 B",
+  "bases": {"ebe5387e1": {"ratio": 0.67316, "slots": 3123, "M": 2247}, "e88f9d559": {"ratio": 0.67346, "slots": 3124, "M": 2248}},
+  "result": "notes only; no source change. Per-arm holder flag bound is below main at the restored layout and ties main only when the frame is masked.",
+  "best_zero_loss": {"ratio": 0.67346, "slots": 3124, "bytes": 27400, "note": "= main e88f9d5; nothing better found"},
+  "pr": 3628,
+  "findings": [
+    "Tail pair: predecessors of bb56.i, the post-sweep Result join (jne r7,2; bb.268 pre-BF). With the per-arm phi, greedy carries the accounts pointer (ctx+8, piece %1689, R5) across bb56.i->bb88->bb37. Nine preds reload it from [r10-2264]; three (bb16.i120, bb82.i152, bb93.i) use COPY r6.",
+    "BranchFolder pass 1: the common tail of bb.242/bb.132 becomes 2 instructions (r3 load plus r5 reload) instead of 1, so bb.242 merges into bb.132. bb56.i ends up split into a 5-pred reload block and the jne block. The to_string.exit.i error pred falls into the reload block, and MBP puts chunk B (bb56.i..bb37 curve store, 88 blocks) before chunk A (main 0x2460-0x3bd0, 118 blocks).",
+    "MIR restore oracle (stop/start at branch-folder, exact round trip; 3 COPY r6 -> reload) restores main's layout exactly: M 2045/2047 vs 2247/2248 on ebe5387/e88f9d5. The -201 is in the sweep body (orig 0x2800-0x3c00).",
+    "RA cause: the 4 MOV_ri phi defs shift slot indexes, so greedy's queue diverges from dequeue 4. The sharing tag %61 is spilled whole (0 store-backs, as the original's tag) instead of main's 9-piece r9 region split; holder %50 is split into a spilled piece plus an R2 piece.",
+    "Keeping the holder arg %0 live past the curve store (event is_holder_reward from and %0,1: e1) removes the r5 carry, so default llc gives main's layout, but M is 1993.",
+    "Frame-masked (tools/fm.py): e1 2508 vs main 2510; with frame and registers masked, 2790 vs 2787. e1's entire loss is spill-slot numbering: its holder slot -2304 shifts every later slot by 8. Main uses the original's holder slot -2384 (0x950) for a sweep clone-run r5 spill.",
+    "Source tuple validate -> Result<(Pubkey,bool)> has the same bb56.i split and also a frame shift of 8 B (entry spill -1704 -> -1696). The return-type change alone does this (bool or u8). M 1038, or 1314 with the join restored.",
+    "curve.is_holder_reward=_holder (t_v_h1) keeps the layout, M 2205 (-43); _holder is re-derived from the spilled !holder (and 255; mov; jne; mov).",
+    "Pool-CPI flag forms (phi, i8 alloca, %0) move the post-sweep error group bb5.i/bb3.i/bb2.i (main 0x54e0) to 0x3bf8 instead."
+  ],
+  "attempts": [
+    {"key": "0x22a10-w14-ebe5387-holderflagtm-bf-pair-v1", "status": "analyzed"},
+    {"key": "0x22a10-w14-ebe5387-holderflagtm-mir-restore-v1", "M": 2045, "bytes": 27440},
+    {"key": "0x22a10-w14-ebe5387-holderflagtm-ra-force-v1", "M": "1583-1727"},
+    {"key": "0x22a10-w14-ebe5387-holderflagtm-ir-cbphi-v1", "M": "1872 / 1609"},
+    {"key": "0x22a10-w14-e88f9d5-holderflagtm-mir-restore-v1", "M": 2047, "bytes": 27440},
+    {"key": "0x22a10-w14-e88f9d5-holderflagtm-src-tv1-v1", "M": 1038, "bytes": 27480},
+    {"key": "0x22a10-w14-e88f9d5-holderflagtm-src-h1-v1", "M": 2205, "bytes": 27416},
+    {"key": "0x22a10-w14-e88f9d5-holderflagtm-ir-keep0-v1", "M": "1993 (e1) / 1855 / 2245 (e0 @27408)"},
+    {"key": "0x22a10-w14-e88f9d5-holderflagtm-src-cbav-v1", "status": "analyzed (not a join-split victim)"},
+    {"key": "0x22a10-w14-e88f9d5-holderflagtm-framemask-v1", "status": "analyzed"}
+  ],
+  "rejected_mechanisms": [
+    "per-arm holder phi at the curve store (layout break, then -201 M at restored layout)",
+    "RAPRIO forcing of holder/accounts/tag (spill, r6, priority)",
+    "per-arm cashback phi",
+    "validate tuple return (frame -8 B)",
+    "holder phi/alloca/arg into the pool CPI (error-group move)"
+  ],
+  "unresolved": [
+    "Spill-slot assignment: the original gives the holder [r10-2384]. Main gives that slot to a sweep clone-run spill, and any extra long-lived vreg shifts every later spill slot by 8.",
+    "Region split of the holder flag (original store-backs at 0x1d48/0x44c8/0x5b30) is not reproduced by any form tried; ours spills it whole."
+  ],
+  "next_ideas": [
+    "Variants that show the ~6 KB chunk A/B swap or the curve store moving to ~0x3230 should first run tools/jp.py on their -stop-before=branch-folder MIR. If bb56.i has an r5 live-in, price them at main's layout with tools/restore.sh.",
+    "If a holder flag is wanted, pair it with a spill-slot (frame) fix: e1 ties main frame-masked, so the flag only pays once its slot is -2384 and the sweep clone-run spill that main puts at -2384 goes elsewhere.",
+    "e0 (event is_holder_reward from the holder arg) is a near-neutral +8 B knob (M 2245, layout equal) for size pairing."
+  ]
+}
