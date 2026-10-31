@@ -77,6 +77,6 @@ def main():
   if [l for l in o['logs'] if l.startswith('Program data: ')] != [l for l in n['logs'] if l.startswith('Program data: ')]:diff.append('events')
   rows.append(dict(case=c,original=o,candidate=n,different_fields=diff))
  assert provenance=={str(p):sha(p) for p in paths}
- report={'scope':'Normally signed offline sweep_creator_fee and sweep_protocol_fee comparisons, captured dependencies, synthetic accounts. Full binary equality remains false.','provenance':provenance,'case_count':len(rows),'mismatches':[i for i,r in enumerate(rows) if r['different_fields']],'cases':rows};output.write((json.dumps(report,indent=2)+'\n').encode("utf-8"));print(json.dumps({k:report[k] for k in ['case_count','mismatches']}))
+ report={'scope':'Normally signed offline sweep_creator_fee and sweep_protocol_fee comparisons, captured dependencies, synthetic accounts. Full binary equality remains false.','original_sha256':provenance[str(ROOT/'evidence/original/pump/deployed.so')],'candidate_sha256':provenance[str(a.candidate)],'provenance':provenance,'case_count':len(rows),'mismatches':[i for i,r in enumerate(rows) if r['different_fields']],'cases':rows};output.write((json.dumps(report,indent=2)+'\n').encode("utf-8"));print(json.dumps({k:report[k] for k in ['case_count','mismatches']}))
  if report['mismatches']:raise SystemExit(1)
 if __name__=='__main__':main()

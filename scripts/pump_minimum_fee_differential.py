@@ -66,7 +66,7 @@ def main():
    if o['metadata'][k]!=n['metadata'][k]:diff.append(k)
   rows.append(dict(case=c,original=o,candidate=n,different_fields=diff))
  assert provenance=={str(p):sha(p) for p in paths}
- report={'scope':'Normally signed offline readonly query using synthetic state bootstrapped by captured Fees/Pump. Compare states, returns, errors and inner instructions; not full byte identity.','provenance':provenance,'case_count':len(rows),'mismatches':[i for i,r in enumerate(rows) if r['different_fields']],'cases':rows}
+ report={'scope':'Normally signed offline readonly query using synthetic state bootstrapped by captured Fees/Pump. Compare states, returns, errors and inner instructions; not full byte identity.','original_sha256':provenance[str(ROOT/'evidence/original/pump/deployed.so')],'candidate_sha256':provenance[str(a.candidate)],'provenance':provenance,'case_count':len(rows),'mismatches':[i for i,r in enumerate(rows) if r['different_fields']],'cases':rows}
  output.write((json.dumps(report,indent=2)+'\n').encode("utf-8"));print(json.dumps({k:report[k] for k in ['case_count','mismatches']}))
  if report['mismatches']:raise SystemExit(1)
 if __name__=='__main__':main()

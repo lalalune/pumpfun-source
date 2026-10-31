@@ -9,6 +9,7 @@ Usage:
     python3 scripts/reconstruction_roadmap.py --output research/reconstruction-roadmap-20261028
 """
 import argparse
+import bisect
 import collections
 import hashlib
 import json
@@ -254,6 +255,19 @@ def analyze_cross_references(elf, entries):
     return rodata_strings
 
 
+def rodata_string_preview(strings, starts, address):
+    """Preview up to 80 bytes inside a printable run, not a Rust string length."""
+    index = bisect.bisect_right(starts, address) - 1
+    if index < 0:
+        return None
+    start = starts[index]
+    text = strings[start]
+    offset = address - start
+    if offset >= len(text):
+        return None
+    return text[offset:offset + 80]
+
+
 def planning_windows(data):
     return [{'address': w['address'], 'size': w['size'], 'complexity': w['complexity_score'],
              'callers': [c[0] for c in w['likely_callers'][:5]],
@@ -327,6 +341,7 @@ def generate_roadmap(output_dir):
 
         # Cross-reference analysis
         rodata_strings = analyze_cross_references(elf, entries)
+        rodata_starts = sorted(rodata_strings)
 
         # Analyze each window's instruction patterns
         window_details = []
@@ -347,8 +362,9 @@ def generate_roadmap(output_dir):
                         ptr_lo = struct.unpack_from("<I", elf.b, at + 4)[0]
                         ptr_hi = struct.unpack_from("<I", elf.b, at + 12)[0]
                         ptr = ptr_lo | (ptr_hi << 32)
-                        if ptr in rodata_strings:
-                            string_refs.append(rodata_strings[ptr][:80])
+                        preview = rodata_string_preview(rodata_strings, rodata_starts, ptr)
+                        if preview is not None:
+                            string_refs.append(preview)
 
             window_details.append({
                 "address": hex(start),

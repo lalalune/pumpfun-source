@@ -81,6 +81,6 @@ def main():
  for c in cases():
   o=run(c);n=run(c,a.candidate);diff=[k for k in ['error','before','after','events','inner','returns'] if o[k]!=n[k]];rows.append(dict(case=c,original=o,candidate=n,different_fields=diff))
  assert provenance=={str(p):sha(p) for p in paths}
- report={'case_count':len(rows),'provenance':provenance,'mismatches':[i for i,r in enumerate(rows) if r['different_fields']],'cases':rows};output.write((json.dumps(report,indent=2)+'\n').encode("utf-8"));print({k:report[k] for k in ['case_count','mismatches']})
+ report={'original_sha256':provenance[str(ORIGINAL)],'candidate_sha256':provenance[str(a.candidate)],'case_count':len(rows),'provenance':provenance,'mismatches':[i for i,r in enumerate(rows) if r['different_fields']],'cases':rows};output.write((json.dumps(report,indent=2)+'\n').encode("utf-8"));print({k:report[k] for k in ['case_count','mismatches']})
  if report['mismatches']:raise SystemExit(1)
 if __name__=='__main__':main()

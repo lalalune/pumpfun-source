@@ -36,5 +36,9 @@ captured program and wrapped the destination balance, while both the base and
 fixed hosts returned token error 14. The equivalent Token-2022 case returned
 14 and rolled back in the captured program and both hosts. These artificially
 inconsistent token totals do not establish a reachable on-chain state. The
-legacy-token boundary remains unmodelled; the delegated-transfer results are
-finite evidence and do not establish complete liquidity parity.
+legacy-token boundary was unmodelled at that checkpoint. The later
+[legacy destination-credit correction](../runtime-legacy-transfer-wrap-20261031/README.md)
+models that observed wrap while retaining Token-2022 overflow rejection. The
+original historical holdout remains recorded above; the delegated-transfer and
+follow-up boundary results are finite evidence and do not establish complete
+liquidity parity.

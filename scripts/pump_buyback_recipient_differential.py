@@ -7,8 +7,10 @@ import ast
 import hashlib
 import importlib.metadata
 import json
+import gzip
 import os
 import sys
+from pump_differential_output import PumpReport
 from pathlib import Path
 from pump_diagnostic_audit import bound_input_key
 
@@ -76,6 +78,11 @@ def main():
               ROOT / 'scripts/pump_diagnostic_audit.py',
               args.candidate.resolve(), ROOT / 'evidence/upstream/pump.json',
               ROOT / 'research/imported-lab/analysis/pump_fun/config-snapshot.json']
+    publisher = PumpReport(args.output, ROOT, args.candidate, __file__,
+                           extra_inputs=[HARNESS, ROOT / 'scripts/pump_diagnostic_audit.py',
+                                         ROOT / 'evidence/upstream/pump.json',
+                                         ROOT / 'research/imported-lab/analysis/pump_fun/config-snapshot.json'],
+                           overwrite=False)
     bound = {bound_input_key(path, ROOT): sha(path) for path in inputs}
     helpers = fixture()
     pubkey = helpers['Pubkey']
@@ -123,11 +130,9 @@ def main():
                           'solders': importlib.metadata.version('solders'),
                           'pyelftools': importlib.metadata.version('pyelftools')},
               'case_count': len(cases), 'mismatches': mismatches, 'cases': cases}
-    args.output.parent.mkdir(parents=True, exist_ok=True)
-    # Exclusive create: a symlink that appears after the admission check is
-    # refused instead of followed, and this writer still pins UTF-8 LF.
-    with args.output.open('x', encoding='utf-8', newline='\n') as stream:
-        stream.write(json.dumps(report, indent=2) + '\n')
+    raw = (json.dumps(report, indent=2) + '\n').encode('utf-8')
+    payload = gzip.compress(raw, mtime=0) if args.output.suffix == '.gz' else raw
+    publisher.write(payload)
     print(json.dumps({'cases': len(cases), 'mismatches': mismatches}))
     return bool(mismatches)
 

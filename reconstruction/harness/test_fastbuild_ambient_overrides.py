@@ -25,6 +25,8 @@ OVERRIDES = {
     'CARGO_BUILD_INCREMENTAL': 'true',
     'RUSTC_WORKSPACE_WRAPPER': '/absent/wrapper',
     'CARGO_BUILD_RUSTC_WORKSPACE_WRAPPER': '/absent/wrapper',
+    'CARGO_TARGET_SBPF_SOLANA_SOLANA_LINKER': '/absent/linker',
+    'CARGO_TARGET_X86_64_UNKNOWN_LINUX_GNU_LINKER': '/absent/host-linker',
 }
 
 

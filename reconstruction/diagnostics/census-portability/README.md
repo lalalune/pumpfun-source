@@ -56,3 +56,13 @@ excludes neighbouring bytes. A candidate target with fewer available bytes than
 the original also reports the unequal extents, instead of declaring their common
 prefix clean. A complete matching relocation and an explicitly narrower comparison
 remain clean. Capture files and retained reports are unchanged.
+
+Argument setup also stops at intervening external and indirect calls, even when
+the census selects only internal call sites for alignment. The retained Pump
+window `0x1ab918` calls through `r4` before setting `r1` and `r2` for its next
+internal call; its earlier `r3` and `r4` writes must not be carried across that
+call. `reconstruction/harness/test_census_call_barriers.py` checks this and a
+retained `sol_memcpy_` call, plus unchanged scalar/pointer controls. It invokes
+the production API with text decoded from actual capture bytes by the repository
+decoder, without replacing analysis functions. This API test does not qualify
+a complete SDK/objdump census run or establish argument liveness across branches.

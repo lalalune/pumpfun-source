@@ -35,8 +35,9 @@ canonical output path must also be disjoint from both Pump source trees: it may
 neither contain a source tree nor lie inside one. This is checked before any
 scoring-input copy or receipt is written, including through directory aliases.
 
-Paired-build source receipts use the same `pump-source-inputs-v1` snapshot as
-`fastbuild`. They bind relative paths, exact bytes and executable bits; exclude
+Paired-build source receipts use the same `pump-source-inputs-v2` snapshot as
+`fastbuild`. They bind relative paths, exact bytes, executable flags and directory
+membership (including empty directories); exclude
 only the Pump crate-root `target` build directory and Git metadata; and retain
 legitimate nested inputs such as `src/target/mod.rs` and
 `assets/target/data.bin`. Source symlinks and nonregular files are rejected,

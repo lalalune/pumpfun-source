@@ -54,6 +54,8 @@ jobs:
           - suite: fastbuild-staging
             commands: |
               python -I -B tests/test_fastbuild_stage.py
+              python -B reconstruction/harness/test_fastbuild_ambient_linkers.py
+              python -B reconstruction/harness/test_fastbuild_ambient_overrides.py
               python -B reconstruction/harness/test_fastbuild_output_race.py
               python -B reconstruction/harness/test_build_publication_boundaries.py
               python -B reconstruction/harness/test_fastbuild_library_name.py
@@ -116,6 +118,7 @@ jobs:
               python -B scripts/test_amm_harness_content_cache.py
               python -B tests/test_amm_nested_target.py
               python -B tests/test_amm_build_environment.py
+              python -B tests/test_amm_input_binding.py
               python -B scripts/test_search_dependency_commit.py
               python -B tests/test_amm_pinned_candidate.py
               python -B tests/test_pump_create_nested_pinned_image.py
@@ -139,6 +142,7 @@ jobs:
               python -B tests/test_amm_differentials_normal_python.py
               python -B tests/test_pump_differentials_normal_python.py
               python -B tests/test_pump_creator_collect_normal_python.py
+              python -B tests/test_pump_repinned_receipts.py
               python -B tests/test_build_normal_python.py
               python -B tests/test_pump_probes_normal_python.py
               python -B tests/test_mismatch_normal_python.py
@@ -184,6 +188,7 @@ jobs:
               python -B reconstruction/tooling/serial-input-preservation-20261030/test_serial_admission.py
               python -B scripts/test_pump_compare_window_strict_csv.py
               python -B scripts/test_replay_macos_frontier_optimization.py
+              python -B scripts/test_replay_macos_frontier.py
               python -B scripts/test_pump_macos_frontier_qualification_optimization.py
               python -B scripts/test_admin_cto_optimization.py
               python -B scripts/test_build_token_dependency_optimization.py
@@ -276,6 +281,7 @@ jobs:
               python -B reconstruction/mayhem/native-linux-qualification/test_vendor_file_links.py
               python -B scripts/test_analyze_program_publication.py
               python -B scripts/test_reconstruction_roadmap_publication.py
+              python -B tests/test_roadmap_string_references.py
               python -B tests/test_pump_planning_regressions.py
               python -B tests/test_analyze_donation_relay_regression.py
               python -B reconstruction/diagnostics/roadmap-reviewed-regeneration/test_generate.py
@@ -306,6 +312,7 @@ jobs:
               python -B tests/test_function_body_file_ranges.py
               python -O -B tests/test_function_body_file_ranges.py
               python -B reconstruction/harness/test_treediff_line_boundaries.py
+              python -B reconstruction/harness/test_source_input_directories.py
               python -B reconstruction/harness/test_score_inputs.py
               python -B reconstruction/harness/test_score_empty_baseline.py
               python -B reconstruction/harness/test_score_baseline_option_conflict.py
@@ -314,15 +321,19 @@ jobs:
               python -B reconstruction/pump-main/test_ledger_negative_limit.py
               python -B reconstruction/diagnostics/census-portability/test_output_guard.py
               python -B reconstruction/harness/test_census_argument_constants.py
+              python -B reconstruction/pump-main/lanes/callgraph-census/test_blocksim.py
+              python -B reconstruction/harness/test_census_call_barriers.py
               python -B reconstruction/harness/test_census_original_input.py
               python -B reconstruction/harness/test_dataref_length.py
               python -B reconstruction/harness/test_experiment_declared_name.py
               python -B reconstruction/harness/test_experiment_executable_snapshot.py
+              python -B reconstruction/harness/test_experiment_source_output_modes.py
               python -B reconstruction/harness/test_experiment_worktree_source.py
               python -B reconstruction/harness/test_experiment_matrix_overlap.py
               python -B reconstruction/harness/test_bisect_membership.py
               python -B reconstruction/harness/test_bisect_git_context.py
               python -B reconstruction/harness/test_bisect_missing_source.py
+              python -B reconstruction/harness/test_bisect_linked_source.py
               python -B reconstruction/harness/test_experiment_directory_identity.py
               python -B reconstruction/harness/test_experiment_output_directories.py
               python -B reconstruction/harness/test_experiment_output_walk_errors.py
@@ -377,6 +388,7 @@ jobs:
               python -I -B scripts/test_verify_evidence_paths.py
               python research/tooling-disassembly-reproducibility-20261030/test_verify.py
               python -B tests/test_dependency_cache_manifest_state.py
+              python -B scripts/test_pump_dependency_cache_cargo_log.py
               python -B research/tooling-indirect-call-decoding-20261030/test_verify.py
               python -B tests/test_checkpoint_manifest_paths.py
           - suite: runtime-input-regressions
@@ -417,6 +429,7 @@ jobs:
           - suite: host-fragments
             commands: |
               python -B -m unittest discover -s tests -p 'test_global_*_captured.py' -v
+              python -B tests/test_pump_amm_liquidity_captured.py
               python -B scripts/test_fee_host_validation.py
               python -B scripts/test_native_host_receipt.py
               python -B tests/test_recovered_curve_arithmetic.py

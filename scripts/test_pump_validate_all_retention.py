@@ -27,13 +27,17 @@ class PumpValidateAllRetentionTests(unittest.TestCase):
             ('second', 'pump_validate_admin.py'),
             *runner.SUITES[2:],
         ]
-        self.expected = {name: 0 for name, _ in self.suites}
-        self.expected.update(
-            first=5196, second=5196, tokenkeg_two_curve=20,
-            multi_hop_curve_partial=56)
+        # Keep the current producer counts, including changes to later suites.
+        # Only the first two suite names are replaced by publication fixtures.
+        self.expected = dict(runner.EXPECTED_CASES)
+        self.expected['first'] = self.expected.pop('volume')
+        self.expected['second'] = self.expected.pop('administration')
         self.patches = [
             mock.patch.object(runner, 'SUITES', self.suites),
             mock.patch.object(runner, 'EXPECTED_CASES', self.expected),
+            mock.patch.object(runner, 'CASE_COMPARE_KEYS', {
+                **runner.CASE_COMPARE_KEYS, 'first': ('error',), 'second': ('error',),
+            }),
             mock.patch.object(runner, 'pin_program', side_effect=lambda path: path),
             mock.patch.object(
                 runner, 'audit_diagnostics',
@@ -72,7 +76,12 @@ class PumpValidateAllRetentionTests(unittest.TestCase):
                 },
                 'cases': count,
                 'compare_keys': list(runner.QUOTE_CONTROL_COMPARE_KEYS),
-                'results': [],
+                'results': [
+                    {'case': f'fixture/{index}', 'matches': True, 'different_fields': [],
+                     'original': dict.fromkeys(runner.QUOTE_CONTROL_COMPARE_KEYS),
+                     'candidate': dict.fromkeys(runner.QUOTE_CONTROL_COMPARE_KEYS)}
+                    for index in range(count)
+                ],
             }
         if name == 'multi_hop_curve_partial':
             return {
@@ -99,12 +108,22 @@ class PumpValidateAllRetentionTests(unittest.TestCase):
                     {'candidate': {}, 'mismatches': []}
                 ] * count,
             }
+        def outcome():
+            # Publication fixtures must retain the shapes required by the
+            # maintained comparison contracts, including normalized diagnostics.
+            return {
+                **dict.fromkeys(runner.CASE_COMPARE_KEYS[name]),
+                'metadata': {'return_data': None, 'inner_instructions': []},
+                'logs': [],
+                'relevant_logs': ['Program log: panicked at fixture.rs:1:1\nfixture panic'],
+            }
         return {
             'original_sha256': sha(original),
             'candidate_sha256': sha(candidate),
             'case_count': count,
             'cases': [
-                {'original': {}, 'candidate': {}, 'different_fields': []}
+                {'original': outcome(), 'candidate': outcome(),
+                 'different_fields': [], 'expected_message': 'fixture panic'}
             ] * count,
             'mismatches': [],
         }
@@ -163,7 +182,7 @@ class PumpValidateAllRetentionTests(unittest.TestCase):
             self.assertIn('first.json.gz', retained_names)
             self.assertIn('second.json.gz', retained_names)
             report = json.loads(output.read_bytes())
-            self.assertEqual(report['case_count'], 10468)
+            self.assertEqual(report['case_count'], sum(self.expected.values()))
             self.assertEqual(report['process_runner_sha256'], {runner.bound_input_key(path, runner.ROOT): sha(path) for path in runner.PROCESS_INPUTS})
             self.assertEqual(set(report['suites']), set(self.expected))
             self.assertEqual(

@@ -361,6 +361,10 @@ class DependencyCache:
                 r = json.loads(line)
             except ValueError:
                 continue
+            if not isinstance(r, dict):
+                # A torn JSON line can be valid but not an object (e.g. a bare
+                # number); skip it like any other non-artifact line.
+                continue
             if r.get("reason") == "compiler-artifact":
                 artifacts.append(r)
         if self.direct and self.record.get("main_command"):

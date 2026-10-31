@@ -10,6 +10,7 @@ import subprocess
 import sys
 import tarfile
 import tempfile
+import pump_validate_all as corpus
 
 ROOT = Path(__file__).resolve().parents[1]
 INPUT = ROOT / 'work/pump-macos-frontier-inputs'
@@ -24,6 +25,37 @@ def sha(path):
 def staging_dir(parent, name):
     parent.mkdir(parents=True, exist_ok=True)
     return Path(tempfile.mkdtemp(prefix='.' + name + '-', dir=parent))
+
+
+def bind_relocated_sources(record, source, origin):
+    """Verify archived workspace bytes and derive an execution-time receipt.
+
+    The original build receipt remains byte-for-byte intact. Only its known
+    workspace prefix moves; repository-level compiler inputs keep their names.
+    """
+    prefix = (BUILD / 'source').relative_to(ROOT)
+    sources = {}
+    for name, digest in record['source_sha256'].items():
+        path = Path(name)
+        if path.is_relative_to(prefix):
+            path = source / path.relative_to(prefix)
+        else:
+            path = ROOT / path
+        assert sha(path) == digest, 'restored compiler input differs: ' + name
+        sources[path.relative_to(ROOT).as_posix()] = digest
+    return {
+        **record,
+        'source_directory': str(source / 'programs/pump'),
+        'source_sha256': sources,
+        'replay_source_binding': {
+            'kind': 'verified-workspace-relocation',
+            'origin_build_record': origin.relative_to(ROOT).as_posix(),
+            'origin_build_record_sha256': sha(origin),
+            'original_compiled_source_sha256': record['source_sha256'],
+            'original_workspace_prefix': prefix.as_posix(),
+            'execution_workspace_prefix': source.relative_to(ROOT).as_posix(),
+        },
+    }
 
 
 def preserve_failure(build, output, error):
@@ -77,20 +109,24 @@ def main():
         record = json.loads((build / 'build-comparison.json').read_text())
         assert record['returncode'] == 0 and record['source_unchanged']
         assert sha(build / 'candidate.so') == record['comparison']['candidate_sha256']
-        assert all(sha(ROOT / name) == digest
-                   for name, digest in record['source_sha256'].items())
+        replay_record = bind_relocated_sources(record, source, build / 'build-comparison.json')
+        replay_comparison = build / 'replay-build-comparison.json'
+        replay_comparison.write_text(json.dumps(replay_record, indent=2) + '\n',
+                                     encoding='utf-8', newline='\n')
         binding = {'candidate_sha256': sha(build / 'candidate.so'),
                    'native_artifact_manifest_sha256': sha(INPUT / 'MANIFEST.json'),
                    'native_revision': (INPUT / 'revision.txt').read_text().strip(),
                    'native_build_record_sha256': sha(build / 'build-comparison.json'),
-                   'compiled_source_sha256': record['source_sha256']}
+                   'compiled_source_sha256': record['source_sha256'],
+                   'replay_build_record_sha256': sha(replay_comparison),
+                   'replay_compiled_source_sha256': replay_record['source_sha256']}
         (output / 'native-input-binding.json').write_text(
             json.dumps(binding, indent=2) + '\n',encoding='utf-8',newline='\n')
         subprocess.run([
             sys.executable, '-B', str(ROOT / 'scripts/pump_validate_parallel.py'),
             '--candidate', str(build / 'candidate.so'),
             '--source-directory', str(source / 'programs/pump'),
-            '--build-comparison', str(build / 'build-comparison.json'),
+            '--build-comparison', str(replay_comparison),
             '--workers', '4', '--captured-loader',
             '--output', str(output / 'full.json.gz'),
         ], cwd=ROOT, check=True)
@@ -121,14 +157,16 @@ def main():
             migration_reports[label] = count
         full = json.loads(gzip.decompress((output / 'full.json.gz').read_bytes()))
         recipients = json.loads((output / 'recipients.json').read_text())
-        assert len(full['suites']) == 44 and full['case_count'] == 10468
+        expected_cases = sum(corpus.EXPECTED_CASES.values())
+        assert len(full['suites']) == len(corpus.EXPECTED_CASES) and full['case_count'] == expected_cases
         assert not full['mismatches'] and not full['diagnostics']['mismatches']
-        assert full['diagnostics']['log_bearing_cases'] == 10464
+        # Two legacy-create controls and two legacy-cashback controls have no logs.
+        assert full['diagnostics']['log_bearing_cases'] == expected_cases - 4
         assert recipients['case_count'] == 42 and not recipients['mismatches']
         assert full['candidate_sha256'] == recipients['candidate_sha256'] == binding['candidate_sha256']
         (output / 'qualification.json').write_text(json.dumps({
             'status': 'passed', 'candidate_sha256': binding['candidate_sha256'],
-            'corpus_suites': 44, 'corpus_cases': 10468,
+            'corpus_suites': len(full['suites']), 'corpus_cases': full['case_count'],
             'targeted_migration_cases': migration_reports,
             'corpus_diagnostic_mismatches': 0, 'targeted_recipient_cases': 42,
             'scope': 'Separate bounded suites; their control cases can overlap. Whole original ELF equality is not established.',

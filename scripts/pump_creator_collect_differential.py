@@ -37,7 +37,7 @@ def main():
  for c in cases():
   o=execute(original,**c);n=execute(a.candidate,**c);diff=[k for k in o if k!='logs' and o[k]!=n[k]];rows.append(dict(c,different_fields=diff,original=o,candidate=n))
  assert provenance=={str(p):sha(p) for p in [original,a.candidate,pathlib.Path(__file__),R/'evidence/upstream/pump.json']}
- report={'scope':'Synthetic offline normally signed transactions; full binaries are unequal. No captured binary used as compiler input.','provenance':provenance,'case_count':len(rows),'mismatches':[i for i,c in enumerate(rows) if c['different_fields']],'cases':rows}
+ report={'scope':'Synthetic offline normally signed transactions; full binaries are unequal. No captured binary used as compiler input.','original_sha256':provenance[str(original)],'candidate_sha256':provenance[str(a.candidate)],'provenance':provenance,'case_count':len(rows),'mismatches':[i for i,c in enumerate(rows) if c['different_fields']],'cases':rows}
  publisher.write(gzip.compress(json.dumps(report,indent=2).encode(),mtime=0));print(json.dumps({k:report[k] for k in ['case_count','mismatches']}))
  if report['mismatches']:raise SystemExit(1)
 

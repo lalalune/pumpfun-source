@@ -50,6 +50,10 @@ def verify(report, candidate):
             mismatch_cases.append(row["case"])
         observed = [receipt["outcome"] for receipt in row["original"]["receipts"]]
         expected = lifecycle.EXPECTED_OUTCOMES.get(row["case"])
+        row_oracle = [] if observed == expected else [{"expected": expected, "observed": observed}]
+        if (observed != row.get("observed_original_outcomes")
+                or row_oracle != row.get("oracle_mismatches")):
+            problems.append(row["case"] + ":oracle_receipt")
         if observed != expected or expected != row.get("expected_original_outcomes"):
             oracle_mismatch_cases.append(row["case"])
         invariant = {

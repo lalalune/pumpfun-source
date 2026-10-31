@@ -6,6 +6,10 @@ ANSI=re.compile(r'\x1b\[[0-?]*[ -/]*[@-~]')
 # U+FEFF is not whitespace to str.lstrip(), yet a UTF-8 signature can start any line of
 # concatenated or color-wrapped logs; drop it with other leading whitespace before matching.
 LEADING=re.compile(r'^[\s\ufeff]+')
+# Log lines end at LF, CRLF or a bare CR (progress output); str.splitlines() also
+# breaks on VT, FF, FS-RS, NEL, U+2028 and U+2029, misnumbering lines and starting
+# a fake line in the middle of real output.
+LINES=re.compile(r'\r\n|\r|\n')
 STACK=re.compile(r'^Error: Function (.*?) Stack offset of (-?\d+) exceeded max offset of (\d+) by (\d+) bytes.*?Estimated function frame size: (\d+) bytes\.')
 def inspect(path):
  path=Path(path);raw=path.read_bytes();decoded=gzip.decompress(raw) if raw.startswith(b'\x1f\x8b') else raw
@@ -13,7 +17,9 @@ def inspect(path):
  # A failed capture leaves nothing to scan; no reported error needs build output.
  if not ANSI.sub('',text).replace('\ufeff','').strip():raise ValueError('empty diagnostic log: '+str(path))
  errors=[]
- for number,line in enumerate(text.splitlines(),1):
+ lines=LINES.split(text)
+ if lines and not lines[-1]:lines.pop()
+ for number,line in enumerate(lines,1):
   plain=ANSI.sub('',line).lstrip()
   plain=LEADING.sub('',plain)
   if not plain.startswith('Error:'):continue

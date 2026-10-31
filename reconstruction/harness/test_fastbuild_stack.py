@@ -80,7 +80,7 @@ class BuildDiagnosticTests(unittest.TestCase):
         self.assertEqual(result['stack_warnings'], [STACK])
         self.assertEqual(set(files), {'build.log', 'source-inputs.json'})
         self.assertEqual(files['build.log'], log.encode())
-        self.assertEqual(json.loads(files['source-inputs.json'])['schema'], 'pump-source-inputs-v1')
+        self.assertEqual(json.loads(files['source-inputs.json'])['schema'], 'pump-source-inputs-v2')
         self.assertEqual(len(commands), 1)
         self.assertNotIn('unstripped', result)
 
