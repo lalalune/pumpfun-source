@@ -1,0 +1,40 @@
+{
+  "lane": "w14a90-cto-tcfweight",
+  "wave": 14,
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27,400 B",
+  "base": "main 95a64ba75 (0.66986, 3,204 slots, 1034/1034); post-opt IR oracle eq_main true, L0/L1/L2 0.66986/0.69982/0.784",
+  "result": "notes only: no TCF clone-run spill-weight lever raises orig 0x2800-0x4000 L1 while L2-neutral, on main or on the original-shape first clone (tai)",
+  "best": {"ratio": 0.66986, "slots_diff": 3204, "bytes": 27400, "note": "= main, no source change"},
+  "pr": 3425,
+  "attempts": {
+    "ir_store_placement_main": {"variants": 515, "tool": "tools/wsweep.py", "best": "no L2-neutral clone-run gain"},
+    "ir_fake_use_main": {"variants": 338, "tool": "tools/fuse.py", "best": "-9 clone-run tokens (%137, L2 = main)"},
+    "ir_late_reload_main": {"variants": 22, "tool": "tools/late.py", "best": "key late reload 0.59877 L1 0.66397"},
+    "ir_store_placement_and_fake_use_tai": {"variants": 240, "best": "clone-run sum 527 (tai 529, main 568)"},
+    "ir_head_spills": {"main_sp1": "L1 0.68175 @27384, 160 misses", "main_sp2": "L1 0.66647, 187", "tai_sp1": "L1 0.66806, 177", "tai_sp2": "L1 0.63443, 209"},
+    "src_tai": {"ratio": 0.6475, "bytes": 27416, "L1": 0.68553},
+    "src_bindp": {"ratio": 0.66757, "bytes": 27368, "L1": 0.69784},
+    "src_pclone": {"ratio": 0.571, "bytes": 27232, "L1": 0.65635}
+  },
+  "rejected_mechanisms": [
+    "final-store placement of any TCF CpiContext piece (at def, block head, block tail, duplicate store)",
+    "zero-byte extra use (spill-weight raise) of clone1 key/lamports/owner and clone keys %137 %146 %155 %164 at any block",
+    "late reload of clone1 pieces at the final store",
+    "program clone bound to a local; bound clone reused as the program field",
+    "spill at def of holder_creator_vault ref / bump (also on tai)"
+  ],
+  "residuals": [
+    "clone-run register names follow the head occupants (r6 holder ref, r9 bump, r8 accounts): w14a86 scope",
+    "tai (a.pump_amm.to_account_info()) is the original clone1 instruction shape (0 shape misses orig 0x2680-0x2a00) but its key (weight 7.7e-08, lowest) is spilled at once; orig keeps it in r9 to 0x2958",
+    "23 clone-run back-jumps to the shared Rc abort (orig 0x26e0) are off by -1..-5 insns because the original has more spill stores per clone (31 artifact sites vs 22)"
+  ],
+  "outliers_not_clone_naming": [
+    "27,464 B extra-use variants: L1 +0.003..+0.014, L2 +0.012..+0.016 from validate error-block placement (orig 0x800-0x1800)",
+    "%_250.i148 store at def: L1 +0.0153 at 27,352 B from validate long-jump distances into the error tail (chunk 0x800 +84, 0x3000 -30)"
+  ],
+  "next_ideas": [
+    "retest tai (to_account_info program) on top of any landed w14a86 head-spill change; prescreen with blame.py/press.py",
+    "the validate error-block placement seen in the 27,464 B variants (line-298 block) as a placement-lane lead",
+    "ledger keys 0x22a10-w14-95a64ba-tcfweight-*"
+  ]
+}

@@ -75,6 +75,9 @@ original keeps it in r9 to 0x2958. The lamports Rc pointer goes to r5 instead of
 - Weight levers are exhausted for this run. Raising or lowering one piece's weight (use count, final-store placement,
   late reload) never moves the clone-run names toward the original. It only shifts which piece is spilled, so every
   freed register is refilled. This is w14a79's musical chairs again, now for weights.
+- Freeing the head registers in IR does not help either (`spillprobe.py`, spill at def). On main, `&holder_creator_vault` (`%329`)
+  gives L1 0.68175 @27,384 with 160 clone-run misses (= main), and adding the bump (`%ctx.val63`) gives 0.66647 with 187. On tai the
+  same probes give 0.66806 (177 misses) and 0.63443 (209).
 - The run's names are decided by the head occupants: r6 `&holder_creator_vault`, r9 bump, r8 accounts. Those spills
   belong to w14a86. With them fixed, `tai` (the original shape) is the base to retest. Its clone1 key needs r9 free
   when greedy reaches it at step ~1270.
