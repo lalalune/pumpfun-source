@@ -1,0 +1,1 @@
+EDITS=[('let (holder,cashback,target,sharing_update,collect_old,skip)={', 'let (hb,cashback,target,sharing_update,collect_old,skip)={'), ('new_creator:a.bonding_curve.creator,is_holder_reward:holder,', 'new_creator:a.bonding_curve.creator,is_holder_reward:hb,'), ('  curve.is_holder_reward=holder;\n', '  curve.is_holder_reward=holder.unwrap_or(false);\n')]
