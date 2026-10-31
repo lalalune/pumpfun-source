@@ -91,6 +91,11 @@ outline basin):
 Untried: a fresh, non-empty success block at the last test, i.e. an `else` arm that survives MIR SimplifyCfg but folds
 in LLVM.
 
+## 5. Re-screen on main 95a64ba (#3409, 0.66986 / 3,204, M 2,236, jM 2,264)
+
+- irscan: ts296 un-glue gives M 2,234 / jM 2,344 (+80 structure, offset loss cancels it). Every other group move is <= 0.
+- Tag `and 1` alone gives 0.66128 @27,416 (M 2,208). The holder test is no longer `and -3` on this main.
+
 ## Tools (`tools/`, experiment only)
 
 Copy w14a71's `tools/` (rx.py, capvar.sh, batch.sh, llcscore.sh, asmscore.py) next to these:

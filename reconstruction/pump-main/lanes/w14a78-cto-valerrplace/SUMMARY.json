@@ -1,36 +1,71 @@
 {
-  "lane": "w14a78-cto-valerrplace",
-  "target": "0x22a10 admin_cto::execute",
-  "base": {"main": "0d04cf460", "ratio": 0.66507, "slots_diff": 3228, "bytes": 27400, "M": 2220, "jM": 2249},
-  "best_zero_loss": {"ratio": 0.66507, "slots_diff": 3228, "bytes": 27400, "note": "main; no landable change"},
-  "landed": false,
-  "attempts": 46,
-  "ledger_approach": "valerrplace",
-  "key_findings": [
-    "Error map: msg 0x1b5e78=289, 0x1b5e7c=306, 0x1b5f50=298, 0x1b5e08=326, 0x1b5db8=296; orig Err306 (0xe60-0xf38) is wholly unmatched on main",
-    "BPF analyzeBranch cannot analyse conditional branches, so MBP glues every conditional-branch block to its IR-order successor; layout inputs are IR order (rustc first-reference) and, for free blocks, BPI (zero heuristic off for and-pow2)",
-    "Original holder and tag tests are and-1 (50/50); IR H1T reproduces the exact original errseq 289 298 306 296 326 312 307 but M 2172 at 27336",
-    "Range-free tag read at line 306 (= w14a39 gene tu8) reproduces the IR tag and-1; alone 0.65618 @27416",
-    "IR block-order oracle on w14a75 basin k_st_ql_first: separating ts296 from the holder_enabled test gives 0.66687 @27352, M 2224 (+23), jM 2339 at the same size; only positive group move",
-    "On main the same ts296 un-glue gives M -1 / jM +80 at 27400"
-  ],
-  "rejected": [
-    "306 spellings: let-else, is_none+unwrap, &new, as_ref, is_some+unwrap, has:bool (g2/g3/g4/f2)",
-    "312 spellings: != && (glues bb38.i->bb45.i but pulls 330/338 forward, 0.63301), !(||), match bool, else{t}, split ifs",
-    "holder via unwrap_or(false) (0.42-0.50)",
-    "296 spellings on main and basin: success-first, else-if 289/296, nested, inside holder arm, let bad/ok, match guard, |, let e, Err()?",
-    "branch weights on bb14.i/bb7.i/bb23.i/bb38.i (RA reruns, all below main)",
-    "placement-only Err306 moves on main (jump-distance only)"
-  ],
-  "unresolved": [
-    "source cause for the basin ts296 IR-order move (+23 M)",
-    "26.8K outline basin triggered by any CFG change of the 296 check (2 more to_strings outlined)",
-    "holder and-1 source form outside w14a75's p3u (hopt:u8)"
-  ],
-  "next_ideas": [
-    "w14a75: on the basin, find a 296 spelling whose last test has a fresh non-empty success block requested before the Err block (0-target), e.g. an else arm that survives MIR SimplifyCfg but folds in LLVM",
-    "w14a75: stack the IR-order ts296 move with the basin's size repay (48 B) and their cs_greedy placement",
-    "run irscan.py on any new basin before chasing placement-only leads; it re-runs RA"
-  ],
-  "tools": ["tools/relay.py", "tools/rscan.py", "tools/irscan.py", "tools/irmove.py", "tools/mm.py", "tools/jdiff.py", "tools/amap.py", "tools/chk.py", "tools/errmap.py"]
+ "lane": "w14a78-cto-valerrplace",
+ "target": "0x22a10 admin_cto::execute",
+ "base": {
+  "main": "0d04cf460",
+  "ratio": 0.66507,
+  "slots_diff": 3228,
+  "bytes": 27400,
+  "M": 2220,
+  "jM": 2249
+ },
+ "best_zero_loss": {
+  "ratio": 0.66507,
+  "slots_diff": 3228,
+  "bytes": 27400,
+  "note": "main; no landable change"
+ },
+ "landed": false,
+ "attempts": 47,
+ "ledger_approach": "valerrplace",
+ "key_findings": [
+  "Error map: msg 0x1b5e78=289, 0x1b5e7c=306, 0x1b5f50=298, 0x1b5e08=326, 0x1b5db8=296; orig Err306 (0xe60-0xf38) is wholly unmatched on main",
+  "BPF analyzeBranch cannot analyse conditional branches, so MBP glues every conditional-branch block to its IR-order successor; layout inputs are IR order (rustc first-reference) and, for free blocks, BPI (zero heuristic off for and-pow2)",
+  "Original holder and tag tests are and-1 (50/50); IR H1T reproduces the exact original errseq 289 298 306 296 326 312 307 but M 2172 at 27336",
+  "Range-free tag read at line 306 (= w14a39 gene tu8) reproduces the IR tag and-1; alone 0.65618 @27416",
+  "IR block-order oracle on w14a75 basin k_st_ql_first: separating ts296 from the holder_enabled test gives 0.66687 @27352, M 2224 (+23), jM 2339 at the same size; only positive group move",
+  "On main the same ts296 un-glue gives M -1 / jM +80 at 27400"
+ ],
+ "rejected": [
+  "306 spellings: let-else, is_none+unwrap, &new, as_ref, is_some+unwrap, has:bool (g2/g3/g4/f2)",
+  "312 spellings: != && (glues bb38.i->bb45.i but pulls 330/338 forward, 0.63301), !(||), match bool, else{t}, split ifs",
+  "holder via unwrap_or(false) (0.42-0.50)",
+  "296 spellings on main and basin: success-first, else-if 289/296, nested, inside holder arm, let bad/ok, match guard, |, let e, Err()?",
+  "branch weights on bb14.i/bb7.i/bb23.i/bb38.i (RA reruns, all below main)",
+  "placement-only Err306 moves on main (jump-distance only)"
+ ],
+ "unresolved": [
+  "source cause for the basin ts296 IR-order move (+23 M)",
+  "26.8K outline basin triggered by any CFG change of the 296 check (2 more to_strings outlined)",
+  "holder and-1 source form outside w14a75's p3u (hopt:u8)"
+ ],
+ "next_ideas": [
+  "w14a75: on the basin, find a 296 spelling whose last test has a fresh non-empty success block requested before the Err block (0-target), e.g. an else arm that survives MIR SimplifyCfg but folds in LLVM",
+  "w14a75: stack the IR-order ts296 move with the basin's size repay (48 B) and their cs_greedy placement",
+  "run irscan.py on any new basin before chasing placement-only leads; it re-runs RA"
+ ],
+ "tools": [
+  "tools/relay.py",
+  "tools/rscan.py",
+  "tools/irscan.py",
+  "tools/irmove.py",
+  "tools/mm.py",
+  "tools/jdiff.py",
+  "tools/amap.py",
+  "tools/chk.py",
+  "tools/errmap.py"
+ ],
+ "rescreen_95a64ba": {
+  "main_ratio": 0.66986,
+  "M": 2236,
+  "jM": 2264,
+  "ts296_unglue": {
+   "M": 2234,
+   "jM": 2344
+  },
+  "tag_and1": {
+   "ratio": 0.66128,
+   "bytes": 27416
+  }
+ }
 }
