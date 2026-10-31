@@ -24,6 +24,7 @@ Raw-IR capture + rx opt/llc oracle (m0 reproduces main exactly on both bases):
 | b1 / b2 | bump read first in sweep / `old` key read first | 27400 | = main / 0.59377 |
 | n1 / n2 / n3 (+ds) | native arm `E?;T?;Ok(amount)` / `T.map(|()|amount)` else `Ok(amount)` / `amount==0` early return | 27424 / 27408 / 27480 | 0.3764 / 0.65329 / 0.37601 (ds: 0.50) |
 | n5 (+ds) | `Rent::get()?.minimum_balance(0)` | 27400 | = main (ds = ds1) |
+| v2 / v3 / v4 (0fbf8da) | holder_creator_vault via `ctx.accounts.` at each use / one `hv=&a.holder_creator_vault` binding | 27400 | = main (GVN merges) |
 | rm1 / rm2 (0fbf8da) | `match Rent::get(){Ok(r)=>..,Err(e)=>return Err(e.into())}` | 27352 | 0.64858 / 0.64888 (main 0.65578) |
 
 ## What the four regions actually differ in (tools/tags.py on orig vs main)
@@ -62,7 +63,6 @@ Raw-IR capture + rx opt/llc oracle (m0 reproduces main exactly on both bases):
 
 ## Next ideas (not tried)
 
-- An RA-level lever for the vault-pointer spill: the original never keeps accounts+0x108 in a register. A source form in
-  which `&a.holder_creator_vault` is re-derived from `ctx.accounts` at each use (ensure_rent_exempt, transfer_native,
-  create_idempotent authority) instead of being one SSA value; needs a form MIR/LLVM GVN does not merge.
+- An RA-level lever for the vault-pointer spill: the original never keeps accounts+0x108 in a register. Re-deriving
+  it via `ctx.accounts` per use or one binding (v2-v4) folds to main under GVN; it needs a form GVN does not merge.
 - Threading combined with an RA fix: bound 0.627 by layout alone, so threading only pays together with a register fix.

@@ -1,24 +1,59 @@
 {
-  "lane": "w14a48-cto-tailerr",
-  "target": "0x22a10 admin_cto::execute (pinned 27400 B)",
-  "bases": {"28ab23a": {"ratio": 0.65488, "slots": 3280}, "0fbf8da": {"ratio": 0.65578, "slots": 3280}},
-  "best_zero_loss": {"ratio": 0.65578, "slots": 3280, "bytes": 27400, "note": "= main; no variant beat main"},
-  "attempts": 37,
-  "rejected_mechanisms": [
-    "660 require! vs if/err!/let raw (identical)", "amm_frozen as match (identical)", "719 nested if (identical)",
-    "648 .ne (identical), !(==) (0.444, +104 B)", "648 check in inline(always) fn / closure / fn + ? (0.370, +232 B)",
-    "dest block scope ds1 (0.518, +48 B)", "skip-polarity gate g9 alone/with ds1 (0.498/0.459)",
-    "PDA-first head with ds1/gate (0.46-0.57)", "pool bump read before sweep ? (0.654/0.557)",
-    "bump/old read first in sweep (identical / 0.594)", "native arm spellings n1/n2/n3 (0.376/0.653/0.376)",
-    "Rent::get explicit match rm1/rm2 (0.6486 @27352)"
-  ],
-  "findings": [
-    "Orig threads TCF ? and amm token_frozen/raw_amount ? Err edges to the exit; the blocker in ours is lifetime.end(dest) in the sweep early-return chain",
-    "IR x1 (drop that lifetime.end) reproduces the original's threaded set exactly but collapses layout (0.488 @27448)",
-    "Block-move oracle: x1 + bb53.i111 before sweep.exit restores layout, orig-like tag skeleton, 0.617 @27408; best pair 0.627 < main",
-    "Region residuals a/b/c/d are register assignment: vault pointer kept in r6 vs spilled at def, payload r3/r8 vs r9, bump/native swap"
-  ],
-  "unresolved": ["vault-pointer spill-at-def RA chain", "sweep payload in r9", "TVT Ok edge threading (orig 0x60c8)"],
-  "next_ideas": ["re-derive &a.holder_creator_vault per use in a GVN-proof form", "pair threading with a register fix; layout alone bounded at 0.627"],
-  "tools": ["tools/tags.py", "tools/bmove.py", "tools/scan.py", "tools/ocalls.py", "tools/rgn.py", "tools/batch.sh"]
+ "lane": "w14a48-cto-tailerr",
+ "target": "0x22a10 admin_cto::execute (pinned 27400 B)",
+ "bases": {
+  "28ab23a": {
+   "ratio": 0.65488,
+   "slots": 3280
+  },
+  "0fbf8da": {
+   "ratio": 0.65578,
+   "slots": 3280
+  }
+ },
+ "best_zero_loss": {
+  "ratio": 0.65578,
+  "slots": 3280,
+  "bytes": 27400,
+  "note": "= main; no variant beat main"
+ },
+ "attempts": 40,
+ "rejected_mechanisms": [
+  "660 require! vs if/err!/let raw (identical)",
+  "amm_frozen as match (identical)",
+  "719 nested if (identical)",
+  "648 .ne (identical), !(==) (0.444, +104 B)",
+  "648 check in inline(always) fn / closure / fn + ? (0.370, +232 B)",
+  "dest block scope ds1 (0.518, +48 B)",
+  "skip-polarity gate g9 alone/with ds1 (0.498/0.459)",
+  "PDA-first head with ds1/gate (0.46-0.57)",
+  "pool bump read before sweep ? (0.654/0.557)",
+  "bump/old read first in sweep (identical / 0.594)",
+  "native arm spellings n1/n2/n3 (0.376/0.653/0.376)",
+  "Rent::get explicit match rm1/rm2 (0.6486 @27352)",
+  "holder_creator_vault re-derived per use / bound once (v2-v4, identical)"
+ ],
+ "findings": [
+  "Orig threads TCF ? and amm token_frozen/raw_amount ? Err edges to the exit; the blocker in ours is lifetime.end(dest) in the sweep early-return chain",
+  "IR x1 (drop that lifetime.end) reproduces the original's threaded set exactly but collapses layout (0.488 @27448)",
+  "Block-move oracle: x1 + bb53.i111 before sweep.exit restores layout, orig-like tag skeleton, 0.617 @27408; best pair 0.627 < main",
+  "Region residuals a/b/c/d are register assignment: vault pointer kept in r6 vs spilled at def, payload r3/r8 vs r9, bump/native swap"
+ ],
+ "unresolved": [
+  "vault-pointer spill-at-def RA chain",
+  "sweep payload in r9",
+  "TVT Ok edge threading (orig 0x60c8)"
+ ],
+ "next_ideas": [
+  "re-derive &a.holder_creator_vault per use in a GVN-proof form",
+  "pair threading with a register fix; layout alone bounded at 0.627"
+ ],
+ "tools": [
+  "tools/tags.py",
+  "tools/bmove.py",
+  "tools/scan.py",
+  "tools/ocalls.py",
+  "tools/rgn.py",
+  "tools/batch.sh"
+ ]
 }
