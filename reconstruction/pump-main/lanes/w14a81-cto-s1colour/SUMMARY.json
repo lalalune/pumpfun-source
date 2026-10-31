@@ -1,0 +1,46 @@
+{
+  "lane": "w14a81-cto-s1colour",
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs)",
+  "pinned_bytes": 27400,
+  "bases": {
+    "0d04cf4": {"main": 0.66507, "slots": 3228, "L1": 0.70132, "L2": 0.7831, "colour_order_bound": 0.68874},
+    "95a64ba": {"main": 0.66986, "slots": 3204, "L1": 0.69982, "L2": 0.784, "jM": 2264, "colour_order_bound": 0.68544}
+  },
+  "result": "no source change; priced table: block frequency cannot rescue s1, and no s1 hybrid beats main at 27,400 B",
+  "best_zero_loss": null,
+  "s1": {
+    "0d04cf4": {"ratio": 0.63589, "bytes": 27360, "L1": 0.69135, "L2": 0.81247, "region_0x3c38_0x46b8": {"miss": 233, "fm": 30, "rm": 123, "jm": 15, "sk": 65}, "colour_order_bound": 0.66887},
+    "s1_gate8": {"ratio": 0.64608, "bytes": 27360, "colour_order_bound": 0.67276},
+    "s1_gate8_trap79": {"ratio": 0.64798, "bytes": 27352, "colour_order_bound": 0.67316},
+    "95a64ba": {"ratio": 0.63969, "bytes": 27368, "L1": 0.68076, "jM": 2168, "gate8": 0.64568, "colour_order_bound": 0.66787}
+  },
+  "attempts": [
+    {"what": "s1 + gate 8:1 + one weight on each other br x {8:1,1:8,2000:1,1:2000} (580)", "best": "0.64798 @27352 (Rc trap 79/80 1:2000, not expressible)", "note": "region rm flat 120-136 in every picture; br31 1:8 L1 0.71568 is a jump-distance coincidence at -48 B"},
+    {"what": "main 0d04cf4 single weights x 4 (580)", "best": "0.66687 (Rc traps, frame-only)", "note": "holder r3 spill stays at head colour 0x8d8 in all pictures"},
+    {"what": "colour-order hill-climb (legal permutation of 8 B spill colours)", "main": 0.68874, "s1": 0.66887, "s1_gate8": 0.67276},
+    {"what": "single colour swaps on main 0d04cf4", "best": "0x8d8<->0x8e0 +0.00389, 0x8e8<->0x950 +0.0024"},
+    {"what": "62-form literal/plain lattice x gate {none,8:1,2:1,20:12,1:8} (310)", "best": "r1_program 0.66337@27392, r1_authority 0.66297@27400; best gated r1_authority+8:1 0.65608"},
+    {"what": "lattice colour-order bounds", "best": "r1_authority 0.68904 vs main 0.68874 (+1 M), others lower"},
+    {"what": "95a64ba recheck: s1, r1_program, r1_authority, lat_au_pr, lat_mi_ev x gate", "best": "r1_program 0.66906@27392 (L1 0.70352 > main 0.69982 but jM 2259 < 2264)"},
+    {"what": "95a64ba r1_program/lat_au_pr + 8 B repay knobs (rent inline, ensure if-let, prep if-let, let rent)", "best": "0.66906@27392; the knobs are size-neutral on this main"},
+    {"what": "95a64ba BPI-reachable weights {20:12,12:20,1:1} on 146 brs (438)", "best": "0.67016 (+0.0003, 1 M, frame-only) on br16/18 (bcmp==0), br27 (quote_locked), br28 (fee ult)"}
+  ],
+  "rejected_mechanisms": [
+    "sharing-gate weight as an s1 rescue (frame-only, +0.010; costs 0.007-0.012 on literal forms)",
+    "greedy / two-weight frequency combinations on s1 (cap 0.64798; w14a74 greedy 0.65037)",
+    "s1 frame recolouring of any kind (perfect colour order 0.66887-0.67316 < main real 0.66986 on 95a64ba and < main bound)",
+    "partial literal reverts + size repay (jM below main on 95a64ba)",
+    "frequency route to holder's head colour on 0d04cf4 (no weight moves r3 off 0x8d8; #3409 then moved it by representation)",
+    "BPI-visible gate spellings (not built: the 20:12 weight they would give prices like 8:1 and never pays)"
+  ],
+  "unresolved_residuals": [
+    "s1 region register naming (rm 123-171): accounts pointer spilled + reloaded per clone, tag in r6, swept in r9 in the original; w14a85-cto-s1reload prices it",
+    "main colour-order potential +0.0156 on 95a64ba (M 2236 -> 2288, 28 colours), not reachable by block frequency; top single swap 0x8e0<->0x950 +0.0018"
+  ],
+  "next_ideas": [
+    "use tools/chill.py (30 s, no build) to rank candidate bases by legal colour-order frame potential before pricing frame levers",
+    "the 1-M frame-only BPI leads on 95a64ba (quote_locked 20:12, fee ult 12:20) only if a spelling is found that changes nothing else",
+    "s1 only pays together with the original register naming of the whole sharing region (w14a85 region-ideal 0.67356); frame and frequency are not the missing piece"
+  ],
+  "ledger_keys": "0x22a10-w14-0d04cf4-s1colour-*-v1 (9 rows, including the 95a64ba rechecks)"
+}
