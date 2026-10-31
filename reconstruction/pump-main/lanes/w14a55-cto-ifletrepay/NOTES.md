@@ -109,3 +109,13 @@ The two routes to 2,194 do not stack: #3372's -8 B wallet knob uses the size bud
    faithful entry-region forms (CtoState copy, holder bool spill, `shared` chain) that add instructions.
 2. Re-screen the re-read ADD lattice whenever a landing changes the sharing arm. It is a zero-cost +8 B partner more
    often than any other knob.
+
+## Part 3: main 304b03a (0.65788, M 2,196; #3361 landed su_tafter + amm_present + pump_fees owner re-read)
+
+- w14a53 (#3361) landed the su_tafter + s_amm_present + program-owner re-read bundle (this lane's c3e5b51 lead) on 0d945ea.
+- On 304b03a, dropping #3369's pool_authority rent re-read is a **free -8 B** (M 2,196 @27,392, source-confirmed `x_rmx`).
+  The junk bound for one +8 B on that base is +1 (at 0x180/0x190, the `shared` chain, or 0x1f70-0x1fa0, the TCF arm head
+  after the two coin_creator_vault_ata `data_is_empty` calls). So a zero-cost faithful +8 B there would land +1 M.
+- Screened partners, none free: the re-read lattice (best = putting the rent re-read back = main; x18:16 -1),
+  `shared` spellings (`data_len()!=0` 1,972, `*owner==FEES` no size change, `*key==` 2,188 @27,312, operand swap 2,190,
+  `&&` reorder 1,965), TCF else-if gate (`data_len()!=0` 1,917, `amm_present` 1,689).
