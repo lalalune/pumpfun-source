@@ -1,0 +1,36 @@
+{
+  "base_revision": "9120883a957d7d9b2cab6140f66fb5bc9e6774d5",
+  "model_source_sha256": {
+    "before": "7517a924ec08d6cebc80c420aac03121174bf3c2e4065be36006447ae70a91bc",
+    "after": "fb22183f13c52f8761adca40352c4bc0f4d1c7e927539df219d1d449ca09906b"
+  },
+  "host_sha256": {
+    "before": "7a75ad192f64b934dd0bc036715c0fa2f01147fbe1b5369b6e295e868681507e",
+    "after": "15929284b865e441f40ce98d3fb8da109aca726edf07d95635f9f8bc5b543834"
+  },
+  "compiler": "rustc 1.99.1 (58cf8f9c3 2026-10-13)",
+  "captured_sha256": {
+    "evidence/original/pump/deployed.so": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
+    "evidence/original/pump_fees/deployed.so": "4f2955d0f6b40cc9ff7daa18ccad7d19119ba1249759f4e7e3bb691beee6b35e",
+    "evidence/dependencies/spl_token/deployed.so": "8190d3f7ceb6cb7a7a8d8924bff89f9f611e15ce1f806f2b6237f3311a98f697",
+    "evidence/dependencies/associated_token/deployed.so": "6804554e69fd3a58caa191dc4a58f4c67223d30ca28ab8987f39fc18d2f7374d"
+  },
+  "probe": {
+    "cases": 69,
+    "steps": 72,
+    "before_mismatched_cases": 17,
+    "before_mismatched_steps": 20,
+    "after_mismatched_cases": 0,
+    "after_mismatched_steps": 0,
+    "runtime_signature_verification": true
+  },
+  "tests": {
+    "new_test_methods": 1,
+    "new_scenarios": 69,
+    "new_steps": 72,
+    "existing_curve_walk_methods": 3,
+    "tooling_tests": 250,
+    "captures_verified": 9
+  },
+  "limits": "Host-only model of ordinary legacy buy and exact-SOL buys with admitted accounts, valid fees, and a payer able to cover the transaction fee. No SBF crate change, production build, byte-identity, or on-chain claim; no general account-admission or all balance-failure claim."
+}
