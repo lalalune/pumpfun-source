@@ -14,6 +14,10 @@
   "0fbf8da": {
    "ratio": 0.65578,
    "slots": 3280
+  },
+  "d371f97": {
+   "ratio": 0.65638,
+   "slots": 3280
   }
  },
  "deliverables": [
@@ -26,14 +30,18 @@
  "best_landable": null,
  "best_lead": {
   "name": "c_ammp = su_tafter + s_amm_present",
-  "main": "0fbf8da",
-  "ratio": 0.65758,
+  "main": "d371f97",
+  "ratio": 0.65817,
   "bytes": 27376,
   "edits": [
    "else{target=st.creator;(false,Some(args.0),true)} -> else{let r=(false,Some(args.0),true);target=st.creator;r}",
    "let amm_frozen=!a.coin_creator_vault_ata.data_is_empty()&&token_frozen(..)?; -> let amm_present=!a.coin_creator_vault_ata.data_is_empty();let amm_frozen=amm_present&&token_frozen(..)?;"
   ],
-  "needs": "+24 B at <= ~0.0018 ratio cost (or +40 B on su_tafter alone at 0.65747)"
+  "needs": "+24 B at <= ~0.0018 ratio cost (or +40 B on su_tafter alone at 0.65747)",
+  "su_tafter_alone": {
+   "ratio": 0.65807,
+   "bytes": 27360
+  }
  },
  "findings": [
   "Four owned regions hold 0.18 of the 0.35 gap: TCF clone run +0.057 (register: clone-load temporaries r9->r0, r0->r5), sharing CPI +0.056 (pure structure, literal load order), validate fee errors +0.036, wallet +0.032",

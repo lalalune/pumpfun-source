@@ -176,3 +176,5 @@ and fall to 0.603.
 Best landable-size candidate: none. The remaining gap is +16 B (h0) or +24 B (c_ammp) with at most ~0.0008 / ~0.0018
 to spend. A lane with a cheap +16/+24 B knob, or a faithful size-adding change in the sharing CPI (ours is ~50 B short
 there, DRIFT.txt), should stack it on c_ammp first.
+
+Re-tested on main d371f9760 (0.65638): su_tafter 0.65807 @ 27,360, c_ammp **0.65817 @ 27,376**. The lead carries over unchanged across four mains.
