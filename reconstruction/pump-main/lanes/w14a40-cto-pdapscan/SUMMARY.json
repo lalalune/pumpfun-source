@@ -1,0 +1,179 @@
+{
+ "lane": "w14a40-cto-pdapscan",
+ "target": {
+  "window": "0x22a10",
+  "function": "admin_cto::execute",
+  "file": "programs/pump/src/creator/admin_cto.rs",
+  "pinned_bytes": 27400
+ },
+ "result": "no zero-loss gain; notes only",
+ "main": {
+  "faf9962": 0.65129,
+  "28ab23a": 0.65488,
+  "0fbf8da": 0.65578,
+  "6330811": 0.65698
+ },
+ "best": {
+  "ir_0fbf8da": {
+   "ratio": 0.63088,
+   "bytes": 27352
+  },
+  "source_6330811": {
+   "ratio": 0.63028,
+   "bytes": 27352,
+   "src": "src/best_state.py"
+  }
+ },
+ "best_state": {
+  "pda": "src/p1.py (holder_key PDA before shared, creator==key())",
+  "literals": [
+   {
+    "cpi": "TCF",
+    "field": "CpiContext::new(",
+    "lab": "220222:owner.rent.f42.f41.f40.key"
+   },
+   {
+    "cpi": "TCF",
+    "field": "payer:",
+    "lab": "022222:key.owner.rent.f40.f41.f42"
+   },
+   {
+    "cpi": "TCF",
+    "field": "token_program:",
+    "lab": "022222:key.owner.rent.f40.f41.f42"
+   },
+   {
+    "cpi": "TCF",
+    "field": "associated_token_program:",
+    "lab": "000011:key.rent.f40.owner.f41.f42"
+   },
+   {
+    "cpi": "TCF",
+    "field": "coin_creator_vault_authority:",
+    "lab": "011112:key.rent.f40.f41.f42.owner"
+   },
+   {
+    "cpi": "TCF",
+    "field": "coin_creator_vault_ata:",
+    "lab": "222222:key.owner.rent.f40.f41.f42"
+   },
+   {
+    "cpi": "TCF",
+    "field": "pump_creator_vault_ata:",
+    "lab": "202221:key.f40.f42.owner.f41.rent"
+   },
+   {
+    "cpi": "TCF",
+    "field": "event_authority:",
+    "lab": "222112:f40.f41.key.owner.rent.f42"
+   },
+   {
+    "cpi": "TCF",
+    "field": "program:",
+    "lab": "000021:key.owner.rent.f40.f41.f42"
+   },
+   {
+    "cpi": "SH",
+    "field": "CpiContext::new_with_signer(",
+    "lab": "022222:key.rent.f40.f41.f42.owner"
+   },
+   {
+    "cpi": "SH",
+    "field": "pool_authority:",
+    "lab": "022222:key.f40.owner.f41.rent.f42"
+   },
+   {
+    "cpi": "SH",
+    "field": "program:",
+    "lab": "022022:f40.key.owner.rent.f41.f42"
+   }
+  ],
+  "rc_swap": "TCF pump_creator_vault_ata data before lamports"
+ },
+ "descent": [
+  [
+   "p1 faf9962",
+   0.56963,
+   27360
+  ],
+  [
+   "cd1 r0",
+   0.58256,
+   27384
+  ],
+  [
+   "cd1 r1",
+   0.60483,
+   27376
+  ],
+  [
+   "cd1 r2",
+   0.61709,
+   27352
+  ],
+  [
+   "p1cd1 on 28ab23a",
+   0.62058,
+   27336
+  ],
+  [
+   "cd2 r0 (+sharing)",
+   0.62939,
+   27352
+  ],
+  [
+   "port 0fbf8da",
+   0.62609,
+   27352
+  ],
+  [
+   "+pcv_ata Rc swap",
+   0.62948,
+   27344
+  ],
+  [
+   "cd3 r0",
+   0.63088,
+   27352
+  ],
+  [
+   "port 6330811",
+   0.63028,
+   27352
+  ]
+ ],
+ "tcf_region_exact_0x3000": {
+  "main": 183,
+  "p1": 2,
+  "cd1r0": 25,
+  "cd1r1": 132,
+  "cd1f": 156
+ },
+ "skeleton_ratio_28ab23a": {
+  "main": 0.82385,
+  "p1": 0.83491,
+  "p1cd1": 0.83413
+ },
+ "attempts": {
+  "pscan_llc_runs": "~60,000 (3 descents)",
+  "source_captures": 45
+ },
+ "rejected": [
+  "p1/p2 alone (0.5696/0.5687 on faf9962)",
+  "hand inline-field literals cc/pcv (lose on descended base; pcv_om +0.0038 only on p1r0 at +40 B)",
+  "Rc swaps other than pcv_ata (16 of 17 neutral or worse)",
+  "pcv_ata+program Rc swaps together (0.62768)",
+  "entry copy of new (let args=&(new,) at entry / before PDA): 0.442-0.445 @27544"
+ ],
+ "unresolved": [
+  "accounts pointer %0 stays r6 in every pda state (orig r8): sharing_config pointer %2 live across the entry memcmps raises r8 split cost 3.01->4.18",
+  "orig 0x2800-0x3000 (127 vs main 160) and 0x4000-0x4800 (87 vs 113) unchanged by literal descent",
+  "pda is -56 B on current mains; best state needs +48 B and catalog knobs give at most +40"
+ ],
+ "next_ideas": [
+  "re-screen pda on a base where the sharing pointer spills at entry (4-register entry pressure: new pointer r7 + curve + args)",
+  "literal coordinates for the wallet/collect clone run (orig 0x2800) which has no scannable clone",
+  "re-run cdesc.py from src/best_state.py after each main move"
+ ],
+ "ledger_keys": "0x22a10-w14-<sha7>-pdapscan-*"
+}
