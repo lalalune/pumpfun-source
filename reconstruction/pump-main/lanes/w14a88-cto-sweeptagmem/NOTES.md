@@ -92,3 +92,22 @@ spellings byte-identical):
   `read_volatile` fill.
 - `pair.sh`: run `capvar.sh` captures two at a time, append to `t/res.jsonl` with M.
 - `dis.sh`: disassemble execute from an llc object.
+
+Landed as #3430 (merge ecea7021f): land.py 0 losses, differential 363/0.
+
+---
+
+# Part 2 (branch -2): screens after #3430 (ecea702, 0.67076, M 2,239) and #3437 (963d1ee, 0.67226, M 2,244)
+
+Ledger keys `0x22a10-w14-ecea702-sweeptagmem-*` and `0x22a10-w14-963d1ee-sweeptagmem-*`.
+
+| screen | base | runs | best at 27,400 |
+| --- | --- | ---: | --- |
+| single knobs (w14a72 klib + knobs_ok + wlR / smB / d334 / d338) | ecea702 | 59 captures | nC (event `nf` local) 2,240 @27,416; 16 eq_main or 2,239 ties; every -8 B lever loses (smB / rP 2,234, rL 2,233, tp 2,231, nO 2,229); d334 2,238 @27,392; **d338 2,216** (the 338 placeholder is structural, keep it) |
+| nC + d334 + one -8 lever / nC + two -8 levers | ecea702 | 10 captures | **nC + smB + rP 2,244 = #3437** (w14a86 landed the same set while this ran); nC + smB + rL and nC + rP + rL 2,243; nC + d334 + smB / rP 2,242 |
+| third placeholder at every block head (`volscan.py`, +8 B) | ecea702 | 280 | 2,240 @27,408 (bb2 entry only) |
+| drop the 334 placeholder and re-insert one at every block head / end | 963d1ee | 560 | 2,244 = main (35 / 33 placements): relocation is saturated |
+| -8 B levers + placeholder at 306 / 307 / 312 / 339; size-neutral re-read swaps | 963d1ee | 32 captures | rL + vol 2,239; tp + vol 2,237; nO + vol 2,235; rD / rF eq_main; evL tie; pR 2,242; cR 2,241; fR 2,240 |
+
+Read: the placeholder fill reaches the pure-junk bound, so it repays any lever whose own cost is 0. On 963d1ee no -8 B
+lever costs 0 any more (the cheapest, rL, costs 6), so this route is exhausted until a landing changes the lever prices.

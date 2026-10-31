@@ -1,0 +1,23 @@
+{
+  "lane": "w14a88-cto-sweeptagmem",
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27,400 B",
+  "bases": ["95a64ba75 (0.66986, 3204 slots, M 2236)", "ecea7021f (0.67076, 3123 slots, M 2239)", "963d1eefb (0.67226, 3123 slots, M 2244)"],
+  "landed": [{"pr": 3430, "merge": "ecea7021f", "before": {"ratio": 0.66986, "slots": 3204}, "after": {"ratio": 0.67076, "slots": 3123, "bytes": 27400},
+    "change": "wallet !is_writable (-8 B, +2 M) repaid by a second read_volatile(holder_key) placeholder before validate line 334 (+8 B, +1 M)",
+    "differential": "363/0", "unstripped_sha16": "8efdc872cdf169ae"}],
+  "best": {"ratio": 0.67076, "slots_diff": 3123, "bytes": 27400, "normalized": 1034, "raw": 1034},
+  "angle_result": "negative: the sweep site Result-tag test does not depend on !range metadata (drop/widen is byte-identical). The original gets it from early tail duplication of a non-fallthrough {PHI;JNE;JMP} join plus BranchFolder re-merging reload tails; ours has neither",
+  "ir_bounds": {
+    "dup_test_660": "M 2235 (-1), slots 3001 (-203) on 95a64ba",
+    "dup_test_648": "M 2185 (PDA region re-laid)",
+    "join_moved_any_place": "<= 1702 except the current place",
+    "placeholder_fill": "reaches the pure +8 B junk bound (2239 on wlB 95a64ba, 2244 relocation on 963d1ee)"
+  },
+  "source_forms": {"eq_main": ["f2b match Some(Ok)/Some(Err)/None", "f4 named Option<Result<u64>>"], "collapse": ["f1 &mut u64 out 2007", "f2/f3 if !skip match / is_err 1767", "f5 let mut r:Result 1560", "f6 let r:Result=if..; r? 1701", "f7 Option<Result> by name 2058"]},
+  "rejected": ["!range drop or widen on the transpose Err tag (eq_main)", "post-opt join-test copies into sweep preds", "sweep.exit block placement (279)", "sweep Result storage forms f1-f7", "-8 B levers + placeholder on 963d1ee", "placeholder relocation"],
+  "unresolved": ["660/648 site tag tests need a non-fallthrough join at ISel and reload tails >= tail-merge-size 3 so BranchFolder re-merges them", "nC + smB + rL / nC + rP + rL at 2243 (one below main 963d1ee)"],
+  "next_ideas": [
+    "after each landing, rerun the -8 B lever screen: a lever at cost 0 plus a read_volatile placeholder in validate (lines 306/307/312/334/338/339) lands at the junk bound",
+    "the 660 site tag-test copy saves 203 positional slots at -1 M: worth pairing with any +1 M change that keeps that layout"
+  ]
+}
