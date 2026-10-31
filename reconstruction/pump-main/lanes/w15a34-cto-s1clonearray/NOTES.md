@@ -105,6 +105,15 @@ gives 2,260 @27,384 for 5 decisions.
   so this is a greedy coincidence, not the original's allocation. Both values have one def and one use (plus the Rc pair
   for %319), so no ordinary source gives them 3x weight. The only density lever, evaluation order, is a7: it moves the
   wrong pieces and caps at 2,199.
+- Spill-slot relabel bound (w15a08 `relab.py` bestperm, spill set from the binary, `tools/mperm.py`; M -> Mperm): main
+  2,249 -> 2,292; s1 2,146 -> 2,202; a7p class 2,143 -> 2,192; a7 2,147 -> 2,203; vec7p 1,941 -> 1,990; s1 + 2 decisions
+  2,256 -> **2,293**; a7p + 2 decisions 2,245 -> 2,287. Even s1's best greedy cell only ties main once slot colours are
+  free.
+- True LCS against main in 0x200 chunks over 0x3e00-0x4800 (unmasked, `lcschunk.py --sz 0x200`). Main per chunk:
+  33, 30, 31, 10, 37. Deltas:
+  - s1 and the a7p class (identical): -3 -2 -15 +2 -16;
+  - a7: -21 0 -23 +3 -15;
+  - s1 + 2 decisions: +2 -1 +4 +17 -8.
 - Arm branch probability (IR probe only, `tools/bwprobe.py`, `!prof` on `br i1 %578, label %bb35, label %bb37`, the
   `sharing_update != None` test). s1 gains at most +20 (arm 2:1 to 100:1: M 2,166; 5:3: 2,162) and loses when the arm is
   unlikely (1:2: 2,108; 1:8: 2,036). Main is at its optimum at 50/50 (2:1: 2,199; 5:3: 2,191; 1:2: 2,205; 3:5: 2,242).
@@ -136,6 +145,7 @@ as an IR probe (s1 +0.018, still below main).
 - `famvregs.py <pregreedy.mir>`: vregs defined in the sharing arm (the climb pool).
 - `cellf.sh`: free cell only (about half the cost of w15a18 `cell.sh`; identical free numbers).
 - `ceil.sh <name>`: family singles + forward climb.
+- `mperm.py name=fn.bin ..`: w15a08 relabel bound on function blobs (spill set from the binary).
 - `bwprobe.py <m.ll> '<br line>' a:b ..`: attach `branch_weights` to one branch of a slim module and print free cells
   (IR probe only).
 
