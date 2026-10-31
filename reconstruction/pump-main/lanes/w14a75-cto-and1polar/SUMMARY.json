@@ -1,0 +1,22 @@
+{
+  "lane": "w14a75-cto-and1polar",
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27400 B",
+  "base": {"main": "0d04cf4", "ratio": 0.66507, "slots_diff": 3228, "bytes": 27400, "M": 2220},
+  "result": "notes only; no zero-loss improvement",
+  "best_source_basin": {"genes": "p3u+tu8+RVJ (w14a39)", "ratio": 0.65997, "bytes": 27352, "M": 2201, "jM": 2317, "fm": 0.72864, "sk": 0.81919,
+    "errseq": "289 298 306 296 326 312 307 330 338 334 410 719 648 660 284 556 (= original)"},
+  "best_with_knob": {"genes": "p3u+tu8+RVJ+ev_hr_curve", "ratio": 0.66057, "bytes": 27352, "M": 2203},
+  "bounds": {
+    "pure_fill_48B": "+2 M",
+    "placement_greedy_basin": "0.66687 @ 27352",
+    "asm_invert_296_test": "0.66687 @ 27352, M 2224 (one move); +greedy 0.66867",
+    "ir_order_bb19_after_bb13": "0.66577 @ 27344, M 2220, jM 2337; +greedy 0.66757",
+    "polarity_ceiling_at_27400": "about M 2222-2226 if the 296-test fallthrough were source-reachable"
+  },
+  "mechanism": "BPF analyzeBranch cannot analyze conditional branches, so MBP keeps ISel's fallthrough to the next IR block; the post-opt IR order bb13.i (296 holder_enabled test) -> bb14.i (296 prelude) makes the 296 test fall into its prelude, while the original falls into bb19.i (298 holder-arm test, orig 0x8f8 -> 0x900). rustc appends bb14 when bb13 is codegened and bb19 only after the bb18 join; JumpThreading keeps bb19.i at bb19's place.",
+  "rejected": ["296 condition orders/negations s1-s9 p1-p5", "target if as match/==true/if let/int match t1 t2 t4 m1-m4", "hoisted 298 test g1-g4", "296 inside holder arm i1-i4 (to_string outline collapse -544 B)", "296 via helper fn / closure h1 h3 h4", "validate returns cashback C1-C3", "sw, cbif", "native join J2-J6", "all 46 applicable sizeknobs-cto.json knobs", "llc branch weights on bb5.i/bb6.i/bb11.i/bb13.i (RA reruns)", "post-opt and-1/icmp-ne rewrites of the hr/he tests", "IR fallthrough-flip scan on top of bb19up (78 blocks)"],
+  "unresolved": ["source structure that appends the 298 holder-arm test block before the 296 error block without the in296 to_string outline cost", "basin -8 M at orig 0x4a00 curve-store register shape", "48 B repay with matching code"],
+  "next_ideas": ["combine in296 (i1) with a to_string-outline repay lane (w13 tostring296) on p3u+tu8+RVJ", "296 error routed through a shared, late-codegened error edge", "irorder.py/fscan.py on other mains to price IR-order levers elsewhere"],
+  "tools": ["tools/irorder.py", "tools/fscan.py", "tools/side.py", "tools/jd2.py", "tools/shift2.py", "gen/genes.py"],
+  "ledger_keys": "0x22a10-w14-0d04cf4-and1polar-*-v1"
+}
