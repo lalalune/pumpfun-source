@@ -103,6 +103,7 @@ ratio bound is 0.547. Nothing in this family is near landing.
 ## 4. Cheap source screens on 95a64ba (no gain)
 
 - `t1` (the tree tests `new.is_none()`) is now -24 B and ratio-neutral: 0.66986 @27,376, sk 0.79784 (+0.0019). It was +40 B on 0d04cf4.
+  It is the same on ecea702 (#3430): main 0.67076 @27,400, t1 0.67076 @27,376, sk 0.79874 (main 0.79688).
   t3/t4/t5 give the same; t2/t6/t7 (`args.0`) give 0.66916 @27,384.
 - t1 + each of the 43 size knobs that still apply (`sizeknobs-cto.json`): none reaches 27,400 above main. The neutral
   0 B knobs keep 0.66986 @27,376. The +8/+16 knobs cost 0.001-0.008.

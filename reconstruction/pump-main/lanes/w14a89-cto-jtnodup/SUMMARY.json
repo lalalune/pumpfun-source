@@ -1,14 +1,54 @@
 {
   "lane": "w14a89-cto-jtnodup",
   "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27400 B",
-  "base": {"main": "95a64ba", "ratio": 0.66986, "slots_diff": 3204, "bytes": 27400, "fm": 0.70911, "sk": 0.79599},
-  "best_zero_loss": {"ratio": 0.66986, "slots_diff": 3204, "bytes": 27400, "note": "main; no source change beats it"},
+  "base": {
+    "main": "95a64ba",
+    "ratio": 0.66986,
+    "slots_diff": 3204,
+    "bytes": 27400,
+    "fm": 0.70911,
+    "sk": 0.79599
+  },
+  "best_zero_loss": {
+    "ratio": 0.66986,
+    "slots_diff": 3204,
+    "bytes": 27400,
+    "note": "main; no source change beats it"
+  },
   "result": "notes only: the original duplicates the non-shared arm head (orig 0x23f18 jeq -> 0x24308 skips the holder_reward test at 0x242f0); blocking bb21 duplication also unthreads the holder exit; swap-free bounds of all faithful forms are far below main (RA/frame cascade)",
   "ledger": "approach jtnodup, keys 0x22a10-w14-95a64ba-jtnodup-*",
   "attempts": {
-    "ir_jt_probes": {"n_va": 0.26782, "e1_vol1": 0.26774, "e2_vol2": 0.26766, "e3_vol3": 0.3579, "e4_asm": 0.37076},
-    "swap_free_bounds": {"n_va": [0.33478, "sk 0.741"], "OV": [0.54714, "sk 0.79238"], "lv3a": [0.30769, "sk 0.70518"]},
-    "source": {"t1": "0.66986 @27376 (-24 B, sk +0.0019)", "t2/t6/t7": "0.66916 @27384", "t1+43 knobs": "none above main at 27400", "t1+pairs": "best 0.66637 @27392", "OV x4": "0.4317-0.44131", "lv3a/lv3b": 0.238, "vba/vbb": 0.241}
+    "ir_jt_probes": {
+      "n_va": 0.26782,
+      "e1_vol1": 0.26774,
+      "e2_vol2": 0.26766,
+      "e3_vol3": 0.3579,
+      "e4_asm": 0.37076
+    },
+    "swap_free_bounds": {
+      "n_va": [
+        0.33478,
+        "sk 0.741"
+      ],
+      "OV": [
+        0.54714,
+        "sk 0.79238"
+      ],
+      "lv3a": [
+        0.30769,
+        "sk 0.70518"
+      ]
+    },
+    "source": {
+      "t1": "0.66986 @27376 (-24 B, sk +0.0019)",
+      "t2/t6/t7": "0.66916 @27384",
+      "t1+43 knobs": "none above main at 27400",
+      "t1+pairs": "best 0.66637 @27392",
+      "OV x4": "0.4317-0.44131",
+      "lv3a/lv3b": 0.238,
+      "vba/vbb": 0.241,
+      "t1_on_ecea702": "main ecea702 0.67076@27400 (sk 0.79688); t1 0.67076@27376 (sk 0.79874): still -24 B and ratio-neutral"
+    }
   },
   "rejected_mechanisms": [
     "block JT duplication of the non-shared arm (volatile loads / asm probe): kills holder-exit threading, unfaithful",
