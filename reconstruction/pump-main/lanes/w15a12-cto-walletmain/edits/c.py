@@ -1,0 +1,6 @@
+DCOL='let do_collect=collection_native||(!a.creator_vault_quote_token_account.data_is_empty()&&!token_frozen(a.creator_vault_quote_token_account.as_ref())?);'
+DC='let do_coin=coin_present&&!token_frozen(a.coin_creator_vault_ata.as_ref())?;'
+CP='let coin_present=!a.coin_creator_vault_ata.data_is_empty();'
+NAT='let collection_native=a.quote_mint.key()==anchor_spl::token::spl_token::native_mint::ID;'
+ATA='if !collection_native||coin_present{'
+GATE='  if coin_present&do_coin{\n'

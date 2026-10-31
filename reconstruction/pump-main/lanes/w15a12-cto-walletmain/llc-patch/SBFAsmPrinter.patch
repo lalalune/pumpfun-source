@@ -1,0 +1,12 @@
+--- a/llvm/lib/Target/SBF/SBFAsmPrinter.cpp
++++ b/llvm/lib/Target/SBF/SBFAsmPrinter.cpp
+@@ -146,7 +146,9 @@
+   return false;
+ }
+ 
++namespace llvm { const char *raprioTag(const MachineInstr *MI); }
+ void SBFAsmPrinter::emitInstruction(const MachineInstr *MI) {
++  if (const char *Tg = raprioTag(MI)) OutStreamer->AddComment(Tg);
+   SBF_MC::verifyInstructionPredicates(MI->getOpcode(),
+                                       getSubtargetInfo().getFeatureBits());
+ 

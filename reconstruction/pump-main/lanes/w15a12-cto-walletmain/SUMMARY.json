@@ -1,0 +1,25 @@
+{
+  "lane": "w15a12-cto-walletmain",
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27400 B",
+  "base": {"main": "90300f9d2 (re-checked on 86e2a6b74)", "ratio": 0.67346, "M": 2248, "skM": 2810, "slots": 3124, "bytes": 27400},
+  "result": "notes only, no gain; angle exhausted",
+  "best_zero_loss": null,
+  "attempts": {
+    "source_oracle": 10,
+    "keys": "0x22a10-w15-90300f9-walletmain-w01..w10-v1, -stickybound-v1, -chain386-v1",
+    "outcome": "4 fold to main (w05 w07 w08 w09), 6 change the wallet CFG and lose 8-89 M; none moves do_coin off the spill or the accounts piece off r8"
+  },
+  "mechanism_found": {
+    "chain": "at do_coin's first dequeue (greedy step 386) r6=%60 sweep flag, r7=%742 ATA buffer, r8=unsplit accounts %0, r9=%465 !holder; do_coin weight 1.9e-8 < all; %0's wallet piece %1671 later takes r8 and do_coin is spilled. All four occupants are head values; no wallet spelling changes them.",
+    "sticky_bound": "private llc RAPRIO_STICKY: stable do_coin=r8 + do_collect=r6 (prio 1588=1000) gives accounts r7 and M 2257 @27384 (main 2248 @27400), skM -5, L2 0.7842; best stable at 27400: 0.67555 / 3120 slots. On rw7: M 2253 @27392 with both coin gates matching. Wallet RA ceiling on main ~+0.003.",
+    "one_shot_forces_are_undone": "earlier 1863=r8 / 1588=r8 force bounds never had do_coin in r8 (re-evicted by %2151 / cascade from evicting %0)",
+    "holder465_pointer": "465=spill: +63 skM (all orig 0x3e00-0x4400 cashback/curve store) but M 2204; sticky climb on it tops at 0.66926 @27424"
+  },
+  "rejected": ["w01 do_coin before do_collect", "w02 mut do_coin seeded from coin_present", "w03 coin_present&!frozen?", "w04 !frozen?&&coin_present", "w06 (coin_present,do_coin) block tuple", "w10 coin_empty binding", "prio-only reorders of do_coin (= main or 0.604)"],
+  "unresolved": ["do_coin weight is ~10x below every CSR competitor; only upstream head changes (holder465, sweep-gate flag) can free the registers"],
+  "next_ideas": [
+    "holder465 lane: verify any ordinary !holder/cashback form with rastate.py at D 742 (r9 must be free) and then tools/wck.py; the wallet chain should follow without wallet edits",
+    "use RAPRIO_STICKY=1 for RA bounds that force long-lived values; one-shot forces mostly price cascades"
+  ],
+  "tools": ["tools/wck.py", "tools/sclimb.py", "llc-patch/RegAllocGreedy.patch (+RAPRIO_STICKY)", "llc-patch/build.sh"]
+}

@@ -1,0 +1,236 @@
+--- a/llvm/lib/CodeGen/RegAllocGreedy.cpp
++++ b/llvm/lib/CodeGen/RegAllocGreedy.cpp
+@@ -75,6 +75,74 @@
+ #include <utility>
+ 
+ using namespace llvm;
++
++// ---- RAPRIO experiment hooks (private llc; never part of any build recipe) ----
++#include "llvm/Support/FileSystem.h"
++#include <cstdlib>
++#include <map>
++#include <set>
++#include <string>
++namespace {
++struct RaprioCfg {
++  bool Loaded = false;
++  std::map<unsigned, unsigned> Prio;   // vreg index -> absolute queue priority
++  std::map<unsigned, long> PrioAdd;    // vreg index -> priority delta
++  std::map<unsigned, std::string> ForceS, HintS; // vreg index -> "r9" / "spill"
++  std::map<unsigned, unsigned> Force, Hint;      // resolved phys (0 = spill)
++  std::set<unsigned> ForceDone;
++  llvm::raw_fd_ostream *Log = nullptr;
++  unsigned Seq = 0;
++  unsigned FirstNew = ~0u;
++};
++RaprioCfg RP;
++void rpParse(const char *E, std::map<unsigned, std::string> &M) {
++  if (!E) return;
++  std::string S(E); size_t i = 0;
++  while (i < S.size()) {
++    size_t j = S.find(',', i); if (j == std::string::npos) j = S.size();
++    std::string T = S.substr(i, j - i); size_t q = T.find('=');
++    if (q != std::string::npos) {
++      std::string K = T.substr(0, q); if (!K.empty() && K[0] == '%') K = K.substr(1);
++      M[(unsigned)std::stoul(K)] = T.substr(q + 1);
++    }
++    i = j + 1;
++  }
++}
++void rpLoad() {
++  if (RP.Loaded) return; RP.Loaded = true;
++  std::map<unsigned, std::string> P; rpParse(getenv("RAPRIO_PRIO"), P);
++  for (auto &KV : P) {
++    const std::string &V = KV.second;
++    if (!V.empty() && (V[0] == '+' || V[0] == '-')) RP.PrioAdd[KV.first] = std::stol(V, nullptr, 0);
++    else RP.Prio[KV.first] = (unsigned)std::stoul(V, nullptr, 0);
++  }
++  rpParse(getenv("RAPRIO_FORCE"), RP.ForceS);
++  rpParse(getenv("RAPRIO_HINT"), RP.HintS);
++  if (const char *L = getenv("RAPRIO_LOG")) {
++    std::error_code EC;
++    RP.Log = new llvm::raw_fd_ostream(L, EC, llvm::sys::fs::OF_Append);
++    if (EC) { delete RP.Log; RP.Log = nullptr; }
++  }
++}
++unsigned rpPhys(const llvm::TargetRegisterInfo *TRI, const std::string &N) {
++  if (N == "spill") return 0;
++  for (unsigned R = 1; R < TRI->getNumRegs(); ++R) {
++    std::string A = TRI->getName(R);
++    if (A.size() == N.size() && std::equal(A.begin(), A.end(), N.begin(), [](char x, char y) { return tolower(x) == tolower(y); }))
++      return R;
++  }
++  return ~0u;
++}
++} // namespace
++namespace llvm {
++std::map<const MachineInstr *, std::pair<unsigned, std::string>> RaprioTags;
++const char *raprioTag(const MachineInstr *MI) {
++  auto It = RaprioTags.find(MI);
++  if (It == RaprioTags.end() || It->second.first != MI->getOpcode()) return nullptr;
++  return It->second.second.c_str();
++}
++} // namespace llvm
++// ---- end RAPRIO ----
+ 
+ #define DEBUG_TYPE "regalloc"
+ 
+@@ -295,7 +363,20 @@
+     ExtraInfo->setStage(Reg, Stage);
+   }
+ 
++  if (const char *NH = getenv("RAPRIO_NOHINT")) {
++    // "split": drop the simple hint of every vreg created after greedy started (split / spill products); else a vreg list.
++    unsigned Idx0 = Register::virtReg2Index(Reg);
++    std::string S(NH);
++    bool Hit = (S == "split" && Idx0 >= RP.FirstNew) || (("," + S + ",").find("," + std::to_string(Idx0) + ",") != std::string::npos);
++    if (Hit) MRI->clearSimpleHint(Reg);
++  }
+   unsigned Ret = PriorityAdvisor->getPriority(*LI);
++  {
++    unsigned Idx = Register::virtReg2Index(Reg);
++    auto It = RP.Prio.find(Idx); if (It != RP.Prio.end()) Ret = It->second;
++    auto Ia = RP.PrioAdd.find(Idx); if (Ia != RP.PrioAdd.end()) Ret = (unsigned)((long)Ret + Ia->second);
++    if (RP.Log) *RP.Log << "Q " << Idx << " p=" << Ret << " st=" << (int)Stage << " sz=" << LI->getSize() << " w=" << LI->weight() << (&CurQueue == &Queue ? "" : " recolor") << "\n";
++  }
+ 
+   // The virtual register number is a tie breaker for same-sized ranges.
+   // Give lower vreg numbers higher priority to assign them first.
+@@ -387,6 +468,7 @@
+   if (CurQueue.empty())
+     return nullptr;
+   LiveInterval *LI = &LIS->getInterval(~CurQueue.top().second);
++  if (RP.Log && &CurQueue == &Queue) *RP.Log << "D " << RP.Seq++ << " " << Register::virtReg2Index(LI->reg()) << " p=" << CurQueue.top().first << "\n";
+   CurQueue.pop();
+   return LI;
+ }
+@@ -509,6 +591,7 @@
+     if (!VRM->hasPhys(Intf->reg()))
+       continue;
+ 
++    if (RP.Log) *RP.Log << "E " << Register::virtReg2Index(Intf->reg()) << " from " << TRI->getName(PhysReg) << " by " << Register::virtReg2Index(VirtReg.reg()) << "\n";
+     Matrix->unassign(*Intf);
+     assert((ExtraInfo->getCascade(Intf->reg()) < Cascade ||
+             VirtReg.isSpillable() < Intf->isSpillable()) &&
+@@ -2147,8 +2230,59 @@
+   LLVMContext &Ctx = MF->getFunction().getContext();
+   SmallVirtRegSet FixedRegisters;
+   RecoloringStack RecolorStack;
++  Register RpReg = VirtReg.reg();
++  unsigned RpIdx = Register::virtReg2Index(RpReg);
++  auto RpF = RP.Force.find(RpIdx);
++  if (RpF != RP.Force.end() && !RP.ForceDone.count(RpIdx)) {
++    RP.ForceDone.insert(RpIdx);
++    if (RpF->second == 0) {
++      if (VirtReg.isSpillable()) {
++        LiveRangeEdit LRE(&VirtReg, NewVRegs, *MF, *LIS, VRM, this, &DeadRemats);
++        spiller().spill(LRE);
++        ExtraInfo->setStage(NewVRegs.begin(), NewVRegs.end(), RS_Done);
++        DebugVars->splitRegister(VirtReg.reg(), LRE.regs(), *LIS);
++        if (RP.Log) { *RP.Log << "F " << RpIdx << " spill ->"; for (Register R : NewVRegs) *RP.Log << " " << Register::virtReg2Index(R); *RP.Log << "\n"; }
++        return 0;
++      }
++      if (RP.Log) *RP.Log << "F " << RpIdx << " spill FAILED (unspillable)\n";
++    } else {
++      MCRegister P = RpF->second;
++      auto K = Matrix->checkInterference(VirtReg, P);
++      if (K == LiveRegMatrix::IK_Free) {
++        if (RP.Log) *RP.Log << "F " << RpIdx << " " << TRI->getName(P) << " free\n";
++        if (getenv("RAPRIO_STICKY")) ExtraInfo->setCascade(VirtReg.reg(), 0x7ffffff0u);
++        return P;
++      }
++      if (K == LiveRegMatrix::IK_VirtReg) {
++        unsigned Cascade = ExtraInfo->getOrAssignNewCascade(VirtReg.reg());
++        SmallVector<const LiveInterval *, 8> Intfs;
++        for (MCRegUnit Unit : TRI->regunits(P)) {
++          LiveIntervalUnion::Query &Q = Matrix->query(VirtReg, Unit);
++          ArrayRef<const LiveInterval *> IVR = Q.interferingVRegs();
++          Intfs.append(IVR.begin(), IVR.end());
++        }
++        if (RP.Log) *RP.Log << "F " << RpIdx << " " << TRI->getName(P) << " evicting";
++        for (const LiveInterval *Intf : Intfs) {
++          if (!VRM->hasPhys(Intf->reg())) continue;
++          if (RP.Log) *RP.Log << " " << Register::virtReg2Index(Intf->reg());
++          Matrix->unassign(*Intf);
++          ExtraInfo->setCascade(Intf->reg(), Cascade);
++          NewVRegs.push_back(Intf->reg());
++        }
++        if (RP.Log) *RP.Log << "\n";
++        if (getenv("RAPRIO_STICKY")) ExtraInfo->setCascade(VirtReg.reg(), 0x7ffffff0u);
++        return P;
++      }
++      if (RP.Log) *RP.Log << "F " << RpIdx << " " << TRI->getName(P) << " FAILED kind=" << (int)K << "\n";
++    }
++  }
+   MCRegister Reg =
+       selectOrSplitImpl(VirtReg, NewVRegs, FixedRegisters, RecolorStack);
++  if (RP.Log) {
++    *RP.Log << "R " << RpIdx << " -> " << (Reg == ~0U ? "FAIL" : (Reg ? TRI->getName(Reg) : "0")) << " st=" << (int)ExtraInfo->getStage(RpReg);
++    if (!NewVRegs.empty()) { *RP.Log << " new:"; for (Register R : NewVRegs) *RP.Log << " " << Register::virtReg2Index(R); }
++    *RP.Log << "\n";
++  }
+   if (Reg == ~0U && (CutOffInfo != CO_None)) {
+     uint8_t CutOffEncountered = CutOffInfo & (CO_Depth | CO_Interf);
+     if (CutOffEncountered == CO_Depth)
+@@ -2500,6 +2632,7 @@
+     NamedRegionTimer T("spill", "Spiller", TimerGroupName,
+                        TimerGroupDescription, TimePassesIsEnabled);
+     LiveRangeEdit LRE(&VirtReg, NewVRegs, *MF, *LIS, VRM, this, &DeadRemats);
++    if (RP.Log) *RP.Log << "S " << Register::virtReg2Index(VirtReg.reg()) << "\n";
+     spiller().spill(LRE);
+     ExtraInfo->setStage(NewVRegs.begin(), NewVRegs.end(), RS_Done);
+ 
+@@ -2758,6 +2891,15 @@
+   SpillerInstance.reset(createInlineSpiller(*this, *MF, *VRM, *VRAI));
+ 
+   VRAI->calculateSpillWeightsAndHints();
++  rpLoad();
++  RP.Force.clear(); RP.Hint.clear(); RP.ForceDone.clear(); RP.Seq = 0;
++  for (auto &KV : RP.ForceS) { unsigned P = rpPhys(TRI, KV.second); if (P != ~0u) RP.Force[KV.first] = P; }
++  for (auto &KV : RP.HintS) {
++    unsigned P = rpPhys(TRI, KV.second);
++    if (P != ~0u && P != 0 && KV.first < MRI->getNumVirtRegs()) MRI->setSimpleHint(Register::index2VirtReg(KV.first), P);
++  }
++  if (RP.Log) *RP.Log << "FN " << MF->getName() << "\n";
++  RP.FirstNew = MRI->getNumVirtRegs();
+ 
+   LLVM_DEBUG(LIS->dump());
+ 
+@@ -2770,10 +2912,37 @@
+ 
+   allocatePhysRegs();
+   tryHintsRecoloring();
++  if (RP.Log) {
++    for (unsigned I = 0, N = MRI->getNumVirtRegs(); I < N; ++I) {
++      Register R = Register::index2VirtReg(I);
++      if (MRI->reg_nodbg_empty(R) || !LIS->hasInterval(R)) continue;
++      *RP.Log << "A " << I << " " << (VRM->hasPhys(R) ? TRI->getName(VRM->getPhys(R)) : (VRM->getStackSlot(R) != VirtRegMap::NO_STACK_SLOT ? "stack" : "-")) << "\n";
++    }
++    RP.Log->flush();
++  }
+ 
+   if (VerifyEnabled)
+     MF->verify(this, "Before post optimization");
+   postOptimization();
++  if (getenv("RAPRIO_TAG")) {
++    RaprioTags.clear();
++    for (MachineBasicBlock &MBB : *MF) {
++      unsigned K = 0;
++      for (MachineInstr &MI : MBB) {
++        std::string T; raw_string_ostream OS(T);
++        OS << "rp " << MBB.getNumber() << "." << K++;
++        for (unsigned I = 0; I < MI.getNumOperands(); ++I) {
++          const MachineOperand &MO = MI.getOperand(I);
++          if (!MO.isReg() || !MO.getReg().isVirtual()) continue;
++          Register R = MO.getReg();
++          OS << " " << (MO.isDef() ? "d" : "u") << Register::virtReg2Index(R) << "=";
++          if (VRM->hasPhys(R)) OS << TRI->getName(VRM->getPhys(R)); else OS << "?";
++        }
++        OS.flush();
++        RaprioTags[&MI] = {MI.getOpcode(), T};
++      }
++    }
++  }
+   reportStats();
+ 
+   releaseMemory();
