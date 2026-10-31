@@ -9,6 +9,11 @@
     "0fbf8daa1": {
       "ratio": 0.65578,
       "slots": 3280
+    },
+    "63308119b": {
+      "ratio": 0.65698,
+      "slots": 3193,
+      "note": "occupant re-verified (%1738 <- %60 in r9 over [21296,33488))"
     }
   },
   "result": "notes only; no zero-loss gain. Named the extra callee-saved occupant across wallet(): the !skip sweep-gate flag (IR %_540.sroa.0.0.off0, MIR %60 -> split %1731 in r9 over the whole wallet [21296,33488)); not the sharing_update tag (%59, spilled). Corrects the #3320/#3251 attribution.",

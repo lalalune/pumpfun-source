@@ -1,7 +1,7 @@
 # w14a46-cto-walletcsr: the extra callee-saved occupant across wallet() (admin_cto::execute, 0x22a10)
 
 Target `0x22a10` `admin_cto::execute` (`programs/pump/src/creator/admin_cto.rs`), pinned at 27,400 B.
-Base: main 6db95a764 (0.65458, 3,280 slots). Re-checked on main 0fbf8daa1 (0.65578): the occupancy map is identical
+Base: main 6db95a764 (0.65458, 3,280 slots). Re-checked on main 0fbf8daa1 (0.65578) and 63308119b (0.65698, wallet occupant %1738 <- %60, same range): the occupancy map is identical
 (r9 = %1731 <- %60 over [21296,33488)), and the key bounds stay below main: k1 0.56043, sg 0.49813, sg+start 4:1
 0.64118 @27,344, w1 0.63429, cpm 0.65339, g1 0.65408, k1+w1+cpm 0.55389. Angle: w14a37-cto-collectsib (#3312) next idea 1, plus the w14a35-cto-walletr8
 (#3320) queue. Ledger: approach `walletcsr`, keys `0x22a10-w14-6db95a7-walletcsr-*`.
