@@ -1,0 +1,84 @@
+{
+ "lane": "w14a38-cto-splicemap",
+ "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs)",
+ "pinned_bytes": 27400,
+ "bases": {
+  "81d3d9a": {
+   "ratio": 0.65069,
+   "slots": 3171
+  },
+  "6db95a7": {
+   "ratio": 0.65458,
+   "slots": 3280
+  },
+  "0fbf8da": {
+   "ratio": 0.65578,
+   "slots": 3280
+  }
+ },
+ "deliverables": [
+  "REGIONS.json ranked semantic-region splice map with owners",
+  "FIXED200.jsonl per-0x200 splice/fm-rm-jm-sk",
+  "DRIFT.txt size-drift map",
+  "FRAMEPAIRS.txt frame remap table",
+  "tools: splice.py regions.py lst.py cdis.py segdiff.py regpairs.py drift.py framepairs.py capvar.sh rx.py capraw.py rec.py"
+ ],
+ "best_landable": null,
+ "best_lead": {
+  "name": "c_ammp = su_tafter + s_amm_present",
+  "main": "0fbf8da",
+  "ratio": 0.65758,
+  "bytes": 27376,
+  "edits": [
+   "else{target=st.creator;(false,Some(args.0),true)} -> else{let r=(false,Some(args.0),true);target=st.creator;r}",
+   "let amm_frozen=!a.coin_creator_vault_ata.data_is_empty()&&token_frozen(..)?; -> let amm_present=!a.coin_creator_vault_ata.data_is_empty();let amm_frozen=amm_present&&token_frozen(..)?;"
+  ],
+  "needs": "+24 B at <= ~0.0018 ratio cost (or +40 B on su_tafter alone at 0.65747)"
+ },
+ "findings": [
+  "Four owned regions hold 0.18 of the 0.35 gap: TCF clone run +0.057 (register: clone-load temporaries r9->r0, r0->r5), sharing CPI +0.056 (pure structure, literal load order), validate fee errors +0.036, wallet +0.032",
+  "Unowned regions are each <= +0.017 even if matched exactly: entry head 0.017, sweep head 0.008, event 0.007, tail error blocks 0.004",
+  "PDA-first head (p1) is +23 matches at frame+register-masked level but -0.08 raw: one r6<->r8 swap of the reloaded accounts pointer vs accounts+0x108 in the sweep, plus +8 B frame",
+  "Every memcmp operand swap costs 0.0003-0.0009 (orig already has our operand order); integer comparison swaps are byte-identical",
+  "46 of 67 still-applicable w14a31 size knobs are byte-identical on current main",
+  "w14a21 le_vy1 validate-closure lead falls to 0.63191 on 6db95a7 after #3315"
+ ],
+ "rejected": [
+  "hL",
+  "e_sk",
+  "e_skL",
+  "e_skref",
+  "s_destL",
+  "s_destne",
+  "s_destref",
+  "s_destrefcmp",
+  "s_destkeyvar",
+  "s_nativeL",
+  "s_native_late",
+  "s_amm_and",
+  "s_holderkey_val",
+  "s_gate_if",
+  "n_rentmin",
+  "p0",
+  "p1 + 10 partners",
+  "sw00-sw18 operand swaps",
+  "ev_hr",
+  "le_vy1",
+  "su_new",
+  "su_argsval",
+  "su_ok_drop",
+  "su_clone",
+  "t5",
+  "h1",
+  "g1",
+  "g3",
+  "b5-b9 Some(args.0) respellings",
+  "67 knob stacks"
+ ],
+ "next_ideas": [
+  "Find a cheap +24 B knob for c_ammp (or +16 B for h0), e.g. a faithful size-adding change in the sharing CPI where ours is ~50 B short of the original (w14a30's region) and stack it on c_ammp",
+  "Re-test c_ammp on every new main (it carried from 6db95a7 to 0fbf8da unchanged: +0.0017-0.0018)",
+  "RA lanes: p1's only loss is the sweep r6<->r8 swap; any lever that keeps accounts+0x108 out of a callee-saved register (the original spills it at once) would unlock the PDA-first head (+23 skeleton)"
+ ],
+ "ledger_keys": "0x22a10-w14-{81d3d9a,6db95a7,0fbf8da}-splicemap-*-v1"
+}

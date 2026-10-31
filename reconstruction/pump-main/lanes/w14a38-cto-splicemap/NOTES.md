@@ -157,3 +157,22 @@ ours one). **It is not landable yet: it needs +40 B (or +24 B on the s_amm_prese
 the size-adding ones lose too much (wl_ixlit +32 B -> 0.65208, wl_native_deref +80 B -> 0.6512, ev_bc_deref, s_native_deref,
 tp_pargs_hold, wl_infos_ref worse). `Some(args.0)` re-spellings (`map`, `if let`, `match`, `as_ref().copied()`) cost 96-104 B
 and fall to 0.603.
+
+### The lead on main 0fbf8daa1 (0.65578) and the size-repay search
+
+| variant | bytes | ratio |
+| --- | ---: | ---: |
+| main 0fbf8da (m0, `eq_main`) | 27,400 | 0.65578 |
+| su_tafter (also f1 arm flip, f3 shared flip, f7, f8: identical) | 27,360 | **0.65747** |
+| su_tafter + s_amm_present (c_ammp; a1/a2/a5/a6 spellings identical) | 27,376 | **0.65758** |
+| f6: tafter with `target=a.bonding_curve.creator` | 27,368 | 0.65737 |
+| h0: f6 + s_amm_present | 27,384 | 0.65658 |
+| f2: arm flip without tafter | 27,400 | = main |
+| h1/h4/h5: non-shared arm reads `a.bonding_curve.creator` | 27,200 | 0.51301 |
+| g1 / g3: `vq_present` / `coin_frozen` bindings in wallet | 27,376 / 27,360 | 0.64289 / 0.64248 |
+| g2/g4/g5/g6 (pool_present, if-forms) | 27,376 | = c_ammp |
+| native arm on c_ammp: rent scope revert / and_then / frozen-first / checked_sub | 27,360 / 27,352 / 27,424 / 27,376 | 0.65358 / 0.65487 / 0.62434 / = |
+
+Best landable-size candidate: none. The remaining gap is +16 B (h0) or +24 B (c_ammp) with at most ~0.0008 / ~0.0018
+to spend. A lane with a cheap +16/+24 B knob, or a faithful size-adding change in the sharing CPI (ours is ~50 B short
+there, DRIFT.txt), should stack it on c_ammp first.
