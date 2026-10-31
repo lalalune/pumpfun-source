@@ -165,3 +165,36 @@ Other su variants on 2e1379d (main M 2,194):
 
 So su_tafter's +4 M survives every landing since d371f97, but every faithful +8 B found costs 1-2 M in its context;
 the best full-size composites tie main at M 2,193, one token short.
+
+## 8. Mains 0d945ea (#3378, 0.65758, M 2,195) and fc628cf (#3379, 0.65758 / 3,183 slots)
+
+On 0d945ea, `su_r2 + s_amm_present + rr7O` (sharing pump_fees literal `owner:a.pump_fees.owner`) was **0.65788 at 27,400 B,
+M 2,196, 0 losses** (one token above main), but #3379 landed one minute later (w14a64 curve fee if-let + wallet
+`is_writable==false` size pair) and on fc628cf the same composite only ties (0.65758, 3,224 slots vs main 3,183).
+Every other repay of su_r2 on fc628cf (M 2,199 at 27,368):
+
+| su_r2 + | bytes | M | ratio |
+| --- | ---: | ---: | ---: |
+| s_amm_present + rr7O (+ pre_cb_match / pre_cb_not / x_hr_curve) | 27,400 | 2,195 | 0.65758 (tie, 3,224 slots) |
+| s_amm_present + rr7E / rr5D + nf_pre_ev | 27,400 | 2,194 | 0.65728 |
+| s_amm_present + rr7R / rr7S / rr7W | 27,400 | 2,192 / 2,190 / 2,190 | |
+| rr7O | 27,384 | 2,194 | 0.65748 |
+| rr7O + rr5D / rr7K / rr7E / rr7R | 27,392 / 27,392 / 27,384 / 27,384 | 2,195 / 2,193 / 2,186 / 2,191 | |
+| rr5D + rr7E | 27,392 | 2,194 | |
+| rr7O + {clockvar, nf_pre_ev+rr5D, cu_unwrapcur+rr5D, nf_pre_ev+cu_unwrapcur, rr3D} | 27,400 | 2,188-2,192 | |
+| su_tafter + s_amm_present + rr7O | 27,392 | 2,195 | |
+
+On 0d945ea: su 0.65927 @27,360 (M 2,199), su_r2 0.65917 @27,368, su_r2+amp+nf_pre_ev 0.65798 @27,392 (M 2,196),
++ wl_writ_eq 0.65728, su_r2+amp+clockvar 0.65728, +rr5D 0.65758 (tie), +rr7K 0.65698, su_r2+amp+rr7E 0.65758 (tie),
+pre_cb_match / pre_cb_not 0.65758 (3,192 = main's slots), wl_owner_eqsys 0.63182 (no longer a tie), cu_iflet2 0.65738 @27,392.
+
+## 9. Landing candidate on fc628cf: su_r2 + s_amm_present + rr7O with #3379's size pair reverted
+
+M is scored against the original, not against main, so the 0d945ea composite is still one token above fc628cf's main.
+On fc628cf, `su_r2 + s_amm_present + rr7O + cu_unwrapcur + wl_writ_not` (the four genes plus undoing #3379's
+cu-if-let / is_writable==false pair) measures **0.65788, 3,223 slots, 27,400 B, 1034/1034, 0 losses** (main 0.65758 / 3,183),
+unstripped sha c688d0cac740df27, 363-case differential: 0 mismatches. Changes:
+- shared non-holder arm `else{let r=(false,Some(args.0),true);target=a.bonding_curve.creator;r}` (w14a38's su_tafter, curve read);
+- sweep `let amm_present=!a.coin_creator_vault_ata.data_is_empty();let amm_frozen=amm_present&&token_frozen(..)?;` (w14a38);
+- sharing CPI pump_fees literal `owner:a.pump_fees.owner` (re-read, +16 B here);
+- curve `creator_fee_bps=fee.unwrap_or(curve.creator_fee_bps)` and wallet `!a.current_creator.is_writable` (pre-#3379 forms).
