@@ -1,0 +1,44 @@
+  3d58  ldxdw r5, [r10 - 2264]                  # rp 272.10 d1683=R5
+  3d60  ldxdw r1, [r5 + 152]                    # rp 272.11 d289=R1 u1683=R5
+  3d68  ldxdw r6, [r1 + 8]                      # rp 272.12 d2127=R6 u289=R1
+  3d70  ldxdw r2, [r6 + 0]                      # rp 272.13 d1202=R2 u2127=R6
+  3d78  add64 r2, 1                             # rp 272.14 d1202=R2 u1202=R2
+  3d80  mov64 r3, 1                             # rp 272.15 d1633=R3
+  3d88  jeq r2, 0, LBB0_89                      # rp 272.16 u1202=R2
+  3d90  mov64 r3, 0                             # rp 273.0 d1633=R3
+         LBB0_89:                                # %bb35
+  3d98  ldxdw r4, [r1 + 0]                      # rp 274.0 d1940=R4 u289=R1
+  3da0  stxdw [r6 + 0], r2                      # rp 274.1 u1202=R2 u2127=R6
+  3da8  ldxdw r0, [r10 - 2312]                  # rp 274.2 d2010=R0
+  3db0  jne r3, 1, LBB0_91                      # rp 274.3 u1633=R3
+  3db8  ja LBB0_185
+         LBB0_91:                                # %_ZN5alloc2rc10RcInnerPtr10inc_strong17h485e41ed5d8892acE.exit.i159
+  3dc0  ldxdw r7, [r1 + 16]                     # rp 276.0 d2214=R7 u289=R1
+  3dc8  ldxdw r2, [r7 + 0]                      # rp 276.1 d1207=R2 u2214=R7
+  3dd0  add64 r2, 1                             # rp 276.2 d1207=R2 u1207=R2
+  3dd8  mov64 r3, 1                             # rp 276.3 d1634=R3
+  3de0  jeq r2, 0, LBB0_93                      # rp 276.4 u1207=R2
+  3de8  mov64 r3, 0                             # rp 277.0 d1634=R3
+         LBB0_93:                                # %_ZN5alloc2rc10RcInnerPtr10inc_strong17h485e41ed5d8892acE.exit.i159
+  3df0  stxdw [r7 + 0], r2                      # rp 278.0 u1207=R2 u2214=R7
+  3df8  jne r3, 1, LBB0_95                      # rp 278.1 u1634=R3
+  3e00  ja LBB0_185
+         LBB0_95:                                # %"_ZN71_$LT$solana_account_info..AccountInfo$u20$as$u20$core..clone..Clone$GT$5clone17h759150bcde62cc00E.exit"
+  3e08  stxdw [r10 - 2344], r4                  # rp 280.0 u1940=R4
+  3e10  ldxdw r2, [r5 + 104]                    # rp 280.1 d298=R2 u1683=R5
+  3e18  ldxdw r8, [r2 + 8]                      # rp 280.2 d1899=R8 u298=R2
+  3e20  ldxdw r3, [r8 + 0]                      # rp 280.3 d1212=R3 u1899=R8
+  3e28  add64 r3, 1                             # rp 280.4 d1212=R3 u1212=R3
+  3e30  mov64 r4, 1                             # rp 280.5 d1635=R4
+  3e38  jeq r3, 0, LBB0_97                      # rp 280.6 u1212=R3
+  3e40  mov64 r4, 0                             # rp 281.0 d1635=R4
+         LBB0_97:                                # %"_ZN71_$LT$solana_account_info..AccountInfo$u20$as$u20$core..clone..Clone$GT$5clone17h759150bcde62cc00E.exit"
+  3e48  ldxb r9, [r1 + 42]                      # rp 282.0 d1912=R9 u289=R1
+  3e50  stxdw [r10 - 2448], r9                  # rp 282.1 u1912=R9
+  3e58  ldxb r9, [r1 + 41]                      # rp 282.2 d1910=R9 u289=R1
+  3e60  stxdw [r10 - 2440], r9                  # rp 282.3 u1910=R9
+  3e68  ldxb r9, [r1 + 40]                      # rp 282.4 d1908=R9 u289=R1
+  3e70  stxdw [r10 - 2432], r9                  # rp 282.5 u1908=R9
+  3e78  ldxdw r9, [r1 + 32]                     # rp 282.6 d1906=R9 u289=R1
+  3e80  stxdw [r10 - 2424], r9                  # rp 282.7 u1906=R9
+  3e88  ldxdw r1, [r1 + 24]                     # rp 282.8 d1904=R1 u289=R1

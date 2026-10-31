@@ -1,0 +1,27 @@
+{
+  "lane": "w15a24-cto-raforce3",
+  "target": "0x22a10 admin_cto::execute (pinned 27,400 B)",
+  "base": {"main": "9120883a9", "ratio": 0.67376, "slots_diff": 3124, "bytes": 27400, "normalized": 1034, "raw": 1034},
+  "best": {"ratio": 0.67376, "slots_diff": 3124, "bytes": 27400, "note": "main itself; no zero-loss source change"},
+  "result": "notes only",
+  "forces_sticky_9120883": {"1617=r3": 0.67466, "1906=r6": 0.67496, "1384=r5": 0.67436, "triple": 0.67645, "P(1684,1671)+triple": 0.68125, "sticky_climb_8_forces": 0.68244},
+  "blocker_chains": {
+    "1617": "TCF pump_creator_vault_ata inc_strong flag; free choice R2 (F free); orig r2 holds the data Rc ptr reloaded at 0x31b0 (lamports cloned first). TCF clone-run naming cascade.",
+    "1906": "sharing program rent temp; evicts key piece 1858 from r9; r6 held by lamports piece 1855 (orig r0); ours r0 holds %465 !holder split piece 2010 (dead reload at 0x3da8). %465 family (w15a14) + swept-in-r9 (w14a117).",
+    "1384": "event ldxb [curve+0xa5]; free choice R4; orig r4 holds the [curve+0x70] creator_fee_bps event reload = n1 form (w14a120/w15a04)."
+  },
+  "attempts": [
+    {"key": "c1", "form": "TCF pcva literal lamports before data (data/owner via a.cvqta)", "ratio": 0.63074, "bytes": 27440},
+    {"key": "c2", "form": "TCF pcva literal key,lamports,data,owner via x (derive order)", "ratio": 0.66457, "bytes": 27392, "note": "lamports r6/data r9, 1617 still r2"},
+    {"key": "2127=r0", "form": "RA force", "ratio": 0.67406, "bytes": 27400},
+    {"key": "2127=r0,1906=r6", "form": "RA force", "ratio": 0.67525, "bytes": 27400},
+    {"key": "2010=spill", "form": "RA force", "ratio": 0.67216, "bytes": 27408}
+  ],
+  "rejected_mechanisms": ["TCF clone order swap for 1617", "lamports piece to r0 for 1906 (%465 piece refills r6)", "n1 for 1384 (priced by w15a04/w14a120)"],
+  "unresolved_residuals": ["dead %465 split reload ldxdw r0,[r10-0x908] at ours 0x3da8 (ours-only)", "TCF clone order data-first vs original lamports-first"],
+  "next_ideas": [
+    "A whole-region rewrite that removes %465 (per-arm spilled holder/cashback phi, as in the original) AND repays its 8 B frame slot; it would also free r0 in the sharing clone run (1906) and r9 at the wallet (w15a14).",
+    "TCF lamports-first (c2, -8 B, -30 M) re-priced together with the TCF clone-run RA forces; the c2 skeleton matches the original's clone order."
+  ],
+  "ledger_keys": "0x22a10-w15-9120883-raforce3-*-v1"
+}

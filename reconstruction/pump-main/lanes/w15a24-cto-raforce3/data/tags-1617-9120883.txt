@@ -1,0 +1,25 @@
+  3270  ldxb r4, [r1 + 40]                      # rp 224.4 d2230=R4 u215=R1
+  3278  stxdw [r10 - 3016], r4                  # rp 224.5 u2230=R4
+  3280  ldxdw r1, [r1 + 32]                     # rp 224.6 d2228=R1 u215=R1
+  3288  stxdw [r10 - 3008], r1                  # rp 224.7 u2228=R1
+  3290  ldxdw r4, [r8 + 0]                      # rp 224.8 d2134=R4 u224=R8
+  3298  stxdw [r5 + 0], r2                      # rp 224.9 u1081=R2 u2182=R5
+  32a0  jne r3, 1, LBB0_274                     # rp 224.10 u1616=R3
+  32a8  ja LBB0_185
+         LBB0_274:                               # %_ZN5alloc2rc10RcInnerPtr10inc_strong17h485e41ed5d8892acE.exit.i176.i
+  32b0  stxdw [r10 - 3056], r7                  # rp 226.0 u2205=R7
+  32b8  ldxdw r3, [r8 + 16]                     # rp 226.1 d2188=R3 u224=R8
+  32c0  ldxdw r1, [r3 + 0]                      # rp 226.2 d1086=R1 u2188=R3
+  32c8  add64 r1, 1                             # rp 226.3 d1086=R1 u1086=R1
+  32d0  mov64 r2, 1                             # rp 226.4 d1617=R2
+  32d8  jeq r1, 0, LBB0_276                     # rp 226.5 u1086=R1
+  32e0  mov64 r2, 0                             # rp 227.0 d1617=R2
+         LBB0_276:                               # %_ZN5alloc2rc10RcInnerPtr10inc_strong17h485e41ed5d8892acE.exit.i176.i
+  32e8  mov64 r7, r0
+  32f0  stxdw [r10 - 3040], r4                  # rp 228.1 u2134=R4
+  32f8  stxdw [r10 - 3048], r3                  # rp 228.2 u2188=R3
+  3300  stxdw [r3 + 0], r1                      # rp 228.3 u1086=R1 u2188=R3
+  3308  jne r2, 1, LBB0_278                     # rp 228.4 u1617=R2
+  3310  ja LBB0_185
+         LBB0_278:                               # %"_ZN71_$LT$solana_account_info..AccountInfo$u20$as$u20$core..clone..Clone$GT$5clone17h759150bcde62cc00E.exit186.i"
+  3318  mov64 r0, r5
