@@ -1,0 +1,15 @@
+{
+  "lane": "w14a134-cto-headroute306",
+  "target": "0x22a10 admin_cto::execute",
+  "base": "ebe5387e1 (0.67316, 3123 slots, M 2247, 27400 B)",
+  "best_zero_loss": {"ratio": 0.67316, "slots_diff": 3123, "bytes": 27400, "source": "main"},
+  "best_oracle": {"layout": "h289 + post-opt IR moves bb21.i>bb12.i, bb25.i>bb21.i, bb20.i>bb13.i", "ratio": 0.67446, "M": 2251, "jM": 2361, "bytes": 27392, "source_expressible": false},
+  "attempts": {
+    "source_spellings_on_h289": {"tagb": "identical to h289 (0.66896)", "s296G": "identical", "s298G": "identical", "mN306": "identical", "mN306+s298G": "identical", "s306G": "0.62665 @ 27304", "in298": "outline basin 0.43481 @ 26928"},
+    "ir_moves": "13 head layouts priced; only the full 3-move route C beats main in M (+4 at -8 B)"
+  },
+  "rejected_mechanisms": ["tag bound before the holder tests", "Try on if-expression at 296/298/306", "None-first match at 306", "single holder test (outline basin via the 2% cold-callsite rule)"],
+  "unresolved": ["route C equals the creation order of a single holder test; in the inlined basin the second holder test's join is codegened after Err296", "mayhem and hr tests are icmp eq i8 load,0 (zero heuristic 12:20), which keeps the single-test non-holder arm at BFI 0.070 < the 0.117 needed to keep 307/312 inlined"],
+  "next_ideas": ["outline basin frame/RA plan (w14a08, w14a125-127): it gets route C from in298's creation order", "a source form that raises BFI on the mayhem-pass or hr=0 edge (both are needed) so a single-test head keeps 307/312 inlined", "pair route C with an M-neutral +8 B knob only if a source form is found"],
+  "ledger_keys": "0x22a10-w14-ebe5387-headroute306-*"
+}
