@@ -1,0 +1,31 @@
+{
+  "lane": "w14a45-cto-acc108",
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27,400 B",
+  "region": "sweep TCF clone run, orig 0x26e8-0x3930 (seg 69)",
+  "base": {"main": "6e011ea42", "ratio": 0.65548, "slots_diff": 3280, "bytes": 27400, "normalized": 1034, "raw": 1034},
+  "best": {"ratio": 0.65548, "slots_diff": 3280, "bytes": 27400, "note": "= main; no source change"},
+  "result": "exhausted: no head live-range edit or source form beats main; notes only",
+  "attempts": {
+    "ir_oracle_variants": 60,
+    "source_forms_built": 6,
+    "ledger_keys": ["0x22a10-w14-6e011ea-acc108-ir-hcv-slot-remat-v1", "0x22a10-w14-6e011ea-acc108-ir-bump-slot-reload-v1",
+      "0x22a10-w14-6e011ea-acc108-ir-allthree-spills-v1", "0x22a10-w14-6e011ea-acc108-src-ctx-dblref-v1",
+      "0x22a10-w14-6e011ea-acc108-src-hcvbind-v1", "0x22a10-w14-6e011ea-acc108-src-bumphead-v1"]
+  },
+  "findings": [
+    "accounts+0x108 is &a.holder_creator_vault (inline AccountInfo); one GVN-merged gep in the sweep head serves the 648 compare/error, the 719 Create clone and the 664 native calls, so it lives across the TCF run",
+    "the original holds the sharing tag in r6 through the sweep head and spills bump (r7), native (r9) and the +0x108 gep right after the dest compare; main keeps bump in r9 and the gep in r6",
+    "forcing all three original head spills on main leaves the TCF permutation unchanged (regdiff 127->128, l1 -47): TCF temp naming is decided inside the clone run",
+    "on p1 (PDA first) the bump register is what moves accounts out of r8 (TCF regdiff 329, r1->r3 x170); a late bump load (IR b1 or source &&Context) gives TCF regdiff 98 and p1 0.5716->0.6042/0.6015, still 0.05 below main",
+    "fn sweep(ctx:&&Context) defeats ArgPromotion of ctx field loads (keeps them at their source position): -0.035 on main, +0.030 on p1",
+    "+0x48 in-place add is a consequence of which register the token amount takes, not a cause"
+  ],
+  "rejected": ["hcv gep slot/remat (s1/g1/g3)", "bump slot/reload (sb/b1)", "native i32 slot (ns)", "all-three spills", "sharing-tag fake use",
+    "hcv binding at sweep head (identical)", "bump at sweep head (identical)", "&&Context sweep (main -0.035)", "p1+&&Context (0.6015)"],
+  "residuals": ["TCF clone-run temp permutation orig r9->r0 19, r0->r5 18, r6->r5 11, r6->r9 9 (inside-run RA/scheduling)",
+    "original per-clone accounts reload from [-0x8d8] in the second half of the TCF (r8 reused for flag temps)",
+    "p1 skeleton (+20 l2) still RA-blocked: TCF block layout (post-RA tail merge of Rc-overflow arms) and the sharing CPI seg -36"],
+  "next_ideas": ["p1 + &&Context + w14a16's new-tag extension partner (pda front 0.62992 bound) as a combined p1 base",
+    "TCF in-run RA: order of the Rc inc_strong overflow checks vs the field copies (w14a43 owns literal order; check with segregs.py seg 69)",
+    "use &&Context on other single-call helpers whose ctx loads are hoisted to the call site"]
+}
