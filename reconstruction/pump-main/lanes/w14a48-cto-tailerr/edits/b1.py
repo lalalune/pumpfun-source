@@ -1,0 +1,1 @@
+EDITS=[('->Result<u64>{let a=&ctx.accounts;let native=','->Result<u64>{let a=&ctx.accounts;let bump=ctx.bumps.creator_vault;let native='),('let bump=ctx.bumps.creator_vault;let old=a.current_creator.key();','let old=a.current_creator.key();')]

@@ -1,0 +1,1 @@
+EDITS=[('let native=a.quote_mint.key()==anchor_spl::token::spl_token::native_mint::ID;\n','let native=a.quote_mint.key()==anchor_spl::token::spl_token::native_mint::ID;let old=a.current_creator.key();\n'),('let bump=ctx.bumps.creator_vault;let old=a.current_creator.key();','let bump=ctx.bumps.creator_vault;')]
