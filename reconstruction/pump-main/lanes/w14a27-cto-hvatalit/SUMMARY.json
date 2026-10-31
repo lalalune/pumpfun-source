@@ -1,0 +1,31 @@
+{
+ "lane": "w14a27-cto-hvatalit",
+ "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27400 B",
+ "angle": "per-account AccountInfo form / field-order screen of the sweep token arm create_idempotent (line 719)",
+ "bases": {"7e6aa9c": 0.6414, "e87e001": 0.64709, "6db95a7": 0.65458},
+ "result": "lead b9 (token arm transfer_vault_tokens(..)?;return Ok(amount)) found and built zero-loss twice (0.6414->0.6432 on 7e6aa9c, 0.64709->0.64919 on e87e001); main moved both times before landing; w14a33-cto-nativejoin landed b9 (credited) in #3315. The per-account form angle is dead: the CPI is already the original's out-of-line clone-call form.",
+ "best_built": [
+  {"base": "7e6aa9c", "edits": "b9 + curve fee if-let", "ratio": 0.6432, "slots_diff": 3280, "bytes": 27400, "normalized": 1034, "raw": 1034, "losses": 0, "differential": "363/0"},
+  {"base": "e87e001", "edits": "b9 + drop nf (event fee read in place) + wallet event let clock", "ratio": 0.64919, "slots_diff": 3354, "bytes": 27400, "normalized": 1034, "raw": 1034, "losses": 0},
+  {"base": "e87e001", "edits": "b9 + ev_hr_curve", "ratio": 0.64829, "slots_diff": 3276, "bytes": 27400, "normalized": 1034, "raw": 1034, "losses": 0}
+ ],
+ "attempts": 290,
+ "screens": {"s1_per_account_forms": 56, "s2_arm_shapes": 10, "s3_around_b9": 9, "k1_catalog_knobs": 67, "k2_new_knobs": 17, "r2": 6, "k3_knobs": 98, "p2_pairs": 16, "s4_arm_shapes_6db95a7": 10, "k4_knobs_on_d4": 92, "p3_pairs": 6},
+ "rejected_mechanisms": [
+  "AccountInfo literal (KLDORSWE) or read-through literal for any of the 7 accounts: removes the out-of-line clone call (156-162 calls vs 157) and adds 384-680 B",
+  "{key|owner|rent_epoch: x.f, ..x.clone()} overrides: +240..+304 B, 0.34-0.38",
+  "x.clone() / AccountInfo::clone(..) spellings: same tokens as main",
+  "token arm .map(|()|amount) / and_then / Result<()> join (w14a33's native form): below main",
+  "require!(!frozen) inside amount>0: 0.62172",
+  "native arm ?;Ok / ?;return forms: 0.36"
+ ],
+ "unresolved_residuals": [
+  "orig keeps amount in r6 and the swept value in r9; main uses r8 and r3/0x8e8 (swept-join coalescing, w14a06/w14a33)",
+  "orig threads the transfer_vault_tokens Ok edge past the swept tag test (orig 0x60d8 -> 0x3c68); main sends Ok and Err to the join that tests r7",
+  "accounts-pointer spill slot 0x8d8 (orig) vs 0x8e0; &holder_creator_vault spill 0x8e0 (orig) vs 0x9b8 (frame)"
+ ],
+ "next_ideas": [
+  "d4 + s_frozen_first is 0.65528 at 27,392 B on 6db95a7 (main 0.65458): find a ratio-neutral +8 B repay",
+  "make the TVT Ok edge thread past the swept tag test (an IR oracle that redirects that edge first, then a source form)"
+ ]
+}
