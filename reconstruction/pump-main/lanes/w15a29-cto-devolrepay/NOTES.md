@@ -75,19 +75,36 @@ owner's decision: `cd programs/pump && patch -p1 < ../../reconstruction/pump-mai
    (insmatch: `mov64 r7,1`, `stxdw [r10-0x918],r4`, `stxdw [r10-0x948],r3`, `ldxdw r1,[r10-0x920]` in 0x1748-0x17a0);
    stores into `st` can only produce `[r10-0x38..-0xb]` tokens, which the original's fee arm does not have.
 
+5. **A live (read-back) anchor does not work either.** `st.cashback=false` in the OK block is semantics-preserving (the
+   line-330 check already rejects `!holder&&cashback`) and becomes live if execute computes `cashback=!holder&&st.cashback`
+   after `validate`. That move collapses 232 B of code: 27,168 / 1,779 (-470), and 27,176 / 1,779 with the `f` store.
+
 ## Why the original has a non-empty OK block
 
 The original's OK block is `stxdw [r10-0x918],r4; stxdw [r10-0x948],r3; mov64 r7,1`: two RA spills of target pieces and the
-fee-tag phi constant feeding the line-757 `Some(f)` test (`mov64 r7,0` on the None paths). A phi of constant tags at the
-validate join is what GVN load PRE makes when the tag is *reloaded from memory* after a switch on it, so in the original
-`fee` is most likely read from memory at line 757. Ours passes `fee` as SSA arguments (`i64 %1, i64 %2`), so there is no
-phi, the OK block is empty and the placeholders stand in for it. Every ordinary form that recreates the phi on today's
-code shape costs 250 M or more (tag phi -255, w15a01 validated-fee re-wrap -909 to -1,147 through a frame shift).
+fee-tag phi constant feeding the line-757 `Some(f)` test (`mov64 r7,0` on the None paths; the tag is spilled at once to
+`[r10-0x8e8]`, orig 0x1998). Our IR has the two fee switch sites `bb45.i` and `bb44.i` (`icmp eq i64 %1, 0` -> `bb75`),
+which are exactly the phi's two None predecessors next to the Some-OK block `bb65.i`. GVN load PRE builds such a phi of
+constants when the tag is *reloaded from memory* after those switches. Ours passes `fee` as SSA arguments (`i64 %1, i64 %2`)
+and tests `%1` again at line 757, so there is no phi, the OK block is empty and the placeholders stand in for it.
+
+Price of the faithful phi on main 9120883 (`tools/phiprobe.py`, post-opt IR, both volatiles removed):
+
+| probe | bytes | M | vs main |
+| --- | ---: | ---: | ---: |
+| no volatile, no phi | 27,384 | 2,226 | -23 |
+| phi feeds the line-757 test | 27,416 | 1,973 | -276 |
+| phi feeds line 757 and the `admin_cto_pool` CPI tag (the `%1` argument dies in validate, as in the original) | 27,224 | 2,063 | -186 at -176 B |
+| phi on 757, 334 volatile kept | 27,424 | 1,973 | -276 |
+
+The CPI form frees the register that carries `%1` to the end of the function (-192 B), the same direction as the to_string
+outline repay (#3632, about +248 B). This agrees with w14a54's source forms (validate returning or out-param fee, 0.37 to
+0.59) and w14a110 f1/f1b. Every ordinary form that recreates the phi on today's code shape costs 186 M or more.
 
 ## Next ideas
 
-1. A faithful anchor needs the fee-tag phi. Price a source form where `fee`'s tag is reloaded from memory at the curve
-   store (load PRE gives the phi naturally) together with the RA repairs from w15a24/w15a18 (sticky forces), not alone.
+1. A faithful anchor needs the fee-tag phi feeding both line 757 and the pool CPI tag (-186 M at -176 B on main). Pair it
+   with the to_string 312/307 outline (+248 B, #3632) and the RA repairs from w15a24/w15a18 as one joint move, not alone.
 2. If the owner accepts dead stores as fill, `devol-rep338.patch` lands as an exact tie (land.py `--allow-neutral`).
 3. A store-free +1 instruction in 0x6d8-0x18d0 still ties with the 338 placeholder kept (w14a138 insmap); no ordinary
    spelling found by w14a95 / w14a138 / w15a01 / this lane adds exactly one instruction there.
@@ -96,6 +113,7 @@ code shape costs 250 M or more (tag phi -255, w15a01 validated-fee re-wrap -909 
 
 - `tools/pv.py`: post-opt IR text edit + stock llc + M (about 2 s, no build slot).
 - `tools/irprobe_fill.py`: the P / Q fill probes above on the no-copy base.
+- `tools/phiprobe.py`: the faithful fee-tag phi price on main's post-opt IR.
 - `tools/mdiff.py`: exact LCS matched-set difference of two windows (finds the lost token).
 - `tools/force.sh`: RAPRIO private llc colour forces (w14a84/w14a120 `llvmb/bin/llc`).
 - `tools/genes_w16.py`: the source genes (`devol`, `rep338`, `mx338`, `rep338q`, `devol_nohr`) as exact replacements.

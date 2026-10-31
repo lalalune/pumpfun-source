@@ -1,13 +1,32 @@
 {
   "lane": "w15a29-cto-devolrepay",
   "wave": "15 (continued in wave 16)",
-  "target": {"window": "0x22a10", "function": "admin_cto::execute", "file": "programs/pump/src/creator/admin_cto.rs", "pinned_bytes": 27400},
-  "base": {"main": "9120883a9", "ratio": 0.67376, "slots_diff": 3124, "M": 2249, "bytes": 27400, "read_volatile_in_validate": 2},
+  "target": {
+    "window": "0x22a10",
+    "function": "admin_cto::execute",
+    "file": "programs/pump/src/creator/admin_cto.rs",
+    "pinned_bytes": 27400
+  },
+  "base": {
+    "main": "9120883a9",
+    "ratio": 0.67376,
+    "slots_diff": 3124,
+    "M": 2249,
+    "bytes": 27400,
+    "read_volatile_in_validate": 2
+  },
   "best": {
     "name": "devol-rep338 (S_rep338 / M_rep338)",
     "patch": "reconstruction/pump-main/lanes/w15a29-cto-devolrepay/devol-rep338.patch",
-    "ratio": 0.67376, "slots_diff": 3124, "M": 2249, "bytes": 27400,
-    "normalized": 1034, "raw": 1034, "losses": [], "raw_losses": [], "gains": [],
+    "ratio": 0.67376,
+    "slots_diff": 3124,
+    "M": 2249,
+    "bytes": 27400,
+    "normalized": 1034,
+    "raw": 1034,
+    "losses": [],
+    "raw_losses": [],
+    "gains": [],
     "differential": "388 cases, 0 mismatches",
     "unstripped_sha16": "f90a5aa11174315e",
     "read_volatile_in_validate": 0,
@@ -21,36 +40,94 @@
     "Storing f before add64 r1,-1 (core::mem::replace(&mut st.max_fee,f) returns the old cap for the compare) needs no copy and supplies the 334 fill; any OK-block store is the 338 anchor; together they tie main exactly (27,400 / 2,249 / 3,124).",
     "Storing f before the line-334 fee_configurable test (bb54) makes f live across that test: copy, 27,408 / 2,247.",
     "Without w14a115's let hr=st.holder_reward binding the &mut form is -14 (289/298 reuse lost).",
-    "Store fills cannot pass the tie: st stores only produce [r10-0x38..-0xb] tokens, none of which the original fee arm has; +2 needs an original token such as mov64 r7,1 (the fee-tag phi)."
+    "Store fills cannot pass the tie: st stores only produce [r10-0x38..-0xb] tokens, none of which the original fee arm has; +2 needs an original token such as mov64 r7,1 (the fee-tag phi).",
+    "A live (read-back) anchor via st.cashback=false with execute's cashback read from st after validate collapses 232 B: 27,168 / 1,779 (-470).",
+    "Faithful fee-tag phi [0,bb45],[1,bb65],[0,bb44] on main post-opt IR (volatiles removed): feeding line 757 only 27,416 / 1,973 (-276); feeding 757 and the admin_cto_pool CPI tag 27,224 / 2,063 (-186 at -176 B, the fee tag argument no longer lives to the CPI); with the volatiles kept 27,240 / 2,084."
   ],
   "attempts": [
-    {"key": "0x22a10-w15-9120883-devolrepay-lossmap-v1", "result": "V_d_maxf lost token = f reload register (copy)"},
-    {"key": "0x22a10-w15-9120883-devolrepay-storeval-v1", "result": "no-copy store values all 27,392 / 2,248"},
-    {"key": "0x22a10-w15-9120883-devolrepay-insmatch-st160-v1", "result": "one original token inserted: best 2,250 (+1 over main)"},
-    {"key": "0x22a10-w15-9120883-devolrepay-tagphi-v1", "result": "fee-tag phi 27,432 / 1,994"},
-    {"key": "0x22a10-w15-9120883-devolrepay-R_dv_N6-v1", "result": "devol+N6 27,408 / 2,249"},
-    {"key": "0x22a10-w15-9120883-devolrepay-R_dv_N6s-v1", "result": "devol+N6s 27,400 / 2,246"},
-    {"key": "0x22a10-w15-9120883-devolrepay-fillprobe-v1", "result": "IR fill-placement table P0-P10, Q1-Q7"},
-    {"key": "0x22a10-w15-9120883-devolrepay-S_rep338-v1", "result": "27,400 / 2,249 / 3,124 (tie)"},
-    {"key": "0x22a10-w15-9120883-devolrepay-S_mx338-v1", "result": "same bytes as S_rep338"},
-    {"key": "0x22a10-w15-9120883-devolrepay-S_rep338q-v1", "result": "27,400 / 2,249 (quote_locked=true anchor)"},
-    {"key": "0x22a10-w15-9120883-devolrepay-S_rep338s-v1", "result": "compile error (replace inside the condition)"},
-    {"key": "0x22a10-w15-9120883-devolrepay-S_rep338_nohr-v1", "result": "27,400 / 2,235 (-14)"},
-    {"key": "0x22a10-w15-9120883-devolrepay-M_rep338-measure-v1", "result": "measure.sh tie, differential 388/0"}
+    {
+      "key": "0x22a10-w15-9120883-devolrepay-lossmap-v1",
+      "result": "V_d_maxf lost token = f reload register (copy)"
+    },
+    {
+      "key": "0x22a10-w15-9120883-devolrepay-storeval-v1",
+      "result": "no-copy store values all 27,392 / 2,248"
+    },
+    {
+      "key": "0x22a10-w15-9120883-devolrepay-insmatch-st160-v1",
+      "result": "one original token inserted: best 2,250 (+1 over main)"
+    },
+    {
+      "key": "0x22a10-w15-9120883-devolrepay-tagphi-v1",
+      "result": "fee-tag phi 27,432 / 1,994"
+    },
+    {
+      "key": "0x22a10-w15-9120883-devolrepay-R_dv_N6-v1",
+      "result": "devol+N6 27,408 / 2,249"
+    },
+    {
+      "key": "0x22a10-w15-9120883-devolrepay-R_dv_N6s-v1",
+      "result": "devol+N6s 27,400 / 2,246"
+    },
+    {
+      "key": "0x22a10-w15-9120883-devolrepay-fillprobe-v1",
+      "result": "IR fill-placement table P0-P10, Q1-Q7"
+    },
+    {
+      "key": "0x22a10-w15-9120883-devolrepay-S_rep338-v1",
+      "result": "27,400 / 2,249 / 3,124 (tie)"
+    },
+    {
+      "key": "0x22a10-w15-9120883-devolrepay-S_mx338-v1",
+      "result": "same bytes as S_rep338"
+    },
+    {
+      "key": "0x22a10-w15-9120883-devolrepay-S_rep338q-v1",
+      "result": "27,400 / 2,249 (quote_locked=true anchor)"
+    },
+    {
+      "key": "0x22a10-w15-9120883-devolrepay-S_rep338s-v1",
+      "result": "compile error (replace inside the condition)"
+    },
+    {
+      "key": "0x22a10-w15-9120883-devolrepay-S_rep338_nohr-v1",
+      "result": "27,400 / 2,235 (-14)"
+    },
+    {
+      "key": "0x22a10-w15-9120883-devolrepay-M_rep338-measure-v1",
+      "result": "measure.sh tie, differential 388/0"
+    },
+    {
+      "key": "0x22a10-w15-9120883-devolrepay-X1_cb0_after-v1",
+      "result": "27,168 / 1,779 (-470)"
+    },
+    {
+      "key": "0x22a10-w15-9120883-devolrepay-X4_rep_cb0_after-v1",
+      "result": "27,176 / 1,779 (-470)"
+    },
+    {
+      "key": "0x22a10-w15-9120883-devolrepay-livecashback-v1",
+      "result": "live cashback anchor rejected (-470)"
+    },
+    {
+      "key": "0x22a10-w15-9120883-devolrepay-phiprobe-main-v1",
+      "result": "fee-tag phi -276 (757) / -186 at -176 B (757+CPI)"
+    }
   ],
   "rejected_mechanisms": [
     "RA forces on the f vreg or the add temp (at most one of ldxdw r1 / add64 r1 matches while f is live)",
     "single-store anchors of any value or field (27,392 / 2,248)",
     "f stored before the line-334 test (copy, 27,408 / 2,247)",
     "f stored before the add with no OK-block store (anchor lost, 27,392 / 2,226)",
-    "dropping the let hr binding (-14)"
+    "dropping the let hr binding (-14)",
+    "live read-back anchor through st.cashback (cashback moved after validate, -470)"
   ],
   "unresolved_residuals": [
     "a store-free (non-dummy) OK-block anchor: the original's is the fee-tag phi mov64 r7,1 from load PRE of a tag reloaded from memory; about -255 M on today's RA",
     "a store-free one-instruction fill in 0x6d8-0x18d0 to replace the 334 placeholder alone"
   ],
   "next_ideas": [
-    "Price a source form where fee's tag is reloaded from memory at the line-757 curve store (load PRE then makes the original's tag phi) jointly with the w15a24/w15a18 RA repairs.",
+    "Joint faithful move: fee-tag phi feeding line 757 and the pool CPI tag (-186 M at -176 B on main) plus the to_string 312/307 outline (+248 B, #3632) plus the w15a24/w15a18 RA repairs; price it as one region rewrite.",
     "If the owner accepts dead stores as fill, land devol-rep338.patch with land.py --allow-neutral (exact tie, 0 losses, no read_volatile)."
   ]
 }
