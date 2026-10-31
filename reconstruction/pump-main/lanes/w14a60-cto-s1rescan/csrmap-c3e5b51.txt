@@ -1,0 +1,63 @@
+# main c3e5b51 (m0 eq_main) vs s1; slots from tools/blk.py
+=== m0 sweep join bb36 [56272,56704)
+r6
+    256 %2133  [56448,59864) root %290   uses=4  56448B	  %290:gpr = LDD_V1 %288:gpr, 8 :: (load (s64) from %ir.589)
+r7
+r8
+r9
+=== s1 sweep join bb36 [56272,56704)
+r6
+r7
+    280 %1686  [56424,61632) root %0     uses=120  96B	  %0:gpr = LDD_V1 %387:gpr, 8 :: (dereferenceable load (s64) from %ir.2)
+r8
+    256 %2108  [56448,59220) root %290   uses=4  56448B	  %290:gpr = LDD_V1 %288:gpr, 8 :: (load (s64) from %ir.589)
+r9
+=== m0 clone run [56704,63808)
+r6
+   2584 %2133  [56448,59864) root %290   uses=4  56448B	  %290:gpr = LDD_V1 %288:gpr, 8 :: (load (s64) from %ir.589)
+    636 %2219  [60740,61504) root %291   uses=4  56784B	  %291:gpr = LDD_V1 %288:gpr, 16 :: (load (s64) from %ir.591)
+    276 %2259  [61920,62260) root %346   uses=2  61920B	  %346:gpr = LDD_V1 %1281:gpr, 32 :: (load (s64) from %ir.668)
+     80 %1289  [62464,62544) root %1289  uses=2  62464B	  %1289:gpr = LDB_V1 %350:gpr, 40 :: (load (s8) from %ir.681, align 8, !range !15)
+      4 %2130  [60064,60068) root %330   uses=2  60064B	  %330:gpr = LDD_V1 %324:gpr, 24 :: (load (s64) from %ir.647)
+r7
+   3316 %2220  [56784,60740) root %291   uses=4  56784B	  %291:gpr = LDD_V1 %288:gpr, 16 :: (load (s64) from %ir.591)
+    720 %350   [61648,62496) root %350   uses=9  61648B	  %350:gpr = LDD_V1 %0:gpr, 152 :: (load (s64) from %ir.sunkaddr121)
+    352 %2217  [60888,61304) root %313   uses=2  58912B	  %313:gpr = LDD_V1 %306:gpr, 24 :: (load (s64) from %ir.625)
+     16 %1291  [62496,62512) root %1291  uses=2  62496B	  %1291:gpr = LDB_V1 %350:gpr, 42 :: (load (s8) from %ir.685, align 2, !range !15)
+r8
+   3672 %1908  [57120,61496) root %299   uses=4  57120B	  %299:gpr = LDD_V1 %297:gpr, 8 :: (load (s64) from %ir.603)
+    432 %353   [62096,62592) root %353   uses=4  62096B	  %353:gpr = LDD_V1 %350:gpr, 16 :: (load (s64) from %ir.677)
+    288 %1277  [61680,61968) root %1277  uses=4  61680B	  %1277:gpr = LDD_V1 %351:gpr, 0 :: (load (s64) from %ir._476)
+r9
+    992 %2221  [60568,61752) root %290   uses=4  56448B	  %290:gpr = LDD_V1 %288:gpr, 8 :: (load (s64) from %ir.589)
+    516 %2223  [61752,62332) root %290   uses=4  56448B	  %290:gpr = LDD_V1 %288:gpr, 8 :: (load (s64) from %ir.589)
+    384 %2132  [59864,60312) root %290   uses=4  56448B	  %290:gpr = LDD_V1 %288:gpr, 8 :: (load (s64) from %ir.589)
+    328 %2000  [57392,57848) root %298   uses=2  57392B	  %298:gpr = LDD_V1 %297:gpr, 24 :: (load (s64) from %ir.602)
+    192 %2222  [60312,60568) root %290   uses=4  56448B	  %290:gpr = LDD_V1 %288:gpr, 8 :: (load (s64) from %ir.589)
+     48 %1290  [62480,62528) root %1290  uses=2  62480B	  %1290:gpr = LDB_V1 %350:gpr, 41 :: (load (s8) from %ir.683, !range !15)
+      8 %2090  [59648,59656) root %323   uses=2  59648B	  %323:gpr = LDD_V1 %315:gpr, 0 :: (load (s64) from %ir.x19)
+      8 %1967  [58096,58104) root %303   uses=2  58096B	  %303:gpr = LDB_V1 %297:gpr, 41 :: (load (s8) from %ir.610, !range !15)
+=== s1 clone run [56704,63760)
+r6
+   1492 %2209  [56784,58596) root %291   uses=4  56784B	  %291:gpr = LDD_V1 %288:gpr, 16 :: (load (s64) from %ir.591)
+   1424 %2206  [59048,60728) root %316   uses=2  58912B	  %316:gpr = LDD_V1 %315:gpr, 0 :: (load (s64) from %ir._366)
+    896 %342   [60880,61904) root %342   uses=9  60880B	  %342:gpr = LDD_V1 %0:gpr, 160 :: (load (s64) from %ir.662)
+     80 %1286  [62416,62496) root %1286  uses=2  62416B	  %1286:gpr = LDB_V1 %351:gpr, 40 :: (load (s8) from %ir.681, align 8, !range !15)
+     72 %2207  [58912,59048) root %316   uses=2  58912B	  %316:gpr = LDD_V1 %315:gpr, 0 :: (load (s64) from %ir._366)
+r7
+   4032 %1686  [56424,61632) root %0     uses=120  96B	  %0:gpr = LDD_V1 %387:gpr, 8 :: (dereferenceable load (s64) from %ir.2)
+    784 %353   [61648,62560) root %353   uses=4  61648B	  %353:gpr = LDD_V1 %351:gpr, 8 :: (load (s64) from %ir.675)
+r8
+   2068 %2108  [56448,59220) root %290   uses=4  56448B	  %290:gpr = LDD_V1 %288:gpr, 8 :: (load (s64) from %ir.589)
+   1676 %2109  [60232,62228) root %290   uses=4  56448B	  %290:gpr = LDD_V1 %288:gpr, 8 :: (load (s64) from %ir.589)
+    548 %2105  [59364,59976) root %469   uses=3  3216B	  %469:gpr = MOV_ri 1
+     48 %1287  [62432,62480) root %1287  uses=2  62432B	  %1287:gpr = LDB_V1 %351:gpr, 41 :: (load (s8) from %ir.683, !range !15)
+r9
+   1788 %2102  [59368,61476) root %307   uses=2  58144B	  %307:gpr = LDD_V1 %306:gpr, 0 :: (load (s64) from %ir._365)
+    968 %2103  [58144,59368) root %307   uses=2  58144B	  %307:gpr = LDD_V1 %306:gpr, 0 :: (load (s64) from %ir._365)
+    688 %351   [61632,62448) root %351   uses=9  61632B	  %351:gpr = LDD_V1 %0:gpr, 152 :: (load (s64) from %ir.sunkaddr118)
+     16 %1288  [62448,62464) root %1288  uses=2  62448B	  %1288:gpr = LDB_V1 %351:gpr, 42 :: (load (s8) from %ir.685, align 2, !range !15)
+      8 %1963  [58064,58072) root %305   uses=2  58064B	  %305:gpr = LDB_V1 %297:gpr, 42 :: (load (s8) from %ir.612, align 2, !range !15)
+      8 %1961  [58080,58088) root %304   uses=2  58080B	  %304:gpr = LDB_V1 %297:gpr, 41 :: (load (s8) from %ir.610, !range !15)
+      8 %1959  [58096,58104) root %303   uses=2  58096B	  %303:gpr = LDB_V1 %297:gpr, 40 :: (load (s8) from %ir.608, align 8, !range !15)
+      8 %1957  [58112,58120) root %302   uses=2  58112B	  %302:gpr = LDD_V1 %297:gpr, 32 :: (load (s64) from %ir.607)

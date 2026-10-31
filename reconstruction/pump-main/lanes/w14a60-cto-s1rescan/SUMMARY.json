@@ -1,0 +1,19 @@
+{
+  "lane": "w14a60-cto-s1rescan",
+  "target": "0x22a10 admin_cto::execute",
+  "bases": {"6330811": {"main": 0.65698, "slots": 3193}, "c3e5b51": {"main": 0.65698, "slots": 3182}},
+  "result": "gate holds: no source change",
+  "gate": {
+    "s1_6330811": {"ratio": 0.61891, "bytes": 27376, "loss": -0.03807},
+    "s1_c3e5b51": {"ratio": 0.6202, "bytes": 27368, "loss": -0.03678},
+    "cls_seg_0x3c38_0x4a78": {"main": "231/61/0/0/170", "s1": "356/152/123/15/66", "unchanged_since": "28ab23a (#3351)"},
+    "sweep_join": "asm unchanged: swept spilled to [r10-0x968], tag reloaded from [r10-0x8e8]; orig swept r9, tag r6. On c3e5b51 r7-r9 are free at the join in main, so occupancy is not the blocker"
+  },
+  "single_literal_reversions_c3e5b51": {"program": 0.65608, "authority": 0.65428, "pool_authority": 0.65228, "global": 0.64278, "mint": 0.63901, "event_authority": 0.63298},
+  "ledger_keys": ["0x22a10-w14-6330811-s1rescan-*-v1", "0x22a10-w14-c3e5b51-s1rescan-*-v1", "0x22a10-w14-6330811-s1rescan-gate-v1"],
+  "not_run": ["hybrid 2^k screen (step 2)", "pscan/cd descent on hybrid (step 3)"],
+  "next_ideas": [
+    "re-screen s1 only after a landing that changes swept's or the tag's live range (defs/uses), not merely freed callee-saved registers",
+    "price swept/tag spill weights at the bb36 join with an IR live-range edit (swept used before the sharing arm, tag test folded into the if-let)"
+  ]
+}
