@@ -1,0 +1,34 @@
+{
+  "lane": "w15a26-cto-taiupstream",
+  "wave": "15 (continued in 16)",
+  "target": {"window": "0x22a10", "function": "admin_cto::execute", "file": "programs/pump/src/creator/admin_cto.rs", "pinned_bytes": 27400},
+  "base": {"main": "9120883a9", "origin_main": "e61121452 (no programs/ change)", "ratio": 0.67376, "slots_diff": 3124, "bytes": 27400, "pump_main": "1034/1035 normalized and raw"},
+  "angle": "make the faithful TCF program form (tai: a.pump_amm.to_account_info()) pay by finding the upstream residual main's owner-first literal compensates for (w15a17 #3707 next idea 1)",
+  "result": "notes only; no source change; no measurable gain",
+  "best": {"ratio": 0.67376, "slots_diff": 3124, "bytes": 27400, "note": "main unchanged; tai itself is 0.6499 at 27416 B"},
+  "ledger": {"approach": "taiupstream", "key_prefix": "0x22a10-w15-9120883-taiupstream-", "rows": 75},
+  "findings": {
+    "blocker_chain": "At O's dequeue on tai, r6 through the clone run is %1725 = region piece of %121 (gep accounts,264 = &a.holder_creator_vault, size 8804, weight 1.51e-6 > O piece 1.26e-7, so O can never evict it) and r9 is %1751 = piece of %119 (ctx.bumps.creator_vault, hoisted by ArgumentPromotion). Greedy's split queue is size-ordered (%121 14852 > %60 12730 > %119 12512 > %898 12320 > lamports 9856 > key 9680 > data 9568 > E 9056 > O 9024), so both head values take the free callee-saved registers over the run before any run temp is split. E is then spilled whole at its def; its INF reload temp %1764 evicts key's R0 piece (key stored at once, 0x2700); %1790 (INF temp of %141) evicts O from R0; O ends in R0 (%1857) and is spilled after the payer clone (0x2810). The original has lamports r7, key r9 kept, data r0, E r5, O r6, and spills both head values at their defs (0x1f48, 0x1f70).",
+    "colour_bound": "Same RA freedom: tai climb 0.67476 (12 forces, 27368 B), best at 27400 B 0.67226 (7 forces); main climb 0.68485 (11 forces, 27376 B), at 27400 B 0.68065 (4 forces). tai stays 0.008-0.010 below. Single forces on tai: lamports Rc to r7 (%1966=r7) +0.010, data Rc to r0 (%1969=r0) +0.005, O to r6 (%1857=r6) +0.0008.",
+    "dequeue_order": "RAPRIO_PRIO=1 (head values dequeued last) loses on both bases: tai 0.594-0.625, main 0.581-0.647 (%898 alone is a no-op). With %121+%119+%898 last on tai the first program clone takes the original's E=r5 and W/S/R/O=r6 (frame-masked chunks 0x2600 +8, 0x2a00 +15) but the later clones lose (0x3000 -8, 0x3200 -18); frame-masked total 2298 -> 2284.",
+    "branch_weights": "The post-opt IR has no !prof; branch weights on the TCF guard / amm_present branches re-lay blocks (0.470-0.593).",
+    "source_screens": "62 ordinary source forms on the tai base (raw-IR capture + opt/llc oracle): 20 sweep-head forms <= 0.6499, 38 size knobs <= 0.6499 (none lifts tai at all), 4 accounts-as-noalias-param forms (fn sweep(a:&AdminCto,..), nested fn tcf(a:&AdminCto)) 0.353-0.544; the same 3 noalias forms on main 0.449-0.585."
+  },
+  "rejected_mechanisms": [
+    "tai + &&Context sweep / bump at the sweep head / hcv binding / amm_present reuse / dest operand order / deref compare / late native, and their pairs",
+    "tai + 38 applicable size knobs (sizeknobs-cto.json, w14a73 cat_apply.json)",
+    "accounts as a noalias readonly param: fn sweep(a:&AdminCto,bump:u8,..), fn sweep(a:&AdminCto,bumps:&AdminCtoBumps,..), nested fn tcf(a:&AdminCto), on tai and on main",
+    "RA-only: head values (%121, %119, %898, %60) dequeued last, singly and jointly, on tai and on main",
+    "RA-only: colour-force climbs on tai vs main",
+    "IR-only: branch weights on the TCF guard and the amm_present branch"
+  ],
+  "unresolved_residuals": [
+    "the clone run's register names (fM_oo_tcf 216 on tai, 174 on main) follow greedy's whole split order over the run, which depends on interval sizes elsewhere in the function",
+    "tai costs 16 B and 0.024 (-79 M) against main's owner-first program literal"
+  ],
+  "next_ideas": [
+    "re-screen tai (the p_tai.py edit, tools/gen2.py) on top of any landed structural change to the sweep or the function; it is the faithful form and pays only if the run's interval sizes change",
+    "use 'lamports Rc lands in r7 on tai without forces' as the cheap marker that a whole-sweep rewrite has moved the run toward the original"
+  ],
+  "tools": ["tools/capvar.sh", "tools/runq.sh", "tools/capraw.py", "tools/rx.py", "tools/gen2.py", "tools/gen3.py", "tools/gen4.py", "tools/trace.py", "tools/chunks.py", "tools/fx.py", "tools/slotmap.py"]
+}
