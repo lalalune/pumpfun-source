@@ -59,3 +59,109 @@ crossing jumps and scores M. It isolates the pure jump-distance part of a size k
   (`stxdw [r10-0x8d8], r8`, orig ~0x24188); best +8 is at the entry block 0x180/0x1a0 (+1 M); best pair +0x180/-0x16e8 is
   **+6 M** (~+0.0018). So any faithful -8 B inside the validate result/flag block costing <= 4 M, plus +8 B in the entry
   block, would beat main.
+
+## 4. Main 6330811 (#3358, 0.65698, M 2,193, Lo 3,339 / Lc 3,337 tokens)
+
+`tools/mcount.py <fn.bin>...` prints M (matched rx tokens), token counts and ratio. At 27,400 B a candidate beats main only
+with **M >= 2,194** (0.65728). Every "tie" below is M 2,193; every -8 B "gain" below is pure size (same or lower M, one token
+fewer).
+
+| variant | ratio | bytes | M | note |
+| --- | ---: | ---: | ---: | --- |
+| cu_iflet2 (`if let Some(f)=fee{..}`, revert of #3358's repay) | 0.65708 | 27,392 | 2,193 | size only |
+| wl_writ_not / sh_iflet | 0.65678 | 27,392 | 2,192 | |
+| w14a38 `su_tafter + s_amm_present` (ca) | 0.65788 | 27,376 | **2,195** | +2 M at -24 B |
+| ca + ev_nf_let (+24) | 0.65698 | 27,400 | 2,193 | tie |
+| cu_iflet2 + n_mapamt (native arm `..map(\|()\|amount)}else{Ok(amount)}`, +8) and 4 spellings of it | 0.65698 | 27,400 | 2,193 | tie (3,195 slots) |
+| wl_writ_not + n_mapamt | 0.65698 | 27,400 | | tie (3,199 slots) |
+| cu_iflet2 + wl_writ_not + sh_iflet + ev_nf_let | 0.65698 | 27,400 | | tie (3,197 slots) |
+| sh_iflet + n_mapamt | 0.65668 | 27,400 | | |
+| n_hk_direct, c_ce_cr, cmp_pool_rev, cmp_fees_rev | 0.65668 | 27,400 | | one quantum below |
+| pre_cb_match, pre_cb_not, wl_owner_eqsys | 0.65698 | 27,400 | | distinct-sha ties |
+| v_hr_ne | 0.65698 | 27,400 | | tie, 1 raw loss |
+| pu_amm_key | 0.65628 | 27,400 | | |
+| ev_cb_local | 0.65538 | 27,408 | | |
+| n_ensiflet / n_ensmatch / n_andthen / n_tq | 0.65249 / 0.65458@27,376 / 0.65458@27,376 / 0.37957 | | | |
+| n_flip0, wl_exec_true, wl_writ_netrue, wl_owner_deref, wl_frozen_true, n_checked, n_amtmin, n_amtmax, n_lamvar | = main | | | byte-identical folds |
+| wl_ts_clockvar (+16) with any -8 / -16 partner | 0.65488-0.65598 | | | +80 slots: loses |
+
+## 5. The w14a38 su_tafter lead on 6330811 and its size repay
+
+`su_tafter` (shared non-holder arm `else{let r=(false,Some(args.0),true);target=st.creator;r}`) alone is **M 2,197 at
+27,360 B** (0.65867, +4 M at -40 B). `s_amm_present` alone is +16 B, M 2,190. Together (`ca`) M 2,195 at 27,376 B.
+`tools/shift.py` on su_tafter: no pure +8 position is worth more than +1 M, so the repay must be codegen-neutral, and
+every real +8..+24 B knob costs 3-6 M in su's context:
+
+| su_tafter + | bytes | M | ratio |
+| --- | ---: | ---: | ---: |
+| (alone) | 27,360 | 2,197 | 0.65867 |
+| nf_pre_ev (`let nf` just before the event, +8) | 27,368 | 2,194 | 0.65767 |
+| wl_ts_clockvar (+16) | 27,376 | 2,194 | 0.65758 |
+| ev_nf_let (+24) | 27,384 | 2,193 | 0.65718 |
+| n_mapamt / ev_cb_local (+8) | 27,368 | 2,191 | 0.65677 |
+| n_cb_fwd | 27,368 | 2,192 | 0.65707 |
+| c_hr_cb / cu_replace / f_iflet / e_mint_key / x_cp_inline / x_dcol_rev | | | 0.632-0.655 |
+| s_amm_present + nf_pre_ev (`ca_nfev`) | 27,384 | 2,195 | 0.65778 |
+| s_amm_present + ev_nf_let / nf_post_a / nf_blk | 27,400 | 2,193 | 0.65698 (tie) |
+| ca_nfev + wl_ts_clockvar | 27,400 | | 0.65668 |
+| ca_nfev + n_mapamt + ev_cb_local (+ pre_cb_match / pre_cb_not / wl_owner_eqsys) | 27,400 / 27,392 | | 0.65348-0.65398 |
+| ca_nfev + clockvar + {map+ci, map+wl, cb+ci, cb+sh, map+hr_curve} | 27,400 | | 0.65219-0.65578 |
+| su + ev_nf_let + clockvar / su + nf_pre_ev + map + cb + clockvar / su + ev_nf_let + map + cb | 27,400 | | 0.65608 / 0.65309 / 0.65339 |
+
+Validate spellings (6330811): v_tmatch, v_hkclone, v_issome_if, v_fee_range fold to main's bytes; v_tletelse 0.65249;
+v_tokor 0.61751 @27,264.
+
+Tie-composite lottery on 6330811 (stopped when #3369 landed): pairs/triples of the distinct-sha ties
+(ci_mapamt `cm`, wl_owner_eqsys `oe`, pre_cb_match `pm`, pre_cb_not `pn`) all stay at 0.65698 (3,193-3,195 slots);
+each tie + a one-quantum-below gene (n_hk_direct, c_ce_cr, cmp_pool_rev, cmp_fees_rev) is 0.65668. The ties do not add.
+
+## 6. Main c3e5b51 (#3369, 0.65698 / 3,182 slots) panel
+
+| variant | ratio | bytes | slots |
+| --- | ---: | ---: | ---: |
+| su_tafter | 0.65867 | 27,360 | (M 2,197) |
+| su_r2 (su_tafter with `target=a.bonding_curve.creator`) | 0.65857 | 27,368 | (M 2,197: a free +8 B over su_tafter) |
+| su_tafter + {v_zero_ne, v_mayhem_req, v_fee_gt, v_cbnot, su_hold, su_ns} | 0.65867 | 27,360 | folds |
+| su_tafter + sh_crkey / v_tswap / q_swap | 0.65687 / 0.65657 / 0.65657 | 27,360 | |
+| ca / ca_nfev / su_nfev / su_clk | 0.65788 / 0.65778 / 0.65767 / 0.65758 | 27,376 / 27,384 / 27,368 / 27,376 | |
+| cu_iflet2 | 0.65708 | 27,392 | |
+| pre_cb_match, pre_cb_not, wl_owner_eqsys, v_zero_ne, v_mayhem_req, v_fee_gt, v_cbnot | 0.65698 | 27,400 | 3,182 (ties) |
+| ci_mapamt / w_mapamt / ca_nflet | 0.65698 | 27,400 | 3,184 / 3,196 / 3,222 |
+| n_hk_direct, cmp_pool_rev, cmp_fees_rev, c_ce_cr | 0.65668 | 27,400 | 3,182 |
+| sh_crkey / v_tswap / q_swap | 0.65518 / 0.65488 / 0.65488 | 27,400 | |
+| nf_pre_ev / ev_cb_local / n_mapamt | 0.65628 / 0.65538 / 0.65508 | 27,408 | |
+| v_feeiflet / sh_ownfirst / q_arr / v_tcontains / su_new | 0.63082 / 0.63223 / 0.6273 / 0.50699 / 0.47932 | | |
+
+## 7. Main 2e1379d (#3372, 0.65728, M 2,194, 3,192 slots): su_tafter repay with re-read knobs
+
+#3369/#3372 (w14a55, w14a43) landed "re-read" knobs: one field of an `x`-bound AccountInfo literal read through the
+account path (`rent_epoch:a.pool_authority.rent_epoch`, `data:a.pump_fees.data.clone()`), +8 B each at ~0 M.
+`genes.py` `rr<k><F>` generates all of them (k = literal index in source order: 0 TCF CpiContext pump_amm, 1
+coin_creator_vault_ata, 2 vault ATA, 3 TCF program, 4 sharing pool_authority, 5 authority, 6 mint, 7 pump_fees program;
+F in KLDORSWE). All 56 applied on top of su_r2 (M 2,198 at 27,368):
+
+| outcome | genes |
+| --- | --- |
+| folds (byte-identical to su_r2, 27,368) | 0K 0L 0O 1L 2K 3K 3L 3O 4L 4O 5L 5R 5S 5W 5E 6L 6R 6S 6W 6E 7L |
+| +8 B | 5D (M 2,194), 7K (2,192) |
+| +16 B | 7O (2,193), 7E (2,192), 7R (2,190), 7S/7W (2,188), 3D (2,189) |
+| +32 B | 3S (2,190), 3R (2,186) |
+| big losses (M 2,037-2,170) | 0D 0R 0S 0W 0E 1K 1D 1O 1R 1S 1W 1E 2L 2R 2S 2W 2E 4K 4D 4S 4W 4E 5K 5O 6K 6D 6O |
+
+Other su variants on 2e1379d (main M 2,194):
+
+| variant | bytes | M | ratio |
+| --- | ---: | ---: | ---: |
+| su_tafter | 27,360 | 2,198 | 0.65897 |
+| su_r2 | 27,368 | 2,198 | 0.65887 |
+| su_r2 + x_hr_curve / x_cb_curve (curve re-reads in the tuple block) | 27,368 | 2,198 | folds |
+| su_r2 + x_cr_curve | 27,168 | 1,694 | collapse |
+| su_r2 + s_amm_present | 27,384 | 2,196 | 0.65808 |
+| su_r2 + s_amm_present + nf_pre_ev | 27,392 | 2,195 | 0.65768 |
+| ... + wl_writ_eq (+ x_hr_curve / x_cb_curve / pre_cb_match / pre_cb_not) | 27,400 | 2,193 | 0.65698 (3,226 slots) |
+| ... + n_mapamt / ev_cb_local / n_cb_fwd / lf_pr_dl | 27,400 / 27,400 / 27,400 / 27,384 | 2,191 / 2,189 / 2,190 / 2,192 | |
+| su_r2 + s_amm_present + wl_ts_clockvar | 27,400 | 2,193 | 0.65698 (3,379 slots) |
+| su_r2 + rr5D | 27,376 | 2,194 | |
+
+So su_tafter's +4 M survives every landing since d371f97, but every faithful +8 B found costs 1-2 M in its context;
+the best full-size composites tie main at M 2,193, one token short.

@@ -246,3 +246,63 @@ G['wl_owner_deref']=[("else if a.current_creator.owner!=&anchor_lang::system_pro
 G['wl_frozen_true']=[("if token_frozen(a.current_creator_quote_token_account.as_ref())?{msg!","if token_frozen(a.current_creator_quote_token_account.as_ref())?==true{msg!")]
 G['wl_owner_eqsys']=[("else if a.current_creator.owner!=&anchor_lang::system_program::ID{","else if !(a.current_creator.owner==&anchor_lang::system_program::ID){")]
 G['cu_iflet2']=[("curve.creator_fee_bps=fee.unwrap_or(curve.creator_fee_bps);","if let Some(f)=fee{curve.creator_fee_bps=f;}")]
+_AM="let amount=a.creator_vault.lamports().saturating_sub(min);"
+G['n_checked']=[(_AM,"let amount=a.creator_vault.lamports().checked_sub(min).unwrap_or(0);")]
+G['n_amtmin']=[(_AM,"let lam=a.creator_vault.lamports();let amount=if lam>min{lam-min}else{0};")]
+G['n_amtmax']=[(_AM,"let amount=a.creator_vault.lamports().max(min)-min;")]
+G['n_lamvar']=[(_AM,"let lam=a.creator_vault.lamports();let amount=lam.saturating_sub(min);")]
+# w14a38 splicemap lead c_ammp = su_tafter + s_amm_present (-24 B, +0.0018 on d371f97)
+G['su_tafter']=[("else{target=st.creator;(false,Some(args.0),true)}","else{let r=(false,Some(args.0),true);target=st.creator;r}")]
+G['s_amm_present']=[("let amm_frozen=!a.coin_creator_vault_ata.data_is_empty()&&token_frozen(a.coin_creator_vault_ata.as_ref())?;","let amm_present=!a.coin_creator_vault_ata.data_is_empty();let amm_frozen=amm_present&&token_frozen(a.coin_creator_vault_ata.as_ref())?;")]
+G['n_mapamt_flip']=[(_NA,"if amount==0{Ok(amount)}else{"+_ENS+"?;"+_TN+".map(|()|amount)}")]
+G['n_mapamt_and']=[(_NA,"if amount>0{"+_ENS+"?;"+_TN+".and(Ok(amount))}else{Ok(amount)}")]
+G['n_mapamt_us']=[(_NA,"if amount>0{"+_ENS+"?;"+_TN+".map(|_|amount)}else{Ok(amount)}")]
+G['n_mapamt_ens']=[(_NA,"if amount>0{"+_ENS+".and_then(|()|"+_TN+").map(|()|amount)}else{Ok(amount)}")]
+G['n_mapamt_m']=[(_NA,"if amount>0{"+_ENS+"?;match "+_TN+"{Ok(())=>Ok(amount),Err(e)=>Err(e)}}else{Ok(amount)}")]
+_VT="let t=if let Some(t)=new{t}else{return Err(error!(PumpError::CtoNewCreatorRequired));};"
+G['v_tmatch']=[(_VT,"let t=match new{Some(t)=>t,None=>return Err(error!(PumpError::CtoNewCreatorRequired))};")]
+G['v_tletelse']=[(_VT,"let Some(t)=new else{return Err(error!(PumpError::CtoNewCreatorRequired));};")]
+G['v_tokor']=[(_VT,"let t=new.ok_or_else(||error!(PumpError::CtoNewCreatorRequired))?;")]
+G['v_hkclone']=[("return Err(error!(PumpError::CtoNewCreatorNotAllowed));}*holder_key}else{","return Err(error!(PumpError::CtoNewCreatorNotAllowed));}holder_key.clone()}else{")]
+G['v_issome_if']=[("if new.is_some(){return Err(error!(PumpError::CtoNewCreatorNotAllowed));}","if let Some(_)=new{return Err(error!(PumpError::CtoNewCreatorNotAllowed));}")]
+G['v_fee_range']=[("if f==0||f>st.max_fee{","if !(1..=st.max_fee).contains(&f){")]
+G['v_fee_lt1']=[("if f==0||f>st.max_fee{","if f<1||f>st.max_fee{")]
+_EVNF="new_creator_fee_bps:a.bonding_curve.creator_fee_bps,"
+G['nf_pre_ev']=[(" let e=AdminCtoEvent{"," let nf=a.bonding_curve.creator_fee_bps;let e=AdminCtoEvent{"),(_EVNF,"new_creator_fee_bps:nf,")]
+G['nf_pre_pargs']=[("let pargs=(target,a.bonding_curve.is_holder_reward,fee);","let nf=a.bonding_curve.creator_fee_bps;let pargs=(target,a.bonding_curve.is_holder_reward,fee);"),(_EVNF,"new_creator_fee_bps:nf,")]
+G['nf_post_a']=[(" let a=&ctx.accounts;\n let pool_updated"," let a=&ctx.accounts;let nf=a.bonding_curve.creator_fee_bps;\n let pool_updated"),(_EVNF,"new_creator_fee_bps:nf,")]
+G['nf_blk']=[("  curve.can_edit_creator_fee=false;\n (old_creator,old_fee)};","  curve.can_edit_creator_fee=false;\n (old_creator,old_fee,curve.creator_fee_bps)};"),(" let (old_creator,old_fee)={"," let (old_creator,old_fee,nf)={"),(_EVNF,"new_creator_fee_bps:nf,")]
+# c3e5b51: sharing arm is `if let Some(val)=sharing_update{ .. }`
+G['sh_match_back']=[("\n if let Some(val)=sharing_update{\n","\n match sharing_update{Some(val)=>{\n"),("signer_seeds),val)?;\n }\n","signer_seeds),val)?;\n }None=>{}}\n")]
+# validate / head spellings (c3e5b51), for pairing with su_tafter
+G['v_tswap']=[("if t==*sharing||t==*holder_key{","if t==*holder_key||t==*sharing{")]
+G['v_tcontains']=[("if t==*sharing||t==*holder_key{","if [*sharing,*holder_key].contains(&t){")]
+G['v_cbnot']=[("let cashback=if holder{false}else{st.cashback};","let cashback=!holder&&st.cashback;")]
+G['v_feeiflet']=[(" match fee{Some(f)=>{if st.quote_locked"," if let Some(f)=fee{{if st.quote_locked"),("return Err(error!(PumpError::CreatorFeeBpsOutOfRange));}}None=>{}}","return Err(error!(PumpError::CreatorFeeBpsOutOfRange));}}}")]
+G['q_arr']=[("q==Pubkey::default()||q==anchor_spl::token::spl_token::native_mint::ID||","[Pubkey::default(),anchor_spl::token::spl_token::native_mint::ID].contains(&q)||")]
+G['q_swap']=[("q==Pubkey::default()||q==anchor_spl::token::spl_token::native_mint::ID||","q==anchor_spl::token::spl_token::native_mint::ID||q==Pubkey::default()||")]
+G['sh_crkey']=[("let shared=a.sharing_config.key()==a.bonding_curve.creator&&","let shared=a.bonding_curve.creator==a.sharing_config.key()&&")]
+G['sh_ownfirst']=[("let shared=a.sharing_config.key()==a.bonding_curve.creator&&a.sharing_config.owner==&FEES&&","let shared=a.sharing_config.owner==&FEES&&a.sharing_config.key()==a.bonding_curve.creator&&")]
+G['v_zero_ne']=[("if t==Pubkey::default(){return Err(error!(PumpError::CreatorShouldNotBeZero)","if t==Pubkey::new_from_array([0;32]){return Err(error!(PumpError::CreatorShouldNotBeZero)")]
+G['v_fee_gt']=[("if f==0||f>st.max_fee{","if f>st.max_fee||f==0{")]
+G['v_mayhem_req']=[(" if st.mayhem{return Err(error!(PumpError::CtoNotAllowedForMayhemCoin));}"," if st.mayhem==true{return Err(error!(PumpError::CtoNotAllowedForMayhemCoin));}")]
+G['su_r2']=[("else{target=st.creator;(false,Some(args.0),true)}","else{let r=(false,Some(args.0),true);target=a.bonding_curve.creator;r}")]
+G['su_new']=[("else{target=st.creator;(false,Some(args.0),true)}","else{let r=(false,Some(new),true);target=st.creator;r}")]
+G['su_hold']=[("if holder{(false,Some(None),false)}","if holder{let r=(false,Some(None),false);r}")]
+G['su_ns']=[("(!st.holder_reward&&st.creator!=Pubkey::default(),None,true)};","{let r=(!st.holder_reward&&st.creator!=Pubkey::default(),None,true);r}};")]
+# ---- re-read family (w14a43/w14a55 mechanism): one field of an `x`-bound AccountInfo literal read through the account path ----
+_LITRE=re.compile(r'\{let x:&AccountInfo= ?(a\.\w+)\.as_ref\(\);AccountInfo\{([^}]*)\}\}')
+_SH={'K':'key','L':'lamports','D':'data','O':'owner','R':'rent_epoch','S':'is_signer','W':'is_writable','E':'executable'}
+def rrg(k,c):
+    def g(s):
+        ms=list(_LITRE.finditer(s)); m=ms[k]; path=m.group(1); body=m.group(2); f=_SH[c]
+        old=f'{f}:x.{f}'; assert old in body,(k,c)
+        nb=body.replace(old,f'{f}:{path}.{f}',1)
+        return s[:m.start(2)]+nb+s[m.end(2):]
+    return [g]
+for _k in range(9):
+    for _c in 'KLDORSWE': G[f'rr{_k}{_c}']=rrg(_k,_c)
+G['x_hr_curve']=[("(!st.holder_reward&&st.creator!=Pubkey::default(),None,true)","(!a.bonding_curve.is_holder_reward&&st.creator!=Pubkey::default(),None,true)")]
+G['x_cr_curve']=[("(!st.holder_reward&&st.creator!=Pubkey::default(),None,true)","(!st.holder_reward&&a.bonding_curve.creator!=Pubkey::default(),None,true)")]
+G['x_cb_curve']=[("let cashback=!holder&&st.cashback;let args","let cashback=!holder&&a.bonding_curve.is_cashback_coin;let args")]
+G['wl_writ_eq']=[("if !a.current_creator.is_writable{return","if a.current_creator.is_writable==false{return")]
