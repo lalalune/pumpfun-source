@@ -1,0 +1,20 @@
+{
+  "lane": "w14a49-cto-sink76ra",
+  "target": "0x22a10 admin_cto::execute",
+  "bases": ["28ab23a9f (0.65488)", "0fbf8daa1 (0.65578, 3279 slots)"],
+  "result": "notes only; no landable source change",
+  "best_zero_loss": {"ratio": 0.65578, "slots": 3279, "bytes": 27400, "note": "= main; no source gain"},
+  "ir_bound": {"ratio": 0.66327, "slots": 3224, "bytes": 27400, "mechanism": "non-foldable empty block on the validate fee-Some exit edge bb58.i -> bb76 (oracle only)"},
+  "findings": [
+    "sink76's cascade comes from splitting the bb19 -> bb26 (shared+holder) edge, not from where the copies go; an asm-only block there gives 0.63661 @27224",
+    "moving the copies without a new edge block (s19/e22) keeps the order and is near-neutral (0.6541-0.65479 @27432-27464)",
+    "fee-Some edge split keeps main's RA and gives the original 330 338 334 410 order: +0.0075 at 27400",
+    "a fee-tag phi of constants (the original's r7 at +0x1800/+0x1108) loses even with a perfect frame (fbsplit all 0.627 vs split-only 0.635)",
+    "branch weights never give 330 338 334 410"
+  ],
+  "rejected": ["sinkx grid (25 placements)", "edge19h asm", "split76 copy modes", "ftag/ftag2 (+split)", "fwdt target forwarding (frame shift 0.36)", "re-running O3 on the post-opt module (not idempotent)", "bb54/bb58 branch weights"],
+  "next_ideas": [
+    "find a source form that puts one surviving instruction on the fee-Some exit edge, plus a size repay from the #3137 knob catalog",
+    "split bb58.i+bb45.i gives 3178 slots @27400 (0.66117 on 28ab23a): look into it for slot count"
+  ]
+}
