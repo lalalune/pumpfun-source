@@ -1,0 +1,35 @@
+{
+  "lane": "w14a122-cto-shareclonealias",
+  "target": {"window": "0x22a10", "function": "admin_cto::execute", "file": "programs/pump/src/creator/admin_cto.rs", "pinned_bytes": 27400},
+  "base": {"main": "ebe5387e1", "ratio": 0.67316, "slots_diff": 3123, "M": 2247, "normalized": 1034, "raw": 1034},
+  "result": "no source change; alias hypothesis killed at step 1",
+  "best": {"ratio": 0.67316, "slots_diff": 3123, "bytes": 27400, "note": "main itself; no zero-loss improvement found"},
+  "oracle_bounds": {
+    "alias_metadata_strip_postopt": "byte-identical to main (BPF DAG has no AA)",
+    "noalias_attr_strip_callees_rawir": "eq_main true",
+    "noalias_strip_ctx_rawir": "0.439@27496: accounts ptr reloaded from ctx per clone, field windows unchanged, TCF run collapses",
+    "cross_block_field_load_moves": "831 valid moves; best +1 M single, +2 M pair (0.67376@27400) only at post-store/pre-branch positions (not source-expressible); no top-of-block move beats main",
+    "canonical_windows_ir": "canon_all 0.64739@27400 (-86 M), reproduces orig window map for PA/AU/MI/SC; loss is spill-slot colouring of the CPI array tail (frame-only)",
+    "source_to_account_info_reverts": {"program": 0.67056, "authority": 0.66986, "pool_authority": 0.66866, "global": 0.66117, "event_authority": 0.64988, "mint": 0.64979, "s1_all": 0.64259}
+  },
+  "attempts": 20,
+  "ledger_keys": "0x22a10-w14-ebe5387-shareclonealias-*-v1",
+  "rejected_mechanisms": [
+    "alias.scope/noalias metadata on sharing-arm loads and Rc stores",
+    "noalias/readonly attributes on AccountInfo::clone, to_account_info, Rc clone, AsRef",
+    "noalias on execute ctx (changes accounts-ptr reloads, not windows; -0.23)",
+    "per-literal to_account_info reverts and s1 on ebe5387",
+    "IR canonical per-clone windows (derived order, fwd/rev)",
+    "cross-block single field-load moves between clones"
+  ],
+  "unresolved_residuals": [
+    "literal-vs-canonical clone windows (~159 skeleton tokens, w14a118) are bound to CPI array-tail spill-slot colouring and swept/tag register occupancy (RA)",
+    "original's per-clone [r10-0x8d8] accounts-pointer reload is an RA spill, not a memory reload"
+  ],
+  "next_ideas": [
+    "re-run canon.py (1 s) and the source reverts whenever main's tail RA changes; canon_all is the probe for when the canonical form starts paying",
+    "spill-slot colouring oracle for the CPI array tail under canon_all (which spill-creation order gives the original's slots)",
+    "the +2 M post-store placements hint that scheduling of the program/sharing_config executable loads matters; look for a non-IR-order cause"
+  ],
+  "tools": ["tools/cwin.py", "tools/cbmv.py", "tools/canon.py", "tools/batch2.sh", "tools/ed_noalias_*.py"]
+}

@@ -1,0 +1,75 @@
+# orig
+03d98 PRL  PR.key
+03de8 PRD  
+03e40 PAL  PR.ex PR.wr PR.sig PR.rent PR.own PA.key
+03ee0 PAD  
+03f48 AUL  PA.ex PA.wr PA.sig PA.rent PA.own AU.key
+03ff8 AUD  
+04060 --   GL.key
+040a0 --   AU.ex
+040b0 --   AU.wr
+040c0 --   AU.sig
+040d0 --   AU.rent
+040e0 --   AU.own
+04188 MIL  MI.key
+04240 MID  
+042b0 SCL  MI.ex MI.wr MI.sig MI.rent MI.own SC.key
+04368 SCD  
+043d8 EAL  SC.ex SC.wr SC.sig SC.rent SC.own EA.key
+04480 EAD  
+04508 PRL  EA.ex EA.wr EA.sig EA.rent EA.own PR.key
+045c0 PRD  
+04610 --   PR.own
+04618 --   PR.rent
+04620 --   PR.sig
+04628 --   PR.wr
+04630 --   PR.ex
+# main ebe5387
+03d68 PRL  PR.key
+03dc0 PRD  
+03e18 PAL  PR.ex PR.wr PR.sig PR.rent PR.own PA.own
+03eb8 PAD  
+03f18 AUL  PA.ex PA.key PA.wr PA.sig PA.rent AU.rent AU.sig AU.ex AU.wr
+03ff8 AUD  
+04058 --   GL.key
+04098 --   AU.key
+040a8 --   AU.own
+04168 MIL  MI.ex MI.wr MI.sig MI.rent
+04228 MID  MI.own
+04290 SCL  MI.key SC.key
+04308 SCD  
+04370 EAD  SC.ex SC.wr SC.sig SC.rent SC.own
+04418 EAL  
+04490 PRD  EA.ex EA.wr EA.sig EA.rent EA.own EA.key
+04538 PRL  PR.key
+045c0 --   PR.own
+045c8 --   PR.rent
+045d0 --   PR.sig
+045d8 --   PR.wr
+045e0 --   PR.ex
+# canon_all (IR oracle)
+03d68 PRL  PR.key
+03dc0 PRD  
+03e18 PAL  PR.ex PR.wr PR.sig PR.rent PR.own PA.key
+03eb8 PAD  
+03f20 AUL  PA.sig PA.rent PA.ex PA.wr PA.own AU.key
+03fd0 AUD  
+04030 --   GL.key
+04070 --   AU.own
+04080 --   AU.rent
+04088 --   AU.sig
+04098 --   AU.ex
+040a8 --   AU.wr
+04140 MIL  MI.key
+041f0 MID  
+04248 SCL  MI.own MI.ex MI.wr MI.sig MI.rent SC.key
+04300 SCD  
+04368 EAD  SC.ex SC.wr SC.sig SC.rent SC.own
+04410 EAL  
+04488 PRD  EA.ex EA.wr EA.sig EA.rent EA.own EA.key
+04528 PRL  PR.key
+045c0 --   PR.own
+045c8 --   PR.rent
+045d0 --   PR.sig
+045d8 --   PR.wr
+045e0 --   PR.ex
