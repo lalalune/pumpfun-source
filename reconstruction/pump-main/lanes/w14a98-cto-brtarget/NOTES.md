@@ -3,7 +3,7 @@
 Target `0x22a10` `admin_cto::execute` (`programs/pump/src/creator/admin_cto.rs`), pinned at 27,400 B.
 Base: main 963d1eefb (0.67226, 3,123 slots, M 2,244, jM 2,271). This lane is the companion of w14a97-cto-brhead and
 uses w14a87-cto-skelunion2's oracle (#3416). Ledger: approach `brtarget`, keys `0x22a10-w14-963d1ee-brtarget-*`
-(41 spelling rows and 4 analysis rows).
+(41 spelling rows and 6 analysis rows).
 
 **Result: no landable change. The best zero-loss measurement is still main (0.67226 @ 27,400).** The target half of Br
 cannot be separated from the head half. Its value shows up only with main's register assignment, and the 41 source
@@ -125,15 +125,43 @@ So the faithful target half is OV plus a success-fallthrough at 312 (nd312). Bot
 Br's cheap `+14 for Err306 after bb38.i` reaches the original only through jump distances. The structure behind it is
 that region.
 
+## 5. Fixed-RA MBP oracle: the legal ceiling of placement levers (`tools/mirprob.py`, `tools/mgreedy.py`)
+
+`llc -stop-before=block-placement` writes the post-RA MIR. `mirprob.py` edits the successor probabilities and runs
+`llc -start-before=block-placement`. The round trip reproduces main exactly. This holds main's RA fixed and lets
+MachineBlockPlacement choose any layout it can legally reach. It is the ceiling for any lever that only moves
+placement.
+
+| MIR probabilities (main RA) | M | bytes | jM |
+| --- | ---: | ---: | ---: |
+| none (main) | 2,244 | 27,400 | 2,271 |
+| bb23.i 1:1 | 2,215 | 27,408 | 2,267 |
+| bb7.i + bb14.i 1:1 | 2,202 | 27,416 | 2,333 |
+| bb7.i + bb14.i + bb23.i 1:1 | 2,247 | 27,424 | 2,362 |
+| + bb27.i 1:1 (greedy best) | **2,248** | 27,424 | 2,362 |
+| greedy from main, 22 validate branches x 6 weights, any size or ≤ 27,400 | 2,244 | 27,400 | no single change helps |
+
+- The MBP-legal ceiling is **+4 M at +24 B**, not Br's +28. Most of Br breaks BPF fallthrough glue, which only an IR
+  order change can do.
+- The same weights at real RA give 2,230 (the RA costs 17).
+
+## 6. Cold error groups in IR order (`tools/coldscan.py`, `tools/cold2.py`, `coldscan_963d1ee.jsonl`, `cold2_963d1ee.jsonl`)
+
+`coldscan.py` moves the 14 cold groups (to_string plus alloc-fail pairs, and the Err exits) to every position in
+validate's post-opt IR, with real llc. Such a move keeps fM and skM equal to main's (RA-neutral) unless it lands
+between hot blocks.
+
+- 623 singles give 44 distinct outputs, **none above M 2,244**.
+- The structural best is ts296 after bb10.i: 2,242 @ 27,400 with jM 2,351 (+80). It is w14a78's lead.
+- 478 pairs (top 12 by jM x top 45): none above main. The best is 289 glue + ts296 at 2,242 @ 27,392 (ratio 0.67176).
+- The 306 glue flip (cold bb27.i right after bb23.i) gives 2,239.
+
 ## Next ideas (untried)
 
-1. A fixed-RA MBP oracle: `llc -stop-before=block-placement`, edit the MIR successor probabilities, then
-   `-start-before=block-placement`. It prices which B-like layouts MBP can legally reach without any RA change. This is
-   the true ceiling of weight-only source levers, which is ≤ +28.
-2. Price brhead and brtarget as one change. The and-1 union is the source form (e3 holder bool param + a range-free 306
+1. Price brhead and brtarget as one change. The and-1 union is the source form (e3 holder bool param + a range-free 306
    tag). It needs an RA/frame plan worth ≥ +15 M at 27,424-24 (t1) B. Under the legal-frame bound it is 47 below main,
    so nothing in hand is close.
-3. t1's -24 B is ratio-neutral room on 963d1ee. A +24 B M-positive change elsewhere would land with it. No catalog knob
+2. t1's -24 B is ratio-neutral room on 963d1ee. A +24 B M-positive change elsewhere would land with it. No catalog knob
    does that (w14a89).
 
 ## Tools (`tools/`, experiment only)
@@ -147,3 +175,5 @@ They run from a copy in `$OUT/tools`, with `Bspec963.txt` in `$OUT/tmp/` and a87
   and the score. Run `opt -passes=instnamer` on m.ll first.
 - `wgreedy.py` / `wgreedy2.py`: greedy branch-weight search over validate's branches.
 - `post1.py`, `hw.py`, `runq.sh`, `repost.sh`: the variant pipeline (capture, Br, head weights, errseq).
+- `mirprob.py` / `mgreedy.py`: the fixed-RA MBP oracle and its weight search.
+- `coldscan.py` / `cold2.py`: the cold error-group IR position scans.

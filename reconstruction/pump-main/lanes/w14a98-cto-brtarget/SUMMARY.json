@@ -1,34 +1,42 @@
 {
-  "lane": "w14a98-cto-brtarget",
-  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27400 B",
-  "base": "main 963d1eefb: 0.67226, 3123 slots, M 2244",
-  "best": {"source": "main (no landable change)", "ratio": 0.67226, "slots_diff": 3123, "bytes": 27400},
-  "oracle_results": {
-    "B_fixed_RA_corrected_spec": "2272 @27440 (Br 2272 @27408, 4 flips); a87 Bspec misaliases bb94.i on 963d1ee -> 2258",
-    "target_half_only": "2215 @27408", "head_half_only": "2213 @27408",
-    "exit38_only": "2258 @27408 (+14, jM +3)",
-    "ir_B_order_real_llc": "2115 @27392",
-    "weights_and1_union_real_llc": "2230 @27424 (errseq original, jM 2350, fR 2243 vs main 2290)",
-    "weights_greedy_best": "2245 @27432 (union + bb45.i 20:12); from main only bb37.i 20:12 = 2245 @27400"
-  },
-  "attempts": 45,
-  "spellings_screened": 41,
-  "rejected_mechanisms": [
-    "306 let-else / is_none+unwrap: -15 M (ts306 frame slots)",
-    "306 match/if-let/ref/is_some forms: identical",
-    "306 via has_new bool (CtoState field / param): collapse 1547-1908",
-    "312 success-first && (original fallthrough polarity): -107 M, pulls 330/338 forward",
-    "312 swaps/split/contains, 307 swap: -2..-586",
-    "cashback/fee/bps spellings: identical or worse (fee if-let -87, let-else -476)",
-    "IR-order realization of B: -129; weight realization: -14 at +24 B"
-  ],
-  "unresolved_residuals": [
-    "Br +28 exists only with main's RA; the halves are not separable (each alone ~-30)",
-    "Original target arm = OV (shared test inside non-holder arm) + 312 success fallthrough; both are RA cascades"
-  ],
-  "next_ideas": [
-    "fixed-RA MBP oracle via llc -stop-before/-start-before=block-placement with MIR probability edits",
-    "price brhead+brtarget as one change with an RA/frame plan; and-1 union needs >= +15 M recovered",
-    "t1 gives 24 B of ratio-neutral room on 963d1ee"
-  ]
+ "lane": "w14a98-cto-brtarget",
+ "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27400 B",
+ "base": "main 963d1eefb: 0.67226, 3123 slots, M 2244",
+ "best": {
+  "source": "main (no landable change)",
+  "ratio": 0.67226,
+  "slots_diff": 3123,
+  "bytes": 27400
+ },
+ "oracle_results": {
+  "B_fixed_RA_corrected_spec": "2272 @27440 (Br 2272 @27408, 4 flips); a87 Bspec misaliases bb94.i on 963d1ee -> 2258",
+  "target_half_only": "2215 @27408",
+  "head_half_only": "2213 @27408",
+  "exit38_only": "2258 @27408 (+14, jM +3)",
+  "ir_B_order_real_llc": "2115 @27392",
+  "weights_and1_union_real_llc": "2230 @27424 (errseq original, jM 2350, fR 2243 vs main 2290)",
+  "weights_greedy_best": "2245 @27432 (union + bb45.i 20:12); from main only bb37.i 20:12 = 2245 @27400",
+  "mbp_fixed_RA_ceiling": "2248 @27424 (bb7/bb14/bb23/bb27 1:1); no single weight helps from main",
+  "cold_ir_moves": "623 singles + 478 pairs, none above M 2244; best structure ts296 after bb10.i 2242 @27400 jM +80"
+ },
+ "attempts": 47,
+ "spellings_screened": 41,
+ "rejected_mechanisms": [
+  "306 let-else / is_none+unwrap: -15 M (ts306 frame slots)",
+  "306 match/if-let/ref/is_some forms: identical",
+  "306 via has_new bool (CtoState field / param): collapse 1547-1908",
+  "312 success-first && (original fallthrough polarity): -107 M, pulls 330/338 forward",
+  "312 swaps/split/contains, 307 swap: -2..-586",
+  "cashback/fee/bps spellings: identical or worse (fee if-let -87, let-else -476)",
+  "IR-order realization of B: -129; weight realization: -14 at +24 B",
+  "placement-only levers: MBP-legal ceiling +4 M @+24 B at fixed RA; cold IR moves never above main"
+ ],
+ "unresolved_residuals": [
+  "Br +28 exists only with main's RA; the halves are not separable (each alone ~-30)",
+  "Original target arm = OV (shared test inside non-holder arm) + 312 success fallthrough; both are RA cascades"
+ ],
+ "next_ideas": [
+  "price brhead+brtarget as one change with an RA/frame plan; and-1 union needs >= +15 M recovered",
+  "t1 gives 24 B of ratio-neutral room on 963d1ee"
+ ]
 }
