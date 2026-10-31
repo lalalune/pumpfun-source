@@ -1,0 +1,14 @@
+start 2248 2291 2298 27400
+  r0 bot_338        M 2250 pinV 2291 pinA 2298 bytes 27400
+  r0 bot_339        M 2249 pinV 2291 pinA 2298 bytes 27400
+  r0 bot_340        M 2249 pinV 2291 pinA 2298 bytes 27400
+step 0: base+bot_338 -> M 2250 pinV 2291 pinA 2298 bytes 27400
+  r1 bot_1873       M 2251 pinV 2291 pinA 2298 bytes 27400
+  r1 casc_338       M 2250 pinV 2291 pinA 2298 bytes 27400
+  r1 bot_1854       M 2249 pinV 2291 pinA 2295 bytes 27400
+step 1: base+bot_338+bot_1873 -> M 2251 pinV 2291 pinA 2298 bytes 27400
+  r2 casc_338       M 2251 pinV 2291 pinA 2298 bytes 27400
+  r2 top_1858       M 2250 pinV 2290 pinA 2297 bytes 27400
+  r2 casc_343       M 2250 pinV 2291 pinA 2298 bytes 27400
+stop
+FINAL {"prio": "338=1,1873=1", "name": "base+bot_338+bot_1873", "add": "bot_1873", "ratio": 0.67436, "M": 2251, "bytes": 27400, "pinV": 2291, "pinVr": 0.68634, "pinA": 2298, "pinAr": 0.68844}

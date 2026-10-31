@@ -1,0 +1,31 @@
+{
+  "lane": "w15a18-cto-s1greedy",
+  "target": "0x22a10 admin_cto::execute",
+  "base": "s1/m0 raw-IR captures on 90300f9 (oracle), source screen on main 86e2a6b; branch merged with 9120883",
+  "result": "notes only; no source change",
+  "main": {"ratio": 0.67376, "slots_diff": 3124, "bytes": 27400, "M_90300f9": 2248},
+  "best_zero_loss": {"ratio": 0.67376, "slots_diff": 3124, "bytes": 27400, "note": "main itself; nothing landable"},
+  "ra_faithful_s1": {
+    "s1": {"M": 2145, "bytes": 27376, "pinV": 2250},
+    "s1+6": {"M": 2255, "ratio": 0.67616, "bytes": 27352, "pinV": 2310, "true_lcs_unmasked": 2259},
+    "s1+13": {"M": 2276, "ratio": 0.68287, "bytes": 27320, "pinV": 2325, "pinA": 2329, "true_lcs_unmasked": 2279},
+    "main_same_class": {"M": 2251, "bytes": 27400, "pinV": 2291},
+    "decisions_6": "casc %309 (E2.lam), top %321 (E3.rent), top %334 (E5 ptr [%0+144]), bottom %354 (pump_fees lam), casc %348 (E6.rent), bottom %339 (E5.rent)"
+  },
+  "findings": [
+    "private greedy llc with RAPRIO_CASC (cascade) and RAPRIO_WEIGHT (spill weight) hooks; casc high == weight x10 on every single",
+    "RA-faithful s1 (no physreg pins) beats main: 6 greedy decisions M 2255 @27352, 13 decisions M 2276 @27320 (0.68287), pinV 2325 vs 2291",
+    "same override class on main is flat (2251 best)",
+    "the first 3 decisions undo w15a06's +3 tail colour shift (E1-E3 to 0/+1)",
+    "decisions are an eviction chain among sharing clone pieces by spill-weight density (~1/size, 2 uses each); thresholds need x3 weight, not one extra use",
+    "family-wide policies (E0-first, protect E0, flat weights) all lose 30-220 M",
+    "52 source spellings of s1 (44 literal evaluation orders, ctx-after, 6 named orders) are 0.632-0.654 as built; best order's greedy ceiling 2192"
+  ],
+  "rejected": ["literal evaluation order of AdminCtoSharingConfig on s1 (44 orders)", "program clone after the struct on s1", "family-level priority/cascade/weight policies"],
+  "unresolved": ["source form giving E2/E3/E5/E6 clone pieces 3x spill-weight density (short live ranges per piece)", "size repay 32-80 B for any s1 override set"],
+  "next_ideas": [
+    "s1 forms that store each clone's pieces into the CPI account array at clone time (short piece ranges), priced with tools/cell.sh + climb.py for their RA ceiling",
+    "use cell.sh/scr.py/climb.py as an RA-ceiling oracle for any raw-IR candidate (about 10 min, no build slot)"
+  ],
+  "ledger_keys": ["0x22a10-w15-90300f9-s1greedy-singles-v1","0x22a10-w15-90300f9-s1greedy-climb1-v1","0x22a10-w15-90300f9-s1greedy-family-v1","0x22a10-w15-90300f9-s1greedy-splitsingles-v1","0x22a10-w15-90300f9-s1greedy-climbU-v1","0x22a10-w15-86e2a6b-s1greedy-src-*-v1","0x22a10-w15-86e2a6b-s1greedy-src-perm44-v1"]
+}

@@ -1,0 +1,34 @@
+start 2247 2310 2314 27352
+  r0 bot_339        M 2255 pinV 2310 pinA 2314 bytes 27352
+  r0 bot_338        M 2254 pinV 2308 pinA 2312 bytes 27352
+  r0 bot_340        M 2253 pinV 2310 pinA 2314 bytes 27352
+step 0: base+bot_339 -> M 2255 pinV 2310 pinA 2314 bytes 27352
+  r1 bot_302        M 2260 pinV 2310 pinA 2314 bytes 27352
+  r1 bot_2121       M 2260 pinV 2315 pinA 2319 bytes 27344
+  r1 bot_1614       M 2258 pinV 2313 pinA 2317 bytes 27352
+step 1: base+bot_339+bot_302 -> M 2260 pinV 2310 pinA 2314 bytes 27352
+  r2 bot_1614       M 2263 pinV 2313 pinA 2317 bytes 27352
+  r2 casc_226       M 2262 pinV 2312 pinA 2316 bytes 27336
+  r2 w01_299        M 2262 pinV 2315 pinA 2319 bytes 27336
+step 2: base+bot_339+bot_302+bot_1614 -> M 2263 pinV 2313 pinA 2317 bytes 27352
+  r3 casc_226       M 2265 pinV 2315 pinA 2319 bytes 27336
+  r3 w01_299        M 2265 pinV 2318 pinA 2322 bytes 27336
+  r3 bot_299        M 2265 pinV 2318 pinA 2322 bytes 27336
+step 3: base+bot_339+bot_302+bot_1614+casc_226 -> M 2265 pinV 2315 pinA 2319 bytes 27336
+  r4 bot_2184       M 2271 pinV 2320 pinA 2324 bytes 27328
+  r4 w01_299        M 2269 pinV 2322 pinA 2326 bytes 27320
+  r4 bot_299        M 2269 pinV 2322 pinA 2326 bytes 27320
+step 4: base+bot_339+bot_302+bot_1614+casc_226+bot_2184 -> M 2271 pinV 2320 pinA 2324 bytes 27328
+  r5 casc_1755      M 2274 pinV 2323 pinA 2327 bytes 27328
+  r5 top_460        M 2272 pinV 2321 pinA 2325 bytes 27328
+  r5 top_462        M 2272 pinV 2321 pinA 2325 bytes 27328
+step 5: base+bot_339+bot_302+bot_1614+casc_226+bot_2184+casc_1755 -> M 2274 pinV 2323 pinA 2327 bytes 27328
+  r6 top_460        M 2275 pinV 2324 pinA 2328 bytes 27328
+  r6 top_462        M 2275 pinV 2324 pinA 2328 bytes 27328
+  r6 top_494        M 2275 pinV 2324 pinA 2328 bytes 27328
+step 6: base+bot_339+bot_302+bot_1614+casc_226+bot_2184+casc_1755+top_460 -> M 2275 pinV 2324 pinA 2328 bytes 27328
+  r7 bot_2050       M 2276 pinV 2325 pinA 2329 bytes 27320
+  r7 casc_309       M 2275 pinV 2324 pinA 2328 bytes 27328
+  r7 w10_309        M 2275 pinV 2324 pinA 2328 bytes 27328
+step 7: base+bot_339+bot_302+bot_1614+casc_226+bot_2184+casc_1755+top_460+bot_2050 -> M 2276 pinV 2325 pinA 2329 bytes 27320
+FINAL {"prio": "321=0xfffffff0,334=0xfffffff0,354=1,339=1,302=1,1614=1,2184=1,460=0xfffffff0,2050=1", "casc": "309=0x7ffffff0,348=0x7ffffff0,226=0x7ffffff0,1755=0x7ffffff0", "name": "base+bot_339+bot_302+bot_1614+casc_226+bot_2184+casc_1755+top_460+bot_2050", "add": "bot_2050", "ratio": 0.68287, "M": 2276, "bytes": 27320, "pinV": 2325, "pinVr": 0.69757, "pinA": 2329, "pinAr": 0.69877}

@@ -1,0 +1,26 @@
+start 2145 2250 2257 27376
+  r0 casc_309       M 2181 pinV 2257 pinA 2260 bytes 27368
+  r0 w10_309        M 2181 pinV 2257 pinA 2260 bytes 27368
+  r0 top_314        M 2178 pinV 2264 pinA 2271 bytes 27368
+step 0: base+casc_309 -> M 2181 pinV 2257 pinA 2260 bytes 27368
+  r1 top_321        M 2213 pinV 2277 pinA 2281 bytes 27320
+  r1 top_322        M 2211 pinV 2277 pinA 2281 bytes 27320
+  r1 top_323        M 2211 pinV 2277 pinA 2281 bytes 27320
+step 1: base+casc_309+top_321 -> M 2213 pinV 2277 pinA 2281 bytes 27320
+  r2 top_334        M 2227 pinV 2289 pinA 2293 bytes 27352
+  r2 casc_330       M 2225 pinV 2273 pinA 2277 bytes 27304
+  r2 w10_330        M 2225 pinV 2273 pinA 2277 bytes 27304
+step 2: base+casc_309+top_321+top_334 -> M 2227 pinV 2289 pinA 2293 bytes 27352
+  r3 bot_354        M 2230 pinV 2289 pinA 2293 bytes 27312
+  r3 casc_344       M 2228 pinV 2279 pinA 2283 bytes 27352
+  r3 w10_344        M 2228 pinV 2279 pinA 2283 bytes 27352
+step 3: base+casc_309+top_321+top_334+bot_354 -> M 2230 pinV 2289 pinA 2293 bytes 27312
+  r4 casc_348       M 2247 pinV 2310 pinA 2314 bytes 27352
+  r4 w10_348        M 2247 pinV 2310 pinA 2314 bytes 27352
+  r4 w10_309        M 2230 pinV 2289 pinA 2293 bytes 27312
+step 4: base+casc_309+top_321+top_334+bot_354+casc_348 -> M 2247 pinV 2310 pinA 2314 bytes 27352
+  r5 w10_309        M 2247 pinV 2310 pinA 2314 bytes 27352
+  r5 casc_1704      M 2247 pinV 2310 pinA 2314 bytes 27352
+  r5 casc_331       M 2247 pinV 2310 pinA 2314 bytes 27352
+stop
+FINAL {"prio": "321=0xfffffff0,334=0xfffffff0,354=1", "casc": "309=0x7ffffff0,348=0x7ffffff0", "name": "base+casc_309+top_321+top_334+bot_354+casc_348", "add": "casc_348", "ratio": 0.67376, "M": 2247, "bytes": 27352, "pinV": 2310, "pinVr": 0.69265, "pinA": 2314, "pinAr": 0.69385}
