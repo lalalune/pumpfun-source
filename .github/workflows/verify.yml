@@ -188,6 +188,7 @@ jobs:
               python -B reconstruction/tooling/serial-input-preservation-20261030/test_serial_admission.py
               python -B scripts/test_pump_compare_window_strict_csv.py
               python -B scripts/test_replay_macos_frontier_optimization.py
+              python -B scripts/test_replay_macos_frontier.py
               python -B scripts/test_pump_macos_frontier_qualification_optimization.py
               python -B scripts/test_admin_cto_optimization.py
               python -B scripts/test_build_token_dependency_optimization.py

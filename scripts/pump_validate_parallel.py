@@ -52,6 +52,34 @@ def validate_build_sources(record, source_directory, candidate):
     assert all(sources.get(path) == digest for path, digest in expected.items()), 'source binding omits or changes compiler inputs'
     inputs = [Path(strict_manifest.__code__.co_filename).resolve(),
               Path(build_source_manifest.__file__).resolve()]
+    relocation = record.get('replay_source_binding')
+    if relocation:
+        assert not binding, 'source binding cannot be both portable and relocated'
+        assert relocation['kind'] == 'verified-workspace-relocation', 'replay source binding kind'
+        for field in ('origin_build_record', 'original_workspace_prefix', 'execution_workspace_prefix'):
+            path = Path(relocation[field])
+            assert path.parts and not path.is_absolute() and '..' not in path.parts, 'replay binding path must be repository-relative'
+            assert (ROOT / path).resolve().is_relative_to(ROOT.resolve()), 'replay binding path resolves outside repository'
+        origin_path = ROOT / relocation['origin_build_record']
+        assert sha(origin_path) == relocation['origin_build_record_sha256'], 'replay source origin hash'
+        origin = json.loads(origin_path.read_text())
+        original = origin['source_sha256']
+        assert relocation['original_compiled_source_sha256'] == original, 'replay original source binding'
+        prefix = Path(relocation['original_workspace_prefix'])
+        execution = Path(relocation['execution_workspace_prefix'])
+        mapped = {
+            ((execution / Path(name).relative_to(prefix)).as_posix()
+             if Path(name).is_relative_to(prefix) else name): digest
+            for name, digest in original.items()
+        }
+        assert sources == mapped, 'replay source relocation differs'
+        assert crate == (ROOT / execution / 'programs/pump').resolve(), 'replay source directory differs'
+        assert base.same_json_value(record, {
+            **origin, 'source_sha256': mapped,
+            'source_directory': str(ROOT / execution / 'programs/pump'),
+            'replay_source_binding': relocation,
+        }), 'replay changed original build fields'
+        inputs.append(origin_path)
     if binding:
         # Authenticate exactly the portable binding already supported by the
         # two-curve adapter; it is not permission to omit arbitrary inputs.
