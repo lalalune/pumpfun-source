@@ -97,7 +97,7 @@ class PublicationCase:
    with self.subTest(script=name):
     result=self.invoke(name,'full');self.assertEqual(result.returncode,0,result.stdout+result.stderr)
     report=self.report();self.assertEqual(report['mismatches'],[])
-    self.assertEqual(report.get('case_count',len(report['cases'])),self.EXPECTED[name]);self.assertEqual(len(report['cases']),report.get('case_count',len(report['cases'])))
+    self.assertIn('case_count',report);self.assertEqual(report['case_count'],self.EXPECTED[name]);self.assertEqual(len(report['cases']),report['case_count'])
     if os.environ.get(self.PROOF_ENV):
      dest=Path(os.environ[self.PROOF_ENV]);dest.mkdir(parents=True,exist_ok=True)
      shutil.copyfile(self.output,dest/(name+'.json'))
