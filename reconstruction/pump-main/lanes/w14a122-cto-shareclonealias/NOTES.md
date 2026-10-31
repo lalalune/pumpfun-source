@@ -75,7 +75,10 @@ of the 48 sharing-arm field loads, with its private gep, to the top or the botto
   **0.67376 @ 27,400**.
 - Both are placements after the count store and before the overflow `br`. No source order can produce them, because the
   overflow branch is inside `Rc::clone`.
-- Every top-of-block move, which is a source-expressible reorder between clones, is at or below main's 2,247 M.
+- Every top-of-block move, which is a source-expressible reorder between clones, is at or below main's 2,247 M. The 28
+  pairs of the 8 near-neutral top-of-block moves are below main too (best 2,246).
+- The +2 M pair differs from main in only 27 slots (0x3e50-0x4968), and every difference is a spill-slot offset. It is a
+  spill-colouring coincidence, not structure.
 
 ### The original's canonical windows on main's module (`tools/canon.py`)
 
