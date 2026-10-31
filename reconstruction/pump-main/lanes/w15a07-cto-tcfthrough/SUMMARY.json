@@ -1,0 +1,26 @@
+{
+  "lane": "w15a07-cto-tcfthrough",
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27,400 B",
+  "base": {"main": "90300f9d2", "ratio": 0.67346, "slots_diff": 3124, "bytes": 27400, "M": 2248, "tcf_region_orig_0x2600_0x3c00": {"M_oo": 216, "rM_oo": 97, "fM_oo": 174, "sk_oo": 26}},
+  "result": "notes only; no source change; bound negative",
+  "best": {"ratio": 0.67346, "slots_diff": 3124, "bytes": 27400, "note": "= main; no zero-loss improvement"},
+  "through_live_values": {
+    "r6": "%121 = gep accounts,264 = &a.holder_creator_vault (sweep dest check, GVN-merged with native-arm ensure_rent_exempt/transfer_native and the token-arm clone); orig: same def at 0x1f38, spilled at def 0x1f48 -> [r10-0x8e0]",
+    "r9": "%119 = %ctx.val62 = ctx.bumps.creator_vault, hoisted to the sweep call site by ArgumentPromotion of sweep(&Context); single use = vsigner [bump] store after the TCF join; orig: same def at 0x1d60 (r7), spilled at def 0x1f70 -> [r10-0x910]",
+    "third": "%985 native flag (memcmp quote_mint vs native mint): ours r7 spilled at 0x1f48; orig r9 spilled at 0x1f68 -> [r10-0x918]"
+  },
+  "attempts": [
+    {"key": "B", "what": "re-derive +264 GEP at 3 later uses", "ratio": 0.60623, "bytes": 27384, "fM_oo_tcf": 174},
+    {"key": "A", "what": "reload bump at vsigner store", "ratio": 0.63502, "bytes": 27408, "fM_oo_tcf": 237},
+    {"key": "N", "what": "recompute native after TCF", "ratio": 0.60997, "bytes": 27432, "fM_oo_tcf": 174},
+    {"key": "ABN", "what": "all three re-derived; TCF entry live-out = orig [r2,r8]", "ratio": 0.59829, "bytes": 27432, "fM_oo_tcf": 204},
+    {"key": "tai+ABN", "what": "orig clone1 shape + all three re-derived", "ratio": 0.58919, "bytes": 27416, "fM_oo_tcf": 230},
+    {"key": "raforce", "what": "RAPRIO forced spills of the trio, singly and together", "ratio_range": [0.619, 0.644], "fM_oo_tcf_range": [174, 237]},
+    {"key": "spd", "what": "alloca spill-at-def, all 7 subsets x 2 placements", "ratio_range": [0.27, 0.35], "fM_oo_tcf_range": [179, 240]},
+    {"key": "colforce", "what": "71 single colour forces to orig register in the run", "best": "%1617=r3 0.67436 @27400 (+3 M), RA only"}
+  ],
+  "rejected_mechanisms": ["end &holder_creator_vault live range before the TCF (re-derive/spill)", "reload the bump after the CPI", "recompute native after the CPI", "free all three head registers (orig entry live set)", "same on the tai clone1 shape", "greedy forced spills", "IR alloca spill-at-def"],
+  "unresolved": ["clone-run register names (fM_oo 174) follow greedy's whole split order over the eight clone sequences, not the entry occupants: with r6/r9 free (ABN) the orig r6/r9 fields match (25/20 vs 2/0) but the other names get worse (fM_oo +30)"],
+  "next_ideas": ["IR shape inside the clone run (clone-window source forms, w14a139) rather than head live ranges", "%1617=r3 (+3 M RA-only) needs a source form", "region bound for colour is 119 tokens (M_oo 216 - rM_oo 97), about +0.036 ratio, but not RA-reachable per vreg"],
+  "ledger_keys": "0x22a10-w15-90300f9-tcfthrough-{map,irB,irA,irN,irABN,taiABN,raforce,spd,colforce}-v1"
+}

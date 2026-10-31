@@ -1,0 +1,1 @@
+EDITS=[('transfer_creator_fees_to_pump_v2(CpiContext::new({let x:&AccountInfo=a.pump_amm.as_ref();AccountInfo{owner:x.owner,key:x.key,lamports:x.lamports.clone(),data:x.data.clone(),rent_epoch:x.rent_epoch,executable:x.executable,is_writable:x.is_writable,is_signer:x.is_signer}},','transfer_creator_fees_to_pump_v2(CpiContext::new(a.pump_amm.to_account_info(),')]
