@@ -118,3 +118,40 @@ Round 5 on main 81d3d9a (after #3308 and #3309). The only gain is pool_authority
 (3,171 slots, 0 losses, differential 363/0, unstripped sha256 `8febf467fc61fbf17ff11045ed9d7b0d3aba0eeedbcadf5060abb2552212b02a`). Every other sharing clone is at its optimum.
 Swapping the Rc clone order to data-first loses for pool_authority, authority, global and mint, and the program swap is
 neutral: 0.62082 / 0.6456 / 0.6411 / 0.65009 / 0.65069. The event_authority scalar order is still the best of 720.
+
+## Part 8 (main 6db95a7, 0.65458): exhaustion table
+
+After #3315 (nativejoin), round 7 ran on main 6db95a7. Nothing beats main.
+
+| sharing CPI field (source form on main) | read order (\| = lamports / data Rc clones) | placements (729) | in-position perms (top-8 placements) | Rc swap | pairs |
+| --- | --- | --- | --- | --- | --- |
+| CpiContext program `a.pump_fees.to_account_info()` | K \| L,D \| O,R,S,W,E (clone order) | main best | main best | literal forms lose (#3260 a/b, #3277) | none > main |
+| pool_authority literal | O \| L,D \| R,S,W,K,E | main best | main best | 0.63901 | none > main |
+| authority literal | W,E,S,R \| L,D \| O,K | main best | main best | 0.64949 | none > main |
+| global literal | W,E,S,R \| L,D \| O,K | main best | main best | 0.645 | none > main |
+| mint literal | R,S,W,E \| L \| O \| D \| K | main best | main best | 0.65398 | none > main |
+| sharing_config `to_account_info()` | K \| L,D \| O,R,S,W,E | main best | main best | literal forms lose | none > main |
+| event_authority path literal | D,L \| K,O,R,S,W,E | n/a (path reads) | best of 720 (`eperm.py`) | 0.65398 (lamports first) | n/a |
+| program literal | L \| K \| D,O,R,S,W,E | main best | main best | 0.65458 (neutral) | none > main |
+
+Also tried on this angle, all losses:
+- AdminCtoSharingConfig struct-literal field order (10 orders, mostly size changes).
+- `let accts=..` / `let prog=..` hoists (27,352-27,368 B).
+
+**The sharing CPI's AccountInfo read order is exhausted at single-clone and pair level.**
+
+## Tools (`tools/`, experiment only)
+
+- `pscan.py <mn.ll> x <out.jsonl> [threads]` with `XVAL=<AccountInfo ptr SSA>` runs on the instnamer-named post-opt module
+  of an `rx.py` capture. It needs w14a17's `rx.py` next to it (`$C/lanes/w14a17-cto-sweepr0/tools/rx.py`).
+  - `MODE=perm` scores 720 orders with all reads at `POS`.
+  - `MODE=place` scores 729 placements in the current relative order.
+  - `MODE=pp` scores every in-position permutation at the current placement or at `PLACE=ddd...`.
+  - `MODE=list` takes jobs from `JOBS`.
+  - `MODE=dump` writes one variant's IR (`JOB=place:order`).
+- `cd.sh <mn.ll> <dir> clones..` runs place and then pp on the top placements (one coordinate-descent round).
+  `pairs.py <mn.ll> <dir> K clones..` scores pairwise composites of each clone's top-K distinct placements.
+- `eperm.py <mn.ll> %ptr <out>` scores all 720 scalar-read orders after a path-form literal's pointer load
+  (event_authority).
+- `var.sh`, `mkauth.py` and `mkord.py` are the source-variant build and edit generators.
+- Every oracle top was confirmed by a `measure.sh` build at the same ratio.

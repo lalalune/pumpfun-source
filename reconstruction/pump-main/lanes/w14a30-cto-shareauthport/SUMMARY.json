@@ -1,0 +1,71 @@
+{
+ "lane": "w14a30-cto-shareauthport",
+ "target": "0x22a10 admin_cto::execute",
+ "pinned_bytes": 27400,
+ "landed": [
+  {
+   "pr": 3290,
+   "merge": "b2e90aa23",
+   "change": "port of #3277 sharing authority literal",
+   "ratio": "0.6432->0.6444 (land.py on ca03a2b)"
+  },
+  {
+   "pr": 3295,
+   "merge": "5ee681d20",
+   "change": "authority read order K,R,W,S,O,E + global exec-early",
+   "ratio": "0.6444->0.6450"
+  },
+  {
+   "pr": 3298,
+   "merge": "65df90f16",
+   "change": "sharing program literal key-mid",
+   "ratio": "0.6450->0.6453"
+  },
+  {
+   "pr": 3300,
+   "merge": "06967d378",
+   "change": "global W,E,S,R|L,D|O,K + authority K,R,W,E|L,D|S,O",
+   "ratio": "0.6453->0.64649"
+  },
+  {
+   "pr": 3304,
+   "merge": "e87e001da",
+   "change": "authority K,W,E,S|L,D|R,O + pool_authority E|L,D|K,W,R,S,O",
+   "ratio": "0.64649->0.64709"
+  },
+  {
+   "pr": 3309,
+   "merge": "81d3d9abe",
+   "change": "authority W,E,S,R|L,D|O,K + event_authority data-first",
+   "ratio": "0.64979->0.65069 (merged over #3308)"
+  },
+  {
+   "pr": 3318,
+   "merge": "faf996242",
+   "change": "pool_authority O|L,D|R,S,W,K,E",
+   "ratio": "0.65069->0.65129"
+  }
+ ],
+ "best": {
+  "ratio": 0.65129,
+  "slots_diff": 3171,
+  "bytes": 27400,
+  "main": "faf996242",
+  "note": "main later 6db95a7 = 0.65458 via #3315 (other lane)"
+ },
+ "attempts": "~60 source builds + ~25k llc oracle runs; ledger keys 0x22a10-w14-*-shareauthport-*",
+ "rejected": [
+  "AdminCtoSharingConfig struct field order (10 orders)",
+  "let-bound accts/prog hoists",
+  "sharing_config / CpiContext program as literals in #3260/#3277 orders",
+  "Rc swap data-first for pool_authority/authority/global/mint (every round)",
+  "canonical-order fscan placements (in-position order matters)"
+ ],
+ "unresolved": "sharing CPI read order exhausted at single-clone and pair level on 6db95a7; remaining gap is elsewhere (code shape)",
+ "next_ideas": [
+  "run pscan pp/place/pairs on the other inline literal sites (wallet ATA creates, collect_coin_creator_fee) after each main move",
+  "re-run tools/cd.sh on sharing clones whenever another region lands (optima shifted 5 times this run)",
+  "triple composites via pairs.py extension",
+  "size-knob paired moves: variants that change size by +-16/32 B combined with #3137 knobs"
+ ]
+}
