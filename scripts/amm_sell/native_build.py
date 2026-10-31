@@ -196,6 +196,26 @@ def publish_output(staging, out):
         shutil.rmtree(previous, ignore_errors=True)
 
 
+def build_environment(harness, target, staging, extra_root_flags, jobs, link_script):
+    env = {k: v for k, v in os.environ.items() if k not in ('RUSTFLAGS', 'CARGO_ENCODED_RUSTFLAGS',
+            'RUSTC_WORKSPACE_WRAPPER', 'CARGO_BUILD_RUSTC_WORKSPACE_WRAPPER')}
+    env.update({
+        'CARGO_HOME': str(CARGO_HOME), 'CARGO_TARGET_DIR': str(target),
+        'RUSTC': str(SDK / 'rust/bin/rustc'), 'RUSTDOC': str(SDK / 'rust/bin/rustdoc'),
+        'CC': str(SDK / 'llvm/bin/clang'), 'AR': str(SDK / 'llvm/bin/llvm-ar'),
+        'CARGO_TARGET_SBPF_SOLANA_SOLANA_RUSTFLAGS': ' -Zremap-cwd-prefix=',
+        'CARGO_BUILD_JOBS': str(jobs), 'RUSTC_WRAPPER': str(harness / 'rustc_wrapper.py'),
+        'AMM_LANE_OUT': str(staging), 'AMM_LANE_HARNESS': str(harness),
+        'AMM_EXTRA_ROOT_RUSTFLAGS': extra_root_flags,
+        'AMM_METADATA_MAP': str(harness / 'metadata-map.json'),
+    })
+    if link_script:
+        env['AMM_LINK_SCRIPT'] = str(Path(link_script).absolute())
+    else:
+        env.pop('AMM_LINK_SCRIPT', None)
+    return env
+
+
 def build(lane, build_id, source_root=None, sell=None, patch=None, extra_root_flags='', link_script=None,
           keep_ws=False, jobs=4):
     lane = Path(lane).absolute()
@@ -206,7 +226,7 @@ def build(lane, build_id, source_root=None, sell=None, patch=None, extra_root_fl
     try:
         # Reuse the lane's selected baseline, not a different global source.
         # This also resets patches when no global PRISTINE was configured.
-        subprocess.run(['rsync', '-a', '--delete', '--checksum', '--exclude', 'target',
+        subprocess.run(['rsync', '-a', '--delete', '--checksum', '--exclude', '/target/',
                         str(lane / 'baseline-ws') + '/', str(ws) + '/'], check=True)
         sell_path = ws / SELL_REL
         if sell is not None:
@@ -221,21 +241,7 @@ def build(lane, build_id, source_root=None, sell=None, patch=None, extra_root_fl
         for crate in ('programs/pump-amm', 'crates/native-transfer-fee'):
             for path in (ws / crate).rglob('*.rs'):
                 os.utime(path, (now, now))
-        env = {k: v for k, v in os.environ.items() if k not in ('RUSTFLAGS', 'CARGO_ENCODED_RUSTFLAGS', 'RUSTC_WORKSPACE_WRAPPER')}
-        env.update({
-            'CARGO_HOME': str(CARGO_HOME), 'CARGO_TARGET_DIR': str(target),
-            'RUSTC': str(SDK / 'rust/bin/rustc'), 'RUSTDOC': str(SDK / 'rust/bin/rustdoc'),
-            'CC': str(SDK / 'llvm/bin/clang'), 'AR': str(SDK / 'llvm/bin/llvm-ar'),
-            'CARGO_TARGET_SBPF_SOLANA_SOLANA_RUSTFLAGS': ' -Zremap-cwd-prefix=',
-            'CARGO_BUILD_JOBS': str(jobs), 'RUSTC_WRAPPER': str(harness / 'rustc_wrapper.py'),
-            'AMM_LANE_OUT': str(staging), 'AMM_LANE_HARNESS': str(harness),
-            'AMM_EXTRA_ROOT_RUSTFLAGS': extra_root_flags,
-            'AMM_METADATA_MAP': str(harness / 'metadata-map.json'),
-        })
-        if link_script:
-            env['AMM_LINK_SCRIPT'] = str(Path(link_script).absolute())
-        else:
-            env.pop('AMM_LINK_SCRIPT', None)
+        env = build_environment(harness, target, staging, extra_root_flags, jobs, link_script)
         started = time.time()
         with (staging / 'build.log').open('wb') as log:
             result = subprocess.run([str(SDK / 'rust/bin/cargo'), 'build', '--release', '--target', 'sbpf-solana-solana',

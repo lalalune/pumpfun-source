@@ -1,0 +1,16 @@
+{
+  "status": "ONE_ORIGINAL_CALL_RELOCATION_METADATA_BOUND",
+  "original_sha256": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
+  "window_relative_pc": "0x26e0",
+  "va": "0x250f0",
+  "raw": "85100000ffffffff",
+  "relocation": {
+    "r_offset": "0x250f0",
+    "r_type": 10,
+    "dynamic_symbol_index": 3,
+    "dynamic_symbol": "abort"
+  },
+  "semantic_assumption": "The SBF abort syscall does not return. That documented syscall semantic cuts the false call-fallthrough backedges in conservative cached frame queries; no compiler or source inference.",
+  "scope": "Only ELF section/dynamic relocation metadata for this one existing cached call and its exact8bytes were read. No original function/body instruction decode or metric.",
+  "history": "An initial inline hash precondition literal had a transcription typo (c24ccf30 vs correct c24cfcc30 substring) and failed before metadata lookup. Original bytes were unchanged; next lookup uses the sealed phase receipt hash rather than a hand-transcribed literal."
+}

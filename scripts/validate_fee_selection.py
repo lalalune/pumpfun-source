@@ -2,6 +2,7 @@
 """Differential-test the compiled Rust fragment against captured Pump Fees locally."""
 import argparse,hashlib,json,pathlib,random,struct,subprocess
 from pump_differential_output import PumpReport
+from native_host_receipt import run_host
 from solders.litesvm import LiteSVM
 from solders.keypair import Keypair
 from solders.pubkey import Pubkey
@@ -34,7 +35,7 @@ for tiers in configs:
    if 'fees' not in r: raise RuntimeError(f'unexpected original fee-query failure: {r}')
    stdin.append(';'.join([str(cap)]+[','.join(map(str,[t,*f])) for t,f in selected]));expected.append(r['fees'])
    rows.append({'tiers':tiers,'stable_tiers':stable,'market_cap':cap,'option_bool_hex':flag.hex(),'trade_size':trade_size,'original_fees':r['fees']})
-run=subprocess.run([str(args.host.resolve())],input='\n'.join(stdin)+'\n',text=True,capture_output=True,check=True);native=[list(map(int,l.split(','))) for l in run.stdout.splitlines()]
+run,host_sha256=run_host(args.host,input='\n'.join(stdin)+'\n',text=True,capture_output=True,check=True);native=[list(map(int,l.split(','))) for l in run.stdout.splitlines()]
 if native!=expected:
  mismatch=next((i for i,(actual,wanted) in enumerate(zip(native,expected)) if actual!=wanted),min(len(native),len(expected)))
  raise ValueError(f'native fee selector mismatch at result {mismatch}: expected {len(expected)} results, received {len(native)}')
@@ -47,5 +48,5 @@ while lo+1<hi:
  else: lo=mid
 boundary.extend({'allocation':n,'result':invoke(configs[0],configs[0],100,b'',allocation=n)} for n in [lo,hi])
 negative=[{'case':'empty_normal_tiers','result':invoke([],configs[0],0,b'')},{'case':'empty_stable_tiers','result':invoke(configs[0],[],0,b'\1')},{'case':'invalid_option_bool','result':invoke(configs[0],configs[0],0,b'\2')},{'case':'non_pump_pool','result':invoke([],[],0,b'\1',pool=False)}]
-report={'scope':'Recovered selector native Rust versus captured original get_fees; not a rebuilt SBF program. Synthetic accounts only.','original_sha256':hashlib.sha256((ROOT/'evidence/original/pump_fees/deployed.so').read_bytes()).hexdigest(),'source_sha256':{p:hashlib.sha256((ROOT/'programs/pump-fees/recovered'/p).read_bytes()).hexdigest() for p in ['fee_selection.rs','fee_selection_host.rs']},'host_sha256':hashlib.sha256(args.host.read_bytes()).hexdigest(),'differential_cases':len(rows),'all_matched':native==expected,'allocation_boundary_probes':boundary,'negative_probes':negative,'cases':rows}
+report={'scope':'Recovered selector native Rust versus captured original get_fees; not a rebuilt SBF program. Synthetic accounts only.','original_sha256':hashlib.sha256((ROOT/'evidence/original/pump_fees/deployed.so').read_bytes()).hexdigest(),'source_sha256':{p:hashlib.sha256((ROOT/'programs/pump-fees/recovered'/p).read_bytes()).hexdigest() for p in ['fee_selection.rs','fee_selection_host.rs']},'host_sha256':host_sha256,'differential_cases':len(rows),'all_matched':native==expected,'allocation_boundary_probes':boundary,'negative_probes':negative,'cases':rows}
 report_output.write((json.dumps(report,indent=2)+'\n').encode("utf-8"));print('Matched',len(rows),'cases');print(json.dumps(boundary+negative,indent=2))

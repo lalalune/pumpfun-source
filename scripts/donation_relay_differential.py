@@ -29,8 +29,9 @@ Jupiter-style CPI target and is out of scope for this oracle.
 """
 if not __debug__:
     raise SystemExit('Normal Python is required; do not use -O or PYTHONOPTIMIZE.')
-import argparse, base64, hashlib, json, os, re
+import argparse, base64, gzip, hashlib, json, os, re
 from pathlib import Path
+from pump_differential_output import PumpReport
 from solders.account import Account
 from solders.clock import Clock
 from solders.compute_budget import set_compute_unit_limit
@@ -43,13 +44,12 @@ from solders.transaction import Transaction
 from solders.transaction_metadata import FailedTransactionMetadata
 
 ROOT = Path(__file__).resolve().parents[1]
-VALID = ROOT / 'repro/donation-relay/local-validation-proposal'
 ORIGINAL = ROOT / 'evidence/dependencies/donation_relay/deployed.so'
 ORIGINAL_SHA = '367f07a62e3f74d358187d175cf3228848e81a56c781a9a75b9df7fed1268563'
-SPL_TOKEN = VALID / 'artifacts/spl_token.so'
-ASSOCIATED = VALID / 'artifacts/associated_token.so'
-IDL = VALID / 'inputs/idl.json'
-AMM_FIXTURE = VALID / 'inputs/amm-v2-trade-fixture.json'
+SPL_TOKEN = ROOT / 'evidence/dependencies/spl_token/deployed.so'
+ASSOCIATED = ROOT / 'evidence/dependencies/associated_token/deployed.so'
+IDL = ROOT / 'scripts/fixtures/donation-relay/idl.json'
+AMM_FIXTURE = ROOT / 'research/imported-lab/analysis/pump_fun/amm-v2-trade-fixture.json'
 
 RELAY = Pubkey.from_string('RLAYHr9TRFcKB2ubYQhspcnXiaGpaVzNQvHytt47RZu')
 TOKEN = Pubkey.from_string('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA')
@@ -319,12 +319,23 @@ def check_effects(case, proof, row):
     return out
 
 
-def execute(candidate, group, output):
+
+def report_output(candidate, output):
+    return PumpReport(output, ROOT, candidate, __file__,
+                      extra_inputs=[ORIGINAL, SPL_TOKEN, ASSOCIATED, IDL, AMM_FIXTURE])
+
+
+def cases(group='ordinary'):
+    return [c for c in CASES if c['group'] == group]
+
+
+def execute(candidate, group, output, publisher=None):
+    publisher = report_output(candidate, output) if publisher is None else publisher
     assert H(ORIGINAL.read_bytes()) == ORIGINAL_SHA, 'original oracle sha mismatch'
     for p in [candidate, SPL_TOKEN, ASSOCIATED, IDL, AMM_FIXTURE]:
         assert Path(p).exists(), f'missing input {p}'
     rows = []
-    for case in [c for c in CASES if c['group'] == group]:
+    for case in cases(group):
         accounts, ix, available, fee, proof = prepare(case)
         a = vm_for(ORIGINAL, accounts)
         b = vm_for(candidate, accounts)
@@ -363,8 +374,9 @@ def execute(candidate, group, output):
         'method': 'two independent LiteSVM instances (original vs candidate), identical signed tx, '
                   'byte-compared error/logs/inner-instructions/return-data/before/after + independent effect check',
     }
-    Path(output).parent.mkdir(parents=True, exist_ok=True)
-    Path(output).write_text(json.dumps(report, indent=2) + '\n',encoding='utf-8',newline='\n')
+    raw = (json.dumps(report, indent=2) + '\n').encode('utf-8')
+    payload = gzip.compress(raw, mtime=0) if Path(output).suffix == '.gz' else raw
+    publisher.write(payload)
     print(json.dumps({k: report[k] for k in ['group', 'case_count', 'differential_matched', 'mismatched_cases',
                                              'original_sha256', 'candidate_sha256']}, indent=2))
     return report['differential_matched'] == report['case_count']
@@ -391,9 +403,10 @@ def main():
     ap.add_argument('--group', choices=['ordinary', 'business_rejection'], default='ordinary')
     ap.add_argument('--output', type=Path, required=True)
     a = ap.parse_args()
+    publisher = report_output(a.candidate, a.output)
     protect_output(a.output, [a.candidate.resolve(), ORIGINAL, SPL_TOKEN, ASSOCIATED, IDL,
                               AMM_FIXTURE, Path(__file__).resolve()])
-    ok = execute(a.candidate.resolve(), a.group, a.output.resolve())
+    ok = execute(a.candidate.resolve(), a.group, a.output.resolve(), publisher=publisher)
     raise SystemExit(0 if ok else 1)
 
 

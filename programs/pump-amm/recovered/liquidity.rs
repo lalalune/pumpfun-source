@@ -537,11 +537,30 @@ fn apply_transfer(
     if !same {
         frozen(dest)?;
     }
+    let src = token_amount(source);
+    if src < xfer.amount {
+        return Err(Outcome::Error(INSUFFICIENT_FUNDS));
+    }
     if token_mint(source) != mint_key || (!same && token_mint(dest) != mint_key) {
         return Err(Outcome::Error(MINT_MISMATCH));
     }
-    if !same && token_owner(source) != authority {
-        return Err(Outcome::Error(OWNER_MISMATCH));
+    if !same {
+        let has_delegate = u32::from_le_bytes(source[72..76].try_into().unwrap()) == 1;
+        if has_delegate && key_at(source, 76) == authority {
+            let remaining = u64_at(source, 121).checked_sub(xfer.amount)
+                .ok_or(Outcome::Error(INSUFFICIENT_FUNDS))?;
+            put_u64(source, 121, remaining);
+            if remaining == 0 {
+                source[72..76].fill(0);
+                // SPL Token retains the inactive COption payload; Token-2022
+                // clears the delegate key when the allowance is exhausted.
+                if xfer.program == 1 {
+                    source[76..108].fill(0);
+                }
+            }
+        } else if token_owner(source) != authority {
+            return Err(Outcome::Error(OWNER_MISMATCH));
+        }
     }
     let net = xfer.amount.checked_sub(xfer.fee).ok_or(Outcome::Error(OVERFLOW))?;
     if same {
@@ -555,10 +574,6 @@ fn apply_transfer(
         }
         *dest = source.clone();
         return Ok(());
-    }
-    let src = token_amount(source);
-    if src < xfer.amount {
-        return Err(Outcome::Error(INSUFFICIENT_FUNDS));
     }
     put_u64(source, 64, src - xfer.amount);
     let dst = token_amount(dest).checked_add(net).ok_or(Outcome::Error(TOKEN_OVERFLOW))?;

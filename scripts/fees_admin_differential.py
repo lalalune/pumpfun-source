@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Pump Fees administration: independent original/candidate local SBF execution."""
+import gzip
 import argparse,hashlib,json,pathlib,struct
 from solders.account import Account
 from solders.instruction import AccountMeta,Instruction
@@ -64,6 +65,6 @@ def main():
   rows.append({'case':c,'original':x,'candidate':y,'match':matched})
   if matched is False:failures.append(c['name'])
  report={'scope':'Four administrative handlers only; local synthetic accounts, errors/state/lamports/events/inner instructions compared. No full byte identity or audit completion.','original_sha256':o.program_sha256,'candidate_sha256':b.program_sha256 if b else None,'case_count':len(rows),'mismatches':failures,'cases':rows}
- publisher.write((json.dumps(report,separators=(',',':'))+'\n').encode('utf-8'));print(json.dumps({'case_count':len(rows),'mismatches':failures}))
+ report_payload=(json.dumps(report,separators=(',',':'))+'\n').encode('utf-8');publisher.write(gzip.compress(report_payload,mtime=0) if a.output.suffix=='.gz' else report_payload);print(json.dumps({'case_count':len(rows),'mismatches':failures}))
  if failures:raise SystemExit(1)
 if __name__=='__main__':main()

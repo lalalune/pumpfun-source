@@ -1,0 +1,50 @@
+{
+  "before": {
+    "encoding": {
+      "command": [
+        "C:\\Program Files\\Python311\\python.exe",
+        "-X",
+        "utf8",
+        "-B",
+        "scripts/test_fees_report_encoding.py"
+      ],
+      "returncode": 1,
+      "output": "F\n======================================================================\nFAIL: test_every_report_writer_pins_utf8_and_lf (__main__.FeesReportEncodingTests.test_every_report_writer_pins_utf8_and_lf)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"D:\\slop.cash\\work\\codex-batch-01a1875b-4f62\\repo\\scripts\\test_fees_report_encoding.py\", line 33, in test_every_report_writer_pins_utf8_and_lf\n    self.assertGreater(checked, 10)\nAssertionError: 9 not greater than 10\n\n----------------------------------------------------------------------\nRan 1 test in 0.192s\n\nFAILED (failures=1)\n"
+    },
+    "pinning": {
+      "command": [
+        "C:\\Program Files\\Python311\\python.exe",
+        "-X",
+        "utf8",
+        "-B",
+        "tests/test_fees_admin_cto_pinned_image.py"
+      ],
+      "returncode": 0,
+      "output": ".\n----------------------------------------------------------------------\nRan 1 test in 0.006s\n\nOK\n"
+    }
+  },
+  "after": {
+    "encoding": {
+      "command": [
+        "C:\\Program Files\\Python311\\python.exe",
+        "-X",
+        "utf8",
+        "-B",
+        "scripts/test_fees_report_encoding.py"
+      ],
+      "returncode": 1,
+      "output": "F\n======================================================================\nFAIL: test_every_report_writer_pins_utf8_and_lf (__main__.FeesReportEncodingTests.test_every_report_writer_pins_utf8_and_lf)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"D:\\slop.cash\\work\\codex-batch-01a1875b-4f62\\repo\\scripts\\test_fees_report_encoding.py\", line 33, in test_every_report_writer_pins_utf8_and_lf\n    self.assertGreater(checked, 10)\nAssertionError: 9 not greater than 10\n\n----------------------------------------------------------------------\nRan 1 test in 0.102s\n\nFAILED (failures=1)\n"
+    },
+    "pinning": {
+      "command": [
+        "C:\\Program Files\\Python311\\python.exe",
+        "-X",
+        "utf8",
+        "-B",
+        "tests/test_fees_admin_cto_pinned_image.py"
+      ],
+      "returncode": 0,
+      "output": ".\n----------------------------------------------------------------------\nRan 1 test in 0.006s\n\nOK\n"
+    }
+  }
+}

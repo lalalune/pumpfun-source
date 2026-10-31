@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Synthetic local fee-tier splice tests with actual admin signatures."""
+import gzip
 from fees_config_differential import *
 from pump_differential_output import PumpReport
 def cases():
@@ -29,6 +30,6 @@ def main():
  for c in cases():
   x=o.run(c);y=b.run(c) if b else None;match=all(x[k]==y[k] for k in ['error','data_hex','lamports','owner','balance_deltas','events','inner_instructions']) if b else None;rows.append({'case':c,'original':x,'candidate':y,'match':match})
   if match is False:bad.append(c['name'])
- report={'scope':'Two fee-tier upsert handlers, normally signed local synthetic state, state/errors/events/inner instructions. Not complete byte identity or security assessment.','original_sha256':o.program_sha256,'candidate_sha256':b.program_sha256 if b else None,'case_count':len(rows),'mismatches':bad,'cases':rows};publisher.write((json.dumps(report,separators=(',',':'))+'\n').encode('utf-8'));print(json.dumps({'case_count':len(rows),'mismatches':bad[:20]}))
+ report={'scope':'Two fee-tier upsert handlers, normally signed local synthetic state, state/errors/events/inner instructions. Not complete byte identity or security assessment.','original_sha256':o.program_sha256,'candidate_sha256':b.program_sha256 if b else None,'case_count':len(rows),'mismatches':bad,'cases':rows};report_payload=(json.dumps(report,separators=(',',':'))+'\n').encode('utf-8');publisher.write(gzip.compress(report_payload,mtime=0) if a.output.suffix=='.gz' else report_payload);print(json.dumps({'case_count':len(rows),'mismatches':bad[:20]}))
  if bad:raise SystemExit(1)
 if __name__=='__main__':main()

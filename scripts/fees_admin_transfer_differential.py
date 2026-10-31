@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """FeeConfig administration transfer with ordinary signatures and synthetic state."""
+import gzip
 from fees_config_differential import *
 from pump_differential_output import PumpReport
 class TransferFixture(Fixture):
@@ -35,6 +36,6 @@ def main():
  for c in cases():
   x=o.run(c);y=b.run(c) if b else None;match=all(x[k]==y[k] for k in ['error','data_hex','lamports','owner','payer_delta','events','inner_instructions']) if b else None;rows.append({'case':c,'original':x,'candidate':y,'match':match})
   if match is False:bad.append(c['name'])
- report={'scope':'update_admin on synthetic FeeConfig with actual local signatures, errors/state/balances/events/inner instructions. No historical authority control or byte identity claimed.','original_sha256':o.program_sha256,'candidate_sha256':b.program_sha256 if b else None,'case_count':len(rows),'mismatches':bad,'cases':rows};publisher.write((json.dumps(report,separators=(',',':'))+'\n').encode('utf-8'));print(json.dumps({'case_count':len(rows),'mismatches':bad}))
+ report={'scope':'update_admin on synthetic FeeConfig with actual local signatures, errors/state/balances/events/inner instructions. No historical authority control or byte identity claimed.','original_sha256':o.program_sha256,'candidate_sha256':b.program_sha256 if b else None,'case_count':len(rows),'mismatches':bad,'cases':rows};report_payload=(json.dumps(report,separators=(',',':'))+'\n').encode('utf-8');publisher.write(gzip.compress(report_payload,mtime=0) if a.output.suffix=='.gz' else report_payload);print(json.dumps({'case_count':len(rows),'mismatches':bad}))
  if bad:raise SystemExit(1)
 if __name__=='__main__':main()

@@ -5,6 +5,7 @@ if not __debug__:
 import argparse, hashlib, json, random, struct, subprocess
 import pump_trade_fixture as f
 from pump_differential_output import PumpReport
+from native_host_receipt import run_host
 
 p=argparse.ArgumentParser();p.add_argument('--host',type=f.pathlib.Path,required=True);p.add_argument('--output',type=f.pathlib.Path,required=True);a=p.parse_args()
 report_output=PumpReport(a.output,f.R,a.host,__file__,extra_inputs=(f.R/'programs/pump/recovered/constant_product.rs',f.R/'programs/pump/recovered/constant_product_host.rs'))
@@ -35,12 +36,12 @@ for vi,vq in states:
    observed=vq-after_out
    rows.append({'amount_in':amount,'reserve_in':vi,'reserve_out':vq,'observed_quote_out':observed,'compared':True})
    inputs.append(f'{amount},{vi},{vq}')
-r=subprocess.run([str(a.host.resolve())],input='\n'.join(inputs)+'\n',text=True,capture_output=True,check=True)
+r,host_sha256=run_host(a.host,input='\n'.join(inputs)+'\n',text=True,capture_output=True,check=True)
 outputs=r.stdout.splitlines();compared=[row for row in rows if row['compared']]
 assert len(outputs)==len(compared)
 for row,out in zip(compared,outputs):row['recovered_quote_out']=int(out);row['match']=int(out)==row['observed_quote_out']
 failures=[i for i,row in enumerate(rows) if row.get('match') is False]
 assert len(compared)>=100, 'too few successful original transactions'
 sha=lambda path:hashlib.sha256(path.read_bytes()).hexdigest()
-report={'scope':'Native recovered arithmetic against original sell_v3 reserve deltas with captured Token/Token2022/ATA dependencies. Four admin candidate and full trade reconstruction are separate. Synthetic reserve states do not imply reachable configurations; errors are recorded but not arithmetic comparisons.','source_sha256':sha(f.R/'programs/pump/recovered/constant_product.rs'),'host_source_sha256':sha(f.R/'programs/pump/recovered/constant_product_host.rs'),'host_sha256':sha(a.host),'original_sha256':{name:sha(f.R/'evidence/original'/name/'deployed.so') for name in ['pump','pump_fees']},'dependency_sha256':{name:sha(f.R/'evidence/dependencies'/name/'deployed.so') for name in ['spl_token','spl_token_2022','associated_token']},'case_count':len(rows),'successful_comparisons':len(compared),'mismatches':failures,'cases':rows}
+report={'scope':'Native recovered arithmetic against original sell_v3 reserve deltas with captured Token/Token2022/ATA dependencies. Four admin candidate and full trade reconstruction are separate. Synthetic reserve states do not imply reachable configurations; errors are recorded but not arithmetic comparisons.','source_sha256':sha(f.R/'programs/pump/recovered/constant_product.rs'),'host_source_sha256':sha(f.R/'programs/pump/recovered/constant_product_host.rs'),'host_sha256':host_sha256,'original_sha256':{name:sha(f.R/'evidence/original'/name/'deployed.so') for name in ['pump','pump_fees']},'dependency_sha256':{name:sha(f.R/'evidence/dependencies'/name/'deployed.so') for name in ['spl_token','spl_token_2022','associated_token']},'case_count':len(rows),'successful_comparisons':len(compared),'mismatches':failures,'cases':rows}
 report_output.write((json.dumps(report,indent=2)+'\n').encode('utf-8'));print(json.dumps({k:report[k] for k in ['case_count','successful_comparisons','mismatches']}));assert not failures

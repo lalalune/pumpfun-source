@@ -44,3 +44,15 @@ capture instruction bytes even without objdump, plus real capture disassembly
 `PUMP_BUILD_TEST_SDK`, it also compiles four real SBF fixtures differing in MOV or
 LDDW scalar arguments. Set `PUMP_OBJDUMP` to the real SDK objdump if needed.
 These diagnostics remain heuristic and do not change official score acceptance.
+
+The data-reference length hint stops at calls, jumps and exits. In the retained
+Pump window `0x132510`, a load of a 32-byte value is followed by a call and then
+the unrelated scalar `r1 = 2`. Previously that scalar limited comparison to two
+bytes and hid a difference in the third byte under the default width of 16.
+`reconstruction/harness/test_dataref_length.py` runs the actual CLI on temporary
+symbolized capture copies: differences inside the requested width are flagged,
+an unchanged copy stays clean, and the genuine two-byte string at `0xa8f0` still
+excludes neighbouring bytes. A candidate target with fewer available bytes than
+the original also reports the unequal extents, instead of declaring their common
+prefix clean. A complete matching relocation and an explicitly narrower comparison
+remain clean. Capture files and retained reports are unchanged.

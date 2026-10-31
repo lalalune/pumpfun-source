@@ -1,0 +1,43 @@
+{
+  "schema": "h1-hopt-negative-replay-v1",
+  "source": "568790dd4628bb39f9570562f6cc2d1892bcb358",
+  "parent": "ebe5387e12e948c2534618adf7a3cf0f27d9de51",
+  "operational": "3f7294baf1f2a68876a701ab2e67b0c96c9b3866",
+  "sourceVectorSHA256": "1e6c0e581c70dc4ba0d8303c98d05748a4c406c17c78128e8e9a33196b2042a7",
+  "stageVectorSHA256": "8f92c8a25fe9f964c6d4f319191bcfd35a7543f65f4ebbf3ce69da039b45383a",
+  "run": 41183367084,
+  "artifact": 13036585257,
+  "inputs": {
+    "nativeZip": {
+      "bytes": 2532804,
+      "sha256": "432e6de2023846fbd438dc2f68e0fccc35901c6e4fed348e2e2e11917c73eaba",
+      "url": "https://raw.githubusercontent.com/shawkkkkk/pumpfun-source/67789b951f7230cfe111727cfb0b3459454d60e3/reconstruction/pump-main/lanes/source-s1-native-retained-20261031/h1-hopt-projection-raw.zip"
+    },
+    "capsule": {
+      "bytes": 815316,
+      "sha256": "1c7c4c528823e0918d46a08229839a65ccc77356ee3bd7644b7d482971e254b1",
+      "url": "https://raw.githubusercontent.com/shawkkkkk/pumpfun-source/67789b951f7230cfe111727cfb0b3459454d60e3/reconstruction/pump-main/lanes/source-s1-native-retained-20261031/h1-hopt-projection-admission.tar.xz"
+    },
+    "controlZip": {
+      "bytes": 2539553,
+      "sha256": "b9ad6f1bc76f9b8fdb01e06b65262e3725ded83d544e394c8f0f568da6bfcfe5",
+      "url": "https://raw.githubusercontent.com/shawkkkkk/pumpfun-source/e07fc54bba34a90d387647e6ebe27ed8597c1e02/reconstruction/pump-main/lanes/source-s1-native-retained-20261031/ebe-control-raw.zip"
+    }
+  },
+  "original": {
+    "path": "evidence/original/pump/deployed.so",
+    "bytes": 10485715,
+    "sha256": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
+    "bodyVA": 141840,
+    "bodyBytes": 27400,
+    "bodySHA256": "6a7659fd34097683cbfdae56187f5f73a3ecae20e52ac06a3fd25837e4137a96",
+    "prefixBytes": 6792
+  },
+  "images": {
+    "unstripped.so": "602565457c192f65ff4601007acb9d52041d8fac4e5adfe93d8fb2686954a9b1",
+    "candidate.so": "e95e6267bedf750b31e6330f6370b68b3ec25d99f6229b17767636fd517e3d1c"
+  },
+  "h1BodySHA256": "57e93100be0eb81965f9af14965eb9eb10445e866a8caf3b8f4b0bc3d2022c9e",
+  "h1PrefixSHA256": "2036f2d719101d6b543a874f3956abd91feac8a8837c9954755a30682b6e7d05",
+  "premise": "Valid public Option encoding None2/Some(false)0/Some(true)1 and publicR3 role reuse the credited ABI witnesses in PR3639. Direct FP and callee-save/call-clobber rules exclude opaque indirect aliases; neither runtime nor original Rust type/spelling follows."
+}

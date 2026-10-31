@@ -1,0 +1,3569 @@
+{
+  "coordinate_system": "All CTO offsets original windowVA0x22a10, privateR10 frame. Helper offsets have independent originVA0x116718 and independent frame. LDDW16B preserved. No Ebe/S3 offsets reused.",
+  "original_rows": [
+    {
+      "offset": 480,
+      "va": 142320,
+      "opcode": 121,
+      "dst": 7,
+      "src": 6,
+      "displacement": -4088,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "796708f000000000",
+      "memoryWidth": 8,
+      "memoryKind": "read",
+      "memoryBase": 6
+    },
+    {
+      "offset": 488,
+      "va": 142328,
+      "opcode": 121,
+      "dst": 1,
+      "src": 6,
+      "displacement": -4096,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "796100f000000000",
+      "memoryWidth": 8,
+      "memoryKind": "read",
+      "memoryBase": 6
+    },
+    {
+      "offset": 1240,
+      "va": 143080,
+      "opcode": 113,
+      "dst": 2,
+      "src": 7,
+      "displacement": 0,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7172000000000000",
+      "memoryWidth": 1,
+      "memoryKind": "read",
+      "memoryBase": 7
+    },
+    {
+      "offset": 1248,
+      "va": 143088,
+      "opcode": 123,
+      "dst": 10,
+      "src": 2,
+      "displacement": -2296,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7b2a08f700000000",
+      "memoryWidth": 8,
+      "memoryKind": "write",
+      "memoryBase": 10
+    },
+    {
+      "offset": 1256,
+      "va": 143096,
+      "opcode": 97,
+      "dst": 2,
+      "src": 7,
+      "displacement": 4,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "6172040000000000",
+      "memoryWidth": 4,
+      "memoryKind": "read",
+      "memoryBase": 7
+    },
+    {
+      "offset": 1264,
+      "va": 143104,
+      "opcode": 99,
+      "dst": 10,
+      "src": 2,
+      "displacement": -1621,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "632aabf900000000",
+      "memoryWidth": 4,
+      "memoryKind": "write",
+      "memoryBase": 10
+    },
+    {
+      "offset": 1272,
+      "va": 143112,
+      "opcode": 97,
+      "dst": 2,
+      "src": 7,
+      "displacement": 1,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "6172010000000000",
+      "memoryWidth": 4,
+      "memoryKind": "read",
+      "memoryBase": 7
+    },
+    {
+      "offset": 1280,
+      "va": 143120,
+      "opcode": 99,
+      "dst": 10,
+      "src": 2,
+      "displacement": -1624,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "632aa8f900000000",
+      "memoryWidth": 4,
+      "memoryKind": "write",
+      "memoryBase": 10
+    },
+    {
+      "offset": 1288,
+      "va": 143128,
+      "opcode": 121,
+      "dst": 2,
+      "src": 7,
+      "displacement": 8,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7972080000000000",
+      "memoryWidth": 8,
+      "memoryKind": "read",
+      "memoryBase": 7
+    },
+    {
+      "offset": 1296,
+      "va": 143136,
+      "opcode": 123,
+      "dst": 10,
+      "src": 2,
+      "displacement": -2304,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7b2a00f700000000",
+      "memoryWidth": 8,
+      "memoryKind": "write",
+      "memoryBase": 10
+    },
+    {
+      "offset": 1304,
+      "va": 143144,
+      "opcode": 121,
+      "dst": 9,
+      "src": 7,
+      "displacement": 16,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7979100000000000",
+      "memoryWidth": 8,
+      "memoryKind": "read",
+      "memoryBase": 7
+    },
+    {
+      "offset": 1312,
+      "va": 143152,
+      "opcode": 113,
+      "dst": 2,
+      "src": 7,
+      "displacement": 32,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7172200000000000",
+      "memoryWidth": 1,
+      "memoryKind": "read",
+      "memoryBase": 7
+    },
+    {
+      "offset": 1320,
+      "va": 143160,
+      "opcode": 115,
+      "dst": 10,
+      "src": 2,
+      "displacement": -1632,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "732aa0f900000000",
+      "memoryWidth": 1,
+      "memoryKind": "write",
+      "memoryBase": 10
+    },
+    {
+      "offset": 1328,
+      "va": 143168,
+      "opcode": 121,
+      "dst": 2,
+      "src": 7,
+      "displacement": 24,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7972180000000000",
+      "memoryWidth": 8,
+      "memoryKind": "read",
+      "memoryBase": 7
+    },
+    {
+      "offset": 1336,
+      "va": 143176,
+      "opcode": 123,
+      "dst": 10,
+      "src": 2,
+      "displacement": -1640,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7b2a98f900000000",
+      "memoryWidth": 8,
+      "memoryKind": "write",
+      "memoryBase": 10
+    },
+    {
+      "offset": 1512,
+      "va": 143352,
+      "opcode": 191,
+      "dst": 3,
+      "src": 9,
+      "displacement": 0,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "bf93000000000000"
+    },
+    {
+      "offset": 1520,
+      "va": 143360,
+      "opcode": 121,
+      "dst": 2,
+      "src": 10,
+      "displacement": -2304,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "79a200f700000000",
+      "memoryWidth": 8,
+      "memoryKind": "read",
+      "memoryBase": 10
+    },
+    {
+      "offset": 3168,
+      "va": 145008,
+      "opcode": 123,
+      "dst": 10,
+      "src": 3,
+      "displacement": -2376,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7b3ab8f600000000",
+      "memoryWidth": 8,
+      "memoryKind": "write",
+      "memoryBase": 10
+    },
+    {
+      "offset": 3176,
+      "va": 145016,
+      "opcode": 123,
+      "dst": 10,
+      "src": 3,
+      "displacement": -1193,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7b3a57fb00000000",
+      "memoryWidth": 8,
+      "memoryKind": "write",
+      "memoryBase": 10
+    },
+    {
+      "offset": 4328,
+      "va": 146168,
+      "opcode": 123,
+      "dst": 10,
+      "src": 4,
+      "displacement": -2328,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7b4ae8f600000000",
+      "memoryWidth": 8,
+      "memoryKind": "write",
+      "memoryBase": 10
+    },
+    {
+      "offset": 4336,
+      "va": 146176,
+      "opcode": 123,
+      "dst": 10,
+      "src": 3,
+      "displacement": -2376,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7b3ab8f600000000",
+      "memoryWidth": 8,
+      "memoryKind": "write",
+      "memoryBase": 10
+    },
+    {
+      "offset": 4408,
+      "va": 146248,
+      "opcode": 123,
+      "dst": 10,
+      "src": 5,
+      "displacement": -2392,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7b5aa8f600000000",
+      "memoryWidth": 8,
+      "memoryKind": "write",
+      "memoryBase": 10
+    },
+    {
+      "offset": 4416,
+      "va": 146256,
+      "opcode": 97,
+      "dst": 1,
+      "src": 10,
+      "displacement": -1101,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "61a1b3fb00000000",
+      "memoryWidth": 4,
+      "memoryKind": "read",
+      "memoryBase": 10
+    },
+    {
+      "offset": 4424,
+      "va": 146264,
+      "opcode": 99,
+      "dst": 10,
+      "src": 1,
+      "displacement": -1333,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "631acbfa00000000",
+      "memoryWidth": 4,
+      "memoryKind": "write",
+      "memoryBase": 10
+    },
+    {
+      "offset": 4432,
+      "va": 146272,
+      "opcode": 97,
+      "dst": 1,
+      "src": 10,
+      "displacement": -1104,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "61a1b0fb00000000",
+      "memoryWidth": 4,
+      "memoryKind": "read",
+      "memoryBase": 10
+    },
+    {
+      "offset": 4440,
+      "va": 146280,
+      "opcode": 99,
+      "dst": 10,
+      "src": 1,
+      "displacement": -1336,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "631ac8fa00000000",
+      "memoryWidth": 4,
+      "memoryKind": "write",
+      "memoryBase": 10
+    },
+    {
+      "offset": 4448,
+      "va": 146288,
+      "opcode": 121,
+      "dst": 1,
+      "src": 10,
+      "displacement": -720,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "79a130fd00000000",
+      "memoryWidth": 8,
+      "memoryKind": "read",
+      "memoryBase": 10
+    },
+    {
+      "offset": 4456,
+      "va": 146296,
+      "opcode": 123,
+      "dst": 10,
+      "src": 1,
+      "displacement": -1352,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7b1ab8fa00000000",
+      "memoryWidth": 8,
+      "memoryKind": "write",
+      "memoryBase": 10
+    },
+    {
+      "offset": 4464,
+      "va": 146304,
+      "opcode": 113,
+      "dst": 1,
+      "src": 10,
+      "displacement": -712,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "71a138fd00000000",
+      "memoryWidth": 1,
+      "memoryKind": "read",
+      "memoryBase": 10
+    },
+    {
+      "offset": 4472,
+      "va": 146312,
+      "opcode": 115,
+      "dst": 10,
+      "src": 1,
+      "displacement": -1344,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "731ac0fa00000000",
+      "memoryWidth": 1,
+      "memoryKind": "write",
+      "memoryBase": 10
+    },
+    {
+      "offset": 4480,
+      "va": 146320,
+      "opcode": 183,
+      "dst": 1,
+      "src": 0,
+      "displacement": 0,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "b701000000000000"
+    },
+    {
+      "offset": 4488,
+      "va": 146328,
+      "opcode": 123,
+      "dst": 10,
+      "src": 1,
+      "displacement": -2296,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7b1a08f700000000",
+      "memoryWidth": 8,
+      "memoryKind": "write",
+      "memoryBase": 10
+    },
+    {
+      "offset": 4496,
+      "va": 146336,
+      "opcode": 183,
+      "dst": 6,
+      "src": 0,
+      "displacement": 0,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "b706000000000000"
+    },
+    {
+      "offset": 4504,
+      "va": 146344,
+      "opcode": 183,
+      "dst": 3,
+      "src": 0,
+      "displacement": 0,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "b703000000000000"
+    },
+    {
+      "offset": 4512,
+      "va": 146352,
+      "opcode": 5,
+      "dst": 0,
+      "src": 0,
+      "displacement": 253,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "0500fd0000000000",
+      "jump": 6544
+    },
+    {
+      "offset": 5400,
+      "va": 147240,
+      "opcode": 121,
+      "dst": 0,
+      "src": 10,
+      "displacement": -2296,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "79a008f700000000",
+      "memoryWidth": 8,
+      "memoryKind": "read",
+      "memoryBase": 10
+    },
+    {
+      "offset": 5408,
+      "va": 147248,
+      "opcode": 121,
+      "dst": 5,
+      "src": 10,
+      "displacement": -2392,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "79a5a8f600000000",
+      "memoryWidth": 8,
+      "memoryKind": "read",
+      "memoryBase": 10
+    },
+    {
+      "offset": 5416,
+      "va": 147256,
+      "opcode": 191,
+      "dst": 1,
+      "src": 4,
+      "displacement": 0,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "bf41000000000000"
+    },
+    {
+      "offset": 5424,
+      "va": 147264,
+      "opcode": 121,
+      "dst": 7,
+      "src": 10,
+      "displacement": -2304,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "79a700f700000000",
+      "memoryWidth": 8,
+      "memoryKind": "read",
+      "memoryBase": 10
+    },
+    {
+      "offset": 5432,
+      "va": 147272,
+      "opcode": 121,
+      "dst": 3,
+      "src": 10,
+      "displacement": -2376,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "79a3b8f600000000",
+      "memoryWidth": 8,
+      "memoryKind": "read",
+      "memoryBase": 10
+    },
+    {
+      "offset": 5440,
+      "va": 147280,
+      "opcode": 121,
+      "dst": 4,
+      "src": 10,
+      "displacement": -2328,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "79a4e8f600000000",
+      "memoryWidth": 8,
+      "memoryKind": "read",
+      "memoryBase": 10
+    },
+    {
+      "offset": 6144,
+      "va": 147984,
+      "opcode": 123,
+      "dst": 10,
+      "src": 4,
+      "displacement": -2328,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7b4ae8f600000000",
+      "memoryWidth": 8,
+      "memoryKind": "write",
+      "memoryBase": 10
+    },
+    {
+      "offset": 6152,
+      "va": 147992,
+      "opcode": 123,
+      "dst": 10,
+      "src": 3,
+      "displacement": -2376,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7b3ab8f600000000",
+      "memoryWidth": 8,
+      "memoryKind": "write",
+      "memoryBase": 10
+    },
+    {
+      "offset": 6160,
+      "va": 148000,
+      "opcode": 183,
+      "dst": 7,
+      "src": 0,
+      "displacement": 0,
+      "immediate": 1,
+      "bytes": 8,
+      "raw": "b707000001000000"
+    },
+    {
+      "offset": 6168,
+      "va": 148008,
+      "opcode": 121,
+      "dst": 1,
+      "src": 10,
+      "displacement": -2336,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "79a1e0f600000000",
+      "memoryWidth": 8,
+      "memoryKind": "read",
+      "memoryBase": 10
+    },
+    {
+      "offset": 6176,
+      "va": 148016,
+      "opcode": 85,
+      "dst": 1,
+      "src": 0,
+      "displacement": 1,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "5501010000000000",
+      "jump": 6192
+    },
+    {
+      "offset": 6184,
+      "va": 148024,
+      "opcode": 5,
+      "dst": 0,
+      "src": 0,
+      "displacement": 16,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "0500100000000000",
+      "jump": 6320
+    },
+    {
+      "offset": 6192,
+      "va": 148032,
+      "opcode": 123,
+      "dst": 10,
+      "src": 6,
+      "displacement": -2384,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7b6ab0f600000000",
+      "memoryWidth": 8,
+      "memoryKind": "write",
+      "memoryBase": 10
+    },
+    {
+      "offset": 6200,
+      "va": 148040,
+      "opcode": 123,
+      "dst": 10,
+      "src": 0,
+      "displacement": -2296,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7b0a08f700000000",
+      "memoryWidth": 8,
+      "memoryKind": "write",
+      "memoryBase": 10
+    },
+    {
+      "offset": 6208,
+      "va": 148048,
+      "opcode": 21,
+      "dst": 8,
+      "src": 0,
+      "displacement": 1,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "1508010000000000",
+      "jump": 6224
+    },
+    {
+      "offset": 6216,
+      "va": 148056,
+      "opcode": 5,
+      "dst": 0,
+      "src": 0,
+      "displacement": -227,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "05001dff00000000",
+      "jump": 4408
+    },
+    {
+      "offset": 6224,
+      "va": 148064,
+      "opcode": 123,
+      "dst": 10,
+      "src": 5,
+      "displacement": -2392,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7b5aa8f600000000",
+      "memoryWidth": 8,
+      "memoryKind": "write",
+      "memoryBase": 10
+    },
+    {
+      "offset": 6232,
+      "va": 148072,
+      "opcode": 97,
+      "dst": 1,
+      "src": 10,
+      "displacement": -1621,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "61a1abf900000000",
+      "memoryWidth": 4,
+      "memoryKind": "read",
+      "memoryBase": 10
+    },
+    {
+      "offset": 6240,
+      "va": 148080,
+      "opcode": 99,
+      "dst": 10,
+      "src": 1,
+      "displacement": -1333,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "631acbfa00000000",
+      "memoryWidth": 4,
+      "memoryKind": "write",
+      "memoryBase": 10
+    },
+    {
+      "offset": 6248,
+      "va": 148088,
+      "opcode": 97,
+      "dst": 1,
+      "src": 10,
+      "displacement": -1624,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "61a1a8f900000000",
+      "memoryWidth": 4,
+      "memoryKind": "read",
+      "memoryBase": 10
+    },
+    {
+      "offset": 6256,
+      "va": 148096,
+      "opcode": 99,
+      "dst": 10,
+      "src": 1,
+      "displacement": -1336,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "631ac8fa00000000",
+      "memoryWidth": 4,
+      "memoryKind": "write",
+      "memoryBase": 10
+    },
+    {
+      "offset": 6264,
+      "va": 148104,
+      "opcode": 121,
+      "dst": 1,
+      "src": 10,
+      "displacement": -1640,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "79a198f900000000",
+      "memoryWidth": 8,
+      "memoryKind": "read",
+      "memoryBase": 10
+    },
+    {
+      "offset": 6272,
+      "va": 148112,
+      "opcode": 123,
+      "dst": 10,
+      "src": 1,
+      "displacement": -1352,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7b1ab8fa00000000",
+      "memoryWidth": 8,
+      "memoryKind": "write",
+      "memoryBase": 10
+    },
+    {
+      "offset": 6280,
+      "va": 148120,
+      "opcode": 113,
+      "dst": 1,
+      "src": 10,
+      "displacement": -1632,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "71a1a0f900000000",
+      "memoryWidth": 1,
+      "memoryKind": "read",
+      "memoryBase": 10
+    },
+    {
+      "offset": 6288,
+      "va": 148128,
+      "opcode": 115,
+      "dst": 10,
+      "src": 1,
+      "displacement": -1344,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "731ac0fa00000000",
+      "memoryWidth": 1,
+      "memoryKind": "write",
+      "memoryBase": 10
+    },
+    {
+      "offset": 6296,
+      "va": 148136,
+      "opcode": 183,
+      "dst": 3,
+      "src": 0,
+      "displacement": 0,
+      "immediate": 1,
+      "bytes": 8,
+      "raw": "b703000001000000"
+    },
+    {
+      "offset": 6304,
+      "va": 148144,
+      "opcode": 183,
+      "dst": 6,
+      "src": 0,
+      "displacement": 0,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "b706000000000000"
+    },
+    {
+      "offset": 6312,
+      "va": 148152,
+      "opcode": 5,
+      "dst": 0,
+      "src": 0,
+      "displacement": 28,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "05001c0000000000",
+      "jump": 6544
+    },
+    {
+      "offset": 6544,
+      "va": 148384,
+      "opcode": 123,
+      "dst": 10,
+      "src": 3,
+      "displacement": -2272,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7b3a20f700000000",
+      "memoryWidth": 8,
+      "memoryKind": "write",
+      "memoryBase": 10
+    },
+    {
+      "offset": 6552,
+      "va": 148392,
+      "opcode": 123,
+      "dst": 10,
+      "src": 7,
+      "displacement": -2280,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7b7a18f700000000",
+      "memoryWidth": 8,
+      "memoryKind": "write",
+      "memoryBase": 10
+    },
+    {
+      "offset": 6560,
+      "va": 148400,
+      "opcode": 121,
+      "dst": 1,
+      "src": 10,
+      "displacement": -1312,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "79a1e0fa00000000",
+      "memoryWidth": 8,
+      "memoryKind": "read",
+      "memoryBase": 10
+    },
+    {
+      "offset": 6568,
+      "va": 148408,
+      "opcode": 123,
+      "dst": 10,
+      "src": 1,
+      "displacement": -1648,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7b1a90f900000000",
+      "memoryWidth": 8,
+      "memoryKind": "write",
+      "memoryBase": 10
+    },
+    {
+      "offset": 6576,
+      "va": 148416,
+      "opcode": 121,
+      "dst": 1,
+      "src": 10,
+      "displacement": -1320,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "79a1d8fa00000000",
+      "memoryWidth": 8,
+      "memoryKind": "read",
+      "memoryBase": 10
+    },
+    {
+      "offset": 6584,
+      "va": 148424,
+      "opcode": 123,
+      "dst": 10,
+      "src": 1,
+      "displacement": -1656,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7b1a88f900000000",
+      "memoryWidth": 8,
+      "memoryKind": "write",
+      "memoryBase": 10
+    },
+    {
+      "offset": 6592,
+      "va": 148432,
+      "opcode": 121,
+      "dst": 1,
+      "src": 10,
+      "displacement": -1328,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "79a1d0fa00000000",
+      "memoryWidth": 8,
+      "memoryKind": "read",
+      "memoryBase": 10
+    },
+    {
+      "offset": 6600,
+      "va": 148440,
+      "opcode": 123,
+      "dst": 10,
+      "src": 1,
+      "displacement": -1664,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7b1a80f900000000",
+      "memoryWidth": 8,
+      "memoryKind": "write",
+      "memoryBase": 10
+    },
+    {
+      "offset": 6608,
+      "va": 148448,
+      "opcode": 97,
+      "dst": 1,
+      "src": 10,
+      "displacement": -1336,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "61a1c8fa00000000",
+      "memoryWidth": 4,
+      "memoryKind": "read",
+      "memoryBase": 10
+    },
+    {
+      "offset": 6616,
+      "va": 148456,
+      "opcode": 99,
+      "dst": 10,
+      "src": 1,
+      "displacement": -1360,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "631ab0fa00000000",
+      "memoryWidth": 4,
+      "memoryKind": "write",
+      "memoryBase": 10
+    },
+    {
+      "offset": 6624,
+      "va": 148464,
+      "opcode": 97,
+      "dst": 1,
+      "src": 10,
+      "displacement": -1333,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "61a1cbfa00000000",
+      "memoryWidth": 4,
+      "memoryKind": "read",
+      "memoryBase": 10
+    },
+    {
+      "offset": 6632,
+      "va": 148472,
+      "opcode": 99,
+      "dst": 10,
+      "src": 1,
+      "displacement": -1357,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "631ab3fa00000000",
+      "memoryWidth": 4,
+      "memoryKind": "write",
+      "memoryBase": 10
+    },
+    {
+      "offset": 6640,
+      "va": 148480,
+      "opcode": 121,
+      "dst": 1,
+      "src": 10,
+      "displacement": -1352,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "79a1b8fa00000000",
+      "memoryWidth": 8,
+      "memoryKind": "read",
+      "memoryBase": 10
+    },
+    {
+      "offset": 6648,
+      "va": 148488,
+      "opcode": 123,
+      "dst": 10,
+      "src": 1,
+      "displacement": -1376,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7b1aa0fa00000000",
+      "memoryWidth": 8,
+      "memoryKind": "write",
+      "memoryBase": 10
+    },
+    {
+      "offset": 6656,
+      "va": 148496,
+      "opcode": 113,
+      "dst": 1,
+      "src": 10,
+      "displacement": -1344,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "71a1c0fa00000000",
+      "memoryWidth": 1,
+      "memoryKind": "read",
+      "memoryBase": 10
+    },
+    {
+      "offset": 6664,
+      "va": 148504,
+      "opcode": 115,
+      "dst": 10,
+      "src": 1,
+      "displacement": -1368,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "731aa8fa00000000",
+      "memoryWidth": 1,
+      "memoryKind": "write",
+      "memoryBase": 10
+    },
+    {
+      "offset": 6672,
+      "va": 148512,
+      "opcode": 121,
+      "dst": 1,
+      "src": 10,
+      "displacement": -2328,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "79a1e8f600000000",
+      "memoryWidth": 8,
+      "memoryKind": "read",
+      "memoryBase": 10
+    },
+    {
+      "offset": 6680,
+      "va": 148520,
+      "opcode": 123,
+      "dst": 10,
+      "src": 1,
+      "displacement": -1408,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7b1a80fa00000000",
+      "memoryWidth": 8,
+      "memoryKind": "write",
+      "memoryBase": 10
+    },
+    {
+      "offset": 6688,
+      "va": 148528,
+      "opcode": 121,
+      "dst": 1,
+      "src": 10,
+      "displacement": -1648,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "79a190f900000000",
+      "memoryWidth": 8,
+      "memoryKind": "read",
+      "memoryBase": 10
+    },
+    {
+      "offset": 6696,
+      "va": 148536,
+      "opcode": 123,
+      "dst": 10,
+      "src": 1,
+      "displacement": -1384,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7b1a98fa00000000",
+      "memoryWidth": 8,
+      "memoryKind": "write",
+      "memoryBase": 10
+    },
+    {
+      "offset": 6704,
+      "va": 148544,
+      "opcode": 121,
+      "dst": 1,
+      "src": 10,
+      "displacement": -1656,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "79a188f900000000",
+      "memoryWidth": 8,
+      "memoryKind": "read",
+      "memoryBase": 10
+    },
+    {
+      "offset": 6712,
+      "va": 148552,
+      "opcode": 123,
+      "dst": 10,
+      "src": 1,
+      "displacement": -1392,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7b1a90fa00000000",
+      "memoryWidth": 8,
+      "memoryKind": "write",
+      "memoryBase": 10
+    },
+    {
+      "offset": 6720,
+      "va": 148560,
+      "opcode": 121,
+      "dst": 1,
+      "src": 10,
+      "displacement": -1664,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "79a180f900000000",
+      "memoryWidth": 8,
+      "memoryKind": "read",
+      "memoryBase": 10
+    },
+    {
+      "offset": 6728,
+      "va": 148568,
+      "opcode": 123,
+      "dst": 10,
+      "src": 1,
+      "displacement": -1400,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7b1a88fa00000000",
+      "memoryWidth": 8,
+      "memoryKind": "write",
+      "memoryBase": 10
+    },
+    {
+      "offset": 6736,
+      "va": 148576,
+      "opcode": 121,
+      "dst": 8,
+      "src": 10,
+      "displacement": -2264,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "79a828f700000000",
+      "memoryWidth": 8,
+      "memoryKind": "read",
+      "memoryBase": 10
+    },
+    {
+      "offset": 7464,
+      "va": 149304,
+      "opcode": 183,
+      "dst": 9,
+      "src": 0,
+      "displacement": 0,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "b709000000000000"
+    },
+    {
+      "offset": 7472,
+      "va": 149312,
+      "opcode": 121,
+      "dst": 6,
+      "src": 10,
+      "displacement": -2296,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "79a608f700000000",
+      "memoryWidth": 8,
+      "memoryKind": "read",
+      "memoryBase": 10
+    },
+    {
+      "offset": 7480,
+      "va": 149320,
+      "opcode": 121,
+      "dst": 1,
+      "src": 10,
+      "displacement": -2272,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "79a120f700000000",
+      "memoryWidth": 8,
+      "memoryKind": "read",
+      "memoryBase": 10
+    },
+    {
+      "offset": 7488,
+      "va": 149328,
+      "opcode": 85,
+      "dst": 1,
+      "src": 0,
+      "displacement": 996,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "5501e40300000000",
+      "jump": 15464
+    },
+    {
+      "offset": 15440,
+      "va": 157280,
+      "opcode": 121,
+      "dst": 1,
+      "src": 10,
+      "displacement": -2384,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "79a1b0f600000000",
+      "memoryWidth": 8,
+      "memoryKind": "read",
+      "memoryBase": 10
+    },
+    {
+      "offset": 15448,
+      "va": 157288,
+      "opcode": 121,
+      "dst": 6,
+      "src": 10,
+      "displacement": -2296,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "79a608f700000000",
+      "memoryWidth": 8,
+      "memoryKind": "read",
+      "memoryBase": 10
+    },
+    {
+      "offset": 15456,
+      "va": 157296,
+      "opcode": 85,
+      "dst": 7,
+      "src": 0,
+      "displacement": 896,
+      "immediate": 2,
+      "bytes": 8,
+      "raw": "5507800302000000",
+      "jump": 22632
+    },
+    {
+      "offset": 15464,
+      "va": 157304,
+      "opcode": 121,
+      "dst": 1,
+      "src": 10,
+      "displacement": -2360,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "79a1c8f600000000",
+      "memoryWidth": 8,
+      "memoryKind": "read",
+      "memoryBase": 10
+    },
+    {
+      "offset": 15472,
+      "va": 157312,
+      "opcode": 113,
+      "dst": 1,
+      "src": 1,
+      "displacement": 39,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7111270000000000",
+      "memoryWidth": 1,
+      "memoryKind": "read",
+      "memoryBase": 1
+    },
+    {
+      "offset": 15480,
+      "va": 157320,
+      "opcode": 191,
+      "dst": 2,
+      "src": 10,
+      "displacement": 0,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "bfa2000000000000"
+    },
+    {
+      "offset": 15488,
+      "va": 157328,
+      "opcode": 7,
+      "dst": 2,
+      "src": 0,
+      "displacement": 0,
+      "immediate": -1328,
+      "bytes": 8,
+      "raw": "07020000d0faffff"
+    },
+    {
+      "offset": 15496,
+      "va": 157336,
+      "opcode": 123,
+      "dst": 10,
+      "src": 2,
+      "displacement": -1176,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7b2a68fb00000000",
+      "memoryWidth": 8,
+      "memoryKind": "write",
+      "memoryBase": 10
+    },
+    {
+      "offset": 15504,
+      "va": 157344,
+      "opcode": 191,
+      "dst": 2,
+      "src": 10,
+      "displacement": 0,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "bfa2000000000000"
+    },
+    {
+      "offset": 15512,
+      "va": 157352,
+      "opcode": 7,
+      "dst": 2,
+      "src": 0,
+      "displacement": 0,
+      "immediate": -1728,
+      "bytes": 8,
+      "raw": "0702000040f9ffff"
+    },
+    {
+      "offset": 15520,
+      "va": 157360,
+      "opcode": 123,
+      "dst": 10,
+      "src": 2,
+      "displacement": -1192,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7b2a58fb00000000",
+      "memoryWidth": 8,
+      "memoryKind": "write",
+      "memoryBase": 10
+    },
+    {
+      "offset": 15528,
+      "va": 157368,
+      "opcode": 24,
+      "dst": 2,
+      "src": 0,
+      "displacement": 0,
+      "immediate": 1796258,
+      "bytes": 16,
+      "raw": "18020000a2681b000000000000000000"
+    },
+    {
+      "offset": 15544,
+      "va": 157384,
+      "opcode": 123,
+      "dst": 10,
+      "src": 2,
+      "displacement": -1208,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7b2a48fb00000000",
+      "memoryWidth": 8,
+      "memoryKind": "write",
+      "memoryBase": 10
+    },
+    {
+      "offset": 15552,
+      "va": 157392,
+      "opcode": 115,
+      "dst": 10,
+      "src": 1,
+      "displacement": -1328,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "731ad0fa00000000",
+      "memoryWidth": 1,
+      "memoryKind": "write",
+      "memoryBase": 10
+    },
+    {
+      "offset": 15560,
+      "va": 157400,
+      "opcode": 191,
+      "dst": 1,
+      "src": 10,
+      "displacement": 0,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "bfa1000000000000"
+    },
+    {
+      "offset": 15568,
+      "va": 157408,
+      "opcode": 7,
+      "dst": 1,
+      "src": 0,
+      "displacement": 0,
+      "immediate": -1208,
+      "bytes": 8,
+      "raw": "0701000048fbffff"
+    },
+    {
+      "offset": 15576,
+      "va": 157416,
+      "opcode": 123,
+      "dst": 10,
+      "src": 1,
+      "displacement": -1232,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7b1a30fb00000000",
+      "memoryWidth": 8,
+      "memoryKind": "write",
+      "memoryBase": 10
+    },
+    {
+      "offset": 15584,
+      "va": 157424,
+      "opcode": 122,
+      "dst": 10,
+      "src": 0,
+      "displacement": -1168,
+      "immediate": 1,
+      "bytes": 8,
+      "raw": "7a0a70fb01000000",
+      "memoryWidth": 8,
+      "memoryKind": "write",
+      "memoryBase": 10
+    },
+    {
+      "offset": 15592,
+      "va": 157432,
+      "opcode": 122,
+      "dst": 10,
+      "src": 0,
+      "displacement": -1184,
+      "immediate": 32,
+      "bytes": 8,
+      "raw": "7a0a60fb20000000",
+      "memoryWidth": 8,
+      "memoryKind": "write",
+      "memoryBase": 10
+    },
+    {
+      "offset": 15600,
+      "va": 157440,
+      "opcode": 122,
+      "dst": 10,
+      "src": 0,
+      "displacement": -1200,
+      "immediate": 14,
+      "bytes": 8,
+      "raw": "7a0a50fb0e000000",
+      "memoryWidth": 8,
+      "memoryKind": "write",
+      "memoryBase": 10
+    },
+    {
+      "offset": 15608,
+      "va": 157448,
+      "opcode": 122,
+      "dst": 10,
+      "src": 0,
+      "displacement": -1224,
+      "immediate": 3,
+      "bytes": 8,
+      "raw": "7a0a38fb03000000",
+      "memoryWidth": 8,
+      "memoryKind": "write",
+      "memoryBase": 10
+    },
+    {
+      "offset": 15616,
+      "va": 157456,
+      "opcode": 191,
+      "dst": 1,
+      "src": 6,
+      "displacement": 0,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "bf61000000000000"
+    },
+    {
+      "offset": 15624,
+      "va": 157464,
+      "opcode": 87,
+      "dst": 1,
+      "src": 0,
+      "displacement": 0,
+      "immediate": 255,
+      "bytes": 8,
+      "raw": "57010000ff000000"
+    },
+    {
+      "offset": 15632,
+      "va": 157472,
+      "opcode": 85,
+      "dst": 1,
+      "src": 0,
+      "displacement": 1,
+      "immediate": 2,
+      "bytes": 8,
+      "raw": "5501010002000000",
+      "jump": 15648
+    },
+    {
+      "offset": 15640,
+      "va": 157480,
+      "opcode": 5,
+      "dst": 0,
+      "src": 0,
+      "displacement": 433,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "0500b10100000000",
+      "jump": 19112
+    },
+    {
+      "offset": 15648,
+      "va": 157488,
+      "opcode": 115,
+      "dst": 10,
+      "src": 6,
+      "displacement": -1617,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "736aaff900000000",
+      "memoryWidth": 1,
+      "memoryKind": "write",
+      "memoryBase": 10
+    },
+    {
+      "offset": 15656,
+      "va": 157496,
+      "opcode": 97,
+      "dst": 1,
+      "src": 10,
+      "displacement": -1360,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "61a1b0fa00000000",
+      "memoryWidth": 4,
+      "memoryKind": "read",
+      "memoryBase": 10
+    },
+    {
+      "offset": 15664,
+      "va": 157504,
+      "opcode": 99,
+      "dst": 10,
+      "src": 1,
+      "displacement": -1616,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "631ab0f900000000",
+      "memoryWidth": 4,
+      "memoryKind": "write",
+      "memoryBase": 10
+    },
+    {
+      "offset": 15672,
+      "va": 157512,
+      "opcode": 97,
+      "dst": 1,
+      "src": 10,
+      "displacement": -1357,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "61a1b3fa00000000",
+      "memoryWidth": 4,
+      "memoryKind": "read",
+      "memoryBase": 10
+    },
+    {
+      "offset": 15680,
+      "va": 157520,
+      "opcode": 99,
+      "dst": 10,
+      "src": 1,
+      "displacement": -1613,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "631ab3f900000000",
+      "memoryWidth": 4,
+      "memoryKind": "write",
+      "memoryBase": 10
+    },
+    {
+      "offset": 15688,
+      "va": 157528,
+      "opcode": 121,
+      "dst": 1,
+      "src": 10,
+      "displacement": -2376,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "79a1b8f600000000",
+      "memoryWidth": 8,
+      "memoryKind": "read",
+      "memoryBase": 10
+    },
+    {
+      "offset": 15696,
+      "va": 157536,
+      "opcode": 123,
+      "dst": 10,
+      "src": 1,
+      "displacement": -1601,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7b1abff900000000",
+      "memoryWidth": 8,
+      "memoryKind": "write",
+      "memoryBase": 10
+    },
+    {
+      "offset": 15704,
+      "va": 157544,
+      "opcode": 121,
+      "dst": 1,
+      "src": 10,
+      "displacement": -2304,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "79a100f700000000",
+      "memoryWidth": 8,
+      "memoryKind": "read",
+      "memoryBase": 10
+    },
+    {
+      "offset": 15712,
+      "va": 157552,
+      "opcode": 123,
+      "dst": 10,
+      "src": 1,
+      "displacement": -1609,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7b1ab7f900000000",
+      "memoryWidth": 8,
+      "memoryKind": "write",
+      "memoryBase": 10
+    },
+    {
+      "offset": 15720,
+      "va": 157560,
+      "opcode": 121,
+      "dst": 1,
+      "src": 10,
+      "displacement": -1376,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "79a1a0fa00000000",
+      "memoryWidth": 8,
+      "memoryKind": "read",
+      "memoryBase": 10
+    },
+    {
+      "offset": 15728,
+      "va": 157568,
+      "opcode": 123,
+      "dst": 10,
+      "src": 1,
+      "displacement": -1593,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7b1ac7f900000000",
+      "memoryWidth": 8,
+      "memoryKind": "write",
+      "memoryBase": 10
+    },
+    {
+      "offset": 15736,
+      "va": 157576,
+      "opcode": 113,
+      "dst": 1,
+      "src": 10,
+      "displacement": -1368,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "71a1a8fa00000000",
+      "memoryWidth": 1,
+      "memoryKind": "read",
+      "memoryBase": 10
+    },
+    {
+      "offset": 15744,
+      "va": 157584,
+      "opcode": 115,
+      "dst": 10,
+      "src": 1,
+      "displacement": -1585,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "731acff900000000",
+      "memoryWidth": 1,
+      "memoryKind": "write",
+      "memoryBase": 10
+    },
+    {
+      "offset": 19016,
+      "va": 160856,
+      "opcode": 191,
+      "dst": 1,
+      "src": 10,
+      "displacement": 0,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "bfa1000000000000"
+    },
+    {
+      "offset": 19024,
+      "va": 160864,
+      "opcode": 7,
+      "dst": 1,
+      "src": 0,
+      "displacement": 0,
+      "immediate": -2144,
+      "bytes": 8,
+      "raw": "07010000a0f7ffff"
+    },
+    {
+      "offset": 19032,
+      "va": 160872,
+      "opcode": 191,
+      "dst": 2,
+      "src": 10,
+      "displacement": 0,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "bfa2000000000000"
+    },
+    {
+      "offset": 19040,
+      "va": 160880,
+      "opcode": 7,
+      "dst": 2,
+      "src": 0,
+      "displacement": 0,
+      "immediate": -720,
+      "bytes": 8,
+      "raw": "0702000030fdffff"
+    },
+    {
+      "offset": 19048,
+      "va": 160888,
+      "opcode": 191,
+      "dst": 3,
+      "src": 10,
+      "displacement": 0,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "bfa3000000000000"
+    },
+    {
+      "offset": 19056,
+      "va": 160896,
+      "opcode": 7,
+      "dst": 3,
+      "src": 0,
+      "displacement": 0,
+      "immediate": -1617,
+      "bytes": 8,
+      "raw": "07030000aff9ffff"
+    },
+    {
+      "offset": 19064,
+      "va": 160904,
+      "opcode": 133,
+      "dst": 0,
+      "src": 1,
+      "displacement": 0,
+      "immediate": 122449,
+      "bytes": 8,
+      "raw": "8510000051de0100",
+      "callTarget": 1140504,
+      "callName": "_ZN14pump_recovered9pump_fees3cpi24admin_cto_sharing_config17hb339d2894fd16ae6E"
+    },
+    {
+      "offset": 19072,
+      "va": 160912,
+      "opcode": 121,
+      "dst": 1,
+      "src": 10,
+      "displacement": -2136,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "79a1a8f700000000",
+      "memoryWidth": 8,
+      "memoryKind": "read",
+      "memoryBase": 10
+    },
+    {
+      "offset": 19080,
+      "va": 160920,
+      "opcode": 121,
+      "dst": 7,
+      "src": 10,
+      "displacement": -2144,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "79a7a0f700000000",
+      "memoryWidth": 8,
+      "memoryKind": "read",
+      "memoryBase": 10
+    },
+    {
+      "offset": 19088,
+      "va": 160928,
+      "opcode": 121,
+      "dst": 6,
+      "src": 10,
+      "displacement": -2296,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "79a608f700000000",
+      "memoryWidth": 8,
+      "memoryKind": "read",
+      "memoryBase": 10
+    },
+    {
+      "offset": 19096,
+      "va": 160936,
+      "opcode": 121,
+      "dst": 2,
+      "src": 10,
+      "displacement": -2384,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "79a2b0f600000000",
+      "memoryWidth": 8,
+      "memoryKind": "read",
+      "memoryBase": 10
+    },
+    {
+      "offset": 19104,
+      "va": 160944,
+      "opcode": 85,
+      "dst": 7,
+      "src": 0,
+      "displacement": 327,
+      "immediate": 2,
+      "bytes": 8,
+      "raw": "5507470102000000",
+      "jump": 21728
+    },
+    {
+      "offset": 19112,
+      "va": 160952,
+      "opcode": 121,
+      "dst": 4,
+      "src": 10,
+      "displacement": -2392,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "79a4a8f600000000",
+      "memoryWidth": 8,
+      "memoryKind": "read",
+      "memoryBase": 10
+    },
+    {
+      "offset": 19120,
+      "va": 160960,
+      "opcode": 87,
+      "dst": 4,
+      "src": 0,
+      "displacement": 0,
+      "immediate": 1,
+      "bytes": 8,
+      "raw": "5704000001000000"
+    },
+    {
+      "offset": 19128,
+      "va": 160968,
+      "opcode": 121,
+      "dst": 3,
+      "src": 10,
+      "displacement": -2264,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "79a328f700000000",
+      "memoryWidth": 8,
+      "memoryKind": "read",
+      "memoryBase": 10
+    },
+    {
+      "offset": 19136,
+      "va": 160976,
+      "opcode": 121,
+      "dst": 1,
+      "src": 3,
+      "displacement": 56,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7931380000000000",
+      "memoryWidth": 8,
+      "memoryKind": "read",
+      "memoryBase": 3
+    },
+    {
+      "offset": 19144,
+      "va": 160984,
+      "opcode": 121,
+      "dst": 2,
+      "src": 1,
+      "displacement": 32,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7912200000000000",
+      "memoryWidth": 8,
+      "memoryKind": "read",
+      "memoryBase": 1
+    },
+    {
+      "offset": 19152,
+      "va": 160992,
+      "opcode": 123,
+      "dst": 10,
+      "src": 2,
+      "displacement": -1560,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7b2ae8f900000000",
+      "memoryWidth": 8,
+      "memoryKind": "write",
+      "memoryBase": 10
+    },
+    {
+      "offset": 19160,
+      "va": 161000,
+      "opcode": 121,
+      "dst": 2,
+      "src": 1,
+      "displacement": 24,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7912180000000000",
+      "memoryWidth": 8,
+      "memoryKind": "read",
+      "memoryBase": 1
+    },
+    {
+      "offset": 19168,
+      "va": 161008,
+      "opcode": 123,
+      "dst": 10,
+      "src": 2,
+      "displacement": -1568,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7b2ae0f900000000",
+      "memoryWidth": 8,
+      "memoryKind": "write",
+      "memoryBase": 10
+    },
+    {
+      "offset": 19176,
+      "va": 161016,
+      "opcode": 121,
+      "dst": 2,
+      "src": 1,
+      "displacement": 16,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7912100000000000",
+      "memoryWidth": 8,
+      "memoryKind": "read",
+      "memoryBase": 1
+    },
+    {
+      "offset": 19184,
+      "va": 161024,
+      "opcode": 123,
+      "dst": 10,
+      "src": 2,
+      "displacement": -1576,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7b2ad8f900000000",
+      "memoryWidth": 8,
+      "memoryKind": "write",
+      "memoryBase": 10
+    },
+    {
+      "offset": 19192,
+      "va": 161032,
+      "opcode": 121,
+      "dst": 2,
+      "src": 1,
+      "displacement": 8,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7912080000000000",
+      "memoryWidth": 8,
+      "memoryKind": "read",
+      "memoryBase": 1
+    },
+    {
+      "offset": 19200,
+      "va": 161040,
+      "opcode": 123,
+      "dst": 10,
+      "src": 2,
+      "displacement": -1584,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7b2ad0f900000000",
+      "memoryWidth": 8,
+      "memoryKind": "write",
+      "memoryBase": 10
+    },
+    {
+      "offset": 19208,
+      "va": 161048,
+      "opcode": 121,
+      "dst": 2,
+      "src": 10,
+      "displacement": -1408,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "79a280fa00000000",
+      "memoryWidth": 8,
+      "memoryKind": "read",
+      "memoryBase": 10
+    },
+    {
+      "offset": 19216,
+      "va": 161056,
+      "opcode": 123,
+      "dst": 1,
+      "src": 2,
+      "displacement": 8,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7b21080000000000",
+      "memoryWidth": 8,
+      "memoryKind": "write",
+      "memoryBase": 1
+    },
+    {
+      "offset": 19224,
+      "va": 161064,
+      "opcode": 121,
+      "dst": 2,
+      "src": 10,
+      "displacement": -1400,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "79a288fa00000000",
+      "memoryWidth": 8,
+      "memoryKind": "read",
+      "memoryBase": 10
+    },
+    {
+      "offset": 19232,
+      "va": 161072,
+      "opcode": 123,
+      "dst": 1,
+      "src": 2,
+      "displacement": 16,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7b21100000000000",
+      "memoryWidth": 8,
+      "memoryKind": "write",
+      "memoryBase": 1
+    },
+    {
+      "offset": 19240,
+      "va": 161080,
+      "opcode": 121,
+      "dst": 2,
+      "src": 10,
+      "displacement": -1392,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "79a290fa00000000",
+      "memoryWidth": 8,
+      "memoryKind": "read",
+      "memoryBase": 10
+    },
+    {
+      "offset": 19248,
+      "va": 161088,
+      "opcode": 123,
+      "dst": 1,
+      "src": 2,
+      "displacement": 24,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7b21180000000000",
+      "memoryWidth": 8,
+      "memoryKind": "write",
+      "memoryBase": 1
+    },
+    {
+      "offset": 19256,
+      "va": 161096,
+      "opcode": 121,
+      "dst": 2,
+      "src": 10,
+      "displacement": -1384,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "79a298fa00000000",
+      "memoryWidth": 8,
+      "memoryKind": "read",
+      "memoryBase": 10
+    },
+    {
+      "offset": 19264,
+      "va": 161104,
+      "opcode": 123,
+      "dst": 1,
+      "src": 2,
+      "displacement": 32,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7b21200000000000",
+      "memoryWidth": 8,
+      "memoryKind": "write",
+      "memoryBase": 1
+    }
+  ],
+  "helper_rows": [
+    {
+      "offset": "0x98",
+      "va": "0x1167b0",
+      "raw": "7134000000000000",
+      "bytes": 8,
+      "opcode": 113,
+      "dst": 4,
+      "src": 3,
+      "displacement": 0,
+      "immediate": 0
+    },
+    {
+      "offset": "0xa0",
+      "va": "0x1167b8",
+      "raw": "18020000000000000000000003000000",
+      "bytes": 16,
+      "opcode": 24,
+      "dst": 2,
+      "src": 0,
+      "displacement": 0,
+      "immediate": 0,
+      "constant_u64": 12884901888
+    },
+    {
+      "offset": "0xb0",
+      "va": "0x1167c8",
+      "raw": "7b62000000000000",
+      "bytes": 8,
+      "opcode": 123,
+      "dst": 2,
+      "src": 6,
+      "displacement": 0,
+      "immediate": 0
+    },
+    {
+      "offset": "0xb8",
+      "va": "0x1167d0",
+      "raw": "180200003c64909c00000000408ab625",
+      "bytes": 16,
+      "opcode": 24,
+      "dst": 2,
+      "src": 0,
+      "displacement": 0,
+      "immediate": -1668258756,
+      "constant_u64": 2717511435273921596
+    },
+    {
+      "offset": "0xc8",
+      "va": "0x1167e0",
+      "raw": "7b26000000000000",
+      "bytes": 8,
+      "opcode": 123,
+      "dst": 6,
+      "src": 2,
+      "displacement": 0,
+      "immediate": 0
+    },
+    {
+      "offset": "0xd0",
+      "va": "0x1167e8",
+      "raw": "79a740ff00000000",
+      "bytes": 8,
+      "opcode": 121,
+      "dst": 7,
+      "src": 10,
+      "displacement": -192,
+      "immediate": 0
+    },
+    {
+      "offset": "0xd8",
+      "va": "0x1167f0",
+      "raw": "7b1a38ff00000000",
+      "bytes": 8,
+      "opcode": 123,
+      "dst": 10,
+      "src": 1,
+      "displacement": -200,
+      "immediate": 0
+    },
+    {
+      "offset": "0xe0",
+      "va": "0x1167f8",
+      "raw": "5504030000000000",
+      "bytes": 8,
+      "opcode": 85,
+      "dst": 4,
+      "src": 0,
+      "displacement": 3,
+      "immediate": 0,
+      "jump": "0x100"
+    },
+    {
+      "offset": "0xe8",
+      "va": "0x116800",
+      "raw": "7206080000000000",
+      "bytes": 8,
+      "opcode": 114,
+      "dst": 6,
+      "src": 0,
+      "displacement": 8,
+      "immediate": 0
+    },
+    {
+      "offset": "0xf0",
+      "va": "0x116808",
+      "raw": "b709000009000000",
+      "bytes": 8,
+      "opcode": 183,
+      "dst": 9,
+      "src": 0,
+      "displacement": 0,
+      "immediate": 9
+    },
+    {
+      "offset": "0xf8",
+      "va": "0x116810",
+      "raw": "05000b0000000000",
+      "bytes": 8,
+      "opcode": 5,
+      "dst": 0,
+      "src": 0,
+      "displacement": 11,
+      "immediate": 0,
+      "jump": "0x158"
+    },
+    {
+      "offset": "0x100",
+      "va": "0x116818",
+      "raw": "0703000001000000",
+      "bytes": 8,
+      "opcode": 7,
+      "dst": 3,
+      "src": 0,
+      "displacement": 0,
+      "immediate": 1
+    },
+    {
+      "offset": "0x108",
+      "va": "0x116820",
+      "raw": "7206080001000000",
+      "bytes": 8,
+      "opcode": 114,
+      "dst": 6,
+      "src": 0,
+      "displacement": 8,
+      "immediate": 1
+    },
+    {
+      "offset": "0x110",
+      "va": "0x116828",
+      "raw": "7931000000000000",
+      "bytes": 8,
+      "opcode": 121,
+      "dst": 1,
+      "src": 3,
+      "displacement": 0,
+      "immediate": 0
+    },
+    {
+      "offset": "0x118",
+      "va": "0x116830",
+      "raw": "7b16090000000000",
+      "bytes": 8,
+      "opcode": 123,
+      "dst": 6,
+      "src": 1,
+      "displacement": 9,
+      "immediate": 0
+    },
+    {
+      "offset": "0x120",
+      "va": "0x116838",
+      "raw": "7931080000000000",
+      "bytes": 8,
+      "opcode": 121,
+      "dst": 1,
+      "src": 3,
+      "displacement": 8,
+      "immediate": 0
+    },
+    {
+      "offset": "0x128",
+      "va": "0x116840",
+      "raw": "7b16110000000000",
+      "bytes": 8,
+      "opcode": 123,
+      "dst": 6,
+      "src": 1,
+      "displacement": 17,
+      "immediate": 0
+    },
+    {
+      "offset": "0x130",
+      "va": "0x116848",
+      "raw": "7931100000000000",
+      "bytes": 8,
+      "opcode": 121,
+      "dst": 1,
+      "src": 3,
+      "displacement": 16,
+      "immediate": 0
+    },
+    {
+      "offset": "0x138",
+      "va": "0x116850",
+      "raw": "7b16190000000000",
+      "bytes": 8,
+      "opcode": 123,
+      "dst": 6,
+      "src": 1,
+      "displacement": 25,
+      "immediate": 0
+    },
+    {
+      "offset": "0x140",
+      "va": "0x116858",
+      "raw": "7931180000000000",
+      "bytes": 8,
+      "opcode": 121,
+      "dst": 1,
+      "src": 3,
+      "displacement": 24,
+      "immediate": 0
+    },
+    {
+      "offset": "0x148",
+      "va": "0x116860",
+      "raw": "7b16210000000000",
+      "bytes": 8,
+      "opcode": 123,
+      "dst": 6,
+      "src": 1,
+      "displacement": 33,
+      "immediate": 0
+    },
+    {
+      "offset": "0x150",
+      "va": "0x116868",
+      "raw": "b709000029000000",
+      "bytes": 8,
+      "opcode": 183,
+      "dst": 9,
+      "src": 0,
+      "displacement": 0,
+      "immediate": 41
+    },
+    {
+      "offset": "0x158",
+      "va": "0x116870",
+      "raw": "0707000048000000",
+      "bytes": 8,
+      "opcode": 7,
+      "dst": 7,
+      "src": 0,
+      "displacement": 0,
+      "immediate": 72
+    },
+    {
+      "offset": "0x160",
+      "va": "0x116878",
+      "raw": "bfa1000000000000",
+      "bytes": 8,
+      "opcode": 191,
+      "dst": 1,
+      "src": 10,
+      "displacement": 0,
+      "immediate": 0
+    },
+    {
+      "offset": "0x168",
+      "va": "0x116880",
+      "raw": "0701000080ffffff",
+      "bytes": 8,
+      "opcode": 7,
+      "dst": 1,
+      "src": 0,
+      "displacement": 0,
+      "immediate": -128
+    },
+    {
+      "offset": "0x170",
+      "va": "0x116888",
+      "raw": "bf72000000000000",
+      "bytes": 8,
+      "opcode": 191,
+      "dst": 2,
+      "src": 7,
+      "displacement": 0,
+      "immediate": 0
+    },
+    {
+      "offset": "0x260",
+      "va": "0x116978",
+      "raw": "7933180000000000",
+      "bytes": 8,
+      "opcode": 121,
+      "dst": 3,
+      "src": 3,
+      "displacement": 24,
+      "immediate": 0
+    },
+    {
+      "offset": "0x268",
+      "va": "0x116980",
+      "raw": "7b3ac8ff00000000",
+      "bytes": 8,
+      "opcode": 123,
+      "dst": 10,
+      "src": 3,
+      "displacement": -56,
+      "immediate": 0
+    },
+    {
+      "offset": "0x270",
+      "va": "0x116988",
+      "raw": "7b0ac0ff00000000",
+      "bytes": 8,
+      "opcode": 123,
+      "dst": 10,
+      "src": 0,
+      "displacement": -64,
+      "immediate": 0
+    },
+    {
+      "offset": "0x278",
+      "va": "0x116990",
+      "raw": "7b5ab8ff00000000",
+      "bytes": 8,
+      "opcode": 123,
+      "dst": 10,
+      "src": 5,
+      "displacement": -72,
+      "immediate": 0
+    },
+    {
+      "offset": "0x280",
+      "va": "0x116998",
+      "raw": "7b4ab0ff00000000",
+      "bytes": 8,
+      "opcode": 123,
+      "dst": 10,
+      "src": 4,
+      "displacement": -80,
+      "immediate": 0
+    },
+    {
+      "offset": "0x288",
+      "va": "0x1169a0",
+      "raw": "7b1a80ff00000000",
+      "bytes": 8,
+      "opcode": 123,
+      "dst": 10,
+      "src": 1,
+      "displacement": -128,
+      "immediate": 0
+    },
+    {
+      "offset": "0x290",
+      "va": "0x1169a8",
+      "raw": "7b2a88ff00000000",
+      "bytes": 8,
+      "opcode": 123,
+      "dst": 10,
+      "src": 2,
+      "displacement": -120,
+      "immediate": 0
+    },
+    {
+      "offset": "0x298",
+      "va": "0x1169b0",
+      "raw": "7b8a90ff00000000",
+      "bytes": 8,
+      "opcode": 123,
+      "dst": 10,
+      "src": 8,
+      "displacement": -112,
+      "immediate": 0
+    },
+    {
+      "offset": "0x2a0",
+      "va": "0x1169b8",
+      "raw": "7b9aa8ff00000000",
+      "bytes": 8,
+      "opcode": 123,
+      "dst": 10,
+      "src": 9,
+      "displacement": -88,
+      "immediate": 0
+    },
+    {
+      "offset": "0x2a8",
+      "va": "0x1169c0",
+      "raw": "7b6aa0ff00000000",
+      "bytes": 8,
+      "opcode": 123,
+      "dst": 10,
+      "src": 6,
+      "displacement": -96,
+      "immediate": 0
+    },
+    {
+      "offset": "0x958",
+      "va": "0x117070",
+      "raw": "0708000001000000",
+      "bytes": 8,
+      "opcode": 7,
+      "dst": 8,
+      "src": 0,
+      "displacement": 0,
+      "immediate": 1
+    },
+    {
+      "offset": "0x960",
+      "va": "0x117078",
+      "raw": "bfa1000000000000",
+      "bytes": 8,
+      "opcode": 191,
+      "dst": 1,
+      "src": 10,
+      "displacement": 0,
+      "immediate": 0
+    },
+    {
+      "offset": "0x968",
+      "va": "0x117080",
+      "raw": "07010000e8ffffff",
+      "bytes": 8,
+      "opcode": 7,
+      "dst": 1,
+      "src": 0,
+      "displacement": 0,
+      "immediate": -24
+    },
+    {
+      "offset": "0x970",
+      "va": "0x117088",
+      "raw": "bfa2000000000000",
+      "bytes": 8,
+      "opcode": 191,
+      "dst": 2,
+      "src": 10,
+      "displacement": 0,
+      "immediate": 0
+    },
+    {
+      "offset": "0x978",
+      "va": "0x117090",
+      "raw": "0702000080ffffff",
+      "bytes": 8,
+      "opcode": 7,
+      "dst": 2,
+      "src": 0,
+      "displacement": 0,
+      "immediate": -128
+    },
+    {
+      "offset": "0x980",
+      "va": "0x117098",
+      "raw": "bfa5000000000000",
+      "bytes": 8,
+      "opcode": 191,
+      "dst": 5,
+      "src": 10,
+      "displacement": 0,
+      "immediate": 0
+    },
+    {
+      "offset": "0x988",
+      "va": "0x1170a0",
+      "raw": "bf93000000000000",
+      "bytes": 8,
+      "opcode": 191,
+      "dst": 3,
+      "src": 9,
+      "displacement": 0,
+      "immediate": 0
+    },
+    {
+      "offset": "0x990",
+      "va": "0x1170a8",
+      "raw": "bf84000000000000",
+      "bytes": 8,
+      "opcode": 191,
+      "dst": 4,
+      "src": 8,
+      "displacement": 0,
+      "immediate": 0
+    },
+    {
+      "offset": "0x998",
+      "va": "0x1170b0",
+      "raw": "851000008f120100",
+      "bytes": 8,
+      "opcode": 133,
+      "dst": 0,
+      "src": 1,
+      "displacement": 0,
+      "immediate": 70287,
+      "call_target": "0x1a0530"
+    }
+  ],
+  "bytewise_direct_frame_queries": [
+    {
+      "consumer_pc": "0x4b08",
+      "frame_range": [
+        -1408,
+        -1400
+      ],
+      "per_byte_direct_reaching_writers": [
+        {
+          "byte": -1408,
+          "writers": [
+            "0x1a18"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1407,
+          "writers": [
+            "0x1a18"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1406,
+          "writers": [
+            "0x1a18"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1405,
+          "writers": [
+            "0x1a18"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1404,
+          "writers": [
+            "0x1a18"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1403,
+          "writers": [
+            "0x1a18"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1402,
+          "writers": [
+            "0x1a18"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1401,
+          "writers": [
+            "0x1a18"
+          ],
+          "entry_without_direct_write": false
+        }
+      ]
+    },
+    {
+      "consumer_pc": "0x4b18",
+      "frame_range": [
+        -1400,
+        -1392
+      ],
+      "per_byte_direct_reaching_writers": [
+        {
+          "byte": -1400,
+          "writers": [
+            "0x1a48"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1399,
+          "writers": [
+            "0x1a48"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1398,
+          "writers": [
+            "0x1a48"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1397,
+          "writers": [
+            "0x1a48"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1396,
+          "writers": [
+            "0x1a48"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1395,
+          "writers": [
+            "0x1a48"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1394,
+          "writers": [
+            "0x1a48"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1393,
+          "writers": [
+            "0x1a48"
+          ],
+          "entry_without_direct_write": false
+        }
+      ]
+    },
+    {
+      "consumer_pc": "0x4b28",
+      "frame_range": [
+        -1392,
+        -1384
+      ],
+      "per_byte_direct_reaching_writers": [
+        {
+          "byte": -1392,
+          "writers": [
+            "0x1a38"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1391,
+          "writers": [
+            "0x1a38"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1390,
+          "writers": [
+            "0x1a38"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1389,
+          "writers": [
+            "0x1a38"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1388,
+          "writers": [
+            "0x1a38"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1387,
+          "writers": [
+            "0x1a38"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1386,
+          "writers": [
+            "0x1a38"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1385,
+          "writers": [
+            "0x1a38"
+          ],
+          "entry_without_direct_write": false
+        }
+      ]
+    },
+    {
+      "consumer_pc": "0x4b38",
+      "frame_range": [
+        -1384,
+        -1376
+      ],
+      "per_byte_direct_reaching_writers": [
+        {
+          "byte": -1384,
+          "writers": [
+            "0x1a28"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1383,
+          "writers": [
+            "0x1a28"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1382,
+          "writers": [
+            "0x1a28"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1381,
+          "writers": [
+            "0x1a28"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1380,
+          "writers": [
+            "0x1a28"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1379,
+          "writers": [
+            "0x1a28"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1378,
+          "writers": [
+            "0x1a28"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1377,
+          "writers": [
+            "0x1a28"
+          ],
+          "entry_without_direct_write": false
+        }
+      ]
+    },
+    {
+      "consumer_pc": "0x4a78",
+      "frame_range": [
+        -1617,
+        -1616
+      ],
+      "per_byte_direct_reaching_writers": [
+        {
+          "byte": -1617,
+          "writers": [
+            "0x3d20"
+          ],
+          "entry_without_direct_write": false
+        }
+      ]
+    },
+    {
+      "consumer_pc": "0x3d28",
+      "frame_range": [
+        -1360,
+        -1356
+      ],
+      "per_byte_direct_reaching_writers": [
+        {
+          "byte": -1360,
+          "writers": [
+            "0x19d8"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1359,
+          "writers": [
+            "0x19d8"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1358,
+          "writers": [
+            "0x19d8"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1357,
+          "writers": [
+            "0x19e8"
+          ],
+          "entry_without_direct_write": false
+        }
+      ]
+    },
+    {
+      "consumer_pc": "0x3d38",
+      "frame_range": [
+        -1357,
+        -1353
+      ],
+      "per_byte_direct_reaching_writers": [
+        {
+          "byte": -1357,
+          "writers": [
+            "0x19e8"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1356,
+          "writers": [
+            "0x19e8"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1355,
+          "writers": [
+            "0x19e8"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1354,
+          "writers": [
+            "0x19e8"
+          ],
+          "entry_without_direct_write": false
+        }
+      ]
+    },
+    {
+      "consumer_pc": "0x3d48",
+      "frame_range": [
+        -2376,
+        -2368
+      ],
+      "per_byte_direct_reaching_writers": [
+        {
+          "byte": -2376,
+          "writers": [
+            "0xc60",
+            "0x10f0",
+            "0x1808",
+            "0x3ea8"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -2375,
+          "writers": [
+            "0xc60",
+            "0x10f0",
+            "0x1808",
+            "0x3ea8"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -2374,
+          "writers": [
+            "0xc60",
+            "0x10f0",
+            "0x1808",
+            "0x3ea8"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -2373,
+          "writers": [
+            "0xc60",
+            "0x10f0",
+            "0x1808",
+            "0x3ea8"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -2372,
+          "writers": [
+            "0xc60",
+            "0x10f0",
+            "0x1808",
+            "0x3ea8"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -2371,
+          "writers": [
+            "0xc60",
+            "0x10f0",
+            "0x1808",
+            "0x3ea8"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -2370,
+          "writers": [
+            "0xc60",
+            "0x10f0",
+            "0x1808",
+            "0x3ea8"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -2369,
+          "writers": [
+            "0xc60",
+            "0x10f0",
+            "0x1808",
+            "0x3ea8"
+          ],
+          "entry_without_direct_write": false
+        }
+      ]
+    },
+    {
+      "consumer_pc": "0x3d58",
+      "frame_range": [
+        -2304,
+        -2296
+      ],
+      "per_byte_direct_reaching_writers": [
+        {
+          "byte": -2304,
+          "writers": [
+            "0x510",
+            "0x4070"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -2303,
+          "writers": [
+            "0x510",
+            "0x4070"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -2302,
+          "writers": [
+            "0x510",
+            "0x4070"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -2301,
+          "writers": [
+            "0x510",
+            "0x4070"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -2300,
+          "writers": [
+            "0x510",
+            "0x4070"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -2299,
+          "writers": [
+            "0x510",
+            "0x4070"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -2298,
+          "writers": [
+            "0x510",
+            "0x4070"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -2297,
+          "writers": [
+            "0x510",
+            "0x4070"
+          ],
+          "entry_without_direct_write": false
+        }
+      ]
+    },
+    {
+      "consumer_pc": "0x3d68",
+      "frame_range": [
+        -1376,
+        -1368
+      ],
+      "per_byte_direct_reaching_writers": [
+        {
+          "byte": -1376,
+          "writers": [
+            "0x19f8"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1375,
+          "writers": [
+            "0x19f8"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1374,
+          "writers": [
+            "0x19f8"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1373,
+          "writers": [
+            "0x19f8"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1372,
+          "writers": [
+            "0x19f8"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1371,
+          "writers": [
+            "0x19f8"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1370,
+          "writers": [
+            "0x19f8"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1369,
+          "writers": [
+            "0x19f8"
+          ],
+          "entry_without_direct_write": false
+        }
+      ]
+    },
+    {
+      "consumer_pc": "0x3d78",
+      "frame_range": [
+        -1368,
+        -1367
+      ],
+      "per_byte_direct_reaching_writers": [
+        {
+          "byte": -1368,
+          "writers": [
+            "0x1a08"
+          ],
+          "entry_without_direct_write": false
+        }
+      ]
+    },
+    {
+      "consumer_pc": "0x4a78",
+      "frame_range": [
+        -1616,
+        -1584
+      ],
+      "per_byte_direct_reaching_writers": [
+        {
+          "byte": -1616,
+          "writers": [
+            "0x3d30"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1615,
+          "writers": [
+            "0x3d30"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1614,
+          "writers": [
+            "0x3d30"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1613,
+          "writers": [
+            "0x3d40"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1612,
+          "writers": [
+            "0x3d40"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1611,
+          "writers": [
+            "0x3d40"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1610,
+          "writers": [
+            "0x3d40"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1609,
+          "writers": [
+            "0x3d60"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1608,
+          "writers": [
+            "0x3d60"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1607,
+          "writers": [
+            "0x3d60"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1606,
+          "writers": [
+            "0x3d60"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1605,
+          "writers": [
+            "0x3d60"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1604,
+          "writers": [
+            "0x3d60"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1603,
+          "writers": [
+            "0x3d60"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1602,
+          "writers": [
+            "0x3d60"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1601,
+          "writers": [
+            "0x3d50"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1600,
+          "writers": [
+            "0x3d50"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1599,
+          "writers": [
+            "0x3d50"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1598,
+          "writers": [
+            "0x3d50"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1597,
+          "writers": [
+            "0x3d50"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1596,
+          "writers": [
+            "0x3d50"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1595,
+          "writers": [
+            "0x3d50"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1594,
+          "writers": [
+            "0x3d50"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1593,
+          "writers": [
+            "0x3d70"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1592,
+          "writers": [
+            "0x3d70"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1591,
+          "writers": [
+            "0x3d70"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1590,
+          "writers": [
+            "0x3d70"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1589,
+          "writers": [
+            "0x3d70"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1588,
+          "writers": [
+            "0x3d70"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1587,
+          "writers": [
+            "0x3d70"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1586,
+          "writers": [
+            "0x3d70"
+          ],
+          "entry_without_direct_write": false
+        },
+        {
+          "byte": -1585,
+          "writers": [
+            "0x3d80"
+          ],
+          "entry_without_direct_write": false
+        }
+      ]
+    }
+  ],
+  "register_queries": {
+    "0xc60_r3": {
+      "nearest_defs": [
+        "0x5e8"
+      ],
+      "entry_without_def": false
+    },
+    "0x5e8_r9": {
+      "nearest_defs": [
+        "0x518"
+      ],
+      "entry_without_def": false
+    },
+    "0x10f0_r3": {
+      "nearest_defs": [
+        "0x5e8"
+      ],
+      "entry_without_def": false
+    },
+    "0x1808_r3": {
+      "nearest_defs": [
+        "0x5e8",
+        "0x1538"
+      ],
+      "entry_without_def": false
+    },
+    "0x3d20_r6": {
+      "nearest_defs": [
+        "0x1d30",
+        "0x3c58",
+        "0x60e0"
+      ],
+      "entry_without_def": false
+    },
+    "0x4ac0_r3": {
+      "nearest_defs": [
+        "0x4ab8"
+      ],
+      "entry_without_def": false
+    }
+  },
+  "helper_body_sha256": "29448eb927f43b914f919fa969440b2d7192b77a501548ee3f22da69ffe63833",
+  "IDL": {
+    "program": "pfeeUxB6jkeY1Hxd7CsFCAjcbHA9rWtchMGdZ6VojVZ",
+    "instruction": "admin_cto_sharing_config",
+    "args": [
+      {
+        "name": "new_admin",
+        "type": {
+          "option": "pubkey"
+        }
+      }
+    ],
+    "discriminator": [
+      60,
+      100,
+      144,
+      156,
+      64,
+      138,
+      182,
+      37
+    ]
+  }
+}

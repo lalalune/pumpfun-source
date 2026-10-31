@@ -370,6 +370,29 @@ class PumpAmmLiquidityCapturedTests(unittest.TestCase):
     def test_seeded_random_cases_match_captured_program(self):
         self.run_cases(random_cases())
 
+    def test_delegated_transfers_match_captured_program(self):
+        def delegated(mint, owner, allowance, delegate=USER.pubkey(), amount=10**12, extension=False):
+            data = bytearray(token_account(mint, owner, amount, extension=extension))
+            struct.pack_into('<I', data, 72, 1)
+            data[76:108] = bytes(delegate)
+            struct.pack_into('<Q', data, 121, allowance)
+            return bytes(data)
+
+        cases = []
+        for program in (TOKEN, TOKEN22):
+            for allowance in (0, 399_999, 400_000, 400_001):
+                cases.append({'base_owner': program, 'ub_data': delegated(BASE, OTHER, allowance)})
+            # A matching delegate takes precedence even when it is also owner.
+            for allowance in (0, 400_000, 400_001):
+                cases.append({'base_owner': program, 'ub_data': delegated(BASE, USER.pubkey(), allowance)})
+            cases.append({'base_owner': program, 'ub_data': delegated(BASE, USER.pubkey(), 400_000, OTHER)})
+            cases.append({'base_owner': program, 'ub_data': delegated(BASE, CREATOR, 400_000, OTHER)})
+        for allowance in (202_020, 202_021, 202_022):
+            cases.append({'fee': (100, 10**9), 'uq_data': delegated(QUOTE, OTHER, allowance, extension=True)})
+        cases += [{'ub_amt': 1, 'ub_mint': OTHER}, {'ub_amt': 1, 'ub_owner': OTHER},
+                  {'ub_data': delegated(BASE, OTHER, 400_000, amount=1)}]
+        self.run_cases(cases)
+
     def test_captured_image_identity_is_required(self):
         with tempfile.TemporaryDirectory() as temporary:
             wrong = Path(temporary) / 'wrong.so'

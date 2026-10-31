@@ -29,6 +29,9 @@ class PumpReport:
         ))
         self.inputs.extend(self.root / f'evidence/dependencies/{name}/deployed.so'
                            for name in ('spl_token', 'spl_token_2022', 'associated_token'))
+        # A loaded shared fixture declares the data files it read at import.
+        self.inputs.extend(Path(path) for module in tuple(sys.modules.values())
+                           for path in getattr(module, 'REPORT_INPUTS', ()))
         self.check()
         self.output.parent.mkdir(parents=True, exist_ok=True)
 

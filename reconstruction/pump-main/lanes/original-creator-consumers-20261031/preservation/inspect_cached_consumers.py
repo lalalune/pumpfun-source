@@ -1,0 +1,98 @@
+#!/usr/bin/env python3
+"""Bounded original target/sharing consumer joins from sealed caches only."""
+import os,sys
+assert os.environ.get('PYTHONDONTWRITEBYTECODE')=='1'
+sys.dont_write_bytecode=True
+from pathlib import Path
+import json,hashlib,re,struct
+OUT=Path('/dev/shm/pump-cto-ebe5387/work/original-target-sharing-consumers')
+P=Path('/dev/shm/pump-cto-963d1ee/work/wallet-review/original-instructions.json')
+def sha(b):return hashlib.sha256(b).hexdigest()
+def bind(p):return {'path':str(p),'bytes':p.stat().st_size,'sha256':sha(p.read_bytes())}
+rows=json.loads(P.read_text());assert sha(P.read_bytes())=='6ff4f7ac8d8c86fe8166e323f9c1912bb62924619d6554363aadf454d4061c05'
+assert len(rows)==3339 and sha(b''.join(bytes.fromhex(r['raw']) for r in rows))=='6a7659fd34097683cbfdae56187f5f73a3ecae20e52ac06a3fd25837e4137a96'
+ins={r['offset']:r for r in rows};pred={o:[] for o in ins};succ={}
+abort=json.loads((OUT/'ABORT-RELOCATION.json').read_text());assert abort['relocation']['dynamic_symbol']=='abort' and abort['window_relative_pc']=='0x26e0'
+for o,r in ins.items():
+ op=r['opcode'];n=o+r['bytes']
+ if op==0x95 or o==0x26e0:dest=[]
+ elif op==0x05:dest=[r['jump']]
+ elif op&7 in(5,6) and op not in(0x85,0x8d):dest=[r['jump'],n]
+ else:dest=[n]
+ assert all(d in ins for d in dest),(r,dest)
+ succ[o]=dest
+ for d in dest:pred[d].append(o)
+width={0x7b:8,0x63:4,0x6b:2,0x73:1,0x7a:8,0x62:4,0x6a:2,0x72:1}
+def writes(r,addr):return r['opcode'] in width and r['dst']==10 and r['displacement']<=addr<r['displacement']+width[r['opcode']]
+def nearest_byte(pc,addr):
+ pending=list(pred[pc]);seen=set();found=set();entry=False
+ while pending:
+  o=pending.pop()
+  if o in seen:continue
+  seen.add(o);r=ins[o]
+  if writes(r,addr):found.add(o);continue
+  if not pred[o]:entry=True
+  pending.extend(pred[o])
+ return sorted(found),entry
+
+def nearest_reg(pc,reg):
+ pending=list(pred[pc]);seen=set();found=set();entry=False
+ while pending:
+  o=pending.pop()
+  if o in seen:continue
+  seen.add(o);r=ins[o];op=r['opcode']
+  defined=(r['dst']==reg and (op&7 in(1,4,7) or op==0x18)) or (op in(0x85,0x8d) and reg<6)
+  if defined:found.add(o);continue
+  if not pred[o]:entry=True
+  pending.extend(pred[o])
+ return sorted(found),entry
+queries=[]
+def qbytes(pc,addr,n,expected=None):
+ per=[nearest_byte(pc,addr+i) for i in range(n)]
+ value={'consumer_pc':hex(pc),'frame_range':[addr,addr+n],'per_byte_direct_reaching_writers':[{'byte':addr+i,'writers':[hex(o) for o in w],'entry_without_direct_write':e} for i,(w,e) in enumerate(per)]}
+ queries.append(value)
+ if expected is not None:assert all(w==expected and not e for w,e in per),(hex(pc),addr,per)
+ return value
+for pc,slot,store in [(0x4b08,-1408,0x1a18),(0x4b18,-1400,0x1a48),(0x4b28,-1392,0x1a38),(0x4b38,-1384,0x1a28)]:qbytes(pc,slot,8,[store])
+# Outgoing Option object's own direct stores reach the actual call.
+qbytes(0x4a78,-1617,1,[0x3d20])
+for pc,slot,n in [(0x3d28,-1360,4),(0x3d38,-1357,4),(0x3d48,-2376,8),(0x3d58,-2304,8),(0x3d68,-1376,8),(0x3d78,-1368,1)]:qbytes(pc,slot,n)
+qbytes(0x4a78,-1616,32)
+qbytes(0x1538,-2376,8,[0xc60])
+qbytes(0x1858,-1621,4)
+qbytes(0x1868,-1624,4,[0x500])
+qbytes(0x1878,-1640,8,[0x538])
+qbytes(0x1888,-1632,1,[0x528])
+# Cached helper raw stream is authenticated against its old manifest and raw-body seal.
+HP=Path('/dev/shm/pump-cto-faf9962/work/event-slots/original-helper-0x116718.txt');ht=HP.read_bytes();assert sha(ht)=='5c536c741c0a4f5cbe7246d88281540acef109495470eb947134833b7df4c5bd'
+hrows={};base=0x116718;nextva=base
+for line in ht.decode().splitlines():
+ m=re.match(r'^0x([0-9a-f]+)\s+([0-9a-f]+)\s',line)
+ if not m:continue
+ va=int(m[1],16);raw=bytes.fromhex(m[2]);assert va==nextva and len(raw) in(8,16);nextva+=len(raw)
+ op,rs,d,i=struct.unpack_from('<BBhi',raw);rr={'offset':hex(va-base),'va':hex(va),'raw':raw.hex(),'bytes':len(raw),'opcode':op,'dst':rs&15,'src':rs>>4,'displacement':d,'immediate':i}
+ if op==0x18:rr['constant_u64']=(i&0xffffffff)|(struct.unpack_from('<I',raw,12)[0]<<32)
+ if op==0x85 and rs>>4==1 and i!=-1:rr['call_target']=hex(va+8+i*8)
+ if op&7 in(5,6) and op not in(0x85,0x8d,0x95):rr['jump']=hex(va-base+8+d*8)
+ hrows[va-base]=rr
+hr=b''.join(bytes.fromhex(r['raw']) for r in hrows.values());assert len(hr)==4040 and sha(hr)=='29448eb927f43b914f919fa969440b2d7192b77a501548ee3f22da69ffe63833'
+cp=Path('/dev/shm/pump-cto-faf9962/work/context-abi/CLOSURE.json');closure=json.loads(cp.read_text());assert closure['callee']['sha256']==sha(hr) and closure['callee']['raw_equal'] is True
+assert ins[0x4a78]['callTarget']==base
+assert [ins[o]['immediate'] for o in [0x4a50,0x4a60,0x4a70]]==[-2144,-720,-1617]
+# Native field loads/stores in the serializer, not type-by-width assertions.
+for off,op,d,s,disp,imm in [(0x98,0x71,4,3,0,0),(0xe0,0x55,4,0,3,0),(0xe8,0x72,6,0,8,0),(0xf0,0xb7,9,0,0,9),(0x100,0x07,3,0,0,1),(0x108,0x72,6,0,8,1),(0x150,0xb7,9,0,0,41),(0x2a8,0x7b,10,6,-96,0),(0x2a0,0x7b,10,9,-88,0),(0x970,0xbf,2,10,0,0),(0x978,0x07,2,0,0,-128)]:
+ r=hrows[off];assert [r[k] for k in ['opcode','dst','src','displacement','immediate']]==[op,d,s,disp,imm],r
+for load,store,disp,dest in [(0x110,0x118,0,9),(0x120,0x128,8,17),(0x130,0x138,16,25),(0x140,0x148,24,33)]:
+ assert [hrows[load][k] for k in ['opcode','dst','src','displacement']]==[0x79,1,3,disp]
+ assert [hrows[store][k] for k in ['opcode','dst','src','displacement']]==[0x7b,6,1,dest]
+assert hrows[0x998]['call_target']=='0x1a0530'
+idl=Path('/dev/shm/pump-cto-ebe5387/programs/pump/idls/pump_fees.json');j=json.loads(idl.read_text());ii=next(v for v in j['instructions'] if v['name']=='admin_cto_sharing_config')
+assert ii['args']==[{'name':'new_admin','type':{'option':'pubkey'}}]
+assert hrows[0xb8]['constant_u64'].to_bytes(8,'little')==bytes(ii['discriminator'])
+# Compact evidence: only relevant original producer relays, final packs, consumers and tagged serializer.
+ranges=[(0x1e0,0x1f0),(0x4d8,0x540),(0x5e8,0x5f8),(0xc60,0xc70),(0x10e8,0x10f8),(0x1138,0x11a8),(0x1518,0x1548),(0x1800,0x18b0),(0x1990,0x1a58),(0x1d28,0x1d48),(0x3c50,0x3d88),(0x4a48,0x4b48)]
+witness={'coordinate_system':'All CTO offsets original windowVA0x22a10, privateR10 frame. Helper offsets have independent originVA0x116718 and independent frame. LDDW16B preserved. No Ebe/S3 offsets reused.','original_rows':[r for o,r in ins.items() if any(lo<=o<hi for lo,hi in ranges)],'helper_rows':[r for o,r in hrows.items() if 0x98<=o<0x178 or 0x260<=o<0x2b0 or 0x958<=o<0x9a0],'bytewise_direct_frame_queries':queries,'register_queries':{hex(pc)+'_r'+str(reg):{'nearest_defs':[hex(o) for o in nearest_reg(pc,reg)[0]],'entry_without_def':nearest_reg(pc,reg)[1]} for pc,reg in [(0xc60,3),(0x5e8,9),(0x10f0,3),(0x1808,3),(0x3d20,6),(0x4ac0,3)]},'abort_noreturn_binding':abort,'helper_body_sha256':sha(hr),'IDL':{'program':j['address'],'instruction':ii['name'],'args':ii['args'],'discriminator':ii['discriminator']}}
+(OUT/'RAW-JOINS.json').write_text(json.dumps(witness,indent=2)+'\n')
+print('PASS original curve target and Fees serializer cache joins; producer/path qualifications remain explicit')
+print('registers',witness['register_queries'])
+print('sharing mid nearest',[(q['consumer_pc'],sorted({v for b in q['per_byte_direct_reaching_writers'] for v in b['writers']}),any(b['entry_without_direct_write'] for b in q['per_byte_direct_reaching_writers'])) for q in queries if q['consumer_pc'] in ('0x3d48','0x3d58')])

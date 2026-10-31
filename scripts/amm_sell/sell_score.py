@@ -256,7 +256,9 @@ def alignment_distance(left, right):
 
 
 def find_sell(symbols):
-    hits = [f for f in symbols.funcs if '4sell8cashback' in f['name']]
+    # A closure inside the helper mangles to the same prefix but is not the window.
+    hits = [f for f in symbols.funcs
+            if '4sell8cashback' in f['name'] and 'closure' not in f['name']]
     if len(hits) != 1:
         raise SystemExit(f'expected one sell cashback symbol, found {len(hits)}')
     return hits[0]

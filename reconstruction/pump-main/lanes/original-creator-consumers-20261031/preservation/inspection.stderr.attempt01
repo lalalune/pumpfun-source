@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/dev/shm/pump-cto-ebe5387/work/original-target-sharing-consumers/inspect_cached_consumers.py", line 78, in <module>
+    r=hrows[off];assert [r[k] for k in ['opcode','dst','src','displacement','immediate']]==[op,d,s,disp,imm],r
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'offset': '0x2a0', 'va': '0x1169b8', 'raw': '7b9aa8ff00000000', 'bytes': 8, 'opcode': 123, 'dst': 10, 'src': 9, 'displacement': -88, 'immediate': 0}

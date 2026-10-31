@@ -45,7 +45,7 @@ def tree(root):
 
 def context(swarm, here, baseline, reader, want_disasm):
     implementations = [here / name for name in ('try_sell.py', 'native_build.py',
-                        'sell_score.py', 'workspace_recipe.py', 'cache_inputs.py',
+                        'sell_score.py', 'workspace_recipe.py', 'cache_inputs.py', 'ledger_io.py',
                         'metadata-map.json', 'ordered.ld')]
     build_environment = {key: value for key, value in os.environ.items()
                          if key.startswith('CARGO_PROFILE_RELEASE_') or key in

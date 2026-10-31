@@ -1,0 +1,9 @@
+{
+  "status": "OBSERVED_INLINE_HASH_PRECONDITION_FAILURE_DECLARATION",
+  "exit_code": 1,
+  "failure": "AssertionError at stdin line5, before section/dynamic metadata lookup; expected SHA literal was hand-transcribed incorrectly.",
+  "input_unchanged": true,
+  "next_action": "Use original_sha256 from sealed phase-synthesis record for the one successful bounded relocation lookup.",
+  "raw_capture": "Original tool response exists in conversation; this record is a declaration, not an invented filesystem raw stderr/process receipt.",
+  "not_a_target_execution_or_measurement": true
+}

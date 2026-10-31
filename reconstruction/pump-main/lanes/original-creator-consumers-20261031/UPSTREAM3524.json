@@ -1,0 +1,311 @@
+{
+  "schema": "s4-publication-scope-upstream-read-v1",
+  "method": "Read-only connected GitHub responses; no independent reproduction/review/adoption of draft3524 experiments.",
+  "pullRequests": [
+    {
+      "number": 3524,
+      "url": "https://github.com/lalalune/pumpfun-source/pull/3524",
+      "state": "open",
+      "draft": true,
+      "merged": false,
+      "head_sha": "9775401869b40922c5e07891b8eeb097a046f53f",
+      "base_sha": "ebe5387e12e948c2534618adf7a3cf0f27d9de51",
+      "title": "pump-main w14: w14a121-cto-delwin: notes (delete-window store-backs are the sharing_update tag r9 split; pair-price tool)",
+      "body": "Notes only, no source change. Lane w14a121-cto-delwin, target `0x22a10` admin_cto::execute, pinned 27,400 B, on main ebe5387e1.\n\n| | before | after |\n| --- | --- | --- |\n| ratio | 0.67316 | 0.67316 (no change proposed) |\n| slots | 3,123 | 3,123 |\n| bytes | 27,400 | 27,400 |\n| normalized / raw | 1034 / 1034 | unchanged |\n\nFindings:\n- **What the store-backs are.** The delete-window reload/store-back pairs at ours 0x3108, 0x3ce0, 0x5940 and 0x5b18 (slot -2272) belong to the **`sharing_update` niche tag phi**, not the accounts pointer as #3499 assumed. Greedy region-splits the tag for r9 over 97 bundles, and the split pieces get re-spilled to the same slot.\n- **The original swaps two values.** The original's 3 store-back pairs sit on `[r10-0x950]`, the holder-reward tree flag. Its tag is reloaded cleanly into r6 instead. So the two programs give these two tree phis opposite register-allocation roles.\n- **What a deletion would be worth.** `pairgain.py` gives the exact price: delete one tag pair and add 16 B of junk in the sweep body, and M stays 2,247 while slots drop to 2,917–2,929.\n- **Why no source change lands.** Only ending the tag's live range at the sharing match removes the pairs (IR probe x2). That drops M from 2,247 to 2,182. All 17 new source spellings, plus 4 re-priced tag660 holder-flag variants, either lose M or come out byte-identical to main.\n\nTools: `sb.py`, `deadld.py`, `pairgain.py`, `sbsc.py`, `unm.py`, `mc.py`, `binm.py`, `screen.sh`/`rec.py`. The ledger has 31 rows under `0x22a10-w14-ebe5387-delwin-*`. Details are in `reconstruction/pump-main/lanes/w14a121-cto-delwin/NOTES.md`.\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n",
+      "created_at": "2026-10-31T06:15:10Z",
+      "updated_at": "2026-10-31T06:15:10Z",
+      "changed_files": 36
+    },
+    {
+      "number": 3483,
+      "url": "https://github.com/lalalune/pumpfun-source/pull/3483",
+      "state": "open",
+      "draft": false,
+      "merged": false,
+      "head_sha": "853331e4eff2d68cad2a547a2333b2f20036d88b",
+      "base_sha": "13fe4536be64d8c5c10f8905e9d2236f423ac4f4",
+      "title": "research(pump): preserve S1–S3 fee-boundary counterexamples",
+      "body": "Recovering a private fee-success gate did not improve the remaining Pump CTO window. This packet binds three rejected source measurements: S1/S2 retain their 687 raw-window losses, while S3 passes native no-loss checks at 1,034/1,035 but reduces normalized CTO token matches from 2,245 to 1,279.\n\nThe unchanged historical archive is extended with exact 13fe/S3 normal-build captures, the three-line source delta, bounded native consumer/CFG witnesses, and a portable replay of the maintained token metric. The cohorts have different controls, so the records do not isolate one universal helper or Result rule. Prior #3384/#3197 and the separate C1 packet #3436 remain credited.\n\nA separately retained fixed-source S3 trace passes 50 independent provenance/code-identity checks. It places the combined sharing/target copy before the first captured optimizer snapshot and connects its final lowering to 30 native operations. Immutable external references and their replay limits are in NOTES.md.\n\nValidation on input commit `649a241324a66768875229682e7487da7c5a4918`:\n\n- Affected portable verifier: PASS; reproduces S3 native success, the −966 token difference, and the preserved S1/S2 negatives.\n- `python3 -B scripts/verify_evidence.py`: 9 captures verified.\n- `python3 -B scripts/test_tooling.py`: 228 tests passed.\n\nFinal commit `853331e4eff2d68cad2a547a2333b2f20036d88b` adds the actual output/receipt and updates documentation. All 39 replay code/data inputs remain identical to the tested commit; the packaging commit was not executed. Program source and build inputs are unchanged. S3 runtime remains untested (held before launch, zero executions), every candidate remains rejected, and the last window remains unmatched.\n\nMade via @slopdotcash\nAI provider/model: OpenAI / GPT-6.1-Sol-Extra-High\nClient / agent tooling: ChatGPT\nContribution skill revision: N/A - ordinary GitHub contribution without optional run evidence\nAttribution status: self-reported\n— [contributor]\n<!-- slop-contribution-attribution:v1 {\"provider\":\"OpenAI\",\"model\":\"GPT-6.1-Sol-Extra-High\",\"client\":\"ChatGPT\",\"skill_revision\":\"N/A - ordinary GitHub contribution without optional run evidence\"} -->",
+      "created_at": "2026-10-31T04:51:05Z",
+      "updated_at": "2026-10-31T06:20:17Z",
+      "changed_files": 16
+    }
+  ],
+  "draft3524ExactFiles": {
+    "count": 36,
+    "files": [
+      {
+        "filename": "reconstruction/pump-main/lanes/w14a121-cto-delwin/NOTES.md",
+        "sha": "623dd298980d1840bd64c274f310bd6b3538a682",
+        "status": "added",
+        "additions": 103,
+        "deletions": 0
+      },
+      {
+        "filename": "reconstruction/pump-main/lanes/w14a121-cto-delwin/SUMMARY.json",
+        "sha": "c9cee1a85767ad45a9a6558d27baedb83e355030",
+        "status": "added",
+        "additions": 24,
+        "deletions": 0
+      },
+      {
+        "filename": "reconstruction/pump-main/lanes/w14a121-cto-delwin/ev/a1_smap.py",
+        "sha": "f49dfcd5df9bd77fd9a01a4f122173d06cc2f2a7",
+        "status": "added",
+        "additions": 3,
+        "deletions": 0
+      },
+      {
+        "filename": "reconstruction/pump-main/lanes/w14a121-cto-delwin/ev/a5_sfor.py",
+        "sha": "1274f7f1943a610b6195635dcac5b10372e61fa5",
+        "status": "added",
+        "additions": 2,
+        "deletions": 0
+      },
+      {
+        "filename": "reconstruction/pump-main/lanes/w14a121-cto-delwin/ev/a6_scopied.py",
+        "sha": "ac6dfd6ced083240197a6f15b08cf43c69596ab7",
+        "status": "added",
+        "additions": 2,
+        "deletions": 0
+      },
+      {
+        "filename": "reconstruction/pump-main/lanes/w14a121-cto-delwin/ev/a7_resetpre.py",
+        "sha": "e8db81f4d53abcc863d17bf1570094bb89a51e6e",
+        "status": "added",
+        "additions": 2,
+        "deletions": 0
+      },
+      {
+        "filename": "reconstruction/pump-main/lanes/w14a121-cto-delwin/ev/a8_resetne.py",
+        "sha": "9023ba1c059834c76282651264e2cc37b8a2ee7d",
+        "status": "added",
+        "additions": 1,
+        "deletions": 0
+      },
+      {
+        "filename": "reconstruction/pump-main/lanes/w14a121-cto-delwin/ev/a9_smapor.py",
+        "sha": "8e57028e753b434d77d505a6e1436f5519101304",
+        "status": "added",
+        "additions": 3,
+        "deletions": 0
+      },
+      {
+        "filename": "reconstruction/pump-main/lanes/w14a121-cto-delwin/ev/b4_unwrapelse.py",
+        "sha": "2c2091dc39583c5e46460088f2575a97d39933e6",
+        "status": "added",
+        "additions": 1,
+        "deletions": 0
+      },
+      {
+        "filename": "reconstruction/pump-main/lanes/w14a121-cto-delwin/ev/b5_mapor.py",
+        "sha": "1c5af34b3ce095b47a6089e0be957626de082401",
+        "status": "added",
+        "additions": 1,
+        "deletions": 0
+      },
+      {
+        "filename": "reconstruction/pump-main/lanes/w14a121-cto-delwin/ev/c1_hreq.py",
+        "sha": "608504c3fb096791e84d2b2d5986592461506476",
+        "status": "added",
+        "additions": 1,
+        "deletions": 0
+      },
+      {
+        "filename": "reconstruction/pump-main/lanes/w14a121-cto-delwin/ev/i6.py",
+        "sha": "bfe577cf02f1712a0dc349bdbcf67063ab43e92d",
+        "status": "added",
+        "additions": 1,
+        "deletions": 0
+      },
+      {
+        "filename": "reconstruction/pump-main/lanes/w14a121-cto-delwin/ev/m1_bumpold_up.py",
+        "sha": "fff889d10596388a50e9e22bcec57aa37a6c1a38",
+        "status": "added",
+        "additions": 1,
+        "deletions": 0
+      },
+      {
+        "filename": "reconstruction/pump-main/lanes/w14a121-cto-delwin/ev/m2_old_up.py",
+        "sha": "96c8eb2d48a48c75ea304e2b7306706f29094490",
+        "status": "added",
+        "additions": 1,
+        "deletions": 0
+      },
+      {
+        "filename": "reconstruction/pump-main/lanes/w14a121-cto-delwin/ev/m3_bump_up.py",
+        "sha": "afe4c2481926a949f0bf8ad5dc39b4157f68f4c8",
+        "status": "added",
+        "additions": 1,
+        "deletions": 0
+      },
+      {
+        "filename": "reconstruction/pump-main/lanes/w14a121-cto-delwin/ev/m4_bump_top.py",
+        "sha": "289b7f29d034dd7a475a762c893bc70dc88a0130",
+        "status": "added",
+        "additions": 1,
+        "deletions": 0
+      },
+      {
+        "filename": "reconstruction/pump-main/lanes/w14a121-cto-delwin/ev/noop.py",
+        "sha": "68a2afab7acd57d641d220f494265ee3ae8e291f",
+        "status": "added",
+        "additions": 1,
+        "deletions": 0
+      },
+      {
+        "filename": "reconstruction/pump-main/lanes/w14a121-cto-delwin/ev/s4_ampres.py",
+        "sha": "b48f1622a1b6a62825c02e1bc5012bf056de844a",
+        "status": "added",
+        "additions": 1,
+        "deletions": 0
+      },
+      {
+        "filename": "reconstruction/pump-main/lanes/w14a121-cto-delwin/ev/s8_ampnest.py",
+        "sha": "9268c22e206d3364ee91f14d1cad024a003b0a22",
+        "status": "added",
+        "additions": 4,
+        "deletions": 0
+      },
+      {
+        "filename": "reconstruction/pump-main/lanes/w14a121-cto-delwin/ev/s9_ampfrz.py",
+        "sha": "6ed697808b75d630c977149c9e150fb587f4956e",
+        "status": "added",
+        "additions": 1,
+        "deletions": 0
+      },
+      {
+        "filename": "reconstruction/pump-main/lanes/w14a121-cto-delwin/ev/vb.py",
+        "sha": "4ac08fb10d66cd3a9e7554393a8538f13b65205f",
+        "status": "added",
+        "additions": 1,
+        "deletions": 0
+      },
+      {
+        "filename": "reconstruction/pump-main/lanes/w14a121-cto-delwin/ix/x1.py",
+        "sha": "1ef35c7cc9a5e1e51ed55ab10be415cda2dc9c99",
+        "status": "added",
+        "additions": 2,
+        "deletions": 0
+      },
+      {
+        "filename": "reconstruction/pump-main/lanes/w14a121-cto-delwin/ix/x2.py",
+        "sha": "a61e09feb29430a05d5dd8c0e78e2472872bef21",
+        "status": "added",
+        "additions": 2,
+        "deletions": 0
+      },
+      {
+        "filename": "reconstruction/pump-main/lanes/w14a121-cto-delwin/ix/x3.py",
+        "sha": "c207d417c0d20725f4c966c76711486016630424",
+        "status": "added",
+        "additions": 2,
+        "deletions": 0
+      },
+      {
+        "filename": "reconstruction/pump-main/lanes/w14a121-cto-delwin/ix/x4.py",
+        "sha": "82bb145eea0b3ce69d6f14639404c4750cc027fa",
+        "status": "added",
+        "additions": 1,
+        "deletions": 0
+      },
+      {
+        "filename": "reconstruction/pump-main/lanes/w14a121-cto-delwin/ix/x5.py",
+        "sha": "ee727923462cc15fbea872794e4de15847dd80f1",
+        "status": "added",
+        "additions": 1,
+        "deletions": 0
+      },
+      {
+        "filename": "reconstruction/pump-main/lanes/w14a121-cto-delwin/tools/binm.py",
+        "sha": "69a6d76fcf5ef7b608aa32a2214be6fdeb6f39a0",
+        "status": "added",
+        "additions": 16,
+        "deletions": 0
+      },
+      {
+        "filename": "reconstruction/pump-main/lanes/w14a121-cto-delwin/tools/deadld.py",
+        "sha": "4ad7d2ac120ca916d14582b574315a4c074c4956",
+        "status": "added",
+        "additions": 17,
+        "deletions": 0
+      },
+      {
+        "filename": "reconstruction/pump-main/lanes/w14a121-cto-delwin/tools/dis.py",
+        "sha": "564c51772768d7e5622d7d473fa84980fe5e62c6",
+        "status": "added",
+        "additions": 8,
+        "deletions": 0
+      },
+      {
+        "filename": "reconstruction/pump-main/lanes/w14a121-cto-delwin/tools/mc.py",
+        "sha": "094d596cd37c6ee8e198083daae5d154a4d217e0",
+        "status": "added",
+        "additions": 15,
+        "deletions": 0
+      },
+      {
+        "filename": "reconstruction/pump-main/lanes/w14a121-cto-delwin/tools/pairgain.py",
+        "sha": "18c66fe84c3099e7b0171c94d27dc1c28b629e31",
+        "status": "added",
+        "additions": 24,
+        "deletions": 0
+      },
+      {
+        "filename": "reconstruction/pump-main/lanes/w14a121-cto-delwin/tools/rec.py",
+        "sha": "0ec62193206a9a2c98e69ecba00ff6ef6a34451a",
+        "status": "added",
+        "additions": 18,
+        "deletions": 0
+      },
+      {
+        "filename": "reconstruction/pump-main/lanes/w14a121-cto-delwin/tools/sb.py",
+        "sha": "ba6c1dc5c2aed68968988a912a3a763011ab9a8d",
+        "status": "added",
+        "additions": 11,
+        "deletions": 0
+      },
+      {
+        "filename": "reconstruction/pump-main/lanes/w14a121-cto-delwin/tools/sbsc.py",
+        "sha": "f2bc8a8f3adee0e3af981dd64c646197c8bfb8ec",
+        "status": "added",
+        "additions": 23,
+        "deletions": 0
+      },
+      {
+        "filename": "reconstruction/pump-main/lanes/w14a121-cto-delwin/tools/screen.sh",
+        "sha": "95059198ae9c18721c847fad40cad4840bfcf396",
+        "status": "added",
+        "additions": 10,
+        "deletions": 0
+      },
+      {
+        "filename": "reconstruction/pump-main/lanes/w14a121-cto-delwin/tools/unm.py",
+        "sha": "9fc18d7a42e5006dde1aaaa4bf576d649ef93312",
+        "status": "added",
+        "additions": 17,
+        "deletions": 0
+      }
+    ],
+    "notes": {
+      "filename": "reconstruction/pump-main/lanes/w14a121-cto-delwin/NOTES.md",
+      "gitBlob": "623dd298980d1840bd64c274f310bd6b3538a682",
+      "patch": "@@ -0,0 +1,103 @@\n+# w14a121-cto-delwin: delete-window candidates for admin_cto::execute (0x22a10)\n+\n+Target `0x22a10` `admin_cto::execute` (`programs/pump/src/creator/admin_cto.rs`), pinned at 27,400 B. Base: main\n+**ebe5387e1** (M 2,247, ratio 0.67316, 3,123 slots). Angle: w14a111-cto-tag660's next ideas (#3499). Delete instructions\n+that ours emits and the original does not, then use the shiftmap alignment value (k=+2: +16 B in the sweep body\n+0x1d28-0x3400 plus -16 B in 0x3be0-0x5de0 is worth about -200 slots at equal M).\n+Ledger approach `delwin`, keys `0x22a10-w14-ebe5387-delwin-*` (31 rows).\n+\n+**Result: no source change, notes only.** The delete-window store-backs come from the `sharing_update` tag, not from the\n+accounts pointer. They are produced by a greedy region split, and every source form that changes that split costs at least\n+5 M. Every source form that leaves the split alone is byte-identical to main.\n+\n+## 1. What the delete-window pairs are (correcting #3499)\n+\n+`tools/sb.py` lists adjacent reload/store-back pairs (`ldxdw rX,[r10+o]; stxdw [r10+o],rX`):\n+\n+| build | pairs |\n+| --- | --- |\n+| original | 3, all at `[r10-0x950]` (-2384): 0x1d48, 0x44c8, 0x5b30 |\n+| main ebe5387 | 4, all at `[r10-0x8e0]` (-2272): 0x3108, 0x3ce0, 0x5940, 0x5b18 |\n+\n+- In the greedy MIR (`-stop-after=greedy`), all four pairs belong to one spill slot, `%stack.186`. Its defs are the\n+  head-tree phi `%_553.sroa.0.0 = phi i8 [new tag, bb20], [2, bb21], [2, bb22], [0, bb18]`, the **`sharing_update` niche tag**\n+  (2 = None, 0 = Some(None), new's tag = Some(Some)).\n+  - Its uses are the sharing match (`bb88`, `and 255; jne 2`), the `val7` tag store (`bb35`) and the event's\n+    `sharing_config_reset` (CodeGenPrepare sinks the `icmp ne 2` back to the event, so the tag lives until the event).\n+  - The pairs sit in the inlined-sweep blocks `bb60.i`, `_ZN71_`, `bb85.i`, `bb88`. The `bb94.i` pair is not adjacent.\n+    There are 7 more dead reloads of the same slot.\n+- Debug llc (`-debug-only=regalloc`, pre-RA vreg `%59`): the tag is **region-split for $r9 over 97 edge bundles**\n+  (cost r9 0.0524 < r4/r7/r8 0.0634 < r6 0.0672). bb.269 (`bb88`) is \"stack-out, spill after last use\"; later evictions in the\n+  sweep re-split the r9 product. The split pieces that are reloaded and live out are re-spilled to the same slot, which\n+  leaves the store-backs.\n+- The original's store-back slot `[0x950]` is the **holder-reward flag** (the tree phi of constants that tag660 identified\n+  as the curve +0xa5 store and pool-CPI r4 source). The original's tag is `[r10-0x8f8]`, reloaded cleanly into r6 at block\n+  heads 0x1d30 / 0x3c58 / 0x4a90 / 0x4d48 / 0x60e0. So the two programs **swap RA roles between two tree phis**. Ours has no\n+  long-lived holder flag, because it uses `holder.unwrap_or(false)` and re-reads the curve for pargs, so the tag takes the\n+  role.\n+- The 0x5938 insert (`stxdw [r10-2488],r6` before the pair) is the accounts pointer spilled at the head of sweep block\n+  `bb85.i`. It is laid out post-sweep. The original has r6 dead there, because `a` lives in `[r10-0x8d8]`.\n+- Dead reloads are not an ours-only artifact (`tools/deadld.py`): original 16, ours 14.\n+\n+## 2. Exact value of the deletions (`tools/pairgain.py`: delete ours instructions, insert the same count of junk slots)\n+\n+| delete (ours) | insert at | M | slots |\n+| --- | --- | ---: | ---: |\n+| 0x3ce0/0x3ce8 (bb88 pair) | 0x1d28 / 0x2400 / 0x3000 | 2,247 | 2,926 / 2,928 / 2,929 |\n+| 0x5940/0x5948 (bb85.i pair) | 0x1d28 / 0x2400 / 0x3000 | 2,247 | 2,917 / 2,919 / 2,920 |\n+| 0x5b18/0x5b20 | 0x1d28 / 0x2400 / 0x3000 | 2,247 | 2,917 / 2,919 / 2,920 |\n+| 0x5938-0x5948 (3 insns) | 0x1d28 / 0x2400 / 0x3000 | 2,247 | 3,054 / 3,115 / 3,124 |\n+| 0x3108/0x3110 (sweep pair) | 0x1d28 | 2,247 | 3,120 |\n+\n+The shiftmap prediction holds: one tag pair removed plus 16 B of M-neutral sweep-body fill is worth about -200 slots.\n+\n+## 3. What moves the tag split (post-opt IR + llc, `ix/`, `px.py`)\n+\n+| probe | M | bytes | store-backs |\n+| --- | ---: | ---: | --- |\n+| x1 hoist the reset `icmp` into the phi block | 2,247 | 27,400 | eq_main (CGP sinks it) |\n+| x2 event reset from its own head phi-of-constants i1 (tag dies at the match) | 2,182 | 27,352 | **0** |\n+| x3 x2 + sharing match on that i1 | 2,181 | 27,336 | 0 |\n+| x4 / x5 val7 tag store constant / `tag&1` (probe only) | 2,238 / 2,240 | 27,392 / 27,408 | 4 |\n+| llc `-split-spill-mode=speed`, `-disable-spill-hoist`, `-enable-local-reassign`, `-restrict-statepoint-remat` | 2,247 | 27,400 | eq_main |\n+| llc `-split-spill-mode=size` | 1,829 | 27,312 | |\n+\n+Only shortening the tag's live range to the sharing match removes the pairs, and that costs 65 M (the r9 split carried the\n+whole sweep's colouring).\n+\n+## 4. Source screens (raw-IR capture + rx opt/llc, main M 2,247)\n+\n+| variant | bytes | M |\n+| --- | ---: | ---: |\n+| b4 `swept=(!skip).then(..).unwrap_or_else(\\|\\|Ok(0))?` / m3 bump read after `native` / m4 bump first / s9 `amm_frozen=if amm_present{..?}else{false}` | 27,400 | 2,247 (eq_main) |\n+| a7 `let reset=sharing_update.is_some()` before the match | 27,392 | 2,242 |\n+| i6 (w14a119 I6 alone) | 27,416 | 2,246 |\n+| vb (vol334_back alone) | 27,392 | 2,246 |\n+| a6 `if let Some(&val)=sharing_update.as_ref()` | 27,376 | 2,210 |\n+| a8 `sharing_config_reset:sharing_update!=None` | 27,392 | 2,208 |\n+| c1 `curve.is_holder_reward=holder==Some(true)` | 27,408 | 2,204 |\n+| t_v_h1 / t_v_h6 (tag660 tree holder flag into the curve store; re-priced) | 27,408 | 2,204 (store-backs unchanged, loss spread, -17 at orig 0x4800) |\n+| t_v_h3 / t_v_h7 (+ pool arg from the flag) | 27,472 / 27,448 | 2,071 / 1,904 |\n+| m1 / m2 `current_creator.key()` read before the AMM CPI | 27,400 | 2,042 |\n+| a1 `sharing_update.map(..).transpose()?` / a5 `for val in sharing_update` / a9 `map_or` | 27,280 / 27,384 / 27,376 | 1,817 / 1,747 / 1,466 |\n+| s4 `else if amm_present` (reuse binding) / s8 nested `if amm_present{if token_frozen..}` | 27,320 / 27,440 | 1,730 / 1,570 |\n+| b5 `swept=..map_or(Ok(0),\\|r\\|r)?` | 26,616 | 1,584 |\n+\n+Delete candidates 2 (near-exit `ja; mov64 r8,r3`) and 3 (J2) were not re-screened. #3499 and w14a51/w14a33 already\n+cover them.\n+\n+## 5. Reading for other lanes\n+\n+- The delete-window store-backs are worth about -200 slots each, but they belong to the tag's r9 region split, which is the\n+  backbone of the sweep colouring. Removing them means giving that role to the holder flag, as the original does: a tree\n+  phi of constants used by the curve store and pool CPI r4. Every spelling of that so far loses 43+ M, because the rest of\n+  main was hill-climbed around the current data flow. It would need a joint re-tune, not a single edit.\n+- The tie-break route needs M-neutral non-zero-size knobs. On ebe5387 the only ones found are w14a119's vol334_back+I6\n+  family (+8 B, M 2,247). No M-neutral -16 B post-sweep knob is known.\n+\n+## Tools (`tools/`, experiment only; paths point at this lane's `$OUT`)\n+\n+`sb.py` (store-back pairs), `deadld.py` (dead frame reloads), `pairgain.py` (exact delete/insert pair price),\n+`sbsc.py` (side-by-side by ours offset), `unm.py` (pure inserts/deletes in a window), `mc.py` (M/bytes/slots of rx outputs),\n+`binm.py` (per-bin M delta between two rx outputs), `screen.sh` + `rec.py` (capvar loop + ledger rows), `dis.py`.\n+`ev/*.py` are the source edits, `ix/*.py` the post-opt IR probes. The capture/oracle pair is w14a84's `capraw.py`/`rx.py`/`capvar.sh`."
+    }
+  },
+  "pr3483Feedback": [
+    {
+      "id": 6539229354,
+      "url": "https://github.com/lalalune/pumpfun-source/pull/3483#issuecomment-6539229354",
+      "login": "slopdotcash[bot]",
+      "created_at": "2026-10-31T04:51:35Z",
+      "updated_at": "2026-10-31T06:20:17Z",
+      "body": "<!-- slopbot:review -->\n**Slopbot limited review — maintainer review needed**\n\nThis research packet stays under reconstruction/ and records three rejected source attempts against the last unmatched Pump Main window. The project accepts research packets about remaining byte differences, and this one changes no program source, so it needs no window score. It is in scope and needs no action from this intake review. A shorter NOTES.md that states which source forms future attempts should avoid would make the negative results easier for maintainers to use.\n\nSome changed content could not be reviewed. No label or closure was applied. This is not approval of the pull request.\n\n> Research packets that explain a remaining byte difference in a program.\n> — CONTRIBUTING.md\n\n> Agents should work on `programs/`, `reconstruction/`, `scripts/`,\n`evidence/`, `research/` and `tests/`\n> — AGENTS.md\n\n<details><summary>Review details</summary>\n\n- Reviewed revision: `853331e4eff2d68cad2a547a2333b2f20036d88b`\n- Policy digest: `af05547198f27e872b5fd35825779b56919ba0a63ba5ad62c53a3380238418ab`\n- Not reviewed: reconstruction/pump-main/lanes/cto-creator-fee-s1-s2-negative-20261031/S3-captures.tar.xz: GitHub did not supply a patch (binary or large file).\n- Not reviewed: reconstruction/pump-main/lanes/cto-creator-fee-s1-s2-negative-20261031/captures.tar.xz: GitHub did not supply a patch (binary or large file).\n- Not reviewed: reconstruction/pump-main/lanes/cto-creator-fee-s1-s2-negative-20261031/verify.py: patch exceeds the review input budget.\n- Not reviewed: reconstruction/pump-main/lanes/cto-creator-fee-s1-s2-negative-20261031/witnesses.json: patch exceeds the review input budget.\n- Triage: surplus / claude-opus-5.5 (route step 1, served model unverified)\n\n- Limitations: static review only; tests were not run. reconstruction/pump-main/lanes/cto-creator-fee-s1-s2-negative-20261031/S3-captures.tar.xz: GitHub did not supply a patch (binary or large file). reconstruction/pump-main/lanes/cto-creator-fee-s1-s2-negative-20261031/captures.tar.xz: GitHub did not supply a patch (binary or large file). reconstruction/pump-main/lanes/cto-creator-fee-s1-s2-negative-20261031/verify.py: patch exceeds the review input budget. reconstruction/pump-main/lanes/cto-creator-fee-s1-s2-negative-20261031/witnesses.json: patch exceeds the review input budget. reconstruction/pump-main/lanes/cto-creator-fee-s1-s2-negative-20261031/S3-captures.tar.xz: GitHub did not supply a patch (binary or large file). reconstruction/pump-main/lanes/cto-creator-fee-s1-s2-negative-20261031/captures.tar.xz: GitHub did not supply a patch (binary or large file). reconstruction/pump-main/lanes/cto-creator-fee-s1-s2-negative-20261031/verify.py: patch exceeds the review input budget. reconstruction/pump-main/lanes/cto-creator-fee-s1-s2-negative-20261031/witnesses.json: patch exceeds the review input budget. This review did not run verify.py, scripts/verify_evidence.py or scripts/test_tooling.py. The reported PASS results and the 966-match decrease are the author's claims. The author states that the final packaging commit 853331e4 was not executed. Only input commit 649a2413 was tested. The external diagnostic records in a contributor fork are not included or replayed here. Their contents and hashes were not checked. Archive content\n\n</details>\n\nIf this is wrong, the author can comment `/slopbot appeal`. Slopbot drafts a resolution first, and a Slop moderator decides an escalated appeal. A maintainer's decision always wins."
+    }
+  ],
+  "limits": [
+    "No human rejection/new maintainer instruction observed in the one PR3483 comment response; bot limited review is not approval.",
+    "No ownership/global absence/novelty finding follows from this bounded PR3524/PR3483 read.",
+    "Other draft3524 source/IR edits, tools and reported measurements were not executed or independently reviewed."
+  ]
+}

@@ -1,0 +1,1340 @@
+{
+  "coordinate_system": "Caller offsets relative to actual public wrapper VA0x12da00, address fields absolute; LDDW bytes16. Callee offsets relative to their execute VA0x22a10. Caller FP and each callee FP are separate.",
+  "caller_rows": [
+    {
+      "offset": "0x48",
+      "address": "0x12da48",
+      "opcode": 121,
+      "dst": 3,
+      "src": 8,
+      "displacement": -4088,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "798308f000000000"
+    },
+    {
+      "offset": "0x50",
+      "address": "0x12da50",
+      "opcode": 21,
+      "dst": 3,
+      "src": 0,
+      "displacement": 191,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "1503bf0000000000",
+      "branchTarget": "0x650"
+    },
+    {
+      "offset": "0x58",
+      "address": "0x12da58",
+      "opcode": 121,
+      "dst": 4,
+      "src": 8,
+      "displacement": -4096,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "798400f000000000"
+    },
+    {
+      "offset": "0x60",
+      "address": "0x12da60",
+      "opcode": 183,
+      "dst": 8,
+      "src": 0,
+      "displacement": 0,
+      "immediate": 2,
+      "bytes": 8,
+      "raw": "b708000002000000"
+    },
+    {
+      "offset": "0x68",
+      "address": "0x12da68",
+      "opcode": 191,
+      "dst": 2,
+      "src": 3,
+      "displacement": 0,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "bf32000000000000"
+    },
+    {
+      "offset": "0x70",
+      "address": "0x12da70",
+      "opcode": 7,
+      "dst": 2,
+      "src": 0,
+      "displacement": 0,
+      "immediate": -1,
+      "bytes": 8,
+      "raw": "07020000ffffffff"
+    },
+    {
+      "offset": "0x78",
+      "address": "0x12da78",
+      "opcode": 191,
+      "dst": 1,
+      "src": 4,
+      "displacement": 0,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "bf41000000000000"
+    },
+    {
+      "offset": "0x80",
+      "address": "0x12da80",
+      "opcode": 7,
+      "dst": 1,
+      "src": 0,
+      "displacement": 0,
+      "immediate": 1,
+      "bytes": 8,
+      "raw": "0701000001000000"
+    },
+    {
+      "offset": "0x88",
+      "address": "0x12da88",
+      "opcode": 113,
+      "dst": 5,
+      "src": 4,
+      "displacement": 0,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7145000000000000"
+    },
+    {
+      "offset": "0x90",
+      "address": "0x12da90",
+      "opcode": 115,
+      "dst": 10,
+      "src": 5,
+      "displacement": -49,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "735acfff00000000"
+    },
+    {
+      "offset": "0x98",
+      "address": "0x12da98",
+      "opcode": 21,
+      "dst": 5,
+      "src": 0,
+      "displacement": 43,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "15052b0000000000",
+      "branchTarget": "0x1f8"
+    },
+    {
+      "offset": "0xa0",
+      "address": "0x12daa0",
+      "opcode": 21,
+      "dst": 5,
+      "src": 0,
+      "displacement": 1,
+      "immediate": 1,
+      "bytes": 8,
+      "raw": "1505010001000000",
+      "branchTarget": "0xb0"
+    },
+    {
+      "offset": "0xa8",
+      "address": "0x12daa8",
+      "opcode": 5,
+      "dst": 0,
+      "src": 0,
+      "displacement": 19,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "0500130000000000",
+      "branchTarget": "0x148"
+    },
+    {
+      "offset": "0xb0",
+      "address": "0x12dab0",
+      "opcode": 21,
+      "dst": 2,
+      "src": 0,
+      "displacement": 179,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "1502b30000000000",
+      "branchTarget": "0x650"
+    },
+    {
+      "offset": "0xb8",
+      "address": "0x12dab8",
+      "opcode": 113,
+      "dst": 8,
+      "src": 1,
+      "displacement": 0,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7118000000000000"
+    },
+    {
+      "offset": "0xc0",
+      "address": "0x12dac0",
+      "opcode": 115,
+      "dst": 10,
+      "src": 8,
+      "displacement": -1,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "738affff00000000"
+    },
+    {
+      "offset": "0xc8",
+      "address": "0x12dac8",
+      "opcode": 165,
+      "dst": 8,
+      "src": 0,
+      "displacement": 33,
+      "immediate": 2,
+      "bytes": 8,
+      "raw": "a508210002000000",
+      "branchTarget": "0x1d8"
+    },
+    {
+      "offset": "0x1d8",
+      "address": "0x12dbd8",
+      "opcode": 7,
+      "dst": 4,
+      "src": 0,
+      "displacement": 0,
+      "immediate": 2,
+      "bytes": 8,
+      "raw": "0704000002000000"
+    },
+    {
+      "offset": "0x1e0",
+      "address": "0x12dbe0",
+      "opcode": 7,
+      "dst": 3,
+      "src": 0,
+      "displacement": 0,
+      "immediate": -2,
+      "bytes": 8,
+      "raw": "07030000feffffff"
+    },
+    {
+      "offset": "0x1e8",
+      "address": "0x12dbe8",
+      "opcode": 191,
+      "dst": 1,
+      "src": 4,
+      "displacement": 0,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "bf41000000000000"
+    },
+    {
+      "offset": "0x1f0",
+      "address": "0x12dbf0",
+      "opcode": 191,
+      "dst": 2,
+      "src": 3,
+      "displacement": 0,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "bf32000000000000"
+    },
+    {
+      "offset": "0x1f8",
+      "address": "0x12dbf8",
+      "opcode": 21,
+      "dst": 2,
+      "src": 0,
+      "displacement": 138,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "15028a0000000000",
+      "branchTarget": "0x650"
+    },
+    {
+      "offset": "0x200",
+      "address": "0x12dc00",
+      "opcode": 191,
+      "dst": 4,
+      "src": 2,
+      "displacement": 0,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "bf24000000000000"
+    },
+    {
+      "offset": "0x208",
+      "address": "0x12dc08",
+      "opcode": 7,
+      "dst": 4,
+      "src": 0,
+      "displacement": 0,
+      "immediate": -1,
+      "bytes": 8,
+      "raw": "07040000ffffffff"
+    },
+    {
+      "offset": "0x210",
+      "address": "0x12dc10",
+      "opcode": 191,
+      "dst": 3,
+      "src": 1,
+      "displacement": 0,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "bf13000000000000"
+    },
+    {
+      "offset": "0x218",
+      "address": "0x12dc18",
+      "opcode": 7,
+      "dst": 3,
+      "src": 0,
+      "displacement": 0,
+      "immediate": 1,
+      "bytes": 8,
+      "raw": "0703000001000000"
+    },
+    {
+      "offset": "0x220",
+      "address": "0x12dc20",
+      "opcode": 113,
+      "dst": 0,
+      "src": 1,
+      "displacement": 0,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7110000000000000"
+    },
+    {
+      "offset": "0x228",
+      "address": "0x12dc28",
+      "opcode": 115,
+      "dst": 10,
+      "src": 0,
+      "displacement": -24,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "730ae8ff00000000"
+    },
+    {
+      "offset": "0x230",
+      "address": "0x12dc30",
+      "opcode": 21,
+      "dst": 0,
+      "src": 0,
+      "displacement": 9,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "1500090000000000",
+      "branchTarget": "0x280"
+    },
+    {
+      "offset": "0x238",
+      "address": "0x12dc38",
+      "opcode": 85,
+      "dst": 0,
+      "src": 0,
+      "displacement": 134,
+      "immediate": 1,
+      "bytes": 8,
+      "raw": "5500860001000000",
+      "branchTarget": "0x670"
+    },
+    {
+      "offset": "0x240",
+      "address": "0x12dc40",
+      "opcode": 165,
+      "dst": 2,
+      "src": 0,
+      "displacement": 129,
+      "immediate": 9,
+      "bytes": 8,
+      "raw": "a502810009000000",
+      "branchTarget": "0x650"
+    },
+    {
+      "offset": "0x248",
+      "address": "0x12dc48",
+      "opcode": 183,
+      "dst": 0,
+      "src": 0,
+      "displacement": 0,
+      "immediate": 1,
+      "bytes": 8,
+      "raw": "b700000001000000"
+    },
+    {
+      "offset": "0x250",
+      "address": "0x12dc50",
+      "opcode": 121,
+      "dst": 3,
+      "src": 1,
+      "displacement": 1,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7913010000000000"
+    },
+    {
+      "offset": "0x258",
+      "address": "0x12dc58",
+      "opcode": 123,
+      "dst": 10,
+      "src": 3,
+      "displacement": -1016,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7b3a08fc00000000"
+    },
+    {
+      "offset": "0x260",
+      "address": "0x12dc60",
+      "opcode": 7,
+      "dst": 2,
+      "src": 0,
+      "displacement": 0,
+      "immediate": -9,
+      "bytes": 8,
+      "raw": "07020000f7ffffff"
+    },
+    {
+      "offset": "0x268",
+      "address": "0x12dc68",
+      "opcode": 7,
+      "dst": 1,
+      "src": 0,
+      "displacement": 0,
+      "immediate": 9,
+      "bytes": 8,
+      "raw": "0701000009000000"
+    },
+    {
+      "offset": "0x270",
+      "address": "0x12dc70",
+      "opcode": 191,
+      "dst": 3,
+      "src": 1,
+      "displacement": 0,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "bf13000000000000"
+    },
+    {
+      "offset": "0x278",
+      "address": "0x12dc78",
+      "opcode": 191,
+      "dst": 4,
+      "src": 2,
+      "displacement": 0,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "bf24000000000000"
+    },
+    {
+      "offset": "0x280",
+      "address": "0x12dc80",
+      "opcode": 21,
+      "dst": 4,
+      "src": 0,
+      "displacement": 121,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "1504790000000000",
+      "branchTarget": "0x650"
+    },
+    {
+      "offset": "0x288",
+      "address": "0x12dc88",
+      "opcode": 113,
+      "dst": 1,
+      "src": 3,
+      "displacement": 0,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7131000000000000"
+    },
+    {
+      "offset": "0x290",
+      "address": "0x12dc90",
+      "opcode": 115,
+      "dst": 10,
+      "src": 1,
+      "displacement": -1,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "731affff00000000"
+    },
+    {
+      "offset": "0x298",
+      "address": "0x12dc98",
+      "opcode": 21,
+      "dst": 1,
+      "src": 0,
+      "displacement": 28,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "15011c0000000000",
+      "branchTarget": "0x380"
+    },
+    {
+      "offset": "0x2a0",
+      "address": "0x12dca0",
+      "opcode": 21,
+      "dst": 1,
+      "src": 0,
+      "displacement": 1,
+      "immediate": 1,
+      "bytes": 8,
+      "raw": "1501010001000000",
+      "branchTarget": "0x2b0"
+    },
+    {
+      "offset": "0x2a8",
+      "address": "0x12dca8",
+      "opcode": 5,
+      "dst": 0,
+      "src": 0,
+      "displacement": 132,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "0500840000000000",
+      "branchTarget": "0x6d0"
+    },
+    {
+      "offset": "0x2b0",
+      "address": "0x12dcb0",
+      "opcode": 165,
+      "dst": 4,
+      "src": 0,
+      "displacement": 115,
+      "immediate": 33,
+      "bytes": 8,
+      "raw": "a504730021000000",
+      "branchTarget": "0x650"
+    },
+    {
+      "offset": "0x2b8",
+      "address": "0x12dcb8",
+      "opcode": 191,
+      "dst": 2,
+      "src": 3,
+      "displacement": 0,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "bf32000000000000"
+    },
+    {
+      "offset": "0x2c0",
+      "address": "0x12dcc0",
+      "opcode": 7,
+      "dst": 2,
+      "src": 0,
+      "displacement": 0,
+      "immediate": 1,
+      "bytes": 8,
+      "raw": "0702000001000000"
+    },
+    {
+      "offset": "0x2c8",
+      "address": "0x12dcc8",
+      "opcode": 121,
+      "dst": 4,
+      "src": 3,
+      "displacement": 7,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7934070000000000"
+    },
+    {
+      "offset": "0x2d0",
+      "address": "0x12dcd0",
+      "opcode": 113,
+      "dst": 5,
+      "src": 3,
+      "displacement": 15,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "71350f0000000000"
+    },
+    {
+      "offset": "0x2d8",
+      "address": "0x12dcd8",
+      "opcode": 115,
+      "dst": 10,
+      "src": 5,
+      "displacement": -520,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "735af8fd00000000"
+    },
+    {
+      "offset": "0x2e0",
+      "address": "0x12dce0",
+      "opcode": 97,
+      "dst": 5,
+      "src": 2,
+      "displacement": 0,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "6125000000000000"
+    },
+    {
+      "offset": "0x2e8",
+      "address": "0x12dce8",
+      "opcode": 99,
+      "dst": 10,
+      "src": 5,
+      "displacement": -56,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "635ac8ff00000000"
+    },
+    {
+      "offset": "0x2f0",
+      "address": "0x12dcf0",
+      "opcode": 105,
+      "dst": 2,
+      "src": 2,
+      "displacement": 4,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "6922040000000000"
+    },
+    {
+      "offset": "0x2f8",
+      "address": "0x12dcf8",
+      "opcode": 107,
+      "dst": 10,
+      "src": 2,
+      "displacement": -52,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "6b2accff00000000"
+    },
+    {
+      "offset": "0x300",
+      "address": "0x12dd00",
+      "opcode": 123,
+      "dst": 10,
+      "src": 4,
+      "displacement": -528,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7b4af0fd00000000"
+    },
+    {
+      "offset": "0x308",
+      "address": "0x12dd08",
+      "opcode": 121,
+      "dst": 2,
+      "src": 10,
+      "displacement": -527,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "79a2f1fd00000000"
+    },
+    {
+      "offset": "0x310",
+      "address": "0x12dd10",
+      "opcode": 113,
+      "dst": 5,
+      "src": 3,
+      "displacement": 32,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7135200000000000"
+    },
+    {
+      "offset": "0x318",
+      "address": "0x12dd18",
+      "opcode": 123,
+      "dst": 10,
+      "src": 5,
+      "displacement": -1032,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7b5af8fb00000000"
+    },
+    {
+      "offset": "0x320",
+      "address": "0x12dd20",
+      "opcode": 191,
+      "dst": 5,
+      "src": 0,
+      "displacement": 0,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "bf05000000000000"
+    },
+    {
+      "offset": "0x328",
+      "address": "0x12dd28",
+      "opcode": 121,
+      "dst": 0,
+      "src": 3,
+      "displacement": 24,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7930180000000000"
+    },
+    {
+      "offset": "0x330",
+      "address": "0x12dd30",
+      "opcode": 121,
+      "dst": 3,
+      "src": 3,
+      "displacement": 16,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7933100000000000"
+    },
+    {
+      "offset": "0x338",
+      "address": "0x12dd38",
+      "opcode": 115,
+      "dst": 10,
+      "src": 4,
+      "displacement": -24,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "734ae8ff00000000"
+    },
+    {
+      "offset": "0x340",
+      "address": "0x12dd40",
+      "opcode": 123,
+      "dst": 10,
+      "src": 3,
+      "displacement": -80,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7b3ab0ff00000000"
+    },
+    {
+      "offset": "0x348",
+      "address": "0x12dd48",
+      "opcode": 123,
+      "dst": 10,
+      "src": 0,
+      "displacement": -72,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7b0ab8ff00000000"
+    },
+    {
+      "offset": "0x350",
+      "address": "0x12dd50",
+      "opcode": 191,
+      "dst": 0,
+      "src": 5,
+      "displacement": 0,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "bf50000000000000"
+    },
+    {
+      "offset": "0x358",
+      "address": "0x12dd58",
+      "opcode": 121,
+      "dst": 3,
+      "src": 10,
+      "displacement": -1032,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "79a3f8fb00000000"
+    },
+    {
+      "offset": "0x360",
+      "address": "0x12dd60",
+      "opcode": 115,
+      "dst": 10,
+      "src": 3,
+      "displacement": -64,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "733ac0ff00000000"
+    },
+    {
+      "offset": "0x368",
+      "address": "0x12dd68",
+      "opcode": 123,
+      "dst": 10,
+      "src": 2,
+      "displacement": -23,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7b2ae9ff00000000"
+    },
+    {
+      "offset": "0x370",
+      "address": "0x12dd70",
+      "opcode": 119,
+      "dst": 2,
+      "src": 0,
+      "displacement": 0,
+      "immediate": 56,
+      "bytes": 8,
+      "raw": "7702000038000000"
+    },
+    {
+      "offset": "0x378",
+      "address": "0x12dd78",
+      "opcode": 121,
+      "dst": 5,
+      "src": 10,
+      "displacement": -24,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "79a5e8ff00000000"
+    },
+    {
+      "offset": "0x380",
+      "address": "0x12dd80",
+      "opcode": 123,
+      "dst": 10,
+      "src": 0,
+      "displacement": -1024,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7b0a00fc00000000"
+    },
+    {
+      "offset": "0x388",
+      "address": "0x12dd88",
+      "opcode": 115,
+      "dst": 10,
+      "src": 1,
+      "displacement": -113,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "731a8fff00000000"
+    },
+    {
+      "offset": "0x390",
+      "address": "0x12dd90",
+      "opcode": 97,
+      "dst": 1,
+      "src": 10,
+      "displacement": -56,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "61a1c8ff00000000"
+    },
+    {
+      "offset": "0x398",
+      "address": "0x12dd98",
+      "opcode": 99,
+      "dst": 10,
+      "src": 1,
+      "displacement": -112,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "631a90ff00000000"
+    },
+    {
+      "offset": "0x3a0",
+      "address": "0x12dda0",
+      "opcode": 105,
+      "dst": 1,
+      "src": 10,
+      "displacement": -52,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "69a1ccff00000000"
+    },
+    {
+      "offset": "0x3a8",
+      "address": "0x12dda8",
+      "opcode": 107,
+      "dst": 10,
+      "src": 1,
+      "displacement": -108,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "6b1a94ff00000000"
+    },
+    {
+      "offset": "0x3b0",
+      "address": "0x12ddb0",
+      "opcode": 115,
+      "dst": 10,
+      "src": 2,
+      "displacement": -98,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "732a9eff00000000"
+    },
+    {
+      "offset": "0x3b8",
+      "address": "0x12ddb8",
+      "opcode": 123,
+      "dst": 10,
+      "src": 5,
+      "displacement": -106,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7b5a96ff00000000"
+    },
+    {
+      "offset": "0x3c0",
+      "address": "0x12ddc0",
+      "opcode": 121,
+      "dst": 1,
+      "src": 10,
+      "displacement": -80,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "79a1b0ff00000000"
+    },
+    {
+      "offset": "0x3c8",
+      "address": "0x12ddc8",
+      "opcode": 123,
+      "dst": 10,
+      "src": 1,
+      "displacement": -97,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7b1a9fff00000000"
+    },
+    {
+      "offset": "0x3d0",
+      "address": "0x12ddd0",
+      "opcode": 121,
+      "dst": 1,
+      "src": 10,
+      "displacement": -72,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "79a1b8ff00000000"
+    },
+    {
+      "offset": "0x3d8",
+      "address": "0x12ddd8",
+      "opcode": 123,
+      "dst": 10,
+      "src": 1,
+      "displacement": -89,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7b1aa7ff00000000"
+    },
+    {
+      "offset": "0x3e0",
+      "address": "0x12dde0",
+      "opcode": 113,
+      "dst": 1,
+      "src": 10,
+      "displacement": -64,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "71a1c0ff00000000"
+    },
+    {
+      "offset": "0x3e8",
+      "address": "0x12dde8",
+      "opcode": 115,
+      "dst": 10,
+      "src": 1,
+      "displacement": -81,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "731aafff00000000"
+    },
+    {
+      "offset": "0x550",
+      "address": "0x12df50",
+      "opcode": 121,
+      "dst": 9,
+      "src": 10,
+      "displacement": -1008,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "79a910fc00000000"
+    },
+    {
+      "offset": "0x558",
+      "address": "0x12df58",
+      "opcode": 123,
+      "dst": 10,
+      "src": 9,
+      "displacement": -528,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7b9af0fd00000000"
+    },
+    {
+      "offset": "0x560",
+      "address": "0x12df60",
+      "opcode": 121,
+      "dst": 1,
+      "src": 10,
+      "displacement": -1016,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "79a108fc00000000"
+    },
+    {
+      "offset": "0x568",
+      "address": "0x12df68",
+      "opcode": 123,
+      "dst": 10,
+      "src": 1,
+      "displacement": -4096,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7b1a00f000000000"
+    },
+    {
+      "offset": "0x570",
+      "address": "0x12df70",
+      "opcode": 191,
+      "dst": 1,
+      "src": 10,
+      "displacement": 0,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "bfa1000000000000"
+    },
+    {
+      "offset": "0x578",
+      "address": "0x12df78",
+      "opcode": 7,
+      "dst": 1,
+      "src": 0,
+      "displacement": 0,
+      "immediate": -113,
+      "bytes": 8,
+      "raw": "070100008fffffff"
+    },
+    {
+      "offset": "0x580",
+      "address": "0x12df80",
+      "opcode": 123,
+      "dst": 10,
+      "src": 1,
+      "displacement": -4088,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7b1a08f000000000"
+    },
+    {
+      "offset": "0x588",
+      "address": "0x12df88",
+      "opcode": 191,
+      "dst": 1,
+      "src": 10,
+      "displacement": 0,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "bfa1000000000000"
+    },
+    {
+      "offset": "0x590",
+      "address": "0x12df90",
+      "opcode": 7,
+      "dst": 1,
+      "src": 0,
+      "displacement": 0,
+      "immediate": -952,
+      "bytes": 8,
+      "raw": "0701000048fcffff"
+    },
+    {
+      "offset": "0x598",
+      "address": "0x12df98",
+      "opcode": 191,
+      "dst": 2,
+      "src": 10,
+      "displacement": 0,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "bfa2000000000000"
+    },
+    {
+      "offset": "0x5a0",
+      "address": "0x12dfa0",
+      "opcode": 7,
+      "dst": 2,
+      "src": 0,
+      "displacement": 0,
+      "immediate": -528,
+      "bytes": 8,
+      "raw": "07020000f0fdffff"
+    },
+    {
+      "offset": "0x5a8",
+      "address": "0x12dfa8",
+      "opcode": 191,
+      "dst": 5,
+      "src": 10,
+      "displacement": 0,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "bfa5000000000000"
+    },
+    {
+      "offset": "0x5b0",
+      "address": "0x12dfb0",
+      "opcode": 191,
+      "dst": 3,
+      "src": 8,
+      "displacement": 0,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "bf83000000000000"
+    },
+    {
+      "offset": "0x5b8",
+      "address": "0x12dfb8",
+      "opcode": 121,
+      "dst": 4,
+      "src": 10,
+      "displacement": -1024,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "79a400fc00000000"
+    },
+    {
+      "offset": "0x5c0",
+      "address": "0x12dfc0",
+      "opcode": 133,
+      "dst": 0,
+      "src": 1,
+      "displacement": 0,
+      "immediate": -136887,
+      "bytes": 8,
+      "raw": "8510000049e9fdff",
+      "callTarget": "0x22a10"
+    }
+  ],
+  "caller_r8_definition_census": [
+    {
+      "offset": "0x0",
+      "address": "0x12da00",
+      "opcode": 191,
+      "dst": 8,
+      "src": 5,
+      "displacement": 0,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "bf58000000000000"
+    },
+    {
+      "offset": "0x60",
+      "address": "0x12da60",
+      "opcode": 183,
+      "dst": 8,
+      "src": 0,
+      "displacement": 0,
+      "immediate": 2,
+      "bytes": 8,
+      "raw": "b708000002000000"
+    },
+    {
+      "offset": "0xb8",
+      "address": "0x12dab8",
+      "opcode": 113,
+      "dst": 8,
+      "src": 1,
+      "displacement": 0,
+      "immediate": 0,
+      "bytes": 8,
+      "raw": "7118000000000000"
+    }
+  ],
+  "direct_fp_overlapping_store_census": {
+    "fee_presence": [
+      {
+        "offset": "0x380",
+        "address": "0x12dd80",
+        "opcode": 123,
+        "dst": 10,
+        "src": 0,
+        "displacement": -1024,
+        "immediate": 0,
+        "bytes": 8,
+        "raw": "7b0a00fc00000000"
+      }
+    ],
+    "fee_value": [
+      {
+        "offset": "0x258",
+        "address": "0x12dc58",
+        "opcode": 123,
+        "dst": 10,
+        "src": 3,
+        "displacement": -1016,
+        "immediate": 0,
+        "bytes": 8,
+        "raw": "7b3a08fc00000000"
+      }
+    ],
+    "new33_after_construction_before_call": []
+  },
+  "original_execute_ingress": [
+    {
+      "offset": "0x0",
+      "opcode": 191,
+      "dst": 6,
+      "src": 5,
+      "displacement": 0,
+      "immediate": 0,
+      "raw": "bf56000000000000",
+      "decoded": "r6 = r5"
+    },
+    {
+      "offset": "0x8",
+      "opcode": 123,
+      "dst": 10,
+      "src": 4,
+      "displacement": -2344,
+      "immediate": 0,
+      "raw": "7b4ad8f600000000",
+      "decoded": "u64[r10-2344] = r4"
+    },
+    {
+      "offset": "0x10",
+      "opcode": 123,
+      "dst": 10,
+      "src": 3,
+      "displacement": -2328,
+      "immediate": 0,
+      "raw": "7b3ae8f600000000",
+      "decoded": "u64[r10-2328] = r3"
+    },
+    {
+      "offset": "0x1e0",
+      "opcode": 121,
+      "dst": 7,
+      "src": 6,
+      "displacement": -4088,
+      "immediate": 0,
+      "raw": "796708f000000000",
+      "decoded": "r7 = u64[r6-4088]"
+    },
+    {
+      "offset": "0x1e8",
+      "opcode": 121,
+      "dst": 1,
+      "src": 6,
+      "displacement": -4096,
+      "immediate": 0,
+      "raw": "796100f000000000",
+      "decoded": "r1 = u64[r6-4096]"
+    }
+  ],
+  "ebe_execute_ingress": [
+    {
+      "offset": "0x0",
+      "va": "0x22a10",
+      "raw": "bf59000000000000",
+      "instruction_bytes": 8,
+      "opcode": 191,
+      "dst": 9,
+      "src": 5,
+      "displacement": 0,
+      "immediate": 0
+    },
+    {
+      "offset": "0x8",
+      "va": "0x22a18",
+      "raw": "7b4af0f600000000",
+      "instruction_bytes": 8,
+      "opcode": 123,
+      "dst": 10,
+      "src": 4,
+      "displacement": -2320,
+      "immediate": 0
+    },
+    {
+      "offset": "0x10",
+      "va": "0x22a20",
+      "raw": "7b3a18f700000000",
+      "instruction_bytes": 8,
+      "opcode": 123,
+      "dst": 10,
+      "src": 3,
+      "displacement": -2280,
+      "immediate": 0
+    },
+    {
+      "offset": "0x108",
+      "va": "0x22b18",
+      "raw": "799108f000000000",
+      "instruction_bytes": 8,
+      "opcode": 121,
+      "dst": 1,
+      "src": 9,
+      "displacement": -4088,
+      "immediate": 0
+    },
+    {
+      "offset": "0x110",
+      "va": "0x22b20",
+      "raw": "7b1a20f700000000",
+      "instruction_bytes": 8,
+      "opcode": 123,
+      "dst": 10,
+      "src": 1,
+      "displacement": -2272,
+      "immediate": 0
+    },
+    {
+      "offset": "0x118",
+      "va": "0x22b28",
+      "raw": "799100f000000000",
+      "instruction_bytes": 8,
+      "opcode": 121,
+      "dst": 1,
+      "src": 9,
+      "displacement": -4096,
+      "immediate": 0
+    },
+    {
+      "offset": "0x120",
+      "va": "0x22b30",
+      "raw": "7b1ad0f600000000",
+      "instruction_bytes": 8,
+      "opcode": 123,
+      "dst": 10,
+      "src": 1,
+      "displacement": -2352,
+      "immediate": 0
+    }
+  ],
+  "public_idl": {
+    "name": "admin_cto",
+    "discriminator": [
+      125,
+      126,
+      214,
+      134,
+      77,
+      229,
+      188,
+      89
+    ],
+    "args": [
+      {
+        "name": "is_holder_reward",
+        "type": {
+          "option": "bool"
+        }
+      },
+      {
+        "name": "creator_fee_bps",
+        "type": {
+          "option": "u64"
+        }
+      },
+      {
+        "name": "new_creator",
+        "type": {
+          "option": "pubkey"
+        }
+      }
+    ]
+  },
+  "public_forwarder": "pub fn admin_cto(ctx:Context<AdminCto>,is_holder_reward:Option<bool>,creator_fee_bps:Option<u64>,new_creator:Option<Pubkey>)->Result<()>{admin_cto::execute(ctx,is_holder_reward,creator_fee_bps,new_creator)}",
+  "private_validate_header": "fn validate(st:&CtoState,hopt:Option<bool>,fee:Option<u64>,new:Option<Pubkey>,holder_key:&Pubkey,sharing:&Pubkey)->Result<Pubkey>{let holder=hopt==Some(true);"
+}

@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Independent SBF fee-schedule mutations using synthetic authorized local state."""
+import gzip
 from fees_admin_differential import *
 from pump_differential_output import PumpReport
 from fee_recovery_fixture import FeeFixture
@@ -66,6 +67,6 @@ def main():
   rows.append({'case':c,'original':x,'candidate':y,'match':match})
   if match is False:failures.append(c['name'])
  report={'scope':'Three fee configuration setters: synthetic authorized state; state/errors/lamports/events/inner instructions. No complete source identity or security finding.','original_sha256':o.program_sha256,'candidate_sha256':b.program_sha256 if b else None,'case_count':len(rows),'mismatches':failures,'cases':rows}
- publisher.write((json.dumps(report,separators=(',',':'))+'\n').encode('utf-8'));print(json.dumps({'case_count':len(rows),'mismatches':failures[:30]}))
+ report_payload=(json.dumps(report,separators=(',',':'))+'\n').encode('utf-8');publisher.write(gzip.compress(report_payload,mtime=0) if a.output.suffix=='.gz' else report_payload);print(json.dumps({'case_count':len(rows),'mismatches':failures[:30]}))
  if failures:raise SystemExit(1)
 if __name__=='__main__':main()

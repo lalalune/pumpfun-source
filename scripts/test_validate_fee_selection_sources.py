@@ -14,14 +14,15 @@ RECOVERED = ROOT / 'programs/pump-fees/recovered'
 # Stand in for the compiled host by answering with the captured program's own
 # results; only the published source binding is under test.
 DRIVER = r'''
-import runpy, subprocess, sys
+import hashlib, pathlib, runpy, subprocess, sys
 root, host, output = sys.argv[1:]
 sys.path.insert(0, root + '/scripts')
-def run(command, **kwargs):
+import native_host_receipt
+def run(host, **kwargs):
     answers = sys._getframe(1).f_globals['expected']
     stdout = ''.join(','.join(map(str, row)) + '\n' for row in answers)
-    return subprocess.CompletedProcess(command, 0, stdout, '')
-subprocess.run = run
+    return subprocess.CompletedProcess([str(host)], 0, stdout, ''), hashlib.sha256(pathlib.Path(host).read_bytes()).hexdigest()
+native_host_receipt.run_host = run
 sys.argv = ['validate_fee_selection.py', '--host', host, '--output', output]
 runpy.run_path(root + '/scripts/validate_fee_selection.py', run_name='__main__')
 '''

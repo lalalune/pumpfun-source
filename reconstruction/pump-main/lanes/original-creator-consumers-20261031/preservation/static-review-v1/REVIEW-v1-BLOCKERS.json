@@ -1,0 +1,55 @@
+{
+  "status": "STATIC_V1_CHANGES_REQUIRED_BEFORE_REPLAY",
+  "frozenDraft": {
+    "path": "/dev/shm/pump-cto-original-consumer-packet-review/draft-v1.MANIFEST.json",
+    "bytes": 4106,
+    "sha256": "87b56f7333f7fc5bdcdf240d636071c4f6b5feb926367016c6258e35f1f41b72"
+  },
+  "code": {
+    "path": "/dev/shm/pump-cto-original-consumer-packet-review/draft-v1.verify.py",
+    "bytes": 21169,
+    "sha256": "f38b19fc7b8985e69f0764ab5de6649f34d2cb8ca6265f8d33269e6a758663f1"
+  },
+  "queries": {
+    "path": "/dev/shm/pump-cto-original-consumer-packet-review/draft-v1.queries.json",
+    "bytes": 51591,
+    "sha256": "e71c17e2886c35771ad5d77606c53e557218b6f9f63cb5434043459f1813705e"
+  },
+  "inputs": {
+    "path": "/dev/shm/pump-cto-original-consumer-packet-review/draft-v1.inputs.json",
+    "bytes": 3193,
+    "sha256": "7e2cde44ebcc006ceaff7dcda4fea36d5057945093f778dfb95ecbf91f402928"
+  },
+  "issues": [
+    {
+      "id": "relocation-link",
+      "finding": "abort_binding resolves through named dynsym without enforcing rel.dyn sh_link points to that table.",
+      "required": "Validate linked symbol-table identity and bounds."
+    },
+    {
+      "id": "full-field-overlap-census",
+      "finding": "Helper direct store census tests only first byte -96/-88 of each8Bfield.",
+      "required": "Census interval overlap with entire field, while preserving the existing full-byte anchored persistence queries."
+    },
+    {
+      "id": "external-producer-transport-boundary",
+      "finding": "Earlier source-memory relay persistence, such as FP-1344 from1890 to1a00, is not independently queried by this68-domain checker. Existing premise names mostly roles/public decoder.",
+      "required": "Explicitly credit/delegate those initial producer/relay persistence facts to sealed05e4/phase proofs, or extend checker before claiming fully independent producer-to-finalconsumer replay."
+    }
+  ],
+  "otherwiseReviewed": "Fail-closed affecting opcode classes, LDDW/control boundaries, fixed68-query domain/vector lengths and expected sets, actual abort-onlycut, preserved uncut alternatives, helper construction anchors, native serializer/curve operands, fixed spec/input hashes and explicit ABI/privatebuffer/callee premises.",
+  "actions": {
+    "verifierExecution": 0,
+    "verifierImport": 0,
+    "pycompileOrAST": 0,
+    "originalELFRead": 0,
+    "newBodyDecode": 0,
+    "projectCLI": 0,
+    "compiler": 0,
+    "scorer": 0,
+    "metric": 0,
+    "VM": 0,
+    "tests": 0
+  },
+  "limits": "No root replay or publication authorization. No all-input/alias/type/originalResultABI/runtime/source gain assertion."
+}

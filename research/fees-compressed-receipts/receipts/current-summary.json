@@ -1,0 +1,472 @@
+{
+  "capture_sha256": "4f2955d0f6b40cc9ff7daa18ccad7d19119ba1249759f4e7e3bb691beee6b35e",
+  "errors": [],
+  "limits": "No reconstructed-source, full-protocol or security conclusion; signature claims remain those of the unchanged ordinary-signature fixture implementations",
+  "producer_sha256": {
+    "scripts/fees_admin_cto_differential.py": "a58fc4c68ef19783866894e4d507f3d0f57b1beaefa5b9679fee4fcaf7ed2743",
+    "scripts/fees_admin_differential.py": "c66411910d4d357581c7331aa3fc7b43f9fb8d41440d548c5ce6327b7fd625ee",
+    "scripts/fees_admin_transfer_differential.py": "fc398f54583321386343f4d85b89faccf400942a0571712b37c557d0b2f9a5f1",
+    "scripts/fees_buyback_differential.py": "647ba24e4e043952db9a42a029fefe7f7436455304b0f01524668cc7498228a1",
+    "scripts/fees_config_differential.py": "9f889f5cd233a34191668d699a4ef472efe6096f72309bda5f91e9123be19178",
+    "scripts/fees_extend_differential.py": "fa65e4194c07d4ca8ed61de9feefb177e922759147e8c4387fd98e6ae1d44262",
+    "scripts/fees_social_claim_v2_differential.py": "49d2746281f224965160a3c45b667d86b6a22fa5ef78ac13a122855a6c5b4dfe",
+    "scripts/fees_social_create_differential.py": "065ea8df8965e6e35d0287f3aa01b25877913fb69c8fa0c95e1677764497c192",
+    "scripts/fees_upsert_differential.py": "81ed2f2a6a696d28820c64cf4fba068b0adef2458e54d275f0a7be576c3af210"
+  },
+  "producers": {
+    "scripts/fees_admin_cto_differential.py": {
+      "gzip": {
+        "case_count": 63,
+        "command": [
+          "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+          "-B",
+          "/home/runner/work/pumpfun-source/pumpfun-source/scripts/fees_admin_cto_differential.py",
+          "--candidate",
+          "/home/runner/work/pumpfun-source/pumpfun-source/evidence/original/pump_fees/deployed.so",
+          "--output",
+          "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/fees_admin_cto_differential/report.json.gz"
+        ],
+        "compressed": true,
+        "decoded_sha256": "5abd3eba1d8848337ad1a231c92ab50dfef840dfe7b555b76bf2d27c4ded407d",
+        "gzip_reader": {
+          "command": [
+            "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+            "-B",
+            "-c",
+            "import gzip,json,sys; r=json.load(gzip.open(sys.argv[1],\"rt\",encoding=\"utf-8\")); print(len(r[\"cases\"]))",
+            "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/fees_admin_cto_differential/report.json.gz"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "63\n"
+        },
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "Cases 63 mismatches []\n",
+        "wire_sha256": "c639bff294e8bff170ec302b1fd4a6771439e694f828ca828a130cb453f899ef"
+      },
+      "plain": {
+        "case_count": 63,
+        "command": [
+          "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+          "-B",
+          "/home/runner/work/pumpfun-source/pumpfun-source/scripts/fees_admin_cto_differential.py",
+          "--candidate",
+          "/home/runner/work/pumpfun-source/pumpfun-source/evidence/original/pump_fees/deployed.so",
+          "--output",
+          "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/fees_admin_cto_differential/report.json"
+        ],
+        "compressed": false,
+        "decoded_sha256": "5abd3eba1d8848337ad1a231c92ab50dfef840dfe7b555b76bf2d27c4ded407d",
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "Cases 63 mismatches []\n",
+        "wire_sha256": "5abd3eba1d8848337ad1a231c92ab50dfef840dfe7b555b76bf2d27c4ded407d"
+      }
+    },
+    "scripts/fees_admin_differential.py": {
+      "gzip": {
+        "case_count": 444,
+        "command": [
+          "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+          "-B",
+          "/home/runner/work/pumpfun-source/pumpfun-source/scripts/fees_admin_differential.py",
+          "--candidate",
+          "/home/runner/work/pumpfun-source/pumpfun-source/evidence/original/pump_fees/deployed.so",
+          "--output",
+          "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/fees_admin_differential/report.json.gz"
+        ],
+        "compressed": true,
+        "decoded_sha256": "f8ea19e6fac983ae34ffa098ded03a61c88a0b93385ef0e31ab270a7bccc71c0",
+        "gzip_reader": {
+          "command": [
+            "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+            "-B",
+            "-c",
+            "import gzip,json,sys; r=json.load(gzip.open(sys.argv[1],\"rt\",encoding=\"utf-8\")); print(len(r[\"cases\"]))",
+            "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/fees_admin_differential/report.json.gz"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "444\n"
+        },
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "{\"case_count\": 444, \"mismatches\": []}\n",
+        "wire_sha256": "2a92a84b48b1913fc8fd09bf47b203aa3820d1ac5cdf5c0f7986f8d73d41f6eb"
+      },
+      "plain": {
+        "case_count": 444,
+        "command": [
+          "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+          "-B",
+          "/home/runner/work/pumpfun-source/pumpfun-source/scripts/fees_admin_differential.py",
+          "--candidate",
+          "/home/runner/work/pumpfun-source/pumpfun-source/evidence/original/pump_fees/deployed.so",
+          "--output",
+          "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/fees_admin_differential/report.json"
+        ],
+        "compressed": false,
+        "decoded_sha256": "f8ea19e6fac983ae34ffa098ded03a61c88a0b93385ef0e31ab270a7bccc71c0",
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "{\"case_count\": 444, \"mismatches\": []}\n",
+        "wire_sha256": "f8ea19e6fac983ae34ffa098ded03a61c88a0b93385ef0e31ab270a7bccc71c0"
+      }
+    },
+    "scripts/fees_admin_transfer_differential.py": {
+      "gzip": {
+        "case_count": 56,
+        "command": [
+          "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+          "-B",
+          "/home/runner/work/pumpfun-source/pumpfun-source/scripts/fees_admin_transfer_differential.py",
+          "--candidate",
+          "/home/runner/work/pumpfun-source/pumpfun-source/evidence/original/pump_fees/deployed.so",
+          "--output",
+          "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/fees_admin_transfer_differential/report.json.gz"
+        ],
+        "compressed": true,
+        "decoded_sha256": "9aae49349b3087088393a1452940617bba31d89ba318d76fcea2a115d33d1bca",
+        "gzip_reader": {
+          "command": [
+            "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+            "-B",
+            "-c",
+            "import gzip,json,sys; r=json.load(gzip.open(sys.argv[1],\"rt\",encoding=\"utf-8\")); print(len(r[\"cases\"]))",
+            "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/fees_admin_transfer_differential/report.json.gz"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "56\n"
+        },
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "{\"case_count\": 56, \"mismatches\": []}\n",
+        "wire_sha256": "3a77f488c2fc6943fda9c5c2d87bba15e4951de58f9efdb41456d340a60d7348"
+      },
+      "plain": {
+        "case_count": 56,
+        "command": [
+          "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+          "-B",
+          "/home/runner/work/pumpfun-source/pumpfun-source/scripts/fees_admin_transfer_differential.py",
+          "--candidate",
+          "/home/runner/work/pumpfun-source/pumpfun-source/evidence/original/pump_fees/deployed.so",
+          "--output",
+          "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/fees_admin_transfer_differential/report.json"
+        ],
+        "compressed": false,
+        "decoded_sha256": "9aae49349b3087088393a1452940617bba31d89ba318d76fcea2a115d33d1bca",
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "{\"case_count\": 56, \"mismatches\": []}\n",
+        "wire_sha256": "9aae49349b3087088393a1452940617bba31d89ba318d76fcea2a115d33d1bca"
+      }
+    },
+    "scripts/fees_buyback_differential.py": {
+      "gzip": {
+        "case_count": 1249,
+        "command": [
+          "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+          "-B",
+          "/home/runner/work/pumpfun-source/pumpfun-source/scripts/fees_buyback_differential.py",
+          "--candidate",
+          "/home/runner/work/pumpfun-source/pumpfun-source/evidence/original/pump_fees/deployed.so",
+          "--output",
+          "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/fees_buyback_differential/report.json.gz"
+        ],
+        "compressed": true,
+        "decoded_sha256": "eb2c9f390722f77132742ed3421e74d9627454db5c86d98265ba354596bd3c9c",
+        "gzip_reader": {
+          "command": [
+            "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+            "-B",
+            "-c",
+            "import gzip,json,sys; r=json.load(gzip.open(sys.argv[1],\"rt\",encoding=\"utf-8\")); print(len(r[\"cases\"]))",
+            "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/fees_buyback_differential/report.json.gz"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "1249\n"
+        },
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "Cases 1249 mismatches []\n",
+        "wire_sha256": "761ac55c5118722343dbd72aff76393af6e0c06077e99f84e0a149bec1a9d41f"
+      },
+      "plain": {
+        "case_count": 1249,
+        "command": [
+          "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+          "-B",
+          "/home/runner/work/pumpfun-source/pumpfun-source/scripts/fees_buyback_differential.py",
+          "--candidate",
+          "/home/runner/work/pumpfun-source/pumpfun-source/evidence/original/pump_fees/deployed.so",
+          "--output",
+          "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/fees_buyback_differential/report.json"
+        ],
+        "compressed": false,
+        "decoded_sha256": "eb2c9f390722f77132742ed3421e74d9627454db5c86d98265ba354596bd3c9c",
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "Cases 1249 mismatches []\n",
+        "wire_sha256": "eb2c9f390722f77132742ed3421e74d9627454db5c86d98265ba354596bd3c9c"
+      }
+    },
+    "scripts/fees_config_differential.py": {
+      "gzip": {
+        "case_count": 625,
+        "command": [
+          "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+          "-B",
+          "/home/runner/work/pumpfun-source/pumpfun-source/scripts/fees_config_differential.py",
+          "--candidate",
+          "/home/runner/work/pumpfun-source/pumpfun-source/evidence/original/pump_fees/deployed.so",
+          "--output",
+          "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/fees_config_differential/report.json.gz"
+        ],
+        "compressed": true,
+        "decoded_sha256": "c2b854ff5763d236dab088dacf51f782a0d725683151cc11ee22ff1f049bb4b4",
+        "gzip_reader": {
+          "command": [
+            "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+            "-B",
+            "-c",
+            "import gzip,json,sys; r=json.load(gzip.open(sys.argv[1],\"rt\",encoding=\"utf-8\")); print(len(r[\"cases\"]))",
+            "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/fees_config_differential/report.json.gz"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "625\n"
+        },
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "{\"case_count\": 625, \"mismatches\": []}\n",
+        "wire_sha256": "d978724e1b446c3baebcf718025897ddcbb77f609b4dd7189a6472f3e0e91ea0"
+      },
+      "plain": {
+        "case_count": 625,
+        "command": [
+          "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+          "-B",
+          "/home/runner/work/pumpfun-source/pumpfun-source/scripts/fees_config_differential.py",
+          "--candidate",
+          "/home/runner/work/pumpfun-source/pumpfun-source/evidence/original/pump_fees/deployed.so",
+          "--output",
+          "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/fees_config_differential/report.json"
+        ],
+        "compressed": false,
+        "decoded_sha256": "c2b854ff5763d236dab088dacf51f782a0d725683151cc11ee22ff1f049bb4b4",
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "{\"case_count\": 625, \"mismatches\": []}\n",
+        "wire_sha256": "c2b854ff5763d236dab088dacf51f782a0d725683151cc11ee22ff1f049bb4b4"
+      }
+    },
+    "scripts/fees_extend_differential.py": {
+      "gzip": {
+        "case_count": 297,
+        "command": [
+          "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+          "-B",
+          "/home/runner/work/pumpfun-source/pumpfun-source/scripts/fees_extend_differential.py",
+          "--candidate",
+          "/home/runner/work/pumpfun-source/pumpfun-source/evidence/original/pump_fees/deployed.so",
+          "--output",
+          "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/fees_extend_differential/report.json.gz"
+        ],
+        "compressed": true,
+        "decoded_sha256": "341a1850efa4062601c408a47db7c3bad66d600c8b2d958033b5a16b173e2dfd",
+        "gzip_reader": {
+          "command": [
+            "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+            "-B",
+            "-c",
+            "import gzip,json,sys; r=json.load(gzip.open(sys.argv[1],\"rt\",encoding=\"utf-8\")); print(len(r[\"cases\"]))",
+            "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/fees_extend_differential/report.json.gz"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "297\n"
+        },
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "{\"case_count\": 297, \"mismatches\": []}\n",
+        "wire_sha256": "5cb61e7cc446942c05564b83e301470bc8a88497c3c7df88d1fda443a9b3fc48"
+      },
+      "plain": {
+        "case_count": 297,
+        "command": [
+          "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+          "-B",
+          "/home/runner/work/pumpfun-source/pumpfun-source/scripts/fees_extend_differential.py",
+          "--candidate",
+          "/home/runner/work/pumpfun-source/pumpfun-source/evidence/original/pump_fees/deployed.so",
+          "--output",
+          "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/fees_extend_differential/report.json"
+        ],
+        "compressed": false,
+        "decoded_sha256": "341a1850efa4062601c408a47db7c3bad66d600c8b2d958033b5a16b173e2dfd",
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "{\"case_count\": 297, \"mismatches\": []}\n",
+        "wire_sha256": "341a1850efa4062601c408a47db7c3bad66d600c8b2d958033b5a16b173e2dfd"
+      }
+    },
+    "scripts/fees_social_claim_v2_differential.py": {
+      "gzip": {
+        "case_count": 627,
+        "command": [
+          "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+          "-B",
+          "/home/runner/work/pumpfun-source/pumpfun-source/scripts/fees_social_claim_v2_differential.py",
+          "--candidate",
+          "/home/runner/work/pumpfun-source/pumpfun-source/evidence/original/pump_fees/deployed.so",
+          "--output",
+          "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/fees_social_claim_v2_differential/report.json.gz"
+        ],
+        "compressed": true,
+        "decoded_sha256": "edd9e8a976eb857c40fc703526a40033cb7d4b1c2274bb31aef97ce317a18d98",
+        "gzip_reader": {
+          "command": [
+            "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+            "-B",
+            "-c",
+            "import gzip,json,sys; r=json.load(gzip.open(sys.argv[1],\"rt\",encoding=\"utf-8\")); print(len(r[\"cases\"]))",
+            "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/fees_social_claim_v2_differential/report.json.gz"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "627\n"
+        },
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "Cases 627 mismatches []\n",
+        "wire_sha256": "7b268a7c285eaefa961782d05be7885592562459d2338f580fa793f28e2df072"
+      },
+      "plain": {
+        "case_count": 627,
+        "command": [
+          "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+          "-B",
+          "/home/runner/work/pumpfun-source/pumpfun-source/scripts/fees_social_claim_v2_differential.py",
+          "--candidate",
+          "/home/runner/work/pumpfun-source/pumpfun-source/evidence/original/pump_fees/deployed.so",
+          "--output",
+          "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/fees_social_claim_v2_differential/report.json"
+        ],
+        "compressed": false,
+        "decoded_sha256": "edd9e8a976eb857c40fc703526a40033cb7d4b1c2274bb31aef97ce317a18d98",
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "Cases 627 mismatches []\n",
+        "wire_sha256": "edd9e8a976eb857c40fc703526a40033cb7d4b1c2274bb31aef97ce317a18d98"
+      }
+    },
+    "scripts/fees_social_create_differential.py": {
+      "gzip": {
+        "case_count": 588,
+        "command": [
+          "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+          "-B",
+          "/home/runner/work/pumpfun-source/pumpfun-source/scripts/fees_social_create_differential.py",
+          "--candidate",
+          "/home/runner/work/pumpfun-source/pumpfun-source/evidence/original/pump_fees/deployed.so",
+          "--output",
+          "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/fees_social_create_differential/report.json.gz"
+        ],
+        "compressed": true,
+        "decoded_sha256": "af97f49946953c64c8c125b34c691dd9d51396dba86f67cb1157499002fc8d29",
+        "gzip_reader": {
+          "command": [
+            "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+            "-B",
+            "-c",
+            "import gzip,json,sys; r=json.load(gzip.open(sys.argv[1],\"rt\",encoding=\"utf-8\")); print(len(r[\"cases\"]))",
+            "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/fees_social_create_differential/report.json.gz"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "588\n"
+        },
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "cases 588 mismatches []\n",
+        "wire_sha256": "6776e1c8862308fd31d85c9aac0d58a43524437afc9f822135f96b6e99f039a3"
+      },
+      "plain": {
+        "case_count": 588,
+        "command": [
+          "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+          "-B",
+          "/home/runner/work/pumpfun-source/pumpfun-source/scripts/fees_social_create_differential.py",
+          "--candidate",
+          "/home/runner/work/pumpfun-source/pumpfun-source/evidence/original/pump_fees/deployed.so",
+          "--output",
+          "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/fees_social_create_differential/report.json"
+        ],
+        "compressed": false,
+        "decoded_sha256": "af97f49946953c64c8c125b34c691dd9d51396dba86f67cb1157499002fc8d29",
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "cases 588 mismatches []\n",
+        "wire_sha256": "af97f49946953c64c8c125b34c691dd9d51396dba86f67cb1157499002fc8d29"
+      }
+    },
+    "scripts/fees_upsert_differential.py": {
+      "gzip": {
+        "case_count": 578,
+        "command": [
+          "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+          "-B",
+          "/home/runner/work/pumpfun-source/pumpfun-source/scripts/fees_upsert_differential.py",
+          "--candidate",
+          "/home/runner/work/pumpfun-source/pumpfun-source/evidence/original/pump_fees/deployed.so",
+          "--output",
+          "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/fees_upsert_differential/report.json.gz"
+        ],
+        "compressed": true,
+        "decoded_sha256": "49b154cc747fc7043ce411ad37722af6187f7f4828d34f06284ff0dc4a8afbd7",
+        "gzip_reader": {
+          "command": [
+            "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+            "-B",
+            "-c",
+            "import gzip,json,sys; r=json.load(gzip.open(sys.argv[1],\"rt\",encoding=\"utf-8\")); print(len(r[\"cases\"]))",
+            "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/fees_upsert_differential/report.json.gz"
+          ],
+          "returncode": 0,
+          "stderr": "",
+          "stdout": "578\n"
+        },
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "{\"case_count\": 578, \"mismatches\": []}\n",
+        "wire_sha256": "1805d1bd40e2eeb894399d0839be506ef1384b5b700566fb43c810386b0393ce"
+      },
+      "plain": {
+        "case_count": 578,
+        "command": [
+          "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+          "-B",
+          "/home/runner/work/pumpfun-source/pumpfun-source/scripts/fees_upsert_differential.py",
+          "--candidate",
+          "/home/runner/work/pumpfun-source/pumpfun-source/evidence/original/pump_fees/deployed.so",
+          "--output",
+          "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/fees_upsert_differential/report.json"
+        ],
+        "compressed": false,
+        "decoded_sha256": "49b154cc747fc7043ce411ad37722af6187f7f4828d34f06284ff0dc4a8afbd7",
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "{\"case_count\": 578, \"mismatches\": []}\n",
+        "wire_sha256": "49b154cc747fc7043ce411ad37722af6187f7f4828d34f06284ff0dc4a8afbd7"
+      }
+    }
+  },
+  "revision": "62865f6501a945c777e3051ae89bacbbbacafb33",
+  "scope": "Complete real CLI corpora for the selected nine producers, captured-image controls, receipt framing only",
+  "stage": "after",
+  "total_cases_per_output_format": 4527
+}

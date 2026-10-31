@@ -1,0 +1,39 @@
+{
+  "status": "PASS_BOUNDED_H1_NEGATIVE_REPLAY",
+  "source": "568790dd4628bb39f9570562f6cc2d1892bcb358",
+  "raw": 347,
+  "normalized": 1034,
+  "total": 1035,
+  "raw_losses": 687,
+  "normalized_losses": 0,
+  "H1_body_bytes": 26776,
+  "original_body_bytes": 27400,
+  "prefix_instructions": 816,
+  "H1_reaching_queries": 27,
+  "original_reaching_queries": 11,
+  "validTagCallerEvaluation": [
+    {
+      "case": "None",
+      "input": 2,
+      "emittedStoredHolder": [
+        0
+      ]
+    },
+    {
+      "case": "Some(false)",
+      "input": 0,
+      "emittedStoredHolder": [
+        0
+      ]
+    },
+    {
+      "case": "Some(true)",
+      "input": 1,
+      "emittedStoredHolder": [
+        1
+      ]
+    }
+  ],
+  "holder_result": "ALTERNATE_PARTIAL_LITERAL_HOLDER_AND1_REALIZED_WITH_EXPLICIT_NONE_BRANCH_AND_MULTIPLE_PROJECTIONS",
+  "limits": "Conditional direct-FP/register evidence and finite valid-tag premise. Secondary39 receipt inspected, not independently rerun. No new official score, compiler, metric or VM; no source acceptance, original Rust-type inference or byte gain."
+}

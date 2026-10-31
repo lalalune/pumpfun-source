@@ -1,0 +1,75 @@
+{
+  "status": "EXTERNAL_SEALED_S4_NEGATIVE_NOT_REPLAYED_BY_THIS_ORIGINAL_ONLY_CHECKER",
+  "source": {
+    "commit": "a119f880c73de06084df27a2b2cbffec09a6f46c",
+    "tree": "cb9c5dc663f5e54509ea12fefef3af7b96fcd1c0",
+    "path": "/dev/shm/pump-cto-permission-s4/programs/pump/src/creator/admin_cto.rs",
+    "sha256": "1206b75e470ce58eb84e02f7b077e04ca91effd8ca57f4b0592d9ab617c75ee8",
+    "gitBlob": "a4b264bcc460dc2c5b11fe3857c17291e2df123d",
+    "bytes": 21995,
+    "lines": 772
+  },
+  "native_elf_sha256": "e60735f50f1435bd36acc200e8cdcf524752947095daeba33ee1f783f044141e",
+  "execute_bytes": 27144,
+  "frozen_control_Ebe_bytes": 27400,
+  "official": {
+    "normalized": 1034,
+    "raw": 347,
+    "rows": 1035,
+    "raw_losses": 687,
+    "normalized_losses": 0,
+    "no_loss_guard": "FAIL",
+    "source_verdict": "REJECTED",
+    "CTO": "unmatched"
+  },
+  "target_metric_executions": 0,
+  "VM_executions": 0,
+  "structural": {
+    "primary": "ABSENT_IN_BOUND_SELECTED_KEY_FLOW",
+    "secondary": "PROVED_BY_COMPLETED32_BYTE_SELECTION_AND_DIRECT_CFG",
+    "C_completion": "0x670",
+    "order_limit": "C now selected before creator validation, earlier than original supplied-new checks; two fee-presence tests remain.",
+    "only_proved_current_consumers": "pre-prepare outer selected32 and distinct incomingN outer32; no S4 curve/Fees/pool/event tail import"
+  },
+  "raw_loss_limit": {
+    "fully_bound_rows_existential": 672,
+    "rows_unknown": 15,
+    "physical_compiled_pairs": 717,
+    "address_immediate_only_changed": 673,
+    "byte_identical": 44,
+    "not_claimed": "No all687 cause, unique original raw witness, generic pointed-data equivalence, source gain or loss waiver. CTO excluded from compiled-pair comparison."
+  },
+  "external_bindings": [
+    {
+      "path": "/dev/shm/pump-cto-permission-s4/work/causal-native-plan/actual/MANIFEST.json",
+      "bytes": 4871,
+      "sha256": "c9d01c37edd50a7b32df57666a9ae0ef7b630806d2330a65b3b22869c5866b60"
+    },
+    {
+      "path": "/dev/shm/pump-cto-permission-s4/work/causal-native-plan/actual/MECHANISM.json",
+      "bytes": 52219,
+      "sha256": "3f9fa9279990f8bc8475079a0b50da100d5e38141199202128bc124fa29a052a"
+    },
+    {
+      "path": "/dev/shm/pump-cto-permission-s4/work/raw-loss-attribution/FINAL-MANIFEST.json",
+      "bytes": 6242,
+      "sha256": "798c4785ffa6aa533ba118a5b04eb14a16215a3e4e9a8703b118ff32991d0ec8"
+    },
+    {
+      "path": "/dev/shm/pump-cto-permission-s4/work/raw-loss-attribution/same-symbol/CONCLUSION.md",
+      "bytes": 4697,
+      "sha256": "31aa2222a97f273d3e4845926948462b45a63bc8b6375561014505cfb153e9d1"
+    },
+    {
+      "path": "/dev/shm/pump-cto-permission-s4/work/publication-scope/MANIFEST.json",
+      "bytes": 1484,
+      "sha256": "df2aff9e45f77715a0e9048b2aa16603107cb4bf9c8d594923c5321ae32a8fa4"
+    },
+    {
+      "path": "/dev/shm/pump-cto-permission-s4/work/publication-scope/PLAN.md",
+      "bytes": 8157,
+      "sha256": "09cef2673acc0355b1443f278031f6ea8bb775e68fb1339b9986189f8c234eae"
+    }
+  ],
+  "checker_limit": "These are hash-bound existing metadata declarations only. The proposed checker replays original bytes/joins and does not decode S4 ELF, recompute saved scores/raw attribution/metric or run VM."
+}

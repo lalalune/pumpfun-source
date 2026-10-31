@@ -43,6 +43,12 @@ The recorded `score.sections` identity follows `f49c8e86`, which adds each
 section's ELF type to the returned map. The measurement reads only each
 section's address, offset and size, which that change leaves unchanged.
 
+The recorded `score.body` identity follows `2c1c1c73a`, `8a59273e2` and
+`1225f898e`, which tighten range alignment validation, harden temporary-file
+cleanup and pin report line endings. The swap-hop measurement is a single
+aligned function range and the recorded numbers are unaffected; only the
+checker bytes moved.
+
 ## Limits and author-reported work
 
 The original contributor reported a native-Linux candidate with 125 raw and

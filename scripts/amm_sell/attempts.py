@@ -21,6 +21,7 @@ import os
 import sys
 import uuid
 from sell_score import SCORE_VERSION, rank
+from ledger_io import append_entry
 
 SWARM = Path(os.environ.get('AMM_SELL_SWARM', Path(__file__).resolve().parent.parent)).resolve()
 LOG = SWARM / 'ATTEMPTS.jsonl'
@@ -126,8 +127,7 @@ def main():
                  'data': json.loads(a.data) if a.data else None}
         with LOCK.open('a') as lock:
             fcntl.flock(lock, fcntl.LOCK_EX)
-            with LOG.open('a') as log:
-                log.write(json.dumps(entry, sort_keys=True) + '\n')
+            append_entry(LOG, entry)
             fcntl.flock(lock, fcntl.LOCK_UN)
         print('logged', entry['attempt_id'])
 

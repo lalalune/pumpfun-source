@@ -10,7 +10,7 @@ import tempfile
 ROOT = Path(__file__).resolve().parents[3]
 # Digests of the reviewed scripts/ sources this entrypoint pins; refresh them
 # whenever the frozen script set moves through a reviewed asset transition.
-REVIEWED = {'scripts/reconstruction_identity_audit.py': '6a5d3b27b82731110d0a7e585c5881d66656b2d4ba1c992f245f2a2030b06d45', 'scripts/analyze.py': 'd5c1350bcaa955257c80513a9e37bc91c5fe94b17691fe48506152eaddf3ffeb', 'scripts/compare.py': '5fa9eafab36c9dd2796a158d2c800725fee3182d81c1ed9d28cea4ba80d1ecf5'}
+REVIEWED = {'scripts/reconstruction_identity_audit.py': '6a5d3b27b82731110d0a7e585c5881d66656b2d4ba1c992f245f2a2030b06d45', 'scripts/analyze.py': '364589223d559a709b48ca56726f4a8f8ad2d1674542a1d94223e1dfbfa0b35d', 'scripts/compare.py': '5fa9eafab36c9dd2796a158d2c800725fee3182d81c1ed9d28cea4ba80d1ecf5'}
 BOOTSTRAP = "import runpy,sys; from pathlib import Path; script=Path(sys.argv[1]); sys.path.insert(0,str(script.parent)); sys.argv=sys.argv[1:]; runpy.run_path(str(script),run_name='__main__')"
 
 

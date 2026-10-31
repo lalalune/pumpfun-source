@@ -1,0 +1,89 @@
+{
+  "commit": "07f2430f112c3ed97bb44cc92fb591cc6f953f48",
+  "tree": "9f38b5bfb339a4a3446d8fd4535680594321ad94",
+  "packetLane": "reconstruction/pump-main/lanes/original-creator-consumers-20261031",
+  "checks": [
+    {
+      "name": "portable",
+      "argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "-B",
+        "reconstruction/pump-main/lanes/original-creator-consumers-20261031/verify.py",
+        "--repo",
+        "/dev/shm/pump-cto-consumer-publication"
+      ],
+      "pid": 740595,
+      "startUtc": "2026-10-31T13:58:07.107669+00:00",
+      "endUtc": "2026-10-31T13:58:07.734637+00:00",
+      "elapsedSeconds": 0.6268964590271935,
+      "exitCode": 0,
+      "inputsUnchanged": true,
+      "localInputs": 365,
+      "externalInputs": 5,
+      "files": {
+        "stdout": {
+          "bytes": 36301,
+          "sha256": "bffbfeb9a2fe59395f788fa89dedb2ff734f6a4c01d7a08f9ed4f3e96932f208"
+        },
+        "stderr": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      }
+    },
+    {
+      "name": "evidence",
+      "argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "-B",
+        "scripts/verify_evidence.py"
+      ],
+      "pid": 740596,
+      "startUtc": "2026-10-31T13:58:08.119319+00:00",
+      "endUtc": "2026-10-31T13:58:08.822769+00:00",
+      "elapsedSeconds": 0.703397007950116,
+      "exitCode": 0,
+      "inputsUnchanged": true,
+      "localInputs": 365,
+      "externalInputs": 5,
+      "files": {
+        "stdout": {
+          "bytes": 376,
+          "sha256": "c22ebace126744c74c1057a2b8ea791e87f9a1ba6abe84fa45af9976848dd2f9"
+        },
+        "stderr": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      }
+    },
+    {
+      "name": "tooling",
+      "argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "-B",
+        "scripts/test_tooling.py"
+      ],
+      "pid": 740597,
+      "startUtc": "2026-10-31T13:58:09.208723+00:00",
+      "endUtc": "2026-10-31T13:59:20.522967+00:00",
+      "elapsedSeconds": 71.31419307197211,
+      "exitCode": 0,
+      "inputsUnchanged": true,
+      "localInputs": 365,
+      "externalInputs": 5,
+      "files": {
+        "stdout": {
+          "bytes": 78,
+          "sha256": "de8722e2e864f1be7f002db5a2baeebdfe82779cd73254909b38d8d662e1d782"
+        },
+        "stderr": {
+          "bytes": 329,
+          "sha256": "89c8ccb4271f4fe6cf6d8481b0aa5de656a1527fb014350d500bc75bc14f5d83"
+        }
+      }
+    }
+  ],
+  "sourceProgramChanges": 0,
+  "limits": "Finite original-only replay and required tooling/evidence checks; no source gain or S4/H1 candidate runtime claim"
+}

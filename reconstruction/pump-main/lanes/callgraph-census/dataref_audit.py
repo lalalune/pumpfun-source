@@ -29,6 +29,8 @@ def lddws(raw, start):
             v = struct.unpack_from('<I', raw, i + 4)[0] | struct.unpack_from('<I', raw, i + 12)[0] << 32
             ln = None
             for k in range(i + 16, min(i + 16 + 4 * 8, len(raw)), 8):
+                if raw[k] & 7 in (5, 6):  # jump, call or exit: a later scalar is unrelated
+                    break
                 if raw[k] == 0xb7:  # mov64 dst, imm: likely the &str length
                     imm = struct.unpack_from('<i', raw, k + 4)[0]
                     if 0 < imm < 4096:
@@ -127,7 +129,7 @@ def main():
                             bad.append({'off': hex(i), 'kind': 'data-fnptr', 'orig': hex(x), 'ours': hex(y),
                                         'our_name': C.short(cf[y][1][0]) if y in cf else None})
                 bo, bc = bo[:w], bc[:w]
-                if mo[:n] != mc[:n]:
+                if mo[:w] != mc[:w]:
                     bad.append({'off': hex(i), 'kind': 'data', 'sec': so, 'orig': hex(vo), 'ours': hex(vc),
                                 'orig_bytes': bo.hex(), 'our_bytes': bc.hex(),
                                 'orig_txt': bo.decode('latin1').encode('unicode_escape').decode()[:40],

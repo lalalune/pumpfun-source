@@ -1,0 +1,69 @@
+{
+  "status": "METADATA_ONLY_ATTACHED_UNREPLAYED_EXTERNAL_PREMISES",
+  "prior_accepted_freeze": "9ce6605d01423904ab3f154da6b3eed9aa6e1a0a9f414502af8675f3a4e7a212",
+  "attached_unchanged_receipts": [
+    {
+      "packet_path": "premises/ORIGINAL-SHARED-FLOW.json",
+      "bytes": 80008,
+      "sha256": "05e4f56ad4280ae06df4eda4ae7296dd0bb3cadc8c6def1ee068ec1fdc0ae978",
+      "copy": "Unchanged owned safe receipt; external premise, not executed by this checker."
+    },
+    {
+      "packet_path": "premises/ORIGINAL-PHASE-GATE.json",
+      "bytes": 60213,
+      "sha256": "434bb4ffe1f92edcd2285d5d403d291ba4a774b133beab90539cfeb7cfacc861",
+      "copy": "Unchanged owned safe receipt; external premise, not executed by this checker."
+    },
+    {
+      "packet_path": "premises/PUBLIC-ABI-MANIFEST.json",
+      "bytes": 1213,
+      "sha256": "bed64ee28036406cc78c09354155300dcd7b4d3383423c980c50d6408d84e5ea",
+      "copy": "Unchanged owned safe receipt; external premise, not executed by this checker."
+    },
+    {
+      "packet_path": "premises/PUBLIC-ABI-RESULT.json",
+      "bytes": 11350,
+      "sha256": "17a249762d6bdddc30d70fdb750419bf2b60f786151d327550fe216f0a5f4fe0",
+      "copy": "Unchanged owned safe receipt; external premise, not executed by this checker."
+    },
+    {
+      "packet_path": "premises/PUBLIC-ABI-WITNESSES.json",
+      "bytes": 27302,
+      "sha256": "80e24e86fead8ab4922ce29ea836f64f625a123e877fe6e8d2beb3b21330c607",
+      "copy": "Unchanged owned safe receipt; external premise, not executed by this checker."
+    }
+  ],
+  "public_ABI_capsule": {
+    "url": "https://github.com/shawkkkkk/pumpfun-source/blob/e07fc54bba34a90d387647e6ebe27ed8597c1e02/reconstruction/pump-main/lanes/source-s1-native-retained-20261031/ebe-control-admission.tar.xz",
+    "commit": "e07fc54bba34a90d387647e6ebe27ed8597c1e02",
+    "tree": "70b6a372f8c46c43a77d05f94ad8fa3d2b0b4903",
+    "path": "reconstruction/pump-main/lanes/source-s1-native-retained-20261031/ebe-control-admission.tar.xz",
+    "sha256": "68ba7b14a10f7a196dd4366c76e07208e54eef27264cc066fc4007191b2af5c1",
+    "git_blob": "b3492aa75faa8861f796f019ebae4a622c31bce3",
+    "members": [
+      "bounded-analysis/public-abi/MANIFEST.json",
+      "bounded-analysis/public-abi/RESULT.json",
+      "bounded-analysis/public-abi/INGRESS-WITNESSES.json",
+      "bounded-analysis/original-fee-paths/CALLER.json"
+    ],
+    "CALLER_sha256": "62447e297c9595733855d50c298308d942155607e46e68a1a30eab6de94d5e4d",
+    "qualification": "Existing immutable public reference only; not fetched or replayed in this packaging step."
+  },
+  "other_public_source_limits": {
+    "05e4": "No exact prior public locator established; full unchanged80008B receipt attached. Related PR3436 is credited, not asserted to host this exactJSON.",
+    "434b": "No exact prior public locator established; full unchanged60213B historical gate attached with its conditional/negative/no-source-GO limits intact."
+  },
+  "root_original_image_role": {
+    "repo_path": "evidence/original/pump/deployed.so",
+    "bytes": 10485715,
+    "sha256": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
+    "capture_metadata": "premises/original-capture.json",
+    "capture_metadata_sha256": "ffb53e71ce9cbee60df91e54cc1d677527a6eeb5806cb8d68e525af698744110",
+    "program": "6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P",
+    "last_deploy_slot": 458921440,
+    "captured_utc": "2026-10-24T23:35:07.696106+00:00",
+    "role": "Existing Root-authenticated captured original reference DATA; not original Rust/source/unique-function/runtime truth. This packaging does not read or acquire the ELF."
+  },
+  "replay_boundary": "Attached receipts are inspectable external premises for initial N source-memory relays/persistence and public ABI roles. The unchanged68-query checker does not read/reprove them. A futurePASS composes checked packed-object-to-consumer joins with those external proofs; not self-contained public-entry-to-consumer verification.",
+  "actions": "Safe receipt copies/reference prose only; no code/spec/inputs/query change, OriginalELF read, verifier/import/AST/tests/metric/VM or remote action."
+}

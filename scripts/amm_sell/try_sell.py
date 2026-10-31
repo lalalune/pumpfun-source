@@ -32,6 +32,7 @@ sys.path.insert(0, str(HERE))
 import native_build  # noqa: E402
 import sell_score  # noqa: E402
 import cache_inputs  # noqa: E402
+from ledger_io import append_entry  # noqa: E402
 
 LOG = SWARM / 'ATTEMPTS.jsonl'
 LOCK = SWARM / '.attempts.lock'
@@ -48,8 +49,7 @@ def sha(data):
 def locked_append(entry):
     with LOCK.open('a') as lock:
         fcntl.flock(lock, fcntl.LOCK_EX)
-        with LOG.open('a') as log:
-            log.write(json.dumps(entry, sort_keys=True) + '\n')
+        append_entry(LOG, entry)
         # Historical distances remain loggable, but cannot update the current scale's best.
         current = (entry.get('metrics') or {}).get('score_version') == sell_score.SCORE_VERSION
         r = sell_score.rank(entry) if current else None

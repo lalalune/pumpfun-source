@@ -4,6 +4,7 @@ if not __debug__:
     raise SystemExit('Normal Python is required; do not use -O or PYTHONOPTIMIZE.')
 import argparse, hashlib, json, struct, subprocess
 from pump_differential_output import PumpReport
+from native_host_receipt import run_host
 import pump_trade_fixture as f
 p=argparse.ArgumentParser();p.add_argument('--host',type=f.pathlib.Path,required=True);p.add_argument('--output',type=f.pathlib.Path,required=True);p.add_argument('--curve-report',type=f.pathlib.Path,default=f.R/'repro/pump/constant-product-differential.json',help='Report produced by pump_validate_constant_product.py');a=p.parse_args();report_output=PumpReport(a.output,f.R,None,__file__,extra_inputs=(a.host,a.curve_report,f.R/'programs/pump/recovered'))
 idl=json.loads((f.R/'evidence/upstream/pump.json').read_text(encoding='utf-8'));types={x['name']:x['type'] for x in idl['types']}
@@ -85,7 +86,7 @@ for case in source_cases:
     row={'amount_in':case['amount_in'],'reserve_in':case['reserve_in'],'reserve_out':case['reserve_out'],'gross_quote_out':case['observed_quote_out'],'protocol_bps':event['fee_basis_points'],'creator_bps':event['creator_fee_basis_points'],'buyback_share_bps':share,'event_unparsed_suffix_hex':event['_unparsed_suffix_hex'],'original_event':{'protocol_fee':event['fee'],'creator_fee':event['creator_fee'],'buyback_fee':event['buyback_fee']},'original_effects':{'creator_accumulated':int.from_bytes(after.data[125:133],'little')-int.from_bytes(base.data[125:133],'little'),'protocol_accumulated':int.from_bytes(after.data[133:141],'little')-int.from_bytes(base.data[133:141],'little'),'user_output':f.vm.get_account(user.pubkey()).lamports-initial[user.pubkey()].lamports+5000,'buyback_output':f.vm.get_account(buyback).lamports-initial[buyback].lamports,'curve_lamports_spent':base.lamports-after.lamports}}
     row['injected_fees']=case.get('injected_fees')
     rows.append(row)
-r=subprocess.run([str(a.host.resolve())],input='\n'.join(inputs)+'\n',text=True,capture_output=True,check=True);outputs=r.stdout.splitlines();assert len(outputs)==len(rows)
+r,host_sha256=run_host(a.host,input='\n'.join(inputs)+'\n',text=True,capture_output=True,check=True);outputs=r.stdout.splitlines();assert len(outputs)==len(rows)
 for row,out in zip(rows,outputs):
     if 'original_error' in row:
         row['recovered_error']=out
@@ -96,5 +97,5 @@ for row,out in zip(rows,outputs):
     row['match']=ev=={'protocol_fee':protocol,'creator_fee':creator,'buyback_fee':buyback_fee} and effects=={'creator_accumulated':creator,'protocol_accumulated':retained,'user_output':user_out,'buyback_output':buyback_fee,'curve_lamports_spent':user_out+buyback_fee}
 failures=[i for i,row in enumerate(rows) if not row['match']]
 sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
-report={'scope':'Partial native SOL sell accounting versus original SBF. Protocol/creator rates are inputs observed from original events or explicitly injected fee schedules; this is not an independent reconstruction of fee selection. Captured external dependency fixture. No complete trade handler, byte identity, token-quote/reward/extension coverage claimed.','source_sha256':sha(f.R/'programs/pump/recovered/sell_accounting.rs'),'host_source_sha256':sha(f.R/'programs/pump/recovered/sell_accounting_host.rs'),'host_sha256':sha(a.host),'fixture_report_sha256':hashlib.sha256(curve_report_bytes).hexdigest(),'case_count':len(rows),'mismatches':failures,'cases':rows}
+report={'scope':'Partial native SOL sell accounting versus original SBF. Protocol/creator rates are inputs observed from original events or explicitly injected fee schedules; this is not an independent reconstruction of fee selection. Captured external dependency fixture. No complete trade handler, byte identity, token-quote/reward/extension coverage claimed.','source_sha256':sha(f.R/'programs/pump/recovered/sell_accounting.rs'),'host_source_sha256':sha(f.R/'programs/pump/recovered/sell_accounting_host.rs'),'host_sha256':host_sha256,'fixture_report_sha256':hashlib.sha256(curve_report_bytes).hexdigest(),'case_count':len(rows),'mismatches':failures,'cases':rows}
 report_output.write((json.dumps(report,indent=2)+'\n').encode("utf-8"));print(json.dumps({'case_count':len(rows),'mismatches':failures}));assert not failures

@@ -44,7 +44,7 @@ increasing compiled completion. Pump Main's meaningful ELF is not yet equal.
 
 AMM, Fees, Mayhem and Donation Relay retain their exact meaningful-ELF
 checkpoints. No build of those programs is claimed in this pass. See the
-[latest scores, runtime coverage and limits](reconstruction/pump-main/checkpoints/completion-pass102-20261031/README.md),
+[latest scores, runtime coverage and limits](reconstruction/pump-main/checkpoints/completion-pass103-20261031/README.md),
 [other-program checkpoint provenance](reconstruction/pump-main/checkpoints/completion-20261030/other-programs.json)
 and [Fees Linux rebuild packet](research/fees-linux-fresh-rebuild-20261030/README.md).
 

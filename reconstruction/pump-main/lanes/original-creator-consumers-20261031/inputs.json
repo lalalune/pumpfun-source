@@ -1,0 +1,64 @@
+{
+  "schema": "original-consumer-portable-inputs-v1",
+  "original": {
+    "path": "evidence/original/pump/deployed.so",
+    "bytes": 10485715,
+    "sha256": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d"
+  },
+  "bodies": {
+    "cto": {
+      "address": 141840,
+      "bytes": 27400,
+      "instructions": 3339,
+      "sha256": "6a7659fd34097683cbfdae56187f5f73a3ecae20e52ac06a3fd25837e4137a96"
+    },
+    "helper": {
+      "address": 1140504,
+      "bytes": 4040,
+      "instructions": 494,
+      "sha256": "29448eb927f43b914f919fa969440b2d7192b77a501548ee3f22da69ffe63833"
+    }
+  },
+  "Fees_method": {
+    "program": "pfeeUxB6jkeY1Hxd7CsFCAjcbHA9rWtchMGdZ6VojVZ",
+    "instruction": "admin_cto_sharing_config",
+    "args": [
+      {
+        "name": "new_admin",
+        "type": {
+          "option": "pubkey"
+        }
+      }
+    ],
+    "discriminator": [
+      60,
+      100,
+      144,
+      156,
+      64,
+      138,
+      182,
+      37
+    ]
+  },
+  "external_premises": {
+    "K_C_N_and_public_N_role_labels": "Conditional on original producer05e4f56a, original phase434bb4ff, public-ingress bed64ee2 and the matching public IDLs; this two-body reader does not reprove the public wrapper decoder or original Rust source.",
+    "curve_object_role": "Accounts+56/creator+8 role reused from the raw original producer/consumer account-model attribution; not original layout uniqueness.",
+    "invoke_name": "Raw target1a0530 role as invoke_signed reuses prior matching helper ABI/CLOSURE; this checker proves argument handoff, not downstream runtime success.",
+    "SBF_ABI": "R6-R9 callee-saved; caller/callee frames distinct. Other calls remain conservative graph fallthrough; actual normal-return semantics are a premise.",
+    "private_buffers": "No hidden alias corruption/indirect private-frame writes; direct FP census cannot prove arbitrary aliases.",
+    "valid_paths": "Meaningful N applies to validated shared-nonholder Some input, reset payload is absent, skip tag2 avoids CPI; graph alternatives are not all-input feasibility.",
+    "helper_persistence": "Pointer/length carry proof is explicitly anchored at data-vector construction under successful serialization/allocation; handle_error remains uncut, not a universal helper dominance claim.",
+    "window": "Maintained original CTO window and known public entry; no unique original function ownership/interior-entry absence theorem.",
+    "prior_source_relays_and_persistence": "The previously sealed ORIGINAL-SHARED-FLOW05e4f56a and phase434bb4ff are external premises for initial N producer transport/source-memory persistence up through the first packed sharing objects FP-1360/-1357 and FP-1376/-1368. In particular this70-query checker does not independently query19d0/FP-1336 back to1870, or1a00/FP-1344 back to1890 on the meaningful Some path. It checks the subsequent packed-object reaching writers/register source addresses and final consumers. The composed producer-to-consumer statement therefore remains conditional on those prior relay/persistence proofs, including valid-path/reset exclusions, not just external logical role labels or the public decoder."
+  },
+  "credits": {
+    "producer05e4": "05e4f56ad4280ae06df4eda4ae7296dd0bb3cadc8c6def1ee068ec1fdc0ae978",
+    "phase434b": "434bb4ffe1f92edcd2285d5d403d291ba4a774b133beab90539cfeb7cfacc861",
+    "publicABI": "bed64ee28036406cc78c09354155300dcd7b4d3383423c980c50d6408d84e5ea",
+    "originalConsumerSeal": "883cea9ee27fc594dc395b67032c577b3ef3ca4867002263a79016ab0b1fe195",
+    "PR3436": "C1 Option negative; not source novelty or rediscovered carrier result.",
+    "PR3483": "S1/S2/S3 native consumers, phase counterexamples, family distinction and serializer format credit.",
+    "PR3524": "Sharing scalar-tag/r9 split and holder-flag RA draft; not original meaningful32B payload-to-serializer attribution. Probes not executed/reviewed/adopted by this packet."
+  }
+}
