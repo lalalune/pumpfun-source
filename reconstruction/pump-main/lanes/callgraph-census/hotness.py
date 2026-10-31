@@ -30,7 +30,7 @@ def main():
     a = ap.parse_args()
     ours = defaultdict(list)
     for l in a.remarks.read_text(errors='replace').splitlines():
-        m = re.match(r"note: (\S+) inline \((\w+)\): '([^']+)'[^']*'([^']+)'", l)
+        m = re.match(r"note: (.+?:\d+:\d+) inline \((\w+)\): '([^']+)'[^']*'([^']+)'", l)
         if not m:
             continue
         loc, kind, callee, caller = m.group(1), m.group(2), demangle(m.group(3)), demangle(m.group(4))
