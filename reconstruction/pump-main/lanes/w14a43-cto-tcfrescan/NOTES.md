@@ -164,3 +164,30 @@ Screens on 2e1379d (all below or equal to main):
 - Two re-read moves (-16 B bases rF+rP, rF+nO, rP+nO, then 66 cross pairs each): best 0.65728.
 - Rc swap of the 5 sharing literals (`e/src`): mint 0.65668, authority 0.65219, global 0.64769, pool_authority 0.6414;
   program 0.65678 at 27,392 B, which led to this change.
+
+## Part 6 (notes, mains 0d945ea -> fc628cf): convergence
+
+`tools/allclones.py` now looks 70 lines ahead for the key load. That finds all 19 inlined AccountInfo clones in execute:
+the 11 TCF clones, the sharing CpiContext `pump_fees`, `pool_authority`, `authority`, `global`, `mint`, `program`, and
+two more (`%_433`/`%_467`, `%_351` on 0d945ea). Earlier parts saw only the 4 sharing clones whose key load comes early, so
+the -8 B base screens on 6330811..2e1379d did not cover pool_authority, authority, global or mint. On 0d945ea and fc628cf
+they are covered:
+
+| main | base (27,392 B unless noted) | ratio | best one-re-read repay at 27,400 |
+| --- | --- | ---: | --- |
+| 0d945ea (0.65758) | rP: pool_authority rent via x | 0.65708 | pool_authority rent re-read (= main) |
+| 0d945ea | tp_dlen | 0.65618 | sharing clone data 0.65578 |
+| 0d945ea | nO: vault ATA owner via x | 0.65588 | vault ATA owner re-read (= main) |
+| 0d945ea | evX: sharing event_authority through `let x` (27,384) | 0.65328 | 0.65279 |
+| 0d945ea | rF: sharing program data via x | 0.65758 | byte-identical to main (27,400) |
+| 0d945ea | evL: sharing event_authority lamports-first | 0.65758 | (27,400, equal ratio) |
+| fc628cf (0.65758 / 3,183) | nB: `!is_writable` | 0.65738 | sharing clone data 0.65698 |
+| fc628cf | rP | 0.65738 | pool_authority rent re-read (= main) |
+
+The Rc swap plus data re-read on the three remaining TCF hand literals (0d945ea, 27,400 B) also loses: first pump_amm 0.65638,
+coin vault ATA 0.65668, `program:` 0.65698.
+
+**Conclusion:** on fc628cf, the TCF and sharing AccountInfo clone space is converged under the post-opt llc oracle. The
+dimensions covered are field-read order (pp), placement (729 per clone), cross-clone placement pairs, Rc order per literal,
+re-reads (singles, within-clone pairs, cross-clone pairs on -16 B bases) and "move a re-read" against every known -8 B lever.
+The lane landed 5 PRs, taking admin_cto from 0.65458 to 0.65758 (#3334, #3344, #3354, #3372, #3378).

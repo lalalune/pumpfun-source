@@ -1,0 +1,93 @@
+{
+ "lane": "w14a43-cto-tcfrescan",
+ "target": "0x22a10 admin_cto::execute",
+ "pinned_bytes": 27400,
+ "start": {
+  "main": "6db95a764",
+  "ratio": 0.65458,
+  "slots_diff": 3280
+ },
+ "best": {
+  "ratio": 0.65758,
+  "slots_diff": 3192,
+  "bytes": 27400,
+  "sha16": "bcefc454326055cb",
+  "landed_as": "#3378 (0d945ea6e)"
+ },
+ "landed": [
+  {
+   "pr": 3334,
+   "merge": "28ab23a9f",
+   "ratio": [
+    0.65458,
+    0.65488
+   ],
+   "change": "TCF first pump_amm literal owner-first"
+  },
+  {
+   "pr": 3344,
+   "merge": "0fbf8daa1",
+   "ratio": [
+    0.65548,
+    0.65578
+   ],
+   "change": "TCF data re-read moved from first pump_amm to vault ATA"
+  },
+  {
+   "pr": 3354,
+   "merge": "d371f9760",
+   "ratio": [
+    0.65578,
+    0.65638
+   ],
+   "change": "TCF vault ATA data-first + owner re-read"
+  },
+  {
+   "pr": 3372,
+   "merge": "2e1379de9",
+   "ratio": [
+    0.65698,
+    0.65728
+   ],
+   "change": "wallet !is_writable + sharing program data re-read"
+  },
+  {
+   "pr": 3378,
+   "merge": "0d945ea6e",
+   "ratio": [
+    0.65728,
+    0.65758
+   ],
+   "change": "sharing program data-first + lamports re-read"
+  }
+ ],
+ "mechanisms": [
+  "literal read order (pp oracle)",
+  "re-read a field through a.<account> (rscan oracle) to repay a -8 B lever",
+  "Rc-order swap (data.clone before lamports.clone) of a literal whose data is already re-read is -8 B; then one more re-read repays it"
+ ],
+ "rejected": [
+  "placement scans (729 x 11 clones) on 6db95a7/28ab23a/0fbf8da/6330811: main best",
+  "fpair cross-clone placement pairs (495)",
+  "inline-in-struct coin_creator / pump_creator_vault as AccountInfo literals: 0.582@27456 / 0.614@27408; literal reloads the Rc field pointer after each overflow check",
+  "Rc swaps of plain TCF clones and sharing literals (<= main)",
+  "catalog knobs (48) on the nA/nB -8 B bases",
+  "-16 B bases + 91/66 cross re-read pairs",
+  "w14a20 %x.i@exit.i lead: already in main via #3315; worth less than the vault ATA re-read"
+ ],
+ "tools": [
+  "tools/rscan.py",
+  "tools/allclones.py",
+  "tools/pscan.py (data-GEP fallback)",
+  "tools/pscan3.py (XBASE/XOFF inline accounts)",
+  "tools/names.py",
+  "tools/kv.sh, cq.sh, capvar.sh, e/klib.py"
+ ],
+ "ledger_keys": "0x22a10-w14-<main7>-tcfrescan-*",
+ "next_ideas": [
+  "run rscan + Rc-swap recipe again after every landing that touches the sweep or sharing CPIs (the optimum moved 4 times)",
+  "extend rscan to re-read the accounts pointer itself (ctx.accounts) per clone, as the original does at 0x3128 (w14a01 found no source form)",
+  "apply the re-read oracle to the outlined AccountInfo::clone sites (wallet, create_idempotent, pool CPI) after outlining is matched"
+ ],
+ "exhausted": true
+}
