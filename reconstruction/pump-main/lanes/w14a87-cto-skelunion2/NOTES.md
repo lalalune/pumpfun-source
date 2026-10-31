@@ -101,6 +101,20 @@ Per 0x800 chunk, M/jM against main 95a64ba (`tbl_chunks_95a64ba.txt`):
 5. **h7 is size-only.** It removes 32 B at M +-0 on main, a1 and t1. It does not apply to and-1 bases, where the same
    memcpy pattern carries a different value.
 
+## Re-check on main ecea702 (#3430: validate volatile placeholder at 334, 0.67076, M 2,239; `tbl_rank_ecea702.md`)
+
+- **B shrinks to +14 M** (27,448 B), and Br to +14 M at 27,416 B. The validate chunks still gain +26, but the rest
+  loses -12, mostly orig 0x2000 (-8).
+  - #3430's placeholder has the same block structure. Blocks are only renumbered: `relayn.alias` maps them by
+    nearest number.
+- **t1 now composes with B better than main does.** t1+B reaches M 2,262 at 27,448 B, and t1+h7+Br M 2,265 at
+  27,384 B. That is the best on every bound: rfR 2,666 and rfjR 2,754.
+- Source-only pinned composites are all below main:
+  - t1+`g.s_su_iflet` 0.66956 at 27,400 (+Br: 27,408 B, M 2,263);
+  - t1+`g.e_reset` 0.66956;
+  - t1+`K.L_fee_unwrap_again` 0.66777.
+- s1 (rfR 2,571-2,599) and k75 (2,622) stay at or below main's 2,623.
+
 ## Hand-off to source search (step 4)
 
 - The structural base to move to is **main's own RA plus the validate error-block order B with the polarity of Br**.

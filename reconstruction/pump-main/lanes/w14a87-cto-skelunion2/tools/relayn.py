@@ -16,20 +16,29 @@ def irmap(path):
         if 'to_string' in s: s=s.split('E.')[-1]
         m.setdefault(s,n)
     return m
+def alias(x,m,spec,used):
+    """renumbered block: same shape with every digit run free; nearest by summed digit distance (<=20), unused."""
+    sp=set(spec.split(',')); dx=[int(d) for d in re.findall(r'\d+',x)]
+    pat=re.sub(r'\d+',r'\\d+',re.escape(x))
+    best=None
+    for k in m:
+        if k in sp or k in used or not re.fullmatch(pat,k): continue
+        dk=[int(d) for d in re.findall(r'\d+',k)]
+        if len(dk)!=len(dx): continue
+        dist=sum(abs(u-v) for u,v in zip(dx,dk))
+        if dist<=20 and (best is None or dist<best[0]): best=(dist,k)
+    return best[1] if best else None
 def run(i,o,spec):
     if spec=='B': spec=B
-    m=irmap(i); out=[]; miss=[]
+    m=irmap(i); out=[]; miss=[]; used=set()
     for grp in spec.split(';'):
         g=[]
         for x in grp.split(','):
             if x=='*': g.append(x)
             elif x in m: g.append(m[x])
             else:
-                pat=re.sub(r'\d+$',r'\\d+',re.escape(x).replace('\\.','.'))
-                c=[k for k in m if re.fullmatch(pat.replace('.',r'\.'),k) and k not in spec.split(',')]
-                num=lambda k:int(re.search(r'(\d+)$',k).group(1))
-                if c: c.sort(key=lambda k:abs(num(k)-num(x)))
-                if c and (len(c)==1 or abs(num(c[0])-num(x))<abs(num(c[1])-num(x))) and abs(num(c[0])-num(x))<=20: g.append(m[c[0]])
+                y=alias(x,m,spec,used)
+                if y: g.append(m[y]); used.add(y)
                 else: miss.append(x)
         out.append(','.join(g))
     t=R.relayout(i,';'.join(out)); open(o,'w').write(t)
