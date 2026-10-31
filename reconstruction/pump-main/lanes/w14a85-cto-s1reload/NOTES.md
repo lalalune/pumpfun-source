@@ -42,6 +42,17 @@ The debug-llc greedy trace on s1+accprobe (0d04cf4, `rx/s1_acc/ra.log`, not kept
 
 The original also splits swept, but it gives the post-sweep piece r9.
 
+Who wins r9 in ours, and the original's counterpart:
+- In ours, r9 is won by the CpiContext program clone's lamports and data Rc pointers. These are `%1863 = LDD %290,8` and
+  `%1872 = LDD %290,16`, live from the first clone (57136) to the struct store (63032), with weights 2.0e-6 and 2.4e-6
+  against swept's 9.9e-7. They hold r9 and r8 across the run.
+- The original holds the same two pointers in **caller-saved** r0 and r7 (orig 0x3d98 `ldxdw r0,[r1+8]`, 0x3de8 `ldxdw r7,[r1+16]`).
+  It shuffles them at 0x4270 `mov r8,r7`, 0x4298 `mov r7,r0` and 0x4388 `mov r0,r7`. These are the "three long-lived values
+  shuffled through r6/r7/r8/r0".
+- In ours r7 is the accounts pointer for the whole run. Its first load is 3d58 `ldxdw r7,[r10-0x8d8]`. That pushes the two Rc
+  pointers into r8/r9, which leaves swept no register. The original reloads the accounts pointer into r1 per clone,
+  and r1 becomes the AccountInfo pointer at once.
+
 | occupant (ours, s1 95a64ba) | value | misses |
 | --- | --- | ---: |
 | r5 <- 3d68 `ldxdw r5,[r1+8]` | clone 1 (CpiContext program) lamports Rc | 19 |
