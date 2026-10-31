@@ -33,3 +33,41 @@ G['n_ensok']=[(_NA,"(if amount>0{"+_E+"?;"+_T+"}else{Ok(())}).map(|()|amount)".r
 G['wl_owner_chk']=[("else if a.current_creator.owner!=&anchor_lang::system_program::ID{","else if !anchor_lang::solana_program::system_program::check_id(a.current_creator.owner){")]
 G['wl_frozen_let']=[("if token_frozen(a.current_creator_quote_token_account.as_ref())?{msg!","let cf=token_frozen(a.current_creator_quote_token_account.as_ref())?;if cf{msg!")]
 G['wl_exec_ne']=[("if a.current_creator.executable{msg!","if a.current_creator.executable!=false{msg!")]
+# ---- polarity knobs (`!x` <-> `x==false`): wl_writ_eq is +8 B with no other codegen change; screen every `!` site ----
+G['p_feecfg']=[("if !st.fee_configurable{return","if st.fee_configurable==false{return")]
+G['p_colnat']=[("if !collection_native||coin_present{","if collection_native==false||coin_present{")]
+G['p_dc_empty']=[("collection_native||(!a.creator_vault_quote_token_account.data_is_empty()&&","collection_native||(a.creator_vault_quote_token_account.data_is_empty()==false&&")]
+G['p_dc_frozen']=[("&&!token_frozen(a.creator_vault_quote_token_account.as_ref())?);","&&token_frozen(a.creator_vault_quote_token_account.as_ref())?==false);")]
+G['p_docoin']=[("let do_coin=coin_present&&!token_frozen(a.coin_creator_vault_ata.as_ref())?;","let do_coin=coin_present&&token_frozen(a.coin_creator_vault_ata.as_ref())?==false;")]
+G['p_coinpres']=[("let coin_present=!a.coin_creator_vault_ata.data_is_empty();","let coin_present=a.coin_creator_vault_ata.data_is_empty()==false;")]
+G['p_ammfz']=[("let amm_frozen=!a.coin_creator_vault_ata.data_is_empty()&&","let amm_frozen=a.coin_creator_vault_ata.data_is_empty()==false&&")]
+G['p_elseif']=[("else if !a.coin_creator_vault_ata.data_is_empty(){crate::pump_amm","else if a.coin_creator_vault_ata.data_is_empty()==false{crate::pump_amm")]
+G['p_skip']=[("swept=(!skip).then(","swept=(skip==false).then(")]
+G['p_289']=[("if st.holder_reward&&!(hopt==Some(true)){","if st.holder_reward&&(hopt==Some(true))==false{")]
+G['p_296a']=[("if holder&&!st.holder_reward&&!st.holder_enabled{","if holder&&st.holder_reward==false&&!st.holder_enabled{")]
+G['p_296b']=[("if holder&&!st.holder_reward&&!st.holder_enabled{","if holder&&!st.holder_reward&&st.holder_enabled==false{")]
+G['p_shared']=[("a.sharing_config.owner==&FEES&&!a.sharing_config.data_is_empty();","a.sharing_config.owner==&FEES&&a.sharing_config.data_is_empty()==false;")]
+G['p_cb']=[("let cashback=!holder&&st.cashback;","let cashback=holder==false&&st.cashback;")]
+G['p_co']=[("(!st.holder_reward&&st.creator!=Pubkey::default(),None,true)","(st.holder_reward==false&&st.creator!=Pubkey::default(),None,true)")]
+G['p_pool']=[("let pool_updated=!a.pool.data_is_empty() &&","let pool_updated=a.pool.data_is_empty()==false &&")]
+# ---- CPI AccountInfo literal -8 moves (Rc swap / re-read removal) for pairing with +8 knobs ----
+import re as _re
+_LIT=_re.compile(r'\{let x:&AccountInfo=[^}]*\}\}')
+def _litk(k,fn):
+    def g(s):
+        ms=list(_LIT.finditer(s)); m=ms[k-1]; t=m.group(0); t2=fn(t); assert t2!=t,(k,t[:80])
+        return s[:m.start()]+t2+s[m.end():]
+    return [g]
+def _swapLD(t):
+    fs=_re.search(r'AccountInfo\{(.*)\}\}',t).group(1).split(',')
+    il=[i for i,f in enumerate(fs) if f.startswith('lamports:')][0]; id_=[i for i,f in enumerate(fs) if f.startswith('data:')][0]
+    fs[il],fs[id_]=fs[id_],fs[il]
+    return t[:t.index('AccountInfo{')+12]+','.join(fs)+'}}'
+def _unread(field):
+    def f(t):
+        acct=_re.search(r'=\s*(a\.[\w]+)',t).group(1)
+        return _re.sub(_re.escape(acct)+r'\.'+field+r'\b','x.'+field,t)
+    return f
+for _k in range(1,10): G[f'sw{_k}']=_litk(_k,_swapLD)
+G['ur3d']=_litk(3,_unread('data')); G['ur3o']=_litk(3,_unread('owner')); G['ur5r']=_litk(5,_unread('rent_epoch'))
+G['ur9d']=_litk(9,_unread('data')); G['ur9l']=_litk(9,_unread('lamports'))
