@@ -25,13 +25,13 @@
   "M": 2194,
   "slots": 3222,
   "bytes": 27400,
-  "note": "zero-loss on c3e5b51 (measure.sh, differential 363/0) but main 2e1379d reached 0.65728 via #3372 first; merge ties (slots 3215)"
+  "note": "zero-loss on c3e5b51 (measure.sh, differential 363/0) but main 2e1379d reached 0.65728 via #3372 first; merge ties (slots 3215); the same su_tafter+amm+owner re-read bundle was later landed by w14a53 (#3361)"
  },
  "final_main": {
-  "sha": "2e1379de9",
-  "ratio": 0.65728,
-  "slots": 3192,
-  "M": 2194
+  "sha": "304b03a82",
+  "ratio": 0.65788,
+  "slots": 3223,
+  "M": 2196
  },
  "attempts": {
   "pscan_place_pp_on_s_iflet": 6100,
@@ -51,11 +51,13 @@
   "re-read beams on su_tafter bases (<=2194)"
  ],
  "residuals": [
+  "on 304b03a: dropping the #3369 rent re-read is a free -8 B (2196 @27392); a zero-cost +8 B at 0x180-0x190 or 0x1f70-0x1fa0 would be +1 M (junk bound)",
   "su_tafter +4 M at -40 B (2198 @27360 on 2e1379d); pure-junk bound 2200 @27400; needs ~40 B faithful code at <=5 M",
   "sharing CPI per-clone accounts reload is RA (w14a01/w14a47)",
   "val payload copy 7/8/8/8/1 pieces from new's SROA slices (global new representation)"
  ],
  "next_ideas": [
+  "find a zero-cost faithful +8 B near the shared chain (0x180) or the TCF arm head (0x1f70) to pair with dropping the rent re-read",
   "faithful entry-region (0x0-0x200) instruction-adding forms to repay su_tafter",
   "re-screen the re-read ADD lattice after each sharing-arm landing"
  ]
