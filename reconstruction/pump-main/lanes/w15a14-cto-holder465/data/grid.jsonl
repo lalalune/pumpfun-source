@@ -1,0 +1,28 @@
+{"name": "m0_none", "full": 1, "ratio": 0.67346, "slots": 3124, "bytes": 27400, "eq_main": true, "L1": 0.70282, "L2": 0.7855}
+{"name": "m0_accdcp", "force": "1671=r7,1864=r8,1865=r8,1866=r8,1867=r8,1868=r8", "full": 1, "ratio": 0.67705, "slots": 3116, "bytes": 27400, "eq_main": false, "L1": 0.70641, "L2": 0.7855}
+{"name": "m0_acc", "force": "1671=r7", "full": 1, "ratio": 0.67555, "slots": 3117, "bytes": 27400, "eq_main": false, "L1": 0.70491, "L2": 0.7855}
+{"name": "m0_dcp", "force": "1864=r8,1865=r8,1866=r8,1867=r8,1868=r8", "full": 1, "ratio": 0.67496, "slots": 3123, "bytes": 27400, "eq_main": false, "L1": 0.70431, "L2": 0.7855}
+{"name": "m0S465_acc", "force": "1671=r7,465=spill", "full": 1, "ratio": 0.65978, "slots": null, "bytes": 27392, "eq_main": false, "L1": 0.69154, "L2": 0.78532}
+{"name": "m0S465_dcp", "force": "1864=r8,1865=r8,1866=r8,1867=r8,1868=r8,465=spill", "full": 1, "ratio": 0.66187, "slots": null, "bytes": 27392, "eq_main": false, "L1": 0.69363, "L2": 0.78532}
+{"name": "m0S465_none", "force": "465=spill", "full": 1, "ratio": 0.66037, "slots": null, "bytes": 27392, "eq_main": false, "L1": 0.69213, "L2": 0.78532}
+{"name": "m0S465_accdcp", "force": "1671=r7,1864=r8,1865=r8,1866=r8,1867=r8,1868=r8,465=spill", "full": 1, "ratio": 0.66127, "slots": null, "bytes": 27392, "eq_main": false, "L1": 0.69303, "L2": 0.78532}
+{"name": "rc_none", "full": 1, "ratio": 0.57674, "slots": null, "bytes": 27368, "eq_main": false, "L1": 0.66547, "L2": 0.77998}
+{"name": "rc_acc", "force": "1676=r7", "full": 1, "ratio": 0.57884, "slots": null, "bytes": 27368, "eq_main": false, "L1": 0.66757, "L2": 0.77998}
+{"name": "rc_dcp", "force": "1854=r8,1855=r8,1856=r8,1857=r8,1858=r8", "full": 1, "ratio": 0.57794, "slots": null, "bytes": 27368, "eq_main": false, "L1": 0.66667, "L2": 0.77998}
+{"name": "rc_accdcp", "force": "1676=r7,1854=r8,1855=r8,1856=r8,1857=r8,1858=r8", "full": 1, "ratio": 0.58004, "slots": null, "bytes": 27368, "eq_main": false, "L1": 0.66876, "L2": 0.77998}
+{"name": "rcS10_none", "force": "10=spill", "full": 1, "ratio": 0.56672, "slots": null, "bytes": 27352, "eq_main": false, "L1": 0.66717, "L2": 0.78021}
+{"name": "rcS10_dcp", "force": "1854=r8,1855=r8,1856=r8,1857=r8,1858=r8,10=spill", "full": 1, "ratio": 0.56248, "slots": null, "bytes": 27384, "eq_main": false, "L1": 0.66227, "L2": 0.77974}
+{"name": "rcS10_acc", "force": "1676=r7,10=spill", "full": 1, "ratio": 0.56642, "slots": null, "bytes": 27352, "eq_main": false, "L1": 0.66657, "L2": 0.78021}
+{"name": "rcS10_accdcp", "force": "1676=r7,1854=r8,1855=r8,1856=r8,1857=r8,1858=r8,10=spill", "full": 1, "ratio": 0.56218, "slots": null, "bytes": 27384, "eq_main": false, "L1": 0.66167, "L2": 0.77974}
+{"name": "rclz_none", "full": 1, "ratio": 0.5758, "slots": null, "bytes": 27344, "eq_main": false, "L1": 0.66697, "L2": 0.78003}
+{"name": "rclz_acc", "force": "1673=r7", "full": 1, "ratio": 0.5776, "slots": null, "bytes": 27344, "eq_main": false, "L1": 0.66907, "L2": 0.78003}
+{"name": "rclz_dcp", "force": "1847=r8,1848=r8,1849=r8,1850=r8,1851=r8", "full": 1, "ratio": 0.5773, "slots": null, "bytes": 27344, "eq_main": false, "L1": 0.66847, "L2": 0.78003}
+{"name": "rclz_accdcp", "force": "1673=r7,1847=r8,1848=r8,1849=r8,1850=r8,1851=r8", "full": 1, "ratio": 0.5791, "slots": null, "bytes": 27344, "eq_main": false, "L1": 0.67057, "L2": 0.78003}
+{"name": "rclzS388_acc", "force": "1673=r7,388=spill", "full": 1, "ratio": 0.54649, "slots": null, "bytes": 27248, "eq_main": false, "L1": 0.63933, "L2": 0.78384}
+{"name": "rclzS388_none", "force": "388=spill", "full": 1, "ratio": 0.54156, "slots": null, "bytes": 27408, "eq_main": false, "L1": 0.63292, "L2": 0.74704}
+{"name": "rclzS388_dcp", "force": "1847=r8,1848=r8,1849=r8,1850=r8,1851=r8,388=spill", "full": 1, "ratio": 0.54208, "slots": null, "bytes": 27416, "eq_main": false, "L1": 0.63582, "L2": 0.74873}
+{"name": "rclzS388_accdcp", "force": "1673=r7,1847=r8,1848=r8,1849=r8,1850=r8,1851=r8,388=spill", "full": 1, "ratio": 0.54799, "slots": null, "bytes": 27248, "eq_main": false, "L1": 0.64083, "L2": 0.78384}
+{"name": "s465_none", "force": "465=spill", "full": 1, "ratio": 0.66037, "slots": null, "bytes": 27392, "eq_main": false, "L1": 0.69213, "L2": 0.78532}
+{"name": "s465_acc", "force": "1676=r7,465=spill", "full": 1, "ratio": 0.66217, "slots": null, "bytes": 27392, "eq_main": false, "L1": 0.69423, "L2": 0.78532}
+{"name": "s465_dcp", "force": "1864=r8,1865=r8,1866=r8,1867=r8,1868=r8,465=spill", "full": 1, "ratio": 0.66187, "slots": null, "bytes": 27392, "eq_main": false, "L1": 0.69363, "L2": 0.78532}
+{"name": "s465_accdcp", "force": "1676=r7,1864=r8,1865=r8,1866=r8,1867=r8,1868=r8,465=spill", "full": 1, "ratio": 0.66367, "slots": null, "bytes": 27392, "eq_main": false, "L1": 0.69573, "L2": 0.78532}

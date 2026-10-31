@@ -1,0 +1,60 @@
+{
+ "lane": "w15a14-cto-holder465",
+ "target": "0x22a10 admin_cto::execute",
+ "base": "main 90300f9d2 (programs unchanged to b8586325a)",
+ "base_metrics": {
+  "ratio": 0.67346,
+  "slots": 3124,
+  "bytes": 27400,
+  "M": 2248,
+  "skM": 2810
+ },
+ "result": "notes only, no gain: %465 (!holder) is not the upstream lever of the wallet register chain",
+ "best": {
+  "ratio": 0.67346,
+  "slots": 3124,
+  "bytes": 27400,
+  "note": "main; no zero-loss candidate"
+ },
+ "attempts": {
+  "ir": [
+   "rc 0.57674@27368",
+   "rch = rc",
+   "rcl 0.57537@27384",
+   "rclz 0.57580@27344",
+   "sj 0.56907@27272",
+   "sj8 0.27808@27272",
+   "nosink 0.4766@27504"
+  ],
+  "ra": [
+   "465=spill 0.66037@27392 (skM +63)",
+   "+accdcp 0.66367",
+   "r9 chain 465,466,389,56 spilled -> %742=r9, accounts r7, 0.59793@27296 M 1992"
+  ],
+  "grid": "partner forces acc/dcp/accdcp +0.0018..0.0036 on every base (main best 0.67705)",
+  "climb": [
+   "main --size 27400 6 forces 0.68155",
+   "465=spill 6 forces 0.67725@27432"
+  ],
+  "source": [
+   "cbcurve 0.54792@27168",
+   "cbhv 0.55602@27256"
+  ]
+ },
+ "rejected_mechanisms": [
+  "recompute !holder at the curve store (IR and source)",
+  "re-derive cashback from the curve byte (IR and source)",
+  "cashback stored at the validate-exit join (alloca)",
+  "465 spill alone or with the r9 refill occupants",
+  "global -disable-machine-sink"
+ ],
+ "unresolved": [
+  "the wallet rotation needs four long head-to-tail intervals (!holder, st.cashback, fee, sharing tag) out of registers; the original keeps holder/cashback as spilled per-arm phis"
+ ],
+ "next_ideas": [
+  "treat the wallet colouring as a consequence of the original's per-arm validate (holder/cashback spilled phis) rather than a single-value lever; price it only inside a whole-region validate rewrite",
+  "the s465 sharing clone-run skeleton gain (+63 skM, orig 0x3ec0-0x4360: clone pieces spill at def) is the only new structural signal; a source shape that spills clone pieces at def without the 8 B frame shrink is untested",
+  "main's 6-force colour climb ceiling at 27400 is 0.68155 (1684=r6,1671=r7,1906=r6,1617=r3,1706=r4,1384=r5)"
+ ],
+ "ledger_keys": "0x22a10-w15-90300f9-holder465-*"
+}
