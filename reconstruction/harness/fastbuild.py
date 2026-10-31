@@ -227,17 +227,26 @@ def archive_previous_outputs(out: Path):
         path.rename(archive / path.name)
 
 
-def build(src: Path, work: Path, out: Path, quiet=False, recipe=None, timeout=None):
-    validate_timeout(timeout)
-    validate_slots()
+def require_separate(src: Path, work: Path, out: Path):
+    """Reject a workspace or output that overlaps the source tree.
+
+    Reject overlap before workspace_lock can create a directory or lock in
+    the source tree (and thereby change its source-input receipt). The output
+    directory must not contain the source either: publishing into a parent of
+    src archives and writes inside the tree that holds it. Callers that write
+    near the workspace before building must preflight with this first.
+    """
     src = src.resolve(); work = work.resolve(); out = out.resolve()
-    # Reject overlap before workspace_lock can create a directory or lock in
-    # the source tree (and thereby change its source-input receipt). The
-    # output directory must not contain the source either: publishing into a
-    # parent of src archives and writes inside the tree that holds it.
     if (src == work or src in work.parents or work in src.parents
             or src == out or src in out.parents or out in src.parents):
         raise ValueError('source must not overlap the build workspace or contain output')
+    return src, work, out
+
+
+def build(src: Path, work: Path, out: Path, quiet=False, recipe=None, timeout=None):
+    validate_timeout(timeout)
+    validate_slots()
+    src, work, out = require_separate(src, work, out)
     # Staging uses rsync --delete before prior outputs are archived.
     staged = (work / 'ws/programs/pump').resolve()
     if out == staged or staged in out.parents:

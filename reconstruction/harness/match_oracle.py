@@ -75,6 +75,9 @@ def publish_verdict(path, text):
 
 
 def evaluate(source, work, output, target, kind, recipe, baseline=None):
+    # The scoring snapshot is written beside the workspace; refuse an overlap
+    # first so a rejected invocation leaves the source tree untouched.
+    fastbuild.require_separate(source, work, output)
     scoring = work / 'scoring-inputs'
     scoring.mkdir(parents=True)
     copy_original_inputs(score.BASE, scoring)
