@@ -216,6 +216,15 @@ def build_environment(harness, target, staging, extra_root_flags, jobs, link_scr
     return env
 
 
+def invalidate_local_crates(target):
+    """Rebuild both local packages even when retained fingerprints date ahead."""
+    for name in ('pump-amm-recovered', 'native-transfer-fee'):
+        for pattern in (f'release/.fingerprint/{name}-*',
+                        f'*/release/.fingerprint/{name}-*'):
+            for fingerprint in target.glob(pattern):
+                shutil.rmtree(fingerprint)
+
+
 def build(lane, build_id, source_root=None, sell=None, patch=None, extra_root_flags='', link_script=None,
           keep_ws=False, jobs=4):
     lane = Path(lane).absolute()
@@ -236,11 +245,9 @@ def build(lane, build_id, source_root=None, sell=None, patch=None, extra_root_fl
                 subprocess.run(['patch', '-p1', '-d', str(ws), '-i', str(Path(patch).absolute())], check=True,
                                stdout=log, stderr=subprocess.STDOUT)
         shutil.copyfile(sell_path, staging / 'sell.rs')
-        # Restored files can carry old mtimes; force both local crates to recompile.
-        now = time.time()
-        for crate in ('programs/pump-amm', 'crates/native-transfer-fee'):
-            for path in (ws / crate).rglob('*.rs'):
-                os.utime(path, (now, now))
+        # A warm target can carry timestamps newer than this machine's clock.
+        # Touching restored sources is not enough to make Cargo rebuild them.
+        invalidate_local_crates(target)
         env = build_environment(harness, target, staging, extra_root_flags, jobs, link_script)
         started = time.time()
         with (staging / 'build.log').open('wb') as log:

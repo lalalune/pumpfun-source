@@ -118,6 +118,7 @@ jobs:
               python -B scripts/test_amm_harness_content_cache.py
               python -B tests/test_amm_nested_target.py
               python -B tests/test_amm_build_environment.py
+              python -B tests/test_amm_native_fingerprints.py
               python -B tests/test_amm_input_binding.py
               python -B scripts/test_search_dependency_commit.py
               python -B tests/test_amm_pinned_candidate.py
