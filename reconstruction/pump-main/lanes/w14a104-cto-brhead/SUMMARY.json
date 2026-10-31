@@ -1,0 +1,25 @@
+{
+  "lane": "w14a104-cto-brhead",
+  "target": "0x22a10 admin_cto::execute (pinned 27400 B)",
+  "bases": {"963d1ee": {"ratio": 0.67226, "M": 2244, "jM": 2271}, "13fe453": {"ratio": 0.67256, "M": 2245, "jM": 2271}, "ebe5387": {"ratio": 0.67316, "M": 2247, "jM": 2273}},
+  "result": "no landable change; best zero-loss measurement is main",
+  "best_source_lead": {"name": "h289", "edit": "line 289: if st.holder_reward&&!holder{..}", "ebe5387": {"ratio": 0.66896, "M": 2233, "jM": 2343, "bytes": 27400}, "note": "Br's bb7.i->bb10.i (Err289) fallthrough from plain source; byte-identical to s289G and e3c; validate-only (0x800 chunk -14 M / +57 jM)"},
+  "bounds": {
+    "head_only_relay_on_main": "a1/a3/a4 M 2213-2215 (jM up to 2349); task head subset 2192 @27416: head half alone is not worth +14 M",
+    "h289_relay_full_Br": "M 2270 jM 2383 @27416 (963d1ee, main RA)",
+    "h289_relay_target_piece": "M 2248 @27400 (963d1ee)",
+    "h289_ir_glue_j2": "bb21.i>bb12.i, bb25.i>bb21.i, bb20.i>bb13.i, real llc: M 2249 jM 2359 @27392 (13fe453; +4 M at -8 B)",
+    "h289_ir_plus_weights": "bb21>bb12, bb20>bb13 + bb12.i/bb21.i 1:1: M 2263 jM 2380 @27400, 0.67795 (13fe453)"
+  },
+  "mechanisms": [
+    "rustc first-reference order creates Err296 (named by the enabled test) before the target arms whenever holder is tested twice; no polarity/order/guard spelling changes it",
+    "holder test is icmp eq (and hopt,-3),0 so BPI zero heuristic gives 12:20; the original and-1 (50/50) forms all fall into the and-1 RA basin",
+    "outline basin = LLVM inliner cold-callsite rule (BFI < 2% of entry -> threshold 45): 307/312 to_string sites at 0.022 on h289, 0.013 with one holder test; main stays inlined only via BFI's uncorrelated second holder test"
+  ],
+  "attempts": 110,
+  "rejected": ["nest289", "mtup", "mhr", "nest296", "in298", "mhold", "mhold_t", "m289opt", "letelse298", "ne289", "o1-o9 296 operand orders", "e3b/e3d/q1/q2 holder bool", "h289+tu8/le306/t1", "h289+in298(+le306/+tu8)", "h289+closure/nested-fn holder arm (4)", "h289+t298m/m2/h/n", "h289+validate-local holder unwrap_or/matches!/is_some_and/if-let/unwrap_or_default", "h289+u298", "h289+match-guard target (mg1-mg4)", "h289+autospell lattice (66)", "1369 single IR moves on h289"],
+  "unresolved": ["a source form that puts the non-holder arm's tag test and Err306 right after the hr=0 holder test (rustc order) while keeping two holder tests", "+8 B M-neutral repay for the j2 IR-order bound"],
+  "next_ideas": ["raise BFI of the non-holder arm ~1.5x (e.g. 50/50 mayhem/289 tests) so a single-holder-test target stays in the inlined basin", "price the outline basin with h289 + an original-size frame plan (w14a08 fill route)", "fixed-RA MIR placement oracle (llc -stop-before=block-placement) for which head layouts MBP can reach from probabilities alone"],
+  "ledger_keys": "0x22a10-w14-963d1ee-brhead-*, 0x22a10-w14-13fe453-brhead-*",
+  "pr": 3489
+}

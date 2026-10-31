@@ -1,7 +1,7 @@
 # w14a104-cto-brhead: the head half of Br (validate 284-298), notes only
 
 Target `0x22a10` `admin_cto::execute` (`programs/pump/src/creator/admin_cto.rs`), pinned at 27,400 B.
-Bases: main 963d1eefb (0.67226, M 2,244, jM 2,271) and main 13fe4536b (0.67256, M 2,245, jM 2,271).
+Bases: main 963d1eefb (0.67226, M 2,244, jM 2,271), 13fe4536b (0.67256, M 2,245) and ebe5387e1 (0.67316, M 2,247).
 Continuation of w14a97-cto-brhead (no PR). Companions: w14a98-cto-brtarget (target half), w14a101-cto-mirorder296.
 Ledger: approach `brhead`, keys `0x22a10-w14-963d1ee-brhead-*` and `0x22a10-w14-13fe453-brhead-*`.
 
@@ -20,6 +20,8 @@ gives Br's `bb7.i -> bb10.i` fallthrough (Err289 glued after the hr=1 holder tes
 | h289 on 963d1ee | 2,230 | **2,341** | 0.66806 @ 27,400 |
 | main 13fe453 | 2,245 | 2,271 | 0.67256 @ 27,400 |
 | h289 on 13fe453 | 2,231 | **2,341** | 0.66836 @ 27,400 |
+| main ebe5387 | 2,247 | 2,273 | 0.67316 @ 27,400 |
+| h289 on ebe5387 | 2,233 | **2,343** | 0.66896 @ 27,400 |
 
 h289 changes only orig chunk 0x800 (-14 M / +57 jM); every other chunk is unchanged, so RA outside validate is
 untouched. The -14 is jump distances: the head is now in Br order up to bb12.i (hr=0 holder test), which still falls
@@ -124,7 +126,14 @@ Three rules fix the head, and source can only reach the first:
 
 1. Find a rustc first-reference order that puts the non-holder arm's tag test (bb21) and its Err306 block right after
    the hr=0 holder test, without nesting 296 into the holder arm (nesting outlines 307/312). Then repay +8 B.
-2. `tools/irscan.py` single-move IR-order scan on the h289 capture (see SUMMARY.json for its best moves).
+2. Pricing done in this lane, both negative:
+   - **IR scan.** All 1,369 single post-opt IR block moves on h289 (`tools/irscan.py`) are at or below main. Every
+     bb7.i move gives back main's exact bytes, so h289 is main plus the bb7.i->bb8.i glue and nothing else. The best
+     other moves are -2 M at -16 B (unwrap_failed stub moves). Only the 3-move glue set of section 3 gains.
+   - **Lattice.** The w14a73 autospell single-site lattice over validate lines 283-338, composed with h289 (66
+     variants): 31 are identical to h289, 35 are below it, and reread-L289 is main again. Nothing beats main.
+3. A single-holder-test structure (the original's own shape, which outlines 307/312) needs about 1.5x more BFI
+   frequency on the non-holder arm to stay inlined, or else a frame plan for the outline basin (w14a08).
 
 ## Tools (`tools/`, experiment only)
 
