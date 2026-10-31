@@ -142,3 +142,25 @@ nO 0.65608, ev_hr_curve 0.65428.
 - `pscan.py` (from w14a23), patched for a data GEP on a re-loaded pointer; `pscan3.py` adds `XBASE/XOFF` for the
   inline-in-struct accounts (step 2).
 - `kv.sh` / `cq.sh` / `capvar.sh`: source-capture queues (`e/klib.py` holds the knob and repay edits).
+
+## Part 5 (branch -5, main 2e1379d): sharing `program` literal data-first + lamports re-read
+
+| | main 2e1379d | this branch |
+| --- | ---: | ---: |
+| admin_cto ratio | 0.65728 | **0.65758** |
+| slots_diff | 3,192 | 3,192 |
+| bytes | 27,400 | 27,400 |
+| normalized / raw | 1034 / 1034 | 1034 / 1034, 0 losses |
+| differential | | 363 cases, 0 mismatches |
+| unstripped sha16 | | bcefc454326055cb |
+
+Change (sharing CPI `program:`): `AccountInfo{data:a.pump_fees.data.clone(),key:x.key,lamports:a.pump_fees.lamports.clone(),owner:x.owner,..}`.
+This is the same recipe as part 3 (Rc swap of a literal whose data is already re-read, -8 B, then one more re-read, +8 B).
+
+Screens on 2e1379d (all below or equal to main):
+- Move a re-read: remove one (pump_fees data rF, pool_authority rent rP, vault ATA owner nO) or apply a -8 B knob
+  (tp_dlen, ev_hr_curve). Then add one re-read over all 15 inlined clones (113-114 runs per base). Best: reverse moves = main.
+  Removing the vault ATA data re-read (rD) gives a byte-identical result.
+- Two re-read moves (-16 B bases rF+rP, rF+nO, rP+nO, then 66 cross pairs each): best 0.65728.
+- Rc swap of the 5 sharing literals (`e/src`): mint 0.65668, authority 0.65219, global 0.64769, pool_authority 0.6414;
+  program 0.65678 at 27,392 B, which led to this change.
