@@ -1,0 +1,22 @@
+{
+ "lane": "w14a133-cto-tcfrentlate",
+ "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs:661 TCF CPI program literal)",
+ "base": "main ebe5387 0.67316/3123 @27400 (M 2247)",
+ "result": "notes only, no landing: the rent_epoch-late IR lead needs the accounts StorageLive inside the program literal; no ordinary source form exists",
+ "best_zero_loss": "main 0.67316/3123 @27400 (pre1 is byte-identical; nothing beats it)",
+ "attempts": {
+  "ir_perm120": "all 120 orders of R/E/W/S/L literal-tail units; L-last best = main REWSL; leads EWSLR 0.67436, SLREW 0.67376, WSLRE 0.67346 all L-before-R",
+  "source_captures": {"fru1": 0.67046, "fru6": 0.67046, "fru2": 0.6348, "fru3": 0.63252, "fru5": 0.649, "fru7": 0.61605, "acc1": 0.57147, "acc2": 0.58124, "lit1": 0.58412, "bindp": 0.66817, "bindfru": 0.66547, "pre1": "eq_main", "pre2": 0.6263}
+ },
+ "rejected_mechanisms": [
+  "struct-update ..*x program literal (declaration-order tail = RSWEL, -9 M clone-run RA shift)",
+  "accounts struct bound/evaluated first (acc1/acc2/CpiContext literal): clone-run collapse",
+  "program literal bound to a let (bindp, -32 B, -18 M)",
+  "pre-bound &AccountInfo (eq_main, or reload dropped -> collapse)"
+ ],
+ "ledger_keys": "0x22a10-w14-ebe5387-tcfrentlate-{fru1,fru2,fru3,fru5,fru6,fru7,acc1,acc2,lit1,bindp,bindfru,pre1,pre2,irperm120}-v1",
+ "next_ideas": [
+  "fru1 (faithful declaration-order literal, 0.67046 @27400) as a base for clone-run RA levers recovering chunk 0x2800",
+  "code-shape changes that remove the _64 piece allocas (fully SROA-promoted TCF sub-literals) would change the lifetime chain node the lead depends on"
+ ]
+}
