@@ -1,0 +1,181 @@
+{
+  "base": "9120883a957d7d9b2cab6140f66fb5bc9e6774d5",
+  "rows": [
+    {
+      "script": "pump_amm_collect_differential.py",
+      "mode": "independent-output",
+      "target": "research/imported-lab/analysis/pump_fun/amm-v2-trade-fixture.json",
+      "returncode": 0,
+      "fixture_changed": [],
+      "before": {
+        "research/imported-lab/analysis/pump_fun/amm-v2-trade-fixture.json": "2e775505852caf55203c826ee08b9341aa275f52f59a933c4fb0740535ee316f",
+        "research/imported-lab/analysis/pump_fun/curve-migrate-v2-signed-surfpool.json": "b4894531409f1cb016c2993a061c99f4316140659f9cffb25cae0875b189dbfc",
+        "evidence/upstream/pump.json": "7616681ea557975f9f623ac211080f22a93060781eaf4765b0a488d980997207"
+      },
+      "after": {
+        "research/imported-lab/analysis/pump_fun/amm-v2-trade-fixture.json": "2e775505852caf55203c826ee08b9341aa275f52f59a933c4fb0740535ee316f",
+        "research/imported-lab/analysis/pump_fun/curve-migrate-v2-signed-surfpool.json": "b4894531409f1cb016c2993a061c99f4316140659f9cffb25cae0875b189dbfc",
+        "evidence/upstream/pump.json": "7616681ea557975f9f623ac211080f22a93060781eaf4765b0a488d980997207"
+      },
+      "report": {
+        "case_count": 148,
+        "mismatches": [],
+        "cases_sha256": "c3665b110b9b325ce3deda36ead767fb85804f18fbe5f19ac1246e79c4e740fc"
+      },
+      "stdout": "{\"case_count\": 148, \"mismatch_count\": 0, \"mismatches\": []}\n",
+      "stderr": ""
+    },
+    {
+      "script": "pump_amm_collect_differential.py",
+      "mode": "fixture-output",
+      "target": "research/imported-lab/analysis/pump_fun/amm-v2-trade-fixture.json",
+      "returncode": 1,
+      "fixture_changed": [],
+      "before": {
+        "research/imported-lab/analysis/pump_fun/amm-v2-trade-fixture.json": "2e775505852caf55203c826ee08b9341aa275f52f59a933c4fb0740535ee316f",
+        "research/imported-lab/analysis/pump_fun/curve-migrate-v2-signed-surfpool.json": "b4894531409f1cb016c2993a061c99f4316140659f9cffb25cae0875b189dbfc",
+        "evidence/upstream/pump.json": "7616681ea557975f9f623ac211080f22a93060781eaf4765b0a488d980997207"
+      },
+      "after": {
+        "research/imported-lab/analysis/pump_fun/amm-v2-trade-fixture.json": "2e775505852caf55203c826ee08b9341aa275f52f59a933c4fb0740535ee316f",
+        "research/imported-lab/analysis/pump_fun/curve-migrate-v2-signed-surfpool.json": "b4894531409f1cb016c2993a061c99f4316140659f9cffb25cae0875b189dbfc",
+        "evidence/upstream/pump.json": "7616681ea557975f9f623ac211080f22a93060781eaf4765b0a488d980997207"
+      },
+      "report": null,
+      "stdout": "",
+      "stderr": "Traceback (most recent call last):\n  File \"<checkout>/scripts/pump_amm_collect_differential.py\", line 54, in <module>\n    if __name__=='__main__':main()\n                            ^^^^^^\n  File \"<checkout>/scripts/pump_amm_collect_differential.py\", line 21, in main\n    parser=argparse.ArgumentParser();parser.add_argument('--candidate',type=pathlib.Path,required=True);parser.add_argument('--output',type=pathlib.Path,required=True);args=parser.parse_args();candidate=args.candidate;output=PumpReport(args.output,ROOT,candidate,__file__,extra_inputs=[ROOT/'research/imported-lab/analysis/pump_fun/amm-v2-trade-fixture.json']);rows=[]\n                                                                                                                                                                                                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<checkout>/scripts/pump_differential_output.py\", line 35, in __init__\n    self.check()\n  File \"<checkout>/scripts/pump_differential_output.py\", line 48, in check\n    raise ValueError('report output aliases an input: ' + str(self.output))\nValueError: report output aliases an input: <caller>/research/imported-lab/analysis/pump_fun/amm-v2-trade-fixture.json\n"
+    },
+    {
+      "script": "pump_amm_migration_create_differential.py",
+      "mode": "independent-output",
+      "target": "research/imported-lab/analysis/pump_fun/curve-migrate-v2-signed-surfpool.json",
+      "returncode": 0,
+      "fixture_changed": [],
+      "before": {
+        "research/imported-lab/analysis/pump_fun/amm-v2-trade-fixture.json": "2e775505852caf55203c826ee08b9341aa275f52f59a933c4fb0740535ee316f",
+        "research/imported-lab/analysis/pump_fun/curve-migrate-v2-signed-surfpool.json": "b4894531409f1cb016c2993a061c99f4316140659f9cffb25cae0875b189dbfc",
+        "evidence/upstream/pump.json": "7616681ea557975f9f623ac211080f22a93060781eaf4765b0a488d980997207"
+      },
+      "after": {
+        "research/imported-lab/analysis/pump_fun/amm-v2-trade-fixture.json": "2e775505852caf55203c826ee08b9341aa275f52f59a933c4fb0740535ee316f",
+        "research/imported-lab/analysis/pump_fun/curve-migrate-v2-signed-surfpool.json": "b4894531409f1cb016c2993a061c99f4316140659f9cffb25cae0875b189dbfc",
+        "evidence/upstream/pump.json": "7616681ea557975f9f623ac211080f22a93060781eaf4765b0a488d980997207"
+      },
+      "report": {
+        "case_count": 37,
+        "mismatches": [],
+        "cases_sha256": "48ca2a4dd8e22f579a84e9a38ce05ec9577d59e76cf5b9eca48910c789daef09"
+      },
+      "stdout": "{\"case_count\": 37, \"mismatch_count\": 0, \"mismatches\": []}\n",
+      "stderr": ""
+    },
+    {
+      "script": "pump_amm_migration_create_differential.py",
+      "mode": "fixture-output",
+      "target": "research/imported-lab/analysis/pump_fun/curve-migrate-v2-signed-surfpool.json",
+      "returncode": 1,
+      "fixture_changed": [],
+      "before": {
+        "research/imported-lab/analysis/pump_fun/amm-v2-trade-fixture.json": "2e775505852caf55203c826ee08b9341aa275f52f59a933c4fb0740535ee316f",
+        "research/imported-lab/analysis/pump_fun/curve-migrate-v2-signed-surfpool.json": "b4894531409f1cb016c2993a061c99f4316140659f9cffb25cae0875b189dbfc",
+        "evidence/upstream/pump.json": "7616681ea557975f9f623ac211080f22a93060781eaf4765b0a488d980997207"
+      },
+      "after": {
+        "research/imported-lab/analysis/pump_fun/amm-v2-trade-fixture.json": "2e775505852caf55203c826ee08b9341aa275f52f59a933c4fb0740535ee316f",
+        "research/imported-lab/analysis/pump_fun/curve-migrate-v2-signed-surfpool.json": "b4894531409f1cb016c2993a061c99f4316140659f9cffb25cae0875b189dbfc",
+        "evidence/upstream/pump.json": "7616681ea557975f9f623ac211080f22a93060781eaf4765b0a488d980997207"
+      },
+      "report": null,
+      "stdout": "",
+      "stderr": "Traceback (most recent call last):\n  File \"<checkout>/scripts/pump_amm_migration_create_differential.py\", line 56, in <module>\n    if __name__=='__main__':main()\n                            ^^^^^^\n  File \"<checkout>/scripts/pump_amm_migration_create_differential.py\", line 36, in main\n    parser=argparse.ArgumentParser();parser.add_argument('--candidate',type=pathlib.Path,required=True);parser.add_argument('--output',type=pathlib.Path,required=True);args=parser.parse_args();publisher=PumpReport(args.output,ROOT,args.candidate,pathlib.Path(__file__),extra_inputs=AMM_REPORT_INPUTS);args.candidate=pin_program(args.candidate);rows=[]\n                                                                                                                                                                                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<checkout>/scripts/pump_differential_output.py\", line 35, in __init__\n    self.check()\n  File \"<checkout>/scripts/pump_differential_output.py\", line 48, in check\n    raise ValueError('report output aliases an input: ' + str(self.output))\nValueError: report output aliases an input: <caller>/research/imported-lab/analysis/pump_fun/curve-migrate-v2-signed-surfpool.json\n"
+    },
+    {
+      "script": "pump_amm_transfer_creator_differential.py",
+      "mode": "independent-output",
+      "target": "evidence/upstream/pump.json",
+      "returncode": 0,
+      "fixture_changed": [],
+      "before": {
+        "research/imported-lab/analysis/pump_fun/amm-v2-trade-fixture.json": "2e775505852caf55203c826ee08b9341aa275f52f59a933c4fb0740535ee316f",
+        "research/imported-lab/analysis/pump_fun/curve-migrate-v2-signed-surfpool.json": "b4894531409f1cb016c2993a061c99f4316140659f9cffb25cae0875b189dbfc",
+        "evidence/upstream/pump.json": "7616681ea557975f9f623ac211080f22a93060781eaf4765b0a488d980997207"
+      },
+      "after": {
+        "research/imported-lab/analysis/pump_fun/amm-v2-trade-fixture.json": "2e775505852caf55203c826ee08b9341aa275f52f59a933c4fb0740535ee316f",
+        "research/imported-lab/analysis/pump_fun/curve-migrate-v2-signed-surfpool.json": "b4894531409f1cb016c2993a061c99f4316140659f9cffb25cae0875b189dbfc",
+        "evidence/upstream/pump.json": "7616681ea557975f9f623ac211080f22a93060781eaf4765b0a488d980997207"
+      },
+      "report": {
+        "case_count": 267,
+        "mismatches": [],
+        "cases_sha256": "f222229daaad14d4003551680bedea11bf8b771fa50d9a60e469650a7042d4f6"
+      },
+      "stdout": "{\"case_count\": 267, \"mismatch_count\": 0, \"mismatches\": []}\n",
+      "stderr": ""
+    },
+    {
+      "script": "pump_amm_transfer_creator_differential.py",
+      "mode": "fixture-output",
+      "target": "evidence/upstream/pump.json",
+      "returncode": 1,
+      "fixture_changed": [],
+      "before": {
+        "research/imported-lab/analysis/pump_fun/amm-v2-trade-fixture.json": "2e775505852caf55203c826ee08b9341aa275f52f59a933c4fb0740535ee316f",
+        "research/imported-lab/analysis/pump_fun/curve-migrate-v2-signed-surfpool.json": "b4894531409f1cb016c2993a061c99f4316140659f9cffb25cae0875b189dbfc",
+        "evidence/upstream/pump.json": "7616681ea557975f9f623ac211080f22a93060781eaf4765b0a488d980997207"
+      },
+      "after": {
+        "research/imported-lab/analysis/pump_fun/amm-v2-trade-fixture.json": "2e775505852caf55203c826ee08b9341aa275f52f59a933c4fb0740535ee316f",
+        "research/imported-lab/analysis/pump_fun/curve-migrate-v2-signed-surfpool.json": "b4894531409f1cb016c2993a061c99f4316140659f9cffb25cae0875b189dbfc",
+        "evidence/upstream/pump.json": "7616681ea557975f9f623ac211080f22a93060781eaf4765b0a488d980997207"
+      },
+      "report": null,
+      "stdout": "",
+      "stderr": "Traceback (most recent call last):\n  File \"<checkout>/scripts/pump_amm_transfer_creator_differential.py\", line 100, in <module>\n    if __name__=='__main__':main()\n                            ^^^^^^\n  File \"<checkout>/scripts/pump_amm_transfer_creator_differential.py\", line 41, in main\n    parser=argparse.ArgumentParser();parser.add_argument('--candidate',type=pathlib.Path,required=True);parser.add_argument('--output',type=pathlib.Path,required=True);args=parser.parse_args();candidate=args.candidate;rows=[];publisher=PumpReport(args.output,ROOT,args.candidate,pathlib.Path(__file__),extra_inputs=AMM_REPORT_INPUTS)\n                                                                                                                                                                                                                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<checkout>/scripts/pump_differential_output.py\", line 35, in __init__\n    self.check()\n  File \"<checkout>/scripts/pump_differential_output.py\", line 48, in check\n    raise ValueError('report output aliases an input: ' + str(self.output))\nValueError: report output aliases an input: <caller>/evidence/upstream/pump.json\n"
+    },
+    {
+      "script": "pump_amm_boost_differential.py",
+      "mode": "independent-output",
+      "target": "research/imported-lab/analysis/pump_fun/curve-migrate-v2-signed-surfpool.json",
+      "returncode": 0,
+      "fixture_changed": [],
+      "before": {
+        "research/imported-lab/analysis/pump_fun/amm-v2-trade-fixture.json": "2e775505852caf55203c826ee08b9341aa275f52f59a933c4fb0740535ee316f",
+        "research/imported-lab/analysis/pump_fun/curve-migrate-v2-signed-surfpool.json": "b4894531409f1cb016c2993a061c99f4316140659f9cffb25cae0875b189dbfc",
+        "evidence/upstream/pump.json": "7616681ea557975f9f623ac211080f22a93060781eaf4765b0a488d980997207"
+      },
+      "after": {
+        "research/imported-lab/analysis/pump_fun/amm-v2-trade-fixture.json": "2e775505852caf55203c826ee08b9341aa275f52f59a933c4fb0740535ee316f",
+        "research/imported-lab/analysis/pump_fun/curve-migrate-v2-signed-surfpool.json": "b4894531409f1cb016c2993a061c99f4316140659f9cffb25cae0875b189dbfc",
+        "evidence/upstream/pump.json": "7616681ea557975f9f623ac211080f22a93060781eaf4765b0a488d980997207"
+      },
+      "report": {
+        "case_count": 100,
+        "mismatches": [],
+        "cases_sha256": "b21cc19a76b507aac6d09106d6184743acf5db0b8e8882de79ca3aa0b8678e78"
+      },
+      "stdout": "{\"case_count\": 100, \"mismatch_count\": 0, \"mismatches\": []}\n",
+      "stderr": ""
+    },
+    {
+      "script": "pump_amm_boost_differential.py",
+      "mode": "fixture-output",
+      "target": "research/imported-lab/analysis/pump_fun/curve-migrate-v2-signed-surfpool.json",
+      "returncode": 1,
+      "fixture_changed": [],
+      "before": {
+        "research/imported-lab/analysis/pump_fun/amm-v2-trade-fixture.json": "2e775505852caf55203c826ee08b9341aa275f52f59a933c4fb0740535ee316f",
+        "research/imported-lab/analysis/pump_fun/curve-migrate-v2-signed-surfpool.json": "b4894531409f1cb016c2993a061c99f4316140659f9cffb25cae0875b189dbfc",
+        "evidence/upstream/pump.json": "7616681ea557975f9f623ac211080f22a93060781eaf4765b0a488d980997207"
+      },
+      "after": {
+        "research/imported-lab/analysis/pump_fun/amm-v2-trade-fixture.json": "2e775505852caf55203c826ee08b9341aa275f52f59a933c4fb0740535ee316f",
+        "research/imported-lab/analysis/pump_fun/curve-migrate-v2-signed-surfpool.json": "b4894531409f1cb016c2993a061c99f4316140659f9cffb25cae0875b189dbfc",
+        "evidence/upstream/pump.json": "7616681ea557975f9f623ac211080f22a93060781eaf4765b0a488d980997207"
+      },
+      "report": null,
+      "stdout": "",
+      "stderr": "Traceback (most recent call last):\n  File \"<checkout>/scripts/pump_amm_boost_differential.py\", line 101, in <module>\n    if __name__=='__main__':main()\n                            ^^^^^^\n  File \"<checkout>/scripts/pump_amm_boost_differential.py\", line 54, in main\n    parser=argparse.ArgumentParser();parser.add_argument('--candidate',type=pathlib.Path,required=True);parser.add_argument('--output',type=pathlib.Path,required=True);args=parser.parse_args();publisher=PumpReport(args.output,ROOT,args.candidate,__file__,extra_inputs=[ROOT/'research/imported-lab/analysis/pump_fun/amm-v2-trade-fixture.json',ROOT/'research/imported-lab/analysis/pump_fun/curve-migrate-v2-signed-surfpool.json']);candidate=pin_program(args.candidate);rows=[]\n                                                                                                                                                                                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<checkout>/scripts/pump_differential_output.py\", line 35, in __init__\n    self.check()\n  File \"<checkout>/scripts/pump_differential_output.py\", line 48, in check\n    raise ValueError('report output aliases an input: ' + str(self.output))\nValueError: report output aliases an input: <caller>/research/imported-lab/analysis/pump_fun/curve-migrate-v2-signed-surfpool.json\n"
+    }
+  ]
+}

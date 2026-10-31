@@ -26,13 +26,16 @@ def boost(candidate=None,overrides=None,fixture=False):
   if a is None or not a.executable:states[str(m.pubkey)]=None if a is None else {'data':bytes(a.data).hex(),'lamports':a.lamports,'owner':str(a.owner)}
  return {'states':states,'error':str(r.err()) if fail else None,'logs':meta.logs(),'inner':json.loads(meta.to_json())['inner_instructions']}
 
-PUMP=Pubkey.from_string(json.load(open('evidence/upstream/pump.json', encoding='utf-8'))['address']);ATA=Pubkey.from_string('ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL')
-p=json.load(open('research/imported-lab/analysis/pump_fun/curve-migrate-v2-signed-surfpool.json',encoding='utf-8'))
+PUMP_IDL_PATH=pathlib.Path('evidence/upstream/pump.json').resolve()
+MIGRATION_FIXTURE_PATH=pathlib.Path('research/imported-lab/analysis/pump_fun/curve-migrate-v2-signed-surfpool.json').resolve()
+REPORT_INPUTS=(TRADE_FIXTURE_PATH,PUMP_IDL_PATH,MIGRATION_FIXTURE_PATH)
+PUMP=Pubkey.from_string(json.load(open(PUMP_IDL_PATH, encoding='utf-8'))['address']);ATA=Pubkey.from_string('ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL')
+p=json.load(open(MIGRATION_FIXTURE_PATH,encoding='utf-8'))
 def run_migration(candidate=None,label='missing_boost',overrides=None):
  row=p[label];tx=Transaction.from_bytes(base64.b64decode(row['transaction_base64']));assert all(tx.verify_with_results())
  vm=LiteSVM().with_transaction_history(0).with_blockhash_check(False).with_log_bytes_limit(None);vm.set_clock(Clock(100,1234567890,0,0,1234567890))
  for pid,path in [(PROGRAM,candidate or pin_program(ROOT/'evidence/original/pump_amm/deployed.so')),(PUMP,ROOT/'evidence/original/pump/deployed.so'),(TOKEN,ROOT/'evidence/dependencies/spl_token/deployed.so'),(TOKEN22,ROOT/'evidence/dependencies/spl_token_2022/deployed.so'),(ATA,ROOT/'evidence/dependencies/associated_token/deployed.so')]:vm.add_program_from_file(pid,path)
- ix=tx.message.instructions[-1];spec=next(x for x in json.load(open('evidence/upstream/pump.json', encoding='utf-8'))['instructions'] if x['name']=='migrate_v2');keys={a['name']:tx.message.account_keys[i] for a,i in zip(spec['accounts'],ix.accounts)}
+ ix=tx.message.instructions[-1];spec=next(x for x in json.load(open(PUMP_IDL_PATH, encoding='utf-8'))['instructions'] if x['name']=='migrate_v2');keys={a['name']:tx.message.account_keys[i] for a,i in zip(spec['accounts'],ix.accounts)}
  aliases={'mint':'base_mint','curve':'bonding_curve','curve_base':'associated_base_bonding_curve','pool_authority_mint':'pool_authority_mint_account','pool_authority_quote':'pool_authority_quote_account','pool_base':'pool_base_token_account','pool_quote':'pool_quote_token_account','user_lp':'user_pool_token_account'}
  for name,account in row['before'].items():
   key=keys.get(aliases.get(name,name))
