@@ -49,14 +49,19 @@ def parse(a, res):
         kind, text = m.group(1) or 'passed', m.group(2)
         q = re.findall(r"'([^']+)'", text)
         if len(q) < 2:
-            continue
+            # LLVM's unavailable-definition remark omits the quotes used by
+            # cost-based decisions. Its symbols are still callee then caller.
+            unavailable = re.match(r'(\S+) will not be inlined into (\S+) because ', text)
+            if unavailable is None:
+                continue
+            q = unavailable.groups()
         callee, caller = q[0], q[1]
         if not re.search(a.caller, demangle(caller)):
             continue
         if a.callee and not re.search(a.callee, demangle(callee)):
             continue
         cost = re.search(r'cost=(-?\d+|always|never)', text); thr = re.search(r'threshold=(-?\d+)', text)
-        loc = re.search(r'note: ([^\s]+?):(\d+):(\d+) inline', m.group(0))
+        loc = re.search(r'note: (.+?):(\d+):(\d+) inline', m.group(0))
         rows.append({'loc': (loc.group(1).split('/')[-1] + ':' + loc.group(2)) if loc else None, 'kind': kind, 'callee': demangle(callee), 'caller': demangle(caller),
                      'cost': cost.group(1) if cost else None, 'threshold': thr.group(1) if thr else None, 'text': text[:400]})
     (a.out / 'inline-remarks.json').write_text(json.dumps(rows, indent=1) + '\n')

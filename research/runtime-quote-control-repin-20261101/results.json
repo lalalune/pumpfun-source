@@ -1,0 +1,225 @@
+{
+  "before": {
+    "base": "9120883a957d7d9b2cab6140f66fb5bc9e6774d5",
+    "producer_returncode": 0,
+    "case_count": 507,
+    "mismatches": 0,
+    "original_sha256": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
+    "first_admission": {
+      "accepted": true,
+      "count": 507
+    },
+    "same_byte_second_pin_admission": {
+      "accepted": false,
+      "error_type": "KeyError",
+      "error": "new private candidate path absent from retained bound_inputs_sha256"
+    },
+    "negative_controls": {
+      "different_candidate": {
+        "accepted": false,
+        "error_type": "KeyError",
+        "error": "'/Users/jonas_augustinus/Documents/Codex/pumpfun-sixty-runtime-20261101/evidence/original/pump_fees/deployed.so'"
+      },
+      "different_original": {
+        "accepted": false,
+        "error_type": "KeyError",
+        "error": "'/Users/jonas_augustinus/Documents/Codex/pumpfun-sixty-runtime-20261101/evidence/original/pump_fees/deployed.so'"
+      },
+      "different_suite": {
+        "accepted": false,
+        "error_type": "AssertionError",
+        "error": ""
+      },
+      "wrong_candidate_hash": {
+        "accepted": true,
+        "count": 507
+      },
+      "wrong_original_hash": {
+        "accepted": true,
+        "count": 507
+      },
+      "missing_case": {
+        "accepted": false,
+        "error_type": "AssertionError",
+        "error": ""
+      },
+      "duplicate_case": {
+        "accepted": false,
+        "error_type": "AssertionError",
+        "error": "duplicate quote-control case: init/payer"
+      },
+      "changed_outcome": {
+        "accepted": false,
+        "error_type": "AssertionError",
+        "error": "init/payer: retained comparison contradicts success"
+      },
+      "missing_comparison_field": {
+        "accepted": false,
+        "error_type": "AssertionError",
+        "error": "init/payer: retained comparison contradicts success"
+      },
+      "changed_comparison_keys": {
+        "accepted": false,
+        "error_type": "AssertionError",
+        "error": "comparison fields differ"
+      },
+      "signature_bool_as_integer": {
+        "accepted": true,
+        "count": 507
+      },
+      "enabled_bool_as_integer": {
+        "accepted": true,
+        "count": 507
+      },
+      "lamports_integer_as_float": {
+        "accepted": true,
+        "count": 507
+      }
+    },
+    "legacy_first_admission": {
+      "accepted": true,
+      "count": 507
+    },
+    "legacy_second_admission": {
+      "accepted": false,
+      "error_type": "KeyError",
+      "error": "new private candidate path absent from retained bound_inputs_sha256"
+    },
+    "source_sha256": {
+      "evidence/original/pump/deployed.so": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
+      "evidence/original/pump_fees/deployed.so": "4f2955d0f6b40cc9ff7daa18ccad7d19119ba1249759f4e7e3bb691beee6b35e",
+      "scripts/pump_quote_control_fresh_differential.py": "94932e59c67cde3784fd7a287298ce600aef64da62676ff49cbc17ed8f4c4f97",
+      "scripts/pump_validate_all.py": "e26ceac218787cb012c6dd7a55d24f132171d5bc24cedaf175ec2eed6e2e4adc"
+    },
+    "inputs_unchanged": true,
+    "receipt_sha256": "ca03fcfcf8197993f10673a13a12051b717c7fa35d9c2c9e88ee54a81abe44f8",
+    "receipt_unchanged_by_admission": true,
+    "case_records_sha256": "0085eebaef3c31cc7125ec74aec4a4c0ef65b149a16f0590297a892df1cbf125"
+  },
+  "after": {
+    "base": "9120883a957d7d9b2cab6140f66fb5bc9e6774d5",
+    "producer_returncode": 0,
+    "case_count": 507,
+    "mismatches": 0,
+    "original_sha256": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
+    "first_admission": {
+      "accepted": true,
+      "count": 507
+    },
+    "same_byte_second_pin_admission": {
+      "accepted": true,
+      "count": 507
+    },
+    "negative_controls": {
+      "different_candidate": {
+        "accepted": false,
+        "error_type": "AssertionError",
+        "error": ""
+      },
+      "different_original": {
+        "accepted": false,
+        "error_type": "AssertionError",
+        "error": ""
+      },
+      "different_suite": {
+        "accepted": false,
+        "error_type": "AssertionError",
+        "error": "a retained cases array is required"
+      },
+      "wrong_candidate_hash": {
+        "accepted": false,
+        "error_type": "AssertionError",
+        "error": ""
+      },
+      "wrong_original_hash": {
+        "accepted": false,
+        "error_type": "AssertionError",
+        "error": ""
+      },
+      "missing_case": {
+        "accepted": false,
+        "error_type": "AssertionError",
+        "error": ""
+      },
+      "duplicate_case": {
+        "accepted": false,
+        "error_type": "AssertionError",
+        "error": "duplicate quote-control case: init/payer"
+      },
+      "changed_outcome": {
+        "accepted": false,
+        "error_type": "AssertionError",
+        "error": "init/payer: retained comparison contradicts success"
+      },
+      "missing_comparison_field": {
+        "accepted": false,
+        "error_type": "AssertionError",
+        "error": "init/payer: retained comparison contradicts success"
+      },
+      "changed_comparison_keys": {
+        "accepted": false,
+        "error_type": "AssertionError",
+        "error": "comparison fields differ"
+      },
+      "signature_bool_as_integer": {
+        "accepted": false,
+        "error_type": "AssertionError",
+        "error": "init/payer: retained comparison contradicts success"
+      },
+      "enabled_bool_as_integer": {
+        "accepted": false,
+        "error_type": "AssertionError",
+        "error": "init/payer: retained comparison contradicts success"
+      },
+      "lamports_integer_as_float": {
+        "accepted": false,
+        "error_type": "AssertionError",
+        "error": "init/payer: retained comparison contradicts success"
+      }
+    },
+    "legacy_first_admission": {
+      "accepted": true,
+      "count": 507
+    },
+    "legacy_second_admission": {
+      "accepted": false,
+      "error_type": "AssertionError",
+      "error": ""
+    },
+    "source_sha256": {
+      "evidence/original/pump/deployed.so": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
+      "evidence/original/pump_fees/deployed.so": "4f2955d0f6b40cc9ff7daa18ccad7d19119ba1249759f4e7e3bb691beee6b35e",
+      "scripts/pump_quote_control_fresh_differential.py": "a0796ecd587608a371fe9186ed6dd97943422398e0948376a304b8a708803c3f",
+      "scripts/pump_validate_all.py": "8da1689275cc3278c6cca5939446c5a878ad49c38081cc4f44f72c3fed7d2064"
+    },
+    "inputs_unchanged": true,
+    "receipt_sha256": "c97961bce001bc99c577373fe09eece02a3db47eb25d1e2bab9594e4607439d3",
+    "receipt_unchanged_by_admission": true,
+    "case_records_sha256": "0085eebaef3c31cc7125ec74aec4a4c0ef65b149a16f0590297a892df1cbf125"
+  },
+  "environment": {
+    "python": "3.12.13",
+    "solders": "0.27.1",
+    "platform": "macOS-27.0.1-arm64-arm-64bit"
+  },
+  "case_records_identical": true,
+  "limits": [
+    "Actual producer CLI and production receipt-admission API only; not a full build-bound 44-suite CLI execution.",
+    "Unchanged 507-case original-versus-original controls; no source rebuild or new program behavior claim.",
+    "Historical path-only receipts retain their recorded-path admission.",
+    "Before explicit-hash controls add fields unsupported by that old producer; their rejection after the fix checks the new role metadata contract."
+  ],
+  "validation": {
+    "new_regression_methods": 4,
+    "focused_test_executions": 56,
+    "tooling_tests": 250,
+    "captured_images_verified": 9,
+    "known_baseline_failure": {
+      "script": "scripts/test_pump_validate_all_windows_publish.py",
+      "tests": 5,
+      "failures": 2,
+      "reason": "Hardcoded10468 versus current authoritative10493; identical at exactbase and fix.",
+      "existing_fix_pr": "https://github.com/lalalune/pumpfun-source/pull/3714"
+    }
+  }
+}

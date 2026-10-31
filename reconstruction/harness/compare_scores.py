@@ -5,7 +5,9 @@ Exit 0: all baseline memberships preserved; 1: regression; 2: invalid reports.
 """
 import argparse
 import json
+import os
 from pathlib import Path
+import secrets
 
 
 def unique_fields(items):
@@ -70,6 +72,41 @@ def compare(before, after):
     return {key: [hex(v) for v in value] if isinstance(value, list) else value for key, value in report.items()}
 
 
+def publish_report(path, text):
+    """Create a complete report without replacing an existing destination."""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    for _ in range(100):
+        temporary = path.parent / f'.comparison-{os.getpid()}-{secrets.token_hex(8)}'
+        try:
+            stream = temporary.open('x', encoding='utf-8')
+        except FileExistsError:
+            continue
+        break
+    else:
+        raise FileExistsError('could not create a unique comparison report staging file')
+    metadata = os.fstat(stream.fileno())
+    identity = metadata.st_dev, metadata.st_ino
+    try:
+        with stream:
+            stream.write(text)
+            stream.flush()
+            os.fsync(stream.fileno())
+        # Unlike replace(), both operations refuse a concurrently created
+        # destination. Windows rename is exclusive; POSIX rename is not.
+        if os.name == 'nt':
+            os.rename(temporary, path)
+        else:
+            os.link(temporary, path)
+    finally:
+        try:
+            metadata = temporary.lstat()
+        except FileNotFoundError:
+            pass
+        else:
+            if (metadata.st_dev, metadata.st_ino) == identity:
+                temporary.unlink()
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('baseline', type=Path)
@@ -83,10 +120,7 @@ def main(argv=None):
     output = json.dumps(report, indent=2) + '\n'
     if args.json:
         try:
-            args.json.parent.mkdir(parents=True, exist_ok=True)
-            # Exclusive creation also protects aliased inputs and concurrent receipts.
-            with args.json.open('x', encoding='utf-8') as stream:
-                stream.write(output)
+            publish_report(args.json, output)
         except OSError as error:
             parser.exit(2, f'cannot create comparison report: {error}\n')
     print(output, end='')

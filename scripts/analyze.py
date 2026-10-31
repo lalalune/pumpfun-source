@@ -132,9 +132,12 @@ def publish_reports(reports):
 
 def elf_layout(b):
     if b[:6]!=b'\x7fELF\x02\x01': raise ValueError('Unsupported ELF identity')
+    # Reject truncated headers and tables as invalid ELF, not as struct.error.
+    if len(b)<64: raise ValueError('truncated ELF header')
     h=struct.unpack_from('<HHIQQQIHHHHHH',b,16)
     _,machine,_,entry,phoff,shoff,flags,ehsize,phsize,phnum,shsize,shnum,shstr=h
     if not ((phnum==0 or phsize==56) and shsize==64 and shnum>0): raise ValueError('Invalid ELF table layout')
+    if shoff+shsize*shnum>len(b) or phoff+phsize*phnum>len(b): raise ValueError('ELF header table exceeds available bytes')
     raw=[struct.unpack_from('<IIQQQQIIQQ',b,shoff+i*shsize) for i in range(shnum)]
     if shstr >= len(raw): raise ValueError('invalid section-name table index')
     if shstr == 0:

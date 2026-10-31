@@ -6,7 +6,7 @@ import argparse, hashlib, json, struct, subprocess
 from pump_differential_output import PumpReport
 from native_host_receipt import run_host
 import pump_trade_fixture as f
-p=argparse.ArgumentParser();p.add_argument('--host',type=f.pathlib.Path,required=True);p.add_argument('--output',type=f.pathlib.Path,required=True);p.add_argument('--curve-report',type=f.pathlib.Path,default=f.R/'repro/pump/constant-product-differential.json',help='Report produced by pump_validate_constant_product.py');a=p.parse_args();report_output=PumpReport(a.output,f.R,None,__file__,extra_inputs=(a.host,a.curve_report,f.R/'programs/pump/recovered'))
+p=argparse.ArgumentParser();p.add_argument('--host',type=f.pathlib.Path,required=True);p.add_argument('--output',type=f.pathlib.Path,required=True);p.add_argument('--curve-report',type=f.pathlib.Path,default=f.R/'repro/pump/constant-product-differential.json',help='Report produced by pump_validate_constant_product.py');a=p.parse_args();report_output=PumpReport(a.output,f.R,None,__file__,extra_inputs=(a.host,a.curve_report,f.R/'programs/pump/recovered',*f.REPORT_INPUTS))
 idl=json.loads((f.R/'evidence/upstream/pump.json').read_text(encoding='utf-8'));types={x['name']:x['type'] for x in idl['types']}
 event_disc=bytes(next(x['discriminator'] for x in idl['events'] if x['name']=='TradeEvent'))
 def decode_event(data):

@@ -110,10 +110,14 @@ def so_tokens(path):
 
 
 def fn_bounds(mod, sym):
-    i = mod.index('define ', mod.index('@' + sym + '(') - 300)
-    i = mod.rindex('\ndefine ', 0, mod.index('@' + sym + '(')) + 1
-    j = mod.index('\n}\n', i) + 3
-    return i, j
+    """Bounds of sym's `define` through its closing `}`. The first `@sym(` in a
+    module can sit in an earlier caller's body, so a call site must never pick
+    the bounds: edits then slice the wrong function and the oracle reports a
+    build the edit never made."""
+    m = re.search(r'(?m)^define [^@\n]*@"?' + re.escape(sym) + r'"?\(', mod)
+    if m is None:
+        raise ValueError('no definition of ' + sym)
+    return m.start(), mod.index('\n}\n', m.start()) + 3
 
 
 def run(module, outdir, edit=None, llc_args=(), quiet=False):

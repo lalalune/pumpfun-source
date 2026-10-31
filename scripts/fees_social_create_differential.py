@@ -68,7 +68,7 @@ def main():
   match=all(x[k]==y[k] for k in keys) and [l for l in x['logs'] if l.startswith('Program data:')]==[l for l in y['logs'] if l.startswith('Program data:')] if y else None
   rows.append({'case':c,'original':x,'candidate':y,'match':match})
   if match is False:failures.append(c['name'])
- report_payload=(json.dumps({'original_sha256':hashlib.sha256(original).hexdigest(),'candidate_sha256':hashlib.sha256(candidate).hexdigest() if a.candidate else None,'scope':'Normally signed synthetic local creation cases; no full-program or byte identity claim.','cases':rows,'mismatches':failures},indent=2)+'\n').encode('utf-8');publisher.write(gzip.compress(report_payload,mtime=0) if a.output.suffix=='.gz' else report_payload)
+ report_payload=(json.dumps({'original_sha256':hashlib.sha256(original).hexdigest(),'candidate_sha256':hashlib.sha256(candidate).hexdigest() if a.candidate else None,'scope':'Normally signed synthetic local creation cases; no full-program or byte identity claim.','case_count':len(rows),'cases':rows,'mismatches':failures},indent=2)+'\n').encode('utf-8');publisher.write(gzip.compress(report_payload,mtime=0) if a.output.suffix=='.gz' else report_payload)
  print('cases',len(rows),'mismatches',failures)
  if failures:raise SystemExit(1)
 if __name__=='__main__':main()

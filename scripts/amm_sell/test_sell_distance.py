@@ -113,5 +113,44 @@ class AlignmentDistanceTests(unittest.TestCase):
         self.assertEqual(missing, 3)
 
 
+    def test_endian_forms_preserve_direction_and_width(self):
+        for opcode, direction in ((0xd4, 'le'), (0xdc, 'be')):
+            for width in (16, 32, 64):
+                with self.subTest(opcode=hex(opcode), width=width):
+                    raw = struct.pack('<BBhi', opcode, 5, 0, width)
+                    rows = list(score.decode(raw, 0, len(raw)))
+                    self.assertEqual(len(rows), 1)
+                    offset, size, decoded, text, fields = rows[0]
+                    self.assertEqual((offset, size, decoded), (0, 8, raw))
+                    self.assertEqual(text, f'{direction}{width} r5')
+                    # END's immediate is the width, not a register operand.
+                    self.assertEqual(fields, (direction, 5, None, width))
+
+    def test_endian_tokens_distinguish_width_and_direction(self):
+        tokens = []
+        for opcode, direction in ((0xd4, 'le'), (0xdc, 'be')):
+            for width in (16, 32, 64):
+                raw = struct.pack('<BBhi', opcode, 5, 0, width)
+                rows = score.listing(SimpleNamespace(b=raw), 0, len(raw))
+                self.assertEqual(rows[0]['raw'], raw.hex())
+                self.assertIsNone(rows[0]['target'])
+                self.assertEqual(score.normalized_tokens(rows),
+                                 [f'{direction} 5 None {width}'])
+                tokens.extend(score.normalized_tokens(rows))
+        self.assertEqual(len(set(tokens)), 6)
+
+    def test_endian_decode_preserves_other_alu_operand_forms(self):
+        for opcode, regs, immediate, text, fields in (
+            (0x04, 5, 16, 'add32 r5, 16', ('add32', 5, None, 16)),
+            (0x0c, 0x35, 0, 'add32 r5, r3', ('add32', 5, 3, None)),
+            (0xb7, 5, 64, 'mov r5, 64', ('mov', 5, None, 64)),
+            (0xbf, 0x35, 0, 'mov r5, r3', ('mov', 5, 3, None)),
+        ):
+            with self.subTest(opcode=hex(opcode)):
+                raw = struct.pack('<BBhi', opcode, regs, 0, immediate)
+                self.assertEqual(list(score.decode(raw, 0, len(raw)))[0],
+                                 (0, 8, raw, text, fields))
+
+
 if __name__ == '__main__':
     unittest.main()

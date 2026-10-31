@@ -8,7 +8,7 @@ from pathlib import Path
 import subprocess
 import tarfile
 import tempfile
-from experiment_runner import run_trial, atomic_json
+from experiment_runner import run_trial, atomic_json, paths_alias
 
 
 def narrow(revisions, evaluate, budget):
@@ -91,6 +91,10 @@ def main():
     revisions = revision_chain(args.repo, args.good, args.bad)
     if len(revisions) < 2: parser.error('good and bad must be different revisions')
     config = load_oracle(args.oracle)
+    report_path = args.out / 'bisect.json'
+    protected = [args.oracle, *(Path(value) for value in config.get('inputs', []))]
+    if any(paths_alias(report_path, path) for path in protected):
+        parser.error('bisection report overlaps an input; choose a separate --out directory')
     args.out.mkdir(parents=True, exist_ok=True)
     archive_errors = []
     def evaluate(revision):
@@ -101,17 +105,29 @@ def main():
                 archive_errors.append({'revision': revision, 'returncode': error.returncode,
                                        'stderr': error.stderr.decode('utf-8', errors='replace')})
                 return 'error'
-            with tarfile.open(fileobj=io.BytesIO(blob)) as archive:
-                if any(m.issym() or m.islnk() for m in archive.getmembers()):
-                    archive_errors.append({'revision': revision, 'reason': 'source links unsupported'})
-                    return 'error'
-                archive.extractall(temporary, filter='data')
-            return run_trial(Path(temporary) / subdir, config['command'], args.out / 'trials' / revision,
+            try:
+                with tarfile.open(fileobj=io.BytesIO(blob)) as archive:
+                    if any(m.issym() or m.islnk() for m in archive.getmembers()):
+                        archive_errors.append({'revision': revision, 'reason': 'source links unsupported'})
+                        return 'error'
+                    archive.extractall(temporary, filter='data')
+            except tarfile.TarError as error:
+                archive_errors.append({'revision': revision, 'reason': 'source archive could not be extracted',
+                                       'detail': str(error)})
+                return 'error'
+            source = Path(temporary) / subdir
+            # A successful archive can exclude the path through export-ignore,
+            # or contain a regular file at a directory used in other revisions.
+            if not source.is_dir():
+                archive_errors.append({'revision': revision,
+                                       'reason': 'archive does not contain the source directory'})
+                return 'error'
+            return run_trial(source, config['command'], args.out / 'trials' / revision,
                              config.get('inputs', []), config.get('timeout', 300))['status']
     result = narrow(revisions, evaluate, args.max_trials)
     if archive_errors:
         result['archive_errors'] = archive_errors
-    atomic_json(args.out / 'bisect.json', result)
+    atomic_json(report_path, result)
     print(json.dumps(result, indent=2))
     return 0 if result['status'] == 'boundary-found' else 2
 

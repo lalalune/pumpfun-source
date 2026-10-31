@@ -17,6 +17,7 @@ import json
 import struct
 from pathlib import Path
 
+from pump_differential_output import PumpReport
 import pump_set_mayhem_virtual_params_differential as f
 from build_source_manifest import source_manifest
 from pump_amm_reusable_harness import pin_program
@@ -142,6 +143,16 @@ def cases():
         yield row(f'non-native-threshold-{reserve}', spl=True, rqr=reserve)
 
 
+def report_output(candidate, output):
+    paths = program_paths()
+    config_path = f.ROOT / 'research/imported-lab/analysis/pump_fun/config-snapshot.json'
+    return PumpReport(output, f.ROOT, candidate, __file__,
+                      extra_inputs=[*paths.values(), config_path,
+                                    Path(f.__file__).resolve(),
+                                    Path(pin_program.__code__.co_filename).resolve()],
+                      overwrite=False)
+
+
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument('--candidate', type=Path, required=True)
@@ -150,6 +161,7 @@ def main():
     args = p.parse_args()
     if args.output.exists() or args.output.is_symlink():
         raise FileExistsError('Refusing to overwrite existing output; choose a fresh path')
+    publisher = report_output(args.candidate, args.output)
     sha = lambda raw: hashlib.sha256(raw).hexdigest()
     candidate = pin_program(args.candidate).read_bytes()
     paths = program_paths()
@@ -195,11 +207,12 @@ def main():
     report = {'scope': __doc__, 'original_sha256': sha(programs['original']), 'candidate_sha256': sha(candidate),
               'inputs_sha256': inputs, 'compiled_source_sha256': build['source_sha256'] if supplied_build else None,
               'case_count': len(rows), 'mismatches': [r['case']['name'] for r in rows if r['differences']], 'cases': rows}
-    args.output.parent.mkdir(parents=True, exist_ok=True)
-    with args.output.open('xb') as stream:
-        stream.write(gzip.compress(json.dumps(report, separators=(',',':')).encode(),mtime=0))
-    print(json.dumps({'cases':len(rows), 'mismatches':report['mismatches']}))
-    if report['mismatches']:raise SystemExit(1)
+    raw = (json.dumps(report, indent=2) + '\n').encode('utf-8')
+    payload = gzip.compress(raw, mtime=0) if args.output.suffix == '.gz' else raw
+    publisher.write(payload)
+    print(json.dumps({'cases': len(rows), 'mismatches': report['mismatches']}))
+    if report['mismatches']:
+        raise SystemExit(1)
 
 
 if __name__ == '__main__':

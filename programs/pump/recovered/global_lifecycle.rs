@@ -61,7 +61,7 @@ impl InitAdmission {
 
 pub enum Stop {
     Code(u32),
-    /// System `create_account` refused a non-writable account.
+    /// A System CPI refused a non-writable account.
     Privilege,
     /// Self-CPI target was not the Pump program. The write does not stick.
     MissingAccount,
@@ -82,7 +82,7 @@ fn blank_global(user: [u8; 32]) -> Vec<u8> {
     data
 }
 
-/// Account checks observed before the system `create_account` CPI.
+/// Initialization admission and the System create/transfer/allocate/assign path.
 pub fn initialize(
     admission: InitAdmission,
     user_lamports: u64,
@@ -105,9 +105,6 @@ pub fn initialize(
     if !admission.is_pda {
         return Err(Stop::Code(CONSTRAINT_SEEDS));
     }
-    if !admission.global_writable || !admission.user_writable {
-        return Err(Stop::Privilege);
-    }
     let (already, current) = if !admission.global_present {
         (false, 0)
     } else if admission.owner_is_system && global_data.is_empty() {
@@ -115,12 +112,22 @@ pub fn initialize(
     } else {
         (true, global_lamports)
     };
+    let needed = DEFAULT_RENT.saturating_sub(current);
+    // A prefunded PDA is allocated and assigned without transferring lamports
+    // when it already covers rent. Only a transfer needs the writable user.
+    if !admission.global_writable || (needed != 0 && !admission.user_writable) {
+        return Err(Stop::Privilege);
+    }
+    if user_lamports < needed {
+        return Err(Stop::Code(SYSTEM_INSUFFICIENT));
+    }
+    // For a prefunded account, the rent transfer precedes allocation's
+    // already-in-use check. The user's Anchor mutability check follows both.
     if already {
         return Err(Stop::Code(SYSTEM_ALREADY_IN_USE));
     }
-    let needed = DEFAULT_RENT.saturating_sub(current);
-    if user_lamports < needed {
-        return Err(Stop::Code(SYSTEM_INSUFFICIENT));
+    if !admission.user_writable {
+        return Err(Stop::Code(CONSTRAINT_MUT));
     }
     let left = user_lamports - needed;
     Ok(Initialized {

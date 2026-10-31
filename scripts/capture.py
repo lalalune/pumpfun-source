@@ -61,9 +61,15 @@ def capture(url,name,key,out):
     try:
         _capture_to_directory(url,name,key,stage)
         if out.is_symlink() or out.exists():raise FileExistsError('capture output appeared during capture: '+str(out))
-        stage.rename(out)
+        # The destination can appear after the check above. Plain POSIX rename
+        # replaces an empty directory, so publication must reject it atomically.
+        from deep_disassembly import rename_directory
+        rename_directory(stage,out)
+        # Publication consumed our directory. A new directory at the old
+        # staging name belongs to another writer and must not be cleaned up.
+        stage=None
     finally:
-        if stage.exists():shutil.rmtree(stage)
+        if stage is not None and stage.exists():shutil.rmtree(stage)
 if __name__=='__main__':
     ap=argparse.ArgumentParser(); ap.add_argument('--rpc',default='https://api.mainnet-beta.solana.com'); ap.add_argument('--output',default='evidence/original'); args=ap.parse_args()
     from analyze import program_addresses

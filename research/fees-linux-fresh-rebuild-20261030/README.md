@@ -54,12 +54,14 @@ digest was therefore not exercised by this run.
   in a temporary directory, without invoking a compiler, and binds the source,
   qualified-source, input-mapping and macro inventories to both run receipts.
   `test_verify.py` runs a positive check on the real tree and on a
-  copy with a space in its path. It then runs 17 mutations that must each fail
+  copy with a space in its path. It then runs 23 mutations that must each fail
   with a specific message:
   - an edited result without its checksum;
   - a mutated run hash;
   - a non-cold target;
   - only one run;
+  - missing, substituted or extra local-crate compilation records, or boolean
+    and floating-point counts instead of the integer count one for both crates;
   - inputs that differ between runs;
   - a mutated pin in the packet;
   - a mutated pin in the builder;

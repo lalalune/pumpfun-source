@@ -86,8 +86,10 @@ def protect_inputs(destinations, inputs):
 
 def validate_quote_control(result, candidate, original):
     bound = result['bound_inputs_sha256']
-    assert bound[bound_input_key(candidate, ROOT)] == sha(candidate)
-    assert bound[bound_input_key(original, ROOT)] == sha(original)
+    # A subsequent validation pins the same ELF at a new private path. New
+    # receipts retain explicit image roles; older receipts keep path admission.
+    assert result.get('candidate_sha256', bound.get(bound_input_key(candidate, ROOT))) == sha(candidate)
+    assert result.get('original_sha256', bound.get(bound_input_key(original, ROOT))) == sha(original)
     count = result['cases']
     assert type(count) is int, 'cases must be an integer'
     assert isinstance(result['results'], list), 'results must be a list'
@@ -102,7 +104,7 @@ def validate_quote_control(result, candidate, original):
         assert row['matches'] is True and row['different_fields'] == []
         assert all(isinstance(row.get(side), dict) for side in ('original', 'candidate'))
         assert all(key in row['original'] and key in row['candidate'] and
-                   row['original'][key] == row['candidate'][key]
+                   same_json_value(row['original'][key], row['candidate'][key])
                    for key in QUOTE_CONTROL_COMPARE_KEYS), f'{identity}: retained comparison contradicts success'
     return count
 

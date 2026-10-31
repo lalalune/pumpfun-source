@@ -8,7 +8,41 @@ from score_admission import sections, baseline, same_domain, report_destination
 ROOT = Path(__file__).resolve().parents[2]
 
 
+def unnamed_sections_fixture():
+    nul = bytes([0])
+    names = nul + b'.shstrtab' + nul + b'.text' + nul
+    table = 64 + 4 * 64
+    blob = bytearray(table + len(names) + 16)
+    blob[:7] = b'\x7fELF\x02\x01\x01'
+    struct.pack_into('<Q', blob, 40, 64)
+    struct.pack_into('<HHH', blob, 58, 64, 4, 1)
+    blob[table:table + len(names)] = names
+    text = table + len(names)
+    headers = [
+        (0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+        (1, 3, 0, 0, table, len(names), 0, 0, 1, 0),
+        (11, 1, 6, 0x1000, text, 16, 0, 0, 8, 0),
+        (0, 1, 6, 0x1010, text + 8, 8, 0, 0, 8, 0),
+    ]
+    for index, values in enumerate(headers):
+        struct.pack_into('<IIQQQQIIQQ', blob, 64 + 64 * index, *values)
+    return blob
+
+
 class AdmissionTests(unittest.TestCase):
+    def test_multiple_unnamed_sections_are_admitted(self):
+        parsed = sections(unnamed_sections_fixture())
+        self.assertEqual(len(parsed), 4)
+        self.assertEqual(parsed['.text']['addr'], 0x1000)
+        self.assertTrue(any(row['addr'] == 0x1010 for row in parsed.values()))
+
+    def test_duplicate_named_sections_remain_rejected(self):
+        blob = unnamed_sections_fixture()
+        struct.pack_into('<I', blob, 64 + 3 * 64, 11)
+        with self.assertRaises(ValueError) as caught:
+            sections(blob)
+        self.assertIn('duplicate section name: .text', str(caught.exception))
+
     def test_retained_elf_tables_and_rejected_mutations(self):
         paths = sorted((ROOT/'evidence').glob('*/*/deployed.so'))
         self.assertEqual(len(paths), 9)

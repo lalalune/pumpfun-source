@@ -9,6 +9,44 @@ from window_elf_reader import Elf
 class ReaderAdmission(unittest.TestCase):
     root = Path(__file__).resolve().parents[1]
 
+    def test_rejects_inconsistent_relocation_headers(self):
+        for program in ('pump', 'pump_amm', 'pump_fees', 'mayhem'):
+            source = self.root / f'evidence/original/{program}/deployed.so'
+            admitted = Elf(source)
+            table = struct.unpack_from('<Q', admitted.b, 40)[0]
+            header = table + admitted.raw.index(admitted.secs['.rel.dyn']) * 64
+            changes = (
+                ('section type', header + 4, '<I', 1),
+                ('entry size', header + 56, '<Q', 8),
+                ('out-of-range link', header + 40, '<I', len(admitted.raw)),
+                ('non-symbol-table link', header + 40, '<I',
+                 admitted.raw.index(admitted.text)),
+            )
+            with tempfile.TemporaryDirectory() as temporary:
+                path = Path(temporary) / 'mutated.so'
+                for label, offset, fmt, value in changes:
+                    with self.subTest(program=program, field=label):
+                        raw = bytearray(admitted.b)
+                        struct.pack_into(fmt, raw, offset, value)
+                        path.write_bytes(raw)
+                        with self.assertRaisesRegex(ValueError, 'relocation'):
+                            Elf(path)
+
+    def test_rejects_relocation_symbol_outside_linked_table(self):
+        source = self.root / 'evidence/original/pump/deployed.so'
+        admitted = Elf(source)
+        section = admitted.secs['.rel.dyn']
+        linked = admitted.raw[section[6]]
+        position = next(pos for pos in range(section[4], section[4] + section[5], 16)
+                        if struct.unpack_from('<Q', admitted.b, pos + 8)[0] & 0xffffffff == 10)
+        with tempfile.TemporaryDirectory() as temporary:
+            path = Path(temporary) / 'mutated.so'
+            raw = bytearray(admitted.b)
+            struct.pack_into('<Q', raw, position + 8, ((linked[5] // 24) << 32) | 10)
+            path.write_bytes(raw)
+            with self.assertRaisesRegex(ValueError, 'relocation.*symbol'):
+                Elf(path)
+
     def test_rejects_inconsistent_machine_text_and_name_tables(self):
         original = (self.root / 'evidence/original/pump/deployed.so').read_bytes()
         admitted = Elf(self.root / 'evidence/original/pump/deployed.so')

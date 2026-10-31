@@ -1,0 +1,30 @@
+{
+  "after": {
+    "scripts/pump_create_control_differential.py": "f2e839654364c0e55a939be0d9eeaa5adec2966c8c063a95ec281af357dd8127",
+    "scripts/pump_create_differential.py": "6f46d0fabfd20b0d7ee92b0aff994b33b20d6ce70d3be79198c49f1e1456ae49",
+    "scripts/pump_create_nested_differential.py": "094f19afea139e5d72576511a9661d1c92b7d4fa01592baf6db555f4c4451011",
+    "scripts/pump_create_quote_differential.py": "fcec8fec8904095509cb20637baa1c643056d3145914bae7c8fcbd18ed926541",
+    "scripts/pump_create_v2_differential.py": "ea81114ce7aa41e25403fd8c2e30be702d01d497a1a3b3fcd3a79551af22382a",
+    "scripts/pump_creator_collect_differential.py": "017c126bb4c09967b8c4e0f214a8183ee8b411359a7c15a266d6ffd57d2834c8",
+    "scripts/pump_earned_cashback_differential.py": "64b8af8082b6f301b3e04ab9b1da55a74642676716adc68f42ad2c2725b4fe63",
+    "scripts/pump_extend_differential.py": "4eb539c2588c6af72367cb1f76ab45cf35bdce8520f2975823e14e6b04834839",
+    "scripts/pump_idl_authority_differential.py": "b34f89bec8e24324f32043c8d45de55d829ec730dc6ff54e4b70e535c9b4a96f",
+    "scripts/pump_legacy_cashback_differential.py": "234c5be91c6ede4773827af570445454d6fda0306dcbb92b383b26525d6effdf",
+    "scripts/pump_validate_volume.py": "4978d2d9b49e758327011013ee1edb480f61dd1d783d113755f129859ee49671"
+  },
+  "base": "9120883a957d7d9b2cab6140f66fb5bc9e6774d5",
+  "before": {
+    "scripts/pump_create_control_differential.py": "cd32b5c71e213c2a5f5f57a8033603643ba8023ec7347a576293611aefb02cde",
+    "scripts/pump_create_differential.py": "5e56d6ac4f2c445a54b0ac7f9ca4ed8f28e68c32866b332130e6f3e60abe7731",
+    "scripts/pump_create_nested_differential.py": "32dd24db20d1dc2c6825d3c27fa6349a4ca5dc96f782917e35abbded6c6aec9b",
+    "scripts/pump_create_quote_differential.py": "4f2e18b8c7102bb59a7c8002cc89964861fbd2dd982753b2de1288536f2418c7",
+    "scripts/pump_create_v2_differential.py": "cdae99767d053c2de96428ded4f3450568746eaa75cad43f15903335b04d97ce",
+    "scripts/pump_creator_collect_differential.py": "28df91527e326c24089bc8be0d763a61340ade45b3ab4e8c2ae6a76ab70a3c97",
+    "scripts/pump_earned_cashback_differential.py": "7b3551c07f4f561038d7fddf1354d7e52ec53d99cde3ddcf1fc7d0a53e105c96",
+    "scripts/pump_extend_differential.py": "53d296ae0974243ef5a7330d7bf070af02b8215462300da96a883888aa3e439e",
+    "scripts/pump_idl_authority_differential.py": "8731e198310319817c0bc311bc63d67766e6fd6f2504f0cc782412bc29559e93",
+    "scripts/pump_legacy_cashback_differential.py": "13eaa3010a634f6a6e00ba481b6e79575a6dc6be3dcada3ad5973c51f5eb3f14",
+    "scripts/pump_validate_volume.py": "c7fdb84347d32d6c1ccb84a5e14a6724a998e3df5587188452dc205d3892ef39"
+  },
+  "scope": "Honor plain .json output names in eleven maintained Pump producers, preserving .gz behavior; one bounded output-format task; Mayhem initializer and stopped lanes excluded"
+}

@@ -265,6 +265,8 @@ def main():
         results.append(row)
     assert all(digest(ROOT / f) == value for f, value in bound.items()), 'Inputs changed during run'
     report = {'scope': 'Fresh isolated main42 plus six quote-control handlers; offline LiteSVM only. Historical results are not reused.',
+              'original_sha256': bound[bound_input_key(original, ROOT)],
+              'candidate_sha256': bound[bound_input_key(candidate, ROOT)],
               'cases': len(results), 'mismatches': mismatches, 'compare_keys': compare_keys,
               'bound_inputs_sha256': bound, 'python': sys.version, 'platform': platform.platform(),
               'solders_version': version('solders'),

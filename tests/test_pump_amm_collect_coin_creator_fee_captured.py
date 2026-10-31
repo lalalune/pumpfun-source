@@ -169,6 +169,12 @@ def build(c):
     payload = payload[:c['payload_len']] if 'payload_len' in c else payload
     keys = {'creator': creator, 'authority': authority, 'vault': vault, 'dest': dest, 'mint': mint,
             'token_program': token_program, 'event': event, 'program': program}
+    for role, offset, value in c.get('raw_patches', ()):
+        key = keys[role]
+        account = accounts[key]
+        raw = bytearray(account.data)
+        raw[offset:offset + len(value)] = value
+        accounts[key] = Account(account.lamports, bytes(raw), account.owner)
     return metas, accounts, payload, keys
 
 
@@ -554,6 +560,25 @@ class PumpAmmCollectCoinCreatorFeeCapturedTests(unittest.TestCase):
 
     def test_seeded_random_cases_match_captured_program(self):
         self.run_cases(random_cases())
+
+    def test_base_account_option_tags_match_captured_program(self):
+        cases = []
+        for program in ('spl', 't22'):
+            for role, offsets in (('mint', (0, 46)), ('vault', (72, 109, 129)), ('dest', (72, 109, 129))):
+                for offset in offsets:
+                    for tag in (0, 1, 2):
+                        cases.append({'token_prog': program, 'amount': 0,
+                                      'raw_patches': [(role, offset, struct.pack('<I', tag))]})
+                    width = 8 if role != 'mint' and offset == 109 else 32
+                    cases.append({'token_prog': program, 'amount': 0,
+                                  'raw_patches': [(role, offset + 4, bytes([0xA5]) * width)]})
+            for role, offset, extra in [('mint', 0, {'mint_init': 0}),
+                                        ('vault', 129, {'vault_state': 0}),
+                                        ('dest', 129, {'dest_state': 0}),
+                                        ('vault', 72, {'vault_owner': 'system'})]:
+                cases.append({'token_prog': program, 'amount': 0, **extra,
+                              'raw_patches': [(role, offset, struct.pack('<I', 2))]})
+        self.run_cases(cases)
 
     def test_captured_image_identity_is_required(self):
         image.cache_clear()

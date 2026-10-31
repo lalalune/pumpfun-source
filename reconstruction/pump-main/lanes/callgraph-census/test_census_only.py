@@ -24,6 +24,9 @@ class FakeImage:
     def calls(self, start):
         return []
 
+    def external_counts(self, start):
+        return {}
+
     def text(self, start):
         return {}
 

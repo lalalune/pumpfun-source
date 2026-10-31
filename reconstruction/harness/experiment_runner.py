@@ -189,10 +189,29 @@ def separate_trees(source, destination):
     return source, destination
 
 
+def paths_alias(first, second):
+    """Include existing physical aliases without dropping absent-path checks."""
+    first, second = Path(first).resolve(), Path(second).resolve()
+    if first == second:
+        return True
+    try:
+        return first.samefile(second)
+    except FileNotFoundError:
+        return False
+
+
+def check_receipt_inputs(destination, inputs):
+    receipt_path = Path(destination) / 'latest.json'
+    if any(paths_alias(receipt_path, path) for path in inputs):
+        raise ValueError('trial receipt overlaps a declared input')
+    return receipt_path
+
+
 def run_trial(source, command, destination, inputs=(), timeout=300):
     source, destination = separate_trees(source, destination)
     environment = dict(os.environ)
     admission = identity(source, command, inputs, timeout, environment=environment)
+    receipt_path = check_receipt_inputs(destination, admission['inputs'])
     key = digest(json.dumps(admission, sort_keys=True).encode())
     destination.mkdir(parents=True, exist_ok=True)
     with (destination / '.lock').open('a') as lock:
@@ -206,7 +225,6 @@ def run_trial(source, command, destination, inputs=(), timeout=300):
                          input_execute_bits={**admission['input_execute_bits'],
                                              **input_execute_bits(refresh)})
         key = digest(json.dumps(admission, sort_keys=True).encode())
-        receipt_path = destination / 'latest.json'
         if receipt_path.exists():
             previous = json.loads(receipt_path.read_text())
             name = previous.get('attempt', '')
@@ -284,6 +302,7 @@ def main():
         if not isinstance(rows, list) or not rows or not 0 < len(rows) <= args.max_trials:
             raise ValueError('matrix must be nonempty and within --max-trials')
         names = set()
+        admissions = []
         for row in rows:
             if not isinstance(row, dict):
                 raise ValueError('each trial must be an object')
@@ -294,11 +313,12 @@ def main():
             if not isinstance(row.get('inputs', []), list):
                 raise ValueError('trial inputs must be an array of file paths')
             names.add(name.casefold())
-            identity(row['source'], row['command'], row.get('inputs', []), row.get('timeout', 300))
+            admissions.append(identity(row['source'], row['command'], row.get('inputs', []), row.get('timeout', 300)))
         # Admit the entire matrix before the first command, including cross-row inputs.
         for row in rows:
-            for other in rows:
+            for other, admission in zip(rows, admissions):
                 separate_trees(other['source'], args.out / row['name'])
+                check_receipt_inputs(args.out / row['name'], admission['inputs'])
     except (OSError, ValueError, TypeError, KeyError) as error:
         parser.error(f'invalid experiment matrix: {error}')
     results = {row['name']: run_trial(row['source'], row['command'], args.out / row['name'], row.get('inputs', []), row.get('timeout', 300)) for row in rows}

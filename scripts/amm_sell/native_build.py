@@ -14,6 +14,8 @@ recompile.
 
 Outputs are staged before publication. A failed rerun keeps the prior LANE/out/<id>
 and retains its own log and build record under LANE/out/.failed.
+One build owns each lane from staging through publication. Concurrent builds
+must use distinct lanes (or distinct try_sell --slot directories).
 
 Examples:
   native_build.py --lane LANES/a --source-root /path/to/repo --id baseline
@@ -21,6 +23,7 @@ Examples:
   native_build.py --lane LANES/a --patch change.patch --id try-18   (patch vs lane ws)
 """
 from pathlib import Path
+from contextlib import contextmanager
 import argparse
 import hashlib
 import importlib.util
@@ -197,8 +200,13 @@ def publish_output(staging, out):
 
 
 def build_environment(harness, target, staging, extra_root_flags, jobs, link_script):
+    # Ambient settings that outrank the admitted recipe stay out, mirroring
+    # fastbuild: profile overrides, target linkers and incremental flags.
     env = {k: v for k, v in os.environ.items() if k not in ('RUSTFLAGS', 'CARGO_ENCODED_RUSTFLAGS',
-            'RUSTC_WORKSPACE_WRAPPER', 'CARGO_BUILD_RUSTC_WORKSPACE_WRAPPER')}
+            'RUSTC_WORKSPACE_WRAPPER', 'CARGO_BUILD_RUSTC_WORKSPACE_WRAPPER',
+            'CARGO_INCREMENTAL', 'CARGO_BUILD_INCREMENTAL')
+           and not k.startswith('CARGO_PROFILE_')
+           and not (k.startswith('CARGO_TARGET_') and k.endswith('_LINKER'))}
     env.update({
         'CARGO_HOME': str(CARGO_HOME), 'CARGO_TARGET_DIR': str(target),
         'RUSTC': str(SDK / 'rust/bin/rustc'), 'RUSTDOC': str(SDK / 'rust/bin/rustdoc'),
@@ -216,9 +224,38 @@ def build_environment(harness, target, staging, extra_root_flags, jobs, link_scr
     return env
 
 
+def invalidate_local_crates(target):
+    """Rebuild both local packages even when retained fingerprints date ahead."""
+    for name in ('pump-amm-recovered', 'native-transfer-fee'):
+        for pattern in (f'release/.fingerprint/{name}-*',
+                        f'*/release/.fingerprint/{name}-*'):
+            for fingerprint in target.glob(pattern):
+                shutil.rmtree(fingerprint)
+
+
+@contextmanager
+def lane_lock(lane):
+    """Exclude overlapping native builds before either can restage a lane."""
+    import fcntl
+    lane.mkdir(parents=True, exist_ok=True)
+    # Keep the inode after release: unlinking would allow two separate locks.
+    with (lane / '.native-build.lock').open('a+b') as lock:
+        try:
+            fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except BlockingIOError as error:
+            raise RuntimeError('native build lane already in use: ' + str(lane)) from error
+        yield
+
+
 def build(lane, build_id, source_root=None, sell=None, patch=None, extra_root_flags='', link_script=None,
           keep_ws=False, jobs=4):
     lane = Path(lane).absolute()
+    with lane_lock(lane):
+        return _build_locked(lane, build_id, source_root, sell, patch, extra_root_flags,
+                             link_script, keep_ws, jobs)
+
+
+def _build_locked(lane, build_id, source_root, sell, patch, extra_root_flags, link_script, keep_ws, jobs):
     ws, harness, target = ensure_lane(lane, source_root)
     out = lane / 'out' / build_id
     out.parent.mkdir(parents=True, exist_ok=True)
@@ -236,11 +273,9 @@ def build(lane, build_id, source_root=None, sell=None, patch=None, extra_root_fl
                 subprocess.run(['patch', '-p1', '-d', str(ws), '-i', str(Path(patch).absolute())], check=True,
                                stdout=log, stderr=subprocess.STDOUT)
         shutil.copyfile(sell_path, staging / 'sell.rs')
-        # Restored files can carry old mtimes; force both local crates to recompile.
-        now = time.time()
-        for crate in ('programs/pump-amm', 'crates/native-transfer-fee'):
-            for path in (ws / crate).rglob('*.rs'):
-                os.utime(path, (now, now))
+        # A warm target can carry timestamps newer than this machine's clock.
+        # Touching restored sources is not enough to make Cargo rebuild them.
+        invalidate_local_crates(target)
         env = build_environment(harness, target, staging, extra_root_flags, jobs, link_script)
         started = time.time()
         with (staging / 'build.log').open('wb') as log:

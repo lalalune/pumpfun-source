@@ -61,7 +61,10 @@ def check(repo,packet,candidate=None,symbols=None):
         need(r["candidate_sha256"]==res["pinned"]["candidate_sha256"],tag+"candidate hash")
         need(r["candidate_bytes"]==n,tag+"candidate size != meaningful prefix")
         need(r["stack_diagnostics"]==[],tag+"stack diagnostics")
-        need(set(r["fresh_local_crate_compilations"].values())=={1},tag+"local crates not freshly compiled once")
+        # A value-only check also accepts a receipt missing either local crate.
+        local=r["fresh_local_crate_compilations"]
+        need(isinstance(local,dict) and set(local)=={"pump-fun-fees-candidate","pump-fees-math"} and
+             all(type(count) is int and count==1 for count in local.values()),tag+"local crates not freshly compiled once")
         need(r["sdk_tools"]==tools,tag+"SDK tool hashes differ from builder TOOLS")
         need(r["objcopy_sha256"]==res["tools"]["objcopy_sha256"],tag+"objcopy")
         need(r["controller_script_sha256"]==sha((repo/res["builder"]).read_bytes()),tag+"builder script differs from repo")

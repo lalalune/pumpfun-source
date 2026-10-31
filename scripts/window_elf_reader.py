@@ -59,6 +59,7 @@ class Elf:
             at += width
 
         self.symbols, self.funcs = {}, []
+        symbol_tables = {}
         for kind in ('.dynsym', '.symtab'):
             if kind not in self.secs:
                 continue
@@ -70,9 +71,11 @@ class Elf:
             if strings_section[1] != 3:
                 raise ValueError('symbol names must use a string table')
             strings = b[strings_section[4]:strings_section[4] + strings_section[5]]
+            table_symbols = {}
             for index, pos in enumerate(range(section[4], section[4] + section[5], 24)):
                 n, info, _, idx, value, length = struct.unpack_from('<IBBHQQ', b, pos)
                 name = string(strings, n)
+                table_symbols[index] = name
                 if kind == '.dynsym':
                     self.symbols[index] = name
                 if info & 15 == 2 and length and idx < count and self.raw[idx] == self.text:
@@ -82,6 +85,7 @@ class Elf:
                             (end != self.hi and end not in instructions)):
                         raise ValueError(f'invalid function extent for {name!r}')
                     self.funcs.append({'name': name, 'start': start, 'size': length})
+            symbol_tables[self.raw.index(section)] = table_symbols
         self.relocations = {}
         self.entries = {f['start'] for f in self.funcs}
         entry = self.text_offset(struct.unpack_from('<Q', b, 24)[0])
@@ -89,12 +93,17 @@ class Elf:
             self.entries.add(entry)
         if '.rel.dyn' in self.secs:
             section = self.secs['.rel.dyn']
-            if section[5] % 16:
+            if section[1] != 9 or section[9] != 16 or section[5] % 16:
                 raise ValueError('invalid relocation table')
+            if section[5] and section[6] not in symbol_tables:
+                raise ValueError('relocation table must link to a supported symbol table')
+            relocation_symbols = symbol_tables.get(section[6], {})
             for pos in range(section[4], section[4] + section[5], 16):
                 address, info = struct.unpack_from('<QQ', b, pos)
                 at = self.file_offset(address, 8)
-                typ, symbol = info & 0xffffffff, self.symbols.get(info >> 32, '')
+                if info >> 32 not in relocation_symbols:
+                    raise ValueError('relocation symbol index is outside the linked table')
+                typ, symbol = info & 0xffffffff, relocation_symbols[info >> 32]
                 if self.lo <= at < self.hi and typ in (8, 10):
                     expected_opcode = 0x18 if typ == 8 else 0x85
                     if at not in instructions or b[at] != expected_opcode:

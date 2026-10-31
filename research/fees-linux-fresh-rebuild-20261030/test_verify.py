@@ -34,6 +34,27 @@ class T(unittest.TestCase):
     def test_run_candidate_hash_mutated(self): self.edit_result(lambda r:r["runs"][1].__setitem__("candidate_sha256","0"*64)); self.bad("run2: candidate hash")
     def test_run_not_cold(self): self.edit_result(lambda r:r["runs"][0].__setitem__("target_initially_empty",False)); self.bad("not a cold build")
     def test_single_run(self): self.edit_result(lambda r:r["runs"].pop()); self.bad("two independent runs")
+    def test_missing_math_crate_compile(self):
+        self.edit_result(lambda r:r["runs"][0]["fresh_local_crate_compilations"].pop("pump-fees-math"))
+        self.bad("run1: local crates not freshly compiled once")
+    def test_missing_candidate_crate_compile(self):
+        self.edit_result(lambda r:r["runs"][1]["fresh_local_crate_compilations"].pop("pump-fun-fees-candidate"))
+        self.bad("run2: local crates not freshly compiled once")
+    def test_substituted_local_crate_compile(self):
+        def substitute(r):
+            counts=r["runs"][0]["fresh_local_crate_compilations"]
+            counts["unrelated-local-crate"]=counts.pop("pump-fees-math")
+        self.edit_result(substitute)
+        self.bad("run1: local crates not freshly compiled once")
+    def test_extra_local_crate_compile(self):
+        self.edit_result(lambda r:r["runs"][1]["fresh_local_crate_compilations"].__setitem__("unrelated-local-crate",1))
+        self.bad("run2: local crates not freshly compiled once")
+    def test_boolean_local_crate_compile_count(self):
+        self.edit_result(lambda r:r["runs"][0]["fresh_local_crate_compilations"].__setitem__("pump-fees-math",True))
+        self.bad("run1: local crates not freshly compiled once")
+    def test_floating_local_crate_compile_count(self):
+        self.edit_result(lambda r:r["runs"][1]["fresh_local_crate_compilations"].__setitem__("pump-fun-fees-candidate",1.0))
+        self.bad("run2: local crates not freshly compiled once")
     def test_runs_inputs_differ(self): self.edit_result(lambda r:r["runs"][1]["inventory_digests"].__setitem__("registry_inputs","1"*64)); self.bad("inputs differ")
     def test_pinned_value_mutated(self): self.edit_result(lambda r:r["pinned"].__setitem__("candidate_sha256","f"*64)); self.bad("candidate pin differs")
     def test_builder_pin_mutated(self):

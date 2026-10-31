@@ -18,8 +18,30 @@ def same_file(left,right):
     except OSError:return False
 def protected_inputs(script):
     return [Path(__file__).resolve(),loader_path,Path(write_json_report.__code__.co_filename).resolve(),script,loader.ROOT/'evidence/original/pump/capture.json',loader.ROOT/'evidence/original/pump/program-account.bin',loader.ROOT/'evidence/original/pump/programdata-account.bin',loader.ROOT/'evidence/original/pump/deployed.so']
+def wrapped_artifact_paths(arguments):
+    """Bind the documented fixture candidate/output options before it runs.
+
+    Keep the last occurrence, as argparse does. Other fixture arguments pass
+    through unchanged; these are path boundaries, not loader hash inputs.
+    """
+    values={}
+    index=0
+    while index<len(arguments):
+        option=arguments[index]
+        if option=='--':break
+        name,separator,value=option.partition('=')
+        choices=[known for known in ('--candidate','--output')
+                 if name.startswith('--') and len(name)>2 and known.startswith(name)]
+        if len(choices)==1:
+            canonical=choices[0]
+            if separator:values[canonical]=value
+            elif index+1<len(arguments) and not arguments[index+1].startswith('--'):
+                index+=1;values[canonical]=arguments[index]
+        index+=1
+    return [Path(value).absolute() for value in values.values()]
 script=args.script.expanduser().resolve();paths=protected_inputs(script)
-for path in paths:
+receipt_inputs=[*paths,*wrapped_artifact_paths(args.arguments)]
+for path in receipt_inputs:
     if same_file(args.receipt,path):p.error('receipt path aliases protected input: '+str(path))
 # Execute the same harness bytes whose digest is recorded. The loader supplies
 # digests of the captured account bytes it actually read during import.

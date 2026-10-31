@@ -1,0 +1,84 @@
+{
+  "compiler": "platform-tools v1.44 osx-aarch64 rustc1.79.0-dev; LLVM18.1.7-rust-dev",
+  "source": {
+    "helper.rs": "#![no_std]\n#[used]\n#[no_mangle]\npub static MESSAGE: &str = \"probe\";\n#[no_mangle]\n#[inline(never)]\npub extern \"C\" fn helper(x:u64)->u64 { x.wrapping_add(1) }\n",
+    "main.rs": "#![no_std]\nextern \"C\" { fn helper(x:u64)->u64; }\n#[no_mangle]\npub unsafe extern \"C\" fn entrypoint(x:u64)->u64 { helper(x) }\n"
+  },
+  "commands": [
+    {
+      "command": [
+        "<sdk>/rust/bin/rustc",
+        "--crate-name",
+        "helper",
+        "--crate-type",
+        "lib",
+        "--target",
+        "sbf-solana-solana",
+        "--emit=obj",
+        "-C",
+        "opt-level=3",
+        "/build/probe(parent)/helper.rs",
+        "-o",
+        "/build/probe(parent)/helper.o"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "<sdk>/rust/bin/rustc",
+        "--crate-name",
+        "main",
+        "--crate-type",
+        "lib",
+        "--target",
+        "sbf-solana-solana",
+        "--emit=obj",
+        "-C",
+        "opt-level=3",
+        "/build/probe(parent)/main.rs",
+        "-o",
+        "/build/probe(parent)/main.o"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "<sdk>/llvm/bin/llvm-ar",
+        "rcs",
+        "/build/probe(parent)/libhelper.a",
+        "/build/probe(parent)/helper.o"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "<sdk>/llvm/bin/ld.lld",
+        "-shared",
+        "-Bsymbolic",
+        "--entry",
+        "entrypoint",
+        "--Map=/build/probe(parent)/link.map",
+        "-o",
+        "/build/probe(parent)/linked.so",
+        "/build/probe(parent)/main.o",
+        "/build/probe(parent)/libhelper.a"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "tools": {
+    "rust/bin/rustc": "1f26338cc2cabd0a6057dcbd0528bba262b23ca1296d357a55304ee31d1d9e5a",
+    "llvm/bin/llvm-ar": "f5f6f54d235df10bc7e806a22966ca9bbae048a3ae8f8c4c20eb9b6c8081d267",
+    "llvm/bin/ld.lld": "a4d765c822f68b267e87765771da87a0fd4d640d9df27884bd10c0750d1b58f4"
+  },
+  "fixture_normalization": "Only common host temporary root replaced by /build; original emitted map bytes retained in local proof packet.",
+  "command_normalization": "Toolchain root shown as <sdk>; temporary root shown as /build, matching map fixture normalization."
+}

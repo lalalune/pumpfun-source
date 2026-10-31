@@ -21,6 +21,21 @@ def read(name):
     return json.loads(gzip.decompress(data) if name.endswith('.gz') else data)
 
 
+SECTIONS = ('.rodata', '.data.rel.ro')
+
+
+def check_sections(audit):
+    """Require both applied data sections to be compared, and to be equal.
+
+    all() over the mapping is true when the mapping is empty or when a section
+    key is missing, so the expected key set is pinned before the comparison.
+    """
+    sections = audit.get('sections_equal')
+    require(isinstance(sections, dict) and set(sections) == set(SECTIONS),
+            'applied data section set changed')
+    require(all(value is True for value in sections.values()), 'applied data sections changed')
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--signatures', action='store_true', help='Requires solders==0.27.1')
@@ -49,7 +64,7 @@ def main():
         require(audit['callee_order_preserved'] and audit['callee_multiset_preserved'], 'call targets changed')
         require(len(audit['calls']['candidate']) == 29, 'call count')
     audit = read('candidate-audit.json')
-    require(all(audit['sections_equal'].values()), 'applied data sections changed')
+    check_sections(audit)
     require(len(audit['changed_symbols']) == 1 and not audit['added_symbols'], 'applied function scope')
     runtime = read('runtime.json.gz')
     require(len(runtime['rows']) == 153, 'runtime case count')

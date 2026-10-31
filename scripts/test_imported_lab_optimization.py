@@ -60,13 +60,6 @@ def build_tree(root, tamper_manifest=False, tamper_binary=False):
             b"other-bytes" if tampered else blob)
     notes = b"lab notes"
     (snapshot / "notes.txt").write_bytes(notes)
-    files = [
-        {"path": "notes.txt",
-         "sha256": sha(b"tampered-notes") if tamper_manifest else sha(notes)},
-        {"path": "inputs/pump_fun/pump.so", "sha256": sha(blob)},
-    ]
-    (root / "research" / "import-manifest.json").write_text(
-        json.dumps({"commit": "abc123", "files": files}), encoding="utf-8")
     docs = root / "docsrepo"
     docs.mkdir()
     subprocess.run(["git", "init", "-q", str(docs)], check=True)
@@ -83,6 +76,27 @@ def build_tree(root, tamper_manifest=False, tamper_binary=False):
         capture_output=True, text=True, check=True).stdout.strip()
     (snapshot / "analysis" / "pump_fun" / "program-manifest.json").write_text(
         json.dumps({"official_docs_commit": commit}), encoding="utf-8")
+    # The verifier pins the manifest to the exact snapshot file set, so the
+    # fixture manifest must list every file the fixture creates, including
+    # the verifier scripts it executes and the program-manifest it trusts.
+    program_manifest = (
+        snapshot / "analysis" / "pump_fun" / "program-manifest.json"
+    ).read_bytes()
+    files = [
+        {"path": "notes.txt",
+         "sha256": sha(b"tampered-notes") if tamper_manifest else sha(notes)},
+        {"path": "inputs/pump_fun/pump.so", "sha256": sha(blob)},
+        {"path": "inputs/pump_fun/pump_amm.so", "sha256": sha(blob)},
+        {"path": "inputs/pump_fun/pump_fees.so", "sha256": sha(blob)},
+        {"path": "analysis/pump_fun/program-manifest.json",
+         "sha256": sha(program_manifest)},
+    ] + [
+        {"path": f"scripts/{name}.py",
+         "sha256": sha(b"import sys\nsys.exit(0)\n")}
+        for name in VERIFIERS
+    ]
+    (root / "research" / "import-manifest.json").write_text(
+        json.dumps({"commit": "abc123", "files": files}), encoding="utf-8")
     return docs
 
 

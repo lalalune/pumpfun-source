@@ -2,6 +2,7 @@
 """Generate analyst disassembly, never a source rebuild or candidate executable."""
 import argparse,hashlib,json,os,pathlib,secrets,shutil,subprocess,tempfile
 from analyze import capture_directory, program_names
+from deep_disassembly import rename_directory
 def fresh_staging(parent, name):
     """Create a run-unique staging directory for one disassembly output.
 
@@ -73,7 +74,7 @@ try:
             if not target.stat().st_size:raise RuntimeError(f'{name}: objdump wrote no disassembly')
             manifest['outputs'][name]={'input_sha256':input_sha256,'output_sha256':hashlib.sha256(target.read_bytes()).hexdigest()}
     (staging/'manifest.json').write_text(json.dumps(manifest,indent=2)+'\n',encoding='utf-8',newline='\n')
-    staging.rename(args.output)
+    rename_directory(staging,args.output)
 except BaseException:
     shutil.rmtree(staging,ignore_errors=True)
     raise

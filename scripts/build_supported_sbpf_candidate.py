@@ -269,7 +269,9 @@ def execute(planned, env, *, runner=subprocess.run):
         for name, digest in planned['source_sha256'].items():
             source = repo/name
             if sha(source) != digest: raise ValueError('source changed after planning: '+name)
-            dest = output/'source'/name; dest.parent.mkdir(parents=True, exist_ok=True); shutil.copyfile(source, dest)
+            # Build scripts may execute explicitly admitted source helpers.
+            # Preserve their modes instead of dropping execute permissions.
+            dest = output/'source'/name; dest.parent.mkdir(parents=True, exist_ok=True); shutil.copy2(source, dest)
         shutil.copytree(pathlib.Path(planned['cache_source'])/'registry', output/'cargo-home/registry', symlinks=False)
         (output/'rustup').mkdir(); (output/'artifacts').mkdir()
         # Revalidate pinned tools immediately before spawning, without clearing overrides.

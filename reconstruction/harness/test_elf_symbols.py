@@ -46,6 +46,15 @@ class ElfSymbolTests(unittest.TestCase):
         blob=fixture(); struct.pack_into('<I',blob,64+4*64+4,11)
         self.assertEqual(function_symbols(blob), [])
 
+    def test_elf_header_version_must_be_one(self):
+        self.assertEqual(len(function_symbols(fixture())), 3)
+        for version in (0, 2, 0xffffffff):
+            with self.subTest(version=version):
+                blob = fixture()
+                struct.pack_into('<I', blob, 20, version)
+                with self.assertRaisesRegex(ValueError, 'ELF header version 1'):
+                    function_symbols(blob)
+
     def test_header_and_tables_are_bounded(self):
         for edit in [lambda b: b.__setitem__(0,0), lambda b: struct.pack_into('<Q',b,40,600),
                      lambda b: struct.pack_into('<Q',b,64+4*64+32,9999),

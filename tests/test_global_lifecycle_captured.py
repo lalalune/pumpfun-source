@@ -113,7 +113,8 @@ class GlobalLifecycleCapturedTests(unittest.TestCase):
         if answer == "privilege":
             self.assertIn("PrivilegeEscalation", observed["err"] or "")
             self.assertEqual(observed["global"], row["global_before"])
-            self.assertEqual(observed["user"], row["user_before"])
+            expected_user = None if row["user_before"] == 0 else row["user_before"]
+            self.assertEqual(observed["user"], expected_user)
             return
         if answer == "missing":
             self.assertIn("MissingAccount", observed["err"] or "")
@@ -125,6 +126,7 @@ class GlobalLifecycleCapturedTests(unittest.TestCase):
             self.assertIn(f"InstructionErrorCustom({code})", observed["err"] or "", logs)
             self.assertEqual(observed["global_data"], row["data_before"])
             if row["kind"] == "initialize":
+                self.assertEqual(observed["global"], row["global_before"])
                 expected_user = None if row["user_before"] == 0 else row["user_before"]
                 self.assertEqual(observed["user"], expected_user)
             return
@@ -189,6 +191,22 @@ def init_cases():
     add("seeds-beat-readonly", 10**12, None, is_pda=False, global_writable=False)
     add("readonly-global", 10**12, None, global_writable=False)
     add("readonly-user", 10**12, None, user_writable=False)
+    # Prefunded accounts use transfer (only for a shortfall), allocate, assign,
+    # then the user's mutability constraint. Check that ordering against the VM.
+    for layout, data, owner in (
+        ("empty", b"", SYSTEM),
+        ("system-data", b"x", SYSTEM),
+        ("program-data", global_bytes(), PROGRAM),
+    ):
+        for balance in (1, RENT - 1, RENT, RENT + 1):
+            for user_balance in (0, 10**12):
+                for global_writable in (False, True):
+                    for user_writable in (False, True):
+                        add(
+                            f"prefunded-{layout}-{balance}-{user_balance}-{global_writable}-{user_writable}",
+                            user_balance, {"lamports": balance, "data": data, "owner": owner},
+                            global_writable=global_writable, user_writable=user_writable,
+                        )
     return rows
 
 

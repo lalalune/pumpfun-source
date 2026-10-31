@@ -120,6 +120,14 @@ fn step_buy(state: &mut State, setup: &Setup, op: &Op) -> Result<Option<Trade>, 
     };
     let fill = fill.map_err(buy_stop)?;
     let (track_volume, _) = legacy_buy::parse_options(trailing).map_err(buy_stop)?;
+    // The captured System transfers reject insufficient funds with code 1.
+    // Pricing and option errors above still take precedence. Check every debit
+    // before storing the fill so a failed payment leaves only the TX fee.
+    let user_lamports = state.user_lamports
+        .checked_sub(fill.sol_cost)
+        .and_then(|v| v.checked_sub(fill.protocol_fee))
+        .and_then(|v| v.checked_sub(fill.vault_credit))
+        .ok_or(Stop::Code(1))?;
     state.virtual_token_reserves = fill.curve.virtual_token_reserves;
     state.virtual_sol_reserves = fill.curve.virtual_sol_reserves;
     state.real_token_reserves = fill.curve.real_token_reserves;
@@ -127,7 +135,7 @@ fn step_buy(state: &mut State, setup: &Setup, op: &Op) -> Result<Option<Trade>, 
     state.complete = fill.curve.complete;
     state.user_tokens += fill.tokens;
     state.curve_tokens -= fill.tokens;
-    state.user_lamports -= fill.sol_cost + fill.protocol_fee + fill.vault_credit;
+    state.user_lamports = user_lamports;
     state.curve_lamports += fill.sol_cost;
     state.recipient_lamports += fill.protocol_fee - fill.buyback_fee;
     state.buyback_lamports += fill.buyback_fee;

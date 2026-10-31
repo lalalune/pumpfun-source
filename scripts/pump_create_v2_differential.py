@@ -93,6 +93,6 @@ def main():
  for c in cases():
   x=run(c);y=run(c,a.candidate) if a.candidate else None;diff=[k for k in ['before','after','error','events','inner','return'] if y is not None and x[k]!=y[k]];rows.append({'case':c,'original':x,'candidate':y,'diff':diff})
   if diff:bad.append(c)
- report={'original_sha256':hashlib.sha256(pin_program(ORIGINAL).read_bytes()).hexdigest(),'candidate_sha256':hashlib.sha256(pin_program(a.candidate).read_bytes()).hexdigest() if a.candidate else None,'scope':'Normally signed synthetic offline creation, no byte identity claim.','cases':rows,'mismatches':bad,'script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest()};publisher.write(gzip.compress(json.dumps(report,indent=2).encode(),mtime=0));print(len(rows),'cases',len(bad),'mismatches')
+ report={'original_sha256':hashlib.sha256(pin_program(ORIGINAL).read_bytes()).hexdigest(),'candidate_sha256':hashlib.sha256(pin_program(a.candidate).read_bytes()).hexdigest() if a.candidate else None,'scope':'Normally signed synthetic offline creation, no byte identity claim.','cases':rows,'mismatches':bad,'script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest()};publisher.write((gzip.compress(json.dumps(report,indent=2).encode(),mtime=0) if a.output.suffix=='.gz' else json.dumps(report,indent=2).encode()));print(len(rows),'cases',len(bad),'mismatches')
  if bad:raise SystemExit(1)
 if __name__=='__main__':main()

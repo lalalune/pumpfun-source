@@ -17,17 +17,19 @@ def sections(blob):
         raise ValueError('invalid section-name string table')
     strings = blob[names[4]:names[4] + names[5]]
     result = {}
-    for h in headers:
+    for index, h in enumerate(headers):
         if h[0] >= len(strings): raise ValueError('section name out of bounds')
         end = strings.find(b'\0', h[0])
         if end < 0: raise ValueError('unterminated section name')
         try: name = strings[h[0]:end].decode('utf-8')
         except UnicodeDecodeError as exc: raise ValueError('invalid section name encoding') from exc
-        if name in result: raise ValueError('duplicate section name: ' + name)
+        if name and name in result: raise ValueError('duplicate section name: ' + name)
         if h[1] != 8 and h[4] + h[5] > len(blob): raise ValueError('truncated section payload: ' + name)
         if h[3] + h[5] > 1 << 64: raise ValueError('section address overflow')
         if name == '.text' and h[1] != 1: raise ValueError('.text must be file-backed PROGBITS')
-        result[name] = {'addr': h[3], 'offset': h[4], 'size': h[5], 'type': h[1]}
+        # Unnamed sections are valid ELF entries. Names are NUL-free string
+        # slices, so this synthetic key cannot collide with a named section.
+        result[name or '\x00' + str(index)] = {'addr': h[3], 'offset': h[4], 'size': h[5], 'type': h[1]}
     if '.text' not in result: raise ValueError('missing .text section')
     return result
 

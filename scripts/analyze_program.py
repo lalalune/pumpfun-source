@@ -228,7 +228,8 @@ def _build_packet(program_name, output_dir, output_label):
             {"address": w["address"], "size": w["size"], "name": w["name"]}
             for w in large_windows[:30]
         ],
-        "total_relocations": sum(w["relocations"] for w in windows),
+        "total_relocations": len(elf.relocations),
+        "text_window_relocations": sum(w["relocations"] for w in windows),
     }
 
     # --- Write outputs ---
@@ -284,7 +285,8 @@ def _build_packet(program_name, output_dir, output_label):
 | Named functions | {named_count} |
 | Unnamed windows | {unnamed_count} |
 | Total call edges | {total_calls} |
-| Total relocations | {sum(w["relocations"] for w in windows)} |
+| Total ELF relocations | {summary["total_relocations"]} |
+| Text-window relocations | {summary["text_window_relocations"]} |
 
 ## Size Distribution
 | Range (bytes) | Count |

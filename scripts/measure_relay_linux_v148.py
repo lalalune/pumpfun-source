@@ -134,7 +134,10 @@ def authenticate_cache(source,cargo_home,sealed):
  return {'registry_roots':232,'source_files':7607,'packages':rows}
 
 def diagnostics(raw):
- ansi=re.compile(r'\x1b\[[0-?]*[ -/]*[@-~]');return [l for l in raw.decode('utf-8',errors='replace').splitlines()if ansi.sub('',l).lstrip().startswith('Error:')]
+ # Lines end at LF, CRLF or a bare CR only; str.splitlines() also breaks on VT, FF,
+ # FS-RS, NEL and U+2028/U+2029, starting a fake Error line mid-output (cf. #3697).
+ ansi=re.compile(r'\x1b\[[0-?]*[ -/]*[@-~]');lines=re.compile(r'\r\n|\r|\n').split(raw.decode('utf-8',errors='replace'))
+ return [l for l in lines if ansi.sub('',l).lstrip().startswith('Error:')]
 
 def compiled_log_links(raw,env,registry,successful):
  text=raw.decode('utf-8',errors='replace');commands=[]

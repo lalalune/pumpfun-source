@@ -573,7 +573,11 @@ def main():
             for rec, exp in zip(recs, expect):
                 tag = f"{label}/{image}/{rec['step']}"
                 tx = Transaction.from_bytes(base64.b64decode(rec["transaction_base64"]))
-                if not all(tx.verify_with_results()):
+                # all() is true for an empty result list, so a receipt whose
+                # signature vector was stripped would pass the bare all().
+                results = tx.verify_with_results()
+                required = tx.message.header.num_required_signatures
+                if required <= 0 or len(tx.signatures) != required or len(results) != required or not all(results):
                     fail(f"{tag}: signature verification failed")
                 if exp["error"] is None:
                     if rec["error"] is not None:

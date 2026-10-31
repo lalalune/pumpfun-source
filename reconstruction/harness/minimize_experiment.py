@@ -7,7 +7,7 @@ from pathlib import Path
 import shutil
 import subprocess
 import tempfile
-from experiment_runner import run_trial, atomic_json, digest, stage_ignore, manifest
+from experiment_runner import run_trial, atomic_json, digest, stage_ignore, manifest, separate_trees, paths_alias
 
 
 def minimize(count, evaluate, budget, wanted='pass'):
@@ -59,8 +59,9 @@ def main():
     args = parser.parse_args()
     if args.max_trials < 1:
         parser.error('--max-trials must be positive')
-    args.source = args.source.resolve(); args.out = args.out.resolve()
-    if args.source == args.out or args.source in args.out.parents or args.out in args.source.parents:
+    try:
+        args.source, args.out = separate_trees(args.source, args.out)
+    except ValueError:
         parser.error('source and output must be separate trees')
     source_identity = manifest(args.source)
     paths = [Path(p).resolve() for p in json.loads(args.patches.read_text(encoding='utf-8'))]
@@ -68,12 +69,18 @@ def main():
         parser.error('patch list must name at least one patch')
     patches = [p.read_bytes() for p in paths]
     config = load_oracle(args.oracle)
+    result_path = args.out / 'minimized.json'
+    protected = [args.patches, args.oracle, *paths,
+                 *(Path(value) for value in config.get('inputs', []))]
+    if any(paths_alias(result_path, path) for path in protected):
+        parser.error('result overlaps an input; choose a separate --out directory')
     # -C alone does not override GIT_DIR/GIT_WORK_TREE inherited from a shell
     # or Git hook. These commands must operate only on our private stage.
     git_env = {name: value for name, value in os.environ.items()
                if not name.upper().startswith('GIT_')}
     args.out.mkdir(parents=True, exist_ok=True)
     patch_errors = []
+    source_errors = []
     def evaluate(selected):
         with tempfile.TemporaryDirectory(prefix='reduce-source-', dir=args.out) as temporary:
             stage = Path(temporary) / 'source'
@@ -86,14 +93,23 @@ def main():
                 if applied.returncode:
                     patch_errors.append({'selected': selected, 'patch_index': index, 'stderr': applied.stderr.decode(errors='replace')[-4000:]})
                     return 'error'
+            # A successfully applied patch may introduce an unsupported source
+            # link. Keep that subset unknown instead of aborting the search.
+            try:
+                manifest(stage)
+            except (OSError, ValueError) as error:
+                source_errors.append({'selected': selected, 'detail': str(error)})
+                return 'error'
             key = digest(json.dumps(selected).encode())[:16]
             return run_trial(stage, config['command'], args.out / 'trials' / key,
                              config.get('inputs', []), config.get('timeout', 300))['status']
     result = minimize(len(paths), evaluate, args.max_trials, args.want)
     result['source'] = source_identity
     result['patch_errors'] = patch_errors
+    if source_errors:
+        result['source_errors'] = source_errors
     result['patches'] = [{'index': i, 'sha256': digest(raw)} for i, raw in enumerate(patches)]
-    atomic_json(args.out / 'minimized.json', result)
+    atomic_json(result_path, result)
     print(json.dumps(result, indent=2))
     return 0 if result['status'] == 'complete' else 2
 

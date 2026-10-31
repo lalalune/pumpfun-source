@@ -30,13 +30,21 @@ def valid_context(context):
     return isinstance(context, dict) and all(isinstance(context.get(k), str) and re.fullmatch('[0-9a-f]{64}', context[k]) for k in FIELDS)
 
 
+DECIMAL = re.compile(r'[+-]?[0-9]+')
+
+
 def address(value):
     if isinstance(value, bool): raise ValueError('boolean target')
     if isinstance(value, int): result = value
     elif isinstance(value, str):
         if not value or value != value.strip(): raise ValueError('blank or padded target')
-        try: result = int(value, 10 if re.fullmatch(r'[+-]?[0-9]+', value) else 0)
-        except ValueError: return value  # ledger also supports named scopes such as all
+        text = value
+        if DECIMAL.fullmatch(value):
+            # Zero padding keeps a decimal's value; strip it so the interpreter's
+            # conversion limit counts significant digits, not padding.
+            text = ('-' if value.startswith('-') else '') + (value.lstrip('+-').lstrip('0') or '0')
+        try: result = int(text, 10 if DECIMAL.fullmatch(text) else 0)
+        except ValueError: return value  # remains a named scope, like all: no abort on the digit limit
     else: raise ValueError('invalid target')
     if result < 0: raise ValueError('negative target')
     return result

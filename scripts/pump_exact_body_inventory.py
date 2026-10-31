@@ -5,10 +5,12 @@ No call, pointer, constant, register, or source-location byte is normalized.
 Matching a local window does not prove its runtime callee or data referents.
 """
 import argparse
+from contextlib import contextmanager
 import csv
 import hashlib
 import io
 import json
+import tempfile
 from pathlib import Path
 
 from pump_quote_control_function_match import sections, candidate_functions, function_body, protect_report_output, resolve_objdump
@@ -57,6 +59,28 @@ def sha(data):
     return hashlib.sha256(data).hexdigest()
 
 
+@contextmanager
+def objdump_snapshot(path):
+    """Bind symbol extraction and its receipt to one admitted executable."""
+    source = Path(path).resolve()
+    executable = source.read_bytes()
+    digest = sha(executable)
+    with tempfile.TemporaryDirectory(prefix='pump-objdump-') as temporary:
+        directory = Path(temporary)
+        (directory / 'bin').mkdir()
+        # Preserve LLVM's bin/../lib lookup. The receipt names the executable
+        # bytes only; it does not claim to bind these shared libraries.
+        libraries = source.parent.parent / 'lib'
+        if libraries.is_dir():
+            (directory / 'lib').symlink_to(libraries, target_is_directory=True)
+        snapshot = directory / 'bin' / source.name
+        snapshot.write_bytes(executable)
+        snapshot.chmod(0o555)
+        yield str(snapshot), digest
+        if snapshot.read_bytes() != executable:
+            raise ValueError('objdump snapshot changed during symbol extraction')
+
+
 def main():
     if not __debug__:
         raise SystemExit('Normal Python is required; do not use -O or PYTHONOPTIMIZE.')
@@ -73,7 +97,9 @@ def main():
     original_sections, candidate_sections = sections(original), sections(candidate)
     os = original_sections['.text']
     counterparts = {}
-    for address, size, name in candidate_functions(args.candidate, args.objdump, '.', image=candidate):
+    with objdump_snapshot(args.objdump) as (objdump, objdump_sha256):
+        functions = candidate_functions(args.candidate, objdump, '.', image=candidate)
+    for address, size, name in functions:
         raw = function_body(candidate, candidate_sections, address, size)
         counterparts.setdefault((size, sha(raw)), []).append({'address':address, 'symbol':name})
     rows = []
@@ -92,7 +118,7 @@ def main():
     result={'scope':__doc__,'original_sha256':sha(original),'candidate_sha256':sha(candidate),
             'window_inventory_sha256':sha(window_bytes),'script_sha256':sha(Path(__file__).read_bytes()),
             'helper_sha256':sha((ROOT/'scripts/pump_quote_control_function_match.py').read_bytes()),
-            'objdump_sha256':sha(Path(args.objdump).read_bytes()),
+            'objdump_sha256':objdump_sha256,
             'candidate_bytes':len(candidate),'original_text_bytes':os['size'],
             'original_windows':len(rows),'raw_equal_windows':sum(bool(r['raw_counterparts']) for r in rows),
             'raw_equal_text_bytes':sum(r['bytes'] for r in rows if r['raw_counterparts']),

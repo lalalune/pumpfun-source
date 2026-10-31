@@ -1,6 +1,7 @@
 """Receipt-integrity and non-destructive failure checks for fees_validate_all.py."""
 
 import ast
+import gzip
 import hashlib
 import json
 import os
@@ -24,7 +25,7 @@ sha = lambda path: hashlib.sha256(pathlib.Path(path).read_bytes()).hexdigest()
 report = {
     'original_sha256': sha(r / 'evidence/original/pump_fees/deployed.so'),
     'candidate_sha256': sha(a.candidate),
-    'cases': [{'match': True}],
+    'cases': [json.loads(pathlib.Path(__file__).with_suffix('.case.json').read_text())],
     'mismatches': [],
 }
 pathlib.Path(a.output).write_text(json.dumps(report), encoding='utf-8', newline='\\n')
@@ -42,7 +43,7 @@ sha = lambda path: hashlib.sha256(pathlib.Path(path).read_bytes()).hexdigest()
 report = {{
     'original_sha256': sha(r / 'evidence/original/pump_fees/deployed.so'),
     'candidate_sha256': sha(a.candidate),
-    'cases': [{{'match': True}}],
+    'cases': [json.loads(pathlib.Path(__file__).with_suffix('.case.json').read_text())],
     'mismatches': [],
 }}
 report.update({extra_expr})
@@ -74,8 +75,13 @@ class FeesValidateAllReceiptIntegrityTests(unittest.TestCase):
             if isinstance(node, ast.For) and isinstance(node.iter, ast.List)
         )
         self.assertEqual(len(suites), 18)
-        for _, name in suites:
+        retained = json.loads(gzip.decompress((
+            ROOT / 'research/runtime-fees-retained-outcomes-20261101/bounded-receipts.json.gz'
+        ).read_bytes()))['suites']
+        for suite, name in suites:
             (scripts / name).write_text(VALID_CHILD, encoding="utf-8", newline="\n")
+            (scripts / name).with_suffix('.case.json').write_text(
+                json.dumps(retained[suite]['cases'][0]), encoding='utf-8', newline='\n')
         for relative in (
             "programs/pump-fees/unused-source-input.rs",
             "evidence/original/pump_fees/deployed.so",

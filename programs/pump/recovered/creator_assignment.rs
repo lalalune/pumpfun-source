@@ -142,8 +142,9 @@ pub fn set_creator(case: &Case) -> Result<Done, Stop> {
     }
     seeds(case.metadata_address_ok)?;
     seeds(case.curve_address_ok)?;
-    let done = if case.curve_creator != DEFAULT {
-        Done { creator: case.curve_creator, event: Event::None }
+    let creator = stored_creator(case);
+    let done = if creator != DEFAULT {
+        Done { creator, event: Event::None }
     } else {
         match &case.creators {
             Some(list) => Done { creator: first_creator(list)?, event: Event::SetMetaplexCreator },
@@ -160,8 +161,9 @@ pub fn set_metaplex_creator(case: &Case) -> Result<Done, Stop> {
     load_curve(case)?;
     seeds(case.metadata_address_ok)?;
     seeds(case.curve_address_ok)?;
-    let unchanged = Done { creator: case.curve_creator, event: Event::None };
-    let done = match (&case.creators, case.curve_creator != DEFAULT) {
+    let creator = stored_creator(case);
+    let unchanged = Done { creator, event: Event::None };
+    let done = match (&case.creators, creator != DEFAULT) {
         (_, true) | (None, _) => unchanged,
         (Some(list), false) => Done { creator: first_creator(list)?, event: Event::SetMetaplexCreator },
     };

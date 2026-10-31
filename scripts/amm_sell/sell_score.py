@@ -32,7 +32,7 @@ ORIGINAL = Path(os.environ.get('AMM_SELL_SWARM', HERE.parent)).resolve() / 'infr
 ORIGINAL_SHA = '6a7ad34596d83b4c435b32f458a56e718e9f82eb4ad38e4316616d15d24d8ff7'
 SELL_START = 0x4c750
 SELL_SIZE = 9024
-SCORE_VERSION = 5
+SCORE_VERSION = 6
 
 
 def rank(entry):
@@ -70,7 +70,12 @@ def decode(code, start, size):
             yield at - start, 16, code[at:at + 16], f'lddw r{dst}, {value:#x}', ('lddw', dst, value)
             at += 16
             continue
-        if cls in (4, 7):
+        if op in (0xd4, 0xdc):
+            # END's source bit selects byte order; its immediate is the bit
+            # width. It is not the register/immediate selector of binary ALU.
+            direction = 'le' if op == 0xd4 else 'be'
+            text, fields = f'{direction}{imm} r{dst}', (direction, dst, None, imm)
+        elif cls in (4, 7):
             name = ALU.get(op >> 4, f'alu{op >> 4:x}') + ('' if cls == 7 else '32')
             text = f'{name} r{dst}, ' + (f'r{src}' if op & 8 else f'{imm}')
             fields = (name, dst, src if op & 8 else None, None if op & 8 else imm)

@@ -147,6 +147,10 @@ fn key_at(data: &[u8], at: usize) -> [u8; 32] {
     out
 }
 
+fn valid_option_tag(data: &[u8], at: usize) -> bool {
+    u32::from_le_bytes(data[at..at + 4].try_into().unwrap()) <= 1
+}
+
 fn load_mint(owner: Owner, lamports: u64, data: &[u8]) -> Result<(), Outcome> {
     if lamports == 0 {
         return Err(Outcome::Error(ACCOUNT_NOT_INITIALIZED));
@@ -157,6 +161,11 @@ fn load_mint(owner: Owner, lamports: u64, data: &[u8]) -> Result<(), Outcome> {
     // SPL Token and Token-2022 both reject a mint that is not the base 82 bytes
     // when the tail is not a real extension. Only the base size is accepted.
     if data.len() != MINT_LEN {
+        return Err(Outcome::InvalidAccountData);
+    }
+    // Unpack validates both COption tags before checking initialization.
+    // The inactive payload of None is not required to be zero.
+    if !valid_option_tag(data, 0) || !valid_option_tag(data, 46) {
         return Err(Outcome::InvalidAccountData);
     }
     match data[MINT_INITIALIZED] {
@@ -175,6 +184,9 @@ fn load_token(owner: Owner, lamports: u64, data: &[u8]) -> Result<TokenAccount, 
     }
     // Same rule as the mint: the base 165-byte account, not a padded tail.
     if data.len() != TOKEN_LEN {
+        return Err(Outcome::InvalidAccountData);
+    }
+    if !valid_option_tag(data, 72) || !valid_option_tag(data, 109) || !valid_option_tag(data, 129) {
         return Err(Outcome::InvalidAccountData);
     }
     let frozen = match data[TOKEN_STATE] {
