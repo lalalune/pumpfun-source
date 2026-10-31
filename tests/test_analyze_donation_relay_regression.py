@@ -41,7 +41,7 @@ class DonationRelayTests(unittest.TestCase):
                              hashlib.sha256(raw[:expected['elf_extent']]).hexdigest())
             inventory = json.loads((root / 'evidence/interface-inventory.json').read_text())
             self.assertEqual(sorted(inventory), ['pump'])
-            idl = json.loads((ROOT / 'evidence/upstream/pump.json').read_text())
+            idl = json.loads((ROOT / 'evidence/upstream/pump.json').read_text(encoding='utf-8'))
             self.assertEqual(inventory['pump']['address'], idl['address'])
 
     def test_all_five_captures_are_selected_in_order(self):
