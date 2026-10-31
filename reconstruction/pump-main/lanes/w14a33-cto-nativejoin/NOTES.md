@@ -61,3 +61,31 @@ block keeps its own tail-duplicated copy of the test. It needs a -8 B repay (scr
 
 See the ledger rows. Native-arm spellings without the rent scope (j2..j23, 5ee681d) are main or worse;
 early returns (j4, j5, j12, j14) and `?`-then-Ok forms (j2, j7, j16) lose 0.06-0.28 (they split the transfer Err off the phi).
+
+## 4. Landed (#3315, merge 6db95a764) and post-landing screens on main 6db95a7 (0.65458)
+
+Landed: r1j1 + b9 + Q7 at 0.65129 -> 0.65458 (land.py re-measure: zero losses, differential 363/0).
+After it, the native arm site is 66 sk / 59 fm / 49 raw of 68 orig (was 57/48/39).
+
+On 6db95a7 (raw-IR oracle, `tools/gen5.py`, `gen6.py`, `gen7.py`):
+- Native spellings: `let r=..;r.map(..)` (v_j3), `.and(Ok(amount))`, `match ..{Ok(())=>Ok(amount),..}`, `Rent::get()?.minimum_balance(0)`,
+  `rent:Rent`, an amount block around the rent temp: all byte-identical to main. The old `.map` form with the rent scope
+  (v_old), `Ok(0)` in the zero arm (v_ok0), `and_then` (v_j10) and the closure (v_j6) are worse; `Rent::get().map(..)?` loses
+  0.006; `return (..).map(..)` from the arm collapses (0.376).
+- Token arm: tail `Ok(0)` / `Ok(0u64)` byte-identical; frozen arm `return Ok(amount|0)` loses 0.0146 (-8 B);
+  one if/else-if/else expression undoes b9 (0.65069).
+- Arm order: `if !native{token}else{native}`, `match native{false=>..,true=>..}` and `{true=>..,false=>..}` are byte-identical.
+
+## 5. What is left at the native join (mechanism, not source-reachable so far)
+
+- **J2 remains:** `exit` (`jne tag,2`) is early-tail-duplicated into the Ok-side join bb49 (native amount==0 / Ok / Err,
+  frozen Ok(0), token zero) and the Err-side join bb57. The original has ONE join at 0x3c58 for all of these.
+  `-disable-early-taildup` globally gives 0.586; merging bb49/bb57 into `exit` in post-opt IR (`e/p5.py`) collapses (0.24).
+  Threading the token Ok past the test in post-opt IR (`e/p4.py`) is +14 fm but shifts the frame (raw -1030).
+- **swept register:** the original keeps the swept phi in r9 (= the Err payload register) through the whole post-sweep region.
+  Ours carries it in r3 at the join, spills it to 0x968 and copies it to r8 for the Err return. This is w14a06's swept-coalescing
+  residual. It needs an Err-join degree change, and those changes shift the frame.
+- The tail sites downstream (token ATA create, transfer_vault_tokens) now differ only in frame slots (accounts pointer 0x8d8 vs ours
+  0x8e0, orig 0x8e0 vs ours 0x9b8). That is the spill-slot-order residual, not code shape.
+- Zero-size knob screen on 6db95a7 (58 catalog and w14a31 knobs whose last measured delta was 0 B, `tools/gen4.py base m4`):
+  none is above main (best = main, 0.65458).

@@ -1,0 +1,33 @@
+{
+  "lane": "w14a33-cto-nativejoin",
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27400 B",
+  "result": "landed #3315 (merge 6db95a764): admin_cto 0.65129 -> 0.65458 at 27400 B, slots 3170 -> 3280, normalized/raw 1034/1034, zero losses, differential 363/0",
+  "best": {"ratio": 0.65458, "slots_diff": 3280, "bytes": 27400, "main_before": "faf996242", "unstripped_sha": "1afec025103d223b"},
+  "mechanism": [
+    "let rent=Rent::get()? kept rent live to the end of the native arm: IR bb34.i (lifetime.end rent) was a native-only join; early tail-dup made it an extra jne r7,2 block + the 0x968 phi slot, and ensure/Rent Errs sank into one block",
+    "fix: let min={let rent=Rent::get()?;rent.minimum_balance(0)}; + (if amount>0{ensure?;transfer_native(..)}else{Ok(())}).map(|()|amount) -> original native arm (ensure ? to a far block, transfer Ok/Err into the common phi), +8 B",
+    "with w14a27 b9 (token arm transfer_vault_tokens?;return Ok(amount)): still +8 B, jump-masked matches 2220 vs 2199",
+    "repaid -8 B with w14a31 Q7 (TCF program literal data:a.pump_amm.data.clone(), is_writable==false, event fee read in place)"
+  ],
+  "attempts": 149,
+  "ledger": "approach nativejoin, keys 0x22a10-w14-{5ee681d,4233bd9,81d3d9a,faf9962,6db95a7}-nativejoin-*",
+  "rejected": [
+    "native early returns (return Ok(0) / return tn.map / if let Err) and ?-then-Ok(amount) forms: -0.06..-0.28 (transfer Err leaves the phi)",
+    "native and_then / closure / Ok(0) / .map(|_|..) / match spellings: main or worse",
+    "Rent::get().map(..)? (-0.006), Rent temp/amount-block spellings: identical once rent is scoped",
+    "token arm frozen return Ok(..) (-0.0146), single if/else expression (undoes b9), tail Ok(0) identical",
+    "sweep arm order swaps (if !native / match native both orders): byte-identical",
+    "post-opt IR: native straight to exit (p1, 0.32), all sweep joins into exit (p5, 0.24), token Ok threaded past the test (p4, +14 fm but frame shift), -disable-early-taildup (0.586)",
+    "58 zero-size knobs on 6db95a7: none above main"
+  ],
+  "unresolved": [
+    "J2: exit (jne tag,2) is still early-tail-duplicated into the Ok-side join bb49 (native, frozen Ok(0), token zero); the original has one join at 0x3c58",
+    "swept phi lives in r3 and spills to 0x968, while the original keeps it in r9 (= the Err payload register); this is w14a06's swept-coalescing residual",
+    "tail token ATA create / transfer_vault_tokens now differ only in spill slots (accounts pointer 0x8d8 vs 0x8e0)"
+  ],
+  "next_ideas": [
+    "make the Ok-side and Err-side sweep joins share the same live alloca set (declare vsigner/old before the first ?), so exit has one pred block and is not tail-duplicated; check with tools/pe.py + ch.py fm/sk before trusting the ratio",
+    "screen -8 B / +8 B knob pairs near the sweep tail on 6db95a7 now that the native join is fixed",
+    "swept-in-r9 joint state (w14a06 idea 1) re-evaluated on the new CFG"
+  ]
+}
