@@ -7,9 +7,15 @@ Lane: wave-15 lane continued in wave 16 (the first run died at the w15 account l
 (24 rows from the first run, plus `-grid-*`, `-trig-*` and `-irexp-*` rows from this run).
 
 **Result: no landable change.** Main is still the best zero-loss measurement (0.67376 / 3,124 slots / 27,400 B).
-- Every source trigger found that outlines `to_string` at 307 and 312 gives the original's exact outline pattern and its
-  lddw count (86). Every one of them also collapses the rest of the function, to M about 1,400.
-- The collapse comes from a CFG change made at inline time, and this lane names it. tf_g3 does not repair it.
+- Every faithful source trigger found that outlines `to_string` at 307 and 312 gives the original's exact outline pattern
+  and its lddw count (86). Every one of them also collapses the rest of the function, to M 1,400-1,550.
+- The collapse comes from a CFG change made at inline time, and this lane names it: threading, or un-threading, the
+  holder split. Outlining does not cause it, and tf_g3 does not repair it.
+- The control experiment changes only the branch probability, with a steering-only flag (F2, w14a07 `cold306-f2`), so it
+  is not landable. It outlines without collapsing: M 2,186 at 26,920 B. That is still 480 B short of the pin and 64 M short
+  of main.
+- The original's validate is itself the threaded shape (section 3), and main's later code is register-fitted to the
+  unthreaded one.
 - The faithful pieces add their main-base costs on the IR-forced outline base O. No cell of the O-repay grid comes near main.
 
 ## Tools (`tools/`, experiment only; paths point at this lane's out dir)
@@ -80,6 +86,14 @@ Main at V (`vbfi.py`, which matches a hand computation to 4 digits):
 | T289ntf | T289n + tf_g3 | = T289n | orig pattern | 157 / 86 | 27,024 | 1,393 | 1,506 / 2,454 | |
 | U1 / U2 | T289n + `holder=hopt.unwrap_or(false)` (validate / + execute) | 0.0121C / 0.0123C / 0.0125C | **307I 312I 326O** (E inlines them back) | 157 / 87 | 27,048 / 27,016 | 1,021 / 1,025 | 1,249 / 2,823 | |
 | U4 | T289n + `matches!(hopt,Some(true))` (both) | = U1 | | | | | | |
+| Y2 (v27) | split on a fresh `hopt==Some(true)` | 0.0176C / 0.0179C / 0.0182C | orig pattern | 157 / 86 | 26,960 | 1,411 | | |
+| Y1 | T289h + v27 | = Y2 | orig pattern | 157 / 86 | 26,960 | 1,411 | | |
+| Z2 (w13a17) | `let target=match new{Some(_) if holder=>298, None if holder=>*holder_key, None=>306, Some(t)=>{307;312;t}}` | 0.0176C / 0.0179C / 0.0182C | orig pattern | 157 / 86 | 27,016 | 1,471 | | |
+| **F2** (w14a07 `cold306-f2` port, pricing only) | RAR + `validate(..,has:bool,..)` with `has=args.0.is_some()` + 306 as `if let (true,Some(t))=(has,new)` | 0.0141C / 0.0144C / 0.0155C | orig pattern, **no collapse** | 157 / 86 | 26,920 | **2,186** | 2,199 / 2,958 | |
+| F2t | F2 + tf_g3 | = F2 | orig pattern | 157 / 86 | 27,008 | 2,184 | | |
+| Z1 | 312 as `require!(t!=*sharing&&t!=*holder_key,..)` | = main (0.0283 / 0.0287) | 307I 312I | | | | | |
+| W1 / W2 / W3 | T289n + 298 as `if let Some(_)=new` / `new!=None` / `require!(new.is_none(),..)` | = T289n | orig pattern | 157 / 86 | 27,008 | 1,410 | | |
+| X1 / X2 / X3 | T289n + `sharing_update=Some(new)` / + drop `args` / `args=(new,)` by value | = T289n | orig pattern | 157 / 86 | 26,992 | 1,548 | 1,603 / - | |
 | first run | A1-K2 (h296in, B2 = h296in+p289h, B4a new_target helper, K1/K2), `data/trig-w15.txt` | | B2/B4a/C1/G*: orig pattern | 157 / 86 | 26,880-27,000 | 1,421-1,623 | 1,507-1,870 / 2,447-2,979 | |
 
 Notes on the table:
@@ -87,6 +101,17 @@ Notes on the table:
   pass edge re-tests holder at 50/50, so N = 0.0703 + 0.0469.
 - In T289n, T289e and T289ie the 289 branch is on `%holder` itself. The early SimplifyCFG then threads that path straight
   into the holder arm, so N = 0.0703.
+- Z1 shows that a per-site error-macro spelling cannot move N. Such spellings change only their own error block, so they
+  cannot trigger the outline.
+- Y2 and Z2 trigger the outline by *removing* main's critedge threading, which adds a 50/50 on every path. They collapse
+  just like the threading triggers do.
+- F2 is the control experiment. It adds one 50/50 test of a bool argument on the Some path and keeps main's holder
+  split, so the change is BPI-only and nothing is threaded. It gets the original's outline set and keeps main's later code:
+  - M 2,186 at 26,920 B, with true-LCS chunk deltas against main of only -3 to -19;
+  - fM 2,387 and rfM 2,670, against main's 2,350 and 2,621.
+
+  `has` repeats `new`'s tag and exists only to steer BPI, so under the RULE it is a pricing probe, not a candidate. At the
+  pin F2 still needs +480 B and +64 M (w14a07 found no faithful fill for this basin on cef0574).
 - An older lane found the `holder==false` trigger on 917ee61 (`r1-289-holder-eq-false`, 26,856 B). w13 recorded
   `outline306-t289-nested-ifelse` as rejected.
 
@@ -117,12 +142,39 @@ Notes on the table:
   - The RA changes from the first instruction on. `lcschunk` against main (`---`): 0x2000 -268 and 0x3000 -281, the same
     numbers as w15 B2. Under `rfj` the validate chunk 0x1000 is +18, so the trigger's own region is fine.
 
+  Forwarding the copy does not fix it. `X1` (`sharing_update=Some(new)`) and the IR edit `Tfwd` give the same bytes:
+  140 allocas, M 1,548. That is only +138 M, and the losses at 0x2000 and 0x3000 stay (-258 / -285 `---`). The copy is a
+  symptom. The remaining cause is a register-allocation reassignment that starts at the first instruction, for example r6
+  holding ctx instead of the accounts pointer. It follows from the threaded validate CFG.
+
   This is the original's class E ("entry copy of `new`", w15a11): the original keeps such a copy too, but as SROA pieces
   (1/7/8/8/8/1 B), not as one 32 B alloca. The 298-site spellings W1 (`if let Some(_)=new`) and W2 (`new!=None`) fold to
   T289n's bytes, which confirms the 298 temporary is not involved.
-- Any trigger that keeps main's later code must make 307 and 312 cold at V without threading the holder split, and with
-  the `args` copy still forwarded. With main's CFG that needs N < 0.1067, and the only 50/50 re-test that can be removed
-  is the threaded one. U1/U2 show the other side: `unwrap_or(false)` moves the E decisions instead.
+- Some V-time CFG changes are harmless: T289h's merged 296 block costs only -14. That change apparently ends in main's
+  final CFG. The threading triggers (T289n, Ie2i) and the removal of the critedge (Y2, Z2) do not.
+- U1/U2 show another way to fail: with `unwrap_or(false)`, V marks 307/312 cold but E inlines them back.
+- BPI-only triggers do not collapse.
+  - w14a07-cto-cold306's `c1` is a `#[cold] fn cold(){}` call at the head of the 306 Some arm. On 769f331 it scored near
+    main: 0.63342 with an llc-time tag weight, against main's 0.63241.
+  - Its marker-free `f2` (the `has` flag) is ported here as F2: M 2,186 at 26,920 B, a mild shift (chunk deltas -3 to
+    -19).
+
+  Both work only through redundant steering constructs. `c1` is a dummy call and `has` repeats `new`'s tag, so the RULE
+  excludes both. No faithful construct found here lowers N or P(Some) by 30 % through BPI alone. BPI's levers are
+  zero/null/memcmp compares, cold or noreturn calls, loops and unwind edges.
+- The original's validate is the threaded shape, read from the orig window's control flow:
+  - hr=1: `jne r8,0` at 0x640 (r8 = holder = `hopt & 1`) goes to the holder arm (0x900), else to the 289 error inline at
+    0x648.
+  - hr=0 (0x710): `jeq r8,0,+1; ja` at 0x720. If holder, it reaches 0x8f8, which runs the he test (0x8f8 `jeq r1,0` to
+    the 296 error at 0xf40) and then the holder arm. If not, it runs the new-tag test (0x730-0x748): Some goes to the
+    307/312 checks at 0xc08, None to the 306 error at 0x750.
+  - The holder arm continues at 0xab8 (new None: `target = holder_key` copies) into its own copy of the fee checks (fee
+    tag at 0xaf0, quote_locked `and 1` at 0xb30, the 326 error at 0xb40). That copy is class F.
+
+  So in the original only the hr=0 & !holder flow reaches the non-holder arm. At V that is N = 0.0703, the same as T289n,
+  and it is why 307/312 are outlined there. Fifteen waves fitted main's later code to main's *unthreaded* validate, and the
+  threaded validate costs about 700-850 M of RA there (T289n, Ie2i). So threading validate is the original's shape, but it
+  cannot be bought one lever at a time: the later code would have to be re-fitted for it.
 
 ## 4. O-repay grid (IR-forced O on tf_g3 captures; `vr.sh` plain / O / O312)
 
@@ -145,14 +197,21 @@ Notes on the table:
 - The angle is exhausted. The trigger exists (T289n/e/ie), but it reaches O only through a V-time CFG change that main's
   later code cannot survive, and O's room has no faithful repay.
 - For any future outline lane:
-  1. Look for a 289/296 spelling whose V-time CFG keeps main's `bb21` re-test (no threading) but gives one more 50/50
-     split on the non-holder path, or lowers 306's Some test.
+  1. A BPI-only trigger keeps main's later code (F2; also the banned w14 cold marker). The faithful ones tried here
+     thread or un-thread the holder split, and all of those collapse. The original itself is threaded (section 3), so the
+     honest route is a whole-region rewrite, threaded validate plus class-F per-arm fee checks, that re-fits the later RA.
+     Single levers will not get there.
   2. Screen candidates with `capt.sh` (V decisions in seconds) before any full build.
   3. Check for the surviving `args` copy (`%_45.sroa.5`, `[32 x i8], align 1` in execute's post-O3 IR) before scoring.
-- The surviving `args` copy (`%_45.sroa.5`) is a concrete residual that a future lane could target. A sharing-payload
-  spelling that keeps it forwarded under threading, or splits it into the original's 1/7/8/8/8/1 SROA pieces, would make
-  T289n worth re-pricing. Section 6 lists the spellings priced here.
+- Even a perfect O trigger would sit near the IR-forced O (M 2,199 at 27,024 B with tf_g3), about 50 M below main, with
+  376 B to repay. The faithful pieces repay nothing (section 4), so the outline route cannot land on its own. It is worth
+  pursuing only as part of a whole-region validate rewrite that also changes the skeleton (classes A-J of w15a11).
 
-## 6. 298 spellings on the T289n trigger
+## 6. Data
 
-See `rxf.txt` rows W1-W3 (appended below when they finish).
+- `data/trig2.txt`: fast-V-oracle rows for every capture of this run.
+- `data/rxf.txt`: full-oracle rows (outline map, calls/lddw, `fr.py` tiers, ratio).
+- `data/grid.txt`: O-repay grid rows (plain / O / O312).
+- `data/lcs26.txt`: true LCS (`---` / `rfj`).
+- `data/mperm26.txt`: Mperm (w15a08 `relab.py bin`).
+- `data/trig-w15.txt`: the first run's rows.

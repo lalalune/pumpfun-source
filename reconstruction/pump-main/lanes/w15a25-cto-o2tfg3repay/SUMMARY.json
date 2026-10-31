@@ -1,0 +1,224 @@
+{
+ "lane": "w15a25-cto-o2tfg3repay",
+ "wave": "w15 lane continued in w16",
+ "target": {
+  "window": "0x22a10",
+  "function": "admin_cto::execute",
+  "file": "programs/pump/src/creator/admin_cto.rs",
+  "pinned_bytes": 27400
+ },
+ "base": {
+  "main": "9120883a9 (programs unchanged through 9bd38c7d5 for admin_cto.rs)",
+  "ratio": 0.67376,
+  "slots_diff": 3124,
+  "bytes": 27400,
+  "M": 2249,
+  "true_lcs": [
+   2255,
+   3007
+  ],
+  "Mperm": 2292
+ },
+ "result": "no landable change; notes only",
+ "best_zero_loss": {
+  "ratio": 0.67376,
+  "slots_diff": 3124,
+  "bytes": 27400,
+  "source": "main (unchanged)"
+ },
+ "pr": 3841,
+ "ledger": {
+  "approach": "o2tfg3repay",
+  "keys": "0x22a10-w15-9120883-o2tfg3repay-{A1..K2 (first run), grid-*, trig-*, irexp-*}-v1"
+ },
+ "tools": {
+  "reduce.py + vbfi.py + thr.py": "fast V oracle: validate's to_string inline decisions and block frequencies at its own CGSCC inliner visit in ~3 s (35 MB -> 3.5 MB module); identical decisions to the full pipeline on m0",
+  "capt.sh / tq.sh / tqf.sh / rxf.sh": "capture + fast V oracle, queues, full oracle on a kept capture",
+  "ed/*.py": "raw-IR experiments: e1/e2 (289 on %holder), e2i (threading without outlining), o326 (326 inlined at V), bw (holder-split weights), fwd (args copy forwarded), ni (forced O)"
+ },
+ "mechanism": {
+  "V_table_main": {
+   "284": 0.625,
+   "289": 0.1172,
+   "296": 0.0264,
+   "298": 0.0403,
+   "306": 0.0754,
+   "307": 0.0283,
+   "312": 0.0287,
+   "326": "0.0183 cold",
+   "330": "0.0011 cold",
+   "334": "0.0031 cold",
+   "338": "0.0037 cold"
+  },
+  "non_holder_flow": "N = 0.0703 (threaded hr=0 & !holder critedge) + 0.0806 (50/50 holder re-test at bb21 of the hr=1 fresh-eq path and the hr=0 he-pass path) = 0.1509; 307 = N x 0.5 (Some, range-form 50/50) x 0.375 (memcmp==0); outline needs N < 0.1067",
+  "collapse": "every source trigger reaches cold 307/312 by changing validate's V-time CFG (threading the holder split: T289n/e/ie, B2, B4a; or un-threading it: v27, multi-way match); that alone collapses the function to M ~1400-1550 (Ie2i: threading without outlining M 1423) through a global RA reassignment plus a surviving execute args=(new,) payload copy (%_45.sroa.5, +1 alloca, frame +8 B); forced O keeps main's CFG and stays at M 2199 (tf_g3)"
+ },
+ "trigger_table": [
+  {
+   "name": "T289h",
+   "form": "289 st.holder_reward&&!holder",
+   "V307": 0.022,
+   "outline": false,
+   "bytes": 27400,
+   "M": 2235
+  },
+  {
+   "name": "T289n",
+   "form": "289 if st.holder_reward{if !holder{err}}",
+   "V307": 0.0132,
+   "outline": "orig pattern, lddw 86",
+   "bytes": 27008,
+   "M": 1410,
+   "true_lcs": [
+    1535,
+    2452
+   ],
+   "Mperm": 1524
+  },
+  {
+   "name": "T289e",
+   "form": "289 holder==false",
+   "V307": 0.0173,
+   "outline": "orig pattern",
+   "bytes": 27008,
+   "M": 1410
+  },
+  {
+   "name": "T289ie",
+   "form": "289 if holder{}else{err}",
+   "V307": 0.0132,
+   "outline": "orig pattern (V)"
+  },
+  {
+   "name": "T289ntf",
+   "form": "T289n + tf_g3",
+   "bytes": 27024,
+   "M": 1393,
+   "true_lcs": [
+    1506,
+    2454
+   ]
+  },
+  {
+   "name": "U1/U2",
+   "form": "T289n + unwrap_or(false)",
+   "outline": "307I 312I 326O (E re-inlines)",
+   "bytes": 27048,
+   "M": 1021
+  },
+  {
+   "name": "Y2/Y1",
+   "form": "split on fresh hopt==Some(true) (v27), +/- p289h",
+   "outline": "orig pattern",
+   "bytes": 26960,
+   "M": 1411
+  },
+  {
+   "name": "Z2",
+   "form": "w13a17 multi-way match on new with holder guards",
+   "outline": "orig pattern",
+   "bytes": 27016,
+   "M": 1471
+  },
+  {
+   "name": "Z1",
+   "form": "312 as require!",
+   "V307": 0.0283,
+   "outline": false
+  },
+  {
+   "name": "W1-W3",
+   "form": "T289n + 298 spellings",
+   "bytes": 27008,
+   "M": 1410
+  },
+  {
+   "name": "X1-X3 / Tfwd",
+   "form": "T289n + sharing_update=Some(new) / no args / args by value / IR forward",
+   "bytes": 26992,
+   "M": 1548
+  },
+  {
+   "name": "F2",
+   "form": "w14a07 cold306 f2 port: RAR + has:bool=args.0.is_some() + if let (true,Some(t))=(has,new) (BPI-only; has is steering-only, pricing probe)",
+   "V307": 0.0141,
+   "outline": "orig pattern, lddw 86, no collapse",
+   "bytes": 26920,
+   "M": 2186,
+   "true_lcs": [
+    2199,
+    2958
+   ]
+  },
+  {
+   "name": "F2t",
+   "form": "F2 + tf_g3",
+   "bytes": 27008,
+   "M": 2184
+  }
+ ],
+ "o_repay_grid": [
+  {
+   "cell": "Otf_g3 (w15a21)",
+   "O_bytes": 27024,
+   "O_M": 2199,
+   "O_true_lcs": [
+    2248,
+    2983
+   ],
+   "O_Mperm": 2244
+  },
+  {
+   "cell": "+b01",
+   "O_bytes": 26960,
+   "O_M": 1760,
+   "O_true_lcs": [
+    1956,
+    2981
+   ],
+   "O_Mperm": 2107
+  },
+  {
+   "cell": "+b02",
+   "O_bytes": 26960,
+   "O_M": 1765,
+   "O_true_lcs": [
+    1958,
+    2981
+   ]
+  },
+  {
+   "cell": "+Fa",
+   "O_bytes": 27256,
+   "O_M": 1402,
+   "O_true_lcs": [
+    1518,
+    2470
+   ],
+   "O_Mperm": 1519
+  },
+  {
+   "cell": "+b02+Fa",
+   "O_bytes": 27296,
+   "O_M": 1362
+  }
+ ],
+ "rejected_mechanisms": [
+  "289/296 spellings that thread the holder split at V (p289n, p289e, p289ie; first run B2/B4a/C1/G*)",
+  "un-threading the split (v27 fresh eq) and the multi-way match (w13a17)",
+  "and-1 holder forms with the trigger (unwrap_or(false), matches!)",
+  "tf_g3 on the source trigger",
+  "298-site spellings and sharing-payload/args forms on the trigger",
+  "per-site error-macro spellings (cannot move N)",
+  "b01/b02/Fa repay on the IR-forced O base (additive or collapse)"
+ ],
+ "unresolved_residuals": [
+  "the original's validate is the threaded shape (holder tested once per hr path: orig 0x640 / 0x720; only hr=0 & !holder reaches the non-holder arm, N = 0.0703 at V like T289n), with class-F per-arm fee checks (0xab8-0xb40); main's later code is RA-fitted to the unthreaded validate, so threading costs ~800 M there",
+  "the V-threaded trigger leaves execute's args=(new,) payload copy as a 32 B alloca (%_45.sroa.5), unlike the original's 1/7/8/8/8/1 SROA pieces (forwarding it recovers only +138 M)"
+ ],
+ "next_ideas": [
+  "BPI-only outline (F2-like, no CFG change) keeps main's later code: M 2186 @26,920 B on current main, but needs +480 B and +64 M at the pin and a faithful (non-steering) trigger",
+  "the faithful route is a whole-region rewrite: threaded validate + class-F per-arm fee checks + re-fitted downstream RA; single levers cannot get there",
+  "screen any validate rewrite with capt.sh (V decisions in ~3 s) before full builds"
+ ]
+}

@@ -88,3 +88,16 @@ G['sna']=[('sharing_update=Some(args.0);','sharing_update=Some(new);'),('let arg
 G['sac']=[('let args=&(new,);','let args=(new,);')]
 # split on a fresh eq (no early threading of the split), with 289 on holder (p289h): extra 50/50 on every path into the arms
 G['v27']=[('let target=if holder{if new.is_some(){','let target=if hopt==Some(true){if new.is_some(){')]
+# error-macro spelling of 312, and w13a17's multi-way match (Some case with sibling guard arms)
+_L312="  if t==*sharing||t==*holder_key{return Err(error!(PumpError::InvalidCreator));}t};"
+G['z312r']=[(_L312,"  require!(t!=*sharing&&t!=*holder_key,PumpError::InvalidCreator);t};")]
+_L298=" let target=if holder{if new.is_some(){return Err(error!(PumpError::CtoNewCreatorNotAllowed));}*holder_key}else{"
+_L306="  let t=if let Some(t)=new{t}else{return Err(error!(PumpError::CtoNewCreatorRequired));};"
+G['zmw']=[(_L298," let target=match new{Some(_) if holder=>{return Err(error!(PumpError::CtoNewCreatorNotAllowed));}None if holder=>*holder_key,"),
+          (_L306,"  None=>{return Err(error!(PumpError::CtoNewCreatorRequired));}Some(t)=>{"),
+          (_L312,"  if t==*sharing||t==*holder_key{return Err(error!(PumpError::InvalidCreator));}t}};")]
+# w14a07 cold306 f2 port (pricing probe only: the has flag is redundant with new's tag): RAR + has:bool + if let (true,Some(t))
+G['rar']=[('let args=&(new,);',''),('let st=CtoState{','let args=&(new,);let st=CtoState{')]
+G['f2has']=[('new:Option<Pubkey>,holder_key:&Pubkey,sharing:&Pubkey)->Result<Pubkey>','new:Option<Pubkey>,has:bool,holder_key:&Pubkey,sharing:&Pubkey)->Result<Pubkey>'),
+  ('validate(&st,hopt,fee,new,&holder_key,&sk)','validate(&st,hopt,fee,new,args.0.is_some(),&holder_key,&sk)'),
+  ('  let t=if let Some(t)=new{t}else{return Err(error!(PumpError::CtoNewCreatorRequired));};','  let t=if let (true,Some(t))=(has,new){t}else{return Err(error!(PumpError::CtoNewCreatorRequired));};')]
