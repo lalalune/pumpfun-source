@@ -32,6 +32,7 @@ The n1 single-force screen (113 colour forces) has only one large force, `1682=r
 | n1po | owner-first gate `a.pool.owner==&AMM && !a.pool.data_is_empty()` (the original order at 0x4bc0) | 27,416 | 0.63432 |
 | k1 / k2 / k3 | event literal built in a nested `fn ev(&ctx or ctx, values by value)` | 29,296 | 0.2395 |
 | gene screen | n1 + each of 222 single genes from w14a109 `genes.py` | | none above n1; 27,400 only from nf-restoring genes (= main) |
+| gene screen | mpo + each of 216 single genes (86e2a6b) | | none flips the pool-pointer colour (best 0.63462 @27,416) |
 
 ## 3. Why the pool-region forms drop to ~0.633, and the owner-first gate as the better base
 
@@ -45,7 +46,7 @@ The original holds it in **r7**, because r6 holds the sharing tag there. That co
 | n1po | `358=r7` (pool ptr) | 27,376 | 0.67256 (error chain back in place) |
 | n1po | `358=r7,1681=r6` (+ event accounts piece) | 27,376 | **0.67826** (n1 best 2-force 0.67706) |
 | n1po | 8-force climb (`climb-n1po-90300f9.log`) | 27,368 | **0.68577** (n1's 11-force ceiling 0.68485) |
-| main+po (`mpo`, nf kept) | `359=r7` | **27,400** | **0.67466** (+0.0012 over main at the pinned size) |
+| main+po (`mpo`, nf kept) | `359=r7` | **27,400** | **0.67466** (+0.0012 over main at the pinned size; 0.67496 vs 0.67376 on 86e2a6b) |
 | main+po | none | 27,440 | 0.63344 |
 
 So the original's gate order plus one colour (pool ptr in r7) beats main at exactly 27,400 B. Every owner-first spelling
@@ -73,8 +74,9 @@ tag never gets the r6 region. The source has no other use of the tag in that ran
 
 ## 5. Next ideas
 
-- **mpo + one size-neutral change that flips the pool pointer to r7** would land (0.67466 @27,400 forced). A gene screen
-  of main+po + each single gene (224 genes) was running at the end of this lane; see `SUMMARY.json` for its outcome.
+- **mpo + one size-neutral change that flips the pool pointer to r7** would land. On main 86e2a6b (0.67376), mpo is
+  0.63374 @27,440, and forcing `359=r7` gives **0.67496 @27,400** (+0.0012). A screen of mpo + each of 216 single genes
+  (`genescreen-mpo-86e2a6b.jsonl`) found no flip: the best is 0.63462. The lever has to be new source, not a known gene.
 - Look for ordinary source that keeps the sharing tag in a register across the curve block: an early tag split, or a tag
   whose last use comes before the event. Forms the original allows: the event's `sharing_config_reset` taken from a
   value held across the pool CPI, like the original's r6 tag piece.

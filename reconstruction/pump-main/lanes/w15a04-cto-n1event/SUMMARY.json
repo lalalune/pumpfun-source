@@ -1,0 +1,163 @@
+{
+ "lane": "w15a04-cto-n1event",
+ "wave": 15,
+ "target": {
+  "window": "0x22a10",
+  "function": "admin_cto::execute",
+  "file": "programs/pump/src/creator/admin_cto.rs",
+  "pinned_bytes": 27400
+ },
+ "base": {
+  "main": "90300f9d2 (then merged f7a917b68 / baseline 86e2a6b74)",
+  "ratio_90300f9": 0.67346,
+  "ratio_86e2a6b": 0.67376,
+  "slots": 3124,
+  "bytes": 27400
+ },
+ "result": "notes only; no zero-loss gain at 27,400 B (best = main)",
+ "best_zero_loss": {
+  "ratio": 0.67346,
+  "slots": 3124,
+  "bytes": 27400,
+  "what": "main itself"
+ },
+ "oracle": "raw-IR capture + opt/llc (rx.py, eq_main true on the unedited capture on both bases) and the w14a84/w14a120 private RAPRIO llc (colmap/screen/climb); experiment only",
+ "key_measurements": {
+  "n1_90300f9": {
+   "bytes": 27376,
+   "ratio": 0.67136,
+   "force_event_piece_r6": 0.67706
+  },
+  "n1_86e2a6b": {
+   "bytes": 27376,
+   "ratio": 0.67166
+  },
+  "main_force_event_piece_r6": {
+   "bytes": 27400,
+   "ratio": 0.67615
+  },
+  "n1po": {
+   "bytes": 27416,
+   "ratio": 0.63432,
+   "force_poolptr_r7": [
+    0.67256,
+    27376
+   ],
+   "force_poolptr_r7_event_r6": [
+    0.67826,
+    27376
+   ],
+   "climb8": [
+    0.68577,
+    27368
+   ]
+  },
+  "mpo_main_owner_first_gate": {
+   "bytes": 27440,
+   "ratio": 0.63344,
+   "force_poolptr_r7": [
+    0.67466,
+    27400
+   ]
+  },
+  "mpo_86e2a6b": {
+   "bytes": 27440,
+   "ratio": 0.63374,
+   "force_poolptr_r7": [
+    0.67496,
+    27400
+   ],
+   "main": 0.67376
+  }
+ },
+ "mechanism": "The owner-first pool gate (the original's order at 0x4bc0) loads the pool AccountInfo pointer once, as the original does. Greedy then colours it r6, where the original has r7 because r6 holds the sharing tag across the curve block and gate. That colour ripples into the sweep-region tag pieces, and post-RA placement then moves the 108-insn 284/556 error chain (~0x5568 -> ~0x3c48; orig 0x5808). This is why every pool-region form (po, ph/hr, a2, pu1, p2) lands near 0.633. Greedy splits the tag (whole-function interval) last, after old_fee, the pool ptr and pool_updated already hold r6..r9 there, so ours never gives the tag the r6 region. The source has no other use of the tag in that range.",
+ "attempts": [
+  "n1, rs1, rs2 (reset early / match value), sw1, sw2 (swept by value / direct init)",
+  "c1, c2, c3 (sibling admin_cto_pool curve forms)",
+  "hr1, hr2 (holder local as pool CPI arg), p2 (inline pool args), pu1 (pargs before gate)",
+  "k1, k2, k3 (event built in nested fn ev)",
+  "n1po, porst, pohr, pobind, pobind2, pop2, pomatch, poc1, poc3 (owner-first gate spellings)",
+  "mpo (owner-first gate on main)",
+  "gene screen: n1 + 222 single genes (w14a109 genes.py)",
+  "gene screen: mpo + 216 single genes on 86e2a6b: none flips the pool-pointer colour (best 0.63462)",
+  "private-llc single colour-force screens on n1 (113) and n1po (129), pair screen on n1po + 358=r7, 8-round climb on n1po"
+ ],
+ "rejected_mechanisms": [
+  "reset bool computed early (CGP/opt sinks it back to the event; -16 B, no RA change)",
+  "swept carried as Option / direct let (byte-identical)",
+  "event literal in a nested helper (catastrophic, +1896 B)",
+  "holder value stored and passed to the pool CPI (orig form) without the pool-pointer colour (0.633 family)",
+  "pool_updated recomputed at the event (pr1, w14a143: +368 B)",
+  "every single gene on n1 and on mpo: none lifts n1 above itself or flips the mpo pool-pointer colour"
+ ],
+ "per_force_table_n1po": [
+  {
+   "force": "358=r7",
+   "value": "pool AccountInfo ptr across owner-first gate (0x4bc0)",
+   "ours": "r6",
+   "orig": "r7",
+   "lever": "none known: needs r6 busy across the gate (orig: sharing tag)"
+  },
+  {
+   "force": "1681=r6",
+   "value": "event accounts piece (0x4e80-0x50e8)",
+   "ours": "r8",
+   "orig": "r2 then r6",
+   "lever": "none known: needs r8 busy at the event (orig: pool_updated)"
+  },
+  {
+   "force": "1669=r7",
+   "value": "post-event tail accounts piece (0x5cc0-0x5d78)",
+   "ours": "r8",
+   "orig": "r7",
+   "lever": "none known (tail colour pin family, w14a139)"
+  },
+  {
+   "force": "2142=r9",
+   "value": "entry bonding_curve data ptr [r8+0x38] (0x140-0x2e8)",
+   "ours": "r7",
+   "orig": "r9",
+   "lever": "none known"
+  },
+  {
+   "force": "1615=r3",
+   "value": "sweep flag phi (0x32e0)",
+   "ours": "r2",
+   "orig": "r3",
+   "lever": "none known"
+  },
+  {
+   "force": "2084=r5",
+   "value": "entry ldxb [r6+0x43e] bump byte (0x438)",
+   "ours": "r6",
+   "orig": "r5",
+   "lever": "none known"
+  },
+  {
+   "force": "467=r2",
+   "value": "validate [r6+0x90] chain (0x548)",
+   "ours": "r3",
+   "orig": "r2",
+   "lever": "none known"
+  },
+  {
+   "force": "1703=r4",
+   "value": "curve-block holder flag &1 (0x4a98-0x4b78)",
+   "ours": "r3",
+   "orig": "r4",
+   "lever": "none known"
+  }
+ ],
+ "unresolved_residuals": [
+  "sharing tag in r6 across curve block + gate (orig reloads at 0x3c58, 0x4a90, 0x4d48)",
+  "swept in r9 from the sweep to the event (ours spills at def)",
+  "owner-first gate needs the pool ptr in r7 to keep the 284/556 error-chain placement"
+ ],
+ "next_ideas": [
+  "mpo + any size-neutral change that colours the pool pointer r7 would land (+0.0012 forced at 27,400)",
+  "find ordinary source that gives the sharing tag a register region from the sharing CPI join to the event (orig r6), e.g. via the validate/sharing-tuple form that defines sharing_update",
+  "n1po's 2-force base is 0.67826 @27,376; with an ordinary pool-ptr lever, pair it with the w14a120 24 B repay triples (c4/c8 cost about -0.0003)"
+ ],
+ "ledger_keys": "0x22a10-w15-90300f9-n1event-*",
+ "pr": 3700
+}
