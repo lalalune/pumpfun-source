@@ -1,0 +1,115 @@
+{
+  "schema": "pump-completion-pass103-v1",
+  "date": "2026-10-31",
+  "built_revision": "89288d23a0c7ada1d7a890d5055ff6abba15d3ea",
+  "validated_merged_revision": "b8586325ac8d96ed809e6c270d8a3c107d712df6",
+  "baseline_revision": "90300f9d2efe3ef014b116172251a41bfb104d78",
+  "recipe": "identity",
+  "source_sha256": "c989f8b0a4f5d6562c0aad7316f70f1eac5de31afc5ad48c15d8b9ad2afeddbf",
+  "source_files": 263,
+  "baseline_source_sha256": "e427e6ee8a39a0a6b49238f315f20a7d710e36ec9d8a353263e851163db6f3be",
+  "unstripped_sha256": "e9df54086dcfc8ca1a4833d3577bc5092e3e23eae2c4492d52bdea661ba82a85",
+  "stripped_sha256": "bfd0b071d7169f2c5cb6fd0b3a2b2ae006e57c16869367f398c8f4ed94b70bb5",
+  "compiled_binary_unchanged": true,
+  "runtime_valid": true,
+  "stack_warnings": [],
+  "pump": {
+    "raw": 1034,
+    "normalized": 1034,
+    "total": 1035,
+    "matched_percent": 99.9,
+    "matched_code_bytes": 1764808,
+    "total_code_bytes": 1792208,
+    "unmatched": [
+      {
+        "address": "0x22a10",
+        "symbol": "admin_cto::execute",
+        "bytes": 27400
+      }
+    ]
+  },
+  "aggregate": {
+    "raw": 3337,
+    "normalized": 3337,
+    "total": 3338,
+    "matched_percent": 99.97,
+    "matched_code_bytes": 5185728,
+    "total_code_bytes": 5213128,
+    "whole_meaningful_elf_equal_programs": 4,
+    "programs": 5
+  },
+  "comparison": {
+    "gains": [],
+    "losses": [],
+    "raw_gains": [],
+    "raw_losses": []
+  },
+  "remaining_window": {
+    "window": "0x22a10",
+    "window_bytes": 27400,
+    "symbol": "pump_recovered::admin_cto::execute",
+    "cand_start": "0x22a10",
+    "cand_bytes": 27400,
+    "normalized_equal": false,
+    "raw_equal": false,
+    "ratio": 0.67346,
+    "calls_original": [
+      154,
+      3
+    ],
+    "calls_candidate": [
+      154,
+      3
+    ],
+    "call_counts_original": {
+      "internal": 154,
+      "syscall_or_relocated": 3,
+      "indirect": 0
+    },
+    "call_counts_candidate": {
+      "internal": 154,
+      "syscall_or_relocated": 3,
+      "indirect": 0
+    },
+    "normalized_field_differences": {
+      "comparable": false,
+      "reason": "instruction boundaries or byte lengths differ"
+    },
+    "slots_diff": 3124,
+    "first_diff_offsets": [
+      "0x0",
+      "0x8",
+      "0x10",
+      "0x80",
+      "0x88",
+      "0x90",
+      "0x98",
+      "0xa0",
+      "0xa8",
+      "0xb0",
+      "0xb8",
+      "0xc0"
+    ]
+  },
+  "program_input_changes": {
+    "programs/pump-amm/recovered/liquidity.rs": "32ac8b014305788e6425fec65f0698961b7917e7548c332664cff0137324f0c2",
+    "programs/pump/recovered/trailing_accounts.rs": "d46b1ba12bc742b6475527dd5f32d8f7faec53aa047156e995333bddb5e19754",
+    "programs/pump/recovered/trailing_accounts_host.rs": "506572b08708094a647a3113dc4aff7d90801f3d9f9f1e24dbc157d5feef2fe2"
+  },
+  "runtime": {
+    "cases": 388,
+    "mismatches": 0,
+    "reused_by_full_binary_identity": true,
+    "report": "../completion-pass102-20261031/admin-runtime.json.gz",
+    "uncompressed_report_sha256": "1b5ba5cad5405b09e65cccb3868d462286b781bee0d354cb8583aaba16e9aa5b",
+    "original_tool_revision": "58880d2db970df4a4fcecbd52059eea4bc9eb678",
+    "script_sha256": "77d63d3bc70d49f59107133896c104f90f0d4ebd34b0c1fae0b294e19c4b0b09",
+    "candidate_sha256": "bfd0b071d7169f2c5cb6fd0b3a2b2ae006e57c16869367f398c8f4ed94b70bb5",
+    "scope": "Signed synthetic captured Pump admin_cto calling Fees by genuine CPI. Pool authority nonsigner at transaction boundary; no privileged signer injection. Not full program identity."
+  },
+  "limits": [
+    "No new exact window or partial-similarity gain in this pass.",
+    "Recovered models remain unlinked and have separate bounded captured-program tests.",
+    "Other four programs retain earlier exact meaningful-ELF checkpoints; they were not rebuilt here."
+  ]
+}

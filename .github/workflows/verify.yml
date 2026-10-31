@@ -114,6 +114,7 @@ jobs:
               python -B scripts/test_pump_diagnostic_audit_umask_mode.py
               python -B scripts/test_pump_fresh_output_optimized.py
               python -B scripts/test_amm_harness_content_cache.py
+              python -B tests/test_amm_nested_target.py
               python -B tests/test_amm_build_environment.py
               python -B scripts/test_search_dependency_commit.py
               python -B tests/test_amm_pinned_candidate.py
@@ -313,10 +314,12 @@ jobs:
               python -B reconstruction/pump-main/test_ledger_negative_limit.py
               python -B reconstruction/diagnostics/census-portability/test_output_guard.py
               python -B reconstruction/harness/test_census_argument_constants.py
+              python -B reconstruction/harness/test_census_call_barriers.py
               python -B reconstruction/harness/test_census_original_input.py
               python -B reconstruction/harness/test_dataref_length.py
               python -B reconstruction/harness/test_experiment_declared_name.py
               python -B reconstruction/harness/test_experiment_executable_snapshot.py
+              python -B reconstruction/harness/test_experiment_source_output_modes.py
               python -B reconstruction/harness/test_experiment_worktree_source.py
               python -B reconstruction/harness/test_experiment_matrix_overlap.py
               python -B reconstruction/harness/test_bisect_membership.py
@@ -376,6 +379,7 @@ jobs:
               python -I -B scripts/test_verify_evidence_paths.py
               python research/tooling-disassembly-reproducibility-20261030/test_verify.py
               python -B tests/test_dependency_cache_manifest_state.py
+              python -B scripts/test_pump_dependency_cache_cargo_log.py
               python -B research/tooling-indirect-call-decoding-20261030/test_verify.py
               python -B tests/test_checkpoint_manifest_paths.py
           - suite: runtime-input-regressions

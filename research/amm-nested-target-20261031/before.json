@@ -1,0 +1,31 @@
+{
+  "source_build_returncode": 0,
+  "stage_report": {
+    "schema": "amm-standalone-to-workspace-v3",
+    "verified": true,
+    "standalone_inputs": 6,
+    "workspace_inputs": 7,
+    "unchanged_rust_files": 2,
+    "input_sha256": {
+      "crates/native-transfer-fee/Cargo.toml": "77e62040b3a7983a6f96216c65a0cb24f0746c29d669b248a51d17562610bda3",
+      "crates/native-transfer-fee/src/lib.rs": "7597e00d215a090cfe0eab4d6c4d04430630ae701cdf135dd1dc3e7bbd2d87ec",
+      "programs/pump-amm/Cargo.lock": "1160d575ba9d6e449735b518855d6fee35633d4c5f2b5de2e864eea81eef79b9",
+      "programs/pump-amm/Cargo.toml": "b3f2ab68e17e7fe8a2378c707d43b52efef8f0d04047bb01626c3ff253c93c58",
+      "programs/pump-amm/idls/pump.json": "6e13eb5ed0daa30220399da8533d3f4c16b1551bf2ac852adbba2e4b0a0e767b",
+      "programs/pump-amm/src/lib.rs": "4a160b7f43237e62eb83b1c15e3c718f532f61db9514bb03bf9d2a7463cba0d4"
+    },
+    "workspace_sha256": {
+      "Cargo.lock": "1160d575ba9d6e449735b518855d6fee35633d4c5f2b5de2e864eea81eef79b9",
+      "Cargo.toml": "56a5b8d6cb245facc080f4a7b6c10118b28b67ba88a0e3c5febe46d0ffa8c362",
+      "crates/native-transfer-fee/Cargo.toml": "77e62040b3a7983a6f96216c65a0cb24f0746c29d669b248a51d17562610bda3",
+      "crates/native-transfer-fee/src/lib.rs": "7597e00d215a090cfe0eab4d6c4d04430630ae701cdf135dd1dc3e7bbd2d87ec",
+      "programs/pump-amm/Cargo.toml": "f1b44f5918fdc2b61d47c6f3935417a4ee06cb8f9b311d456e09f8c5d6a2a895",
+      "programs/pump-amm/idls/pump.json": "6e13eb5ed0daa30220399da8533d3f4c16b1551bf2ac852adbba2e4b0a0e767b",
+      "programs/pump-amm/src/lib.rs": "4a160b7f43237e62eb83b1c15e3c718f532f61db9514bb03bf9d2a7463cba0d4"
+    },
+    "rust_transformations": 0
+  },
+  "staged_module_exists": false,
+  "staged_build_returncode": 101,
+  "staged_build_stderr": "   Compiling native-transfer-fee v0.1.0 (/var/folders/hw/1_m97sh13711zrn4l7_s3fq40000gn/T/tmp6kyalxdn/staged/crates/native-transfer-fee)\n   Compiling pump-amm-recovered v0.1.0 (/var/folders/hw/1_m97sh13711zrn4l7_s3fq40000gn/T/tmp6kyalxdn/staged/programs/pump-amm)\nerror[E0583]: file not found for module `target`\n --> programs/pump-amm/src/lib.rs:1:1\n  |\n1 | mod target;\n  | ^^^^^^^^^^^\n  |\n  = help: to create the module `target`, create file \"programs/pump-amm/src/target.rs\" or \"programs/pump-amm/src/target/mod.rs\"\n  = note: if there is a `mod target` elsewhere in the crate already, import it with `use crate::...` instead\n\nFor more information about this error, try `rustc --explain E0583`.\nerror: could not compile `pump-amm-recovered` (lib) due to 1 previous error\n"
+}

@@ -117,10 +117,15 @@ def arg_setup(img, s, call_sites):
             res[cs] = []; continue
         regs = {}
         for a in addrs[prev:k]:
+            raw = body(img.blob, img.secs, a, 8)
+            if raw[0] in (0x85, 0x8d):
+                # The selected sites are internal calls, but extern/indirect
+                # calls also invalidate earlier caller-saved argument writes.
+                regs.clear()
+                continue
             t = txt[a]
             m = ARG_RE.match(t)
             if m:
-                raw = body(img.blob, img.secs, a, 8)
                 pointer = False
                 if raw[0] == 0x18:
                     raw = body(img.blob, img.secs, a, 16)

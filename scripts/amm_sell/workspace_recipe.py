@@ -50,7 +50,8 @@ def source_inputs(source_root):
     paths = set()
     for path in crate.rglob('*'):
         rel = path.relative_to(crate)
-        if {'target', '.git'}.intersection(rel.parts):
+        if (rel.parts[0] == 'target' or '.git' in rel.parts
+                or rel.parts[:3] == ('vendor', 'solana-pubkey', 'target')):
             continue
         require(not path.is_symlink(), str(path))
         if path.is_file() and (path.suffix == '.rs' or path.name in ('Cargo.toml', 'Cargo.lock')):
@@ -68,7 +69,7 @@ def source_inputs(source_root):
     require(not any(key in package for key in ('dependencies', 'build-dependencies', 'workspace')), "Workspace recipe invariant failed: not any(key in package for key in ('dependencies', 'build-dependencies', 'workspace'))")
     for path in native.rglob('*'):
         rel = path.relative_to(native)
-        require(not {'target', '.git'}.intersection(rel.parts), str(path))
+        require(rel.parts[0] != 'target' and '.git' not in rel.parts, str(path))
         require(not path.is_symlink(), str(path))
         if path.is_file():
             paths.add(path)
@@ -78,7 +79,8 @@ def source_inputs(source_root):
     vendor = crate / 'vendor/solana-pubkey'
     if vendor.exists():
         paths.update(path for path in vendor.rglob('*') if path.is_file()
-                     and not {'target', '.git'}.intersection(path.relative_to(vendor).parts))
+                     and path.relative_to(vendor).parts[0] != 'target'
+                     and '.git' not in path.relative_to(vendor).parts)
     selectors = set()
     for start in (root, crate):
         for directory in (start, *start.parents):
@@ -144,7 +146,7 @@ def file_inventory(workspace):
     paths = []
     for path in root.rglob('*'):
         relative = path.relative_to(root)
-        if {'target', '.git'}.intersection(relative.parts):
+        if relative.parts[0] == 'target' or '.git' in relative.parts:
             continue
         require(not path.is_symlink(), str(relative))
         if path.is_file():
