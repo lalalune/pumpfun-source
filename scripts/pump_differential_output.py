@@ -80,6 +80,28 @@ class PumpReport:
                 staged = None
             else:
                 os.link(staged, self.output)
+            self._sync_directory(self.output.parent)
         finally:
             if staged is not None:
                 staged.unlink(missing_ok=True)
+
+    @staticmethod
+    def _sync_directory(directory):
+        """Order the published directory entry behind the staged bytes.
+
+        fsync on the staging file flushes its bytes but not the rename or
+        hard link that names the report, so a crash after write() returned
+        could leave the previous report in place. Flushing the directory once
+        per publication closes that window. Directory fsync is unsupported on
+        Windows and on some filesystems; those close the window as before.
+        """
+        try:
+            descriptor = os.open(directory, os.O_RDONLY | getattr(os, 'O_DIRECTORY', 0))
+        except OSError:
+            return
+        try:
+            os.fsync(descriptor)
+        except OSError:
+            return
+        finally:
+            os.close(descriptor)
