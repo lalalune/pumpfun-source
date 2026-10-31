@@ -258,6 +258,7 @@ jobs:
               python -B scripts/test_disassemble_output_mode.py
               python -B scripts/test_disassemble_tool_binding.py
               python -B scripts/test_disassemble_publication.py
+              python -B scripts/test_disassemble_no_replace.py
               python -B scripts/test_disassemble_staging_uniqueness.py
               python -B scripts/test_analyze_publication.py
               python -B scripts/test_analyze_inventory_order.py

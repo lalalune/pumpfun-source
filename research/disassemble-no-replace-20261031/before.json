@@ -1,0 +1,38 @@
+{
+  "absent": {
+    "returncode": 0,
+    "stderr": "",
+    "children": [
+      "manifest.json",
+      "pump.asm"
+    ],
+    "input_sha256": "bdcf29b50a0bedb427a28c77e72e6a197cf6333bcb6fb2a517cbf64a1df47550",
+    "real_symbol_disassembled": true,
+    "manifest_bound": true,
+    "staging_leftovers": []
+  },
+  "empty": {
+    "returncode": 0,
+    "stderr": "",
+    "children": [
+      "manifest.json",
+      "pump.asm"
+    ],
+    "input_sha256": "bdcf29b50a0bedb427a28c77e72e6a197cf6333bcb6fb2a517cbf64a1df47550",
+    "directory_preserved": false,
+    "real_symbol_disassembled": true,
+    "manifest_bound": true,
+    "staging_leftovers": []
+  },
+  "nonempty": {
+    "returncode": 1,
+    "stderr": "Traceback (most recent call last):\n  File \"<proof-root>/repo/scripts/disassemble.py\", line 76, in <module>\n    staging.rename(args.output)\n    ~~~~~~~~~~~~~~^^^^^^^^^^^^^\n  File \"<python-prefix>/lib/python3.13/pathlib/_local.py\", line 767, in rename\n    os.rename(self, target)\n    ~~~~~~~~~^^^^^^^^^^^^^^\nOSError: [Errno 39] Directory not empty: '<proof-root>/.nonempty.243922-4b2a2f56ab61135c' -> '<proof-root>/nonempty'\n",
+    "children": [
+      "owned.txt"
+    ],
+    "input_sha256": "bdcf29b50a0bedb427a28c77e72e6a197cf6333bcb6fb2a517cbf64a1df47550",
+    "directory_preserved": true,
+    "owned_bytes": "retained",
+    "staging_leftovers": []
+  }
+}
