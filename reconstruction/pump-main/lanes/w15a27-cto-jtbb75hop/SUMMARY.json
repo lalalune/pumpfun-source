@@ -1,0 +1,32 @@
+{
+  "lane": "w15a27-cto-jtbb75hop",
+  "target": "0x22a10 admin_cto::execute",
+  "base_main": "9120883a9",
+  "base_metrics": {"ratio": 0.67376, "slots_diff": 3124, "bytes": 27400},
+  "best_zero_loss": {"ratio": 0.67376, "slots_diff": 3124, "bytes": 27400, "note": "main itself; nothing landable"},
+  "ledger": "approach jtbb75hop, keys 0x22a10-w15-9120883-jtbb75hop-<trial>-v1 (8 rows)",
+  "bound": {
+    "bb75_only_threading_native_layout": {"rfj": -49, "bytes": 27576, "chunks": "800:+3 1000:+1 1800:+6 4800:-44 rest -15"},
+    "bb75_threading_main_layout": {"rfj": -5, "rf-": -19, "r--": -56, "---": -139, "bytes": 27488},
+    "verdict": "class F fee-None threading is worth <= +10 validate/tree tokens, offset by -15 RA/spill noise; bound below main"
+  },
+  "mechanisms": [
+    "bb75-only threading == JT2 threshold 20 byte-for-byte; memcpy count (10/3/2) does not change the price",
+    "0x4800 -44 = MachineBlockPlacement pre-merge of an unanalyzable (BPF conditional) fallthrough bb88->bb37 after the sweep-join value moves r3->r6 and copy block bb87 empties",
+    "the 10 bb75 memcpys are the ? desugar of Result<Pubkey> (target.i->_49 sret->_411 ControlFlow->_48->val->target); tuple and Ok hop are not in bb75",
+    "match validate(..){Ok(t)=>t,Err(e)=>return Err(e)} makes rustc MIR JumpThreading duplicate the validate call through the cashback && holder test (validate outlined, 22600 B)"
+  ],
+  "spellings": {
+    "s11 #[inline] validate": "byte-identical",
+    "s1/s6/s13/s14 match forms": "0.29949 @22600 rfj -485",
+    "s21/s22 cashback after validate": "0.53444 @27192 rfj -71",
+    "s27 Result<&Pubkey>": "threads natively; 0.29929 @27024 rfj -121",
+    "s28/s29 Result<()> + target from new": "rfj -126 / -119"
+  },
+  "tools": ["tools/rxt.py (resume after JT2, eq_main, 2.4 s)", "tools/mkjtf.sh (per-block JT threshold opt plugin)", "tools/mbp.sh + pjgen.py (pre-placement MIR edit oracle)", "tools/tcost.py", "tools/mapr.py", "tools/bbed.py", "tools/evcm.py", "tools/dd.py", "tools/cap.sh"],
+  "rejected": ["bb75 cheapening of any kind as a lever (bound -5 rfj)", "match instead of ?", "#[inline] validate", "Result<&Pubkey>", "Result<()> + post-validate target"],
+  "next_ideas": [
+    "check the bb87/unanalyzable-fallthrough pre-merge on any variant whose curve state write (stxb +0xa5/+0xa3) moves before the sharing CPI",
+    "do not spend lanes on class F threading; the remaining gap is elsewhere"
+  ]
+}

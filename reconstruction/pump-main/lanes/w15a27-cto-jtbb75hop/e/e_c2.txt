@@ -1,0 +1,5 @@
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(7) %target.sroa.0, ptr noundef nonnull align 1 dereferenceable(7) %target.i.sroa.0, i64 7, i1 false)
+  call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferenceable(9) %target.sroa.8, ptr noundef nonnull align 1 dereferenceable(9) %target.i.sroa.9, i64 9, i1 false)
+  call void @llvm.lifetime.end.p0(i64 7, ptr nonnull %target.i.sroa.0)
+  call void @llvm.lifetime.end.p0(i64 9, ptr nonnull %target.i.sroa.9)
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %sharing_update.sroa.6)
