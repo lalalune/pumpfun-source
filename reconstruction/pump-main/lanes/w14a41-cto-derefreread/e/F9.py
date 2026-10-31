@@ -1,0 +1,1 @@
+EDITS=[["let quote_locked={let q=a.bonding_curve.quote_mint;q==Pubkey::default()||q==anchor_spl::token::spl_token::native_mint::ID||a.global.whitelisted_quote_mints.contains(&q)};", "let g:&Global=&a.global;let quote_locked={let q=a.bonding_curve.quote_mint;q==Pubkey::default()||q==anchor_spl::token::spl_token::native_mint::ID||g.whitelisted_quote_mints.contains(&q)};"]]
