@@ -63,6 +63,15 @@ payload phi in r9, which needs r9 free at every wallet error site. And `%1396` m
 | **1657=r9** (payload phi in the original's register) | 0.66867 | 27,280 | **0.79838** | r2 then r9 (two reloads, like the original's r2 then r6) / r6 / r8 / spill |
 | 1657=r6 | 0.48817 | 27,416 | 0.5957 | |
 
+Joint cells with w15a14's head-to-tail spill set (key `s4payload`):
+
+| forces | ratio | bytes | L2 | event colours (accounts / pool_updated / nf) |
+| --- | ---: | ---: | ---: | --- |
+| 465=spill + 1657=r9 | 0.65676 | 27,272 | **0.7997** | r3 / r6 / r8 |
+| 465,466,389=spill + 1657=r9 | 0.63504 | 27,280 | 0.7771 | r3 / r6 / r8 |
+| 465,466,389,56=spill | 0.59724 | 27,304 | 0.7788 | r2 then r3 / r9 / r6 |
+| 465,466,389,56=spill + 1657=r9 | 0.61285 | 27,304 | 0.7788 | r2 then r3 / **r8** (orig) / r6 |
+
 `1657=r9` is the largest single-force L2 gain I know of on main: +0.0132, with L2-matched instructions going from 2,621 to 2,659.
 Most of the gain is in validate's error-formatting run 0x800-0x1000, where L2-matched instructions go from 107 to 197 and the
 payload loads become `ldxdw r9`. Its -120 B is spread over about 40 small RA edits: fewer `[r10-2272]` tag reloads, and the

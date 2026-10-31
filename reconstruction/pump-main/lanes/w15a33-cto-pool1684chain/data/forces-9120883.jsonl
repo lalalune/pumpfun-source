@@ -34,3 +34,7 @@
 {"force": "1657=r6", "name": "st_f1657r6", "keep": "t2/k/st_f1657r6.bin", "ratio": 0.48817, "slots": null, "bytes": 27416, "eq_main": false, "L1": 0.47769, "L2": 0.59569}
 {"force": "1657=r9,1684=r6", "name": "st_f1657r9_1684r6", "keep": "t2/k/st_f1657r9_1684r6.bin", "ratio": 0.66867, "slots": null, "bytes": 27280, "eq_main": false, "L1": 0.72482, "L2": 0.79838}
 {"force": "1657=r9", "name": "st_f1657r9", "keep": "t2/k/st_f1657r9.bin", "ratio": 0.66867, "slots": null, "bytes": 27280, "eq_main": false, "L1": 0.72482, "L2": 0.79838}
+{"force": "465=spill,1657=r9", "name": "s465_1657r9", "keep": "t2/k/s465_1657r9.bin", "ratio": 0.65676, "slots": null, "bytes": 27272, "eq_main": false, "L1": 0.72432, "L2": 0.7997}
+{"force": "465=spill,466=spill,389=spill,56=spill", "name": "s4", "keep": "t2/k/s4.bin", "ratio": 0.59724, "slots": null, "bytes": 27304, "eq_main": false, "L1": 0.65216, "L2": 0.77881}
+{"force": "465=spill,466=spill,389=spill,56=spill,1657=r9", "name": "s4_1657r9", "keep": "t2/k/s4_1657r9.bin", "ratio": 0.61285, "slots": null, "bytes": 27304, "eq_main": false, "L1": 0.68307, "L2": 0.77881}
+{"force": "465=spill,466=spill,389=spill,1657=r9", "name": "s3_1657r9", "keep": "t2/k/s3_1657r9.bin", "ratio": 0.63504, "slots": null, "bytes": 27280, "eq_main": false, "L1": 0.67317, "L2": 0.77706}
