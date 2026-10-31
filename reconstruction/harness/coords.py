@@ -75,6 +75,10 @@ def sites(blob, secs, start, raw):
                         break
                 if ptr is not None:
                     break
+                if j < k:
+                    # A preceding store replaces the value at this slot, so an
+                    # older pointer store cannot describe this descriptor.
+                    break
         if ptr is None:
             continue
         s = read_cstr_at(blob, secs, ptr, L)

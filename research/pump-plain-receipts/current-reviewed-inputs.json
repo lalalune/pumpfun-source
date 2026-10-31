@@ -1,0 +1,17 @@
+{
+  "schema": "pump-plain-receipts-current-metadata-v1",
+  "producer_sha256": {
+    "scripts/pump_create_control_differential.py": "f2e839654364c0e55a939be0d9eeaa5adec2966c8c063a95ec281af357dd8127",
+    "scripts/pump_create_differential.py": "7cd00e06bcb82ad4410d7fc50e04d8fd1b98500af5a118b700694a62eec25a35",
+    "scripts/pump_create_nested_differential.py": "094f19afea139e5d72576511a9661d1c92b7d4fa01592baf6db555f4c4451011",
+    "scripts/pump_create_quote_differential.py": "fcec8fec8904095509cb20637baa1c643056d3145914bae7c8fcbd18ed926541",
+    "scripts/pump_create_v2_differential.py": "ea81114ce7aa41e25403fd8c2e30be702d01d497a1a3b3fcd3a79551af22382a",
+    "scripts/pump_creator_collect_differential.py": "017c126bb4c09967b8c4e0f214a8183ee8b411359a7c15a266d6ffd57d2834c8",
+    "scripts/pump_earned_cashback_differential.py": "64b8af8082b6f301b3e04ab9b1da55a74642676716adc68f42ad2c2725b4fe63",
+    "scripts/pump_extend_differential.py": "4eb539c2588c6af72367cb1f76ab45cf35bdce8520f2975823e14e6b04834839",
+    "scripts/pump_idl_authority_differential.py": "b34f89bec8e24324f32043c8d45de55d829ec730dc6ff54e4b70e535c9b4a96f",
+    "scripts/pump_legacy_cashback_differential.py": "234c5be91c6ede4773827af570445454d6fda0306dcbb92b383b26525d6effdf",
+    "scripts/pump_validate_volume.py": "4978d2d9b49e758327011013ee1edb480f61dd1d783d113755f129859ee49671"
+  },
+  "difference_from_historical_after": "The tightened publication checks require pump_create_differential.py to declare case_count. Historical before/after archives, transition hashes and offline verification remain unchanged. This separate exact source cohort can rerun the same complete framing controls."
+}

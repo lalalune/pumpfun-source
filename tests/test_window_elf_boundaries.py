@@ -24,7 +24,7 @@ def image(text, *, address=0x100, function_size=None, relocations=()):
         ('.strtab', b'\0entry\0', 3, 0, 0),
         ('.symtab', bytes(24) + struct.pack('<IBBHQQ', 1, 0x12, 0, 1, address,
                                           len(text) if function_size is None else function_size), 2, 3, 24),
-        ('.rel.dyn', b''.join(struct.pack('<QQ', address + offset, typ) for offset, typ in relocations), 9, 0, 16)]:
+        ('.rel.dyn', b''.join(struct.pack('<QQ', address + offset, typ) for offset, typ in relocations), 9, 4, 16)]:
         rows.append((labels[name], kind, 0, 0, len(data), len(payload), link, 0, 8, entry_size))
         data.extend(payload)
     table = len(data)
@@ -70,6 +70,11 @@ class WindowElfBoundaries(unittest.TestCase):
     def test_function_must_fit_entirely_in_text(self):
         with self.assertRaisesRegex(ValueError, 'function.*extent'):
             self.read(image(EXIT, function_size=16))
+
+    def test_relocations_use_their_linked_static_symbol_table(self):
+        text = struct.pack('<BBhi', 0x85, 0x10, 0, -1) + EXIT
+        elf = self.read(image(text, relocations=[(0, (1 << 32) | 10)]))
+        self.assertEqual(elf.relocations[elf.lo], {'type': 10, 'symbol': 'entry'})
 
     def test_text_extent_cannot_exceed_file_bytes(self):
         data = image(EXIT)

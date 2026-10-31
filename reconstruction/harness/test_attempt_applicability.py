@@ -1,11 +1,23 @@
+import contextlib
 import hashlib
 import json
 from pathlib import Path
+import sys
 import tempfile
 import unittest
 import os
-from attempt_applicability import FIELDS, classify, inspect
+from attempt_applicability import FIELDS, address, classify, inspect
 from test_support import directory_link
+
+
+@contextlib.contextmanager
+def decimal_digit_limit(limit):
+    setter = getattr(sys, 'set_int_max_str_digits', None)
+    if setter is None: raise unittest.SkipTest('interpreter has no decimal conversion limit')
+    previous = sys.get_int_max_str_digits()
+    setter(limit)
+    try: yield
+    finally: setter(previous)
 
 
 class ApplicabilityTests(unittest.TestCase):
@@ -69,6 +81,23 @@ class ApplicabilityTests(unittest.TestCase):
         self.assertEqual(result['counts'], {'compatible': 1})
         self.assertEqual(len(result['parse_errors']), 1)
         self.assertEqual(ledger.read_text(), raw)
+
+    def test_zero_padded_decimal_targets_keep_numeric_equality(self):
+        with decimal_digit_limit(640):
+            self.assertEqual(address('0'*2000 + '16'), 16)
+            self.assertEqual(address('0'*2000), 0)
+
+    def test_zero_padded_ledger_target_is_selected_by_value(self):
+        ledger = self.root/'ledger.jsonl'
+        ledger.write_text(json.dumps(dict(self.row, target='0'*700 + '16')) + '\n')
+        with decimal_digit_limit(640):
+            result = inspect(ledger, self.context, '16', 'shape-A', self.root)
+        self.assertEqual(result['counts'], {'compatible': 1})
+        self.assertEqual(result['parse_errors'], [])
+
+    def test_over_long_significant_decimal_targets_remain_named_scopes(self):
+        with decimal_digit_limit(640):
+            self.assertEqual(address('1'*700), '1'*700)
 
 
 if __name__ == '__main__': unittest.main()

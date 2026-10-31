@@ -15,6 +15,8 @@ def function_symbols(blob):
 
     if len(blob) < 64 or blob[:7] != b'\x7fELF\x02\x01\x01':
         raise ValueError('expected an ELF64 little-endian version-1 image')
+    if struct.unpack_from('<I', blob, 20)[0] != 1:
+        raise ValueError('expected ELF header version 1')
     if struct.unpack_from('<H', blob, 18)[0] not in (247, 263):
         raise ValueError('expected an EM_BPF or EM_SBPF candidate image')
     if struct.unpack_from('<I', blob, 48)[0] not in (0, 1):

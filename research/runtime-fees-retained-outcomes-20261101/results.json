@@ -1,0 +1,46 @@
+{
+  "base_revision": "9120883a957d7d9b2cab6140f66fb5bc9e6774d5",
+  "consumer_sha256": {
+    "before": "e592593789230ac3024a5fef4d66c9b7124e8bd1a3560ba4e10b9c465d070944",
+    "after": "549224260e3a23cc41e504034933341d05b2251b5f4b5f30d9c71a4af85a91fa"
+  },
+  "fresh_producer_control": {
+    "suites": 18,
+    "cases": 17331,
+    "exit_code": 0,
+    "mismatches": [],
+    "raw_sha256": "92ab7eda4b616d923e68e8bbebfdb1addbc4816b4563b0f040d1a29f1844f84b",
+    "gzip_sha256": "79aa9aaf896a1086407e58569099e4bed0beac81831156c674138cad85a3caad"
+  },
+  "full_corpus_cli_replay": {
+    "control": {
+      "before_exit": 0,
+      "after_exit": 0,
+      "cases": 17331
+    },
+    "contradictory_administration": {
+      "before_exit": 0,
+      "before_published_contradiction": true,
+      "after_exit": 1,
+      "after_prior_output_preserved": true,
+      "original_error": "Custom(6001)",
+      "candidate_error": null
+    }
+  },
+  "public_bounded_cli_replay": {
+    "suites": 18,
+    "cases": 36,
+    "control_passes_before_after": true,
+    "contradiction_accepted_before_rejected_after": true
+  },
+  "tests": {
+    "new_methods": 4,
+    "declared_semantic_fields_checked": 112,
+    "existing_receipt_integrity_methods": 5,
+    "output_timeout_frozen_checkout_pinning_methods": 13,
+    "optimized_mode_methods": 3,
+    "tooling_tests": 250,
+    "captures": 9
+  },
+  "limits": "Fresh producer control is a real original-vs-original SBF run. Before/after admission uses exact aggregate CLI with explicit child adapters replaying authentic retained receipts; it is not another VM run. Contradiction splices one independently real outcome from a different case and is deliberate evidence corruption, not a spontaneous producer mismatch. No candidate equivalence, cryptographic receipt authentication, or on-chain issue is claimed."
+}

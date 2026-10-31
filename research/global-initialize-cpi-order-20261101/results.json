@@ -1,0 +1,42 @@
+{
+  "base_revision": "9120883a957d7d9b2cab6140f66fb5bc9e6774d5",
+  "captured_sha256": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
+  "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)",
+  "source_sha256": {
+    "before": {
+      "programs/pump/recovered/global_lifecycle.rs": "0c9694023b78142e3df7ba11cc169f9f858412ae7fa62165b60035ec6346404c",
+      "programs/pump/recovered/global_lifecycle_host.rs": "205214ad5763d89512056a92c369d49fbbf3dd619721f1339e3e43a22e2ae550"
+    },
+    "after": {
+      "programs/pump/recovered/global_lifecycle.rs": "acc15581e6101ad9b925ff8f6da4b57dc84e61fde6a35bc5389c0d598516af00",
+      "programs/pump/recovered/global_lifecycle_host.rs": "205214ad5763d89512056a92c369d49fbbf3dd619721f1339e3e43a22e2ae550"
+    }
+  },
+  "initialization_cases": 117,
+  "additional_prefunding_cases": 96,
+  "before_mismatches": 16,
+  "after_mismatches": 0,
+  "capture_outputs_identical": true,
+  "inputs_identical": true,
+  "existing_initialization_controls": 21,
+  "unchanged_old_control_host_answers": true,
+  "mismatch_names": [
+    "prefunded-empty-8463360-0-True-False",
+    "prefunded-empty-8463360-1000000000000-True-False",
+    "prefunded-empty-8463361-0-True-False",
+    "prefunded-empty-8463361-1000000000000-True-False",
+    "prefunded-system-data-1-0-True-True",
+    "prefunded-system-data-8463359-0-True-True",
+    "prefunded-system-data-8463360-0-True-False",
+    "prefunded-system-data-8463360-1000000000000-True-False",
+    "prefunded-system-data-8463361-0-True-False",
+    "prefunded-system-data-8463361-1000000000000-True-False",
+    "prefunded-program-data-1-0-True-True",
+    "prefunded-program-data-8463359-0-True-True",
+    "prefunded-program-data-8463360-0-True-False",
+    "prefunded-program-data-8463360-1000000000000-True-False",
+    "prefunded-program-data-8463361-0-True-False",
+    "prefunded-program-data-8463361-1000000000000-True-False"
+  ],
+  "limits": "Native host error-order correction under default rent and synthetic account states, compared with actual signed captured SBF execution. No production SBF source, arbitrary admission, byte identity or live deployment claim."
+}

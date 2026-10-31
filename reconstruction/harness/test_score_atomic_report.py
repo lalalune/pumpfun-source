@@ -24,9 +24,9 @@ class AtomicScoreReportTests(unittest.TestCase):
 
     def run_score(self, after_admission=None):
         original = score.score_with_hash
-        def read(path):
+        def read(path, expected_sha256=None):
             if after_admission is not None: after_admission()
-            return original(path)
+            return original(path, expected_sha256)
         argv = ['score.py',str(self.candidate),'--no-baseline','--json',str(self.output)]
         with patch.object(score,'BASE',self.base), patch.object(score,'score_with_hash',side_effect=read), patch.object(sys,'argv',argv), contextlib.redirect_stdout(io.StringIO()):
             score.main()

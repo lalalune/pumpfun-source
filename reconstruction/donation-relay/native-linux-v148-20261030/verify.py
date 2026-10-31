@@ -11,6 +11,23 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from replay import PACKAGE, check_assets, check_source, command, load, require, tar_members, write_new
 
 
+def check_report_destination(repo, output):
+    source = (Path(repo) / 'programs/donation-relay').resolve()
+    output = Path(output)
+    resolved = output.resolve()
+    message = 'verification output overlaps authenticated Relay source'
+    require(not resolved.is_relative_to(source), message)
+    # resolve() preserves spelling on case-insensitive filesystems. An existing
+    # output ancestor may still be the authenticated directory's physical alias.
+    for ancestor in (resolved, *resolved.parents):
+        if ancestor.exists():
+            require(not ancestor.samefile(source), message)
+    # Exclusive creation below remains the final guard, including hard links
+    # or other existing destinations introduced after this preflight check.
+    if output.exists() or output.is_symlink():
+        raise FileExistsError('verification output already exists: ' + str(output))
+
+
 def logical_signature(argv):
     result = list(argv)
     roots = {'/source', '/config', '/sdk', '/cargo/registry', '/etc/alternatives', '/target', '/output'}
@@ -103,6 +120,8 @@ if __name__ == '__main__':
     p.add_argument('--candidate', type=Path)
     p.add_argument('--symbols', type=Path)
     p.add_argument('--output', type=Path)
-    a = p.parse_args(); result = verify(a.repo, a.candidate, a.symbols)
+    a = p.parse_args()
+    if a.output: check_report_destination(a.repo, a.output)
+    result = verify(a.repo, a.candidate, a.symbols)
     if a.output: write_new(a.output, result)
     print(json.dumps(result, indent=2))

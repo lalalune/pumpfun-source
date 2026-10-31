@@ -112,6 +112,7 @@ def calls(raw, start, relocs, names, blob=None, secs=None):
     i = 0
     lddw = {}
     imms = []
+    version = struct.unpack_from('<I', blob, 48)[0] if blob is not None and len(blob) >= 52 else None
     while i < len(raw):
         op, regs, off, imm = struct.unpack_from('<BBhi', raw, i)
         pc = start + i
@@ -146,7 +147,12 @@ def calls(raw, start, relocs, names, blob=None, secs=None):
             else:
                 seq.append((pc, 'sys', None, relocs.get(pc, f'sys{imm:#x}'), seq_ann))
         elif op == 0x8d:
-            seq.append((pc, 'callx', None, f'callx r{regs & 15}', None))
+            # CALLX names a runtime register, whose encoding depends on SBPF.
+            register = (imm if version in (0, 1) else regs >> 4 if version == 2
+                        else dst if version in (3, 4) else None)
+            label = (f'callx r{register}' if register is not None and 0 <= register <= 10
+                     else f'callx raw {raw[i:i + 8].hex()}')
+            seq.append((pc, 'callx', None, label, None))
         i += 16 if op == 0x18 else 8
     return seq
 

@@ -118,7 +118,9 @@ def map_rows(path):
             file, section = rest[:-1].rsplit(":(", 1)
             member = None
             if file.endswith(")") and "(" in file:
-                file, member = file[:-1].split("(", 1)
+                # The archive member is the final suffix; parent directories
+                # may themselves contain parentheses.
+                file, member = file[:-1].rsplit("(", 1)
             result.append(
                 dict(
                     out=output,
@@ -723,3 +725,7 @@ def main():
             indent=2,
         )
     )
+
+
+if __name__ == "__main__":
+    main()

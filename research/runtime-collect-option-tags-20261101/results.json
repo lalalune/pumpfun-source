@@ -1,0 +1,28 @@
+{
+  "base_revision": "9120883a957d7d9b2cab6140f66fb5bc9e6774d5",
+  "method": "Fresh native host versus retained Pump AMM/SPL Token/Token-2022 captures in local LiteSVM; identical synthetic bytes before and after.",
+  "probe": {
+    "cases": 72,
+    "before_mismatches": 22,
+    "after_mismatches": 0,
+    "all_amounts": 0
+  },
+  "regression": {
+    "unittest_methods": 6,
+    "new_option_tag_subcases": 72,
+    "existing_fixed_subcases": 135,
+    "existing_seeded_subcases": 48,
+    "tamper_checker_controls": 9
+  },
+  "validation": {
+    "affected_suite": "6 tests passed",
+    "verify_evidence": "9 captures verified",
+    "test_tooling": "250 tests passed"
+  },
+  "limits": [
+    "Only existing 82-byte mint and 165-byte token account model layouts.",
+    "Synthetic raw account bytes; no claim about creation or reachability of invalid accounts on chain.",
+    "No production SBF rebuild or byte identity claim.",
+    "No Token-2022 extension or native-transfer modeling expansion."
+  ]
+}

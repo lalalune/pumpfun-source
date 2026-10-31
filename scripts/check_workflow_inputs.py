@@ -32,6 +32,37 @@ def resolved_interpreter(token):
     return None
 
 
+def strip_comment(line):
+    """Drop a shell comment; '#' starts one only at the start of a word.
+
+    shlex's comment mode also cuts at a '#' inside a word, so
+    `python3 scripts/issue#12.py` would lose the rest of its script path.
+    """
+    quote = None
+    word_start = True
+    index = 0
+    while index < len(line):
+        char = line[index]
+        if quote == "'":
+            if char == "'":
+                quote = None
+        elif char == '\\':
+            index += 1
+            word_start = False
+        elif quote == '"':
+            if char == '"':
+                quote = None
+        elif char in ("'", '"'):
+            quote = char
+            word_start = False
+        elif char == '#' and word_start:
+            return line[:index]
+        else:
+            word_start = char.isspace() or char in ';&|()<>'
+        index += 1
+    return line
+
+
 def git(root, *args):
     return subprocess.check_output(['git', '-C', str(root), *args])
 
@@ -318,7 +349,7 @@ def references(name, source):
                     # Only literal, standalone interpreter commands. Shell programs
                     # and generated script bodies are not evaluated by this checker.
                     try:
-                        tokens = shlex.split(line, comments=True)
+                        tokens = shlex.split(strip_comment(line))
                     except ValueError:
                         if COMMAND_PREFIX.match(line):
                             unsupported.add((name, job_id, 'unparsed shell command'))
@@ -334,9 +365,11 @@ def references(name, source):
                         unsupported.add((name, job_id, 'dynamic command/directory'))
                         continue
                     index += 1
-                    while index < len(tokens) and tokens[index].startswith('-'):
+                    python = interpreter.startswith('python')
+                    # Shells also accept +-prefixed options (bash +e, +o pipefail).
+                    prefixes = ('-',) if python else ('-', '+')
+                    while index < len(tokens) and tokens[index].startswith(prefixes) and tokens[index] != '+':
                         option = tokens[index]
-                        python = interpreter.startswith('python')
                         if option == '--':
                             index += 1
                             break

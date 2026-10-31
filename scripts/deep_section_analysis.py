@@ -560,6 +560,8 @@ def recover_anchor_idl(elf):
         "discriminator_count": len(discriminators),
         "allocation_sizes": account_sizes[:100],
         "unique_allocation_sizes": unique_sizes,
+        "deserialization_pattern_count": len(deser_patterns),
+        "displayed_deserialization_pattern_count": min(len(deser_patterns), 100),
         "deserialization_patterns": deser_patterns[:100],
         "inferred_struct_sizes": sorted(set(
             d["likely_struct_size"] for d in deser_patterns
@@ -796,7 +798,8 @@ def build_packet(program, output_dir, output_label):
         "layer4_anchor_idl": {
             "discriminators": idl_recovery["discriminator_count"],
             "unique_alloc_sizes": len(idl_recovery["unique_allocation_sizes"]),
-            "deser_patterns": len(idl_recovery["deserialization_patterns"]),
+            "deser_patterns": idl_recovery["deserialization_pattern_count"],
+            "displayed_deser_patterns": idl_recovery["displayed_deserialization_pattern_count"],
         },
         "layer5_math": {
             "math_windows": math_analysis["total_math_windows"],
@@ -845,7 +848,9 @@ and mathematical pattern extraction.
 ### Layer 4: Anchor IDL Recovery
 - Instruction discriminators: {l4["discriminators"]}
 - Unique allocation sizes: {l4["unique_alloc_sizes"]}
-- Deserialization patterns: {l4["deser_patterns"]}
+- Deserialization patterns: {l4["deser_patterns"]} ({l4["displayed_deser_patterns"]} displayed)
+
+These are static pattern candidates, not proven account or argument layouts.
 
 ### Layer 5: Bonding Curve Math
 - Math-intensive windows: {l5["math_windows"]}

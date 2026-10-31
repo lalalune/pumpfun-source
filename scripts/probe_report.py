@@ -29,7 +29,9 @@ def write_json_report(path, value, *, overwrite=True):
     identity = metadata.st_dev, metadata.st_ino
     try:
         with stream:
-            stream.write(json.dumps(value, indent=2) + "\n")
+            # NaN/Infinity are not JSON; refuse them instead of publishing
+            # a report that strict JSON readers cannot parse.
+            stream.write(json.dumps(value, indent=2, allow_nan=False) + "\n")
             stream.flush()
             os.fsync(stream.fileno())
         if overwrite:

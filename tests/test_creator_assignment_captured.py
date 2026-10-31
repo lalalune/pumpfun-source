@@ -294,6 +294,25 @@ def fixed_cases():
     return cases
 
 
+def truncated_creator_cases():
+    """Cross the creator-read boundary with metadata branches and earlier errors."""
+    rows = [case(op, curve_len=length, curve_creator=creator, creators=creators)
+            for op in ('set', 'metaplex')
+            for length in (48, 49, 50, 64, 80, 81, 165, 166, 200)
+            for creator in (0, 1, 3)
+            for creators in (None, (), (1,), (0,))]
+    for op in ('set', 'metaplex'):
+        for length in (49, 80, 81):
+            for early in ({'metadata': 'missing'}, {'metadata': 'owner'},
+                          {'metadata': 'data'}, {'metadata_address_ok': False},
+                          {'curve_address_ok': False}):
+                rows.append(case(op, curve_len=length, curve_creator=1, creators=(), **early))
+    for length in (49, 80, 81):
+        for early in ({'signed': False}, {'authority_ok': False}):
+            rows.append(case('set', curve_len=length, curve_creator=1, creators=(), **early))
+    return rows
+
+
 def random_cases(count=120, seed=1891):
     rng = random.Random(seed)
     cases = []
@@ -370,6 +389,9 @@ class CreatorAssignmentCapturedTests(unittest.TestCase):
 
     def test_fixed_cases_match_captured_program(self):
         self.run_cases(fixed_cases())
+
+    def test_truncated_creator_matches_captured_program(self):
+        self.run_cases(truncated_creator_cases())
 
     def test_seeded_random_cases_match_captured_program(self):
         self.run_cases(random_cases())

@@ -1,0 +1,481 @@
+"""Captured-program checks for Pump creator-fee distribution when the
+Token-2022 quote mint carries `NonTransferable` or `DefaultAccountState =
+Frozen`.
+
+The Token-2022 distribution packet (#3305) models the transfer checks over
+account-level states and names both mint extensions unconfirmed. This
+packet runs the same `distribute_creator_fees_v2` fixtures with the
+extensions on the mint: a non-transferable mint in the account set the
+associated-token program produces for it (the vault and the existing
+shareholder accounts carry the account extension), a non-transferable mint
+whose accounts carry nothing, a default-frozen mint, and both together.
+The same inputs go to
+`programs/pump/recovered/creator_fee_distribution_mint_extensions_host.rs`,
+and the error, token and lamport movements, withheld amounts, event,
+self-CPI copy, return data, and the size and state of every created
+shareholder account must agree. This shows matching behavior on these
+inputs only; it is not a byte-identity claim.
+
+Unconfirmed: the two extensions combined with a transfer hook that really
+runs, and interest-bearing or scaled-amount mints (the base packets' open
+items, unchanged). A default-frozen mint acting on the vault itself is the
+base packet's frozen-vault axis, not this one.
+"""
+from pathlib import Path
+import base64
+import hashlib
+import json
+import random
+import re
+import struct
+import subprocess
+import tempfile
+import unittest
+
+from solders.account import Account
+from solders.clock import Clock
+from solders.compute_budget import set_compute_unit_limit
+from solders.instruction import AccountMeta, Instruction
+from solders.keypair import Keypair
+from solders.litesvm import LiteSVM
+from solders.pubkey import Pubkey
+from solders.transaction import Transaction
+from solders.transaction_metadata import FailedTransactionMetadata
+
+ROOT = Path(__file__).resolve().parents[1]
+PUMP_ELF = ROOT / 'evidence/original/pump/deployed.so'
+DEPS = ROOT / 'evidence/dependencies'
+TOKEN_ELF = DEPS / 'spl_token/deployed.so'
+TOKEN22_ELF = DEPS / 'spl_token_2022/deployed.so'
+ATA_ELF = DEPS / 'associated_token/deployed.so'
+ELF_SHA256 = {
+    PUMP_ELF: '7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d',
+    TOKEN_ELF: '8190d3f7ceb6cb7a7a8d8924bff89f9f611e15ce1f806f2b6237f3311a98f697',
+    TOKEN22_ELF: '15a2e615a42e20f31714bbaaee43002ae6f1cda2e8d7118243117ab3c1342e2d',
+    ATA_ELF: '6804554e69fd3a58caa191dc4a58f4c67223d30ca28ab8987f39fc18d2f7374d',
+}
+HOST_SOURCE = ROOT / 'programs/pump/recovered/creator_fee_distribution_mint_extensions_host.rs'
+
+IDL = json.loads((ROOT / 'evidence/upstream/pump.json').read_text(encoding='utf-8'))
+PUMP = Pubkey.from_string(IDL['address'])
+FEES = Pubkey.from_string('pfeeUxB6jkeY1Hxd7CsFCAjcbHA9rWtchMGdZ6VojVZ')
+TOKEN = Pubkey.from_string('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA')
+TOKEN22 = Pubkey.from_string('TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb')
+ATA = Pubkey.from_string('ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL')
+SYSTEM = Pubkey.default()
+ACCOUNT_DISC = {a['name']: bytes(a['discriminator']) for a in IDL['accounts']}
+IX = {i['name']: i for i in IDL['instructions']}
+EVENT_DISC = {e['name']: bytes(e['discriminator']) for e in IDL['events']}
+EVENT_IX_TAG = bytes([228, 69, 165, 46, 81, 203, 154, 29])
+
+PAYER = Keypair.from_seed(bytes([225]) * 32)
+MINT = Pubkey.from_bytes(bytes([51]) * 32)
+OTHER_MINT = Pubkey.from_bytes(bytes([52]) * 32)
+QUOTE = Pubkey.from_bytes(bytes([53]) * 32)
+OTHER_QUOTE = Pubkey.from_bytes(bytes([54]) * 32)
+ADMIN = Pubkey.from_bytes(bytes([55]) * 32)
+OTHER = Pubkey.from_bytes(bytes([56]) * 32)
+EXECUTABLE = Pubkey.from_bytes(bytes([57]) * 32)  # an unrelated captured program
+HOLDERS = [Pubkey.from_bytes(bytes([70 + i]) * 32) for i in range(4)]
+TX_FEE = 5000
+TIMESTAMP = 1_700_000_000
+U64 = 2**64 - 1
+FEE_250 = (0, 0, 0, 250, 10**18)
+
+
+def pda(seeds, program=PUMP):
+    return Pubkey.find_program_address(list(seeds), program)[0]
+
+
+def ata(wallet, mint=QUOTE):
+    return pda([bytes(wallet), bytes(TOKEN22), bytes(mint)], ATA)
+
+
+CURVE = pda([b'bonding-curve', bytes(MINT)])
+SHARING = pda([b'sharing-config', bytes(MINT)], FEES)
+VAULT = pda([b'creator-vault', bytes(SHARING)])
+EVENT_AUTHORITY = pda([b'__event_authority'])
+
+
+def tlv(kind, body=b''):
+    return struct.pack('<HH', kind, len(body)) + body
+
+
+def plain_mint():
+    return struct.pack('<I', 0) + bytes(32) + struct.pack('<Q', 10**15) + bytes([6, 1]) + struct.pack('<I', 0) + bytes(32)
+
+
+def quote_mint_data(item):
+    ext = b''
+    if item['fee']:
+        older_bps, older_max, newer_epoch, newer_bps, newer_max = item['fee']
+        ext += tlv(1, bytes(72) + struct.pack('<QQH', 0, older_max, older_bps)
+                   + struct.pack('<QQH', newer_epoch, newer_max, newer_bps))
+    if item['frozen_mint']:
+        ext += tlv(6, bytes([2]))
+    if item['nt_mint']:
+        ext += tlv(9)
+    if item['hook_set']:
+        ext += tlv(14, bytes(32) + bytes([7]) * 32)
+    if item['paused']:
+        ext += tlv(26, bytes(32) + b'\1')
+    return plain_mint().ljust(165, b'\0') + bytes([1]) + ext if ext else plain_mint()
+
+
+def accounts_carry_nt(item):
+    """A realistic account set for a non-transferable mint: the mint's
+    extension is on every account the ATA program produced for it."""
+    return item['nt_mint'] and not item['nt_bare']
+
+
+def token_data(mint, owner, amount, frozen=False, fee_extension=False, memo=False, cpi_guard=False, non_transferable=False):
+    data = (bytes(mint) + bytes(owner) + struct.pack('<Q', amount) + struct.pack('<I', 0) + bytes(32)
+            + bytes([2 if frozen else 1]) + struct.pack('<I', 0) + bytes(16) + struct.pack('<I', 0) + bytes(32))
+    ext = b''
+    if fee_extension:
+        ext += tlv(2, bytes(8))
+    if memo:
+        ext += tlv(8, b'\1')
+    if cpi_guard:
+        ext += tlv(11, b'\1')
+    if non_transferable:
+        ext += tlv(13)
+    return data + bytes([2]) + ext if ext else data
+
+
+def curve_data(item):
+    data = bytearray(166)
+    data[:8] = ACCOUNT_DISC['BondingCurve']
+    struct.pack_into('<QQQQQ', data, 8, 10**15, 3 * 10**10, 10**14, 10**9, 10**15)
+    data[49:81] = bytes(SHARING if item['curve_creator'] == 'sharing' else OTHER)
+    data[83:115] = bytes(QUOTE)
+    struct.pack_into('<Q', data, 125, item['creator_fee'])
+    return bytes(data)
+
+
+def holder_address(i, h):
+    return EXECUTABLE if h['wallet'] == 'exec' else HOLDERS[i]
+
+
+def shareholders_bytes(item):
+    return b''.join(bytes(holder_address(i, h)) + struct.pack('<H', h['bps']) for i, h in enumerate(item['holders']))
+
+
+def sharing_data(item):
+    return (ACCOUNT_DISC['SharingConfig'] + bytes([255, 1, int(item['active'])])
+            + bytes(MINT if item['config_mint'] == 'mint' else OTHER_MINT) + bytes(ADMIN) + bytes([0])
+            + struct.pack('<I', len(item['holders'])) + shareholders_bytes(item))
+
+
+def holder(bps, wallet='ok', ata='exists', frozen=False, mint_mismatch=False, memo=False, no_fee_extension=False):
+    return dict(bps=bps, wallet=wallet, ata=ata, frozen=frozen, mint_mismatch=mint_mismatch, memo=memo,
+                no_fee_extension=no_fee_extension)
+
+
+VAULT_FLAGS = ('frozen', 'owner_mismatch', 'mint_mismatch', 'cpi_guard', 'non_transferable')
+DEFAULTS = dict(vault_tokens=10**9, holders=None, active=True, creator_fee=0, curve_creator='sharing', config_mint='mint',
+                quote='quote', initialize_ata=False, vault={}, fee=None, epoch=0, hook_set=False, paused=False,
+                nt_mint=False, nt_bare=False, frozen_mint=False)
+
+
+def case(**changes):
+    item = dict(DEFAULTS, **changes)
+    if item['holders'] is None:
+        item['holders'] = [holder(5000), holder(3000), holder(2000)]
+    if accounts_carry_nt(item):
+        item['vault'] = dict(item['vault'], non_transferable=True)
+    return item
+
+
+def host_line(item):
+    fee = ':'.join(str(v) for v in item['fee']) if item['fee'] else '-'
+    holders = ';'.join(f"{h['bps']}:{h['wallet']}:{h['ata']}:{int(h['frozen'])}:{int(h['mint_mismatch'])}:{int(h['memo'])}:"
+                       f"{int(h['no_fee_extension'])}" for h in item['holders'])
+    vault = ':'.join(str(int(item['vault'].get(name, False))) for name in VAULT_FLAGS)
+    fields = ['-' if item['vault_tokens'] is None else item['vault_tokens'], int(item['active']), item['creator_fee'],
+              int(item['curve_creator'] == 'sharing'), int(item['config_mint'] == 'mint'), int(item['quote'] == 'quote'),
+              int(item['initialize_ata']), vault, fee, item['epoch'], int(item['hook_set']), int(item['paused']), holders,
+              int(item['nt_mint']), int(item['frozen_mint'])]
+    return ','.join(str(f) for f in fields)
+
+
+def flat(data):
+    return bytes(data[1:]) if data and isinstance(data[0], list) else bytes(data)
+
+
+def error_name(text):
+    code = re.search(r'Custom\((\d+)\)', text)
+    if code:
+        return f'error:{code.group(1)}'
+    return 'invalid_account_data' if 'InvalidAccountData' in text else text
+
+
+def withheld(data):
+    offset = 166
+    while offset + 4 <= len(data):
+        kind, length = struct.unpack_from('<HH', data, offset)
+        if kind == 2:
+            return struct.unpack_from('<Q', data, offset + 4)[0]
+        if kind == 0:
+            break
+        offset += 4 + length
+    return 0
+
+
+def extension_kinds(data):
+    kinds = []
+    offset = 166
+    while offset + 4 <= len(data):
+        kind, length = struct.unpack_from('<HH', data, offset)
+        if kind == 0:
+            break
+        kinds.append(kind)
+        offset += 4 + length
+    return kinds
+
+
+class Chain:
+    """One VM for every case: reloading the ELFs costs far more than a transaction."""
+
+    def __init__(self):
+        self.vm = LiteSVM().with_sigverify(True).with_transaction_history(0)
+        for key, path in ((PUMP, PUMP_ELF), (TOKEN, TOKEN_ELF), (TOKEN22, TOKEN22_ELF), (ATA, ATA_ELF),
+                          (EXECUTABLE, DEPS / 'donation_relay/deployed.so')):
+            self.vm.add_program_from_file(key, path)
+        self.stale = set()
+
+    def run(self, item):
+        vm = self.vm
+        vm.set_clock(Clock(100, TIMESTAMP, item['epoch'], 0, TIMESTAMP))
+        for key in self.stale:
+            vm.set_account(key, Account(0, b'', SYSTEM))
+        fee_ext = bool(item['fee'])
+        carry_nt = accounts_carry_nt(item)
+        quote = QUOTE if item['quote'] == 'quote' else OTHER_QUOTE
+        vault_ata = ata(VAULT, quote)
+        accounts = {PAYER.pubkey(): Account(10**12, b'', SYSTEM), MINT: Account(10**9, plain_mint(), TOKEN),
+                    QUOTE: Account(10**10, quote_mint_data(item), TOKEN22), OTHER_QUOTE: Account(10**10, quote_mint_data(item), TOKEN22),
+                    CURVE: Account(10**9, curve_data(item), PUMP), SHARING: Account(10**9, sharing_data(item), FEES),
+                    VAULT: Account(10**9, b'', SYSTEM), OTHER: Account(10**9, b'', SYSTEM),
+                    ata(OTHER): Account(10**8, token_data(QUOTE, OTHER, 0, fee_extension=fee_ext, non_transferable=carry_nt), TOKEN22)}
+        if item['vault_tokens'] is not None:
+            v = item['vault']
+            accounts[vault_ata] = Account(10**8, token_data(
+                OTHER_QUOTE if v.get('mint_mismatch') and quote == QUOTE else quote, OTHER if v.get('owner_mismatch') else VAULT,
+                item['vault_tokens'], frozen=v.get('frozen', False), fee_extension=fee_ext, cpi_guard=v.get('cpi_guard', False),
+                non_transferable=v.get('non_transferable', False)), TOKEN22)
+        wallets, atas, holder_atas = [], [], []
+        for i, h in enumerate(item['holders']):
+            address = holder_address(i, h)
+            wallets.append(OTHER if h['wallet'] == 'wrong' else address)
+            if h['wallet'] != 'exec':
+                accounts[address] = Account(10**9, b'', SYSTEM)
+            holder_atas.append(ata(address))
+            atas.append(ata(OTHER) if h['ata'] == 'wrong' else ata(address))
+            if h['ata'] == 'exists':
+                accounts[ata(address)] = Account(10**8, token_data(
+                    OTHER_QUOTE if h['mint_mismatch'] else QUOTE, address, 0, frozen=h['frozen'],
+                    fee_extension=fee_ext and not h['no_fee_extension'], memo=h['memo'], non_transferable=carry_nt), TOKEN22)
+        for key, account in accounts.items():
+            vm.set_account(key, account)
+        self.stale = {k for k in accounts if k != PAYER.pubkey()} | {vault_ata} | set(holder_atas)
+        names = {'payer': PAYER.pubkey(), 'mint': MINT, 'bonding_curve': CURVE, 'sharing_config': SHARING,
+                 'creator_vault': VAULT, 'system_program': SYSTEM, 'event_authority': EVENT_AUTHORITY, 'program': PUMP,
+                 'creator_vault_quote_token_account': vault_ata, 'quote_mint': quote, 'quote_token_program': TOKEN22,
+                 'associated_token_program': ATA}
+        ix = IX['distribute_creator_fees_v2']
+        metas = [AccountMeta(names[a['name']], a['name'] == 'payer', a.get('writable', False)) for a in ix['accounts']]
+        metas += [AccountMeta(key, False, True) for key in wallets + atas]
+
+        def lamports(key):
+            account = vm.get_account(key)
+            return account.lamports if account else 0
+
+        def raw(key):
+            account = vm.get_account(key)
+            return bytes(account.data) if account else b''
+
+        def tokens(key):
+            data = raw(key)
+            return struct.unpack_from('<Q', data, 64)[0] if len(data) >= 72 else 0
+
+        before = [lamports(k) for k in (PAYER.pubkey(), VAULT)]
+        vault_before = tokens(vault_ata)
+        data = bytes(ix['discriminator']) + bytes([int(item['initialize_ata'])])
+        tx = Transaction.new_signed_with_payer([set_compute_unit_limit(1_400_000), Instruction(PUMP, data, metas)],
+                                               PAYER.pubkey(), [PAYER], vm.latest_blockhash())
+        result = vm.send_transaction(tx)
+        if isinstance(result, FailedTransactionMetadata):
+            return {'error': error_name(str(result.err()))}
+        inner = [i for group in json.loads(result.to_json()).get('inner_instructions') or [] for i in group]
+        return {'error': None, 'payer': lamports(PAYER.pubkey()) - before[0], 'vault': lamports(VAULT) - before[1],
+                'vault_tokens': tokens(vault_ata) - vault_before, 'holder_tokens': [tokens(k) for k in holder_atas],
+                'holder_withheld': [withheld(raw(k)) for k in holder_atas], 'holder_raw': [raw(k) for k in holder_atas],
+                'events': [base64.b64decode(line[14:]) for line in result.logs() if line.startswith('Program data: ')],
+                'self_cpi': [d for d in (flat(i['instruction']['data']) for i in inner) if d.startswith(EVENT_IX_TAG)],
+                'return_data': bytes(result.return_data().data)}
+
+
+def event_payload(item, distributed):
+    return (struct.pack('<q', TIMESTAMP) + bytes(MINT) + bytes(CURVE) + bytes(SHARING) + bytes(ADMIN)
+            + struct.pack('<I', len(item['holders'])) + shareholders_bytes(item) + struct.pack('<Q', distributed)
+            + bytes(QUOTE))
+
+
+def created_size(item):
+    return 170 + (12 if item['fee'] else 0) + (5 if item['hook_set'] else 0) + (4 if item['paused'] else 0) \
+        + (4 if item['nt_mint'] else 0)
+
+
+def fixed_cases():
+    cases = []
+    add = lambda **k: cases.append(case(**k))
+    H = holder
+    # A non-transferable mint, in the account set the ATA program gives it.
+    add(nt_mint=True)
+    add(nt_mint=True, fee=FEE_250)
+    add(nt_mint=True, paused=True)
+    add(nt_mint=True, hook_set=True)
+    add(nt_mint=True, vault={'frozen': True})
+    add(nt_mint=True, holders=[H(6000), H(6000)])
+    add(nt_mint=True, holders=[H(5000, frozen=True), H(5000)])
+    add(nt_mint=True, holders=[H(5000, ata='absent'), H(5000)], initialize_ata=True)
+    add(nt_mint=True, holders=[H(5000, ata='absent')])
+    add(nt_mint=True, holders=[H(1)], vault_tokens=9_999)
+    add(nt_mint=True, holders=[H(1, ata='absent')], vault_tokens=9_999, initialize_ata=True)
+    add(nt_mint=True, holders=[H(1, ata='absent')], vault_tokens=9_999, initialize_ata=True, fee=FEE_250)
+    add(nt_mint=True, vault_tokens=0)
+    # The mint extension alone, on accounts that carry nothing.
+    add(nt_mint=True, nt_bare=True)
+    add(nt_mint=True, nt_bare=True, fee=FEE_250)
+    add(nt_mint=True, nt_bare=True, paused=True)
+    add(nt_mint=True, nt_bare=True, holders=[H(5000, ata='absent'), H(5000)], initialize_ata=True)
+    # A default-frozen mint: only created accounts change.
+    add(frozen_mint=True)
+    add(frozen_mint=True, fee=FEE_250)
+    add(frozen_mint=True, holders=[H(5000, ata='absent'), H(5000)], initialize_ata=True)
+    add(frozen_mint=True, holders=[H(5000, ata='absent'), H(5000, memo=True)], initialize_ata=True)
+    add(frozen_mint=True, holders=[H(5000, memo=True), H(5000, ata='absent')], initialize_ata=True)
+    add(frozen_mint=True, fee=FEE_250, holders=[H(5000, no_fee_extension=True), H(5000, ata='absent')], initialize_ata=True)
+    add(frozen_mint=True, fee=FEE_250, holders=[H(5000, ata='absent'), H(5000, no_fee_extension=True)], initialize_ata=True)
+    add(frozen_mint=True, holders=[H(1, ata='absent')], vault_tokens=9_999, initialize_ata=True)
+    add(frozen_mint=True, holders=[H(1, ata='absent')], vault_tokens=9_999, initialize_ata=True, fee=FEE_250)
+    add(frozen_mint=True, holders=[H(5000, ata='absent')])
+    add(frozen_mint=True, holders=[H(5000, frozen=True), H(5000)])
+    add(frozen_mint=True, holders=[H(6000), H(6000)])
+    # Both extensions together.
+    add(nt_mint=True, frozen_mint=True)
+    add(nt_mint=True, frozen_mint=True, holders=[H(5000, ata='absent'), H(5000)], initialize_ata=True)
+    add(nt_mint=True, frozen_mint=True, holders=[H(1, ata='absent')], vault_tokens=9_999, initialize_ata=True)
+    add(nt_mint=True, frozen_mint=True, holders=[H(1, ata='absent')], vault_tokens=9_999, initialize_ata=True, fee=FEE_250)
+    return cases
+
+
+def random_cases(count=200, seed=20261101):
+    rng = random.Random(seed)
+    cases = []
+
+    def fee():
+        if rng.random() < 0.35:
+            return None
+        return (rng.randrange(0, 10_001), rng.choice((0, rng.randrange(0, 10**6), U64)), rng.randrange(0, 8),
+                rng.randrange(0, 10_001), rng.choice((0, rng.randrange(0, 10**6), U64)))
+
+    def held():
+        flag = lambda p: rng.random() < p
+        return holder(rng.choice((0, 1, 2_500, 5_000, 7_000, rng.randrange(1, 12_000))) if flag(0.9) else rng.randrange(1, 65_536),
+                      wallet=rng.choice(('ok',) * 18 + ('wrong', 'exec')), ata=rng.choice(('exists',) * 6 + ('absent', 'absent', 'wrong')),
+                      frozen=flag(0.05), mint_mismatch=flag(0.04), memo=flag(0.05), no_fee_extension=flag(0.08))
+
+    for _ in range(count):
+        vault = {name: True for name in VAULT_FLAGS if rng.random() < 0.05}
+        cases.append(case(vault_tokens=rng.choice((None, 0, 1, rng.randrange(0, 10**5), rng.randrange(0, 10**12), rng.randrange(0, 10**15))),
+                          holders=[held() for _ in range(rng.randrange(0, 5))], active=rng.random() > 0.03,
+                          creator_fee=rng.choice((0,) * 19 + (1,)), initialize_ata=rng.random() < 0.7, vault=vault, fee=fee(),
+                          epoch=rng.randrange(0, 8), hook_set=rng.random() < 0.06, paused=rng.random() < 0.06,
+                          nt_mint=rng.random() < 0.3, nt_bare=rng.random() < 0.3, frozen_mint=rng.random() < 0.3))
+    return cases
+
+
+class CreatorFeeDistributionMintExtensionsCapturedTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        for path, digest in ELF_SHA256.items():
+            assert hashlib.sha256(path.read_bytes()).hexdigest() == digest, path
+        cls.tmp = tempfile.TemporaryDirectory()
+        host = Path(cls.tmp.name) / 'creator-fee-distribution-mint-extensions-host'
+        subprocess.run(['rustc', '--edition=2021', '-O', '-D', 'warnings', str(HOST_SOURCE), '-o', str(host)], check=True)
+        cls.host = host
+        cls.chain = Chain()
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.tmp.cleanup()
+
+    def host_answers(self, cases):
+        text = ''.join(host_line(item) + '\n' for item in cases)
+        out = subprocess.run([str(self.host)], input=text, capture_output=True, text=True, check=True).stdout
+        return out.splitlines()
+
+    def assert_matches(self, item, answer, captured):
+        if not answer.startswith('ok,'):
+            self.assertEqual(captured['error'], answer)
+            return
+        self.assertIsNone(captured['error'])
+        _, transfers, kept, distributed, ata_rent = answer.split(',')
+        transfers = [int(v) for v in transfers.split(';') if v]
+        kept = [int(v) for v in kept.split(';') if v]
+        distributed = int(distributed)
+        self.assertEqual(captured['payer'], -(TX_FEE + int(ata_rent)))
+        self.assertEqual(captured['vault'], 0)
+        self.assertEqual(captured['vault_tokens'], -distributed)
+        self.assertEqual(captured['holder_tokens'], [t - k for t, k in zip(transfers, kept)])
+        self.assertEqual(captured['holder_withheld'], kept)
+        payload = event_payload(item, distributed)
+        event = EVENT_DISC['DistributeCreatorFeesEvent'] + payload
+        self.assertEqual(captured['events'], [event])
+        self.assertEqual(captured['self_cpi'], [EVENT_IX_TAG + event])
+        self.assertEqual(captured['return_data'], payload)
+        # Every account the distribution created, priced and shaped by the mint.
+        for h, raw in zip(item['holders'], captured['holder_raw']):
+            if h['ata'] != 'absent' or not item['initialize_ata']:
+                continue
+            self.assertEqual(len(raw), created_size(item))
+            self.assertEqual(raw[108], 2 if item['frozen_mint'] else 1)
+            kinds = extension_kinds(raw)
+            self.assertIn(7, kinds)
+            self.assertEqual(13 in kinds, item['nt_mint'])
+            self.assertEqual(2 in kinds, bool(item['fee']))
+
+    def run_cases(self, cases):
+        answers = self.host_answers(cases)
+        self.assertEqual(len(answers), len(cases))
+        for item, answer in zip(cases, answers):
+            with self.subTest(case=host_line(item), host=answer):
+                self.assert_matches(item, answer, self.chain.run(item))
+
+    def test_fixed_cases_match_captured_program(self):
+        self.run_cases(fixed_cases())
+
+    def test_seeded_random_cases_match_captured_program(self):
+        self.run_cases(random_cases())
+
+    def test_checker_rejects_a_wrong_rent(self):
+        item = case(nt_mint=True, holders=[holder(1, ata='absent')], vault_tokens=9_999, initialize_ata=True)
+        answer = self.host_answers([item])[0]
+        captured = self.chain.run(item)
+        self.assert_matches(item, answer, captured)
+        head, rent = answer.rsplit(',', 1)
+        with self.assertRaises(AssertionError):
+            self.assert_matches(item, f'{head},{int(rent) - 6960}', captured)
+        with self.assertRaises(AssertionError):
+            self.assert_matches(item, answer, dict(captured, holder_raw=[captured['holder_raw'][0][:-1]]))
+
+    def test_fixed_cases_cover_every_outcome(self):
+        answers = self.host_answers(fixed_cases())
+        outcomes = {a.split(',')[0] for a in answers}
+        self.assertTrue({'ok', 'error:1', 'error:13', 'error:17', 'error:36', 'error:37', 'error:67', 'error:6070'} <= outcomes)
+
+
+if __name__ == '__main__':
+    unittest.main()

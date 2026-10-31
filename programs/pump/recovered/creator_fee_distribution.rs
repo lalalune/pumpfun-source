@@ -16,6 +16,8 @@
 //!   pays more than the vault's distributable lamports (eating into the
 //!   vault's rent reserve), and fails with System error 1 only once the vault
 //!   cannot cover a transfer.
+//! - A credit above a distinct recipient's u64 balance limit fails with the
+//!   runtime ArithmeticOverflow error, after checking the corresponding debit.
 //! - `get_minimum_distributable_fee` ignores the config status, an unswept
 //!   `creator_fee` and the curve's quote mint, so it can report
 //!   `can_distribute = true` for a distribution that fails.
@@ -121,13 +123,23 @@ pub struct Distributed {
     pub event: bool,
 }
 
-pub fn distribute(d: &Distribution) -> Result<Distributed, u32> {
+#[derive(Debug, PartialEq, Eq)]
+pub enum Failure {
+    Custom(u32),
+    ArithmeticOverflow,
+}
+
+impl From<u32> for Failure {
+    fn from(code: u32) -> Self { Self::Custom(code) }
+}
+
+pub fn distribute(d: &Distribution) -> Result<Distributed, Failure> {
     check_accounts(d, true)?;
     if !d.active {
-        return Err(SHARING_CONFIG_NOT_ACTIVE);
+        return Err(Failure::Custom(SHARING_CONFIG_NOT_ACTIVE));
     }
     if d.creator_fee != 0 {
-        return Err(CREATOR_FEES_NOT_SWEPT);
+        return Err(Failure::Custom(CREATOR_FEES_NOT_SWEPT));
     }
     let a = amounts(d)?;
     if a.available < a.minimum_distributable {
@@ -135,8 +147,13 @@ pub fn distribute(d: &Distribution) -> Result<Distributed, u32> {
     }
     let mut vault = d.vault_lamports;
     let mut distributed = 0u64;
-    for &amount in &a.transfers {
+    for (share, &amount) in d.shareholders.iter().zip(&a.transfers) {
         vault = vault.checked_sub(amount).ok_or(SYSTEM_INSUFFICIENT_LAMPORTS)?;
+        // System transfers check the recipient credit after the source debit.
+        // The amount pass above already validated each distinct holder slot.
+        if let Some(Slot::Holder { lamports, .. }) = share.slot {
+            lamports.checked_add(amount).ok_or(Failure::ArithmeticOverflow)?;
+        }
         distributed = distributed.checked_add(amount).ok_or(OVERFLOW)?;
     }
     Ok(Distributed { transfers: a.transfers, distributed, event: true })

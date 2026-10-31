@@ -14,6 +14,8 @@
 //! - The creator vault may be its own shareholder. Its share moves nothing
 //!   but counts in `distributed`, and the System transfer still needs the
 //!   balance, so the slot order decides a config above 100%.
+//! - Lamport credits check overflow after the debit. Repeated recipients use
+//!   their updated balance, while a vault self-transfer restores its balance.
 //! - The same holds for the vault's token account: a self-transfer moves no
 //!   token, but SPL Token still refuses it above the balance.
 //! - A repeated wallet whose token account is absent is created once by its
@@ -71,6 +73,7 @@ pub enum Stop {
     Code(u32),
     PrivilegeEscalation,
     IllegalOwner,
+    ArithmeticOverflow,
 }
 
 fn key_writable(slots: &[Slot], role: Role, fixed: &[Role]) -> bool {
@@ -123,7 +126,9 @@ pub fn distribute(l: &Lamports, slots: &[Slot]) -> Result<Paid, Stop> {
             return Err(Stop::Code(INSUFFICIENT));
         }
         balances[vault] -= amount;
-        balances[index] += amount;
+        // Use the post-debit balance: a vault self-transfer cannot overflow,
+        // while repeated recipient slots accumulate their earlier credits.
+        balances[index] = balances[index].checked_add(amount).ok_or(Stop::ArithmeticOverflow)?;
         distributed += amount;
     }
     Ok(Paid { balances, distributed, event: true })

@@ -506,7 +506,7 @@ fn buy_handler<'info>(ctx:Context<'_,'_,'_,'info,BuyV2<'info>>,mut input:u64,lim
  let system_program=&a.system_program;
  if cf>0{
    if !a.bonding_curve.is_cashback_coin{
-    native_payments::ensure_rent_exempt(0,&a.system_program,&a.user,&a.creator_vault)?;
+    native_payments::ensure_rent_exempt(native_payments::ZeroRentSize::Zero,&a.system_program,&a.user,&a.creator_vault)?;
     pay_from_user_owned(native,system_program,&a.user,a.creator_vault.to_account_info(),cf,&a.quote_token_program,&a.quote_mint,if native{None}else{Some(a.associated_quote_user.as_ref())},if native{None}else{Some(a.associated_creator_vault.as_ref())})?;
    }else{
     pay_from_user_owned(native,system_program,&a.user,a.user_volume_accumulator.to_account_info(),cf,&a.quote_token_program,&a.quote_mint,if native{None}else{Some(a.associated_quote_user.as_ref())},if native{None}else{Some(a.associated_user_volume_accumulator.as_ref())})?;
@@ -1003,7 +1003,7 @@ fn buy_exact_quote_in_handler<'info>(ctx:Context<'_,'_,'_,'info,BuyV2<'info>>,in
     pay_from_user_owned(native,&a.system_program,&a.user,a.user_volume_accumulator.to_account_info(),cf,&a.quote_token_program,&a.quote_mint,if native{None}else{Some(a.associated_quote_user.as_ref())},if native{None}else{Some(a.associated_user_volume_accumulator.as_ref())})?;
     crate::token_incentives::volume_accumulator::record_cashback_earned(&mut a.user_volume_accumulator,cf,native)?;
    }else{
-    native_payments::ensure_rent_exempt(0,&a.system_program,&a.user,&a.creator_vault)?;
+    native_payments::ensure_rent_exempt(native_payments::ZeroRentSize::Zero,&a.system_program,&a.user,&a.creator_vault)?;
     pay_from_user_owned(native,&a.system_program,&a.user,a.creator_vault.to_account_info(),cf,&a.quote_token_program,&a.quote_mint,if native{None}else{Some(a.associated_quote_user.as_ref())},if native{None}else{Some(a.associated_creator_vault.as_ref())})?;
    }
   }

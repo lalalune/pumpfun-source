@@ -41,6 +41,35 @@ def tree(root):
     }
 
 
+def dep_info_environment(text):
+    """Read rustc's env!/option_env! bindings without recording unrelated env."""
+    def unescape(value):
+        result, index = [], 0
+        escapes = {"n": "\n", "r": "\r", "\\": "\\"}
+        while index < len(value):
+            char = value[index]
+            if char == "\\":
+                index += 1
+                if index == len(value) or value[index] not in escapes:
+                    raise ValueError("invalid rustc env-dep escape")
+                char = escapes[value[index]]
+            result.append(char)
+            index += 1
+        return "".join(result)
+
+    result = {}
+    for line in text.split("\n"):
+        if not line.startswith("# env-dep:"):
+            continue
+        name, separator, value = line[len("# env-dep:"):].partition("=")
+        name = unescape(name)
+        value = unescape(value) if separator else None
+        if name in result and result[name] != value:
+            raise ValueError("conflicting rustc env-dep bindings")
+        result[name] = value
+    return result
+
+
 def _is_link_or_reparse(info):
     return stat.S_ISLNK(info.st_mode) or bool(getattr(info, "st_reparse_tag", 0))
 
@@ -544,6 +573,31 @@ class DependencyCache:
             "archive_files_verified": files,
         }
 
+    def dependency_environment_changes(self, plan, target):
+        """Compare cached rustc bindings with each fresh Cargo unit's environment."""
+        changes = set()
+        for invocation in plan["invocations"]:
+            if invocation["package_name"] not in self.packages:
+                continue
+            effective = self.env | invocation["env"]
+            dep_infos = set()
+            for raw in invocation["outputs"]:
+                output = _confined_target_path(raw, target, invocation["cwd"])
+                if output.suffix not in {".rlib", ".rmeta", ".dylib", ".so", ".a"}:
+                    continue
+                info = output.with_name(output.stem.removeprefix("lib") + ".d")
+                if self.allowed(info.relative_to(target).as_posix()):
+                    dep_infos.add(info)
+            for info in dep_infos:
+                try:
+                    bindings = dep_info_environment(info.read_text(encoding="utf-8"))
+                except (OSError, UnicodeError, ValueError):
+                    changes.add("unavailable compiler env-dep information")
+                    continue
+                changes.update(name for name, value in bindings.items()
+                               if effective.get(name) != value)
+        return sorted(changes)
+
     def compile_main(self, target, log):
         cargo = Path(self.env["RUSTC"]).with_name("cargo")
         command = [
@@ -576,6 +630,16 @@ class DependencyCache:
         self.seed(target)
         plan_path = target.parent / "build-plan.json"
         plan_path.write_text(json.dumps(plan, indent=2) + "\n",encoding='utf-8',newline='\n')
+        changed = self.dependency_environment_changes(plan, target)
+        if changed:
+            # A fresh plan does not execute Cargo's dependency invalidation.
+            # Let Cargo rebuild instead of linking the old restored rlibs.
+            # Keep the immutable entry for callers whose bindings still match.
+            self.record.update(status="bypass", execution="cargo-environment-rebuild",
+                               changed_environment_dependencies=changed)
+            cargo_command = command[:-3] + ["--message-format=json-render-diagnostics"]
+            return subprocess.run(cargo_command, cwd=self.workspace, env=self.env,
+                                  stdout=log, stderr=subprocess.STDOUT)
         package = tomllib.loads((self.crate / "Cargo.toml").read_text())["package"][
             "name"
         ]

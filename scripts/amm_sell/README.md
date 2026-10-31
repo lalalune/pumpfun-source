@@ -137,10 +137,13 @@ address by coincidence. These are pairing assumptions, not callee or data-conten
 identity proofs. Raw sell and whole-image equality flags are unchanged, and the
 official reconstruction scorer is unchanged.
 
-Current cache keys, best records (`BEST-v5.json`) and default history queries select
-version 5. Version-4 distances and best records remain unchanged historical evidence
-and must not be ranked with the new scale. The in-memory shifted-capture tests do
-not compile or execute a program and establish no new reconstruction match.
+Version 6 also preserves the byte order and 16/32/64-bit width of END
+instructions in listings and alignment tokens. Current cache keys, best records
+(`BEST-v6.json`) and default history queries select version 6. Earlier distances
+and best records remain unchanged historical evidence and must not be ranked
+with the new scale. Raw equality criteria and the official reconstruction
+scorer remain unchanged. The in-memory controls do not compile or execute a
+program and establish no new reconstruction match.
 
 ## Provisioning a new machine
 

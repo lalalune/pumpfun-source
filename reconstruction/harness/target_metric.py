@@ -23,6 +23,7 @@ sys.path.insert(0, str(H))
 from score import sections, normalize, body, candidate_functions, original_windows  # noqa: E402
 from win import Cand, insns, demangle, best_candidates, ORIG, ORIG_SECS  # noqa: E402
 from instruction_stream import instruction_offsets
+from compare_scores import publish_report
 from collections import Counter
 
 
@@ -151,9 +152,7 @@ def main(argv=None):
         ap.error('explicit --sym did not select any candidate function')
     if a.json:
         try:
-            a.json.parent.mkdir(parents=True, exist_ok=True)
-            with a.json.open('x', encoding='utf-8') as stream:
-                stream.write(json.dumps(rows, indent=2) + '\n')
+            publish_report(a.json, json.dumps(rows, indent=2) + '\n')
         except OSError as error:
             ap.error(f'cannot create diagnostic report: {error}')
     for row in rows:

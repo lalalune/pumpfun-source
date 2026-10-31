@@ -8,6 +8,8 @@ from pump_amm_reusable_harness import acquire_harness, pin_program
 from pump_differential_output import PumpReport
 TOKEN=Pubkey.from_string('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA');TOKEN22=Pubkey.from_string('TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb')
 TRADE_FIXTURE_PATH=pathlib.Path('research/imported-lab/analysis/pump_fun/amm-v2-trade-fixture.json').resolve()
+# Sibling runners import this fixture; bind the actual caller-selected file.
+REPORT_INPUTS=(TRADE_FIXTURE_PATH,)
 f=json.load(open(TRADE_FIXTURE_PATH,encoding='utf-8'));pool=Pubkey.from_string(f['pool']);poolraw=bytearray(base64.b64decode(f['accounts']['pool']['data_base64']));lp=Pubkey.from_bytes(bytes(poolraw[107:139]));supply=struct.unpack_from('<Q',poolraw,203)[0]
 base=Pubkey.from_string(f['keys']['base_mint']);quote=Pubkey.from_string(f['keys']['quote_mint']);vaultbase=Pubkey.from_string(f['keys']['pool_base_token_account']);vaultquote=Pubkey.from_string(f['keys']['pool_quote_token_account'])
 userbase=Pubkey.from_bytes(bytes([70])*32);userquote=Pubkey.from_bytes(bytes([71])*32);userlp=Pubkey.from_bytes(bytes([72])*32)

@@ -66,3 +66,19 @@ retained `sol_memcpy_` call, plus unchanged scalar/pointer controls. It invokes
 the production API with text decoded from actual capture bytes by the repository
 decoder, without replacing analysis functions. This API test does not qualify
 a complete SDK/objdump census run or establish argument liveness across branches.
+
+The census external-call counters resolve type-10 relocation symbols from the
+same loaded ELF bytes. Keys such as `symbol:abort` and `symbol:sol_log_` preserve
+identity that the common `ffffffff` placeholder cannot convey; non-relocated
+hash-immediate keys keep their existing hexadecimal format. This uses the
+repository's pinned `pyelftools` dependency. Internal-call graph refinement and
+score acceptance remain unchanged. `test_census_external_symbols.py` compares
+the captured CTO window with the retained multihop-sell-fees compiler artifact;
+its real census CLI test additionally runs when `PUMP_OBJDUMP` names an SBF tool.
+That CLI control also compares JSON and Markdown across Python hash seeds;
+callee identities break ties between identical display names in report rows.
+Census disassembly uses a temporary snapshot of each loaded image. If a build
+replaces or removes the original candidate path during analysis, argument text
+still describes the bytes used for call sites and the recorded candidate hash.
+`test_census_disassembly_snapshot.py` exercises unchanged, replaced and removed
+paths with retained compiler artifacts when `PUMP_OBJDUMP` names an SBF tool.

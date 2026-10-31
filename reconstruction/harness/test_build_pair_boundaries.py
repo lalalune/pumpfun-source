@@ -1,4 +1,5 @@
 import json
+import hashlib
 from pathlib import Path
 import tempfile
 import unittest
@@ -9,7 +10,8 @@ class PairBoundaryTests(unittest.TestCase):
     def setUp(self):
         t=tempfile.TemporaryDirectory();self.addCleanup(t.cleanup);self.root=Path(t.name)
         self.base=self.root/'base';self.candidate=self.root/'candidate';self.sdk=self.root/'sdk';self.hybrid=self.root/'hybrid'
-        for tool in [self.sdk/'llvm/bin/llvm-objdump',self.hybrid/'rust/bin/rustc']:
+        for tool in [self.sdk/'llvm/bin/llvm-objdump',self.sdk/'llvm/bin/llvm-objcopy',
+                     self.sdk/'llvm/bin/clang',self.sdk/'rust/bin/cargo',self.hybrid/'rust/bin/rustc']:
             tool.parent.mkdir(parents=True,exist_ok=True);tool.write_bytes(b'fixture tool')
         self.windows={0:{'bytes':8,'normalized':True,'raw':True}}
         self.state={'base':'before','candidate':'before'}
@@ -22,7 +24,8 @@ class PairBoundaryTests(unittest.TestCase):
     def source(self,repo):return {'sha256':self.state[Path(repo).name]}
     def build(self,src,work,out,**kw):
         out.mkdir(parents=True);(out/'unstripped.so').write_bytes(b'fixture')
-        return {'ok':True,'runtime_valid':True,'stack_warnings':[]}
+        return {'ok':True,'runtime_valid':True,'stack_warnings':[],
+                'unstripped_sha256':hashlib.sha256(b'fixture').hexdigest()}
     def run_pair(self,name='out',**kw):return P.run_pair(self.base,self.candidate,self.root/name,self.sdk,self.hybrid,**kw)
     def patches(self,build=None):
         from contextlib import ExitStack

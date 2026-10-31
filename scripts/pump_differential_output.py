@@ -1,8 +1,25 @@
 """Prepare and atomically publish Pump differential reports without input loss."""
+import errno
 import os
 from pathlib import Path
 import sys
 import secrets
+
+
+def aliases(destination, source):
+    """True when destination is source or lies inside it, compared by inode.
+
+    samefile() compares the filesystem entries themselves, so a differently
+    spelled path for the same file is caught on a case-insensitive volume, and
+    the comparison applies to directory inputs as well as regular files.
+    """
+    probe = destination
+    while True:
+        if probe.exists() and probe.samefile(source):
+            return True
+        if probe.parent == probe:
+            return False
+        probe = probe.parent
 
 
 class PumpReport:
@@ -43,8 +60,8 @@ class PumpReport:
         destination = self.output.resolve()
         for source in inputs:
             source = source.resolve()
-            if (destination == source or (source.is_dir() and destination.is_relative_to(source))
-                    or (destination.exists() and source.is_file() and destination.samefile(source))):
+            if (destination == source or destination.is_relative_to(source)
+                    or (source.exists() and aliases(destination, source))):
                 raise ValueError('report output aliases an input: ' + str(self.output))
         if not self.overwrite and self.output.exists():
             raise FileExistsError('Retain prior attempts; output must be fresh: ' + str(self.output))
@@ -56,6 +73,7 @@ class PumpReport:
         """Publish complete bytes; failed staging never truncates a prior report."""
         self.check()
         staged = None
+        staged_identity = None
         try:
             for _ in range(100):
                 path = self.output.with_name('.' + self.output.name[:32] + '.' + secrets.token_hex(8))
@@ -68,6 +86,8 @@ class PumpReport:
             else:
                 raise FileExistsError('could not create a unique report staging file')
             with stream:
+                metadata = os.fstat(stream.fileno())
+                staged_identity = (metadata.st_dev, metadata.st_ino)
                 stream.write(payload)
                 stream.flush()
                 os.fsync(stream.fileno())
@@ -80,6 +100,39 @@ class PumpReport:
                 staged = None
             else:
                 os.link(staged, self.output)
+            self._sync_directory(self.output.parent)
         finally:
             if staged is not None:
-                staged.unlink(missing_ok=True)
+                try:
+                    metadata = staged.lstat()
+                except FileNotFoundError:
+                    pass
+                else:
+                    if staged_identity == (metadata.st_dev, metadata.st_ino):
+                        staged.unlink(missing_ok=True)
+
+    @staticmethod
+    def _sync_directory(directory):
+        """Order the published directory entry behind the staged bytes.
+
+        fsync on the staging file flushes its bytes but not the rename or
+        hard link that names the report, so a crash after write() returned
+        could leave the previous report in place. Flushing the directory once
+        per publication requests persistence of the published name. Directory
+        fsync is unsupported on Windows and on some filesystems; those retain
+        the previous publication behavior. Other I/O errors remain visible.
+        """
+        try:
+            descriptor = os.open(directory, os.O_RDONLY | getattr(os, 'O_DIRECTORY', 0))
+        except OSError as error:
+            if os.name == 'nt' or error.errno in (errno.EINVAL, errno.ENOTSUP, errno.EOPNOTSUPP):
+                return
+            raise
+        try:
+            os.fsync(descriptor)
+        except OSError as error:
+            if error.errno in (errno.EINVAL, errno.ENOTSUP, errno.EOPNOTSUPP):
+                return
+            raise
+        finally:
+            os.close(descriptor)

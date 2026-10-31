@@ -109,8 +109,14 @@ def audit(suites):
 
     def walk(value, path):
         if isinstance(value, dict):
+            left, right = _log_data(value.get('original')), _log_data(value.get('candidate'))
+            # Original-only calibration and candidate=None are supported. A
+            # supplied non-null opposite outcome, however, must be an object.
+            for side, opposite_logs in (('original', right), ('candidate', left)):
+                if (opposite_logs is not None and side in value
+                        and value[side] is not None and not isinstance(value[side], dict)):
+                    raise ValueError(f'{path}: execution pair has malformed {side} outcome')
             if isinstance(value.get('original'), dict) and isinstance(value.get('candidate'), dict):
-                left, right = _log_data(value['original']), _log_data(value['candidate'])
                 if (left is None) != (right is None):
                     missing = 'original' if left is None else 'candidate'
                     raise ValueError(f'{path}: execution pair is missing {missing} logs')

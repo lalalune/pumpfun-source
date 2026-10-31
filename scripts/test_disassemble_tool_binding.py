@@ -19,6 +19,8 @@ class DisassembleToolBindingTests(unittest.TestCase):
         root = Path(temporary.name)
         scripts = root/'scripts';scripts.mkdir()
         (scripts/'disassemble.py').write_bytes(SCRIPT.read_bytes())
+        for name in ('deep_disassembly.py', 'window_elf_reader.py'):
+            (scripts/name).write_bytes((SCRIPT.parent/name).read_bytes())
         (scripts/'analyze.py').write_text('def program_names(): return '+repr(list(NAMES))+'\n' +
             "def capture_directory(root,name): return root/'evidence'/('dependencies' if name=='donation_relay' else 'original')/name\n")
         for name in NAMES:

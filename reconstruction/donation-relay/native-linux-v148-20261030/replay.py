@@ -223,37 +223,59 @@ def free_bytes(path):
 def monitored(argv, destination, name, timeout, floor):
     """Same floor/time/process-group policy as the measured controller."""
     start = time.monotonic(); reason = None; minimum = free_bytes(destination)
-    with (destination / (name + '.log')).open('xb') as log, (destination / (name + '-resources.jsonl')).open('x') as samples:
-        p = subprocess.Popen(argv, stdout=log, stderr=subprocess.STDOUT, start_new_session=True)
-        write_new(destination / (name + '-process.json'), {'pid': p.pid, 'argv': argv})
-        last = -1
-        while p.poll() is None:
-            elapsed = time.monotonic() - start; available = free_bytes(destination); minimum = min(minimum, available)
-            if int(elapsed) != last:
-                samples.write(json.dumps({'seconds': elapsed, 'freeBytes': available}) + '\n'); samples.flush(); last = int(elapsed)
-            if available < floor: reason = 'HOST_DISK_FLOOR_128_MIB'; break
-            if elapsed > timeout: reason = 'TIMEOUT'; break
-            time.sleep(.1)
-        if reason:
-            try: os.killpg(p.pid, signal.SIGTERM)
-            except ProcessLookupError: pass
-            try: p.wait(timeout=3)
-            except subprocess.TimeoutExpired:
-                try: os.killpg(p.pid, signal.SIGKILL)
+    p = None
+    try:
+        with (destination / (name + '.log')).open('xb') as log, (destination / (name + '-resources.jsonl')).open('x') as samples:
+            p = subprocess.Popen(argv, stdout=log, stderr=subprocess.STDOUT, start_new_session=True)
+            write_new(destination / (name + '-process.json'), {'pid': p.pid, 'argv': argv})
+            last = -1
+            while p.poll() is None:
+                elapsed = time.monotonic() - start; available = free_bytes(destination); minimum = min(minimum, available)
+                if int(elapsed) != last:
+                    samples.write(json.dumps({'seconds': elapsed, 'freeBytes': available}) + '\n'); samples.flush(); last = int(elapsed)
+                if available < floor: reason = 'HOST_DISK_FLOOR_128_MIB'; break
+                if elapsed > timeout: reason = 'TIMEOUT'; break
+                time.sleep(.1)
+            if reason:
+                try: os.killpg(p.pid, signal.SIGTERM)
                 except ProcessLookupError: pass
-                p.wait()
-        else: p.wait()
-        minimum = min(minimum, free_bytes(destination))
-        if minimum < floor and reason is None: reason = 'HOST_DISK_FLOOR_128_MIB_AFTER_EXIT'
-    group_left = False
-    try: os.killpg(p.pid, 0); group_left = True
-    except ProcessLookupError: pass
-    if group_left:
-        try: os.killpg(p.pid, signal.SIGKILL)
+                try: p.wait(timeout=3)
+                except subprocess.TimeoutExpired:
+                    try: os.killpg(p.pid, signal.SIGKILL)
+                    except ProcessLookupError: pass
+                    p.wait()
+            else: p.wait()
+            minimum = min(minimum, free_bytes(destination))
+            if minimum < floor and reason is None: reason = 'HOST_DISK_FLOOR_128_MIB_AFTER_EXIT'
+        group_left = False
+        try: os.killpg(p.pid, 0); group_left = True
         except ProcessLookupError: pass
-        reason = reason or 'OWNED_GROUP_REMAINED_AFTER_LEADER_EXIT'
-    return {'returncode': p.returncode, 'seconds': time.monotonic() - start,
-            'guardFired': reason, 'lowestFreeBytes': minimum, 'groupRemained': group_left}
+        if group_left:
+            try: os.killpg(p.pid, signal.SIGKILL)
+            except ProcessLookupError: pass
+            reason = reason or 'OWNED_GROUP_REMAINED_AFTER_LEADER_EXIT'
+        return {'returncode': p.returncode, 'seconds': time.monotonic() - start,
+                'guardFired': reason, 'lowestFreeBytes': minimum, 'groupRemained': group_left}
+    except BaseException:
+        # The launcher and SDK command have different sessions. Ctrl-C reaches
+        # this process only, so unwinding must also stop its owned build group.
+        if p is not None:
+            try:
+                os.killpg(p.pid, signal.SIGTERM)
+            except ProcessLookupError:
+                pass
+            try:
+                p.wait(timeout=3)
+            except subprocess.TimeoutExpired:
+                pass
+            finally:
+                # The leader can exit before a descendant that ignores SIGTERM.
+                try:
+                    os.killpg(p.pid, signal.SIGKILL)
+                except ProcessLookupError:
+                    pass
+                p.wait()
+        raise
 
 
 def execute(work):
