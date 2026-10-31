@@ -111,6 +111,18 @@ worth +96 L2 tokens. Every version of it loses 130-290 real tokens to register a
 w14a09 (pdara) and w14a93 (pdaheadra, 0.58906 -> 0.65806 with 11 RA forces) priced. A source route to GPF's skeleton with
 main's register assignment would be the largest open lead in the head.
 
+## Re-check on main ebe5387 (#3495, 0.67316, M 2,247)
+
+`m0` is `eq_main`. Each rerun on the new main loses the same amount as on 13fe453, and skel.py L2 values are identical:
+
+| rerun | bytes | M | M delta | L2 |
+| --- | ---: | ---: | ---: | ---: |
+| t1 | 27,392 | 2,244 | -3 | 2,787 |
+| F0 | 27,352 | 2,114 | -133 | 2,849 |
+| GF | 27,352 | 2,097 | -150 | 2,859 |
+| GP | 27,400 | 1,956 | -291 | |
+| GPF (with the #3495 sk-local `shared`) | 27,344 | 1,960 | -287 | 2,883 |
+
 ## Conclusion
 
 The early-read mechanism is exhausted on 13fe453. Every value the original reads earlier is in the head cluster (0x0-0x540:

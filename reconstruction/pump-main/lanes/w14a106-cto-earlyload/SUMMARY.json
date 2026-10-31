@@ -16,16 +16,21 @@
    "ratio": 0.67256,
    "M": 2245,
    "slots": 3123
+  },
+  "ebe5387": {
+   "ratio": 0.67316,
+   "M": 2247,
+   "slots": 3123
   }
  },
  "best": {
-  "result": "no gain; main 13fe453 unchanged",
-  "ratio": 0.67256,
+  "result": "no gain; main ebe5387 unchanged",
+  "ratio": 0.67316,
   "slots_diff": 3123,
   "bytes": 27400
  },
  "pr": 3490,
- "ledger_keys": "0x22a10-w14-{963d1ee,13fe453}-earlyload-*-v1 (27 rows)",
+ "ledger_keys": "0x22a10-w14-{963d1ee,13fe453,ebe5387}-earlyload-*-v1 (33 rows)",
  "tools": {
   "tools/prov.py": "forward-dataflow load provenance (ctx/accounts/args symbolic roots), --opt optimistic meet",
   "tools/provtab.py": "join two provenance runs",
