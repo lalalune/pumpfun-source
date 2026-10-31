@@ -97,3 +97,49 @@ wn + ev_cb_local 2,233, wn + n_mapamt 2,231, wn + hkmut + amp_inline + su_to_st 
 **Use for other lanes:** on 95a64ba, `wn` is a +2 M / -8 B knob and `sm`, `rP` are +1 M / -8 B. Any source lead that
 costs +8 B (for example a validate-layout or Err306-placement source form, w14a78/w14a87 oracles: M +15..+28 at +8 B)
 should be paired with `wn` first; a +16 B lead with `wn` + `sm` or `wn` + `rP` (both -2 jointly, so price them).
+
+## 6. Landing candidate on 95a64ba: `ev_nf_let` + `wn` + `sm` (0.66986 -> 0.67166)
+
+The 95a64ba single screen found **ev_nf_let** (`let nf=a.bonding_curve.creator_fee_bps;` before `pool_updated`, event field
+`new_creator_fee_bps:nf`) at **+16 B, M 2,240 (+4)** (nf_blk / nf_post_a, the same read placed elsewhere, give the same).
+It is repaid with the two -8 B knobs that are positive on this main:
+
+1. `ev_nf_let`: event new fee read once into `nf` right after the curve block (+16 B);
+2. `wn`: wallet `if !a.current_creator.is_writable{return ..}` (was `==false`, -8 B);
+3. `sm`: sharing CPI `if let Some(val)=sharing_update{..}` (was `match .. None=>{}`, -8 B).
+
+| | main 95a64ba | this PR |
+| --- | ---: | ---: |
+| ratio | 0.66986 | **0.67166** |
+| M | 2,236 | 2,242 |
+| slots_diff | 3,204 | 3,215 |
+| bytes | 27,400 | 27,400 |
+| normalized / raw | 1034/1034 | 1034/1034, no gains or losses |
+
+Differential: 363 cases, 0 mismatches. Ledger key `0x22a10-w14-ecea702-stitch12-nfl_wn_sm-v1` (built on 95a64ba source;
+the key took the baseline sha current at run start).
+Same ratio with more slots: ev_nf_let + wn + rP (3,223), + ev_reset_early (3,215), nf_blk / nf_post_a + wn + sm (3,215).
+Below: ev_nf_let + sm + rP 0.67136, + wn + cu_match 0.67136, + cu_match + ev_reset_early 0.67106, + wn + su_to_st 0.67076.
+Off size: ev_nf_let + C0 0.67206 @27,392 (M 2,243), + wn + amp_inline 0.67176 @27,392 (M 2,242).
+
+## 7. Main ecea702 (#3430 w14a88: wn + validate volatile placeholder, 0.67076, M 2,239, 3,123 slots)
+
+#3430 landed `wn` itself (repaid with a +8 B volatile read), so the section 6 composite became ev_nf_let + sm + one more -8:
+
+| ev_nf_let + | bytes | M | slots |
+| --- | ---: | ---: | ---: |
+| **sm + rP** | 27,400 | **2,244** (0.67226) | 3,123 |
+| rP + ev_reset_early / nf_blk + sm + rP / nf_post_a + sm + rP | 27,400 | 2,244 | 3,123 |
+| sm + cu_match / rP + cu_match / cu_match + ev_reset_early | 27,400 | 2,243 | 3,123 |
+| amp_inline | 27,400 | 2,243 | 3,142 |
+| sm (alone, +8) / nothing (+16) | 27,408 / 27,416 | 2,241 / 2,240 | |
+| sm + su_to_st | 27,400 | 2,240 | 3,211 |
+
+ev_nf_let + sm + rP measured 0.67226 / 3,123 / 27,400, 1034/1034, 0 losses, differential 363/0 (unstripped sha
+c3ea5d9310d855ee). Before this lane could land it, **w14a86-cto-t1vaultname landed the identical function as #3437**
+(963d1ee: same fn.bin bytes), so this lane has no landing of its own.
+
+## 8. Main 963d1ee (#3437, 0.67226, M 2,244, 3,123 slots)
+
+Shift map: best pure -8 is 0, best pure +8 +1 (entry 0x180/0x1a0), best pair +1. Size-pair levers are now worth at most one
+token; further gains must come from codegen changes like ev_nf_let (+4 real at +16 B on 95a64ba).

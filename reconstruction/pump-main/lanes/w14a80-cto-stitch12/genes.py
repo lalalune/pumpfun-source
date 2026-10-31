@@ -140,3 +140,8 @@ G['sk_inl']=[(_SK,"let mut target=validate(&st,hopt,fee,new,&holder_key,&a.shari
 G['sk_inl2']=[(_SK,"let mut target=validate(&st,hopt,fee,new,&holder_key,a.sharing_config.key)?;")]
 G['rm_okq']=[("let (target,sharing_update,cashback)=Ok::<_,anchor_lang::error::Error>((target,sharing_update,cashback))?;let mut target=target;","let mut target=target;")]
 G['hk_copy']=[("validate(&st,hopt,fee,new,&holder_key,&sk)","validate(&st,hopt,fee,new,&hk.0,&sk)")]
+# 963d1ee: reverts of the landed knobs (as +8 B partners)
+G['sm_back']=[("\n if let Some(val)=sharing_update{\n","\n match sharing_update{Some(val)=>{\n"),("\n }\n let (old_creator","\n }None=>{}}\n let (old_creator")]
+G['rP_back']=[("rent_epoch:x.rent_epoch,is_signer:x.is_signer,is_writable:x.is_writable,key:x.key,executable:x.executable}},authority:","rent_epoch:a.pool_authority.rent_epoch,is_signer:x.is_signer,is_writable:x.is_writable,key:x.key,executable:x.executable}},authority:")]
+G['nf_back']=[("let nf=a.bonding_curve.creator_fee_bps;let pool_updated","let pool_updated"),("new_creator_fee_bps:nf,","new_creator_fee_bps:a.bonding_curve.creator_fee_bps,")]
+G['vol334_back']=[("unsafe{core::ptr::read_volatile(holder_key as *const Pubkey as *const u8)};if !st.fee_configurable{","if !st.fee_configurable{")]
