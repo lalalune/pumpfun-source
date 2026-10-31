@@ -1,0 +1,31 @@
+{
+  "lane": "w14a51-cto-sweepjoin",
+  "target": "0x22a10 admin_cto::execute",
+  "bases": {"6e011ea42": 0.65548, "63308119b": 0.65698},
+  "result": "no source change; one sweep join (J2 removed) is worth -1/0/-1 raw/fm/sk tokens on 6e011ea (q4d 0.65438 at 27392, IR-only) and -13/-10/-3 on 6330811 (0.65088 at 27384)",
+  "best_zero_loss": null,
+  "mechanisms": [
+    "J2 exists because both preds of sweep.exit (bb49 Ok join, bb57 Err join) end in an unconditional br, so pre-RA early tail-dup completely duplicates the 2-instruction exit (canCompletelyDuplicateBB). The original's Ok preds branch conditionally straight into the join.",
+    "Without J2, MachineBlockPlacement's hasBetterLayoutPredecessor rejects the Rent::get-Err -> exit fallthrough because the native amount==0 edge freq (0.0000439) >= 0.25*freq(Rent Err) (0.0000365): exit and the post-sweep region move after the sweep tail (0.551). A branch weight <= 5/12 on that edge restores the layout."
+  ],
+  "attempts": 24,
+  "rejected": [
+    "llc tail-dup/tail-merge knobs (global; 0.46-0.59 or identical)",
+    "fold bb49/bb57 into exit in post-opt IR (0.46-0.55; 0.24 when lifetimes are dropped)",
+    "empty asm in exit (0.551, same as fold)",
+    "fully merged single join + weight (0.64939)",
+    "constant 0 on the native zero edge (0.65389, +8 B)",
+    "deferred declarations of vsigner/old/seed arrays before dest (0.38017, frame shift; J2 stays)",
+    "sweep tail as one Result then ? (0.3764), Ok(r?) (0.37646), match rebuild (identical)",
+    "named seed arrays in place (0.65189)"
+  ],
+  "unresolved_residuals": [
+    "swept phi in r9 / Err payload coalescing (unchanged by J2 removal; see w14a06)",
+    "original's join reloads r1=[0x950], r6=[0x8f8] and the placement-time test copies at orig 0x24a8/0x2610/0x6398",
+    "native arm register assignment: orig amount in r6 and min copied to r3; ours min in r6 and amount in r3 plus mov r6,r3"
+  ],
+  "next_ideas": [
+    "A source shape that lowers the native zero edge below 41.7% (an extra 50/50 branch on the zero path) together with a +8 B knob, since J2 removal frees exactly 8 B",
+    "Only then revisit the placement-time test copies in the call-result preds"
+  ]
+}
