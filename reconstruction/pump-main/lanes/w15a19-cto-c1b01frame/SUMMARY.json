@@ -1,0 +1,29 @@
+{
+  "lane": "w15a19-cto-c1b01frame",
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27,400 B",
+  "base": {"main": "86e2a6b74 (programs/pump unchanged on 9120883a9)", "ratio": 0.67376, "slots_diff": 3124, "bytes": 27400, "M": 2249, "Mperm": 2293, "Mhc": 2300, "true_lcs": {"---": 2255, "rfj": 3007}},
+  "result": "notes only; no gain. c1 x b01 x {v01,g1,g3} grid (46 cells) all below main; the two frame shifts do not cancel",
+  "best_zero_loss": {"ratio": 0.67376, "slots_diff": 3124, "bytes": 27400, "note": "main itself"},
+  "ledger": {"approach": "c1b01frame", "keys": "0x22a10-w15-86e2a6b-c1b01frame-<cell>-v1", "rows": 46},
+  "grid_key_cells": {
+    "c1":    {"ratio": 0.56379, "bytes": 27288, "M": 1878, "Mperm": 1979, "lcs": "-342/-12"},
+    "b01":   {"ratio": 0.54595, "bytes": 27360, "M": 1821, "Mperm": 2063, "lcs": "-268/0", "shift_perm_bound_M": 2155},
+    "c1b01": {"ratio": 0.5689,  "bytes": 27344, "M": 1897, "Mperm": 2030, "lcs": "-275/-50", "shift_perm_bound_M": 2083},
+    "c1b02": {"ratio": 0.5704,  "bytes": 27344, "M": 1902, "Mperm": 2035, "lcs": "-273/-50", "shift_perm_bound_M": 2091},
+    "g1":    {"ratio": 0.67284, "bytes": 27520, "M": 2251, "Mperm": 2290, "lcs": "+2/+7"},
+    "b01g3": {"ratio": 0.53249, "bytes": 27416, "M": 1778, "Mperm": 1973, "lcs": "-330/+7"}
+  },
+  "findings": [
+    "c1 (and c2/c5/c6, byte-identical) does not move the alloca band; its loss is register assignment (regs-equal matched pairs 2542 -> 2210) and survives free spill-colour permutation (Mperm 1979 vs 2293).",
+    "b01's +8 deep shift is one new unmerged alloca, %target.i.sroa.0 = alloca [7 x i8] at -0x548 (validate's inlined target piece, memcpy'd from new / hk); main's alloca band already equals the original's offsets, so nothing cancels it.",
+    "Joint bound (alloca shift undone + best spill perm + swap climb): b01 2155, c1b01 2083, main 2300 M.",
+    "c1+b01 adds a layout break absent in either piece: the curve-state store block (orig 0x4aa0-0x4c50, jne r7,2 / stxb [r1+0xa5],[r1+0xa3]) moves ahead of 0x3d40; rfj -45 in orig 0x4800-0x5000."
+  ],
+  "rejected_mechanisms": ["c1/c2/c5/c6 per-arm cashback", "b01/b02 holder_key by value", "c1+b01", "c1+b01+v01", "c1/b01 x g1/g3 early creator binding"],
+  "not_run": ["step 3 byte-room spend (precondition Mperm>2299 or true-LCS gain failed)", "step 4 private RAPRIO climb (gap 200+ M vs RA bounds of +9..+27 M; patched llc no longer on disk)"],
+  "unresolved_residuals": ["b01's 7-byte target.i.sroa.0 alloca must vanish or be stack-coloured for any holder_key-by-value lane", "c1's !holder (%465) RA change"],
+  "next_ideas": [
+    "For holder_key-by-value lanes: find a validate target spelling that is not SROA-split into a validate-local 7-byte piece (target.i.sroa.0), then re-price with tools/shperm.py; bound is still 0.64608 for b01 itself",
+    "g1 and b01g3 are the only skeleton-positive cells (+7 rfj); worth pricing only on bases where their RA cost is already paid (e.g. outline bases O/O312)"
+  ]
+}

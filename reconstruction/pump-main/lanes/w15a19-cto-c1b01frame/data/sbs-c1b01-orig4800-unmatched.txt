@@ -1,0 +1,61 @@
+- 04a90 ldxdw r6, [r10-0x8f8]                  | 
+- 04a98 ldxdw r2, [r10-0x950]                  | 
+- 04aa0 jne r7, 2, 54e0                        | 
+- 04aa8 ldxdw r4, [r10-0x958]                  | 
+- 04ab0 and64 r4, 1                            | 
+- 04ab8 ldxdw r3, [r10-0x8d8]                  | 
+- 04ac0 ldxdw r1, [r3+0x38]                    | 
+- 04ac8 ldxdw r2, [r1+0x20]                    | 
+- 04ad0 stxdw [r10-0x618], r2                  | 
+- 04ad8 ldxdw r2, [r1+0x18]                    | 
+- 04ae0 stxdw [r10-0x620], r2                  | 
+- 04ae8 ldxdw r2, [r1+0x10]                    | 
+- 04af0 stxdw [r10-0x628], r2                  | 
+- 04af8 ldxdw r2, [r1+0x8]                     | 
+- 04b00 stxdw [r10-0x630], r2                  | 
+- 04b08 ldxdw r2, [r10-0x580]                  | 
+- 04b10 stxdw [r1+0x8], r2                     | 
+- 04b18 ldxdw r2, [r10-0x578]                  | 
+- 04b20 stxdw [r1+0x10], r2                    | 
+- 04b28 ldxdw r2, [r10-0x570]                  | 
+- 04b30 stxdw [r1+0x18], r2                    | 
+- 04b38 ldxdw r2, [r10-0x568]                  | 
+- 04b40 stxdw [r1+0x20], r2                    | 
+- 04b48 ldxdw r1, [r1+0x70]                    | 
+- 04b50 stxdw [r10-0x8e0], r1                  | 
+- 04b58 ldxdw r1, [r3+0x38]                    | 
+- 04b60 ldxdw r2, [r10-0x950]                  | 
+- 04b68 stxb [r1+0xa5], r2                     | 
+- 04b70 ldxdw r1, [r3+0x38]                    | 
+- 04b78 stxb [r1+0xa3], r4                     | 
+- 04b80 ldxdw r1, [r10-0x8e8]                  | 
+- 04b88 jne r1, 0, 4b98                        | 
++                                              | 04c28 jeq r9, 2, 3d40
+- 04ba0 ldxdw r2, [r10-0x930]                  | 
+- 04ba8 stxdw [r1+0x70], r2                    | 
+- 04bb0 ldxdw r1, [r3+0x38]                    | 
+- 04bb8 stb [r1+0xa4], 0                       | 
+- 04bc0 ldxdw r7, [r3+0x70]                    | 
+- 04bc8 ldxdw r1, [r7+0x18]                    | 
+- 04bd0 lddw r2, 0x1b79ff                      | 
+- 04be0 mov64 r3, 32                           | 
+- 04be8 call 0x3180f                           | 
+- 04bf0 lsh64 r0, 32                           | 
+- 04bf8 rsh64 r0, 32                           | 
+- 04c00 jne r0, 0, 4c20                        | 
+- 04c08 mov64 r1, r7                           | 
+- 04c10 call 0x2f6a2                           | 
+- 04c18 jeq r0, 0, 4c50                        | 
+- 04c20 lddw r1, 0x1b68f2                      | 
+- 04c30 mov64 r2, 48                           | 
+- 04c38 call 0xffffffff                        | 
+- 04c40 mov64 r8, 0                            | 
+- 04c48 ja r0, 4e50                            | 
+- 04c50 ldxdw r6, [r10-0x8d8]                  | 
++                                              | 04c40 ldxb r8, [r1+0xa5]
+- 04d48 ldxdw r6, [r10-0x8f8]                  | 
+- 04e20 ldxdw r4, [r10-0x950]                  | 
++                                              | 04e08 mov64 r4, r8
++                                              | 04f00 ldxdw r3, [r10-0x8e0]
+- 04f38 ldxdw r6, [r10-0x8d8]                  | 
+- 04fd8 ldxdw r4, [r3+0x70]                    | 
