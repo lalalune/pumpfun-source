@@ -148,6 +148,9 @@ The head itself gets worse, though (orig 0x0-0x800 L2 141 against pda+hL's 185),
 
 No order beats main. SPQF (-176 B, -57 M) is not a size knob worth pairing.
 
+Partners on the two best orders: o_PQSF+hb 0.65256 (identical tokens), o_PQSF+hkc 0.51153 @27,416, o_SPQF+hkc
+0.52941 @27,304. The holder_key copy (`hkc`) still costs the w14a63 frame-colour cascade on every base.
+
 ## Tools (`tools/`, experiment only; private-llc tools need `llc-patch/build.sh` from w14a84)
 
 - `head.py <m.ll> <tag> [--force F]`: head RA summary. It reports:
