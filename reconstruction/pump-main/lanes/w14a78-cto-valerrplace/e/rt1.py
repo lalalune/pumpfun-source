@@ -1,0 +1,1 @@
+EDITS=[('let t=if let Some(t)=new{t}else{return Err(error!(PumpError::CtoNewCreatorRequired));};','let t=if unsafe{*(&new as *const Option<Pubkey> as *const u8)}&1!=0{unsafe{new.unwrap_unchecked()}}else{return Err(error!(PumpError::CtoNewCreatorRequired));};')]

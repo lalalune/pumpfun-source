@@ -1,0 +1,1 @@
+EDITS=[('if holder&&!st.holder_reward&&!st.holder_enabled{return Err(error!(PumpError::HolderRewardDisabled));}', 'if !holder||st.holder_reward||st.holder_enabled{}else{return Err(error!(PumpError::HolderRewardDisabled));}')]

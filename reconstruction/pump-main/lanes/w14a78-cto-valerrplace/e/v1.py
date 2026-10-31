@@ -1,0 +1,2 @@
+g={}; exec(open("/Users/shawwalters/.cache/pumpfun-reconstruction/lanes/w14a75-cto-and1polar/gen/k_st_ql_first.py").read(),g); EDITS=g['EDITS']
+EDITS=EDITS+[(' if st.holder_reward&&hopt&1==0{return Err(error!(PumpError::HolderRewardCreatorImmutable));}\n\n\n\n\n\n\n if holder&&!st.holder_reward&&!st.holder_enabled{return Err(error!(PumpError::HolderRewardDisabled));}', ' if st.holder_reward{if hopt&1==0{return Err(error!(PumpError::HolderRewardCreatorImmutable));}}else if holder&&!st.holder_enabled{\n\n\n\n\n\n\n  return Err(error!(PumpError::HolderRewardDisabled));}')]
