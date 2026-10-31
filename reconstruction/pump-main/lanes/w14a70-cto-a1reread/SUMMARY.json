@@ -1,0 +1,19 @@
+{
+  "lane": "w14a70-cto-a1reread",
+  "target": "0x22a10 admin_cto::execute",
+  "bases": {"304b03a": 0.65788, "39eb377": 0.66477, "0d04cf4": 0.66507},
+  "result": "no gain; notes only",
+  "best_zero_loss_at_pinned": {"name": "t1+nB", "main": "0d04cf4", "ratio": 0.66477, "M": 2219, "main_M": 2220, "bytes": 27400, "source": "oracle (raw-IR capture + opt + llc)"},
+  "a1": {"304b03a": {"ratio": 0.65728, "bytes": 27376, "M": 2193}, "39eb377": {"ratio": 0.66507, "bytes": 27376, "M": 2219}, "0d04cf4": {"ratio": 0.66507, "bytes": 27376, "M": 2219}},
+  "bounds": {
+    "a1_pure_pad_repay": "M 2221 at 27400 on 39eb377 (0.66537)",
+    "a1_naming_fix": "M 2224 at 27376 on 39eb377 (0.66657)",
+    "t1rP_naming_fix": "M 2223 at 27400 on 39eb377 (0.66597)",
+    "t1nB_pure_pair": "+3 M (+8 at cand 0x54a8 = missing swept mov r9,r1; -8 at 0x5c98)"
+  },
+  "lead": "t1 = a1 + create_idempotent(..)?; transfer_vault_tokens(..)?; restores the original create/transfer Err shape, +4 at level 3 over main; collapses on frozen-first main (0.63115)",
+  "attempts": {"source_captures": 200, "rescan_oracle_runs": 1500, "ir_edits": 4},
+  "rejected": ["a1 + 53 catalog/klib knobs", "a1 + 98 w14a64 genes", "a1 + re-read singles/pairs", "8 amount-binding spellings (fold or +24 B losers)", "&&Context sweep on a1", "acc108 via_slot/remat on a1", "t1 + rP/rL/rO/nO/tp/cu_match/shif/nB pairings and re-read repays", "separate ? on frozen-first main"],
+  "unresolved": ["token-arm r6/r8 naming (greedy RA split of accounts vreg %0)", "swept/Err payload r9 copies (orig 0x54e0, 0x60d8)"],
+  "next": ["any sweep-head RA lever that puts the amount in r6, applied on t1 (+5 M bound)", "zero-size +2 M lever or the swept r9 copy on t1+nB"]
+}
