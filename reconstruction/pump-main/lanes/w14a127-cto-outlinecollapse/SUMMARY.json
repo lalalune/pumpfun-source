@@ -1,0 +1,9 @@
+{"lane":"w14a127-cto-outlinecollapse","target":"0x22a10 admin_cto::execute","base":"ebe5387e1 (0.67316, 3123 slots, M 2247 @27400)",
+ "best_zero_loss":null,"result":"notes only; angle exhausted by its kill criterion",
+ "mechanism":"the four outline spellings are byte-identical (M 1373 @27416); the collapse is an un-forwarded entry copy of new ((new,) tuple alloca %_45.sroa.5) that MemCpyOpt keeps because of the MemorySSA walk limit (-memssa-check-limit=10000 removes it); it adds +160 B, a reload at the validate-exit join that causes the 119-block J flip, and a 32 B frame object that shifts the frame by 0x20",
+ "decomposition":{"spelling":[27416,1373],"relaid":[27424,1620],"copy_forwarded_ir":[27256,1633],"copy_and_alloca_removed_ir":[27256,1968],"main":[27400,2247]},
+ "attempts":["spell4 x4 identical","collapse decomposition IR oracle","memssa-check-limit diagnosis","args placement screens u_after/u_none/u_inarm/u_val/u_top/m_after"],
+ "rejected":["args after validate","Some(new) without args","args in else arm","args by value","args at top","main spelling + args after validate"],
+ "unresolved":["no source form forwards the new copy without another J-flip trigger","even the forwarded IR form is 279 M below main and 144 B short"],
+ "next":["remove the (new,) temporary while keeping the payload source; diagnose the u_after J reload with -debug-only=block-placement"],
+ "ledger":["0x22a10-w14-ebe5387-outlinecollapse-spell4-v1","0x22a10-w14-ebe5387-outlinecollapse-collapse-decomp-v1","0x22a10-w14-ebe5387-outlinecollapse-argsplace-v1"]}
