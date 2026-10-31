@@ -1,0 +1,73 @@
+{
+ "lane": "w14a85-cto-s1reload",
+ "target": "0x22a10 admin_cto::execute",
+ "pinned_bytes": 27400,
+ "bases": {
+  "0d04cf460": {
+   "main": [
+    0.66507,
+    0.70132,
+    0.7831
+   ],
+   "s1": [
+    0.63589,
+    0.69135,
+    0.81247,
+    27360
+   ]
+  },
+  "95a64ba75": {
+   "main": [
+    0.66986,
+    0.69982,
+    0.784
+   ],
+   "s1": [
+    0.63969,
+    0.68076,
+    0.81984,
+    27368
+   ]
+  }
+ },
+ "best": {
+  "zero_loss_candidate": null,
+  "note": "no source change; best IR probe s1 + per-clone accounts reload from clone 4 = 0.65309 plain (frame undone) @27424 on 95a64ba, 0.0168 below main"
+ },
+ "attempts": {
+  "ir_probes": [
+   "accprobe all/from-clone-k (s1 x2 bases, main)",
+   "spill-at-def screen 73 arm loads on s1 and s1+acc",
+   "spill-at-def 19 live-across values on s1",
+   "top-4 spill pairs on s1+acc",
+   "swept fake uses x5",
+   "swept r9 pins x6",
+   "swept re-read at join x2"
+  ],
+  "source_forms": [
+   "with_signer",
+   "accs struct first",
+   "program clone bound first",
+   "program clone reused",
+   "ctx.accounts per field",
+   "CpiContext local"
+  ]
+ },
+ "rejected_mechanisms": [
+  "spill-at-def of any single arm value on plain s1 (best L1 0.69724)",
+  "swept extra uses (weight is not the cause)",
+  "swept asm pins (collapse 0x4000-0x5000)",
+  "sharing-CPI source forms on s1 for per-clone reloads (none produces them)",
+  "L1 > main hits on s1+acc spill probes are jump-distance coincidences at +24..+56 B"
+ ],
+ "unresolved_residuals": [
+  "swept (%_95 web) is spilled after the sweep exit; the original keeps it in r9 0x3c40-0x5030, which forces per-clone [r10-0x8d8] reloads; 49/155 s1 region register misses are ours-r9",
+  "s1 frame: even with the reloads s1 is 0.017 below main after frame undo"
+ ],
+ "next_ideas": [
+  "a source form that puts swept into the Err-payload/r9 class only after the sweep exit (w14a69 class-coalescing lead, but without the whole-function cascade)",
+  "apply fixframe-style frame undo to other alloca-adding IR probes so they can be ranked by plain ratio",
+  "rank spill/IR probes by arm-chunk tokens (0x3800-0x4800) rather than total L1, which is contaminated by jump-distance coincidences when size changes"
+ ],
+ "ledger_keys": "0x22a10-w14-{0d04cf4,95a64ba}-s1reload-*-v1"
+}
