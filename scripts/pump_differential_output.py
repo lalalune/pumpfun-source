@@ -5,6 +5,22 @@ import sys
 import secrets
 
 
+def aliases(destination, source):
+    """True when destination is source or lies inside it, compared by inode.
+
+    samefile() compares the filesystem entries themselves, so a differently
+    spelled path for the same file is caught on a case-insensitive volume, and
+    the comparison applies to directory inputs as well as regular files.
+    """
+    probe = destination
+    while True:
+        if probe.exists() and probe.samefile(source):
+            return True
+        if probe.parent == probe:
+            return False
+        probe = probe.parent
+
+
 class PumpReport:
     """Keep existing report replacement semantics, while protecting inputs."""
 
@@ -43,8 +59,7 @@ class PumpReport:
         destination = self.output.resolve()
         for source in inputs:
             source = source.resolve()
-            if (destination == source or (source.is_dir() and destination.is_relative_to(source))
-                    or (destination.exists() and source.is_file() and destination.samefile(source))):
+            if source.exists() and aliases(destination, source):
                 raise ValueError('report output aliases an input: ' + str(self.output))
         if not self.overwrite and self.output.exists():
             raise FileExistsError('Retain prior attempts; output must be fresh: ' + str(self.output))
