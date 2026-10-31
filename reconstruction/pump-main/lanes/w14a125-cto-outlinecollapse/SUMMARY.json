@@ -1,0 +1,15 @@
+{
+ "lane": "w14a125-cto-outlinecollapse",
+ "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27400 B",
+ "base": {"main": "ebe5387e1", "ratio": 0.67316, "M": 2247, "slots": 3123},
+ "result": "notes only; angle dead: the four validate holder spellings keep 307/312 to_string INLINED in the real -O3 pipeline (bfi.py COLD prediction is a light-pipeline artifact)",
+ "best": {"form": "main (no change)", "ratio": 0.67316, "bytes": 27400},
+ "decomposition_v_uo_class": {"M": 1373, "bytes": 27416, "flip": 247, "frame": 375, "registers": 44, "skeleton_rfR": 208, "jump_part": 174, "relaid_M": 1620, "relaid_rfR": 2415, "main_rfR": 2623},
+ "attempts": 16,
+ "rejected": ["v_uo/v_mt/v_ud/v_isa (byte-identical)", "c_tup", "c_ifl", "c_m3", "c_m3n (= v_uo)", "c_vb", "c_vbu", "c_mh", "c_mh289", "c_uo289", "c_uoe"],
+ "not_run": ["c_fo (CtoState holder_enabled first)", "c_ro (296 read order)"],
+ "leads": ["c_vb (validate takes holder bool): skM = main, rfjR +73 over main, M -14 at 27400: frame/jump repair only"],
+ "tools": ["tools/inl.py real outline map", "tools/vbfi.py real validate BFI", "tools/decomp.py", "tools/jfix3.py", "tools/sdiff.py"],
+ "next_ideas": ["screen outline forms with inl.py (post-O3), never bfi.py", "an outline source form must make 307/312 cold at validate's CGSCC inline visit, after Option eq/name inlining", "c_vb frame/jump repair"],
+ "ledger_keys": ["0x22a10-w14-ebe5387-outlinecollapse-*-v1"]
+}
