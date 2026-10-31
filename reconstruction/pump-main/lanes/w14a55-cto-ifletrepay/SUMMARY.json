@@ -1,0 +1,62 @@
+{
+ "lane": "w14a55-cto-ifletrepay",
+ "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27400 B",
+ "landed": [
+  {
+   "pr": 3369,
+   "merge": "c3e5b51f4",
+   "change": "s_iflet (if let Some(val)=sharing_update) + pool_authority rent_epoch via a.pool_authority (re-read after Rc stores)",
+   "before": {
+    "ratio": 0.65698,
+    "slots": 3193,
+    "M": 2193
+   },
+   "after": {
+    "ratio": 0.65698,
+    "slots": 3182,
+    "M": 2193
+   }
+  }
+ ],
+ "best_unlanded": {
+  "name": "sas_powner",
+  "base": "c3e5b51",
+  "ratio": 0.65728,
+  "M": 2194,
+  "slots": 3222,
+  "bytes": 27400,
+  "note": "zero-loss on c3e5b51 (measure.sh, differential 363/0) but main 2e1379d reached 0.65728 via #3372 first; merge ties (slots 3215)"
+ },
+ "final_main": {
+  "sha": "2e1379de9",
+  "ratio": 0.65728,
+  "slots": 3192,
+  "M": 2194
+ },
+ "attempts": {
+  "pscan_place_pp_on_s_iflet": 6100,
+  "reread_singles_pairs": 1596,
+  "reload2_singles_pairs": 250,
+  "beams": 5,
+  "source_captures": 110,
+  "builds": 2
+ },
+ "rejected": [
+  "+8 B sharing read-order moves paired with s_iflet (best 0.65339)",
+  "re-read pairs beyond the landed one",
+  "line-660 ? spellings (identical)",
+  "validate match/if-let/let-else forms",
+  "75 w14a31 knobs on su_tafter+amm",
+  "two-stage sharing_update copies (identical)",
+  "re-read beams on su_tafter bases (<=2194)"
+ ],
+ "residuals": [
+  "su_tafter +4 M at -40 B (2198 @27360 on 2e1379d); pure-junk bound 2200 @27400; needs ~40 B faithful code at <=5 M",
+  "sharing CPI per-clone accounts reload is RA (w14a01/w14a47)",
+  "val payload copy 7/8/8/8/1 pieces from new's SROA slices (global new representation)"
+ ],
+ "next_ideas": [
+  "faithful entry-region (0x0-0x200) instruction-adding forms to repay su_tafter",
+  "re-screen the re-read ADD lattice after each sharing-arm landing"
+ ]
+}
