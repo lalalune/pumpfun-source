@@ -55,3 +55,12 @@ replaced the window still ties main (two instructions differ from main, both the
 
 Tools: `tools/capvar.sh` (copy crate, apply EDITS, capture pre-opt IR), `tools/rx.py` (opt -O3 + llc + score),
 `tools/batch.sh` (two captures at a time), `tools/gen*.py` (the EDITS above).
+
+## Landing status
+
+`land.py 3510` (main ebe5387e1) verified the merge: 1034/1034, no losses, admin_cto 0.67316 / 3,123 @ 27,400, sha
+bf84626c0473cc06. It then rejected it as "not an improvement (closer=[], worse=[])", because the default mode does
+not merge ties. Merging it needs the steward `--allow-neutral` flag, plus an owner decision that a dead store on a
+local copy is acceptable under the codegen-intrinsics rule. Store-kind screen (post-opt llc, `tools/stk.py`): every
+i8 store into `st`+40..45 (value 0 or 1) and every i64 store into `st`+32 (0, 1, 2, 100, 10000) gives exactly
+0.67316 / 3,123 @ 27,400. No store kind is a strict gain.

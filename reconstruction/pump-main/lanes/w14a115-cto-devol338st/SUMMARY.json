@@ -1,4 +1,30 @@
-{"lane":"w14a115-cto-devol338st","target":"0x22a10","base":"ebe5387e1","status":"tie-landable","best":{"ratio":0.67316,"slots":3123,"bytes":27400,"normalized":1034,"raw":1034,"note":"line-338 read_volatile replaced by st.fee_configurable=false via &mut CtoState + hr local"},
-"attempts":21,"key_findings":["&mut CtoState costs 0.0039 because MIR GVN stops reusing the st.holder_reward load at 298; a hr local restores it","any constant store into st on the fee-Some exit ties main","same kind ties at 334; both replaced ties main"],
-"rejected":["st.max_fee=f (-0.0007, +8 B)","reborrow let st=&*stm (no help)","&mut without hr local (-0.0042)"],
-"next":["w14a95-cto-devol334: land x_hr_both spelling (st.mayhem=false at 334) on top of this","owner review: the store is semantically dead (local copy); a live consumer would be the fee-tag phi f1 (-276 M)"]}
+{
+ "lane": "w14a115-cto-devol338st",
+ "target": "0x22a10",
+ "base": "ebe5387e1",
+ "status": "tie, land.py rejected (no-tie rule); needs --allow-neutral + owner rule decision",
+ "best": {
+  "ratio": 0.67316,
+  "slots": 3123,
+  "bytes": 27400,
+  "normalized": 1034,
+  "raw": 1034,
+  "note": "line-338 read_volatile replaced by st.fee_configurable=false via &mut CtoState + hr local"
+ },
+ "attempts": 38,
+ "key_findings": [
+  "&mut CtoState costs 0.0039 because MIR GVN stops reusing the st.holder_reward load at 298; a hr local restores it",
+  "any constant store into st on the fee-Some exit ties main",
+  "same kind ties at 334; both replaced ties main"
+ ],
+ "rejected": [
+  "st.max_fee=f (-0.0007, +8 B)",
+  "reborrow let st=&*stm (no help)",
+  "&mut without hr local (-0.0042)"
+ ],
+ "next": [
+  "w14a95-cto-devol334: land x_hr_both spelling (st.mayhem=false at 334) on top of this",
+  "owner review: the store is semantically dead (local copy); a live consumer would be the fee-tag phi f1 (-276 M)"
+ ],
+ "pr": 3510
+}
