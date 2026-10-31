@@ -1,0 +1,1 @@
+EDITS=[('  if t==*sharing||t==*holder_key{return Err(error!(PumpError::InvalidCreator));}t};','  if t.to_bytes()==sharing.to_bytes()||t.to_bytes()==holder_key.to_bytes(){return Err(error!(PumpError::InvalidCreator));}t};')]

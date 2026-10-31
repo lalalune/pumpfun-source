@@ -1,0 +1,1 @@
+EDITS=[('  if t==*sharing||t==*holder_key{return Err(error!(PumpError::InvalidCreator));}t};','  if {let sh=*sharing;let hk=*holder_key;t==sh||t==hk}{return Err(error!(PumpError::InvalidCreator));}t};')]

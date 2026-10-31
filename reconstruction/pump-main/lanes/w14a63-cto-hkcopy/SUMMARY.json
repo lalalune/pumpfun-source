@@ -1,0 +1,63 @@
+{
+ "lane": "w14a63-cto-hkcopy",
+ "target": "0x22a10 admin_cto::execute",
+ "bases": [
+  "2e1379de9 (0.65728/3192/27400)",
+  "fc628cfd8 (0.65758/3183/27400)"
+ ],
+ "best_zero_loss": {
+  "ratio": 0.65758,
+  "slots": 3183,
+  "bytes": 27400,
+  "note": "no source change (main fc628cf)"
+ },
+ "attempts": {
+  "ir_hkc_variants": 44,
+  "ltscreen_f_a": 535,
+  "source_capvar": 13
+ },
+ "ir_bounds": {
+  "k12_fc628cf": 0.65878,
+  "k12_2e1379d": 0.65848,
+  "f_a_hkc_orig_colouring": "0.53509@27456 (fm 0.6919 vs main 0.6953)",
+  "f_a_frame_shift_whatif": "0.630 global, per-segment -14 tokens vs main",
+  "sk_kick_alone": "0.53911@27384 (fm 0.6698)",
+  "swap312": 0.65518,
+  "ltscreen_f_a_max": 0.56142
+ },
+ "source_forms": {
+  "s1 &{holder_key}": "0.53509@27456 = IR f_a (original colouring)",
+  "s4 let hkc after sk": "0.53509@27456",
+  "s3 let hkc before sk": "0.54087@27328",
+  "s2 both temps": "0.53762@27472",
+  "c1 to_bytes": "0.56301@27504",
+  "c2 move closure": "0.61831@27480",
+  "c3 contains": "0.50158@27200",
+  "s5,s6,c4,c5,m1,m2": "byte-identical to main"
+ },
+ "rejected": [
+  "holder_key copy (any order/placement) without repay and frame cascade fix",
+  "sk kick-out alone",
+  "312 holder-first order",
+  "code-neutral 284 spellings for the _12.i lead"
+ ],
+ "unresolved": [
+  "_12.i K lead +0.0012 has no code-neutral source form: needs an inlined-index (<#100) member of the -0x470 class live in the 284 error block",
+  "s1 colour cascade: target.i.sroa.0 becomes own object (+8 B frame) and spills shift -8"
+ ],
+ "next": [
+  "s1 + original target 8/24 host slot (-0x520..-0x538) + 56 B faithful repay, priced by IR first"
+ ],
+ "tools": [
+  "tools/hkir.py",
+  "tools/fm.py",
+  "tools/offh.py",
+  "tools/shiftwi.py",
+  "tools/capvar.sh"
+ ],
+ "ledger_keys": [
+  "0x22a10-w14-2e1379d-hkcopy-ir-hkc-screen-v1",
+  "0x22a10-w14-2e1379d-hkcopy-ir-k12-v1",
+  "0x22a10-w14-2e1379d-hkcopy-src-<s1..s6,c1..c5,m1,m2>-v1"
+ ]
+}
