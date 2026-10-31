@@ -1,7 +1,7 @@
 # w14a65-cto-skipfreq: two-weight frequency screen for the skip-polarity sweep gate (admin_cto::execute, 0x22a10)
 
 Target `0x22a10` `admin_cto::execute` (`programs/pump/src/creator/admin_cto.rs`), pinned at 27,400 B.
-Base: main 2e1379de9 (0.65728, 3,192 slots), re-run on main 304b03a82 (0.65788, 3,223 slots; post-opt IR F 0.74805, Fw 409, the same as 2e1379d).
+Base: main 2e1379de9 (0.65728, 3,192 slots), re-run on main 304b03a82 and spot-checked on 0d04cf460 (section 5) (0.65788, 3,223 slots; post-opt IR F 0.74805, Fw 409, the same as 2e1379d).
 Angle: w14a46-cto-walletcsr (#3355) next idea 1 and w13a49-cto-colderr (#3156) next idea 1. Find a block-frequency picture in which the
 original's skip-polarity gate (`br skip, post, sweep`) keeps main's layout and leaves the `!skip` flag spilled, then find source for it.
 Ledger: approach `skipfreq`, keys `0x22a10-w14-{2e1379d,304b03a}-skipfreq-*`.
@@ -93,6 +93,20 @@ can only change structure, not frequency:
 
 The head (`shared` chain) spellings were screened by w14a11 (#3227) and fold back to main or change instruction selection.
 The `if skip{0}else{sweep()?}` and gate-from-tag forms were screened by w14a46 (#3355).
+
+## 5. Re-check on main 0d04cf460 (0.66507, 3,228 slots; post-opt F 0.75524, Fw 409; `edits/ir/sg4.py`, `%_549`, `bb84`/`bb89`)
+
+| picture | bytes | ratio | F | Fw | moved | flag |
+| --- | ---: | ---: | ---: | ---: | ---: | --- |
+| main | 27,400 | 0.66507 | 0.75524 | 409 | 0 | r9 |
+| sg | 27,456 | 0.4908 | 0.56891 | 399 | 57 | spill |
+| main + `bb19` 16:1 (no sg) | 27,328 | 0.58917 | 0.74276 | 400 | 0 | spill |
+| sg + `bb19` 4:1 / 16:1 | 27,312 | 0.58905 | 0.74269 | 400 | 0 | spill |
+| sg + `start` 4:1 | 27,376 | 0.62221 | 0.7322 | 405 | 0 | r9 |
+| sg + `start` 16:1 | 27,256 | 0.65515 | 0.74257 | 376 | 9 | r6 |
+| sg + sweep exit 1:4 | 27,320 | 0.61746 | 0.75698 | 409 | 0 | r9 |
+
+The picture is unchanged: layout + spilled flag costs about 0.013 F, and the only F gain needs an Err-likely `?` and keeps the flag in r9.
 
 ## 4. Conclusion and next ideas
 

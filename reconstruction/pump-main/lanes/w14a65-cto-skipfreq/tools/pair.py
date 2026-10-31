@@ -69,7 +69,7 @@ def score(t,tag,deep):
         return res
 def flag(p):
     lg=open(p).read(); g0=lg.index('********** GREEDY'); pre=lg[:g0]
-    ms=re.search(r'(\d+)B\tbb\.\d+\.bb33:',pre); me=re.search(r'(\d+)B\tbb\.\d+\.bb82:',pre)
+    ms=re.search(r'(\d+)B\tbb\.\d+\.bb33:',pre); me=re.search(r'(\d+)B\tbb\.\d+\.bb8[24]:',pre)
     m35=re.search(r'\d+B\tbb\.\d+\.bb35:\n(.*?)\n\d+B\tbb\.',pre,re.S)
     if not (ms and me and m35): return {'flag':'?'}
     fv=re.findall(r'J\w+_ri (%\d+):gpr, 0,',m35.group(1))

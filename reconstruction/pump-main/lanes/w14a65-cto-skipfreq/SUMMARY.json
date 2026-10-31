@@ -1,34 +1,61 @@
 {
-  "lane": "w14a65-cto-skipfreq",
-  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27,400 B",
-  "bases": {"2e1379de9": {"ratio": 0.65728, "slots": 3192}, "304b03a82": {"ratio": 0.65788, "slots": 3223, "F": 0.74805, "Fw": 409}},
-  "result": "notes only; no source change; skip-polarity gate family retired",
-  "best_zero_loss": null,
-  "attempts": {
-    "ir_pictures_304b03a": 4101,
-    "ir_pictures_2e1379d": 2617,
-    "source_builds": 11
+ "lane": "w14a65-cto-skipfreq",
+ "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27,400 B",
+ "bases": {
+  "2e1379de9": {
+   "ratio": 0.65728,
+   "slots": 3192
   },
-  "findings": [
-    "sg (skip-polarity gate) on post-opt IR equals the g9 source bytes on both mains (0.48362@27456 on 304b03a).",
-    "bb19 (shared-arm if holder) 4:1/16:1 alone gives main's chain order AND a spilled flag (with or without sg), at 0.58245@27312, F 0.73548, Fw 400.",
-    "start 3:1-4:1 restores layout with the flag in r9; start>=5:1 triggers the head RA cascade (-144 B, moved 9), flag in r6.",
-    "sweep-exit ? test 1:k (k>=4, Err-likely) restores layout with F 0.74977 > main, but flag r9 and plain 0.61026; jump-masked 0.62286 vs main 0.66747, so the loss is spill-slot assignment.",
-    "No two-weight picture (3,480 pairs on 304b03a, 1,756 on 2e1379d) gives layout + spilled flag + F>=main; best layout+spill F 0.74130; max plain ratio 0.64824@27256.",
-    "Every spilled-flag picture gives r9 over the wallet to coin_present (%721/%722, data_is_empty r0) and Fw<=402.",
-    "i1 tree branches (bb19/bb74) have no BPI heuristic; a 16:1 weight needs a cold call, which adds a call. Tuple spellings v1/v2/v4 fold to main, v3 0.57554, v6+g9 0.64755@27288."
-  ],
-  "rejected_mechanisms": [
-    "skip-polarity gate + any single or paired branch weight",
-    "line-339 tuple spellings v1 (if !shared first), v2 (match (shared,holder)), v3 (shared&&holder chain), v4 (!holder arm first), v6 (skip=!holder in shared arm), each with and without g9"
-  ],
-  "unresolved_residuals": [
-    "wallet callee-saved assignment: original spills flag, coin_present, tag and the current_creator GEP; ours keeps one in r9 whatever the frequencies"
-  ],
-  "next_ideas": [
-    "Compare spill-weight order of the wallet's long-lived values (do_coin/do_collect/clone buffers) between w14a46 k1+w1+cpm and the original; the remaining difference is a rotation.",
-    "pair.py (--pre <post-opt edit>, --single) is a general two-weight oracle for any other frequency question."
-  ],
-  "tools": ["tools/pair.py", "tools/table.py", "tools/pan.py", "tools/jm.py", "edits/ir/sg2.py", "edits/ir/sg3.py", "edits/src/v*.py"],
-  "ledger_keys": "0x22a10-w14-{2e1379d,304b03a}-skipfreq-*"
+  "304b03a82": {
+   "ratio": 0.65788,
+   "slots": 3223,
+   "F": 0.74805,
+   "Fw": 409
+  },
+  "0d04cf460": {
+   "ratio": 0.66507,
+   "slots": 3228,
+   "F": 0.75524,
+   "Fw": 409,
+   "check": "sg 0.4908@27456; bb19 16:1 layout+spill F 0.74269; swx 1:4 F 0.75698 r9 ratio 0.61746"
+  }
+ },
+ "result": "notes only; no source change; skip-polarity gate family retired",
+ "best_zero_loss": null,
+ "attempts": {
+  "ir_pictures_304b03a": 4101,
+  "ir_pictures_2e1379d": 2617,
+  "source_builds": 11
+ },
+ "findings": [
+  "sg (skip-polarity gate) on post-opt IR equals the g9 source bytes on both mains (0.48362@27456 on 304b03a).",
+  "bb19 (shared-arm if holder) 4:1/16:1 alone gives main's chain order AND a spilled flag (with or without sg), at 0.58245@27312, F 0.73548, Fw 400.",
+  "start 3:1-4:1 restores layout with the flag in r9; start>=5:1 triggers the head RA cascade (-144 B, moved 9), flag in r6.",
+  "sweep-exit ? test 1:k (k>=4, Err-likely) restores layout with F 0.74977 > main, but flag r9 and plain 0.61026; jump-masked 0.62286 vs main 0.66747, so the loss is spill-slot assignment.",
+  "No two-weight picture (3,480 pairs on 304b03a, 1,756 on 2e1379d) gives layout + spilled flag + F>=main; best layout+spill F 0.74130; max plain ratio 0.64824@27256.",
+  "Every spilled-flag picture gives r9 over the wallet to coin_present (%721/%722, data_is_empty r0) and Fw<=402.",
+  "i1 tree branches (bb19/bb74) have no BPI heuristic; a 16:1 weight needs a cold call, which adds a call. Tuple spellings v1/v2/v4 fold to main, v3 0.57554, v6+g9 0.64755@27288."
+ ],
+ "rejected_mechanisms": [
+  "skip-polarity gate + any single or paired branch weight",
+  "line-339 tuple spellings v1 (if !shared first), v2 (match (shared,holder)), v3 (shared&&holder chain), v4 (!holder arm first), v6 (skip=!holder in shared arm), each with and without g9"
+ ],
+ "unresolved_residuals": [
+  "wallet callee-saved assignment: original spills flag, coin_present, tag and the current_creator GEP; ours keeps one in r9 whatever the frequencies"
+ ],
+ "next_ideas": [
+  "Compare spill-weight order of the wallet's long-lived values (do_coin/do_collect/clone buffers) between w14a46 k1+w1+cpm and the original; the remaining difference is a rotation.",
+  "pair.py (--pre <post-opt edit>, --single) is a general two-weight oracle for any other frequency question."
+ ],
+ "tools": [
+  "tools/pair.py",
+  "tools/table.py",
+  "tools/pan.py",
+  "tools/jm.py",
+  "edits/ir/sg2.py",
+  "edits/ir/sg3.py",
+  "edits/src/v*.py",
+  "edits/ir/sg4.py"
+ ],
+ "ledger_keys": "0x22a10-w14-{2e1379d,304b03a}-skipfreq-*"
 }
