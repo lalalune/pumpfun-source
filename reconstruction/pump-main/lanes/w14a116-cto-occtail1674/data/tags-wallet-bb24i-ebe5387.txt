@@ -1,0 +1,91 @@
+  5b40  ldxdw r1, [r6 + 24]                     # rp 84.5 d708=R1 u1680=R6
+  5b48  ldxdw r1, [r1 + 88]                     # rp 84.6 d709=R1 u708=R1
+  5b50  ldxdw r1, [r1 + 0]                      # rp 84.7 d710=R1 u709=R1
+  5b58  ldxdw r2, [r1 + 24]                     # rp 84.8 d711=R2 u710=R1
+  5b60  stxdw [r10 - 696], r2                   # rp 84.9 u711=R2
+  5b68  ldxdw r2, [r1 + 16]                     # rp 84.10 d712=R2 u710=R1
+  5b70  stxdw [r10 - 704], r2                   # rp 84.11 u712=R2
+  5b78  ldxdw r2, [r1 + 8]                      # rp 84.12 d713=R2 u710=R1
+  5b80  stxdw [r10 - 712], r2                   # rp 84.13 u713=R2
+  5b88  ldxdw r1, [r1 + 0]                      # rp 84.14 d714=R1 u710=R1
+  5b90  stxdw [r10 - 720], r1                   # rp 84.15 u714=R1
+  5b98  mov64 r1, r10                           # rp 84.17 d715=R1
+  5ba0  add64 r1, -720
+  5ba8  lddw r2, .Lalloc_e953c1d75e6a4349f2dca6892c168ab2 # rp 84.19
+  5bb8  mov64 r3, 32                            # rp 84.20
+  5bc0  call memcmp                             # rp 84.21
+  5bc8  mov64 r7, r0
+  5bd0  ldxdw r1, [r6 + 136]                    # rp 84.24 d719=R1 u1680=R6
+  5bd8  call _ZN19solana_account_info11AccountInfo13data_is_empty17h4cbad3bc61143bcfE # rp 84.27
+  5be0  stxdw [r10 - 2328], r0                  # rp 84.29
+  5be8  lsh64 r7, 32                            # rp 84.30 d722=R7 u722=R7
+  5bf0  rsh64 r7, 32                            # rp 84.31 d722=R7 u722=R7
+  5bf8  jeq r7, 0, LBB0_325                     # rp 84.32 u722=R7
+  5c00  ldxdw r1, [r10 - 2264]                  # rp 86.0 d1686=R1
+  5c08  ldxdw r1, [r1 + 72]                     # rp 86.1 d724=R1 u1686=R1
+  5c10  call _ZN19solana_account_info11AccountInfo13data_is_empty17h4cbad3bc61143bcfE # rp 86.4
+  5c18  mov64 r1, 0                             # rp 86.7 d1865=R1
+  5c20  stxdw [r10 - 2344], r1                  # rp 86.8 u1865=R1
+  5c28  mov64 r6, 0                             # rp 86.9 d1586=R6
+  5c30  jne r0, 0, LBB0_313                     # rp 86.10 u725=R0
+  5c38  ja LBB0_332                             # rp 86.11
+         LBB0_313:                               # %bb19.i
+  5c40  ldxdw r1, [r10 - 2328]                  # rp 93.0 d1846=R1
+  5c48  jne r1, 0, LBB0_317                     # rp 93.1 u1846=R1
+         LBB0_314:                               # %bb20.i
+  5c50  ldxdw r1, [r10 - 2264]                  # rp 94.0 d1688=R1
+  5c58  ldxdw r2, [r1 + 136]                    # rp 94.1 d734=R2 u1688=R1
+  5c60  mov64 r1, r10                           # rp 94.3 d735=R1
+  5c68  add64 r1, -720
+  5c70  call _ZN14pump_recovered9admin_cto12token_frozen17h1658d4a62a0640cfE # rp 94.6
+  5c78  ldxdw r7, [r10 - 720]                   # rp 94.8 d1658=R7
+  5c80  jeq r7, 2, LBB0_315                     # rp 94.9 u1658=R7
+  5c88  ja LBB0_300                             # rp 94.10
+         LBB0_315:                               # %bb71.i
+  5c90  mov64 r1, 1                             # rp 97.0 d1867=R1
+  5c98  stxdw [r10 - 2344], r1                  # rp 97.1 u1867=R1
+  5ca0  ldxb r1, [r10 - 712]                    # rp 97.2 d738=R1
+  5ca8  jeq r1, 0, LBB0_317                     # rp 97.3 u738=R1
+  5cb0  mov64 r1, 0                             # rp 98.0 d1868=R1
+  5cb8  stxdw [r10 - 2344], r1                  # rp 98.1 u1868=R1
+         LBB0_317:                               # %bb24.i
+  5cc0  ldxdw r8, [r10 - 2264]                  # rp 95.0 d1671=R8
+  5cc8  ldxdw r2, [r8 + 40]                     # rp 95.1 d739=R2 u1671=R8
+  5cd0  mov64 r1, r10
+  5cd8  add64 r1, -696
+  5ce0  call _ZN71_$LT$solana_account_info..AccountInfo$u20$as$u20$core..clone..Clone$GT$5clone17h759150bcde62cc00E # rp 95.6
+  5ce8  ldxdw r2, [r8 + 0]                      # rp 95.8 d741=R2 u1671=R8
+  5cf0  mov64 r7, r10                           # rp 95.10 d742=R7
+  5cf8  add64 r7, -1104
+  5d00  mov64 r1, r7
+  5d08  call _ZN71_$LT$solana_account_info..AccountInfo$u20$as$u20$core..clone..Clone$GT$5clone17h759150bcde62cc00E # rp 95.13
+  5d10  ldxdw r2, [r8 + 64]                     # rp 95.15 d743=R2 u1671=R8
+  5d18  mov64 r1, r10
+  5d20  add64 r1, -1056
+  5d28  call _ZN71_$LT$solana_account_info..AccountInfo$u20$as$u20$core..clone..Clone$GT$5clone17h759150bcde62cc00E # rp 95.20
+  5d30  mov64 r1, r10
+  5d38  add64 r1, -1008
+  5d40  ldxdw r2, [r10 - 2336]                  # rp 95.25
+  5d48  call _ZN71_$LT$solana_account_info..AccountInfo$u20$as$u20$core..clone..Clone$GT$5clone17h759150bcde62cc00E # rp 95.26
+  5d50  ldxdw r1, [r8 + 24]                     # rp 95.28 d746=R1 u1671=R8
+  5d58  ldxdw r2, [r1 + 88]                     # rp 95.29 d747=R2 u746=R1
+  5d60  mov64 r1, r10
+  5d68  add64 r1, -960
+  5d70  call _ZN71_$LT$solana_account_info..AccountInfo$u20$as$u20$core..clone..Clone$GT$5clone17h759150bcde62cc00E # rp 95.34
+  5d78  ldxdw r2, [r8 + 48]                     # rp 95.36 d749=R2 u1671=R8
+  5d80  mov64 r1, r10
+  5d88  add64 r1, -912
+  5d90  call _ZN71_$LT$solana_account_info..AccountInfo$u20$as$u20$core..clone..Clone$GT$5clone17h759150bcde62cc00E # rp 95.41
+  5d98  ldxdw r2, [r8 + 32]                     # rp 95.43 d751=R2 u1671=R8
+  5da0  mov64 r1, r10
+  5da8  add64 r1, -864
+  5db0  call _ZN71_$LT$solana_account_info..AccountInfo$u20$as$u20$core..clone..Clone$GT$5clone17h759150bcde62cc00E # rp 95.48
+  5db8  mov64 r1, r10
+  5dc0  add64 r1, -648
+  5dc8  mov64 r2, r7
+  5dd0  mov64 r3, 288                           # rp 95.54
+  5dd8  call memcpy                             # rp 95.55
+  5de0  stdw [r10 - 352], 0                     # rp 95.57
+  5de8  stdw [r10 - 360], 8                     # rp 95.58
+  5df0  stdw [r10 - 704], 0                     # rp 95.59
+  5df8  stdw [r10 - 712], 8                     # rp 95.60

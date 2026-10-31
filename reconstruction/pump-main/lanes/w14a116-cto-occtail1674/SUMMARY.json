@@ -1,0 +1,24 @@
+{
+  "lane": "w14a116-cto-occtail1674",
+  "target": "0x22a10 admin_cto::execute",
+  "base": "main ebe5387e1 (0.67316 / 3123 @ 27400)",
+  "result": "notes only, no gain",
+  "best": {"ratio": 0.67316, "slots": 3123, "bytes": 27400, "source": "main (no zero-loss source improvement)"},
+  "ra_oracle": {"single_1671_r7": [0.67525, 3116, 27400], "pair_1671r7_1684r6": [0.67795, 3116, 27400], "climb8": [0.68185, 3116, 27400]},
+  "findings": [
+    "963d1ee 1674=r7 is ebe5387 %1671: accounts-pointer %0 piece over wallet() bb24.i (create_idempotent ATA clone run 0x5cc0-0x5d98), not the pool/event tail",
+    "r7 occupant = ATA CPI account-array base %742 ([r10-1104]); it took r7 at greedy step 322 (evicting coin_present) because r9 was held by %465 = !holder, an operand of the MachineSink-sunk cashback AND live head->curve store",
+    "%1671 then takes the first free CSR r8 at step 1183; the sweep gate piece %1734 later takes r9 over the wallet (original spills the gate at its def) and do_coin spills (original r8)"
+  ],
+  "rejected": [
+    "gate spill forces 0.579-0.589", "do_coin r8 forces 0.625-0.671 @27416-27424", "original wallet colouring force set 0.58152",
+    "!holder %465 spill/r6/prio-bottom 0.654-0.660", "IR cashback AND kept in head 0.574/0.604; its RA ceiling 0.660 (any) / 0.653 (27400)",
+    "src cashback from holder arg t2/t2b 0.516/0.513 @27496-27504"
+  ],
+  "unresolved": ["wallet rotation needs r9 free when %742 is dequeued (pw9 lead, w14a82/w14a102/w14a113)"],
+  "next_ideas": [
+    "pair any pw9 source candidate with rastate.py at D %742 and tagdump.py 0x5cc0 to check accounts piece r7",
+    "a single-value cashback that does not lengthen other intervals (MachineSink-proof) is the original's shape but costs 0.07 in colouring on ebe5387"
+  ],
+  "ledger_keys": ["0x22a10-w14-ebe5387-occtail1674-climb-v1","0x22a10-w14-ebe5387-occtail1674-occupant-v1","0x22a10-w14-ebe5387-occtail1674-forces-v1","0x22a10-w14-ebe5387-occtail1674-ir-cbnosink-v1","0x22a10-w14-ebe5387-occtail1674-ir-cbnosink-raceil-v1","0x22a10-w14-ebe5387-occtail1674-src-cbarg-v1"]
+}

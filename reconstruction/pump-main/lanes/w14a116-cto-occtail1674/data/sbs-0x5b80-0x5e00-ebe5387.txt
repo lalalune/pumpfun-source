@@ -1,0 +1,83 @@
+{"lo": "0x5b80", "hi": "0x5e00", "clo": "0x5b50", "chi": "0x5e00", "n_orig": 79, "n_cand": 85, "miss": 23, "fm": 1, "rm": 17, "jm": 5, "sk": 0, "del": {}, "ins": {"frame-store-dw": 4, "ptr-load+0": 1, "ai-owner/rent-load": 1}}
+   5b80 ldxdw r2, [r1+16]                  |  5b68 ldxdw r2, [r1+16]
+   5b88 stxdw [r10-704], r2                |  5b70 stxdw [r10-704], r2
+   5b90 ldxdw r2, [r1+8]                   |  5b78 ldxdw r2, [r1+8]
+   5b98 stxdw [r10-712], r2                |  5b80 stxdw [r10-712], r2
+   5ba0 ldxdw r1, [r1+0]                   |  5b88 ldxdw r1, [r1+0]
+   5ba8 stxdw [r10-720], r1                |  5b90 stxdw [r10-720], r1
+   5bb0 mov64 r1, r10                      |  5b98 mov64 r1, r10
+   5bb8 add64 r1, -720                     |  5ba0 add64 r1, -720
+~  5bc0 lddw r2, 0x1b5cc8                  |  5ba8 lddw r2, 0x0
+   5bd0 mov64 r3, 32                       |  5bb8 mov64 r3, 32
+   5bd8 call rel                           |  5bc0 call rel
+~  5be0 mov64 r9, r0                       |  5bc8 mov64 r7, r0
+   5be8 ldxdw r1, [r6+136]                 |  5bd0 ldxdw r1, [r6+136]
+   5bf0 call rel                           |  5bd8 call rel
+   5bf8 stxdw [r10-2328], r0               |  5be0 stxdw [r10-2328], r0
+~  5c00 lsh64 r9, 32                       |  5be8 lsh64 r7, 32
+~  5c08 rsh64 r9, 32                       |  5bf0 rsh64 r7, 32
+*  5c10 jeq r9, 0, +156                    |  5bf8 jeq r7, 0, +158
+   5c18 ldxdw r1, [r10-2264]               |  5c00 ldxdw r1, [r10-2264]
+   5c20 ldxdw r1, [r1+72]                  |  5c08 ldxdw r1, [r1+72]
+   5c28 call rel                           |  5c10 call rel
+~  5c30 mov64 r8, 0                        |  5c18 mov64 r1, 0
+*                                          |  5c20 stxdw [r10-2344], r1
+   5c38 mov64 r6, 0                        |  5c28 mov64 r6, 0
+   5c40 jne r0, 0, +1                      |  5c30 jne r0, 0, +1
+*  5c48 ja +214                            |  5c38 ja +217
+   5c50 ldxdw r1, [r10-2328]               |  5c40 ldxdw r1, [r10-2328]
+*  5c58 jne r1, 0, +12                     |  5c48 jne r1, 0, +14
+   5c60 ldxdw r1, [r10-2264]               |  5c50 ldxdw r1, [r10-2264]
+   5c68 ldxdw r2, [r1+136]                 |  5c58 ldxdw r2, [r1+136]
+   5c70 mov64 r1, r10                      |  5c60 mov64 r1, r10
+   5c78 add64 r1, -720                     |  5c68 add64 r1, -720
+   5c80 call rel                           |  5c70 call rel
+   5c88 ldxdw r7, [r10-720]                |  5c78 ldxdw r7, [r10-720]
+   5c90 jeq r7, 2, +1                      |  5c80 jeq r7, 2, +1
+*  5c98 ja +216                            |  5c88 ja +219
+~  5ca0 mov64 r8, 1                        |  5c90 mov64 r1, 1
+*                                          |  5c98 stxdw [r10-2344], r1
+   5ca8 ldxb r1, [r10-712]                 |  5ca0 ldxb r1, [r10-712]
+*  5cb0 jeq r1, 0, +1                      |  5ca8 jeq r1, 0, +2
+~  5cb8 mov64 r8, 0                        |  5cb0 mov64 r1, 0
+*                                          |  5cb8 stxdw [r10-2344], r1
+~  5cc0 ldxdw r7, [r10-2264]               |  5cc0 ldxdw r8, [r10-2264]
+~  5cc8 ldxdw r2, [r7+40]                  |  5cc8 ldxdw r2, [r8+40]
+   5cd0 mov64 r1, r10                      |  5cd0 mov64 r1, r10
+   5cd8 add64 r1, -696                     |  5cd8 add64 r1, -696
+   5ce0 call rel                           |  5ce0 call rel
+~  5ce8 ldxdw r2, [r7+0]                   |  5ce8 ldxdw r2, [r8+0]
+~  5cf0 mov64 r9, r10                      |  5cf0 mov64 r7, r10
+~  5cf8 add64 r9, -1104                    |  5cf8 add64 r7, -1104
+~  5d00 mov64 r1, r9                       |  5d00 mov64 r1, r7
+   5d08 call rel                           |  5d08 call rel
+~  5d10 ldxdw r2, [r7+64]                  |  5d10 ldxdw r2, [r8+64]
+   5d18 mov64 r1, r10                      |  5d18 mov64 r1, r10
+   5d20 add64 r1, -1056                    |  5d20 add64 r1, -1056
+   5d28 call rel                           |  5d28 call rel
+   5d30 mov64 r1, r10                      |  5d30 mov64 r1, r10
+   5d38 add64 r1, -1008                    |  5d38 add64 r1, -1008
+~  5d40 ldxdw r2, [r10-2320]               |  5d40 ldxdw r2, [r10-2336]
+   5d48 call rel                           |  5d48 call rel
+~  5d50 ldxdw r1, [r7+24]                  |  5d50 ldxdw r1, [r8+24]
+   5d58 ldxdw r2, [r1+88]                  |  5d58 ldxdw r2, [r1+88]
+   5d60 mov64 r1, r10                      |  5d60 mov64 r1, r10
+   5d68 add64 r1, -960                     |  5d68 add64 r1, -960
+   5d70 call rel                           |  5d70 call rel
+~  5d78 ldxdw r2, [r7+48]                  |  5d78 ldxdw r2, [r8+48]
+   5d80 mov64 r1, r10                      |  5d80 mov64 r1, r10
+   5d88 add64 r1, -912                     |  5d88 add64 r1, -912
+   5d90 call rel                           |  5d90 call rel
+~  5d98 ldxdw r2, [r7+32]                  |  5d98 ldxdw r2, [r8+32]
+   5da0 mov64 r1, r10                      |  5da0 mov64 r1, r10
+   5da8 add64 r1, -864                     |  5da8 add64 r1, -864
+   5db0 call rel                           |  5db0 call rel
+   5db8 mov64 r1, r10                      |  5db8 mov64 r1, r10
+   5dc0 add64 r1, -648                     |  5dc0 add64 r1, -648
+~  5dc8 mov64 r2, r9                       |  5dc8 mov64 r2, r7
+   5dd0 mov64 r3, 288                      |  5dd0 mov64 r3, 288
+   5dd8 call rel                           |  5dd8 call rel
+   5de0 stdw [r10-352], 0                  |  5de0 stdw [r10-352], 0
+   5de8 stdw [r10-360], 8                  |  5de8 stdw [r10-360], 8
+   5df0 stdw [r10-704], 0                  |  5df0 stdw [r10-704], 0
+   5df8 stdw [r10-712], 8                  |  5df8 stdw [r10-712], 8
