@@ -90,6 +90,33 @@ w14a126 and here).
 The size-knob catalog has no positive-byte knob without a ratio loss (`$SWARM/w11/sizeknobs-cto.json`), so plain padding
 cannot repay the 216 B either.
 
+## 5. Fee-None early return on the T base (e88f9d5): it repays the bytes but cascades
+
+The original tests the fee tag per validate exit and sends None straight to the join (decode 0x0e20/0x1508). The
+ordinary spellings of that early return repay about 200 B, but they collapse every chunk downstream:
+
+| form | bytes | M | rfjM | true LCS | chunk delta vs T |
+| --- | ---: | ---: | ---: | ---: | --- |
+| T | 27,184 | 2,199 | 2,765 | 2,213 | — |
+| T + `let Some(f)=fee else{return Ok(target)};` (`fle`; `fil` = `if let .. else{return Ok(target)}` is byte-identical) | 27,384 | 1,686 | 2,677 | 1,880 | 0x1000 -94, 0x1800-0x6000 -13..-93 |
+| T + `match fee{None=>return Ok(target),Some(f)=>..}` (`fmn`) | 27,376 | 1,723 | 2,666 | 1,907 | 0x1000 -71, 0x1800-0x6000 -12..-93 |
+| `fle` on main alone | 27,600 | 1,770 | 2,757 | 1,931 | |
+
+With `fmn+T` the validate region gets 112 B shorter (410 moves from 0x1b48 to 0x1ad8), and about 300 B is added downstream.
+So the early return makes JumpThreading duplicate execute's post-validate code per fee path. It does not produce the
+original's validate-local fill, and register assignment then cascades through 0x1800-0x6000.
+
+## Conclusion
+
+The 312-only outline has a clean ordinary source trigger (`T`). It is local: every chunk from 0x1800 on is unchanged.
+Its true cost is about 11 LCS tokens, plus about 29 for the helper's 330/338 relayout. The 216 B it frees can only be
+repaid faithfully by the original's per-exit sharing/fee threading inside validate. Every source form that produces that
+threading (OV, OVT, fee-None early return) falls into the known RA/frame cascade. No form found here is landable at
+27,400 B. Next lanes:
+
+- reuse `T` as the outline base once a repay with no cascade exists;
+- screen candidate repays with `lcs.py` (true LCS) as well as difflib M, because O312's -53 difflib is mostly alignment.
+
 ## Tools (experiment only; under `tools/`)
 
 - `thr.py`, `ibfi.py`: the outline-decision oracles above (no build slot, about 8-15 s each).

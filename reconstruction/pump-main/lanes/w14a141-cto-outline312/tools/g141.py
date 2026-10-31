@@ -32,3 +32,8 @@ _Z307="if t==Pubkey::default(){return Err(error!(PumpError::CreatorShouldNotBeZe
 # T2: 307 via a two-ref key-equality helper; the default temp stays in validate
 G['T2']=H("fn same_key(a:&Pubkey,b:&Pubkey)->bool{*a==*b}"+_IC)+[_I312,(_Z307,"if same_key(&t,&Pubkey::default()){return Err(error!(PumpError::CreatorShouldNotBeZero)")]
 G['T5']=H("fn is_zero(t:&Pubkey)->bool{t==&Pubkey::default()}"+_IC)+[_I312,(_Z307,"if is_zero(&t){return Err(error!(PumpError::CreatorShouldNotBeZero)")]
+# fee None returns early (the original tests the fee tag per arm and jumps to the join)
+_FM=" match fee{Some(f)=>{if st.quote_locked"
+G['fle']=[(_FM," let Some(f)=fee else{return Ok(target)};{if st.quote_locked"),("as *const u8)};}None=>{}}","as *const u8)};}")]
+G['fmn']=[(_FM," match fee{None=>return Ok(target),Some(f)=>{if st.quote_locked"),("as *const u8)};}None=>{}}","as *const u8)};}}")]
+G['fil']=[(_FM," if let Some(f)=fee{if st.quote_locked"),("as *const u8)};}None=>{}}","as *const u8)};}else{return Ok(target)}")]

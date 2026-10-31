@@ -1,0 +1,37 @@
+{
+  "lane": "w14a141-cto-outline312",
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27400 B",
+  "bases": {"ebe5387": {"ratio": 0.67316, "M": 2247}, "e88f9d5": {"ratio": 0.67346, "slots": 3124, "M": 2248, "true_lcs": 2253}},
+  "result": "notes only; no landable change (best zero-loss measurement = main e88f9d5 0.67346 / 3124 / 27400)",
+  "pr": 3632,
+  "step1_trigger": {
+    "name": "T",
+    "source": "fn is_zero(t:&Pubkey)->bool{*t==Pubkey::default()} for the 307 test + fn invalid_creator(t:&Pubkey,sharing:&Pubkey,holder_key:&Pubkey)->bool{*t==*sharing||*t==*holder_key} for the 312 test",
+    "mechanism": "validate's pre-inline BFI (snapshot before its CGSCC InlinerPass) decides the cold-callsite rule; branches on not-yet-inlined calls are 50/50, memcmp==0 is 37.5%: 307 0.0283->0.0377 (hot), 312 0.0287->0.0189 (cold); each helper alone is not enough (0.0236 / 0.0230)",
+    "measure_e88f9d5": {"bytes": 27184, "M": 2199, "rfjM": 2765, "true_lcs": 2213, "ratio_at_size": 0.66135, "downstream_chunks_delta": 0, "calls": "157 (unchanged)"}
+  },
+  "oracles": ["tools/thr.py (per-site inline cost/threshold via clones + remarks)", "tools/ibfi.py (pre-inline snapshot BFI; agrees with thr.py on all 11 sites)", "tools/mdiff.py", "tools/fmap.py", "tools/post.py"],
+  "attempts": [
+    {"name": "bor312", "bytes": 27440, "M": 2004, "312": "I"},
+    {"name": "h312", "bytes": 27400, "M": 2140, "312": "I"},
+    {"name": "h307", "bytes": 27400, "M": 2247, "312": "I", "note": "byte-identical to main"},
+    {"name": "T (h307_312)", "bytes": 27184, "M": 2198, "312": "O"},
+    {"name": "h307_312r", "bytes": 27184, "M": 2192, "312": "O"},
+    {"name": "z_bor/z_borr/hb312", "bytes": 27224, "M": 2032, "312": "O"},
+    {"name": "T2/T5", "bytes": 27184, "M": 2199, "312": "O", "note": "= T"},
+    {"name": "c_vb+T", "bytes": 27184, "M": 2185},
+    {"name": "ov_e+T", "bytes": 27096, "M": 1772, "rfjM": 2793},
+    {"name": "ovt+T", "bytes": 27400, "M": 1331},
+    {"name": "fle+T / fil+T", "bytes": 27384, "M": 1686},
+    {"name": "fmn+T", "bytes": 27376, "M": 1723},
+    {"name": "fle (main)", "bytes": 27600, "M": 1770},
+    {"name": "IR weights on T's 330 test (4 settings)", "M": "2191-2199"}
+  ],
+  "findings": [
+    "O312's difflib -53 M is mostly alignment: true LCS -11, frame-masked M equal to main",
+    "T's extra -29 true LCS is MBP placing the 330/338 error blocks inside validate (312 tests now fall through to the fee checks, as in the original)",
+    "Every repay form that produces the original's per-exit sharing/fee threading (OV, OVT, fee-None early return) collapses RA/frame downstream"
+  ],
+  "unresolved": ["a validate-local, cascade-free +216 B faithful fill on the T base", "330/338 error-block placement under T"],
+  "next_ideas": ["reuse T as the outline base when any cascade-free repay exists", "screen repays by true LCS (lcs.py) as well as difflib M"]
+}
