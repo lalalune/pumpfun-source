@@ -160,3 +160,64 @@ for _i,_x in enumerate(_G1):
     if _i==0 or _i==len(_G1)-1: continue
     _n=_x.split(':')[0]
     G['l2l_'+_n]=[('CtoState{'+_LIT+'}','CtoState{'+','.join(_G1[:_i]+_G1[_i+1:]+[_x])+'}')]
+# ---- batch 9 (main 86e2a6b, lf_fee_configurable landed): devol base gene and order knobs ----
+_V='unsafe{core::ptr::read_volatile(holder_key as *const Pubkey as *const u8)};'
+G['devol']=[("fn validate(st:&CtoState,","fn validate(st:&mut CtoState,"),
+ (" if st.holder_reward&&!(hopt==Some(true)){"," let hr=st.holder_reward;if hr&&!(hopt==Some(true)){"),
+ (" if holder&&!st.holder_reward&&!st.holder_enabled{"," if holder&&!hr&&!st.holder_enabled{"),
+ ("{return Err(error!(PumpError::CreatorFeeBpsOutOfRange));}"+_V+"}","{return Err(error!(PumpError::CreatorFeeBpsOutOfRange));}st.fee_configurable=false;}"),
+ (" let st=CtoState{"," let mut st=CtoState{"),("validate(&st,","validate(&mut st,"),
+ (_V+"if !st.fee_configurable{","if !st.fee_configurable{")]
+_Q='q==Pubkey::default()||q==anchor_spl::token::spl_token::native_mint::ID||a.global.whitelisted_quote_mints.contains(&q)'
+_QA=['q==Pubkey::default()','q==anchor_spl::token::spl_token::native_mint::ID','a.global.whitelisted_quote_mints.contains(&q)']
+import itertools as _it
+for _p in _it.permutations(range(3)):
+    if _p==(0,1,2): continue
+    G['qo_'+''.join(map(str,_p))]=[(_Q,'||'.join(_QA[i] for i in _p))]
+_S='{let sk=a.sharing_config.key();a.bonding_curve.creator==sk}&&a.sharing_config.owner==&FEES&&!a.sharing_config.data_is_empty()'
+_SA=['{let sk=a.sharing_config.key();a.bonding_curve.creator==sk}','a.sharing_config.owner==&FEES','!a.sharing_config.data_is_empty()']
+for _p in _it.permutations(range(3)):
+    if _p==(0,1,2): continue
+    G['so_'+''.join(map(str,_p))]=[(_S,'&&'.join(_SA[i] for i in _p))]
+_LITN='fee_configurable:a.global.creator_fee_configurable,creator:a.bonding_curve.creator,max_fee:a.global.max_configurable_creator_fee_bps,mayhem:a.bonding_curve.is_mayhem_mode,holder_reward:a.bonding_curve.is_holder_reward,cashback:a.bonding_curve.is_cashback_coin,quote_locked,holder_enabled:a.global.is_holder_reward_enabled'
+_FN=_LITN.split(',')
+for _i in range(len(_FN)):
+    for _j in range(len(_FN)):
+        if _i==_j or _j==_i+1: continue
+        _l=_FN[:]; _x=_l.pop(_i); _l.insert(_j if _j<_i else _j-1,_x)
+        if _l==_FN: continue
+        G[f'mv_{_i}_{_j}']=[('CtoState{'+_LITN+'}','CtoState{'+','.join(_l)+'}')]
+# ---- batch 11: CtoState DECLARATION order (bool fields; repr(Rust) keeps declaration order among equal alignment) ----
+_D='struct CtoState{creator:Pubkey,max_fee:u64,mayhem:bool,holder_reward:bool,cashback:bool,quote_locked:bool,holder_enabled:bool,fee_configurable:bool}'
+_DB=['mayhem','holder_reward','cashback','quote_locked','holder_enabled','fee_configurable']
+for _i,_b in enumerate(_DB):
+    for _pos,_nm in ((0,'df_'),(len(_DB)-1,'dl_')):
+        if _i==_pos: continue
+        _l=_DB[:]; _l.pop(_i); _l.insert(_pos,_b)
+        G[_nm+_b]=[(_D,'struct CtoState{creator:Pubkey,max_fee:u64,'+','.join(x+':bool' for x in _l)+'}')]
+G['dc_last']=[(_D,'struct CtoState{max_fee:u64,mayhem:bool,holder_reward:bool,cashback:bool,quote_locked:bool,holder_enabled:bool,fee_configurable:bool,creator:Pubkey}')]
+G['dm_first']=[(_D,'struct CtoState{max_fee:u64,creator:Pubkey,mayhem:bool,holder_reward:bool,cashback:bool,quote_locked:bool,holder_enabled:bool,fee_configurable:bool}')]
+G['dm_last']=[(_D,'struct CtoState{creator:Pubkey,mayhem:bool,holder_reward:bool,cashback:bool,quote_locked:bool,holder_enabled:bool,fee_configurable:bool,max_fee:u64}')]
+# ---- batch 13: st.max_fee=f store spellings on devol (main 86e2a6b) ----
+_E='return Err(error!(PumpError::CreatorFeeBpsOutOfRange));'
+_R=f'if f==0||f>st.max_fee{{{_E}}}st.fee_configurable=false;}}None=>{{}}}}'
+G['dm_a']=[(_R,f'let mx=st.max_fee;if f==0||f>mx{{{_E}}}st.max_fee=f;}}None=>{{}}}}')]
+G['dm_b']=[(_R,f'if f==0||f>st.max_fee{{{_E}}}else{{st.max_fee=f;}}}}None=>{{}}}}')]
+G['dm_f']=[(_R,f'if f==0||f>st.max_fee{{{_E}}}st.max_fee=f;st.fee_configurable=false;}}None=>{{}}}}')]
+G['dm_g']=[(_R,f'if f==0||f>st.max_fee{{{_E}}}st.fee_configurable=false;st.max_fee=f;}}None=>{{}}}}')]
+G['dm_h']=[(_R,f'if f==0||f>st.max_fee{{{_E}}}st.max_fee=f.min(st.max_fee);}}None=>{{}}}}')]
+G['dm_r']=[(_R,f'if f==0||f>st.max_fee{{{_E}}}st.max_fee=st.max_fee-f;}}None=>{{}}}}')]
+G['dm_take']=[('  if !st.fee_configurable{return','  if !core::mem::take(&mut st.fee_configurable){return'),(_R,f'if f==0||f>st.max_fee{{{_E}}}}}None=>{{}}}}')]
+G['dm_take2']=[('  if !st.fee_configurable{return','  if !core::mem::take(&mut st.fee_configurable){return'),(_R,f'if f==0||f>st.max_fee{{{_E}}}st.max_fee=f;}}None=>{{}}}}')]
+G['dm_repl']=[(_R,f'if f==0||f>st.max_fee{{{_E}}}core::mem::replace(&mut st.max_fee,f);}}None=>{{}}}}')]
+# ---- batch 15: block-result tuple element order (pattern and expression permuted together) ----
+_TP=['_holder','cashback','target','sharing_update','collect_old','skip']; _TE=['holder','cashback','target','sharing_update','collect_old','skip']
+for _i in range(6):
+    for _pos,_nm in ((0,'tf_'),(5,'tl_')):
+        if _i==_pos: continue
+        _o=list(range(6)); _o.pop(_i); _o.insert(_pos,_i)
+        G[_nm+_TE[_i]]=[('let ('+','.join(_TP)+')={','let ('+','.join(_TP[k] for k in _o)+')={'),('('+','.join(_TE)+')};','('+','.join(_TE[k] for k in _o)+')};')]
+_OKT='let (target,sharing_update,cashback)=Ok::<_,anchor_lang::error::Error>((target,sharing_update,cashback))?'
+for _n,_o in (('ok_tcs',(0,2,1)),('ok_stc',(1,0,2)),('ok_cts',(2,0,1)),('ok_sct',(1,2,0)),('ok_cst',(2,1,0))):
+    _a=['target','sharing_update','cashback']; _b=[_a[k] for k in _o]
+    G[_n]=[(_OKT,'let ('+','.join(_b)+')=Ok::<_,anchor_lang::error::Error>(('+','.join(_b)+'))?')]
