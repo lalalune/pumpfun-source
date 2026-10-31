@@ -61,6 +61,22 @@ class DataOrderPublicationTests(unittest.TestCase):
             self.assertEqual(output.read_bytes(), prior)
             self.assertEqual([path.name for path in root.iterdir()], [output.name])
 
+    def test_module_runs_its_cli_when_invoked_as_a_script(self):
+        # Every other test calls main() directly, so none exercise the real
+        # `python scripts/pump_data_order.py ...` entrypoint. Without the
+        # `if __name__ == "__main__"` guard the script is a silent no-op:
+        # argparse never runs, a missing required --output goes unreported, and
+        # no certificate is ever published. Invoking it with no arguments must
+        # reach argparse and fail with its usage error (exit 2).
+        completed = subprocess.run(
+            [sys.executable, "-B", str(Path(pump_data_order.__file__))],
+            capture_output=True,
+            text=True,
+        )
+        self.assertEqual(completed.returncode, 2, completed.stdout + completed.stderr)
+        self.assertIn("usage", completed.stderr.lower())
+        self.assertIn("--baseline-build", completed.stderr)
+
     @unittest.skipUnless(os.name == "posix", "RLIMIT_FSIZE requires POSIX")
     def test_failed_write_leaves_the_output_path_free_for_a_retry(self):
         with tempfile.TemporaryDirectory() as temporary:
