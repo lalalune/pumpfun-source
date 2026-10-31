@@ -1,0 +1,89 @@
+{
+ "lane": "w15a11-cto-valtraceback",
+ "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27,400 B",
+ "bases": {
+  "90300f9d2": {
+   "ratio": 0.67346,
+   "slots_diff": 3124,
+   "true_lcs_rfj": 3007,
+   "true_lcs_full": 2253
+  },
+  "86e2a6b74": {
+   "ratio": 0.67376,
+   "slots_diff": 3124,
+   "true_lcs_rfj": 3007,
+   "true_lcs_full": 2255
+  }
+ },
+ "result": "notes only; no landable change; main remains best (0.67376 @ 27,400 on 86e2a6b)",
+ "best_zero_loss": {
+  "ratio": 0.67376,
+  "slots_diff": 3124,
+  "bytes": 27400,
+  "source": "main 86e2a6b (unchanged)"
+ },
+ "attempts": 99,
+ "folded_to_main": [
+  "v03",
+  "v04",
+  "v05",
+  "v06",
+  "v08",
+  "v10",
+  "v12",
+  "v28",
+  "v29",
+  "v32",
+  "v33"
+ ],
+ "cause_table_validate_rfj_orig_only": {
+  "total": 183,
+  "A_pda_first_head": 23,
+  "B_flaghoist_held_ptrs": 8,
+  "C_error_block_order": 13,
+  "D_307_312_outline": 16,
+  "E_new_entry_copy_pieces": 25,
+  "F_per_arm_phi_constants_shared_split_in_nonholder_arm": 20,
+  "G_ctostate_store_order": 13,
+  "H_and1_branch_layout": 13,
+  "I_copies_spill_reload": 45,
+  "J_other_isel": 7
+ },
+ "leads": [
+  {
+   "name": "b01 validate holder_key:Pubkey by value",
+   "effect": "reproduces orig 0x548-0x5d0 (sharing key copy -0x470, holder_key copy -0x518) exactly; true-LCS rfj +3 (+6 in validate 0x400)",
+   "cost": "+64 B copy +16 B RA noise (27,480 on 90300f9; 27,360 on 86e2a6b), ~280 slots 8 B deeper",
+   "frame_shift_undone_bound": 0.62549,
+   "landable": false
+  },
+  {
+   "name": "v01 312 holder_key-first operand order",
+   "effect": "original memcmp order, true-LCS neutral (--- -1, rfj 0)",
+   "cost": "-0.0021 ratio (difflib)",
+   "landable": false
+  }
+ ],
+ "rejected_mechanisms": [
+  "validate-local spellings of 284/289/296/298/306/307/312/326/330/334/338 tests (v01-v33): fold or lose",
+  "sharing by value (b03/b04): pure 32 B frame shift, skeleton flat",
+  "holder-rewards PDA temp forms h1/h2/h3: pure 40 B frame shift, skeleton flat",
+  "shared test / sharing tree inside validate arms (ov1-ov4): -535..-552 rfj, all in orig 0x2000-0x5800 (body placement collapse)",
+  "b01 + 41 applicable sizeknobs: best at 27,400 is 0.53355",
+  "T (312 outline) + b01: 0.537-0.546 @ 27,136-27,144",
+  "ov1a/ov1b: passing shared into validate with execute's tree unchanged still moves the 799-instruction sharing_update CPI arm ahead of the sweep (0.42682 @ 27,448)"
+ ],
+ "unresolved_residuals": [
+  "A/B head order and E new entry copy collapse the body in every known spelling",
+  "F: orig hoists the shared test into the non-holder arm before the fee checks (orig 0xdc0) and threads each exit with per-arm constants",
+  "frame: b01's faithful copy shifts ~280 deeper slots by 8 B; needs a frame-layout partner removing 8 B above orig -0x548"
+ ],
+ "next_ideas": [
+  "shared-split-in-nonholder-arm (orig 0xdc0): first pin the sharing_update match arm's IR position (non-inlined/#[cold] carrier) so threading cannot hoist the 799-instr sharing CPI ahead of the sweep, then re-price ov1",
+  "frame-layout lanes: pair b01 with a change that removes one 8 B frame object between orig -0x520 and -0x568 (target 24 B pieces / sharing_update pieces) and re-run fshift-style bound",
+  "t312repay lanes: price T variants in true LCS; T's validate 0xc00 -34 is partly removal of main's spurious matches of the orig shared split against our inlined 312 block",
+  "keep v01 (312 holder-first) as a free rider for any composite that takes holder_key by value"
+ ],
+ "tools": "reconstruction/pump-main/lanes/w15a11-cto-valtraceback/tools: cv2.sh, bat.sh, ev.py, sbs.py, cause.py, fhist.py, fpair.py, fshift.py",
+ "ledger": "approach valtraceback, keys 0x22a10-w15-{90300f9,86e2a6b}-valtraceback-*-v1 and 0x22a10-w15-90300f9-valtraceback-causemap-v1"
+}

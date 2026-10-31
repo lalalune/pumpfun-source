@@ -1,0 +1,46 @@
+LCS 3007 of orig 3339 / cand 3337 (rfj)
+-  23  00080-00140  mov64 r1, r10 ; add64 r1, -1728 ; stxdw [r10-0x440], r1 ; lddw r1, 0x1b68be
++   2  001a8-001b0  mov64 r1, r10 ; add64 r1, -1728
+-   2  00288-00290  ldxdw r6, [r8+0x8] ; ldxb r1, [r9+0xa3]
++  10  001d8-00228  stdw [r10-0x2b8], 32 ; stdw [r10-0x2c8], 14 ; mov64 r1, r10 ; add64 r1, -1657
++   7  00238-00268  ldxdw r1, [r10-0x671] ; stxdw [r10-0x698], r1 ; ldxdw r1, [r10-0x669] ; stxdw [r10-0x690], r1
+-   2  00428-00430  ldxdw r4, [r6+0x430] ; ldxb r1, [r6+0x43f]
+-   6  00440-00468  ldxdw r2, [r10-0x8e8] ; stxb [r10-0xe], r2 ; ldxdw r0, [r10-0x8e0] ; stxb [r10-0xf], r0
++   3  00430-00440  ldxdw r6, [r1+0x430] ; ldxb r9, [r1+0x43f] ; stxdw [r10-0x918], r3
+-   2  004b8-004c0  stxb [r10-0xd], r2 ; stxb [r10-0xb], r5
++   3  00450-00460  ldxb r2, [r7+0xa2] ; ldxb r4, [r7+0xa5] ; ldxb r1, [r7+0xa3]
++   6  00470-00498  ldxdw r5, [r10-0x8e8] ; mov64 r3, r5 ; and64 r3, 253 ; mov64 r8, 1
+-   5  004e8-00508  ldxw r2, [r7+0x4] ; stxw [r10-0x655], r2 ; ldxw r2, [r7+0x1] ; stxw [r10-0x658], r2
++   2  004b0-004b8  jne r1, 0, 4c8 ; mov64 r3, 0
+-   2  00518-00520  ldxdw r9, [r7+0x10] ; ldxb r2, [r7+0x20]
++   4  004d0-004e8  stxb [r10-0xc], r9 ; stxb [r10-0xe], r1 ; stxb [r10-0xf], r4 ; stxb [r10-0x10], r2
++   4  004f8-00510  stxdw [r10-0x900], r0 ; mov64 r7, r1 ; mov64 r1, r6 ; mov64 r8, r9
++   2  00520-00528  ldxb r0, [r9+0x0] ; ldxdw r3, [r10-0x8d8]
+-   3  00598-005a8  ldxdw r2, [r10-0x688] ; stxdw [r10-0x500], r2 ; ldxdw r2, [r10-0x690]
++   2  00588-00590  jne r2, 0, 5648 ; mov64 r4, r8
+-   6  005f0-00618  ldxdw r2, [r10-0x900] ; ldxdw r2, [r10-0x8f8] ; stxdw [r10-0x940], r5 ; ldxdw r2, [r10-0x908]
++   4  005f0-00608  and64 r1, 255 ; jeq r1, 0, 8a8 ; ldxdw r1, [r10-0x940] ; jeq r1, 0, a50
+-   4  00720-00738  jeq r8, 0, 730 ; ja r0, 8f8 ; ldxdw r1, [r10-0x8f8] ; and64 r1, 1
++   2  006f8-00700  jne r1, 0, 600 ; mov64 r1, r10
+-   2  010e8-010f0  stxdw [r10-0x918], r4 ; stxdw [r10-0x948], r3
+-   6  01100-01128  mov64 r6, 1 ; mov64 r7, 0 ; mov64 r5, 0 ; ldxdw r1, [r10-0x920]
+-   5  01138-01158  stxdw [r10-0x958], r5 ; ldxw r1, [r10-0x44d] ; stxw [r10-0x535], r1 ; ldxw r1, [r10-0x450]
+-   3  01170-01180  ldxb r1, [r10-0x2c8] ; stxb [r10-0x540], r1 ; mov64 r1, 0
+-   3  01190-011a0  mov64 r6, 0 ; mov64 r3, 0 ; ja r0, 1990
+-   4  01280-012a0  mov64 r1, r10 ; add64 r1, -664 ; lddw r2, 0x1b5e38 ; call 0xffffcd90
++   3  011f8-01208  stdw [r10-0x460], 0 ; stdw [r10-0x468], 1 ; stdw [r10-0x470], 0
+-   5  012c0-012e0  stb [r10-0x280], 2 ; stw [r10-0x2b8], 312 ; stdw [r10-0x2c0], 38 ; stdw [r10-0x2d0], 0
++   5  01238-01258  stxdw [r10-0x430], r1 ; stb [r10-0x418], 3 ; stdw [r10-0x420], 32 ; stdw [r10-0x440], 0
++   2  01288-01290  jeq r0, 0, 1298 ; ja r0, 5708
+-   9  01320-01370  ja r0, 5868 ; mov64 r1, r10 ; add64 r1, -688 ; lddw r2, 0x1b5e04
++   9  012b0-012f0  stxdw [r10-0x290], r1 ; ldxdw r1, [r10-0x470] ; stxdw [r10-0x298], r1 ; ldxdw r1, [r10-0x488]
+-   3  01490-014a0  ldxdw r1, [r10-0x4b0] ; stxdw [r10-0x4e8], r1 ; stxdw [r10-0x530], r1
++   4  01410-01428  ldxw r1, [r9+0x3] ; stxw [r10-0x53d], r1 ; ldxw r1, [r9+0x0] ; stxw [r10-0x540], r1
++   5  01438-01458  ldxdw r4, [r2+0x8] ; ldxdw r5, [r2+0x10] ; ldxb r1, [r2+0x20] ; stxb [r10-0x4e0], r1
+-   4  014c8-014e0  stxdw [r10-0x4d8], r1 ; stxdw [r10-0x520], r1 ; mov64 r1, 0 ; stxdw [r10-0x950], r1
+-   2  014f0-014f8  stxdw [r10-0x918], r1 ; mov64 r7, 0
+-   5  01520-01540  ldxdw r5, [r10-0x958] ; mov64 r1, r4 ; ldxdw r7, [r10-0x900] ; ldxdw r3, [r10-0x948]
++   6  01758-01780  ldxb r1, [r10-0x6a0] ; ldxw r1, [r10-0x53d] ; stxw [r10-0x655], r1 ; ldxw r1, [r10-0x540]
++   2  01790-01798  ldxb r1, [r10-0x4e0] ; stxb [r10-0x528], r1
++   4  017b8-017d0  mov64 r2, r9 ; ldxdw r1, [r10-0x908] ; mov64 r9, 1 ; mov64 r1, 0
++   4  017e0-017f8  and64 r8, 255 ; mov64 r6, 0 ; mov64 r1, r8 ; ldxdw r8, [r10-0x8d8]

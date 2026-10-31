@@ -1,0 +1,13 @@
+orig-only rfj tokens in [0,0x1800): 183
+  23  A head: holder-rewards PDA before shared (PDA-first)   [80 88 90 98 a8 b0 b8 c0 c8 d0 d8 e0 ...]
+   8  B head: curve bools / held ptrs loaded early (flaghoist, held r8/r9)   [150 210 258 268 288 290 2a0 2b0]
+  13  C error code/line imm: error-block order (B/Br)   [890 8a0 a50 a60 ed8 ee8 1080 1090 11f0 1200 12c8 12e0 ...]
+  16  D 307/312 to_string outlined   [1280 1288 1290 12a0 12c0 12d0 12d8 1320 1328 1330 1338 1348 ...]
+  25  E new entry copy (1/7/8/8/8/1 SROA pieces)   [4d8 4e8 4f0 4f8 500 508 518 520 530 c08 c10 c18 ...]
+  20  F per-arm phi constants (holder/skip/collect_old)   [3a8 b00 b08 b20 d80 d90 e38 e48 1100 1108 1110 1128 ...]
+  13  G CtoState store order   [428 430 440 448 450 458 460 468 478 498 4a8 4b8 ...]
+  13  H branch layout / threading   [5e0 640 720 728 748 8f8 908 d70 e28 e30 e58 1120 ...]
+  45  I copies / spill-reload placement   [1d8 598 5a0 5a8 5b8 5f0 5f8 600 608 610 630 710 ...]
+   1  J other ISel (add64)   [358]
+   3  J other ISel (and64)   [618 738 1510]
+   3  J other ISel (mov64)   [1a0 3c8 1528]
