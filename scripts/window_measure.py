@@ -17,6 +17,8 @@ def measure(original_path, candidate_path):
     for a, z in zip(o.entries, o.entries[1:] + [o.hi]):
         key = (z - a, o.normalized[a:z], json.dumps(o.pattern(a, z - a), sort_keys=True))
         ms = ix.get(key, [])
-        raw = any(o.b[a:z] == c.b[f['start']:f['start'] + z - a] for f in ms)
-        rows.append({'original': hex(a), 'bytes': z - a, 'match': ms[0]['name'] if ms else None, 'raw': raw})
+        # Name the raw-equal function when one exists, not merely the first normalized match.
+        exact = next((f for f in ms if o.b[a:z] == c.b[f['start']:f['start'] + z - a]), None)
+        best = exact or (ms[0] if ms else None)
+        rows.append({'original': hex(a), 'bytes': z - a, 'match': best['name'] if best else None, 'raw': exact is not None})
     return rows

@@ -1,0 +1,635 @@
+{
+  "base": "90300f9d2efe3ef014b116172251a41bfb104d78",
+  "observed_on": "2026-10-31",
+  "environment": {
+    "python": "3.12.13",
+    "solders": "0.27.1"
+  },
+  "before": {
+    "scope": "Local producer and production receipt-consumer functions; no full aggregate build or corpus run.",
+    "producer_stdout": "{\"case_count\": 93, \"mismatches\": []}",
+    "producer_cases": 93,
+    "producer_mismatches": [],
+    "receipt_sha256": "c3a00a56869710e604d3fb80f68b37dfb7a8b16c2f32f7ef1eca4925d3d7a17c",
+    "input_sha256": {
+      "scripts/pump_validate_admin.py": "8866e76edc2b728e56544b9cb0a313b112082a5c1b3278ab38fe4991093be9cb",
+      "scripts/pump_validate_all.py": "c8aca19fa1b292bba24f752a5f3981c6622adb1052548b2d8585ca6407888eb7",
+      "scripts/pump_validate_parallel.py": "945861a497da08fc0c24458f0f3a1e0ee9bb5360e8b789d0d0daeea7f8c6ac32",
+      "evidence/original/pump/deployed.so": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d"
+    },
+    "outcomes": [
+      {
+        "change": "control",
+        "accepted": true,
+        "admitted_cases": 93
+      },
+      {
+        "change": "error",
+        "accepted": true,
+        "admitted_cases": 93
+      },
+      {
+        "change": "lamports",
+        "accepted": true,
+        "admitted_cases": 93
+      },
+      {
+        "change": "data_hex",
+        "accepted": true,
+        "admitted_cases": 93
+      },
+      {
+        "change": "missing-both",
+        "accepted": true,
+        "admitted_cases": 93
+      },
+      {
+        "change": "diagnostics",
+        "accepted": true,
+        "admitted_cases": 93
+      }
+    ]
+  },
+  "after": {
+    "scope": "Local producer and production receipt-consumer functions; no full aggregate build or corpus run.",
+    "producer_stdout": "{\"case_count\": 93, \"mismatches\": []}",
+    "producer_cases": 93,
+    "producer_mismatches": [],
+    "receipt_sha256": "c3a00a56869710e604d3fb80f68b37dfb7a8b16c2f32f7ef1eca4925d3d7a17c",
+    "input_sha256": {
+      "scripts/pump_validate_admin.py": "8866e76edc2b728e56544b9cb0a313b112082a5c1b3278ab38fe4991093be9cb",
+      "scripts/pump_validate_all.py": "3327f95c78e0991efe1d0be44a208ca2f286ed8462123f4174b92a8b87def09d",
+      "scripts/pump_validate_parallel.py": "46286054fbd18b1c0faa332120073aff958e10ddea65b47d23385660f2e57c80",
+      "evidence/original/pump/deployed.so": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d"
+    },
+    "outcomes": [
+      {
+        "change": "control",
+        "accepted": true,
+        "admitted_cases": 93
+      },
+      {
+        "change": "error",
+        "accepted": false,
+        "reason": "administration case 0: retained comparison contradicts success for error"
+      },
+      {
+        "change": "lamports",
+        "accepted": false,
+        "reason": "administration case 0: retained comparison contradicts success for lamports"
+      },
+      {
+        "change": "data_hex",
+        "accepted": false,
+        "reason": "administration case 0: retained comparison contradicts success for data_hex"
+      },
+      {
+        "change": "missing-both",
+        "accepted": false,
+        "reason": "administration case 0: compared field error missing"
+      },
+      {
+        "change": "diagnostics",
+        "accepted": true,
+        "admitted_cases": 93
+      }
+    ]
+  },
+  "generic_suite_contracts": 41,
+  "checks": [
+    {
+      "command": "python -B tests/test_pump_retained_receipt_contract.py",
+      "tests": 15,
+      "seconds": 2.792,
+      "result": "pass"
+    },
+    {
+      "command": "python -B scripts/test_pump_validate_all_retention.py",
+      "tests": 10,
+      "seconds": 3.712,
+      "result": "pass"
+    },
+    {
+      "command": "python -B scripts/test_pump_validate_parallel.py",
+      "tests": 8,
+      "seconds": 0.304,
+      "result": "pass"
+    },
+    {
+      "command": "python scripts/verify_evidence.py",
+      "captures": 9,
+      "result": "pass"
+    },
+    {
+      "command": "python scripts/test_tooling.py",
+      "tests": 242,
+      "seconds": 49.061,
+      "result": "pass"
+    }
+  ],
+  "scope_limit": "All41 generic producers executed as captured-original self-comparisons:9910 cases admitted. Full44-suite aggregate execution, new compilation, and the3 specialized producers are not claimed.",
+  "generic_corpus": {
+    "scope": "41 current generic producer scripts, captured Pump original on both sides; no new build and no RPC.",
+    "base": "90300f9d2efe3ef014b116172251a41bfb104d78",
+    "workers": 4,
+    "seconds": 172.685,
+    "suites": 41,
+    "declared_cases": 9910,
+    "admitted_suites": 41,
+    "admitted_cases": 9910,
+    "results": [
+      {
+        "suite": "volume",
+        "returncode": 0,
+        "timed_out": false,
+        "seconds": 3.212,
+        "expected_cases": 66,
+        "receipt": "volume.json.gz",
+        "receipt_sha256": "75a6ec519358524fd928aed97b6829154f77ccc17aaaa674e566c6afdc0d65c8",
+        "reported_cases": 66,
+        "admitted_cases": 66,
+        "admission": "pass"
+      },
+      {
+        "suite": "administration",
+        "returncode": 0,
+        "timed_out": false,
+        "seconds": 4.293,
+        "expected_cases": 93,
+        "receipt": "administration.json.gz",
+        "receipt_sha256": "c3a00a56869710e604d3fb80f68b37dfb7a8b16c2f32f7ef1eca4925d3d7a17c",
+        "reported_cases": 93,
+        "admitted_cases": 93,
+        "admission": "pass"
+      },
+      {
+        "suite": "authority",
+        "returncode": 0,
+        "timed_out": false,
+        "seconds": 2.988,
+        "expected_cases": 59,
+        "receipt": "authority.json.gz",
+        "receipt_sha256": "3cafa5b2306bf571d6d14c4acf0f75f2fcc40e4836ccdf9b56734b8046434b23",
+        "reported_cases": 59,
+        "admitted_cases": 59,
+        "admission": "pass"
+      },
+      {
+        "suite": "configuration",
+        "returncode": 0,
+        "timed_out": false,
+        "seconds": 13.921,
+        "expected_cases": 351,
+        "receipt": "configuration.json.gz",
+        "receipt_sha256": "39918ff60af16e84798daa106303ca60a9b252a16e8a61d206a0ea0811621c40",
+        "reported_cases": 351,
+        "admitted_cases": 351,
+        "admission": "pass"
+      },
+      {
+        "suite": "buy",
+        "returncode": 0,
+        "timed_out": false,
+        "seconds": 24.554,
+        "expected_cases": 334,
+        "receipt": "buy.json.gz",
+        "receipt_sha256": "9914a57f919ccedfb99764a2be1a091eaa09bb38cb70f168551004ff3a4fe4b8",
+        "reported_cases": 334,
+        "admitted_cases": 334,
+        "admission": "pass"
+      },
+      {
+        "suite": "sell",
+        "returncode": 0,
+        "timed_out": false,
+        "seconds": 21.905,
+        "expected_cases": 301,
+        "receipt": "sell.json.gz",
+        "receipt_sha256": "bb5817c3bb78587e445675ba1fd5dc951cb5ea1577b60d1eb415012861e44c61",
+        "reported_cases": 301,
+        "admitted_cases": 301,
+        "admission": "pass"
+      },
+      {
+        "suite": "quote",
+        "returncode": 0,
+        "timed_out": false,
+        "seconds": 9.922,
+        "expected_cases": 130,
+        "receipt": "quote.json.gz",
+        "receipt_sha256": "236ae333cf4544449a84617e04b91643f5b459b0f76b603a68d8ceadb5ffe2f2",
+        "reported_cases": 130,
+        "admitted_cases": 130,
+        "admission": "pass"
+      },
+      {
+        "suite": "creator_collection",
+        "returncode": 0,
+        "timed_out": false,
+        "seconds": 4.361,
+        "expected_cases": 119,
+        "receipt": "creator_collection.json.gz",
+        "receipt_sha256": "bc30eb20218b41bb3fe40bdf730837608d02767d44a13934e96f0a4b1e6efe3e",
+        "reported_cases": 119,
+        "admitted_cases": 119,
+        "admission": "pass"
+      },
+      {
+        "suite": "creator_distribution",
+        "returncode": 0,
+        "timed_out": false,
+        "seconds": 25.717,
+        "expected_cases": 298,
+        "receipt": "creator_distribution.json.gz",
+        "receipt_sha256": "1f79d4f4ad768f387257da9152139919ce16a2b3e9d2afff34cb8bc2e3335ba4",
+        "reported_cases": 298,
+        "admitted_cases": 298,
+        "admission": "pass"
+      },
+      {
+        "suite": "minimum_distribution",
+        "returncode": 0,
+        "timed_out": false,
+        "seconds": 14.472,
+        "expected_cases": 181,
+        "receipt": "minimum_distribution.json.gz",
+        "receipt_sha256": "a276f6d8372a03b6d0fddc3f2f3b3893eef717cd49209b7af13ea505f2e0d560",
+        "reported_cases": 181,
+        "admitted_cases": 181,
+        "admission": "pass"
+      },
+      {
+        "suite": "creator_collection_v2",
+        "returncode": 0,
+        "timed_out": false,
+        "seconds": 7.697,
+        "expected_cases": 154,
+        "receipt": "creator_collection_v2.json.gz",
+        "receipt_sha256": "5b88d228ce9365a85fadd617df4ad10f1248048350ad818ec87029dd8a17db53",
+        "reported_cases": 154,
+        "admitted_cases": 154,
+        "admission": "pass"
+      },
+      {
+        "suite": "extension",
+        "returncode": 0,
+        "timed_out": false,
+        "seconds": 11.591,
+        "expected_cases": 308,
+        "receipt": "extension.json.gz",
+        "receipt_sha256": "c3bf9068243f8d08c984a86bda89bdf5e0d38c800104ae695476c13747ac4e47",
+        "reported_cases": 308,
+        "admitted_cases": 308,
+        "admission": "pass"
+      },
+      {
+        "suite": "volume_sync",
+        "returncode": 0,
+        "timed_out": false,
+        "seconds": 13.343,
+        "expected_cases": 341,
+        "receipt": "volume_sync.json.gz",
+        "receipt_sha256": "535ec975612d7493acb08625c8a819de33c9f4f7b9023d705b69d420f9cebeec",
+        "reported_cases": 341,
+        "admitted_cases": 341,
+        "admission": "pass"
+      },
+      {
+        "suite": "fee_sweeps",
+        "returncode": 0,
+        "timed_out": false,
+        "seconds": 48.73,
+        "expected_cases": 504,
+        "receipt": "fee_sweeps.json.gz",
+        "receipt_sha256": "9990f617440e557fb8460ba1be94f22591946f8687be25c3a5f90f3de180e1c8",
+        "reported_cases": 504,
+        "admitted_cases": 504,
+        "admission": "pass"
+      },
+      {
+        "suite": "creator_migration",
+        "returncode": 0,
+        "timed_out": false,
+        "seconds": 13.27,
+        "expected_cases": 139,
+        "receipt": "creator_migration.json.gz",
+        "receipt_sha256": "10b15ce8d3887127e7f7ea9d26db9995b9b0ea28c11a09eb4ee139ec812d2dea",
+        "reported_cases": 139,
+        "admitted_cases": 139,
+        "admission": "pass"
+      },
+      {
+        "suite": "admin_cto",
+        "returncode": 0,
+        "timed_out": false,
+        "seconds": 32.331,
+        "expected_cases": 388,
+        "receipt": "admin_cto.json.gz",
+        "receipt_sha256": "68dcfc057736a439d1b5b07519e49b388f18ba0a69582948d2d3be90382b60f1",
+        "reported_cases": 388,
+        "admitted_cases": 388,
+        "admission": "pass"
+      },
+      {
+        "suite": "set_params",
+        "returncode": 0,
+        "timed_out": false,
+        "seconds": 7.985,
+        "expected_cases": 169,
+        "receipt": "set_params.json.gz",
+        "receipt_sha256": "2bd49797d80a74c3faae6340dbd5b4716de5f58e3db6139df2b5ef70ae273cb7",
+        "reported_cases": 169,
+        "admitted_cases": 169,
+        "admission": "pass"
+      },
+      {
+        "suite": "set_creator",
+        "returncode": 0,
+        "timed_out": false,
+        "seconds": 20.795,
+        "expected_cases": 509,
+        "receipt": "set_creator.json.gz",
+        "receipt_sha256": "4ec2837c2fdf35ad1f44c210abc351c24bc4d88577c72c713d4f9d0380f95294",
+        "reported_cases": 509,
+        "admitted_cases": 509,
+        "admission": "pass"
+      },
+      {
+        "suite": "idl_authority",
+        "returncode": 0,
+        "timed_out": false,
+        "seconds": 7.677,
+        "expected_cases": 171,
+        "receipt": "idl_authority.json.gz",
+        "receipt_sha256": "c289797b90bde24c91325482d15d0084fb3c7a065942cf2e7d0a68ac9cfcac72",
+        "reported_cases": 171,
+        "admitted_cases": 171,
+        "admission": "pass"
+      },
+      {
+        "suite": "legacy_create",
+        "returncode": 0,
+        "timed_out": false,
+        "seconds": 5.429,
+        "expected_cases": 87,
+        "receipt": "legacy_create.json.gz",
+        "receipt_sha256": "fa2a84d8e878060a7228856b09e97dd2f8b9d6f652b7366f58e190d77ddeb282",
+        "reported_cases": 87,
+        "admitted_cases": 87,
+        "admission": "pass"
+      },
+      {
+        "suite": "exact_quote_v3",
+        "returncode": 0,
+        "timed_out": false,
+        "seconds": 23.222,
+        "expected_cases": 352,
+        "receipt": "exact_quote_v3.json.gz",
+        "receipt_sha256": "2012c40a5b092b1e707bdc830fce6aacbfac5501f0e3dbb3157a73b432a85a65",
+        "reported_cases": 352,
+        "admitted_cases": 352,
+        "admission": "pass"
+      },
+      {
+        "suite": "create_v2",
+        "returncode": 0,
+        "timed_out": false,
+        "seconds": 19.951,
+        "expected_cases": 297,
+        "receipt": "create_v2.json.gz",
+        "receipt_sha256": "be834047d20774da7e33cf40d973e42fed0e18a3d60791394248904a86744d02",
+        "reported_cases": 297,
+        "admitted_cases": 297,
+        "admission": "pass"
+      },
+      {
+        "suite": "legacy_sell",
+        "returncode": 0,
+        "timed_out": false,
+        "seconds": 6.584,
+        "expected_cases": 115,
+        "receipt": "legacy_sell.json.gz",
+        "receipt_sha256": "e1b3cada8720751d7213d16016d003a6e2e3cdc58d648fb44881aa1d554b7adf",
+        "reported_cases": 115,
+        "admitted_cases": 115,
+        "admission": "pass"
+      },
+      {
+        "suite": "legacy_sell_configured_fee",
+        "returncode": 0,
+        "timed_out": false,
+        "seconds": 1.968,
+        "expected_cases": 28,
+        "receipt": "legacy_sell_configured_fee.json.gz",
+        "receipt_sha256": "8db3f2ca80ed92a72c080cfbc7ff4c7e455f8feedd2192f2a053d3ffb9f65901",
+        "reported_cases": 28,
+        "admitted_cases": 28,
+        "admission": "pass"
+      },
+      {
+        "suite": "sell_v2",
+        "returncode": 0,
+        "timed_out": false,
+        "seconds": 11.192,
+        "expected_cases": 206,
+        "receipt": "sell_v2.json.gz",
+        "receipt_sha256": "f58fe0008cf01e6875ea03ea96c26986b7123dba776e0a59cec30eeb575115d6",
+        "reported_cases": 206,
+        "admitted_cases": 206,
+        "admission": "pass"
+      },
+      {
+        "suite": "create_control",
+        "returncode": 0,
+        "timed_out": false,
+        "seconds": 5.698,
+        "expected_cases": 85,
+        "receipt": "create_control.json.gz",
+        "receipt_sha256": "7d7c24efdbf54b6acec2b487c5db5fe8f87c04d1871100c86d7a6a572753fcac",
+        "reported_cases": 85,
+        "admitted_cases": 85,
+        "admission": "pass"
+      },
+      {
+        "suite": "migration",
+        "returncode": 0,
+        "timed_out": false,
+        "seconds": 20.04,
+        "expected_cases": 228,
+        "receipt": "migration.json.gz",
+        "receipt_sha256": "5e99c4a138d12fc55798d46113a2f00ac823a26dd8356c61951263134bde44ec",
+        "reported_cases": 228,
+        "admitted_cases": 228,
+        "admission": "pass"
+      },
+      {
+        "suite": "v3_configured_fee",
+        "returncode": 0,
+        "timed_out": false,
+        "seconds": 27.887,
+        "expected_cases": 372,
+        "receipt": "v3_configured_fee.json.gz",
+        "receipt_sha256": "b83ad7c8b882740b3e718da509a1f26ffae36753a3125ed32ff59e4652a6cb77",
+        "reported_cases": 372,
+        "admitted_cases": 372,
+        "admission": "pass"
+      },
+      {
+        "suite": "legacy_buy",
+        "returncode": 0,
+        "timed_out": false,
+        "seconds": 16.81,
+        "expected_cases": 284,
+        "receipt": "legacy_buy.json.gz",
+        "receipt_sha256": "027339f97be7fc314ea4c824cc6a66896835f5090a854ad0ef34a958a63670b8",
+        "reported_cases": 284,
+        "admitted_cases": 284,
+        "admission": "pass"
+      },
+      {
+        "suite": "buy_v2",
+        "returncode": 0,
+        "timed_out": false,
+        "seconds": 14.287,
+        "expected_cases": 216,
+        "receipt": "buy_v2.json.gz",
+        "receipt_sha256": "240876a78137e6046f7a2a04c4e9e7d0d223001d0c7df6fe6b9ea212d25122ae",
+        "reported_cases": 216,
+        "admitted_cases": 216,
+        "admission": "pass"
+      },
+      {
+        "suite": "migrate_v2",
+        "returncode": 0,
+        "timed_out": false,
+        "seconds": 64.706,
+        "expected_cases": 827,
+        "receipt": "migrate_v2.json.gz",
+        "receipt_sha256": "8a40431a046cc6d5bbfd46c247d8cbb7010ec301b96c91032d7e4356457b11da",
+        "reported_cases": 827,
+        "admitted_cases": 827,
+        "admission": "pass"
+      },
+      {
+        "suite": "cashback",
+        "returncode": 0,
+        "timed_out": false,
+        "seconds": 14.103,
+        "expected_cases": 283,
+        "receipt": "cashback.json.gz",
+        "receipt_sha256": "2451fff084561330d74e6e4e5f78577b1b842b03306fba9284eacc971856f94c",
+        "reported_cases": 283,
+        "admitted_cases": 283,
+        "admission": "pass"
+      },
+      {
+        "suite": "global_init",
+        "returncode": 0,
+        "timed_out": false,
+        "seconds": 1.522,
+        "expected_cases": 40,
+        "receipt": "global_init.json.gz",
+        "receipt_sha256": "409db9262ff6f6aeb6e4f0859bc24ea3f13856a6d1a671f03aba9ea5b52f6677",
+        "reported_cases": 40,
+        "admitted_cases": 40,
+        "admission": "pass"
+      },
+      {
+        "suite": "holder_distribution",
+        "returncode": 0,
+        "timed_out": false,
+        "seconds": 39.045,
+        "expected_cases": 649,
+        "receipt": "holder_distribution.json.gz",
+        "receipt_sha256": "1e616f637f2e6814f9914b1e78a424edadf2f21d332f614af8b2038a6062ef4c",
+        "reported_cases": 649,
+        "admitted_cases": 649,
+        "admission": "pass"
+      },
+      {
+        "suite": "nested_create",
+        "returncode": 0,
+        "timed_out": false,
+        "seconds": 5.912,
+        "expected_cases": 48,
+        "receipt": "nested_create.json.gz",
+        "receipt_sha256": "1305eccb12585d324ab483da64d34092af8b617fd9c8e49d086fdd4bd1788b60",
+        "reported_cases": 48,
+        "admitted_cases": 48,
+        "admission": "pass"
+      },
+      {
+        "suite": "incentive_claim",
+        "returncode": 0,
+        "timed_out": false,
+        "seconds": 17.874,
+        "expected_cases": 334,
+        "receipt": "incentive_claim.json.gz",
+        "receipt_sha256": "a1a96c8eef9ca5987bf330731e2300da1de90551e26373aed80e992abb3ff36d",
+        "reported_cases": 334,
+        "admitted_cases": 334,
+        "admission": "pass"
+      },
+      {
+        "suite": "virtual_reserve_sync",
+        "returncode": 0,
+        "timed_out": false,
+        "seconds": 8.223,
+        "expected_cases": 192,
+        "receipt": "virtual_reserve_sync.json.gz",
+        "receipt_sha256": "031d3736a8a7f2d28a5893c162dfe6049d7a7cf2aa2a4ea677e137a3bf60c8bb",
+        "reported_cases": 192,
+        "admitted_cases": 192,
+        "admission": "pass"
+      },
+      {
+        "suite": "claim_panic_diagnostics",
+        "returncode": 0,
+        "timed_out": false,
+        "seconds": 0.243,
+        "expected_cases": 2,
+        "receipt": "claim_panic_diagnostics.json.gz",
+        "receipt_sha256": "01c0b8403ce4f4cd6c134ec64c1ff2aba953fd0541274f7213b0f17a52d8a6ce",
+        "reported_cases": 2,
+        "admitted_cases": 2,
+        "admission": "pass"
+      },
+      {
+        "suite": "incentive_schedule",
+        "returncode": 0,
+        "timed_out": false,
+        "seconds": 24.862,
+        "expected_cases": 575,
+        "receipt": "incentive_schedule.json.gz",
+        "receipt_sha256": "3d4dc12c37fb5a30a89595c8ea0c8db3adc93acb878768139e38601b9bb1e5eb",
+        "reported_cases": 575,
+        "admitted_cases": 575,
+        "admission": "pass"
+      },
+      {
+        "suite": "earned_cashback",
+        "returncode": 0,
+        "timed_out": false,
+        "seconds": 4.562,
+        "expected_cases": 61,
+        "receipt": "earned_cashback.json.gz",
+        "receipt_sha256": "3ba75bd1b80af91f775874cd2990c7b9b39bd0e21d947b4f318a33500ed89e17",
+        "reported_cases": 61,
+        "admitted_cases": 61,
+        "admission": "pass"
+      },
+      {
+        "suite": "legacy_cashback",
+        "returncode": 0,
+        "timed_out": false,
+        "seconds": 0.984,
+        "expected_cases": 14,
+        "receipt": "legacy_cashback.json.gz",
+        "receipt_sha256": "8874164e897ca3db52b232f1ad8e622624ec3c60c15e71debb5ddaa7072eef8f",
+        "reported_cases": 14,
+        "admitted_cases": 14,
+        "admission": "pass"
+      }
+    ]
+  }
+}

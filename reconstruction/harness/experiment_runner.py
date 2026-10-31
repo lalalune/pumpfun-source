@@ -75,7 +75,8 @@ def manifest(source):
             if linked_source(path): raise ValueError('linked source inputs are unsupported')
             if path.is_file():
                 result[path.relative_to(source).as_posix()] = {'sha256': digest(path.read_bytes()),
-                                                             'executable': bool(path.stat().st_mode & 0o111)}
+                                                             'executable': bool(path.stat().st_mode & 0o111),
+                                                             'execute_bits': path.stat().st_mode & 0o111}
             elif not path.is_dir(): raise ValueError('special source files are unsupported')
     return result
 
@@ -158,7 +159,8 @@ def artifacts(attempt):
         if path.is_file():
             result[path.relative_to(attempt).as_posix()] = {
                 'sha256': digest(path.read_bytes()),
-                'executable': bool(path.stat().st_mode & 0o111)}
+                'executable': bool(path.stat().st_mode & 0o111),
+                'execute_bits': path.stat().st_mode & 0o111}
         elif path.is_dir():
             result[path.relative_to(attempt).as_posix() + '/'] = {'directory': True}
         else: raise ValueError('special output files are unsupported')
@@ -169,6 +171,21 @@ def separate_trees(source, destination):
     source, destination = Path(source).resolve(), Path(destination).resolve()
     if destination == source or source in destination.parents or destination in source.parents:
         raise ValueError('source and destination must be separate trees')
+    # resolve() removes symlinks but can preserve alternate case spellings on
+    # case-insensitive volumes. Compare existing ancestors by filesystem identity
+    # as well; the destination itself may not have been created yet.
+    for root, descendant in ((source, destination), (destination, source)):
+        try:
+            root_info = root.stat()
+        except FileNotFoundError:
+            continue
+        for path in (descendant, *descendant.parents):
+            try:
+                info = path.stat()
+            except FileNotFoundError:
+                continue
+            if os.path.samestat(root_info, info):
+                raise ValueError('source and destination must be separate trees')
     return source, destination
 
 

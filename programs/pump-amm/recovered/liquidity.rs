@@ -576,7 +576,13 @@ fn apply_transfer(
         return Ok(());
     }
     put_u64(source, 64, src - xfer.amount);
-    let dst = token_amount(dest).checked_add(net).ok_or(Outcome::Error(TOKEN_OVERFLOW))?;
+    // The captured legacy SPL program wraps destination credit on synthetic
+    // inconsistent token totals; Token-2022 reports overflow instead.
+    let dst = if xfer.program == 0 {
+        token_amount(dest).wrapping_add(net)
+    } else {
+        token_amount(dest).checked_add(net).ok_or(Outcome::Error(TOKEN_OVERFLOW))?
+    };
     put_u64(dest, 64, dst);
     if xfer.fee > 0 {
         add_withheld(dest, xfer.fee)?;

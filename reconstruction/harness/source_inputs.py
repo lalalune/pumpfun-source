@@ -39,6 +39,7 @@ def snapshot(root):
     if not root.is_dir():
         raise ValueError('source root must be a directory')
     files = []
+    directories = []
     def scan_error(error):
         raise error
 
@@ -50,6 +51,7 @@ def snapshot(root):
                 raise ValueError('source directory symlinks and other directory links are not supported')
         if Path(directory) == root:
             dirs[:] = [name for name in dirs if name != 'target']
+        directories.extend((Path(directory) / name).relative_to(root).as_posix() for name in dirs)
         for name in sorted(names):
             if name == '.git':
                 continue
@@ -74,8 +76,9 @@ def snapshot(root):
             files.append({'path': path.relative_to(root).as_posix(), 'bytes': before.st_size,
                           'executable': bool(before.st_mode & 0o111), 'sha256': digest.hexdigest()})
     files.sort(key=lambda row: row['path'])
-    encoded = json.dumps(files, sort_keys=True, separators=(',', ':'), ensure_ascii=False).encode('utf-8')
-    return {'schema': 'pump-source-inputs-v1', 'sha256': hashlib.sha256(encoded).hexdigest(), 'files': files}
+    inputs = {'files': files, 'directories': sorted(directories)}
+    encoded = json.dumps(inputs, sort_keys=True, separators=(',', ':'), ensure_ascii=False).encode('utf-8')
+    return {'schema': 'pump-source-inputs-v2', 'sha256': hashlib.sha256(encoded).hexdigest(), **inputs}
 
 
 def assert_unchanged(root, expected):
@@ -83,5 +86,7 @@ def assert_unchanged(root, expected):
     if actual != expected:
         before = {row['path']: row for row in expected['files']}
         after = {row['path']: row for row in actual['files']}
-        changed = sorted(path for path in before.keys() | after.keys() if before.get(path) != after.get(path))
+        changed_files = {path for path in before.keys() | after.keys() if before.get(path) != after.get(path)}
+        changed_dirs = set(expected.get('directories', ())) ^ set(actual['directories'])
+        changed = sorted(changed_files | changed_dirs)
         raise ValueError('source inputs changed during staging: ' + ', '.join(changed[:10]))

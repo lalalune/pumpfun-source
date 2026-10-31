@@ -1,0 +1,168 @@
+{
+  "reviewed_pr": 3666,
+  "pr_head": "a6e803cdc8e76ec08be95e68ec3c35747409bac5",
+  "merge_commit": "86e2a6b745a22e5109d1454db4882b409c8141b8",
+  "baseline": "90300f9d2efe3ef014b116172251a41bfb104d78",
+  "current_main": "720311c88e547c3a2d5ada174429a18e53c4fd83",
+  "path": "programs/pump/src/creator/admin_cto.rs",
+  "baseline_sha256": "6d8ae6b984e146e495302de1f58f4df30d6a96d5c8dd99be9d707ea4df516d98",
+  "current_sha256": "b40f37cc7a01707134efe5e39069e801b42b1e3c0bca2edb63e4cc3e5a659be3",
+  "newlines_unchanged": true,
+  "changed_line": 339,
+  "only_difference": "Move fee_configurable initializer from last to first in CtoState literal",
+  "old_field_order": [
+    "creator:a.bonding_curve.creator",
+    "max_fee:a.global.max_configurable_creator_fee_bps",
+    "mayhem:a.bonding_curve.is_mayhem_mode",
+    "holder_reward:a.bonding_curve.is_holder_reward",
+    "cashback:a.bonding_curve.is_cashback_coin",
+    "quote_locked",
+    "holder_enabled:a.global.is_holder_reward_enabled",
+    "fee_configurable:a.global.creator_fee_configurable"
+  ],
+  "new_field_order": [
+    "fee_configurable:a.global.creator_fee_configurable",
+    "creator:a.bonding_curve.creator",
+    "max_fee:a.global.max_configurable_creator_fee_bps",
+    "mayhem:a.bonding_curve.is_mayhem_mode",
+    "holder_reward:a.bonding_curve.is_holder_reward",
+    "cashback:a.bonding_curve.is_cashback_coin",
+    "quote_locked",
+    "holder_enabled:a.global.is_holder_reward_enabled"
+  ],
+  "field_expression_multiset_identical": true,
+  "literal_value_semantics": "All8 expressions are immutable typed field copies (Pubkey/u64/bool) or precomputed bool quote_locked. No method call, macro, mutable borrow, error propagation, CPI or side effect is evaluated in literal. Struct declaration unchanged.",
+  "all_text_outside_literal_identical": true,
+  "all_macro_names_lines_columns_identical": true,
+  "macros": [
+    {
+      "macro": "anchor_lang::solana_program::pubkey!",
+      "line": 5,
+      "column": 22
+    },
+    {
+      "macro": "error!",
+      "line": 284,
+      "column": 26
+    },
+    {
+      "macro": "error!",
+      "line": 289,
+      "column": 54
+    },
+    {
+      "macro": "error!",
+      "line": 296,
+      "column": 62
+    },
+    {
+      "macro": "error!",
+      "line": 298,
+      "column": 51
+    },
+    {
+      "macro": "error!",
+      "line": 306,
+      "column": 46
+    },
+    {
+      "macro": "error!",
+      "line": 307,
+      "column": 38
+    },
+    {
+      "macro": "error!",
+      "line": 312,
+      "column": 45
+    },
+    {
+      "macro": "error!",
+      "line": 326,
+      "column": 52
+    },
+    {
+      "macro": "error!",
+      "line": 330,
+      "column": 26
+    },
+    {
+      "macro": "error!",
+      "line": 334,
+      "column": 113
+    },
+    {
+      "macro": "error!",
+      "line": 338,
+      "column": 36
+    },
+    {
+      "macro": "require!",
+      "line": 410,
+      "column": 2
+    },
+    {
+      "macro": "msg!",
+      "line": 556,
+      "column": 130
+    },
+    {
+      "macro": "msg!",
+      "line": 556,
+      "column": 251
+    },
+    {
+      "macro": "error!",
+      "line": 556,
+      "column": 372
+    },
+    {
+      "macro": "msg!",
+      "line": 556,
+      "column": 487
+    },
+    {
+      "macro": "emit!",
+      "line": 564,
+      "column": 140
+    },
+    {
+      "macro": "vec!",
+      "line": 571,
+      "column": 106
+    },
+    {
+      "macro": "error!",
+      "line": 648,
+      "column": 144
+    },
+    {
+      "macro": "require!",
+      "line": 660,
+      "column": 17
+    },
+    {
+      "macro": "require!",
+      "line": 719,
+      "column": 14
+    },
+    {
+      "macro": "msg!",
+      "line": 766,
+      "column": 8
+    },
+    {
+      "macro": "emit!",
+      "line": 767,
+      "column": 435
+    },
+    {
+      "macro": "emit_cpi!",
+      "line": 767,
+      "column": 444
+    }
+  ],
+  "call_name_order_identical": true,
+  "preserved_behavior": "validate call/error precedence, prepare_bonding_curve, wallet collection, sweep, sharing CPI, curve writes, AMM CPI, final event emission sequence unchanged.",
+  "preexisting_volatiles": "Two read_volatile operations retained exactly atlines334/338, no new codegen forcing operation.",
+  "conclusion": "No semantic or macro-source-coordinate regression found; runtime388 and build/scorer acceptance are root-owned and not claimed by this read-only source review."
+}
