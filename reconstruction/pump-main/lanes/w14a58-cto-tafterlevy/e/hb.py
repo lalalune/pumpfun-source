@@ -286,3 +286,38 @@ G['in_6']=_in(_TREE_O,_TREE_6)
 # tree inside, non-holder sharing arm uses a fresh copy of new (let new=new before / after the tafter tuple)
 G['in_tn1']=_in(_TREE_O,_TREE_T.replace('else{let r=(false,Some(args.0),true);','else{let new=new;let r=(false,Some(new),true);'))
 G['in_tn2']=_in(_TREE_O,_TREE_T.replace('target=st.creator;r}','target=st.creator;let new=new;let _=new;r}'))
+G['cuunw']=[('if let Some(f)=fee{curve.creator_fee_bps=f;}','curve.creator_fee_bps=fee.unwrap_or(curve.creator_fee_bps);')]
+G['wlnot']=[('a.current_creator.is_writable==false','!a.current_creator.is_writable')]
+# w14a58 validate-region micro genes (validate/entry +8 is jump-neutral on h0_cu per shift oracle)
+_E_IC='return Err(error!(PumpError::InvalidCreator));'
+G['v_icsplit']=[('if t==*sharing||t==*holder_key{'+_E_IC+'}','if t==*sharing{'+_E_IC+'}if t==*holder_key{'+_E_IC+'}')]
+G['v_icrev']=[('if t==*sharing||t==*holder_key{','if t==*holder_key||t==*sharing{')]
+G['v_icref']=[('if t==*sharing||t==*holder_key{','if &t==sharing||&t==holder_key{')]
+G['v_hrnot']=[('if st.holder_reward&&!(hopt==Some(true)){','if st.holder_reward&&!holder{')]
+G['v_hrne']=[('if st.holder_reward&&!(hopt==Some(true)){','if st.holder_reward&&hopt!=Some(true){')]
+G['v_hdis']=[('if holder&&!st.holder_reward&&!st.holder_enabled{','if holder&&!(st.holder_reward||st.holder_enabled){')]
+G['v_newsome']=[('if holder{if new.is_some(){','if holder{if let Some(_)=new{')]
+G['v_newne']=[('if holder{if new.is_some(){','if holder{if new!=None{')]
+G['v_hkclone']=[('*holder_key}else{','holder_key.clone()}else{')]
+G['v_zero']=[('if t==Pubkey::default(){','if t==Pubkey::new_from_array([0u8;32]){')]
+G['v_zeroeq']=[('if t==Pubkey::default(){','if t.eq(&Pubkey::default()){')]
+G['v_cbnot']=[('let cashback=if holder{false}else{st.cashback};','let cashback=!holder&&st.cashback;')]
+G['v_feeiflet']=[(' match fee{Some(f)=>{if st.quote_locked{',' if let Some(f)=fee{{if st.quote_locked{'),('CreatorFeeBpsOutOfRange));}}None=>{}}','CreatorFeeBpsOutOfRange));}}}')]
+G['v_fsplit']=[('if f==0||f>st.max_fee{','if !(1..=st.max_fee).contains(&f){')]
+G['v_frev']=[('if f==0||f>st.max_fee{','if f>st.max_fee||f==0{')]
+G['v_hsplit']=[('if holder{if new.is_some(){return Err(error!(PumpError::CtoNewCreatorNotAllowed));}*holder_key}else{','if holder&&new.is_some(){return Err(error!(PumpError::CtoNewCreatorNotAllowed));}else if holder{*holder_key}else{')]
+G['v_tmatch']=[('  let t=if let Some(t)=new{t}else{return Err(error!(PumpError::CtoNewCreatorRequired));};','  let t=match new{Some(t)=>t,None=>return Err(error!(PumpError::CtoNewCreatorRequired))};')]
+# w14a58 entry / tree re-read micro genes
+G['en_hk1']=[('let holder_key;let hk=Pubkey::find_program_address(&[b"holder-rewards",mint.as_ref()],&crate::ID);holder_key=hk.0;','let holder_key=Pubkey::find_program_address(&[b"holder-rewards",mint.as_ref()],&crate::ID).0;')]
+G['en_hk2']=[('let holder_key;let hk=Pubkey::find_program_address(&[b"holder-rewards",mint.as_ref()],&crate::ID);holder_key=hk.0;','let (holder_key,_)=Pubkey::find_program_address(&[b"holder-rewards",mint.as_ref()],&crate::ID);')]
+G['en_qany']=[('a.global.whitelisted_quote_mints.contains(&q)','a.global.whitelisted_quote_mints.iter().any(|m|*m==q)')]
+G['en_qnat']=[('q==Pubkey::default()||q==anchor_spl::token::spl_token::native_mint::ID||','q==anchor_spl::token::spl_token::native_mint::ID||q==Pubkey::default()||')]
+G['en_qref']=[('let q=a.bonding_curve.quote_mint;','let q=&a.bonding_curve.quote_mint;'),('q==Pubkey::default()||q==anchor_spl::token::spl_token::native_mint::ID||a.global.whitelisted_quote_mints.contains(&q)','*q==Pubkey::default()||*q==anchor_spl::token::spl_token::native_mint::ID||a.global.whitelisted_quote_mints.contains(q)')]
+G['en_own']=[('a.sharing_config.owner==&FEES','*a.sharing_config.owner==FEES')]
+G['en_mintref']=[('let mint=a.mint.key();','let mint=*a.mint.to_account_info().key;')]
+G['tr_hr']=[('(!st.holder_reward&&st.creator!=Pubkey::default(),None,true)','(!a.bonding_curve.is_holder_reward&&st.creator!=Pubkey::default(),None,true)')]
+G['tr_cb']=[('let cashback=!holder&&st.cashback;','let cashback=!holder&&a.bonding_curve.is_cashback_coin;')]
+G['tr_sk']=[('let sk=a.sharing_config.key();','let sk=*a.sharing_config.key;')]
+G['tr_okq']=[('let (target,sharing_update,cashback)=Ok::<_,anchor_lang::error::Error>((target,sharing_update,cashback))?;','let (target,sharing_update,cashback)=Ok::<_,anchor_lang::error::Error>((target,sharing_update,cashback)).map_err(|e|e)?;')]
+G['tst']=[('else{let r=(false,Some(args.0),true);target=a.bonding_curve.creator;r}','else{let r=(false,Some(args.0),true);target=st.creator;r}')]
+G['noammp']=[('let amm_present=!a.coin_creator_vault_ata.data_is_empty();let amm_frozen=amm_present&&token_frozen(a.coin_creator_vault_ata.as_ref())?;','let amm_frozen=!a.coin_creator_vault_ata.data_is_empty()&&token_frozen(a.coin_creator_vault_ata.as_ref())?;')]

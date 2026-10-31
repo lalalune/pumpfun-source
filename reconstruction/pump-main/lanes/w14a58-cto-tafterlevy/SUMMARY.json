@@ -1,0 +1,32 @@
+{
+  "lane": "w14a58-cto-tafterlevy",
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27,400 B",
+  "bases": {"6330811": {"ratio": 0.65698, "M": 2193}, "2e1379d": {"ratio": 0.65728, "M": 2194}, "fc628cf": {"ratio": 0.65758, "M": 2195}, "39eb377": {"ratio": 0.66477, "M": 2219}},
+  "result": "no landable gain; the su_tafter/c_ammp x le_vy1 size-complement pairing does not compose (sizes add, matches do not). The tafter6+amm_present half landed independently via #3361.",
+  "best_zero_loss_at_pinned_size": null,
+  "best_oracle_rows": {
+    "6330811": {"tafter_a_b2": {"bytes": 27424, "M": 2190}, "tafter_b2": {"bytes": 27408, "M": 2188}, "tafter_le_vy1": {"bytes": 27408, "M": 2158}},
+    "2e1379d": {"tafter_le_vy1": {"bytes": 27416, "M": 2190}, "tafter": {"bytes": 27360, "M": 2198}, "c_ammp": {"bytes": 27376, "M": 2197}, "h0": {"bytes": 27384, "M": 2196}},
+    "fc628cf": {"h0_cu": {"bytes": 27392, "M": 2197, "note": "8 B short, 2 M spare; no +8 knob at <=1 M found"}, "ca_nf": {"bytes": 27400, "M": 2195, "note": "tie with main"}},
+    "39eb377": {"le_vy1": {"bytes": 27440, "M": 2211}, "na_le_vy1": {"bytes": 27424, "M": 2212}, "tst": {"bytes": 27392, "M": 2219, "note": "free -8 B knob"}}
+  },
+  "attempts": {"oracle_trials": 290, "builds": 0},
+  "rejected_mechanisms": [
+    "su_tafter / f6 / c_ammp / h0 + le_vy1 / le_v7c / vy1 / v7c+ny+le+sh_iflet (all mains)",
+    "sharing tuple tree moved inside the validate closure (orig / tafter / f6 / copy before or after the tuple): -840 M",
+    "let new=new copy at closure start / before target / holder arm / by ref with tafter",
+    "103 pool genes on tafter (2e1379d): every size-adding gene costs >= 3 M",
+    "19 validate and 16 entry/tree spellings on h0_cu (fc628cf): token-identical or worse",
+    "40 knob8/size-knob genes on h0_cu: none +8 at <= 1 M"
+  ],
+  "unresolved_residuals": [
+    "le_vy1 closure: +16 M in validate (orig 0x400-0x1000) vs -5 in fee errors (0x1000) and ~-19 spill colour over 0x1400-0x5c00",
+    "le_v7c without the ny copy flips TCF/sweep RA under tafter (-101..-164 M)"
+  ],
+  "next_ideas": [
+    "Pair the free tst (-8 B, 0 M) knob on 39eb377 with any faithful +8 in the validate block or entry (jump-neutral there per shift oracle)",
+    "Re-test le_vy1 only after a lane removes the closure's spill-colour losses in 0x1400-0x5c00 (needs ~+9 M elsewhere)"
+  ],
+  "ledger_keys": "0x22a10-w14-{6330811,2e1379d,fc628cf,39eb377}-tafterlevy-*-v1",
+  "pr": 3376
+}
