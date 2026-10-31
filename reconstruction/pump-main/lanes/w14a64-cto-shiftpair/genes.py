@@ -71,3 +71,36 @@ def _unread(field):
 for _k in range(1,10): G[f'sw{_k}']=_litk(_k,_swapLD)
 G['ur3d']=_litk(3,_unread('data')); G['ur3o']=_litk(3,_unread('owner')); G['ur5r']=_litk(5,_unread('rent_epoch'))
 G['ur9d']=_litk(9,_unread('data')); G['ur9l']=_litk(9,_unread('lamports'))
+G['ur9o']=_litk(9,_unread('owner'))
+G['p_amp']=[("let amm_present=!a.coin_creator_vault_ata.data_is_empty();","let amm_present=a.coin_creator_vault_ata.data_is_empty()==false;")]
+G['p_elseif2']=[("else if !a.coin_creator_vault_ata.data_is_empty(){crate::pump_amm","else if a.coin_creator_vault_ata.data_is_empty()==false{crate::pump_amm")]
+# ---- wallet body / entry spellings (main 304b03a shift map: +8 entry/0x2000-0x24e0, -8 wallet body 0x5cb0-0x62c0) ----
+_CN="  let collection_native=a.quote_mint.key()==anchor_spl::token::spl_token::native_mint::ID;\n"
+_CP="  let coin_present=!a.coin_creator_vault_ata.data_is_empty();\n"
+G['w_cpfirst']=[(_CN+_CP,_CP+_CN)]
+G['w_ccswap']=[("if coin_present&do_coin{","if do_coin&coin_present{")]
+G['w_cconly']=[("if coin_present&do_coin{","if do_coin{")]
+G['w_cc_and2']=[("if coin_present&do_coin{","if coin_present&&do_coin{")]
+G['w_collmatch']=[("if let Some((collected,quote_mint))=crate::collect_v2::collect(","if let Some((collected,quote_mint))=match crate::collect_v2::collect("),
+  (",&a.quote_token_program,a.system_program.as_ref())?{",",&a.quote_token_program,a.system_program.as_ref()){Ok(v)=>v,Err(e)=>return Err(e)}{")]
+G['w_dcif']=[("let do_collect=collection_native||(!a.creator_vault_quote_token_account.data_is_empty()&&!token_frozen(a.creator_vault_quote_token_account.as_ref())?);",
+  "let do_collect=if collection_native{true}else{!a.creator_vault_quote_token_account.data_is_empty()&&!token_frozen(a.creator_vault_quote_token_account.as_ref())?};")]
+G['w_docoinif']=[("let do_coin=coin_present&&!token_frozen(a.coin_creator_vault_ata.as_ref())?;","let do_coin=if coin_present{!token_frozen(a.coin_creator_vault_ata.as_ref())?}else{false};")]
+G['w_evfee_first']=[("let e=CollectCreatorFeeEvent{timestamp:Clock::get()?.unix_timestamp,creator:a.current_creator.key(),creator_fee:collected,quote_mint};","let e=CollectCreatorFeeEvent{creator_fee:collected,quote_mint,timestamp:Clock::get()?.unix_timestamp,creator:a.current_creator.key()};")]
+G['w_bump_a']=[("let authority_bump=ctx.bumps.event_authority;","let authority_bump=ctx.bumps.event_authority as u8;")]
+_QL="let quote_locked={let q=a.bonding_curve.quote_mint;q==Pubkey::default()||q==anchor_spl::token::spl_token::native_mint::ID||a.global.whitelisted_quote_mints.contains(&q)};"
+G['e_ql_nat1']=[(_QL,"let quote_locked={let q=a.bonding_curve.quote_mint;q==anchor_spl::token::spl_token::native_mint::ID||q==Pubkey::default()||a.global.whitelisted_quote_mints.contains(&q)};")]
+G['e_ql_ref']=[(_QL,"let quote_locked={let q=&a.bonding_curve.quote_mint;*q==Pubkey::default()||*q==anchor_spl::token::spl_token::native_mint::ID||a.global.whitelisted_quote_mints.contains(q)};")]
+G['e_ql_wl1']=[(_QL,"let quote_locked={let q=a.bonding_curve.quote_mint;a.global.whitelisted_quote_mints.contains(&q)||q==Pubkey::default()||q==anchor_spl::token::spl_token::native_mint::ID};")]
+G['e_sh_deref']=[("let shared=a.sharing_config.key()==a.bonding_curve.creator&&","let shared=*a.sharing_config.key==a.bonding_curve.creator&&")]
+G['e_sh_rev']=[("let shared=a.sharing_config.key()==a.bonding_curve.creator&&","let shared=a.bonding_curve.creator==a.sharing_config.key()&&")]
+# ---- sweep head spellings (+8 hot zone of ur5r at cand 0x2468-0x24e8 on 39eb377) ----
+_AF="let amm_frozen=amm_present&&token_frozen(a.coin_creator_vault_ata.as_ref())?;"
+G['sh_af_if']=[(_AF,"let amm_frozen=if amm_present{token_frozen(a.coin_creator_vault_ata.as_ref())?}else{false};")]
+G['sh_af_eqf']=[(_AF,"let amm_frozen=amm_present&&token_frozen(a.coin_creator_vault_ata.as_ref())?==true;")]
+_RQ="if amm_frozen{require!(token_raw_amount(a.coin_creator_vault_ata.as_ref())?==0,PumpError::CtoSharedVaultFrozen);}"
+G['sh_rq_ne']=[(_RQ,"if amm_frozen{if token_raw_amount(a.coin_creator_vault_ata.as_ref())?!=0{return Err(error!(PumpError::CtoSharedVaultFrozen));}}")]
+G['sh_rq_let']=[(_RQ,"if amm_frozen{let amt=token_raw_amount(a.coin_creator_vault_ata.as_ref())?;require!(amt==0,PumpError::CtoSharedVaultFrozen);}")]
+G['sh_elseif_amp']=[("else if !a.coin_creator_vault_ata.data_is_empty(){crate::pump_amm","else if amm_present{crate::pump_amm")]
+G['sh_dest_ne']=[("if a.holder_creator_vault.key()!=dest{return","if dest!=a.holder_creator_vault.key(){return")]
+G['sh_dest_deref']=[("if a.holder_creator_vault.key()!=dest{return","if *a.holder_creator_vault.key!=dest{return")]

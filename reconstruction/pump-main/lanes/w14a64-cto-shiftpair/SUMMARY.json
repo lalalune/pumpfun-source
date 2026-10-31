@@ -1,0 +1,52 @@
+{
+ "lane": "w14a64-cto-shiftpair",
+ "target": "0x22a10 admin_cto::execute",
+ "pinned_bytes": 27400,
+ "landed": [
+  {
+   "pr": 3379,
+   "merge_commit": "fc628cfd8",
+   "change": "cu_iflet2 + wl_writ_eq",
+   "before": "0.65758/3192 (0.65728/3192 at branch base)",
+   "after": "0.65758/3183"
+  }
+ ],
+ "best_unlanded": [
+  {
+   "base": "fc628cf",
+   "genes": "p_colnat+ur5r",
+   "ratio": 0.65848,
+   "slots": 3229,
+   "note": "superseded by #3361 before landing"
+  },
+  {
+   "base": "304b03a",
+   "genes": "cu_iflet2+p_colnat",
+   "ratio": 0.65818,
+   "slots": 3261,
+   "note": "superseded by #3386 (contains cu_iflet2)"
+  }
+ ],
+ "final_main": "39eb377 0.66477/3230 M 2219",
+ "final_best_on_final_main": "tie (p_colnat+ur5r, wl_writ_eq+ur5r = 2219)",
+ "attempts": "~150 builds (waves w1-w12), ledger approach shiftpair",
+ "rejected": [
+  "s8take/s10repl (-8, M -12 on 2e1379d)",
+  "n_ensiflet (0 B, -16 M)",
+  "polarity knobs except p_colnat/wl_writ_eq",
+  "CPI literal Rc swaps (0 B)",
+  "native-arm spellings (0 B or -16 B lossy)",
+  "wallet-body spellings (0 B)",
+  "sweep-head spellings (0 B)"
+ ],
+ "residuals": [
+  "+8 at cand 0x54c0 is an RA mov in the original's error edge",
+  "-8 wallet body = do_collect flag spill vs orig r8",
+  "sweep head orig keeps an unthreaded jne r7,2 at orig 0x24eb8"
+ ],
+ "next_ideas": [
+  "ur9o (-16, +0.0005) as a stitch11 su_tafter repay swap",
+  "find a -8 B wallet-body spelling that keeps do_collect in a callee-saved register",
+  "re-run shift.py + jwhy.py on every new main: free +-8 knobs (p_colnat, wl_writ_eq, ur5r, cu_iflet2) are the pairing stock"
+ ]
+}
