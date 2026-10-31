@@ -104,3 +104,4 @@ G['sh_rq_let']=[(_RQ,"if amm_frozen{let amt=token_raw_amount(a.coin_creator_vaul
 G['sh_elseif_amp']=[("else if !a.coin_creator_vault_ata.data_is_empty(){crate::pump_amm","else if amm_present{crate::pump_amm")]
 G['sh_dest_ne']=[("if a.holder_creator_vault.key()!=dest{return","if dest!=a.holder_creator_vault.key(){return")]
 G['sh_dest_deref']=[("if a.holder_creator_vault.key()!=dest{return","if *a.holder_creator_vault.key!=dest{return")]
+G['wl_writ_not2']=[("if a.current_creator.is_writable==false{return","if !a.current_creator.is_writable{return")]

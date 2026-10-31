@@ -110,3 +110,16 @@ on p_colnat (27,408) the best -8 is in the native arm 0x5938-0x5ac8 (+2).
 Mechanism worth reusing: `if x==false` is a pure +8 B block-order knob versus `if !x` at some sites (wl_writ_eq,
 p_colnat); `!= true` / `== true` forms are byte-identical. CPI literal re-read removals (`a.<acct>.<f>` -> `x.<f>`) are
 -8 B (ur5r, ur9l, ur3o) or -16 B (ur9o) and often free.
+
+## 8. Main 0d04cf4 (#3393 w14a72: ur9o + wl_writ_eq repay, 0.66507 / 3,228, M 2,220)
+
+| trial | bytes | M | ratio / slots |
+| --- | ---: | ---: | --- |
+| wl_writ_not2 (back to `!is_writable`) / p_colnat / ur5r singles | -8 / +8 / -8 | 2,220 / 2,220 / 2,218 | |
+| wl_writ_not2 + p_colnat | 27,400 | 2,220 (tie) | 0.66507 / 3,271 |
+| wl_writ_not2 + cu_unwrapcur, ur5r + cu_unwrapcur | 27,400 | 2,219 | 0.66477 |
+| p_colnat + ur5r / ur9l / ur3o | 27,400 | 2,218 / 2,217 / 2,217 | 0.66447-0.66417 |
+| wl_writ_not2 + n_okamt / n_eq0first, ur5r + n_okamt | 27,400 | 2,215 | 0.66357 |
+
+The free +-8 stock (p_colnat, wl_writ_eq/not, ur5r, cu_iflet2/unwrapcur) only ties on 39eb377 and 0d04cf4: the pure
+shift value is now in zones (error-edge RA `mov`, wallet do_collect spill, native-arm join) with no source size knob.
