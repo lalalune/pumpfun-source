@@ -26,6 +26,26 @@ class BuildEnvironmentTests(unittest.TestCase):
         self.assertNotIn('CARGO_BUILD_RUSTC_WORKSPACE_WRAPPER', env)
         self.assertEqual(env['RUSTC_WRAPPER'], str(Path('/harness') / 'rustc_wrapper.py'))
 
+    def test_ambient_cargo_overrides_do_not_reach_the_recipe(self):
+        overrides = {
+            'CARGO_TARGET_SBPF_SOLANA_SOLANA_LINKER': '/absent/linker',
+            'CARGO_TARGET_X86_64_UNKNOWN_LINUX_GNU_LINKER': '/absent/host-linker',
+            'CARGO_PROFILE_RELEASE_LTO': 'true',
+            'CARGO_PROFILE_RELEASE_OPT_LEVEL': '1',
+            'CARGO_PROFILE_RELEASE_CODEGEN_UNITS': '16',
+            'CARGO_INCREMENTAL': 'true',
+            'CARGO_BUILD_INCREMENTAL': 'true',
+        }
+        for name, value in overrides.items():
+            with self.subTest(name=name), patch.dict(os.environ, {name: value}):
+                env = native.build_environment(Path('/harness'), Path('/target'), Path('/out'), '', 1, None)
+            self.assertNotIn(name, env, name + ' reached the pinned recipe')
+        with patch.dict(os.environ, overrides):
+            env = native.build_environment(Path('/harness'), Path('/target'), Path('/out'), '', 1, None)
+        self.assertEqual(env['CARGO_BUILD_JOBS'], '1')
+        self.assertEqual(env['RUSTC_WRAPPER'], str(Path('/harness') / 'rustc_wrapper.py'))
+        self.assertIn('CARGO_TARGET_SBPF_SOLANA_SOLANA_RUSTFLAGS', env)
+
     @unittest.skipUnless(os.name != 'nt' and HOST_TOOLS and (HOST_TOOLS / 'cargo').is_file(),
                          'requires host Cargo/rustc on PATH or PUMP_TEST_RUST_BIN')
     def test_real_cargo_does_not_nest_an_ambient_workspace_wrapper(self):

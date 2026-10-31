@@ -197,8 +197,13 @@ def publish_output(staging, out):
 
 
 def build_environment(harness, target, staging, extra_root_flags, jobs, link_script):
+    # Ambient settings that outrank the admitted recipe stay out, mirroring
+    # fastbuild: profile overrides, target linkers and incremental flags.
     env = {k: v for k, v in os.environ.items() if k not in ('RUSTFLAGS', 'CARGO_ENCODED_RUSTFLAGS',
-            'RUSTC_WORKSPACE_WRAPPER', 'CARGO_BUILD_RUSTC_WORKSPACE_WRAPPER')}
+            'RUSTC_WORKSPACE_WRAPPER', 'CARGO_BUILD_RUSTC_WORKSPACE_WRAPPER',
+            'CARGO_INCREMENTAL', 'CARGO_BUILD_INCREMENTAL')
+           and not k.startswith('CARGO_PROFILE_')
+           and not (k.startswith('CARGO_TARGET_') and k.endswith('_LINKER'))}
     env.update({
         'CARGO_HOME': str(CARGO_HOME), 'CARGO_TARGET_DIR': str(target),
         'RUSTC': str(SDK / 'rust/bin/rustc'), 'RUSTDOC': str(SDK / 'rust/bin/rustdoc'),
