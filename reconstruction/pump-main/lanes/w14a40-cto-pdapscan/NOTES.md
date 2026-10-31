@@ -60,6 +60,7 @@ P0 means before the lamports Rc clone, P1 between the two Rc clones, P2 after th
 | p1cd2r0 ported | 0fbf8da | 0.62609 | 27,352 | | |
 | + pump_creator_vault_ata Rc swap (data first) | 0fbf8da | 0.62948 | 27,344 | | best of 17 Rc swaps |
 | cd3 round 0 (TCF + sharing) | 0fbf8da | **0.63088** | 27,352 | | event_authority `222112`, sharing CpiContext pump_fees key-first |
+| cd3 round 1 | 0fbf8da | 0.63088 | 27,352 | | **fixpoint**: no TCF or sharing clone moves |
 | main | 6330811 | 0.65698 | 27,400 | | |
 | best state ported (source) | 6330811 | 0.63028 | 27,352 | | -0.0267 against main |
 
