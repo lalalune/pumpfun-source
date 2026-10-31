@@ -1,0 +1,574 @@
+{
+  "capture_sha256": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
+  "errors": [],
+  "limits": "No reconstructed-source, full-protocol or security conclusion; signature claims remain those of the unchanged ordinary-signature fixture implementations",
+  "producer_sha256": {
+    "scripts/pump_create_control_differential.py": "cd32b5c71e213c2a5f5f57a8033603643ba8023ec7347a576293611aefb02cde",
+    "scripts/pump_create_differential.py": "5e56d6ac4f2c445a54b0ac7f9ca4ed8f28e68c32866b332130e6f3e60abe7731",
+    "scripts/pump_create_nested_differential.py": "32dd24db20d1dc2c6825d3c27fa6349a4ca5dc96f782917e35abbded6c6aec9b",
+    "scripts/pump_create_quote_differential.py": "4f2e18b8c7102bb59a7c8002cc89964861fbd2dd982753b2de1288536f2418c7",
+    "scripts/pump_create_v2_differential.py": "cdae99767d053c2de96428ded4f3450568746eaa75cad43f15903335b04d97ce",
+    "scripts/pump_creator_collect_differential.py": "28df91527e326c24089bc8be0d763a61340ade45b3ab4e8c2ae6a76ab70a3c97",
+    "scripts/pump_earned_cashback_differential.py": "7b3551c07f4f561038d7fddf1354d7e52ec53d99cde3ddcf1fc7d0a53e105c96",
+    "scripts/pump_extend_differential.py": "53d296ae0974243ef5a7330d7bf070af02b8215462300da96a883888aa3e439e",
+    "scripts/pump_idl_authority_differential.py": "8731e198310319817c0bc311bc63d67766e6fd6f2504f0cc782412bc29559e93",
+    "scripts/pump_legacy_cashback_differential.py": "13eaa3010a634f6a6e00ba481b6e79575a6dc6be3dcada3ad5973c51f5eb3f14",
+    "scripts/pump_validate_volume.py": "c7fdb84347d32d6c1ccb84a5e14a6724a998e3df5587188452dc205d3892ef39"
+  },
+  "producers": {
+    "scripts/pump_create_control_differential.py": {
+      "gzip": {
+        "case_count": 85,
+        "command": [
+          "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+          "-B",
+          "/home/runner/work/pumpfun-source/pumpfun-source/scripts/pump_create_control_differential.py",
+          "--candidate",
+          "/home/runner/work/pumpfun-source/pumpfun-source/evidence/original/pump/deployed.so",
+          "--output",
+          "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/pump_create_control_differential/report.json.gz"
+        ],
+        "compressed": true,
+        "decoded_sha256": "8f9b4889984724032d837100ec54314e48aa926f204801e42638c4a97b200cdc",
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "85 cases 0 mismatches\n",
+        "wire_sha256": "2eaed9d18643cbfaff1f1d515c1fc98b5a5f17de7053914cc819ef04de8703fb"
+      },
+      "plain": {
+        "case_count": 85,
+        "command": [
+          "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+          "-B",
+          "/home/runner/work/pumpfun-source/pumpfun-source/scripts/pump_create_control_differential.py",
+          "--candidate",
+          "/home/runner/work/pumpfun-source/pumpfun-source/evidence/original/pump/deployed.so",
+          "--output",
+          "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/pump_create_control_differential/report.json"
+        ],
+        "compressed": true,
+        "decoded_sha256": "8f9b4889984724032d837100ec54314e48aa926f204801e42638c4a97b200cdc",
+        "plain_reader": {
+          "command": [
+            "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+            "-B",
+            "-c",
+            "import json,sys; r=json.load(open(sys.argv[1],\"rt\",encoding=\"utf-8\")); print(len(r[\"cases\"]))",
+            "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/pump_create_control_differential/report.json"
+          ],
+          "returncode": 1,
+          "stderr": "Traceback (most recent call last):\n  File \"<string>\", line 1, in <module>\n  File \"/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/json/__init__.py\", line 293, in load\n    return loads(fp.read(),\n                 ^^^^^^^^^\n  File \"<frozen codecs>\", line 322, in decode\nUnicodeDecodeError: 'utf-8' codec can't decode byte 0x8b in position 1: invalid start byte\n",
+          "stdout": ""
+        },
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "85 cases 0 mismatches\n",
+        "wire_sha256": "2eaed9d18643cbfaff1f1d515c1fc98b5a5f17de7053914cc819ef04de8703fb"
+      }
+    },
+    "scripts/pump_create_differential.py": {
+      "gzip": {
+        "case_count": 87,
+        "command": [
+          "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+          "-B",
+          "/home/runner/work/pumpfun-source/pumpfun-source/scripts/pump_create_differential.py",
+          "--candidate",
+          "/home/runner/work/pumpfun-source/pumpfun-source/evidence/original/pump/deployed.so",
+          "--output",
+          "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/pump_create_differential/report.json.gz"
+        ],
+        "compressed": true,
+        "decoded_sha256": "684d9420e3da3aec128dcbfe7cf6c604cdfeaedd2e14a322522f765d14bed949",
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "87 cases 0 mismatches\n",
+        "wire_sha256": "8ad2472f8b312a685e5a77977e4a3c54c056b63390373cf023d8be583b25deb7"
+      },
+      "plain": {
+        "case_count": 87,
+        "command": [
+          "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+          "-B",
+          "/home/runner/work/pumpfun-source/pumpfun-source/scripts/pump_create_differential.py",
+          "--candidate",
+          "/home/runner/work/pumpfun-source/pumpfun-source/evidence/original/pump/deployed.so",
+          "--output",
+          "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/pump_create_differential/report.json"
+        ],
+        "compressed": true,
+        "decoded_sha256": "684d9420e3da3aec128dcbfe7cf6c604cdfeaedd2e14a322522f765d14bed949",
+        "plain_reader": {
+          "command": [
+            "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+            "-B",
+            "-c",
+            "import json,sys; r=json.load(open(sys.argv[1],\"rt\",encoding=\"utf-8\")); print(len(r[\"cases\"]))",
+            "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/pump_create_differential/report.json"
+          ],
+          "returncode": 1,
+          "stderr": "Traceback (most recent call last):\n  File \"<string>\", line 1, in <module>\n  File \"/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/json/__init__.py\", line 293, in load\n    return loads(fp.read(),\n                 ^^^^^^^^^\n  File \"<frozen codecs>\", line 322, in decode\nUnicodeDecodeError: 'utf-8' codec can't decode byte 0x8b in position 1: invalid start byte\n",
+          "stdout": ""
+        },
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "87 cases 0 mismatches\n",
+        "wire_sha256": "8ad2472f8b312a685e5a77977e4a3c54c056b63390373cf023d8be583b25deb7"
+      }
+    },
+    "scripts/pump_create_nested_differential.py": {
+      "gzip": {
+        "case_count": 48,
+        "command": [
+          "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+          "-B",
+          "/home/runner/work/pumpfun-source/pumpfun-source/scripts/pump_create_nested_differential.py",
+          "--candidate",
+          "/home/runner/work/pumpfun-source/pumpfun-source/evidence/original/pump/deployed.so",
+          "--output",
+          "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/pump_create_nested_differential/report.json.gz"
+        ],
+        "compressed": true,
+        "decoded_sha256": "722fe09a8c37c250ef658bc879f4f4252aae1aca216fb5964e31791e2bc675a0",
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "{'cases': 48, 'mismatches': []}\n",
+        "wire_sha256": "21ac07beaa57f36b13d544c2444c213890097fe6027b342ddbdc2d330542ee1f"
+      },
+      "plain": {
+        "case_count": 48,
+        "command": [
+          "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+          "-B",
+          "/home/runner/work/pumpfun-source/pumpfun-source/scripts/pump_create_nested_differential.py",
+          "--candidate",
+          "/home/runner/work/pumpfun-source/pumpfun-source/evidence/original/pump/deployed.so",
+          "--output",
+          "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/pump_create_nested_differential/report.json"
+        ],
+        "compressed": true,
+        "decoded_sha256": "722fe09a8c37c250ef658bc879f4f4252aae1aca216fb5964e31791e2bc675a0",
+        "plain_reader": {
+          "command": [
+            "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+            "-B",
+            "-c",
+            "import json,sys; r=json.load(open(sys.argv[1],\"rt\",encoding=\"utf-8\")); print(len(r[\"cases\"]))",
+            "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/pump_create_nested_differential/report.json"
+          ],
+          "returncode": 1,
+          "stderr": "Traceback (most recent call last):\n  File \"<string>\", line 1, in <module>\n  File \"/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/json/__init__.py\", line 293, in load\n    return loads(fp.read(),\n                 ^^^^^^^^^\n  File \"<frozen codecs>\", line 322, in decode\nUnicodeDecodeError: 'utf-8' codec can't decode byte 0x8b in position 1: invalid start byte\n",
+          "stdout": ""
+        },
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "{'cases': 48, 'mismatches': []}\n",
+        "wire_sha256": "21ac07beaa57f36b13d544c2444c213890097fe6027b342ddbdc2d330542ee1f"
+      }
+    },
+    "scripts/pump_create_quote_differential.py": {
+      "gzip": {
+        "case_count": 297,
+        "command": [
+          "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+          "-B",
+          "/home/runner/work/pumpfun-source/pumpfun-source/scripts/pump_create_quote_differential.py",
+          "--candidate",
+          "/home/runner/work/pumpfun-source/pumpfun-source/evidence/original/pump/deployed.so",
+          "--output",
+          "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/pump_create_quote_differential/report.json.gz"
+        ],
+        "compressed": true,
+        "decoded_sha256": "323634aee4e69d9c363c8265c60b7017b9b98c3e30cb8e9aa6995d771d46b256",
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "297 cases 0 mismatches\n",
+        "wire_sha256": "ae522be1bd3fc48fe66b3891087681c6acb815a9662b7a6f9f7637b9c45c368a"
+      },
+      "plain": {
+        "case_count": 297,
+        "command": [
+          "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+          "-B",
+          "/home/runner/work/pumpfun-source/pumpfun-source/scripts/pump_create_quote_differential.py",
+          "--candidate",
+          "/home/runner/work/pumpfun-source/pumpfun-source/evidence/original/pump/deployed.so",
+          "--output",
+          "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/pump_create_quote_differential/report.json"
+        ],
+        "compressed": true,
+        "decoded_sha256": "323634aee4e69d9c363c8265c60b7017b9b98c3e30cb8e9aa6995d771d46b256",
+        "plain_reader": {
+          "command": [
+            "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+            "-B",
+            "-c",
+            "import json,sys; r=json.load(open(sys.argv[1],\"rt\",encoding=\"utf-8\")); print(len(r[\"cases\"]))",
+            "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/pump_create_quote_differential/report.json"
+          ],
+          "returncode": 1,
+          "stderr": "Traceback (most recent call last):\n  File \"<string>\", line 1, in <module>\n  File \"/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/json/__init__.py\", line 293, in load\n    return loads(fp.read(),\n                 ^^^^^^^^^\n  File \"<frozen codecs>\", line 322, in decode\nUnicodeDecodeError: 'utf-8' codec can't decode byte 0x8b in position 1: invalid start byte\n",
+          "stdout": ""
+        },
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "297 cases 0 mismatches\n",
+        "wire_sha256": "ae522be1bd3fc48fe66b3891087681c6acb815a9662b7a6f9f7637b9c45c368a"
+      }
+    },
+    "scripts/pump_create_v2_differential.py": {
+      "gzip": {
+        "case_count": 110,
+        "command": [
+          "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+          "-B",
+          "/home/runner/work/pumpfun-source/pumpfun-source/scripts/pump_create_v2_differential.py",
+          "--candidate",
+          "/home/runner/work/pumpfun-source/pumpfun-source/evidence/original/pump/deployed.so",
+          "--output",
+          "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/pump_create_v2_differential/report.json.gz"
+        ],
+        "compressed": true,
+        "decoded_sha256": "b151278de69dca146ea31792f3ef781f362545dadf74ac9b5f0a98fea9f86158",
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "110 cases 0 mismatches\n",
+        "wire_sha256": "985c9ef1fe3d7318bc9ee5692fb563149233553773135559ee2ace6434203777"
+      },
+      "plain": {
+        "case_count": 110,
+        "command": [
+          "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+          "-B",
+          "/home/runner/work/pumpfun-source/pumpfun-source/scripts/pump_create_v2_differential.py",
+          "--candidate",
+          "/home/runner/work/pumpfun-source/pumpfun-source/evidence/original/pump/deployed.so",
+          "--output",
+          "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/pump_create_v2_differential/report.json"
+        ],
+        "compressed": true,
+        "decoded_sha256": "b151278de69dca146ea31792f3ef781f362545dadf74ac9b5f0a98fea9f86158",
+        "plain_reader": {
+          "command": [
+            "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+            "-B",
+            "-c",
+            "import json,sys; r=json.load(open(sys.argv[1],\"rt\",encoding=\"utf-8\")); print(len(r[\"cases\"]))",
+            "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/pump_create_v2_differential/report.json"
+          ],
+          "returncode": 1,
+          "stderr": "Traceback (most recent call last):\n  File \"<string>\", line 1, in <module>\n  File \"/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/json/__init__.py\", line 293, in load\n    return loads(fp.read(),\n                 ^^^^^^^^^\n  File \"<frozen codecs>\", line 322, in decode\nUnicodeDecodeError: 'utf-8' codec can't decode byte 0x8b in position 1: invalid start byte\n",
+          "stdout": ""
+        },
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "110 cases 0 mismatches\n",
+        "wire_sha256": "985c9ef1fe3d7318bc9ee5692fb563149233553773135559ee2ace6434203777"
+      }
+    },
+    "scripts/pump_creator_collect_differential.py": {
+      "gzip": {
+        "case_count": 119,
+        "command": [
+          "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+          "-B",
+          "/home/runner/work/pumpfun-source/pumpfun-source/scripts/pump_creator_collect_differential.py",
+          "--candidate",
+          "/home/runner/work/pumpfun-source/pumpfun-source/evidence/original/pump/deployed.so",
+          "--output",
+          "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/pump_creator_collect_differential/report.json.gz"
+        ],
+        "compressed": true,
+        "decoded_sha256": "d597615fe3e5efdf0736017e37cd6fb8197254e513e0f64ea2630418e153036c",
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "{\"case_count\": 119, \"mismatches\": []}\n",
+        "wire_sha256": "20b864301ea519d6e4ed9a39fb5e2af2456d2a0f0482cc3796f2a924db7f1a92"
+      },
+      "plain": {
+        "case_count": 119,
+        "command": [
+          "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+          "-B",
+          "/home/runner/work/pumpfun-source/pumpfun-source/scripts/pump_creator_collect_differential.py",
+          "--candidate",
+          "/home/runner/work/pumpfun-source/pumpfun-source/evidence/original/pump/deployed.so",
+          "--output",
+          "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/pump_creator_collect_differential/report.json"
+        ],
+        "compressed": true,
+        "decoded_sha256": "d597615fe3e5efdf0736017e37cd6fb8197254e513e0f64ea2630418e153036c",
+        "plain_reader": {
+          "command": [
+            "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+            "-B",
+            "-c",
+            "import json,sys; r=json.load(open(sys.argv[1],\"rt\",encoding=\"utf-8\")); print(len(r[\"cases\"]))",
+            "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/pump_creator_collect_differential/report.json"
+          ],
+          "returncode": 1,
+          "stderr": "Traceback (most recent call last):\n  File \"<string>\", line 1, in <module>\n  File \"/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/json/__init__.py\", line 293, in load\n    return loads(fp.read(),\n                 ^^^^^^^^^\n  File \"<frozen codecs>\", line 322, in decode\nUnicodeDecodeError: 'utf-8' codec can't decode byte 0x8b in position 1: invalid start byte\n",
+          "stdout": ""
+        },
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "{\"case_count\": 119, \"mismatches\": []}\n",
+        "wire_sha256": "20b864301ea519d6e4ed9a39fb5e2af2456d2a0f0482cc3796f2a924db7f1a92"
+      }
+    },
+    "scripts/pump_earned_cashback_differential.py": {
+      "gzip": {
+        "case_count": 61,
+        "command": [
+          "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+          "-B",
+          "/home/runner/work/pumpfun-source/pumpfun-source/scripts/pump_earned_cashback_differential.py",
+          "--candidate",
+          "/home/runner/work/pumpfun-source/pumpfun-source/evidence/original/pump/deployed.so",
+          "--output",
+          "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/pump_earned_cashback_differential/report.json.gz"
+        ],
+        "compressed": true,
+        "decoded_sha256": "f16fa7fd654d5a6d32beac4e40c3f866cea9d128d631162fda3e3b10a2c30cc8",
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "{\"cases\": 61, \"mismatches\": []}\n",
+        "wire_sha256": "0de586b49a97e49c7baf2830e0ff32058e81dbec19509180fc298425732ea363"
+      },
+      "plain": {
+        "case_count": 61,
+        "command": [
+          "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+          "-B",
+          "/home/runner/work/pumpfun-source/pumpfun-source/scripts/pump_earned_cashback_differential.py",
+          "--candidate",
+          "/home/runner/work/pumpfun-source/pumpfun-source/evidence/original/pump/deployed.so",
+          "--output",
+          "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/pump_earned_cashback_differential/report.json"
+        ],
+        "compressed": true,
+        "decoded_sha256": "f16fa7fd654d5a6d32beac4e40c3f866cea9d128d631162fda3e3b10a2c30cc8",
+        "plain_reader": {
+          "command": [
+            "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+            "-B",
+            "-c",
+            "import json,sys; r=json.load(open(sys.argv[1],\"rt\",encoding=\"utf-8\")); print(len(r[\"cases\"]))",
+            "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/pump_earned_cashback_differential/report.json"
+          ],
+          "returncode": 1,
+          "stderr": "Traceback (most recent call last):\n  File \"<string>\", line 1, in <module>\n  File \"/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/json/__init__.py\", line 293, in load\n    return loads(fp.read(),\n                 ^^^^^^^^^\n  File \"<frozen codecs>\", line 322, in decode\nUnicodeDecodeError: 'utf-8' codec can't decode byte 0x8b in position 1: invalid start byte\n",
+          "stdout": ""
+        },
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "{\"cases\": 61, \"mismatches\": []}\n",
+        "wire_sha256": "0de586b49a97e49c7baf2830e0ff32058e81dbec19509180fc298425732ea363"
+      }
+    },
+    "scripts/pump_extend_differential.py": {
+      "gzip": {
+        "case_count": 308,
+        "command": [
+          "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+          "-B",
+          "/home/runner/work/pumpfun-source/pumpfun-source/scripts/pump_extend_differential.py",
+          "--candidate",
+          "/home/runner/work/pumpfun-source/pumpfun-source/evidence/original/pump/deployed.so",
+          "--output",
+          "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/pump_extend_differential/report.json.gz"
+        ],
+        "compressed": true,
+        "decoded_sha256": "f654964dc782fd4be7a8d299d8deb37e43f55e008936437ce7d89c7d6c69d8ae",
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "308 cases 0 mismatches []\n",
+        "wire_sha256": "899f105c6ae33eef01021438be5f6792a7805379d8bb7a01f9ba352975eb29d3"
+      },
+      "plain": {
+        "case_count": 308,
+        "command": [
+          "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+          "-B",
+          "/home/runner/work/pumpfun-source/pumpfun-source/scripts/pump_extend_differential.py",
+          "--candidate",
+          "/home/runner/work/pumpfun-source/pumpfun-source/evidence/original/pump/deployed.so",
+          "--output",
+          "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/pump_extend_differential/report.json"
+        ],
+        "compressed": true,
+        "decoded_sha256": "f654964dc782fd4be7a8d299d8deb37e43f55e008936437ce7d89c7d6c69d8ae",
+        "plain_reader": {
+          "command": [
+            "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+            "-B",
+            "-c",
+            "import json,sys; r=json.load(open(sys.argv[1],\"rt\",encoding=\"utf-8\")); print(len(r[\"cases\"]))",
+            "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/pump_extend_differential/report.json"
+          ],
+          "returncode": 1,
+          "stderr": "Traceback (most recent call last):\n  File \"<string>\", line 1, in <module>\n  File \"/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/json/__init__.py\", line 293, in load\n    return loads(fp.read(),\n                 ^^^^^^^^^\n  File \"<frozen codecs>\", line 322, in decode\nUnicodeDecodeError: 'utf-8' codec can't decode byte 0x8b in position 1: invalid start byte\n",
+          "stdout": ""
+        },
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "308 cases 0 mismatches []\n",
+        "wire_sha256": "899f105c6ae33eef01021438be5f6792a7805379d8bb7a01f9ba352975eb29d3"
+      }
+    },
+    "scripts/pump_idl_authority_differential.py": {
+      "gzip": {
+        "case_count": 171,
+        "command": [
+          "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+          "-B",
+          "/home/runner/work/pumpfun-source/pumpfun-source/scripts/pump_idl_authority_differential.py",
+          "--candidate",
+          "/home/runner/work/pumpfun-source/pumpfun-source/evidence/original/pump/deployed.so",
+          "--output",
+          "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/pump_idl_authority_differential/report.json.gz"
+        ],
+        "compressed": true,
+        "decoded_sha256": "feb3681be23ddfb9167c11f911003765626590c8677331f2e895401e43f9640e",
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "171 cases 0 mismatches []\n",
+        "wire_sha256": "b27f1e99723a7a145ccab2f62e677b5ebd5173774bfab6d97f4c84f99bd883c9"
+      },
+      "plain": {
+        "case_count": 171,
+        "command": [
+          "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+          "-B",
+          "/home/runner/work/pumpfun-source/pumpfun-source/scripts/pump_idl_authority_differential.py",
+          "--candidate",
+          "/home/runner/work/pumpfun-source/pumpfun-source/evidence/original/pump/deployed.so",
+          "--output",
+          "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/pump_idl_authority_differential/report.json"
+        ],
+        "compressed": true,
+        "decoded_sha256": "feb3681be23ddfb9167c11f911003765626590c8677331f2e895401e43f9640e",
+        "plain_reader": {
+          "command": [
+            "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+            "-B",
+            "-c",
+            "import json,sys; r=json.load(open(sys.argv[1],\"rt\",encoding=\"utf-8\")); print(len(r[\"cases\"]))",
+            "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/pump_idl_authority_differential/report.json"
+          ],
+          "returncode": 1,
+          "stderr": "Traceback (most recent call last):\n  File \"<string>\", line 1, in <module>\n  File \"/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/json/__init__.py\", line 293, in load\n    return loads(fp.read(),\n                 ^^^^^^^^^\n  File \"<frozen codecs>\", line 322, in decode\nUnicodeDecodeError: 'utf-8' codec can't decode byte 0x8b in position 1: invalid start byte\n",
+          "stdout": ""
+        },
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "171 cases 0 mismatches []\n",
+        "wire_sha256": "b27f1e99723a7a145ccab2f62e677b5ebd5173774bfab6d97f4c84f99bd883c9"
+      }
+    },
+    "scripts/pump_legacy_cashback_differential.py": {
+      "gzip": {
+        "case_count": 14,
+        "command": [
+          "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+          "-B",
+          "/home/runner/work/pumpfun-source/pumpfun-source/scripts/pump_legacy_cashback_differential.py",
+          "--candidate",
+          "/home/runner/work/pumpfun-source/pumpfun-source/evidence/original/pump/deployed.so",
+          "--output",
+          "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/pump_legacy_cashback_differential/report.json.gz"
+        ],
+        "compressed": true,
+        "decoded_sha256": "2f472f9bcd22bd5398b990c52efdb809070765dad3584e9b5b3b2642728ffc3f",
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "{\"cases\": 14, \"mismatches\": []}\n",
+        "wire_sha256": "ff69e21466f4b8184ee8013a1a4b3b1531022252771274ab24f7f8a2fe0dc49b"
+      },
+      "plain": {
+        "case_count": 14,
+        "command": [
+          "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+          "-B",
+          "/home/runner/work/pumpfun-source/pumpfun-source/scripts/pump_legacy_cashback_differential.py",
+          "--candidate",
+          "/home/runner/work/pumpfun-source/pumpfun-source/evidence/original/pump/deployed.so",
+          "--output",
+          "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/pump_legacy_cashback_differential/report.json"
+        ],
+        "compressed": true,
+        "decoded_sha256": "2f472f9bcd22bd5398b990c52efdb809070765dad3584e9b5b3b2642728ffc3f",
+        "plain_reader": {
+          "command": [
+            "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+            "-B",
+            "-c",
+            "import json,sys; r=json.load(open(sys.argv[1],\"rt\",encoding=\"utf-8\")); print(len(r[\"cases\"]))",
+            "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/pump_legacy_cashback_differential/report.json"
+          ],
+          "returncode": 1,
+          "stderr": "Traceback (most recent call last):\n  File \"<string>\", line 1, in <module>\n  File \"/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/json/__init__.py\", line 293, in load\n    return loads(fp.read(),\n                 ^^^^^^^^^\n  File \"<frozen codecs>\", line 322, in decode\nUnicodeDecodeError: 'utf-8' codec can't decode byte 0x8b in position 1: invalid start byte\n",
+          "stdout": ""
+        },
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "{\"cases\": 14, \"mismatches\": []}\n",
+        "wire_sha256": "ff69e21466f4b8184ee8013a1a4b3b1531022252771274ab24f7f8a2fe0dc49b"
+      }
+    },
+    "scripts/pump_validate_volume.py": {
+      "gzip": {
+        "case_count": 66,
+        "command": [
+          "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+          "-B",
+          "/home/runner/work/pumpfun-source/pumpfun-source/scripts/pump_validate_volume.py",
+          "--candidate",
+          "/home/runner/work/pumpfun-source/pumpfun-source/evidence/original/pump/deployed.so",
+          "--output",
+          "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/pump_validate_volume/report.json.gz"
+        ],
+        "compressed": true,
+        "decoded_sha256": "1a3736ce100cac8ed336d89cfde9276565fc0704b951de62c964961208bfe82e",
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "66 []\n",
+        "wire_sha256": "779a5d0a23fece4a477fa66276b973ba9a55c72fa9f79a00aef67bdfb6a95ace"
+      },
+      "plain": {
+        "case_count": 66,
+        "command": [
+          "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+          "-B",
+          "/home/runner/work/pumpfun-source/pumpfun-source/scripts/pump_validate_volume.py",
+          "--candidate",
+          "/home/runner/work/pumpfun-source/pumpfun-source/evidence/original/pump/deployed.so",
+          "--output",
+          "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/pump_validate_volume/report.json"
+        ],
+        "compressed": true,
+        "decoded_sha256": "1a3736ce100cac8ed336d89cfde9276565fc0704b951de62c964961208bfe82e",
+        "plain_reader": {
+          "command": [
+            "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+            "-B",
+            "-c",
+            "import json,sys; r=json.load(open(sys.argv[1],\"rt\",encoding=\"utf-8\")); print(len(r[\"cases\"]))",
+            "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/pump_validate_volume/report.json"
+          ],
+          "returncode": 1,
+          "stderr": "Traceback (most recent call last):\n  File \"<string>\", line 1, in <module>\n  File \"/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/json/__init__.py\", line 293, in load\n    return loads(fp.read(),\n                 ^^^^^^^^^\n  File \"<frozen codecs>\", line 322, in decode\nUnicodeDecodeError: 'utf-8' codec can't decode byte 0x8b in position 1: invalid start byte\n",
+          "stdout": ""
+        },
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "66 []\n",
+        "wire_sha256": "779a5d0a23fece4a477fa66276b973ba9a55c72fa9f79a00aef67bdfb6a95ace"
+      }
+    }
+  },
+  "revision": "4b440b1b3603ce6098b130642701943e5f0640f7",
+  "scope": "Complete real CLI corpora for the selected eleven producers, captured-image controls, receipt framing only",
+  "stage": "before",
+  "total_cases_per_output_format": 1366
+}

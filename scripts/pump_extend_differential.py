@@ -56,6 +56,6 @@ def main():
   x=run(c);y=run(c,a.candidate) if a.candidate else None;diff=[k for k in ['before','after','error','events','inner','return'] if y is not None and x[k]!=y[k]]
   rows.append({'case':c,'original':x,'candidate':y,'diff':diff})
   if diff:bad.append(c['name'])
- report={'scope':'Synthetic raw accounts and ordinary verified signatures on offline LiteSVM. Bounded differential evidence, not byte identity.','original_sha256':hashlib.sha256(pin_program(ORIGINAL).read_bytes()).hexdigest(),'candidate_sha256':hashlib.sha256(pin_program(a.candidate).read_bytes()).hexdigest() if a.candidate else None,'script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'cases':rows,'mismatches':bad};publisher.write(gzip.compress(json.dumps(report,indent=2).encode(),mtime=0));print(len(rows),'cases',len(bad),'mismatches',bad)
+ report={'scope':'Synthetic raw accounts and ordinary verified signatures on offline LiteSVM. Bounded differential evidence, not byte identity.','original_sha256':hashlib.sha256(pin_program(ORIGINAL).read_bytes()).hexdigest(),'candidate_sha256':hashlib.sha256(pin_program(a.candidate).read_bytes()).hexdigest() if a.candidate else None,'script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'cases':rows,'mismatches':bad};publisher.write((gzip.compress(json.dumps(report,indent=2).encode(),mtime=0) if a.output.suffix=='.gz' else json.dumps(report,indent=2).encode()));print(len(rows),'cases',len(bad),'mismatches',bad)
  if bad:raise SystemExit(1)
 if __name__=='__main__':main()
