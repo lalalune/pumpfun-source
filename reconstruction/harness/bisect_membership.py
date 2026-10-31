@@ -101,12 +101,24 @@ def main():
                 archive_errors.append({'revision': revision, 'returncode': error.returncode,
                                        'stderr': error.stderr.decode('utf-8', errors='replace')})
                 return 'error'
-            with tarfile.open(fileobj=io.BytesIO(blob)) as archive:
-                if any(m.issym() or m.islnk() for m in archive.getmembers()):
-                    archive_errors.append({'revision': revision, 'reason': 'source links unsupported'})
-                    return 'error'
-                archive.extractall(temporary, filter='data')
-            return run_trial(Path(temporary) / subdir, config['command'], args.out / 'trials' / revision,
+            try:
+                with tarfile.open(fileobj=io.BytesIO(blob)) as archive:
+                    if any(m.issym() or m.islnk() for m in archive.getmembers()):
+                        archive_errors.append({'revision': revision, 'reason': 'source links unsupported'})
+                        return 'error'
+                    archive.extractall(temporary, filter='data')
+            except tarfile.TarError as error:
+                archive_errors.append({'revision': revision, 'reason': 'source archive could not be extracted',
+                                       'detail': str(error)})
+                return 'error'
+            source = Path(temporary) / subdir
+            # A successful archive can exclude the path through export-ignore,
+            # or contain a regular file at a directory used in other revisions.
+            if not source.is_dir():
+                archive_errors.append({'revision': revision,
+                                       'reason': 'archive does not contain the source directory'})
+                return 'error'
+            return run_trial(source, config['command'], args.out / 'trials' / revision,
                              config.get('inputs', []), config.get('timeout', 300))['status']
     result = narrow(revisions, evaluate, args.max_trials)
     if archive_errors:

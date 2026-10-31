@@ -333,6 +333,7 @@ jobs:
               python -B reconstruction/harness/test_bisect_membership.py
               python -B reconstruction/harness/test_bisect_git_context.py
               python -B reconstruction/harness/test_bisect_missing_source.py
+              python -B reconstruction/harness/test_bisect_archived_directory.py
               python -B reconstruction/harness/test_bisect_linked_source.py
               python -B reconstruction/harness/test_experiment_directory_identity.py
               python -B reconstruction/harness/test_experiment_output_directories.py
