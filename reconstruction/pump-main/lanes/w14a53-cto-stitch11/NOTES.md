@@ -198,3 +198,51 @@ unstripped sha c688d0cac740df27, 363-case differential: 0 mismatches. Changes:
 - sweep `let amm_present=!a.coin_creator_vault_ata.data_is_empty();let amm_frozen=amm_present&&token_frozen(..)?;` (w14a38);
 - sharing CPI pump_fees literal `owner:a.pump_fees.owner` (re-read, +16 B here);
 - curve `creator_fee_bps=fee.unwrap_or(curve.creator_fee_bps)` and wallet `!a.current_creator.is_writable` (pre-#3379 forms).
+
+**Landed as #3361 (land.py merge 304b03a82): 0.65758/3,183 -> 0.65788/3,223, 0 losses, differential 363/0.**
+
+## 10. Main 304b03a (#3361, 0.65788, M 2,196, 3,223 slots), branch -2
+
+| variant | ratio | bytes | slots | M |
+| --- | ---: | ---: | ---: | ---: |
+| cu_iflet2 (curve fee `if let`) | 0.65828 | 27,392 | | **2,197** (+1 M at -8 B) |
+| cu_iflet2 + rr5D | 0.65788 | 27,400 | 3,222 | 2,196 (tie) |
+| #3379's pair (cu_iflet2 + wl_writ_eq) | 0.65758 | 27,400 | 3,224 | 2,195 |
+| wl_writ_eq | 0.65748 | 27,408 | | 2,195 |
+| pre_cb_match, pre_cb_not, x_hr_curve, x_cb_curve | 0.65788 | 27,400 | 3,223 | ties |
+| rr7R / rr7E | 0.65698 / 0.65548 | 27,400 | | 2,193 / 2,188 |
+| rr7K / rr5D | 0.65658 / 0.65718 | 27,408 | | 2,192 / 2,194 |
+| su_to_st (target from st again) + wl_writ_eq / + rr5D | 0.65758 / 0.65728 | 27,400 | 3,220 / 3,213 | |
+| amp_inline + {clockvar, rr5D+nf_pre_ev, ev_nf_let+cu_iflet2} | 0.65638-0.65668 | 27,400 | | |
+
+cu_iflet2 + X on 304b03a (44 of 69 built before #3386 landed): best at 27,400 B are **cu_iflet2 + nf_pre_ev** and
+cu_iflet2 + rr5D (+ pre_cb_match / pre_cb_not), 0.65788 with **3,222 slots** (main 3,223: a slot-tiebreak win, overtaken by
+#3386 before it could land). cu_iflet2 + lf_pr_dl is -32 B at M 2,197 (0.65857 @27,368). rr0K/0L/0O/1L/2K/3K/3L/3O fold.
+cu_iflet2 + rr7K 0.65728; + n_mapamt (3 spellings) / ev_cb_local 0.65698; + rr3E/3S/3W +32 B (M 2,192-2,194).
+
+## 11. Main 39eb377 (#3386 w14a66 fee-Some edge, 0.66477, M 2,219, 3,230 slots)
+
+| variant | ratio | bytes | slots | M |
+| --- | ---: | ---: | ---: | ---: |
+| lf_pr_dl (sharing program clone with Rc locals; undoes the 3 pump_fees re-reads) | 0.66537 | 27,376 | | **2,220** |
+| su_to_st (`target=st.creator` in the su arm) | 0.66487 | 27,392 | | 2,219 |
+| pre_cb_match, pre_cb_not, x_hr_curve, x_cb_curve | 0.66477 | 27,400 | 3,230 | ties |
+| v_hr_ne | 0.66477 | 27,400 | 3,230 | tie, 1 raw loss |
+| su_to_st + rr5D | 0.66447 | 27,400 | 3,220 | 2,218 |
+| n_hk_direct, c_ce_cr, cmp_pool_rev, cmp_fees_rev | 0.66447 | 27,400 | 3,230 | 2,218 |
+| cu_unwrapcur / rr5D / nf_pre_ev | 0.66437 | 27,408 | | 2,218 |
+| amp_inline | 0.66437 | 27,384 | | 2,217 |
+| su_to_st + wl_writ_eq / wl_writ_eq | 0.66417 @27,400 / 0.66407 @27,408 | | | 2,217 |
+| rr7R / rr7K / n_mapamt / ev_cb_local / rr7E | 0.66387 / 0.66377 / 0.66347 / 0.66347 / 0.66237 | | | |
+| amp_inline + clockvar / + ev_nf_let + cu_unwrapcur | 0.66327 / 0.66277 | | | |
+| wl_owner_eqsys | 0.63871 | 27,400 | 3,185 | |
+
+Zero-size library re-screen on 39eb377 (67 of 70 genes from the stitch10 tie list, `z_*`): 54 tie at 0.66477 / 3,230
+slots (byte-identical or same slots), the rest 0.66387-0.66447. lf_pr_dl + su_to_st 0.66517 @27,368. No slot-tiebreak win.
+
+## 12. Main 0d04cf4 (#3393 w14a72, 0.66507, M 2,220, 3,228 slots): final panel
+
+su_to_st and wl_writ_not are -8 B at the same M (0.66517 @27,392). pre_cb_match / pre_cb_not / x_hr_curve tie (3,228).
+wl_writ_not + nf_pre_ev / + rr5D 0.66477 (M 2,219); rr7O 0.66427 @27,416; su_to_st + rr5D / nf_pre_ev / cu_unwrapcur
+0.66417; cu_unwrapcur / rr5D / nf_pre_ev 0.66407 @27,408; lf_pr_dl now loses (0.66337 @27,392, M 2,214). Lane stopped here
+(time box).

@@ -306,3 +306,6 @@ G['x_hr_curve']=[("(!st.holder_reward&&st.creator!=Pubkey::default(),None,true)"
 G['x_cr_curve']=[("(!st.holder_reward&&st.creator!=Pubkey::default(),None,true)","(!st.holder_reward&&a.bonding_curve.creator!=Pubkey::default(),None,true)")]
 G['x_cb_curve']=[("let cashback=!holder&&st.cashback;let args","let cashback=!holder&&a.bonding_curve.is_cashback_coin;let args")]
 G['wl_writ_eq']=[("if !a.current_creator.is_writable{return","if a.current_creator.is_writable==false{return")]
+# 304b03a: revert genes for this lane's own landing
+G['su_to_st']=[("else{let r=(false,Some(args.0),true);target=a.bonding_curve.creator;r}","else{let r=(false,Some(args.0),true);target=st.creator;r}")]
+G['amp_inline']=[("let amm_present=!a.coin_creator_vault_ata.data_is_empty();let amm_frozen=amm_present&&token_frozen(a.coin_creator_vault_ata.as_ref())?;","let amm_frozen=!a.coin_creator_vault_ata.data_is_empty()&&token_frozen(a.coin_creator_vault_ata.as_ref())?;")]

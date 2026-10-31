@@ -1,0 +1,85 @@
+{
+  "lane": "w14a53-cto-stitch11",
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27400 B",
+  "result": "landed #3361 (land.py merge 304b03a82): admin_cto 0.65758/3183 -> 0.65788/3223 at 27400 B, 1034/1034, 0 losses, differential 363/0",
+  "landed": [
+    {
+      "pr": 3361,
+      "merge_commit": "304b03a82",
+      "base": "fc628cf",
+      "before": {
+        "ratio": 0.65758,
+        "slots_diff": 3183
+      },
+      "after": {
+        "ratio": 0.65788,
+        "slots_diff": 3223,
+        "bytes": 27400
+      },
+      "unstripped_sha": "c688d0cac740df27",
+      "genes": [
+        "su_r2 (w14a38 su_tafter with target=a.bonding_curve.creator)",
+        "s_amm_present (w14a38)",
+        "rr7O (sharing pump_fees literal owner:a.pump_fees.owner)",
+        "cu_unwrapcur + wl_writ_not (pre-#3379 forms)"
+      ]
+    }
+  ],
+  "bases_screened": {
+    "0fbf8da": 0.65578,
+    "d371f97": 0.65638,
+    "6330811": 0.65698,
+    "c3e5b51": 0.65698,
+    "2e1379d": 0.65728,
+    "0d945ea": 0.65758,
+    "fc628cf": 0.65758,
+    "304b03a": 0.65788,
+    "39eb377": 0.66477,
+    "0d04cf4": 0.66507
+  },
+  "attempts": "about 540 measure.sh builds (ledger approach stitch11, keys 0x22a10-w14-<main7>-stitch11-<name>-v1)",
+  "findings": [
+    "d4 + s_frozen_first + cu_unwrapcur reached 0.65698 on d371f97 (found here in parallel with w14a50, which landed it first as #3358)",
+    "M (matched rx tokens, tools/mcount.py) is the quantity to track: a -8 B knob raises ratio by ~0.0001 with the same M; at 27400 a candidate beats main only with M >= main M + 1",
+    "w14a31 shift.py size-shift oracle: on main 6330811 a pure -8 at the validate/flag block (cand 0x16e8) is +5 M; on d4ff the best +8 region was the sweep native arm / wallet head (+4 M)",
+    "su_tafter (w14a38) is +4 M at -40 B on every main from d371f97 to fc628cf; su_r2 (curve read of the creator) is the same M at -32 B",
+    "re-read gene family rr<k><F> (one field of an x-bound AccountInfo literal read through the account path): most TCF re-reads fold, sharing pump_fees owner/key/rent re-reads are +8..+16 B; rr7O was the repay that landed",
+    "the distinct-sha ties (pre_cb_match, pre_cb_not, wl_owner_eqsys, x_hr_curve, x_cb_curve) never add; pairs/triples of ties stay at main",
+    "on 304b03a cu_iflet2 + nf_pre_ev and cu_iflet2 + rr5D tie with 3222 slots (main 3223): slot-tiebreak wins, overtaken by #3386 before landing",
+    "on 39eb377 (0.66477) lf_pr_dl is +1 M at -24 B and su_to_st 0 M at -8 B; every +8 repay costs >= 1 M"
+  ],
+  "rejected_mechanisms": [
+    "stitch10 near-tie panel singles and pairs (cs_swap3, c_ce_cr, n_hk_direct, cmp_pool_rev, cmp_fees_rev, sh_iflet+cu_unwrapcur, pu_amm_key): one quantum below on every base",
+    "native-arm spellings (ensiflet, ensmatch, andthen, tq, mapamt variants, checked/amtmin/amtmax/lamvar folds)",
+    "wallet head spellings (exec==true, writ!=true, owner deref, frozen==true, owner_eqsys)",
+    "validate spellings (tmatch, tletelse, tokor, hkclone, issome_if, fee_range, fee_lt1, tswap, tcontains, cbnot, feeiflet, zero_ne, fee_gt, mayhem_req) and head spellings (q_arr, q_swap, sh_crkey, sh_ownfirst)",
+    "wl_ts_clockvar (+16) as size repay: +80..+190 slots and -1..-4 M everywhere",
+    "su_tafter / su_r2 repay with ev_nf_let, nf_pre_ev, nf_post_a, nf_blk, n_mapamt, ev_cb_local, n_cb_fwd, cu_replace, c_hr_cb, and 56 re-read genes: best ties"
+  ],
+  "unresolved_residuals": [
+    "lf_pr_dl was +1 M at -24 B on 39eb377 but loses on 0d04cf4 (#3393 removed the owner re-read); su_to_st and wl_writ_not are -8 B at equal M on 0d04cf4 and need a 0 M +8 B partner",
+    "the pure -8 B at the validate/flag block (cand ~0x16e8) worth +5 M on 6330811/2e1379d: the original has another to_string error block there (w14a36 displacement A)"
+  ],
+  "next_ideas": [
+    "rerun the re-read family (rr<k><F>) and the tie panel after each landing; the optimum moved on 7 of 9 landings during this lane",
+    "land slot-tiebreak ties immediately (cu_iflet2 + nf_pre_ev style) right after a landing, before main moves",
+    "pair lf_pr_dl (-24 B, +1 M on 39eb377) with re-reads in other sharing literals that fold to +8 at 0 M in that context"
+  ],
+  "best": {
+    "ratio": 0.65788,
+    "slots_diff": 3223,
+    "bytes": 27400,
+    "base": "fc628cf",
+    "landed": "304b03a82"
+  },
+  "tools": [
+    "genes.py",
+    "run.py",
+    "tools/fnbin.py",
+    "tools/mcount.py",
+    "tools/shift.py",
+    "tools/rx.py",
+    "tools/segdiff.py",
+    "tools/splice.py"
+  ]
+}
