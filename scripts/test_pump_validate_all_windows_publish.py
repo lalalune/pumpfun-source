@@ -56,7 +56,7 @@ class ValidateAllWindowsPublishTests(unittest.TestCase):
             recreated.append(source)
         self.assertFalse(self.invoke_windows(rename))
         self.assertEqual(recreated[0].read_bytes(),b'new staging owner')
-        self.assertEqual(json.loads(self.output.read_bytes())['case_count'],10468)
+        self.assertEqual(json.loads(self.output.read_bytes())['case_count'],sum(self.fixture.expected.values()))
 
     def test_late_output_preserves_complete_recovery_and_late_suite_file(self):
         def rename(source,destination):
@@ -86,7 +86,7 @@ class ValidateAllWindowsPublishTests(unittest.TestCase):
                 self.fixture.complete_suites(self.candidate,self.original)))
         self.assertEqual(replaced[0].read_bytes(),b'new staging owner')
         self.assertEqual((replaced[0].parent/'late-file').read_bytes(),b'late evidence')
-        self.assertEqual(json.loads(self.output.read_bytes())['case_count'],10468)
+        self.assertEqual(json.loads(self.output.read_bytes())['case_count'],sum(self.fixture.expected.values()))
 
     def test_rename_failure_keeps_complete_recovery(self):
         with self.assertRaisesRegex(OSError,'rename failed'):
