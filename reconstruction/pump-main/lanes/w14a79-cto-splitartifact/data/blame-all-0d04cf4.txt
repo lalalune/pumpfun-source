@@ -1,0 +1,42 @@
+register-only misses 395 in orig [0x0,0x6b18): blocked-by-ours-occupant 252, blocked-by-orig-occupant 78, free 65
+  30  ours r9 <- 17c0 mov64 r9, 1 / 18b8 mov64 r9, 0 / 18f0 mov64 r9, 0   e.g. orig 1d28 5950 5be0 5c00 5c08 5cf0
+  27  ours r6 <- 1f10 add64 r6, 264   e.g. orig 2778 2780 2790 2798 27a0 28d8
+  21  ours r9 <- 1d30 ldxb r9, [r1+35]   e.g. orig 1df8 1f68 26c8 29a0 29a8 29b0
+  14  ours r2 <- 4500 ldxdw r2, [r3+24]   e.g. orig 4458 4510 4518 4528 45a8 4660
+  13  ours r0 <- 3308 mov64 r0, r5   e.g. orig 3370 3378 3380 3388 3390 3398
+  12  ours r5 <- 3d48 ldxdw r5, [r10-2272]   e.g. orig 3dc8 3f30 3f80 3f88 3f90 3f98
+  10  ours r8 <- 1d38 ldxdw r8, [r10-2272]   e.g. orig 3130 3138 3140 3148 3150 3158
+   9  ours r6 <- 3d58 ldxdw r6, [r1+8]   e.g. orig 3e70 3e78 3e80 3e88 3e90 3e98
+   7  ours r2 <- 0450 ldxb r2, [r7+162]   e.g. orig 0448 04b8 04d8 0548 0550 0588
+   7  ours r5 <- 3208 ldxdw r5, [r8+8]   e.g. orig 3230 3238 3248 32c8 32d0 3308
+   6  ours r3 <- 0528 ldxdw r3, [r3+0]   e.g. orig 0558 0560 0568 0570 0578 0580
+   6  ours r3 <- 4a58 and64 r3, 1   e.g. orig 4ab8 4ac0 4b58 4b98 4bb0 4bc0
+   5  ours r4 <- 4368 ldxdw r4, [r1+16]   e.g. orig 3f68 3f78 3fe8 4028 4408
+   4  ours r7 <- 5cf8 add64 r7, -1104   e.g. orig 5d10 5d50 5d78 5d98
+   3  ours r9 <- 05a0 add64 r9, 1   e.g. orig 0718 10d0 1658
+   3  ours r1 <- 18d8 mov64 r1, r3   e.g. orig 18d0 18d8 18e0
+   3  ours r0 <- 2688 ldxdw r0, [r2+0]   e.g. orig 26e8 26f0 2718
+   3  ours r6 <- 30c0 ldxdw r6, [r1+16]   e.g. orig 32f8 3328 3450
+   3  ours r3 <- 3428 ldxb r3, [r1+40]   e.g. orig 3458 3460 39f0
+   3  ours r7 <- 4480 ldxdw r7, [r5+152]   e.g. orig 4450 4500 4508
+   3  ours r6 <- 4c08 mov64 r6, 0 / 4df8 mov64 r6, 1   e.g. orig 4f18 4f28 4f40
+   3  ours r7 <- 6458 add64 r7, -1104   e.g. orig 64d8 64e0 64e8
+   2  ours r0 <- 0428 ldxdw r0, [r2+1072]   e.g. orig 0450 0458
+   2  ours r7 <- 2658 ldxdw r7, [r2+8]   e.g. orig 2950 29f0
+   2  ours r0 <- 29b0 ldxdw r0, [r1+0]   e.g. orig 2a68 2b08
+--
+   6  orig r2 <- 31b0 ldxdw r2, [r1+16]   e.g. orig 31b8 31c0 3318 3340 3348 33d0
+   6  orig r2 <- 42a8 ldxdw r2, [r1+144]   e.g. orig 4410 4418 4420 4428 4430 4438
+   5  orig r2 <- 5528 ldxdw r2, [r10-40]   e.g. orig 5530 5570 5578 5590 5598
+   5  orig r3 <- 5530 ldxdw r3, [r10-48]   e.g. orig 5538 5540 5550 5558 5560
+   4  orig r7 <- 01e0 ldxdw r7, [r6-4088]   e.g. orig 02b8 02c8 02d8 02e8
+   4  orig r0 <- 2b08 ldxdw r0, [r2+0]   e.g. orig 2d48 2d50 2d78 30c8
+   3  orig r6 <- 1d30 ldxdw r6, [r10-2296]   e.g. orig 1f38 1f40 23d8
+   3  orig r7 <- 2d48 ldxdw r7, [r8+184]   e.g. orig 2e50 2e58 2e88
+   3  orig r4 <- 31c8 mov64 r4, 1 / 31d8 mov64 r4, 0   e.g. orig 31e8 31f0 31f8
+   3  orig r8 <- 5c30 mov64 r8, 0 / 5ca0 mov64 r8, 1 / 5cb8 mov64 r8, 0   e.g. orig 5cc0 5cc8 5ce8
+   2  orig r3 <- 31c0 add64 r3, 1   e.g. orig 31c8 31d8
+   2  orig r1 <- 3f40 ldxdw r1, [r1+0]   e.g. orig 3f58 3f60
+   2  orig r8 <- 4c40 mov64 r8, 0 / 4e30 mov64 r8, 1   e.g. orig 4e80 4e88
+   2  orig r6 <- 50e8 add64 r6, 312   e.g. orig 50f0 50f8
+   1  orig r6 <- 0000 mov64 r6, r5   e.g. orig 0078

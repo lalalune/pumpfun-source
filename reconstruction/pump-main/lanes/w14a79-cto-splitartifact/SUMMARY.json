@@ -1,0 +1,34 @@
+{
+  "lane": "w14a79-cto-splitartifact",
+  "target": "0x22a10 admin_cto::execute",
+  "base": "0d04cf460",
+  "result": "notes only; no zero-loss gain",
+  "best": {"ratio": 0.66507, "slots_diff": 3228, "bytes": 27400, "note": "= main; no candidate beat it"},
+  "artifact_map": {"orig_sites": 31, "ours_sites": 22,
+    "clone_run_reg_misses_0x2800_0x4000": 160, "blocked_by_ours_occupant": 120, "blocked_by_orig_occupant": 26, "free": 14,
+    "explained_by_artifact_named_values": 60, "explained_fraction": 0.375,
+    "named_values": ["&a.holder_creator_vault r6 (22)", "ctx.bumps.creator_vault r9 (18)", "accounts pointer r8/r5 (20)"]},
+  "attempts": [
+    {"name": "tagmem", "L1": 0.67817, "L2": 0.77059, "bytes": 27312},
+    {"name": "sp328", "L1": 0.68355, "L2": 0.77974, "bytes": 27384},
+    {"name": "spb", "L1": 0.68004, "L2": 0.77736, "bytes": 27424},
+    {"name": "sp2", "L1": 0.66826, "L2": 0.77695, "bytes": 27432},
+    {"name": "sp3", "L1": 0.66298, "L2": 0.75905, "bytes": 27448},
+    {"name": "tai (source)", "ratio": 0.64241, "L1": 0.68733, "L2": 0.78077, "bytes": 27416},
+    {"name": "tai+sp3", "L1": 0.65539, "L2": 0.76707, "bytes": 27432}
+  ],
+  "rejected_mechanisms": [
+    "sharing tag kept in memory (frees r6, clone run loses L1)",
+    "spill-at-def of holder ref / bump / native, alone or together (musical chairs; confirms w14a45 acc108)",
+    "faithful first TCF clone (to_account_info), alone or with the trio spills"
+  ],
+  "unresolved": [
+    "clone-run naming is decided inside the run: orig holds clone1 key/lamports in r9/r7 until 0x2958, ours spills them at once",
+    "ours r6/r9 hold holder ref and bump across the TCF run (orig spills at 0x1f48/0x1f70); not source-reachable (binding/hoist byte-identical per w14a45)"
+  ],
+  "next_ideas": [
+    "use blame.py/press.py as a pre-screen on new bases: aim for 6-7 live regs in 0x2600-0x2e00 without IR spills",
+    "levers that change clone-piece spill weights (use counts or final-store placement of the TCF AccountInfo pieces)"
+  ],
+  "ledger_keys": "0x22a10-w14-0d04cf4-splitartifact-*"
+}
