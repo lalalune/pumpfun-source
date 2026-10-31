@@ -104,3 +104,56 @@ entry copy 25, curve tail 15, event 16, sweep head 10.
 - `tools/segdiff.py <base fn.bin> <variant fn.bin> [--lvl N]`: per call-segment match delta of a variant (use rx.py's fn.bin).
 - `tools/regpairs.py <so> lo hi`: dominant register permutation in a region.
 - `tools/capvar.sh`, `rx.py`, `capraw.py` (w14a01's oracle, repointed), `tools/rec.py` (ledger recorder).
+
+## Size drift and frame remaps on 6db95a7 (DRIFT.txt, FRAMEPAIRS.txt)
+
+`tools/drift.py` aligns the whole window with frame and registers masked and prints, per 0x400 of the original, the
+median (our offset - original offset) of matched instructions:
+- validate (0x800-0x1400) is block-reordered (drift jumps +408 / -824);
+- from 0x1c00 ours runs 24-72 B behind the original; the sharing CPI (0x3c00-0x4400) loses another ~50 B (only 7
+  instructions of 0x4000-0x4400 align at all, the literal region is reordered); the tail then gains it back (+40 at
+  0x4c00, +32 at 0x5c00, +16, +24), so ours is ~50 B short in the sharing CPI and ~100 B long in 0x4c00-0x6b08.
+- ratio is not positional, so drift only matters through jump offsets (jm) and slots_diff.
+
+`tools/framepairs.py`: 253 aligned instructions differ only in the r10 displacement (2,061 aligned are equal). The
+largest single remaps: the accounts spill slot (orig -0x8d8, ours -0x8e0, 13 instructions), orig -0x950 -> ours -0x8e8
+(7), the error-name String buffer (orig -0x488/-0x4b8 -> ours -0x470, 5+5 per error block), -0x938 -> -0x930 (5).
+No single remap is worth more than ~0.004.
+
+## Later screens on 6db95a7 (main 0.65458)
+
+| variant | bytes | ratio |
+| --- | ---: | ---: |
+| le_vy1 / le_vy1m (w14a21 validate closure lead, re-tested) | 27,392 | 0.63191 / 0.63071 |
+| ev_hr: event `is_holder_reward` from the curve (the original's load) | 27,392 | 0.65169 |
+| ev_hr_cbfirst | 27,392 | 0.65169 |
+| ev_cbfirst, ev_swept_early, ev_pool_early, ev_reset_local (literal order / matches!) | 27,400 | = main (identical) |
+
+## Lead: sharing-arm tuple before the target store (su_tafter, +0.0017 at -40 B)
+
+On main 6db95a7 (0.65458), in execute's `(collect_old,sharing_update,skip)` tree:
+
+```rust
+// main
+}else{target=st.creator;(false,Some(args.0),true)}
+// su_tafter (t2/t3/t4/t6 spellings are byte-identical to it)
+}else{let r=(false,Some(args.0),true);target=st.creator;r}
+```
+
+| variant (oracle, = identity build tokens) | bytes | ratio |
+| --- | ---: | ---: |
+| main 6db95a7 | 27,400 | 0.65458 |
+| su_tafter | 27,360 | **0.65627** |
+| su_tafter + s_amm_present (`let amm_present=!..data_is_empty();let amm_frozen=amm_present&&..`) | 27,376 | **0.65638** |
+| su_tafter + clone (`Some(args.0.clone())`) | 27,256 | 0.60258 |
+| t5: `target=st.creator` after the whole tree (`if shared&&!holder{..}`) | 27,384 | 0.4519 |
+| su_new / su_argsval (`Some(new)`, `args=(new,)` by value) | 27,344 | 0.46904 |
+| su_ok_drop (drop the `Ok::<_,Error>((..))?` re-wrap) | 27,400 | 0.54164 |
+
+su_tafter is about +4 exact matches (2M/(n_o+n_c): 2185 -> 2189) and 5 fewer instructions; the change is a register
+re-colouring of the validate head and the tuple copies (orig 0x1800-0x1a50 keeps a two-stage copy of `sharing_update`,
+ours one). **It is not landable yet: it needs +40 B (or +24 B on the s_amm_present stack) at <= ~3 lost matches.**
+67 w14a31 knobs that still apply were stacked on su_tafter+s_amm_present: 46 are now byte-identical (27,376 / 0.65638),
+the size-adding ones lose too much (wl_ixlit +32 B -> 0.65208, wl_native_deref +80 B -> 0.6512, ev_bc_deref, s_native_deref,
+tp_pargs_hold, wl_infos_ref worse). `Some(args.0)` re-spellings (`map`, `if let`, `match`, `as_ref().copied()`) cost 96-104 B
+and fall to 0.603.
