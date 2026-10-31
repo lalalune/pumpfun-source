@@ -334,9 +334,11 @@ def references(name, source):
                         unsupported.add((name, job_id, 'dynamic command/directory'))
                         continue
                     index += 1
-                    while index < len(tokens) and tokens[index].startswith('-'):
+                    python = interpreter.startswith('python')
+                    # Shells also accept +-prefixed options (bash +e, +o pipefail).
+                    prefixes = ('-',) if python else ('-', '+')
+                    while index < len(tokens) and tokens[index].startswith(prefixes) and tokens[index] != '+':
                         option = tokens[index]
-                        python = interpreter.startswith('python')
                         if option == '--':
                             index += 1
                             break
