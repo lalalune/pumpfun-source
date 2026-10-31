@@ -58,6 +58,15 @@ exactly. It loses at every level we priced, even with a perfect frame. The `_12.
      0.563, 0.618 and 0.502 at -200..+104 B.
    - Conclusion: no code-neutral source form exists. Any spelling that blocks `_12.i` adds a store before the mayhem test.
 
+6. **Full build of s1 on fc628cf** (measure.sh): **0.53539 at 27,456 B**, normalized 1034. Raw is 347 because the size
+   change moves every later window. ERRBLK_orig_vs_s1.txt lists the error sites, original vs s1.
+   - The validate sites now use name -0x488 with buffer -0x4b8, or name -0x4d0 with buffer -0x488. Both pairs occur in the
+     original (main uses -0x470).
+   - The remaining residual in this region is the target 7 B piece. s1 stores it at -0x545, in an object at -0x548.
+     The original stores it at -0x535 (object -0x538) and copies it to -0x54d (object -0x550) at orig 0x19e0.
+   - This is the target 8/24 split region, so the copy only pays off together with the validate target-representation
+     change.
+
 ## Next ideas (untried here)
 - s1 has the original's colouring. It can only pay off if the cascade objects also follow the original:
   - `target.i.sroa.0` and the 7/9 target pieces;
