@@ -1,0 +1,21 @@
+{
+  "lane": "w15a23-cto-decisionenum",
+  "target": "0x22a10 admin_cto::execute",
+  "base": "main 9120883 (admin_cto 0.67376 / 3124 slots @ 27400 B; true-LCS --- 2255, -fj 2599, rfj 3007; Mperm(bin) 2292)",
+  "result": "notes only; no zero-loss improvement",
+  "best": {"variant": "d9 == mil (isomorphic enum Sharing{Reset(Option<Pubkey>),Keep}; byte-identical to if let Some(val)=sharing_update)", "ratio": 0.67236, "bytes": 27392, "rfj": 3007},
+  "best_at_pinned_size": {"variant": "mil + L_fee_unwrap_again (or cu_fee_oldunwrap)", "ratio": 0.66926, "bytes": 27400},
+  "attempts": 75,
+  "ledger_keys": "0x22a10-w15-9120883-decisionenum-*",
+  "findings": [
+    "orig sharing-tag slot [r10-0x8f8] defs are {new.tag (ldxb, 0x4e0), 0 (0x1188), pass-through (0x1838), 2 (0x18d8, 0x1980)}: exactly Option<Option<Pubkey>>; no third constant, so no >=3-variant decision enum",
+    "3+-variant decision tags tested at several later sites are jump-threaded through the join phi: tail re-layout, rfj -212 (d5) to -790 (d6b), ratio 0.19-0.56",
+    "isomorphic 2-variant Sharing enum (d9) == m_il: post-CPI jne r7,2 polarity (orig 0x4aa0 form), -8 B; 33 catalog knobs cannot repay it (best at 27400: 0.66926)",
+    "validate returning Result<Creator>/Result<Option<Pubkey>>/Result<(Pubkey,bool)> kills the holder arg spill inside validate and makes cashback a 2-def validate-exit phi, frame top reaches orig 0xc38; but splits target 6/10 (orig 7/9), adds c.sroa pieces and shifts all aggregates <0x440 by -8: --j -780, -fj -51..-342, bounded below main",
+    "Kind{Holder,Wallet{cashback}} / Option<bool> for the curve stores: -120..-150 B, -fj -280"
+  ],
+  "rejected_mechanisms": ["d1 3-variant Next w/ payload (7 spellings)", "d4 4-variant", "d5 payload-less tail gate", "d6 payload-less Next", "d7 single match dispatch", "d8 orig-tag-valued 2-variant Next", "v validate->(Pubkey,Next)", "h validate-return Creator/Option/(Pubkey,bool) (11)", "k Kind/Option<bool> cashback (8)", "mil + 33 size knobs"],
+  "unresolved": ["faithful +8 B before orig 0x4a78 to repay the mil/d9 polarity", "h-family frame: keep Pubkey at Result offset 1 with a validate-exit holder decision"],
+  "next_ideas": ["price mil + a pre-CPI +8 B with a junk-position bound (w14a72 style) to find where a faithful +8 B pays", "start any holder-out-param lane from h1's gate (r3 dead, cashback phi) and -fj numbers"],
+  "tools": ["tools/mv.py", "tools/prep.sh", "tools/gate.sh", "tools/mperm.py", "tools/cap.sh", "edits/gen*.py"]
+}
