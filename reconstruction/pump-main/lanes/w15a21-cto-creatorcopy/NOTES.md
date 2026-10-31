@@ -92,8 +92,19 @@ code almost everywhere:
 tokens, the outlined `to_string` region). The O base's losses at 0x1800-0x4000 (+45/+78/+34 tokens back in
 0x2800/0x3000/0x3800) are RA and frame perturbation that this binding plus arm order removes. So O + tf_g3 is main minus
 7 LCS tokens at 376 B less code. That is 376 B of repay room for the original's missing data flow, with the 2 extra lddw
-relocations gone (the only non-.text ELF difference). On O312 the stabilizer does nothing. No source trigger for O
-is known yet: w14a141 / w15a02's T outlines 312 only. Size-knob repay table on O + tf_g3: `screen_table_outline.md`.
+relocations gone (the only non-.text ELF difference). Otf_g3_O scores ratio 0.66325, above the best source-level
+outline base (w15a02 `T+dv1+le306`, 0.66236). On O312 the stabilizer does nothing. No source trigger for O is known yet:
+w14a141 / w15a02's T outlines 312 only. By w14a141's BFI rule, 307 also needs a pre-inline frequency below 0.02; it
+is at 0.0283 now (memcmp==0 = 37.5 %).
+
+**Knob repay on O + tf_g3** (all 40 `sizeknobs-cto.json` knobs that apply, `Q*` rows in `screen_table_outline.md`):
+no knob repays. Each knob changes O + tf_g3 by the same M as it changes plain tf_g3, so knobs are additive and do not
+depend on the outline. 11 knobs are byte-identical (0 B, 0 M). The best positive-byte knobs are `wl_ts_clockvar` and
+`g_w_clock_local` (+16 B, -3 M), then `cu_fee_oldunwrap`, `g_fee_unwrap` and `L_fee_unwrap_again` (+8 B, -17 M). The
+376 B must come from faithful data flow, not from catalog knobs.
+
+Round 6: per-arm target (`t1`, `t2` as a tree-tuple field) with the shared arm reading `st.creator` collapses like
+w15a09's t1 (M 1,211 to 1,266: whole-frame shift).
 
 ## Next ideas
 

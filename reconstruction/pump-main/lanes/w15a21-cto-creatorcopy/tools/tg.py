@@ -229,3 +229,8 @@ G['tf_q']=[("let quote_locked={","let creator=a.bonding_curve.creator;let quote_
 G['tf_h']=[("let holder_key;let hk=","let creator=a.bonding_curve.creator;let holder_key;let hk="),_arm('creator','t')]
 G['tf_a']=[("let a=&ctx.accounts;let mint","let a=&ctx.accounts;let creator=a.bonding_curve.creator;let mint"),_arm('creator','t')]
 G['tf_t']=[("let (_holder,cashback,target,sharing_update,collect_old,skip)={ let st=","let creator=a.bonding_curve.creator;let (_holder,cashback,target,sharing_update,collect_old,skip)={ let st="),_arm('creator','t')]
+# ---- round 6 (w15a21): target-per-arm (t1/t2) with the arm reading st.creator ----
+G['t2s']=[(_VAL,"let target=validate(&st,hopt,fee,new,&holder_key,&sk)?;"),
+         (_TREE,"let (collect_old,skip,target)=if shared{if holder{sharing_update=Some(None);(false,false,target)}else{sharing_update=Some(args.0);(false,true,st.creator)}}else{("+_CO+",true,target)};")]
+G['t2st']=[(_VAL,"let target=validate(&st,hopt,fee,new,&holder_key,&sk)?;"),
+         (_TREE,"let (collect_old,skip,target)=if shared{if holder{sharing_update=Some(None);(false,false,target)}else{let t=st.creator;sharing_update=Some(args.0);(false,true,t)}}else{("+_CO+",true,target)};")]
