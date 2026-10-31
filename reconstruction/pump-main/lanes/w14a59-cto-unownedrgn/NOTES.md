@@ -49,7 +49,7 @@ What each miss is (orig offset: original vs ours), by mechanism:
 | bump spilled to [-0x910] after the dest compare, reloaded for `&[bump]`; ours keeps it in r9 | 0x1f70, 0x2060 | w14a45 b1/sb |
 | swept/Err payload in r9 (one phi = return payload); ours uses r3 at the join and r8 at the return | 0x2148, 0x2220, 0x25f8, 0x3b98, 0x3c40, 0x5858/0x5870, 0x5950, 0x54d0-0x54e0 (`mov r9,r1`), 0x55a8, 0x5b18 | w14a06 swept coalescing, w14a33 section 5 |
 | join test tail-duplicated into the 660 block (`ldxdw r1,[-0x950]; jne r7,2`); ours has J2 (`jne r7,2,+1; ja`) after transfer_native | 0x2608-0x2610, 0x5b10-0x5b28 | w14a33 / w14a51 (J2) |
-| token-arm `?` Err pad (`ldxdw r9,[-0x2c8]; ja join`) placed after the TCF Err edge; ours places it after the 660 block | 0x3ba8-0x3bb0 | placement only; w14a36 chain scan: every such move is <= 0 |
+| token-arm `?` Err pad (`ldxdw r9,[-0x2c8]; ja join`) placed after the TCF Err edge; ours places it after the 660 block | 0x3ba8-0x3bb0 | placement only. w14a36's mvblk/asmscore oracle on main 2e1379d: moving pad `LBB0_289` to the original position (before the Rent::get block `LBB0_290`) gives 0.65578 (-0.0015) at 3,191 slots |
 | token arm: `token_raw_amount` first (amount in r6, `add64 r8,0x48` in place); main calls `token_frozen` first | 0x20c8-0x2160 | this lane, below |
 | error-name String buffer [-0x488] vs ours [-0x470] | 0x5688, 0x57c0-0x57e0 | w14a57 frameremap |
 
