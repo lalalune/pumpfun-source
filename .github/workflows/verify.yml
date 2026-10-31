@@ -115,6 +115,7 @@ jobs:
               python -B scripts/test_pump_fresh_output_optimized.py
               python -B scripts/test_amm_harness_content_cache.py
               python -B tests/test_amm_build_environment.py
+              python -B tests/test_amm_nested_target.py
               python -B scripts/test_search_dependency_commit.py
               python -B tests/test_amm_pinned_candidate.py
               python -B tests/test_pump_create_nested_pinned_image.py

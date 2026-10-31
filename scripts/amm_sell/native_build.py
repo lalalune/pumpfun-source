@@ -226,7 +226,7 @@ def build(lane, build_id, source_root=None, sell=None, patch=None, extra_root_fl
     try:
         # Reuse the lane's selected baseline, not a different global source.
         # This also resets patches when no global PRISTINE was configured.
-        subprocess.run(['rsync', '-a', '--delete', '--checksum', '--exclude', 'target',
+        subprocess.run(['rsync', '-a', '--delete', '--checksum', '--exclude', '/target/',
                         str(lane / 'baseline-ws') + '/', str(ws) + '/'], check=True)
         sell_path = ws / SELL_REL
         if sell is not None:
