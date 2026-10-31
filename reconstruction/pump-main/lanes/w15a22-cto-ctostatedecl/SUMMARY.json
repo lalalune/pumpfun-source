@@ -1,0 +1,17 @@
+{
+  "lane": "w15a22-cto-ctostatedecl",
+  "target": "0x22a10 admin_cto::execute",
+  "base": {"main": "86e2a6b74 (program unchanged through 9120883a9)", "ratio": 0.67376, "slots_diff": 3124, "bytes": 27400, "M": 2249},
+  "best_zero_loss_measured": {"variant": "d014523 (bool declaration mayhem,holder_reward,holder_enabled,fee_configurable,cashback,quote_locked)", "ratio": 0.67406, "slots_diff": 3123, "bytes": 27400, "normalized": 1034, "raw": 1034, "losses": 0, "landed": false, "why_not_landed": "unfaithful: only st store offsets move; the +1 token is a register-number coincidence (cand r1=cashback at st+44, orig r1=holder_enabled at st+44). Main's layout equals the original's for all 8 fields."},
+  "findings": [
+    "CtoState layout of main == original for all 8 fields (creator 0, max_fee 32, mayhem 40, holder_reward 41, cashback 42, quote_locked 43, holder_enabled 44, fee_configurable 45; st at r10-0x38).",
+    "rustc keeps declaration order within alignment groups; creator/max_fee order is byte-identical (w15a01 eq_main); only the 6 bools' relative order matters.",
+    "Post-opt, the declaration only remaps which value is stored at st+40..45 (validate inlined, reads forwarded).",
+    "All 720 bool orders: 540 tie (M 2249), 180 +1 (M 2250, 0.67406), 16 of them at 3123 slots; no schedule/RA change in any.",
+    "postperm.py post-opt llc-only oracle: ~0.5 s/variant, verified byte-identical to a real capture and to measure.sh."
+  ],
+  "rejected_mechanisms": ["CtoState bool declaration permutations (720)", "creator/max_fee declaration position (identical bytes)"],
+  "unresolved_residuals": ["class G store order/RA: needs curve bools loaded before the quote memcmps and held (class B flaghoist, -48 B, RA collapse)"],
+  "next_ideas": ["flaghoist F0 base + faithful 48 B repay + RA pass", "post-opt llc-only sweeps for any below-opt lever"],
+  "ledger_keys": ["0x22a10-w15-86e2a6b-ctostatedecl-layoutmap-v1", "0x22a10-w15-86e2a6b-ctostatedecl-sweep720-v1", "0x22a10-w15-86e2a6b-ctostatedecl-d014523-v1"]
+}
