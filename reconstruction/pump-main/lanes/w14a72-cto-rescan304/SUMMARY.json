@@ -1,0 +1,24 @@
+{
+  "lane": "w14a72-cto-rescan304",
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27,400 B",
+  "bases": ["39eb377aa (0.66477, 3230 slots, M 2219)", "0d04cf460 (0.66507, 3228 slots, M 2220)"],
+  "landed": [{"pr": 3393, "merge": "0d04cf460", "before": {"ratio": 0.66477, "slots": 3230}, "after": {"ratio": 0.66507, "slots": 3228, "bytes": 27400},
+    "change": "sharing program literal owner:x.owner (drop #3361 owner re-read, -16 B +2 M) repaid by wallet is_writable==false (+8) and sharing match (+8)",
+    "differential": "363/0", "unstripped_sha16": "e41fae3c34c0472c"}],
+  "best": {"ratio": 0.66507, "slots_diff": 3228, "bytes": 27400, "normalized": 1034, "raw": 1034},
+  "attempts": {
+    "39eb377": ["rscan singles+pairs 18 clones (600)", "19 Rc-swap/literal captures + re-read on each (2472)", "8 move-a-re-read bases", "rO-base re-read pairs (600)", "rO + wl/cu/sm fills (14 captures)", "irre/irremat/irhold"],
+    "0d04cf4": ["rscan singles+pairs (600)", "pscan place/pp 3 sharing clones (2646) + 10 TCF clones (7290)", "48 single knobs", "13 sweep-head spellings", "7 PDA-error spellings", "net-0 fill lattice (15)", "C0 removals (5) and repays (12)", "C0 re-read pairs/triples (455)", "junk maps wlB / aP / C0 / wlB+rP", "irre/irremat/irhold on wlB and C0"]
+  },
+  "rejected": ["Rc-order swaps on every TCF and sharing clone", "re-read ADDs as fill on any base (cost 1-4 M each)", "gw / wl_ts_clockvar fill (moves 160 slots)", "PDA check spellings (fold to main)", "volatile placeholder via sharing/u64 (identical)"],
+  "unresolved": [
+    "C0 = main minus wl, sm and the pool_authority rent re-read: M 2224 at 27,376 (+4 M at -24 B); needs 24 B of faithful fill at <= 3 M",
+    "sweep-head PDA ConstraintSeeds error path: original spill reload of &holder_creator_vault and jne r7,2 tag test (+2 M junk bound on wlB)",
+    "IR-only leads: %_389/_391@bb1 sharing_config pointer re-read (+1 M @+8), authority_info drop re-read %_254.val"
+  ],
+  "next_ideas": [
+    "find 24 B of faithful code costing <= 3 M on C0 (entry region junk is +1 per slot)",
+    "make the sweep's PDA error go through a Result<u64> memory slot so the tag test survives",
+    "rerun move-a-re-read after every landing that touches the sharing CPI, wallet or curve store"
+  ]
+}
