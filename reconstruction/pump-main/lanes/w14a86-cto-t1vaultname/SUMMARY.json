@@ -1,0 +1,45 @@
+{
+ "lane": "w14a86-cto-t1vaultname",
+ "target": "0x22a10 admin_cto::execute",
+ "pinned_bytes": 27400,
+ "bases": [
+  "0d04cf4 0.66507",
+  "95a64ba 0.66986",
+  "ecea702 0.67076",
+  "963d1ee 0.67226 (this lane, #3437)"
+ ],
+ "best": {
+  "ratio": 0.67226,
+  "slots_diff": 3123,
+  "bytes": 27400,
+  "normalized": 1034,
+  "raw": 1034,
+  "pr": 3437,
+  "merge_commit": "963d1eefb",
+  "unstripped_sha": "c3ea5d9310d855ee"
+ },
+ "landed_change": "nf local for event new_creator_fee_bps + pool_authority rent_epoch:x.rent_epoch + sharing if-let (no t1)",
+ "attempts": "~300 oracle captures/probes + 2 measure.sh + land.py; ledger approach t1vaultname",
+ "rejected": [
+  "spillprobe sp328/spb/sp2/sp3 on t1 (lose L1, naming unchanged)",
+  "accounts reload in token arm P1/P1b/P1c/P1d",
+  "separate GEP for transfer arg (H1)",
+  "t1+C0",
+  "t1 x 130 gene library",
+  "holder-vault path spellings (hv binding, deref, clone, ctx.accounts, amount!=0)",
+  "t1 on ecea702/963d1ee (-6 M)",
+  "aP+16 B fills",
+  "library singles on 963d1ee"
+ ],
+ "mechanism": "token-arm field ptr %245 has physreg hint r3 (priority bit 30), dequeued while accounts %0 holds r8; %0 later evicted by entry value %387 and split; unhinted amount %247 inherits r8. Original naming needs the reverse queue order.",
+ "residuals": [
+  "t1 naming (+5 M bound per w14a70) not source-reachable",
+  "aP route 1-2 M short",
+  "+8/+16 size leads (colnat, cu_unwrapcur, clock_local) lack an M-neutral -8 repay"
+ ],
+ "next": [
+  "give the token amount a physreg hint or split %0 before %245 dequeue (no source form known)",
+  "finish library singles 81-125 on 963d1ee",
+  "repay colnat/cu_unwrapcur with a faithful -8 lever other than rL/cm"
+ ]
+}

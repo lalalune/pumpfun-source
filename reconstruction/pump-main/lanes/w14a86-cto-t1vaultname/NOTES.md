@@ -70,3 +70,15 @@ Freeing r6 does not hand it to the amount. The field pointer `%245` (`COPY %0; A
 - t1 stays a skeleton lead (+8 L2-aligned tokens in the token arm) whose gain is lost to naming. Only a change in greedy queue
   order fixes that: the amount needs a physreg hint, or `%0` must be split before `%245` is dequeued. No source form found.
 - nf + aP is 1 M behind nf + rP + sm at the same size. Try aP on top of the landed state with an 8-16 B faithful fill.
+
+## After the landing (main 963d1ee, M 2,244)
+
+| screen | runs | best at 27,400 |
+| --- | ---: | --- |
+| aP (-16) + 16 B fills (we/cn/cuw/cb/wcl/wts/mk) | 8 | aP+we+cn 2,242 (0.67166) |
+| t1 + {aP + fill, rL, cm} | 7 | t1+aP+we 2,240. t1 alone 2,238 @27,408 (-6 M at +8 B) |
+| gene/knob library singles (80 of 125) | 80 | none above main. +size leads: w_clock_local / wl_ts_clockvar 2,241 @27,416, colnat 2,241 @27,408, cu_unwrapcur 2,240 @27,408 |
+| those +8 leads + cu_match / rL | 4 | 2,242 (0.67166) |
+
+t1 loses M on every base measured (0d04cf4 -1, 95a64ba -1, ecea702 -6, 963d1ee -6 net of size), and the probes above show
+its token-arm naming cannot be reached from source. The angle is exhausted.
