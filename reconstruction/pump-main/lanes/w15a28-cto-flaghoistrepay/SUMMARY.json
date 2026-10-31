@@ -1,0 +1,93 @@
+{
+ "lane": "w15a28-cto-flaghoistrepay",
+ "target": "0x22a10 admin_cto::execute",
+ "base": {
+  "main": "9120883a9",
+  "ratio": 0.67376,
+  "slots_diff": 3124,
+  "bytes": 27400,
+  "M": 2249,
+  "Mperm": 2293,
+  "Mhc": 2300
+ },
+ "best_zero_loss_measured": {
+  "variant": "main (no source change)",
+  "ratio": 0.67376,
+  "slots_diff": 3124,
+  "bytes": 27400,
+  "landed": false
+ },
+ "kill_test": {
+  "F0": {
+   "bytes": 27352,
+   "ratio": 0.63478,
+   "M": 2117,
+   "Mperm": 2197,
+   "Mhc": 2205,
+   "alloca_shift": 0,
+   "shperm": 2205
+  },
+  "threshold": 2300,
+  "passed": false
+ },
+ "bound_table": {
+  "main": {
+   "ra_p2": "9 forces 0.68395 @27376",
+   "joint_Mhc": 2338,
+   "lcs_---": 35,
+   "lcs_rfj": 2
+  },
+  "F0": {
+   "ra_p2": "16 forces 0.67447 @27296",
+   "joint_Mhc": 2322,
+   "lcs_---": 18,
+   "lcs_rfj": -3
+  },
+  "GF": {
+   "M": 2103,
+   "Mhc": 2206,
+   "ra_p1": "12 forces 0.66096 @27296",
+   "joint_Mhc_p1": 2285
+  },
+  "GPF": {
+   "M": 1958,
+   "Mhc": 2183,
+   "ra_p2": "14 forces 0.66667 @27368",
+   "joint_Mhc": 2306,
+   "lcs_rfj_plain": 19,
+   "lcs_rfj_ra": 30
+  }
+ },
+ "findings": [
+  "F0 frame objects equal main's (fobj): no alloca shift, so the shperm bound equals Mhc = 2205 < main 2300; kill test fails.",
+  "F0's difflib L2 +64 is +1 rfj under true LCS (confirms the w14a124/w14a128 artifact finding).",
+  "Sticky RAPRIO climbs priced like-for-like: F0 16 forces + spill perm 2322 < main 9 forces + perm 2338; F0 also lands at 27296 B.",
+  "Head-order variants recolour the accounts pointer %0 over the wallet/sweep head (orig 0x1d68-0x20f8) from the original's r8 to r6: F0's top force %1684 (29 sites) and GPF's %249 (add64 r8,72 in wallet() between token_frozen and token_raw_amount, +0.054 alone).",
+  "Forcing the original's bool colouring (mayhem held in r8, cashback spilled) on F0 loses 0.005-0.013.",
+  "GPF (PDA first + g + bools first) is the only head-order form with a real skeleton gain (true LCS rfj +19/+30, all in orig 0x0-0x800); joint bound 2306 < 2338; one force %249=r8 is worth +0.054 on it."
+ ],
+ "rejected_mechanisms": [
+  "F0 flaghoist on 9120883 (bound)",
+  "GF on 9120883 (bound)",
+  "GPF on 9120883 (bound)",
+  "F0 with the original bool colouring forced"
+ ],
+ "not_run": [
+  "48 B faithful repay of F0 (gated on the bound; bound failed)"
+ ],
+ "unresolved_residuals": [
+  "class B/G head order: only reachable with a whole-function RA cascade; GPF's %249 decision is the largest single head RA lever"
+ ],
+ "next_ideas": [
+  "Keep ctx.accounts (%0) in r8 over wallet()/the sweep head (orig 0x1d68-0x20f8) under a head-order base: e.g. wallet()/sweep taking the accounts reference as a fresh argument or local, so greedy does not split %0 there; GPF + %249=r8 alone is 0.64149 from 0.58719",
+  "Treat F0/GF as dominated; only spend size repay on GPF-family heads if an RA-side source lever is found"
+ ],
+ "ledger_keys": [
+  "0x22a10-w15-9120883-flaghoistrepay-m0-v1",
+  "0x22a10-w15-9120883-flaghoistrepay-F0bound-v1",
+  "0x22a10-w15-9120883-flaghoistrepay-F0origcolour-v1",
+  "0x22a10-w15-9120883-flaghoistrepay-GFbound-v1",
+  "0x22a10-w15-9120883-flaghoistrepay-GPFbound-v1",
+  "0x22a10-w15-9120883-flaghoistrepay-F0pass2-v1"
+ ]
+}
