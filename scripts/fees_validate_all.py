@@ -21,6 +21,46 @@ publisher=PumpReport(a.output,ROOT,a.candidate,__file__,extra_inputs=[
  ROOT/'evidence/dependencies/donation_relay/deployed.so',
 ])
 CASE_DIFFERENCE_FIELDS=('different_fields','diff','differences','mismatched_fields','mismatches','failures')
+# Match each producer's comparison contract; raw logs/compute are deliberately
+# excluded except for the event lines those producers compare themselves.
+OUTCOME_FIELDS={
+ 'queries':(),
+ 'administration':('error','data_hex','lamports','owner','payer_delta','events','inner_instructions'),
+ 'initialization':('error','data_hex','lamports','owner','balance_deltas','pump_data','events','inner_instructions'),
+ 'configuration':('error','data_hex','lamports','owner','balance_deltas','events','inner_instructions'),
+ 'extension':('error','data_hex','lamports','owner','balance_deltas','events','inner_instructions'),
+ 'deprecated':('error','accounts','payer_delta','events','inner_instructions'),
+ 'upsert':('error','data_hex','lamports','owner','balance_deltas','events','inner_instructions'),
+ 'admin_transfer':('error','data_hex','lamports','owner','payer_delta','events','inner_instructions'),
+ 'donation_create':('error','data','owner','lamports','payer_delta','authority_delta','events','inner'),
+ 'donation_crank':('error','before','after','inner'),
+ 'social_create':('error','data','lamports','owner','authority_lamports','inner'),
+ 'social_claim':('error','before','after','events','inner','return'),
+ 'social_claim_v2':('error','before','after','events','inner','return'),
+ 'withdrawal':('error','before','after','events','inner','return'),
+ 'buyback':('error','before','after','inner','return'),
+ 'sharing_creation':('error','sharing','curve','payer_lamports','authority_lamports','sharing_lamports','pool','pool_lamports','curve_lamports','events','inner'),
+ 'sharing_update':('error','before','after','events','inner','return'),
+ 'sharing_admin_cto':('error','before','after','events','inner','return'),
+}
+EVENT_LOG_SUITES={'donation_crank','social_create','buyback'}
+def validate_outcomes(name,index,row):
+ original,candidate=row.get('original'),row.get('candidate')
+ assert isinstance(original,dict) and isinstance(candidate,dict),f'{name} case {index}: incomplete original/candidate outcome'
+ if name=='queries':
+  assert set(original) in ({'fees'},{'error'}) and set(candidate) in ({'fees'},{'error'}),f'{name} case {index}: query outcome is missing'
+ for field in OUTCOME_FIELDS[name]:
+  assert field in original and field in candidate,f'{name} case {index}: missing retained {field}'
+  assert original[field]==candidate[field],f'{name} case {index}: retained {field} differs'
+ if name in ('queries','deprecated'):
+  assert original==candidate,f'{name} case {index}: retained outcomes differ'
+ if name in EVENT_LOG_SUITES:
+  events=[]
+  for outcome in (original,candidate):
+   logs=outcome.get('logs')
+   assert isinstance(logs,list) and all(isinstance(line,str) for line in logs),f'{name} case {index}: event log source missing'
+   events.append([line for line in logs if line.startswith('Program data:')])
+  assert events[0]==events[1],f'{name} case {index}: retained events differ'
 def validate_suite_receipt(name,suite):
  assert isinstance(suite,dict),f'{name}: suite receipt must be an object'
  cases=suite.get('cases')
@@ -42,10 +82,7 @@ def validate_suite_receipt(name,suite):
   diff_fields=tuple(field for field in CASE_DIFFERENCE_FIELDS if field in row)
   for field in diff_fields:
    assert row[field]==[],f'{name} case {index}: {field} is not an empty difference list'
-  if 'original' in row or 'candidate' in row:
-   assert row.get('original') is not None and row.get('candidate') is not None,f'{name} case {index}: incomplete original/candidate outcome'
-   if 'match' not in row and not diff_fields:
-    assert row['original']==row['candidate'],f'{name} case {index}: retained outcomes differ'
+  validate_outcomes(name,index,row)
  return suite_mismatches
 candidate=pin_program(a.candidate.resolve())
 process_hashes={str(path.relative_to(ROOT)):hashlib.sha256(path.read_bytes()).hexdigest() for path in PROCESS_INPUTS}

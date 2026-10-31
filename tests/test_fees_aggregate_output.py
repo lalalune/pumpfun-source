@@ -4,6 +4,7 @@ The child programs only isolate publication; they do not simulate SBF execution.
 The recorded manual reproduction additionally runs all 18 real LiteSVM suites.
 """
 import ast
+import gzip
 import hashlib
 import json
 import os
@@ -20,7 +21,8 @@ CHILD = '''import argparse,hashlib,json,pathlib
 p=argparse.ArgumentParser();p.add_argument('--candidate');p.add_argument('--output');a=p.parse_args()
 r=pathlib.Path(__file__).resolve().parents[1]
 sha=lambda p:hashlib.sha256(pathlib.Path(p).read_bytes()).hexdigest()
-pathlib.Path(a.output).write_text(json.dumps({'original_sha256':sha(r/'evidence/original/pump_fees/deployed.so'),'candidate_sha256':sha(a.candidate),'cases':[{}],'mismatches':[]}))
+case=json.loads(pathlib.Path(__file__).with_suffix('.case.json').read_text())
+pathlib.Path(a.output).write_text(json.dumps({'original_sha256':sha(r/'evidence/original/pump_fees/deployed.so'),'candidate_sha256':sha(a.candidate),'cases':[case],'mismatches':[]}))
 '''
 
 
@@ -38,8 +40,13 @@ class FeesAggregateOutputTests(unittest.TestCase):
         suites = next(ast.literal_eval(node.iter) for node in ast.walk(tree)
                       if isinstance(node, ast.For) and isinstance(node.iter, ast.List))
         self.assertEqual(len(suites), 18)
-        for _, name in suites:
+        retained = json.loads(gzip.decompress((
+            ROOT / 'research/runtime-fees-retained-outcomes-20261101/bounded-receipts.json.gz'
+        ).read_bytes()))['suites']
+        for suite, name in suites:
             (scripts / name).write_text(CHILD)
+            (scripts / name).with_suffix('.case.json').write_text(
+                json.dumps(retained[suite]['cases'][0]), encoding='utf-8', newline='\n')
         for relative in (
             'programs/pump-fees/unused-source-input.rs',
             'evidence/original/pump_fees/deployed.so',
@@ -60,10 +67,11 @@ class FeesAggregateOutputTests(unittest.TestCase):
                    '--candidate', str(candidate), '--output', str(output)]
         if limited:
             # Each small child receipt fits; the complete aggregate exceeds it.
+            limit = max(path.stat().st_size for path in (root / 'scripts').glob('*.case.json')) + 1024
             command = [sys.executable, '-c',
                        'import os,resource,signal,sys;'
                        'signal.signal(signal.SIGXFSZ,signal.SIG_IGN);'
-                       'resource.setrlimit(resource.RLIMIT_FSIZE,(512,512));'
+                       f'resource.setrlimit(resource.RLIMIT_FSIZE,({limit},{limit}));'
                        'os.execv(sys.argv[1],sys.argv[1:])', *command]
         return subprocess.run(command, capture_output=True, text=True, timeout=30)
 

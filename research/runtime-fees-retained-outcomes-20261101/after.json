@@ -1,0 +1,45 @@
+[
+  {
+    "mode": "control",
+    "revision": "working-tree",
+    "consumer_sha256": "549224260e3a23cc41e504034933341d05b2251b5f4b5f30d9c71a4af85a91fa",
+    "corpus_sha256": "7bbf6de8cd78f2014f166e952166fbe8d327586dc56c9ec8b9be6f965f528114",
+    "input_cases": 36,
+    "exit_code": 0,
+    "stdout": "{\"cases\": 36, \"mismatches\": []}\n",
+    "stderr": "",
+    "prior_output_preserved": false,
+    "published_cases": 36,
+    "published_mismatches": [],
+    "mutation": null,
+    "published_contradiction": false
+  },
+  {
+    "mode": "contradiction",
+    "revision": "working-tree",
+    "consumer_sha256": "549224260e3a23cc41e504034933341d05b2251b5f4b5f30d9c71a4af85a91fa",
+    "corpus_sha256": "7bbf6de8cd78f2014f166e952166fbe8d327586dc56c9ec8b9be6f965f528114",
+    "input_cases": 36,
+    "exit_code": 1,
+    "stdout": "",
+    "stderr": "Traceback (most recent call last):\n  File \"/var/folders/hw/1_m97sh13711zrn4l7_s3fq40000gn/T/fees-consumer-replay-sbk3bk9s/scripts/fees_validate_all.py\", line 99, in <module>\n    suite_mismatches[name]=validate_suite_receipt(name,suites[name])\n                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/var/folders/hw/1_m97sh13711zrn4l7_s3fq40000gn/T/fees-consumer-replay-sbk3bk9s/scripts/fees_validate_all.py\", line 85, in validate_suite_receipt\n    validate_outcomes(name,index,row)\n  File \"/var/folders/hw/1_m97sh13711zrn4l7_s3fq40000gn/T/fees-consumer-replay-sbk3bk9s/scripts/fees_validate_all.py\", line 54, in validate_outcomes\n    assert original[field]==candidate[field],f'{name} case {index}: retained {field} differs'\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: administration case 0: retained error differs\n",
+    "prior_output_preserved": true,
+    "published_cases": null,
+    "published_mismatches": null,
+    "mutation": {
+      "target_case": {
+        "name": "set_authority-0",
+        "instruction": "set_authority",
+        "arg": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "candidate_source_case": {
+        "name": "set_authority-1",
+        "instruction": "set_authority",
+        "arg": "a118043359e7cb45ea8bb201e7c8b943f13456c0a4d1b11d4343a7828089fbba"
+      },
+      "original_error": "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6001))))",
+      "replacement_error": null
+    },
+    "published_contradiction": false
+  }
+]
