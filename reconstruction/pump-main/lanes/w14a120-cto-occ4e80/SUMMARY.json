@@ -1,0 +1,18 @@
+{
+ "lane": "w14a120-cto-occ4e80",
+ "target": "0x22a10 admin_cto::execute",
+ "base": "ebe5387e1 (0.67316 / 3123 @27400)",
+ "result": "notes only; no zero-loss gain at 27400",
+ "best_zero_loss": {"ratio": 0.67316, "slots_diff": 3123, "bytes": 27400, "note": "= main"},
+ "best_at_27400_source": {"name": "c4", "spec": "nf_back+p_colnat+rP_back+wl_writ_eq", "ratio": 0.67076},
+ "ra_findings": {
+  "main_force_1684_r6": 0.67585,
+  "n1_force_1682_r6": {"ratio": 0.67676, "bytes": 27376},
+  "c4_force_1683_r6": {"ratio": 0.67645, "bytes": 27400},
+  "n1_climb_ceiling": {"ratio": 0.68485, "bytes": 27376, "forces": 11},
+  "mechanism": "main: pool_updated %1649 evicts old_fee from r6 at greedy step 589; event accounts piece misses r2 hint and takes free r8. n1 (no nf local): pool_updated takes the freed r9, old_fee keeps r6, event piece takes r8. Original: tag r6, clock r7, pool_updated r8, swept r9 force the accounts split r2 -> r6 and old_fee spill."
+ },
+ "rejected": ["a1/a3/a4 pool_updated value-if/match (byte-identical)", "a2 pargs before gate", "e1/e2/e3 ctx.accounts re-derivation (identical)", "n1 + tail spellings", "of1/of2 old_fee early read", "n1 + ph / pu_own", "n1 + 24 B repays c1-c8"],
+ "unresolved": ["old_fee must lose r6 to the event accounts piece on n1; needs r7-r9 busy across the event"],
+ "next": ["n1 + untested repay triples k00-k16", "pr1 pool_updated recomputed at the event", "a value faithfully live in r8/r9 across the event on n1"]
+}

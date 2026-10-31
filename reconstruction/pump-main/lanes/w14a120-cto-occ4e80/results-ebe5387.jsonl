@@ -1,0 +1,60 @@
+{"name": "a1", "ratio": 0.67316, "bytes": 27400, "slots_diff": 3123, "secs": 22.3, "eq_main": true}
+{"name": "a2", "ratio": 0.63085, "bytes": 27456, "slots_diff": null, "secs": 24.0, "eq_main": false}
+{"name": "a3", "ratio": 0.67316, "bytes": 27400, "slots_diff": 3123, "secs": 24.8, "eq_main": true}
+{"name": "a4", "ratio": 0.67316, "bytes": 27400, "slots_diff": 3123, "secs": 23.4, "eq_main": true}
+{"name": "n1", "ratio": 0.67106, "bytes": 27376, "slots_diff": null, "secs": 21.6, "eq_main": false}
+{"name": "a1n1", "ratio": 0.67106, "bytes": 27376, "slots_diff": null, "secs": 23.7, "eq_main": false}
+{"name":"nb_pargs_hr_local","spec":"nf_back+pargs_hr_local","error":"compile"}
+{"name": "nb_rP_back", "ratio": 0.67006, "bytes": 27384, "slots_diff": null, "secs": 11.6, "eq_main": false, "spec": "nf_back+rP_back"}
+{"name": "nb_wl_ts_clockvar", "ratio": 0.66996, "bytes": 27392, "slots_diff": null, "secs": 11.7, "eq_main": false, "spec": "nf_back+wl_ts_clockvar"}
+{"name": "nb_p_colnat", "ratio": 0.67096, "bytes": 27384, "slots_diff": null, "secs": 15.4, "eq_main": false, "spec": "nf_back+p_colnat"}
+{"name": "nb_wl_writ_eq", "ratio": 0.67006, "bytes": 27384, "slots_diff": null, "secs": 17.3, "eq_main": false, "spec": "nf_back+wl_writ_eq"}
+{"name": "nb_cu_unwrapcur", "ratio": 0.66976, "bytes": 27384, "slots_diff": null, "secs": 16.8, "eq_main": false, "spec": "nf_back+cu_unwrapcur"}
+{"name": "nb_ev_mint_key", "ratio": 0.66187, "bytes": 27392, "slots_diff": null, "secs": 16.3, "eq_main": false, "spec": "nf_back+ev_mint_key"}
+{"name": "nb_nf_blk", "ratio": 0.67316, "bytes": 27400, "slots_diff": 3123, "secs": 16.3, "eq_main": true, "spec": "nf_back+nf_blk"}
+{"name": "nb_pu_own", "ratio": 0.63402, "bytes": 27416, "slots_diff": null, "secs": 16.6, "eq_main": false, "spec": "nf_back+pu_own"}
+{"name": "nb_n_mapamt", "ratio": 0.66946, "bytes": 27384, "slots_diff": null, "secs": 17.2, "eq_main": false, "spec": "nf_back+n_mapamt"}
+{"name": "nb_p_feecfg", "ratio": 0.65748, "bytes": 27384, "slots_diff": null, "secs": 16.8, "eq_main": false, "spec": "nf_back+p_feecfg"}
+{"name": "nb_p_dc_empty", "ratio": 0.65628, "bytes": 27384, "slots_diff": null, "secs": 18.0, "eq_main": false, "spec": "nf_back+p_dc_empty"}
+{"name": "nb_hkmut", "ratio": 0.66677, "bytes": 27408, "slots_diff": null, "secs": 17.9, "eq_main": false, "spec": "nf_back+hkmut"}
+{"name": "nb_g_w_clock_local", "ratio": 0.66996, "bytes": 27392, "slots_diff": null, "secs": 13.5, "eq_main": false, "spec": "nf_back+g_w_clock_local"}
+{"name": "c2", "ratio": 0.66986, "bytes": 27400, "slots_diff": 3283, "secs": 15.5, "eq_main": false, "spec": "nf_back+p_colnat+g_w_clock_local"}
+{"name": "c1", "ratio": 0.66986, "bytes": 27400, "slots_diff": 3283, "secs": 15.4, "eq_main": false, "spec": "nf_back+p_colnat+wl_ts_clockvar"}
+{"name": "c4", "ratio": 0.67076, "bytes": 27400, "slots_diff": 3134, "secs": 12.4, "eq_main": false, "spec": "nf_back+p_colnat+rP_back+wl_writ_eq"}
+{"name": "c3", "ratio": 0.66896, "bytes": 27400, "slots_diff": 3284, "secs": 12.4, "eq_main": false, "spec": "nf_back+rP_back+wl_ts_clockvar"}
+{"name": "c5", "ratio": 0.63262, "bytes": 27408, "slots_diff": null, "secs": 15.4, "eq_main": false, "spec": "nf_back+@ph"}
+{"name": "c8", "ratio": 0.67076, "bytes": 27400, "slots_diff": 3160, "secs": 15.5, "eq_main": false, "spec": "nf_back+p_colnat+rP_back+cu_unwrapcur"}
+{"name": "c7", "ratio": 0.67046, "bytes": 27400, "slots_diff": 3131, "secs": 14.1, "eq_main": false, "spec": "nf_back+p_colnat+cu_unwrapcur+wl_writ_eq"}
+{"name": "c6", "ratio": 0.63114, "bytes": 27432, "slots_diff": null, "secs": 14.0, "eq_main": false, "spec": "@ph"}
+{"name": "e2", "ratio": 0.67316, "bytes": 27400, "slots_diff": 3123, "secs": 17.4, "eq_main": true, "spec": "@e2"}
+{"name": "e1", "ratio": 0.67316, "bytes": 27400, "slots_diff": 3123, "secs": 17.5, "eq_main": true, "spec": "@e1"}
+{"name": "e3", "ratio": 0.67316, "bytes": 27400, "slots_diff": 3123, "secs": 12.1, "eq_main": true, "spec": "@e3"}
+{"name": "nbe1", "ratio": 0.67106, "bytes": 27376, "slots_diff": null, "secs": 12.1, "eq_main": false, "spec": "nf_back+@e1"}
+{"name": "nbe2", "ratio": 0.67106, "bytes": 27376, "slots_diff": null, "secs": 15.5, "eq_main": false, "spec": "nf_back+@e2"}
+{"name": "nbe3", "ratio": 0.67106, "bytes": 27376, "slots_diff": null, "secs": 15.6, "eq_main": false, "spec": "nf_back+@e3"}
+{"name": "nbts", "ratio": 0.66807, "bytes": 27376, "slots_diff": null, "secs": 14.6, "eq_main": false, "spec": "nf_back+ev_ts_clockvar"}
+{"name": "nbsr", "ratio": 0.67106, "bytes": 27376, "slots_diff": null, "secs": 14.1, "eq_main": false, "spec": "nf_back+@sr"}
+{"name":"nb_cs_canedit_first","spec":"nf_back+cs_canedit_first","error":"apply"}
+{"name":"nb_cs_rev","spec":"nf_back+cs_rev","error":"apply"}
+{"name":"nb_cs_swap1","spec":"nf_back+cs_swap1","error":"apply"}
+{"name":"nb_cs_swap3","spec":"nf_back+cs_swap3","error":"apply"}
+{"name": "nb_cs_old_fee_first", "ratio": 0.67106, "bytes": 27376, "slots_diff": null, "secs": 14.0, "eq_main": false, "spec": "nf_back+cs_old_fee_first"}
+{"name":"nb_cs_creator_last","spec":"nf_back+cs_creator_last","error":"apply"}
+{"name":"nb_cs_swap0","spec":"nf_back+cs_swap0","error":"apply"}
+{"name":"nb_cs_swap2","spec":"nf_back+cs_swap2","error":"apply"}
+{"name":"nb_cu_oldunwrap","spec":"nf_back+cu_oldunwrap","error":"apply"}
+{"name": "nb_cu_replace", "ratio": 0.67106, "bytes": 27376, "slots_diff": null, "secs": 14.1, "eq_main": false, "spec": "nf_back+cu_replace"}
+{"name":"nb_cu_iflet","spec":"nf_back+cu_iflet","error":"apply"}
+{"name": "nb_cu_match", "ratio": 0.67056, "bytes": 27368, "slots_diff": null, "secs": 16.6, "eq_main": false, "spec": "nf_back+cu_match"}
+{"name": "nb_ev_nf_unw", "ratio": 0.66477, "bytes": 27400, "slots_diff": 3117, "secs": 16.6, "eq_main": false, "spec": "nf_back+ev_nf_unw"}
+{"name": "nb_p_pool", "ratio": 0.67106, "bytes": 27376, "slots_diff": null, "secs": 22.5, "eq_main": false, "spec": "nf_back+p_pool"}
+{"name": "nb_cu_fee_first", "ratio": 0.66837, "bytes": 27376, "slots_diff": null, "secs": 23.4, "eq_main": false, "spec": "nf_back+cu_fee_first"}
+{"name":"nb_cu_iflet2","spec":"nf_back+cu_iflet2","error":"apply"}
+{"name": "nb_pu_neg", "ratio": 0.67106, "bytes": 27376, "slots_diff": null, "secs": 18.6, "eq_main": false, "spec": "nf_back+pu_neg"}
+{"name": "of2", "ratio": 0.44169, "bytes": 27496, "slots_diff": null, "secs": 18.6, "eq_main": false, "spec": "@of2"}
+{"name": "nbof2", "ratio": 0.44764, "bytes": 27464, "slots_diff": null, "secs": 97.1, "eq_main": false, "spec": "nf_back+@of2"}
+{"name": "nb_pu_amm_key", "ratio": 0.67066, "bytes": 27376, "slots_diff": null, "secs": 96.7, "eq_main": false, "spec": "nf_back+pu_amm_key"}
+{"name": "nb_cu_iflet_old", "ratio": 0.67016, "bytes": 27376, "slots_diff": null, "secs": 4496.6, "eq_main": false, "spec": "nf_back+cu_iflet_old"}
+{"name": "of1", "ratio": 0.48295, "bytes": 27496, "slots_diff": null, "secs": 3699.4, "eq_main": false, "spec": "@of1"}
+{"name":"k02","spec":"nf_back+p_colnat+cu_unwrapcur+n_mapamt","error":"compile"}
+{"name":"k03","spec":"nf_back+rP_back+wl_writ_eq+cu_unwrapcur","error":"compile"}
