@@ -1,0 +1,2 @@
+# t1 + g_w_clock_local + ev_cb_local
+EDITS=[('let (collect_old,sharing_update,skip)=if shared{if holder{(false,Some(None),false)}else{', 'let (collect_old,sharing_update,skip)=if shared{if new.is_none(){(false,Some(None),false)}else{'), ('     let e=CollectCreatorFeeEvent{timestamp:Clock::get()?.unix_timestamp,', '     let ts=Clock::get()?.unix_timestamp;let e=CollectCreatorFeeEvent{timestamp:ts,'), ('is_cashback_coin:a.bonding_curve.is_cashback_coin,', 'is_cashback_coin:cashback,')]

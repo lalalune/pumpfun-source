@@ -1,0 +1,31 @@
+{
+  "lane": "w14a89-cto-jtnodup",
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27400 B",
+  "base": {"main": "95a64ba", "ratio": 0.66986, "slots_diff": 3204, "bytes": 27400, "fm": 0.70911, "sk": 0.79599},
+  "best_zero_loss": {"ratio": 0.66986, "slots_diff": 3204, "bytes": 27400, "note": "main; no source change beats it"},
+  "result": "notes only: the original duplicates the non-shared arm head (orig 0x23f18 jeq -> 0x24308 skips the holder_reward test at 0x242f0); blocking bb21 duplication also unthreads the holder exit; swap-free bounds of all faithful forms are far below main (RA/frame cascade)",
+  "ledger": "approach jtnodup, keys 0x22a10-w14-95a64ba-jtnodup-*",
+  "attempts": {
+    "ir_jt_probes": {"n_va": 0.26782, "e1_vol1": 0.26774, "e2_vol2": 0.26766, "e3_vol3": 0.3579, "e4_asm": 0.37076},
+    "swap_free_bounds": {"n_va": [0.33478, "sk 0.741"], "OV": [0.54714, "sk 0.79238"], "lv3a": [0.30769, "sk 0.70518"]},
+    "source": {"t1": "0.66986 @27376 (-24 B, sk +0.0019)", "t2/t6/t7": "0.66916 @27384", "t1+43 knobs": "none above main at 27400", "t1+pairs": "best 0.66637 @27392", "OV x4": "0.4317-0.44131", "lv3a/lv3b": 0.238, "vba/vbb": 0.241}
+  },
+  "rejected_mechanisms": [
+    "block JT duplication of the non-shared arm (volatile loads / asm probe): kills holder-exit threading, unfaithful",
+    "three-hop IR (th.val + th.ex) on 95a64ba: 0.268, swap-free 0.335",
+    "OV in-arm shared override on 95a64ba: 0.441, swap-free 0.547",
+    "w13a18 lv3/vb outparam exact three-way threading on 95a64ba: 0.238-0.242",
+    "branch weights on the sweep dest-seeds error branch: partial swap fix only (0.534)",
+    "t1 + size knobs / knob pairs to 27400"
+  ],
+  "unresolved": [
+    "faithful three-way validate CFG costs a whole-function RA/frame cascade (OV rm 0.635 vs main 0.766)",
+    "MBP second-pass chain state places bb56.i after the dest-seeds with_pubkeys error block in every faithful form",
+    "lv3a orig chunks 5-7 (duplicated fee tests) differ in instructions, not placement"
+  ],
+  "next_ideas": [
+    "a faithful +24 B change on top of t1 (t1 is -24 B and ratio-neutral on 95a64ba)",
+    "OV with a frame/RA plan (w14a84 colour map) rather than placement",
+    "find the MBP chain-state trigger for the bb56.i swap (debug llc second pass) and a source form that avoids it on OV"
+  ]
+}
