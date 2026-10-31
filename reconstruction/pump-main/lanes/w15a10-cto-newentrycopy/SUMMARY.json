@@ -1,0 +1,21 @@
+{
+  "lane": "w15a10-cto-newentrycopy",
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27400 B",
+  "base": {"main": "90300f9d2 (admin_cto unchanged to ed47ac7/d530a71)", "ratio": 0.67346, "slots_diff": 3124, "bytes": 27400, "M": 2248, "true_lcs_rf-": 2888, "true_lcs_rfj": 3007},
+  "result": "notes only: joint price table shows the entry-copy-of-new state cannot pay",
+  "best_zero_loss": {"ratio": 0.67346, "slots_diff": 3124, "bytes": 27400, "note": "main itself; no candidate beat it"},
+  "attempts": 74,
+  "ledger_keys": "0x22a10-w15-ed47ac7-newentrycopy-*-v1, 0x22a10-w15-ed47ac7-newentrycopy-pricetable-v1",
+  "findings": [
+    "Main's let args=&(new,) temp hoists new's tag load to the args statement; every non-reference spelling (named local, by-value tuple, struct, top-of-execute bind, before CtoState) compiles to identical code 0.48082@27368: J flip from an accounts-pointer reload [r10-0x8d8] at the %bb56.i head; jfix3-relaid 0.59523.",
+    "validate taking &new (Frn) and `let new=new;` inside validate (Fv) are byte-identical to main.",
+    "The entry copy of new survives only when validate AND the sharing arm both read the (new,) copy (Fa); then the original's fee-Some exit read appears (Fa 0x18c0 vs orig 0x1858), but Fa costs 0.236 (0.43713@27688, relaid 0.514).",
+    "Joint table: no form x pda x fl x hkc x V1/V2 x qli state reaches main's legal-frame+perfect-colour bound rfR 2623; best FaV2_qli rfR 2617, L2 0.78541 vs 0.78550, real M 1791 vs 2248.",
+    "Entry-copy states are structurally closer: true-LCS rf- FaV2_qli 2901 vs 2888, rfj Fa_f_h 3034 vs 3007, gains in entry chunk 0x0-0x800 (+23..+27); cost is frame (r-- -272, orig 0x2800-0x3800) + registers (-f- -119) + 312-360 B.",
+    "The original's sharing payload comes from validate's result join slot (orig 0x19a0: P1 0x538.. -> P2 0x550/0x560, E32 0x580): Some(Some(target)) is faithful but costs -0.147 alone and makes the new copy forward (Fa_sut 0.52345).",
+    "All PDA-first composites with Fa/Fr/fl collapse layout (orig 0x2000-0x5000 ~-600 tokens)."
+  ],
+  "rejected_mechanisms": ["Fb","Fb0","Fc","Fc0","Fs","Ft","Fa","Fr","Fa_sn","sut","Fa_sut","V1","V2","qli","FaV2_qli","Fa_f_h","FaV2_f_hkt","pda/fl/hkc joint combos","-memssa-check-limit=10000 on Fa"],
+  "unresolved_residuals": ["entry chunk 0x0-0x800 skeleton (+23..+27 true-LCS available from the entry copy) is paid for by frame shift in 0x2800-0x3800 and RA cascade", "faithful sharing payload (Some(Some(target))) and surviving copy exclude each other"],
+  "next_ideas": ["a semantically equal far reader of the (new,) copy other than the sharing payload (so the payload can be Some(Some(target)) while the copy survives)", "price FaV2_qli with a private-llc colour climb (w14a93 cclimb; needs ~+830 RA/frame tokens, so only as a bound)"]
+}
