@@ -1,0 +1,1 @@
+EDITS=[('let amount=a.creator_vault.lamports().saturating_sub(min);','let amount=a.creator_vault.lamports().saturating_sub(min);let n=amount;'),('&a.holder_creator_vault,amount,&vsigner)}else{Ok(())}).map(|()|amount)}','&a.holder_creator_vault,n,&vsigner)}else{Ok(())}).map(|()|amount)}')]

@@ -1,0 +1,102 @@
+{
+ "lane": "w14a62-cto-nativeregs",
+ "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27400 B",
+ "base": {
+  "main": "2e1379de9",
+  "ratio": 0.65728,
+  "slots_diff": 3192,
+  "M": 2194,
+  "bytes": 27400
+ },
+ "best": {
+  "result": "no gain; main unchanged",
+  "ratio": 0.65728,
+  "slots_diff": 3192,
+  "bytes": 27400
+ },
+ "mechanism": "The original's native zero edge carries constant 0 (r9=0, materialized before minimum_balance and shared with its 0 argument), so amount is live only on the transfer path and takes r6 by evicting min, which splits min to r3. Main feeds amount into the swept phi, so amount joins the swept coalescing class, and that class is region-split onto r3 (r9: no positive bundles).",
+ "attempts": [
+  {
+   "name": "z0 IR (constant-0 zero edge)",
+   "ratio": 0.65479,
+   "bytes": 27408
+  },
+  {
+   "name": "z0 + J2 removal r4d 3:1",
+   "ratio": 0.65118,
+   "bytes": 27384
+  },
+  {
+   "name": "amount>0 weights x z0",
+   "ratio": 0.65578,
+   "bytes": 27400
+  },
+  {
+   "name": "other branch weights x z0",
+   "ratio": 0.6515,
+   "bytes": 27408
+  },
+  {
+   "name": "IR order icmp/usub, gep hoist",
+   "ratio": 0.65728,
+   "bytes": 27400,
+   "note": "identical"
+  },
+  {
+   "name": "src v1 amount==0 polarity",
+   "ratio": 0.65728,
+   "note": "identical"
+  },
+  {
+   "name": "src v4 reuse-binding",
+   "ratio": 0.65728,
+   "note": "identical"
+  },
+  {
+   "name": "src v3 lamports late sub",
+   "ratio": 0.6494,
+   "bytes": 27432
+  },
+  {
+   "name": "src z1 else Ok(0) (= z0 IR)",
+   "ratio": 0.65479,
+   "bytes": 27408
+  },
+  {
+   "name": "src z2 map select (= z0)",
+   "ratio": 0.65479,
+   "bytes": 27408
+  },
+  {
+   "name": "src z1 + 71 knobs",
+   "ratio": 0.65608,
+   "bytes": 27400,
+   "note": "best z1+tp_dlen, M 2190 < 2194"
+  },
+  {
+   "name": "fc628cf re-run: z1 / z1+tp_dlen / z1+wl_coin_dlen",
+   "ratio": 0.65638,
+   "bytes": 27400,
+   "note": "main 0.65758 M 2195; best M 2191"
+  }
+ ],
+ "rejected_mechanisms": [
+  "rent scope revert / and_then / frozen-first / checked_sub (skipped: already in w14a33/w14a38 rows)",
+  "native zero-edge frequency via weights",
+  "definition order and use count of min/amount",
+  "constant-0 zero edge alone or with a -8 B knob"
+ ],
+ "unresolved_residuals": [
+  "swept/Err-payload coalescing class on r9 (w14a06)",
+  "accounts pointer %0 spilled across the native arm instead of held in r8 (w14a01)"
+ ],
+ "next_ideas": [
+  "Apply z1 (else Ok(0)) only on top of a state that already puts the swept class on r9 and spills %0 in the native arm; then the shared constant 0 gives the original's hoisted mov r9,0 with no extra instruction"
+ ],
+ "ledger_keys": "0x22a10-w14-2e1379d-nativeregs-*, 0x22a10-w14-fc628cf-nativeregs-*",
+ "base_rerun": {
+  "main": "fc628cfd8",
+  "ratio": 0.65758,
+  "slots_diff": 3183
+ }
+}
