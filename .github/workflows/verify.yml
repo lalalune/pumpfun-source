@@ -432,6 +432,7 @@ jobs:
               python -B tests/test_pump_amm_liquidity_captured.py
               python -B scripts/test_fee_host_validation.py
               python -B scripts/test_native_host_receipt.py
+              python -B tests/test_pump_loader_wrapped_artifacts.py
               python -B tests/test_recovered_curve_arithmetic.py
               mkdir -p work && rustc --edition 2021 -O programs/pump-fees/recovered/fee_selection_host.rs -o work/fee-selector-host
               python scripts/validate_fee_selection.py --host work/fee-selector-host --output work/fee-selector-validation.json

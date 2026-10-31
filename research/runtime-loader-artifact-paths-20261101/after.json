@@ -1,0 +1,35 @@
+{
+  "base": "9120883a957d7d9b2cab6140f66fb5bc9e6774d5",
+  "rows": [
+    {
+      "mode": "independent",
+      "returncode": 0,
+      "candidate_changed": false,
+      "report_case_count": 93,
+      "report_is_loader_receipt": false,
+      "loader_ok": true,
+      "stdout": "{\"case_count\": 93, \"mismatches\": []}\n",
+      "stderr": ""
+    },
+    {
+      "mode": "candidate",
+      "returncode": 2,
+      "candidate_changed": false,
+      "report_case_count": null,
+      "report_is_loader_receipt": false,
+      "loader_ok": null,
+      "stdout": "",
+      "stderr": "usage: pump_with_captured_loader.py [-h] --receipt RECEIPT script ...\npump_with_captured_loader.py: error: receipt path aliases protected input: <work>/candidate.so\n"
+    },
+    {
+      "mode": "report",
+      "returncode": 2,
+      "candidate_changed": false,
+      "report_case_count": null,
+      "report_is_loader_receipt": false,
+      "loader_ok": null,
+      "stdout": "",
+      "stderr": "usage: pump_with_captured_loader.py [-h] --receipt RECEIPT script ...\npump_with_captured_loader.py: error: receipt path aliases protected input: <work>/report.json\n"
+    }
+  ]
+}
