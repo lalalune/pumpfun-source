@@ -9,6 +9,8 @@ K={
 K['x12d']=[("AccountInfo{key:x.key,lamports:x.lamports.clone(),owner:x.owner,data:x.data.clone(),rent_epoch","AccountInfo{key:x.key,lamports:x.lamports.clone(),owner:x.owner,data:a.creator_vault_quote_token_account.data.clone(),rent_epoch")]
 K['vad']=[("coin_creator:a.current_creator.to_account_info(),coin_creator_vault_authority:a.coin_creator_vault_authority.to_account_info(),","coin_creator:a.current_creator.to_account_info(),coin_creator_vault_authority:{let x:&AccountInfo=a.coin_creator_vault_authority.as_ref();AccountInfo{key:x.key,lamports:x.lamports.clone(),data:a.coin_creator_vault_authority.data.clone(),owner:x.owner,rent_epoch:x.rent_epoch,is_signer:x.is_signer,is_writable:x.is_writable,executable:x.executable}},")]
 K['spx']=[("system_program:a.system_program.to_account_info(),associated_token_program:a.associated_token_program.to_account_info(),coin_creator:","system_program:{let x:&AccountInfo=a.system_program.as_ref();AccountInfo{key:x.key,lamports:x.lamports.clone(),data:x.data.clone(),owner:x.owner,rent_epoch:x.rent_epoch,is_signer:x.is_signer,is_writable:x.is_writable,executable:a.system_program.executable}},associated_token_program:a.associated_token_program.to_account_info(),coin_creator:")]
+K['nO']=[("owner:a.creator_vault_quote_token_account.owner,","owner:x.owner,")]
+K['pfd']=[("a.pump_fees.as_ref();AccountInfo{lamports:x.lamports.clone(),key:x.key,data:x.data.clone(),","a.pump_fees.as_ref();AccountInfo{lamports:x.lamports.clone(),key:x.key,data:a.pump_fees.data.clone(),")]
 import os,json
 K.update({k:[tuple(e) for e in v] for k,v in json.load(open('/Users/shawwalters/.cache/pumpfun-reconstruction/lanes/w14a43-cto-tcfrescan/e/knobs_ok.json')).items()})
 EDITS=[]
