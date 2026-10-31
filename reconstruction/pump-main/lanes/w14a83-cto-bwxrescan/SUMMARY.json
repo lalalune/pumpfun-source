@@ -1,0 +1,36 @@
+{
+  "lane": "w14a83-cto-bwxrescan",
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27400 B",
+  "bases": {"0d04cf4": {"ratio": 0.66507, "slots": 3228}, "95a64ba": {"ratio": 0.66986, "slots": 3204}},
+  "result": "no landable change; per-branch BPI sensitivity table published (sensitivity-0d04cf4.md/.tsv)",
+  "best_zero_loss_source": null,
+  "best_oracle": {
+    "0d04cf4": {"single_any": "bb24.i 16:1 or 2:1 0.66537@27400 (unreachable: Err edge has no call)", "reachable_single": "none above main", "reachable_pair": "bb35 20:12 + bb9.i 20:12 0.66517@27392"},
+    "95a64ba": {"single_any": "bb6 1:2000 0.67026@27392", "reachable_single": "bb94.i/bb47.i 20:12 (quote_locked), bb58.i 12:20 = 0.67016@27400 (colour swap -0x910/-0x908; no source route)", "reachable_pair": "bb35 20:12 + bb9.i 20:12 0.67056@27392 (no source route)"}
+  },
+  "attempts": [
+    "BPI census (146 brs: 53 zero/libcall, 40 none, 53 cold/unreachable std)",
+    "single sweep x9 weights on 0d04cf4 (651+186 runs) and 95a64ba (837 runs)",
+    "size-pinned greedy (0d04cf4)",
+    "reachable pairs 983 (0d04cf4) and 2439 (95a64ba)",
+    "per-condition shared-icmp sweep",
+    "and-1 memory-bool form on 14 i8 bool tests",
+    "bb7.i 1:1 (289/298 original order, jm +0.020) and IR-order moves of the 289 err block",
+    "line-289 spellings s289A/C/D/E/F/G on 0d04cf4; s289G + Try spelling at 9 other validate sites on 95a64ba"
+  ],
+  "rejected_mechanisms": [
+    "any single source-reachable BPI weight change (zero heuristic removal, zero/ptr heuristic addition, 3-way switch 2:1)",
+    "and-1 holder / holder_reward / tag tests (0.59-0.61)",
+    "separate 289 compare icmp ne holder,1 (0.4745: holder arg kept live)",
+    "s289G Try-on-if-expression at 289 (original 289/298 order, -0.0039 on 0d04cf4, -0.0042 on 95a64ba)"
+  ],
+  "unresolved_residuals": [
+    "289/298 error order: the original makes the 289 err block the fallthrough of jne holder; IR-order picture is fm +0.009 sk +0.009 but plain -0.0017 @-8 B and shift.py finds no +8 repay (M 2215 < 2220)",
+    "orig region 0x800-0x1000 alignment after the 289 chain (to_string exit inline after 289, 298 new.is_some test after)"
+  ],
+  "next_ideas": [
+    "partner for s289G that recovers ~13 matched tokens in orig 0x800-0x1000",
+    "weight sweeps are exhausted as a source lever on admin_cto; remaining frequency gains are 1-2 token frame-colour or tail-placement effects needing cold calls or memory bools"
+  ],
+  "ledger_keys": "0x22a10-w14-{0d04cf4,95a64ba}-bwxrescan-*"
+}
