@@ -98,3 +98,47 @@ How it was found, all on 0fbf8da:
 
 -8 B bases tried for +8 B repays (none above main): nB `!is_writable` 0.65618 at 27,392 B with 48 catalog knobs
 (`sizeknobs-cto.json`) and all re-reads; sh_iflet 0.65558; tp_dlen 0.65468; ev_hr_curve 0.65288.
+
+## Part 4 (branch -4, mains d371f97 -> 6330811 -> c3e5b51): -8 B wallet repay + sharing `program` data re-read
+
+| | main c3e5b51 | this branch |
+| --- | ---: | ---: |
+| admin_cto ratio | 0.65698 | **0.65728** |
+| slots_diff | 3,182 | 3,192 |
+| bytes | 27,400 | 27,400 |
+| normalized / raw | 1034 / 1034 | 1034 / 1034, 0 losses |
+| differential | | 363 cases, 0 mismatches |
+| unstripped sha16 | | fdf689ca7a561b01 |
+
+Change:
+- wallet: `if a.current_creator.is_writable==false` -> `if !a.current_creator.is_writable` (nB, -8 B; this undoes the
+  `==false` part of #3315's Q7 repay set);
+- sharing CPI `program:` literal: `data:x.data.clone()` -> `data:a.pump_fees.data.clone()` (+8 B re-read).
+
+The TCF clone space is converged on d371f97 and on 6330811 (the post-#3358 main):
+
+| screen (6330811 unless noted) | runs | best at 27,400 | main |
+| --- | ---: | --- | ---: |
+| re-read singles + within-clone pairs, 11 TCF clones | 388 | = main | 0.65698 |
+| Rc-order swap per TCF clone (`e/rc2`) | 10 captures | event_authority 0.65668, program 0.65638 | 0.65698 |
+| event_authority swap + a second swap (`e/rcp`) | 5 | program 0.65608 | |
+| vault ATA: the other 11 orders of K / D(re-read) / O(re-read) / L with D before L (`e/x12p`, d371f97) | 11 | DOKL / DKOL 0.65548 | 0.65638 |
+| -8 B nB (0.65678 @ 27,392) + one TCF re-read | 88 | vault authority data 0.65548 | |
+| -8 B nO (vault ATA owner via x, 0.65558) + one TCF re-read | 88 | vault ATA owner re-read 0.65698 (= main) | |
+| -16 B nO+nB + 91 cross-clone re-read pairs (d371f97) | 91 | 0.65548 | 0.65638 |
+| **-8 B nB + one sharing-clone re-read** (`tools/allclones.py` finds the 4 sharing clones: CpiContext pump_fees, authority, pool_authority, program) | 112 | **program data 0.65728** (sharing authority data 0.65638) | 0.65698 |
+
+Other -8 B repays paired with the sharing program data re-read (c3e5b51): sh_iflet 0.65698 (already on main), tp_dlen 0.65608,
+nO 0.65608, ev_hr_curve 0.65428.
+
+## Tools (this lane, `tools/`)
+
+- `rscan.py <mn.ll> <out.jsonl> <threads> <clone ptr ...>`: re-read oracle. For each clone pointer X (`X = load ptr, ptr G`)
+  and each field read (key, owner, rent, the three flags, lamports, data), it re-loads X from G right before that read and
+  uses the new load. The source form is `a.<account>.<field>`. `PAIRS=1` adds within-clone pairs, and `JOBS=<file>` takes
+  explicit `X@f+Y@g` jobs. Source captures match the oracle exactly (x12 data, system program executable, vault ATA
+  owner, sharing program data).
+- `allclones.py <mn.ll>`: every inlined AccountInfo clone pointer in execute (11 TCF + 4 sharing on 6330811). `names.py` lists only the TCF ones.
+- `pscan.py` (from w14a23), patched for a data GEP on a re-loaded pointer; `pscan3.py` adds `XBASE/XOFF` for the
+  inline-in-struct accounts (step 2).
+- `kv.sh` / `cq.sh` / `capvar.sh`: source-capture queues (`e/klib.py` holds the knob and repay edits).
