@@ -1,0 +1,69 @@
+{
+ "lane": "w15a20-cto-ovarmpin",
+ "target": "0x22a10 admin_cto::execute",
+ "base_main": "86e2a6b74 (admin_cto.rs unchanged on 9120883a9)",
+ "result": "notes only; main 0.67376 @27400 (3124 slots) remains best",
+ "best": {
+  "ratio": 0.67376,
+  "slots_diff": 3124,
+  "bytes": 27400,
+  "source": "main"
+ },
+ "mechanism": "ov-family sharing-arm hoist = MachineBlockPlacement after branch-folder tail-merge split of post-sweep Result join bb56.i; greedy carries the sharing_update tag (r5=[r10-2272] in ov1a, r9=[r10-2400] in ov2) across the join (w14a142 #3628 mechanism with a different value). Not IR jump threading: post-O3 IR block order identical.",
+ "carrier": "event sharing_config_reset:shared keeps the arm at main position in ov1a/ov1/ov2 (o_rs 0x4a28), but costs 128 B and -19 tokens on main",
+ "restored_layout_bounds": {
+  "ov1a": {
+   "ratio": 0.52838,
+   "bytes": 27408,
+   "rfj": -13
+  },
+  "ov2": {
+   "ratio": 0.41724,
+   "bytes": 27640,
+   "rfj": -38
+  }
+ },
+ "class_F": "needs fee-None threading by the 2nd JumpThreading through tree-test block bb75; blocked by cost 8>6 (bb75 = 10 memcpys of 7/9 B target pieces along target.i->_49->_411->_48->val->target). -jump-threading-threshold=20 threads it but gives <= +9 validate tokens (m0 -49, o_rs -15). Faithful out-param forms vb/lv3 on 86e2a6b: vb 0.2419 rfj -114, lv3 0.21547 rfj -503.",
+ "attempts": [
+  "ov1",
+  "ov1a",
+  "ov1b",
+  "ov2",
+  "ov3",
+  "ov4",
+  "ov1a MIR restore",
+  "ov2 MIR restore",
+  "m_sl",
+  "o_sl",
+  "m_rs",
+  "o_rs",
+  "m_il",
+  "o_il",
+  "m_sr",
+  "o_sr",
+  "ov1_rs",
+  "ov2_rs",
+  "jt-threshold 10/20/24 on m0,ov1,ov1a,ov2,o_rs,ov1_rs,m_rs",
+  "lv3",
+  "vb",
+  "lv3_rs",
+  "vb_rs",
+  "llc tail-merge-size/tail-dup-placement/enable-tail-merge/disable-branch-fold"
+ ],
+ "ledger": "approach ovarmpin, keys 0x22a10-w15-86e2a6b-ovarmpin-<trial>-v1 (18 rows)",
+ "rejected": [
+  "ov family with any placement-only carrier (bound ov1a -13, ov2 -38 rfj)",
+  "sharing_update computed after sweep (hoists)",
+  "if let sharing match",
+  "reset:shared on faithful out-param forms"
+ ],
+ "unresolved": [
+  "frame/RA recolouring of ov forms (ratio 0.15-0.25 below main at kept layout)",
+  "bb75 hop-chain cost blocks original fee-None threading"
+ ],
+ "next": [
+  "o_rs/ov1_rs + frame compensator priced frame-masked",
+  "collapse bb75 hop chain to <=3 memcpys keeping frame order, check JT trace",
+  "use tools/jp.py + restore.sh on any variant with the 6 KB chunk A/B swap"
+ ]
+}
