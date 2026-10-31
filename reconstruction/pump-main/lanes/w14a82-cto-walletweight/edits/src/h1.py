@@ -1,0 +1,1 @@
+EDITS=[('pub fn execute(ctx:Context<AdminCto>,holder:Option<bool>,fee:Option<u64>,new:Option<Pubkey>)->Result<()>{ let a=&ctx.accounts;','pub fn execute(ctx:Context<AdminCto>,holder:Option<bool>,fee:Option<u64>,new:Option<Pubkey>)->Result<()>{let harg=holder; let a=&ctx.accounts;'),('  curve.is_holder_reward=holder;\n','  curve.is_holder_reward=harg==Some(true);\n')]

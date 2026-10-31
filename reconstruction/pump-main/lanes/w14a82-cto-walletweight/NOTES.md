@@ -1,4 +1,4 @@
-# w14a82-cto-walletweight: spill-weight order of the wallet's long-lived values (admin_cto::execute, 0x22a10)
+# w14a82-cto-walletweight: holder re-derived from the argument (0.66507 -> 0.66986) and the wallet spill-weight order (admin_cto::execute, 0x22a10)
 
 Target `0x22a10` `admin_cto::execute` (`programs/pump/src/creator/admin_cto.rs`), pinned at 27,400 B.
 Base: main 0d04cf460 (0.66507, 3,228 slots; post-opt IR F 0.75524, Fw 409; the w14a65 capture `base3.ll`, `eq_main: true`).
@@ -7,11 +7,14 @@ RAGreedy spill-weight order of the wallet's long-lived values and find the use-c
 "rotation" (do_coin r9 / accounts r8 / clone buffers r7) into the original (do_coin r8 / accounts r7 / clone buffers r9).
 Ledger: approach `walletweight`, keys `0x22a10-w14-0d04cf4-walletweight-*`.
 
-**Result: notes only, no source change.** The spill-weight order is measured (section 1). It is not what decides the
-wallet registers: the order of assignment is (section 2). The new lead is **payload word 1** (the pointer half of the shared
-Err-return value, MIR `%1659`). In the original it is in r9 across the whole function, and in ours it is in r8. An IR hint that puts it in
-r9 adds +56 frame-masked tokens against a same-perturbation control and halves the wallet's register diffs (section 3). No
-source form or zero-byte oracle reaches that order (section 4).
+**Result: landable gain, admin_cto 0.66507 / 3,228 -> 0.66986 / 3,204 at 27,400 B** (measure.sh zero losses, 1034/1034,
+differential 363/0, unstripped sha 8a32bd24917d4989). The source change, found from the RA analysis (section 5): `curve.is_holder_reward` and
+the event's `is_holder_reward` read the `holder: Option<bool>` argument (`holder.unwrap_or(false)`) instead of the tuple's computed
+bool, which is now unused (`_holder`). The analysis behind it: the spill-weight order is measured (section 1), but it is not what decides the wallet
+registers. The order of assignment is (section 2). Payload word 1 (the pointer half of the shared Err-return value, MIR `%1659`)
+is in r9 across the whole original function and in r8 in ours. An IR hint that puts it in r9 adds +56 frame-masked tokens against a
+same-perturbation control and halves the wallet's register diffs (section 3). No source form or zero-byte oracle gives that order
+(section 4).
 
 ## 1. Spill-weight order over the wallet (`tools/llw.py`, `weights-0d04cf4.txt`)
 
@@ -121,8 +124,30 @@ flag from **r6** (0.65898 @27,408), not r9.
 - MIR oracle (`llc -stop-before=greedy` / `-start-before=greedy`): the round trip is not exact on this main (3,325 vs 3,337
   instructions, frame offsets move), so it cannot price greedy order changes.
 
-## 5. Next ideas
+## 5. The landed change: holder re-derived from the argument at its late uses
 
+The long-lived head bools hold r9 over the wallet at steps 311-316: `%389`/`%466`/`%465`, and the `holder` argument `%13`. That led to
+an IR probe that ends the computed holder bool early. `hr` recomputes `(holder & -3) != 0` from the `holder` argument at the
+`is_holder_reward` store (`edits/ir/hr.py`) and gives 0.67216 @27,408 (F 0.75573, M 2,244 against main's 2,220). `hr1` (`holder == 1`) gives
+0.67186 @27,408. `hr3` (`holder & 1`, feeding both the curve store and the event field) gives 0.66966 @27,392. The holder argument then stays
+live to the post-sweep store (its spill moves from `[r10-0x8d8]`), and the head RA cascade changes.
+
+Source forms (`edits/src/`, raw-IR capture + rx, then measure.sh):
+
+| key | curve store | event field | bytes | ratio |
+| --- | --- | --- | ---: | ---: |
+| h1 | `harg==Some(true)` (extra binding, no rename) | holder | 27,400 | = main (GVN merges it with the entry compare) |
+| r1 / r3 | `matches!(holder,Some(true))` / `holder.unwrap_or(false)` | tuple bool | 27,408 | 0.60207 |
+| r8 | tuple bool | `holder.unwrap_or(false)` | 27,408 | 0.60746 |
+| **r5 / r6** | `holder.unwrap_or(false)` / `matches!(holder,Some(true))` | same | **27,400** | **0.66986 / 3,204** |
+| r7 | `holder.unwrap_or(false)` | `a.bonding_curve.is_holder_reward` (re-read) | 27,384 | 0.66916 |
+
+r5 is landed. The tuple's `holder` is renamed `_holder` because nothing reads it now, so the shadowed `holder` is the argument again.
+
+## 6. Next ideas
+
+0. On top of r5: r7 (event re-reads the curve field) is -16 B at 0.66916, so pair it with a +16 B knob. hr (the `(h&-3)!=0` recompute)
+   is +0.0023 over r5 at +8 B in IR, but it needs a source spelling that GVN does not merge with the entry compare.
 1. Payload word 1 in r9 is the largest register lever measured in the wallet (+0.017 F against its control). Look for source in
    which the Err-return pointer web is dequeued before the `new` pointer evicts `%0` from r8, *and* r9 is the cheapest
    eviction at that point (on main, r9 holds `%465`, 3.4e-05). The entry copy of `new` is the original's way (`%390` dies at entry).
