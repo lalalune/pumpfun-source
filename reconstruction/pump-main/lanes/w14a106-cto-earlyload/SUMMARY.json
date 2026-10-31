@@ -1,0 +1,86 @@
+{
+ "lane": "w14a106-cto-earlyload",
+ "target": {
+  "window": "0x22a10",
+  "function": "admin_cto::execute",
+  "file": "programs/pump/src/creator/admin_cto.rs",
+  "pinned_bytes": 27400
+ },
+ "bases": {
+  "963d1ee": {
+   "ratio": 0.67226,
+   "M": 2244,
+   "slots": 3123
+  },
+  "13fe453": {
+   "ratio": 0.67256,
+   "M": 2245,
+   "slots": 3123
+  }
+ },
+ "best": {
+  "result": "no gain; main 13fe453 unchanged",
+  "ratio": 0.67256,
+  "slots_diff": 3123,
+  "bytes": 27400
+ },
+ "pr": 3490,
+ "ledger_keys": "0x22a10-w14-{963d1ee,13fe453}-earlyload-*-v1 (27 rows)",
+ "tools": {
+  "tools/prov.py": "forward-dataflow load provenance (ctx/accounts/args symbolic roots), --opt optimistic meet",
+  "tools/provtab.py": "join two provenance runs",
+  "tools/chunk.py": "per-0x800 matched-token deltas",
+  "tools/skel.py": "L0/L1/L2 (jump/frame/register-masked) instruction match",
+  "PROVTAB-13fe453.txt": "strict orig vs main 13fe453 table"
+ },
+ "attempts": {
+  "t1": -3,
+  "t1b": -2,
+  "c1": 0,
+  "c3": 0,
+  "g1": -136,
+  "g2": -136,
+  "g3": -136,
+  "cg": -136,
+  "n1": -8,
+  "n2": -132,
+  "n3": -130,
+  "n4": -8,
+  "h1": -43,
+  "h2": -343,
+  "h3": -176,
+  "p1": -222,
+  "p3": -135,
+  "p4": -134,
+  "p5": 0,
+  "G1": -136,
+  "GF": -150,
+  "GFc": -150,
+  "FG": -150,
+  "F0": -133,
+  "GP": -292,
+  "GPF": -288,
+  "GT": -135
+ },
+ "rejected_mechanisms": [
+  "shared-arm target=st.creator (orig provenance; GVN still forwards 7 bytes from the curve)",
+  "creator curve+8 GEP binding (folded)",
+  "held &Global binding (orig load count/placement; pure RA cascade in the TCF run)",
+  "nf read back in the event (orig 0x4fd8)",
+  "pool owner test first / owner read early / non-short-circuit (moves a 109-insn block)",
+  "holder flag from _holder for curve store / pool CPI arg (orig phi slot -0x950)",
+  "bools-first, PDA-first, global-held head combos (skeleton +62..+96 L2, -130..-290 real tokens)"
+ ],
+ "unresolved_residuals": [
+  "head read order: orig PDA-first + global held + bools-first gives L2 2883 vs main 2787 but registers cascade",
+  "holder per-arm phi slot [r10-0x950] feeds curve store and pool CPI r4 in the original",
+  "new key read 3x from the arg in ours (0xbb8/0x1370/0x1830), once in pieces in the original",
+  "sharing CPI first clone run is one block early on main (F0 restores it, +58 L2 in 0x4000 chunk)"
+ ],
+ "next_ideas": [
+  "find an RA-side source lever on the GPF/F0 skeleton (e.g. the cashback/holder flag lifetimes that move the 0x4000 clone run) rather than read placement",
+  "a holder phi-of-constants slot built per arm (orig stores 0xe40/0x1130/0x14e0/0x1830/0x18b0) consumed by both curve store and pool CPI arg in one change",
+  "use prov.py on future candidates to check read counts per account pointer (pool 3 vs 2, event_authority 3 vs 1, curve 11 vs 9)"
+ ],
+ "exhausted": true
+}

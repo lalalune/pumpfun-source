@@ -71,9 +71,45 @@ apart). Those literal and Rc orders are a proven local optimum (shareauthport ro
 | p5 `let pool=&a.pool` | 13fe453 | 27,400 | 2,245 | 0 (identical) |
 | h1 curve store from `_holder` | 13fe453 | 27,408 | 2,202 | -43 |
 | h2 pargs.1 from `_holder` / h3 both | 13fe453 | 27,448 / 27,472 | 1,902 / 2,069 | -343 / -176 |
+| G1 (g1 on 13fe453): global ptr loads now 0x268/0x4028 = original count and placement | 13fe453 | 27,328 | 2,109 | -136 |
+| GF / GFc / FG: g binding + curve bools first (original head read order minus PDA) | 13fe453 | 27,352 | 2,095 | -150 |
+| F0: curve bools first (flaghoist) | 13fe453 | 27,352 | 2,112 | -133 |
+| GP: g binding + PDA first / GPF: + bools first (full original head read order) | 13fe453 | 27,400 / 27,344 | 1,953 / 1,957 | -292 / -288 |
+| GT: G1 + t1 | 13fe453 | 27,320 | 2,110 | -135 |
 
 No trial can be repaid at 27,400 B. The pure ±8 B size shift on this main is worth at most +1 M (w14a80 section 8), while the
-cheapest non-negative trial (t1b) is -2 M at +8 B.
+cheapest trial that changes bytes (t1b) is -2 M at +8 B.
+
+## Skeleton view (`tools/skel.py`): the head read order is right, the registers are not
+
+`skel.py` matches instructions against the original at three masking levels:
+- L0: immediates and jump targets masked;
+- L1: also r10 offsets masked;
+- L2: also register numbers masked, which leaves the instruction-selection and block skeleton.
+
+| variant (13fe453) | L0 | L1 | L2 | L2 delta |
+| --- | ---: | ---: | ---: | ---: |
+| main | 2,271 | 2,509 | 2,787 | 0 |
+| G1 (global held) | 2,142 | 2,439 | 2,787 | 0: a pure RA/frame cascade (register-masked diff vs main is renames in the TCF run 0x2800-0x3800) |
+| F0 (bools first) | 2,144 | 2,374 | 2,849 | +62 |
+| GF (global held + bools first) | 2,125 | 2,379 | 2,859 | +72 |
+| GP (global held + PDA first) | 1,991 | 2,261 | 2,807 | +20 |
+| **GPF (full original head read order)** | 1,995 | 2,428 | **2,883** | **+96** |
+| t1 / n1 / h1 | 2,271 / 2,265 / 2,232 | | 2,784 / 2,786 / 2,784 | -3 / -1 / -3 |
+| n2 / p1 / h2 / h3 | | | 2,687 / 2,698 / 2,682 / 2,680 | about -100 (block layout) |
+
+L2 deltas per original 0x800 chunk:
+- PDA-first gains +36..+40 in the entry chunk 0x0-0x800.
+- **Bools-first gains +58 in the sharing CPI chunk 0x4000-0x4800.** On main, difflib aligns a 138-instruction clone run at cand
+  0x3f28 that the original has at 0x4050: main lays the first sharing clone run one block early. F0 restores that order. The
+  likely route is that the cashback/holder flag live ranges change where MachineSink and block placement put that block
+  (compare w14a29 hcbools).
+- GPF loses -12 in 0x3000-0x3800 (the TCF run).
+
+So the original head read order (PDA first, global pointer held, curve bools before the quote chain) is the faithful skeleton,
+worth +96 L2 tokens. Every version of it loses 130-290 real tokens to register and frame assignment. That is the same cascade
+w14a09 (pdara) and w14a93 (pdaheadra, 0.58906 -> 0.65806 with 11 RA forces) priced. A source route to GPF's skeleton with
+main's register assignment would be the largest open lead in the head.
 
 ## Conclusion
 
@@ -82,4 +118,5 @@ PDA order, curve bools, global pointer, `new` pieces), and moving any of them al
 whole-function RA cascade. The w14a93 head screen covered every order. The remaining provenance differences go the other way:
 the original passes a phi slot where we re-read the curve (holder), or it reads late where we read early (nf). Each of these
 changes block layout (pool test) or register assignment by more than any size knob can repay. The next gains need
-code-shape changes, such as the holder per-arm phi slot together with its consumers, and not read placement.
+code-shape changes, such as the holder per-arm phi slot together with its consumers, and not read placement. GPF (+96 L2) is the
+head skeleton to keep if an RA-side lever is ever found.
