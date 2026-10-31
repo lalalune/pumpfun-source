@@ -1,0 +1,1 @@
+EDITS=[["let e=CollectCreatorFeeEvent{timestamp:Clock::get()?.unix_timestamp,creator:a.current_creator.key(),creator_fee:collected,quote_mint};", "let timestamp=Clock::get()?.unix_timestamp;let e=CollectCreatorFeeEvent{timestamp,creator:a.current_creator.key(),creator_fee:collected,quote_mint};"]]

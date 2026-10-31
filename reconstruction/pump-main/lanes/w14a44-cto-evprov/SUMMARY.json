@@ -1,0 +1,19 @@
+{
+  "lane": "w14a44-cto-evprov",
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), event tail orig 0x4e60-0x5538, line 767",
+  "bases": {"6db95a764": {"ratio": 0.65458, "slots": 3280, "bytes": 27400}, "6e011ea42": {"ratio": 0.65548, "slots": 3280, "bytes": 27400}},
+  "result": "no gain: every AdminCtoEvent per-field provenance, initializer order, timestamp position and wallet-event literal form is at or below main at 27,400 B",
+  "best_zero_loss": {"name": "main (no change)", "ratio": 0.65548, "slots": 3280, "bytes": 27400},
+  "best_size_neutral_variant": {"name": "srp_P1_P2", "ratio_6db95a7": 0.65368, "ratio_6e011ea": 0.65458, "bytes": 27400},
+  "attempts": 79,
+  "ledger_keys": ["0x22a10-w14-6db95a7-evprov-*", "0x22a10-w14-6e011ea-evprov-n2_*"],
+  "findings": [
+    "hr_c (event is_holder_reward read from curve+0xa5) reproduces the original event-build instruction sequence exactly but is -8 B (0.65169 / 0.65258) and moves the accounts pointer r6->r8 through the pool CPI clone run",
+    "timestamp must be the first initializer inside the literal: any later position or a pre-let costs 0-264 B and 0.003-0.16",
+    "residual misses in the event tail are register homes of the values that live across the tail: swept (orig r9, ours spill 0x968), sharing tag (orig r6, ours spill 0x8e8), pool_updated (orig r8, ours r6), accounts pointer (orig spilled, reloaded twice)",
+    "w_qmk (wallet quote_mint from a.quote_mint.key(), -216 B) raises event-tail frame-masked matches 198->220 with orig-like accounts r2/r6 reloads: event-tail RA is set by global pressure"
+  ],
+  "rejected": ["hr_c","hr_p","hr_h2","ph","hr_c_ph","pa_pre","pa_preh","pa_inline","cb_l","mint_k","bc_k","auth_d","nc_t","nc_p","nf_u","nf_p","sr_m","sr_n","sr_pre","sr_prepool","ts_pre","e_clk","e_tsmap","ts_prepool","ts_at1-10","ts_last","ord_rev","ord_hrcb","size pairs with v_f_unwrapor_cur / v_old / v_ok0 / s_iflet / v_p_TCHEF / Rent revert / wallet let clock","wallet literal forms w_qmk w_crd w_crctx w_o_cfq w_o_qcf w_o_tlast w_clk w_tspre w_tsmap"],
+  "unresolved": ["swept r9 home (w14a06 swept coalescing)", "sharing tag r6 home", "accounts pointer held vs spilled through the tail"],
+  "next": ["retry hr_c when the pool-arm RA changes (w14a34 owner-first gate) with an independent +8 B", "global-pressure lanes: the event tail follows them"]
+}
