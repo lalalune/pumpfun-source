@@ -1,0 +1,19 @@
+{
+  "testedBase": "9120883a957d7d9b2cab6140f66fb5bc9e6774d5",
+  "rsyncVersion": "3.4.1",
+  "state": "before",
+  "sourceSHA256": "9125f18a5c147356a0f6d5a681de85770a1ef6ff0c2057aa96c1bb8f6b965b23",
+  "sourceUnchanged": true,
+  "actualStageReturned": true,
+  "sameAdmittedSource": true,
+  "freshCrateLockExists": false,
+  "reusedCrateLockExists": true,
+  "reusedCrateLockRetainedUnchanged": true,
+  "freshStagedSHA256": "d623f4c0556fa2b6eb16da25e2d4d0494c163aac39777c330e9e6b9870d7d2e9",
+  "reusedStagedSHA256": "9af9bb4e6baf066e6424b95d8d1edc0852470149b8d9585437b97ac58fe7cc1a",
+  "sameStagedReceipt": false,
+  "unexpectedStagedFiles": [
+    "Cargo.lock"
+  ],
+  "limits": "Actual source snapshot and fastbuild.stage with real rsync only; no compiler, SDK, scoring, VM or program ELF execution."
+}

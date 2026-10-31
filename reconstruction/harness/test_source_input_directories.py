@@ -85,6 +85,41 @@ class SourceDirectoryTests(unittest.TestCase):
         self.assertEqual(snapshot(self.source), admitted)
         self.assertTrue((workspace / 'programs/pump/transient/empty').is_dir())
 
+    @unittest.skipIf(os.name == 'nt', 'POSIX staging uses fcntl and rsync')
+    def test_reused_staging_removes_unbound_crate_root_lock(self):
+        import fastbuild
+        (self.source / 'path-crate').mkdir()
+        nested_lock = b'version = 3\n# retained path-crate lock\n'
+        (self.source / 'path-crate/Cargo.lock').write_bytes(nested_lock)
+        admitted = snapshot(self.source)
+        fresh = fastbuild.stage(self.source, self.root / 'fresh', expected_inputs=admitted)
+        reused = fastbuild.stage(self.source, self.root / 'reused', expected_inputs=admitted)
+        (reused / 'Cargo.lock').write_bytes(b'version = 3\n# unrelated stale lock\n')
+        fastbuild.stage(self.source, self.root / 'reused', expected_inputs=admitted)
+        self.assertFalse((reused / 'Cargo.lock').exists())
+        self.assertEqual(snapshot(fresh), snapshot(reused))
+        self.assertEqual((self.root / 'reused/Cargo.lock').read_bytes(),
+                         (self.source / 'Cargo.lock').read_bytes())
+        self.assertEqual((reused / 'path-crate/Cargo.lock').read_bytes(), nested_lock)
+        self.assertEqual(snapshot(self.source), admitted)
+
+    @unittest.skipIf(os.name == 'nt', 'POSIX staging uses fcntl and rsync')
+    def test_staging_does_not_mask_an_unexpected_crate_root_lock(self):
+        import fastbuild
+        admitted = snapshot(self.source)
+        workspace = self.root / 'workspace'
+        real_run = subprocess.run
+
+        def add_lock_after_copy(command, *args, **kwargs):
+            result = real_run(command, *args, **kwargs)
+            (workspace / 'programs/pump/Cargo.lock').write_bytes(b'stale lock')
+            return result
+
+        with mock.patch.object(fastbuild.subprocess, 'run', side_effect=add_lock_after_copy):
+            with self.assertRaisesRegex(ValueError, 'staged source inputs.*Cargo.lock'):
+                fastbuild.stage(self.source, workspace, expected_inputs=admitted)
+        self.assertEqual(snapshot(self.source), admitted)
+
     @unittest.skipUnless(shutil.which('cargo') and shutil.which('rustc'), 'requires host Cargo and rustc')
     def test_real_cargo_observes_empty_directory_input(self):
         (self.source / 'src/main.rs').write_text(

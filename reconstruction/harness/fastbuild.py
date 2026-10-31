@@ -127,14 +127,17 @@ def stage(src: Path, ws: Path, expected_inputs=None):
     # Mirror inputs with rsync --checksum so unchanged files keep mtimes;
     # only the crate-root manifest/lock are excluded (rewritten below), nested path crates keep their Cargo.toml
     subprocess.run(['rsync', '-a', '--checksum', '--delete',
-                    '--exclude', '/target/', '--exclude', '/Cargo.toml', '--exclude', '/Cargo.lock',
+                    '--exclude', '/target/', '--exclude', '/Cargo.toml',
+                    # Sender-only hiding lets --delete remove a stale crate-local lock.
+                    # The admitted root lock is generated at the workspace root below.
+                    '--filter', 'H /Cargo.lock',
                     str(src) + '/', str(crate) + '/'], check=True)
     # Cargo metadata is generated from admitted buffers below. Bind every other
     # selected input in the copy, including nested path-crate Cargo metadata.
     generated = {'Cargo.toml', 'Cargo.lock'}
     expected = {row['path']: row for row in expected_inputs['files'] if row['path'] not in generated}
     staged_inputs = snapshot(crate)
-    actual = {row['path']: row for row in staged_inputs['files'] if row['path'] not in generated}
+    actual = {row['path']: row for row in staged_inputs['files'] if row['path'] != 'Cargo.toml'}
     changed_dirs = set(staged_inputs['directories']) ^ set(expected_inputs['directories'])
     if actual != expected or changed_dirs:
         changed_files = {name for name in actual.keys() | expected.keys() if actual.get(name) != expected.get(name)}
