@@ -1,0 +1,36 @@
+{
+  "lane": "w14a117-cto-occ3ea0",
+  "target": "0x22a10 admin_cto::execute",
+  "base": "main ebe5387e1 (0.67316 / 3123 @ 27400)",
+  "result": "notes only; no source change",
+  "best": {"ratio": 0.67316, "slots": 3123, "bytes": 27400, "note": "main; no zero-loss source improvement"},
+  "forces_priced": {
+    "1906=r6": 0.67436, "1617=r3": 0.67406, "1314=r7": 0.67346,
+    "1906+1617": 0.67525, "1906+1314": 0.67466, "1617+1314": 0.67436, "triple": 0.67555,
+    "sibling 1684+1671 + triple": 0.68035, "w14a114 TCF-rent IR lead + triple": 0.67675,
+    "full colour climb ebe5387": 0.68185, "region 0x3c00-0x4800 climb": 0.67496
+  },
+  "mechanisms": {
+    "1906": "rent/flag spill temps of the sharing CpiContext program clone (a.pump_fees.to_account_info()); greedy step 1486 evicts the key piece 1858 from R9 because the lamports piece 1855 took R6 at step 1414; 1855=r9 and 1858=r6 are equivalent (+0.0012). Original holds swept in r9 over 0x3c40-0x5030; ours spills swept's region piece 1732 (forces lose, 0.498-0.650).",
+    "1617": "free choice (R2 first free) of the TCF clone-run inc_strong overflow flag; original r2 also free there; TCF clone-run naming cascade (exhausted families).",
+    "1314": "pool pointer local; the original holds it in r7 across the owner memcmp (owner-first). Every owner-first spelling is 0.63314 @27440 on ebe5387: llc block placement moves the 112-insn sweep ConstraintSeeds to_string chain from 0x5578 to 0x3c48."
+  },
+  "rejected": [
+    "IR early stores of the sharing program clone pieces into the CpiContext (0.6369-0.6428)",
+    "IR hoist of the program pointer and key load into bb88 (0.66597 / 0.67286)",
+    "swept region piece 1732 forced to r6-r9 (0.498-0.650), join piece 1729=r9 (0.51505)",
+    "prio/hint/spill overrides of 1855/1858/290/291 (0.638-0.673)",
+    "owner-first pool_updated n2/n2b/v2/v3/v6 (0.63314 @27440, all byte-identical)",
+    "pool if/else arm swap (eq_main)",
+    "llc block-placement flags on n2"
+  ],
+  "unresolved": [
+    "swept held in r9 across the sharing CPI region (root of the 1906 gap)",
+    "owner-first pool test triggers an llc placement move of the sweep to_string chain"
+  ],
+  "next_ideas": [
+    "a source change that makes llc keep the sweep ConstraintSeeds to_string chain at the tail with owner-first pool_updated (would only be worth the +1 M local shape)",
+    "combine w14a114's TCF-rent IR lead (if a source form is found) with the sibling's 1684/1671 levers; they are additive"
+  ],
+  "ledger_keys": "0x22a10-w14-ebe5387-occ3ea0-{forces,1906mech,p1store,k88,swept1732,1617mech,1314mech,a114add}-v1"
+}
