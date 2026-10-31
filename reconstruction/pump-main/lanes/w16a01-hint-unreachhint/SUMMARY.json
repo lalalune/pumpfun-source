@@ -1,0 +1,41 @@
+{
+  "lane": "w16a01-hint-unreachhint",
+  "wave": 16,
+  "target": "0x3b598 v2_native_payments::ensure_rent_exempt (codegen-forcing hint removal; callers 0x13b9b8, 0x13f630, 0x144508)",
+  "base": "main e61121452 (programs/ identical to baseline 9120883a9: 1034/1034, admin_cto 0.67376/3124/27400, swap_hop matched)",
+  "result": "landed: #3828 merged as 9bd38c7d5 (merged by another agent while land.py --allow-neutral was verifying; land.py's own merge build was 1034/1034, zero losses, then returned merged=true)",
+  "change": "ensure_rent_exempt(size: ZeroRentSize, ..) with Rent::get()?.minimum_balance(size as usize); #[repr(usize)] pub enum ZeroRentSize { Zero = 0 }; the three v2 callers pass native_payments::ZeroRentSize::Zero on the same lines. Replaces `if _size != 0 { unsafe { core::hint::unreachable_unchecked() } }` (#1412).",
+  "best": {
+    "normalized": 1034, "raw": 1034, "losses": [], "raw_losses": [], "gains": [],
+    "helper_0x3b598": {"ratio": 1.0, "cand_bytes": 416},
+    "admin_cto": {"ratio": 0.67376, "slots_diff": 3124, "cand_bytes": 27400},
+    "swap_hop": {"ratio": 1.0, "slots_diff": 0, "cand_bytes": 18584},
+    "stripped_candidate_sha256": "d96c89272aa4fac9101d0bc5328596caecb63715b6514f554305bf8deb7cd3b8 (identical to main before and after)",
+    "unstripped_sha256": "d0c733f630b54ee70b3f7cea18cb40f8edd9b9fdea9abddfe313cde4be251ff5 (was dc79dde7...; differs only in 15 .strtab bytes: the helper's legacy-mangling hash h689afedc8db3f484 -> h7cc49ba9a19934cf, because rustc hashes the fn signature into the symbol)",
+    "noforce_count_programs": "6 -> 5"
+  },
+  "mechanism": "The helper is `define hidden` (external: its callers are reachable program items), so IPSCCP cannot fold the callers' 0 into it, and DeadArgumentElimination's removeDeadArgumentsFromCallers rewrites any argument the body never uses to poison at every direct call site (callers then lose the original mov r2,0 and its reuse for a None spill). The original therefore needs a no-code IR use of the size at DAE time. rustc's MIR builder lowers `enum as int` to discriminant + assume(discr <= max) when the tag's valid range is restricted; for a single value 0 that is `icmp eq i64 %0, 0` + llvm.assume, the same use the unsafe hint gave. DAE keeps the argument (call sites pass i64 noundef 0) and GVN folds the cast to minimum_balance(.., 0), so the body keeps mov64 r2,0x0.",
+  "attempts": [
+    {"form": "t0 drop the hint, _size unused", "result": "1031/301, callers 0x13b9b8 0x13f630 0x144508 lost", "ir": "no use at DAE; all three call sites become `i64 poison`"},
+    {"form": "t1 #[repr(usize)] enum ZeroRentSize{Zero=0}, minimum_balance(size as usize)", "result": "1034/1034, 0 losses, stripped identical; landed", "ir": "enum-cast assume icmp eq %0,0 keeps the arg live; GVN folds the call argument to 0"},
+    {"form": "t2 size: usize, minimum_balance(size) (pub fn)", "result": "1033/343, helper lost (432 B, ratio 0.7925)", "ir": "hidden linkage, no IPSCCP fold: body keeps size in r8 and passes mov r2,r8"},
+    {"form": "t3 t2 as pub(crate)", "result": "binary identical to t2", "ir": "still hidden: callers are exported/inlinable program items, so the helper is not internalized"},
+    {"form": "earlier rent-argument lane (ref pr/1384, base 381dc30/094a06f): #[no_mangle] extern C, C ABI, address-taken, generic size, assert_eq, ignored enum, separate path crate", "result": "all rejected (callers poisoned, helper lost, 3 windows lost, or 88 raw lost for the crate move)", "ir": "see NOTES.md table"}
+  ],
+  "ledger_keys": [
+    "0x3b598-w16-e611214-unreachhint-zerorentsize-enum-cast-v1",
+    "0x3b598-w16-e611214-unreachhint-control-nohint-v1",
+    "0x3b598-w16-e611214-unreachhint-usesize-pubfn-v1",
+    "0x3b598-w16-e611214-unreachhint-usesize-pubcrate-v1",
+    "0x3b598-w16-1cc4879-unreachhint-zerorentsize-landed-v1"
+  ],
+  "unresolved": [
+    "Unstripped identity: a safe usize parameter cannot carry the zero-only invariant without a runtime check, so the helper's signature-hashed symbol name necessarily changes; the stripped program is byte-identical.",
+    "Remaining codegen-forcing constructs on main (5): 2 read_volatile(holder_key) placeholders in admin_cto validate (lane w15a29-cto-devolrepay), 2 core::intrinsics::unlikely in pump-fees social.rs (Fees is out of scope), 1 upstream black_box in vendored anchor-lang under cfg(not(target_os=solana))."
+  ],
+  "tools": ["tools/capture_ir.py: lane-local IR capture (cargo rustc --emit=link,llvm-ir plus -C llvm-args such as -print-before/-print-after=<pass> -filter-print-funcs=<sym>) through the w11-baseline fastbuild; never for proposals"],
+  "credit": "The zero-only enum was first found by the rent-argument lane (Jonas van Ravenstein, commits f2b5c234d and bb2302976, ref pr/1384, never merged); this lane re-validated it on current main, documented the IR mechanism and landed it.",
+  "next_ideas": [
+    "The same enum-cast assume (a #[repr(int)] single-valued type cast with `as`) is the general safe replacement for an `if x != C { unreachable_unchecked() }` invariant on a by-value argument that must stay live through DeadArgElim."
+  ]
+}

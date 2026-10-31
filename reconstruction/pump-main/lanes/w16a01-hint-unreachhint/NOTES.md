@@ -5,6 +5,14 @@ v2 callers `0x13b9b8` buy_handler, `0x13f630` buy_exact_quote_in_handler and `0x
 `if _size != 0 { unsafe { core::hint::unreachable_unchecked() } }` (#1412) with ordinary Rust and keep the build
 byte-identical.
 
+## Landing
+
+#3828 merged into main as `9bd38c7d5`. Another agent merged it at 23:00:12Z while `land.py 3828 --allow-neutral`
+was verifying. land.py's own merge build (PR head + main 1cc487926) was 1034/1034 with zero losses; it then found
+the PR merged and returned `merged: true`. The new baseline `baseline-main-9bd38c7d5` has zero losses against
+`baseline-main-1cc487926` and the same stripped sha (`d96c8927...`). Its unstripped sha is `d0c733f6...`, the same as
+trial t1.
+
 ## Result
 
 The size parameter becomes a safe zero-only type, used where the rent minimum is computed:
