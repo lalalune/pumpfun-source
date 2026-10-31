@@ -1,4 +1,5 @@
 import ast
+import hashlib
 import json
 from pathlib import Path
 import sys
@@ -49,7 +50,8 @@ class ReceiptToolIdentityTests(unittest.TestCase):
         def build(source, work, out, **kwargs):
             out.mkdir(parents=True)
             (out / 'unstripped.so').write_bytes(b'fixture, not a real ELF')
-            return {'ok': True, 'runtime_valid': True, 'stack_warnings': []}
+            return {'ok': True, 'runtime_valid': True, 'stack_warnings': [],
+                    'unstripped_sha256': hashlib.sha256(b'fixture, not a real ELF').hexdigest()}
 
         windows = {0: {'bytes': 8, 'normalized': True, 'raw': True}}
         out = self.root / 'output'

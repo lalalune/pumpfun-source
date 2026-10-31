@@ -458,6 +458,7 @@ def main():
                 exit_code = 1
             elif res['ok']:
                 s = subprocess.run([sys.executable, str(H / 'score.py'), str(out / 'build/unstripped.so'),
+                                   '--expect-sha256', res['unstripped_sha256'],
                                    '--baseline', str(baseline),
                                    '--json', str(out / 'score.json'), '--quiet'],
                                    capture_output=True, text=True)

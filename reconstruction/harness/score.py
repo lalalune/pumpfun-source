@@ -116,12 +116,12 @@ def original_windows():
             for row in _window_rows(orig, inventory)]
 
 
-def score(cand_path):
+def score(cand_path, expected_sha256=None):
     """Return window memberships, preserving the existing library interface."""
-    return score_with_hash(cand_path)[0]
+    return score_with_hash(cand_path, expected_sha256)[0]
 
 
-def score_with_hash(cand_path):
+def score_with_hash(cand_path, expected_sha256=None):
     """Score one byte snapshot and return its memberships and SHA-256.
 
     The external symbol reader must see the same bytes as normalization, even if
@@ -129,6 +129,11 @@ def score_with_hash(cand_path):
     success or failure. This binds the result to bytes read, not source provenance.
     """
     cand = Path(cand_path).read_bytes(); cs = sections(cand)
+    digest = hashlib.sha256(cand).hexdigest()
+    # The build reports the digest of what it published; scoring a path that
+    # has since been replaced asserts a match the build never made.
+    if expected_sha256 is not None and digest != expected_sha256:
+        raise ValueError('candidate bytes do not match the bytes the build published')
     with tempfile.TemporaryDirectory(prefix='pump-score-') as temporary:
         snapshot = Path(temporary) / 'candidate.so'
         snapshot.write_bytes(cand)
@@ -152,7 +157,7 @@ def score_with_hash(cand_path):
         ms = by.get((w['bytes'], hashlib.sha256(w['norm']).digest()), [])
         res[w['start']] = {'normalized': bool(ms), 'raw': any(m[2] == w['raw'] for m in ms),
                            'symbols': [m[1] for m in ms], 'bytes': w['bytes']}
-    return res, hashlib.sha256(cand).hexdigest()
+    return res, digest
 
 
 
@@ -199,6 +204,7 @@ def main():
     baseline_options.add_argument('--no-baseline', action='store_true', help='report counts only; gains/losses are relative to an empty baseline')
     ap.add_argument('--json', type=Path)
     ap.add_argument('--quiet', action='store_true')
+    ap.add_argument('--expect-sha256', help='require the candidate to be the bytes a build reported')
     a = ap.parse_args()
     if a.no_baseline:
         base = None
@@ -212,7 +218,7 @@ def main():
     if base is not None:
         inputs.insert(1, a.baseline)
     report_destination(a.json, inputs)
-    cur, candidate_sha256 = score_with_hash(a.candidate)
+    cur, candidate_sha256 = score_with_hash(a.candidate, a.expect_sha256)
     if base is None:
         base = {}
     else:

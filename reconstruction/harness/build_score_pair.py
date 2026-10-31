@@ -51,6 +51,8 @@ def source_receipt(repo):
 def require_valid_build(result):
     if not result.get('ok') or not result.get('runtime_valid') or result.get('stack_warnings'):
         raise ValueError('build failed or reported invalid stack frames; refusing to score')
+    if not result.get('unstripped_sha256'):
+        raise ValueError('build report has no published digest; refusing to score')
 
 
 def bound_inputs(scoring_inputs, sdk, hybrid):
@@ -125,7 +127,7 @@ def _run_pair(base, candidate, out, sdk, hybrid, timeout):
             require_valid_build(result)
             if source_receipt(repo) != before[name]:
                 raise ValueError('source changed during build')
-            windows = score.score(out / name / 'unstripped.so')
+            windows = score.score(out / name / 'unstripped.so', result['unstripped_sha256'])
             reports[name] = windows
             (out / (name + '-score.json')).write_text(
                 json.dumps({'windows': windows}, indent=2) + '\n',
