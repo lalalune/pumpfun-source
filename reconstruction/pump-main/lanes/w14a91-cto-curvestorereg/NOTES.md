@@ -10,7 +10,7 @@ Oracle: raw-IR capture + opt + llc (`capvar.sh` / `rx.py`, w14a82/w14a84 tools; 
 both mains), plus a rebuilt private RAPRIO llc (`llc-patch/build.sh` from w14a84) for forces and colour maps.
 Ledger: approach `curvestorereg`, keys `0x22a10-w14-{ecea702,963d1ee}-curvestorereg-*`.
 
-## Result: landable, admin_cto 0.67226 / 3,123 -> 0.67256 / 3,123 at 27,400 B
+## Result: landed (#3480, 13fe4536b), admin_cto 0.67226 / 3,123 -> 0.67256 / 3,123 at 27,400 B
 
 measure.sh on 963d1ee: 1034/1034 normalized and raw, zero losses; differential 363 cases, 0 mismatches;
 unstripped sha256 `cec841bd60cc0022...`.
@@ -94,10 +94,30 @@ ecea702 (main 0.67076):
 
 Putting the tag in r6 as the original does is not reachable by a local decision: every force that moves it cascades.
 
-## 4. Next ideas
+## 4. After landing (#3480, main 13fe453: 0.67256 / 3,123)
 
-- q7 is now on main. The q7 + match-fee shape (fm) is -8 B and -0.0016 on 963d1ee, but fm + `%1683 -> r6` was +0.0057 on
-  ecea702 at -24 B. Re-run `cclimb.sh` on fm over the new main to see whether an event-piece force is still the lead.
+`eq_main` holds on the unedited capture of 13fe453. Keys `0x22a10-w14-13fe453-curvestorereg-*`.
+
+| key | form | bytes | ratio | best RA force (private llc) |
+| --- | --- | ---: | ---: | --- |
+| m_fm | `match fee{Some(f)=>..,None=>{}}` | 27,392 | 0.67086 | `%1684 -> r6` (event `%0` piece): 0.67356 @27,392 |
+| **H1** | m_fm + pool_authority `rent_epoch` re-read (+8 B) | 27,400 | 0.67226 | **`%1685 -> r6`: 0.67496 @27,400 (+0.0024 over main)**; 3 forces 0.67825 |
+| H2 | None-first fee match + rent re-read | 27,400 | 0.67226 | |
+| J1 / J2 | pool CPI args inline (no `pargs` tuple), on H1 / on main | 27,432 | 0.630 | |
+
+The lead in H1 is a register swap at the event. Ours: pool_updated (`%1650`, `mov 0` / `mov 1`) takes r6 by evicting
+old_fee, and the accounts pointer piece `%1685` keeps `%0`'s r8. The original has pool_updated in r8 and reloads the accounts
+pointer into r6 (0x4f38) after the tag test frees r6.
+- Forcing pool_updated directly loses: r8 0.587, r7 0.582, r9 0.669, top priority 0.604, bottom priority 0.667.
+- Only the `%0` piece -> r6 force gains. With it pool_updated lands in r9, where the original keeps swept.
+- The root cause is again the tag-in-r6 colouring (section 1, w14a12). In the original, pool_updated cannot take r6 or r7
+  because the tag holds r6 until 0x4f28.
+
+## 5. Next ideas
+
+- H1 (match fee + `rent_epoch` re-read) is at 27,400 and is RA-recoverable to 0.67496 by one decision (`%0`'s event piece in r6
+  instead of pool_updated). A source form that makes pool_updated lose r6, or that makes r6 busy from the pool join to the
+  event, lands about +0.0024. The original does it by keeping the sharing tag in r6.
 - The faithful tail forms (po, holder bool for the curve store and the pool arg, fee `jne 0` polarity) all match the original
   locally and lose through RA cascades. They are the original's code; they need the swept-r9 / tag-r6 colouring
   (w14a12, w14a69) to pay off, so try them again on any base that moves swept into r9.

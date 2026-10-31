@@ -1,0 +1,12 @@
+{
+  "lane": "w14a91-cto-curvestorereg",
+  "target": "0x22a10 admin_cto::execute",
+  "pinned_bytes": 27400,
+  "landed": {"pr": 3480, "merge_commit": "13fe4536b", "before": {"main": "963d1ee", "ratio": 0.67226, "slots": 3123}, "after": {"ratio": 0.67256, "slots": 3123, "bytes": 27400, "normalized": 1034, "raw": 1034, "unstripped_sha": "cec841bd60cc0022"}},
+  "mechanism": "q7: event is_holder_reward re-reads a.bonding_curve.is_holder_reward (orig 0x4fe0); curve stores holder before cashback (orig order); sharing CPI back to match Some/None to repay q7's -8 B",
+  "orig_registers_over_curve_block": {"r6": "sharing_update tag (0x3d00 .. 0x4f28)", "r8": "free over the block; pool_updated from 0x4c40/0x4e30 to 0x5028", "r9": "swept to the event", "r3": "accounts pointer reloaded per block", "spilled": "old_fee [r10-2272], holder bool [r10-2384]"},
+  "attempts": 140,
+  "rejected": ["po owner-first pool test (-0.04, RA cascade; MBB order unchanged)", "ph pool arg = holder bool", "pool_updated before curve block", "fee is_some/is_none/if-let-else spellings (= q7)", "match fee (-8 B, -0.0016)", "q7 + 41 kn2 size knobs (none at 27,400 above main)", "faithful-tail composites F1-F8", "tag / %60 / old_fee / pool_updated forces (cascades)", "inline pool CPI args"],
+  "leads": [{"form": "H1 = match fee + pool_authority rent_epoch re-read (27,400, 0.67226)", "ra_bound": 0.67496, "decision": "event %0 piece -> r6 instead of pool_updated"}],
+  "next_ideas": ["source form that makes pool_updated lose r6 (or keeps r6 busy from the pool join to the event) on H1", "faithful tail forms (po, holder bool for store and pool arg, fee jne 0) on any base that moves swept to r9 / tag to r6"]
+}
