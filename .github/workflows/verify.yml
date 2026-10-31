@@ -384,6 +384,7 @@ jobs:
               python scripts/test_reconstruction_identity_audit.py
               python -B reconstruction/diagnostics/identity-audit-unoptimized/test_run.py
               python scripts/local_validation.py
+              python -B tests/test_fees_sharing_oracle_binding.py
               python -B research/tooling-interior-string-references-20261030/test_verify.py
               python -I -B scripts/test_verify_evidence_paths.py
               python research/tooling-disassembly-reproducibility-20261030/test_verify.py
