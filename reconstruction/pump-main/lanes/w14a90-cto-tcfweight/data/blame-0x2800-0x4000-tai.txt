@@ -1,0 +1,38 @@
+{"lo": "0x2800", "hi": "0x4000", "clo": "0x27d0", "chi": "0x3ff8", "n_orig": 767, "n_cand": 772, "miss": 321, "fm": 80, "rm": 173, "jm": 24, "sk": 44, "del": {"frame-load": 17, "frame-store-dw": 9, "ptr-load+0": 3, "ai-owner/rent-load": 3, "jump": 3, "mov-reg": 2, "ptr-load+16": 2, "frame-store-w": 2, "ptr-load+8": 1, "frame-store-b": 1, "mem-store": 1}, "ins": {"frame-store-dw": 17, "frame-load": 13, "mov-reg": 4, "ai-owner/rent-load": 4, "ai-flag-load": 3, "ptr-load+0": 2, "acc-field-load": 2, "add-imm": 1, "mov-imm": 1, "ptr-load+16": 1, "ptr-load+8": 1}}
+register-only misses 177 in orig [0x2800,0x4000): blocked-by-ours-occupant 141, blocked-by-orig-occupant 18, free 18
+  21  ours r6 <- 1f20 add64 r6, 264   e.g. orig 28d8 2bc8 2bd0 2bd8 2be0 2be8
+  20  ours r9 <- 1d40 ldxb r9, [r1+35]   e.g. orig 2958 29a0 29a8 29b0 29b8 29c0
+  17  ours r5 <- 2668 ldxdw r5, [r2+8]   e.g. orig 2838 2888 2890 2898 28a0 28a8
+  12  ours r4 <- 2f80 ldxdw r4, [r2+0]   e.g. orig 2f90 3000 3008 3010 3018 3020
+  10  ours r8 <- 1d48 ldxdw r8, [r10-2264]   e.g. orig 3130 3138 3140 3148 3150 3158
+  10  ours r5 <- 3d68 ldxdw r5, [r10-2264]   e.g. orig 3dc8 3f30 3f80 3f88 3f90 3f98
+   9  ours r6 <- 3d78 ldxdw r6, [r1+8]   e.g. orig 3e70 3e78 3e80 3e88 3e90 3e98
+   7  ours r5 <- 2f50 ldxdw r5, [r2+16]   e.g. orig 31a0 31e8 31f0 31f8 3230 3238
+   6  ours r5 <- 32f8 mov64 r5, r7   e.g. orig 3308 3310 3340 3348 33d0 39e0
+   4  ours r7 <- 26b8 ldxdw r7, [r2+16]   e.g. orig 29f0 2c88 2d48 2d50
+   4  ours r7 <- 3060 ldxdw r7, [r8+232]   e.g. orig 30a8 3288 32b8 32f8
+   3  ours r6 <- 30c0 ldxdw r6, [r1+16]   e.g. orig 3328 3408 3450
+   3  ours r3 <- 3448 ldxb r3, [r1+40]   e.g. orig 3458 3460 39f0
+   3  ours r4 <- 4388 ldxdw r4, [r1+16]   e.g. orig 3f68 3f78 3fe8
+   2  ours r4 <- 3148 ldxdw r4, [r8+240]   e.g. orig 3178 3180
+   2  ours r3 <- 32c8 ldxdw r3, [r8+16]   e.g. orig 32e0 32f0
+   1  ours r5 <- 2e60 mov64 r5, r7   e.g. orig 2e88
+   1  ours r3 <- 3198 mov64 r3, 1   e.g. orig 31d0
+   1  ours r2 <- 3190 add64 r2, 1   e.g. orig 3200
+   1  ours r4 <- 31f8 ldxdw r4, [r4+24]   e.g. orig 3208
+   1  ours r5 <- 3288 ldxb r5, [r1+40]   e.g. orig 32a0
+   1  ours r2 <- 3340 ldxdw r2, [r1+8]   e.g. orig 34c0
+   1  ours r7 <- 3458 ldxb r7, [r1+42]   e.g. orig 3530
+   1  ours r3 <- 43a0 mov64 r3, 1   e.g. orig 3f70
+--
+   3  orig r0 <- 2b08 ldxdw r0, [r2+0]   e.g. orig 2eb0 2ec0 2f48
+   3  orig r2 <- 31b0 ldxdw r2, [r1+16]   e.g. orig 31b8 31c0 3318
+   2  orig r5 <- 2e50 ldxdw r5, [r1+16]   e.g. orig 2f60 2f68
+   2  orig r3 <- 31c0 add64 r3, 1   e.g. orig 31c8 31d8
+   2  orig r1 <- 3f40 ldxdw r1, [r1+0]   e.g. orig 3f58 3f60
+   1  orig r6 <- 3078 ldxdw r6, [r8+232]   e.g. orig 3188
+   1  orig r5 <- 3238 add64 r5, 1   e.g. orig 3278
+   1  orig r3 <- 3468 ldxdw r3, [r1+24]   e.g. orig 3a20
+   1  orig r3 <- 1fa0 call rel / 2518 call rel / 3b70 call rel   e.g. orig 3bb8
+   1  orig r5 <- 3dc8 ldxdw r5, [r1+0]   e.g. orig 3e38
+   1  orig r4 <- 3f68 mov64 r4, 1 / 3f78 mov64 r4, 0   e.g. orig 3fe0
