@@ -1,0 +1,27 @@
+{
+  "lane": "w14a71-cto-chainscan2",
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27400 B",
+  "bases": {"304b03a": {"ratio": 0.65788, "slots": 3223}, "39eb377": {"ratio": 0.66477, "slots": 3230}},
+  "result": "no source change; notes + tools. Outside validate every placement-only gain is jump-distance compensation (vanishes under jump-offset masking), so there is no MBP cause or polarity lever to chase there.",
+  "best_zero_loss": {"ratio": 0.66477, "slots": 3230, "bytes": 27400, "note": "= main 39eb377; no candidate of this lane beat main"},
+  "placement_ceiling": {
+    "304b03a": {"non_validate_greedy": 0.66058, "all_greedy": 0.66747, "validate_real_order": "E334 +0.00659, E306 +0.0027, E312 +0.0018"},
+    "39eb377": {"all_greedy": 0.66806, "real_order": "E306 +0.0009 only (jm +0.0048)"}
+  },
+  "tools": ["tools/greedy.py (greedy multi-move placement with --seed)", "tools/jmcheck.py (jump-masked / frame-masked check of a move)", "tools/brw.py (single-branch !prof weight oracle on post-opt IR)", "w14a36 blkscan/mvblk/asmscore/rx/capvar repointed"],
+  "tables": ["chainscan-304b03a.json", "chainscan-39eb377.json", "greedy*-*.log"],
+  "attempts": ["chainscan 304b03a", "greedy non-validate / all / validate-seeded 304b03a", "jm check 330 moves x2 mains", "brw weights on 3 branches", "j1 j2 k1 k3 k5 k6 wallet+sweep single-? joins", "chainscan+jm+greedy 39eb377"],
+  "rejected": {
+    "j1 closure wallet+sweep": "0.60926@27408",
+    "j2 w.and_then": "0.58174@26744",
+    "k1/k3/k5 if !skip{sweep}else if collect_old{wallet}": "0.23219@27328",
+    "k6 then().unwrap_or_else(wallet)": "0.55047@27328",
+    "branch weights": "rerun RA on BPF; no weight is a placement-only knob"
+  },
+  "residuals": [
+    "E306 placement (+0.0009 on 39eb377), validate lanes",
+    "289/298 order: jm +0.016..0.021 but raw -0.004..-0.009 without the original and-1 holder-test polarity",
+    "orig 0x28d70 shared sweep-amm + wallet token_frozen Err pad threaded to the function Err return (sweep-Err threading residual)"
+  ],
+  "next": ["run jmcheck.py on any placement lead before a source screen; d_jm<=0 means price it as a size shift (w14a64 shift map)", "289/298 with and-1 holder polarity plus a size repay"]
+}
