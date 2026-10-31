@@ -1,0 +1,18 @@
+{
+  "lane": "w14a108-cto-crlrepay",
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27,400 B",
+  "landed": [{"pr": 3495, "merge_commit": "ebe5387e1", "before": {"main": "13fe453", "ratio": 0.67256, "M": 2245, "slots_diff": 3123}, "after": {"ratio": 0.67316, "M": 2247, "slots_diff": 3123, "cand_bytes": 27400, "normalized": 1034, "raw": 1034, "differential": "363/0", "unstripped_sha": "9ac11d9e5692d3ff"}, "change": "let shared={let sk=a.sharing_config.key();a.bonding_curve.creator==sk}&&... (original memcmp(&creator,&key_copy) operand order)"}],
+  "best": {"ratio": 0.67316, "slots_diff": 3123, "cand_bytes": 27400},
+  "attempts": 66,
+  "ledger_keys": "0x22a10-w14-13fe453-crlrepay-* and 0x22a10-w14-ebe5387-crlrepay-*",
+  "findings": [
+    "crl_L adds a 4-word curve.creator stack copy that the original does not have (orig 0x100-0x198 are the hk.0 and sharing-key copies); its +3 M (+1 on ebe5387) is incidental naming, so no faithful repay exists",
+    "extra-code ledger (xled/xtab): main has 336 ours-only / 338 orig-only skeleton tokens. The one real ours-only source construct is to_string inlined at 307 and 312 (~408 B); the rest are scheduling/RA order runs",
+    "to_string (cost 130) inlines at threshold 325 and is refused at the cold threshold 45 (<2% of validate entry freq). Main's 307/312 sit at 0.0283/0.0287 and 296 at 0.0264; the original outlines 307/312 and inlines 296",
+    "unwrap_or(false) / matches! / unwrap_or_default / is_some_and holder spellings reproduce the original outline pattern exactly, but collapse to M 1,397 (rfjM 2,137): this is the and-1 / outline basin",
+    "noinline oracle: outlining 312 alone is -216 B / -53 M (frame-only, fM unchanged); 307 alone is -192 B / -241 M; both are -408 B / -294 M"
+  ],
+  "rejected": ["dv334/dv338/both as crl_L repay", "t1 (+8 B on 13fe453)", "plain cmpswap (-6 M)", "sk hoist reused for validate (collapse)", "20 key-local/operand spellings (fold or -2/-3)", "curve-first entry spellings", "PDA-first with key local (M 1,955)", "312 as two ifs (M 1,887)", "dv334 + 10 +8 B partners (best 2,245 < 2,247)"],
+  "unresolved": ["to_string outline at 307/312 needs freq < 0.02 with 296 >= 0.02, and ~400 B of orig-only constructs to refill", "334/338 read_volatile placeholders: dv334 costs 1 M at -8 B with no partner found"],
+  "next_ideas": ["ev_cb_local rfjM +62 in the sharing-CPI clone region: find what restores jump distances/colouring", "a source form that cuts the non-holder arm frequency by ~10% after v_289h (307/312 at 0.022) without moving 296; screen it with bfi.py first (seconds per capture)", "orig-only constructs to refill an outline: orig 0x10f0 (23 tok), 0xd90 (15), 0x14b0 (16)"]
+}

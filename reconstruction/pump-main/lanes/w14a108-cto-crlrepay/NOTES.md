@@ -95,3 +95,23 @@ original's orig-only constructs (orig 0x10f0 23 tok, 0xd90 15, 0x14b0 16, see xt
   (rfM) and jumps (rfjM) masked. `tools/vs.py a b`: skeleton diff between two candidates.
 - `tools/xled.py` / `tools/xtab.py`: the extra-code ledger above. `tools/bfi.py <raw.ll>`: to_string call-site
   frequencies and cold/hot prediction for validate (pass another fn regex as argv[2]).
+
+## After landing (#3495, main ebe5387, 0.67316, M 2,247)
+
+All 14 memcmp call sites now use the original operand order: same r1/r2 kinds at every site (stack copy versus in-place
+field versus rodata constant). Screens on ebe5387 (raw-IR oracle; every row is in `screen_rows.md` and in the ledger):
+
+- **Key-local / operand-order family (20 spellings):** sweep dest, wallet/sweep native, owner tests, 307/312
+  operands, `*x.key` derefs and event keys. Every key-local spelling folds to main's tokens (eq_main true). The operand
+  swaps `dest!=hv`, `ID==qm` (wallet, sweep) and `Pubkey::default()==q` lose 2-3 M. The skeleton holds at the other sites.
+- **Curve-pointer-first entry (cb1-cb8):** the original loads `a.bonding_curve` before the sharing key. cb1/cb6/cb7/cb8
+  fold to main. Binding `&a.bonding_curve.creator` or `&*a.bonding_curve` first (cb2-cb4) loses 8 M. `sk==creator`
+  (cb5) loses 2 M.
+- **PDA-first with the key local (pdaf, pdaf2, pdaf3):** skM rises to 2,823-2,828 (main 2,810), but M collapses to 1,953-1,955.
+- **312 as two `if`s on one line (i312a/b):** the source form that would make 312's `to_string` cold collapses (M 1,880-1,887).
+- **crl_L on ebe5387:** only +1 M at +72 B now (2,248 @ 27,472); with dv334, 2,247 @ 27,464.
+- **dv334 (drop the 334 `read_volatile` placeholder) is -8 B / -1 M.** No +8 B partner repays it: rP_back gives 2,245,
+  cu_unwrapcur / wl_writ_eq 2,244, p_colnat 2,243, wl_ts_clockvar / g_w_clock_local 2,243 @ 27,408, su_to_st 2,244 @ 27,384.
+- **Lead (not landable):** `ev_cb_local` (event `is_cashback_coin:cashback`) gives **rfjM 2,872** (main 2,810, +62).
+  The gain is in skeleton order in the sharing-CPI clone region (cand 0x3da8-0x4fb8), but M is 2,222 at 27,392 B: the jump
+  distances and colouring do not follow. If a lane can repair the intervening block sizes, it may be worth a look.

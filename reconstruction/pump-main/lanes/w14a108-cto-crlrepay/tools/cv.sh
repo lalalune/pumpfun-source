@@ -19,7 +19,7 @@ open(f,'w').write(s)
 PY
 export PUMP_BUILD_SLOTS=10
 rm -f $OUT/work$W/target*/*/release/deps/pump_recovered*.ll
-python3 $OUT/tools/capraw.py $OUT/var/$N $OUT/work$W $OUT/ir/cap_$N > /dev/null 2>&1
-if [ ! -f $OUT/ir/cap_$N/raw.ll ]; then echo "{\"name\":\"$N\",\"error\":\"compile\"}"; grep -m3 -A5 '^error' $OUT/work$W/*.log $OUT/ir/cap_$N/*.log 2>/dev/null | head -20 >&2; rm -rf $OUT/ir/cap_$N; exit 1; fi
+python3 $OUT/tools/capraw.py $OUT/var/$N $OUT/work$W $OUT/ir/cap_$N > $OUT/ir/caplog_$N.txt 2>&1
+if [ ! -f $OUT/ir/cap_$N/raw.ll ]; then echo "{\"name\":\"$N\",\"error\":\"compile\"}"; tail -5 $OUT/ir/caplog_$N.txt >&2; grep -h -m2 -A6 "^error" $OUT/ir/cap_$N/*.log >&2; rm -rf $OUT/ir/cap_$N; exit 1; fi
 mv $OUT/ir/cap_$N/raw.ll $OUT/ir/$N.ll; rm -rf $OUT/ir/cap_$N $OUT/var/$N
 cd $OUT && python3 tools/rx.py $N --base ir/$N.ll | tail -1
