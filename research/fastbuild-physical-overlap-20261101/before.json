@@ -1,0 +1,32 @@
+[
+  {
+    "mode": "separate",
+    "ok": true,
+    "candidate_sha256": "dcbf63f7b5b5ae4a4c6efde978fd4ac803105e31527776ef94d89815e8a68087",
+    "source_unchanged": true,
+    "created_source_files": [],
+    "output_exists": true
+  },
+  {
+    "mode": "canonical-overlap",
+    "error": "source must not overlap the build workspace or contain output",
+    "error_type": "ValueError",
+    "source_unchanged": true,
+    "created_source_files": [],
+    "output_exists": false
+  },
+  {
+    "mode": "case-overlap",
+    "ok": true,
+    "candidate_sha256": "dcbf63f7b5b5ae4a4c6efde978fd4ac803105e31527776ef94d89815e8a68087",
+    "source_unchanged": false,
+    "created_source_files": [
+      ".out.fastbuild-output.lock",
+      "out/build.log",
+      "out/candidate.so",
+      "out/source-inputs.json",
+      "out/unstripped.so"
+    ],
+    "output_exists": true
+  }
+]

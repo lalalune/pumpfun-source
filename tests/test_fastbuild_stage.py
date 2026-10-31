@@ -87,6 +87,22 @@ class FastbuildManifestAdmissionTests(unittest.TestCase):
 
 
 class FastbuildOverlapGuardTests(unittest.TestCase):
+    def test_output_below_case_alias_is_rejected_before_any_writes(self):
+        with tempfile.TemporaryDirectory(prefix='source-case-overlap-') as temporary:
+            root = Path(temporary).resolve()
+            source = root / 'source'
+            source.mkdir()
+            alias = root / 'SOURCE'
+            if not alias.exists() or not alias.samefile(source):
+                self.skipTest('requires a case-insensitive filesystem')
+            (source / 'preserved.txt').write_text('original source\n')
+            before = fastbuild.snapshot(source)
+            paths = sorted(p.relative_to(root).as_posix() for p in root.rglob('*'))
+            with self.assertRaisesRegex(ValueError, 'source must not overlap'):
+                fastbuild.build(source, root / 'work', alias / 'new-output')
+            self.assertEqual(fastbuild.snapshot(source), before)
+            self.assertEqual(sorted(p.relative_to(root).as_posix() for p in root.rglob('*')), paths)
+
     def test_output_directory_containing_the_source_is_rejected(self):
         # build() used to reject only src==out and src inside out; an output
         # directory that is an ANCESTOR of the source passed the guard and the

@@ -227,6 +227,25 @@ def archive_previous_outputs(out: Path):
         path.rename(archive / path.name)
 
 
+def contains_path(parent, child):
+    """Check lexical and existing physical ancestry before creating build paths."""
+    if parent == child or parent in child.parents:
+        return True
+    try:
+        identity = parent.stat()
+    except FileNotFoundError:
+        return False
+    # resolve() removes symlinks but can retain alternate case spellings.
+    # A not-yet-created destination can still have an existing aliased parent.
+    for path in (child, *child.parents):
+        try:
+            if os.path.samestat(identity, path.stat()):
+                return True
+        except FileNotFoundError:
+            continue
+    return False
+
+
 def build(src: Path, work: Path, out: Path, quiet=False, recipe=None, timeout=None):
     validate_timeout(timeout)
     validate_slots()
@@ -235,8 +254,7 @@ def build(src: Path, work: Path, out: Path, quiet=False, recipe=None, timeout=No
     # the source tree (and thereby change its source-input receipt). The
     # output directory must not contain the source either: publishing into a
     # parent of src archives and writes inside the tree that holds it.
-    if (src == work or src in work.parents or work in src.parents
-            or src == out or src in out.parents or out in src.parents):
+    if any(contains_path(src, path) or contains_path(path, src) for path in (work, out)):
         raise ValueError('source must not overlap the build workspace or contain output')
     # Staging uses rsync --delete before prior outputs are archived.
     staged = (work / 'ws/programs/pump').resolve()
