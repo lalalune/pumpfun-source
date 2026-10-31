@@ -89,3 +89,5 @@ On 6db95a7 (raw-IR oracle, `tools/gen5.py`, `gen6.py`, `gen7.py`):
   0x8e0, orig 0x8e0 vs ours 0x9b8). That is the spill-slot-order residual, not code shape.
 - Zero-size knob screen on 6db95a7 (58 catalog and w14a31 knobs whose last measured delta was 0 B, `tools/gen4.py base m4`):
   none is above main (best = main, 0.65458).
+- Next idea 1 tried (`tools/gen8.py`): hoisting the vault-signer block (vsigner/bump/old/vaultseeds) before the dest PDA (y1, 0.353),
+  before amm_frozen (y2, 0.436), or only `old` before the dest PDA (y3, 0.593). All collapse, so the joins cannot be merged by declaration order.
