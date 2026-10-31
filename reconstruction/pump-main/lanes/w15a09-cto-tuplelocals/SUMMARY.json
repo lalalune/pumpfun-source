@@ -1,0 +1,35 @@
+{
+  "lane": "w15a09-cto-tuplelocals",
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27400 B",
+  "base": {"main": "90300f9d2 (admin_cto.rs unchanged through d4219123c)", "ratio": 0.67346, "slots_diff": 3124, "bytes": 27400},
+  "best_zero_loss": {"ratio": 0.67346, "slots_diff": 3124, "bytes": 27400, "note": "no variant beats main at the pinned size; ties: k1, k4, o1 and many byte-identical forms"},
+  "attempts": 93,
+  "ledger_keys": "0x22a10-w15-90300f9-tuplelocals-*",
+  "oracle": "w14a144 raw-IR capture + SDK opt -O3 + llc (eq_main true), true LCS via w14a128 lcs.py",
+  "rejected_mechanisms": [
+    "cashback as per-arm mut/deferred local or tree-tuple field (c1-c6, A5): one 27264 B code, M 1882, LCS rfj -12",
+    "target deferred from validate / tree-tuple field / all fields per arm (t1-t3, A1-A7): -0.30 ratio",
+    "sharing_update deferred / tree-tuple field / payload precomputed (s1, s2, f5): neutral or -0.0008",
+    "collect_old mut/deferred/precomputed (k2, k3, f1, f2): collapse",
+    "skip mut/deferred/derived (k1, k4, f3, f4): tie or collapse",
+    "tree arm forms match/(shared,holder)/!shared-first/&& chain (m1-m4): identical or worse",
+    "outer Ok hop field subsets, orders, extra fields (o1-o8, h1): codegen-irrelevant",
+    "inner 6-tuple field set/order (q1-q8): identical; su before target = 0.67316",
+    "pargs respellings (p1-p4): byte-identical",
+    "vo1 + hop/declaration permutations: LCS rfj -18, not a frame permutation",
+    "curve creator bound early (g1/f6/g3/f7) + negative size knobs at 27400 (X1-X4): 0.664-0.669"
+  ],
+  "leads": [
+    "g1 'let creator=st.creator;' before validate: M 2250 (+2), true-LCS rfj 3014 (+7) but +120 B (live creator pieces across validate)",
+    "g1/g3 are positive byte-repay knobs on the outline bases: O312 g1 +120 B M +3; O g3 +24 B M +93, g1 +128 B M +5"
+  ],
+  "unresolved_residuals": [
+    "orig validate head copies a 32 B stack value [r10-0x6a0..0x688] -> [r10-0x518..0x500] (orig 0x598-0x5d0)",
+    "orig per-validate-exit cashback slot [r10-0x958]; source per-arm cashback (c1) needs RA recovery in 0x2800-0x3800"
+  ],
+  "next_ideas": [
+    "g1/g3 as repay on the 312 / 307+312 outline base (w15a02)",
+    "a creator/target early form that is a memory copy (not SSA pieces) to keep g1's skeleton without its 15 moves",
+    "RA ceiling of c1 / c1+g1 with the w14a84 private-llc climb"
+  ]
+}
