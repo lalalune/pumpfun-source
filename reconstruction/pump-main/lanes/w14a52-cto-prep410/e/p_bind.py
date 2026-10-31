@@ -1,0 +1,1 @@
+EDITS=[[" crate::trade_types::prepare_bonding_curve(&a.bonding_curve,&a.system_program,&a.admin_set_creator_authority)?;\n", " let curve=&a.bonding_curve;crate::trade_types::prepare_bonding_curve(curve,&a.system_program,&a.admin_set_creator_authority)?;\n"]]

@@ -1,0 +1,1 @@
+EDITS=[["(holder,cashback,target,sharing_update,collect_old,skip)};", "crate::trade_types::prepare_bonding_curve(&a.bonding_curve,&a.system_program,&a.admin_set_creator_authority)?;(holder,cashback,target,sharing_update,collect_old,skip)};"], [" crate::trade_types::prepare_bonding_curve(&a.bonding_curve,&a.system_program,&a.admin_set_creator_authority)?;", " "]]

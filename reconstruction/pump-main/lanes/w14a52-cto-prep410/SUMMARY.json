@@ -1,0 +1,93 @@
+{
+ "lane": "w14a52-cto-prep410",
+ "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27400 B",
+ "region": "orig 0x1940-0x1c38 (line 339 sharing/collect_old tuple + Ok carry, prepare_bonding_curve, require 410); w14a38 splice value +0.0090 (92 slots, fm 6 rm 3 jm 3 sk 27)",
+ "bases": {
+  "0fbf8daa1": {
+   "ratio": 0.65578,
+   "slots": 3280
+  },
+  "63308119b": {
+   "ratio": 0.65698,
+   "slots": 3193
+  }
+ },
+ "best_zero_loss": null,
+ "best_lead": {
+  "name": "t_ord_suf",
+  "edit": "let (sharing_update,collect_old,skip)=... tuple order",
+  "on_0fbf8da": "0.65609 @27424 (M +2)",
+  "on_6330811": "0.65669 @27424 (M +0, below main)"
+ },
+ "attempts": 72,
+ "ledger_keys": [
+  "0x22a10-w14-0fbf8da-prep410-*-v1",
+  "0x22a10-w14-6330811-prep410-*-v1"
+ ],
+ "findings": [
+  "Region sk 27 = E334's 26 insns placed after E410 (w14a36's +0.0075 placement bound); the rest is tuple data-flow order and spill/register naming",
+  "Ours copies validate's Result<Pubkey> target pieces (7+9 B via _48.sroa.11) into execute's target in the pre-tree join bb76; the original copies it in the post-tree join (via a [-0x670] temp), so its small shared test is tail-duplicated into every validate exit and the fee-Some exit stays its own block",
+  "Ok-carry tuple fields are swapped in the frame (orig target at -0x580, payload at -0x560; ours payload -0x580, target -0x560); reordering the carry tuple loses (ok_ord_stc 0.65398)",
+  "Original holder test in the shared arm is jeq (falls into !holder) with the holder arm laid out at orig 0x1128; ours is and 0xff + jne with holder constants in the join",
+  "if/match/polarity/require!/by-ref/bind spellings of the tree, prepare and 410 fold to main's IR",
+  "Size knobs sh (-8, -1 M) and tp (-8, -4 M) do not add with t_ord_suf (lands at 27408)",
+  "IR oracle postjoin (move validate target copies from pre-tree join to post-tree join): pj 0.3739@27440, pjk 0.6479@27432; E334 stays after E410, so the pre-tree copy is not the E334 lever"
+ ],
+ "rejected": [
+  "t_sep",
+  "t_sep2",
+  "t_skipexpr",
+  "t_ord_scs",
+  "t_ord_ssc",
+  "t_comem",
+  "t_coand",
+  "t_codefl",
+  "t_new",
+  "t_tgtlate",
+  "t_tgtexpr",
+  "ts_if",
+  "ts_if2",
+  "ts_sel",
+  "ts_su",
+  "ts_pa",
+  "t_notgt",
+  "ok_ord_stc",
+  "ok_ord_cst",
+  "ok_tonly",
+  "p_beforeok",
+  "p_inblk",
+  "r_ne",
+  "f_someret",
+  "f_tail",
+  "f_tail2",
+  "f_okfee",
+  "c_afterprep",
+  "c_after410",
+  "suf+knob pairs"
+ ],
+ "identical_to_main": [
+  "t_coif",
+  "t_notsh",
+  "t_match",
+  "t_hnot",
+  "ok_ord_tcs",
+  "ok_co",
+  "ok_skip",
+  "p_ctx",
+  "p_bind",
+  "r_if",
+  "r_ifgt",
+  "r_tmp",
+  "c_nomut",
+  "o_su1..5"
+ ],
+ "unresolved": [
+  "E334 placement / unjoined validate exits (CFG fact owned by validate-outline lanes)",
+  "post-tree target copy through a temp",
+  "sharing tag slot -0x8f8 vs ours -0x8e8"
+ ],
+ "next_ideas": [
+  "E334 needs the split fee-Some exit (w14a36): an IR/MIR oracle that splits only the bb58.i->join edge with the r4/r3 spill copies and the r7=1 fee-tag constant, then a source form that yields that edge (e.g. a per-arm fee tag carried out of validate)",
+  "Source: bind validate result inside each shared arm combined with the validate-outline (and-1 holder) family (w14a10/w14a15) so validate exits stay unjoined"
+ ]
+}

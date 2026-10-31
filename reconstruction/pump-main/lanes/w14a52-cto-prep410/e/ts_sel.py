@@ -1,0 +1,1 @@
+EDITS=[["else{target=st.creator;(false,Some(args.0),true)}", "else{(false,Some(args.0),true)}"], ["  curve.creator=target;\n", "  curve.creator=if shared&&!holder{old_creator}else{target};\n"], ["let pargs=(target,a.bonding_curve.is_holder_reward,fee);", "let pargs=(a.bonding_curve.creator,a.bonding_curve.is_holder_reward,fee);"]]
