@@ -1,0 +1,18 @@
+{
+  "lane": "w15a17-cto-tcfsroa64",
+  "target": "0x22a10 admin_cto::execute",
+  "base": {"main": "86e2a6b", "ratio": 0.67376, "slots_diff": 3124, "bytes": 27400},
+  "best": {"ratio": 0.67376, "slots_diff": 3124, "bytes": 27400, "note": "no spelling beats main; ties are IR-identical respellings"},
+  "attempts": 61,
+  "ledger_keys": "0x22a10-w15-86e2a6b-tcfsroa64-*",
+  "findings": [
+    "The TCF [5 x i8] padding allocas (_64.sroa.{20,21,22}.sroa.11, _56.sroa.11) are original: the original window copies the same four 5-byte padding tails at the same frame offsets and in the same order as main. Removing them (tuple, let-bound program/accounts, deferred init) deletes those copies: -136 B, ratio about 0.596.",
+    "No ordinary spelling moves the TCF accounts StorageLive between the program flag loads and the rent load (EWSLR IR lead, +4 M on 86e2a6b). let cpi / let-bound Create re-lay the frame (0.3385); CpiContext struct literals and block-of-lets forms are IR-identical to main.",
+    "a.pump_amm.to_account_info() = AccountInfo::clone = declaration-order literal (byte-identical, 0.6499 at 27416). It reproduces the original's sunk load order E W S R O after the payer inc, so it is the likely original spelling.",
+    "Main's literal wins by loading the owner before the program Rc increments (KOLDREWS = main; any owner-after-lamports-clone form collapses). It is an RA compensation for a residual upstream of the run. The 720-order tail permutation on tai recovers nothing (best 0.6501).",
+    "Struct update ..*x on the three TCF sub-literals is IR-identical to main (their tails are already declaration order)."
+  ],
+  "rejected_mechanisms": ["SROA-promote TCF sub-literals (tuple/let/defer)", "let cpi=CpiContext::new split", "CpiContext struct literal", "deferred-init accounts", "sub-literal to_account_info (single and joint with tai program)", "token-arm Create let/tuple/ctxsplit/allbind", "program literal field orders KLD*/KLO*"],
+  "unresolved": ["why owner-late (tai) collapses the TCF clone-run RA in ours but not in the original; orig spills O at 0x2830, ours spills key and E at once"],
+  "next_ideas": ["Use tai as the faithful TCF program base and hunt the upstream residual that makes owner-late collapse", "rent-late +4 M remains IR-only"]
+}
