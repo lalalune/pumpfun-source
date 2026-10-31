@@ -155,6 +155,11 @@ On 95a64ba it gives 0.66916 at 27,384 (-16 B), which matches w14a82. With RA tak
   - At the pinned size, q7's colour climb reaches 0.68065 / 3,124 against main's 0.67585 / 3,115, so q7 is +0.0048 ahead
     once RA is accounted for.
   - Deferring old_fee below the `%0` split (priority < 51,712) spills it whole: 0.59419.
+- **On main 963d1ee (#3437, 0.67226):** q7 is 0.67116 at 27,392 (-8 B, because #3437 changed the event fee field).
+  - The best single colour force at 27,400 is +0.0003.
+  - The curve-store piece force (`%1688 -> r6`) is 0.67386 at 27,392.
+  - The colour climb at 27,400 reaches 0.67795 / 3,112.
+  - So the one-decision lead depends on the base and needs an 8 B repay on the current main.
 - **Lead for w14a82's continuation:** any source change that leaves q7 intact and makes r6 busy over the curve-store block
   (or makes old_fee lose r6 there) is worth about +0.003 at 27,400.
 

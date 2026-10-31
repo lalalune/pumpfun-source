@@ -14,14 +14,18 @@
   "ecea702": {
    "ratio": 0.67076,
    "slots": 3123
+  },
+  "963d1ee": {
+   "ratio": 0.67226,
+   "slots": 3123
   }
  },
  "result": "notes only; no zero-loss source change",
  "best_zero_loss": {
-  "ratio": 0.67076,
+  "ratio": 0.67226,
   "slots": 3123,
   "bytes": 27400,
-  "note": "no own landing; main ecea702 at finish"
+  "note": "no own landing; main 963d1ee at finish"
  },
  "oracle": "private greedy-RA llc (llc-patch/: RegAllocGreedy.cpp + SBFAsmPrinter.cpp patched in a copy of the llvm-dbg build; RAPRIO_PRIO/FORCE/HINT/NOHINT/LOG/TAG); byte-identical to SDK llc with no hooks and with LOG/TAG",
  "findings": [
@@ -31,14 +35,15 @@
   "swept/payload forced to r9 (no CFG change) lose 0.006-0.06",
   "hint-free accounts-pointer pieces: byte-identical (occupancy, not hint); 32 greedy/split/spill llc options: none beat stock",
   "q7 (event is_holder_reward re-read from curve, -16 B, 0.66916) + force %1680 (%0 piece over the curve-store block) -> r6 = 0.67286 at exactly 27,400 (+0.003 over main): evicts old_fee into a split+spill like the original; q7 is RA-adjusted +0.0033 ahead of main",
-  "on main ecea702: q7 0.66946@27384, q7 + force %1681 -> r6 0.67376@27400 (+0.0030); colour climb at 27400 q7 0.68065 vs main 0.67585 (q7 RA-adjusted +0.0048)"
+  "on main ecea702: q7 0.66946@27384, q7 + force %1681 -> r6 0.67376@27400 (+0.0030); colour climb at 27400 q7 0.68065 vs main 0.67585 (q7 RA-adjusted +0.0048)",
+  "on main 963d1ee: q7 0.67116@27392 (-8 B); curve-store piece force 0.67386@27392; best single colour force at 27400 only +0.0003; the one-decision lead is base-specific"
  ],
  "attempts": {
   "single_override_screens": 19308,
   "colour_target_screens": 125,
   "climbs": 8,
   "llc_flag_runs": 32,
-  "source_captures": 17
+  "source_captures": 19
  },
  "rejected": [
   "priority-only overrides (top/bottom/global toggle) on 0d04cf4",
