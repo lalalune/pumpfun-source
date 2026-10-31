@@ -1,0 +1,14 @@
+{
+ "lane": "w14a123-cto-origfill",
+ "target": "0x22a10 admin_cto::execute",
+ "base": {"main": "ebe5387", "ratio": 0.67316, "M": 2247, "rfjM": 2810, "bytes": 27400, "slots_diff": 3123},
+ "base_O": {"desc": "main + call-site noinline on 307/312 to_string (IR edit)", "bytes": 26992, "M": 1953, "rfjM": 2790},
+ "best_zero_loss": null,
+ "lead": {"gene": "ha: holder arm (false,Some(args.0),false)", "bytes": 27168, "M": 2061, "rfjM": 2846, "on_O": {"bytes": 26696, "M": 2003, "rfjM": 2825}, "note": "faithful (equal to Some(None)); +62 rfjM in sharing-CPI chunks 0x3800-0x4800; -232 B spread as RA spills; not landable"},
+ "trials": ["t1", "ha", "hn", "hat1", "su1", "su2", "vin", "ha+pu_amm_key", "ha+pu_amm_keyfn", "ha+ev_auth_deref", "ha+ev_mint_key", "ha+ev_cb_local"],
+ "rejected": {"t1": "no change on O, -3 M on main", "su1": "M 1920", "su2": "M 1464", "vin": "sharing tree inside validate before fee checks: rM collapse M 1555"},
+ "decode": "NOTES.md table; orig runs 0x0d90/0x10f0/0x14b0 = per-arm sharing tree + fee-None threading before the fee checks; 0x10f0 copies dead slots as the holder-arm Some(None) payload",
+ "ledger_keys": "0x22a10-w14-ebe5387-origfill-*",
+ "next": ["finish ha+gene sweep (207 genes) on an unloaded machine", "ha + crl_L + ev_cb_local size-repay to 27400", "vin+ha on O", "per-arm Option<Option<Pubkey>> local for holder-arm payload copy"],
+ "blocker": "machine load avg ~127; captures took 20-75 min each"
+}

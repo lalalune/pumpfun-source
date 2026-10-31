@@ -1,0 +1,129 @@
+--- c08-c78
+00c08 mov64 r1, r7                       
+00c10 add64 r1, 24                       
+00c18 add64 r7, 1                        
+00c20 ldxw r2, [r7+0x3]                  <= R5.-ff8+1.3
+00c28 stxw [r10-0x4b5], r2               store R5.-ff8+1.3:w -> slot
+00c30 ldxw r2, [r7+0x0]                  <= R5.-ff8+1.0
+00c38 stxw [r10-0x4b8], r2               store R5.-ff8+1.0:w -> slot
+00c40 ldxdw r2, [r1+0x0]                 <= R5.-ff8+24.0
+00c48 stxdw [r10-0x4a1], r2              store R5.-ff8+24.0 -> slot
+00c50 ldxb r1, [r1+0x8]                  <= R5.-ff8+24.8
+00c58 stxb [r10-0x499], r1               store R5.-ff8+24.8:b -> slot
+00c60 stxdw [r10-0x948], r3              store R5.-ff8.10 -> slot
+00c68 stxdw [r10-0x4a9], r3              store R5.-ff8.10 -> slot
+00c70 ldxdw r3, [r10-0x900]              <= R5.-ff8.8
+00c78 stxdw [r10-0x4b1], r3              store R5.-ff8.8 -> slot
+--- d78-e58
+00d78 ldxdw r1, [r10-0x8e8]              <= R2.8.38.a3:b
+00d80 mov64 r3, 1                        
+00d88 jne r1, 0, d98                     test r1=R2.8.38.a3:b
+00d90 mov64 r3, 0                        
+00d98 ldxdw r1, [r10-0x8f8]              <= R5.-ff8.0:b
+00da0 ldxdw r2, [r10-0x910]              <= R2.8.38
+00da8 ldxdw r1, [r10-0x920]              <= #0
+00db0 ldxdw r4, [r10-0x908]              <= ?CONFLICT
+00db8 stxdw [r10-0x958], r3              store ?CONFLICT -> slot
+00dc0 jeq r1, 0, 1490                    test r1=#0
+00dc8 ldxdw r1, [r10-0x30]               <= R2.8.38+8.8
+00dd0 stxdw [r10-0x4e8], r1              store R2.8.38+8.8 -> slot
+00dd8 stxdw [r10-0x530], r1              store R2.8.38+8.8 -> slot
+00de0 ldxdw r1, [r10-0x28]               <= R2.8.38+8.10
+00de8 stxdw [r10-0x4e0], r1              store R2.8.38+8.10 -> slot
+00df0 stxdw [r10-0x528], r1              store R2.8.38+8.10 -> slot
+00df8 ldxdw r1, [r10-0x20]               <= R2.8.38+8.18
+00e00 stxdw [r10-0x4d8], r1              store R2.8.38+8.18 -> slot
+00e08 stxdw [r10-0x520], r1              store R2.8.38+8.18 -> slot
+00e10 ldxdw r1, [r10-0x38]               <= R2.8.38+8.0
+00e18 stxdw [r10-0x918], r1              store R2.8.38+8.0 -> slot
+00e20 ldxdw r1, [r10-0x928]              <= R4
+00e28 jeq r1, 0, e38                     test r1=R4
+00e30 ja r0, 1510                        test r0=None
+00e38 mov64 r1, 0                        
+00e40 stxdw [r10-0x950], r1              store #0 -> slot
+00e48 mov64 r7, 0                        
+00e50 ldxdw r5, [r10-0x958]              <= ?CONFLICT
+00e58 ja r0, 1850                        test r0=None
+--- 10e8-11a8
+010e8 stxdw [r10-0x918], r4              store None -> slot
+010f0 stxdw [r10-0x948], r3              store R5.-ff8.10 -> slot
+010f8 ldxdw r1, [r10-0x900]              <= R5.-ff8.8
+01100 mov64 r6, 1                        
+01108 mov64 r7, 0                        
+01110 mov64 r5, 0                        
+01118 ldxdw r1, [r10-0x920]              <= #0
+01120 jeq r1, 0, 18b0                    test r1=#0
+01128 mov64 r1, 1                        
+01130 stxdw [r10-0x950], r1              store #1 -> slot
+01138 stxdw [r10-0x958], r5              store ?CONFLICT -> slot
+01140 ldxw r1, [r10-0x44d]               <= None
+01148 stxw [r10-0x535], r1               store None -> slot
+01150 ldxw r1, [r10-0x450]               <= R2.8.38.28
+01158 stxw [r10-0x538], r1               store R2.8.38.28 -> slot
+01160 ldxdw r1, [r10-0x2d0]              <= None
+01168 stxdw [r10-0x548], r1              store None -> slot
+01170 ldxb r1, [r10-0x2c8]               <= None
+01178 stxb [r10-0x540], r1               store None -> slot
+01180 mov64 r1, 0                        
+01188 stxdw [r10-0x8f8], r1              store #0 -> slot
+01190 mov64 r6, 0                        
+01198 mov64 r3, 0                        
+011a0 ja r0, 1990                        test r0=?CONFLICT
+011a8 ldxdw r1, [r10-0x4a8]              <= None
+--- 1490-1548
+01490 ldxdw r1, [r10-0x4b0]              <= None
+01498 stxdw [r10-0x4e8], r1              store None -> slot
+014a0 stxdw [r10-0x530], r1              store None -> slot
+014a8 ldxdw r1, [r10-0x4a8]              <= None
+014b0 stxdw [r10-0x4e0], r1              store None -> slot
+014b8 stxdw [r10-0x528], r1              store None -> slot
+014c0 ldxdw r1, [r10-0x4a0]              <= None
+014c8 stxdw [r10-0x4d8], r1              store None -> slot
+014d0 stxdw [r10-0x520], r1              store None -> slot
+014d8 mov64 r1, 0                        
+014e0 stxdw [r10-0x950], r1              store #0 -> slot
+014e8 ldxdw r1, [r10-0x4b8]              <= None
+014f0 stxdw [r10-0x918], r1              store None -> slot
+014f8 mov64 r7, 0                        
+01500 ldxdw r1, [r10-0x928]              <= R4
+01508 jeq r1, 0, 18f8                    test r1=R4
+01510 and64 r4, 1                        
+01518 ldxdw r0, [r10-0x8f8]              <= R5.-ff8.0:b
+01520 ldxdw r5, [r10-0x958]              <= ?CONFLICT
+01528 mov64 r1, r4                       
+01530 ldxdw r7, [r10-0x900]              <= R5.-ff8.8
+01538 ldxdw r3, [r10-0x948]              <= R5.-ff8.10
+01540 ldxdw r4, [r10-0x918]              <= R2.8.38+8.0
+01548 jne r1, 0, b40                     test r1=None
+--- 1800-18f0
+01800 stxdw [r10-0x918], r4              store R2.8.38+8.0 -> slot
+01808 stxdw [r10-0x948], r3              store R5.-ff8.10 -> slot
+01810 mov64 r7, 1                        
+01818 ldxdw r1, [r10-0x920]              <= #0
+01820 jne r1, 0, 1830                    test r1=#0
+01828 ja r0, 18b0                        test r0=?CONFLICT
+01830 stxdw [r10-0x950], r6              store ?CONFLICT -> slot
+01838 stxdw [r10-0x8f8], r0              store ?CONFLICT -> slot
+01840 jeq r8, 0, 1850                    test r8=None
+01848 ja r0, 1138                        test r0=?CONFLICT
+01850 stxdw [r10-0x958], r5              store ?CONFLICT -> slot
+01858 ldxw r1, [r10-0x655]               <= None
+01860 stxw [r10-0x535], r1               store None -> slot
+01868 ldxw r1, [r10-0x658]               <= None
+01870 stxw [r10-0x538], r1               store None -> slot
+01878 ldxdw r1, [r10-0x668]              <= R5.-ff8.18
+01880 stxdw [r10-0x548], r1              store R5.-ff8.18 -> slot
+01888 ldxb r1, [r10-0x660]               <= None
+01890 stxb [r10-0x540], r1               store None -> slot
+01898 mov64 r3, 1                        
+018a0 mov64 r6, 0                        
+018a8 ja r0, 1990                        test r0=?CONFLICT
+018b0 stxdw [r10-0x950], r6              store ?CONFLICT -> slot
+018b8 stxdw [r10-0x958], r5              store ?CONFLICT -> slot
+018c0 mov64 r3, 1                        
+018c8 mov64 r6, 0                        
+018d0 mov64 r1, 2                        
+018d8 stxdw [r10-0x8f8], r1              store #2 -> slot
+018e0 ldxdw r1, [r10-0x8e0]              <= R2.8.38.a5:b
+018e8 jeq r1, 0, 18f8                    test r1=R2.8.38.a5:b
+018f0 ja r0, 1990                        test r0=?CONFLICT
