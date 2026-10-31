@@ -1,0 +1,33 @@
+{
+  "lane": "w14a76-cto-threehop",
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27,400 B",
+  "bases": ["39eb377 (0.66477 / 3,230)", "0d04cf4 (0.66507 / 3,228)"],
+  "result": "notes only; no landable change; best zero-loss measurement = main 0d04cf4 0.66507 / 3,228 @ 27,400",
+  "ledger": "approach threehop, keys 0x22a10-w14-{39eb377,0d04cf4}-threehop-* (~110 rows)",
+  "best": {
+    "faithful_cfg_ir": "t1_va / n_va: both fee-None exits threaded, fee-Some keeps the join, no volatile: 0.26309-0.26995 @27,632 (wallet/post-sweep region swap)",
+    "closest_source": "t1 (tree tests new.is_none()): 0.66427 @27,440, sk 0.79599 > main 0.79509; register-move artifact, no repay found (44 single knobs, 5 pairs/triples; best at 27,400 0.65998)"
+  },
+  "mechanisms": [
+    "Validate-join JT cost comes from execute's ?-chain (_49->_410->_48->val->target) plus validate's own target alloca: removing either alone leaves >=10, both gives 0-2 (th.py val+ex)",
+    "The holder fee-None exit is threaded only when the tree tests new's tag (validate's holder arm is guarded by new.tag==0); testing holder threads only the non-holder exit",
+    "With the join cheap, JT also duplicates the non-shared arm for the non-holder exit (bb21.thread); MachineBlockPlacement then makes the wallet InvalidCreator error block fall through into bb56.i and swaps orig 0x24ca8-0x26740 with 0x26740-0x27e90 (~730 slots each)",
+    "Pinning the non-shared arm (n_vpin) removes the swap but un-threads the non-holder exit: 0.35548; pre-swap chunks 0-17 of t1_va are below main anyway (1,301 vs 1,380 skeleton points)"
+  ],
+  "rejected": [
+    "s1-s4 target selected after fee checks in validate (0.287-0.517)",
+    "e1-e6 validate -> Result<()> with target selected in execute (0.319-0.325)",
+    "nv / t1n-t3n volatile removed (0.657-0.658, errseq 330 338 410 334)",
+    "ir3b/ir4_*/as*/t1_a/t1_va/n_vpin IR oracles (0.263-0.562)",
+    "t1-t7 new-tag tree spellings (0.66417-0.66427 @27,440-27,448)",
+    "t1 + 44 single size knobs; t1 + 5 knob pairs/triples at 27,400 (<=0.65998)"
+  ],
+  "unresolved": [
+    "The original duplicates the shared test per validate exit (0x237b8, 0x23b28, 0x24228) yet keeps the wallet region before the post-sweep region; our threaded IR does not, and the trigger is bb21 (non-shared arm) duplication",
+    "No source form found for th.val (validate arms writing straight into the sret); h7src section 4 explains why MemCpyOpt stack-move cannot do it"
+  ],
+  "next_ideas": [
+    "Find what keeps the original's non-shared arm from being duplicated by JT (e.g. a non-duplicable or more expensive non-shared arm head in the original's source shape) and re-run t1_va with it",
+    "Price a placement fix for the bb56.i fall-through (the wallet InvalidCreator error block) with the full three-hop IR before any further source search"
+  ]
+}
