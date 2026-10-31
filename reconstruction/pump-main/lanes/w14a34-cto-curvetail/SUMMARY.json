@@ -1,0 +1,38 @@
+{
+  "lane": "w14a34-cto-curvetail",
+  "wave": 14,
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27400 B",
+  "angle": "curve-update region after the sharing CPI and its effect on the pool CPI (store order, base register, accounts-pointer liveness)",
+  "bases": {"5ee681d": 0.645, "81d3d9a": 0.65069, "faf9962": 0.65129, "6db95a7": 0.65458},
+  "result": "no zero-loss gain; the curve tail is a mapped dead end",
+  "best": {"main_tokens_equal": ["h_tuple", "h_ifset", "h_all_tuple", "f_issome", "f_ifletmut", "d_paths", "g_nf_blk (5ee681d)", "m_nonefirst", "m_match_unit", "k_nfev_local (6db95a7)"],
+           "closest_nonidentical_at_27400": {"name": "si_f_unwrapor_cur / p_TCHEF", "ratio": 0.65428, "main": 0.65458, "delta_M": -1, "base": "6db95a7"},
+           "cheapest_size_knob": {"name": "s_iflet", "bytes": -8, "delta_M": -1, "base": "6db95a7", "note": "if let Some(val)=sharing_update: the original's single jne r7,2 at the sharing CPI return"}},
+  "attempts": 270,
+  "ledger": "approach curvetail, keys 0x22a10-w14-{5ee681d,81d3d9a,faf9962,6db95a7}-curvetail-<name>-v1",
+  "map": {
+    "original": "creator, holder 0xa5 from phi slot 0x950, cashback 0xa3 from phi slot 0x958 &1, fee if-let, can_edit; base r3 = accounts reload [0x8d8]; tag r6 and holder r2 hoisted before jne r7,2; owner-first pool gate with the pool ptr in r7; pool run reloads accounts [0x8d8]",
+    "ours": "creator, cashback (sunk [0x8f8]&[0x908]&1), holder (select into r9, kept for the event), fee, can_edit; base r6 kept live through the gate and the pool run; jeq r7,2,+1;ja jump-around at the CPI return; data_is_empty-first gate"
+  },
+  "rejected_mechanisms": [
+    "curve store permutations (24 + 8 creator-later); holder-first always +8 B and -0.004..-0.008",
+    "old_creator/old_fee read position, mem::replace",
+    "curve reference &mut *, &mut **, typed, as_mut, repeated paths (deref forms -40 B, -0.012)",
+    "fee spellings (match, is_some/unwrap, unwrap_or old/cur, map, as_ref, &mut p)",
+    "flag spellings (tuple assignments, if-expr, branchy per-arm stores -0.10)",
+    "pool gate owner-first (original form: skeleton +3/+4, raw -4..-6 from register naming) and its full factorial with ph/hf/e1/evhr/evcb",
+    "nf position (before/after the gate, from the curve block, event-local), pargs first",
+    "sharing-arm match forms: None-first, if-let/else, by-ref, copied, wildcard, unit",
+    "tail knobs as size repay for the w14a21 vy1/v7c/vx1/vy2/vy3 validate closures (closures are -12 M raw on faf9962)",
+    "post-opt IR probe with holder/cashback in memory: whole-function RA recolouring (M 2172 -> 1609)"
+  ],
+  "unresolved_residuals": [
+    "holder/cashback are phi slots in the original, sunk i1 values in ours (whole-function RA property, w13a38/w13a51)",
+    "the accounts pointer stays in a callee-saved register across the pool gate and the pool run; the original spills it because r6-r9 hold the tag, the pool ptr, pool_updated and swept",
+    "jeq;ja jump-around at the sharing CPI return (if-let removes it but shortens a region that is already short of the original)"
+  ],
+  "next_ideas": [
+    "pair s_iflet (-8 B, -1 M on 6db95a7, the original CPI-return branch) with a faithful +8 B in the sharing CPI clone run (orig 0x4000-0x4a80, about 128 B short of the original)",
+    "holder/cashback as validate-arm phi slots only together with moving the swept/tag callee-saved occupancy (w14a01 section 3); not a curve-tail lever"
+  ]
+}
