@@ -7,7 +7,7 @@ Base: main 90300f9d2 (admin_cto unchanged through ed47ac7 / d530a71): 0.67346, 3
 Ledger: approach `newentrycopy`, keys `0x22a10-w15-ed47ac7-newentrycopy-*` (74 trial rows plus `-pricetable-v1`).
 
 **Result: no zero-loss gain and no source change.** This PR is a joint price table showing that the entry-copy state
-cannot pay on today's main. The table covers form x pda x fl x hkc, plus by-value keys (V1/V2), the sharing-payload
+cannot pay on today's main (best 0.59360 @27,712; rfR +10 over main at best). The table covers form x pda x fl x hkc, plus by-value keys (V1/V2), the sharing-payload
 source and an inline `quote_locked`.
 
 ## 1. Forms of `new` (each alone, on main)
@@ -59,7 +59,8 @@ rfR (legal frame plus perfect colouring) and rfjR (also jumps masked).
 | **Fa_f_h** (= FaV1_f) | 0.49725 @27,760 | 0.64038 | 0.78292 | 1,671 | 2,052 | 2,587 | **2,734** | 2,896 / **3,034** |
 | FaV2_f | 0.51094 @27,760 | 0.64038 | 0.78292 | 1,717 | 2,071 | 2,604 | 2,653 | - / 3,034 |
 | FaV2_f_hkt (+ plain PDA) | 0.56242 @27,760 | 0.64038 | 0.78232 | 1,890 | 2,080 | 2,609 | 2,658 | - / 3,032 |
-| **FaV2_qli** (w13a41 t22 form) | 0.53343 @27,712 | 0.64899 | **0.78541** | 1,791 | 2,157 | **2,617** | 2,659 | **2,901** / 3,032 |
+| **FaV2_qli** (w13a41 t22 form) | 0.53343 @27,712 | 0.64899 | **0.78541** | 1,791 | 2,157 | 2,617 | 2,659 | **2,901** / 3,032 |
+| **FaV2_qli_hkt** (+ plain `(holder_key,_)` PDA = w13a41 t8+t22, the full faithful form) | **0.59360 @27,712** | 0.64899 | **0.78541** | **1,993** | 2,176 | **2,633** | 2,675 | **2,901** / 3,032 |
 | Fa_h_qli | 0.52658 @27,712 | 0.64899 | 0.78541 | 1,768 | 2,138 | 2,598 | 2,736 | 2,901 / 3,032 |
 | Fa_p*, Fr_p*, FaV*_p*, V2_p_f | 0.425-0.462 @27,720-28,016 | ~0.49 | ~0.60 | ~1,450 | | ~1,900-2,030 | | layout collapse |
 | Fa_sn / Fa_f_sn | 0.62777 @27,336 / 0.58996 @27,392 | 0.666 | 0.775 / 0.777 | 2,093 / 1,969 | 2,163 | 2,573 / 2,564 | 2,574 | |
@@ -68,10 +69,13 @@ All 74 rows are in `results.txt` (`res.json` metrics, scorer M/skM, true-LCS `--
 deltas against main) and in `bounds.txt`.
 
 Readings:
-- **No joint state reaches main under the legal-frame + perfect-colouring bound with real jumps (rfR).** The closest
-  is FaV2_qli at 2,617 against 2,623. Its scorer M is 1,791 against 2,248, so it would need about 830 tokens back from
-  register assignment and frame alone. RA-only levers are bounded at about +0.0066 on main (w14a84) and about +0.017 on
-  the PDA states (w14a93).
+- **Only one joint state reaches main's legal-frame + perfect-colouring bound with real jumps (rfR):** FaV2_qli_hkt,
+  the full faithful form (Fa + V2 + inline `quote_locked` + plain `(holder_key,_)` PDA), at 2,633 against 2,623 (+10).
+  Every other state stays below; the next best are FaV2_qli at 2,617 and FaV2_f_hkt at 2,609.
+  - FaV2_qli_hkt's scorer M is 1,993 against 2,248, so it would need about 640 tokens back from register assignment and
+    frame alone, and 312 B back to reach the pinned size. Main's own gap to its rfR is 375 tokens.
+  - RA-only levers are bounded at about +0.0066 on main (w14a84) and about +0.017 on the PDA states (w14a93). The bound
+    margin (+10 tokens, about +0.003) is far below what the state costs, so it cannot pay as a landing.
 - The entry-copy states are structurally closer to the original:
   - true-LCS rf- (registers and frame masked): FaV2_qli 2,901 against main 2,888;
   - rfj: Fa_f_h 3,034 against 3,007, close to the w14a128 census maximum of 3,038;
@@ -99,10 +103,10 @@ Readings:
 
 ## Next ideas (not run here)
 - A source form in which the sharing payload comes from the validate result (`sut`) while the `new` copy still has a
-  far reader. One example would be the event's `new_creator` or the pool CPI reading `args.0`; that reader would have
-  to be semantically equal.
-- FaV2_qli is the best-structured state (rf- +13, L2 equal). It needs about +830 register/frame tokens, so it is only
-  worth pricing with a private-llc colour climb (w14a93 `cclimb.sh`; that llc is no longer on disk).
+  far reader that is semantically equal. Today's execute has no such reader: the event and the pool CPI read the updated
+  curve or `target`, not `new`.
+- FaV2_qli_hkt is the best-structured state (rf- +13, L2 equal, rfR +10). It needs about +640 register/frame tokens and
+  -312 B, so it is only worth pricing with a private-llc colour climb (w14a93 `cclimb.sh`; that llc is no longer on disk).
 
 ## Tools (`tools/`, experiment only)
 - `genes.py`: every gene as an exact-replacement edit list, composable with `+`. In the scratch dir it is `mine.py`.
