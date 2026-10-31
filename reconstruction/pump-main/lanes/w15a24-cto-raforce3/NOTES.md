@@ -88,6 +88,21 @@ machine build slot while it builds. The build took about 1 minute; it copies the
   None of the 222-gene n1 screen or the w14a120 24 B repays beats main at 27,400 B, and `ev_nf_let` / `nf_blk` restore main.
   Under n1, 1384's r5 follows by itself.
 
+## 2b. RA ceiling of the lamports-first TCF base c2 (`data/climb-sticky-c2-9120883.log`)
+
+The c2 skeleton clones in the original's order, so this checks whether c2 is a better RA base. A sticky climb with no size
+limit (12 rounds) gives:
+
+| round | force | ratio | bytes | L2 |
+| ---: | --- | ---: | ---: | ---: |
+| 0 | c2 | 0.66457 | 27,392 | 0.78322 |
+| 1 | `2178=r0` (an `is_signer` temp; this force alone restores the 8 B) | 0.67166 | 27,400 | 0.7861 |
+| 6 | + 1683=r6, 1670=r7, 1905=r6, 1616=r3, 2187=r5 | 0.67945 | 27,400 | 0.7858 |
+| 12 | + 467, 2144, 1705, 1383, 1701, 2255 | 0.68335 | 27,376 | 0.78675 |
+
+At 27,400 B, c2's best is 0.67945 with 6 forces. Main reaches 0.68185 with 6 forces, so c2 is not a better RA base at the
+pinned size. Its free-size ceiling (0.68335 @27,376) is only +0.0009 over main's 0.68244 @27,400, and it is off-size.
+
 ## 3. Reading
 
 - None of these three forces has a source lever outside an already-priced family. Together they are worth +0.0027 (9 M) of naming. So the
