@@ -1,0 +1,24 @@
+{
+  "lane": "w14a109-cto-stitch13",
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27,400 B",
+  "pr": 3500,
+  "landed": false,
+  "mains_worked": {"963d1ee": "M 2244, 46 rows", "13fe453": "M 2245, 30 rows", "ebe5387": "M 2247 (0.67316 / 3123), 131 rows"},
+  "best_zero_loss_at_pinned_size": {"ratio": 0.67316, "slots_diff": 3123, "cand_bytes": 27400, "note": "main ebe5387 itself"},
+  "knob_prices_ebe5387": {"vol334_back": "-8 B / -1 M", "t1": "-24 B / -1 M", "su_to_st": "-8 / -3", "p_colnat": "+8 / -3", "cu_unwrapcur": "+8 / -4", "cu_match": "-8 / -6", "K_sh_fees_key, cs_old_fee_first, en_feesl": "0 / -1"},
+  "junk_bounds": {"t1 + 3x8 B (ebe5387)": "2248 = main +1, entry 0x140-0x190", "vol334_back + 8 B (13fe453)": "2245 = main, entry 0x190 or validate error blocks 0x6e8-0x758"},
+  "rejected": [
+    "vol334_back + rP_back / wl_writ_eq / cu_unwrapcur / p_colnat / n_mapamt: -2..-8",
+    "t1 + vol334_back -3; t1 + crl_L +2 at +48 B (963d1ee); t1 + crl_L + vol334_back 0 at +40 B",
+    "su_to_st + p_colnat -6, su_to_st + cu_unwrapcur -5",
+    "entry data_len spellings -88 B / -254",
+    "about 50 library genes byte-identical to main on every base; no single gene gains on any base"
+  ],
+  "not_run": ["X_st_rP", "X_st_wle", "K_sh_fees_key+cs_old_fee_first", "en_feesl+cs_old_fee_first", "t1 + three +8 B genes", "rr*/lf*/evo*/tl*/sw* families on ebe5387"],
+  "next_ideas": [
+    "a placeholder removal needs a faithful +8 B spelling that is junk-neutral in the validate error blocks (0x6e8-0x758) or at entry 0x190; no library gene is",
+    "t1 needs a faithful +16 B entry change (shared test / PDA head) worth at least the junk bound; then one neutral +8",
+    "finish the not_run pairs on a quiet machine"
+  ],
+  "tools": "tools/scr.py (raw-IR screen runner on the stitch12 genes), tools/genes_s13.py (t-family, size-knob catalog as K_* genes, entry spellings), tools/tab.py"
+}
