@@ -103,6 +103,9 @@ is about 2,172, 17 M below main.
 - Basin-hopping cd3 from the near-main variants (RC9 = main, cva/TCF event_authority data-first at -1, RC3/7/8 at -2):
   no move from any base.
 
+- Re-screen on main 6330811 (M 2,193): Rc swaps RC0-RC9, data-first literals for 7 TCF fields + sharing_config,
+  TLO_ata/TLO_cva: best is equal to main (RC9). cd3 on 6330811's IR: no clone move.
+
 ## Next ideas
 
 - The and-1 outline would need a native-arm join spelling that keeps #3315's gain without its block move at orig
