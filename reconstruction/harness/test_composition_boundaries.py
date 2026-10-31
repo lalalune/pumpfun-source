@@ -67,7 +67,7 @@ class CompositionBoundaryTests(unittest.TestCase):
             return result
         with patch.object(I.shutil,'copytree',side_effect=copying):
             code,report=self.run_main('directory-mutation')
-        self.assertNotEqual(code,0);self.assertIn('source directories changed',report.get('error',''))
+        self.assertNotEqual(code,0);self.assertIn('source inputs changed during staging: new-empty',report.get('error',''))
 
     def test_valid_control_and_real_conflict_policy(self):
         code,report=self.run_main('valid');self.assertEqual(code,0);self.assertEqual(report['parts'][0]['status'],'applied')
