@@ -1,0 +1,25 @@
+{
+  "lane": "w15a21-cto-creatorcopy",
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27,400 B",
+  "base": "main 86e2a6b74 / 9120883a9 (admin_cto.rs unchanged): 0.67376, 3,124 slots, M 2,249, true LCS 2,255/3,007, Mperm 2,292",
+  "result": "no landable change; notes PR #3723",
+  "best_zero_loss": {"ratio": 0.67376, "slots_diff": 3124, "bytes": 27400, "source": "main (no variant beats it)"},
+  "attempts": 116,
+  "oracle": "w15a09 raw-IR capture + opt -O3 + llc (eq_main true on none); true LCS (w14a128 lcs.py); Mperm (w15a08 relab.py, binspills from oracle fn.bin); outline bases O / O312 (w15a09 ed/ni.py)",
+  "findings": [
+    "Every curve-creator binding spelling compiles to one of two classes: g1 (bound before validate: SSA pieces live across validate, 27,520 B, M 2,251, Mperm 2,289) or g0 (read in the arm from st memory at target's 7/9 slicing, 27,392 B, M 2,246, Mperm 2,291). Copies, clone, to_bytes/new_from_array/from/into, destructuring, references, Option wrapping, st by value or &{st} with derive(Copy), and binding positions all collapse into these two classes.",
+    "g1's +2 M is RA noise: under spill relabeling it is below main (2,289 vs 2,292), and its true-LCS gains are scattered single tokens.",
+    "The original's shared non-holder arm (orig 0xdc8) reads st.creator from [r10-0x38..-0x20] with aligned i64 loads into an 8|24 target split. The validate-head 32 B copy (orig 0x598-0x5d0) is holder_key, not the creator. The lever is target slicing (validate's return type), not the creator binding.",
+    "Arm order target-first (cs4/cs5/cs9) ties main on true LCS/Mperm but costs +8/+16 B.",
+    "On the IR outline base O (307+312 to_string noinline), tf_g3 (g3 binding + target-first arm) takes M from 1,955 to 2,199, true LCS from 2,043 to 2,248 and Mperm from 2,113 to 2,244, at 27,024 B (ratio 0.66325), equal to main except in the outlined region. It has no effect on O312.",
+    "Size knobs are additive on O + tf_g3: none of the 40 applicable catalog knobs repays (best positive-byte knob: +16 B for -3 M)."
+  ],
+  "rejected": ["cc1-cc19 value/clone/byte-array/destructure/ref/Option spellings", "cs1 CtoState creator by reference (collapse)", "cs2/cs3 target override after the block (collapse)", "cc7 creator in collect_old (st escape removed, collapse)", "cs8 explicit holder-arm target", "gr_*n Some(new) payload (collapse)", "sv1-sv5 st by value / copied", "t1/t2 per-arm target with st.creator (frame shift)", "tf_* binding positions with target-first arm", "tf_g3 + 40 size knobs on O"],
+  "unresolved": ["target 8|24 slicing (validate Result<Pubkey> offset-1 layout)", "source trigger that outlines 307 as well as 312 (pre-inline BFI of 307 must drop from 0.0283 below 0.02)"],
+  "next_ideas": [
+    "Outline lanes (w15a25-cto-o2tfg3repay): price faithful repays against O + tf_g3 (M 2,199 at 27,024 B), not bare O.",
+    "Find an ordinary source trigger that outlines both 307 and 312 (w14a141 thr.py/ibfi.py). Candidates: require_keys_neq!-style 307 forms, or an extra 50/50 test on the non-holder path, so 307's frequency drops below 0.02.",
+    "Fix target's slicing to 8|24 so the g0 arm matches the original's aligned st.creator copy."
+  ],
+  "ledger_keys": "0x22a10-w15-86e2a6b-creatorcopy-*-v1, 0x22a10-w15-86e2a6b-creatorcopy-outline-*-v1"
+}
