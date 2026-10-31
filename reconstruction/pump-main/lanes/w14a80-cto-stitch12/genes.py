@@ -145,3 +145,18 @@ G['sm_back']=[("\n if let Some(val)=sharing_update{\n","\n match sharing_update{
 G['rP_back']=[("rent_epoch:x.rent_epoch,is_signer:x.is_signer,is_writable:x.is_writable,key:x.key,executable:x.executable}},authority:","rent_epoch:a.pool_authority.rent_epoch,is_signer:x.is_signer,is_writable:x.is_writable,key:x.key,executable:x.executable}},authority:")]
 G['nf_back']=[("let nf=a.bonding_curve.creator_fee_bps;let pool_updated","let pool_updated"),("new_creator_fee_bps:nf,","new_creator_fee_bps:a.bonding_curve.creator_fee_bps,")]
 G['vol334_back']=[("unsafe{core::ptr::read_volatile(holder_key as *const Pubkey as *const u8)};if !st.fee_configurable{","if !st.fee_configurable{")]
+# 963d1ee: more early event-field reads next to #3437's `let nf=` (the nf mechanism: read right after the curve block)
+_NF="let nf=a.bonding_curve.creator_fee_bps;let pool_updated"
+def _early(var,expr,field_old,field_new):
+    return [(_NF,f"let nf=a.bonding_curve.creator_fee_bps;let {var}={expr};let pool_updated"),(field_old,field_new)]
+def _early_pre(var,expr,field_old,field_new):
+    return [(_NF,f"let {var}={expr};let nf=a.bonding_curve.creator_fee_bps;let pool_updated"),(field_old,field_new)]
+G['e_cb']=_early('cb','a.bonding_curve.is_cashback_coin',"is_cashback_coin:a.bonding_curve.is_cashback_coin,","is_cashback_coin:cb,")
+G['e_nc']=_early('nc','a.bonding_curve.creator',"new_creator:a.bonding_curve.creator,","new_creator:nc,")
+G['e_bk']=_early('bk','a.bonding_curve.key()',"bonding_curve:a.bonding_curve.key(),","bonding_curve:bk,")
+G['e_au']=_early('au','a.admin_set_creator_authority.key()',"authority:a.admin_set_creator_authority.key(),","authority:au,")
+G['e_hr']=_early('hr','holder.unwrap_or(false)',"is_holder_reward:holder.unwrap_or(false),","is_holder_reward:hr,")
+G['e_rs']=_early('rs','sharing_update.is_some()',"sharing_config_reset:sharing_update.is_some(),","sharing_config_reset:rs,")
+G['ep_cb']=_early_pre('cb','a.bonding_curve.is_cashback_coin',"is_cashback_coin:a.bonding_curve.is_cashback_coin,","is_cashback_coin:cb,")
+G['ep_nc']=_early_pre('nc','a.bonding_curve.creator',"new_creator:a.bonding_curve.creator,","new_creator:nc,")
+G['ep_hr']=_early_pre('hr','holder.unwrap_or(false)',"is_holder_reward:holder.unwrap_or(false),","is_holder_reward:hr,")

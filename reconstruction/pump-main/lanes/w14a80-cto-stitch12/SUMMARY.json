@@ -1,0 +1,42 @@
+{
+  "lane": "w14a80-cto-stitch12",
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27,400 B",
+  "pr": 3411,
+  "landed": false,
+  "mains_worked": {
+    "0d04cf4": {"main": "0.66507 / 3228 / M 2220", "best_offsize": "C0 + crl_L M 2227 @27448", "best_at_27400": "tie (main)"},
+    "95a64ba": {"main": "0.66986 / 3204 / M 2236", "best_at_27400": "ev_nf_let + wl_writ_not2 + sm_iflet 0.67166 / 3215, 0 losses, differential 363/0 (overtaken by #3430 before landing)"},
+    "ecea702": {"main": "0.67076 / 3123 / M 2239", "best_at_27400": "ev_nf_let + sm_iflet + ur5r 0.67226 / 3123, 0 losses, differential 363/0, unstripped sha c3ea5d9310d855ee; byte-identical fn to #3437 (w14a86), which landed first"},
+    "963d1ee": {"main": "0.67226 / 3123 / M 2244", "best_offsize": "crl_L M 2247 @27472", "best_at_27400": "main (no pair above)"}
+  },
+  "best_zero_loss_at_pinned_size": {"ratio": 0.67226, "slots_diff": 3123, "cand_bytes": 27400, "note": "same bytes as main 963d1ee (#3437)"},
+  "mechanisms_found": [
+    "ev_nf_let: read the event new fee once (`let nf=a.bonding_curve.creator_fee_bps;`) right after the curve block: +4 M at +16 B on 95a64ba (nf_blk / nf_post_a equal); landed as #3437 by w14a86 with sm + rP",
+    "crl_L: `{let cr=a.bonding_curve.creator;cr==a.sharing_config.key()}` in the shared test: +3 M at +72 B on 0d04cf4, 95a64ba and 963d1ee (the creator copy lines up with orig copy runs at 0x100-0x198)",
+    "on 95a64ba wl_writ_not2 was +2 M at -8 B, sm_iflet / ur5r +1 M at -8 B (not additive with each other)",
+    "C0 (wn+sm+rP) was +4 M at -24 B on 0d04cf4, 0 on 95a64ba"
+  ],
+  "rejected": [
+    "C0+crl_L repays to 27,400 (su_to_st+amp_inline+n_andthen/n_ensmatch 2217, sh_prog_let combos 2215-2216, g_s7_dborrow+hkmut 2200) on 0d04cf4",
+    "160-gene single screen on C0+crl_L: no negative-size gene costs < 6 M",
+    "structural -B probes: sharing key by reference (-272 B, M -446), drop Ok::<_,Error> wrapper (collapse), hoisted cr (crh*, collapse)",
+    "early event-field reads beside nf (cashback, new creator, curve key, authority, holder): all lose",
+    "95a64ba pairs: wn + nf_pre_ev / cu_unwrapcur tie (more slots), wn + p_colnat -1, sm/rP + nf_pre_ev / cu_unwrapcur -1",
+    "963d1ee: every -8 B knob costs 1-7 M (vol334_back -1, crl_kd -2, su_to_st -3, cu_match -6, amp_inline -7)"
+  ],
+  "shift_maps": {
+    "0d04cf4": "best +8 +1 (entry 0x180), best -8 +2 (wallet body 0x5cb0), pair +3",
+    "95a64ba": "best -8 +5 (wallet body 0x5cb0) / +4 (native arm 0x5938-0x5ac8), +8 +1, pair +6",
+    "963d1ee": "best -8 0, +8 +1, pair +1"
+  },
+  "unresolved": [
+    "crl_L (+3 M at +72 B on 963d1ee) needs a faithful -72 B costing <= 2 M; none in the library",
+    "validate code shape (inlined to_string at the 306/312 sites, error block order) dominates the remaining gap; see w14a78/w14a87 oracles (M +15..+28 at +8 B) for source-form work"
+  ],
+  "next_ideas": [
+    "pair any new +8..+16 B source lead with the cheapest -8 B on the current main (re-price it first: vol334_back on 963d1ee)",
+    "look for more early-read placements of values the original loads early (the nf mechanism), not only event fields",
+    "finish the 963d1ee single screen (89 of 148 genes left: v_*, su_*, x_*, e_*, q_*, r_*, p_*, n_*, cs_*; mostly 0-B folds on earlier mains)"
+  ],
+  "ledger": "approach stitch12, keys 0x22a10-w14-<main7>-stitch12-<variant>-v1 (rows run across a baseline change take the sha current at run start); summary row 0x22a10-w14-963d1ee-stitch12-shiftmap-and-3437-v1"
+}

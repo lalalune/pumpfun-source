@@ -143,3 +143,22 @@ c3ea5d9310d855ee). Before this lane could land it, **w14a86-cto-t1vaultname land
 
 Shift map: best pure -8 is 0, best pure +8 +1 (entry 0x180/0x1a0), best pair +1. Size-pair levers are now worth at most one
 token; further gains must come from codegen changes like ev_nf_let (+4 real at +16 B on 95a64ba).
+
+Single screen on 963d1ee (59 of 148 library genes, event/nf/pargs/pool/sweep-head/wallet families first; M main 2,244):
+
+| gene | bytes | M |
+| --- | ---: | ---: |
+| crl_L / crl_L + `creator.clone()` | +72 | 2,247 |
+| crl / crl_eq / crl_ref / crl_sk | +72 | 2,246 |
+| 0-B folds (M 2,244, 3,123 slots) | 0 | cd_holder_dest, cu_replace, ev_reset_m, ev_ts_map, pu_neg, sh_af_eqf, sh_af_if, sh_rq_let, sh_rq_ne, wl_exec_ne, wl_exec_true, wl_frozen_let, wl_frozen_true, wl_owner_deref, w_bump_a |
+| vol334_back (drop #3430's validate volatile placeholder) | -8 | 2,243 |
+| crl_kd | -8 | 2,242 |
+| sm_back / rP_back / su_to_st / p_colnat / wl_ts_clockvar (+16) | +-8 | 2,241 |
+| wl_writ_eq / cu_unwrapcur | +8 | 2,240 |
+| cu_match / amp_inline / nf_back / ev_nf_inline / sh_prog_let | -8 / -16 / -16 / -16 / -32 | 2,238 / 2,237 / 2,234 / 2,234 / 2,233 |
+| hkmut | +32 | 2,231 |
+| early event-field reads next to `nf` (cashback, new creator, curve key, authority, holder) | +24..+168 | 1,857-2,236 (reset `is_some()` folds) |
+
+No pair reaches 27,400 B above main: crl_L needs -72 B and the cheapest -8 B now costs 1 M (vol334_back), the rest 2-7 M.
+The pure size-shift value on 963d1ee is at most +1, so the next gains must come from codegen changes like ev_nf_let
+(an early read of a value the original loads early), not from size knobs.
