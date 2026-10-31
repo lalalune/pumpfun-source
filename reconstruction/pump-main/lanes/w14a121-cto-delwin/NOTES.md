@@ -101,3 +101,7 @@ cover them.
 `sbsc.py` (side-by-side by ours offset), `unm.py` (pure inserts/deletes in a window), `mc.py` (M/bytes/slots of rx outputs),
 `binm.py` (per-bin M delta between two rx outputs), `screen.sh` + `rec.py` (capvar loop + ledger rows), `dis.py`.
 `ev/*.py` are the source edits, `ix/*.py` the post-opt IR probes. The capture/oracle pair is w14a84's `capraw.py`/`rx.py`/`capvar.sh`.
+
+Addendum: sharing match re-priced on ebe5387. `match sharing_update{None=>{}Some(val)=>..}` is byte-identical.
+`match &sharing_update{..*val}` gives M 1,828 at 27,392 and keeps 4 store-backs. The `if let` form was not finished
+because the machine was contended; w14a109 and w14a119 already price it at -5 M.
