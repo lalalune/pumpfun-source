@@ -14,6 +14,8 @@ recompile.
 
 Outputs are staged before publication. A failed rerun keeps the prior LANE/out/<id>
 and retains its own log and build record under LANE/out/.failed.
+One build owns each lane from staging through publication. Concurrent builds
+must use distinct lanes (or distinct try_sell --slot directories).
 
 Examples:
   native_build.py --lane LANES/a --source-root /path/to/repo --id baseline
@@ -21,6 +23,7 @@ Examples:
   native_build.py --lane LANES/a --patch change.patch --id try-18   (patch vs lane ws)
 """
 from pathlib import Path
+from contextlib import contextmanager
 import argparse
 import hashlib
 import importlib.util
@@ -216,9 +219,29 @@ def build_environment(harness, target, staging, extra_root_flags, jobs, link_scr
     return env
 
 
+@contextmanager
+def lane_lock(lane):
+    """Exclude overlapping native builds before either can restage a lane."""
+    import fcntl
+    lane.mkdir(parents=True, exist_ok=True)
+    # Keep the inode after release: unlinking would allow two separate locks.
+    with (lane / '.native-build.lock').open('a+b') as lock:
+        try:
+            fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except BlockingIOError as error:
+            raise RuntimeError('native build lane already in use: ' + str(lane)) from error
+        yield
+
+
 def build(lane, build_id, source_root=None, sell=None, patch=None, extra_root_flags='', link_script=None,
           keep_ws=False, jobs=4):
     lane = Path(lane).absolute()
+    with lane_lock(lane):
+        return _build_locked(lane, build_id, source_root, sell, patch, extra_root_flags,
+                             link_script, keep_ws, jobs)
+
+
+def _build_locked(lane, build_id, source_root, sell, patch, extra_root_flags, link_script, keep_ws, jobs):
     ws, harness, target = ensure_lane(lane, source_root)
     out = lane / 'out' / build_id
     out.parent.mkdir(parents=True, exist_ok=True)
