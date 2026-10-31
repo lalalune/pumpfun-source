@@ -1,0 +1,59 @@
+{
+ "lane": "w14a50-cto-frozenrepay",
+ "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27,400 B",
+ "landed": [
+  {
+   "pr": 3358,
+   "merge": "63308119b",
+   "base": "d371f97",
+   "before": {
+    "ratio": 0.65638,
+    "slots": 3280
+   },
+   "after": {
+    "ratio": 0.65698,
+    "slots": 3193,
+    "bytes": 27400
+   },
+   "mechanism": "d4 (token arm create_idempotent(..).and_then(|()|transfer_vault_tokens(..))?;return Ok(amount)) + s_frozen_first + fee unwrap_or repay (+8 B)"
+  }
+ ],
+ "best": {
+  "ratio": 0.65698,
+  "slots_diff": 3193,
+  "bytes": 27400,
+  "normalized": 1034,
+  "raw": 1034,
+  "losses": [],
+  "differential": "363/0"
+ },
+ "screens": {
+  "k1_d4ff_28ab23a": "194 knobs, best 27,400 = t42 fee unwrap_or 0.65548 (landed)",
+  "k2_6330811": "182 single knobs, none above main 0.65698 at 27,400",
+  "ka_token_arm_6330811": "16 token-arm shapes, all = main or worse",
+  "pairs_6330811": "27 +8/-8 and +16/-8/-8 combos, none above main",
+  "k5_s10_6330811": "62 knobs on s10 (-8 B), none above main at 27,400",
+  "k8_2e1379d": "105 knobs, none above main 0.65728",
+  "k9_304b03a": "119 knobs and t1 pairs, none above main 0.65788 at 27,400 (t1 alone 0.65828 at 27,392)"
+ },
+ "rejected": [
+  "ev_cb_local/cu_replace +8 repays",
+  "wl_ts_clockvar +16 with -8 pairs",
+  "s10 head shift + any +8",
+  "rev_ff (raw-first) + 16 B fills",
+  "token arm match/if-let/!=0/tuple/closure forms"
+ ],
+ "bounds": {
+  "jM": "no knob or pair beats main's jump-masked match (2,226 on 6330811)",
+  "shift_oracle": "best pure +8 = +1 M, best pure -8/+8 pair = +2 M (~+0.0006)"
+ },
+ "residuals": [
+  "the original calls token_raw_amount before token_frozen in the token arm; frozen-first wins only through RA and the near Err-join placement",
+  "sweep ? Err edges go to a near block in ours and to the far shared join (orig 0x3c58) in the original (w14a06/w14a33 J2)"
+ ],
+ "next_ideas": [
+  "re-test rev_ff (raw-first, the original's call order) after any landing that restores the far sweep Err join",
+  "a faithful -8 B in validate 0x8c0-0xd40 paired with +8 at 0x710-0x1750 (best pure-size pair positions)"
+ ],
+ "ledger_rows": 545
+}
