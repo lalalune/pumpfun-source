@@ -1,28 +1,82 @@
 {
   "lane": "w14a46-cto-walletcsr",
   "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27,400 B",
-  "bases": {"6db95a764": {"ratio": 0.65458, "slots": 3280}, "0fbf8daa1": {"ratio": 0.65578, "slots": 3280}},
-  "result": "notes only; no zero-loss gain. Named the extra callee-saved occupant across wallet(): the !skip sweep-gate flag (IR %_540.sroa.0.0.off0, MIR %60 -> split %1731 in r9 over the whole wallet [21296,33488)); not the sharing_update tag (%59, spilled). Corrects the #3320/#3251 attribution.",
-  "best": {"ratio": 0.65458, "slots": 3280, "bytes": 27400, "note": "= main 6db95a7; nothing beat main"},
-  "occupancy_ours": {"r6": "do_collect, accounts-pointer split pieces", "r7": "Result payload word 0 (%1652), clone buffers", "r8": "Result payload word 1 (%1651), authority_info buffer, accounts piece", "r9": "sweep gate flag %60 (whole wallet)"},
-  "occupancy_orig": {"r6": "do_collect", "r7": "accounts pointer reloaded per use", "r8": "do_coin", "r9": "collection_native, clone buffer -0x450, payload"},
-  "ir_bounds_6db95a7": {
-    "k1 flag via slot": [0.56133, 27408, "F2 0.69223 Fw 405 (main 0.74745/408); r9 -> coin_present"],
-    "sg skip-polarity gate": [0.49828, 27424, "flag spilled at def like original; layout collapses; reordered to main layout 0.57703 (F2 0.73484)"],
-    "sg + start 4:1": [0.64238, 27344, "layout restored, flag back in r9"],
-    "w1 tag across wallet via slot": [0.6212, 27360, "r9 -> &current_creator GEP"],
-    "cpm coin_present via slot": [0.65219, 27424, ""],
-    "k1+w1+cpm": [0.55479, 27432, "do_coin r9 / do_collect r8 / clone r6: rotation of orig r8/r6/r9"],
-    "g1 coin gate do_coin": [0.65288, 27368, ""]
+  "bases": {
+    "6db95a764": {
+      "ratio": 0.65458,
+      "slots": 3280
+    },
+    "0fbf8daa1": {
+      "ratio": 0.65578,
+      "slots": 3280
+    }
   },
-  "attempts": 19,
+  "result": "notes only; no zero-loss gain. Named the extra callee-saved occupant across wallet(): the !skip sweep-gate flag (IR %_540.sroa.0.0.off0, MIR %60 -> split %1731 in r9 over the whole wallet [21296,33488)); not the sharing_update tag (%59, spilled). Corrects the #3320/#3251 attribution.",
+  "best": {
+    "ratio": 0.65458,
+    "slots": 3280,
+    "bytes": 27400,
+    "note": "= main 6db95a7; nothing beat main"
+  },
+  "occupancy_ours": {
+    "r6": "do_collect, accounts-pointer split pieces",
+    "r7": "Result payload word 0 (%1652), clone buffers",
+    "r8": "Result payload word 1 (%1651), authority_info buffer, accounts piece",
+    "r9": "sweep gate flag %60 (whole wallet)"
+  },
+  "occupancy_orig": {
+    "r6": "do_collect",
+    "r7": "accounts pointer reloaded per use",
+    "r8": "do_coin",
+    "r9": "collection_native, clone buffer -0x450, payload"
+  },
+  "ir_bounds_6db95a7": {
+    "k1 flag via slot": [
+      0.56133,
+      27408,
+      "F2 0.69223 Fw 405 (main 0.74745/408); r9 -> coin_present"
+    ],
+    "sg skip-polarity gate": [
+      0.49828,
+      27424,
+      "flag spilled at def like original; layout collapses; reordered to main layout 0.57703 (F2 0.73484)"
+    ],
+    "sg + start 4:1": [
+      0.64238,
+      27344,
+      "layout restored, flag back in r9"
+    ],
+    "w1 tag across wallet via slot": [
+      0.6212,
+      27360,
+      "r9 -> &current_creator GEP"
+    ],
+    "cpm coin_present via slot": [
+      0.65219,
+      27424,
+      ""
+    ],
+    "k1+w1+cpm": [
+      0.55479,
+      27432,
+      "do_coin r9 / do_collect r8 / clone r6: rotation of orig r8/r6/r9"
+    ],
+    "g1 coin gate do_coin": [
+      0.65288,
+      27368,
+      ""
+    ]
+  },
+  "attempts": 24,
   "rejected_mechanisms": [
     "flag removal from CSRs (k1): r9 passes to coin_present, sweep RA reshuffles",
     "skip-polarity gate source g9/g3: original flag spill but MBP near-tie collapse on 6db95a7 and 0fbf8da",
     "24 head weights over sg: none gives both original layout and original flag spill",
     "gate re-derived from tag/holder after wallet (ta-te): 0.12-0.51",
     "skip carried through the Ok re-wrap tuple (r1-r4): folds to main",
-    "if do_coin{ (s1) 0.65279; coin gate &&/operand swap/if-form: <= main"
+    "if do_coin{ (s1) 0.65279; coin gate &&/operand swap/if-form: <= main",
+    "gate implied by collect_old (x1-x4, wallet path skips the gate test): 0.374",
+    "wsweep: skip-polarity gate + one weight on each of 146 branches x 4: best F2 0.73993 < main 0.74745"
   ],
   "unresolved_residuals": [
     "original spills all four long-lived values (gate flag, tag, coin_present, current_creator GEP) over the wallet; ours keeps one in r9; removing all gives a rotated assignment",
@@ -32,6 +86,14 @@
     "Find an upstream (pre-bb26) IR difference that shifts block frequencies like start 16:1 without its wallet damage; screen with sgh oracle for flag_r9=0 and F2>=0.747",
     "Use tools/reorder.py to separate RA from MBP effects for any re-laying candidate"
   ],
-  "tools": ["tools/csrmap.py", "tools/lineage.py", "tools/wf2.py", "tools/chunk.py", "tools/hunk.py", "tools/reorder.py"],
+  "tools": [
+    "tools/csrmap.py",
+    "tools/lineage.py",
+    "tools/wf2.py",
+    "tools/chunk.py",
+    "tools/hunk.py",
+    "tools/reorder.py",
+    "tools/wsweep.py"
+  ],
   "ledger_keys": "0x22a10-w14-6db95a7-walletcsr-*"
 }

@@ -75,6 +75,18 @@ The flag's register is frequency-driven. `sgh` (`edits/ir/sgh.py`, `sgh-6db95a7.
 
 No weight gives both the original layout and the original flag spill.
 
+`tools/wsweep.py` extends this to every conditional `br` of execute (146 branches x {20:12, 12:20, 16:1, 1:16} = 584 llc
+runs on top of sg, `wsweep-sg-6db95a7.jsonl`). The best F is 0.73993 (0.58242 @27,424): the with_pubkeys `to_string`
+branch `%336` at 12:20 or 1:16, the MBP divergence point found with `-debug-only=block-placement` (below). Main's F is
+0.74745. No single weight on the skip-polarity gate reaches main's frame-masked match. The plain ratio stays near 0.58
+because the spilled flag adds a spill slot and shifts the frame.
+
+MBP detail (debug llc, `-debug-only=block-placement`). BPF conditional branches are unanalyzable, so under sg `bb35`
+is pre-merged with `bb84` (the sweep falls through, as in the original). Later, at the with_pubkeys Err block
+`to_string...exit.i`, `bb57.i` (the sweep Result join, pre-merged with `bb89`, the post-sweep) becomes a legal "CFG break"
+successor. It is a "non-cold CFG conflict" on main. So the whole post-sweep chain is placed inside the sweep, and the
+token/native chunk goes after it.
+
 Note: on this main the rx oracle of an unmodified capture differs from the baseline build in 57 tokens, a one-spill
 schedule swap at 0x2680 (`ldxdw r4,[r2+0x18]; stxdw [r10-0x950],r4` placement). The ratio is equal (0.65458) and the
 slots are 3,279 against 3,280. Lanes that need `eq_main: true` on 6db95a7 should expect `false` from the unedited capture. On 0fbf8da the unedited capture
@@ -94,6 +106,7 @@ is `eq_main: true` again.
 | td | `(sharing_update==Some(None))` gate | 27,376 | 0.37614 |
 | tb / te | `(holder&&sharing_update.is_some())` / `(sharing_update.is_some()&&holder)` gate | 27,440 | 0.50861 |
 | r1-r4 | `skip` carried through the `Ok::<_,Error>((..))?` re-wrap at line 339, in four positions | 27,400 | = main (fold) |
+| x1-x4 (on 0fbf8da) | gate made implied by `collect_old` (the wallet path never sweeps): `if collect_old{0}else{..}`, `!skip&&!collect_old`, `!collect_old&&!skip`, `!(skip\|\|collect_old)` | 27,208-27,216 | 0.37367-0.37372 |
 
 Ending the flag's life before the wallet in source either re-derives it from values that are also live, which costs
 instructions and re-lays the sweep, or folds back to main's tokens. The faithful form (skip polarity) moves the flag to
