@@ -1,0 +1,31 @@
+{
+ "lane": "w15a08-cto-holderflagjoint",
+ "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27,400 B",
+ "base": {"main": "90300f9d2", "ratio": 0.67346, "slots": 3124, "M": 2248, "bytes": 27400},
+ "result": "notes only; no source change. The joint flag+frame price is main +1..+4 M before a +24 B size repay; the flag has no code-shape value.",
+ "best_zero_loss": {"ratio": 0.67346, "slots": 3124, "bytes": 27400, "note": "= main; nothing landable"},
+ "findings": [
+  "Spill-permutation bound (relab.py; a permutation of a build's own spill offsets is legal by construction): main Mperm 2292 / full swap climb 2299 (0.68874); e1 (per-arm flag, event from %0) 2294 / 2301 at 27,424 B. With the best colouring, the flag's code ties main's (+2).",
+  "Angle's exact joint pin: e1 slots mapped back to main's, flag -> orig -2384, main's -2384 clone-run spill -> free slot: M 2250 (0.67375) at 27,424 B; J0 2249; best clone-run home 2252.",
+  "e1+hpa (pool CPI r4 from the flag): the error-group move to 0x3bf8 is caused by dead sharing-tag reloads (dead rN = LDD -2272) moving to bb95.i129/bb44.i135/bb39.i131, so bb95.i129 stays an unmerged bb56.i pred. Deleting them pre-BF (mdel.py) restores main's layout: M 1963, Mperm 2261.",
+  "Restored tree-phi forms: hc 2047/Mperm 2190, fl_c (curve + pool r4 from the phi) 2024/2168; all flag forms are main +3 or less with frame and registers masked (2780-2790 vs 2787).",
+  "Role swap read from the original's bytes: it stores the flag per arm in validate (0xe40, 0x1130, 0x14e0, 0x1830, 0x18b0), dead-reloads it into r1 before every sweep-exit `jne r7,2` (0x24a8, 0x2610, 0x3c60, 0x4aa0, 0x62d8, 0x6398) and has 3 store-backs on -2384. Main does the same with the sharing tag -2272 (4 store-backs, the same dead r1 reloads at 0x62d8/0x6390).",
+  "Main's best spill permutation includes an 11-cycle (+13) that moves the tag -2272 to the original's holder slot -2384, which is the role swap seen in the frame; an 18-cycle in -2464..-3120 gives +28."
+ ],
+ "attempts": [
+  {"key": "0x22a10-w15-90300f9-holderflagjoint-permbound-v1", "status": "analyzed"},
+  {"key": "0x22a10-w15-90300f9-holderflagjoint-j1pin-v1", "M": 2250, "bytes": 27424},
+  {"key": "0x22a10-w15-90300f9-holderflagjoint-e1hpa-deadrestore-v1", "M": 1963, "Mperm": 2261},
+  {"key": "0x22a10-w15-90300f9-holderflagjoint-irscreen1-v1", "status": "rejected"},
+  {"key": "0x22a10-w15-90300f9-holderflagjoint-restore-mperm-v1", "status": "rejected"},
+  {"key": "0x22a10-w15-90300f9-holderflagjoint-alloca-flag-v1", "status": "rejected"},
+  {"key": "0x22a10-w15-90300f9-holderflagjoint-permhc-full-v1", "Mhc_main": 2299, "Mhc_e1": 2301}
+ ],
+ "rejected_mechanisms": ["per-arm holder flag + spill-frame pin (joint)", "flag into pool CPI r4 (hpa/hpa0/hpa2)", "flag into event (hevp)", "tree phi to curve + pool (fl_c/fl_pa)", "per-arm flag alloca (hal*, i8/i64)", "per-arm cashback phi with flag (cbphi)", "gene hill-climb with the flag fixed (not run: its precondition, a joint bound above main, fails)"],
+ "unresolved": ["The register-allocation role swap: the original region-splits the holder flag around the sweep-exit joins; ours does this to the sharing_update tag. No flag form or RAPRIO forcing (w14a142) reproduces it."],
+ "next_ideas": [
+  "Use relab.py/permhc.py Mperm (instead of frame-masked M) to separate code shape from spill colour when screening variants. A variant whose Mperm is above 2299 has real code-shape gain, even if its plain M is lower.",
+  "The +13 tag cycle (tag -2272 -> -2384) is the cheapest colour lead outside the tail. Since StackSlotColoring sorts by weight, check whether the tag's spill weight or spill order can be moved by ordinary source to take colour 0x950."
+ ],
+ "tools": "reconstruction/pump-main/lanes/w15a08-cto-holderflagjoint/tools/ (relab.py, permhc.py, scr.py, mdel.py, mscore.py, joint.py; they need w14a142's rx.py in the same directory)"
+}
