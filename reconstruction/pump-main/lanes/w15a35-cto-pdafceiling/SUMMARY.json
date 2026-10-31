@@ -1,9 +1,54 @@
 {
   "lane": "w15a35-cto-pdafceiling",
-  "target": "0x22a10 admin_cto::execute",
-  "base": "main 9120883a9 (raw-IR oracle eq_main true); branch merged with 9bd38c7d5 (same admin_cto.rs)",
-  "status": "in progress (provisional first push)",
-  "result": "kill test met: PDA-first greedy-decision ceiling below main's on the same tool; notes only",
-  "main": {"ratio": 0.67376, "slots_diff": 3124, "bytes": 27400, "M": 2249, "greedy_ceiling": {"M": 2261, "bytes": 27368, "decisions": 6}},
-  "best_zero_loss": {"ratio": 0.67376, "slots_diff": 3124, "bytes": 27400, "note": "main itself; nothing landable"}
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27,400 B",
+  "base": "main 9120883a9 (raw-IR oracle n0 eq_main true); branch merged with 9bd38c7d5 (admin_cto.rs unchanged, baseline admin_cto 0.67376/3124)",
+  "result": "kill test met: PDA-first greedy-decision ceiling (M 2,227 @27,344) is below main's same-tool ceiling (M 2,261 @27,368); notes only, no source change",
+  "main": {"ratio": 0.67376, "slots_diff": 3124, "bytes": 27400, "M": 2249, "Mperm": 2293, "Mhc": 2300,
+           "true_lcs": {"---": 2255, "-f-": 2488, "r--": 2600, "rf-": 2888, "rfj": 3007},
+           "greedy_ceiling": {"decisions": 6, "M": 2261, "bytes": 27368, "ratio": 0.67776, "c5": {"M": 2260, "bytes": 27384, "Mperm": 2304, "Mhc": 2311, "pinV": 2301, "pinA": 2308}}},
+  "pda_first": {
+    "X_pdaf": {"bytes": 27400, "M": 1939, "ratio": 0.58089, "Mperm": 2024, "Mhc": 2024, "true_lcs": {"---": 1976, "-f-": 2234, "r--": 2495, "rf-": 2889, "rfj": 3019}},
+    "o_PLQ": {"bytes": 27400, "M": 1939, "ratio": 0.58089},
+    "X_crl2pdaf": {"bytes": 27464, "M": 1938, "ratio": 0.57989},
+    "o_PQS": {"bytes": 27352, "M": 1947, "ratio": 0.58381, "rf-": 2852},
+    "o_PQSF": {"bytes": 27360, "M": 1858, "ratio": 0.55704, "rf-": 2847},
+    "greedy_ceiling": {"decisions": 11, "M": 2227, "bytes": 27344, "ratio": 0.66787, "Mperm": 2280, "Mhc": 2289, "pinV": 2267, "pinA": 2271,
+                       "true_lcs": {"---": 2237, "-f-": 2475, "r--": 2605, "rf-": 2899, "rfj": 3013},
+                       "prio_bottom": [5, 167, 130, 2106, 1071, 252, 1181, 1101, 2154, 2209], "casc": [14]},
+    "tcf_first_basin": {"decisions": 11, "M": 2186, "bytes": 27416, "ratio": 0.65469, "note": "rescreen from c3 (bot_229, bot_193, casc_195) stopped by the lane at +3..+6 M per round"}
+  },
+  "best_zero_loss": {"ratio": 0.67376, "slots_diff": 3124, "bytes": 27400, "note": "main itself; nothing landable"},
+  "attempts": [
+    "8 raw-IR captures on 9120883 (n0, m_pdaf, m_pdaf3, crl2+pdaf, o_PLQ, o_PQLF, o_PQSF, o_PQS) with Mperm/Mhc and 5-mask true LCS",
+    "4,863 greedy singles (top/bottom/cascade x 1,621 queued vregs) on X_pdaf",
+    "head-value singles (55) incl. %0 protect/top/bottom, curve ptr, sharing ptr, phi, arg copies",
+    "top-80 forward climb, 6 multi-start climbs, 2 whole-pool rescreen climbs (head-fix basin converged; TCF-first basin)",
+    "main greedy ceiling re-check on 9120883 + whole-pool rescreen (767 singles)",
+    "pinV/pinA tail-pin cells and private-llc Mperm for every climbed allocation"
+  ],
+  "findings": [
+    "plain PDA-first (P S Q) is skeleton-neutral: rf- +1, rfj +12 true-LCS tokens vs main (entry +25, -24 spread); loss is register (-254, frame masked) and frame (-105, regs masked) naming",
+    "QL-before-shared orders (o_PQS, o_PQSF) have worse skeletons (rf- -36..-41); on today's main they are 0.557-0.584",
+    "head mechanism unchanged from w14a93: the curve pointer %5 (size 7,358) lives across the shared chain; at greedy step 22 the sharing pointer evicts %0 from R8",
+    "PDA-first is far from its greedy optimum (best single +159 vs main's +5); 11 decisions recover 288 of 310 M, then the whole-pool rescreen converges at M 2,227, 34 below main's same-tool ceiling",
+    "decisions: bot_5 (curve pointer dequeued last: keeps %0 in R8 at the head) plus TCF AccountInfo-clone piece priorities and split products; no common IR property (w15a18-style spill-weight-density chain)",
+    "at the PDA-first ceiling the frame is level with main (r-- +5) and the skeleton holds (rf- +11); the residue is register naming in the TCF clone run (0x3000) and tail (0x6800)",
+    "every other tool agrees (sticky forces, perfect colouring rfR, splice bound, Mhc, tail pins): PDA-first RA-recoverable level 22-76 M below main"
+  ],
+  "rejected": [
+    "PDA-first (m_pdaf/m_pdaf3/crl2+pdaf/o_PLQ) as an RA-recoverable base: greedy ceiling 2,227 < main 2,261",
+    "o_PQS / o_PQSF (QL before shared): skeleton below main",
+    "protecting %0 directly (casc_0 1,879, top_0 1,844)"
+  ],
+  "unresolved": [
+    "a source form that reloads the curve pointer after the shared chain (original ldxdw r9,[r8+0x38] at orig 0x268) - only head lever with a large effect (bot_5), but not sufficient alone"
+  ],
+  "next_ideas": [
+    "reprice class A only together with a change that lifts main's own tail RA (shared clone-run basin)",
+    "use fscr.py/rclimb.py (light greedy cell + whole-pool rescreen, worker-kill safe) as the RA-ceiling oracle for any raw-IR candidate"
+  ],
+  "ledger_keys": ["0x22a10-w15-9120883-pdafceiling-{n0,X_pdaf,X_pdaf3,X_crl2pdaf,o_PLQ,o_PQLF,o_PQSF,o_PQS}-v1",
+                  "0x22a10-w15-9120883-pdafceiling-singles-v1", "0x22a10-w15-9120883-pdafceiling-climb80-v1",
+                  "0x22a10-w15-9120883-pdafceiling-multistart-v1", "0x22a10-w15-9120883-pdafceiling-mainrescreen-v1",
+                  "0x22a10-w15-9120883-pdafceiling-rescreen-b5-v1", "0x22a10-w15-9120883-pdafceiling-rescreen-c3-v1"]
 }

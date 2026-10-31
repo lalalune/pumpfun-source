@@ -8,13 +8,19 @@ priority, cascade and spill-weight overrides, with no physreg pins) and w15a16's
 ceiling is not above main's on the same tool, write the table and stop.
 Ledger: approach `pdafceiling`, keys `0x22a10-w15-9120883-pdafceiling-*-v1`.
 
-**Result: kill test met. Notes only, no source change.** PDA-first's best greedy-decision allocation is
-M 2,206 @27,368 (0.66127, 5 decisions; the rescreen climbs were still running at this push). Main's ceiling on the same tool is M 2,260 @27,384 (5 decisions), and its whole-pool rescreen adds one decision for M 2,261 @27,368 (0.67776). Every PDA-first
-cell is also below main on Mperm, Mhc and the legal tail-pin cells. PDA-first is skeleton-neutral: with registers and frame
-masked it is main +1 true-LCS token (rf-), and main +12 with jumps masked too (rfj). So even a perfect allocation could not
-make it more than about 12 tokens better than main's own perfect allocation. Class A is closed as an RA-only head order:
-its +25-token entry gain is real, but the RA cost it starts (about 290 tokens over orig 0x2000-0x4800) is not recoverable
-by greedy decisions, and no source lever is worth looking for.
+**Result: kill test met. Notes only, no source change.**
+- PDA-first's best greedy-decision allocation is M 2,227 @27,344 (0.66787, 11 decisions), where the whole-pool rescreen
+  converges. Main's ceiling on the same tool is M 2,261 @27,368 (0.67776, 6 decisions).
+- Main sits at a greedy local optimum (+12 M over as built). PDA-first recovers 288 of its 310 M through about ten
+  decisions and then converges 34 M below main's ceiling.
+- PDA-first's best cells on Mperm, Mhc and the legal tail pins are also below main's as-built cells.
+- PDA-first is skeleton-neutral. With registers and frame masked it is main +1 true-LCS token (`rf-`), and main +12 with
+  jumps masked too (`rfj`). So even a perfect allocation could not make it more than about 12 tokens better than main's
+  own perfect allocation.
+
+Class A is therefore closed for RA routes. The +25-token entry gain is real. The RA cost it triggers (about 290 tokens over
+orig 0x2000-0x4800) is mostly recoverable in principle, but only through a chain of about ten unrelated greedy decisions
+(the curve pointer's queue position plus clone-run piece priorities), and even then it stops below main.
 
 ## 1. Captures on 9120883 (raw-IR oracle: capraw + `opt -O3` + `llc`; `n0` gives `eq_main: true`)
 
@@ -74,7 +80,23 @@ M. It reproduces w15a18's main cells exactly (base 2,248, `bot_2145` 2,253 @27,3
 - Forward climb (top-80 singles, re-scored each round): `bot_229`, `bot_193`, `casc_195` give M 2,114 @27,400, then stop.
 - Multi-start climbs from the next five singles reach 2,081-2,116. Starting from the head fix `bot_5`, `+bot_167` gives
   M 2,167 @27,360.
-- Whole-pool rescreen climb from `bot_5+bot_167`, re-scoring all 1,104 code-changing singles each round: `+bot_130` 2,185 @27,360, `+bot_2106` 2,195 @27,376, `+bot_1071` 2,206 @27,368 (still running at this push).
+- Whole-pool rescreen climb from `bot_5+bot_167`, re-scoring all 1,104 code-changing singles each round (`rclimb.py`):
+  `+bot_130` 2,185, `+bot_2106` 2,195, `+bot_1071` 2,206, `+bot_252` 2,211, `+bot_1181` 2,219, `+casc_14` 2,222 @27,320,
+  `+bot_1101` 2,223, `+bot_2154` 2,225 @27,336, `+bot_2209` 2,227 @27,344, then stop: no single in the pool raises M.
+  The late gains are +1 or +2 M per round.
+- The same rescreen from the TCF-first basin `c3` stalls lower: `+bot_306` 2,131, `+bot_1097` 2,144, `+bot_290` 2,157
+  @27,392, `+bot_743` 2,164,
+  `+bot_820` 2,173 @27,400, `+bot_11` 2,177, `+bot_2154` 2,183, `+bot_1103` 2,186 @27,416. That is 11 decisions. The lane
+  stopped it at +3 to +6 M per round, 41 M under the head-fix basin.
+- Decision identities (`vname.py`; numbering of the X_pdaf capture):
+  - `%5` is the curve pointer (`LDD %0,56`, 18 uses, size 7,358, weight 1.7e-3).
+  - `%167`, `%130`, `%229`, `%193`, `%195` and `%1071` are AccountInfo-clone pieces of the TCF run (Rc `lamports`/`data`
+    pointers, key and owner loads, the strong-count increment).
+  - `%252` is a field load from a stack temporary, `%1181` is a call's `r0` copy, and `%14` is a global flag byte
+    (`LDB %456,1087`).
+  - `%2106` and `%2154` are split products.
+  - There is no common IR property. Every `bot_*` decision dequeues a piece last, as if its interval were short or
+    late. That is the same spill-weight-density chain w15a18 found for s1.
 
 | allocation | decisions | bytes | M | ratio | Mperm | Mhc | true LCS `---` | `-f-` | pinV | pinA |
 | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
@@ -85,32 +107,51 @@ M. It reproduces w15a18's main cells exactly (base 2,248, `bot_2145` 2,253 @27,3
 | X_pdaf `bot_5` (head fix only) | 1 | 27,368 | 1,962 | 0.58813 | | | 2,068 | 2,385 | | |
 | X_pdaf top-80 climb `c3` (`bot_229, bot_193, casc_195`) | 3 | 27,400 | 2,114 | 0.63331 | 2,189 | 2,191 | 2,152 | 2,404 | 2,159 | 2,164 |
 | X_pdaf `bot_5 + bot_167` | 2 | 27,360 | 2,167 | 0.64968 | 2,228 | 2,237 | 2,175 | 2,427 | 2,207 | 2,211 |
-| X_pdaf `bot_5 + bot_167` + rescreen (3 steps) | 5 | 27,368 | 2,206 | 0.66127 | | | | | | |
+| X_pdaf `bot_5 + bot_167` + rescreen, 8 decisions (`b5x8`) | 8 | 27,320 | 2,222 | 0.66667 | 2,273 | 2,279 | 2,230 | 2,464 | 2,262 | 2,266 |
+| **X_pdaf greedy ceiling** (`b5x11`, rescreen converged) | 11 | 27,344 | **2,227** | **0.66787** | 2,280 | 2,289 | 2,237 | 2,475 | 2,267 | 2,271 |
+| X_pdaf `c3` + rescreen (stopped, still +3..+6 per round) | 11 | 27,416 | 2,186 | 0.65469 | | | | | | |
 
 - Main's ceiling uses w15a18's 5 decisions (`bot_2145, bot_1617, bot_338, top_2058, casc_2073`; on 9120883 the vreg
-  numbering is unchanged). Its whole-pool rescreen with w15a18's 767 code-changing singles adds only `bot_2072` (M 2,261 @27,368) and then stops, so main sits at a greedy local optimum.
+  numbering is unchanged). Its whole-pool rescreen with w15a18's 767 code-changing singles adds only `bot_2072`
+  (M 2,261 @27,368) and then stops, so main sits at a greedy local optimum.
 - pinV/pinA are w15a18's legal tail-colour-pin cells (`w6/tools/cell.sh`).
-- Where the climbed PDA-first still loses (true LCS against main, `---`): for `bot_5+bot_167` (2,175 against 2,255): 0x2800 -23, 0x3000 -39, 0x3800 -7, 0x5000 -6, 0x5800 -7, 0x6800 -11, entry 0x0 +10, 0x1000 +7. For `c3` (2,152): 0x2800 -26, 0x3000 -15, 0x3800 -10, 0x4000 -28, 0x2000 -13.
+- The converged `b5x11` against main, true LCS per orig 0x800 chunk:
+  - `---` 2,237 vs 2,255 (main's ceiling `c5`: 2,265). By chunk: 0x3000 -15, 0x6800 -9, 0x3800 -6, 0x5000 -6, 0x2800 -5,
+    0x4800 -5, entry 0x0 +11, 0x1000 +7, 0x6000 +9;
+  - `-f-` 2,475 vs 2,488 (registers -13);
+  - `r--` 2,605 vs 2,600 (frame +5);
+  - `rf-` 2,899 vs 2,888 (+11);
+  - `rfj` 3,013 vs 3,007 (+6).
+
+  So the greedy decisions bring the frame level with main and keep the skeleton gain. What remains is register naming in
+  the TCF clone run (0x3000) and the tail (0x6800). The scorer's M (difflib) shows it as -22 against main as built and
+  -34 against main's ceiling, at 56 B short.
+- The TCF-first basin `c3` fixes 0x3000/0x3800 first (`---` 0x3000 -15, 0x3800 -10). It leaves 0x4000 -28 and 0x2800 -26
+  open, because it never moves the head (`%0` is still evicted at step 22), and it stalls lower.
 
 ## 4. Comparison with the other ceilings
 
 | tool | main | PDA-first | source |
 | --- | --- | --- | --- |
-| greedy decisions (this lane) | M 2,260 @27,384 (0.67726) | M 2,206 @27,368 (5 decisions) | w15a18 tool |
-| sticky physreg forces | 0.68244 @27,400 (8 forces) | GPF 0.66667 @27,368 (14 forces) | w15a24, w15a28 |
+| greedy decisions (this lane) | M 2,261 @27,368 (6) | M 2,227 @27,344 (11) | w15a18 tool |
+| greedy + spill relabel (Mhc) | 2,311 (at `c5`) | 2,289 (at `b5x11`) | this lane, w15a16 `mp.py` |
+| legal tail pin (pinA) | 2,308 (at `c5`) | 2,271 (at `b5x11`) | this lane, w15a18 `cell.sh` |
+| sticky physreg forces | 0.68244 @27,400 (8 forces, w15a24); 0.68395 @27,376 (9, w15a28) | GPF 0.66667 @27,368 (14 forces) | w15a24, w15a28 |
 | sticky forces + perfect spill colouring | Mhc 2,338 | GPF 2,306 | w15a28 |
-| colour-target force climb | 0.68085 @27,384 | pda 0.65806 @27,312, o_PQSF 0.66977 @27,336 | w14a93 (on ecea702) |
+| colour-target force climb | 0.68085 @27,384 | pda 0.65806 @27,312 | w14a93 (on ecea702) |
 | legal frame + perfect colouring (rfR) | 2,623 | pda 2,554-2,573 | w14a87 / w14a93 / w15a10 |
 | splice bound (PDA head + main tail) | - | main + 0.005 | w14a09 |
 
-All five tools agree: PDA-first's RA-recoverable level is below main's, and the gap is 30 to 150 M on every tool.
+Every tool puts PDA-first's RA-recoverable level below main's. The greedy, Mhc and pin gaps are 22-37 M. The
+force-based gaps are 32-76 M (ratio differences converted at 3,338 tokens), and the perfect-colouring gap is 50-69 M.
 
 ## 5. Why the w15a10 non-collapse mechanism does not apply
 
 w15a10's Fa+fl and Fa+V2+qli avoid Fa's *layout* collapse, the w14a127 J flip (validate-exit join placement by MBP). Plain
 PDA-first has no layout collapse: its `rf-`/`rfj` skeleton equals main's in every orig 0x800 chunk (within -5..+1 outside
-the entry), which leaves no room for a moved block. Its loss is register and frame naming. PDA-first + fl (the original's P S F Q order) does flip J (w14a93), but undoing the flip with
-`jfix` still leaves it far below main (w14a93: 0.59240). So there is no MBP chain to transplant. The kill test stops the
+the entry), which leaves no room for a moved block. Its loss is register and frame naming. PDA-first + fl (the
+original's P S F Q order) does flip J (w14a93), but undoing the flip with `jfix` still leaves it far below main (w14a93:
+0.59240). So there is no MBP chain to transplant. The kill test stops the
 lane before the source-spelling step.
 
 ## 6. Next ideas (for whoever reopens class A)
@@ -132,3 +173,7 @@ lane before the source-spelling step.
 - `evx.py <m.ll> <tag> [job]`: head-value greedy trace (dequeue step, evictions, `%0` split tree).
 - `vname.py <pre.mir> <ralog> v...`: a vreg's defining instruction, block, Q line (size and weight) and use count.
 - `genes_pf.py`: the head-order genes (`o_<order>` over S/L/P/Q/F) on main's source, on top of w15a16's library.
+- `mpp.py`: w15a16's `mp.py` run through the private llc (`llcp.sh`), so `RAPRIO_*` decisions are honoured. It gives Mperm,
+  Mhc and true LCS of a greedy-climbed allocation.
+- `fscr.prun()` re-submits jobs if a pool worker is killed. A plain `multiprocessing.Pool.map` hangs forever in that case.
+  This happened once during this lane: both climbs' pool workers were killed mid-round (cause unknown).

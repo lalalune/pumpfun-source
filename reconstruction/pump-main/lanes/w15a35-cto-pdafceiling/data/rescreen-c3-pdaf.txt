@@ -1,0 +1,53 @@
+start 2114 27400
+  r0 bot_306        M 2131 bytes 27392
+  r0 bot_290        M 2126 bytes 27392
+  r0 bot_360        M 2126 bytes 27392
+  r0 bot_1097       M 2126 bytes 27408
+  r0 bot_17         M 2125 bytes 27352
+step 0: +bot_306 -> M 2131 bytes 27392 ratio 0.6385
+  r1 bot_1097       M 2144 bytes 27400
+  r1 bot_290        M 2143 bytes 27384
+  r1 bot_360        M 2143 bytes 27384
+  r1 bot_1621       M 2140 bytes 27424
+  r1 bot_1651       M 2139 bytes 27392
+step 1: +bot_1097 -> M 2144 bytes 27400 ratio 0.6423
+start 2144 27400
+  r0 bot_290        M 2157 bytes 27392
+  r0 bot_360        M 2157 bytes 27392
+  r0 bot_1651       M 2152 bytes 27400
+  r0 bot_743        M 2147 bytes 27408
+  r0 bot_227        M 2146 bytes 27400
+step 0: +bot_290 -> M 2157 bytes 27392 ratio 0.64629
+  r1 bot_743        M 2164 bytes 27400
+  r1 bot_2003       M 2164 bytes 27400
+  r1 bot_11         M 2161 bytes 27400
+  r1 top_14         M 2160 bytes 27376
+  r1 bot_227        M 2159 bytes 27392
+step 1: +bot_743 -> M 2164 bytes 27400 ratio 0.64829
+  r2 bot_820        M 2173 bytes 27400
+  r2 bot_11         M 2168 bytes 27408
+  r2 bot_2001       M 2167 bytes 27408
+  r2 top_14         M 2167 bytes 27384
+  r2 bot_227        M 2166 bytes 27400
+step 2: +bot_820 -> M 2173 bytes 27400 ratio 0.65099
+FINAL {"prio": "229=1,193=1,306=1,1097=1,290=1,743=1,820=1", "casc": "195=0x7ffffff0", "name": "c3x5+bot_290+bot_743+bot_820", "add": "bot_820", "M": 2173, "ratio": 0.65099, "bytes": 27400}
+start 2173 27400
+  r0 bot_11         M 2177 bytes 27408
+  r0 bot_2001       M 2176 bytes 27408
+  r0 top_14         M 2176 bytes 27384
+  r0 bot_227        M 2175 bytes 27400
+  r0 bot_135        M 2175 bytes 27400
+step 0: +bot_11 -> M 2177 bytes 27408 ratio 0.65209
+  r1 bot_2154       M 2183 bytes 27416
+  r1 top_14         M 2180 bytes 27384
+  r1 casc_14        M 2180 bytes 27384
+  r1 bot_227        M 2179 bytes 27408
+  r1 bot_135        M 2179 bytes 27408
+step 1: +bot_2154 -> M 2183 bytes 27416 ratio 0.65379
+  r2 bot_1103       M 2186 bytes 27416
+  r2 bot_1101       M 2185 bytes 27416
+  r2 bot_1102       M 2185 bytes 27416
+  r2 bot_1621       M 2185 bytes 27440
+  r2 bot_1649       M 2184 bytes 27416
+step 2: +bot_1103 -> M 2186 bytes 27416 ratio 0.65469
+(stopped by the lane after round 2 of the third segment: +3..+6 M per round)

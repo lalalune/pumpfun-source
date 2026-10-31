@@ -18,8 +18,8 @@ def main():
     for s in S: s.pop('keep',None)
     cur=dict(base); cur['name']=base.get('name','base')
     log=open(of,'a')
-    with mp.Pool(npr) as p:
-        best=p.map(fscr.run,[(m,cur)])[0]; print('start',best.get('M'),best.get('bytes'),flush=True)
+    if True:
+        best=fscr.prun([(m,cur)],1)[0]; print('start',best.get('M'),best.get('bytes'),flush=True)
         log.write(json.dumps(dict(best,step=-1))+'\n'); log.flush()
         used=set(); cands=sorted(S,key=lambda s:-s['M'])[:K]
         for r in range(rounds):
@@ -27,7 +27,7 @@ def main():
             for c in cands:
                 if c['name'] in used: continue
                 j=comb({k:cur[k] for k in KEYS if cur.get(k)},c); j['name']=cur['name']+'+'+c['name']; j['add']=c['name']; jobs.append((m,j))
-            res=[x for x in p.map(fscr.run,jobs) if 'M' in x]; res.sort(key=lambda x:(-x['M'],abs(x['bytes']-27400)))
+            res=[x for x in fscr.prun(jobs,npr) if 'M' in x]; res.sort(key=lambda x:(-x['M'],abs(x['bytes']-27400)))
             for x in res[:3]: print(f"  r{r} {x['add']:14s} M {x['M']} bytes {x['bytes']}",flush=True)
             if not res or res[0]['M']<=best['M']: print('stop',flush=True); break
             best=res[0]; cur={k:best[k] for k in KEYS if best.get(k)}; cur['name']=best['name']; used.add(best['add'])

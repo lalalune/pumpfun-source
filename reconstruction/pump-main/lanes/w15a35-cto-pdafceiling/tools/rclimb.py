@@ -12,15 +12,15 @@ def main():
     P=[json.loads(l) for l in open(pf)]
     cur={k:base[k] for k in KEYS if base.get(k)}; cur['name']=base.get('name','base')
     log=open(of,'a')
-    with mp.Pool(npr) as p:
-        best=p.map(fscr.run,[(m,cur)])[0]; print('start',best.get('M'),best.get('bytes'),flush=True)
+    if True:
+        best=fscr.prun([(m,cur)],1)[0]; print('start',best.get('M'),best.get('bytes'),flush=True)
         used=set(base.get('used',[]))
         for r in range(R):
             jobs=[]
             for s in P:
                 if s['name'] in used: continue
                 j=comb({k:cur[k] for k in KEYS if cur.get(k)},s); j['name']=cur['name']+'+'+s['name']; j['add']=s['name']; jobs.append((m,j))
-            res=[x for x in p.map(fscr.run,jobs,chunksize=4) if 'M' in x]; res.sort(key=lambda x:(-x['M'],abs(x['bytes']-27400)))
+            res=[x for x in fscr.prun(jobs,npr) if 'M' in x]; res.sort(key=lambda x:(-x['M'],abs(x['bytes']-27400)))
             for x in res[:5]: print(f"  r{r} {x['add']:14s} M {x['M']} bytes {x['bytes']}",flush=True)
             log.write(json.dumps({'round':r,'base':cur['name'],'top':[{k:x[k] for k in ('add','M','bytes')} for x in res[:20]]})+'\n'); log.flush()
             if not res or res[0]['M']<=best['M']: print('stop',flush=True); break
