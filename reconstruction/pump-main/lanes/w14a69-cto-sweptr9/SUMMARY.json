@@ -1,0 +1,33 @@
+{
+  "lane": "w14a69-cto-sweptr9",
+  "continues": "w14a61-cto-sweptr9 (no ledger rows, no PR)",
+  "target": "0x22a10 admin_cto::execute",
+  "bases": {"304b03a": {"ratio": 0.65788, "slots": 3223}, "39eb377": {"ratio": 0.66477, "slots": 3230, "bytes": 27400}},
+  "best": {"ratio": 0.66477, "slots": 3230, "bytes": 27400, "note": "no source change beats main"},
+  "landed": false,
+  "mechanism": "RegisterCoalescer visits bb65 (post-sweep Err join, degree 5, 14th) before bb88 (sweep Err copy, degree 3, 184th); the post-sweep payload chain is defined before each CPI tag branch where swept is live, so swept's merge into %1664 interferes at 63952r. The original has the reverse order (swept in r9 at 0x3c40, mov r9,r1 at 0x54e0/0x55a8).",
+  "oracles": {
+    "mir_coalorder_c1": {"ratio": 0.59817, "bytes": 27408, "class_reg": "r6", "frseg": {"frame_masked_delta": -91, "frame_reg_masked_delta": 10}},
+    "c1_pin_r9": {"ratio": 0.47678, "bytes": 27384},
+    "c1_pin_r8": {"ratio": 0.45946, "bytes": 27376},
+    "s1": {"ratio": 0.63638, "bytes": 27344},
+    "s1_coalorder": {"ratio": 0.58171, "bytes": 27352},
+    "ir_thread_t1_t6_304b03a": {"best": 0.59128, "worst": 0.46133}
+  },
+  "rejected": [
+    "swept merged into payload class with no CFG change (ideal coalescer order): -0.067, class takes r6 by evicting sharing tag %59",
+    "r9/r8 copy pin of the merged class: whole-function RA recolouring, -0.19/-0.205",
+    "sweep Err threading into bb86 to raise its coalescer degree (t1-t6): -0.07..-0.20, layout reshuffle even without coalescing",
+    "swept binding forms (block, match, tuple): identical tokens; if-let: -0.205",
+    "s1 + swept coalesced: below s1 alone, so swept-r9 is not the s1 unlock"
+  ],
+  "unresolved": [
+    "original's payload class is the 4th callee-saved class (r9) because r6/r7/r8 classes are allocated first; ours with swept merged is the largest interval and is allocated first",
+    "MIR preferred-register hints are dropped, so pure hint oracles are unavailable"
+  ],
+  "next_ideas": [
+    "use tools/coalor.sh as a gate for changes to the whole-function classes (tag %1665, accounts %0, entry r5 value): check whether the merged class lands on r9 unpinned",
+    "a greedy priority override needs a private patched llc build (do not touch the shared llvm-dbg build)"
+  ],
+  "ledger_keys": ["0x22a10-w14-39eb377-sweptr9-mir-coalorder-v1","0x22a10-w14-39eb377-sweptr9-mir-coalorder-pin-r9-v1","0x22a10-w14-304b03a-sweptr9-ir-thread-bb86-v1","0x22a10-w14-39eb377-sweptr9-src-bindforms-v1","0x22a10-w14-39eb377-sweptr9-s1-coalorder-v1"]
+}

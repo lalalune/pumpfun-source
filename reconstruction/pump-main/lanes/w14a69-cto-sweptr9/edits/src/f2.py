@@ -1,0 +1,1 @@
+EDITS=[('let swept;\n','let swept:u64;\n'),('swept=(!skip).then(||sweep(&ctx,&holder_key)).transpose()?.unwrap_or(0);','(swept,)=((!skip).then(||sweep(&ctx,&holder_key)).transpose()?.unwrap_or(0),);')]
