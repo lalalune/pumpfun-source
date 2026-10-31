@@ -1,0 +1,1 @@
+EDITS=[('if frozen{require!(amount==0,PumpError::CtoSharedVaultFrozen);}else if amount>0{', 'match frozen{true=>{require!(amount==0,PumpError::CtoSharedVaultFrozen);}false=>if amount>0{'), ('return Ok(amount);}\n   Ok(amount)}', 'return Ok(amount);}}\n   Ok(amount)}')]

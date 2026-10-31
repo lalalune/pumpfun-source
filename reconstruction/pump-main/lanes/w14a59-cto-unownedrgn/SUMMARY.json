@@ -1,0 +1,36 @@
+{
+  "lane": "w14a59-cto-unownedrgn",
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27400 B",
+  "bases": {"6330811": {"ratio": 0.65698, "slots": 3193, "M": 2193, "jM": 2225}, "2e1379d": {"ratio": 0.65728, "slots": 3192, "M": 2194, "jM": 2227}},
+  "result": "no gain; notes only",
+  "best_zero_loss": {"ratio": 0.65728, "slots": 3192, "bytes": 27400, "note": "= main 2e1379d; no variant above main"},
+  "ledger": "approach unownedrgn, keys 0x22a10-w14-<sha7>-unownedrgn-<name>-v1 (72 rows)",
+  "regions": {
+    "0x1d30-0x2300 sweep head + 719 token-arm head": "skip-gate flag spill/polarity, sharing tag r6 reload, acc+0x108 and bump spills, swept r9; token arm call order (orig raw_amount first)",
+    "0x2300-0x2498 648 ConstraintSeeds": "only the acc+0x108 reload (orig [-0x8e0]) vs ours r6",
+    "0x2498-0x26e8 AMM arm 660 (w14a38 map mislabels it as 719)": "join test tail-dup into the 660 block, swept r9",
+    "0x3968-0x3c38 TCF return / token ? pad / Rent::get": "token ? Err pad placement (placement-only <= 0, w14a36), reloads",
+    "0x5570-0x5a80 tail error blocks": "Err payload r9 vs r8 (mov r9,r1), error-name String buffer slot -0x488 vs -0x470",
+    "0x5a80-0x5c38 native join": "J2 tail-dup, acc+0x108 slot -0x8e0 vs -0x9b8"
+  },
+  "attempts": 72,
+  "rejected_mechanisms": [
+    "token arm raw_amount-first (orig call order), 15 control-flow spellings: one token stream, 0.65608 @ 27376 (lvl3 +1, RA amount r8 vs orig r6)",
+    "a1 + size-adding knobs (9 singles, 5 +24 B pairs): best 0.65368 @ 27400",
+    "648 error spellings (require_keys_eq!, with_pubkeys deref, Err()?, .into(), ne, keys_eq sibling): fold or lose",
+    "660/719 require spellings (err!, <1, let r=, &args, if/match empty): fold",
+    "native test id()/eq/check_id/to_account_info().key: fold or lose",
+    "PDA seed as_ref/to_bytes: fold or lose",
+    "284/556 require!/err! spellings: fold (556 !is_writable landed separately in #3372)"
+  ],
+  "unresolved_residuals": [
+    "acc+0x108 spilled at def in orig (w14a45: forced spill loses)",
+    "swept/Err payload phi in r9 (w14a06)",
+    "J2 tail-dup join (w14a33/w14a51)",
+    "token arm amount register (r6 orig) under raw_amount-first order"
+  ],
+  "next_ideas": [
+    "a1 (raw_amount-first) is the original skeleton: if a later RA change puts the amount back in r6, re-test a1 with a +24 B repay",
+    "price the token ? pad move to after the TCF Err edge on the current main with w14a36 blkscan (last scanned on 81d3d9a)"
+  ]
+}

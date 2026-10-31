@@ -1,0 +1,1 @@
+EDITS=[('if a.current_creator.is_writable==false{return Err(error!(PumpError::CtoCreatorAccountNotWritable));}', 'if !a.current_creator.is_writable{return err!(PumpError::CtoCreatorAccountNotWritable);}')]

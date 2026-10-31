@@ -1,0 +1,1 @@
+EDITS=[('let frozen=token_frozen(a.creator_vault_quote_token_account.as_ref())?;let amount=token_raw_amount(a.creator_vault_quote_token_account.as_ref())?;','let frozen;let amount=token_raw_amount(a.creator_vault_quote_token_account.as_ref())?;frozen=token_frozen(a.creator_vault_quote_token_account.as_ref())?;')]
