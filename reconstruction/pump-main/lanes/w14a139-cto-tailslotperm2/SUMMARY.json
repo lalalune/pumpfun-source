@@ -1,0 +1,25 @@
+{
+  "lane": "w14a139-cto-tailslotperm2",
+  "target": {"window": "0x22a10", "function": "admin_cto::execute", "file": "programs/pump/src/creator/admin_cto.rs", "pinned_bytes": 27400},
+  "base": {"main": "ebe5387e1", "ratio": 0.67316, "slots": 3123, "M": 2247, "normalized": 1034, "raw": 1034},
+  "result": "notes only; no source change",
+  "best_landable": {"ratio": 0.67316, "slots": 3123, "bytes": 27400, "note": "main (no gain)"},
+  "bounds": {
+    "legal_tail_pin_main": {"dM_vs_roundtrip": 43, "estimated_M": 2290, "estimated_ratio": 0.68604, "pinned": "47/50", "frame_unchanged": true},
+    "all50_tail_pin_main": {"dM_vs_roundtrip": 50, "illegal_pins": "colours 179/184/185 held by function-long SS#181/185/186"},
+    "legal_tail_pin_canon_all": {"dM_vs_roundtrip": 90, "estimated_M": 2251, "vs_main": 4},
+    "per_element_dM": {"E0": 5, "E1": 10, "E2": 4, "E3": 7, "E4": 4, "E5": 9, "E6": 0},
+    "per_field_dM": {"data": 9, "owner": 10, "rent": 4}
+  },
+  "mechanism": "StackSlotColoring weight order follows the spill-store block along the Rc chain, and the spill store sits right after the load, so the tail colour permutation is the clone-run window form. The original's per-element order data<owner<rent<signer<writable<exec is the derived AccountInfo::clone order. main already matches rent/flags of E2-E4 exactly; only data/owner are displaced.",
+  "attempts": [
+    {"key": "0x22a10-w14-ebe5387-tailslotperm2-legalpin-v1", "status": "analyzed"},
+    {"key": "0x22a10-w14-ebe5387-tailslotperm2-canon-legalpin-v1", "status": "analyzed"},
+    {"key": "0x22a10-w14-ebe5387-tailslotperm2-elemorder-mech-v1", "status": "analyzed"},
+    {"key": "0x22a10-w14-ebe5387-tailslotperm2-canon-scprog-v1", "status": "rejected", "M": [2220, 2183, 2159]}
+  ],
+  "rejected_mechanisms": ["canonical window move for the plain to_account_info bases %_439/%_473 (IR oracle, -27..-88 M)", "independent tail slot order lever (none exists: colour = window form)"],
+  "unresolved": ["two extra function-long spills crossing the sharing region occupy the original's key/lamports colours 179/184/185", "data/owner spill after rent/flags in main's window form"],
+  "next_ideas": ["if a main removes the extra long-lived spills (swept / holder-cashback), rerun mirperm.py on canon_all and main", "combine a window-form change with a compensating skeleton gain elsewhere (canon_all + pin only ties main)"],
+  "tools": ["tools/mirperm.py", "tools/tailfi.py", "tools/canon_sc.py"]
+}
