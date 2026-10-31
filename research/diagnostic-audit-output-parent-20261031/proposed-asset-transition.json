@@ -1,0 +1,20 @@
+{
+  "scope": "Proposed maintained-script asset transition so the diagnostic audit creates its destination parent before staging; captures, suites and prior receipts remain unchanged.",
+  "base": "53abf28b1160e4509e0ead2a1daab1f987d92278",
+  "files": {
+    "scripts/pump_diagnostic_audit.py": {
+      "before_sha256": "aa944b6bbbb6f551ad1cba1ed59e027d3e535a8b84da8b0286a1722b958a8add",
+      "proposed_sha256": "e3f60f398046450ab2e0942da9dcb38b5b930b4e7cbb9007441f6fc6d8d802a5"
+    },
+    "scripts/test_pump_diagnostic_audit_publication.py": {
+      "before_sha256": "a2aa132de395e3c1faa3561b9b4b5128e9dc4ee618ae33ac8a9c0ce5a612d5ae",
+      "proposed_sha256": "683c55140f99aab51fd3dc5eed38059f01d891004b8fca7730161f07101a3e93"
+    }
+  },
+  "script_set_changed": false,
+  "program_source_changed": false,
+  "capture_bytes_changed": false,
+  "new_test": "scripts/test_pump_diagnostic_audit_publication.py test_fresh_output_parent_is_created and test_fresh_output_parent_still_reports_mismatches (that file is already run explicitly by verify.yml)",
+  "updated_test": "scripts/test_pump_diagnostic_audit_publication.py adds the two cases above plus a shared invoke_audit helper; its ten existing publication cases are unchanged",
+  "existing_ci_discovery": "verify.yml runs `python -B scripts/test_pump_diagnostic_audit_publication.py` directly; contract-tests: python -B -m unittest discover -s tests -v"
+}

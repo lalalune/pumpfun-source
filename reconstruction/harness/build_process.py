@@ -3,6 +3,7 @@ import math
 import os
 import signal
 import subprocess
+import sys
 import time
 
 
@@ -10,6 +11,13 @@ import time
 # Bound output draining after terminating the compiler process group so cleanup
 # cannot extend a requested compiler timeout indefinitely.
 TERMINATION_DRAIN_TIMEOUT = 1.0
+
+# The compiler leaves its caller's process group, so an experiment timeout that
+# kills that group cannot reach it. This helper outlives the caller and stops
+# the compiler group when its stdin closes without the normal release byte.
+GUARDIAN = ("import os, signal, sys\n"
+            "if not sys.stdin.buffer.read(1):\n"
+            "    os.killpg(int(sys.argv[1]), signal.SIGKILL)\n")
 
 
 def validate_timeout(timeout):
@@ -55,7 +63,11 @@ def run_compiler(command, *, timeout=None, **kwargs):
         return output or ''
 
     timed_out = False
+    guardian = None
     try:
+        guardian = subprocess.Popen([sys.executable, '-I', '-S', '-c', GUARDIAN, str(process.pid)],
+                                    stdin=subprocess.PIPE, stdout=subprocess.DEVNULL,
+                                    stderr=subprocess.DEVNULL, start_new_session=True)
         try:
             output, _ = process.communicate(timeout=timeout)
         except subprocess.TimeoutExpired:
@@ -69,4 +81,7 @@ def run_compiler(command, *, timeout=None, **kwargs):
     except BaseException:
         stop_and_collect()
         raise
+    finally:
+        if guardian is not None:
+            guardian.communicate(b'x')
     return subprocess.CompletedProcess(command, process.returncode, output), timed_out

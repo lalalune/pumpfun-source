@@ -3,7 +3,7 @@
 if not __debug__:
     raise SystemExit('Normal Python is required; do not use -O or PYTHONOPTIMIZE.')
 from pathlib import Path
-import json,hashlib,base64,argparse,re
+import gzip,json,hashlib,base64,argparse,re
 import mayhem_pump_swap_fixture as p
 from pump_amm_reusable_harness import pin_program
 from pump_differential_output import PumpReport
@@ -48,5 +48,5 @@ def main():
   if diff:mismatches.append({'case':c['name'],'fields':diff,'original_error':original['error'],'candidate_error':candidate['error']})
   print(c['name'],original['error'],diff,flush=True)
  report={'scope':__doc__,'candidate_sha256':p.sha(a.candidate.read_bytes()),'candidate_bytes':a.candidate.stat().st_size,'original_sha256':p.sha((p.R/'evidence/original/mayhem/deployed.so').read_bytes()),'case_count':len(rows),'successful_original_cases':sum(r['original']['error'] is None for r in rows),'signed_transactions':2*len(rows),'mismatches':mismatches,'normalized_log_differences':[r['case']['name'] for r in rows if r['normalized_log_difference']],'harness_sha256':{bound_input_key(x,p.R):p.sha(x.read_bytes()) for x in [Path(__file__).resolve(),D/'mayhem_pump_swap_fixture.py',a.cases.resolve(),p.R/'research/imported-lab/analysis/pump_fun/amm-v2-trade-fixture.json',p.R/'research/imported-lab/analysis/pump_fun/config-snapshot.json']},'cases':rows}
- publisher.write((json.dumps(report,indent=2)+'\n').encode('utf-8'));print(json.dumps({k:report[k] for k in ['case_count','successful_original_cases','mismatches']}));raise SystemExit(bool(mismatches))
+ payload=(json.dumps(report,indent=2)+'\n').encode('utf-8');publisher.write(gzip.compress(payload,mtime=0) if a.output.suffix=='.gz' else payload);print(json.dumps({k:report[k] for k in ['case_count','successful_original_cases','mismatches']}));raise SystemExit(bool(mismatches))
 if __name__=='__main__':main()

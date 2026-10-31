@@ -123,7 +123,10 @@ def main():
         perm = len(A) == len(B) and sorted(A[lo:hi]) == sorted(B[lo:hi])
         rep['rodata_diff_span'] = {'offset': lo, 'orig_vaddr': hex(os_['.rodata']['addr'] + lo), 'bytes': hi - lo,
                                    'orig': A[lo:hi].decode('latin1'), 'cand': B[lo:hi].decode('latin1'), 'byte_permutation': perm}
-        explained.append({'what': '.rodata order', 'detail': 'string allocation order (source/codegen order), not a build-input; same size' if perm else 'content differs'})
+        if perm:
+            explained.append({'what': '.rodata order', 'detail': 'string allocation order (source/codegen order), not a build-input; same size'})
+        else:
+            note(False, '.rodata content', 'bytes differ beyond a permutation')
     # .data.rel.ro: non-pointer bytes
     def dptr(rs, secs):
         d = secs['.data.rel.ro']; return {off - d['addr'] for off, i in rs if d['addr'] <= off < d['addr'] + d['size']}

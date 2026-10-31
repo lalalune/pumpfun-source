@@ -82,6 +82,8 @@ def main():
     ap.add_argument('--json', type=Path)
     ap.add_argument('--width', type=int, default=16)
     a = ap.parse_args()
+    if a.width <= 0:
+        ap.error('--width must be positive')
     wins = C.original_windows()
     O = C.Image(C.ORIG_PATH, {w['start']: (w['bytes'], []) for w in wins})
     cf = {}

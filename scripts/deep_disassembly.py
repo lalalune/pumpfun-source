@@ -37,6 +37,11 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO / "scripts"))
 from window_elf_reader import Elf
+def capture_directory(root, program):
+    # Publication-only consumers do not need the analyzer dependency.
+    from analyze import capture_directory as resolve_capture
+    return resolve_capture(root, program)
+
 
 # BPF opcode mnemonics
 BPF_ALU64  = 0x07
@@ -641,12 +646,13 @@ def rename_directory(source, destination, *, exchange=False):
     if os.name == "nt" and not exchange:
         source.rename(destination)
         return
-    library = ctypes.CDLL(None, use_errno=True)
     if sys.platform == "darwin":
+        library = ctypes.CDLL(None, use_errno=True)
         rename = getattr(library, "renamex_np", None)
         args = (os.fsencode(source), os.fsencode(destination), 2 if exchange else 4)
         types = [ctypes.c_char_p, ctypes.c_char_p, ctypes.c_uint]
     elif sys.platform.startswith("linux"):
+        library = ctypes.CDLL(None, use_errno=True)
         rename = getattr(library, "renameat2", None)
         args = (-100, os.fsencode(source), -100, os.fsencode(destination), 2 if exchange else 1)
         types = [ctypes.c_int, ctypes.c_char_p, ctypes.c_int, ctypes.c_char_p, ctypes.c_uint]
@@ -689,7 +695,7 @@ def publish_packet(staging, output_dir, expected_identity):
 
 
 def build_packet(program, output_dir, output_label):
-    deployed_path = REPO / "evidence" / "original" / program / "deployed.so"
+    deployed_path = capture_directory(REPO, program) / "deployed.so"
 
     print(f"[disasm] Reading {deployed_path}")
     elf = Elf(deployed_path)
@@ -953,7 +959,8 @@ def sha256_file(path):
 def main():
     if set(os.listdir(PACKET)) != EXPECTED_FILES | {"manifest.json"}:
         print("FAIL: packet directory entry set mismatch"); return 1
-    manifest = json.load(open(os.path.join(PACKET, "manifest.json")))
+    with open(os.path.join(PACKET, "manifest.json"), encoding="utf-8") as stream:
+        manifest = json.load(stream)
     if not isinstance(manifest, dict) or set(manifest) != EXPECTED_FILES:
         print("FAIL: manifest artifact set mismatch"); return 1
     errors = 0
@@ -966,8 +973,10 @@ def main():
             print(f"FAIL: {name} hash mismatch"); errors += 1
         else:
             print(f"  OK: {name}")
-    s = json.load(open(os.path.join(PACKET, "summary.json")))
-    w = json.load(open(os.path.join(PACKET, "windows-deep.json")))
+    with open(os.path.join(PACKET, "summary.json"), encoding="utf-8") as stream:
+        s = json.load(stream)
+    with open(os.path.join(PACKET, "windows-deep.json"), encoding="utf-8") as stream:
+        w = json.load(stream)
     if s["total_windows"] != len(w):
         print(f"FAIL: window count mismatch"); errors += 1
     else:
@@ -1000,11 +1009,11 @@ if __name__ == "__main__":
     (output_dir / "manifest.json").write_text(
         json.dumps(manifest, indent=2) + "\n", encoding="utf-8", newline="\n")
 
-    total_lines = sum(
-        sum(1 for _ in open(output_dir / name, encoding="utf-8"))
-        for name in os.listdir(output_dir)
-        if (output_dir / name).is_file() and not name.endswith(".gz")
-    )
+    total_lines = 0
+    for name in os.listdir(output_dir):
+        if (output_dir / name).is_file() and not name.endswith(".gz"):
+            with (output_dir / name).open(encoding="utf-8") as stream:
+                total_lines += sum(1 for _ in stream)
     print(f"[disasm] wrote {len(manifest) + 1} files, ~{total_lines:,} lines to {output_label}")
 
 
@@ -1014,7 +1023,7 @@ def main():
     parser.add_argument("--output", required=True)
     args = parser.parse_args()
 
-    deployed_path = REPO / "evidence" / "original" / args.program / "deployed.so"
+    deployed_path = capture_directory(REPO, args.program) / "deployed.so"
     if not deployed_path.exists():
         print(f"ERROR: {deployed_path} not found")
         return 1

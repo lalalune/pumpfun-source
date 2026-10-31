@@ -1,0 +1,16 @@
+{
+  "positive_returncode": 0,
+  "negative_returncodes": {
+    "drop_lifecycle": 1,
+    "reorder_lifecycle": 1,
+    "duplicate_label_lifecycle": 1,
+    "drop_admission": 1,
+    "reorder_admission": 1,
+    "duplicate_label_admission": 1,
+    "declared_order_contradiction": 1,
+    "two_step_truncation": 1,
+    "duplicate_real_signature_existing_guard": 1,
+    "empty_case_existing_guard": 1
+  },
+  "errors": []
+}

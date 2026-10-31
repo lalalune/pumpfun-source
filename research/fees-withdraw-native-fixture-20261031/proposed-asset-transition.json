@@ -1,0 +1,26 @@
+{
+  "schema": "proposed-asset-transition/v1",
+  "date": "2026-10-31",
+  "base_commit": "ebe5387e12e948c2534618adf7a3cf0f27d9de51",
+  "reason": "Repair the existing wsol withdraw fixture so it represents native token accounts and executes backing-lamport transfer.",
+  "assets": [
+    {
+      "path": "scripts/fees_withdraw_differential.py",
+      "before_sha256": "662f7a2c29c9c03396cad2030fea4552ea926213d8ada785b7cb33544923b049",
+      "after_sha256": "1951e070309706b079b529ab91bb36847ae97191432e349e73f9aea37cb80290"
+    }
+  ],
+  "scope": "Current root-script behavior only. No archived source, receipt, manifest, immutable checkpoint or captured program is rewritten. No new scripts/*.py member.",
+  "qualification": [
+    "tests/test_fees_withdraw_native_fixture.py",
+    "tests/test_fees_runtime_image_per_case.py",
+    "tests/test_fees_withdraw_output_inputs.py",
+    "tests/test_fees_differentials_normal_python.py",
+    "scripts/verify_evidence.py",
+    "scripts/test_tooling.py"
+  ],
+  "limitations": [
+    "Synthetic local fixtures execute the saved program images. Captured-versus-same-capture equality is fixture validation, not reconstructed program equivalence.",
+    "Only macOS arm64 with Python 3.12.13 and solders 0.27.1 was run locally; no compiler or live network transaction was used."
+  ]
+}

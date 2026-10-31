@@ -10,6 +10,7 @@ from pathlib import Path
 import sys,json,gzip,hashlib,argparse,base64,struct
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'scripts'))
 from pump_differential_output import PumpReport
+from pump_trade_fixture import REPORT_INPUTS
 import pump_buy_v2_differential as buy
 import pump_sell_v2_differential as sell
 
@@ -39,7 +40,7 @@ def cases():
  return out,calibration
 
 def main():
- ap=argparse.ArgumentParser();ap.add_argument('--candidate',type=Path,required=True);ap.add_argument('--output',type=Path,required=True);args=ap.parse_args();output=PumpReport(args.output,ROOT,args.candidate,__file__)
+ ap=argparse.ArgumentParser();ap.add_argument('--candidate',type=Path,required=True);ap.add_argument('--output',type=Path,required=True);args=ap.parse_args();output=PumpReport(args.output,ROOT,args.candidate,__file__,extra_inputs=REPORT_INPUTS)
  fixtures,calibration=cases();rows=[]
  for module,c in fixtures:
   a=module.run(c);b=module.run(c,args.candidate);diff=[k for k in ('error','accounts','events','inner','return_data') if a[k]!=b[k]]

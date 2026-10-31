@@ -1,0 +1,15 @@
+{
+  "scope": "Proposed maintained-script transition so a failed second report replacement restores the first, keeping the two regenerated reports a pair; captures, cases and prior receipts remain unchanged.",
+  "base": "963d1eefbed3a81a51d2d52f80026c5434a7a423",
+  "files": {
+    "scripts/analyze.py": {
+      "before_sha256": "d5c1350bcaa955257c80513a9e37bc91c5fe94b17691fe48506152eaddf3ffeb",
+      "proposed_sha256": "364589223d559a709b48ca56726f4a8f8ad2d1674542a1d94223e1dfbfa0b35d"
+    }
+  },
+  "script_set_changed": false,
+  "program_source_changed": false,
+  "capture_bytes_changed": false,
+  "new_test": "tests/test_analyze_report_pair_rollback.py",
+  "existing_ci_discovery": "contract-tests: python -B -m unittest discover -s tests -v; scripts/test_analyze_publication.py"
+}

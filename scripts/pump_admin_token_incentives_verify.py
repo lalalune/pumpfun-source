@@ -36,6 +36,10 @@ def main(receipt_path=diff.OUTPUT, candidate_path=diff.CANDIDATE,
     build = json.loads(build_path.read_text())
     check(build["selected_toolchain"] == "v1.44", "build toolchain must be v1.44")
     check(build["comparison"]["candidate_sha256"] == receipt["candidate_sha256"], "build candidate hash differs from receipt")
+    # all() over an empty map is vacuously true; a comparison must name the
+    # sources it was built from before their hashes can bind anything.
+    check(isinstance(build.get("source_sha256"), dict) and build["source_sha256"],
+          "build comparison binds no source")
     check(all(checksum == diff.sha(diff.ROOT / path)
                for path, checksum in build["source_sha256"].items()), "build source hash differs")
     check(build["build_log_sha256"] == diff.sha(gzip.decompress(
@@ -55,6 +59,8 @@ def main(receipt_path=diff.OUTPUT, candidate_path=diff.CANDIDATE,
             (second_path.parent / "second-build.log.gz").read_bytes())), "second build log hash differs")
     check(receipt["idl_sha256"] == diff.sha(diff.IDL), "receipt IDL hash differs")
     check(receipt["global_snapshot_sha256"] == diff.sha(diff.SNAPSHOT), "receipt snapshot hash differs")
+    check(isinstance(receipt.get("source_sha256"), dict) and receipt["source_sha256"],
+          "receipt binds no source")
     for path, checksum in receipt["source_sha256"].items():
         check(checksum == diff.sha(diff.ROOT / path), path)
     for name, checksum in receipt["dependency_sha256"].items():
@@ -79,6 +85,8 @@ def main(receipt_path=diff.OUTPUT, candidate_path=diff.CANDIDATE,
         check(regression["quote_control"]["receipt_sha256"] == diff.sha(quote_file), "quote regression receipt hash differs")
         check(regression["multi_hop_curve"]["receipt_sha256"] == diff.sha(curve_file), "curve regression receipt hash differs")
         check(quote["cases"] == 507 and quote["mismatches"] == 0, "quote regression cases/mismatches differ")
+        check(isinstance(quote.get("bound_inputs_sha256"), dict) and quote["bound_inputs_sha256"],
+              "quote regression binds no input")
         check(all(checksum == diff.sha(diff.ROOT / path)
                    for path, checksum in quote["bound_inputs_sha256"].items()), "quote bound input hash differs")
         check(curve["case_count"] == curve["passed"] == 56, "curve regression case count differs")

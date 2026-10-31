@@ -28,6 +28,14 @@ def main():
  successes=failures=quote_checks=events=rollbacks=0
  for pair in report['cases']:
   c=pair['case'];o=pair['original'];b=pair['candidate'];assert not pair['different_fields'];assert o['transaction_base64']==b['transaction_base64'] and o['error']==b['error']
+  # Bind the executable snapshots actually retained by each VM run, not
+  # only the report header supplied alongside a selected candidate file.
+  for side in ('original','candidate'):
+   for phase in ('before','after'):
+    program=pair[side][phase].get(str(MAY))
+    if (not isinstance(program,dict) or program.get('executable') is not True
+        or program.get('data_sha256')!=report[side+'_sha256']):
+     raise ValueError(side+' '+phase+': Mayhem executable snapshot differs from declared image')
   for phase in ['before','after']:assert {k:v for k,v in o[phase].items() if k!=str(MAY)}=={k:v for k,v in b[phase].items() if k!=str(MAY)}
   for field in ['inner_instructions','return_data']:assert o['metadata'][field]==b['metadata'][field]
   for r in [o,b]:

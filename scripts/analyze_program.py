@@ -394,7 +394,7 @@ def analyze_program(program_name, output_dir):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--program", required=True, help="Program name: pump, pump_amm, mayhem")
+    parser.add_argument("--program", required=True, help="Program name: pump, pump_amm, pump_fees, mayhem")
     parser.add_argument("--output", required=True, help="Output directory for evidence packet")
     args = parser.parse_args()
     sys.exit(analyze_program(args.program, args.output))

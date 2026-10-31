@@ -52,6 +52,13 @@ def cycle_regions(blocks):
     return sorted(regions, key=lambda row: row['blocks'][0])
 
 
+LEGACY_CONDITIONAL_JUMPS = frozenset({
+    0x15, 0x1d, 0x25, 0x2d, 0x35, 0x3d, 0x45, 0x4d,
+    0x55, 0x5d, 0x65, 0x6d, 0x75, 0x7d,
+    0xa5, 0xad, 0xb5, 0xbd, 0xc5, 0xcd, 0xd5, 0xdd,
+})
+
+
 def analyze(raw, start=0):
     # This decoder uses the legacy SBPFv0/v1 instruction layout.
     if start < 0 or start % 8 or not raw or len(raw) % 8:
@@ -69,10 +76,15 @@ def analyze(raw, start=0):
     transfers, calls, diagnostics = {}, [], []
     for offset, (op, regs, displacement, immediate, width) in instructions.items():
         following = offset + width
-        if op & 7 not in (5, 6):
+        if op & 7 == 6:
+            diagnostics.append({'offset': offset, 'opcode': op, 'error': 'unsupported control-flow opcode'})
             continue
-        kind = op & 0xf0
-        if kind == 0x80:
+        if op & 7 != 5:
+            continue
+        if op in (0x85, 0x8d):
+            if op == 0x8d and not 0 <= immediate <= 10:
+                diagnostics.append({'offset': offset, 'register': immediate, 'error': 'invalid indirect call register'})
+                continue
             call = {'offset': offset}
             if op == 0x85 and regs >> 4 == 1 and immediate != -1:
                 call.update(kind='direct', target=start + offset + 8 + immediate * 8)
@@ -82,12 +94,13 @@ def analyze(raw, start=0):
                 call.update(kind='syscall_or_relocated', immediate=immediate)
             calls.append(call)
             continue
-        if kind == 0x90:
+        if op == 0x95:
             transfers[offset] = []
-        else:
+        elif op == 0x05 or op in LEGACY_CONDITIONAL_JUMPS:
+            conditional = op != 0x05
             target = offset + 8 + displacement * 8
-            edges = [(target, 'jump' if kind == 0 else 'taken')]
-            if kind != 0:
+            edges = [(target, 'taken' if conditional else 'jump')]
+            if conditional:
                 edges.append((following, 'fallthrough'))
             transfers[offset] = edges
             if target in instructions:
@@ -96,9 +109,12 @@ def analyze(raw, start=0):
                 diagnostics.append({'offset': offset, 'target': target, 'error': 'branch enters lddw continuation'})
             else:
                 diagnostics.append({'offset': offset, 'target': target, 'error': 'branch target outside function'})
-            if kind != 0 and following not in instructions:
+            if conditional and following not in instructions:
                 diagnostics.append({'offset': offset, 'target': following,
                                     'error': 'conditional fallthrough outside function'})
+        else:
+            diagnostics.append({'offset': offset, 'opcode': op, 'error': 'unsupported control-flow opcode'})
+            continue
         if following in instructions:
             leaders.add(following)
     ordered = sorted(leaders)
@@ -137,6 +153,8 @@ def main(argv=None):
     try:
         blob = args.binary.read_bytes()
         secs = sections(blob)
+        if struct.unpack_from('<H', blob, 18)[0] not in (247, 263):
+            raise ValueError('control-flow decoding expects an EM_BPF or EM_SBPF image')
         version = struct.unpack_from('<I', blob, 0x30)[0]
         if version not in (0, 1):
             raise ValueError('control-flow decoding supports legacy SBPFv0/v1 ELF inputs only')

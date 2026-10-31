@@ -75,6 +75,7 @@ jobs:
               python -B reconstruction/harness/test_integrate_failures.py
               python -B reconstruction/harness/test_integrate_no_build_cli.py
               python -B reconstruction/harness/test_integrate_build_input_recheck.py
+              python -B reconstruction/harness/test_integrate_scoring_reference_recheck.py
               python -B reconstruction/harness/test_composition_boundaries.py
               python -B reconstruction/harness/test_build_pair_boundaries.py
               python -B reconstruction/harness/test_build_pair_source_overlap.py
@@ -83,6 +84,7 @@ jobs:
               python -B reconstruction/harness/test_integrate_empty_files.py
               python -B reconstruction/harness/test_integrate_binary_files.py
               python -B reconstruction/harness/test_integrate_file_directory.py
+              python -B reconstruction/harness/test_integrate_git_metadata.py
               python -B reconstruction/harness/test_integrate_source_links.py
               python -B reconstruction/harness/test_integrate_orig_sources.py
               python -I -B tests/test_integrate_patch_bytes.py
@@ -106,8 +108,13 @@ jobs:
               python -B -m unittest discover -s scripts -p 'test_sbf_backend*.py'
               python -B scripts/test_pump_diagnostic_audit_coverage.py
               python -B scripts/test_pump_diagnostic_audit_publication.py
+              python -B scripts/test_report_stage_collision.py
+              python -B scripts/test_deep_analysis_capture_routes.py
+              python -B scripts/test_text_pointer_addresses.py
+              python -B scripts/test_pump_diagnostic_audit_umask_mode.py
               python -B scripts/test_pump_fresh_output_optimized.py
               python -B scripts/test_amm_harness_content_cache.py
+              python -B scripts/test_search_dependency_commit.py
               python -B tests/test_amm_pinned_candidate.py
               python -B tests/test_pump_create_nested_pinned_image.py
               python -B tests/test_mayhem_differential_pinned_image.py
@@ -179,6 +186,7 @@ jobs:
               python -B scripts/test_admin_cto_optimization.py
               python -B scripts/test_build_token_dependency_optimization.py
               python -B scripts/test_revalidate_empty_manifest.py
+              python -B scripts/test_revalidate_duplicate_manifest_keys.py
               python -B tests/test_packet_temporary_names.py
               python -B tests/test_generated_packet_census.py
               python -B scripts/test_revalidate_all_manifest_records.py
@@ -235,20 +243,30 @@ jobs:
               python -B scripts/test_pump_validate_sell_accounting_optimization.py
               python -B scripts/test_imported_lab_optimization.py
               python -B scripts/test_deep_section_analysis_publication.py
+              python -B scripts/test_supported_policy_source_binding.py
               python -B scripts/test_pump_data_order_publication.py
               python -B scripts/test_pump_data_order_windows_publish.py
+              python -B scripts/test_pump_data_order_umask_mode.py
               python -B scripts/test_deep_disassembly_syscall_usage.py
               python -B scripts/test_disassemble_output_mode.py
               python -B scripts/test_disassemble_tool_binding.py
               python -B scripts/test_disassemble_publication.py
               python -B scripts/test_disassemble_staging_uniqueness.py
               python -B scripts/test_analyze_publication.py
+              python -B scripts/test_analyze_inventory_order.py
               python -B scripts/test_verify_imported_lab_publication.py
+              python -B scripts/test_deep_disassembly_publication.py
+              python -B scripts/test_pump_macos_frontier_archive_publication.py
+              python -B scripts/test_sbpf_disassembly_inventory_publication.py
+              python -B scripts/test_sbpf_disassembly_roundtrip_publication.py
+              python -B scripts/test_pump_strict_ordered_logs_publication.py
               python -B scripts/test_verify_recovered_builds_receipts.py
               python -B scripts/test_pump_compare_function_bytes_report.py
               python -B tests/test_pump_compare_report_staging.py
               python -B tests/test_experiment_placeholder_expansion.py
               python -B scripts/test_sbpf_disassembly_roundtrip_build_log.py
+              python -B scripts/test_sbpf_disassembly_inventory_long_output.py
+              python -B scripts/test_sbpf_disassembly_roundtrip_long_output.py
               python -B scripts/test_supported_sbpf_package_paths.py
               python -B scripts/test_pump_quote_control_function_match_output.py
               python -B reconstruction/toolchain/test_dependency_cache.py
@@ -275,6 +293,7 @@ jobs:
               python -B tests/test_claim_token_incentives_pinned_image.py
               python -B tests/test_pump_admin_token_incentives_pinned_image.py
               python -B tests/test_pump_admin_cto_pinned_image.py
+              python -B tests/test_pump_admin_cto_fee_bounds_captured.py
               python -B tests/test_pump_set_mayhem_virtual_params_pinned_image.py
               python -B -X utf8 tests/test_dispatch_idl_encoding.py
               python -B tests/test_local_validation_idl_encoding.py
@@ -298,8 +317,11 @@ jobs:
               python -B reconstruction/harness/test_experiment_worktree_source.py
               python -B reconstruction/harness/test_experiment_matrix_overlap.py
               python -B reconstruction/harness/test_bisect_membership.py
+              python -B reconstruction/harness/test_bisect_git_context.py
               python -B reconstruction/harness/test_bisect_missing_source.py
               python -B reconstruction/harness/test_experiment_directory_identity.py
+              python -B reconstruction/harness/test_experiment_output_directories.py
+              python -B reconstruction/harness/test_experiment_output_walk_errors.py
               python -B reconstruction/harness/test_experiment_receipt_integrity.py
               python -B reconstruction/harness/test_minimize_initial_report.py
               python -B reconstruction/harness/test_minimize_oracle_encoding.py
@@ -320,6 +342,7 @@ jobs:
               python -B scripts/test_pump_strict_ordered_logs.py
               python -B scripts/test_pump_strict_ordered_logs_output.py
               python -B scripts/test_pump_strict_ordered_logs_windows_publish.py
+              python -B scripts/test_pump_strict_ordered_logs_umask_mode.py
               python -B reconstruction/harness/test_experiment_post_run_errors.py
               python -B reconstruction/harness/test_experiment_root_target.py
               python -B reconstruction/harness/test_coords_cli_admission.py

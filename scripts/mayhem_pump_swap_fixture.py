@@ -1,4 +1,6 @@
 """Ordinary signed synthetic Mayhem trade state with captured AMM/dependency ELFs; no RPC."""
+if not __debug__:
+    raise SystemExit('Normal Python is required; do not use -O or PYTHONOPTIMIZE.')
 from pathlib import Path
 import json,base64,hashlib,struct
 from solders.pubkey import Pubkey
@@ -15,6 +17,8 @@ MAY=Pubkey.from_string('MAyhSmzXzV1pTf7LsNkrNwkWKTo4ougAJ1PPg47MD4e');AMM=Pubkey
 F=json.loads((R/'research/imported-lab/analysis/pump_fun/amm-v2-trade-fixture.json').read_text());CONFIG=next(x for x in json.loads((R/'research/imported-lab/analysis/pump_fun/config-snapshot.json').read_text())['accounts'] if x['program_name']=='pump_amm')
 TRADER=Keypair.from_seed(hashlib.sha256(b'mayhem-pump-swap-ordinary-owned-trader-v1').digest());PAYER=Keypair.from_seed(hashlib.sha256(b'mayhem-pump-swap-ordinary-owned-payer-v1').digest());GLOBAL=Pubkey.find_program_address([b'global-params'],MAY)[0];SOL=Pubkey.find_program_address([b'sol-vault'],MAY)[0];EVENT=Pubkey.find_program_address([b'__event_authority'],MAY)[0];AEVENT=Pubkey.find_program_address([b'__event_authority'],AMM)[0]
 ALT_TRADER=Keypair.from_seed(hashlib.sha256(b'mayhem-pump-swap-ordinary-owned-alternate-trader-v1').digest())
+if not all(k.pubkey().is_on_curve() for k in (TRADER, PAYER, ALT_TRADER)):
+    raise RuntimeError('synthetic swap keypairs must be on curve')
 sha=lambda b:hashlib.sha256(b).hexdigest()
 def token(mint,owner,amount,native=False):
  d=bytearray(165);d[:32]=bytes(mint);d[32:64]=bytes(owner);struct.pack_into('<Q',d,64,amount);d[108]=1
@@ -85,6 +89,10 @@ def run(c,binary=None):
  if 'payload_length' in c:data=data[:8+c['payload_length']]
  data+=bytes.fromhex(c.get('trailing',''))
  signers=[PAYER]+[keypair for keypair in [TRADER,ALT_TRADER] if any(m.pubkey==keypair.pubkey() and m.is_signer for m in metas)]
- tx=Transaction.new_signed_with_payer([set_compute_unit_limit(1400000),Instruction(MAY,data,metas)],PAYER.pubkey(),signers,vm.latest_blockhash());assert all(tx.verify_with_results())
+ tx=Transaction.new_signed_with_payer([set_compute_unit_limit(1400000),Instruction(MAY,data,metas)],PAYER.pubkey(),signers,vm.latest_blockhash())
+ if not all(tx.verify_with_results()):
+  raise RuntimeError('transaction signature verification failed')
  watched=list(dict.fromkeys(list(tx.message.account_keys)+keys));before={str(k):snap(vm.get_account(k)) for k in watched};res=vm.send_transaction(tx);failed=isinstance(res,FailedTransactionMetadata);meta=res.meta() if failed else res
+ if not all(tx.verify_with_results()):
+  raise RuntimeError('transaction signature verification failed')
  return {'case':c,'error':str(res.err()) if failed else None,'signature':str(tx.signatures[0]),'signature_verified':True,'synthetic_trader':str(TRADER.pubkey()),'transaction_base64':base64.b64encode(bytes(tx)).decode(),'before':before,'after':{str(k):snap(vm.get_account(k)) for k in watched},'metadata':json.loads(meta.to_json()),'inputs':{'pool_base':reserve_base,'pool_quote':reserve_quote,'reference':ref}}

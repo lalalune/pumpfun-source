@@ -23,7 +23,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'scripts'))
 import pump_create_nested_fixture as fixtures
 import pump_create_nested_differential as nested
-from surfpool_recording_vm import RecordingVM
+from surfpool_recording_vm import RecordingVM, require_aligned_runs
 PORT = 20151
 COMPUTE = Pubkey.from_string('ComputeBudget111111111111111111111111111111')
 DEPENDENCIES = [('spl_token',fixtures.TOKEN),('spl_token_2022',fixtures.TOKEN22),('associated_token',fixtures.ATA),('token_metadata',fixtures.META),('mayhem',Pubkey.from_string('MAyhSmzXzV1pTf7LsNkrNwkWKTo4ougAJ1PPg47MD4e'))]
@@ -240,6 +240,7 @@ def main():
     (args.output / 'fixtures.json').write_text(json.dumps(prepared, indent=2) + '\n',encoding='utf-8',newline='\n')
     left = run(original, prepared, args.surfpool, args.output)
     right = run(candidate, prepared, args.surfpool, args.output)
+    require_aligned_runs(prepared, left, right)
     (args.output / 'raw-transactions.json').write_text(json.dumps({'original': left, 'candidate': right}, indent=2) + '\n',encoding='utf-8',newline='\n')
     import re
     def expected_error(value):

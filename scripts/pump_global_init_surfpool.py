@@ -22,7 +22,7 @@ from solders.transaction import Transaction
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'scripts'))
 import pump_global_init_differential as fixtures
-from surfpool_recording_vm import RecordingVM
+from surfpool_recording_vm import RecordingVM, require_aligned_runs
 PORT = 20261
 COMPUTE = Pubkey.from_string('ComputeBudget111111111111111111111111111111')
 DEPENDENCIES = []
@@ -254,6 +254,7 @@ def main():
     (args.output / 'fixtures.json').write_text(json.dumps(prepared, indent=2) + '\n',encoding='utf-8',newline='\n')
     left = run(original, prepared, args.surfpool, args.output)
     right = run(candidate, prepared, args.surfpool, args.output)
+    require_aligned_runs(prepared, left, right)
     (args.output / 'raw-transactions.json').write_text(json.dumps({'original': left, 'candidate': right}, indent=2) + '\n',encoding='utf-8',newline='\n')
     import re
     def expected_error(value):

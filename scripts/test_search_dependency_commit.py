@@ -12,6 +12,8 @@ import unittest
 from unittest import mock
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "scripts"))
+import probe_report
 SPEC = importlib.util.spec_from_file_location(
     "search_dependency_commit", ROOT / "scripts/search_dependency_commit.py"
 )
@@ -95,7 +97,7 @@ class SearchTests(unittest.TestCase):
         if "cargo" in command:
             self.builds.append(self.current_commit)
             if self.current_commit == "commit-1":
-                self.artifact.parent.mkdir(parents=True)
+                self.artifact.parent.mkdir(parents=True, exist_ok=True)
                 self.artifact.write_bytes(self.binary)
             return self.completed(command)
         raise AssertionError("unexpected run command: " + repr(command))
@@ -149,6 +151,25 @@ class SearchTests(unittest.TestCase):
         self.assertEqual(self.container_cleans, 1)
         self.assertEqual(self.builds, [])
         self.assertFalse((self.output / "search-report.json").exists())
+
+
+    def test_report_publication_failure_cannot_truncate_the_prior_report(self):
+        self.execute()
+        prior = (self.output / "search-report.json").read_bytes()
+        self.assertIn(b'"matches"', prior)
+
+        with mock.patch.object(
+            probe_report.os, "replace", side_effect=OSError(28, "No space left on device")
+        ):
+            with self.assertRaises(OSError):
+                self.execute()
+
+        self.assertEqual((self.output / "search-report.json").read_bytes(), prior)
+        self.assertEqual(
+            [path.name for path in self.output.glob(".search-report*")],
+            [],
+            "a failed publication must not leave its staging file behind",
+        )
 
 
 if __name__ == "__main__":

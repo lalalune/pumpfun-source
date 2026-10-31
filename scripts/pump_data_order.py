@@ -7,8 +7,8 @@ import json
 import os
 from pathlib import Path
 import re
+import secrets
 import struct
-import tempfile
 
 from build_source_manifest import source_manifest
 from pump_compare_function_bytes import normalize
@@ -681,10 +681,12 @@ def publish_certificate(path, cert):
     """Publish a complete certificate into a new path; never replace an output."""
     staged = None
     try:
-        with tempfile.NamedTemporaryFile(
-            "w", dir=path.parent, prefix="." + path.name + ".", delete=False
-        ) as stream:
-            staged = Path(stream.name)
+        # A plain exclusive open keeps the umask mode of the published
+        # certificate. The hidden staged name is unique and links into an
+        # absent output only, preserving the no-replace guarantee.
+        temporary = path.with_name("." + path.name[:32] + "." + secrets.token_hex(8) + ".tmp")
+        with open(temporary, "x", encoding="utf-8", newline="\n") as stream:
+            staged = temporary
             stream.write(json.dumps(cert, indent=2) + "\n")
             stream.flush()
             os.fsync(stream.fileno())

@@ -32,7 +32,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[3]
 VERSION = "pump-revalidation-qualification-v1"
 FROZEN_SOURCE = "scripts/revalidate_all.py"
-FROZEN_SHA256 = '7f612a5b827441b32917b140a7ae3e54fd59e6280f137b449e03f8f4a3a43472'
+FROZEN_SHA256 = 'fbdedcd033bbfc1d40f0c4e2b16b3fa44d4c0176b93de37eedefb347d2d2c6ec'
 REPORT_MEMBERS = (
     "README.md",
     "failed.json",
@@ -494,6 +494,7 @@ def generated_verifier():
 import hashlib,json,stat,sys
 from pathlib import Path
 PACKET=Path(__file__).resolve().parent
+REQUIRED_MEMBERS=__REQUIRED_MEMBERS__
 def sha(path):
  h=hashlib.sha256()
  with path.open("rb") as source:
@@ -503,6 +504,7 @@ def main():
  manifest_path=PACKET/"manifest.json";errors=[]
  if not stat.S_ISREG(manifest_path.lstat().st_mode):errors.append("manifest type")
  manifest=json.loads(manifest_path.read_text(encoding="utf-8"))
+ if sorted(manifest)!=list(REQUIRED_MEMBERS):errors.append("required member inventory")
  entries={path.name:path for path in PACKET.iterdir() if path.name!="manifest.json"}
  actual=sorted(entries)
  if actual!=sorted(manifest):errors.append("member inventory")
@@ -520,7 +522,7 @@ def main():
  except Exception as error:errors.append("metadata: "+type(error).__name__+": "+str(error))
  print(json.dumps({"verified":not errors,"errors":errors},indent=2));return bool(errors)
 if __name__=="__main__":sys.exit(main())
-'''
+'''.replace("__REQUIRED_MEMBERS__", repr(REPORT_MEMBERS))
 
 
 def report_readme(summary):

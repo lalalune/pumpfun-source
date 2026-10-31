@@ -1,0 +1,24 @@
+FF
+======================================================================
+FAIL: test_unreadable_generated_output_is_an_error_with_retained_logs (__main__.OutputWalkErrorTests.test_unreadable_generated_output_is_an_error_with_retained_logs)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<repo>/reconstruction/harness/test_experiment_output_walk_errors.py", line 28, in test_unreadable_generated_output_is_an_error_with_retained_logs
+    self.assertEqual(result['status'], 'error')
+AssertionError: 'pass' != 'error'
+- pass
++ error
+
+
+======================================================================
+FAIL: test_unreadable_retained_directory_cannot_be_silently_skipped (__main__.OutputWalkErrorTests.test_unreadable_retained_directory_cannot_be_silently_skipped)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<repo>/reconstruction/harness/test_experiment_output_walk_errors.py", line 50, in test_unreadable_retained_directory_cannot_be_silently_skipped
+    self.assertFalse(second['reused'])
+AssertionError: True is not false
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.122s
+
+FAILED (failures=2)

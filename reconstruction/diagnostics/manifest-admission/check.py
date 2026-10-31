@@ -6,10 +6,20 @@ import re
 import stat
 
 
+def unique_paths(pairs):
+    result = {}
+    for name, value in pairs:
+        if name in result:
+            raise ValueError('duplicate manifest path: ' + name)
+        result[name] = value
+    return result
+
+
 def check_manifest(packet_dir):
     packet = Path(packet_dir)
     manifest_path = packet / 'manifest.json'
-    if not manifest_path.exists():
+    # exists() follows links, so a dangling manifest needs its own check.
+    if not manifest_path.exists() and not manifest_path.is_symlink():
         return {'status': 'no_manifest', 'errors': []}
     # The payload walk below lstats every entry under the packet root but
     # never the root itself, so a packet rooted in an external tree passed
@@ -32,13 +42,19 @@ def check_manifest(packet_dir):
         if not stat.S_ISREG(manifest_path.lstat().st_mode) or manifest_path.is_symlink():
             raise ValueError('manifest must be a regular non-symlink file')
         raw = manifest_path.read_text(encoding='utf-8')
-        manifest = json.loads(raw)
+        # json.loads keeps only the last occurrence of a key, which would leave
+        # the earlier declaration unchecked.
+        manifest = json.loads(raw, object_pairs_hook=unique_paths)
         if not isinstance(manifest, dict) or not manifest:
             raise ValueError('manifest must be a nonempty path-to-SHA256 object')
         expected_count = len(manifest)
         # Validate the complete declaration before opening any payload.
         for name, digest in manifest.items():
             path = PurePosixPath(name)
+            # A colon can select an NTFS named/default stream instead of a
+            # packet member, even when PureWindowsPath(name).drive is empty.
+            if ':' in name:
+                raise ValueError('manifest paths must not select file streams')
             if (not name or '\\' in name or path.is_absolute()
                     or PureWindowsPath(name).drive or any(part in ('', '.', '..') for part in name.split('/'))
                     or not isinstance(digest, str) or re.fullmatch(r'[0-9a-f]{64}', digest) is None):

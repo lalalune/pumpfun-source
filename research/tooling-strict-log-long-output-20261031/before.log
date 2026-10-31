@@ -1,0 +1,30 @@
+F.
+======================================================================
+FAIL: test_long_output_preserves_audit_and_no_replace (test_pump_strict_ordered_logs_output.LongOutputTests.test_long_output_preserves_audit_and_no_replace)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<repo>/scripts/test_pump_strict_ordered_logs_output.py", line 81, in test_long_output_preserves_audit_and_no_replace
+    self.assertEqual(result.returncode, 0, result.stderr)
+AssertionError: 1 != 0 : Traceback (most recent call last):
+  File "<repo>/work/strict-log-long-output/before.py", line 60, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "<repo>/work/strict-log-long-output/before.py", line 48, in main
+    with tempfile.NamedTemporaryFile('w',dir=a.output.parent,prefix='.'+a.output.name+'.',delete=False,encoding='utf-8',newline='\n')as stream:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/tempfile.py", line 721, in NamedTemporaryFile
+    file = _io.open(dir, mode, buffering=buffering,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/tempfile.py", line 718, in opener
+    fd, name = _mkstemp_inner(dir, prefix, suffix, flags, output_type)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/tempfile.py", line 395, in _mkstemp_inner
+    fd = _os.open(file, flags, 0o600)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSError: [Errno 36] File name too long: '/tmp/tmp0xshvd07/.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json._zwt7mfs'
+
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.188s
+
+FAILED (failures=1)

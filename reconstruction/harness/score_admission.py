@@ -74,6 +74,8 @@ def same_domain(current, base):
 def report_destination(output, inputs):
     if output is None: return
     output = Path(output)
+    if output.is_dir():
+        raise ValueError('report destination is a directory: ' + str(output))
     for value in inputs:
         path = Path(value)
         if output.resolve() == path.resolve() or (output.exists() and path.exists() and output.samefile(path)):

@@ -229,4 +229,16 @@ class PipelineTests(unittest.TestCase):
         self.assertEqual(json.loads((self.evidence/'source-before.json').read_bytes()),expected)
         self.assertEqual(h.source_hashes(self.source,expected),before)
 
+    def test_failed_evidence_write_keeps_the_prior_receipt(self):
+        # write_json publishes attempt.json from the error path and the
+        # source-before/source-after pair; a plain write_text() truncates the
+        # previous complete receipt before a failing write can be noticed.
+        target=self.evidence/'source-before.json'
+        h.write_json(target,{'run':'previous'})
+        prior=target.read_bytes()
+        with mock.patch.object(h.os,'replace',side_effect=OSError(28,'No space left on device')):
+            with self.assertRaises(OSError):h.write_json(target,{'run':'current'})
+        self.assertEqual(target.read_bytes(),prior)
+        self.assertEqual([p.name for p in self.evidence.iterdir() if p.name.startswith('.')],[])
+
 if __name__=='__main__':unittest.main(verbosity=2)

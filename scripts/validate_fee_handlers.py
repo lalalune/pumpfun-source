@@ -4,7 +4,8 @@ if not __debug__:
     raise SystemExit('Normal Python is required; do not use -O or PYTHONOPTIMIZE.')
 import argparse,gzip,hashlib,json,pathlib,struct
 from fee_recovery_fixture import *
-p=argparse.ArgumentParser();p.add_argument('--candidate',type=pathlib.Path,required=True);p.add_argument('--output',type=pathlib.Path,required=True);args=p.parse_args()
+from pump_differential_output import PumpReport
+p=argparse.ArgumentParser();p.add_argument('--candidate',type=pathlib.Path,required=True);p.add_argument('--output',type=pathlib.Path,required=True);args=p.parse_args();publisher=PumpReport(args.output,ROOT,args.candidate,__file__,extra_inputs=[ROOT/'research/fees-query-inputs/quote-selector-cases.json.gz',ROOT/'research/fees-query-inputs/fee-selector-cases.json.gz'])
 original=FeeFixture();candidate=FeeFixture(args.candidate);fixtures=[original,candidate]
 rows=[];failures=[]
 def outcome(r):return {'fees':r['fees']} if 'fees' in r else {'error':r['error']}
@@ -79,5 +80,5 @@ for size in [2511,2512,4072,4073,4096,4097,5000]:
   data=legacy_base[:109]+count.to_bytes(4,'little')+legacy_base[113:]
   run('legacy-stable-count-'+str(size)+'-'+str(count),data[:size])
 report={'scope':'Two independently executing full query handlers only; other handlers unsupported. Error numbers/return bytes and read-only state tested; logs, compute, full byte identity not asserted.','original_sha256':hashlib.sha256((ROOT/'evidence/original/pump_fees/deployed.so').read_bytes()).hexdigest(),'candidate_sha256':hashlib.sha256(args.candidate.read_bytes()).hexdigest(),'input_receipt_sha256':hashlib.sha256(receipt.read_bytes()).hexdigest(),'tier_input_receipt_sha256':hashlib.sha256(tier_receipt.read_bytes()).hexdigest(),'case_count':len(rows),'mismatch_count':len(failures),'failures':failures,'cases':rows}
-args.output.parent.mkdir(parents=True,exist_ok=True);args.output.write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8',newline='\n');print('Cases',len(rows),'mismatches',len(failures));print(json.dumps(failures[:10],indent=2))
+publisher.write((json.dumps(report,indent=2)+'\n').encode('utf-8'));print('Cases',len(rows),'mismatches',len(failures));print(json.dumps(failures[:10],indent=2))
 if failures:raise SystemExit(1)

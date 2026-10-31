@@ -3,6 +3,8 @@
 No authorization is weakened: the owned trader signs, GlobalParams.trader matches it,
 and Mayhem itself signs for the real sol-vault PDA during its CPI.
 """
+if not __debug__:
+    raise SystemExit('Normal Python is required; do not use -O or PYTHONOPTIMIZE.')
 from pathlib import Path
 import sys,json,base64,hashlib,struct
 ROOT=next(p for p in Path(__file__).resolve().parents if (p/'evidence/original/mayhem/deployed.so').is_file())
@@ -12,7 +14,8 @@ from solders.clock import Clock
 from solders.compute_budget import set_compute_unit_limit
 MAY=f.Pubkey.from_string('MAyhSmzXzV1pTf7LsNkrNwkWKTo4ougAJ1PPg47MD4e')
 TRADER=f.Keypair.from_seed(hashlib.sha256(b'mayhem-buy-static-followup-owned-trader-v1').digest())
-assert TRADER.pubkey().is_on_curve()
+if not TRADER.pubkey().is_on_curve():
+    raise RuntimeError('synthetic trader pubkey must be on curve')
 GLOBAL=f.Pubkey.find_program_address([b'global-params'],MAY)[0]
 SOL=f.Pubkey.find_program_address([b'sol-vault'],MAY)[0]
 EVENT=f.Pubkey.find_program_address([b'__event_authority'],MAY)[0]
@@ -91,10 +94,12 @@ def run(c,binary=None):
  vm.set_account(payer.pubkey(),f.Account(10**10,b'',f.Pubkey.default()))
  signers=[payer]+([TRADER] if any(m.pubkey==TRADER.pubkey() and m.is_signer for m in metas) else [])
  tx=f.Transaction.new_signed_with_payer([set_compute_unit_limit(1400000),f.Instruction(MAY,payload,metas)],payer.pubkey(),signers,vm.latest_blockhash())
- assert all(tx.verify_with_results())
+ if not all(tx.verify_with_results()):
+  raise RuntimeError('transaction signature verification failed')
  watched=list(dict.fromkeys(list(tx.message.account_keys)+keys))
  before={str(k):snap(vm.get_account(k)) for k in watched}
  result=vm.send_transaction(tx);failed=isinstance(result,f.FailedTransactionMetadata);meta=result.meta() if failed else result
- assert all(tx.verify_with_results())
+ if not all(tx.verify_with_results()):
+  raise RuntimeError('transaction signature verification failed')
  after={str(k):snap(vm.get_account(k)) for k in watched}
  return {'case':c,'error':str(result.err()) if failed else None,'signature':str(tx.signatures[0]),'signature_verified':True,'transaction_base64':base64.b64encode(bytes(tx)).decode(),'synthetic_trader':str(TRADER.pubkey()),'inputs':{'curve':[vt,vs,rt,rs],'reference':reference},'before':before,'after':after,'metadata':json.loads(meta.to_json())}

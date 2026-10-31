@@ -76,7 +76,7 @@ def load(path: Path):
 
 
 def save(path: Path, value) -> None:
-    path.write_text(json.dumps(value, indent=2) + "\n", encoding="utf-8")
+    path.write_text(json.dumps(value, indent=2) + "\n", encoding="utf-8", newline="\n")
 
 
 def safe(name: str) -> str:
@@ -267,7 +267,7 @@ def configure_cargo(home: Path, vendor: Path) -> None:
         '[source.locked-vendor]\ndirectory = '
         + json.dumps(str(vendor))
         + "\n[net]\noffline = true\n",
-        encoding="utf-8",
+        encoding="utf-8", newline="\n",
     )
 
 
@@ -450,7 +450,7 @@ def derive_linux_metadata_map(records: Path, output: Path) -> dict[str, object]:
     require(len({(old, crate) for old, _, crate, _ in rows}) == len(rows), "ambiguous Linux Cargo metadata")
     output.write_text(
         "".join(f"{old}\t{published}\t{crate}\n" for old, published, crate, _ in rows),
-        encoding="utf-8",
+        encoding="utf-8", newline="\n",
     )
     receipt = {
         "bindings_sha256": sha256(bindings_path),

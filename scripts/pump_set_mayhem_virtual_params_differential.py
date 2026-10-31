@@ -109,6 +109,8 @@ def run(pump_bin, c):
         bc = vm.get_account(CURVE).data
         out['vqr'] = struct.unpack('<Q', bc[16:24])[0]
         out['vtr'] = struct.unpack('<Q', bc[8:16])[0]
+        accounts = (vm.get_account(key) for key in (CURVE, MTV, SOL_VAULT[0]))
+        out['writable_accounts'] = [[a.lamports, str(a.owner), a.data.hex()] for a in accounts]
     return out
 
 
@@ -158,7 +160,7 @@ def main():
     for i, c in enumerate(cases()):
         x = run(original, c)
         y = run(a.candidate, c) if a.candidate else None
-        diff = [k for k in ('err', 'vqr', 'vtr', 'events', 'logs') if y is not None and x.get(k) != y.get(k)]
+        diff = [k for k in ('err', 'vqr', 'vtr', 'writable_accounts', 'events', 'logs') if y is not None and x.get(k) != y.get(k)]
         rows.append({'i': i, 'case': c, 'original': x, 'candidate': y, 'diff': diff})
         if diff:
             bad.append(i)

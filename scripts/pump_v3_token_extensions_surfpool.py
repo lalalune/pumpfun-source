@@ -22,7 +22,7 @@ from solders.transaction import Transaction
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'scripts'))
 import pump_v3_token_extensions_differential as fixtures
-from surfpool_recording_vm import RecordingVM
+from surfpool_recording_vm import RecordingVM, require_aligned_runs
 PORT = 20271
 COMPUTE = Pubkey.from_string('ComputeBudget111111111111111111111111111111')
 DEPENDENCIES = [(n,Pubkey.from_string(json.loads((ROOT/('evidence/original' if n=='pump_fees' else 'evidence/dependencies')/n/'capture.json').read_text())['program'])) for n in ['pump_fees','spl_token','spl_token_2022','associated_token']]
@@ -256,6 +256,7 @@ def main():
     (args.output / 'fixtures.json').write_text(json.dumps(prepared, indent=2) + '\n',encoding='utf-8',newline='\n')
     left = run(original, prepared, args.surfpool, args.output)
     right = run(candidate, prepared, args.surfpool, args.output)
+    require_aligned_runs(prepared, left, right)
     (args.output / 'raw-transactions.json').write_text(json.dumps({'original': left, 'candidate': right}, indent=2) + '\n',encoding='utf-8',newline='\n')
     import re
     def expected_error(value):

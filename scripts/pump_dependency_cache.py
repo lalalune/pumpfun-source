@@ -5,8 +5,8 @@ are excluded. Cargo remains responsible for rebuilding the main crate and any
 external dependency whose fresh-target inputs are incomplete or invalidated.
 """
 
-import ctypes, hashlib, json, os, re, shutil, subprocess, sys, tempfile, tarfile, tomllib
-from pathlib import Path
+import ctypes, hashlib, json, os, re, shutil, stat, subprocess, sys, tempfile, tarfile, tomllib
+from pathlib import Path, PurePosixPath, PureWindowsPath
 
 
 def check(condition, message):
@@ -39,6 +39,57 @@ def tree(root):
             p.relative_to(root).parts
         )
     }
+
+
+def _is_link_or_reparse(info):
+    return stat.S_ISLNK(info.st_mode) or bool(getattr(info, "st_reparse_tag", 0))
+
+
+def _confined_target_path(raw_path, target, cwd):
+    check(
+        isinstance(raw_path, str) and bool(raw_path) and "\0" not in raw_path,
+        "invalid target path in build plan",
+    )
+    raw = Path(raw_path)
+    check(".." not in raw.parts, "path traversal in target path is unsupported")
+    abs_target = Path(os.path.abspath(target))
+    try:
+        target_info = abs_target.lstat()
+    except FileNotFoundError:
+        target_info = None
+    if target_info is not None:
+        check(
+            not _is_link_or_reparse(target_info),
+            "symlinked target path is unsupported: " + str(target),
+        )
+    resolved_target = abs_target.resolve()
+    candidate = raw if raw.is_absolute() else Path(cwd) / raw
+    abs_candidate = Path(os.path.abspath(candidate))
+    for root_prefix in (abs_target, resolved_target):
+        try:
+            rel = abs_candidate.relative_to(root_prefix)
+            break
+        except ValueError:
+            continue
+    else:
+        raise AssertionError("native/outside target path is unsupported: " + str(raw_path))
+    cursor = root_prefix
+    for part in rel.parts:
+        cursor = cursor / part
+        try:
+            info = cursor.lstat()
+        except FileNotFoundError:
+            continue
+        check(
+            not _is_link_or_reparse(info),
+            "symlinked target path is unsupported: " + str(raw_path),
+        )
+    resolved = abs_candidate.resolve()
+    check(
+        resolved.is_relative_to(resolved_target),
+        "native/outside target path is unsupported: " + str(raw_path),
+    )
+    return resolved
 
 
 def clone_file(source, dest):
@@ -151,11 +202,9 @@ class DependencyCache:
             or k.startswith("CARGO_PROFILE_")
         }
         ancestors = set()
+        # Cargo reads every parent of its working directory, including above the repository.
         for start in [crate, workspace]:
-            for directory in [start, *start.parents]:
-                ancestors.add(directory)
-                if directory == repository:
-                    break
+            ancestors.update([start, *start.parents])
         configs = {
             str(p): sha(p)
             for directory in ancestors
@@ -211,9 +260,20 @@ class DependencyCache:
         }
 
     def allowed(self, rel):
-        path = Path(rel)
-        parts = path.parts
-        if path.is_absolute() or any(p in ["..", "."] for p in parts):
+        if not isinstance(rel, str) or not rel or "\0" in rel:
+            return False
+        posix_rel = PurePosixPath(rel)
+        windows_rel = PureWindowsPath(rel)
+        if (
+            rel.startswith(("/", "\\"))
+            or posix_rel.is_absolute()
+            or windows_rel.is_absolute()
+            or windows_rel.drive
+            or windows_rel.root
+        ):
+            return False
+        parts = tuple(rel.replace("\\", "/").split("/"))
+        if any(p in ["", "..", "."] for p in parts):
             return False
         prefix = parts[1:] if parts and parts[0] == self.target else parts
         if (
@@ -247,13 +307,15 @@ class DependencyCache:
                 re.fullmatch(re.escape(n) + r"-[0-9a-f]+", folder)
                 for n in self.packages
             )
-        if "deps" in parts:
-            name = parts[-1]
+        if prefix[1] == "deps":
+            if len(prefix) != 3:
+                return False
+            name = prefix[2]
             return any(
-                re.match(
+                re.fullmatch(
                     r"(?:lib)?"
                     + re.escape(n)
-                    + r"-[0-9a-f]+\.(?:rlib|rmeta|dylib|so|d|a)$",
+                    + r"-[0-9a-f]+\.(?:rlib|rmeta|dylib|so|d|a)",
                     name,
                 )
                 for n in self.crates
@@ -525,26 +587,72 @@ class DependencyCache:
         args = main["args"]
         program = main["program"]
         cwd = Path(main["cwd"]).resolve()
-        cwd.relative_to(self.repo)
+        cwd.relative_to(Path(self.repo).resolve())
         check("OUT_DIR" not in main["env"], "main build script outputs are unsupported")
         check(Path(program).resolve() in [
             Path(self.env["RUSTC"]).resolve(),
             Path(self.env["RUSTC_WRAPPER"]).resolve(),
         ], "cache verification failed: Path(program).resolve() in [")
-        for i, arg in enumerate(args):
+        i = 0
+        while i < len(args):
+            arg = args[i]
             if arg == "-L":
-                check(args[i + 1].startswith("dependency=" + str(target)), (
-                    "native/outside search path is unsupported"
-                ))
-            if arg == "--extern":
-                path = Path(args[i + 1].split("=", 1)[1])
-                path.relative_to(target)
-                check(path.is_file(), path)
+                check(i + 1 < len(args), "missing -L search path argument")
+                spec = args[i + 1]
+                i += 2
+            elif arg.startswith("-L"):
+                spec = arg[2:]
+                i += 1
+            elif arg == "--extern":
+                check(i + 1 < len(args), "missing --extern crate argument")
+                spec = args[i + 1]
+                i += 2
+                check("=" in spec, "unsupported --extern specification")
+                ext_path = _confined_target_path(spec.split("=", 1)[1], target, cwd)
+                check(ext_path.is_file(), ext_path)
+                continue
+            elif arg.startswith("--extern="):
+                spec = arg[len("--extern="):]
+                i += 1
+                check("=" in spec, "unsupported --extern specification")
+                ext_path = _confined_target_path(spec.split("=", 1)[1], target, cwd)
+                check(ext_path.is_file(), ext_path)
+                continue
+            elif arg in ("--out-dir", "-o"):
+                check(i + 1 < len(args), f"missing {arg} path argument")
+                _confined_target_path(args[i + 1], target, cwd)
+                i += 2
+                continue
+            elif arg.startswith("--out-dir="):
+                _confined_target_path(arg[len("--out-dir="):], target, cwd)
+                i += 1
+                continue
+            elif arg.startswith("-o") and len(arg) > 2:
+                _confined_target_path(arg[2:], target, cwd)
+                i += 1
+                continue
+            else:
+                i += 1
+                continue
+            check(spec.startswith("dependency="), (
+                "native/outside search path is unsupported"
+            ))
+            _confined_target_path(spec[len("dependency="):], target, cwd)
+        confined_outputs = []
         for output in main["outputs"]:
-            path = Path(output)
-            path.relative_to(target)
-            check(not path.exists(), "main artifact already existed before compiler")
-            path.parent.mkdir(parents=True, exist_ok=True)
+            out_path = _confined_target_path(output, target, cwd)
+            check(
+                not out_path.exists() and not out_path.is_symlink(),
+                "main artifact already existed before compiler",
+            )
+            confined_outputs.append(out_path)
+        confined_links = []
+        for dest, source in main.get("links", {}).items():
+            dest_path = _confined_target_path(dest, target, cwd)
+            source_path = _confined_target_path(source, target, cwd)
+            confined_links.append((dest_path, source_path))
+        for out_path in confined_outputs:
+            out_path.parent.mkdir(parents=True, exist_ok=True)
         env = self.env.copy()
         env.update(main["env"])
         self.record.update(
@@ -559,8 +667,11 @@ class DependencyCache:
             [program, *args], cwd=cwd, env=env, stdout=log, stderr=subprocess.STDOUT
         )
         if result.returncode == 0:
-            for dest, source in main["links"].items():
-                if Path(source).exists():
-                    shutil.copy2(source, dest)
+            for dest_path, source_path in confined_links:
+                checked_source = _confined_target_path(str(source_path), target, cwd)
+                checked_dest = _confined_target_path(str(dest_path), target, cwd)
+                if checked_source.is_file():
+                    checked_dest.parent.mkdir(parents=True, exist_ok=True)
+                    shutil.copy2(checked_source, checked_dest)
             self.record["main_freshly_compiled"] = True
         return result

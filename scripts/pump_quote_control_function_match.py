@@ -22,10 +22,16 @@ sys.path.insert(0, str(ROOT / 'reconstruction/harness'))
 from instruction_stream import instruction_boundaries
 
 
+SHT_NOBITS = 8
+
+
 @lru_cache(maxsize=2)
 def _text_boundaries(image, offset, size):
     # Decode once per immutable image, not once per function in a full census.
     return instruction_boundaries(memoryview(image)[offset:offset + size])
+
+
+_code_boundaries = lru_cache(maxsize=4)(instruction_boundaries)
 
 
 def resolve_objdump(objdump):
@@ -48,17 +54,38 @@ def protect_report_output(output, inputs, objdump):
 
 
 def sections(blob):
+    if len(blob) < 64 or blob[:4] != b'\x7fELF' or blob[4] != 2 or blob[5] != 1:
+        raise ValueError('expected a little-endian 64-bit ELF image')
     shoff, = struct.unpack_from('<Q', blob, 0x28)
     shentsize, shnum, shstrndx = struct.unpack_from('<HHH', blob, 0x3a)
+    if shnum == 0:
+        return {}
+    if shentsize < 64 or shoff < 0 or shoff + shnum * shentsize > len(blob):
+        raise ValueError('truncated or invalid ELF section header table')
+    if shstrndx >= shnum:
+        raise ValueError('invalid ELF section header string table index')
     hdrs = [struct.unpack_from('<IIQQQQIIQQ', blob, shoff + i * shentsize) for i in range(shnum)]
     strtab = hdrs[shstrndx]
-    name = lambda off: blob[strtab[4] + off:blob.index(b'\0', strtab[4] + off)].decode()
-    return {name(h[0]): {'addr': h[3], 'offset': h[4], 'size': h[5]} for h in hdrs}
+    if strtab[1] == SHT_NOBITS or strtab[4] < 0 or strtab[5] < 0 or strtab[4] + strtab[5] > len(blob):
+        raise ValueError('invalid ELF section header string table payload')
+    strtab_bytes = blob[strtab[4]:strtab[4] + strtab[5]]
+
+    def name(off):
+        if off < 0 or off >= len(strtab_bytes):
+            raise ValueError('section name offset outside .shstrtab')
+        end = strtab_bytes.find(b'\0', off)
+        if end == -1:
+            raise ValueError('unterminated section name in .shstrtab')
+        return strtab_bytes[off:end].decode('utf-8')
+
+    return {name(h[0]): {'type': h[1], 'addr': h[3], 'offset': h[4], 'size': h[5]} for h in hdrs}
 
 
 def function_body(image, image_sections, address, size):
     """Read complete logical instructions from a physically present .text range."""
     text = image_sections['.text']
+    if text.get('type') == SHT_NOBITS:
+        raise ValueError('.text section is SHT_NOBITS without a file payload')
     relative = address - text['addr']
     if size <= 0 or size % 8 or relative % 8 or not 0 <= relative <= text['size'] - size:
         raise ValueError('function range must contain complete aligned slots within .text')
@@ -95,10 +122,11 @@ def _aligned_matches(needle, haystack):
     """Return every instruction-aligned occurrence, including overlapping ones."""
     if not needle:
         raise ValueError("candidate function body must not be empty")
+    boundaries = _code_boundaries(bytes(haystack))
     hits = []
     start = haystack.find(needle)
     while start != -1:
-        if start % 8 == 0:
+        if start in boundaries and start + len(needle) in boundaries:
             hits.append(start)
         start = haystack.find(needle, start + 1)
     return hits

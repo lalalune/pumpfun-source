@@ -10,6 +10,7 @@ For each candidate function (those whose symbol matches --sym, else the closest 
   higher `ratio` mean closer; only score.py decides acceptance.
 """
 import argparse
+import copy
 import difflib
 import json
 import re
@@ -85,7 +86,13 @@ def measure_window(w, cand, pattern=None, top=3, slots=12):
     otok = [x[2] for x in insns(w['raw'], start, ORIG_SECS)]
     ocalls = call_counts(w['raw'])
     rows = []
+    measured = {}
     for s, n, nm in picks:
+        if (s, n) in measured:
+            row = copy.deepcopy(measured[s, n])
+            row['symbol'] = demangle(nm)
+            rows.append(row)
+            continue
         raw = cand.fn(s, n)
         ccalls = call_counts(raw)
         norm = normalize(raw, s, cand.secs)
@@ -101,6 +108,7 @@ def measure_window(w, cand, pattern=None, top=3, slots=12):
             diff = [i for i in range(0, n, 8) if norm[i:i + 8] != w['norm'][i:i + 8]]
             row['slots_diff'] = len(diff)
             row['first_diff_offsets'] = [hex(i) for i in diff[:slots]]
+        measured[s, n] = row
         rows.append(row)
     rows.sort(key=lambda r: (-r['normalized_equal'], r.get('slots_diff', 1 << 30), -r['ratio']))
     return rows[:top] if pattern is None else rows
@@ -122,12 +130,23 @@ def main(argv=None):
     except re.error as error:
         ap.error(f'invalid symbol regex: {error}')
     starts = list(dict.fromkeys(a.start))
-    windows = {w['start']: w for w in original_windows()}
+    try:
+        windows = {w['start']: w for w in original_windows()}
+    except (OSError, ValueError, KeyError, struct.error) as error:
+        ap.error(f'cannot load original windows: {error}')
     missing = [hex(start) for start in starts if start not in windows]
     if missing:
         ap.error('unknown original windows: ' + ', '.join(missing))
-    cand = Cand(a.candidate)
-    rows = [row for start in starts for row in measure_window(windows[start], cand, pattern, a.top, a.slots)]
+    try:
+        cand = Cand(a.candidate)
+        rows = []
+        for start in starts:
+            measured = measure_window(windows[start], cand, pattern, a.top, a.slots)
+            if pattern is None and not measured:
+                ap.error(f'no candidate function for window {start:#x} in the ranked search scope')
+            rows.extend(measured)
+    except (OSError, ValueError, KeyError, struct.error) as error:
+        ap.error(f'cannot measure candidate: {error}')
     if pattern is not None and not rows:
         ap.error('explicit --sym did not select any candidate function')
     if a.json:

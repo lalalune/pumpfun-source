@@ -48,10 +48,10 @@ def cases():
   for kind in ['ok','readonly_admin','unsigned_admin','readonly_recipient','readonly_ata','readonly_global','wrong_recipient','wrong_ata','wrong_admin','other_mint','wrong_mint_owner','wrong_system','wrong_token','wrong_associated_program','extra_accounts','missing_arg','trailing_args']+[f'accounts_{n}' for n in range(8)]:rows.append({'name':f'{"token2022" if token2022 else "token"}-{kind}','index':3,'kind':kind,'token2022':token2022})
  return rows
 if __name__=='__main__':
- ap=argparse.ArgumentParser();ap.add_argument('--candidate',type=pathlib.Path,required=True);ap.add_argument('--output',type=pathlib.Path,required=True);a=ap.parse_args()
+ ap=argparse.ArgumentParser();ap.add_argument('--candidate',type=pathlib.Path,required=True);ap.add_argument('--output',type=pathlib.Path,required=True);a=ap.parse_args();publisher=PumpReport(a.output,ROOT,a.candidate,pathlib.Path(__file__),extra_inputs=REPORT_INPUTS)
  original=ROOT/'evidence/original/mayhem/deployed.so';o=RecipientFixture(original);b=RecipientFixture(a.candidate);rows=[];failures=[]
  for c in cases():
   x=o.execute(c);y=b.execute(c);equal=all(x[k]==y[k] for k in ['error','accounts','events','inner_instructions','return_data']);rows.append({'case':c,'original':x,'candidate':y,'equal':equal})
   if not equal:failures.append(c['name'])
  report={'scope':'Fee-recipient initialization against exact captured token/ATA dependency ELFs. Local synthetic state; program incomplete.','original_sha256':o.sha256,'candidate_sha256':b.sha256,'dependency_sha256':{name:hashlib.sha256((ROOT/f'evidence/dependencies/{name}/deployed.so').read_bytes()).hexdigest() for name in DEPENDENCIES},'source_sha256':{str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in [ROOT/'programs/mayhem/Cargo.toml',ROOT/'programs/mayhem/Cargo.lock',ROOT/'programs/mayhem/src/lib.rs',pathlib.Path(__file__).resolve(),ROOT/'scripts/mayhem_validate_admin.py']},'case_count':len(rows),'mismatches':failures,'cases':rows}
- a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(report,separators=(',',':'))+'\n',encoding='utf-8',newline='\n');print(json.dumps({'cases':len(rows),'mismatches':failures}));raise SystemExit(bool(failures))
+ publisher.write((json.dumps(report,separators=(',',':'))+'\n').encode('utf-8'));print(json.dumps({'cases':len(rows),'mismatches':failures}));raise SystemExit(bool(failures))

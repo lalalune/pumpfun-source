@@ -18,9 +18,9 @@ for a full audit. Fetch the intended base before comparing. Output is JSON;
 exit 1 means newly missing inputs, exit 2 means inspection failed.
 
 The guard parses YAML without executing workflow commands. It checks standalone
-literal Python/bash/sh script invocations under `scripts/`, `research/`, and
-`reconstruction/`, including matrix include command blocks, static matrix axes,
-and workflow/job/step working-directory defaults. A removed script still referenced
+literal Python/bash/sh script invocations under `scripts/`, `research/`,
+`reconstruction/`, and `tests/`, including matrix include command blocks,
+static matrix axes, and workflow/job/step working-directory defaults. A removed script still referenced
 by an unchanged workflow is a regression. Removing both the obsolete workflow
 reference and its script is allowed.
 
@@ -46,7 +46,7 @@ object fails inspection. The JSON audit is uploaded even when new inputs fail.
 
 This is a static guard, not a shell interpreter, workflow schema validator, or
 runtime-equivalence test. Module/inline Python (`-m`, `-c`), generated/downloaded
-files outside the three source roots, expression-based matrices, compound shell
+files outside the four source roots, expression-based matrices, compound shell
 commands, shell functions, heredoc bodies, and runtime dependencies are outside
 its guarantees. Dynamic or outside-root interpreter inputs encountered are listed
 as `uninspected`. It does not prove a generated file will exist. If a workflow

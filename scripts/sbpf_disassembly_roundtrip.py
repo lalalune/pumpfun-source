@@ -8,9 +8,11 @@ import argparse
 import concurrent.futures
 import gzip
 import json
+import os
 import re
-from pathlib import Path
+from pathlib import Path, PurePosixPath, PureWindowsPath
 import shutil
+import stat
 import struct
 import subprocess
 import tempfile
@@ -38,6 +40,80 @@ def validate_instruction(assembly):
         raise ValueError(f'expected one raw instruction mnemonic: {assembly!r}')
 
 
+SHT_NOBITS = 8
+
+
+def _is_link_or_reparse(info):
+    return stat.S_ISLNK(info.st_mode) or bool(getattr(info, 'st_reparse_tag', 0))
+
+
+def _admitted_original_bytes(root, input_ref):
+    if not isinstance(input_ref, str) or not input_ref or '\0' in input_ref:
+        raise ValueError(f'unsafe inventory input path: {input_ref!r}')
+    posix_ref = PurePosixPath(input_ref)
+    windows_ref = PureWindowsPath(input_ref)
+    if (input_ref.startswith(('/', '\\'))
+            or posix_ref.is_absolute()
+            or windows_ref.is_absolute()
+            or windows_ref.drive
+            or windows_ref.root):
+        raise ValueError(f'inventory input path must be relative: {input_ref!r}')
+    parts = input_ref.replace('\\', '/').split('/')
+    if not parts or any(part in ('', '.', '..') for part in parts):
+        raise ValueError(f'unsafe inventory input path: {input_ref!r}')
+    root_path = Path(os.path.abspath(root))
+    resolved_root = root_path.resolve()
+    cursor = root_path
+    for index, part in enumerate(parts):
+        cursor = cursor / part
+        try:
+            info = cursor.lstat()
+        except OSError as error:
+            raise ValueError(f'unreadable inventory input {input_ref!r}: {error}') from error
+        if _is_link_or_reparse(info):
+            raise ValueError(f'symlinked inventory input is not admitted: {input_ref!r}')
+        is_last = index == len(parts) - 1
+        if is_last:
+            if not stat.S_ISREG(info.st_mode):
+                raise ValueError(f'non-regular inventory input is not admitted: {input_ref!r}')
+        elif not stat.S_ISDIR(info.st_mode):
+            raise ValueError(f'non-directory ancestor in inventory input: {input_ref!r}')
+    resolved = cursor.resolve()
+    if not resolved.is_relative_to(resolved_root):
+        raise ValueError(f'inventory input resolves outside repository: {input_ref!r}')
+    return resolved.read_bytes()
+
+
+def _text_section_bytes(blob, label):
+    secs = sections(blob)
+    if '.text' not in secs:
+        raise ValueError(f'{label}: missing .text section')
+    sec = secs['.text']
+    if sec[1] == SHT_NOBITS:
+        raise ValueError(f'{label}: .text section is SHT_NOBITS')
+    offset, size = sec[4], sec[5]
+    if offset < 0 or size < 0 or offset + size > len(blob):
+        raise ValueError(f'{label}: .text section exceeds file')
+    return blob[offset:offset + size]
+
+
+def _validate_rows(name, rows):
+    if not isinstance(rows, list):
+        raise ValueError(f'{name}: instructions must be a list')
+    previous_offset = -1
+    for row in rows:
+        if not isinstance(row, dict):
+            raise ValueError(f'{name}: instruction row must be an object')
+        for field in ('file_offset', 'opcode', 'src', 'immediate'):
+            value = row.get(field)
+            if type(value) is not int:
+                raise ValueError(f'{name}: instruction {field} must be an integer')
+        at = row['file_offset']
+        if at < 0 or at <= previous_offset:
+            raise ValueError(f'{name}: instruction file_offset must be non-negative and strictly increasing')
+        previous_offset = at
+
+
 def roundtrip(tool, inventory, entry, output):
     validate_program_names([entry])
     name = entry['name']
@@ -45,7 +121,10 @@ def roundtrip(tool, inventory, entry, output):
     if sha(compressed) != entry['inventory_sha256']:
         raise ValueError('inventory hash mismatch')
     record = json.loads(gzip.decompress(compressed))
-    rows = record['instructions']
+    if not isinstance(record, dict):
+        raise ValueError(f'{name}: inventory record must be an object')
+    rows = record.get('instructions')
+    _validate_rows(name, rows)
     offsets = {row['file_offset'] for row in rows}
     labels = {}
     for row in rows:
@@ -61,23 +140,26 @@ def roundtrip(tool, inventory, entry, output):
         at = row['file_offset']
         if at in labels:
             lines.append(labels[at] + ':')
-        asm = row['assembly']
+        asm = row.get('assembly')
         validate_instruction(asm)
         if row['opcode'] == 0x85 and row['src'] == 1:
             asm = 'call ' + labels[at + 8 + row['immediate'] * 8]
         lines.append(asm)
+    original = _admitted_original_bytes(ROOT, record.get('input'))
+    if sha(original) != record.get('input_sha256'):
+        raise ValueError('original hash mismatch')
+    if len(original) < 64:
+        raise ValueError('truncated original ELF header')
+    expected = _text_section_bytes(original, f'{name} original')
+    flags = struct.unpack_from('<I', original, 48)[0]
+    if flags not in (0, 3):
+        raise ValueError(f'unsupported assembler architecture flags {flags}')
     # No .byte/.quad/incbin directives: actual instruction mnemonics are assembled.
     assembly = ('\n'.join(lines) + '\n').encode()
     folder = output / name
     folder.mkdir()
     source = folder / 'reference-derived.s'
     source.write_bytes(assembly)
-    original = (ROOT / record['input']).read_bytes()
-    if sha(original) != record['input_sha256']:
-        raise ValueError('original hash mismatch')
-    flags = struct.unpack_from('<I', original, 48)[0]
-    if flags not in (0, 3):
-        raise ValueError(f'unsupported assembler architecture flags {flags}')
     command = [str(tool), 'build', '--arch', 'v0' if flags == 0 else 'v3',
                '--input', str(source), '--deploy-dir', str(folder / 'assembled')]
     result = subprocess.run(command, capture_output=True)
@@ -88,10 +170,7 @@ def roundtrip(tool, inventory, entry, output):
         raise ValueError(f'{name}: assembler exited {result.returncode}: '
                          + log.decode(errors='replace'))
     candidate = (folder / 'assembled/reference-derived.so').read_bytes()
-    section = sections(candidate)['.text']
-    text = candidate[section[4]:section[4] + section[5]]
-    target = sections(original)['.text']
-    expected = original[target[4]:target[4] + target[5]]
+    text = _text_section_bytes(candidate, f'{name} candidate')
     return dict(name=name, original_sha256=sha(original), assembly_sha256=sha(assembly),
                 reassembled_elf_sha256=sha(candidate), original_text_bytes=len(expected),
                 assembled_text_bytes=len(text), original_text_sha256=sha(expected),
@@ -120,8 +199,10 @@ def main():
         raise FileExistsError(output)
     output.parent.mkdir(parents=True, exist_ok=True)
     # Publish only a finished run: a raising program must not leave a partial
-    # directory without report.json that blocks the next run.
-    staging = Path(tempfile.mkdtemp(prefix='.' + output.name + '.', dir=output.parent))
+    # directory without report.json that blocks the next run. A valid output
+    # basename can sit at the filesystem's component limit; only the published
+    # name has to fit there, so keep the staging prefix short.
+    staging = Path(tempfile.mkdtemp(prefix='.' + output.name[:32] + '.', dir=output.parent))
     try:
         with tool_snapshot(tool, manifest['tool_sha256']) as (executable, _):
             with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:

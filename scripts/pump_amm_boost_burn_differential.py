@@ -5,6 +5,8 @@ import sys,pathlib,base64,os
 _CALLER_CWD=pathlib.Path.cwd()
 ROOT=pathlib.Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'scripts'));os.chdir(ROOT)
 from pump_amm_legacy_sell_differential import *
+from pump_amm_reusable_harness import AMM_REPORT_INPUTS
+from pump_differential_output import PumpReport
 BOOST=Pubkey.find_program_address([b'boost_vault',bytes(pool)],PROGRAM)[0]
 BOOST_ATA=Pubkey.find_program_address([bytes(BOOST),bytes(TOKEN),bytes(quote)],ATA)[0]
 def run(amount=10**9,limit=0,overrides=None,candidate=None,unsigned=False,payload_length=None,separate_payer=False):
@@ -40,7 +42,7 @@ def boost_transferfee(key,bps=100,maximum=2**64-1,withheld=0,writable=False):
  return ov
 
 def main():
- p=argparse.ArgumentParser();p.add_argument('--candidate',type=pathlib.Path,required=True);p.add_argument('--output',type=pathlib.Path,required=True);args=p.parse_args();args.candidate=(_CALLER_CWD/args.candidate).resolve();args.output=(_CALLER_CWD/args.output).resolve();rows=[]
+ p=argparse.ArgumentParser();p.add_argument('--candidate',type=pathlib.Path,required=True);p.add_argument('--output',type=pathlib.Path,required=True);args=p.parse_args();args.candidate=(_CALLER_CWD/args.candidate).resolve();args.output=(_CALLER_CWD/args.output).resolve();rows=[];publisher=PumpReport(args.output,ROOT,args.candidate,pathlib.Path(__file__),extra_inputs=AMM_REPORT_INPUTS)
  def test(label,**kw):
   x=run(**kw);y=run(candidate=args.candidate,**kw);diff=[k for k in x if k!='logs' and x[k]!=y[k]];rows.append({'case':label,'original':x,'candidate':y,'diff':diff})
  for amount in [0,1,2,3,4,10,100,1000,10**6,10**9,10**12-1,10**12,10**12+1,2**64-1]:
@@ -97,5 +99,5 @@ def main():
   for close_owner in [Pubkey.default(),BOOST,OUTSIDER.pubkey()]:test('close-authority='+str((amount,close_owner)),amount=amount,overrides=mutate(BOOST_ATA,129,struct.pack('<I',1)+bytes(close_owner)))
  for withheld in [0,1,2**64-1]:
   for mint_writable in [False,True]:test('full-drain-withheld='+str((withheld,mint_writable)),amount=10**12,overrides=boost_transferfee(quote,100,123,withheld,mint_writable))
- failures=[i for i,r in enumerate(rows) if r['diff']];sha=lambda p:hashlib.sha256(pathlib.Path(p).read_bytes()).hexdigest();report={'scope':'AMM boost_buy_and_burn with ordinary verified test-owned authority signatures, synthetic state and captured token dependencies. Full states, exact CPI/event bytes, errors and return data. Not full-program or exhaustive equivalence.','candidate_sha256':sha(pin_program(args.candidate)),'original_sha256':sha(pin_program(ROOT/'evidence/original/pump_amm/deployed.so')),'script_sha256':sha(__file__),'case_count':len(rows),'mismatches':failures,'cases':rows};args.output.parent.mkdir(exist_ok=True,parents=True);args.output.write_text(json.dumps(report,separators=(',',':'))+'\n',encoding='utf-8',newline='\n');print(json.dumps({'case_count':len(rows),'mismatches':failures}));raise SystemExit(bool(failures))
+ failures=[i for i,r in enumerate(rows) if r['diff']];sha=lambda p:hashlib.sha256(pathlib.Path(p).read_bytes()).hexdigest();report={'scope':'AMM boost_buy_and_burn with ordinary verified test-owned authority signatures, synthetic state and captured token dependencies. Full states, exact CPI/event bytes, errors and return data. Not full-program or exhaustive equivalence.','candidate_sha256':sha(pin_program(args.candidate)),'original_sha256':sha(pin_program(ROOT/'evidence/original/pump_amm/deployed.so')),'script_sha256':sha(__file__),'case_count':len(rows),'mismatches':failures,'cases':rows};publisher.write((json.dumps(report,separators=(',',':'))+'\n').encode('utf-8'));print(json.dumps({'case_count':len(rows),'mismatches':failures}));raise SystemExit(bool(failures))
 if __name__=='__main__':main()

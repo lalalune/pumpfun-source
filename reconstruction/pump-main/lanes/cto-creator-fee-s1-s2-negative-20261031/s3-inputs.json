@@ -1,0 +1,132 @@
+{
+  "schema": "PR3483-S3-normal-cohort-extension-v1",
+  "commits": {
+    "13fe": "13fe4536be64d8c5c10f8905e9d2236f423ac4f4",
+    "S3": "65f0162a3dcd381df0f831082dd6732c9af4ab78"
+  },
+  "sourceSHA256": {
+    "13fe": "50ce2f82dacecc11ccc4b67409c21a5325cfdc3fc48a6e28cc322e06473ca715",
+    "S3": "32d4d71065f96e0d24f65ead880974a4e4cc95919ec2ef0bc113a0d536e3d7b9"
+  },
+  "rawArchives": {
+    "13fe": {
+      "member": "raw/13fe.zip",
+      "sha256": "875edcd6e9ebb7e5b8fb2495d0008e723762b1f0251a02e038881fb56749fa92",
+      "members": 43
+    },
+    "S3": {
+      "member": "raw/S3.zip",
+      "sha256": "0f1a82695dd41525fffbebe667c3067062a9a1fd1fd3fb4b70cbdb054965bdda",
+      "members": 45
+    }
+  },
+  "archive": {
+    "path": "S3-captures.tar.xz",
+    "bytes": 3622996,
+    "sha256": "db16e7cd7ea44c94512e328feb2402b3992306991c7d4ba3ecab2acaedca291a",
+    "members": {
+      "git/13fe.commit": {
+        "bytes": 1524,
+        "sha256": "90b3193eb0e580720c6480c324e35a7cb7944836c0ba00e0c6cc3ea654301cc2"
+      },
+      "git/S3.commit": {
+        "bytes": 271,
+        "sha256": "fd036401791489e6c29e9d37e8ddf3e40b884d838e7a82f834fd05d9db7ed2ce"
+      },
+      "raw/13fe.zip": {
+        "bytes": 2539578,
+        "sha256": "875edcd6e9ebb7e5b8fb2495d0008e723762b1f0251a02e038881fb56749fa92"
+      },
+      "raw/S3.zip": {
+        "bytes": 2534297,
+        "sha256": "0f1a82695dd41525fffbebe667c3067062a9a1fd1fd3fb4b70cbdb054965bdda"
+      },
+      "receipts/13fe-download.json": {
+        "bytes": 7064,
+        "sha256": "add5e53306c0ab78b8cccc9c9b2f3b81eb9f65a4fa2e44c5bef171bb85d18007"
+      },
+      "receipts/13fe-monitor.json": {
+        "bytes": 1481,
+        "sha256": "7024faf44cecf5b0728e0079605283f03cebb35273ff29cb57fb38811a51a6bf"
+      },
+      "receipts/13fe-root-admission.json": {
+        "bytes": 926,
+        "sha256": "0fbf0e3a337c60a7c55b5c161cd5a5ba5fa1e12ba16373a2fa7d183b0d90b234"
+      },
+      "receipts/S3-download.json": {
+        "bytes": 7379,
+        "sha256": "303b8ff2b41d802af01b52129583250f7454c808cbc9a3b6c2746b04ccc82ee7"
+      },
+      "receipts/S3-monitor.json": {
+        "bytes": 1627,
+        "sha256": "9d53f931c47b036d1a35a881738e9023f7d27a649f77e31a84a55a4a0a798e87"
+      },
+      "receipts/S3-root-admission.json": {
+        "bytes": 2063,
+        "sha256": "b477052a47f8bcb4835cfd0e800f820f0c1dbad9aaf31ed4a3d43d737d4e17cd"
+      },
+      "receipts/S3-target-metric.json": {
+        "bytes": 2708,
+        "sha256": "2ab39d249030560c5a2dc9bcc98d47c3f463ea3ed69e81b507394af73783c045"
+      },
+      "receipts/S3-vm-held.json": {
+        "bytes": 658,
+        "sha256": "8394bbfb216001d176a5d74afdd2261f8985c3f01d09d97bcd8ae9d91f1b5d78"
+      }
+    }
+  },
+  "sharedCORE": "236-file vector and modes equal old ECEA/S1/S2; old archive CORE text and pinned repository binary inputs reused",
+  "recordedModes": {
+    "13fe": {
+      "source": {
+        "100644": 141
+      },
+      "CORE": {
+        "100644": 223,
+        "100755": 12,
+        "120000": 1
+      }
+    },
+    "S3": {
+      "source": {
+        "100644": 141
+      },
+      "CORE": {
+        "100644": 223,
+        "100755": 12,
+        "120000": 1
+      }
+    }
+  },
+  "patch": {
+    "path": "13fe-to-S3.patch",
+    "bytes": 4391,
+    "sha256": "4b87cfde9987ba57724e14b740b9fd1dd67d1a39d78ada32ef6746c34f1e8ae1"
+  },
+  "witnesses": {
+    "path": "s3-witnesses.json",
+    "bytes": 11478,
+    "sha256": "eeb1fc289ddbbd9f8a3a1416bd3957bd9d906180ba1f9a069f653d626b8fe1bb"
+  },
+  "metric": {
+    "path": "s3-metric.json",
+    "bytes": 2313,
+    "sha256": "97188b8b63d5c4c542ccaa91f956847af15efd2a8bf00e8ccd65a2162de086f3"
+  },
+  "held": {
+    "member": "receipts/S3-vm-held.json",
+    "sha256": "8394bbfb216001d176a5d74afdd2261f8985c3f01d09d97bcd8ae9d91f1b5d78"
+  },
+  "diagnostic": {
+    "status": "PRIVATE_PENDING_ADMISSION_AND_ANALYSIS",
+    "publicTraceIncluded": false,
+    "publicReplayClaim": false,
+    "controlELFSha256": "cec841bd60cc002213829e3149e7c170dbb7f5bbc47a9887cef1ab7e0193319e",
+    "S3ELFSha256": "100d222047a2281a4409d8f732266955368504479d3d4076b4f6e3af08ef37e4"
+  },
+  "authorStagingExecutions": {
+    "extendedVerifier": 0,
+    "targetMetric": 0,
+    "tests": 0
+  }
+}

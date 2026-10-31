@@ -25,7 +25,8 @@ def run(c,image):
  for kp in [AUTH,OTHER,PAYER]:vm.set_account(kp.pubkey(),Account(10**12,b'',Pubkey.default()))
  vm.set_account(VAULT,Account(c.get('native',1000000),bytes(c.get('vault_length',0)),Pubkey.from_string(c.get('vault_owner',str(Pubkey.default())))))
  token=TOKEN22 if c.get('token22') else TOKEN;mint=Pubkey.from_string(c.get('mint',str(MINT)))
- md=bytearray(82);md[44]=c.get('decimals',6);md[45]=c.get('mint_initialized',1)
+ native=token==TOKEN and mint==WSOL
+ md=bytearray(82);md[44]=c.get('decimals',9 if native else 6);md[45]=c.get('mint_initialized',1)
  length=c.get('mint_length',len(md));md=(md+bytearray(max(0,length-len(md))))[:length]
  vm.set_account(mint,Account(10**9,bytes(md),Pubkey.from_string(c.get('mint_owner',str(token)))))
  source=Pubkey.find_program_address([bytes(VAULT),bytes(token),bytes(mint)],ATA)[0];dest=Pubkey.find_program_address([bytes(AUTH.pubkey()),bytes(token),bytes(mint)],ATA)[0]
@@ -35,8 +36,10 @@ def run(c,image):
   vm.set_account(key,Account(0,b'',Pubkey.default()))
   if not c.get(side+'_absent'):
    td=bytearray(165);td[:32]=bytes(mint);td[32:64]=bytes(authority);td[64:72]=amount.to_bytes(8,'little');td[108]=1
+   reserve=vm.minimum_balance_for_rent_exemption(165)
+   if native:td[109:113]=(1).to_bytes(4,'little');td[113:121]=reserve.to_bytes(8,'little')
    for off,val in c.get(side+'_patches',[]):td[off:off+len(bytes.fromhex(val))]=bytes.fromhex(val)
-   vm.set_account(key,Account(vm.minimum_balance_for_rent_exemption(165),bytes(td),Pubkey.from_string(c.get(side+'_owner',str(token)))))
+   vm.set_account(key,Account(reserve+(amount if native else 0),bytes(td),Pubkey.from_string(c.get(side+'_owner',str(token)))))
  names={'user':AUTH.pubkey(),'referral_vault':VAULT,'quote_mint':mint,'vault_ata':source,'user_ata':dest,'token_program':token,'system_program':Pubkey.default(),'event_authority':EVENT,'program':PROGRAM}
  optional=['quote_mint','vault_ata','user_ata','token_program']
  for name in optional:

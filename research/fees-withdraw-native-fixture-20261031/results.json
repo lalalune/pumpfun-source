@@ -1,0 +1,96 @@
+{
+  "cases": 113,
+  "before_mismatches": [],
+  "after_mismatches": [],
+  "changed_case_names": [
+    "wsol"
+  ],
+  "unchanged_case_count": 112,
+  "source_sha256": "1951e070309706b079b529ab91bb36847ae97191432e349e73f9aea37cb80290",
+  "before": {
+    "error": null,
+    "mint_decimals": 6,
+    "actual_source": {
+      "before": {
+        "lamports": 2039280,
+        "token_amount": 12345,
+        "is_native_tag": 0,
+        "native_reserve": 0
+      },
+      "after": {
+        "lamports": 2039280,
+        "token_amount": 0,
+        "is_native_tag": 0,
+        "native_reserve": 0
+      }
+    },
+    "actual_dest": {
+      "before": {
+        "lamports": 2039280,
+        "token_amount": 77,
+        "is_native_tag": 0,
+        "native_reserve": 0
+      },
+      "after": {
+        "lamports": 2039280,
+        "token_amount": 12422,
+        "is_native_tag": 0,
+        "native_reserve": 0
+      }
+    }
+  },
+  "after": {
+    "error": null,
+    "mint_decimals": 9,
+    "actual_source": {
+      "before": {
+        "lamports": 2051625,
+        "token_amount": 12345,
+        "is_native_tag": 1,
+        "native_reserve": 2039280
+      },
+      "after": {
+        "lamports": 2039280,
+        "token_amount": 0,
+        "is_native_tag": 1,
+        "native_reserve": 2039280
+      }
+    },
+    "actual_dest": {
+      "before": {
+        "lamports": 2039357,
+        "token_amount": 77,
+        "is_native_tag": 1,
+        "native_reserve": 2039280
+      },
+      "after": {
+        "lamports": 2051702,
+        "token_amount": 12422,
+        "is_native_tag": 1,
+        "native_reserve": 2039280
+      }
+    }
+  },
+  "base_commit": "ebe5387e12e948c2534618adf7a3cf0f27d9de51",
+  "environment": {
+    "platform": "macOS arm64",
+    "python": "3.12.13",
+    "solders": "0.27.1"
+  },
+  "capture_sha256": {
+    "evidence/original/pump_fees/deployed.so": "4f2955d0f6b40cc9ff7daa18ccad7d19119ba1249759f4e7e3bb691beee6b35e",
+    "evidence/dependencies/spl_token/deployed.so": "8190d3f7ceb6cb7a7a8d8924bff89f9f611e15ce1f806f2b6237f3311a98f697",
+    "evidence/dependencies/spl_token_2022/deployed.so": "15a2e615a42e20f31714bbaaee43002ae6f1cda2e8d7118243117ab3c1342e2d",
+    "evidence/dependencies/associated_token/deployed.so": "6804554e69fd3a58caa191dc4a58f4c67223d30ca28ab8987f39fc18d2f7374d"
+  },
+  "tests": {
+    "baseline_new_regression": "3 tests; 4 failed subtests",
+    "fixed_new_regression": "3 tests passed",
+    "full_cli": "113 cases, zero mismatches; only wsol changed; 112 complete rows unchanged",
+    "runtime_image_per_case": "1 test passed; control, replacement, deletion and symlink retarget on two suites",
+    "withdraw_output_inputs": "3 tests passed; 27 input alias checks plus late alias/publication failure and original-only/full paired CLI",
+    "normal_python": "3 tests passed",
+    "verify_evidence": "9 captures verified",
+    "test_tooling": "228 tests passed in 57.124 seconds"
+  }
+}

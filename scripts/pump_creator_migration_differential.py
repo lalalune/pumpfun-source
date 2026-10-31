@@ -32,7 +32,8 @@ def run(c,binary=None):
  vm=vms[0]
  for target,mutation in c.get('direct_mutations',{}).items():
   key={'auth':AUTH.pubkey(),'other':OTHER.pubkey(),'curve':CURVE,'vault':PV}[target];a=vm.get_account(key);data=bytearray(a.data if a else b'')
-  for offset,value in mutation.get('patches',[]):data[offset:offset+len(bytes.fromhex(value))]=bytes.fromhex(value)
+  for offset,value in mutation.get('patches',[]):
+   raw=bytes.fromhex(value);data.extend(bytes(max(0,offset+len(raw)-len(data))));data[offset:offset+len(raw)]=raw
   if 'length' in mutation:data=data[:mutation['length']]
   if 'data_hex' in mutation:data=bytearray.fromhex(mutation['data_hex'])
   vm.set_account(key,Account(mutation.get('lamports',a.lamports if a else 0),bytes(data),Pubkey.from_string(mutation.get('owner',str(a.owner if a else Pubkey.default()))),mutation.get('executable',False)))

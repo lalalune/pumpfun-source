@@ -41,6 +41,10 @@ def main():
     assert first["selected_toolchain"] == second["selected_toolchain"] == "v1.44"
     assert first["comparison"]["candidate_sha256"] == second["comparison"]["candidate_sha256"] == sha(candidate)
     assert not first["comparison"]["full_byte_equality"] and repro["builds_identical"]
+    # all() over an empty map is vacuously true, and the equality checks above
+    # accept {} == {}; the builds must name the sources they bind.
+    assert isinstance(repro["source_sha256"], dict) and repro["source_sha256"], \
+        "build reproducibility binds no source"
     assert all(sha(ROOT / name) == digest for name, digest in repro["source_sha256"].items())
     assert repro["differential_script_sha256"] == sha(Path(differential.__file__))
     for attempt_name in ("build-attempt.json", "second-build-attempt.json"):
@@ -65,6 +69,8 @@ def main():
     assert regression["quote_control"]["receipt_sha256"] == sha(quote_file)
     assert regression["multi_hop_curve"]["receipt_sha256"] == sha(curve_file)
     assert quote["cases"] == 507 and quote["mismatches"] == 0
+    assert isinstance(quote["bound_inputs_sha256"], dict) and quote["bound_inputs_sha256"], \
+        "quote-control regression binds no input"
     assert all(sha(ROOT / path) == digest for path, digest in quote["bound_inputs_sha256"].items())
     assert curve["case_count"] == curve["passed"] == 56
     assert curve["candidate_sha256"] == sha(candidate)
@@ -82,9 +88,12 @@ def main():
         assert json.loads(gzip.decompress(output.read_bytes())) == receipt
 
     assert len(receipt["cases"]) == len(receipt["candidate_cases"]) == 25
+    assert len(receipt["comparison"]) == 25, "comparison must cover every case"
     assert sum(case["error"] is None for case in receipt["cases"]) == 13
     for original, current, comparison in zip(
             receipt["cases"], receipt["candidate_cases"], receipt["comparison"]):
+        assert set(comparison["equal"]) == {"error", "before", "after", "events", "inner", "return_data"}, \
+            "comparison must check every field"
         assert all(comparison["equal"].values())
         for case in (original, current):
             tx = VersionedTransaction.from_bytes(

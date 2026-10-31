@@ -83,6 +83,24 @@ def manifest_paths(packet_dir):
                   if path.name in ("manifest.json", "MANIFEST.json"))
 
 
+def manifest_object(text):
+    """Parse a manifest object, rejecting keys that repeat.
+
+    json.loads() keeps the last of several entries for the same key, so a
+    manifest that lists one path with conflicting digests silently verifies
+    against whichever entry happened to be written last.
+    """
+    def reject_repeats(pairs):
+        seen = set()
+        for name, _ in pairs:
+            if name in seen:
+                raise ValueError("duplicate manifest key: " + name)
+            seen.add(name)
+        return dict(pairs)
+
+    return json.loads(text, object_pairs_hook=reject_repeats)
+
+
 def manifest_records(manifest):
     """Read retained flat hash maps, path-keyed records or files records.
 
@@ -131,7 +149,7 @@ def check_manifest(packet_dir):
     try:
         if not stat.S_ISREG(paths[0].lstat().st_mode):
             return {"status": "fail", "errors": [f"not_a_file: {paths[0].name}"]}
-        manifest = json.loads(paths[0].read_text(encoding="utf-8"))
+        manifest = manifest_object(paths[0].read_text(encoding="utf-8"))
         records = manifest_records(manifest)
     except Exception as e:
         return {"status": "manifest_parse_error", "errors": [str(e)]}

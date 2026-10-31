@@ -22,7 +22,9 @@ sha=lambda b:hashlib.sha256(b).hexdigest()
 def read(cmd):return subprocess.check_output(cmd,text=True).strip()
 assert read(['git','-C',str(source),'rev-parse','HEAD'])==COMMIT
 assert not read(['git','-C',str(source),'status','--porcelain']), 'source checkout must be fresh and clean'
-assert not (source/'target').exists(), 'require a clean build target'
+# token-metadata is its own Cargo workspace, so its build target is not the root one.
+build_root=source/'programs/token-metadata' if a.dependency=='token_metadata' else source
+assert not (source/'target').exists() and not (build_root/'target').exists(), 'require a clean build target'
 tracked=read(['git','-C',str(source),'ls-files']).splitlines()
 source_hashes={name:sha((source/name).read_bytes()) for name in tracked if (source/name).is_file()}
 source_patch=None
@@ -71,7 +73,7 @@ try:
 finally:
     subprocess.run(['docker','stop',container],check=False,stdout=subprocess.DEVNULL)
 assert all(sha((source/name).read_bytes())==digest for name,digest in source_hashes.items()), 'build modified source or lockfile'
-candidate=source/('programs/token-metadata/target/deploy' if a.dependency=='token_metadata' else 'target/deploy')/(LIBRARY+'.so')
+candidate=build_root/'target/deploy'/(LIBRARY+'.so')
 assert candidate.is_file()
 shutil.copyfile(candidate,out/(LIBRARY+'.so'))
 # Reference bytes are read only after the source-only build has finished.

@@ -69,10 +69,13 @@ def generate(root, output):
     if stage is None:
         raise FileExistsError('could not allocate a staging directory')
     try:
-        (stage / 'observations.json').write_text(json.dumps(report, indent=2) + '\n', encoding='utf-8')
-        (stage / 'inputs.json').write_text(json.dumps(bindings, indent=2) + '\n', encoding='utf-8')
+        (stage / 'observations.json').write_text(json.dumps(report, indent=2) + '\n',
+                                                       encoding='utf-8', newline='\n')
+        (stage / 'inputs.json').write_text(json.dumps(bindings, indent=2) + '\n',
+                                                   encoding='utf-8', newline='\n')
         manifest = {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(stage.iterdir())}
-        (stage / 'manifest.json').write_text(json.dumps(manifest, indent=2) + '\n', encoding='utf-8')
+        (stage / 'manifest.json').write_text(json.dumps(manifest, indent=2) + '\n',
+                                                     encoding='utf-8', newline='\n')
         for name, digest in bindings.items():
             if hashlib.sha256((root / name).read_bytes()).hexdigest() != digest:
                 raise ValueError('input changed during regeneration: ' + name)

@@ -26,21 +26,46 @@ def main():
     p.add_argument('--receipts', type=Path, required=True)
     args = p.parse_args()
     ROOT = args.fixtures.resolve()
-    d = json.loads((args.receipts / 'comparison.json').read_text())
-    manifest = json.loads((ROOT / 'fixture-manifest.json').read_text())
+    d = json.loads((args.receipts / 'comparison.json').read_text(encoding='utf-8'))
+    manifest = json.loads((ROOT / 'fixture-manifest.json').read_text(encoding='utf-8'))
     captured = manifest['snapshots']['eligible']['accounts']
-    sequential = 'sequential_second' in d['cases'][0]['original']
-    assert d['case_count'] == 3 and d['signed_transactions'] == (12 if sequential else 6)
-    assert d['inputs_unchanged']
+    families = manifest.get('eligible_families')
+    cases = d.get('cases')
+    assert isinstance(families, list) and isinstance(cases, list)
+    assert type(d.get('case_count')) is int and type(d.get('signed_transactions')) is int
+    assert d['case_count'] == len(cases) == len(families) == 3
+    sequential = 'sequential_second' in cases[0]['original']
+    assert d['signed_transactions'] == (12 if sequential else 6)
+    assert d.get('inputs_unchanged') is True
+    assert isinstance(d.get('mismatches'), list)
     assert set(d['mismatches']) <= {0, 1, 2} if sequential else not d['mismatches']
+    candidate_sha = cases[0]['candidate']['binary_sha256']
+    assert isinstance(candidate_sha, str) and len(candidate_sha) == 64
+    required_inputs = {'fixtures:fixture-manifest.json', 'evidence/original/mayhem/deployed.so'}
+    for row in captured.values():
+        if row['exists'] and 'data_file' in row:
+            required_inputs.add('fixtures:' + row['data_file'])
+    assert isinstance(d.get('input_sha256'), dict) and required_inputs <= d['input_sha256'].keys()
     for path, digest in d['input_sha256'].items():
-        assert sha(((ROOT / path.removeprefix('fixtures:')) if path.startswith('fixtures:') else (REPO / path)).read_bytes()) == digest
+        target = ((ROOT / path.removeprefix('fixtures:')) if path.startswith('fixtures:') else (REPO / path)).resolve()
+        base = ROOT if path.startswith('fixtures:') else REPO.resolve()
+        # The producer admits an explicit candidate outside the checkout. Its
+        # absolute key must identify the common candidate image, while fixture
+        # and repository-relative inputs remain confined to their roots.
+        if not path.startswith('fixtures:') and Path(path).is_absolute():
+            assert digest == candidate_sha
+        else:
+            assert target.is_relative_to(base)
+        assert sha(target.read_bytes()) == digest
     assert sequential
     assert sha((REPO / 'scripts/mayhem_burn_sequence.py').read_bytes()) == d['runner_sha256']
+    original_sha = sha((REPO / 'evidence/original/mayhem/deployed.so').read_bytes())
     results = []
-    for i, (family, case) in enumerate(zip(manifest['eligible_families'], d['cases'])):
+    for i, (family, case) in enumerate(zip(families, cases, strict=True)):
         fields = family['accounts']
-        assert case == json.loads((args.receipts / f'case-{i}.json').read_text())
+        assert case == json.loads((args.receipts / f'case-{i}.json').read_text(encoding='utf-8'))
+        assert case['original']['binary_sha256'] == original_sha
+        assert case['candidate']['binary_sha256'] == candidate_sha
         assert case['same_signed_message']
         assert set(case['different_fields']) <= {'second.logs_without_compute_numbers'}
         amount = family['vault']['amount']
@@ -150,12 +175,13 @@ def main():
         results.append({'mint': fields['mint'], 'burned_amount': amount, 'post_supply': x['parsed_after']['mint_supply'],
                         'original_compute_units': x['compute_units_consumed'], 'candidate_compute_units': y['compute_units_consumed'],
                         'fee_lamports': 5000, 'all_other_bytes_and_balances_unchanged': True})
+    assert len(results) == 3
     report = {'scope': 'Independent offline receipt verification; this verifier executes no program.',
               'comparison_sha256': sha((args.receipts / 'comparison.json').read_bytes()),
-              'verified_transactions': d['signed_transactions'], 'sequential_second_burns': 6 if sequential else 0,
+              'verified_transactions': d['signed_transactions'], 'sequential_second_burns': len(results) * 2 if sequential else 0,
               'known_log_differences': ['compute-unit numbers', 'second-burn source filename/line'] if sequential else ['compute-unit numbers'],
               'cases': results, 'success': True}
-    report.update({'original_sha256': d['cases'][0]['original']['binary_sha256'], 'candidate_sha256': d['cases'][0]['candidate']['binary_sha256'], 'case_count': 6, 'mismatches': [], 'raw_log_mismatch_cases': d['mismatches'], 'comparison_fields': 'Complete nonprogram account bytes/metadata/balances, error name/number/message, events, return data, inner instructions, ordinary signed transaction bytes. Compute usage and recorded source locations differ.'})
+    report.update({'original_sha256': original_sha, 'candidate_sha256': candidate_sha, 'case_count': len(results) * (2 if sequential else 1), 'mismatches': [], 'raw_log_mismatch_cases': d['mismatches'], 'comparison_fields': 'Complete nonprogram account bytes/metadata/balances, error name/number/message, events, return data, inner instructions, ordinary signed transaction bytes. Compute usage and recorded source locations differ.'})
     (args.receipts / 'verification.json').write_text(json.dumps(report, indent=2) + '\n',encoding='utf-8',newline='\n')
     print(json.dumps(report, indent=2))
 

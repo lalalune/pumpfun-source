@@ -71,9 +71,13 @@ def execute(binary, instruction, arg, mutation):
 def main():
     p = argparse.ArgumentParser()
     p.add_argument('--candidate', type=pathlib.Path, required=True)
+    p.add_argument('--source-directory', type=pathlib.Path, default=ROOT/'programs/pump')
     p.add_argument('--output', type=pathlib.Path, required=True)
     a = p.parse_args()
-    report_roots = (ROOT/"evidence", ROOT/'programs/pump')
+    source = a.source_directory/'src/lib.rs'
+    if not source.is_file():
+        raise SystemExit('no Rust/Cargo inputs under '+str(a.source_directory))
+    report_roots = (ROOT/"evidence", a.source_directory)
     report_inputs = [report_roots[1]] + [path for folder in report_roots
                      for path in folder.rglob("*") if path.is_file()]
     report_inputs.append(ROOT/"research/imported-lab/analysis/pump_fun/curve-fresh-trades-v3-signed-surfpool.json")
@@ -105,7 +109,7 @@ def main():
         cases.append({'instruction':'raw', 'args_hex':args.hex(), 'mutation':'raw_instruction_data', 'match':same, 'original':results[0], 'candidate':results[1]})
     mismatches = [i for i,c in enumerate(cases) if not c['match']]
     sha = lambda p: hashlib.sha256(p.read_bytes()).hexdigest()
-    report = {'scope':'Four recovered administrative handlers only; local synthetic-authority state, not full program equivalence.', 'original_sha256':sha(original), 'candidate_sha256':sha(a.candidate), 'source_sha256':sha(ROOT/'programs/pump/src/lib.rs'), 'case_count':len(cases), 'mismatches':mismatches, 'cases':cases}
+    report = {'scope':'Four recovered administrative handlers only; local synthetic-authority state, not full program equivalence.', 'original_sha256':sha(original), 'candidate_sha256':sha(a.candidate), 'source_sha256':sha(source), 'case_count':len(cases), 'mismatches':mismatches, 'cases':cases}
     report_output.write((json.dumps(report, indent=2)+'\n').encode('utf-8'))
     print(json.dumps({'case_count':len(cases), 'mismatches':mismatches}))
     for i in mismatches:

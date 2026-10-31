@@ -100,7 +100,8 @@ def main():
     args=p.parse_args()
     windows = window_inventory()
     protect_report_output(args.output, [args.candidate, ROOT/'evidence/original/pump/deployed.so',
-                                       windows, Path(__file__), ROOT/'scripts/pump_exact_body_inventory.py'], args.objdump)
+                                       windows, Path(__file__), ROOT/'scripts/pump_exact_body_inventory.py',
+                                       Path(write_json_report.__code__.co_filename)], args.objdump)
     with windows.open() as stream:
         try:
             row=selected_window(stream,args.original_start)

@@ -33,6 +33,11 @@ def check(ok, message="build check failed"):
         raise AssertionError(message)
 
 
+def compiler_overrides(env):
+    """The dependency-cache key's flags beyond those the seed import compares."""
+    return {k: v for k, v in env.items() if k == "RUSTC_BOOTSTRAP" or k.startswith("CARGO_PROFILE_")}
+
+
 def finish_report(record, report, receipt, cache, target, log, data_order=False):
     """Publish the data-order receipt only after all cache checks succeed."""
     try:
@@ -236,6 +241,8 @@ def main():
         if data_certificate:
             check(cache.context == data_certificate["payload"]["cache_context"], "data-order dependency/compiler context differs")
         if a.dependency_cache_seed and not cache.entry.exists():
+            seed = json.loads((a.dependency_cache_seed.resolve() / "build-comparison.json").read_text())
+            check(compiler_overrides(seed["environment"]) == compiler_overrides(env), "seed compiler overrides differ")
             cache.import_clean_build(a.dependency_cache_seed.resolve())
         cache.seed(out / "target")
         command += ["--message-format=json-render-diagnostics"]
@@ -293,7 +300,7 @@ def main():
                 "CARGO_ENCODED_RUSTFLAGS",
             ]
             if k in env
-        },
+        } | compiler_overrides(env),
     }
     if cache:
         record["dependency_cache"] = cache.record

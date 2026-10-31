@@ -1,0 +1,43 @@
+{
+  "scope": "Proposed maintained-script asset transition for Pump Fees differential report publication; captures, suites and prior receipts remain unchanged.",
+  "base": "52c0b087c7e345766b67b8fdeb8d4784079a955d",
+  "files": {
+    "scripts/fees_donation_create_differential.py": {
+      "before_sha256": "4a845b3aba1b09671ca7d6750a2e8fa63d424780a0fa183d586431cecc56f77f",
+      "proposed_sha256": "cc0e006b3511563672936531f908cb53b3d17fe241e54398c1ee2e242a4082b3"
+    },
+    "scripts/fees_deprecated_differential.py": {
+      "before_sha256": "829525e5908d57d162c7ca354a0a099138131337f6097dfc021f002fe5450d98",
+      "proposed_sha256": "c4bbcc6182b5bfa4968851522d6a285021de27f137b61c9e78a4a6c49b1f8cef"
+    },
+    "scripts/fees_error_messages_differential.py": {
+      "before_sha256": "776dc6c24ff0513c21bf0fba17b0f56f5ee8f614364d6c943eb43fbc977365c1",
+      "proposed_sha256": "8c78c797bcfb6fb6a6267e98b60f5c28e66cf36d615a8cfaecf96addde317e37"
+    },
+    "scripts/fees_sharing_create_differential.py": {
+      "before_sha256": "ad1e51c163840b4f64731cd7b8e5e2998d3d7f49b3a2ddf8467b4f850ef2e321",
+      "proposed_sha256": "944ad173f1f271f0217d80b706c718de4516770cd49233a5e11308f5ee55bce3"
+    },
+    "scripts/fees_external_codec_differential.py": {
+      "before_sha256": "64f547ab4dded5f25b61b03c96414cfd79a169f084f1d4481b709b6321cbd72b",
+      "proposed_sha256": "6ca59530a46acb6268eeea9722e9c622dbb72386242ee92a5b25f4a462defd77"
+    },
+    "scripts/fees_social_claim_differential.py": {
+      "before_sha256": "4caaf70780b5f29172b9e67d5a91cec10bd70c06f1152091fb830231c5358f98",
+      "proposed_sha256": "f8418f01513284c8b04a5b3cbedc6359f27224e1155e37e4aa096e2938b22967"
+    },
+    "scripts/fees_initialize_differential.py": {
+      "before_sha256": "1519033b68f2f3e13cb548070f09bca625e01d3e822d066275444cb84d71f759",
+      "proposed_sha256": "53364aed6abd0305bb82c54b59d14ef78c29c2bf32c2d9a91f5dcc012b7dc296"
+    },
+    "scripts/fees_sharing_update_differential.py": {
+      "before_sha256": "893e2cf7c67bff9854a868a1e01a364f82b8513990d1b73bb81aafc5a4ea642b",
+      "proposed_sha256": "de93eecb40a3f3cf7775fcc8bd6134ea8130889e39666feca26eaca01412dcff"
+    }
+  },
+  "script_set_changed": false,
+  "program_source_changed": false,
+  "capture_bytes_changed": false,
+  "new_test": "tests/test_fees_differential_report_publication.py",
+  "existing_ci_discovery": "contract-tests: python -B -m unittest discover -s tests -v"
+}

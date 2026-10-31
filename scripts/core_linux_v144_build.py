@@ -56,8 +56,22 @@ def digest(path):
 
 
 def write_json(path, value):
-    Path(path).parent.mkdir(parents=True, exist_ok=True)
-    Path(path).write_text(json.dumps(value, indent=2, sort_keys=True) + "\n",encoding='utf-8',newline='\n')
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    # Stage beside the destination and replace, so an interrupted write cannot
+    # truncate an earlier complete receipt; the failure path rewrites
+    # attempt.json through this same helper.
+    staged = path.with_name("." + path.name[:32] + "." + os.urandom(8).hex())
+    try:
+        with staged.open("x", encoding="utf-8", newline="\n") as stream:
+            stream.write(json.dumps(value, indent=2, sort_keys=True) + "\n")
+            stream.flush()
+            os.fsync(stream.fileno())
+        os.replace(staged, path)
+        staged = None
+    finally:
+        if staged is not None:
+            staged.unlink(missing_ok=True)
 
 
 def generated_keypair_path(relative_path):

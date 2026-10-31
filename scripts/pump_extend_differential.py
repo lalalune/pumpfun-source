@@ -10,6 +10,7 @@ from solders.instruction import AccountMeta,Instruction
 from solders.keypair import Keypair
 from solders.litesvm import LiteSVM
 from pump_amm_reusable_harness import pin_program
+from pump_differential_output import PumpReport
 from solders.pubkey import Pubkey
 from solders.transaction import Transaction
 from solders.transaction_metadata import FailedTransactionMetadata
@@ -50,11 +51,11 @@ def cases():
   for n in range(8):out.append({'name':f'{kind}-payload-{n}','kind':kind,'payload_length':n})
  return out
 def main():
- p=argparse.ArgumentParser();p.add_argument('--candidate',type=Path);p.add_argument('--output',type=Path,required=True);a=p.parse_args();rows=[];bad=[]
+ p=argparse.ArgumentParser();p.add_argument('--candidate',type=Path);p.add_argument('--output',type=Path,required=True);a=p.parse_args();rows=[];bad=[];publisher=PumpReport(a.output,ROOT,a.candidate,__file__)
  for c in cases():
   x=run(c);y=run(c,a.candidate) if a.candidate else None;diff=[k for k in ['before','after','error','events','inner','return'] if y is not None and x[k]!=y[k]]
   rows.append({'case':c,'original':x,'candidate':y,'diff':diff})
   if diff:bad.append(c['name'])
- report={'scope':'Synthetic raw accounts and ordinary verified signatures on offline LiteSVM. Bounded differential evidence, not byte identity.','original_sha256':hashlib.sha256(pin_program(ORIGINAL).read_bytes()).hexdigest(),'candidate_sha256':hashlib.sha256(pin_program(a.candidate).read_bytes()).hexdigest() if a.candidate else None,'script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'cases':rows,'mismatches':bad};a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_bytes(gzip.compress(json.dumps(report,indent=2).encode(),mtime=0));print(len(rows),'cases',len(bad),'mismatches',bad)
+ report={'scope':'Synthetic raw accounts and ordinary verified signatures on offline LiteSVM. Bounded differential evidence, not byte identity.','original_sha256':hashlib.sha256(pin_program(ORIGINAL).read_bytes()).hexdigest(),'candidate_sha256':hashlib.sha256(pin_program(a.candidate).read_bytes()).hexdigest() if a.candidate else None,'script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'cases':rows,'mismatches':bad};publisher.write(gzip.compress(json.dumps(report,indent=2).encode(),mtime=0));print(len(rows),'cases',len(bad),'mismatches',bad)
  if bad:raise SystemExit(1)
 if __name__=='__main__':main()

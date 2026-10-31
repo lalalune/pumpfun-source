@@ -242,7 +242,7 @@ def main():
         # When an independently supplied ELF has no adjacent build report,
         # record current source bytes without claiming they produced that ELF.
         for source_path in (ROOT / 'programs/pump').rglob('*'):
-            if source_path.is_file() and 'target' not in source_path.parts and (
+            if source_path.is_file() and 'target' not in source_path.relative_to(ROOT / 'programs/pump').parts and (
                     source_path.suffix == '.rs' or source_path.name in {'Cargo.toml', 'Cargo.lock'}):
                 bound_files.append(source_path)
     # Refuse to publish through any input before a single case executes.

@@ -66,7 +66,12 @@ if __name__ == '__main__':
         ctok, _ = ctoracle.so_tokens(p)
     else:
         raw = Path(p).read_bytes(); ctok = []; i = 0
+        if not raw or len(raw) % 8:
+            raise SystemExit('raw input must contain whole SBF instructions')
         while i < len(raw):
-            n = 16 if raw[i] == 0x18 else 8; ctok.append(raw[i:i + n]); i += n
+            n = 16 if raw[i] == 0x18 else 8
+            if i + n > len(raw):
+                raise SystemExit('truncated SBF instruction')
+            ctok.append(raw[i:i + n]); i += n
     r0, r1, n = bound(ctok)
     print(f'ratio {r0}  perfect-frame ratio {r1}  (offsets remapped: {n})')

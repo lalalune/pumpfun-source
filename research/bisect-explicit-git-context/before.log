@@ -1,0 +1,32 @@
+FFF
+======================================================================
+FAIL: test_bisect_reads_the_explicit_repository_under_ambient_git_context (__main__.GitContextTests.test_bisect_reads_the_explicit_repository_under_ambient_git_context) (context='git-dir')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<repo>/reconstruction/harness/test_bisect_git_context.py", line 60, in test_bisect_reads_the_explicit_repository_under_ambient_git_context
+    self.assertEqual(report['first_failing_bound'], expected[-1])
+AssertionError: '71a8430e07b14eaa6a897b4c1a59f845971cafa0' != 'fdec17d816d0963cffdf1225f6274428b373f5d1'
+- 71a8430e07b14eaa6a897b4c1a59f845971cafa0
++ fdec17d816d0963cffdf1225f6274428b373f5d1
+
+
+======================================================================
+FAIL: test_bisect_reads_the_explicit_repository_under_ambient_git_context (__main__.GitContextTests.test_bisect_reads_the_explicit_repository_under_ambient_git_context) (context='common-dir')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<repo>/reconstruction/harness/test_bisect_git_context.py", line 58, in test_bisect_reads_the_explicit_repository_under_ambient_git_context
+    self.assertEqual(result.returncode, 0, 'could not read explicit repository: '+name)
+AssertionError: 1 != 0 : could not read explicit repository: common-dir
+
+======================================================================
+FAIL: test_bisect_reads_the_explicit_repository_under_ambient_git_context (__main__.GitContextTests.test_bisect_reads_the_explicit_repository_under_ambient_git_context) (context='object-dir')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<repo>/reconstruction/harness/test_bisect_git_context.py", line 58, in test_bisect_reads_the_explicit_repository_under_ambient_git_context
+    self.assertEqual(result.returncode, 0, 'could not read explicit repository: '+name)
+AssertionError: 1 != 0 : could not read explicit repository: object-dir
+
+----------------------------------------------------------------------
+Ran 1 test in 1.039s
+
+FAILED (failures=3)

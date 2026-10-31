@@ -47,6 +47,8 @@ def main():
     parser.add_argument("--program", default="pump")
     parser.add_argument("--repeats", type=int, default=3)
     args = parser.parse_args()
+    if args.repeats < 1:
+        parser.error("--repeats must be positive")
     roots = [args.before.resolve(), args.after.resolve()]
     inputs = [hashlib.sha256((root / "evidence/original" / args.program / "deployed.so")
                             .read_bytes()).hexdigest() for root in roots]

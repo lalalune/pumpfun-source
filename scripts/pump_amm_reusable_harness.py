@@ -14,6 +14,16 @@ import tempfile
 from solders.account import Account
 from solders.pubkey import Pubkey
 
+# Captured fixtures and the AMM source tree the AMM runners read on top of the
+# publisher's own defaults; a receipt must never replace them either.
+AMM_ROOT = Path(__file__).resolve().parents[1]
+AMM_REPORT_INPUTS = (
+    AMM_ROOT / 'research/imported-lab/analysis/pump_fun/amm-v2-trade-fixture.json',
+    AMM_ROOT / 'research/imported-lab/analysis/pump_fun/curve-migrate-v2-signed-surfpool.json',
+    AMM_ROOT / 'research/imported-lab/analysis/pump_fun/curve-fresh-trades-v3-signed-surfpool.json',
+    AMM_ROOT / 'programs/pump-amm',
+)
+
 class _ResettableVM:
     def __init__(self, vm):
         self._vm = vm

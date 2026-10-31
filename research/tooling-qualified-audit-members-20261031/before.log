@@ -1,0 +1,71 @@
+test_published_verifier_keeps_the_required_member_inventory (__main__.AuditTests.test_published_verifier_keeps_the_required_member_inventory) ...
+  test_published_verifier_keeps_the_required_member_inventory (__main__.AuditTests.test_published_verifier_keeps_the_required_member_inventory) (removed='README.md') ... FAIL
+  test_published_verifier_keeps_the_required_member_inventory (__main__.AuditTests.test_published_verifier_keeps_the_required_member_inventory) (removed='failed.json') ... FAIL
+  test_published_verifier_keeps_the_required_member_inventory (__main__.AuditTests.test_published_verifier_keeps_the_required_member_inventory) (removed='inputs.json') ... FAIL
+  test_published_verifier_keeps_the_required_member_inventory (__main__.AuditTests.test_published_verifier_keeps_the_required_member_inventory) (removed='passed.json') ... FAIL
+  test_published_verifier_keeps_the_required_member_inventory (__main__.AuditTests.test_published_verifier_keeps_the_required_member_inventory) (removed='skipped.json') ... FAIL
+
+======================================================================
+FAIL: test_published_verifier_keeps_the_required_member_inventory (__main__.AuditTests.test_published_verifier_keeps_the_required_member_inventory) (removed='README.md')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<repo>/reconstruction/tooling/revalidation-qualification/test_audit.py", line 64, in test_published_verifier_keeps_the_required_member_inventory
+    self.assertNotEqual(rejected.returncode, 0, rejected.stdout + rejected.stderr)
+AssertionError: 0 == 0 : {
+  "verified": true,
+  "errors": []
+}
+
+
+======================================================================
+FAIL: test_published_verifier_keeps_the_required_member_inventory (__main__.AuditTests.test_published_verifier_keeps_the_required_member_inventory) (removed='failed.json')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<repo>/reconstruction/tooling/revalidation-qualification/test_audit.py", line 64, in test_published_verifier_keeps_the_required_member_inventory
+    self.assertNotEqual(rejected.returncode, 0, rejected.stdout + rejected.stderr)
+AssertionError: 0 == 0 : {
+  "verified": true,
+  "errors": []
+}
+
+
+======================================================================
+FAIL: test_published_verifier_keeps_the_required_member_inventory (__main__.AuditTests.test_published_verifier_keeps_the_required_member_inventory) (removed='inputs.json')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<repo>/reconstruction/tooling/revalidation-qualification/test_audit.py", line 64, in test_published_verifier_keeps_the_required_member_inventory
+    self.assertNotEqual(rejected.returncode, 0, rejected.stdout + rejected.stderr)
+AssertionError: 0 == 0 : {
+  "verified": true,
+  "errors": []
+}
+
+
+======================================================================
+FAIL: test_published_verifier_keeps_the_required_member_inventory (__main__.AuditTests.test_published_verifier_keeps_the_required_member_inventory) (removed='passed.json')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<repo>/reconstruction/tooling/revalidation-qualification/test_audit.py", line 64, in test_published_verifier_keeps_the_required_member_inventory
+    self.assertNotEqual(rejected.returncode, 0, rejected.stdout + rejected.stderr)
+AssertionError: 0 == 0 : {
+  "verified": true,
+  "errors": []
+}
+
+
+======================================================================
+FAIL: test_published_verifier_keeps_the_required_member_inventory (__main__.AuditTests.test_published_verifier_keeps_the_required_member_inventory) (removed='skipped.json')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<repo>/reconstruction/tooling/revalidation-qualification/test_audit.py", line 64, in test_published_verifier_keeps_the_required_member_inventory
+    self.assertNotEqual(rejected.returncode, 0, rejected.stdout + rejected.stderr)
+AssertionError: 0 == 0 : {
+  "verified": true,
+  "errors": []
+}
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.965s
+
+FAILED (failures=5)

@@ -9,6 +9,11 @@ directly (others run as libraries of those steps or by hand). The non-Python fil
 
 ## Conventions
 
+The workflow input checker, `python scripts/check_workflow_inputs.py`, also needs
+the pinned packages in `requirements.txt`: PyYAML supplies its `yaml` import.
+Install those requirements in the selected Python environment before running it
+or the workflow input regression suites.
+
 For saved AMM verification on Windows or POSIX, run
 `python -B scripts/verify_pump_amm_checkpoint.py` with the pinned packages in
 `requirements.txt`. The current gate uses `amm_checkpoint_modules.py` to read the
@@ -65,9 +70,14 @@ python -E -X utf8 scripts/verify_evidence.py
 python -E -X utf8 scripts/test_tooling.py
 ```
 
-The saved-capture verifier uses Python assertions: do not add `-O` or `-OO`.
-`-E` prevents an inherited `PYTHONOPTIMIZE` from disabling those assertions;
-`-X utf8` also lets the tooling tests read the checked-in UTF-8 IDLs on Windows.
+The saved-capture verifier uses explicit runtime checks, which remain active
+under `-O`, `-OO` and `PYTHONOPTIMIZE`. The commands above use `-E` to keep the
+invocation independent of inherited Python settings; `-X utf8` also lets the
+tooling tests read the checked-in UTF-8 IDLs on Windows. These flags do not imply
+that every other archived verifier supports optimized Python.
+`python -X utf8 scripts/test_capture_verification_modes.py` exercises the saved
+capture CLI on owned corpus copies in all five optimization modes, including
+rejection of altered payloads and capture metadata.
 These commands verify saved evidence and comparator behavior, not a source
 rebuild or runtime equivalence. The previously recommended
 `research/evidence-checks-optimized-python/` package is absent from this checkout;
@@ -82,7 +92,7 @@ do not treat that historical package path as an installed entrypoint.
 | `disassemble.py` |  | Generate analyst disassembly, never a source rebuild or candidate executable. |
 | `local_validation.py` | ✓ | Offline malformed-input smoke tests; not a functional or authorization audit. |
 | `recover_dispatch.py` |  | Locate Anchor discriminator comparisons and wrapper calls in original SBF. |
-| `verify_evidence.py` | ✓ | Archived saved-evidence implementation, run unoptimized in CI. Use the [current local commands](#saved-capture-checks-on-the-current-checkout) with assertions enabled. This is NOT a rebuilt-source verification. |
+| `verify_evidence.py` | ✓ | Saved-evidence implementation with explicit runtime checks. Use the [current local commands](#saved-capture-checks-on-the-current-checkout). This is NOT a rebuilt-source verification. |
 
 ## Builds, toolchains and dependency provenance
 
@@ -199,7 +209,7 @@ do not treat that historical package path as an installed entrypoint.
 | `pump_trade_fixture.py` |  | Local captured-dependency sell-v3 fixture; initialization performs no RPC. |
 | `pump_v3_configured_fee_differential.py` | ✓ | Configured creator-fee correction across three partial v3 handlers (SOL and synthetic USDC). |
 | `pump_validate_admin.py` | ✓ | Offline original-vs-recovered Pump administrative instruction differential tests. |
-| `pump_validate_all.py` |  | Run the published 38-suite bounded Pump corpus against one compiled ELF. |
+| `pump_validate_all.py` |  | Run the published 44-suite bounded Pump corpus against one compiled ELF. |
 | `pump_validate_authority.py` | ✓ | Offline original-vs-recovered Pump administrative instruction differential tests. |
 | `pump_validate_buy.py` | ✓ | Compare the partial regular-SOL buy-v3 SBF path with the captured original. |
 | `pump_validate_config_admin.py` | ✓ | Offline original-vs-recovered Pump administrative instruction differential tests. |

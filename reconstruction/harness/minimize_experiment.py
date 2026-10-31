@@ -2,6 +2,7 @@
 """Reduce an ordered list of patch units while retaining an experiment predicate."""
 import argparse
 import json
+import os
 from pathlib import Path
 import shutil
 import subprocess
@@ -56,13 +57,21 @@ def main():
     parser.add_argument('--want', choices=['pass', 'fail'], default='pass')
     parser.add_argument('--max-trials', type=int, default=30)
     args = parser.parse_args()
+    if args.max_trials < 1:
+        parser.error('--max-trials must be positive')
     args.source = args.source.resolve(); args.out = args.out.resolve()
     if args.source == args.out or args.source in args.out.parents or args.out in args.source.parents:
         parser.error('source and output must be separate trees')
     source_identity = manifest(args.source)
     paths = [Path(p).resolve() for p in json.loads(args.patches.read_text(encoding='utf-8'))]
+    if not paths:
+        parser.error('patch list must name at least one patch')
     patches = [p.read_bytes() for p in paths]
     config = load_oracle(args.oracle)
+    # -C alone does not override GIT_DIR/GIT_WORK_TREE inherited from a shell
+    # or Git hook. These commands must operate only on our private stage.
+    git_env = {name: value for name, value in os.environ.items()
+               if not name.upper().startswith('GIT_')}
     args.out.mkdir(parents=True, exist_ok=True)
     patch_errors = []
     def evaluate(selected):
@@ -71,9 +80,9 @@ def main():
             shutil.copytree(args.source, stage, ignore=stage_ignore(args.source))
             if manifest(stage) != source_identity or manifest(args.source) != source_identity:
                 raise ValueError('base source changed during minimization')
-            subprocess.run(['git', '-C', str(stage), 'init', '-q'], check=True)
+            subprocess.run(['git', '-C', str(stage), 'init', '-q'], check=True, env=git_env)
             for index in selected:
-                applied = subprocess.run(['git', '-C', str(stage), 'apply', '--whitespace=nowarn', '-'], input=patches[index], capture_output=True)
+                applied = subprocess.run(['git', '-C', str(stage), 'apply', '--whitespace=nowarn', '-'], input=patches[index], capture_output=True, env=git_env)
                 if applied.returncode:
                     patch_errors.append({'selected': selected, 'patch_index': index, 'stderr': applied.stderr.decode(errors='replace')[-4000:]})
                     return 'error'

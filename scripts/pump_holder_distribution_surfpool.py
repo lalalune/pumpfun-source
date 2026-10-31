@@ -8,6 +8,7 @@ from solders.hash import Hash
 from solders.instruction import AccountMeta,Instruction
 from solders.transaction import Transaction
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'scripts'))
+from surfpool_recording_vm import require_aligned_runs
 import pump_holder_distribution_probe as fixture
 import pump_holder_distribution_differential as suite
 from types import SimpleNamespace
@@ -145,7 +146,7 @@ def main():
   cases += [{**mode,**c} for c in [{'amounts':[]},{'amounts':[0]},{'amounts':[1000,2000]},{'remaining_count':0},{'existing_dest':True},{'amounts':[10**9+1]},{'readonly_dest':True}]]
  cases += [{'holder_lamports':891879},{'holder_lamports':891880},{'holder_lamports':1000},{'stable':True,'alternate_dest':True},{'stable':True,'source':False},{'stable':True,'alternate_source':True},{'stable':True,'existing_dest':True,'mutations':{'dest':{'patches':[(108,'02')]}}},{'mutations':{'global':{'patches':[(1054,bytes(fixture.OTHER.pubkey()).hex())]}}}]
  paths=[Path(__file__),Path(fixture.__file__),Path(suite.__file__)]+[ROOT/f'evidence/upstream/{n}.json' for n in ['pump','pump_fees','pump_amm']]+[ROOT/f'evidence/original/{n}/deployed.so' for n in ['pump','pump_fees','pump_amm']]+[ROOT/f'evidence/dependencies/{n}/deployed.so' for n in ['spl_token','spl_token_2022','associated_token']]
- provenance={str(p.relative_to(ROOT)):sha(p.read_bytes()) for p in paths};fixtures=[prepare(c) for c in cases];(a.output/'fixtures.json').write_text(json.dumps(fixtures,indent=2),encoding='utf-8',newline='\n');x=run(original,fixtures,a.surfpool,a.output);y=run(candidate,fixtures,a.surfpool,a.output);bad=[];unexpected=[];offsets=layouts()
+ provenance={str(p.relative_to(ROOT)):sha(p.read_bytes()) for p in paths};fixtures=[prepare(c) for c in cases];(a.output/'fixtures.json').write_text(json.dumps(fixtures,indent=2),encoding='utf-8',newline='\n');x=run(original,fixtures,a.surfpool,a.output);y=run(candidate,fixtures,a.surfpool,a.output);require_aligned_runs(fixtures,x,y);bad=[];unexpected=[];offsets=layouts()
  def error(v):
   if v is None:return None
   m=re.fullmatch(r'TransactionErrorInstructionError\(\((\d+), Tagged\(InstructionErrorCustom\((\d+)\)\)\)\)',v)

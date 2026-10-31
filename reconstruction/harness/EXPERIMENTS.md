@@ -15,9 +15,9 @@ The command contract is exit 0 = predicate holds, 1 = valid experiment but predi
 
 For this example `source` is the Pump crate directory, not the repository root. The existing Cargo dependency cache must be provisioned; builds are offline. Set timeouts appropriate for cold builds. No warm template is seeded by this oracle.
 
-Declare every relevant external input in `inputs`: oracle/harness scripts, original ELF, window inventory, toolchain executables/libraries and any configuration consumed by your command. Resume identity includes source file bytes/executable bits and directory membership, argv, declared input bytes, command executable, timeout, environment hash and runner implementation. Environment values are not recorded. Undeclared files, network responses and changing external services are not authenticated: this is not hermetic execution or a sandbox. The source snapshot and declared inputs are checked again after execution.
+Declare every relevant external input in `inputs`: oracle/harness scripts, original ELF, window inventory, toolchain executables/libraries and any configuration consumed by your command. Resume identity includes source file bytes/executable bits and directory membership, argv, declared input bytes and execute permission bits, command executable, timeout, environment hash and runner implementation. Environment values are not recorded. Undeclared files, network responses and changing external services are not authenticated: this is not hermetic execution or a sandbox. The source snapshot and declared inputs are checked again after execution.
 
-Each attempt retains stdout/stderr and all output files, with hashes in latest.json. Resume reuses only pass/fail results whose identity and retained artifacts still match. Errors retry in a new attempt directory; prior attempts remain. A per-trial file lock serializes concurrent users of the same destination. Timeouts kill the process group. Result hashes are integrity checks, not signatures or tamper-proof provenance. A matrix exits 2 on infrastructure error; valid failing predicates remain useful results and do not fail the matrix driver.
+Each attempt retains stdout/stderr and all output files, with hashes in latest.json. Output directory membership, including empty directories, is also recorded. Resume reuses only pass/fail results whose identity and retained artifacts still match. Errors retry in a new attempt directory; prior attempts remain. A per-trial file lock serializes concurrent users of the same destination. Timeouts kill the process group. Result hashes are integrity checks, not signatures or tamper-proof provenance. A matrix exits 2 on infrastructure error; valid failing predicates remain useful results and do not fail the matrix driver.
 
 Tool aliases are resolved once during admission. The recorded `executable` is
 hashed and executed; `invocation` preserves the declared absolute argv[0] for
@@ -28,10 +28,15 @@ The argument array and child environment are also captured at admission, so
 caller mutations during staging or lock waits cannot execute a different trial
 under an old cache key. Environment values remain unrecorded; only their hash
 appears in the receipt.
-Declared input paths retain their resolved targets as well as content hashes;
-retargeting an input alias or changing its bytes before launch is rejected, and
+Declared input paths retain their resolved targets as well as content hashes
+and owner/group/other execute permission bits (`st_mode & 0o111`);
+retargeting an input alias or changing its bytes or execute bits before launch is rejected, and
 post-run checks reject changes still present at the end of execution. These
 checks do not protect against inputs changed and restored between checks.
+Execute bits are recorded separately from the existing content-hash map. The
+changed runner fingerprint invalidates earlier cache keys without changing
+historical attempts. Read/write permission bits, ownership and ACLs are not
+part of this execute-bit identity.
 The runner fingerprint is captured at import time; later edits to the driver
 on disk cannot relabel that import-time fingerprint. It is not an immutable
 snapshot of every executable or script byte read during the child process.

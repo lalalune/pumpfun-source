@@ -109,6 +109,60 @@ def join_line_continuations(command):
     return ''.join(result)
 
 
+def has_heredoc(command):
+    """Return whether command contains an unquoted, uncommented shell heredoc."""
+    quote = None
+    comment = False
+    word_start = True
+    index = 0
+    while index < len(command):
+        char = command[index]
+        if comment:
+            if char == '\n':
+                comment = False
+                word_start = True
+            index += 1
+        elif quote == "'":
+            if char == "'":
+                quote = None
+            index += 1
+        elif quote == '"':
+            if char == '\\' and index + 1 < len(command):
+                index += 2
+            else:
+                if char == '"':
+                    quote = None
+                index += 1
+        elif char == '\\' and index + 1 < len(command):
+            word_start = False
+            index += 2
+        elif char in ("'", '"'):
+            quote = char
+            word_start = False
+            index += 1
+        elif char == '#' and word_start:
+            comment = True
+            index += 1
+        elif char == '<':
+            end = index
+            while end < len(command) and command[end] == '<':
+                end += 1
+            if end - index == 2:
+                pos = end
+                if pos < len(command) and command[pos] == '-':
+                    pos += 1
+                while pos < len(command) and command[pos] in (' ', '\t'):
+                    pos += 1
+                if pos < len(command) and command[pos] not in '\r\n;&|()<>#':
+                    return True
+            word_start = True
+            index = end
+        else:
+            word_start = char.isspace() or char in ';&|()<>'
+            index += 1
+    return False
+
+
 def python_option(option):
     """Return (inline mode, separate value) for one Python option token."""
     if option == '-':
@@ -125,15 +179,32 @@ def python_option(option):
     return False, False
 
 
+def shell_option(option):
+    """Return (non-file input mode, separate value) for a shell option."""
+    if option.startswith('--'):
+        return False, option in ('--rcfile', '--init-file')
+    for consumed, flag in enumerate(option[1:], 2):
+        if flag in ('c', 's'):
+            # -c reads a command string; -s reads stdin. Remaining operands
+            # name positional parameters, not a script file.
+            return True, False
+        if flag in ('o', 'O'):
+            # Do not search through a value-taking option for incidental
+            # c/s letters. A separate option name is consumed by the caller.
+            return False, consumed == len(option)
+    return False, False
+
+
 def command_start(tokens):
     """Return the interpreter index after shell assignments and env options."""
     return command_context(tokens, '.')[0]
 
 
-def command_context(tokens, directory):
-    """Resolve env's command-local chdir relative to the step directory."""
+def _parse_command_context(tokens, directory):
+    """Resolve env options, chdir, assignments, and uninspectable split-strings."""
     index = 0
     change_directory = None
+    split_string = False
     while index < len(tokens) and ASSIGNMENT.match(tokens[index]):
         index += 1
     if index < len(tokens) and (tokens[index] == 'env'
@@ -144,22 +215,70 @@ def command_context(tokens, directory):
             token = tokens[index]
             if token == '--':
                 index += 1
+                while index < len(tokens) and ASSIGNMENT.match(tokens[index]):
+                    index += 1
                 break
+            if token == '-':
+                index += 1
+                continue
             if token in ('-C', '--chdir'):
                 if index + 1 >= len(tokens):
                     raise ValueError('env chdir option requires a directory')
                 change_directory = tokens[index + 1]
                 index += 2
                 continue
-            if token.startswith('--chdir=') or token.startswith('-C'):
-                change_directory = token.partition('=')[2] if token.startswith('--chdir=') else token[2:]
+            if token.startswith('--chdir='):
+                value = token.partition('=')[2]
+                if not value:
+                    raise ValueError('env chdir option requires a directory')
+                change_directory = value
                 index += 1
                 continue
-            if token in ('-u', '--unset'):
+            if token in ('-u', '--unset', '--argv0', '--file'):
+                if index + 1 >= len(tokens):
+                    raise ValueError(f'env {token} option requires an argument')
                 index += 2
                 continue
-            if token.startswith('-'):
+            if token in ('-S', '--split-string'):
+                if index + 1 >= len(tokens):
+                    raise ValueError(f'env {token} option requires an argument')
+                split_string = True
+                index += 2
+                continue
+            if token.startswith('--split-string='):
+                split_string = True
                 index += 1
+                continue
+            if token.startswith('--'):
+                index += 1
+                continue
+            if token.startswith('-'):
+                step = 1
+                for offset, flag in enumerate(token[1:], 1):
+                    rest = token[offset + 1:]
+                    if flag == 'C':
+                        if rest:
+                            change_directory = rest
+                        else:
+                            if index + 1 >= len(tokens):
+                                raise ValueError('env chdir option requires a directory')
+                            change_directory = tokens[index + 1]
+                            step = 2
+                        break
+                    if flag in ('u', 'a', 'f'):
+                        if not rest:
+                            if index + 1 >= len(tokens):
+                                raise ValueError(f'env -{flag} option requires an argument')
+                            step = 2
+                        break
+                    if flag == 'S':
+                        split_string = True
+                        if not rest:
+                            if index + 1 >= len(tokens):
+                                raise ValueError('env -S option requires an argument')
+                            step = 2
+                        break
+                index += step
                 continue
             if ASSIGNMENT.match(token):
                 index += 1
@@ -169,7 +288,13 @@ def command_context(tokens, directory):
         # Keep expansions visible until the caller's nonliteral-directory
         # check; normpath('$DIR/..') would otherwise erase the variable.
         directory = posixpath.join(directory, change_directory)
-    return index, directory
+    return index, directory, split_string
+
+
+def command_context(tokens, directory):
+    """Resolve env's command-local chdir relative to the step directory."""
+    index, resolved_directory, _ = _parse_command_context(tokens, directory)
+    return index, resolved_directory
 
 
 def references(name, source):
@@ -186,7 +311,7 @@ def references(name, source):
                     continue
                 command = join_line_continuations(substitute(str(step['run']), row))
                 cwd = substitute(str(step.get('working-directory', directory)), row)
-                if re.search(r'<<-?\s*[^\s<]', command):
+                if has_heredoc(command):
                     unsupported.add((name, str(job_id), 'heredoc body requires shell parsing'))
                     continue
                 for line in command.splitlines():
@@ -198,7 +323,10 @@ def references(name, source):
                         if COMMAND_PREFIX.match(line):
                             unsupported.add((name, job_id, 'unparsed shell command'))
                         continue
-                    index, command_directory = command_context(tokens, cwd)
+                    index, command_directory, split_string = _parse_command_context(tokens, cwd)
+                    if split_string:
+                        unsupported.add((name, str(job_id), 'env split-string requires shell parsing'))
+                        continue
                     interpreter = resolved_interpreter(tokens[index]) if index < len(tokens) else None
                     if interpreter is None:
                         continue
@@ -215,9 +343,7 @@ def references(name, source):
                         if python:
                             inline, takes_value = python_option(option)
                         else:
-                            inline = not option.startswith('--') and 'c' in option[1:]
-                            takes_value = (option in ('--rcfile', '--init-file') or
-                                           not option.startswith('--') and option[-1:] in ('o', 'O'))
+                            inline, takes_value = shell_option(option)
                         if inline:
                             index = len(tokens)
                             break

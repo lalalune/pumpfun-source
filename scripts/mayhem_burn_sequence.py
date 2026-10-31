@@ -14,6 +14,7 @@ from solders.transaction import Transaction
 from solders.transaction_metadata import FailedTransactionMetadata
 from solders.compute_budget import set_compute_unit_limit
 import solders.solders
+from pump_diagnostic_audit import bound_input_key
 
 REPO=Path(__file__).resolve().parents[1];ROOT=None
 MAY=Pubkey.from_string('MAyhSmzXzV1pTf7LsNkrNwkWKTo4ougAJ1PPg47MD4e')
@@ -131,7 +132,7 @@ def main():
     original=REPO/'evidence/original/mayhem/deployed.so'
     candidate=a.candidate.resolve()
     inputs={'fixtures:fixture-manifest.json':sha(manifest_path.read_bytes()),
-            str(original.relative_to(REPO)):sha(original.read_bytes()),str(candidate.relative_to(REPO)):sha(candidate.read_bytes())}
+            str(original.relative_to(REPO)):sha(original.read_bytes()),bound_input_key(candidate,REPO):sha(candidate.read_bytes())}
     for row in manifest['snapshots']['eligible']['accounts'].values():
         if row['exists']:inputs['fixtures:'+row['data_file']]=sha((ROOT/row['data_file']).read_bytes())
     cases=[]

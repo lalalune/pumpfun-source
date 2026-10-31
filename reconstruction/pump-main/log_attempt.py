@@ -186,6 +186,14 @@ def main():
             if destination == LOCK.resolve() or (destination.exists() and LOCK.exists()
                                                   and destination.samefile(LOCK)):
                 raise SystemExit('sync destination must not replace the live ledger lock')
+            # A committed snapshot can hold rows merged from other hosts, and
+            # the ledger is append-only: never replace them with a shorter view.
+            if destination.exists():
+                kept, _ = inspect_ledger(destination.read_text(encoding='utf-8', errors='replace'), STATUSES)
+                live = {r['attempt_id'] for r in rows}
+                lost = [r['dedupe_key'] for r in kept if r['attempt_id'] not in live]
+                if lost:
+                    raise SystemExit(f'sync would drop {len(lost)} attempts missing from the live ledger: {lost[0]}')
             destination.parent.mkdir(parents=True, exist_ok=True)
             atomic_copy(LEDGER, destination)
             print(json.dumps({'synced': str(destination), 'attempts': len(rows), 'sha256': hashlib.sha256(destination.read_bytes()).hexdigest()}))

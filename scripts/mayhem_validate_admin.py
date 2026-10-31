@@ -8,7 +8,9 @@ from solders.account import Account
 from solders.instruction import Instruction, AccountMeta
 from solders.transaction import Transaction
 from solders.transaction_metadata import FailedTransactionMetadata
+from pump_differential_output import PumpReport
 ROOT=pathlib.Path(__file__).resolve().parents[1]
+REPORT_INPUTS=(ROOT/'evidence/original/mayhem/deployed.so',ROOT/'programs/mayhem/Cargo.toml',ROOT/'programs/mayhem/Cargo.lock',ROOT/'programs/mayhem/src/lib.rs')
 PROGRAM=Pubkey.from_string('MAyhSmzXzV1pTf7LsNkrNwkWKTo4ougAJ1PPg47MD4e')
 ADMIN=Keypair.from_seed(bytes([1])*32)
 PAYER=Keypair.from_seed(bytes([2])*32)
@@ -93,11 +95,11 @@ def cases():
  rows.append({'name':'initialize_global_params-trailing','op':'initialize_global_params','data':'','uninitialized':True,'trailing':'010203ff'})
  return rows
 if __name__=='__main__':
- ap=argparse.ArgumentParser();ap.add_argument('--candidate',type=pathlib.Path,required=True);ap.add_argument('--output',type=pathlib.Path,required=True);a=ap.parse_args()
+ ap=argparse.ArgumentParser();ap.add_argument('--candidate',type=pathlib.Path,required=True);ap.add_argument('--output',type=pathlib.Path,required=True);a=ap.parse_args();publisher=PumpReport(a.output,ROOT,a.candidate,pathlib.Path(__file__),extra_inputs=REPORT_INPUTS)
  original=ROOT/'evidence/original/mayhem/deployed.so';o=Fixture(original);b=Fixture(a.candidate);rows=[];mismatches=[]
  for c in cases():
   x=o.execute(c);y=b.execute(c);equal=all(x[k]==y[k] for k in ['error','data','lamports','events','inner_instructions','owner','admin_lamports_delta','payer_lamports_delta'])
   rows.append({'case':c,'original':x,'candidate':y,'equal':equal})
   if not equal:mismatches.append(c['name'])
  report={'scope':'Eleven complete admin instruction paths; other instructions absent. Local synthetic state; compared error, account data, lamports, emitted events and inner instructions, not complete log byte identity or full program identity.','original_sha256':o.sha256,'candidate_sha256':b.sha256,'source_sha256':{str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in [ROOT/'programs/mayhem/Cargo.toml',ROOT/'programs/mayhem/Cargo.lock',ROOT/'programs/mayhem/src/lib.rs',pathlib.Path(__file__).resolve()]},'case_count':len(rows),'mismatches':mismatches,'cases':rows}
- a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(report,separators=(',',':'))+'\n',encoding='utf-8',newline='\n');print(json.dumps({'cases':len(rows),'mismatches':mismatches}));raise SystemExit(bool(mismatches))
+ publisher.write((json.dumps(report,separators=(',',':'))+'\n').encode('utf-8'));print(json.dumps({'cases':len(rows),'mismatches':mismatches}));raise SystemExit(bool(mismatches))

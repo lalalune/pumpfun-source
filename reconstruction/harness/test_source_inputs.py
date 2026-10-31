@@ -6,8 +6,8 @@ import tempfile
 import unittest
 from pathlib import Path
 from unittest.mock import patch
-import fastbuild
 from source_inputs import snapshot, assert_unchanged
+from test_support import directory_link
 
 
 class SourceReceiptTests(unittest.TestCase):
@@ -23,14 +23,19 @@ class SourceReceiptTests(unittest.TestCase):
         self.assertEqual(snapshot(self.source),snapshot(other))
         self.assertNotIn(str(self.root),json.dumps(snapshot(self.source)))
 
-    def test_content_names_and_executable_mode_affect_digest(self):
+    def test_content_and_names_affect_digest(self):
         initial=snapshot(self.source)
         for operation in [lambda:(self.source/'lib.rs').write_text('changed'),
-                          lambda:(self.source/'added').write_bytes(b''),
-                          lambda:(self.source/'lib.rs').chmod(0o755)]:
+                          lambda:(self.source/'added').write_bytes(b'')]:
             before=snapshot(self.source);operation()
             self.assertNotEqual(before['sha256'],snapshot(self.source)['sha256'])
         with self.assertRaisesRegex(ValueError,'lib.rs'):assert_unchanged(self.source,initial)
+
+    @unittest.skipIf(os.name == 'nt', 'POSIX executable mode semantics')
+    def test_executable_mode_affects_digest(self):
+        before = snapshot(self.source)
+        (self.source/'lib.rs').chmod(0o755)
+        self.assertNotEqual(before['sha256'], snapshot(self.source)['sha256'])
 
     def test_generated_target_and_git_metadata_are_excluded(self):
         before=snapshot(self.source)
@@ -38,7 +43,9 @@ class SourceReceiptTests(unittest.TestCase):
             directory=self.source/name;directory.mkdir();(directory/'generated').write_text('ignored')
         self.assertEqual(snapshot(self.source),before)
 
+    @unittest.skipIf(os.name == 'nt', 'POSIX build harness requires fcntl')
     def test_real_staged_nested_target_inputs_change_receipt(self):
+        import fastbuild
         (self.source/'Cargo.toml').write_text(
             '[package]\nname="pump-recovered"\nversion="0.1.0"\n'
             '[profile.release]\npanic="abort"\n[workspace]\n')
@@ -66,9 +73,9 @@ class SourceReceiptTests(unittest.TestCase):
         outside=self.root/'external'
         outside.mkdir()
         (outside/'mod.rs').write_text('pub const VALUE: u8 = 1;\n')
-        (self.source/'src/target').symlink_to(outside,target_is_directory=True)
-        with self.assertRaisesRegex(ValueError,'directory symlinks'):
-            snapshot(self.source)
+        with directory_link(outside, self.source/'src/target'):
+            with self.assertRaisesRegex(ValueError,'directory symlinks'):
+                snapshot(self.source)
 
     def test_root_target_directory_symlink_is_rejected(self):
         (self.source/'src').mkdir()
@@ -77,18 +84,29 @@ class SourceReceiptTests(unittest.TestCase):
         outside=self.root/'external'
         outside.mkdir()
         (outside/'mod.rs').write_text('pub const VALUE: u8 = 1;\n')
-        (self.source/'target').symlink_to(outside,target_is_directory=True)
-        with self.assertRaisesRegex(ValueError,'directory symlinks'):
-            snapshot(self.source)
+        with directory_link(outside, self.source/'target'):
+            with self.assertRaisesRegex(ValueError,'directory symlinks'):
+                snapshot(self.source)
 
-    def test_file_and_directory_symlinks_are_rejected(self):
-        for target in [self.source/'lib.rs',self.source]:
-            link=self.source/'link';link.symlink_to(target)
-            try:
-                with self.assertRaises(ValueError):snapshot(self.source)
-            finally:link.unlink()
+    def test_file_symlink_is_rejected(self):
+        link = self.source/'link'
+        try:
+            link.symlink_to(self.source/'lib.rs')
+        except OSError as error:
+            if os.name == 'nt' and error.winerror == 1314:
+                self.skipTest('Windows file-symlink privilege unavailable')
+            raise
+        try:
+            with self.assertRaises(ValueError): snapshot(self.source)
+        finally: link.unlink()
 
+    def test_directory_link_is_rejected(self):
+        with directory_link(self.source, self.source/'link'):
+            with self.assertRaises(ValueError): snapshot(self.source)
+
+    @unittest.skipIf(os.name == 'nt', 'POSIX build harness requires fcntl')
     def test_build_rejects_source_mutation_before_compiler(self):
+        import fastbuild
         def stage(source,ws,*,expected_inputs):
             self.assertEqual(expected_inputs, snapshot(source))
             (source/'lib.rs').write_text('mutated while staging');return ws/'crate'
@@ -97,7 +115,9 @@ class SourceReceiptTests(unittest.TestCase):
                 fastbuild.build(self.source,self.root/'work',self.root/'out')
             acquire.assert_not_called()
 
+    @unittest.skipIf(os.name == 'nt', 'POSIX build harness requires fcntl')
     def test_failed_build_retains_receipt_and_digest(self):
+        import fastbuild
         slot=io.StringIO();out=self.root/'out'
         (self.root/'crate').mkdir()
         (self.root/'crate/Cargo.toml').write_text('[package]\nname="pump-recovered"\nversion="0.1.0"\n')
@@ -106,7 +126,9 @@ class SourceReceiptTests(unittest.TestCase):
         receipt=json.loads((out/'source-inputs.json').read_text())
         self.assertEqual(result['source_sha256'],receipt['sha256']);self.assertFalse(result['ok'])
 
+    @unittest.skipIf(os.name == 'nt', 'POSIX build harness requires fcntl')
     def test_source_workspace_overlap_is_rejected_before_staging(self):
+        import fastbuild
         with patch.object(fastbuild,'stage') as stage:
             with self.assertRaisesRegex(ValueError,'overlap'):
                 fastbuild.build(self.source,self.source/'work',self.root/'out')

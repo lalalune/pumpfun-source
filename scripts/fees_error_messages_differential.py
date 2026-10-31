@@ -11,6 +11,7 @@ import re
 import fees_config_differential as configuration
 import fees_sharing_update_differential as sharing
 from pump_amm_reusable_harness import pin_program
+from pump_differential_output import PumpReport
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 ORIGINAL = ROOT / "evidence/original/pump_fees/deployed.so"
@@ -27,6 +28,7 @@ def main():
     parser.add_argument("--baseline", type=pathlib.Path)
     parser.add_argument("--output", type=pathlib.Path, required=True)
     args = parser.parse_args()
+    publisher = PumpReport(args.output, ROOT, args.candidate, __file__, extra_inputs=[args.baseline] if args.baseline else ())
     original_image = pin_program(ORIGINAL)
     candidate = pin_program(args.candidate)
     baseline = pin_program(args.baseline) if args.baseline else None
@@ -65,8 +67,7 @@ def main():
     }
     if baseline:
         report["baseline_sha256"] = sha(baseline)
-    args.output.parent.mkdir(parents=True, exist_ok=True)
-    args.output.write_text(json.dumps(report, indent=2) + "\n",encoding='utf-8',newline='\n')
+    publisher.write((json.dumps(report, indent=2) + "\n").encode('utf-8'))
     print(json.dumps({"cases": len(rows), "mismatches": report["mismatches"]}))
     if report["mismatches"]:
         raise SystemExit(1)

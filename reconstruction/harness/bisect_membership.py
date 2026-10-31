@@ -3,6 +3,7 @@
 import argparse
 import io
 import json
+import os
 from pathlib import Path
 import subprocess
 import tarfile
@@ -25,9 +26,19 @@ def narrow(revisions, evaluate, budget):
     if good_status != 'pass' or bad_status != 'fail':
         return {'status': 'invalid-endpoints', 'tested': {revisions[i]: s for i, s in seen.items()}}
     while high - low > 1:
-        choices = [i for i in range(low + 1, high) if i not in seen]
-        if not choices or len(seen) >= budget: break
-        middle = min(choices, key=lambda i: (abs(i - (low + high) / 2), i))
+        if len(seen) >= budget: break
+        # Search outwards from the midpoint instead of materializing the whole
+        # interval. Equal-distance choices still prefer the lower revision.
+        left, right = (low + high) // 2, (low + high) // 2 + 1
+        middle = None
+        while low < left or right < high:
+            if low < left and (right >= high or low + high - 2 * left <= 2 * right - low - high):
+                candidate = left; left -= 1
+            else:
+                candidate = right; right += 1
+            if candidate not in seen:
+                middle = candidate; break
+        if middle is None: break
         status = check(middle)
         if status == 'pass': low = middle
         elif status == 'fail': high = middle
@@ -39,7 +50,16 @@ def narrow(revisions, evaluate, budget):
 
 
 def git(repo, *args):
-    return subprocess.check_output(['git', '-C', str(repo), *args], stderr=subprocess.PIPE)
+    # Git's repository-local environment overrides -C, for example when this
+    # tool is launched by a hook or another Git command. The explicit --repo
+    # must select the history and archive, not that enclosing repository.
+    env = dict(os.environ)
+    local = subprocess.check_output(['git', 'rev-parse', '--local-env-vars'],
+                                    text=True, stderr=subprocess.PIPE).splitlines()
+    for name in local:
+        env.pop(name, None)
+    return subprocess.check_output(['git', '-C', str(repo), *args],
+                                   env=env, stderr=subprocess.PIPE)
 
 
 def revision_chain(repo, good, bad):
@@ -67,7 +87,9 @@ def main():
     args = parser.parse_args()
     subdir = Path(args.source_subdir)
     if subdir.is_absolute() or '..' in subdir.parts: parser.error('source subdirectory must stay inside repository')
+    if args.max_trials < 2: parser.error('--max-trials must be at least 2')
     revisions = revision_chain(args.repo, args.good, args.bad)
+    if len(revisions) < 2: parser.error('good and bad must be different revisions')
     config = load_oracle(args.oracle)
     args.out.mkdir(parents=True, exist_ok=True)
     archive_errors = []

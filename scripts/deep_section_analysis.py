@@ -33,6 +33,11 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO / "scripts"))
 from window_elf_reader import Elf
+def capture_directory(root, program):
+    # Publication-only consumers do not need the analyzer dependency.
+    from analyze import capture_directory as resolve_capture
+    return resolve_capture(root, program)
+
 from deep_disassembly import load_idl_discriminators, directory_identity, publish_packet, temporary_sibling
 
 SYSCALL_NAMES = {
@@ -83,6 +88,12 @@ def sha256_bytes(data):
     return hashlib.sha256(data).hexdigest()
 
 
+def text_address_range(elf):
+    """Text pointers use virtual addresses; legacy partial views use identity mapping."""
+    text = elf.secs.get('.text')
+    return (text[3], text[3] + text[5]) if text else (elf.lo, elf.hi)
+
+
 # ──────────────────────────────────────────────────────────────
 # Layer 1: Data Layout Analysis
 # ──────────────────────────────────────────────────────────────
@@ -90,6 +101,7 @@ def sha256_bytes(data):
 def analyze_data_layout(elf):
     """Analyze .rodata and .data.rel.ro sections in detail."""
     results = {}
+    text_start, text_end = text_address_range(elf)
     # SBPF V0-V2 use the lenient loader's legacy data relocations. V3+
     # uses a strict loader without relocation; unknown flags stay untouched.
     legacy_relocations = (len(elf.b) >= 52
@@ -167,7 +179,7 @@ def analyze_data_layout(elf):
                 # captured bytes. This is pointer attribution, not execution.
                 provenance = {"raw_value": hex(val), "relocation_type": 8}
                 val >>= 32
-            if elf.lo <= val < elf.hi and val % 8 == 0:
+            if text_start <= val < text_end and val % 8 == 0:
                 pointers.append({
                     "offset": i,
                     "address": hex(address_start + i),
@@ -323,6 +335,7 @@ def analyze_cross_section(elf):
     """Map which .text windows reference which data regions."""
     entries = elf.entries
     boundaries = entries + [elf.hi]
+    text_start, text_end = text_address_range(elf)
 
     # Build window index
     window_names = {}
@@ -359,7 +372,7 @@ def analyze_cross_section(elf):
                     refs["rodata"].append(hex(val))
                 elif data_rel_ro_range and data_rel_ro_range[0] <= val < data_rel_ro_range[1]:
                     refs["data_rel_ro"].append(hex(val))
-                elif elf.lo <= val < elf.hi:
+                elif text_start <= val < text_end:
                     refs["text"].append(hex(val))
                 elif val > 0:
                     refs["other"].append(hex(val))
@@ -496,6 +509,8 @@ def recover_anchor_idl(elf):
             if b[at] in (0x61, 0x69, 0x71, 0x79):  # ldx variants
                 off = struct.unpack_from("<h", b, at + 2)[0]
                 src = (b[at + 1] >> 4) & 0xF
+                if src == 10:  # frame pointer: stack slots, not a struct base
+                    continue
                 size_map = {0x61: 4, 0x69: 2, 0x71: 1, 0x79: 8}
                 loads.append({
                     "offset": at - start,
@@ -714,7 +729,7 @@ def prepare_destination(output_dir):
 
 
 def build_packet(program, output_dir, output_label):
-    deployed_path = REPO / "evidence" / "original" / program / "deployed.so"
+    deployed_path = capture_directory(REPO, program) / "deployed.so"
     if not deployed_path.exists():
         print(f"ERROR: {deployed_path} not found")
         return 1
@@ -776,6 +791,7 @@ def build_packet(program, output_dir, output_label):
             "windows_with_rodata_refs": cross_section["windows_with_rodata_refs"],
             "windows_with_data_refs": cross_section["windows_with_data_refs"],
             "total_rodata_refs": cross_section["total_rodata_refs"],
+            "total_data_rel_ro_refs": cross_section["total_data_refs"],
         },
         "layer4_anchor_idl": {
             "discriminators": idl_recovery["discriminator_count"],
@@ -824,7 +840,7 @@ and mathematical pattern extraction.
 ### Layer 3: Cross-Section Correlation
 - Windows referencing .rodata: {l3["windows_with_rodata_refs"]}
 - Windows referencing .data.rel.ro: {l3["windows_with_data_refs"]}
-- Total data references: {l3["total_rodata_refs"]}
+- Total data references: {l3["total_rodata_refs"] + l3["total_data_rel_ro_refs"]}
 
 ### Layer 4: Anchor IDL Recovery
 - Instruction discriminators: {l4["discriminators"]}
@@ -866,7 +882,8 @@ def sha256_file(p):
 def main():
     if set(os.listdir(PACKET)) != EXPECTED_FILES | {"manifest.json"}:
         print("FAIL: packet directory entry set mismatch"); return 1
-    m = json.load(open(os.path.join(PACKET, "manifest.json"), encoding="utf-8"))
+    with open(os.path.join(PACKET, "manifest.json"), encoding="utf-8") as stream:
+        m = json.load(stream)
     if not isinstance(m, dict) or set(m) != EXPECTED_FILES:
         print("FAIL: manifest artifact set mismatch"); return 1
     e = 0
@@ -900,10 +917,11 @@ if __name__ == "__main__": sys.exit(main())
             manifest[name] = sha256_file(str(path))
     (output_dir / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8", newline="\n")
 
-    total_lines = sum(
-        sum(1 for _ in open(output_dir / name, encoding="utf-8"))
-        for name in os.listdir(output_dir) if (output_dir / name).is_file()
-    )
+    total_lines = 0
+    for name in os.listdir(output_dir):
+        if (output_dir / name).is_file():
+            with (output_dir / name).open(encoding="utf-8") as stream:
+                total_lines += sum(1 for _ in stream)
     print(f"[deep] wrote {len(manifest)+1} files, ~{total_lines:,} lines to {output_label}")
     return 0
 

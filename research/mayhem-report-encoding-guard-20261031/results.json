@@ -1,0 +1,32 @@
+{
+  "issue": "scripts/test_mayhem_report_encoding.py required more than ten bare write_text receipts across mayhem_*.py. After most of the family was converted to the shared PumpReport publisher, whose bytes are composed by the caller, only eight write_text receipts remain and the guard fails on main itself (AssertionError: 8 not greater than 10). The command is a step in .github/workflows/verify.yml, so main's verification is red on that step.",
+  "base_revision": "52c0b087c",
+  "affected": [
+    "scripts/test_mayhem_report_encoding.py:32"
+  ],
+  "reproduction": {
+    "command": "python -B scripts/test_mayhem_report_encoding.py",
+    "base": "FAILED (failures=1): AssertionError: 8 not greater than 10, on a clean detach of 52c0b087c with no local changes",
+    "after": "OK (1 test); 13 scripts take --output, 8 pinned write_text receipts and 6 PumpReport writers, all covered",
+    "inventory": "mayhem_burn_sequence.py 2 pinned writes; mayhem_validate_admin/extend/fee_recipient/quote_withdraw/sweeps/withdraw 1 each; mayhem_buy/buy_v2/initialize_state/pump_swap/sell/sell_v2 differentials publish through PumpReport"
+  },
+  "change": "Split the guard into three shapes: takes_output() recognises an --output argument, pinned_writes() returns the write_text receipts whose encoding and newline are still checked individually, and publishes_through_pump_report() recognises the import plus a PumpReport construction and write call. A script that takes --output and has no pinned receipt must match the PumpReport shape, so an unpinned or plain open() writer still fails; the family size assertion now counts report writers rather than bare write_text calls and still requires more than ten.",
+  "tests": {
+    "new_test": "tests/test_mayhem_report_encoding_guard.py",
+    "before": "the guard fails on the base revision; the new helper functions do not exist there, so the regression suite errors on the base script as well",
+    "after": "5 tests OK: pinned and PumpReport writers pass, an unpinned write_text fails, a plain open() writer fails with its file named, a family of six fails the size assertion, and each helper recognises its shape"
+  },
+  "related_suites": {
+    "tests discovery (test_mayhem*.py)": "34 tests, 1 failure and 2 errors — all three reproduce unchanged on a clean 52c0b087c detach (pinned-image replacement, virtual-params setUpClass, sell limit) and are unrelated to this change",
+    "scripts/test_tooling.py": "228 tests OK",
+    "scripts/verify_evidence.py": "9 captures verified; no source rebuild claimed"
+  },
+  "required_checks": {
+    "scripts/test_mayhem_report_encoding.py": "1 test OK (fails on the base revision)",
+    "scripts/test_tooling.py": "228 tests OK",
+    "scripts/verify_evidence.py": "9 captures verified; no source rebuild claimed"
+  },
+  "environment": {"platform": "macOS arm64", "python": "3.14.3"},
+  "not_claimed": "No report bytes change: this is a guard, not a writer. The PumpReport shape is recognised statically (import, construction and a write call), so a writer that imports PumpReport but composes unpinned bytes would still pass; the write_text shape keeps its per-call keyword check.",
+  "peer_note": "revalidate_all and the encoding guards are maintained tests, not captured assets; no binding pins this file's bytes."
+}

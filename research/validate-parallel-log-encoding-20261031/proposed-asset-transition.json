@@ -1,0 +1,15 @@
+{
+  "scope": "Proposed maintained-script asset transition so the parallel validator's retained suite logs are written as UTF-8 LF; captures, suites and prior receipts remain unchanged.",
+  "base": "ecea7021fcb6a09959901522c6a4edca150a1a1b",
+  "files": {
+    "scripts/pump_validate_parallel.py": {
+      "before_sha256": "d5aceb22caa8c668a43223140765c2b507809d9fb8e8479431935eb20f6c28f6",
+      "proposed_sha256": "c5212f3b996d7cf52b34b64f733a35e5da1d653265639efbebf597a08a2f33bf"
+    }
+  },
+  "script_set_changed": false,
+  "program_source_changed": false,
+  "capture_bytes_changed": false,
+  "new_test": "tests/test_validate_parallel_log_encoding.py",
+  "existing_ci_discovery": "contract-tests: python -B -m unittest discover -s tests -v; scripts/test_pump_validate_parallel.py"
+}

@@ -93,16 +93,24 @@ def call_symbol(elf, offset):
     return None
 
 
+def instruction_offsets(elf, start, end):
+    """Return logical SBF instruction offsets fully contained in [start, end)."""
+    b = elf.b
+    limit = min(end, len(b))
+    offsets = []
+    offset = max(start, 0)
+    while offset + 8 <= limit:
+        width = 16 if b[offset] == 0x18 else 8
+        if offset + width > limit:
+            break
+        offsets.append(offset)
+        offset += width
+    return offsets
+
+
 def extract_opcode_ngrams(elf, start, end, n=3):
     """Extract instruction opcode n-grams from a window."""
-    opcodes = []
-    offset = start
-    while offset < end:
-        opcodes.append(elf.b[offset])
-        if elf.b[offset] == 0x18:
-            offset += 16
-        else:
-            offset += 8
+    opcodes = [elf.b[offset] for offset in instruction_offsets(elf, start, end)]
 
     ngrams = collections.Counter()
     for i in range(len(opcodes) - n + 1):
@@ -120,9 +128,10 @@ def detect_error_patterns(elf, start, end):
     3. Call to error emission function
     """
     b = elf.b
+    offsets = instruction_offsets(elf, start, end)
+    valid_targets = set(offsets)
     patterns = []
-    offset = start
-    while offset + 8 <= end:
+    for offset in offsets:
         opcode = b[offset]
         # Look for: conditional branch + mov immediate + call/exit.
         # Every SBPF JMP64 conditional jump, including jset, jslt and jsle:
@@ -133,7 +142,7 @@ def detect_error_patterns(elf, start, end):
             branch_off = struct.unpack_from("<h", b, offset + 2)[0]
             branch_target = offset + 8 + branch_off * 8
             # Check if branch leads to a mov + error pattern
-            if start <= branch_target < end:
+            if branch_target in valid_targets:
                 next_at = branch_target
                 if b[next_at] in (0xb7, 0xb4):  # mov imm
                     err_code = struct.unpack_from("<i", b, next_at + 4)[0]
@@ -143,10 +152,6 @@ def detect_error_patterns(elf, start, end):
                         "error_code": err_code,
                         "type": "conditional_error",
                     })
-        if elf.b[offset] == 0x18:
-            offset += 16
-        else:
-            offset += 8
     return patterns
 
 
@@ -178,17 +183,18 @@ def detect_cpi_patterns(elf, start, end):
     3. Calling sol_invoke_signed_rust or sol_invoke_signed_c
     """
     b = elf.b
+    offsets = instruction_offsets(elf, start, end)
     patterns = []
-    for offset in range(start, end, 8):
+    for idx, offset in enumerate(offsets):
         name = call_symbol(elf, offset)
         if name in INVOKE_SYSCALLS:
             # Look backwards for setup pattern
             setup_instrs = 0
-            scan = offset - 8
-            while scan >= start and offset - scan < 200:
+            for scan in reversed(offsets[:idx]):
+                if offset - scan >= 200:
+                    break
                 if b[scan] in (0x63, 0x6b, 0x73, 0x7b):  # stx variants
                     setup_instrs += 1
-                scan -= 8
             patterns.append({
                 "offset": offset - start,
                 "syscall": name,
@@ -204,10 +210,11 @@ def detect_token_transfer_patterns(elf, start, end):
     instruction discriminators.
     """
     b = elf.b
+    relocations = getattr(elf, "relocations", None) or {}
     patterns = []
-    for offset in range(start, end, 8):
+    for offset in instruction_offsets(elf, start, end):
         # Look for lddw loading Token program ID patterns
-        if b[offset] == 0x18:
+        if b[offset] == 0x18 and offset not in relocations:
             imm_lo = struct.unpack_from("<I", b, offset + 4)[0]
             imm_hi = struct.unpack_from("<I", b, offset + 12)[0]
             val64 = imm_lo | (imm_hi << 32)
@@ -230,14 +237,15 @@ def detect_serialization_patterns(elf, start, end):
     - Size calculation before allocation
     """
     b = elf.b
+    offsets = instruction_offsets(elf, start, end)
     sequential_stores = 0
     max_sequential = 0
     current_run = 0
     memcpy_count = sum(
-        1 for offset in range(start, end, 8) if call_symbol(elf, offset) == "sol_memcpy_"
+        1 for offset in offsets if call_symbol(elf, offset) == "sol_memcpy_"
     )
 
-    for offset in range(start, end, 8):
+    for offset in offsets:
         if b[offset] in (0x63, 0x6b, 0x73, 0x7b):  # stx
             current_run += 1
             sequential_stores += 1
@@ -263,17 +271,17 @@ def detect_account_validation(elf, start, end):
     - Checking owner/signer/writable flags
     """
     b = elf.b
+    offsets = instruction_offsets(elf, start, end)
     discriminator_checks = 0
     owner_checks = 0
 
-    for offset in range(start, end - 7, 8):
+    for idx, offset in enumerate(offsets):
         # Pattern: ldxdw r?, [r? + 0] followed by comparison
         if b[offset] == 0x79:  # ldxdw
             off = struct.unpack_from("<h", b, offset + 2)[0]
             if off == 0:  # loading from offset 0 (discriminator position)
                 # Check if followed by comparison
-                next_off = offset + 8
-                if next_off < end and b[next_off] in (0x15, 0x55):
+                if idx + 1 < len(offsets) and b[offsets[idx + 1]] in (0x15, 0x55):
                     discriminator_checks += 1
 
         # Pattern: ldxdw followed by memcmp (owner check)
@@ -299,9 +307,6 @@ def _build_packet(output_dir, output_label=None):
 
     for prog_name in PROGRAMS:
         deployed_path = REPO / "evidence" / "original" / prog_name / "deployed.so"
-        if not deployed_path.exists():
-            print(f"[sigs] SKIP {prog_name}")
-            continue
 
         print(f"[sigs] Analyzing {prog_name}...")
         elf = Elf(deployed_path)
@@ -515,7 +520,8 @@ def sha256_file(path):
 def main():
     if set(os.listdir(PACKET)) != EXPECTED_FILES | {"manifest.json"}:
         print("FAIL: packet directory entry set mismatch"); return 1
-    manifest = json.load(open(os.path.join(PACKET, "manifest.json")))
+    with open(os.path.join(PACKET, "manifest.json"), encoding="utf-8") as stream:
+        manifest = json.load(stream)
     if not isinstance(manifest, dict) or set(manifest) != EXPECTED_FILES:
         print("FAIL: manifest artifact set mismatch"); return 1
     errors = 0
@@ -552,11 +558,11 @@ if __name__ == "__main__":
     (output_dir / "manifest.json").write_text(
         json.dumps(manifest, indent=2) + "\n", encoding="utf-8", newline="\n")
 
-    total_lines = sum(
-        sum(1 for _ in open(output_dir / name,encoding='utf-8'))
-        for name in os.listdir(output_dir)
-        if (output_dir / name).is_file()
-    )
+    total_lines = 0
+    for name in os.listdir(output_dir):
+        if (output_dir / name).is_file():
+            with (output_dir / name).open(encoding="utf-8") as stream:
+                total_lines += sum(1 for _ in stream)
     print(f"[sigs] wrote {len(manifest) + 1} files, ~{total_lines:,} lines to {output_label or output_dir}")
 
 
@@ -565,6 +571,12 @@ def main():
     parser.add_argument("--output", required=True)
     args = parser.parse_args()
     from deep_disassembly import publish_packet, temporary_sibling
+    # verify.py only expects the programs analyzed here, so a skipped ELF
+    # would publish a smaller packet that still verifies.
+    missing = [f"evidence/original/{program}/deployed.so" for program in PROGRAMS
+               if not (REPO / "evidence" / "original" / program / "deployed.so").is_file()]
+    if missing:
+        raise SystemExit("missing captured program ELF: " + ", ".join(missing))
     output_dir = Path(args.output)
     identity = prepare_destination(output_dir)
     staging = temporary_sibling(output_dir, "staging")

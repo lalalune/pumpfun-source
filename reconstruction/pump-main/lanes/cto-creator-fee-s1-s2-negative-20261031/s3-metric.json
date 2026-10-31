@@ -1,0 +1,47 @@
+{
+  "schema": "S3-pinned-target-token-metric-v1",
+  "cachedReceiptMember": "receipts/S3-target-metric.json",
+  "cachedReceiptSha256": "2ab39d249030560c5a2dc9bcc98d47c3f463ea3ed69e81b507394af73783c045",
+  "method": "win.insns(score.normalize) / Cand.tokens / difflib.SequenceMatcher(None, original_tokens, candidate_tokens, autojunk=False)",
+  "methodFiles": {
+    "win.py": "658cd1b0b7d8fa615e8e986843d1bb597a48d3626e05e0508fba7e651eb50c71",
+    "score.py": "5640d87864c6bc57005b8ada86f82dd1c944c92f5edf5181de4bb5e7568063f5",
+    "score_admission.py": "2d79d738d3a5ec17b3affe1f3e49aa077752f45260dc8b758c915cae1c96d088",
+    "instruction_stream.py": "288c9ceb3f0f177688501922ce56e6a72fe9c3fedcddf9ad1de474412f61ef9d",
+    "elf_symbols.py": "7bae771bbc9039a595e84c956500268b2601d2f97a93b3edcc83fbc348a9a74c"
+  },
+  "original": {
+    "elfSha256": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
+    "bodySha256": "6a7659fd34097683cbfdae56187f5f73a3ecae20e52ac06a3fd25837e4137a96",
+    "start": 141840,
+    "bytes": 27400,
+    "logicalInstructions": 3339
+  },
+  "candidates": {
+    "13fe": {
+      "elfSha256": "cec841bd60cc002213829e3149e7c170dbb7f5bbc47a9887cef1ab7e0193319e",
+      "start": 141840,
+      "bytes": 27400,
+      "symbol": "_ZN14pump_recovered9admin_cto7execute17h3bd6d7f34f2e30d7E",
+      "bodySha256": "18f30b0dd11d7ea300af781bb3b958d0ecf341b4f469fabd0942b66f643ba9e2",
+      "logicalInstructions": 3337,
+      "normalizedMatchingLogicalInstructionsM": 2245,
+      "maintainedWinNormalizedRatio": 0.6725584182144997
+    },
+    "S3": {
+      "elfSha256": "100d222047a2281a4409d8f732266955368504479d3d4076b4f6e3af08ef37e4",
+      "start": 141840,
+      "bytes": 27400,
+      "symbol": "_ZN14pump_recovered9admin_cto7execute17h3bd6d7f34f2e30d7E",
+      "bodySha256": "a8bf685d74da8226d39a8fc9f17eb0100b84a56db69415f241bb2a2b3f75e570",
+      "logicalInstructions": 3337,
+      "normalizedMatchingLogicalInstructionsM": 1279,
+      "maintainedWinNormalizedRatio": 0.38316357100059917
+    }
+  },
+  "deltaNormalizedM": -966,
+  "sourceDecision": "REJECTED_TARGET_METRIC",
+  "nativeNoLoss": "SUCCESS",
+  "VMExecutions": 0,
+  "limits": "This is the maintained within-CTO token similarity, distinct from official matched-window membership. No code or metric was executed while staging."
+}

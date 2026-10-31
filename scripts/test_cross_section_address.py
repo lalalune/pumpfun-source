@@ -54,7 +54,7 @@ def _fake_elf(text_offset, text_size, code, rodata, data_rel_ro=None):
     blob = bytearray(total)
     blob[text_offset:text_offset + len(code)] = code
 
-    secs = {".text": _section(0, text_offset, text_size), ".rodata": rodata}
+    secs = {".text": _section(text_offset, text_offset, text_size), ".rodata": rodata}
     if data_rel_ro is not None:
         secs[".data.rel.ro"] = data_rel_ro
 

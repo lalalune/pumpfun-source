@@ -45,6 +45,9 @@ class PumpReport:
                 raise ValueError('report output aliases an input: ' + str(self.output))
         if not self.overwrite and self.output.exists():
             raise FileExistsError('Retain prior attempts; output must be fresh: ' + str(self.output))
+        # os.replace cannot publish over a directory; refuse it before the run.
+        if self.output.is_dir() and not self.output.is_symlink():
+            raise IsADirectoryError('report output is a directory: ' + str(self.output))
 
     def write(self, payload):
         """Publish complete bytes; failed staging never truncates a prior report."""

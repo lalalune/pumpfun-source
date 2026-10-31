@@ -9,6 +9,7 @@ import importlib.util
 import json
 import os
 from pathlib import Path
+import secrets
 import subprocess
 import sys
 import tempfile
@@ -95,11 +96,11 @@ def publish_report(path, payload):
     path.parent.mkdir(parents=True, exist_ok=True)
     encoded = gzip.compress(payload, mtime=0) if path.suffix == '.gz' else payload
     temporary = None
+    # A plain exclusive open keeps the umask mode of the published report.
+    staged = path.with_name('.' + path.name[:32] + '.' + secrets.token_hex(8) + '.tmp')
     try:
-        with tempfile.NamedTemporaryFile(
-                dir=path.parent, prefix='.' + path.name + '.',
-                suffix='.tmp', delete=False) as stream:
-            temporary = Path(stream.name)
+        with open(staged, 'xb') as stream:
+            temporary = staged
             stream.write(encoded)
             stream.flush()
             os.fsync(stream.fileno())
@@ -175,7 +176,8 @@ def main():
         validate_timeout(args.suite_timeout)
     except ValueError:
         parser.error('--suite-timeout must be a positive finite number of seconds')
-    assert 1 <= args.shard <= args.shards
+    if not 1 <= args.shard <= args.shards:
+        parser.error(f'--shard must be between 1 and --shards ({args.shards})')
     buckets = [[] for _ in range(args.shards)]
     loads = [0] * args.shards
     for entry in sorted(base.SUITES, key=lambda row: (-base.EXPECTED_CASES[row[0]], row[0])):
@@ -196,7 +198,7 @@ def main():
     assert all(sha(ROOT / k) == v for k, v in sources.items())
     bound_files = {str(p): sha(p) for p in [candidate, original, Path(__file__), Path(base.__file__), PROCESS_RUNNER, ROOT / 'scripts/pump_diagnostic_audit.py', args.build_comparison]}
     loader_wrapper = ROOT / 'scripts/pump_with_captured_loader.py'
-    loader_inputs = [loader_wrapper, loader_wrapper.with_name('pump_captured_loader.py'), ROOT / 'evidence/original/pump/capture.json', ROOT / 'evidence/original/pump/program-account.bin', ROOT / 'evidence/original/pump/programdata-account.bin', original]
+    loader_inputs = [loader_wrapper, loader_wrapper.with_name('pump_captured_loader.py'), loader_wrapper.with_name('probe_report.py'), ROOT / 'evidence/original/pump/capture.json', ROOT / 'evidence/original/pump/program-account.bin', ROOT / 'evidence/original/pump/programdata-account.bin', original]
     if args.captured_loader:
         bound_files.update({str(p): sha(p) for p in loader_inputs})
     bound_files.update({str(path): sha(path) for path in source_binding_inputs})
@@ -247,7 +249,8 @@ def main():
                 if '--source-directory' not in command:
                     command += ['--source-directory', str(args.source_directory.resolve())]
             completed, timed_out = run_compiler(command, cwd=ROOT, timeout=args.suite_timeout)
-            (retained / (name + '.log')).write_text(completed.stdout, encoding='utf-8')
+            (retained / (name + '.log')).write_text(completed.stdout, encoding='utf-8',
+                                                    newline='\n')
 
             def retain_rejected(raw, reason):
                 rejected = retained / (name + '.failed-output')
@@ -270,11 +273,15 @@ def main():
             except (ValueError, OSError, EOFError) as error:
                 retain_rejected(raw, repr(error))
                 raise
-        (retained / (name + '.json.gz')).write_bytes(gzip.compress(json.dumps(result, separators=(',', ':')).encode(), mtime=0))
-        count = validate_result(name, result, candidate, original)
-        if args.captured_loader:
-            loader_receipts[name] = validate_loader_receipt(name, loader_receipt, script, candidate, original, loader_inputs)
-        check_bound_files()
+        try:
+            count = validate_result(name, result, candidate, original)
+            if args.captured_loader:
+                loader_receipts[name] = validate_loader_receipt(name, loader_receipt, script, candidate, original, loader_inputs)
+            check_bound_files()
+        except Exception as error:
+            # <name>.json.gz names admitted receipts only.
+            retain_rejected(raw, repr(error))
+            raise
         result['case_count'] = count
         (retained / (name + '.json.gz')).write_bytes(gzip.compress(json.dumps(result, separators=(',', ':')).encode(), mtime=0))
         return name, count, result

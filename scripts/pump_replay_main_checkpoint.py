@@ -47,7 +47,8 @@ def main():
     parser.add_argument('--shard', type=int, default=1)
     parser.add_argument('--shards', type=int, choices=range(1, 5), default=1)
     args = parser.parse_args()
-    assert 1 <= args.shard <= args.shards
+    if not 1 <= args.shard <= args.shards:
+        parser.error(f'--shard must be between 1 and --shards ({args.shards})')
     verify(ROOT)
     selected = json.loads((ROOT / 'repro/status.json').read_text())['pump']
     if selected['candidate_artifact'] in ['repro/pump/canonical-frontier-20261028/candidate.so', 'research/pump-create-used-boundaries-20261028/artifacts/candidate.so', 'research/pump-final-composition-673-20261028/artifacts/candidate.so', 'research/pump-multihop-accrual-qualification-20261028/artifacts/candidate.so', 'research/pump-program-creator-notice-qualification-20261028/artifacts/candidate.so']:

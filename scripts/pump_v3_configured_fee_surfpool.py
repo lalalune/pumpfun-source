@@ -8,6 +8,7 @@ from solders.hash import Hash
 from solders.instruction import AccountMeta,Instruction
 from solders.transaction import Transaction
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'scripts'))
+from surfpool_recording_vm import require_aligned_runs
 import pump_v3_configured_fee_differential as fixture
 from types import SimpleNamespace
 from solders.compute_budget import set_compute_unit_limit
@@ -140,7 +141,7 @@ def main():
   with socket.socket() as s:s.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1);s.bind(('127.0.0.1',port))
  a.output.mkdir(parents=True,exist_ok=False);original=a.output/'original.so';candidate=a.output/'candidate.so';original.write_bytes((ROOT/'evidence/original/pump/deployed.so').read_bytes());candidate.write_bytes(a.candidate.read_bytes())
  paths=[Path(__file__),Path(fixture.__file__),Path(fixture.f.__file__),ROOT/'research/imported-lab/analysis/pump_fun/curve-fresh-trades-v3-signed-surfpool.json']+[ROOT/f'evidence/original/{n}/deployed.so' for n in ['pump','pump_fees','pump_amm']]+[ROOT/f'evidence/dependencies/{n}/deployed.so' for n in ['spl_token','spl_token_2022','associated_token']]+[ROOT/f'evidence/upstream/{n}.json' for n in ['pump','pump_fees','pump_amm']];hashes={str(p.relative_to(ROOT)):sha(p.read_bytes()) for p in paths};cases=selected();prepared=[prepare(c) for c in cases];(a.output/'fixtures.json').write_text(json.dumps(prepared,indent=2)+'\n',encoding='utf-8',newline='\n')
- x=run(original,prepared,a.surfpool,a.output);y=run(candidate,prepared,a.surfpool,a.output);(a.output/'raw-transactions.json').write_text(json.dumps({'original':x,'candidate':y},indent=2)+'\n',encoding='utf-8',newline='\n');offsets=layouts();bad=[i for i,(l,r) in enumerate(zip(x,y)) if normalized(l,offsets)!=normalized(r,offsets)]
+ x=run(original,prepared,a.surfpool,a.output);y=run(candidate,prepared,a.surfpool,a.output);require_aligned_runs(prepared,x,y);(a.output/'raw-transactions.json').write_text(json.dumps({'original':x,'candidate':y},indent=2)+'\n',encoding='utf-8',newline='\n');offsets=layouts();bad=[i for i,(l,r) in enumerate(zip(x,y)) if normalized(l,offsets)!=normalized(r,offsets)]
  def expected(v):
   if v is None:return None
   m=re.fullmatch(r'TransactionErrorInstructionError\(\((\d+), Tagged\(InstructionErrorCustom\((\d+)\)\)\)\)',v)

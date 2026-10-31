@@ -17,7 +17,13 @@ def command(arguments):
     parser = argparse.ArgumentParser(description=__doc__, add_help=False, allow_abbrev=False)
     parser.add_argument('--program', choices=DEFAULTS, required=True)
     parser.add_argument('--tools-version')
-    selected, _ = parser.parse_known_args(arguments)
+    selected, unknown = parser.parse_known_args(arguments)
+    # The historical helper expands abbreviations this router cannot route on,
+    # and its last flag wins, so `--tools v1.53` would lose to the default.
+    for argument in unknown:
+        flag = argument.split('=', 1)[0]
+        if len(flag) > 2 and any(name.startswith(flag) for name in ('--program', '--tools-version')):
+            parser.error(f'abbreviated routing flag {flag}: spell it out')
     forwarded = list(arguments)
     helper = ADAPTER if selected.tools_version in ('v1.53', 'v1.54') else ROOT/'scripts/build_partial_candidate.py'
     if selected.tools_version is None:

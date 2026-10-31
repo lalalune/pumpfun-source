@@ -1,0 +1,33 @@
+{
+  "source_base": "13fe4536be64d8c5c10f8905e9d2236f423ac4f4",
+  "python": "3.12.3",
+  "git": "git version 2.43.0",
+  "before": {
+    "normal_control_passed": true,
+    "ambient_context_failures": 3,
+    "wrong_repository_boundary_with_git_dir": true
+  },
+  "focused": {
+    "bisection_tests_passed": 6,
+    "raw_sha256": "3b382663132f86d32fe3a0e5728a2f69b2014541361c0796e0a0b37d0f417691"
+  },
+  "related_experiment_suite": {
+    "tests": 53,
+    "passed": 51,
+    "skipped": 2
+  },
+  "oracle_environment_changed": false,
+  "program_source_or_build_inputs_changed": false,
+  "hosted_ci_claimed": false,
+  "required_suite_includes_offline_runtime_controls": true,
+  "verify-evidence": {
+    "exit": 0,
+    "count": 9,
+    "raw_sha256": "c22ebace126744c74c1057a2b8ea791e87f9a1ba6abe84fa45af9976848dd2f9"
+  },
+  "tooling": {
+    "exit": 0,
+    "count": 228,
+    "raw_sha256": "5e803dd7e3a93aa21844c681c117bc04eff9b056d488d28cd7b184cc45a48da9"
+  }
+}

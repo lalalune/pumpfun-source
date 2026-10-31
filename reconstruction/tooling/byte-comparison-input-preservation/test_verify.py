@@ -79,6 +79,8 @@ class ByteComparisonInputTests(unittest.TestCase):
         self.candidate.write_bytes(self.candidate_bytes)
         self.objdump = self.root / self.tool.name
         shutil.copy2(self.tool, self.objdump)
+        # Owned copies may come from read-only package-manager installations.
+        self.objdump.chmod(self.objdump.stat().st_mode | 0o200)
         with self.inventory.open() as stream:
             first = next(row for row in csv.DictReader(stream, delimiter='\t')
                          if row['program'] == 'pump' and row['variant'] == 'selected')
@@ -183,6 +185,8 @@ class ByteComparisonInputTests(unittest.TestCase):
                 inputs.append(self.inventory)
             if script == 'pump_compare_function_bytes.py':
                 inputs.append(self.root / 'scripts/pump_exact_body_inventory.py')
+                # Imported at startup and executed to publish the report.
+                inputs.append(self.root / 'scripts/probe_report.py')
             for target in dict.fromkeys(inputs):
                 with self.subTest(script=script, target=target.name):
                     self.reject_alias(script, target, target, 'input:' + str(target.relative_to(self.root)))

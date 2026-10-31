@@ -5,6 +5,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 from pathlib import Path
 
 
@@ -56,6 +57,13 @@ class HybridStagingTests(unittest.TestCase):
     def test_failed_compiler_probe_preserves_previous_toolchain(self):
         (self.mac / 'bin/rustc').write_text('#!/bin/sh\nexit 3\n')
         self.assert_preserved(self.run_assembler())
+
+    def test_hash_check_ignores_an_unsupported_inherited_locale(self):
+        with patch.dict(os.environ, {'LC_ALL': 'C.UTF-8'}):
+            result = self.run_assembler()
+        self.assertEqual(result.returncode, 0, result.stderr)
+        library = self.out / 'rust/lib/rustlib/sbpf-solana-solana/lib/libcore-fixture.rlib'
+        self.assertEqual(library.read_bytes(), b'library')
 
     def test_success_publishes_verified_bytes_and_cleans_staging(self):
         result = self.run_assembler()

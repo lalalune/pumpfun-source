@@ -79,8 +79,20 @@ def table_start(text, name):
     raise ValueError('missing literal manifest table: ' + name)
 
 
+def reject_cargo_configs(ws: Path):
+    """Refuse the unrecorded config files Cargo merges over the staged release recipe."""
+    # Cargo runs from ws: it reads every parent of ws and its CARGO_HOME, ~/.cargo.
+    directories = {directory / '.cargo' for directory in (ws.absolute(), *ws.absolute().parents)}
+    directories.add(Path.home() / '.cargo')
+    configs = [directory / name for directory in directories for name in ('config', 'config.toml')
+               if os.path.lexists(directory / name)]
+    if configs:
+        raise ValueError('unreviewed Cargo config: ' + ', '.join(map(str, sorted(configs))))
+
+
 def stage(src: Path, ws: Path, expected_inputs=None):
     expected_inputs = snapshot(src) if expected_inputs is None else expected_inputs
+    reject_cargo_configs(ws)
 
     def admitted_text(name):
         data = (src / name).read_bytes()
@@ -127,7 +139,7 @@ def stage(src: Path, ws: Path, expected_inputs=None):
         raise ValueError('staged source inputs differ from admitted inputs: ' + ', '.join(changed[:10]))
     def put(p, t):
         if not p.exists() or p.read_text(encoding='utf-8') != t:
-            p.write_text(t, encoding='utf-8')
+            p.write_text(t, encoding='utf-8', newline='\n')
     put(crate / 'Cargo.toml', crate_text)
     put(ws / 'Cargo.toml', '[workspace]\nmembers = ["programs/pump"]\nresolver = "2"\n\n' + profile)
     put(ws / 'Cargo.lock', lock)
@@ -144,9 +156,13 @@ def local_packages(crate: Path):
     return names
 
 
-def acquire_slot():
+def validate_slots():
     if SLOTS <= 0:
         raise ValueError('PUMP_BUILD_SLOTS must be a positive integer')
+
+
+def acquire_slot():
+    validate_slots()
     LOCKDIR.mkdir(parents=True, exist_ok=True)
     while True:
         for i in range(SLOTS):
@@ -210,6 +226,7 @@ def archive_previous_outputs(out: Path):
 
 def build(src: Path, work: Path, out: Path, quiet=False, recipe=None, timeout=None):
     validate_timeout(timeout)
+    validate_slots()
     src = src.resolve(); work = work.resolve(); out = out.resolve()
     # Reject overlap before workspace_lock can create a directory or lock in
     # the source tree (and thereby change its source-input receipt). The
@@ -267,6 +284,12 @@ def _build_locked(src: Path, work: Path, out: Path, quiet=False, recipe=None, ti
     )
     env['CARGO_TARGET_' + triple.upper().replace('-', '_') + '_RUSTFLAGS'] = '-Zremap-cwd-prefix='
     env.pop('RUSTFLAGS', None); env.pop('CARGO_ENCODED_RUSTFLAGS', None)
+    # These outrank the staged [profile.release] or wrap only the local crates.
+    for name in list(env):
+        if name.startswith('CARGO_PROFILE_') or name in (
+                'CARGO_INCREMENTAL', 'CARGO_BUILD_INCREMENTAL',
+                'RUSTC_WORKSPACE_WRAPPER', 'CARGO_BUILD_RUSTC_WORKSPACE_WRAPPER'):
+            del env[name]
     receipt = work / 'link-receipt.json'
     link_env, link_record = link_order.configure(crate, R['rustc'], receipt)
     env.update(link_env)
@@ -278,7 +301,8 @@ def _build_locked(src: Path, work: Path, out: Path, quiet=False, recipe=None, ti
     # before clearing the transient linker paths for the next compiler run.
     receipt.unlink(missing_ok=True)
     receipt.with_name('link.map').unlink(missing_ok=True)
-    (out / 'source-inputs.json').write_text(json.dumps(source_inputs, indent=2) + '\n', encoding='utf-8')
+    (out / 'source-inputs.json').write_text(json.dumps(source_inputs, indent=2) + '\n',
+                                            encoding='utf-8', newline='\n')
     # Never trust mtime freshness for local crates (rsync -a keeps source mtimes, so cargo could
     # otherwise reuse a stale pump artifact): drop their fingerprints (and the main output) so they
     # always recompile. This includes path crates nested in the staged crate, such as pump-token-ext;
@@ -296,7 +320,7 @@ def _build_locked(src: Path, work: Path, out: Path, quiet=False, recipe=None, ti
     finally:
         slot.close()
     dt = time.time() - t0
-    (out / 'build.log').write_text(r.stdout, encoding='utf-8')
+    (out / 'build.log').write_text(r.stdout, encoding='utf-8', newline='\n')
     if timed_out or r.returncode != 0:
         if not quiet:
             echo_diagnostics(r.stdout[-6000:])
@@ -308,6 +332,7 @@ def _build_locked(src: Path, work: Path, out: Path, quiet=False, recipe=None, ti
         sys.stderr.write('STACK OVERFLOW RISK (runtime-invalid build):\n  ' + '\n  '.join(stack) + '\n')
     if stack:
         return {'ok': False, 'runtime_valid': False, 'stack_warnings': stack,
+                'source_sha256': source_inputs['sha256'],
                 'recipe': recipe, 'triple': triple, 'seconds': round(dt, 1),
                 'log': str(out / 'build.log')}
     if link_record:

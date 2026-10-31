@@ -89,12 +89,19 @@ def input_hashes(inputs):
     return result
 
 
+def input_execute_bits(inputs):
+    return {path: Path(path).stat().st_mode & 0o111 for path in inputs}
+
+
 def identity(source, command, inputs, timeout, *, environment=None):
     if not isinstance(command, list):
         raise ValueError('command must be a nonempty argv array')
     command = list(command)
     if not command or not all(isinstance(x, str) and x for x in command):
         raise ValueError('command must be a nonempty argv array')
+    # exec cannot carry these, and fsencode refuses the rest; find out before any trial runs.
+    if any(b'\0' in os.fsencode(x) for x in command):
+        raise ValueError('command arguments must not contain NUL')
     if isinstance(timeout, bool) or not isinstance(timeout, (int, float)) or not 0 < timeout <= 86400:
         raise ValueError('timeout must be positive and at most one day')
     environment = dict(os.environ if environment is None else environment)
@@ -104,9 +111,10 @@ def identity(source, command, inputs, timeout, *, environment=None):
     inputs = list(inputs)
     declared_paths = {os.path.abspath(value): str(Path(value).resolve(strict=True))
                       for value in inputs}
+    hashes = input_hashes([executable, *inputs])
     return {'schema': 'experiment-input-v1', 'source': manifest(source), 'command': command,
             'executable': str(executable), 'invocation': os.path.abspath(declared),
-            'inputs': input_hashes([executable, *inputs]), 'timeout': timeout,
+            'inputs': hashes, 'input_execute_bits': input_execute_bits(hashes), 'timeout': timeout,
             'declared_input_paths': declared_paths,
             'environment_sha256': digest(json.dumps(environment, sort_keys=True).encode()),
             'runner_sha256': LOADED_RUNNER_SHA256}
@@ -114,6 +122,7 @@ def identity(source, command, inputs, timeout, *, environment=None):
 
 def admitted_inputs_match(admission):
     return (input_hashes(admission['inputs']) == admission['inputs']
+            and input_execute_bits(admission['inputs']) == admission['input_execute_bits']
             and all(str(Path(path).resolve(strict=True)) == target
                     for path, target in admission['declared_input_paths'].items()))
 
@@ -128,18 +137,31 @@ def atomic_json(path, value):
         if os.path.exists(temporary): os.unlink(temporary)
 
 
+def output_paths(root):
+    def traversal_error(error):
+        raise error
+    for directory, dirs, files in os.walk(root, onerror=traversal_error, followlinks=False):
+        for name in dirs:
+            if linked_source(Path(directory) / name):
+                raise ValueError('linked output directories are unsupported')
+        for name in dirs + files:
+            yield Path(directory) / name
+
+
 def artifacts(attempt):
     output = attempt / 'output'
-    if output.is_symlink() or not output.is_dir():
+    if not output.is_dir() or linked_source(output):
         raise ValueError('retained output must be a real directory')
     result = {}
-    for path in [attempt / 'stdout.log', attempt / 'stderr.log', *sorted((attempt / 'output').rglob('*'))]:
-        if path.is_symlink(): raise ValueError('output symlinks are unsupported')
+    for path in [attempt / 'stdout.log', attempt / 'stderr.log', *sorted(output_paths(output))]:
+        if linked_source(path): raise ValueError('output symlinks and other linked output files are unsupported')
         if path.is_file():
             result[path.relative_to(attempt).as_posix()] = {
                 'sha256': digest(path.read_bytes()),
                 'executable': bool(path.stat().st_mode & 0o111)}
-        elif not path.is_dir(): raise ValueError('special output files are unsupported')
+        elif path.is_dir():
+            result[path.relative_to(attempt).as_posix() + '/'] = {'directory': True}
+        else: raise ValueError('special output files are unsupported')
     return result
 
 
@@ -158,13 +180,14 @@ def run_trial(source, command, destination, inputs=(), timeout=300):
     destination.mkdir(parents=True, exist_ok=True)
     with (destination / '.lock').open('a') as lock:
         fcntl.flock(lock, fcntl.LOCK_EX)
-        # Refresh source and declared file contents after waiting. Keep the admitted
+        # Refresh source and declared file contents/modes after waiting. Keep the admitted
         # executable and alias targets: re-resolving them could silently run a
         # different command. Their original bindings are rechecked before launch.
-        admission = dict(admission, source=manifest(source), inputs={
-            **admission['inputs'],
-            **input_hashes(path for path in admission['inputs']
-                           if path != admission['executable'])})
+        refresh = [path for path in admission['inputs'] if path != admission['executable']]
+        admission = dict(admission, source=manifest(source),
+                         inputs={**admission['inputs'], **input_hashes(refresh)},
+                         input_execute_bits={**admission['input_execute_bits'],
+                                             **input_execute_bits(refresh)})
         key = digest(json.dumps(admission, sort_keys=True).encode())
         receipt_path = destination / 'latest.json'
         if receipt_path.exists():
@@ -215,7 +238,8 @@ def run_trial(source, command, destination, inputs=(), timeout=300):
                     reason = 'timeout'
                 finally:
                     try: os.killpg(process.pid, signal.SIGKILL)
-                    except ProcessLookupError: pass
+                    # As in build_process: the session may already be gone.
+                    except (ProcessLookupError, PermissionError): pass
                     process.wait()
         retained = {}
         try:

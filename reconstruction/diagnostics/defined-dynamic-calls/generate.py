@@ -12,24 +12,25 @@ import types
 ROOT = Path(__file__).resolve().parents[3]
 REVIEWED = {
     'scripts/reconstruction_roadmap.py': 'a5174827043a35b76916afef10acb4ab25294bbec15eb55ae67a158ede521f85',
-    'scripts/window_elf_reader.py': 'df1c2b1369e996146f05bd9f9714b112a013550fa25d1206f6b29e3ef079dd74',
+    'scripts/window_elf_reader.py': 'b00c2c491dce839aba97b19fd9007da5eaa99902968d88e8c44bb071bb0c9c1c',
     'research/tooling-roadmap-call-classification-20261029/proof.py': '4acff7a33fff43773b730b4518a8beb8685abc683740945f27c9296ab4031800',
 }
 
 
 def load_sources(root):
-    modules, bindings = [], {}
+    modules, bindings, admitted = [], {}, {}
     # Admit every source before executing any of them.
     for name, expected in REVIEWED.items():
         raw = (root / name).read_bytes()
         if hashlib.sha256(raw.replace(b'\r\n', b'\n')).hexdigest() != expected:
             raise ValueError(f'unreviewed source: {name}')
         bindings[name] = hashlib.sha256(raw).hexdigest()
+        admitted[name] = raw
     sys.path.insert(0, str(root / 'scripts'))
     for index, name in enumerate(REVIEWED):
         module = types.ModuleType(f'reviewed_dynamic_calls_{index}')
         module.__file__ = str(root / name)
-        exec(compile((root / name).read_bytes(), module.__file__, 'exec'), module.__dict__)
+        exec(compile(admitted[name], module.__file__, 'exec'), module.__dict__)
         modules.append(module)
     return (*modules, bindings)
 
@@ -101,10 +102,12 @@ def generate(root, output):
         roadmap, elf, start, end, classify)
     roadmap.generate_roadmap(output)
     bindings['adapter_sha256'] = hashlib.sha256(Path(__file__).read_bytes()).hexdigest()
-    (output / 'dynamic-call-inputs.json').write_text(json.dumps(bindings, indent=2) + '\n', encoding='utf-8')
+    (output / 'dynamic-call-inputs.json').write_text(json.dumps(bindings, indent=2) + '\n',
+                                                               encoding='utf-8', newline='\n')
     manifest = {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(output.iterdir())
                 if p.is_file() and p.name != 'manifest.json'}
-    (output / 'manifest.json').write_text(json.dumps(manifest, indent=2) + '\n', encoding='utf-8')
+    (output / 'manifest.json').write_text(json.dumps(manifest, indent=2) + '\n',
+                                               encoding='utf-8', newline='\n')
 
 
 if __name__ == '__main__':

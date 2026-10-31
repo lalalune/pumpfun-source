@@ -7,6 +7,7 @@ import ast
 import hashlib
 import importlib.metadata
 import json
+import os
 import sys
 from pathlib import Path
 from pump_diagnostic_audit import bound_input_key
@@ -66,7 +67,10 @@ def main():
     parser.add_argument('--output', type=Path, required=True)
     args = parser.parse_args()
     args.candidate = args.candidate.resolve()
-    assert not args.output.exists(), 'Use a fresh output path'
+    # exists() is False for a dangling symlink, and the write below would then
+    # follow the link instead of publishing at --output.
+    if os.path.lexists(args.output):
+        raise SystemExit('Use a fresh output path')
     original = ROOT / 'evidence/original/pump/deployed.so'
     inputs = [Path(__file__).resolve(), HARNESS, original,
               ROOT / 'scripts/pump_diagnostic_audit.py',
@@ -120,7 +124,10 @@ def main():
                           'pyelftools': importlib.metadata.version('pyelftools')},
               'case_count': len(cases), 'mismatches': mismatches, 'cases': cases}
     args.output.parent.mkdir(parents=True, exist_ok=True)
-    args.output.write_text(json.dumps(report, indent=2) + '\n',encoding='utf-8',newline='\n')
+    # Exclusive create: a symlink that appears after the admission check is
+    # refused instead of followed, and this writer still pins UTF-8 LF.
+    with args.output.open('x', encoding='utf-8', newline='\n') as stream:
+        stream.write(json.dumps(report, indent=2) + '\n')
     print(json.dumps({'cases': len(cases), 'mismatches': mismatches}))
     return bool(mismatches)
 

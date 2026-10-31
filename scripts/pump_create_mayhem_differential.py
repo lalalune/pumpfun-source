@@ -29,6 +29,7 @@ from solders.pubkey import Pubkey
 from solders.transaction import Transaction
 from solders.transaction_metadata import FailedTransactionMetadata
 from pump_amm_reusable_harness import pin_program
+from pump_differential_output import PumpReport
 
 ROOT = Path(__file__).resolve().parents[1]
 IDL = json.loads((ROOT/'evidence/upstream/pump.json').read_text(encoding='utf-8'))
@@ -150,6 +151,7 @@ def main():
     a=p.parse_args()
     if bool(a.candidate_pump) != bool(a.candidate_mayhem):
         p.error('--candidate-pump and --candidate-mayhem must be supplied together')
+    publisher=PumpReport(a.output,ROOT,a.candidate_pump,__file__,extra_inputs=[ROOT/'evidence/original/mayhem/deployed.so',*([a.candidate_mayhem] if a.candidate_mayhem else [])])
     if a.candidate_pump:
         a.candidate_pump = pin_program(a.candidate_pump)
         a.candidate_mayhem = pin_program(a.candidate_mayhem)
@@ -167,8 +169,7 @@ def main():
             'candidate_pump_sha256':hashlib.sha256(a.candidate_pump.read_bytes()).hexdigest() if has_cand else None,
             'candidate_mayhem_sha256':hashlib.sha256(a.candidate_mayhem.read_bytes()).hexdigest() if has_cand else None,
             'cases':rows,'mismatches':bad,'script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest()}
-    a.output.parent.mkdir(parents=True,exist_ok=True)
-    a.output.write_bytes(gzip.compress(json.dumps(report,indent=2).encode(),mtime=0))
+    publisher.write(gzip.compress(json.dumps(report,indent=2).encode(),mtime=0))
     print(len(rows),'cases',len(bad),'mismatches')
     if bad: print('MISMATCHES:', bad); raise SystemExit(1)
 

@@ -5,8 +5,9 @@ from pathlib import Path
 import unittest
 
 SCRIPTS=Path(__file__).resolve().parent
-DRIVERS=('pump_migrate_surfpool.py','pump_holder_distribution_surfpool.py',
-         'pump_exact_quote_surfpool.py','pump_v3_configured_fee_surfpool.py')
+DRIVERS=('pump_migrate_surfpool.py','pump_migrate_v2_surfpool.py',
+         'pump_holder_distribution_surfpool.py','pump_exact_quote_surfpool.py',
+         'pump_v3_configured_fee_surfpool.py')
 def load_normalize_event(name,optimize):
     tree=ast.parse((SCRIPTS/name).read_text(encoding='utf-8'))
     function=next(n for n in tree.body if isinstance(n,ast.FunctionDef) and n.name=='normalize_event')

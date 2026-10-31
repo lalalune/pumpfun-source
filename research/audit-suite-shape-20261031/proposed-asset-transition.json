@@ -1,0 +1,19 @@
+{
+  "scope": "Proposed maintained-script transition so both log audits name a report whose suites member is not a mapping; captures, cases and prior receipts remain unchanged.",
+  "base": "963d1eefbed3a81a51d2d52f80026c5434a7a423",
+  "files": {
+    "scripts/pump_diagnostic_audit.py": {
+      "before_sha256": "aa944b6bbbb6f551ad1cba1ed59e027d3e535a8b84da8b0286a1722b958a8add",
+      "proposed_sha256": "b37324ea5b8c21325c8371c15ea70bef080f8f63927b44ba36d39069b859a20a"
+    },
+    "scripts/pump_strict_ordered_logs.py": {
+      "before_sha256": "69e95234eda9dce5efcf8bb4369dee51c61f27ba2e58b54048eee4e40463db5d",
+      "proposed_sha256": "1416c555bdec19290632a4be2dac4d756002862ea4478abd9b09b4c10b7a6b0e"
+    }
+  },
+  "script_set_changed": false,
+  "program_source_changed": false,
+  "capture_bytes_changed": false,
+  "new_test": "tests/test_audit_suite_shape.py",
+  "existing_ci_discovery": "contract-tests: python -B -m unittest discover -s tests -v"
+}

@@ -16,6 +16,11 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import pump_diagnostic_audit as gate  # noqa: E402
 
 
+def source_files(root):
+    """Every regular file under root, by name, including staged leftovers."""
+    return sorted(path.name for path in Path(root).rglob("*") if path.is_file())
+
+
 class DiagnosticAuditPublicationTests(unittest.TestCase):
     def fixture(self, root):
         report, output = root / 'report.json', root / 'audit.json'
@@ -198,6 +203,53 @@ class DiagnosticAuditPublicationTests(unittest.TestCase):
             self.assertEqual(
                 gate.bound_input_key(external, Path(temporary) / "elsewhere"),
                 external.resolve().as_posix())
+
+    def invoke_audit(self, report, output):
+        with mock.patch.object(sys, "argv", [
+                "pump_diagnostic_audit.py",
+                "--report", str(report),
+                "--output", str(output),
+        ]), contextlib.redirect_stdout(io.StringIO()):
+            return gate.main()
+
+    def test_fresh_output_parent_is_created(self):
+        # The sibling audits (pump_strict_ordered_logs.py, pump_data_order.py)
+        # create the destination parent before staging. This audit staged with
+        # dir=args.output.parent and so failed with FileNotFoundError whenever
+        # the caller named an output root that did not already exist.
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            report = root / "report.json"
+            output = root / "fresh" / "nested" / "audit.json"
+            raw = json.dumps({"suites": {"case": [{
+                "original": {"logs": ["before"]},
+                "candidate": {"logs": ["before"]},
+            }]}}).encode()
+            report.write_bytes(raw)
+            self.assertFalse(self.invoke_audit(report, output))
+            receipt = json.loads(output.read_bytes())
+            self.assertEqual(receipt["log_bearing_cases"], 1)
+            self.assertEqual(receipt["mismatches"], [])
+            self.assertEqual(receipt["source_report_sha256"],
+                             hashlib.sha256(raw).hexdigest())
+            self.assertEqual(report.read_bytes(), raw)
+            self.assertEqual(source_files(output.parent), ["audit.json"])
+
+    def test_fresh_output_parent_still_reports_mismatches(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            report = root / "report.json"
+            output = root / "fresh" / "audit.json"
+            report.write_bytes(json.dumps({"suites": {"case": [{
+                "original": {"logs": ["Program log: panicked at src/lib.rs:1:2:\nleft"]},
+                "candidate": {"logs": ["Program log: panicked at src/lib.rs:1:2:\nright"]},
+            }]}}).encode())
+            self.assertTrue(self.invoke_audit(report, output))
+            receipt = json.loads(output.read_bytes())
+            self.assertEqual(receipt["log_bearing_cases"], 1)
+            self.assertEqual(receipt["mismatches"][0]["original"]["panic"], ["left"])
+            self.assertEqual(receipt["mismatches"][0]["candidate"]["panic"], ["right"])
+            self.assertEqual(source_files(output.parent), ["audit.json"])
 
 
 if __name__ == "__main__":

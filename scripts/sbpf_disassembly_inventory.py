@@ -189,7 +189,9 @@ def main():
     output.parent.mkdir(parents=True, exist_ok=True)
     # Publish only a complete inventory: a failed program must not leave a
     # partial directory without manifest.json that blocks the next run.
-    staging = Path(tempfile.mkdtemp(prefix='.' + output.name + '.', dir=output.parent))
+    # A valid output basename can sit at the filesystem's component limit;
+    # only the published name has to fit there, so keep the staging prefix short.
+    staging = Path(tempfile.mkdtemp(prefix='.' + output.name[:32] + '.', dir=output.parent))
     try:
         inputs = capture_inputs(ROOT)
         validate_program_names([{'name': name} for name, _ in inputs])

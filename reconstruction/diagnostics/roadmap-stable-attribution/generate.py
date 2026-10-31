@@ -12,6 +12,8 @@ import uuid
 ROOT = Path(__file__).resolve().parents[3]
 SOURCE = 'scripts/reconstruction_roadmap.py'
 REVIEWED = 'a5174827043a35b76916afef10acb4ab25294bbec15eb55ae67a158ede521f85'
+READER = 'scripts/window_elf_reader.py'
+REVIEWED_READER = 'b00c2c491dce839aba97b19fd9007da5eaa99902968d88e8c44bb071bb0c9c1c'
 
 
 def trace_handler_attribution(elf, entries, forward, reverse):
@@ -50,14 +52,28 @@ def generate(root, output):
     raw = (root / SOURCE).read_bytes()
     if hashlib.sha256(raw.replace(b'\r\n', b'\n')).hexdigest() != REVIEWED:
         raise ValueError('unreviewed roadmap source')
+    reader_raw = (root / READER).read_bytes()
+    if hashlib.sha256(reader_raw.replace(b'\r\n', b'\n')).hexdigest() != REVIEWED_READER:
+        raise ValueError('unreviewed roadmap ELF reader')
     if output.exists() or output.is_symlink():
         raise ValueError('output already exists; retain prior packets')
-    sys.path.insert(0, str(root / 'scripts'))
+    reader = types.ModuleType('reviewed_attribution_reader')
+    reader.__file__ = str(root / READER)
+    exec(compile(reader_raw, reader.__file__, 'exec'), reader.__dict__)
     module = types.ModuleType('reviewed_roadmap')
     module.__file__ = str(root / SOURCE)
-    exec(compile(raw, module.__file__, 'exec'), module.__dict__)
+    previous_reader = sys.modules.get('window_elf_reader')
+    sys.modules['window_elf_reader'] = reader
+    try:
+        exec(compile(raw, module.__file__, 'exec'), module.__dict__)
+    finally:
+        if previous_reader is None:
+            sys.modules.pop('window_elf_reader', None)
+        else:
+            sys.modules['window_elf_reader'] = previous_reader
     module.trace_handler_attribution = trace_handler_attribution
     bindings = {SOURCE: hashlib.sha256(raw).hexdigest(),
+                READER: hashlib.sha256(reader_raw).hexdigest(),
                 'adapter_sha256': hashlib.sha256(Path(__file__).read_bytes()).hexdigest()}
     for info in module.PROGRAMS.values():
         path = info['deployed']
@@ -81,10 +97,12 @@ def generate(root, output):
         raise FileExistsError('could not allocate a staging directory')
     try:
         module.generate_roadmap(stage)
-        (stage / 'attribution-inputs.json').write_text(json.dumps(bindings, indent=2) + '\n', encoding='utf-8')
+        (stage / 'attribution-inputs.json').write_text(json.dumps(bindings, indent=2) + '\n',
+                                                             encoding='utf-8', newline='\n')
         manifest = {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(stage.iterdir())
                     if p.is_file() and p.name != 'manifest.json'}
-        (stage / 'manifest.json').write_text(json.dumps(manifest, indent=2) + '\n', encoding='utf-8')
+        (stage / 'manifest.json').write_text(json.dumps(manifest, indent=2) + '\n',
+                                             encoding='utf-8', newline='\n')
         for name, digest in bindings.items():
             path = Path(__file__) if name == 'adapter_sha256' else root / name
             if hashlib.sha256(path.read_bytes()).hexdigest() != digest:

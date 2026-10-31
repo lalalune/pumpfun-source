@@ -8,6 +8,7 @@ from solders.hash import Hash
 from solders.instruction import AccountMeta,Instruction
 from solders.transaction import Transaction
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'scripts'))
+from surfpool_recording_vm import require_aligned_runs
 import pump_migrate_probe as fixture
 import pump_migrate_differential as suite
 from types import SimpleNamespace
@@ -142,7 +143,7 @@ def main():
  a.output.mkdir(parents=True,exist_ok=False);original=a.output/'original.so';candidate=a.output/'candidate.so';original.write_bytes((ROOT/'evidence/original/pump/deployed.so').read_bytes());candidate.write_bytes(a.candidate.read_bytes())
  cases=[suite.cases[i] for i in [0,1,2,3,4,8,9,10,26,30,37,40,46,52,64,67,69,93,95,104,105,106,143,148,168,169,170,171]]
  paths=[Path(__file__),Path(fixture.__file__),Path(suite.__file__)]+[ROOT/f'evidence/upstream/{n}.json' for n in ['pump','pump_fees','pump_amm']]+[ROOT/f'evidence/original/{n}/deployed.so' for n in ['pump','pump_fees','pump_amm']]+[ROOT/f'evidence/dependencies/{n}/deployed.so' for n in ['spl_token','spl_token_2022','associated_token']]
- provenance={str(p.relative_to(ROOT)):sha(p.read_bytes()) for p in paths};fixtures=[prepare(c) for c in cases];(a.output/'fixtures.json').write_text(json.dumps(fixtures,indent=2),encoding='utf-8',newline='\n');x=run(original,fixtures,a.surfpool,a.output);y=run(candidate,fixtures,a.surfpool,a.output);bad=[];unexpected=[];offsets=layouts()
+ provenance={str(p.relative_to(ROOT)):sha(p.read_bytes()) for p in paths};fixtures=[prepare(c) for c in cases];(a.output/'fixtures.json').write_text(json.dumps(fixtures,indent=2),encoding='utf-8',newline='\n');x=run(original,fixtures,a.surfpool,a.output);y=run(candidate,fixtures,a.surfpool,a.output);require_aligned_runs(fixtures,x,y);bad=[];unexpected=[];offsets=layouts()
  def error(v):
   if v is None:return None
   m=re.fullmatch(r'TransactionErrorInstructionError\(\((\d+), Tagged\(InstructionErrorCustom\((\d+)\)\)\)\)',v)

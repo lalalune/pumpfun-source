@@ -87,6 +87,20 @@ class MacHybridTests(unittest.TestCase):
         (library.parent / 'libextra.rlib').write_bytes(b'extra input')
         self.assertFalse(bootstrap.hybrid_ok())
 
+    def test_replaced_host_library_names_reject_cache_without_aborting(self):
+        self.install_fixture()
+        library_dir = self.hybrid / 'rust/lib'
+        for name in ('librustc_driver-fixture.dylib', 'libstd-fixture.dylib'):
+            with self.subTest(library=name):
+                library = library_dir / name
+                stale = library_dir / 'libstale-fixture.dylib'
+                library.rename(stale)
+                try:
+                    self.assertFalse(bootstrap.hybrid_ok())
+                finally:
+                    stale.rename(library)
+        self.assertTrue(bootstrap.hybrid_ok())
+
     @unittest.skipUnless(sys.platform == 'darwin', 'assembly uses macOS clone-copy options')
     def test_native_assembly_is_verified_and_reused(self):
         self.assertEqual(self.run_bootstrap(), 0)

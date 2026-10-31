@@ -1,0 +1,27 @@
+{
+  "scope": "Proposed maintained-script asset transition for Pump v3, creator-setter and create-control differential report publication; captures, suites and prior receipts remain unchanged.",
+  "base": "52c0b087c7e345766b67b8fdeb8d4784079a955d",
+  "files": {
+    "scripts/pump_create_control_differential.py": {
+      "before_sha256": "9e91f912ea6a031518e572e76c7341f2ed32921774086a39cd43d9a996163f7d",
+      "proposed_sha256": "cd32b5c71e213c2a5f5f57a8033603643ba8023ec7347a576293611aefb02cde"
+    },
+    "scripts/pump_set_creator_differential.py": {
+      "before_sha256": "d61f88d7f38fbd927d23430b95cc94495cd8a1f05f4cfce6f8472d529224ec3c",
+      "proposed_sha256": "b7afba6e09a22ec5d48f9e6975c24f0d2580901f928672ab6fe088ec63dfdf63"
+    },
+    "scripts/pump_v3_configured_fee_differential.py": {
+      "before_sha256": "3f0e23a1716cfba889c35fbf270e3006e24046f3d1f77f22d922447c7d33622f",
+      "proposed_sha256": "c254ad0cfe1339eda53563bc550e9b4906e9c922b1bb24fca4c1a017d3f72a5e"
+    },
+    "scripts/pump_v3_token_extensions_differential.py": {
+      "before_sha256": "6ec7b4391b768a11a3baef159fff26efd036c9eb7287c019789ace7c131b44de",
+      "proposed_sha256": "0786f8ec803c3dfb9f0727f56579e891ba8f16d7df61ba963d15a76843c5a211"
+    }
+  },
+  "script_set_changed": false,
+  "program_source_changed": false,
+  "capture_bytes_changed": false,
+  "new_test": "tests/test_pump_v3_report_publication.py",
+  "existing_ci_discovery": "contract-tests: python -B -m unittest discover -s tests -v"
+}

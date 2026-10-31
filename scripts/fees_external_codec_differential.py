@@ -8,12 +8,13 @@ import fees_sharing_create_differential as sharing
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'scripts'))
 from pump_amm_reusable_harness import pin_program
+from pump_differential_output import PumpReport
 ORIGINAL=ROOT/'evidence/original/pump_fees/deployed.so'
 FIELDS=['error','sharing','curve','payer_lamports','authority_lamports','sharing_lamports','pool','pool_lamports','curve_lamports','events','inner']
 def errors(result):
  return [re.sub(r'AnchorError thrown in [^ ]+:\d+\.', 'AnchorError thrown in <source>.', line) for line in result['logs'] if 'AnchorError' in line]
 def main():
- p=argparse.ArgumentParser(description=__doc__);p.add_argument('--candidate',type=pathlib.Path,required=True);p.add_argument('--baseline',type=pathlib.Path);p.add_argument('--output',type=pathlib.Path,required=True);a=p.parse_args();rows=[]
+ p=argparse.ArgumentParser(description=__doc__);p.add_argument('--candidate',type=pathlib.Path,required=True);p.add_argument('--baseline',type=pathlib.Path);p.add_argument('--output',type=pathlib.Path,required=True);a=p.parse_args();publisher=PumpReport(a.output,ROOT,a.candidate,__file__,extra_inputs=[a.baseline] if a.baseline else ());rows=[]
  # Pin each per-case-loaded image once, so every case and the receipt use the same bytes.
  original=pin_program(ORIGINAL);candidate=pin_program(a.candidate);baseline=pin_program(a.baseline) if a.baseline else None
  for name,length,bad_bool in [('global',740,8),('curve',82,48),('pool',261,243)]:
@@ -34,5 +35,5 @@ def main():
  sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
  d={'scope':'Nine normal-signature synthetic external-account decoder rejections. Compare error logs excluding only source file/line, selected state/balances/events/inner calls; raw logs retained. Not whole-program/security/byte identity.','original_sha256':sha(original),'candidate_sha256':sha(candidate),'case_count':len(rows),'cases':rows,'mismatches':[r['case']['name'] for r in rows if r['mismatches']]}
  if a.baseline:d['baseline_sha256']=sha(baseline)
- a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(d,indent=2)+'\n',encoding='utf-8',newline='\n');print(json.dumps({'cases':len(rows),'mismatches':d['mismatches']}));assert not d['mismatches']
+ publisher.write((json.dumps(d,indent=2)+'\n').encode('utf-8'));print(json.dumps({'cases':len(rows),'mismatches':d['mismatches']}));assert not d['mismatches']
 if __name__=='__main__':main()

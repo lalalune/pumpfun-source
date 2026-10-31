@@ -5,7 +5,8 @@ if not __debug__:
 import sys
 sys.path.insert(0,'scripts')
 from pump_amm_liquidity_differential import *
-from pump_amm_reusable_harness import pin_program
+from pump_amm_reusable_harness import AMM_REPORT_INPUTS, pin_program
+from pump_differential_output import PumpReport
 FEES=Pubkey.from_string('pfeeUxB6jkeY1Hxd7CsFCAjcbHA9rWtchMGdZ6VojVZ');PUMP=Pubkey.from_string('6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P');METAPLEX=Pubkey.from_string('metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s')
 SHARING,SB=Pubkey.find_program_address([b'sharing-config',bytes(base)],FEES);CURVE=Pubkey.find_program_address([b'bonding-curve',bytes(base)],PUMP)[0];META=Pubkey.find_program_address([b'metadata',bytes(METAPLEX),bytes(base)],METAPLEX)[0]
 def run_creator(c,binary=None):
@@ -85,13 +86,13 @@ def cases():
  return rows
 
 def main():
- p=argparse.ArgumentParser();p.add_argument('--candidate',type=pathlib.Path);p.add_argument('--output',type=pathlib.Path,required=True);a=p.parse_args();rows=[];bad=[]
+ p=argparse.ArgumentParser();p.add_argument('--candidate',type=pathlib.Path);p.add_argument('--output',type=pathlib.Path,required=True);a=p.parse_args();rows=[];bad=[];publisher=PumpReport(a.output,ROOT,a.candidate,pathlib.Path(__file__),extra_inputs=AMM_REPORT_INPUTS)
  for c in cases():
   x=run_creator(c);y=run_creator(c,a.candidate) if a.candidate else None
   diffs=[k for k in ['error','before','after','events','inner','return'] if x[k]!=y[k]] if y else []
   rows.append({'case':c,'original':x,'candidate':y,'mismatched_fields':diffs,'match':not diffs if y else None})
   if diffs:bad.append(c['name'])
  sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest();report={'scope':'Two creator reassignment paths with synthetic local state and normally verified signatures. Invalid injected states do not establish reachability. No binary identity or whole-program parity claimed.','original_sha256':sha(pin_program(ROOT/'evidence/original/pump_amm/deployed.so')),'candidate_sha256':sha(pin_program(a.candidate)) if a.candidate else None,'script_sha256':sha(pathlib.Path(__file__)),'case_count':len(rows),'cases':rows,'mismatches':bad}
- a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(report,separators=(',',':'))+'\n',encoding='utf-8',newline='\n');print(json.dumps({'cases':len(rows),'mismatch_count':len(bad),'mismatches':bad[:40]}))
+ publisher.write((json.dumps(report,separators=(',',':'))+'\n').encode('utf-8'));print(json.dumps({'cases':len(rows),'mismatch_count':len(bad),'mismatches':bad[:40]}))
  if bad:raise SystemExit(1)
 if __name__=='__main__':main()

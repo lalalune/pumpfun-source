@@ -1,0 +1,91 @@
+{
+  "schema": "bounded-S1-S3-causal-evidence-package-manifest-v2",
+  "historicalOnly": true,
+  "candidateSourceAcceptance": {
+    "S1": "REJECTED/native no-loss FAIL",
+    "S2": "REJECTED/native no-loss FAIL",
+    "S3": "REJECTED/target metric, native no-loss SUCCESS"
+  },
+  "extendedReplay": "PASS_ON_TESTED_INPUT_COMMIT_649a241324a66768875229682e7487da7c5a4918",
+  "verificationRecordScope": "verification.json: immutable prior S1/S2-only replay; verification-s3.json: actual extended normal-cohort replay",
+  "files": [
+    {
+      "path": "NOTES.md",
+      "bytes": 9842,
+      "sha256": "df973e19000959babc6c552651f3decb1817dee59dc2b61e46da4446f811cb02"
+    },
+    {
+      "path": "captures.tar.xz",
+      "bytes": 5608232,
+      "sha256": "75026c3193be4c899a8b0323481fb78f6b4829aadf2ce57b9ec6b8885a9f3f46"
+    },
+    {
+      "path": "ECEA-to-S1.patch",
+      "bytes": 4386,
+      "sha256": "dd2dc153867bfe98e314ea02f9fc83c3447df292a42667a649e46a8630adf291"
+    },
+    {
+      "path": "S1-to-S2.patch",
+      "bytes": 3823,
+      "sha256": "a13a76df7de78e8a74e952b6ef08b83c393a5eebcaa084106514b4a1a78ceb5b"
+    },
+    {
+      "path": "inputs.json",
+      "bytes": 61672,
+      "sha256": "52080b8c42bf868b12e12558d1d119233a94455ebf4ce17cb1a0bec3b7568b38"
+    },
+    {
+      "path": "witnesses.json",
+      "bytes": 30594,
+      "sha256": "908596793fc31c9b88108c513f19a15a6bffd9556f9cd2d6425e65e2a09d97d4"
+    },
+    {
+      "path": "verify.py",
+      "bytes": 36488,
+      "sha256": "ae7bdbf942bacc853c829e87d6ae92a72cc424f20fa48125c9f642d155253b23"
+    },
+    {
+      "path": "verification.json",
+      "bytes": 1628,
+      "sha256": "460f167f834ca665e7b92c6bdfab21d7501c489b10c382134f1684d55e96f087"
+    },
+    {
+      "path": "S3-captures.tar.xz",
+      "bytes": 3622996,
+      "sha256": "db16e7cd7ea44c94512e328feb2402b3992306991c7d4ba3ecab2acaedca291a"
+    },
+    {
+      "path": "13fe-to-S3.patch",
+      "bytes": 4391,
+      "sha256": "4b87cfde9987ba57724e14b740b9fd1dd67d1a39d78ada32ef6746c34f1e8ae1"
+    },
+    {
+      "path": "s3-inputs.json",
+      "bytes": 4192,
+      "sha256": "f5e01fa2c59126c58e61bf5843e1995075955f2876142fe38f6da7a67b426f18"
+    },
+    {
+      "path": "s3-witnesses.json",
+      "bytes": 11478,
+      "sha256": "eeb1fc289ddbbd9f8a3a1416bd3957bd9d906180ba1f9a069f653d626b8fe1bb"
+    },
+    {
+      "path": "s3-metric.json",
+      "bytes": 2313,
+      "sha256": "97188b8b63d5c4c542ccaa91f956847af15efd2a8bf00e8ccd65a2162de086f3"
+    },
+    {
+      "path": "verification-s3.json",
+      "bytes": 3126,
+      "sha256": "fdc17c1f2c99ed0ef58142def9eb56e899280a78a39099371d8cf455cab24bb3"
+    },
+    {
+      "path": "replay-s3-receipt.json",
+      "bytes": 5728,
+      "sha256": "b4ac70d7628d5a289cb0b12025019945cd7850318f7aef70af3fdb168dc0b2ee"
+    }
+  ],
+  "testedInputCommit": "649a241324a66768875229682e7487da7c5a4918",
+  "testedInputTree": "60e317153e3233573ab73dae75b64a6128337f09",
+  "outputPackagingScope": "Generated outputs/receipt/docs only; executable inputs identical to tested commit; output packaging commit itself was not executed."
+}

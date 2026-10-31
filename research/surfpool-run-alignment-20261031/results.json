@@ -1,0 +1,22 @@
+{
+  "issue": "Every Surfpool differential compared the prepared fixtures with the original and candidate runs positionally using zip, which stops at the shortest sequence. No runner bound the three lengths, so a run that returned fewer rows than it was given was compared only up to its length and could report no mismatches.",
+  "base_revision": "963d1eefbed3a81a51d2d52f80026c5434a7a423",
+  "affected": "scripts/*_surfpool.py: the zip(left, prepared), zip(left, right), zip(fixtures, x, y) and zip(x, prepared) comparisons, none preceded by a length check",
+  "finding": "Each runner builds `prepared` from the selected cases, then receives `left`/`right` (or `x`/`y`) from two independent Surfpool runs. The comparisons derive `mismatches` and `unexpected_original_errors` from those zips and the runner exits 0 when both are empty; `signed_transactions` in the receipt is the only witness of a short run, and nothing asserts it equals twice the case count.",
+  "change": {
+    "helper": "scripts/surfpool_recording_vm.py gains require_aligned_runs(prepared, left, right), which raises ValueError('surfpool runs do not cover the same cases: ...') unless all three lengths agree",
+    "call_sites": "all sixteen scripts/*_surfpool.py call it once, immediately after the candidate run and before any comparison or raw-transaction receipt",
+    "unchanged_behaviour": "case preparation, the Surfpool invocation, normalization, mismatch classification, receipt fields and exit statuses"
+  },
+  "tests": {
+    "new_test": "tests/test_surfpool_run_alignment.py",
+    "cases": [
+      "equal runs, including empty runs, are admitted",
+      "a short candidate run, a short original run and an empty original run are refused",
+      "every scripts/*_surfpool.py calls the guard exactly once"
+    ],
+    "before": "FAILED (errors=1): the helper does not exist on the base revision",
+    "after": "Ran 3 tests ... OK"
+  },
+  "limits": "This refuses a comparison the runners already could not support; it adds no case, no run and no Surfpool behavior, and changes no capture or prior receipt. It does not claim that a failed Surfpool request can be recovered: the refusal is the intended outcome."
+}
