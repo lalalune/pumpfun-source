@@ -132,3 +132,11 @@ G['crh_su']=G['crh']+[('target=a.bonding_curve.creator;r}','target=cr;r}')]
 G['crh_st_su']=G['crh_st']+[('target=a.bonding_curve.creator;r}','target=cr;r}')]
 G['crl_L_st']=G['crl_L']+[('let st=CtoState{creator:a.bonding_curve.creator,','let st=CtoState{creator:a.bonding_curve.creator.clone(),')]
 G['crh_ev']=G['crh']+[('old_creator,new_creator:a.bonding_curve.creator,','old_creator,new_creator:a.bonding_curve.creator,')]
+# ---- structural -B probes (X needs -48 B): drop copies/wrappers that earlier landings added ----
+_SK="let sk=a.sharing_config.key();let mut target=validate(&st,hopt,fee,new,&holder_key,&sk)?;"
+G['sk_ref']=[(_SK,"let sk=a.sharing_config.key;let mut target=validate(&st,hopt,fee,new,&holder_key,sk)?;")]
+G['sk_ref2']=[(_SK,"let sk=&a.sharing_config.key();let mut target=validate(&st,hopt,fee,new,&holder_key,sk)?;")]
+G['sk_inl']=[(_SK,"let mut target=validate(&st,hopt,fee,new,&holder_key,&a.sharing_config.key())?;")]
+G['sk_inl2']=[(_SK,"let mut target=validate(&st,hopt,fee,new,&holder_key,a.sharing_config.key)?;")]
+G['rm_okq']=[("let (target,sharing_update,cashback)=Ok::<_,anchor_lang::error::Error>((target,sharing_update,cashback))?;let mut target=target;","let mut target=target;")]
+G['hk_copy']=[("validate(&st,hopt,fee,new,&holder_key,&sk)","validate(&st,hopt,fee,new,&hk.0,&sk)")]

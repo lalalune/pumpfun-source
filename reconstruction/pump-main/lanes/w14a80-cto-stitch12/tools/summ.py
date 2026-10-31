@@ -7,7 +7,7 @@ exec(open(T+'/rx.py').read().split('OUT=os.environ')[0])
 o=mask(orig_window())
 pre=sys.argv[1]; bb=int(sys.argv[2]) if len(sys.argv)>2 else 27400; bm=int(sys.argv[3]) if len(sys.argv)>3 else 2220
 rows=[]
-for f in glob.glob(OUT+'/results-*.jsonl'):
+for f in glob.glob(OUT+'/results-'+os.environ.get('SHA','*')+'.jsonl'):
     for l in open(f):
         r=json.loads(l)
         if not r['name'].startswith(pre): continue

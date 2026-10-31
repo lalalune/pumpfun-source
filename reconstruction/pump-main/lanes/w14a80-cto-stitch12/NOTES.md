@@ -55,7 +55,45 @@ is worth +1..+2 more (M 2,228-2,229). So **X lands as soon as any faithful -48 B
 
 ## 4. Single-gene screen on X (160 genes of the library that apply and change the source)
 
-See section 2 of the summary table in SUMMARY.json. 0-B folds (byte-identical or M-neutral): cd_holder_dest,
+0-B folds (byte-identical or M-neutral): cd_holder_dest,
 ev_auth_deref, ev_reset_m, ev_ts_map, n_amt_ge/amtmax/amtmin/atok/checked/ensmap/flip0/ge1/lamvar/letr/match0/tnmap, p_289.
 Negative-size genes are all expensive in X: cu_match -8 (-6), lf_pr_dl -8 (-9), n_ensmatch -24 (-10), n_mapamt_ens -24
 (-11), ev_hr_curve -8 (-14), lf_ea -16 (-17), e_ql_ref -72 (-27), ev_ts_prepool -56 (-88).
+
+X + structural -B probes (0d04cf4): `validate(..,a.sharing_config.key)` / `let sk=a.sharing_config.key` -272 B (M -446),
+`&a.sharing_config.key()` inline 2,075, dropping the `Ok::<_,Error>((..))?` tuple wrapper collapses (1,830); `&{sk}` / `&hk.0`
+fold. C0 + crl_kd 27,368 / 2,222 (+2 at -32 B), C0 + crl_kd + hkmut 27,400 / 2,209, + p_colnat + wl_ts_clockvar 27,392 / 2,216; hoisting `let cr=..` out of the
+`shared` expression (crh*) collapses (M ~1,915): the copy must stay inside the `&&` operand block.
+
+## 5. Main 95a64ba (#3409 w14a82 holder-arg, 0.66986, M 2,236, 3,204 slots)
+
+Shift map: best pure -8 is now **+5 (wallet body 0x5cb0) / +4 (native arm 0x5938-0x5ac8)**, best pure +8 +1 (entry
+0x180/0x1a0), best pair +6.
+
+| variant | bytes | M | note |
+| --- | ---: | ---: | --- |
+| main (m0, fresh) | 27,400 | 2,236 | 3,204 slots |
+| **wn** (`!a.current_creator.is_writable`) | 27,392 | **2,238** | +2 at -8 B |
+| sm (sharing `if let`) / rP (pool_authority `rent_epoch:x.rent_epoch`) | 27,392 | 2,237 | +1 at -8 B each |
+| wn+sm / wn+rP | 27,384 | 2,234 | not additive |
+| C0 (wn+sm+rP) | 27,376 | 2,236 | the 0d04cf4 +4 is gone |
+| su_to_st | 27,392 | 2,233 | no longer free |
+| wn + su_to_st | 27,384 | 2,236 | |
+| hkmut | 27,432 | 2,236 | free +32 |
+| p_colnat | 27,408 | 2,235 | |
+| crl / crl_L | 27,472 | 2,238 / 2,239 | |
+| X = C0 + crl_L | 27,448 | 2,239 | +3 at +48 B |
+| X + su_to_st | 27,440 | 2,236 | |
+| crl_L + wn + su_to_st + amp_inline | 27,440 | 2,234 | |
+| n_andthen / n_ensmatch / n_mapamt_ens (native arm) | 27,376 | 2,229 / 2,229 / 2,228 | -24 B; the +4 pure zone does not survive the codegen change |
+| r_inl | 27,384 | 2,220 | |
+| n_andthen + p_colnat / n_ensmatch + p_colnat | 27,384 | 2,232 | |
+
+Pairs at 27,400 (all <= main): wn + nf_pre_ev 2,236 (3,214 slots), wn + cu_unwrapcur 2,236 (3,215), wn + p_colnat 2,235,
+sm/rP + nf_pre_ev / cu_unwrapcur 2,235 (3,203-3,204 slots: one token short of a slot-tiebreak win), sm/rP + p_colnat 2,234,
+wn + ev_cb_local 2,233, wn + n_mapamt 2,231, wn + hkmut + amp_inline + su_to_st 2,231, wn + wl_ts_clockvar + sm/rP 2,231
+(3,373-3,381 slots), wn + g_w_clock_local + sm 2,231, wn + rr5D 2,221, C0 + hkmut + su_to_st 2,220 (3,009 slots).
+
+**Use for other lanes:** on 95a64ba, `wn` is a +2 M / -8 B knob and `sm`, `rP` are +1 M / -8 B. Any source lead that
+costs +8 B (for example a validate-layout or Err306-placement source form, w14a78/w14a87 oracles: M +15..+28 at +8 B)
+should be paired with `wn` first; a +16 B lead with `wn` + `sm` or `wn` + `rP` (both -2 jointly, so price them).
