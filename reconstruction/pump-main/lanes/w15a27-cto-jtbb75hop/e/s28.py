@@ -1,0 +1,5 @@
+EDITS=[("holder_key:&Pubkey,sharing:&Pubkey)->Result<Pubkey>{let holder=hopt==Some(true);","holder_key:&Pubkey,sharing:&Pubkey)->Result<()>{let holder=hopt==Some(true);"),
+ (" let target=if holder{if new.is_some(){return Err(error!(PumpError::CtoNewCreatorNotAllowed));}*holder_key}else{"," if holder{if new.is_some(){return Err(error!(PumpError::CtoNewCreatorNotAllowed));}}else{"),
+ ("return Err(error!(PumpError::InvalidCreator));}t};","return Err(error!(PumpError::InvalidCreator));}}"),
+ (" Ok(target)}pub fn execute"," Ok(())}pub fn execute"),
+ ("let mut target=validate(&st,hopt,fee,new,&holder_key,&sk)?;","validate(&st,hopt,fee,new,&holder_key,&sk)?;let mut target=new.unwrap_or(holder_key);")]
