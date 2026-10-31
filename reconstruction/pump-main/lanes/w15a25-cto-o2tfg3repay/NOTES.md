@@ -14,8 +14,10 @@ Lane: wave-15 lane continued in wave 16 (the first run died at the w15 account l
 - The control experiment changes only the branch probability, with a steering-only flag (F2, w14a07 `cold306-f2`), so it
   is not landable. It outlines without collapsing: M 2,186 at 26,920 B. That is still 480 B short of the pin and 64 M short
   of main.
-- The original's validate is itself the threaded shape (section 3), and main's later code is register-fitted to the
-  unthreaded one.
+- The final CFG of validate is threaded in main, in the triggers and in the original alike (section 3). What differs is
+  *when* the holder split is threaded. Main threads it only after validate's inliner visit, so 307/312 are still hot at
+  that visit. The original's sites were cold there. A source spelling that threads it before the visit (T289n) reaches
+  the same CFG shape through a different transformation order, and that order costs a global RA reassignment.
 - The faithful pieces add their main-base costs on the IR-forced outline base O. No cell of the O-repay grid comes near main.
 
 ## Tools (`tools/`, experiment only; paths point at this lane's out dir)
@@ -138,7 +140,6 @@ Notes on the table:
 
   Its consequences:
   - The frame moves: the arg spill goes from `-0x910` to `-0x920`, and the `-0x6a8..` band moves 8 B deeper.
-  - Holder is lowered differently (`and64 rX,-3` at 0x5c8).
   - The RA changes from the first instruction on. `lcschunk` against main (`---`): 0x2000 -268 and 0x3000 -281, the same
     numbers as w15 B2. Under `rfj` the validate chunk 0x1000 is +18, so the trigger's own region is fine.
 
@@ -162,19 +163,25 @@ Notes on the table:
   Both work only through redundant steering constructs. `c1` is a dummy call and `has` repeats `new`'s tag, so the RULE
   excludes both. No faithful construct found here lowers N or P(Some) by 30 % through BPI alone. BPI's levers are
   zero/null/memcmp compares, cold or noreturn calls, loops and unwind edges.
-- The original's validate is the threaded shape, read from the orig window's control flow:
-  - hr=1: `jne r8,0` at 0x640 (r8 = holder = `hopt & 1`) goes to the holder arm (0x900), else to the 289 error inline at
-    0x648.
-  - hr=0 (0x710): `jeq r8,0,+1; ja` at 0x720. If holder, it reaches 0x8f8, which runs the he test (0x8f8 `jeq r1,0` to
-    the 296 error at 0xf40) and then the holder arm. If not, it runs the new-tag test (0x730-0x748): Some goes to the
-    307/312 checks at 0xc08, None to the 306 error at 0x750.
-  - The holder arm continues at 0xab8 (new None: `target = holder_key` copies) into its own copy of the fee checks (fee
-    tag at 0xaf0, quote_locked `and 1` at 0xb30, the 326 error at 0xb40). That copy is class F.
+- The final validate CFG is the same threaded shape in the original, in main and in T289n. Holder is tested once per hr
+  path. The holder arm is shared by hr=1&holder and hr=0&holder&he. Only hr=0 & !holder reaches the non-holder arm.
+  - Original: hr=1 `jne r8,0` at 0x640 (r8 = `hopt & 1`) goes to the holder arm at 0x900, else to the 289 error at 0x648.
+    hr=0 goes to `jeq r8,0,+1; ja` at 0x720: holder reaches the he test at 0x8f8 (then the 296 error at 0xf40, or the
+    holder arm at 0x900); !holder reaches the new-tag test at 0x730-0x748 (Some to the 307/312 checks at 0xc08, None to
+    the 306 error at 0x750). The holder arm then runs its own copy of the fee checks (0xab8-0xb40, class F).
+  - Main: hr at 0x5e0. hr=1 tests holder at 0x5f8 (else the 289 error at 0x8a8). hr=0 tests holder at 0x6e8, sending
+    !holder to the non-holder arm at 0xb98 and holder through the he test at 0x6f8 into the shared holder arm at 0x600.
+    T289n has the same skeleton.
 
-  So in the original only the hr=0 & !holder flow reaches the non-holder arm. At V that is N = 0.0703, the same as T289n,
-  and it is why 307/312 are outlined there. Fifteen waves fitted main's later code to main's *unthreaded* validate, and the
-  threaded validate costs about 700-850 M of RA there (T289n, Ie2i). So threading validate is the original's shape, but it
-  cannot be bought one lever at a time: the later code would have to be re-fitted for it.
+  So the difference is not the final shape but *when* it is threaded:
+  - The original: at V its N must be about 0.0703 (as in T289n), which is why 307/312 are cold there. So its validate is
+    already threaded, or otherwise as cold, before validate's inliner visit.
+  - Main: LLVM threads only afterwards, in validate's function simplification, so at V N = 0.1509.
+  - The triggers: a spelling that threads at V (T289n, Ie2i) reaches main's final shape by a different transformation
+    order. It ends with a different IR order, the surviving `args` copy and a global RA reassignment of about 700-850 M.
+
+  A faithful trigger has to give V-time coldness through a source shape that LLVM later builds into exactly main's final
+  IR. None of the forms tried here does.
 
 ## 4. O-repay grid (IR-forced O on tf_g3 captures; `vr.sh` plain / O / O312)
 
@@ -198,9 +205,10 @@ Notes on the table:
   later code cannot survive, and O's room has no faithful repay.
 - For any future outline lane:
   1. A BPI-only trigger keeps main's later code (F2; also the banned w14 cold marker). The faithful ones tried here
-     thread or un-thread the holder split, and all of those collapse. The original itself is threaded (section 3), so the
-     honest route is a whole-region rewrite, threaded validate plus class-F per-arm fee checks, that re-fits the later RA.
-     Single levers will not get there.
+     thread or un-thread the holder split before V, and all of those collapse, even though the final CFG shape equals
+     main's. The remaining faithful route is a validate shape that is cold at V by structure (as the original's was) and
+     that LLVM still builds into main's final IR order. Or it is a whole-region rewrite that re-fits the later RA around
+     the early-threaded order.
   2. Screen candidates with `capt.sh` (V decisions in seconds) before any full build.
   3. Check for the surviving `args` copy (`%_45.sroa.5`, `[32 x i8], align 1` in execute's post-O3 IR) before scoring.
 - Even a perfect O trigger would sit near the IR-forced O (M 2,199 at 27,024 B with tf_g3), about 50 M below main, with

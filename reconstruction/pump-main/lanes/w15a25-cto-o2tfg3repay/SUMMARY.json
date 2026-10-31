@@ -51,7 +51,7 @@
    "338": "0.0037 cold"
   },
   "non_holder_flow": "N = 0.0703 (threaded hr=0 & !holder critedge) + 0.0806 (50/50 holder re-test at bb21 of the hr=1 fresh-eq path and the hr=0 he-pass path) = 0.1509; 307 = N x 0.5 (Some, range-form 50/50) x 0.375 (memcmp==0); outline needs N < 0.1067",
-  "collapse": "every source trigger reaches cold 307/312 by changing validate's V-time CFG (threading the holder split: T289n/e/ie, B2, B4a; or un-threading it: v27, multi-way match); that alone collapses the function to M ~1400-1550 (Ie2i: threading without outlining M 1423) through a global RA reassignment plus a surviving execute args=(new,) payload copy (%_45.sroa.5, +1 alloca, frame +8 B); forced O keeps main's CFG and stays at M 2199 (tf_g3)"
+  "collapse": "every faithful source trigger makes 307/312 cold by changing validate's CFG before its inliner visit (threading the holder split: T289n/e/ie, B2, B4a; or un-threading it: v27, multi-way match). The final validate CFG shape is the same threaded shape as main's and the original's; the different transformation order collapses the function to M ~1400-1550 (Ie2i: threading without outlining M 1423) via a global RA reassignment plus a surviving execute args=(new,) payload copy (%_45.sroa.5, +1 alloca, frame +8 B). A BPI-only change (F2, steering-only flag) outlines without collapse (M 2186 @26,920 B)."
  },
  "trigger_table": [
   {
@@ -213,12 +213,12 @@
   "b01/b02/Fa repay on the IR-forced O base (additive or collapse)"
  ],
  "unresolved_residuals": [
-  "the original's validate is the threaded shape (holder tested once per hr path: orig 0x640 / 0x720; only hr=0 & !holder reaches the non-holder arm, N = 0.0703 at V like T289n), with class-F per-arm fee checks (0xab8-0xb40); main's later code is RA-fitted to the unthreaded validate, so threading costs ~800 M there",
+  "final validate CFG is the same threaded shape in the original (orig 0x640/0x720/0x8f8/0x900), main (0x5e0/0x5f8/0x6e8/0x600) and T289n; the original must be cold at V (N ~0.0703), main threads only after V (N 0.1509 at V); no faithful form found that is cold at V and still yields main's final IR order",
   "the V-threaded trigger leaves execute's args=(new,) payload copy as a 32 B alloca (%_45.sroa.5), unlike the original's 1/7/8/8/8/1 SROA pieces (forwarding it recovers only +138 M)"
  ],
  "next_ideas": [
   "BPI-only outline (F2-like, no CFG change) keeps main's later code: M 2186 @26,920 B on current main, but needs +480 B and +64 M at the pin and a faithful (non-steering) trigger",
-  "the faithful route is a whole-region rewrite: threaded validate + class-F per-arm fee checks + re-fitted downstream RA; single levers cannot get there",
+  "the faithful route is a validate shape cold at V by structure that LLVM still builds into main's final IR order, or a whole-region rewrite that re-fits the downstream RA around the early-threaded order; single levers cannot get there",
   "screen any validate rewrite with capt.sh (V decisions in ~3 s) before full builds"
  ]
 }
