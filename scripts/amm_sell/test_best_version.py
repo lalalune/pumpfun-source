@@ -47,7 +47,7 @@ def runner_at(root):
 
 class BestScoreVersionTests(unittest.TestCase):
     def entry(self, distance, lost=0):
-        return {'status':'scored', 'metrics':{'score_version':5,
+        return {'status':'scored', 'metrics':{'score_version':6,
                 'lost_windows_normalized_count':lost, 'sell_raw_equal':False,
                 'sell_size':9024, 'align_distance':distance, 'slot_diffs':1}}
 
@@ -59,13 +59,13 @@ class BestScoreVersionTests(unittest.TestCase):
             old = root / 'BEST.json'
             raw = b'{"rank":[1,0,0,0],"entry":{"metrics":{"score_version":2}}}\n'
             old.write_bytes(raw)
-            previous_version = root / 'BEST-v4.json'
-            previous_raw = b'{"rank":[1,0,0,0],"entry":{"metrics":{"score_version":4}}}\n'
+            previous_version = root / 'BEST-v5.json'
+            previous_raw = b'{"rank":[1,0,0,0],"entry":{"metrics":{"score_version":5}}}\n'
             previous_version.write_bytes(previous_raw)
             with runner_at(root) as runner:
                 entry = self.entry(1)
                 runner.locked_append(entry)
-                current = root / 'BEST-v5.json'
+                current = root / 'BEST-v6.json'
                 self.assertTrue(current.exists())
                 self.assertEqual(json.loads(current.read_bytes())['entry'], entry)
             self.assertEqual(old.read_bytes(), raw)
@@ -79,13 +79,13 @@ class BestScoreVersionTests(unittest.TestCase):
             root = Path(folder)
             with runner_at(root) as runner:
                 historical = self.entry(0)
-                historical['metrics']['score_version'] = 4
+                historical['metrics']['score_version'] = 5
                 runner.locked_append(historical)
-                self.assertFalse((root / 'BEST-v5.json').exists())
+                self.assertFalse((root / 'BEST-v6.json').exists())
                 current = self.entry(5)
                 runner.locked_append(current)
                 runner.locked_append(historical)
-                self.assertEqual(json.loads((root / 'BEST-v5.json').read_bytes())['entry'], current)
+                self.assertEqual(json.loads((root / 'BEST-v6.json').read_bytes())['entry'], current)
             self.assertEqual(len((root / 'ATTEMPTS.jsonl').read_text().splitlines()), 3)
 
     def test_current_version_best_still_tracks_the_lower_rank(self):
@@ -96,7 +96,7 @@ class BestScoreVersionTests(unittest.TestCase):
             with runner_at(root) as runner:
                 for distance in (5, 2, 4):
                     runner.locked_append(self.entry(distance))
-                self.assertEqual(json.loads((root/'BEST-v5.json').read_bytes())['entry'], self.entry(2))
+                self.assertEqual(json.loads((root/'BEST-v6.json').read_bytes())['entry'], self.entry(2))
             self.assertFalse((root/'BEST.json').exists())
             self.assertEqual(len((root/'ATTEMPTS.jsonl').read_text().splitlines()), 3)
 
@@ -107,7 +107,7 @@ class BestScoreVersionTests(unittest.TestCase):
             root = Path(folder)
             with runner_at(root) as runner:
                 runner.locked_append(self.entry(0, lost=1))
-            self.assertFalse((root/'BEST-v5.json').exists())
+            self.assertFalse((root/'BEST-v6.json').exists())
             self.assertEqual(len((root/'ATTEMPTS.jsonl').read_text().splitlines()), 1)
 
     def test_attempts_best_agrees_with_the_ranker(self):
@@ -121,7 +121,7 @@ class BestScoreVersionTests(unittest.TestCase):
         def build(name, size, diffs):
             return {'schema': 'amm-sell-attempt-v1', 'status': 'scored', 'lane': 'test',
                     'approach': name, 'hypothesis': name,
-                    'metrics': {'score_version': 5, 'lost_windows_normalized_count': 0,
+                    'metrics': {'score_version': 6, 'lost_windows_normalized_count': 0,
                                 'sell_raw_equal': False, 'sell_size': size,
                                 'align_distance': 120, 'slot_diffs': diffs}}
 
