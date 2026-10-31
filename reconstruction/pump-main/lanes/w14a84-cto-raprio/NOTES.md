@@ -146,7 +146,15 @@ On 95a64ba it gives 0.66916 at 27,384 (-16 B), which matches w14a82. With RA tak
   - the curve store order holder-before-cashback (the original stores `+165` before `+163`) does not move main or q7;
   - execute `cashback` spellings on q7: `if holder{false}else{..}`, `!holder&st.cashback` and `st.cashback&!holder` equal q7;
     `st.cashback&&!holder` and `!(holder||!st.cashback)` give 0.66697 at 27,392. q7k2 + 8 colour forces at 27,400 reaches
-    0.67525 / 3,088, below main's colour climb (0.67645).
+    0.67525 / 3,088, below main's colour climb (0.67645);
+  - old_fee kept in memory like the original's spill (`old_creator_fee_bps: read_volatile(&old_fee)`, after #3430
+    made `read_volatile` a landed idiom), on ecea702: 0.45765 alone and 0.45742 with q7. The address-taken local becomes
+    a new alloca and re-lays the whole frame.
+- **Same lead on main ecea702 (#3430, 0.67076 / 3,123):**
+  - q7 there is 0.66946 at 27,384, and q7 + `%1681 -> r6` (the same `%0` piece) is **0.67376 at 27,400**.
+  - At the pinned size, q7's colour climb reaches 0.68065 / 3,124 against main's 0.67585 / 3,115, so q7 is +0.0048 ahead
+    once RA is accounted for.
+  - Deferring old_fee below the `%0` split (priority < 51,712) spills it whole: 0.59419.
 - **Lead for w14a82's continuation:** any source change that leaves q7 intact and makes r6 busy over the curve-store block
   (or makes old_fee lose r6 there) is worth about +0.003 at 27,400.
 

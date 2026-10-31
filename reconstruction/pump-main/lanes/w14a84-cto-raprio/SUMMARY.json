@@ -1,38 +1,65 @@
 {
-  "lane": "w14a84-cto-raprio",
-  "wave": 14,
-  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27,400 B",
-  "bases": {"0d04cf4": {"ratio": 0.66507, "slots": 3228}, "95a64ba": {"ratio": 0.66986, "slots": 3204}},
-  "result": "notes only; no zero-loss source change",
-  "best_zero_loss": {"ratio": 0.66986, "slots": 3204, "bytes": 27400, "note": "main 95a64ba unchanged"},
-  "oracle": "private greedy-RA llc (llc-patch/: RegAllocGreedy.cpp + SBFAsmPrinter.cpp patched in a copy of the llvm-dbg build; RAPRIO_PRIO/FORCE/HINT/NOHINT/LOG/TAG); byte-identical to SDK llc with no hooks and with LOG/TAG",
-  "findings": [
-    "colour map (tools/colmap.py, data/colmap-95a64ba.tsv): 202 vregs carry a different register than the original (444 misses); top: Err payload %1655 r8 vs r9 (22), %0 accounts-pointer split pieces (%1679 r8 vs r6/r3 14, %1669 r8 vs r7 7, %1681 r8 vs r6 5, %1680 r5 vs reload), swept piece %1727 r3 vs r9 (12)",
-    "RA-only ceiling at 27,400 on 95a64ba: 6 colour-target forces -> 0.67645/3196 (+0.0066, L2 unchanged); any size 0.68065@27376; priority-only overrides at most +0.0003",
-    "s1 + best RA overrides 0.66128@27416 < main 0d04cf4 0.66507; s1 L2 gain is not recoverable through greedy decisions",
-    "swept/payload forced to r9 (no CFG change) lose 0.006-0.06",
-    "hint-free accounts-pointer pieces: byte-identical (occupancy, not hint); 32 greedy/split/spill llc options: none beat stock",
-    "q7 (event is_holder_reward re-read from curve, -16 B, 0.66916) + force %1680 (%0 piece over the curve-store block) -> r6 = 0.67286 at exactly 27,400 (+0.003 over main): evicts old_fee into a split+spill like the original; q7 is RA-adjusted +0.0033 ahead of main"
-  ],
-  "attempts": {"single_override_screens": 19308, "colour_target_screens": 125, "climbs": 8, "llc_flag_runs": 32, "source_captures": 13},
-  "rejected": [
-    "priority-only overrides (top/bottom/global toggle) on 0d04cf4",
-    "RAPRIO_NOHINT on accounts-pointer pieces",
-    "IR fresh ctx.accounts reload in wallet bb24.i (0.66627@27448)",
-    "curve store holder-before-cashback (main and q7)",
-    "q7 + old_fee placement (before old_creator / after creator store / fee.is_some() select)",
-    "q7 + 5 cashback spellings",
-    "greedy heuristic llc options"
-  ],
-  "unresolved": [
-    "q7 needs a source form that makes r6 busy over the curve-store block (or old_fee lose r6) to land +0.003",
-    "accounts-pointer split pieces take r8 because r8 is the first free CSR in those regions; the original has other values there"
-  ],
-  "next_ideas": [
-    "q7 + any source change that occupies r6 across bb38-bb44 (curve-store block) or makes old_fee spill there; check with tools/cclimb.sh and colmap.py",
-    "run tools/colmap.py on every candidate: removing an accounts-pointer piece miss without adding others is worth about +0.002 at 27,400",
-    "run tools/cclimb.sh on near-miss candidates to price their RA-recoverable loss before spending builds on partners"
-  ],
-  "ledger": "approach raprio, keys 0x22a10-w14-{0d04cf4,95a64ba}-raprio-*",
-  "pr": 3419
+ "lane": "w14a84-cto-raprio",
+ "wave": 14,
+ "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27,400 B",
+ "bases": {
+  "0d04cf4": {
+   "ratio": 0.66507,
+   "slots": 3228
+  },
+  "95a64ba": {
+   "ratio": 0.66986,
+   "slots": 3204
+  },
+  "ecea702": {
+   "ratio": 0.67076,
+   "slots": 3123
+  }
+ },
+ "result": "notes only; no zero-loss source change",
+ "best_zero_loss": {
+  "ratio": 0.67076,
+  "slots": 3123,
+  "bytes": 27400,
+  "note": "no own landing; main ecea702 at finish"
+ },
+ "oracle": "private greedy-RA llc (llc-patch/: RegAllocGreedy.cpp + SBFAsmPrinter.cpp patched in a copy of the llvm-dbg build; RAPRIO_PRIO/FORCE/HINT/NOHINT/LOG/TAG); byte-identical to SDK llc with no hooks and with LOG/TAG",
+ "findings": [
+  "colour map (tools/colmap.py, data/colmap-95a64ba.tsv): 202 vregs carry a different register than the original (444 misses); top: Err payload %1655 r8 vs r9 (22), %0 accounts-pointer split pieces (%1679 r8 vs r6/r3 14, %1669 r8 vs r7 7, %1681 r8 vs r6 5, %1680 r5 vs reload), swept piece %1727 r3 vs r9 (12)",
+  "RA-only ceiling at 27,400 on 95a64ba: 6 colour-target forces -> 0.67645/3196 (+0.0066, L2 unchanged); any size 0.68065@27376; priority-only overrides at most +0.0003",
+  "s1 + best RA overrides 0.66128@27416 < main 0d04cf4 0.66507; s1 L2 gain is not recoverable through greedy decisions",
+  "swept/payload forced to r9 (no CFG change) lose 0.006-0.06",
+  "hint-free accounts-pointer pieces: byte-identical (occupancy, not hint); 32 greedy/split/spill llc options: none beat stock",
+  "q7 (event is_holder_reward re-read from curve, -16 B, 0.66916) + force %1680 (%0 piece over the curve-store block) -> r6 = 0.67286 at exactly 27,400 (+0.003 over main): evicts old_fee into a split+spill like the original; q7 is RA-adjusted +0.0033 ahead of main",
+  "on main ecea702: q7 0.66946@27384, q7 + force %1681 -> r6 0.67376@27400 (+0.0030); colour climb at 27400 q7 0.68065 vs main 0.67585 (q7 RA-adjusted +0.0048)"
+ ],
+ "attempts": {
+  "single_override_screens": 19308,
+  "colour_target_screens": 125,
+  "climbs": 8,
+  "llc_flag_runs": 32,
+  "source_captures": 17
+ },
+ "rejected": [
+  "priority-only overrides (top/bottom/global toggle) on 0d04cf4",
+  "RAPRIO_NOHINT on accounts-pointer pieces",
+  "IR fresh ctx.accounts reload in wallet bb24.i (0.66627@27448)",
+  "curve store holder-before-cashback (main and q7)",
+  "q7 + old_fee placement (before old_creator / after creator store / fee.is_some() select)",
+  "q7 + 5 cashback spellings",
+  "greedy heuristic llc options",
+  "old_fee via read_volatile(&old_fee) at the event (0.4577, new alloca re-lays the frame)",
+  "deferring old_fee below the %0 split (whole spill, 0.59419)"
+ ],
+ "unresolved": [
+  "q7 needs a source form that makes r6 busy over the curve-store block (or old_fee lose r6) to land +0.003",
+  "accounts-pointer split pieces take r8 because r8 is the first free CSR in those regions; the original has other values there"
+ ],
+ "next_ideas": [
+  "q7 + any source change that occupies r6 across bb38-bb44 (curve-store block) or makes old_fee spill there; check with tools/cclimb.sh and colmap.py",
+  "run tools/colmap.py on every candidate: removing an accounts-pointer piece miss without adding others is worth about +0.002 at 27,400",
+  "run tools/cclimb.sh on near-miss candidates to price their RA-recoverable loss before spending builds on partners"
+ ],
+ "ledger": "approach raprio, keys 0x22a10-w14-{0d04cf4,95a64ba}-raprio-*",
+ "pr": 3419
 }
