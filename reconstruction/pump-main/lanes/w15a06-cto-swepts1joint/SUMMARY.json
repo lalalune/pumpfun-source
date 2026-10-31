@@ -1,0 +1,30 @@
+{
+  "lane": "w15a06-cto-swepts1joint",
+  "target": "0x22a10 admin_cto::execute",
+  "base": "main 90300f9d2 (admin_cto unchanged on ed47ac72a)",
+  "result": "notes only; no source change",
+  "main": {"ratio": 0.67346, "slots_diff": 3124, "bytes": 27400, "M": 2248},
+  "best_zero_loss": {"ratio": 0.67346, "slots_diff": 3124, "bytes": 27400, "note": "main itself; nothing landable"},
+  "grid_M": {
+    "main":  {"free": 2248, "pinV": 2291, "pinA": 2298, "r9phys": 1525, "ri9": 2255, "pinV_ri9": 2302, "riAll": 2252, "pinV_riAll": 2353},
+    "s1":    {"bytes": 27376, "free": 2145, "pinV": 2250, "pinA": 2257, "r9phys": 1513, "ri9": 2171, "pinV_ri9": 2300, "riAll": 2284, "pinV_riAll": 2416},
+    "canon_all": {"free": 2162, "pinV": 2252, "pinA": 2258, "r9phys": 1543, "ri9": 2164, "pinV_ri9": 2256, "riAll": 2232, "pinV_riAll": 2322}
+  },
+  "joint_bound": "s1 + legal tail pin + ideal region registers = 0.72411 @27376 (M 2416) vs main same 0.70491 (M 2353); realisable swept-only part ties main (2300 vs 2302)",
+  "findings": [
+    "pin and register naming are super-additive (main +43/+4 -> +105; s1 +105/+139 -> +271): the same clone-run spill/reload instructions need both",
+    "swept physreg pin to r9 (pre-coalescer MIR, exact round trip) costs ~0.22 on all bases: whole-function recolour",
+    "s1 tail colours are the original's per-element sequence shifted +3 (E1-E3), +2, +1: caused by early spills of E0.lam/E0.own/E3.data/E0.rent that the original keeps in caller-saved regs -> the frame error is the RA cascade",
+    "illegal pins 179/184/185 are worth +7 M; ours has 9 function-long spills across the tail vs the original's 6 (SS#181 entry r4, SS#185, SS#186)",
+    "StackSlotColoring emulator (sscsim.py) reproduces 181/181 FI colours exactly from ssc.log order; colouring the 3 long spills last costs 195-230 M (whole-frame recolour)",
+    "mirperm round trip is exact once the SBF outgoing-arg bias is fixed (fixfs); w14a139's rt lost 19 M"
+  ],
+  "rejected": ["swept physreg r9 pin (all bases)", "physreg pins entry-r5->r6, accounts->r8, combos", "evicting the 3 long spills", "late colouring of the 3 long spills"],
+  "unresolved": ["E0 Rc/owner pointers spilled early in s1 (RA)", "caller-saved rotation in the clone run", "3 extra function-long spills across the tail"],
+  "next_ideas": [
+    "patched greedy priority/cascade override in a private llvm-dbg build for an RA-faithful s1 oracle",
+    "key/lamports CSE: bind the E0/E2/E4 key/Rc values once early (original reuses long-lived slots 0x910/0x8e0/0x908); bound +7 M colour",
+    "use sscsim.py as a no-build filter for frame-order ideas"
+  ],
+  "ledger_keys": ["0x22a10-w15-90300f9-swepts1joint-grid-pin-v1","0x22a10-w15-90300f9-swepts1joint-r9-physpin-v1","0x22a10-w15-90300f9-swepts1joint-regideal-joint-v1","0x22a10-w15-90300f9-swepts1joint-evict3-v1","0x22a10-w15-90300f9-swepts1joint-colourshift-v1","0x22a10-w15-90300f9-swepts1joint-latecolour-v1","0x22a10-w15-90300f9-swepts1joint-multipin-v1"]
+}
