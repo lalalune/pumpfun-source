@@ -1,0 +1,44 @@
+{
+  "lane": "w15a34-cto-s1clonearray",
+  "wave": "w15 (continued in wave 16)",
+  "target": {"window": "0x22a10", "function": "admin_cto::execute", "file": "programs/pump/src/creator/admin_cto.rs", "pinned_bytes": 27400},
+  "base": {"main": "9120883a9", "merged_origin_main": "1cc487926 (programs/pump/src unchanged)", "ratio": 0.67376, "slots_diff": 3124, "bytes": 27400, "M_free": 2249},
+  "result": "notes only; s1 clone-at-store family closed (no source form changes the clone pieces' spill-weight density; all stack forms are SROA-equivalent to s1 and lose its 5 B CpiContext.program padding copy)",
+  "best_zero_loss": {"ratio": 0.67376, "slots_diff": 3124, "bytes": 27400, "note": "main unchanged; no landable candidate"},
+  "forms": [
+    {"name": "s1", "ratio": 0.64319, "bytes": 27376, "M": 2146, "class": "= w15a18 s1x", "note": "keeps orig padding copy 0x4a08-0x4a20"},
+    {"name": "a7p", "ratio": 0.64268, "bytes": 27344, "M": 2143, "class": "A", "role_weights": "56/64 identical, max 0.6%"},
+    {"name": "t7p", "ratio": 0.64268, "bytes": 27344, "M": 2143, "class": "A"},
+    {"name": "a8", "ratio": 0.64268, "bytes": 27344, "M": 2143, "class": "A"},
+    {"name": "t8", "ratio": 0.64268, "bytes": 27344, "M": 2143, "class": "A"},
+    {"name": "a7w", "ratio": 0.64268, "bytes": 27344, "M": 2143, "class": "A"},
+    {"name": "a7b", "ratio": 0.64268, "bytes": 27344, "M": 2143, "class": "A"},
+    {"name": "blk", "ratio": 0.64268, "bytes": 27344, "M": 2143, "class": "A + 4 val-store insns"},
+    {"name": "a7", "ratio": 0.64387, "bytes": 27344, "M": 2147, "class": "= w15a18 ctxafter + 4 insns", "role_weights": "CpiContext program pieces x3.0-4.1, struct clones 0.62-0.91"},
+    {"name": "vec7p", "ratio": 0.58192, "bytes": 27416, "M": 1941, "calls": 166, "note": "pieces stored at def into the heap; true LCS -258 vs s1"},
+    {"name": "manual invoke_signed", "built": false, "note": "excluded: removes the only caller of matched windows 0x116718 (cpi fn, 4040 B), 0x118360 (ToAccountMetas, 1472 B), 0xca628 (ToAccountInfos, 1944 B)"}
+  ],
+  "ra_ceilings": [
+    {"form": "s1", "decisions": "weight x3 %290 (CpiContext program key), weight x3 %319 (global data Rc ptr)", "M": 2256, "bytes": 27384, "ratio": 0.67606},
+    {"form": "s1 (w15a18 6 decisions replayed)", "M": 2256, "bytes": 27352, "ratio": 0.67646},
+    {"form": "a7p class", "decisions": "weight x3 %290, cascade %319", "M": 2245, "bytes": 27352, "ratio": 0.67316},
+    {"form": "a7", "decisions": "bottom 1244, top 1218, bottom 1636", "M": 2199, "bytes": 27368, "ratio": 0.65917}
+  ],
+  "rejected_mechanisms": [
+    "array literal / tuple / 8-element array / whole-array binding / per-element blocks / per-field blocks for the seven AdminCtoSharingConfig clones (SROA-equivalent to s1, drop the CpiContext.program padding copy, -32 B, -3..-10 M)",
+    "CpiContext program clone evaluated after the struct clones (= ctxafter; density change is evaluation order, ceiling 2199)",
+    "Vec push of the clones in field order (pieces stored at def into the heap; -205 M, +9 calls)",
+    "manual invoke_signed with account_infos next to metas (deletes three matched windows)",
+    "sharing_update arm branch probability (IR probe; main optimal at 50/50, s1 at most +20 M)"
+  ],
+  "unresolved_residuals": [
+    "s1 register budget: original keeps swept in r9 from orig 0x3c40 to 0x5030 and reloads the accounts pointer from [r10-0x8d8] before every clone; s1/main keep the accounts pointer in a register (r7/r5) and spill swept at def",
+    "s1 two-decision cell (M 2256 @27384) has no source mechanism: %342 (sharing_config executable) evicts %319 (global data Rc ptr) by a 7.7% weight margin"
+  ],
+  "next_ideas": [
+    "Price source forms that change swept's or the accounts pointer's weight across the sharing arm with RAPRIO_LOG weight dumps before building",
+    "Any s1 lead still needs a faithful 16-24 B repay (sizeknobs-cto.json)"
+  ],
+  "ledger_keys": "0x22a10-w15-9120883-s1clonearray-*",
+  "tools": ["tools/gen.py", "tools/runq.sh", "tools/rolew.py", "tools/wcmp.py", "tools/famvregs.py", "tools/cellf.sh", "tools/ceil.sh", "tools/bwprobe.py", "tools/mkjobs.py"]
+}
