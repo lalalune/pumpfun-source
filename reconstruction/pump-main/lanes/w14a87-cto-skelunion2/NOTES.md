@@ -33,13 +33,18 @@ No source change. No zero-loss gain.
 
 ## Components and unions (95a64ba; `tbl_rank_95a64ba.md`, ranked by rfR)
 
+Component **Br** is B with branch-condition reversal allowed (`relayn.run_rev`). A block whose fall-through is no longer
+next flips its conditional instead of getting a `ja`. That is what a source polarity flip (`==` against `!=`) would
+give. There are 4 flips, in bb7.i, bb14.i, bb16.i and bb23.i, and they save 32 of B's 40 B at the same M.
+
 | base | post-opt | bytes | M | jM | fR | rfR | rfjR | skM |
 | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| t1 | B | 27,456 | 2,255 | 2,376 | 2,310 | **2,658** | **2,750** | 2,885 |
-| main | B | 27,448 | **2,259** | 2,376 | **2,314** | 2,655 | 2,746 | 2,881 |
-| a1 | h7+B | **27,392** | 2,256 | 2,373 | 2,308 | 2,654 | 2,749 | 2,878 |
-| a1 | B | 27,424 | 2,254 | 2,373 | 2,308 | 2,654 | 2,748 | 2,882 |
-| main | h7+B | 27,416 | 2,259 | 2,376 | 2,312 | 2,653 | 2,747 | 2,877 |
+| t1 | h7+Br | 27,384 | 2,263 | 2,378 | 2,316 | **2,664** | **2,753** | 2,882 |
+| main | B | 27,440 | **2,264** | 2,380 | **2,319** | 2,661 | 2,750 | 2,885 |
+| main | Br | 27,408 | **2,264** | 2,378 | 2,319 | 2,660 | 2,748 | 2,882 |
+| main | h7+Br | 27,376 | 2,264 | 2,378 | 2,317 | 2,658 | 2,749 | 2,878 |
+| a1 | Br | 27,384 | 2,259 | 2,375 | 2,313 | 2,659 | 2,750 | 2,883 |
+| **K.L_fee_unwrap_again** | Br | **27,400** | 2,260 | 2,372 | 2,316 | 2,661 | 2,747 | 2,879 |
 | k75 (w14a75 and-1 basin) | - | 27,352 | 2,201 | 2,317 | 2,242 | 2,623 | 2,709 | 2,821 |
 | t1 | - | 27,408 | 2,231 | 2,264 | 2,276 | 2,622 | 2,624 | 2,811 |
 | **main** | - | 27,400 | 2,236 | 2,264 | 2,281 | 2,620 | 2,620 | 2,807 |
@@ -51,63 +56,75 @@ No source change. No zero-loss gain.
 | q2+tu8 | - | 27,320 | 2,148 | 2,268 | 2,200 | 2,560 | 2,662 | 2,831 |
 | p1 | - | 27,408 | 1,956 | 1,990 | 2,001 | 2,556 | 2,594 | 2,826 |
 
-The 0d04cf4 grid (`tbl_rank_0d04cf4.md`, 21 builds x 4) has the same ranking: t1+B rfR 2,665, main+B 2,662, s1+t1+B 2,641,
-main 2,620.
+The 0d04cf4 grid (`tbl_rank_0d04cf4.md`, 21 builds x 4) has the same ranking. There t1+B has rfR 2,665, main+B 2,662,
+s1+t1+B 2,641 and main 2,620.
 
 Per 0x800 chunk, M/jM against main 95a64ba (`tbl_chunks_95a64ba.txt`):
 
-| chunk | B | a1 | t1 | s1 | p1 | k75 |
+| chunk | B / Br | a1 | t1 | s1 | p1 | k75 |
 | --- | --- | --- | --- | --- | --- | --- |
-| 0x0000 | +0/+16 | -1/0 | -1/0 | 0 | **+13/+12** | +2/+15 |
+| 0x0000 | 0/+16 | -1/0 | -1/0 | 0 | **+13/+12** | +2/+15 |
 | 0x0800 | **+28/+100** | 0 | 0 | 0 | +1/0 | +9/+80 |
-| 0x1000 | -5/-4 | 0 | 0 | 0 | +1/0 | -5/-5 |
+| 0x1000 | 0 | 0 | 0 | 0 | +1/0 | -5/-5 |
 | 0x2800-0x3800 | 0 | 0 | 0 | -5/-5 | **-249/-240** | -14/-11 |
 | 0x4000-0x4800 | 0 | 0 | 0 | **-96/-91** | -19/-24 | -3/-3 |
 | 0x5000-0x6800 | 0 | -2 | -1 | 0 | -10 | -20/-20 |
-| total | +23/+112 | -6/-3 | -5/0 | -102/-96 | -280/-274 | -35/+53 |
+| total | +28/+116 | -6/-3 | -5/0 | -102/-96 | -280/-274 | -35/+53 |
 
 ## Findings
 
-1. **B is the only structural component with an RA-recoverable gain.** It adds +23 M (+28 in orig 0x800-0x1000)
-   and +35 rfR. Its raw gain is mostly jump distances: jM +112, rfjR +126. It touches only the validate chunks, so it
-   composes additively with a1, t1 and h7. Those three are disjoint and RA-neutral there.
-2. **s1 and p1 are not RA-recoverable under a legal frame.** Their skeleton gains show up only with every frame
+1. **B is the only structural component with an RA-recoverable gain.** It adds +28 M, all in orig 0x800-0x1000,
+   and +40 rfR. Its raw gain is mostly jump distances: jM +116 and rfjR +130. It touches only validate, so it
+   composes additively with a1, t1, h7 and size knobs. Those are disjoint from validate and RA-neutral there.
+   - **B's size cost is mostly polarity.** Br keeps M 2,264 at +8 B instead of +40 B.
+   - The original has 19 `ja` in its first 700 instructions. Main has 17, Br 18 and B 22.
+2. **The best pinned composite (oracle only) is K.L_fee_unwrap_again + Br: 0.67705 at 27,400 B, M 2,260.** That is
+   +24 M over main 0.66986.
+   - The knob is `curve.creator_fee_bps=fee.unwrap_or(old_fee);`, the same edit as `K.g_fee_unwrap` and
+     `K.cu_fee_oldunwrap`. Alone it gives -8 B at -5 M.
+   - Full knob x Br table: `tbl_knobs_Br_95a64ba.md`. 14 knobs are token-identical to main, and no knob is
+     M-neutral at -8 B.
+3. **s1 and p1 are not RA-recoverable under a legal frame.** Their skeleton gains show up only with every frame
    offset masked: s1+B skM +148 and p1+B skM +91 over main. Under the legal-frame bound they fall below main:
    s1 rfR -50, s1+B -15, p1 -64, p1+B -30.
    - s1's skeleton gain sits in frame-slot identity that no bijective relayout reaches. The original uses different
-     slot sharing (colouring) in the sharing CPI.
-   - p1's -249 in orig 0x2800-0x3800 is the cashback-r8 register cascade (w14a09/w14a15). It survives even with
-     ideal registers because the slots shift too.
+     slot sharing in the sharing CPI.
+   - p1's -249 in orig 0x2800-0x3800 is the cashback-r8 register cascade (w14a09/w14a15). Its frame slots shift
+     too.
    - **The swarm should not move to an s1 or p1 base.**
-3. **The and-1 basin (k75 = p3u+tu8+RVJ+st_ql_first) is a weaker source-side B.**
+4. **The and-1 basin (k75 = p3u+tu8+RVJ+st_ql_first) is a weaker source-side B.**
    - In validate it gains +9/+80 against B's +28/+100, and it loses -35 M elsewhere (0x3800, 0x5800, 0x6000).
-   - Its rfR equals main's (+3). Its rfjR is +89, against +126 for B.
-   - On 95a64ba it is token-identical to its 0d04cf4 build, because its hb binding overrides #3409's re-derived
-     holder.
-   - Every union on it is lower: s1+k75 2,106, t1+k75 2,200, a1+k75 2,196.
-4. **h7 is size-only.** It removes 32 B at M +-0 on main, a1 and t1. It is not usable on and-1 bases, where its
-   memcpy pattern is a different value.
-5. **Best composite base: a1 + h7 + B.** It reaches M 2,256 at 27,392 B (+20 M over main, 8 B short) and is
-   oracle-only. Main+B alone needs -48 B and t1+B needs -56 B. a1 pays 24 B of B's +48 B at -6 M, and h7 pays the
-   rest.
+   - Its rfR equals main's (+3).
+   - On 95a64ba it is token-identical to its 0d04cf4 build, because its hb binding overrides #3409's holder
+     re-derivation.
+   - Its unions are lower: s1+k75 2,106, t1+k75 2,200, a1+k75 2,196.
+5. **h7 is size-only.** It removes 32 B at M +-0 on main, a1 and t1. It does not apply to and-1 bases, where the same
+   memcpy pattern carries a different value.
 
 ## Hand-off to source search (step 4)
 
-- The structural base the swarm should move to is **main's own RA with the validate error-block order B**, plus the
-  size-only partners (a1 -24 B, h7 -32 B). It is not an s1, p1 or and-1 base.
-- The source of B belongs to w14a78-valerrplace. B costs +48 B (6 extra `ja`) under fixed RA, so a source form must
-  bring its own -48 B repay, or keep fall-throughs that the relay oracle had to break.
-- A size-knob screen on main x B is running (`r3.jsonl`). It looks for knobs that repay B's 48 B without touching
-  validate. Its results are in the ledger rows `0x22a10-w14-95a64ba-skelunion2-K.*`.
+- The structural base to move to is **main's own RA plus the validate error-block order B with the polarity of Br**.
+  It is not an s1, p1 or and-1 base.
+- A source form of B (w14a78-valerrplace) should flip the conditions of the bb7.i, bb14.i, bb16.i and bb23.i tests
+  along with the order. Then it costs only +8 B, and `curve.creator_fee_bps=fee.unwrap_or(old_fee)` repays that
+  exactly (oracle 0.67705 at 27,400).
+- Without the flips, B costs +40 B. The repay is then a1 (-24 B, -6 M) plus a -16 B knob, or h7, which has no
+  source form.
+- genes47 x Br screen (first 22 of 163 genes on 95a64ba, then the full list on ecea702; out dir `pl4_95a6.jsonl`,
+  `pl5.jsonl`, and the ledger):
+  - `g.s_su_iflet` (`if let Some(val)=sharing_update{..}` instead of `match`) is -8 B at M +1 alone on 95a64ba.
+  - With Br it lands at exactly 27,400 B with M 2,266 (+30), the best pinned oracle composite on 95a64ba.
+  - `g.e_reset` is -8 B / +1 alone, and +25 with Br.
 
 ## Tools (in `tools/`, oracle-only)
 
 - `sc.py`: M, jM, fM, skM and per-chunk scores.
 - `fbound.py`: fR, rfR and rfjR.
-- `relayn.py`: B by IR block names, with `Bspec.txt`.
+- `relayn.py`: B by IR block names (`run`), and Br with condition reversal (`run_rev`), with `Bspec.txt`.
 - `relay.py`: w14a78's relayout.
 - `h7.py`
-- `post.py`: the base x {-, h7, B, h7+B} grid.
+- `post.py`: the base x {-, h7, B, h7+B} grid. `postr.py` adds the Br variants, and `postlean.py` gives M-only Br
+  screens.
 - `run.py`, `cap.sh`, `capvar.sh`: the w14a15 capture runner.
 - `e/gen.py`: the w14a15 genes, plus `k75`, `t1`, `a1` and `nB`, and a `_holder` binding fix for genes written
   before #3409. The extra genes are in `e/extra.py`.

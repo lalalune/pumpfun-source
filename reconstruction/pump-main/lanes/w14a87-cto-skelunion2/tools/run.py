@@ -34,7 +34,7 @@ def work(w):
             c=subprocess.run(['bash',O+'/tools/capvar.sh',n,ef,str(w)],capture_output=True,text=True)
             try: r.update(json.loads(c.stdout.strip().split('\n')[-1]))
             except Exception: r['error']='cap:'+(c.stdout+c.stderr)[-300:]
-            if 'ratio' in r:
+            if False:
                 e=subprocess.run(['python3',O+'/tools/ed.py',f'{O}/rx/{n}/m.ll','-',''],capture_output=True,text=True)
                 try: d=json.loads(e.stdout); r.update(fm=d['fm'],sk=d['sk'],es=d['es'])
                 except Exception: pass
