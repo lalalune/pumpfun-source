@@ -14,7 +14,7 @@ and **true LCS** (w14a128 `lcs.py`, rfj mask; main 3,007). `tools/run1.sh <name>
 `tools/batch.sh` runs a list on one slot; `tools/rec3.py` records rows; `tools/tab3.py` builds `screen_table.md`.
 Each capture is ~22 s (it is a full rustc compile), so at most 2 ran at a time.
 
-## Result: no per-field respelling gains at the pinned size (93 variants)
+## Result: no per-field respelling gains at the pinned size (103 variants)
 
 Full table: `screen_table.md`. Summary by tuple field:
 
@@ -46,6 +46,10 @@ The shared non-holder arm's `target=a.bonding_curve.creator` becomes `target=cre
 | g2 / g7 / g9 | before `let hopt` / before `let cashback` / as `args.1` | 27,496 | 2,234 | 2,817 | 2,239 / 3,015 |
 | g3 | at the start of the state block | 27,464 | 2,247 | 2,810 | 2,252 / 3,010 |
 | f7 | after validate, before the tree | 27,440 | 2,247 | 2,810 | 2,252 / 3,010 |
+| g1a / g1b / g1c | `st.creator` before `let args` / `let cashback` / after `let hopt` | 27,480 | 2,238 | 2,816 | 2,243 / **3,016** |
+| g1d | `st.creator` between `sk` and `validate` | = g1 | | | |
+| g1e | `st.creator` after validate | 27,432 | 2,245 | 2,810 | 2,252 / 3,010 |
+| g0 | `target=st.creator` in the arm (w14a106 earlyload t1) | 27,392 | 2,245 | 2,810 | 2,252 / 3,009 |
 | g4 | by reference | = main bytes | | | |
 
 g1 is the only spelling that is better than main on every token metric, but the creator pieces stay live across validate
@@ -53,7 +57,9 @@ and cost 15 extra moves and reloads in 0x4f8-0x1af0 (+120 B). The rest of the fu
 the `[r10-0x8e0]`/`[r10-0x900]` spill slots swapped. The applicable negative size knobs from `sizeknobs-cto.json` each cost
 10-15 M on main (s_dest_borrow -80 B M 2,234; cu_typed -32 B M 2,236; cu_fee_replace -8 B M 2,233; sh_prog_let -32 B
 M 2,237; s_old_borrow, sh_accs_let and ev_reset_shared are worse). Pinned composites lose: X4 = g1 + s_dest_borrow + sh_prog_let
-+ cu_fee_replace 0.66477 @27,400 (M 2,219, 3,057 slots); X2 = g3 + cu_typed + sh_prog_let 0.66717 @27,400 (M 2,227).
++ cu_fee_replace 0.66477 @27,400 (M 2,219, 3,057 slots); X2 = g3 + cu_typed + sh_prog_let 0.66717 @27,400 (M 2,227);
+g0 + an 8 B knob (L_fee_unwrap_again or cu_fee_oldunwrap) 0.66777 @27,400 (M 2,229). On main every catalog knob tried costs more M
+than the creator binding gains.
 
 **For the outline lanes (w15a02 t312repay, w14a141): g1 and g3 are positive byte-repay knobs on the outline bases**
 (`outline_bases.txt`, w14a144 `vr.sh` with `ed/ni.py`):
@@ -71,10 +77,10 @@ On O312 (needs +216 B) g1 repays 120 B and gains 3 M; g3 on base O gains 93 M fo
 ## Next ideas
 
 1. g1 / g3 on the outline bases, with the remaining repay found among faithful data-flow forms (w15a02 owns the outline).
-2. The original's validate head copies a 32 B stack value `[r10-0x6a0..0x688] -> [r10-0x518..0x500]` (orig 0x598-0x5d0)
-   where ours loads `[r3+..]` directly. That copy, not a held register, is probably the faithful home for the creator/target
-   bytes g1 keeps live. A form that makes the early creator a memory copy (not SSA pieces) would get g1's skeleton without its
-   moves.
+2. Get g1's skeleton without its 15 moves. The original's arm copies `st.creator` from the CtoState slot (w14a106 note at
+   orig 0xdc0), and its validate head copies a 32 B stack value `[r10-0x6a0..0x688] -> [r10-0x518..0x500]` (orig 0x598-0x5d0;
+   w12 lists a holder_key copy to `[r10-0x518]`). g0 (`target=st.creator` in the arm) keeps the memory copy but recovers only
+   +2 rfj, and g1 (SSA pieces) +7. A spelling between the two is still untried.
 3. The per-arm cashback phi (c-family) is orig-like and shrinks the function by 136 B. It needs RA recovery in 0x2800-0x3800.
    The w14a84 RA ceiling tooling could price c1. c1 + g1 measured: 27,384 B, M 1,880, true-LCS rfj 3,005 (c1 + f6 27,392 B,
    rfj 3,006). The skeleton is nearly main's, but registers and frame are still c1's.

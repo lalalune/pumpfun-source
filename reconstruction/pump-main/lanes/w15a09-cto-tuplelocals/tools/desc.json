@@ -91,5 +91,15 @@
 "X3": "f7 + cu_typed + cu_fee_replace",
 "X4": "g1 + s_dest_borrow + sh_prog_let + cu_fee_replace (pinned 27400)",
 "c1g1": "c1 (per-arm cashback) + g1 (creator early)",
-"c1g3": "c1 + g3"
+"c1g3": "c1 + g3",
+"g0": "shared non-holder arm target=st.creator (w14a106 earlyload t1, re-priced on 90300f9)",
+"g1a": "let creator=st.creator; before let args",
+"g1b": "let creator=st.creator; before let cashback",
+"g1c": "let creator=st.creator; right after let hopt",
+"g1d": "let creator=st.creator; between sk and validate (= g1 bytes)",
+"g1e": "let creator=st.creator; after validate (before the tree)",
+"Y1": "g0 + L_fee_unwrap_again (+8 B repay, pinned 27400)",
+"Y2": "g0 + ev_cb_local",
+"Y5": "g0 + cu_fee_oldunwrap (pinned 27400)",
+"Y6": "size knob ev_cb_local alone on main"
 }

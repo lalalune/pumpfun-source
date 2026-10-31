@@ -94,3 +94,13 @@
 | `c1g3` | c1 + g3 | 0.5627 | 27392 | 1878 | 2040 | 2855 | 3003 (-4) | no |
 | `c1f6` | c1 + f6 | 0.56479 | 27392 | 1885 | 2046 | 2863 | 3006 (-1) | no |
 | `c1f7` | c1 + f7 | 0.56504 | 27312 | 1883 | 2043 | 2856 | 2999 (-8) | no |
+| `g0` | shared non-holder arm target=st.creator (w14a106 earlyload t1, re-priced on 90300f9) | 0.67266 | 27392 | 2245 | 2346 | 2810 | 3009 (+2) | no |
+| `g1c` | let creator=st.creator; right after let hopt | 0.66946 | 27480 | 2238 | 2345 | 2816 | 3016 (+9) | no |
+| `g1a` | let creator=st.creator; before let args | 0.66946 | 27480 | 2238 | 2345 | 2816 | 3016 (+9) | no |
+| `g1d` | let creator=st.creator; between sk and validate (= g1 bytes) | 0.67255 | 27520 | 2250 | 2344 | 2820 | 3014 (+7) | no |
+| `g1e` | let creator=st.creator; after validate (before the tree) | 0.67216 | 27432 | 2245 | 2344 | 2810 | 3010 (+3) | no |
+| `g1b` | let creator=st.creator; before let cashback | 0.66946 | 27480 | 2238 | 2345 | 2816 | 3016 (+9) | no |
+| `Y1` | g0 + L_fee_unwrap_again (+8 B repay, pinned 27400) | 0.66777 | 27400 | 2229 | 2329 | 2806 | 3005 (-2) | no |
+| `Y6` | size knob ev_cb_local alone on main | 0.66607 | 27392 | 2223 | 2316 | 2872 | 3006 (-1) | no |
+| `Y2` | g0 + ev_cb_local | 0.66587 | 27384 | 2222 | 2315 | 2872 | 3008 (+1) | no |
+| `Y5` | g0 + cu_fee_oldunwrap (pinned 27400) | 0.66777 | 27400 | 2229 | 2329 | 2806 | 3005 (-2) | no |

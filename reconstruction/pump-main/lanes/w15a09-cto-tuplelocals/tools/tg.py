@@ -153,3 +153,10 @@ G['c1g1']=[(_CB,"let mut cashback=false;"),(_VAL,"let creator=st.creator;"+_VAL)
 G['c1g3']=[(_CB,"let mut cashback=false;"),(_STH,"{ let creator=a.bonding_curve.creator;let st=CtoState{creator:a.bonding_curve.creator,"),(_NA,_NAc1g),(_NS,_NSc1)]
 G['c1f6']=[(_CB,"let mut cashback=false;"),(_VAL,"let creator=a.bonding_curve.creator;"+_VAL),(_NA,_NAc1g),(_NS,_NSc1)]
 G['c1f7']=[(_CB,"let mut cashback=false;"),(_SU,_SU+"let creator=a.bonding_curve.creator;"),(_NA,_NAc1g),(_NS,_NSc1)]
+# ---- round 7: st.creator binding positions ----
+G['g0']=[(_NA,"else{sharing_update=Some(args.0);target=st.creator;(false,true)}}")]
+G['g1a']=[("let args=&(new,);","let creator=st.creator;let args=&(new,);"),(_NA,_NAC)]
+G['g1b']=[(_CB,"let creator=st.creator;"+_CB),(_NA,_NAC)]
+G['g1c']=[(_HOPT,_HOPT+"let creator=st.creator;"),(_NA,_NAC)]
+G['g1d']=[("let sk=a.sharing_config.key();let mut target=validate","let sk=a.sharing_config.key();let creator=st.creator;let mut target=validate"),(_NA,_NAC)]
+G['g1e']=[(_SU,_SU+"let creator=st.creator;"),(_NA,_NAC)]
