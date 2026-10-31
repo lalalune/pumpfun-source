@@ -3,7 +3,7 @@
 Target `0x22a10` `admin_cto::execute` (`programs/pump/src/creator/admin_cto.rs`), pinned at 27,400 B.
 Base: main 86e2a6b (0.67376, 3,124 slots, M 2,249 at 27,400 B; Pump Main 1034/1035 normalized and raw).
 This lane continues w14a133-cto-tcfrentlate (#3615), next idea 1. Ledger approach `tcfsroa64`, keys
-`0x22a10-w15-86e2a6b-tcfsroa64-<spelling>-v1` (60 rows). Every number below comes from a raw-IR capture (`capraw.py`)
+`0x22a10-w15-86e2a6b-tcfsroa64-<spelling>-v1` (61 rows). Every number below comes from a raw-IR capture (`capraw.py`)
 followed by the `rx.py` opt/llc oracle (`eq_main` true on the unedited capture). No full `measure.sh` build was needed,
 because nothing beat main.
 
@@ -72,6 +72,8 @@ L664 is the CpiContext, `L:p56` the program-literal pad, C* the Rc increments, R
   program Rc increments"**, worth +0.024. The tail order is worth at most 0.0027 (fru1 against main).
 - `tools/perm6.py`: all 720 orders of O, R, S, W, E and L on the tai post-opt IR (`data/perm720_tai.jsonl`). The best is
   0.6501 at 27,424 B. No order inside the tail recovers tai, which matches w14a114's d1 finding.
+- `tools/omove.py`: the tai owner load moved to each of 646 later positions, up to its store into the CpiContext
+  (`data/omove_tai.jsonl`). None beats tai in place. Only owner-before-the-Rc-increments (main) reaches 0.67376.
 - `tools/perm.py`'s 120-order table on 86e2a6b (`data/perm120.jsonl`) is unchanged in shape: EWSLR 0.67496 (+4 M),
   SLREW 0.67436 and WSLRE 0.67406, against REWSL = LREWS = main.
 

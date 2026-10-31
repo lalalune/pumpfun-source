@@ -1,0 +1,646 @@
+{"i": 4360, "before": "%v360 = getelementptr inbounds i8, ptr %_213.i, i64 32", "ratio": 0.6499, "M": 2170, "bytes": 27416, "slots": null}
+{"i": 4361, "before": "%_6.i.i = load i64, ptr %v360, align 8, !alias.scope !8638, !noalias !", "ratio": 0.6499, "M": 2170, "bytes": 27416, "slots": null}
+{"i": 4362, "before": "%v361 = getelementptr inbounds i8, ptr %_213.i, i64 40", "ratio": 0.649, "M": 2167, "bytes": 27416, "slots": null}
+{"i": 4363, "before": "%v362 = load i8, ptr %v361, align 8, !range !394, !alias.scope !8638, ", "ratio": 0.649, "M": 2167, "bytes": 27416, "slots": null}
+{"i": 4364, "before": "%v363 = getelementptr inbounds i8, ptr %_213.i, i64 41", "ratio": 0.6496, "M": 2169, "bytes": 27416, "slots": null}
+{"i": 4365, "before": "%v364 = load i8, ptr %v363, align 1, !range !394, !alias.scope !8638, ", "ratio": 0.6496, "M": 2169, "bytes": 27416, "slots": null}
+{"i": 4366, "before": "%v365 = getelementptr inbounds i8, ptr %_213.i, i64 42", "ratio": 0.6496, "M": 2169, "bytes": 27416, "slots": null}
+{"i": 4367, "before": "%v366 = load i8, ptr %v365, align 2, !range !394, !alias.scope !8638, ", "ratio": 0.6496, "M": 2169, "bytes": 27416, "slots": null}
+{"i": 4368, "before": "call void @llvm.lifetime.start.p0(i64 5, ptr nonnull %_57.sroa.20.sroa", "ratio": 0.6489, "M": 2167, "bytes": 27424, "slots": null}
+{"i": 4369, "before": "call void @llvm.lifetime.start.p0(i64 5, ptr nonnull %_57.sroa.21.sroa", "ratio": 0.6487, "M": 2166, "bytes": 27416, "slots": null}
+{"i": 4370, "before": "call void @llvm.lifetime.start.p0(i64 5, ptr nonnull %_57.sroa.22.sroa", "ratio": 0.6487, "M": 2166, "bytes": 27416, "slots": null}
+{"i": 4371, "before": "%_214.i = load ptr, ptr %_270, align 8, !noalias !8628, !nonnull !2, !", "ratio": 0.6487, "M": 2166, "bytes": 27416, "slots": null}
+{"i": 4372, "before": "call void @llvm.experimental.noalias.scope.decl(metadata !8644)", "ratio": 0.6487, "M": 2166, "bytes": 27416, "slots": null}
+{"i": 4373, "before": "%_2.i22.i = load ptr, ptr %_214.i, align 8, !alias.scope !8644, !noali", "ratio": 0.6487, "M": 2166, "bytes": 27416, "slots": null}
+{"i": 4374, "before": "%v367 = getelementptr inbounds i8, ptr %_214.i, i64 8", "ratio": 0.6487, "M": 2166, "bytes": 27416, "slots": null}
+{"i": 4375, "before": "%_12.i23.i = load ptr, ptr %v367, align 8, !alias.scope !8644, !noalia", "ratio": 0.6487, "M": 2166, "bytes": 27416, "slots": null}
+{"i": 4376, "before": "%self.val.i.i24.i = load i64, ptr %_12.i23.i, align 8, !noalias !8649,", "ratio": 0.6487, "M": 2166, "bytes": 27416, "slots": null}
+{"i": 4377, "before": "%cond.i.i25.i = icmp ne i64 %self.val.i.i24.i, 0", "ratio": 0.6487, "M": 2166, "bytes": 27416, "slots": null}
+{"i": 4378, "before": "call void @llvm.assume(i1 %cond.i.i25.i)", "ratio": 0.6487, "M": 2166, "bytes": 27416, "slots": null}
+{"i": 4379, "before": "%strong1.i.i26.i = add i64 %self.val.i.i24.i, 1", "ratio": 0.6487, "M": 2166, "bytes": 27416, "slots": null}
+{"i": 4380, "before": "store i64 %strong1.i.i26.i, ptr %_12.i23.i, align 8, !noalias !8649", "ratio": 0.6487, "M": 2166, "bytes": 27416, "slots": null}
+{"i": 4381, "before": "%_7.i.i27.i = icmp eq i64 %strong1.i.i26.i, 0", "ratio": 0.62904, "M": 2101, "bytes": 27432, "slots": null}
+{"i": 4382, "before": "br i1 %_7.i.i27.i, label %bb4.i.i37.i, label %_ZN5alloc2rc10RcInnerPtr", "ratio": 0.62904, "M": 2101, "bytes": 27432, "slots": null}
+{"i": 4385, "before": "call void @llvm.trap()", "ratio": null, "M": null, "bytes": null, "slots": null}
+{"i": 4386, "before": "unreachable", "ratio": null, "M": null, "bytes": null, "slots": null}
+{"i": 4389, "before": "%v368 = getelementptr inbounds i8, ptr %_214.i, i64 16", "ratio": 0.62904, "M": 2101, "bytes": 27432, "slots": null}
+{"i": 4390, "before": "%_16.i29.i = load ptr, ptr %v368, align 8, !alias.scope !8644, !noalia", "ratio": 0.62904, "M": 2101, "bytes": 27432, "slots": null}
+{"i": 4391, "before": "%self.val.i1.i30.i = load i64, ptr %_16.i29.i, align 8, !noalias !8649", "ratio": 0.62904, "M": 2101, "bytes": 27432, "slots": null}
+{"i": 4392, "before": "%cond.i2.i31.i = icmp ne i64 %self.val.i1.i30.i, 0", "ratio": 0.62904, "M": 2101, "bytes": 27432, "slots": null}
+{"i": 4393, "before": "call void @llvm.assume(i1 %cond.i2.i31.i)", "ratio": 0.62904, "M": 2101, "bytes": 27432, "slots": null}
+{"i": 4394, "before": "%strong1.i3.i32.i = add i64 %self.val.i1.i30.i, 1", "ratio": 0.62904, "M": 2101, "bytes": 27432, "slots": null}
+{"i": 4395, "before": "store i64 %strong1.i3.i32.i, ptr %_16.i29.i, align 8, !noalias !8649", "ratio": 0.62904, "M": 2101, "bytes": 27432, "slots": null}
+{"i": 4396, "before": "%_7.i4.i33.i = icmp eq i64 %strong1.i3.i32.i, 0", "ratio": 0.62103, "M": 2073, "bytes": 27400, "slots": 3119}
+{"i": 4397, "before": "br i1 %_7.i4.i33.i, label %bb4.i5.i36.i, label %\"_ZN71_$LT$solana_acco", "ratio": 0.62103, "M": 2073, "bytes": 27400, "slots": 3119}
+{"i": 4400, "before": "call void @llvm.trap()", "ratio": null, "M": null, "bytes": null, "slots": null}
+{"i": 4401, "before": "unreachable", "ratio": null, "M": null, "bytes": null, "slots": null}
+{"i": 4404, "before": "%v369 = getelementptr inbounds i8, ptr %_214.i, i64 24", "ratio": 0.61596, "M": 2057, "bytes": 27424, "slots": null}
+{"i": 4405, "before": "%_5.i34.i = load ptr, ptr %v369, align 8, !alias.scope !8644, !noalias", "ratio": 0.61596, "M": 2057, "bytes": 27424, "slots": null}
+{"i": 4406, "before": "%v370 = getelementptr inbounds i8, ptr %_214.i, i64 32", "ratio": 0.62103, "M": 2073, "bytes": 27400, "slots": 3119}
+{"i": 4407, "before": "%_6.i35.i = load i64, ptr %v370, align 8, !alias.scope !8644, !noalias", "ratio": 0.62103, "M": 2073, "bytes": 27400, "slots": 3119}
+{"i": 4408, "before": "%v371 = getelementptr inbounds i8, ptr %_214.i, i64 40", "ratio": 0.62103, "M": 2073, "bytes": 27400, "slots": 3119}
+{"i": 4409, "before": "%v372 = load i8, ptr %v371, align 8, !range !394, !alias.scope !8644, ", "ratio": 0.62103, "M": 2073, "bytes": 27400, "slots": 3119}
+{"i": 4410, "before": "%v373 = getelementptr inbounds i8, ptr %_214.i, i64 41", "ratio": 0.62103, "M": 2073, "bytes": 27400, "slots": 3119}
+{"i": 4411, "before": "%v374 = load i8, ptr %v373, align 1, !range !394, !alias.scope !8644, ", "ratio": 0.62103, "M": 2073, "bytes": 27400, "slots": 3119}
+{"i": 4412, "before": "%v375 = getelementptr inbounds i8, ptr %_214.i, i64 42", "ratio": 0.62103, "M": 2073, "bytes": 27400, "slots": 3119}
+{"i": 4413, "before": "%v376 = load i8, ptr %v375, align 2, !range !394, !alias.scope !8644, ", "ratio": 0.62103, "M": 2073, "bytes": 27400, "slots": 3119}
+{"i": 4414, "before": "%_182.i143 = load ptr, ptr %v323, align 8, !noalias !8628, !nonnull !2", "ratio": 0.62103, "M": 2073, "bytes": 27400, "slots": 3119}
+{"i": 4415, "before": "%v377 = getelementptr inbounds i8, ptr %_182.i143, i64 88", "ratio": 0.62103, "M": 2073, "bytes": 27400, "slots": 3119}
+{"i": 4416, "before": "%_215.i = load ptr, ptr %v377, align 8, !noalias !8632, !nonnull !2, !", "ratio": 0.62103, "M": 2073, "bytes": 27400, "slots": 3119}
+{"i": 4417, "before": "call void @llvm.experimental.noalias.scope.decl(metadata !8650)", "ratio": 0.62103, "M": 2073, "bytes": 27400, "slots": 3119}
+{"i": 4418, "before": "%_2.i39.i = load ptr, ptr %_215.i, align 8, !alias.scope !8650, !noali", "ratio": 0.62103, "M": 2073, "bytes": 27400, "slots": 3119}
+{"i": 4419, "before": "%v378 = getelementptr inbounds i8, ptr %_215.i, i64 8", "ratio": 0.62103, "M": 2073, "bytes": 27400, "slots": 3119}
+{"i": 4420, "before": "%_12.i40.i = load ptr, ptr %v378, align 8, !alias.scope !8650, !noalia", "ratio": 0.62103, "M": 2073, "bytes": 27400, "slots": 3119}
+{"i": 4421, "before": "%self.val.i.i41.i = load i64, ptr %_12.i40.i, align 8, !noalias !8655,", "ratio": 0.62103, "M": 2073, "bytes": 27400, "slots": 3119}
+{"i": 4422, "before": "%cond.i.i42.i = icmp ne i64 %self.val.i.i41.i, 0", "ratio": 0.62103, "M": 2073, "bytes": 27400, "slots": 3119}
+{"i": 4423, "before": "call void @llvm.assume(i1 %cond.i.i42.i)", "ratio": 0.62103, "M": 2073, "bytes": 27400, "slots": 3119}
+{"i": 4424, "before": "%strong1.i.i43.i = add i64 %self.val.i.i41.i, 1", "ratio": 0.62103, "M": 2073, "bytes": 27400, "slots": 3119}
+{"i": 4425, "before": "store i64 %strong1.i.i43.i, ptr %_12.i40.i, align 8, !noalias !8655", "ratio": 0.62103, "M": 2073, "bytes": 27400, "slots": 3119}
+{"i": 4426, "before": "%_7.i.i44.i = icmp eq i64 %strong1.i.i43.i, 0", "ratio": 0.63142, "M": 2108, "bytes": 27408, "slots": null}
+{"i": 4427, "before": "br i1 %_7.i.i44.i, label %bb4.i.i54.i, label %_ZN5alloc2rc10RcInnerPtr", "ratio": 0.63142, "M": 2108, "bytes": 27408, "slots": null}
+{"i": 4430, "before": "call void @llvm.trap()", "ratio": null, "M": null, "bytes": null, "slots": null}
+{"i": 4431, "before": "unreachable", "ratio": null, "M": null, "bytes": null, "slots": null}
+{"i": 4434, "before": "%v379 = getelementptr inbounds i8, ptr %_215.i, i64 16", "ratio": 0.63142, "M": 2108, "bytes": 27408, "slots": null}
+{"i": 4435, "before": "%_16.i46.i = load ptr, ptr %v379, align 8, !alias.scope !8650, !noalia", "ratio": 0.63142, "M": 2108, "bytes": 27408, "slots": null}
+{"i": 4436, "before": "%self.val.i1.i47.i = load i64, ptr %_16.i46.i, align 8, !noalias !8655", "ratio": 0.63142, "M": 2108, "bytes": 27408, "slots": null}
+{"i": 4437, "before": "%cond.i2.i48.i = icmp ne i64 %self.val.i1.i47.i, 0", "ratio": 0.63142, "M": 2108, "bytes": 27408, "slots": null}
+{"i": 4438, "before": "call void @llvm.assume(i1 %cond.i2.i48.i)", "ratio": 0.63142, "M": 2108, "bytes": 27408, "slots": null}
+{"i": 4439, "before": "%strong1.i3.i49.i = add i64 %self.val.i1.i47.i, 1", "ratio": 0.63142, "M": 2108, "bytes": 27408, "slots": null}
+{"i": 4440, "before": "store i64 %strong1.i3.i49.i, ptr %_16.i46.i, align 8, !noalias !8655", "ratio": 0.63142, "M": 2108, "bytes": 27408, "slots": null}
+{"i": 4441, "before": "%_7.i4.i50.i = icmp eq i64 %strong1.i3.i49.i, 0", "ratio": 0.58883, "M": 1967, "bytes": 27440, "slots": null}
+{"i": 4442, "before": "br i1 %_7.i4.i50.i, label %bb4.i5.i53.i, label %\"_ZN71_$LT$solana_acco", "ratio": 0.58883, "M": 1967, "bytes": 27440, "slots": null}
+{"i": 4445, "before": "call void @llvm.trap()", "ratio": null, "M": null, "bytes": null, "slots": null}
+{"i": 4446, "before": "unreachable", "ratio": null, "M": null, "bytes": null, "slots": null}
+{"i": 4449, "before": "%v380 = getelementptr inbounds i8, ptr %_215.i, i64 24", "ratio": 0.58156, "M": 1943, "bytes": 27448, "slots": null}
+{"i": 4450, "before": "%_5.i51.i = load ptr, ptr %v380, align 8, !alias.scope !8650, !noalias", "ratio": 0.58156, "M": 1943, "bytes": 27448, "slots": null}
+{"i": 4451, "before": "%v381 = getelementptr inbounds i8, ptr %_215.i, i64 32", "ratio": 0.58883, "M": 1967, "bytes": 27440, "slots": null}
+{"i": 4452, "before": "%_6.i52.i = load i64, ptr %v381, align 8, !alias.scope !8650, !noalias", "ratio": 0.58883, "M": 1967, "bytes": 27440, "slots": null}
+{"i": 4453, "before": "%v382 = getelementptr inbounds i8, ptr %_215.i, i64 40", "ratio": 0.58883, "M": 1967, "bytes": 27440, "slots": null}
+{"i": 4454, "before": "%v383 = load i8, ptr %v382, align 8, !range !394, !alias.scope !8650, ", "ratio": 0.58883, "M": 1967, "bytes": 27440, "slots": null}
+{"i": 4455, "before": "%v384 = getelementptr inbounds i8, ptr %_215.i, i64 41", "ratio": 0.58883, "M": 1967, "bytes": 27440, "slots": null}
+{"i": 4456, "before": "%v385 = load i8, ptr %v384, align 1, !range !394, !alias.scope !8650, ", "ratio": 0.58883, "M": 1967, "bytes": 27440, "slots": null}
+{"i": 4457, "before": "%v386 = getelementptr inbounds i8, ptr %_215.i, i64 42", "ratio": 0.58883, "M": 1967, "bytes": 27440, "slots": null}
+{"i": 4458, "before": "%v387 = load i8, ptr %v386, align 2, !range !394, !alias.scope !8650, ", "ratio": 0.58883, "M": 1967, "bytes": 27440, "slots": null}
+{"i": 4459, "before": "%v388 = getelementptr inbounds i8, ptr %_270, i64 32", "ratio": 0.58883, "M": 1967, "bytes": 27440, "slots": null}
+{"i": 4460, "before": "%_216.i = load ptr, ptr %v388, align 8, !noalias !8628, !nonnull !2, !", "ratio": 0.58883, "M": 1967, "bytes": 27440, "slots": null}
+{"i": 4461, "before": "call void @llvm.experimental.noalias.scope.decl(metadata !8656)", "ratio": 0.58883, "M": 1967, "bytes": 27440, "slots": null}
+{"i": 4462, "before": "%_2.i56.i = load ptr, ptr %_216.i, align 8, !alias.scope !8656, !noali", "ratio": 0.58883, "M": 1967, "bytes": 27440, "slots": null}
+{"i": 4463, "before": "%v389 = getelementptr inbounds i8, ptr %_216.i, i64 8", "ratio": 0.58883, "M": 1967, "bytes": 27440, "slots": null}
+{"i": 4464, "before": "%_12.i57.i = load ptr, ptr %v389, align 8, !alias.scope !8656, !noalia", "ratio": 0.58883, "M": 1967, "bytes": 27440, "slots": null}
+{"i": 4465, "before": "%self.val.i.i58.i = load i64, ptr %_12.i57.i, align 8, !noalias !8661,", "ratio": 0.58883, "M": 1967, "bytes": 27440, "slots": null}
+{"i": 4466, "before": "%cond.i.i59.i = icmp ne i64 %self.val.i.i58.i, 0", "ratio": 0.58883, "M": 1967, "bytes": 27440, "slots": null}
+{"i": 4467, "before": "call void @llvm.assume(i1 %cond.i.i59.i)", "ratio": 0.58883, "M": 1967, "bytes": 27440, "slots": null}
+{"i": 4468, "before": "%strong1.i.i60.i = add i64 %self.val.i.i58.i, 1", "ratio": 0.58883, "M": 1967, "bytes": 27440, "slots": null}
+{"i": 4469, "before": "store i64 %strong1.i.i60.i, ptr %_12.i57.i, align 8, !noalias !8661", "ratio": 0.58883, "M": 1967, "bytes": 27440, "slots": null}
+{"i": 4470, "before": "%_7.i.i61.i = icmp eq i64 %strong1.i.i60.i, 0", "ratio": 0.62184, "M": 2076, "bytes": 27408, "slots": null}
+{"i": 4471, "before": "br i1 %_7.i.i61.i, label %bb4.i.i71.i, label %_ZN5alloc2rc10RcInnerPtr", "ratio": 0.62184, "M": 2076, "bytes": 27408, "slots": null}
+{"i": 4474, "before": "call void @llvm.trap()", "ratio": null, "M": null, "bytes": null, "slots": null}
+{"i": 4475, "before": "unreachable", "ratio": null, "M": null, "bytes": null, "slots": null}
+{"i": 4478, "before": "%v390 = getelementptr inbounds i8, ptr %_216.i, i64 16", "ratio": 0.62184, "M": 2076, "bytes": 27408, "slots": null}
+{"i": 4479, "before": "%_16.i63.i = load ptr, ptr %v390, align 8, !alias.scope !8656, !noalia", "ratio": 0.62184, "M": 2076, "bytes": 27408, "slots": null}
+{"i": 4480, "before": "%self.val.i1.i64.i = load i64, ptr %_16.i63.i, align 8, !noalias !8661", "ratio": 0.62184, "M": 2076, "bytes": 27408, "slots": null}
+{"i": 4481, "before": "%cond.i2.i65.i = icmp ne i64 %self.val.i1.i64.i, 0", "ratio": 0.62184, "M": 2076, "bytes": 27408, "slots": null}
+{"i": 4482, "before": "call void @llvm.assume(i1 %cond.i2.i65.i)", "ratio": 0.62184, "M": 2076, "bytes": 27408, "slots": null}
+{"i": 4483, "before": "%strong1.i3.i66.i = add i64 %self.val.i1.i64.i, 1", "ratio": 0.62184, "M": 2076, "bytes": 27408, "slots": null}
+{"i": 4484, "before": "store i64 %strong1.i3.i66.i, ptr %_16.i63.i, align 8, !noalias !8661", "ratio": 0.62184, "M": 2076, "bytes": 27408, "slots": null}
+{"i": 4485, "before": "%_7.i4.i67.i = icmp eq i64 %strong1.i3.i66.i, 0", "ratio": 0.61025, "M": 2037, "bytes": 27400, "slots": 3133}
+{"i": 4486, "before": "br i1 %_7.i4.i67.i, label %bb4.i5.i70.i, label %\"_ZN71_$LT$solana_acco", "ratio": 0.61025, "M": 2037, "bytes": 27400, "slots": 3133}
+{"i": 4489, "before": "call void @llvm.trap()", "ratio": null, "M": null, "bytes": null, "slots": null}
+{"i": 4490, "before": "unreachable", "ratio": null, "M": null, "bytes": null, "slots": null}
+{"i": 4493, "before": "%v391 = getelementptr inbounds i8, ptr %_216.i, i64 24", "ratio": 0.60297, "M": 2013, "bytes": 27408, "slots": null}
+{"i": 4494, "before": "%_5.i68.i = load ptr, ptr %v391, align 8, !alias.scope !8656, !noalias", "ratio": 0.60297, "M": 2013, "bytes": 27408, "slots": null}
+{"i": 4495, "before": "%v392 = getelementptr inbounds i8, ptr %_216.i, i64 32", "ratio": 0.61025, "M": 2037, "bytes": 27400, "slots": 3133}
+{"i": 4496, "before": "%_6.i69.i = load i64, ptr %v392, align 8, !alias.scope !8656, !noalias", "ratio": 0.61025, "M": 2037, "bytes": 27400, "slots": 3133}
+{"i": 4497, "before": "%v393 = getelementptr inbounds i8, ptr %_216.i, i64 40", "ratio": 0.61025, "M": 2037, "bytes": 27400, "slots": 3133}
+{"i": 4498, "before": "%v394 = load i8, ptr %v393, align 8, !range !394, !alias.scope !8656, ", "ratio": 0.61025, "M": 2037, "bytes": 27400, "slots": 3133}
+{"i": 4499, "before": "%v395 = getelementptr inbounds i8, ptr %_216.i, i64 41", "ratio": 0.61025, "M": 2037, "bytes": 27400, "slots": 3133}
+{"i": 4500, "before": "%v396 = load i8, ptr %v395, align 1, !range !394, !alias.scope !8656, ", "ratio": 0.61025, "M": 2037, "bytes": 27400, "slots": 3133}
+{"i": 4501, "before": "%v397 = getelementptr inbounds i8, ptr %_216.i, i64 42", "ratio": 0.61025, "M": 2037, "bytes": 27400, "slots": 3133}
+{"i": 4502, "before": "%v398 = load i8, ptr %v397, align 2, !range !394, !alias.scope !8656, ", "ratio": 0.61025, "M": 2037, "bytes": 27400, "slots": 3133}
+{"i": 4503, "before": "%_217.i = load ptr, ptr %_77, align 8, !noalias !8628, !nonnull !2, !a", "ratio": 0.61025, "M": 2037, "bytes": 27400, "slots": 3133}
+{"i": 4504, "before": "call void @llvm.experimental.noalias.scope.decl(metadata !8662)", "ratio": 0.61025, "M": 2037, "bytes": 27400, "slots": 3133}
+{"i": 4505, "before": "%_2.i73.i = load ptr, ptr %_217.i, align 8, !alias.scope !8662, !noali", "ratio": 0.61025, "M": 2037, "bytes": 27400, "slots": 3133}
+{"i": 4506, "before": "%v399 = getelementptr inbounds i8, ptr %_217.i, i64 8", "ratio": 0.61025, "M": 2037, "bytes": 27400, "slots": 3133}
+{"i": 4507, "before": "%_12.i74.i = load ptr, ptr %v399, align 8, !alias.scope !8662, !noalia", "ratio": 0.61025, "M": 2037, "bytes": 27400, "slots": 3133}
+{"i": 4508, "before": "%self.val.i.i75.i = load i64, ptr %_12.i74.i, align 8, !noalias !8667,", "ratio": 0.61025, "M": 2037, "bytes": 27400, "slots": 3133}
+{"i": 4509, "before": "%cond.i.i76.i = icmp ne i64 %self.val.i.i75.i, 0", "ratio": 0.61025, "M": 2037, "bytes": 27400, "slots": 3133}
+{"i": 4510, "before": "call void @llvm.assume(i1 %cond.i.i76.i)", "ratio": 0.61025, "M": 2037, "bytes": 27400, "slots": 3133}
+{"i": 4511, "before": "%strong1.i.i77.i = add i64 %self.val.i.i75.i, 1", "ratio": 0.61025, "M": 2037, "bytes": 27400, "slots": 3133}
+{"i": 4512, "before": "store i64 %strong1.i.i77.i, ptr %_12.i74.i, align 8, !noalias !8667", "ratio": 0.61025, "M": 2037, "bytes": 27400, "slots": 3133}
+{"i": 4513, "before": "%_7.i.i78.i = icmp eq i64 %strong1.i.i77.i, 0", "ratio": 0.62004, "M": 2070, "bytes": 27408, "slots": null}
+{"i": 4514, "before": "br i1 %_7.i.i78.i, label %bb4.i.i88.i, label %_ZN5alloc2rc10RcInnerPtr", "ratio": 0.62004, "M": 2070, "bytes": 27408, "slots": null}
+{"i": 4517, "before": "call void @llvm.trap()", "ratio": null, "M": null, "bytes": null, "slots": null}
+{"i": 4518, "before": "unreachable", "ratio": null, "M": null, "bytes": null, "slots": null}
+{"i": 4521, "before": "%v400 = getelementptr inbounds i8, ptr %_217.i, i64 16", "ratio": 0.62004, "M": 2070, "bytes": 27408, "slots": null}
+{"i": 4522, "before": "%_16.i80.i = load ptr, ptr %v400, align 8, !alias.scope !8662, !noalia", "ratio": 0.62004, "M": 2070, "bytes": 27408, "slots": null}
+{"i": 4523, "before": "%self.val.i1.i81.i = load i64, ptr %_16.i80.i, align 8, !noalias !8667", "ratio": 0.62004, "M": 2070, "bytes": 27408, "slots": null}
+{"i": 4524, "before": "%cond.i2.i82.i = icmp ne i64 %self.val.i1.i81.i, 0", "ratio": 0.62004, "M": 2070, "bytes": 27408, "slots": null}
+{"i": 4525, "before": "call void @llvm.assume(i1 %cond.i2.i82.i)", "ratio": 0.62004, "M": 2070, "bytes": 27408, "slots": null}
+{"i": 4526, "before": "%strong1.i3.i83.i = add i64 %self.val.i1.i81.i, 1", "ratio": 0.62004, "M": 2070, "bytes": 27408, "slots": null}
+{"i": 4527, "before": "store i64 %strong1.i3.i83.i, ptr %_16.i80.i, align 8, !noalias !8667", "ratio": 0.62004, "M": 2070, "bytes": 27408, "slots": null}
+{"i": 4528, "before": "%_7.i4.i84.i = icmp eq i64 %strong1.i3.i83.i, 0", "ratio": 0.59446, "M": 1984, "bytes": 27392, "slots": null}
+{"i": 4529, "before": "br i1 %_7.i4.i84.i, label %bb4.i5.i87.i, label %\"_ZN71_$LT$solana_acco", "ratio": 0.59446, "M": 1984, "bytes": 27392, "slots": null}
+{"i": 4532, "before": "call void @llvm.trap()", "ratio": null, "M": null, "bytes": null, "slots": null}
+{"i": 4533, "before": "unreachable", "ratio": null, "M": null, "bytes": null, "slots": null}
+{"i": 4536, "before": "%v401 = getelementptr inbounds i8, ptr %_217.i, i64 24", "ratio": 0.59946, "M": 2001, "bytes": 27400, "slots": 3133}
+{"i": 4537, "before": "%_5.i85.i = load ptr, ptr %v401, align 8, !alias.scope !8662, !noalias", "ratio": 0.59946, "M": 2001, "bytes": 27400, "slots": 3133}
+{"i": 4538, "before": "%v402 = getelementptr inbounds i8, ptr %_217.i, i64 32", "ratio": 0.59446, "M": 1984, "bytes": 27392, "slots": null}
+{"i": 4539, "before": "%_6.i86.i = load i64, ptr %v402, align 8, !alias.scope !8662, !noalias", "ratio": 0.59446, "M": 1984, "bytes": 27392, "slots": null}
+{"i": 4540, "before": "%v403 = getelementptr inbounds i8, ptr %_217.i, i64 40", "ratio": 0.59446, "M": 1984, "bytes": 27392, "slots": null}
+{"i": 4541, "before": "%v404 = load i8, ptr %v403, align 8, !range !394, !alias.scope !8662, ", "ratio": 0.59446, "M": 1984, "bytes": 27392, "slots": null}
+{"i": 4542, "before": "%v405 = getelementptr inbounds i8, ptr %_217.i, i64 41", "ratio": 0.59446, "M": 1984, "bytes": 27392, "slots": null}
+{"i": 4543, "before": "%v406 = load i8, ptr %v405, align 1, !range !394, !alias.scope !8662, ", "ratio": 0.59446, "M": 1984, "bytes": 27392, "slots": null}
+{"i": 4544, "before": "%v407 = getelementptr inbounds i8, ptr %_217.i, i64 42", "ratio": 0.59446, "M": 1984, "bytes": 27392, "slots": null}
+{"i": 4545, "before": "%v408 = load i8, ptr %v407, align 2, !range !394, !alias.scope !8662, ", "ratio": 0.59446, "M": 1984, "bytes": 27392, "slots": null}
+{"i": 4546, "before": "%v409 = getelementptr inbounds i8, ptr %_270, i64 40", "ratio": 0.59446, "M": 1984, "bytes": 27392, "slots": null}
+{"i": 4547, "before": "%_218.i = load ptr, ptr %v409, align 8, !noalias !8628, !nonnull !2, !", "ratio": 0.59446, "M": 1984, "bytes": 27392, "slots": null}
+{"i": 4548, "before": "call void @llvm.experimental.noalias.scope.decl(metadata !8668)", "ratio": 0.59446, "M": 1984, "bytes": 27392, "slots": null}
+{"i": 4549, "before": "%_2.i90.i = load ptr, ptr %_218.i, align 8, !alias.scope !8668, !noali", "ratio": 0.59446, "M": 1984, "bytes": 27392, "slots": null}
+{"i": 4550, "before": "%v410 = getelementptr inbounds i8, ptr %_218.i, i64 8", "ratio": 0.59446, "M": 1984, "bytes": 27392, "slots": null}
+{"i": 4551, "before": "%_12.i91.i = load ptr, ptr %v410, align 8, !alias.scope !8668, !noalia", "ratio": 0.59446, "M": 1984, "bytes": 27392, "slots": null}
+{"i": 4552, "before": "%self.val.i.i92.i = load i64, ptr %_12.i91.i, align 8, !noalias !8673,", "ratio": 0.59446, "M": 1984, "bytes": 27392, "slots": null}
+{"i": 4553, "before": "%cond.i.i93.i = icmp ne i64 %self.val.i.i92.i, 0", "ratio": 0.59446, "M": 1984, "bytes": 27392, "slots": null}
+{"i": 4554, "before": "call void @llvm.assume(i1 %cond.i.i93.i)", "ratio": 0.59446, "M": 1984, "bytes": 27392, "slots": null}
+{"i": 4555, "before": "%strong1.i.i94.i = add i64 %self.val.i.i92.i, 1", "ratio": 0.59446, "M": 1984, "bytes": 27392, "slots": null}
+{"i": 4556, "before": "store i64 %strong1.i.i94.i, ptr %_12.i91.i, align 8, !noalias !8673", "ratio": 0.59446, "M": 1984, "bytes": 27392, "slots": null}
+{"i": 4557, "before": "%_7.i.i95.i = icmp eq i64 %strong1.i.i94.i, 0", "ratio": 0.62702, "M": 2093, "bytes": 27400, "slots": 3133}
+{"i": 4558, "before": "br i1 %_7.i.i95.i, label %bb4.i.i105.i, label %_ZN5alloc2rc10RcInnerPt", "ratio": 0.62702, "M": 2093, "bytes": 27400, "slots": 3133}
+{"i": 4561, "before": "call void @llvm.trap()", "ratio": null, "M": null, "bytes": null, "slots": null}
+{"i": 4562, "before": "unreachable", "ratio": null, "M": null, "bytes": null, "slots": null}
+{"i": 4565, "before": "%v411 = getelementptr inbounds i8, ptr %_218.i, i64 16", "ratio": 0.62702, "M": 2093, "bytes": 27400, "slots": 3133}
+{"i": 4566, "before": "%_16.i97.i = load ptr, ptr %v411, align 8, !alias.scope !8668, !noalia", "ratio": 0.62702, "M": 2093, "bytes": 27400, "slots": 3133}
+{"i": 4567, "before": "%self.val.i1.i98.i = load i64, ptr %_16.i97.i, align 8, !noalias !8673", "ratio": 0.62702, "M": 2093, "bytes": 27400, "slots": 3133}
+{"i": 4568, "before": "%cond.i2.i99.i = icmp ne i64 %self.val.i1.i98.i, 0", "ratio": 0.62702, "M": 2093, "bytes": 27400, "slots": 3133}
+{"i": 4569, "before": "call void @llvm.assume(i1 %cond.i2.i99.i)", "ratio": 0.62702, "M": 2093, "bytes": 27400, "slots": 3133}
+{"i": 4570, "before": "%strong1.i3.i100.i = add i64 %self.val.i1.i98.i, 1", "ratio": 0.62702, "M": 2093, "bytes": 27400, "slots": 3133}
+{"i": 4571, "before": "store i64 %strong1.i3.i100.i, ptr %_16.i97.i, align 8, !noalias !8673", "ratio": 0.62702, "M": 2093, "bytes": 27400, "slots": 3133}
+{"i": 4572, "before": "%_7.i4.i101.i = icmp eq i64 %strong1.i3.i100.i, 0", "ratio": 0.59844, "M": 1997, "bytes": 27384, "slots": null}
+{"i": 4573, "before": "br i1 %_7.i4.i101.i, label %bb4.i5.i104.i, label %\"_ZN71_$LT$solana_ac", "ratio": 0.59844, "M": 1997, "bytes": 27384, "slots": null}
+{"i": 4576, "before": "call void @llvm.trap()", "ratio": null, "M": null, "bytes": null, "slots": null}
+{"i": 4577, "before": "unreachable", "ratio": null, "M": null, "bytes": null, "slots": null}
+{"i": 4580, "before": "%v412 = getelementptr inbounds i8, ptr %_218.i, i64 24", "ratio": 0.60024, "M": 2003, "bytes": 27384, "slots": null}
+{"i": 4581, "before": "%_5.i102.i = load ptr, ptr %v412, align 8, !alias.scope !8668, !noalia", "ratio": 0.60024, "M": 2003, "bytes": 27384, "slots": null}
+{"i": 4582, "before": "%v413 = getelementptr inbounds i8, ptr %_218.i, i64 32", "ratio": 0.59964, "M": 2001, "bytes": 27384, "slots": null}
+{"i": 4583, "before": "%_6.i103.i = load i64, ptr %v413, align 8, !alias.scope !8668, !noalia", "ratio": 0.59964, "M": 2001, "bytes": 27384, "slots": null}
+{"i": 4584, "before": "%v414 = getelementptr inbounds i8, ptr %_218.i, i64 40", "ratio": 0.59964, "M": 2001, "bytes": 27384, "slots": null}
+{"i": 4585, "before": "%v415 = load i8, ptr %v414, align 8, !range !394, !alias.scope !8668, ", "ratio": 0.59964, "M": 2001, "bytes": 27384, "slots": null}
+{"i": 4586, "before": "%v416 = getelementptr inbounds i8, ptr %_218.i, i64 41", "ratio": 0.59964, "M": 2001, "bytes": 27384, "slots": null}
+{"i": 4587, "before": "%v417 = load i8, ptr %v416, align 1, !range !394, !alias.scope !8668, ", "ratio": 0.59964, "M": 2001, "bytes": 27384, "slots": null}
+{"i": 4588, "before": "%v418 = getelementptr inbounds i8, ptr %_218.i, i64 42", "ratio": 0.59964, "M": 2001, "bytes": 27384, "slots": null}
+{"i": 4589, "before": "%v419 = load i8, ptr %v418, align 2, !range !394, !alias.scope !8668, ", "ratio": 0.59964, "M": 2001, "bytes": 27384, "slots": null}
+{"i": 4590, "before": "%_64.i144 = getelementptr inbounds i8, ptr %_270, i64 168", "ratio": 0.59964, "M": 2001, "bytes": 27384, "slots": null}
+{"i": 4591, "before": "call void @llvm.experimental.noalias.scope.decl(metadata !8674)", "ratio": 0.59964, "M": 2001, "bytes": 27384, "slots": null}
+{"i": 4592, "before": "%_2.i107.i = load ptr, ptr %_64.i144, align 8, !alias.scope !8674, !no", "ratio": 0.59964, "M": 2001, "bytes": 27384, "slots": null}
+{"i": 4593, "before": "%v420 = getelementptr inbounds i8, ptr %_270, i64 176", "ratio": 0.59844, "M": 1997, "bytes": 27384, "slots": null}
+{"i": 4594, "before": "%_12.i108.i = load ptr, ptr %v420, align 8, !alias.scope !8674, !noali", "ratio": 0.59844, "M": 1997, "bytes": 27384, "slots": null}
+{"i": 4595, "before": "%self.val.i.i109.i = load i64, ptr %_12.i108.i, align 8, !noalias !867", "ratio": 0.59844, "M": 1997, "bytes": 27384, "slots": null}
+{"i": 4596, "before": "%cond.i.i110.i = icmp ne i64 %self.val.i.i109.i, 0", "ratio": 0.59844, "M": 1997, "bytes": 27384, "slots": null}
+{"i": 4597, "before": "call void @llvm.assume(i1 %cond.i.i110.i)", "ratio": 0.59844, "M": 1997, "bytes": 27384, "slots": null}
+{"i": 4598, "before": "%strong1.i.i111.i = add i64 %self.val.i.i109.i, 1", "ratio": 0.59844, "M": 1997, "bytes": 27384, "slots": null}
+{"i": 4599, "before": "store i64 %strong1.i.i111.i, ptr %_12.i108.i, align 8, !noalias !8679", "ratio": 0.59844, "M": 1997, "bytes": 27384, "slots": null}
+{"i": 4600, "before": "%_7.i.i112.i = icmp eq i64 %strong1.i.i111.i, 0", "ratio": 0.6135, "M": 2050, "bytes": 27456, "slots": null}
+{"i": 4601, "before": "br i1 %_7.i.i112.i, label %bb4.i.i122.i, label %_ZN5alloc2rc10RcInnerP", "ratio": 0.6135, "M": 2050, "bytes": 27456, "slots": null}
+{"i": 4604, "before": "call void @llvm.trap()", "ratio": null, "M": null, "bytes": null, "slots": null}
+{"i": 4605, "before": "unreachable", "ratio": null, "M": null, "bytes": null, "slots": null}
+{"i": 4608, "before": "%v421 = getelementptr inbounds i8, ptr %_270, i64 184", "ratio": 0.6135, "M": 2050, "bytes": 27456, "slots": null}
+{"i": 4609, "before": "%_16.i114.i = load ptr, ptr %v421, align 8, !alias.scope !8674, !noali", "ratio": 0.6135, "M": 2050, "bytes": 27456, "slots": null}
+{"i": 4610, "before": "%self.val.i1.i115.i = load i64, ptr %_16.i114.i, align 8, !noalias !86", "ratio": 0.6135, "M": 2050, "bytes": 27456, "slots": null}
+{"i": 4611, "before": "%cond.i2.i116.i = icmp ne i64 %self.val.i1.i115.i, 0", "ratio": 0.6135, "M": 2050, "bytes": 27456, "slots": null}
+{"i": 4612, "before": "call void @llvm.assume(i1 %cond.i2.i116.i)", "ratio": 0.6135, "M": 2050, "bytes": 27456, "slots": null}
+{"i": 4613, "before": "%strong1.i3.i117.i = add i64 %self.val.i1.i115.i, 1", "ratio": 0.6135, "M": 2050, "bytes": 27456, "slots": null}
+{"i": 4614, "before": "store i64 %strong1.i3.i117.i, ptr %_16.i114.i, align 8, !noalias !8679", "ratio": 0.6135, "M": 2050, "bytes": 27456, "slots": null}
+{"i": 4615, "before": "%_7.i4.i118.i = icmp eq i64 %strong1.i3.i117.i, 0", "ratio": 0.58899, "M": 1969, "bytes": 27480, "slots": null}
+{"i": 4616, "before": "br i1 %_7.i4.i118.i, label %bb4.i5.i121.i, label %\"_ZN71_$LT$solana_ac", "ratio": 0.58899, "M": 1969, "bytes": 27480, "slots": null}
+{"i": 4619, "before": "call void @llvm.trap()", "ratio": null, "M": null, "bytes": null, "slots": null}
+{"i": 4620, "before": "unreachable", "ratio": null, "M": null, "bytes": null, "slots": null}
+{"i": 4623, "before": "%v422 = getelementptr inbounds i8, ptr %_270, i64 192", "ratio": 0.59886, "M": 1999, "bytes": 27400, "slots": 3133}
+{"i": 4624, "before": "%_5.i119.i = load ptr, ptr %v422, align 8, !alias.scope !8674, !noalia", "ratio": 0.59886, "M": 1999, "bytes": 27400, "slots": 3133}
+{"i": 4625, "before": "%v423 = getelementptr inbounds i8, ptr %_270, i64 200", "ratio": 0.58899, "M": 1969, "bytes": 27480, "slots": null}
+{"i": 4626, "before": "%_6.i120.i = load i64, ptr %v423, align 8, !alias.scope !8674, !noalia", "ratio": 0.58899, "M": 1969, "bytes": 27480, "slots": null}
+{"i": 4627, "before": "%v424 = getelementptr inbounds i8, ptr %_270, i64 208", "ratio": 0.58899, "M": 1969, "bytes": 27480, "slots": null}
+{"i": 4628, "before": "%v425 = load i8, ptr %v424, align 8, !range !394, !alias.scope !8674, ", "ratio": 0.58899, "M": 1969, "bytes": 27480, "slots": null}
+{"i": 4629, "before": "%v426 = getelementptr inbounds i8, ptr %_270, i64 209", "ratio": 0.58899, "M": 1969, "bytes": 27480, "slots": null}
+{"i": 4630, "before": "%v427 = load i8, ptr %v426, align 1, !range !394, !alias.scope !8674, ", "ratio": 0.58899, "M": 1969, "bytes": 27480, "slots": null}
+{"i": 4631, "before": "%v428 = getelementptr inbounds i8, ptr %_270, i64 210", "ratio": 0.58899, "M": 1969, "bytes": 27480, "slots": null}
+{"i": 4632, "before": "%v429 = load i8, ptr %v428, align 2, !range !394, !alias.scope !8674, ", "ratio": 0.58899, "M": 1969, "bytes": 27480, "slots": null}
+{"i": 4633, "before": "%v430 = getelementptr inbounds i8, ptr %_270, i64 128", "ratio": 0.58899, "M": 1969, "bytes": 27480, "slots": null}
+{"i": 4634, "before": "%_219.i = load ptr, ptr %v430, align 8, !noalias !8628, !nonnull !2, !", "ratio": 0.58899, "M": 1969, "bytes": 27480, "slots": null}
+{"i": 4635, "before": "call void @llvm.experimental.noalias.scope.decl(metadata !8680)", "ratio": 0.58899, "M": 1969, "bytes": 27480, "slots": null}
+{"i": 4636, "before": "%_2.i124.i = load ptr, ptr %_219.i, align 8, !alias.scope !8680, !noal", "ratio": 0.58899, "M": 1969, "bytes": 27480, "slots": null}
+{"i": 4637, "before": "%v431 = getelementptr inbounds i8, ptr %_219.i, i64 8", "ratio": 0.58899, "M": 1969, "bytes": 27480, "slots": null}
+{"i": 4638, "before": "%_12.i125.i = load ptr, ptr %v431, align 8, !alias.scope !8680, !noali", "ratio": 0.58899, "M": 1969, "bytes": 27480, "slots": null}
+{"i": 4639, "before": "%self.val.i.i126.i = load i64, ptr %_12.i125.i, align 8, !noalias !868", "ratio": 0.58899, "M": 1969, "bytes": 27480, "slots": null}
+{"i": 4640, "before": "%cond.i.i127.i = icmp ne i64 %self.val.i.i126.i, 0", "ratio": 0.58899, "M": 1969, "bytes": 27480, "slots": null}
+{"i": 4641, "before": "call void @llvm.assume(i1 %cond.i.i127.i)", "ratio": 0.58899, "M": 1969, "bytes": 27480, "slots": null}
+{"i": 4642, "before": "%strong1.i.i128.i = add i64 %self.val.i.i126.i, 1", "ratio": 0.58899, "M": 1969, "bytes": 27480, "slots": null}
+{"i": 4643, "before": "store i64 %strong1.i.i128.i, ptr %_12.i125.i, align 8, !noalias !8685", "ratio": 0.58899, "M": 1969, "bytes": 27480, "slots": null}
+{"i": 4644, "before": "%_7.i.i129.i = icmp eq i64 %strong1.i.i128.i, 0", "ratio": 0.57331, "M": 1914, "bytes": 27408, "slots": null}
+{"i": 4645, "before": "br i1 %_7.i.i129.i, label %bb4.i.i139.i, label %_ZN5alloc2rc10RcInnerP", "ratio": 0.57331, "M": 1914, "bytes": 27408, "slots": null}
+{"i": 4648, "before": "call void @llvm.trap()", "ratio": null, "M": null, "bytes": null, "slots": null}
+{"i": 4649, "before": "unreachable", "ratio": null, "M": null, "bytes": null, "slots": null}
+{"i": 4652, "before": "%v432 = getelementptr inbounds i8, ptr %_219.i, i64 16", "ratio": 0.57331, "M": 1914, "bytes": 27408, "slots": null}
+{"i": 4653, "before": "%_16.i131.i = load ptr, ptr %v432, align 8, !alias.scope !8680, !noali", "ratio": 0.57331, "M": 1914, "bytes": 27408, "slots": null}
+{"i": 4654, "before": "%self.val.i1.i132.i = load i64, ptr %_16.i131.i, align 8, !noalias !86", "ratio": 0.57331, "M": 1914, "bytes": 27408, "slots": null}
+{"i": 4655, "before": "%cond.i2.i133.i = icmp ne i64 %self.val.i1.i132.i, 0", "ratio": 0.57331, "M": 1914, "bytes": 27408, "slots": null}
+{"i": 4656, "before": "call void @llvm.assume(i1 %cond.i2.i133.i)", "ratio": 0.57331, "M": 1914, "bytes": 27408, "slots": null}
+{"i": 4657, "before": "%strong1.i3.i134.i = add i64 %self.val.i1.i132.i, 1", "ratio": 0.57331, "M": 1914, "bytes": 27408, "slots": null}
+{"i": 4658, "before": "store i64 %strong1.i3.i134.i, ptr %_16.i131.i, align 8, !noalias !8685", "ratio": 0.57331, "M": 1914, "bytes": 27408, "slots": null}
+{"i": 4659, "before": "%_7.i4.i135.i = icmp eq i64 %strong1.i3.i134.i, 0", "ratio": 0.58327, "M": 1949, "bytes": 27456, "slots": null}
+{"i": 4660, "before": "br i1 %_7.i4.i135.i, label %bb4.i5.i138.i, label %\"_ZN71_$LT$solana_ac", "ratio": 0.58327, "M": 1949, "bytes": 27456, "slots": null}
+{"i": 4663, "before": "call void @llvm.trap()", "ratio": null, "M": null, "bytes": null, "slots": null}
+{"i": 4664, "before": "unreachable", "ratio": null, "M": null, "bytes": null, "slots": null}
+{"i": 4667, "before": "%v433 = getelementptr inbounds i8, ptr %_219.i, i64 24", "ratio": 0.58721, "M": 1961, "bytes": 27424, "slots": null}
+{"i": 4668, "before": "%_5.i136.i = load ptr, ptr %v433, align 8, !alias.scope !8680, !noalia", "ratio": 0.58721, "M": 1961, "bytes": 27424, "slots": null}
+{"i": 4669, "before": "%v434 = getelementptr inbounds i8, ptr %_219.i, i64 32", "ratio": 0.58327, "M": 1949, "bytes": 27456, "slots": null}
+{"i": 4670, "before": "%_6.i137.i = load i64, ptr %v434, align 8, !alias.scope !8680, !noalia", "ratio": 0.58327, "M": 1949, "bytes": 27456, "slots": null}
+{"i": 4671, "before": "%v435 = getelementptr inbounds i8, ptr %_219.i, i64 40", "ratio": 0.58327, "M": 1949, "bytes": 27456, "slots": null}
+{"i": 4672, "before": "%v436 = load i8, ptr %v435, align 8, !range !394, !alias.scope !8680, ", "ratio": 0.58327, "M": 1949, "bytes": 27456, "slots": null}
+{"i": 4673, "before": "%v437 = getelementptr inbounds i8, ptr %_219.i, i64 41", "ratio": 0.58327, "M": 1949, "bytes": 27456, "slots": null}
+{"i": 4674, "before": "%v438 = load i8, ptr %v437, align 1, !range !394, !alias.scope !8680, ", "ratio": 0.58327, "M": 1949, "bytes": 27456, "slots": null}
+{"i": 4675, "before": "%v439 = getelementptr inbounds i8, ptr %_219.i, i64 42", "ratio": 0.58327, "M": 1949, "bytes": 27456, "slots": null}
+{"i": 4676, "before": "%v440 = load i8, ptr %v439, align 2, !range !394, !alias.scope !8680, ", "ratio": 0.58327, "M": 1949, "bytes": 27456, "slots": null}
+{"i": 4677, "before": "%x.i = load ptr, ptr %v332, align 8, !noalias !8628, !nonnull !2, !ali", "ratio": 0.58327, "M": 1949, "bytes": 27456, "slots": null}
+{"i": 4678, "before": "%v441 = getelementptr inbounds i8, ptr %x.i, i64 8", "ratio": 0.58327, "M": 1949, "bytes": 27456, "slots": null}
+{"i": 4679, "before": "%_222.i = load ptr, ptr %v441, align 8, !noalias !8632, !nonnull !2, !", "ratio": 0.58327, "M": 1949, "bytes": 27456, "slots": null}
+{"i": 4680, "before": "%self.val.i.i = load i64, ptr %_222.i, align 8, !noalias !8632, !nound", "ratio": 0.58327, "M": 1949, "bytes": 27456, "slots": null}
+{"i": 4681, "before": "%cond.i.i = icmp ne i64 %self.val.i.i, 0", "ratio": 0.58327, "M": 1949, "bytes": 27456, "slots": null}
+{"i": 4682, "before": "call void @llvm.assume(i1 %cond.i.i)", "ratio": 0.58327, "M": 1949, "bytes": 27456, "slots": null}
+{"i": 4683, "before": "%strong1.i.i = add i64 %self.val.i.i, 1", "ratio": 0.58327, "M": 1949, "bytes": 27456, "slots": null}
+{"i": 4684, "before": "store i64 %strong1.i.i, ptr %_222.i, align 8, !noalias !8632", "ratio": 0.58327, "M": 1949, "bytes": 27456, "slots": null}
+{"i": 4685, "before": "%_7.i.i = icmp eq i64 %strong1.i.i, 0", "ratio": 0.58721, "M": 1961, "bytes": 27424, "slots": null}
+{"i": 4686, "before": "br i1 %_7.i.i, label %bb4.i.i, label %_ZN5alloc2rc10RcInnerPtr10inc_st", "ratio": 0.58721, "M": 1961, "bytes": 27424, "slots": null}
+{"i": 4689, "before": "call void @llvm.trap()", "ratio": null, "M": null, "bytes": null, "slots": null}
+{"i": 4690, "before": "unreachable", "ratio": null, "M": null, "bytes": null, "slots": null}
+{"i": 4693, "before": "%_183.i145 = load ptr, ptr %x.i, align 8, !noalias !8632, !nonnull !2,", "ratio": 0.58721, "M": 1961, "bytes": 27424, "slots": null}
+{"i": 4694, "before": "%v442 = getelementptr inbounds i8, ptr %x.i, i64 16", "ratio": 0.58721, "M": 1961, "bytes": 27424, "slots": null}
+{"i": 4695, "before": "%_226.i = load ptr, ptr %v442, align 8, !noalias !8632, !nonnull !2, !", "ratio": 0.58721, "M": 1961, "bytes": 27424, "slots": null}
+{"i": 4696, "before": "%self.val.i141.i = load i64, ptr %_226.i, align 8, !noalias !8632, !no", "ratio": 0.58721, "M": 1961, "bytes": 27424, "slots": null}
+{"i": 4697, "before": "%cond.i142.i = icmp ne i64 %self.val.i141.i, 0", "ratio": 0.58721, "M": 1961, "bytes": 27424, "slots": null}
+{"i": 4698, "before": "call void @llvm.assume(i1 %cond.i142.i)", "ratio": 0.58721, "M": 1961, "bytes": 27424, "slots": null}
+{"i": 4699, "before": "%strong1.i143.i = add i64 %self.val.i141.i, 1", "ratio": 0.58721, "M": 1961, "bytes": 27424, "slots": null}
+{"i": 4700, "before": "store i64 %strong1.i143.i, ptr %_226.i, align 8, !noalias !8632", "ratio": 0.58721, "M": 1961, "bytes": 27424, "slots": null}
+{"i": 4701, "before": "%_7.i144.i = icmp eq i64 %strong1.i143.i, 0", "ratio": 0.58769, "M": 1962, "bytes": 27408, "slots": null}
+{"i": 4702, "before": "br i1 %_7.i144.i, label %bb4.i145.i, label %_ZN5alloc2rc10RcInnerPtr10", "ratio": 0.58769, "M": 1962, "bytes": 27408, "slots": null}
+{"i": 4705, "before": "call void @llvm.trap()", "ratio": null, "M": null, "bytes": null, "slots": null}
+{"i": 4706, "before": "unreachable", "ratio": null, "M": null, "bytes": null, "slots": null}
+{"i": 4709, "before": "%v443 = getelementptr inbounds i8, ptr %x.i, i64 24", "ratio": 0.58674, "M": 1960, "bytes": 27440, "slots": null}
+{"i": 4710, "before": "%_184.i146 = load ptr, ptr %v443, align 8, !noalias !8632, !nonnull !2", "ratio": 0.58674, "M": 1960, "bytes": 27440, "slots": null}
+{"i": 4711, "before": "%v444 = getelementptr inbounds i8, ptr %x.i, i64 32", "ratio": 0.58769, "M": 1962, "bytes": 27408, "slots": null}
+{"i": 4712, "before": "%_70.i = load i64, ptr %v444, align 8, !noalias !8632, !noundef !2", "ratio": 0.58769, "M": 1962, "bytes": 27408, "slots": null}
+{"i": 4713, "before": "%v445 = getelementptr inbounds i8, ptr %x.i, i64 40", "ratio": 0.58769, "M": 1962, "bytes": 27408, "slots": null}
+{"i": 4714, "before": "%v446 = load i8, ptr %v445, align 8, !range !394, !noalias !8632, !nou", "ratio": 0.58769, "M": 1962, "bytes": 27408, "slots": null}
+{"i": 4715, "before": "%v447 = getelementptr inbounds i8, ptr %x.i, i64 41", "ratio": 0.58769, "M": 1962, "bytes": 27408, "slots": null}
+{"i": 4716, "before": "%v448 = load i8, ptr %v447, align 1, !range !394, !noalias !8632, !nou", "ratio": 0.58769, "M": 1962, "bytes": 27408, "slots": null}
+{"i": 4717, "before": "%v449 = getelementptr inbounds i8, ptr %x.i, i64 42", "ratio": 0.58769, "M": 1962, "bytes": 27408, "slots": null}
+{"i": 4718, "before": "%v450 = load i8, ptr %v449, align 2, !range !394, !noalias !8632, !nou", "ratio": 0.58769, "M": 1962, "bytes": 27408, "slots": null}
+{"i": 4719, "before": "%_75.i147 = getelementptr inbounds i8, ptr %_270, i64 216", "ratio": 0.58769, "M": 1962, "bytes": 27408, "slots": null}
+{"i": 4720, "before": "call void @llvm.experimental.noalias.scope.decl(metadata !8686)", "ratio": 0.58769, "M": 1962, "bytes": 27408, "slots": null}
+{"i": 4721, "before": "%_2.i146.i = load ptr, ptr %_75.i147, align 8, !alias.scope !8686, !no", "ratio": 0.58769, "M": 1962, "bytes": 27408, "slots": null}
+{"i": 4722, "before": "%v451 = getelementptr inbounds i8, ptr %_270, i64 224", "ratio": 0.58769, "M": 1962, "bytes": 27408, "slots": null}
+{"i": 4723, "before": "%_12.i147.i = load ptr, ptr %v451, align 8, !alias.scope !8686, !noali", "ratio": 0.58769, "M": 1962, "bytes": 27408, "slots": null}
+{"i": 4724, "before": "%self.val.i.i148.i = load i64, ptr %_12.i147.i, align 8, !noalias !869", "ratio": 0.58769, "M": 1962, "bytes": 27408, "slots": null}
+{"i": 4725, "before": "%cond.i.i149.i = icmp ne i64 %self.val.i.i148.i, 0", "ratio": 0.58769, "M": 1962, "bytes": 27408, "slots": null}
+{"i": 4726, "before": "call void @llvm.assume(i1 %cond.i.i149.i)", "ratio": 0.58769, "M": 1962, "bytes": 27408, "slots": null}
+{"i": 4727, "before": "%strong1.i.i150.i = add i64 %self.val.i.i148.i, 1", "ratio": 0.58769, "M": 1962, "bytes": 27408, "slots": null}
+{"i": 4728, "before": "store i64 %strong1.i.i150.i, ptr %_12.i147.i, align 8, !noalias !8691", "ratio": 0.58769, "M": 1962, "bytes": 27408, "slots": null}
+{"i": 4729, "before": "%_7.i.i151.i = icmp eq i64 %strong1.i.i150.i, 0", "ratio": 0.59455, "M": 1987, "bytes": 27464, "slots": null}
+{"i": 4730, "before": "br i1 %_7.i.i151.i, label %bb4.i.i161.i, label %_ZN5alloc2rc10RcInnerP", "ratio": 0.59455, "M": 1987, "bytes": 27464, "slots": null}
+{"i": 4733, "before": "call void @llvm.trap()", "ratio": null, "M": null, "bytes": null, "slots": null}
+{"i": 4734, "before": "unreachable", "ratio": null, "M": null, "bytes": null, "slots": null}
+{"i": 4737, "before": "%v452 = getelementptr inbounds i8, ptr %_270, i64 232", "ratio": 0.59455, "M": 1987, "bytes": 27464, "slots": null}
+{"i": 4738, "before": "%_16.i153.i = load ptr, ptr %v452, align 8, !alias.scope !8686, !noali", "ratio": 0.59455, "M": 1987, "bytes": 27464, "slots": null}
+{"i": 4739, "before": "%self.val.i1.i154.i = load i64, ptr %_16.i153.i, align 8, !noalias !86", "ratio": 0.59455, "M": 1987, "bytes": 27464, "slots": null}
+{"i": 4740, "before": "%cond.i2.i155.i = icmp ne i64 %self.val.i1.i154.i, 0", "ratio": 0.59455, "M": 1987, "bytes": 27464, "slots": null}
+{"i": 4741, "before": "call void @llvm.assume(i1 %cond.i2.i155.i)", "ratio": 0.59455, "M": 1987, "bytes": 27464, "slots": null}
+{"i": 4742, "before": "%strong1.i3.i156.i = add i64 %self.val.i1.i154.i, 1", "ratio": 0.59455, "M": 1987, "bytes": 27464, "slots": null}
+{"i": 4743, "before": "store i64 %strong1.i3.i156.i, ptr %_16.i153.i, align 8, !noalias !8691", "ratio": 0.59455, "M": 1987, "bytes": 27464, "slots": null}
+{"i": 4744, "before": "%_7.i4.i157.i = icmp eq i64 %strong1.i3.i156.i, 0", "ratio": 0.55822, "M": 1865, "bytes": 27448, "slots": null}
+{"i": 4745, "before": "br i1 %_7.i4.i157.i, label %bb4.i5.i160.i, label %\"_ZN71_$LT$solana_ac", "ratio": 0.55822, "M": 1865, "bytes": 27448, "slots": null}
+{"i": 4748, "before": "call void @llvm.trap()", "ratio": null, "M": null, "bytes": null, "slots": null}
+{"i": 4749, "before": "unreachable", "ratio": null, "M": null, "bytes": null, "slots": null}
+{"i": 4752, "before": "%v453 = getelementptr inbounds i8, ptr %_270, i64 240", "ratio": 0.55822, "M": 1865, "bytes": 27448, "slots": null}
+{"i": 4753, "before": "%_5.i158.i = load ptr, ptr %v453, align 8, !alias.scope !8686, !noalia", "ratio": 0.55822, "M": 1865, "bytes": 27448, "slots": null}
+{"i": 4754, "before": "%v454 = getelementptr inbounds i8, ptr %_270, i64 248", "ratio": 0.55822, "M": 1865, "bytes": 27448, "slots": null}
+{"i": 4755, "before": "%_6.i159.i = load i64, ptr %v454, align 8, !alias.scope !8686, !noalia", "ratio": 0.55822, "M": 1865, "bytes": 27448, "slots": null}
+{"i": 4756, "before": "%v455 = getelementptr inbounds i8, ptr %_270, i64 256", "ratio": 0.55822, "M": 1865, "bytes": 27448, "slots": null}
+{"i": 4757, "before": "%v456 = load i8, ptr %v455, align 8, !range !394, !alias.scope !8686, ", "ratio": 0.55822, "M": 1865, "bytes": 27448, "slots": null}
+{"i": 4758, "before": "%v457 = getelementptr inbounds i8, ptr %_270, i64 257", "ratio": 0.55822, "M": 1865, "bytes": 27448, "slots": null}
+{"i": 4759, "before": "%v458 = load i8, ptr %v457, align 1, !range !394, !alias.scope !8686, ", "ratio": 0.55822, "M": 1865, "bytes": 27448, "slots": null}
+{"i": 4760, "before": "%v459 = getelementptr inbounds i8, ptr %_270, i64 258", "ratio": 0.55822, "M": 1865, "bytes": 27448, "slots": null}
+{"i": 4761, "before": "%v460 = load i8, ptr %v459, align 2, !range !394, !alias.scope !8686, ", "ratio": 0.55822, "M": 1865, "bytes": 27448, "slots": null}
+{"i": 4762, "before": "%v461 = getelementptr inbounds i8, ptr %_270, i64 72", "ratio": 0.55822, "M": 1865, "bytes": 27448, "slots": null}
+{"i": 4763, "before": "%x10.i = load ptr, ptr %v461, align 8, !noalias !8628, !nonnull !2, !a", "ratio": 0.55822, "M": 1865, "bytes": 27448, "slots": null}
+{"i": 4764, "before": "%_185.i148 = load ptr, ptr %x10.i, align 8, !noalias !8632, !nonnull !", "ratio": 0.55822, "M": 1865, "bytes": 27448, "slots": null}
+{"i": 4765, "before": "%v462 = getelementptr inbounds i8, ptr %x10.i, i64 16", "ratio": 0.55822, "M": 1865, "bytes": 27448, "slots": null}
+{"i": 4766, "before": "%_230.i = load ptr, ptr %v462, align 8, !noalias !8632, !nonnull !2, !", "ratio": 0.55822, "M": 1865, "bytes": 27448, "slots": null}
+{"i": 4767, "before": "%self.val.i163.i = load i64, ptr %_230.i, align 8, !noalias !8632, !no", "ratio": 0.55822, "M": 1865, "bytes": 27448, "slots": null}
+{"i": 4768, "before": "%cond.i164.i = icmp ne i64 %self.val.i163.i, 0", "ratio": 0.55822, "M": 1865, "bytes": 27448, "slots": null}
+{"i": 4769, "before": "call void @llvm.assume(i1 %cond.i164.i)", "ratio": 0.55822, "M": 1865, "bytes": 27448, "slots": null}
+{"i": 4770, "before": "%strong1.i165.i = add i64 %self.val.i163.i, 1", "ratio": 0.55822, "M": 1865, "bytes": 27448, "slots": null}
+{"i": 4771, "before": "store i64 %strong1.i165.i, ptr %_230.i, align 8, !noalias !8632", "ratio": 0.55822, "M": 1865, "bytes": 27448, "slots": null}
+{"i": 4772, "before": "%_7.i166.i = icmp eq i64 %strong1.i165.i, 0", "ratio": 0.55549, "M": 1857, "bytes": 27480, "slots": null}
+{"i": 4773, "before": "br i1 %_7.i166.i, label %bb4.i167.i, label %_ZN5alloc2rc10RcInnerPtr10", "ratio": 0.55549, "M": 1857, "bytes": 27480, "slots": null}
+{"i": 4776, "before": "call void @llvm.trap()", "ratio": null, "M": null, "bytes": null, "slots": null}
+{"i": 4777, "before": "unreachable", "ratio": null, "M": null, "bytes": null, "slots": null}
+{"i": 4780, "before": "%_80.i = load ptr, ptr %v461, align 8, !noalias !8628, !nonnull !2, !a", "ratio": 0.55549, "M": 1857, "bytes": 27480, "slots": null}
+{"i": 4781, "before": "%v463 = getelementptr inbounds i8, ptr %_80.i, i64 24", "ratio": 0.55549, "M": 1857, "bytes": 27480, "slots": null}
+{"i": 4782, "before": "%_186.i149 = load ptr, ptr %v463, align 8, !noalias !8632, !nonnull !2", "ratio": 0.55549, "M": 1857, "bytes": 27480, "slots": null}
+{"i": 4783, "before": "%v464 = getelementptr inbounds i8, ptr %x10.i, i64 8", "ratio": 0.55549, "M": 1857, "bytes": 27480, "slots": null}
+{"i": 4784, "before": "%_234.i150 = load ptr, ptr %v464, align 8, !noalias !8632, !nonnull !2", "ratio": 0.55549, "M": 1857, "bytes": 27480, "slots": null}
+{"i": 4785, "before": "%self.val.i169.i = load i64, ptr %_234.i150, align 8, !noalias !8632, ", "ratio": 0.55549, "M": 1857, "bytes": 27480, "slots": null}
+{"i": 4786, "before": "%cond.i170.i = icmp ne i64 %self.val.i169.i, 0", "ratio": 0.55549, "M": 1857, "bytes": 27480, "slots": null}
+{"i": 4787, "before": "call void @llvm.assume(i1 %cond.i170.i)", "ratio": 0.55549, "M": 1857, "bytes": 27480, "slots": null}
+{"i": 4788, "before": "%strong1.i171.i = add i64 %self.val.i169.i, 1", "ratio": 0.55549, "M": 1857, "bytes": 27480, "slots": null}
+{"i": 4789, "before": "store i64 %strong1.i171.i, ptr %_234.i150, align 8, !noalias !8632", "ratio": 0.55549, "M": 1857, "bytes": 27480, "slots": null}
+{"i": 4790, "before": "%_7.i172.i = icmp eq i64 %strong1.i171.i, 0", "ratio": 0.56651, "M": 1893, "bytes": 27456, "slots": null}
+{"i": 4791, "before": "br i1 %_7.i172.i, label %bb4.i173.i, label %_ZN5alloc2rc10RcInnerPtr10", "ratio": 0.56651, "M": 1893, "bytes": 27456, "slots": null}
+{"i": 4794, "before": "call void @llvm.trap()", "ratio": null, "M": null, "bytes": null, "slots": null}
+{"i": 4795, "before": "unreachable", "ratio": null, "M": null, "bytes": null, "slots": null}
+{"i": 4798, "before": "%v465 = getelementptr inbounds i8, ptr %x10.i, i64 32", "ratio": 0.56651, "M": 1893, "bytes": 27456, "slots": null}
+{"i": 4799, "before": "%_82.i151 = load i64, ptr %v465, align 8, !noalias !8632, !noundef !2", "ratio": 0.56651, "M": 1893, "bytes": 27456, "slots": null}
+{"i": 4800, "before": "%v466 = getelementptr inbounds i8, ptr %x10.i, i64 40", "ratio": 0.56651, "M": 1893, "bytes": 27456, "slots": null}
+{"i": 4801, "before": "%v467 = load i8, ptr %v466, align 8, !range !394, !noalias !8632, !nou", "ratio": 0.56651, "M": 1893, "bytes": 27456, "slots": null}
+{"i": 4802, "before": "%v468 = getelementptr inbounds i8, ptr %x10.i, i64 41", "ratio": 0.56651, "M": 1893, "bytes": 27456, "slots": null}
+{"i": 4803, "before": "%v469 = load i8, ptr %v468, align 1, !range !394, !noalias !8632, !nou", "ratio": 0.56651, "M": 1893, "bytes": 27456, "slots": null}
+{"i": 4804, "before": "%v470 = getelementptr inbounds i8, ptr %x10.i, i64 42", "ratio": 0.56651, "M": 1893, "bytes": 27456, "slots": null}
+{"i": 4805, "before": "%v471 = load i8, ptr %v470, align 2, !range !394, !noalias !8632, !nou", "ratio": 0.56651, "M": 1893, "bytes": 27456, "slots": null}
+{"i": 4806, "before": "%v472 = getelementptr inbounds i8, ptr %_270, i64 120", "ratio": 0.56651, "M": 1893, "bytes": 27456, "slots": null}
+{"i": 4807, "before": "%_236.i152 = load ptr, ptr %v472, align 8, !noalias !8628, !nonnull !2", "ratio": 0.56651, "M": 1893, "bytes": 27456, "slots": null}
+{"i": 4808, "before": "call void @llvm.experimental.noalias.scope.decl(metadata !8692)", "ratio": 0.56651, "M": 1893, "bytes": 27456, "slots": null}
+{"i": 4809, "before": "%_2.i175.i = load ptr, ptr %_236.i152, align 8, !alias.scope !8692, !n", "ratio": 0.56651, "M": 1893, "bytes": 27456, "slots": null}
+{"i": 4810, "before": "%v473 = getelementptr inbounds i8, ptr %_236.i152, i64 8", "ratio": 0.56651, "M": 1893, "bytes": 27456, "slots": null}
+{"i": 4811, "before": "%_12.i176.i = load ptr, ptr %v473, align 8, !alias.scope !8692, !noali", "ratio": 0.56651, "M": 1893, "bytes": 27456, "slots": null}
+{"i": 4812, "before": "%self.val.i.i177.i = load i64, ptr %_12.i176.i, align 8, !noalias !869", "ratio": 0.56651, "M": 1893, "bytes": 27456, "slots": null}
+{"i": 4813, "before": "%cond.i.i178.i = icmp ne i64 %self.val.i.i177.i, 0", "ratio": 0.56651, "M": 1893, "bytes": 27456, "slots": null}
+{"i": 4814, "before": "call void @llvm.assume(i1 %cond.i.i178.i)", "ratio": 0.56651, "M": 1893, "bytes": 27456, "slots": null}
+{"i": 4815, "before": "%strong1.i.i179.i = add i64 %self.val.i.i177.i, 1", "ratio": 0.56651, "M": 1893, "bytes": 27456, "slots": null}
+{"i": 4816, "before": "store i64 %strong1.i.i179.i, ptr %_12.i176.i, align 8, !noalias !8697", "ratio": 0.56651, "M": 1893, "bytes": 27456, "slots": null}
+{"i": 4817, "before": "%_7.i.i180.i = icmp eq i64 %strong1.i.i179.i, 0", "ratio": 0.59417, "M": 1986, "bytes": 27472, "slots": null}
+{"i": 4818, "before": "br i1 %_7.i.i180.i, label %bb4.i.i190.i, label %_ZN5alloc2rc10RcInnerP", "ratio": 0.59417, "M": 1986, "bytes": 27472, "slots": null}
+{"i": 4821, "before": "call void @llvm.trap()", "ratio": null, "M": null, "bytes": null, "slots": null}
+{"i": 4822, "before": "unreachable", "ratio": null, "M": null, "bytes": null, "slots": null}
+{"i": 4825, "before": "%v474 = getelementptr inbounds i8, ptr %_236.i152, i64 16", "ratio": 0.59417, "M": 1986, "bytes": 27472, "slots": null}
+{"i": 4826, "before": "%_16.i182.i = load ptr, ptr %v474, align 8, !alias.scope !8692, !noali", "ratio": 0.59417, "M": 1986, "bytes": 27472, "slots": null}
+{"i": 4827, "before": "%self.val.i1.i183.i = load i64, ptr %_16.i182.i, align 8, !noalias !86", "ratio": 0.59417, "M": 1986, "bytes": 27472, "slots": null}
+{"i": 4828, "before": "%cond.i2.i184.i = icmp ne i64 %self.val.i1.i183.i, 0", "ratio": 0.59417, "M": 1986, "bytes": 27472, "slots": null}
+{"i": 4829, "before": "call void @llvm.assume(i1 %cond.i2.i184.i)", "ratio": 0.59417, "M": 1986, "bytes": 27472, "slots": null}
+{"i": 4830, "before": "%strong1.i3.i185.i = add i64 %self.val.i1.i183.i, 1", "ratio": 0.59417, "M": 1986, "bytes": 27472, "slots": null}
+{"i": 4831, "before": "store i64 %strong1.i3.i185.i, ptr %_16.i182.i, align 8, !noalias !8697", "ratio": 0.59417, "M": 1986, "bytes": 27472, "slots": null}
+{"i": 4832, "before": "%_7.i4.i186.i = icmp eq i64 %strong1.i3.i185.i, 0", "ratio": 0.6082, "M": 2032, "bytes": 27448, "slots": null}
+{"i": 4833, "before": "br i1 %_7.i4.i186.i, label %bb4.i5.i189.i, label %\"_ZN71_$LT$solana_ac", "ratio": 0.6082, "M": 2032, "bytes": 27448, "slots": null}
+{"i": 4836, "before": "call void @llvm.trap()", "ratio": null, "M": null, "bytes": null, "slots": null}
+{"i": 4837, "before": "unreachable", "ratio": null, "M": null, "bytes": null, "slots": null}
+{"i": 4840, "before": "%v475 = getelementptr inbounds i8, ptr %_236.i152, i64 24", "ratio": 0.60883, "M": 2035, "bytes": 27472, "slots": null}
+{"i": 4841, "before": "%_5.i187.i = load ptr, ptr %v475, align 8, !alias.scope !8692, !noalia", "ratio": 0.60883, "M": 2035, "bytes": 27472, "slots": null}
+{"i": 4842, "before": "%v476 = getelementptr inbounds i8, ptr %_236.i152, i64 32", "ratio": 0.6082, "M": 2032, "bytes": 27448, "slots": null}
+{"i": 4843, "before": "%_6.i188.i = load i64, ptr %v476, align 8, !alias.scope !8692, !noalia", "ratio": 0.6082, "M": 2032, "bytes": 27448, "slots": null}
+{"i": 4844, "before": "%v477 = getelementptr inbounds i8, ptr %_236.i152, i64 40", "ratio": 0.6082, "M": 2032, "bytes": 27448, "slots": null}
+{"i": 4845, "before": "%v478 = load i8, ptr %v477, align 8, !range !394, !alias.scope !8692, ", "ratio": 0.6082, "M": 2032, "bytes": 27448, "slots": null}
+{"i": 4846, "before": "%v479 = getelementptr inbounds i8, ptr %_236.i152, i64 41", "ratio": 0.6082, "M": 2032, "bytes": 27448, "slots": null}
+{"i": 4847, "before": "%v480 = load i8, ptr %v479, align 1, !range !394, !alias.scope !8692, ", "ratio": 0.6082, "M": 2032, "bytes": 27448, "slots": null}
+{"i": 4848, "before": "%v481 = getelementptr inbounds i8, ptr %_236.i152, i64 42", "ratio": 0.6082, "M": 2032, "bytes": 27448, "slots": null}
+{"i": 4849, "before": "%v482 = load i8, ptr %v481, align 2, !range !394, !alias.scope !8692, ", "ratio": 0.6082, "M": 2032, "bytes": 27448, "slots": null}
+{"i": 4850, "before": "%x11.i = load ptr, ptr %v356, align 8, !noalias !8628, !nonnull !2, !a", "ratio": 0.6082, "M": 2032, "bytes": 27448, "slots": null}
+{"i": 4851, "before": "%_187.i = load ptr, ptr %x11.i, align 8, !noalias !8632, !nonnull !2, ", "ratio": 0.6082, "M": 2032, "bytes": 27448, "slots": null}
+{"i": 4852, "before": "%v483 = getelementptr inbounds i8, ptr %x11.i, i64 24", "ratio": 0.6082, "M": 2032, "bytes": 27448, "slots": null}
+{"i": 4853, "before": "%_188.i = load ptr, ptr %v483, align 8, !noalias !8632, !nonnull !2, !", "ratio": 0.6082, "M": 2032, "bytes": 27448, "slots": null}
+{"i": 4854, "before": "%v484 = getelementptr inbounds i8, ptr %x11.i, i64 8", "ratio": 0.6082, "M": 2032, "bytes": 27448, "slots": null}
+{"i": 4855, "before": "%_239.i = load ptr, ptr %v484, align 8, !noalias !8632, !nonnull !2, !", "ratio": 0.6082, "M": 2032, "bytes": 27448, "slots": null}
+{"i": 4856, "before": "%self.val.i192.i = load i64, ptr %_239.i, align 8, !noalias !8632, !no", "ratio": 0.6082, "M": 2032, "bytes": 27448, "slots": null}
+{"i": 4857, "before": "%cond.i193.i = icmp ne i64 %self.val.i192.i, 0", "ratio": 0.6082, "M": 2032, "bytes": 27448, "slots": null}
+{"i": 4858, "before": "call void @llvm.assume(i1 %cond.i193.i)", "ratio": 0.6082, "M": 2032, "bytes": 27448, "slots": null}
+{"i": 4859, "before": "%strong1.i194.i = add i64 %self.val.i192.i, 1", "ratio": 0.6082, "M": 2032, "bytes": 27448, "slots": null}
+{"i": 4860, "before": "store i64 %strong1.i194.i, ptr %_239.i, align 8, !noalias !8632", "ratio": 0.6082, "M": 2032, "bytes": 27448, "slots": null}
+{"i": 4861, "before": "%_7.i195.i = icmp eq i64 %strong1.i194.i, 0", "ratio": 0.59973, "M": 2004, "bytes": 27456, "slots": null}
+{"i": 4862, "before": "br i1 %_7.i195.i, label %bb4.i196.i, label %_ZN5alloc2rc10RcInnerPtr10", "ratio": 0.59973, "M": 2004, "bytes": 27456, "slots": null}
+{"i": 4865, "before": "call void @llvm.trap()", "ratio": null, "M": null, "bytes": null, "slots": null}
+{"i": 4866, "before": "unreachable", "ratio": null, "M": null, "bytes": null, "slots": null}
+{"i": 4869, "before": "%v485 = getelementptr inbounds i8, ptr %x11.i, i64 16", "ratio": 0.59973, "M": 2004, "bytes": 27456, "slots": null}
+{"i": 4870, "before": "%_243.i = load ptr, ptr %v485, align 8, !noalias !8632, !nonnull !2, !", "ratio": 0.59973, "M": 2004, "bytes": 27456, "slots": null}
+{"i": 4871, "before": "%self.val.i198.i = load i64, ptr %_243.i, align 8, !noalias !8632, !no", "ratio": 0.59973, "M": 2004, "bytes": 27456, "slots": null}
+{"i": 4872, "before": "%cond.i199.i = icmp ne i64 %self.val.i198.i, 0", "ratio": 0.59973, "M": 2004, "bytes": 27456, "slots": null}
+{"i": 4873, "before": "call void @llvm.assume(i1 %cond.i199.i)", "ratio": 0.59973, "M": 2004, "bytes": 27456, "slots": null}
+{"i": 4874, "before": "%strong1.i200.i = add i64 %self.val.i198.i, 1", "ratio": 0.59973, "M": 2004, "bytes": 27456, "slots": null}
+{"i": 4875, "before": "store i64 %strong1.i200.i, ptr %_243.i, align 8, !noalias !8632", "ratio": 0.59973, "M": 2004, "bytes": 27456, "slots": null}
+{"i": 4876, "before": "%_7.i201.i = icmp eq i64 %strong1.i200.i, 0", "ratio": 0.60371, "M": 2017, "bytes": 27448, "slots": null}
+{"i": 4877, "before": "br i1 %_7.i201.i, label %bb4.i202.i, label %_ZN5alloc2rc10RcInnerPtr10", "ratio": 0.60371, "M": 2017, "bytes": 27448, "slots": null}
+{"i": 4880, "before": "call void @llvm.trap()", "ratio": null, "M": null, "bytes": null, "slots": null}
+{"i": 4881, "before": "unreachable", "ratio": null, "M": null, "bytes": null, "slots": null}
+{"i": 4884, "before": "%v486 = getelementptr inbounds i8, ptr %x11.i, i64 32", "ratio": 0.60371, "M": 2017, "bytes": 27448, "slots": null}
+{"i": 4885, "before": "%_91.i = load i64, ptr %v486, align 8, !noalias !8632, !noundef !2", "ratio": 0.60371, "M": 2017, "bytes": 27448, "slots": null}
+{"i": 4886, "before": "%v487 = getelementptr inbounds i8, ptr %x11.i, i64 40", "ratio": 0.60371, "M": 2017, "bytes": 27448, "slots": null}
+{"i": 4887, "before": "%v488 = load i8, ptr %v487, align 8, !range !394, !noalias !8632, !nou", "ratio": 0.60371, "M": 2017, "bytes": 27448, "slots": null}
+{"i": 4888, "before": "%v489 = getelementptr inbounds i8, ptr %x11.i, i64 41", "ratio": 0.60371, "M": 2017, "bytes": 27448, "slots": null}
+{"i": 4889, "before": "%v490 = load i8, ptr %v489, align 1, !range !394, !noalias !8632, !nou", "ratio": 0.60371, "M": 2017, "bytes": 27448, "slots": null}
+{"i": 4890, "before": "%v491 = getelementptr inbounds i8, ptr %x11.i, i64 42", "ratio": 0.60371, "M": 2017, "bytes": 27448, "slots": null}
+{"i": 4891, "before": "%v492 = load i8, ptr %v491, align 2, !range !394, !noalias !8632, !nou", "ratio": 0.60371, "M": 2017, "bytes": 27448, "slots": null}
+{"i": 4892, "before": "%v493 = getelementptr inbounds i8, ptr %_55.i98, i64 72", "ratio": 0.60371, "M": 2017, "bytes": 27448, "slots": null}
+{"i": 4893, "before": "store ptr %_2.i22.i, ptr %v493, align 8, !noalias !8628", "ratio": 0.60371, "M": 2017, "bytes": 27448, "slots": null}
+{"i": 4894, "before": "%_57.sroa.0.sroa.4.0..sroa_idx.i = getelementptr inbounds i8, ptr %_55", "ratio": 0.6094, "M": 2036, "bytes": 27448, "slots": null}
+{"i": 4895, "before": "store ptr %_12.i23.i, ptr %_57.sroa.0.sroa.4.0..sroa_idx.i, align 8, !", "ratio": 0.6094, "M": 2036, "bytes": 27448, "slots": null}
+{"i": 4896, "before": "%_57.sroa.0.sroa.5.0..sroa_idx.i = getelementptr inbounds i8, ptr %_55", "ratio": 0.59396, "M": 1985, "bytes": 27464, "slots": null}
+{"i": 4897, "before": "store ptr %_16.i29.i, ptr %_57.sroa.0.sroa.5.0..sroa_idx.i, align 8, !", "ratio": 0.59396, "M": 1985, "bytes": 27464, "slots": null}
+{"i": 4898, "before": "%_57.sroa.0.sroa.6.0..sroa_idx.i = getelementptr inbounds i8, ptr %_55", "ratio": 0.58285, "M": 1947, "bytes": 27440, "slots": null}
+{"i": 4899, "before": "store ptr %_5.i34.i, ptr %_57.sroa.0.sroa.6.0..sroa_idx.i, align 8, !n", "ratio": 0.58285, "M": 1947, "bytes": 27440, "slots": null}
+{"i": 4900, "before": "%_57.sroa.0.sroa.7.0..sroa_idx.i = getelementptr inbounds i8, ptr %_55", "ratio": 0.58202, "M": 1946, "bytes": 27488, "slots": null}
+{"i": 4901, "before": "store i64 %_6.i35.i, ptr %_57.sroa.0.sroa.7.0..sroa_idx.i, align 8, !n", "ratio": 0.58202, "M": 1946, "bytes": 27488, "slots": null}
+{"i": 4902, "before": "%_57.sroa.0.sroa.8.0..sroa_idx.i = getelementptr inbounds i8, ptr %_55", "ratio": 0.58229, "M": 1946, "bytes": 27464, "slots": null}
+{"i": 4903, "before": "store i8 %v372, ptr %_57.sroa.0.sroa.8.0..sroa_idx.i, align 8, !noalia", "ratio": 0.58229, "M": 1946, "bytes": 27464, "slots": null}
+{"i": 4904, "before": "%_57.sroa.0.sroa.9.0..sroa_idx.i = getelementptr inbounds i8, ptr %_55", "ratio": 0.58318, "M": 1949, "bytes": 27464, "slots": null}
+{"i": 4905, "before": "store i8 %v374, ptr %_57.sroa.0.sroa.9.0..sroa_idx.i, align 1, !noalia", "ratio": 0.58318, "M": 1949, "bytes": 27464, "slots": null}
+{"i": 4906, "before": "%_57.sroa.0.sroa.10.0..sroa_idx.i = getelementptr inbounds i8, ptr %_5", "ratio": 0.58588, "M": 1958, "bytes": 27464, "slots": null}
+{"i": 4907, "before": "store i8 %v376, ptr %_57.sroa.0.sroa.10.0..sroa_idx.i, align 2, !noali", "ratio": 0.58588, "M": 1958, "bytes": 27464, "slots": null}
+{"i": 4908, "before": "%_57.sroa.0.sroa.12.0..sroa_idx.i = getelementptr inbounds i8, ptr %_5", "ratio": 0.57382, "M": 1918, "bytes": 27472, "slots": null}
+{"i": 4909, "before": "store ptr %_2.i39.i, ptr %_57.sroa.0.sroa.12.0..sroa_idx.i, align 8, !", "ratio": 0.57382, "M": 1918, "bytes": 27472, "slots": null}
+{"i": 4910, "before": "%_57.sroa.0.sroa.12.sroa.4.0._57.sroa.0.sroa.12.0..sroa_idx.sroa_idx.i", "ratio": 0.59338, "M": 1981, "bytes": 27408, "slots": null}
+{"i": 4911, "before": "store ptr %_12.i40.i, ptr %_57.sroa.0.sroa.12.sroa.4.0._57.sroa.0.sroa", "ratio": 0.59338, "M": 1981, "bytes": 27408, "slots": null}
+{"i": 4912, "before": "%_57.sroa.0.sroa.12.sroa.5.0._57.sroa.0.sroa.12.0..sroa_idx.sroa_idx.i", "ratio": 0.57716, "M": 1928, "bytes": 27440, "slots": null}
+{"i": 4913, "before": "store ptr %_16.i46.i, ptr %_57.sroa.0.sroa.12.sroa.5.0._57.sroa.0.sroa", "ratio": 0.57716, "M": 1928, "bytes": 27440, "slots": null}
+{"i": 4914, "before": "%_57.sroa.0.sroa.12.sroa.6.0._57.sroa.0.sroa.12.0..sroa_idx.sroa_idx.i", "ratio": 0.58683, "M": 1960, "bytes": 27432, "slots": null}
+{"i": 4915, "before": "store ptr %_5.i51.i, ptr %_57.sroa.0.sroa.12.sroa.6.0._57.sroa.0.sroa.", "ratio": 0.58683, "M": 1960, "bytes": 27432, "slots": null}
+{"i": 4916, "before": "%_57.sroa.0.sroa.12.sroa.7.0._57.sroa.0.sroa.12.0..sroa_idx.sroa_idx.i", "ratio": 0.5802, "M": 1937, "bytes": 27408, "slots": null}
+{"i": 4917, "before": "store i64 %_6.i52.i, ptr %_57.sroa.0.sroa.12.sroa.7.0._57.sroa.0.sroa.", "ratio": 0.5802, "M": 1937, "bytes": 27408, "slots": null}
+{"i": 4918, "before": "%_57.sroa.0.sroa.12.sroa.8.0._57.sroa.0.sroa.12.0..sroa_idx.sroa_idx.i", "ratio": 0.5802, "M": 1937, "bytes": 27408, "slots": null}
+{"i": 4919, "before": "store i8 %v383, ptr %_57.sroa.0.sroa.12.sroa.8.0._57.sroa.0.sroa.12.0.", "ratio": 0.5802, "M": 1937, "bytes": 27408, "slots": null}
+{"i": 4920, "before": "%_57.sroa.0.sroa.12.sroa.9.0._57.sroa.0.sroa.12.0..sroa_idx.sroa_idx.i", "ratio": 0.58499, "M": 1953, "bytes": 27408, "slots": null}
+{"i": 4921, "before": "store i8 %v385, ptr %_57.sroa.0.sroa.12.sroa.9.0._57.sroa.0.sroa.12.0.", "ratio": 0.58499, "M": 1953, "bytes": 27408, "slots": null}
+{"i": 4922, "before": "%_57.sroa.0.sroa.12.sroa.10.0._57.sroa.0.sroa.12.0..sroa_idx.sroa_idx.", "ratio": 0.58529, "M": 1954, "bytes": 27408, "slots": null}
+{"i": 4923, "before": "store i8 %v387, ptr %_57.sroa.0.sroa.12.sroa.10.0._57.sroa.0.sroa.12.0", "ratio": 0.58529, "M": 1954, "bytes": 27408, "slots": null}
+{"i": 4924, "before": "%_57.sroa.0.sroa.13.0..sroa_idx.i = getelementptr inbounds i8, ptr %_5", "ratio": 0.58512, "M": 1954, "bytes": 27424, "slots": null}
+{"i": 4925, "before": "store ptr %_2.i56.i, ptr %_57.sroa.0.sroa.13.0..sroa_idx.i, align 8, !", "ratio": 0.58512, "M": 1954, "bytes": 27424, "slots": null}
+{"i": 4926, "before": "%_57.sroa.0.sroa.13.sroa.4.0._57.sroa.0.sroa.13.0..sroa_idx.sroa_idx.i", "ratio": 0.58512, "M": 1954, "bytes": 27424, "slots": null}
+{"i": 4927, "before": "store ptr %_12.i57.i, ptr %_57.sroa.0.sroa.13.sroa.4.0._57.sroa.0.sroa", "ratio": 0.58512, "M": 1954, "bytes": 27424, "slots": null}
+{"i": 4928, "before": "%_57.sroa.0.sroa.13.sroa.5.0._57.sroa.0.sroa.13.0..sroa_idx.sroa_idx.i", "ratio": 0.59988, "M": 2003, "bytes": 27416, "slots": null}
+{"i": 4929, "before": "store ptr %_16.i63.i, ptr %_57.sroa.0.sroa.13.sroa.5.0._57.sroa.0.sroa", "ratio": 0.59988, "M": 2003, "bytes": 27416, "slots": null}
+{"i": 4930, "before": "%_57.sroa.0.sroa.13.sroa.6.0._57.sroa.0.sroa.13.0..sroa_idx.sroa_idx.i", "ratio": 0.59098, "M": 1973, "bytes": 27408, "slots": null}
+{"i": 4931, "before": "store ptr %_5.i68.i, ptr %_57.sroa.0.sroa.13.sroa.6.0._57.sroa.0.sroa.", "ratio": 0.59098, "M": 1973, "bytes": 27408, "slots": null}
+{"i": 4932, "before": "%_57.sroa.0.sroa.13.sroa.7.0._57.sroa.0.sroa.13.0..sroa_idx.sroa_idx.i", "ratio": 0.58961, "M": 1969, "bytes": 27424, "slots": null}
+{"i": 4933, "before": "store i64 %_6.i69.i, ptr %_57.sroa.0.sroa.13.sroa.7.0._57.sroa.0.sroa.", "ratio": 0.58961, "M": 1969, "bytes": 27424, "slots": null}
+{"i": 4934, "before": "%_57.sroa.0.sroa.13.sroa.8.0._57.sroa.0.sroa.13.0..sroa_idx.sroa_idx.i", "ratio": 0.59021, "M": 1971, "bytes": 27424, "slots": null}
+{"i": 4935, "before": "store i8 %v394, ptr %_57.sroa.0.sroa.13.sroa.8.0._57.sroa.0.sroa.13.0.", "ratio": 0.59021, "M": 1971, "bytes": 27424, "slots": null}
+{"i": 4936, "before": "%_57.sroa.0.sroa.13.sroa.9.0._57.sroa.0.sroa.13.0..sroa_idx.sroa_idx.i", "ratio": 0.59021, "M": 1971, "bytes": 27424, "slots": null}
+{"i": 4937, "before": "store i8 %v396, ptr %_57.sroa.0.sroa.13.sroa.9.0._57.sroa.0.sroa.13.0.", "ratio": 0.59021, "M": 1971, "bytes": 27424, "slots": null}
+{"i": 4938, "before": "%_57.sroa.0.sroa.13.sroa.10.0._57.sroa.0.sroa.13.0..sroa_idx.sroa_idx.", "ratio": 0.59021, "M": 1971, "bytes": 27424, "slots": null}
+{"i": 4939, "before": "store i8 %v398, ptr %_57.sroa.0.sroa.13.sroa.10.0._57.sroa.0.sroa.13.0", "ratio": 0.59021, "M": 1971, "bytes": 27424, "slots": null}
+{"i": 4940, "before": "%_57.sroa.0.sroa.14.0..sroa_idx.i = getelementptr inbounds i8, ptr %_5", "ratio": 0.58922, "M": 1968, "bytes": 27432, "slots": null}
+{"i": 4941, "before": "store ptr %_2.i73.i, ptr %_57.sroa.0.sroa.14.0..sroa_idx.i, align 8, !", "ratio": 0.58922, "M": 1968, "bytes": 27432, "slots": null}
+{"i": 4942, "before": "%_57.sroa.0.sroa.14.sroa.4.0._57.sroa.0.sroa.14.0..sroa_idx.sroa_idx.i", "ratio": 0.58787, "M": 1962, "bytes": 27392, "slots": null}
+{"i": 4943, "before": "store ptr %_12.i74.i, ptr %_57.sroa.0.sroa.14.sroa.4.0._57.sroa.0.sroa", "ratio": 0.58787, "M": 1962, "bytes": 27392, "slots": null}
+{"i": 4944, "before": "%_57.sroa.0.sroa.14.sroa.5.0._57.sroa.0.sroa.14.0..sroa_idx.sroa_idx.i", "ratio": 0.5579, "M": 1862, "bytes": 27392, "slots": null}
+{"i": 4945, "before": "store ptr %_16.i80.i, ptr %_57.sroa.0.sroa.14.sroa.5.0._57.sroa.0.sroa", "ratio": 0.5579, "M": 1862, "bytes": 27392, "slots": null}
+{"i": 4946, "before": "%_57.sroa.0.sroa.14.sroa.6.0._57.sroa.0.sroa.14.0..sroa_idx.sroa_idx.i", "ratio": 0.5579, "M": 1862, "bytes": 27392, "slots": null}
+{"i": 4947, "before": "store ptr %_5.i85.i, ptr %_57.sroa.0.sroa.14.sroa.6.0._57.sroa.0.sroa.", "ratio": 0.5579, "M": 1862, "bytes": 27392, "slots": null}
+{"i": 4948, "before": "%_57.sroa.0.sroa.14.sroa.7.0._57.sroa.0.sroa.14.0..sroa_idx.sroa_idx.i", "ratio": 0.5579, "M": 1862, "bytes": 27392, "slots": null}
+{"i": 4949, "before": "store i64 %_6.i86.i, ptr %_57.sroa.0.sroa.14.sroa.7.0._57.sroa.0.sroa.", "ratio": 0.5579, "M": 1862, "bytes": 27392, "slots": null}
+{"i": 4950, "before": "%_57.sroa.0.sroa.14.sroa.8.0._57.sroa.0.sroa.14.0..sroa_idx.sroa_idx.i", "ratio": 0.5579, "M": 1862, "bytes": 27392, "slots": null}
+{"i": 4951, "before": "store i8 %v404, ptr %_57.sroa.0.sroa.14.sroa.8.0._57.sroa.0.sroa.14.0.", "ratio": 0.5579, "M": 1862, "bytes": 27392, "slots": null}
+{"i": 4952, "before": "%_57.sroa.0.sroa.14.sroa.9.0._57.sroa.0.sroa.14.0..sroa_idx.sroa_idx.i", "ratio": 0.5579, "M": 1862, "bytes": 27392, "slots": null}
+{"i": 4953, "before": "store i8 %v406, ptr %_57.sroa.0.sroa.14.sroa.9.0._57.sroa.0.sroa.14.0.", "ratio": 0.5579, "M": 1862, "bytes": 27392, "slots": null}
+{"i": 4954, "before": "%_57.sroa.0.sroa.14.sroa.10.0._57.sroa.0.sroa.14.0..sroa_idx.sroa_idx.", "ratio": 0.5579, "M": 1862, "bytes": 27392, "slots": null}
+{"i": 4955, "before": "store i8 %v408, ptr %_57.sroa.0.sroa.14.sroa.10.0._57.sroa.0.sroa.14.0", "ratio": 0.5579, "M": 1862, "bytes": 27392, "slots": null}
+{"i": 4956, "before": "%_57.sroa.0.sroa.15.0..sroa_idx.i = getelementptr inbounds i8, ptr %_5", "ratio": 0.58748, "M": 1961, "bytes": 27400, "slots": 3134}
+{"i": 4957, "before": "store ptr %_2.i90.i, ptr %_57.sroa.0.sroa.15.0..sroa_idx.i, align 8, !", "ratio": 0.58748, "M": 1961, "bytes": 27400, "slots": 3134}
+{"i": 4958, "before": "%_57.sroa.0.sroa.15.sroa.4.0._57.sroa.0.sroa.15.0..sroa_idx.sroa_idx.i", "ratio": 0.58748, "M": 1961, "bytes": 27400, "slots": 3134}
+{"i": 4959, "before": "store ptr %_12.i91.i, ptr %_57.sroa.0.sroa.15.sroa.4.0._57.sroa.0.sroa", "ratio": 0.58748, "M": 1961, "bytes": 27400, "slots": 3134}
+{"i": 4960, "before": "%_57.sroa.0.sroa.15.sroa.5.0._57.sroa.0.sroa.15.0..sroa_idx.sroa_idx.i", "ratio": 0.58439, "M": 1951, "bytes": 27408, "slots": null}
+{"i": 4961, "before": "store ptr %_16.i97.i, ptr %_57.sroa.0.sroa.15.sroa.5.0._57.sroa.0.sroa", "ratio": 0.58439, "M": 1951, "bytes": 27408, "slots": null}
+{"i": 4962, "before": "%_57.sroa.0.sroa.15.sroa.6.0._57.sroa.0.sroa.15.0..sroa_idx.sroa_idx.i", "ratio": 0.60368, "M": 2016, "bytes": 27424, "slots": null}
+{"i": 4963, "before": "store ptr %_5.i102.i, ptr %_57.sroa.0.sroa.15.sroa.6.0._57.sroa.0.sroa", "ratio": 0.60368, "M": 2016, "bytes": 27424, "slots": null}
+{"i": 4964, "before": "%_57.sroa.0.sroa.15.sroa.7.0._57.sroa.0.sroa.15.0..sroa_idx.sroa_idx.i", "ratio": 0.59156, "M": 1977, "bytes": 27464, "slots": null}
+{"i": 4965, "before": "store i64 %_6.i103.i, ptr %_57.sroa.0.sroa.15.sroa.7.0._57.sroa.0.sroa", "ratio": 0.59156, "M": 1977, "bytes": 27464, "slots": null}
+{"i": 4966, "before": "%_57.sroa.0.sroa.15.sroa.8.0._57.sroa.0.sroa.15.0..sroa_idx.sroa_idx.i", "ratio": 0.59156, "M": 1977, "bytes": 27464, "slots": null}
+{"i": 4967, "before": "store i8 %v415, ptr %_57.sroa.0.sroa.15.sroa.8.0._57.sroa.0.sroa.15.0.", "ratio": 0.59156, "M": 1977, "bytes": 27464, "slots": null}
+{"i": 4968, "before": "%_57.sroa.0.sroa.15.sroa.9.0._57.sroa.0.sroa.15.0..sroa_idx.sroa_idx.i", "ratio": 0.59593, "M": 1991, "bytes": 27448, "slots": null}
+{"i": 4969, "before": "store i8 %v417, ptr %_57.sroa.0.sroa.15.sroa.9.0._57.sroa.0.sroa.15.0.", "ratio": 0.59593, "M": 1991, "bytes": 27448, "slots": null}
+{"i": 4970, "before": "%_57.sroa.0.sroa.15.sroa.10.0._57.sroa.0.sroa.15.0..sroa_idx.sroa_idx.", "ratio": 0.59563, "M": 1990, "bytes": 27448, "slots": null}
+{"i": 4971, "before": "store i8 %v419, ptr %_57.sroa.0.sroa.15.sroa.10.0._57.sroa.0.sroa.15.0", "ratio": 0.59563, "M": 1990, "bytes": 27448, "slots": null}
+{"i": 4972, "before": "%_57.sroa.0.sroa.16.0..sroa_idx.i = getelementptr inbounds i8, ptr %_5", "ratio": 0.59533, "M": 1989, "bytes": 27448, "slots": null}
+{"i": 4973, "before": "store ptr %_2.i107.i, ptr %_57.sroa.0.sroa.16.0..sroa_idx.i, align 8, ", "ratio": 0.59533, "M": 1989, "bytes": 27448, "slots": null}
+{"i": 4974, "before": "%_57.sroa.0.sroa.16.sroa.4.0._57.sroa.0.sroa.16.0..sroa_idx.sroa_idx.i", "ratio": 0.59503, "M": 1988, "bytes": 27448, "slots": null}
+{"i": 4975, "before": "store ptr %_12.i108.i, ptr %_57.sroa.0.sroa.16.sroa.4.0._57.sroa.0.sro", "ratio": 0.59503, "M": 1988, "bytes": 27448, "slots": null}
+{"i": 4976, "before": "%_57.sroa.0.sroa.16.sroa.5.0._57.sroa.0.sroa.16.0..sroa_idx.sroa_idx.i", "ratio": 0.59482, "M": 1987, "bytes": 27440, "slots": null}
+{"i": 4977, "before": "store ptr %_16.i114.i, ptr %_57.sroa.0.sroa.16.sroa.5.0._57.sroa.0.sro", "ratio": 0.59482, "M": 1987, "bytes": 27440, "slots": null}
+{"i": 4978, "before": "%_57.sroa.0.sroa.16.sroa.6.0._57.sroa.0.sroa.16.0..sroa_idx.sroa_idx.i", "ratio": 0.60308, "M": 2014, "bytes": 27424, "slots": null}
+{"i": 4979, "before": "store ptr %_5.i119.i, ptr %_57.sroa.0.sroa.16.sroa.6.0._57.sroa.0.sroa", "ratio": 0.60308, "M": 2014, "bytes": 27424, "slots": null}
+{"i": 4980, "before": "%_57.sroa.0.sroa.16.sroa.7.0._57.sroa.0.sroa.16.0..sroa_idx.sroa_idx.i", "ratio": 0.60039, "M": 2005, "bytes": 27424, "slots": null}
+{"i": 4981, "before": "store i64 %_6.i120.i, ptr %_57.sroa.0.sroa.16.sroa.7.0._57.sroa.0.sroa", "ratio": 0.60039, "M": 2005, "bytes": 27424, "slots": null}
+{"i": 4982, "before": "%_57.sroa.0.sroa.16.sroa.8.0._57.sroa.0.sroa.16.0..sroa_idx.sroa_idx.i", "ratio": 0.60039, "M": 2005, "bytes": 27424, "slots": null}
+{"i": 4983, "before": "store i8 %v425, ptr %_57.sroa.0.sroa.16.sroa.8.0._57.sroa.0.sroa.16.0.", "ratio": 0.60039, "M": 2005, "bytes": 27424, "slots": null}
+{"i": 4984, "before": "%_57.sroa.0.sroa.16.sroa.9.0._57.sroa.0.sroa.16.0..sroa_idx.sroa_idx.i", "ratio": 0.59443, "M": 1986, "bytes": 27448, "slots": null}
+{"i": 4985, "before": "store i8 %v427, ptr %_57.sroa.0.sroa.16.sroa.9.0._57.sroa.0.sroa.16.0.", "ratio": 0.59443, "M": 1986, "bytes": 27448, "slots": null}
+{"i": 4986, "before": "%_57.sroa.0.sroa.16.sroa.10.0._57.sroa.0.sroa.16.0..sroa_idx.sroa_idx.", "ratio": 0.5965, "M": 1992, "bytes": 27424, "slots": null}
+{"i": 4987, "before": "store i8 %v429, ptr %_57.sroa.0.sroa.16.sroa.10.0._57.sroa.0.sroa.16.0", "ratio": 0.5965, "M": 1992, "bytes": 27424, "slots": null}
+{"i": 4988, "before": "%_57.sroa.0.sroa.17.0..sroa_idx.i = getelementptr inbounds i8, ptr %_5", "ratio": 0.59587, "M": 1989, "bytes": 27400, "slots": 3135}
+{"i": 4989, "before": "store ptr %_2.i124.i, ptr %_57.sroa.0.sroa.17.0..sroa_idx.i, align 8, ", "ratio": 0.59587, "M": 1989, "bytes": 27400, "slots": 3135}
+{"i": 4990, "before": "%_57.sroa.0.sroa.17.sroa.4.0._57.sroa.0.sroa.17.0..sroa_idx.sroa_idx.i", "ratio": 0.59278, "M": 1979, "bytes": 27408, "slots": null}
+{"i": 4991, "before": "store ptr %_12.i125.i, ptr %_57.sroa.0.sroa.17.sroa.4.0._57.sroa.0.sro", "ratio": 0.59278, "M": 1979, "bytes": 27408, "slots": null}
+{"i": 4992, "before": "%_57.sroa.0.sroa.17.sroa.5.0._57.sroa.0.sroa.17.0..sroa_idx.sroa_idx.i", "ratio": 0.5956, "M": 1989, "bytes": 27424, "slots": null}
+{"i": 4993, "before": "store ptr %_16.i131.i, ptr %_57.sroa.0.sroa.17.sroa.5.0._57.sroa.0.sro", "ratio": 0.5956, "M": 1989, "bytes": 27424, "slots": null}
+{"i": 4994, "before": "%_57.sroa.0.sroa.17.sroa.6.0._57.sroa.0.sroa.17.0..sroa_idx.sroa_idx.i", "ratio": 0.5891, "M": 1967, "bytes": 27416, "slots": null}
+{"i": 4995, "before": "store ptr %_5.i136.i, ptr %_57.sroa.0.sroa.17.sroa.6.0._57.sroa.0.sroa", "ratio": 0.5891, "M": 1967, "bytes": 27416, "slots": null}
+{"i": 4996, "before": "%_57.sroa.0.sroa.17.sroa.7.0._57.sroa.0.sroa.17.0..sroa_idx.sroa_idx.i", "ratio": 0.59419, "M": 1984, "bytes": 27416, "slots": null}
+{"i": 4997, "before": "store i64 %_6.i137.i, ptr %_57.sroa.0.sroa.17.sroa.7.0._57.sroa.0.sroa", "ratio": 0.59419, "M": 1984, "bytes": 27416, "slots": null}
+{"i": 4998, "before": "%_57.sroa.0.sroa.17.sroa.8.0._57.sroa.0.sroa.17.0..sroa_idx.sroa_idx.i", "ratio": 0.60278, "M": 2013, "bytes": 27424, "slots": null}
+{"i": 4999, "before": "store i8 %v436, ptr %_57.sroa.0.sroa.17.sroa.8.0._57.sroa.0.sroa.17.0.", "ratio": 0.60278, "M": 2013, "bytes": 27424, "slots": null}
+{"i": 5000, "before": "%_57.sroa.0.sroa.17.sroa.9.0._57.sroa.0.sroa.17.0..sroa_idx.sroa_idx.i", "ratio": 0.59356, "M": 1981, "bytes": 27392, "slots": null}
+{"i": 5001, "before": "store i8 %v438, ptr %_57.sroa.0.sroa.17.sroa.9.0._57.sroa.0.sroa.17.0.", "ratio": 0.59356, "M": 1981, "bytes": 27392, "slots": null}
+{"i": 5002, "before": "%_57.sroa.0.sroa.17.sroa.10.0._57.sroa.0.sroa.17.0..sroa_idx.sroa_idx.", "ratio": 0.59386, "M": 1982, "bytes": 27392, "slots": null}
+{"i": 5003, "before": "store i8 %v440, ptr %_57.sroa.0.sroa.17.sroa.10.0._57.sroa.0.sroa.17.0", "ratio": 0.59386, "M": 1982, "bytes": 27392, "slots": null}
+{"i": 5004, "before": "%_57.sroa.10.0..sroa_idx.i = getelementptr inbounds i8, ptr %_55.i98, ", "ratio": 0.58973, "M": 1970, "bytes": 27440, "slots": null}
+{"i": 5005, "before": "store ptr %_183.i145, ptr %_57.sroa.10.0..sroa_idx.i, align 8, !noalia", "ratio": 0.58973, "M": 1970, "bytes": 27440, "slots": null}
+{"i": 5006, "before": "%_57.sroa.11.0..sroa_idx.i = getelementptr inbounds i8, ptr %_55.i98, ", "ratio": 0.59473, "M": 1987, "bytes": 27448, "slots": null}
+{"i": 5007, "before": "store ptr %_222.i, ptr %_57.sroa.11.0..sroa_idx.i, align 8, !noalias !", "ratio": 0.59473, "M": 1987, "bytes": 27448, "slots": null}
+{"i": 5008, "before": "%_57.sroa.12.0..sroa_idx.i = getelementptr inbounds i8, ptr %_55.i98, ", "ratio": 0.58152, "M": 1942, "bytes": 27424, "slots": null}
+{"i": 5009, "before": "store ptr %_226.i, ptr %_57.sroa.12.0..sroa_idx.i, align 8, !noalias !", "ratio": 0.58152, "M": 1942, "bytes": 27424, "slots": null}
+{"i": 5010, "before": "%_57.sroa.13.0..sroa_idx.i = getelementptr inbounds i8, ptr %_55.i98, ", "ratio": 0.57446, "M": 1919, "bytes": 27440, "slots": null}
+{"i": 5011, "before": "store ptr %_184.i146, ptr %_57.sroa.13.0..sroa_idx.i, align 8, !noalia", "ratio": 0.57446, "M": 1919, "bytes": 27440, "slots": null}
+{"i": 5012, "before": "%_57.sroa.14.0..sroa_idx.i = getelementptr inbounds i8, ptr %_55.i98, ", "ratio": 0.58764, "M": 1963, "bytes": 27440, "slots": null}
+{"i": 5013, "before": "store i64 %_70.i, ptr %_57.sroa.14.0..sroa_idx.i, align 8, !noalias !8", "ratio": 0.58764, "M": 1963, "bytes": 27440, "slots": null}
+{"i": 5014, "before": "%_57.sroa.15.0..sroa_idx.i = getelementptr inbounds i8, ptr %_55.i98, ", "ratio": 0.58764, "M": 1963, "bytes": 27440, "slots": null}
+{"i": 5015, "before": "store i8 %v446, ptr %_57.sroa.15.0..sroa_idx.i, align 8, !noalias !862", "ratio": 0.58764, "M": 1963, "bytes": 27440, "slots": null}
+{"i": 5016, "before": "%_57.sroa.16.0..sroa_idx.i = getelementptr inbounds i8, ptr %_55.i98, ", "ratio": 0.58704, "M": 1961, "bytes": 27440, "slots": null}
+{"i": 5017, "before": "store i8 %v448, ptr %_57.sroa.16.0..sroa_idx.i, align 1, !noalias !862", "ratio": 0.58704, "M": 1961, "bytes": 27440, "slots": null}
+{"i": 5018, "before": "%_57.sroa.17.0..sroa_idx.i = getelementptr inbounds i8, ptr %_55.i98, ", "ratio": 0.58691, "M": 1960, "bytes": 27424, "slots": null}
+{"i": 5019, "before": "store i8 %v450, ptr %_57.sroa.17.0..sroa_idx.i, align 2, !noalias !862", "ratio": 0.58691, "M": 1960, "bytes": 27424, "slots": null}
+{"i": 5020, "before": "%_57.sroa.19.0..sroa_idx.i = getelementptr inbounds i8, ptr %_55.i98, ", "ratio": 0.60832, "M": 2033, "bytes": 27464, "slots": null}
+{"i": 5021, "before": "store ptr %_2.i146.i, ptr %_57.sroa.19.0..sroa_idx.i, align 8, !noalia", "ratio": 0.60832, "M": 2033, "bytes": 27464, "slots": null}
+{"i": 5022, "before": "%_57.sroa.19.sroa.4.0._57.sroa.19.0..sroa_idx.sroa_idx.i = getelementp", "ratio": 0.61527, "M": 2055, "bytes": 27432, "slots": null}
+{"i": 5023, "before": "store ptr %_12.i147.i, ptr %_57.sroa.19.sroa.4.0._57.sroa.19.0..sroa_i", "ratio": 0.61527, "M": 2055, "bytes": 27432, "slots": null}
+{"i": 5024, "before": "%_57.sroa.19.sroa.5.0._57.sroa.19.0..sroa_idx.sroa_idx.i = getelementp", "ratio": 0.57322, "M": 1918, "bytes": 27528, "slots": null}
+{"i": 5025, "before": "store ptr %_16.i153.i, ptr %_57.sroa.19.sroa.5.0._57.sroa.19.0..sroa_i", "ratio": 0.57322, "M": 1918, "bytes": 27528, "slots": null}
+{"i": 5026, "before": "%_57.sroa.19.sroa.6.0._57.sroa.19.0..sroa_idx.sroa_idx.i = getelementp", "ratio": 0.58443, "M": 1952, "bytes": 27432, "slots": null}
+{"i": 5027, "before": "store ptr %_5.i158.i, ptr %_57.sroa.19.sroa.6.0._57.sroa.19.0..sroa_id", "ratio": 0.58443, "M": 1952, "bytes": 27432, "slots": null}
+{"i": 5028, "before": "%_57.sroa.19.sroa.7.0._57.sroa.19.0..sroa_idx.sroa_idx.i = getelementp", "ratio": 0.58443, "M": 1952, "bytes": 27432, "slots": null}
+{"i": 5029, "before": "store i64 %_6.i159.i, ptr %_57.sroa.19.sroa.7.0._57.sroa.19.0..sroa_id", "ratio": 0.58443, "M": 1952, "bytes": 27432, "slots": null}
+{"i": 5030, "before": "%_57.sroa.19.sroa.8.0._57.sroa.19.0..sroa_idx.sroa_idx.i = getelementp", "ratio": 0.58234, "M": 1945, "bytes": 27432, "slots": null}
+{"i": 5031, "before": "store i8 %v456, ptr %_57.sroa.19.sroa.8.0._57.sroa.19.0..sroa_idx.sroa", "ratio": 0.58234, "M": 1945, "bytes": 27432, "slots": null}
+{"i": 5032, "before": "%_57.sroa.19.sroa.9.0._57.sroa.19.0..sroa_idx.sroa_idx.i = getelementp", "ratio": 0.57651, "M": 1927, "bytes": 27472, "slots": null}
+{"i": 5033, "before": "store i8 %v458, ptr %_57.sroa.19.sroa.9.0._57.sroa.19.0..sroa_idx.sroa", "ratio": 0.57651, "M": 1927, "bytes": 27472, "slots": null}
+{"i": 5034, "before": "%_57.sroa.19.sroa.10.0._57.sroa.19.0..sroa_idx.sroa_idx.i = getelement", "ratio": 0.57651, "M": 1927, "bytes": 27472, "slots": null}
+{"i": 5035, "before": "store i8 %v460, ptr %_57.sroa.19.sroa.10.0._57.sroa.19.0..sroa_idx.sro", "ratio": 0.57651, "M": 1927, "bytes": 27472, "slots": null}
+{"i": 5036, "before": "%_57.sroa.20.0..sroa_idx.i = getelementptr inbounds i8, ptr %_55.i98, ", "ratio": 0.57848, "M": 1933, "bytes": 27456, "slots": null}
+{"i": 5037, "before": "store ptr %_185.i148, ptr %_57.sroa.20.0..sroa_idx.i, align 8, !noalia", "ratio": 0.57848, "M": 1933, "bytes": 27456, "slots": null}
+{"i": 5038, "before": "%_57.sroa.20.sroa.4.0._57.sroa.20.0..sroa_idx.sroa_idx.i = getelementp", "ratio": 0.57592, "M": 1925, "bytes": 27472, "slots": null}
+{"i": 5039, "before": "store ptr %_234.i150, ptr %_57.sroa.20.sroa.4.0._57.sroa.20.0..sroa_id", "ratio": 0.57592, "M": 1925, "bytes": 27472, "slots": null}
+{"i": 5040, "before": "%_57.sroa.20.sroa.5.0._57.sroa.20.0..sroa_idx.sroa_idx.i = getelementp", "ratio": 0.58919, "M": 1967, "bytes": 27408, "slots": null}
+{"i": 5041, "before": "store ptr %_230.i, ptr %_57.sroa.20.sroa.5.0._57.sroa.20.0..sroa_idx.s", "ratio": 0.58919, "M": 1967, "bytes": 27408, "slots": null}
+{"i": 5042, "before": "%_57.sroa.20.sroa.6.0._57.sroa.20.0..sroa_idx.sroa_idx.i = getelementp", "ratio": 0.59248, "M": 1978, "bytes": 27408, "slots": null}
+{"i": 5043, "before": "store ptr %_186.i149, ptr %_57.sroa.20.sroa.6.0._57.sroa.20.0..sroa_id", "ratio": 0.59248, "M": 1978, "bytes": 27408, "slots": null}
+{"i": 5044, "before": "%_57.sroa.20.sroa.7.0._57.sroa.20.0..sroa_idx.sroa_idx.i = getelementp", "ratio": 0.59428, "M": 1984, "bytes": 27408, "slots": null}
+{"i": 5045, "before": "store i64 %_82.i151, ptr %_57.sroa.20.sroa.7.0._57.sroa.20.0..sroa_idx", "ratio": 0.59428, "M": 1984, "bytes": 27408, "slots": null}
+{"i": 5046, "before": "%_57.sroa.20.sroa.8.0._57.sroa.20.0..sroa_idx.sroa_idx.i = getelementp", "ratio": 0.58276, "M": 1947, "bytes": 27448, "slots": null}
+{"i": 5047, "before": "store i8 %v467, ptr %_57.sroa.20.sroa.8.0._57.sroa.20.0..sroa_idx.sroa", "ratio": 0.58276, "M": 1947, "bytes": 27448, "slots": null}
+{"i": 5048, "before": "%_57.sroa.20.sroa.9.0._57.sroa.20.0..sroa_idx.sroa_idx.i = getelementp", "ratio": 0.58961, "M": 1969, "bytes": 27424, "slots": null}
+{"i": 5049, "before": "store i8 %v469, ptr %_57.sroa.20.sroa.9.0._57.sroa.20.0..sroa_idx.sroa", "ratio": 0.58961, "M": 1969, "bytes": 27424, "slots": null}
+{"i": 5050, "before": "%_57.sroa.20.sroa.10.0._57.sroa.20.0..sroa_idx.sroa_idx.i = getelement", "ratio": 0.5941, "M": 1984, "bytes": 27424, "slots": null}
+{"i": 5051, "before": "store i8 %v471, ptr %_57.sroa.20.sroa.10.0._57.sroa.20.0..sroa_idx.sro", "ratio": 0.5941, "M": 1984, "bytes": 27424, "slots": null}
+{"i": 5052, "before": "%_57.sroa.20.sroa.11.0._57.sroa.20.0..sroa_idx.sroa_idx.i = getelement", "ratio": 0.5947, "M": 1986, "bytes": 27424, "slots": null}
+{"i": 5053, "before": "call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferen", "ratio": 0.5947, "M": 1986, "bytes": 27424, "slots": null}
+{"i": 5054, "before": "%_57.sroa.21.0..sroa_idx.i = getelementptr inbounds i8, ptr %_55.i98, ", "ratio": 0.59509, "M": 1987, "bytes": 27416, "slots": null}
+{"i": 5055, "before": "store ptr %_2.i175.i, ptr %_57.sroa.21.0..sroa_idx.i, align 8, !noalia", "ratio": 0.59509, "M": 1987, "bytes": 27416, "slots": null}
+{"i": 5056, "before": "%_57.sroa.21.sroa.4.0._57.sroa.21.0..sroa_idx.sroa_idx.i = getelementp", "ratio": 0.58221, "M": 1944, "bytes": 27416, "slots": null}
+{"i": 5057, "before": "store ptr %_12.i176.i, ptr %_57.sroa.21.sroa.4.0._57.sroa.21.0..sroa_i", "ratio": 0.58221, "M": 1944, "bytes": 27416, "slots": null}
+{"i": 5058, "before": "%_57.sroa.21.sroa.5.0._57.sroa.21.0..sroa_idx.sroa_idx.i = getelementp", "ratio": 0.60117, "M": 2010, "bytes": 27488, "slots": null}
+{"i": 5059, "before": "store ptr %_16.i182.i, ptr %_57.sroa.21.sroa.5.0._57.sroa.21.0..sroa_i", "ratio": 0.60117, "M": 2010, "bytes": 27488, "slots": null}
+{"i": 5060, "before": "%_57.sroa.21.sroa.6.0._57.sroa.21.0..sroa_idx.sroa_idx.i = getelementp", "ratio": 0.60147, "M": 2011, "bytes": 27488, "slots": null}
+{"i": 5061, "before": "store ptr %_5.i187.i, ptr %_57.sroa.21.sroa.6.0._57.sroa.21.0..sroa_id", "ratio": 0.60147, "M": 2011, "bytes": 27488, "slots": null}
+{"i": 5062, "before": "%_57.sroa.21.sroa.7.0._57.sroa.21.0..sroa_idx.sroa_idx.i = getelementp", "ratio": 0.59677, "M": 1995, "bytes": 27480, "slots": null}
+{"i": 5063, "before": "store i64 %_6.i188.i, ptr %_57.sroa.21.sroa.7.0._57.sroa.21.0..sroa_id", "ratio": 0.59677, "M": 1995, "bytes": 27480, "slots": null}
+{"i": 5064, "before": "%_57.sroa.21.sroa.8.0._57.sroa.21.0..sroa_idx.sroa_idx.i = getelementp", "ratio": 0.59707, "M": 1996, "bytes": 27480, "slots": null}
+{"i": 5065, "before": "store i8 %v478, ptr %_57.sroa.21.sroa.8.0._57.sroa.21.0..sroa_idx.sroa", "ratio": 0.59707, "M": 1996, "bytes": 27480, "slots": null}
+{"i": 5066, "before": "%_57.sroa.21.sroa.9.0._57.sroa.21.0..sroa_idx.sroa_idx.i = getelementp", "ratio": 0.59737, "M": 1997, "bytes": 27480, "slots": null}
+{"i": 5067, "before": "store i8 %v480, ptr %_57.sroa.21.sroa.9.0._57.sroa.21.0..sroa_idx.sroa", "ratio": 0.59737, "M": 1997, "bytes": 27480, "slots": null}
+{"i": 5068, "before": "%_57.sroa.21.sroa.10.0._57.sroa.21.0..sroa_idx.sroa_idx.i = getelement", "ratio": 0.60036, "M": 2007, "bytes": 27480, "slots": null}
+{"i": 5069, "before": "store i8 %v482, ptr %_57.sroa.21.sroa.10.0._57.sroa.21.0..sroa_idx.sro", "ratio": 0.60036, "M": 2007, "bytes": 27480, "slots": null}
+{"i": 5070, "before": "%_57.sroa.21.sroa.11.0._57.sroa.21.0..sroa_idx.sroa_idx.i = getelement", "ratio": 0.60036, "M": 2007, "bytes": 27480, "slots": null}
+{"i": 5071, "before": "call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferen", "ratio": 0.60036, "M": 2007, "bytes": 27480, "slots": null}
+{"i": 5072, "before": "%_57.sroa.22.0..sroa_idx.i = getelementptr inbounds i8, ptr %_55.i98, ", "ratio": 0.60485, "M": 2022, "bytes": 27480, "slots": null}
+{"i": 5073, "before": "store ptr %_187.i, ptr %_57.sroa.22.0..sroa_idx.i, align 8, !noalias !", "ratio": 0.60485, "M": 2022, "bytes": 27480, "slots": null}
+{"i": 5074, "before": "%_57.sroa.22.sroa.4.0._57.sroa.22.0..sroa_idx.sroa_idx.i = getelementp", "ratio": 0.60485, "M": 2022, "bytes": 27480, "slots": null}
+{"i": 5075, "before": "store ptr %_239.i, ptr %_57.sroa.22.sroa.4.0._57.sroa.22.0..sroa_idx.s", "ratio": 0.60485, "M": 2022, "bytes": 27480, "slots": null}
+{"i": 5076, "before": "%_57.sroa.22.sroa.5.0._57.sroa.22.0..sroa_idx.sroa_idx.i = getelementp", "ratio": 0.60485, "M": 2022, "bytes": 27480, "slots": null}
+{"i": 5077, "before": "store ptr %_243.i, ptr %_57.sroa.22.sroa.5.0._57.sroa.22.0..sroa_idx.s", "ratio": 0.60485, "M": 2022, "bytes": 27480, "slots": null}
+{"i": 5078, "before": "%_57.sroa.22.sroa.6.0._57.sroa.22.0..sroa_idx.sroa_idx.i = getelementp", "ratio": 0.60096, "M": 2009, "bytes": 27480, "slots": null}
+{"i": 5079, "before": "store ptr %_188.i, ptr %_57.sroa.22.sroa.6.0._57.sroa.22.0..sroa_idx.s", "ratio": 0.60096, "M": 2009, "bytes": 27480, "slots": null}
+{"i": 5080, "before": "%_57.sroa.22.sroa.7.0._57.sroa.22.0..sroa_idx.sroa_idx.i = getelementp", "ratio": 0.60096, "M": 2009, "bytes": 27480, "slots": null}
+{"i": 5081, "before": "store i64 %_91.i, ptr %_57.sroa.22.sroa.7.0._57.sroa.22.0..sroa_idx.sr", "ratio": 0.60096, "M": 2009, "bytes": 27480, "slots": null}
+{"i": 5082, "before": "%_57.sroa.22.sroa.8.0._57.sroa.22.0..sroa_idx.sroa_idx.i = getelementp", "ratio": 0.60126, "M": 2010, "bytes": 27480, "slots": null}
+{"i": 5083, "before": "store i8 %v488, ptr %_57.sroa.22.sroa.8.0._57.sroa.22.0..sroa_idx.sroa", "ratio": 0.60126, "M": 2010, "bytes": 27480, "slots": null}
+{"i": 5084, "before": "%_57.sroa.22.sroa.9.0._57.sroa.22.0..sroa_idx.sroa_idx.i = getelementp", "ratio": 0.60156, "M": 2011, "bytes": 27480, "slots": null}
+{"i": 5085, "before": "store i8 %v490, ptr %_57.sroa.22.sroa.9.0._57.sroa.22.0..sroa_idx.sroa", "ratio": 0.60156, "M": 2011, "bytes": 27480, "slots": null}
+{"i": 5086, "before": "%_57.sroa.22.sroa.10.0._57.sroa.22.0..sroa_idx.sroa_idx.i = getelement", "ratio": 0.60515, "M": 2023, "bytes": 27480, "slots": null}
+{"i": 5087, "before": "store i8 %v492, ptr %_57.sroa.22.sroa.10.0._57.sroa.22.0..sroa_idx.sro", "ratio": 0.60515, "M": 2023, "bytes": 27480, "slots": null}
+{"i": 5088, "before": "%_57.sroa.22.sroa.11.0._57.sroa.22.0..sroa_idx.sroa_idx.i = getelement", "ratio": 0.60694, "M": 2029, "bytes": 27480, "slots": null}
+{"i": 5089, "before": "call void @llvm.memcpy.p0.p0.i64(ptr noundef nonnull align 1 dereferen", "ratio": 0.60694, "M": 2029, "bytes": 27480, "slots": null}
+{"i": 5090, "before": "store i64 0, ptr %_55.i98, align 8, !noalias !8628", "ratio": 0.60574, "M": 2025, "bytes": 27480, "slots": null}
+{"i": 5091, "before": "%_245.sroa.4.0._55.sroa_idx.i = getelementptr inbounds i8, ptr %_55.i9", "ratio": 0.60425, "M": 2020, "bytes": 27480, "slots": null}
+{"i": 5092, "before": "store ptr inttoptr (i64 8 to ptr), ptr %_245.sroa.4.0._55.sroa_idx.i, ", "ratio": 0.60425, "M": 2020, "bytes": 27480, "slots": null}
+{"i": 5093, "before": "%_245.sroa.5.0._55.sroa_idx.i = getelementptr inbounds i8, ptr %_55.i9", "ratio": 0.60455, "M": 2021, "bytes": 27480, "slots": null}
+{"i": 5094, "before": "store i64 0, ptr %_245.sroa.5.0._55.sroa_idx.i, align 8, !noalias !862", "ratio": 0.60455, "M": 2021, "bytes": 27480, "slots": null}
+{"i": 5095, "before": "%v494 = getelementptr inbounds i8, ptr %_55.i98, i64 24", "ratio": 0.60455, "M": 2021, "bytes": 27480, "slots": null}
+{"i": 5096, "before": "store ptr %_2.i.i, ptr %v494, align 8, !noalias !8628", "ratio": 0.60455, "M": 2021, "bytes": 27480, "slots": null}
+{"i": 5097, "before": "%_56.sroa.4.0..sroa_idx.i = getelementptr inbounds i8, ptr %_55.i98, i", "ratio": 0.60485, "M": 2022, "bytes": 27480, "slots": null}
+{"i": 5098, "before": "store ptr %_12.i.i, ptr %_56.sroa.4.0..sroa_idx.i, align 8, !noalias !", "ratio": 0.60485, "M": 2022, "bytes": 27480, "slots": null}
+{"i": 5099, "before": "%_56.sroa.5.0..sroa_idx.i = getelementptr inbounds i8, ptr %_55.i98, i", "ratio": 0.58663, "M": 1962, "bytes": 27504, "slots": null}
+{"i": 5100, "before": "store ptr %_16.i.i, ptr %_56.sroa.5.0..sroa_idx.i, align 8, !noalias !", "ratio": 0.58663, "M": 1962, "bytes": 27504, "slots": null}
+{"i": 5101, "before": "%_56.sroa.6.0..sroa_idx.i = getelementptr inbounds i8, ptr %_55.i98, i", "ratio": 0.58194, "M": 1946, "bytes": 27496, "slots": null}

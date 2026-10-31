@@ -3,7 +3,7 @@
   "target": "0x22a10 admin_cto::execute",
   "base": {"main": "86e2a6b", "ratio": 0.67376, "slots_diff": 3124, "bytes": 27400},
   "best": {"ratio": 0.67376, "slots_diff": 3124, "bytes": 27400, "note": "no spelling beats main; ties are IR-identical respellings"},
-  "attempts": 60,
+  "attempts": 61,
   "ledger_keys": "0x22a10-w15-86e2a6b-tcfsroa64-*",
   "findings": [
     "The TCF [5 x i8] padding allocas (_64.sroa.{20,21,22}.sroa.11, _56.sroa.11) are original: the original window copies the same four 5-byte padding tails at the same frame offsets and in the same order as main. Removing them (tuple, let-bound program/accounts, deferred init) deletes those copies: -136 B, ratio about 0.596.",
