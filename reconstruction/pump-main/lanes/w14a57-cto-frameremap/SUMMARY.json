@@ -1,0 +1,6 @@
+{"lane":"w14a57-cto-frameremap","target":"0x22a10","base":"63308119b","main_ratio":0.65698,"best_zero_loss":{"ratio":0.65698,"slots":3193,"bytes":27400,"note":"no source change"},
+ "ir_lead":{"edit":"_12.i lifetime overlaps _113.i class (name String of 284 site -> -0x488)","ratio":0.65818,"bytes":27400,"source":"none found"},
+ "bounds":{"spill_swap_8d8_8e0":0.66087,"spill_swap_8e8_950":0.65938,"spill_swap_930_938":0.65878,"three_swaps":0.66507},
+ "rejected":["sk out of authority_info class (IR) 0.53911@27384","per-site error buffer displacement what-ifs -0.036..+0.0006","kick-out of other validate names/bufs 0.498-0.6567","SE/E0 marker drops of validate temps ~0.55"],
+ "tools":["tools/scmap.py","tools/ltscreen.py","tools/errblk.py","tools/dispwhatif.py","tools/odis.py","tools/llcx.py"],
+ "next":["source form for the _12.i overlap","faithful holder_key copy with size repay"]}
