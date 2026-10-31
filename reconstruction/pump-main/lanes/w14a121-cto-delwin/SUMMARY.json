@@ -1,0 +1,24 @@
+{
+ "lane": "w14a121-cto-delwin",
+ "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27,400 B",
+ "base": {"main": "ebe5387e1", "M": 2247, "ratio": 0.67316, "slots_diff": 3123, "bytes": 27400},
+ "best": {"ratio": 0.67316, "slots_diff": 3123, "bytes": 27400, "note": "no source change beat main; best screens are byte-identical"},
+ "attempts": 31,
+ "ledger_keys": "0x22a10-w14-ebe5387-delwin-*",
+ "findings": [
+  "The 4 ours reload/store-back pairs (0x3108, 0x3ce0, 0x5940, 0x5b18, slot -2272) are the sharing_update niche tag phi (%_553.sroa.0.0), not the accounts pointer; greedy region-splits it for r9 over 97 bundles and re-spills split pieces.",
+  "The original's 3 store-back pairs are on [r10-0x950], the holder-reward tree flag; its tag [0x8f8] is reloaded into r6 at block heads. The two programs swap RA roles between two tree phis.",
+  "pairgain.py: deleting one tag pair plus 16 B junk in the sweep body = M 2247, slots 2917-2929 (about -200).",
+  "Only shortening the tag's live range (event reset from its own phi) removes the pairs: 0 store-backs but M 2182 (-65).",
+  "Re-priced tree holder flag (tag660 v_h1/v_h6) on ebe5387: M 2204 at 27408, store-backs unchanged."
+ ],
+ "rejected": ["a1_smap","a5_sfor","a6_scopied","a7_resetpre","a8_resetne","a9_smapor","b5_mapor","c1_hreq","m1_bumpold_up","m2_old_up","s4_ampres","s8_ampnest","t_v_h1","t_v_h3","t_v_h6","t_v_h7","i6","vb","ir-x2","ir-x3","ir-x4","ir-x5"],
+ "byte_identical": ["b4_unwrapelse","m3_bump_up","m4_bump_top","s9_ampfrz","ir-x1"],
+ "unresolved": ["tag r9 region split vs original holder-flag split (RA role swap)", "accounts-pointer spill at bb85.i head (ours 0x5938)", "near-exit ja; mov64 r8,r3", "J2"],
+ "next_ideas": [
+  "Joint re-tune: introduce the original's holder flag (tree phi of constants used by the curve store and pool CPI r4) and then hill-climb the post-sweep/clone genes around it; single-edit screens lose 43+ M.",
+  "Find an M-neutral -16 B post-sweep knob to pair with the w14a119 vol334_back+I6 (+8 B, M 2247) family and the shiftmap k=+2 window.",
+  "Debug-llc trace of the r9 vs r6 split cost for the tag (ra.log via llvm-dbg llc -debug-only=regalloc) to find which sweep interferences make r9 cheaper than r6."
+ ],
+ "exhausted": true
+}

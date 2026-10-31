@@ -1,0 +1,1 @@
+EDITS=[("  %578 = icmp ne i8 %_553.sroa.0.0, 2\n  br i1 %578, label %bb35, label %bb37","  %578 = icmp ne i8 %_553.sroa.0.0, 2\n  %t2 = and i8 %_553.sroa.0.0, 1\n  br i1 %578, label %bb35, label %bb37"),("  store i8 %_553.sroa.0.0, ptr %val7, align 1\n","  store i8 %t2, ptr %val7, align 1\n")]

@@ -1,0 +1,1 @@
+EDITS=[("let amm_present=!a.coin_creator_vault_ata.data_is_empty();let amm_frozen=amm_present&&token_frozen(a.coin_creator_vault_ata.as_ref())?;","let amm_present=!a.coin_creator_vault_ata.data_is_empty();let amm_frozen=if amm_present{token_frozen(a.coin_creator_vault_ata.as_ref())?}else{false};")]
