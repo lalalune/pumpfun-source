@@ -137,6 +137,81 @@ class LinuxHybridPublication(fixtures.LinuxToolchainTests):
         self.assertEqual((retained[0]/'old-marker').read_bytes(),b'previous installation')
         self.assertEqual((retained[0]/'rust/bin/rustc').read_bytes(),b'old compiler')
 
+    def test_interrupt_before_exchange_cleans_only_new_stage(self):
+        bootstrap.assemble_linux()
+        marker = self.hybrid / 'old-marker'
+        marker.write_bytes(b'previous installation')
+        (self.hybrid / 'rust/bin/rustc').write_bytes(b'old compiler')
+        publish = bootstrap.rename_toolchain
+
+        def interrupt(source, destination, **options):
+            if options.get('exchange'):
+                raise KeyboardInterrupt('before exchange')
+            return publish(source, destination, **options)
+
+        with patch.object(bootstrap, 'rename_toolchain', side_effect=interrupt):
+            with self.assertRaisesRegex(KeyboardInterrupt, 'before exchange'):
+                bootstrap.assemble_linux()
+        self.assertEqual(marker.read_bytes(), b'previous installation')
+        self.assertEqual((self.hybrid / 'rust/bin/rustc').read_bytes(), b'old compiler')
+        self.assertEqual(list(self.hybrid.parent.glob('*.stage.*')), [])
+        self.assertEqual(list(self.hybrid.parent.glob('*.backup.*')), [])
+
+    def test_interrupt_after_actual_exchange_preserves_previous_installation(self):
+        bootstrap.assemble_linux()
+        (self.hybrid / 'old-marker').write_bytes(b'previous installation')
+        (self.hybrid / 'rust/bin/rustc').write_bytes(b'old compiler')
+        previous = self.hybrid.stat()
+        publish = bootstrap.rename_toolchain
+        exchanged = []
+
+        def interrupt(source, destination, **options):
+            result = publish(source, destination, **options)
+            if options.get('exchange'):
+                identity = source.stat()
+                self.assertEqual((identity.st_dev, identity.st_ino),
+                                 (previous.st_dev, previous.st_ino))
+                self.assertEqual((source / 'old-marker').read_bytes(), b'previous installation')
+                exchanged.append(True)
+                raise KeyboardInterrupt('after actual exchange')
+            return result
+
+        with patch.object(bootstrap, 'rename_toolchain', side_effect=interrupt):
+            with self.assertRaisesRegex(KeyboardInterrupt, 'after actual exchange'):
+                bootstrap.assemble_linux()
+        self.assertEqual(exchanged, [True], 'the real exchange was not exercised')
+        self.assertTrue(bootstrap.hybrid_ok_linux())
+        retained = list(self.hybrid.parent.glob('*.stage.*'))
+        self.assertEqual(len(retained), 1, 'cleanup deleted the exchanged previous installation')
+        self.assertEqual((retained[0] / 'old-marker').read_bytes(), b'previous installation')
+        self.assertEqual((retained[0] / 'rust/bin/rustc').read_bytes(), b'old compiler')
+        self.assertEqual(list(self.hybrid.parent.glob('*.backup.*')), [])
+
+    def test_interrupt_after_actual_backup_retains_both_installations(self):
+        bootstrap.assemble_linux()
+        (self.hybrid / 'old-marker').write_bytes(b'previous installation')
+        (self.hybrid / 'rust/bin/rustc').write_bytes(b'old compiler')
+        publish = bootstrap.rename_toolchain
+        backed_up = []
+
+        def interrupt(source, destination, **options):
+            result = publish(source, destination, **options)
+            if '.backup.' in destination.name:
+                backed_up.append(True)
+                raise KeyboardInterrupt('after actual backup')
+            return result
+
+        with patch.object(bootstrap, 'rename_toolchain', side_effect=interrupt):
+            with self.assertRaisesRegex(KeyboardInterrupt, 'after actual backup'):
+                bootstrap.assemble_linux()
+        self.assertEqual(backed_up, [True], 'the real backup move was not exercised')
+        self.assertTrue(bootstrap.hybrid_ok_linux())
+        retained = list(self.hybrid.parent.glob('*.backup.*'))
+        self.assertEqual(len(retained), 1)
+        self.assertEqual((retained[0] / 'old-marker').read_bytes(), b'previous installation')
+        self.assertEqual((retained[0] / 'rust/bin/rustc').read_bytes(), b'old compiler')
+        self.assertEqual(list(self.hybrid.parent.glob('*.stage.*')), [])
+
 
 if __name__ == '__main__':
     unittest.main()

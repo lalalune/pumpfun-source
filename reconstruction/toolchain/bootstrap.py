@@ -163,6 +163,7 @@ def _assemble_linux_locked():
     HYBRID.parent.mkdir(parents=True, exist_ok=True)
     replace_existing = HYBRID.exists() or HYBRID.is_symlink()
     stage = Path(tempfile.mkdtemp(prefix=HYBRID.name + '.stage.', dir=HYBRID.parent))
+    staged_identity = None
     try:
         (stage / 'rust/bin').mkdir(parents=True)
         (stage / 'rust/lib/rustlib').mkdir(parents=True)
@@ -181,6 +182,8 @@ def _assemble_linux_locked():
         shutil.copy2(SDK / 'version.md', stage / 'version.md')
         if not hybrid_ok_linux(stage):
             raise ValueError('staged identity toolchain did not verify')
+        info = stage.lstat()
+        staged_identity = info.st_dev, info.st_ino
         if replace_existing:
             # Swap without removing the canonical installation even briefly.
             # Retain the old tree, including any concurrent additions, for recovery.
@@ -199,7 +202,11 @@ def _assemble_linux_locked():
             stage = None
     finally:
         if stage is not None and stage.exists():
-            shutil.rmtree(stage, ignore_errors=True)
+            info = stage.lstat()
+            # An interrupt just after exchange can leave the previous tree at
+            # this pathname before Python clears stage. Clean only our new tree.
+            if staged_identity is None or (info.st_dev, info.st_ino) == staged_identity:
+                shutil.rmtree(stage, ignore_errors=True)
 
 
 def hybrid_ok_linux(root=None):
