@@ -1,0 +1,37 @@
+{
+ "lane": "w14a126-cto-origfill",
+ "target": "0x22a10 admin_cto::execute",
+ "base_main": "ebe5387e1",
+ "pinned_bytes": 27400,
+ "best_zero_loss": {"ratio": 0.67316, "slots_diff": 3123, "bytes": 27400, "source": "main unchanged; no landable improvement"},
+ "landed": false,
+ "oracle": "w14a108 raw-IR capture + opt + llc (tools/two.sh, ~15s, no build slot); base O = call-site noinline on 307+312 to_string (tools/ni.py)",
+ "key_finding": "The 307/312 to_string outline basin is two unlike halves. 312 outlined alone: -216 B, M 2194 (only -53 vs main 2247), rfjM 2779, loss ENTIRELY local to validate (prov/chunk 0x0000-0x1000 -1/-16/-36, every chunk from 0x1800 delta 0). 307 outlined alone: -192 B, M 2006 (-241), rfjM 2808 (skeleton intact/better), loss downstream in the TCF/sharing clone run 0x1800-0x3800 (RA+MBP cascade). Prior lanes (w14a108 #3495, w14a107) only measured the two together (-408 B, M 1950). Split: 312 is a ~53-M local repay problem (faithful, worth a lane); 307 is an RA cascade with no source handle.",
+ "attempts": [
+  {"gene": "ov", "desc": "validate takes shared; non-holder arm if shared{st.creator}else{t}; execute drops target=creator", "bytes": 27360, "M": 1481, "rfjM": 2185, "dM": -766},
+  {"gene": "ov_d", "desc": "ov + tree !shared arm first", "bytes": 27360, "M": 1481, "rfjM": 2185, "dM": -766},
+  {"gene": "ov_a", "desc": "ov + tree if shared&&holder/else if shared/else", "bytes": 27384, "M": 1445, "rfjM": 2187, "dM": -802},
+  {"gene": "ov_c", "desc": "ov + tree if holder&&shared/else if shared/else", "bytes": 27440, "M": 1442, "rfjM": 2170, "dM": -805},
+  {"gene": "ov_b", "desc": "ov + skip=!(shared&&holder) split from tree", "bytes": 27456, "M": 1424, "rfjM": 2178, "dM": -823},
+  {"gene": "ov_e", "desc": "override as Option<Pubkey>=shared.then_some(st.creator), arm ov.unwrap_or(t)", "bytes": 27304, "M": 1782, "rfjM": 2783, "dM": -465},
+  {"gene": "ov_f", "desc": "override as Option<&Pubkey>, arm if let Some(c)=ov{*c}", "bytes": 27360, "M": 1481, "rfjM": 2185, "dM": -766},
+  {"gene": "ovt", "desc": "whole (target,collect_old,sharing_update,skip) tree per arm inside validate", "bytes": 27608, "M": 1331, "rfjM": 2391, "dM": -916},
+  {"gene": "ovt2", "desc": "ovt with Some(new) in shared non-holder arm", "bytes": 27608, "M": 1331, "rfjM": 2391, "dM": -916},
+  {"gene": "O312", "desc": "312 to_string outlined (noinline oracle, not source)", "bytes": 27184, "M": 2194, "rfjM": 2779, "dM": -53},
+  {"gene": "O307", "desc": "307 to_string outlined (noinline oracle, not source)", "bytes": 27208, "M": 2006, "rfjM": 2808, "dM": -241}
+ ],
+ "rejected_mechanisms": [
+  "shared-target-override-in-non-holder-arm (OV) in every tuple/if/match/Option<Pubkey>/Option<&Pubkey> spelling: faithful to the original block outline but realized ~465-916 M below main by RA+MBP in the sharing/TCF clone run (confirms w14a89, w14a106)",
+  "whole sharing tree carried per-arm into validate (ovt/ovt2): inflates bytes and collapses further",
+  "repaying the full 307+312 basin as one 400-B unit: the two halves are unlike; 307 has no source handle"
+ ],
+ "unresolved_residuals": [
+  "A faithful source construct that makes 312's to_string cold WITHOUT touching 307 or the TCF run, repaying <=216 B inside validate for +53 M. Candidate orig-only runs: validate chunk-0x0800/0x1000 runs in xtab_ebe5387.txt (orig 0x0c08 56B, 0x0e28/0x0ed8 40B), next to the 298/306 error sites.",
+  "The 307 outline's TCF-run RA cascade (same basin as w14a106 g1/GPF, w14a89 bb21): needs an RA handle, not a repay."
+ ],
+ "next_untried_ideas": [
+  "Find a holder/fee spelling that drops ONLY 312 below the 2% cold threshold while keeping 307 and 296 hot (bfi.py); w14a108 found 289!holder moves 307/312 together to 0.022 - look for one that separates them",
+  "Decode the validate chunk-0x0800 orig-only runs (0x0c08/0x0e28/0x0ed8) with prov.py and write the ordinary data flow that produces them, as the +53 M repay for a 312-only outline",
+  "Pair a 312-only cold trigger with a +216 B faithful construct and measure on O312's base rather than the full-basin O"
+ ]
+}

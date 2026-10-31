@@ -1,0 +1,97 @@
+## ours-only runs
+00078-00088 n=  2 B=  16 err-before [] err-after [298] calls 0 | stxdwx1 ldxdwx1
+00108-00118 n=  2 B=  16 err-before [] err-after [298] calls 0 | ldxdwx1 stxdwx1
+00180-001a0 n=  4 B=  32 err-before [] err-after [298] calls 1 | mov64x2 callx1 xor64x1
+003e8-00410 n=  5 B=  40 err-before [] err-after [298] calls 0 | ldxdwx3 stxdwx2
+00440-00468 n=  5 B=  40 err-before [] err-after [298] calls 0 | ldxbx3 stxdwx1 and64x1
+00478-004c8 n= 10 B=  80 err-before [] err-after [298] calls 0 | mov64x4 stxdwx3 and64x1 jeqx1 jnex1
+004f8-00520 n=  5 B=  40 err-before [] err-after [298] calls 0 | mov64x3 stxdwx1 ldxdwx1
+00588-005a0 n=  3 B=  24 err-before [] err-after [298] calls 0 | jnex1 mov64x1 stxdwx1
+005b8-00600 n=  9 B=  72 err-before [] err-after [298] calls 0 | mov64x4 and64x2 jeqx2 add64x1
+007d0-007e0 n=  2 B=  16 err-before [] err-after [298] calls 0 | stxdwx1 ldxdwx1
+00a50-00a70 n=  4 B=  32 err-before [289] err-after [296] calls 0 | ldxwx2 stxwx2
+00a80-00a90 n=  2 B=  16 err-before [289] err-after [296] calls 0 | ldxbx1 stxbx1
+00bb0-00bc0 n=  2 B=  16 err-before [289] err-after [296] calls 0 | ldxdwx2
+00bc8-00be0 n=  3 B=  24 err-before [289] err-after [296] calls 0 | ldxdwx2 stxdwx1
+00f70-00fd8 n= 12 B=  96 err-before [326] err-after [306] calls 0 | stdwx6 stxdwx2 lddwx1 mov64x1 add64x1
+01088-010e0 n= 11 B=  88 err-before [326] err-after [306] calls 1 | stwx2 stdwx2 mov64x2 add64x2 stbx1
+011f8-01260 n= 12 B=  96 err-before [312] err-after [307] calls 0 | stdwx6 stxdwx2 lddwx1 mov64x1 add64x1
+01288-012f8 n= 14 B= 112 err-before [312] err-after [307] calls 0 | ldxdwx6 stxdwx6 jeqx1 jax1
+01410-01430 n=  4 B=  32 err-before [307] err-after [330] calls 0 | ldxwx2 stxwx2
+01438-01460 n=  5 B=  40 err-before [307] err-after [330] calls 0 | ldxdwx3 ldxbx1 stxbx1
+01480-01498 n=  3 B=  24 err-before [307] err-after [330] calls 0 | jeqx1 ldxdwx1 and64x1
+017a0-017c8 n=  5 B=  40 err-before [334] err-after [410] calls 0 | ldxdwx2 jnex1 jax1 mov64x1
+017d8-01818 n=  8 B=  64 err-before [334] err-after [410] calls 0 | mov64x2 ldxdwx2 and64x1 stxdwx1 jeqx1
+01830-01920 n= 30 B= 240 err-before [334] err-after [410] calls 0 | ldxdwx10 stxdwx7 mov64x5 ldxwx2 stxwx2
+024f0-02500 n=  2 B=  16 err-before [648] err-after [660] calls 0 | jeqx1 jax1
+02758-02768 n=  2 B=  16 err-before [660] err-after [284] calls 0 | ldxbx1 stxdwx1
+031e0-031f8 n=  3 B=  24 err-before [660] err-after [284] calls 0 | ldxdwx3
+03f60-03f70 n=  2 B=  16 err-before [660] err-after [284] calls 0 | ldxdwx1 stxdwx1
+03f98-03fd0 n=  7 B=  56 err-before [660] err-after [284] calls 0 | stxdwx3 ldxbx3 ldxdwx1
+04048-04058 n=  2 B=  16 err-before [660] err-after [284] calls 0 | stxdwx1 ldxdwx1
+04070-04160 n= 30 B= 240 err-before [660] err-after [284] calls 0 | stxdwx8 ldxdwx7 mov64x4 ldxbx3 add64x2
+041a0-041c0 n=  4 B=  32 err-before [660] err-after [284] calls 0 | ldxdwx2 stxdwx2
+04200-04308 n= 33 B= 264 err-before [660] err-after [284] calls 0 | ldxdwx10 stxdwx8 mov64x5 jnex3 jax3
+04368-04378 n=  2 B=  16 err-before [660] err-after [284] calls 0 | ldxdwx2
+04478-04490 n=  3 B=  24 err-before [660] err-after [284] calls 0 | stxdwx2 ldxdwx1
+044c0-044d0 n=  2 B=  16 err-before [660] err-after [284] calls 0 | ldxdwx2
+04a38-04a48 n=  2 B=  16 err-before [660] err-after [284] calls 0 | jeqx1 jax1
+04b08-04b18 n=  2 B=  16 err-before [660] err-after [284] calls 0 | ldxdwx1 and64x1
+04b78-04ba0 n=  5 B=  40 err-before [660] err-after [284] calls 1 | ldxdwx3 callx1 jnex1
+04c18-04c28 n=  2 B=  16 err-before [660] err-after [284] calls 0 | ldxdwx1 ldxbx1
+05af0-05b08 n=  3 B=  24 err-before [556] err-after [] calls 0 | mov64x1 jnex1 jax1
+060c8-060e8 n=  4 B=  32 err-before [556] err-after [] calls 0 | mov64x3 jeqx1
+06840-06860 n=  4 B=  32 err-before [556] err-after [] calls 0 | ldxdwx2 xor64x1 and64x1
+total tok 276
+## orig-only runs
+00148-00158 n=  2 B=  16 err-before [] err-after [289] calls 0 | ldxdwx1 stxdwx1
+001d8-001e8 n=  2 B=  16 err-before [] err-after [289] calls 0 | stxdwx1 ldxdwx1
+00258-00278 n=  4 B=  32 err-before [] err-after [289] calls 1 | ldxdwx2 callx1 xor64x1
+00290-002b8 n=  5 B=  40 err-before [] err-after [289] calls 0 | ldxbx3 stxdwx2
+00468-004b8 n= 10 B=  80 err-before [] err-after [289] calls 0 | ldxdwx4 stxdwx4 mov64x1 and64x1
+004e0-00540 n= 12 B=  96 err-before [] err-after [289] calls 0 | stxdwx3 ldxdwx3 ldxwx2 stxwx2 ldxbx1
+005c0-005d0 n=  2 B=  16 err-before [] err-after [289] calls 0 | stxdwx1 ldxdwx1
+005f0-00620 n=  6 B=  48 err-before [] err-after [289] calls 0 | ldxdwx4 stxdwx1 and64x1
+00720-00730 n=  2 B=  16 err-before [] err-after [289] calls 0 | jeqx1 jax1
+00738-00748 n=  2 B=  16 err-before [] err-after [289] calls 0 | and64x1 jeqx1
+008f8-00908 n=  2 B=  16 err-before [289] err-after [298] calls 0 | jeqx1 ldxdwx1
+00960-00970 n=  2 B=  16 err-before [289] err-after [298] calls 0 | stxdwx1 mov64x1
+00b00-00b10 n=  2 B=  16 err-before [298] err-after [306] calls 0 | mov64x2
+00b20-00b30 n=  2 B=  16 err-before [298] err-after [306] calls 0 | mov64x1 ldxdwx1
+00c08-00c40 n=  7 B=  56 err-before [298] err-after [306] calls 0 | add64x2 ldxwx2 stxwx2 mov64x1
+00c50-00c60 n=  2 B=  16 err-before [298] err-after [306] calls 0 | ldxbx1 stxbx1
+00d70-00d88 n=  3 B=  24 err-before [298] err-after [306] calls 0 | jeqx1 ldxdwx1 mov64x1
+00d90-00e08 n= 15 B= 120 err-before [298] err-after [306] calls 0 | ldxdwx7 stxdwx6 mov64x1 jeqx1
+00e28-00e50 n=  5 B=  40 err-before [298] err-after [306] calls 0 | mov64x2 jeqx1 jax1 stxdwx1
+00ed8-00f00 n=  5 B=  40 err-before [298] err-after [306] calls 0 | stwx2 stdwx2 stbx1
+00f18-00f28 n=  2 B=  16 err-before [306] err-after [296] calls 1 | add64x1 callx1
+010f0-011a8 n= 23 B= 184 err-before [296] err-after [326] calls 0 | mov64x7 stxdwx5 ldxdwx3 ldxwx2 stxwx2
+014b0-01530 n= 16 B= 128 err-before [307] err-after [330] calls 0 | stxdwx6 ldxdwx5 mov64x3 jeqx1 and64x1
+01800-01858 n= 11 B=  88 err-before [334] err-after [410] calls 0 | stxdwx5 jax2 mov64x1 ldxdwx1 jnex1
+018c0-018f8 n=  7 B=  56 err-before [334] err-after [410] calls 0 | mov64x3 stxdwx1 ldxdwx1 jeqx1 jax1
+01978-01988 n=  2 B=  16 err-before [334] err-after [410] calls 0 | mov64x1 stxdwx1
+01d48-01d58 n=  2 B=  16 err-before [410] err-after [719] calls 0 | ldxdwx1 stxdwx1
+024a0-024b0 n=  2 B=  16 err-before [648] err-after [660] calls 0 | ldxdwx1 jnex1
+030b0-030c8 n=  3 B=  24 err-before [660] err-after [284] calls 0 | ldxdwx3
+031a8-031b8 n=  2 B=  16 err-before [660] err-after [284] calls 0 | stxdwx1 ldxdwx1
+03ba8-03bc0 n=  3 B=  24 err-before [660] err-after [284] calls 0 | ldxdwx2 jax1
+03c50-03c60 n=  2 B=  16 err-before [660] err-after [284] calls 0 | ldxdwx2
+03d28-03d48 n=  4 B=  32 err-before [660] err-after [284] calls 0 | ldxwx2 stxwx2
+03d78-03d88 n=  2 B=  16 err-before [660] err-after [284] calls 0 | ldxbx1 stxbx1
+03eb8-03f50 n= 19 B= 152 err-before [660] err-after [284] calls 0 | ldxdwx6 stxdwx5 jnex2 jax2 mov64x2
+03fc8-03fe0 n=  3 B=  24 err-before [660] err-after [284] calls 0 | ldxdwx2 stxdwx1
+04170-04180 n=  2 B=  16 err-before [660] err-after [284] calls 0 | mov64x1 ldxdwx1
+04200-04220 n=  4 B=  32 err-before [660] err-after [284] calls 0 | ldxdwx3 stxdwx1
+042a0-04340 n= 20 B= 160 err-before [660] err-after [284] calls 0 | ldxdwx7 stxdwx6 ldxbx3 mov64x2 add64x1
+04368-043d0 n= 13 B= 104 err-before [660] err-after [284] calls 0 | ldxdwx3 mov64x3 stxdwx3 add64x1 jeqx1
+044d8-04500 n=  5 B=  40 err-before [660] err-after [284] calls 0 | stxdwx2 jnex1 jax1 ldxdwx1
+04558-045a0 n=  9 B=  72 err-before [660] err-after [284] calls 0 | stxdwx4 ldxbx3 ldxdwx2
+045b0-045c8 n=  3 B=  24 err-before [660] err-after [284] calls 0 | jnex1 jax1 ldxdwx1
+045d0-045f8 n=  5 B=  40 err-before [660] err-after [284] calls 0 | mov64x2 add64x1 jeqx1 stxdwx1
+04aa0-04ab0 n=  2 B=  16 err-before [660] err-after [284] calls 0 | jnex1 ldxdwx1
+04c00-04c18 n=  3 B=  24 err-before [660] err-after [284] calls 1 | jnex1 mov64x1 callx1
+05e50-05e68 n=  3 B=  24 err-before [556] err-after [] calls 0 | and64x1 ldxdwx1 jnex1
+060c0-060e0 n=  4 B=  32 err-before [556] err-after [] calls 0 | ldxdwx1 jeqx1 jax1 mov64x1
+06388-06398 n=  2 B=  16 err-before [556] err-after [] calls 0 | jax1 ldxdwx1
+063a0-063b0 n=  2 B=  16 err-before [556] err-after [] calls 0 | jax1 ldxdwx1
+total tok 272
