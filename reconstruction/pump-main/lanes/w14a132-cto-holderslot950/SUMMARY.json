@@ -1,0 +1,7 @@
+{"lane":"w14a132-cto-holderslot950","target":"0x22a10 admin_cto::execute","base":"ebe5387 0.67316/3123@27400 M2247",
+ "result":"notes only; IR bound below main",
+ "best":{"ratio":0.67316,"slots":3123,"bytes":27400,"note":"main; no variant beat it"},
+ "attempts":["phi both 0.51047","phi cs 0.5163","phi pa 0.55492","alloca i8 cs/pa/both 0.50007/0.63216/0.49439","alloca i64 0.25-0.27","no-tail-merge equal-layout: phi cs +21 M, pa -90 M"],
+ "rejected":["per-arm holder phi consumed at curve store and/or pool CPI (IR); bounds fR/rfR/rfjR all below main"],
+ "residual":"curve-store computed holder value breaks a post-RA tail merge, relaying ~6 KB of code; the per-arm value itself gains +21 M at equal layout",
+ "next":["identify the lost tail-merge pair (default vs -enable-tail-merge=false on main) and an RA lever that keeps it","then a (target,holder_flag) tuple from validate arms for the curve store only"]}
