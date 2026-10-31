@@ -1,0 +1,24 @@
+{
+  "lane": "w14a47-cto-sharestruct",
+  "target": {"window": "0x22a10", "function": "admin_cto::execute", "file": "programs/pump/src/creator/admin_cto.rs", "lines": "745-751", "pinned_bytes": 27400},
+  "bases": {"28ab23a9f": {"ratio": 0.65488, "slots": 3279}, "0fbf8daa1": {"ratio": 0.65578, "slots": 3279}},
+  "result": "no zero-loss improvement; classified miss table + bounds (notes only)",
+  "best_zero_loss": {"ratio": 0.65578, "slots_diff": 3279, "bytes": 27400, "note": "= main 0fbf8da; nothing beat main"},
+  "findings": [
+    "Original sharing region (orig 0x3c40-0x4a78, 455 insns; main 446) is the uniform derived AccountInfo::clone run of plain to_account_info() for all 8 clones, plus a per-clone accounts-pointer reload from [r10-0x8d8].",
+    "Main's 170 L3 structure misses there: ~104 from the literal AccountInfo{..} read orders (s1 = all to_account_info removes them, sk 170->66), ~8 accounts-pointer reloads, 6 val payload pieces (orig 4+4/8/8/8/1 from new's SROA pieces vs our 4 aligned loads), 4 from sharing tag in r6 / swept in r9 vs spill reloads, ~45 spill placement.",
+    "Seg-72 matches (L0/L1/L2/L3): main 224/285/277/279; s1 99/251/374/389; s1+reload probe 140/281/381/396. The faithful form matches ~104 more insns structurally but loses at raw level: register assignment differs (121 of 381 aligned insns, no dominant permutation).",
+    "Perfect-frame bound (fbsplit all): main 0.62822, s1 0.60393, main+probe 0.61304, s1+probe 0.61469: the original's sharing structure stays 0.0135 below main at the current RA.",
+    "The '0x30 B lower AccountInfo array' tail label is not a frame object: the CpiContext accounts array offsets (-0x13e..-0x2b8) are identical; the tail misses are the source spill slots of the array-store reloads (16 of 54 equal, the rest scattered deltas), i.e. spill coloring from the clone run.",
+    "Literal/plain lattice (6 single reverts + 56 combinations) on 28ab23a: all below main (best authority+program 0.65069); main's all-literal form is the lattice optimum.",
+    "val spellings (map, flatten, as_ref, payload from new directly) all lose (0.43-0.652)."
+  ],
+  "attempts": 72,
+  "ledger_keys": ["0x22a10-w14-28ab23a-sharestruct-*-v1", "0x22a10-w14-0fbf8da-sharestruct-*-v1"],
+  "rejected_mechanisms": ["all to_account_info (s1)", "single literal reverts x6", "literal/plain lattice x56", "val.map", "sharing_update.flatten gate", "if let Some(val)=sharing_update.as_ref()", "val from new (if holder{None}else{new}) as arg / arm local"],
+  "unresolved_residuals": ["accounts pointer spilled across the sharing arm (per-clone reload)", "sharing tag in r6, swept in r9 across the arm", "clone-run register assignment", "val payload piece copy (new's SROA shape)"],
+  "next_ideas": [
+    "Re-screen s1 (all to_account_info) against main's literals after any landing that changes callee-saved occupancy at the sweep join (swept in r9, tag in r6); use segdiff seg 72 + cls.py.",
+    "Use cls.py/regperm.py (any rx fn.bin, any size) to split structure vs register residuals in other regions."
+  ]
+}
