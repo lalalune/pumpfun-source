@@ -1,0 +1,24 @@
+  4f40  ldxdw r5, [r4 + 16]                     # rp 345.7 d1378=R5 u1375=R4
+  4f48  stxdw [r10 - 640], r5                   # rp 345.8 u1378=R5
+  4f50  ldxdw r4, [r4 + 24]                     # rp 345.9 d1379=R4 u1375=R4
+  4f58  stxdw [r10 - 632], r4                   # rp 345.10 u1379=R4
+  4f60  ldxdw r4, [r3 + 8]                      # rp 345.11 d1380=R4 u1373=R3
+  4f68  stxdw [r10 - 592], r4                   # rp 345.12 u1380=R4
+  4f70  ldxdw r4, [r3 + 16]                     # rp 345.13 d1381=R4 u1373=R3
+  4f78  stxdw [r10 - 584], r4                   # rp 345.14 u1381=R4
+  4f80  ldxdw r4, [r3 + 24]                     # rp 345.15 d1382=R4 u1373=R3
+  4f88  stxdw [r10 - 576], r4                   # rp 345.16 u1382=R4
+  4f90  ldxdw r4, [r3 + 32]                     # rp 345.17 d1383=R4 u1373=R3
+  4f98  stxdw [r10 - 568], r4                   # rp 345.18 u1383=R4
+  4fa0  ldxb r4, [r3 + 165]                     # rp 345.19 d1384=R4 u1373=R3
+  4fa8  ldxb r3, [r3 + 163]                     # rp 345.20 d1385=R3 u1373=R3
+  4fb0  stxdw [r10 - 560], r1                   # rp 345.21 u1358=R1
+  4fb8  stxb [r10 - 527], r3                    # rp 345.22 u1385=R3
+  4fc0  stxb [r10 - 528], r4                    # rp 345.23 u1384=R4
+  4fc8  stxb [r10 - 526], r2                    # rp 345.24 u1650=R2
+  4fd0  stxdw [r10 - 544], r9                   # rp 345.25 u358=R9
+  4fd8  ldxdw r1, [r10 - 2296]                  # rp 345.26 d2034=R1
+  4fe0  stxdw [r10 - 552], r1                   # rp 345.27 u2034=R1
+  4fe8  stxb [r10 - 525], r6                    # rp 345.28 u1649=R6
+  4ff0  ldxdw r1, [r10 - 2408]                  # rp 345.29 d1733=R1
+  4ff8  stxdw [r10 - 536], r1                   # rp 345.30 u1733=R1
