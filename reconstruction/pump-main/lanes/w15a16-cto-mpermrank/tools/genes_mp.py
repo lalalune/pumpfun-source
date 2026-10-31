@@ -60,3 +60,13 @@ G['c_hk']=[(_C,'validate(&mut st,hopt,fee,new,&hk.0,&sk)?')]
 G['c_new']=[(_C,'validate(&mut st,hopt,fee,args.0,&holder_key,&sk)?')]
 G['c_hold']=[(_C,'validate(&mut st,holder,fee,new,&holder_key,&sk)?')]
 G['t1a']=[("if shared{if new.is_none(){","if shared{if args.0.is_none(){")]
+# ---- t1n spellings (shared-arm holder test from `new`) ----
+_HT="if shared{if holder{sharing_update=Some(None);(false,false)}else{"
+for _k,_v in {'t1eq':'new==None','t1ns':'!new.is_some()','t1aeq':'args.0==None','t1hu':'hopt.unwrap_or(false)','t1hs':'hopt==Some(true)','t1m':'matches!(new,None)'}.items():
+    G[_k]=[(_HT,"if shared{if "+_v+"{sharing_update=Some(None);(false,false)}else{")]
+# ---- cashback hoists (cashback read before the CtoState literal, literal order unchanged) ----
+_CB='cashback:a.bonding_curve.is_cashback_coin,'
+G['cbh_st']=[(' let st=CtoState{',' let cb0=a.bonding_curve.is_cashback_coin;let st=CtoState{'),(_CB,'cashback:cb0,')]
+G['cbh_a']=[('{ let a=&ctx.accounts;','{ let a=&ctx.accounts;let cb0=a.bonding_curve.is_cashback_coin;'),(_CB,'cashback:cb0,')]
+G['cbh_m']=[('let mint=a.mint.key();','let mint=a.mint.key();let cb0=a.bonding_curve.is_cashback_coin;'),(_CB,'cashback:cb0,')]
+G['cbh_q']=[('let quote_locked={','let cb0=a.bonding_curve.is_cashback_coin;let quote_locked={'),(_CB,'cashback:cb0,')]

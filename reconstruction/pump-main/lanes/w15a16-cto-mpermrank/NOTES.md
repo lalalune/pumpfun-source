@@ -104,7 +104,13 @@ they were not rebuilt. P1, pl5/pl7 and B+Br+t1 have no `m.ll` left in any cache.
 - `spec12` (9): entry-argument use spellings. c_sk and c_hk give 2,234. t1a (`args.0.is_none()`) is +8 B at 2,235 /
   Mperm 2,308. q_swap gives 2,227, hkmut 2,221, sunew 1,905 and c_new 1,494; c_hold does not compile.
 
-Every row of this lane's own screens is in `data/own-86e2a6b.txt` (188 variants).
+- `spec13` (6): other spellings of the t1n holder test in the basin. `new==None`, `!new.is_some()`, `args.0==None`
+  and `matches!(new,None)` give exactly L (2,234 / 2,307). `hopt.unwrap_or(false)` keeps the basin's code shape
+  (Mperm 2,307) at +32 B, so the basin does not depend on reading `new`. `hopt==Some(true)` falls out of it (+56 B, 2,222).
+- `spec14` (3): reading cashback earlier, into a local before `quote_locked`, the mint key or the accounts binding,
+  with the literal order unchanged. These give −79 to −291 M. Cashback has to be read inside the literal.
+
+Every row of this lane's own screens is in `data/own-86e2a6b.txt` (197 variants).
 
 **L confirmed by a real build.** measure.sh on L gives 1,034/1,034 normalized and raw, no losses or gains, swap_hop
 matched, and admin_cto 0.66926 / 3,075 slots at 27,400 B, equal to the oracle. `pump_admin_cto_differential.py` passes
