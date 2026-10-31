@@ -78,7 +78,7 @@ Post-opt IR (s1 vs a7p, `diff` of the slim modules):
   - So the plain temp form is the faithful one. Other lanes should not bind the CpiContext program or the account
     struct for this CPI.
 - Initial greedy weights (RAPRIO_LOG `Q` lines, `tools/rolew.py`): for class A, 56/64 pieces are identical and the other 8
-  are within 0.6% (the CpiContext program pieces, whose interval grows by the 32 B no longer copied). w15a18's decisions
+  are within 0.6% (the CpiContext program pieces, whose intervals change by 32 slot-index units, i.e. 2 instructions). w15a18's decisions
   needed x3 on specific pieces.
 
 ## 3. RA ceilings (private RAPRIO llc from w15a18; `tools/ceil.sh`)
@@ -122,7 +122,8 @@ gives 2,260 @27,384 for 5 decisions.
 ## 4. What the s1 gap is, in the original's own terms
 
 In the original, from the sweep call to the event (orig 0x3c38-0x5030):
-- `swept` stays in r9 (`ldxdw r9,[r10-0x828]` at 0x3c40, next use `stxdw [r10-0x218],r9` at 0x5030). It crosses the
+- `swept` stays in r9 (`ldxdw r9,[r10-0x828]` at 0x3c40; r9 is not touched again until `stxdw [r10-0x218],r9` at 0x5030,
+  the event build). It crosses the
   whole sharing arm and the pool CPI, and the clone run never touches r9.
 - The accounts pointer is reloaded from its spill slot before every clone (`ldxdw rX,[r10-0x8d8]` at 0x3d88, 0x3e30,
   0x3f38, 0x4050, 0x4178, 0x42a0, 0x43c8, 0x44f8).
