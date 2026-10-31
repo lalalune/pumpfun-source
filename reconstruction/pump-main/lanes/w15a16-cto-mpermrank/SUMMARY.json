@@ -1,0 +1,31 @@
+{
+ "lane": "w15a16-cto-mpermrank",
+ "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27,400 B",
+ "base": {"main": "86e2a6b74 (admin_cto unchanged on 9120883a9)", "ratio": 0.67376, "slots": 3124, "M": 2249, "Mperm": 2293, "Mhc": 2300, "lcs": 2255, "lcs_f": 2488},
+ "result": "notes only; no landable change. Mperm re-rank of ~990 variants finds one new code-shape lead (cashback-early + t1n basin, +14..+19 Mperm at 27,400) whose real M is -15 because of a 12-slot spill-colour rotation.",
+ "best_zero_loss": {"ratio": 0.67376, "slots": 3124, "bytes": 27400, "note": "= main"},
+ "lead": {
+  "L": {"genes": "mv_5_1+t1n+m_crl2+devol", "bytes": 27400, "M": 2234, "ratio": 0.66926, "slots": 3075, "Mperm": 2307, "Mhc": 2316, "lcs_f": 2500, "measure": "1034/1034, no losses", "differential": "388 cases, 0 mismatches", "read_volatile": 0, "window_relabel_M": 2266},
+  "L_tai2": {"genes": "L+s_tai2", "bytes": 27400, "M": 2228, "Mperm": 2312, "Mhc": 2321, "window_relabel_M": 2260, "full_relabel_M": 2271}
+ },
+ "findings": [
+  "mp.py: M, Mperm, Mhc, true LCS, Mhc-relabelled LCS and frame-masked LCS for any slimmed m.ll in about 5 s; batch.sh scores other lanes' rx dirs read-only; rank.py ranks against each row's own main.",
+  "Angle singles on 86e2a6b: t1n/t3n -24 B Mperm +3 (only single above 2295); t1n+m_crl2 +48 B Mperm +4; s_tai2 0 B Mperm +5 (M -6); I6n, vol334_back, devol, l2l_*, m_crl2 are within +-1; fru1 is a real -12 Mperm loss; s1, w14a87 bases, h289 and w14a114 IR scans are all below main by Mperm too.",
+  "fru2/3/4/8/9 (`..*x` struct update on CPI AccountInfo literals) are eq_main: an exact alternative spelling.",
+  "Super-additive basin: cashback before creator in the CtoState literal (mv_5_0/mv_5_1; alone a pure colour rotation, M -28, Mperm 0) plus t1n gives -64 B and Mperm +14; m_crl2 (+72) + devol (-8) fills it to 27,400 B with frame-masked LCS +12 (orig 0x000-0x800, CtoState load placement and entry RA).",
+  "The basin's -15 M is a 12-slot colour rotation in -2264..-2360 (sharing tag, accounts pointer and neighbours) from a reordering of the near-tied heaviest entry-arg spill weights (2.00-2.07, stack-slot-coloring log); relabelling only that window back to main's offsets gives M 2266.",
+  "The window rotation is robust: 75 frame-repair variants on L (0 B knobs, every literal order with cashback early, polarity, call-site spellings) never move it."
+ ],
+ "attempts": [
+  {"key": "0x22a10-w15-86e2a6b-mpermrank-<variant>-v1", "count": 188, "status": "analyzed (scr.py)"},
+  {"key": "0x22a10-w15-86e2a6b-mpermrank-L-measure-v1", "status": "rejected", "ratio": 0.66926, "slots": 3075},
+  {"key": "0x22a10-w15-86e2a6b-mpermrank-swarmrank-v1", "status": "analyzed"}
+ ],
+ "rejected_mechanisms": ["t1n + any +24 B filler", "t1n+m_crl2 + -48 B repay", "fru struct-update family", "all 48 single CtoState field moves on t1n+crl2+devol except cashback-early", "18 fillers for mv51+t1n other than m_crl2+devol", "0 B near-neutral, polarity and call-site knobs as frame repair on L"],
+ "unresolved": ["source lever for the heavy entry-arg spill rank order that rotates -2264..-2360 in L"],
+ "next_ideas": [
+  "Find a lever for the near-tied entry-arg spill weights (defs 32r-88r vs 2856r-3304r): change the use count of one argument (fee/new/holder/ctx) and score on L with mp.py plus the window-relabel check.",
+  "Stitchers: use L / L_tai2 as base instead of main and rank pairs by the window colour, not by code shape.",
+  "Check whether t1n's +3 alone also comes from the head RA, so a smaller cashback-free spelling of the same entry order exists."
+ ]
+}
