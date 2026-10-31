@@ -15,8 +15,8 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import secrets
 import re
-import tempfile
 
 
 def bound_input_key(path, root):
@@ -103,6 +103,8 @@ def messages(lines):
 
 def audit(suites):
     """Audit available pairs, rejecting a log source present on only one side."""
+    if not isinstance(suites, dict):
+        raise ValueError('report suites must be a mapping')
     mismatches, coverage = [], Counter()
 
     def walk(value, path):
@@ -154,19 +156,19 @@ def main():
         raise ValueError('report has no paired logs to audit')
     result['source_report_sha256'] = hashlib.sha256(raw).hexdigest()
     result['script_sha256'] = hashlib.sha256(Path(__file__).read_bytes()).hexdigest()
+    # Stage beside the destination; a fresh destination root is the caller's to
+    # name, so its parent must exist before the staged file can be created.
+    args.output.parent.mkdir(parents=True, exist_ok=True)
     # Audits are new evidence: never replace an input or a prior receipt.
     staged = None
     published = False
     try:
-        with tempfile.NamedTemporaryFile(
-            'w',
-            dir=args.output.parent,
-            prefix='.' + args.output.name + '.',
-            delete=False,
-            encoding='utf-8',
-            newline='\n',
-        ) as stream:
-            staged = Path(stream.name)
+        # A plain exclusive open keeps the umask mode of the published audit.
+        # The hidden staged name is unique and links into an absent output
+        # only, preserving the no-replace and no-aliasing guarantees.
+        temporary = args.output.with_name('.' + args.output.name[:32] + '.' + secrets.token_hex(8) + '.tmp')
+        with open(temporary, 'x', encoding='utf-8', newline='\n') as stream:
+            staged = temporary
             stream.write(json.dumps(result, indent=2) + '\n')
             stream.flush()
             os.fsync(stream.fileno())

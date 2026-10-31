@@ -1,0 +1,35 @@
+{
+  "scope": "Proposed maintained-script asset transition for Pump state and migration differential report publication; captures, suites and prior receipts remain unchanged.",
+  "base": "52c0b087c7e345766b67b8fdeb8d4784079a955d",
+  "files": {
+    "scripts/pump_holder_distribution_differential.py": {
+      "before_sha256": "218913f358a67eeb14498537a3033f79293e6eef201e76a06ca5c736a85d6b96",
+      "proposed_sha256": "91e8bbea8bb10a4691496773cc857e249864d5dabf79bdb99bbd2dc58fa16f8a"
+    },
+    "scripts/pump_idl_authority_differential.py": {
+      "before_sha256": "736b6fdd13e54509589c02a83fb880570d3a82e10a10ce45cf75e6814b53d7e1",
+      "proposed_sha256": "8731e198310319817c0bc311bc63d67766e6fd6f2504f0cc782412bc29559e93"
+    },
+    "scripts/pump_incentives_admin_differential.py": {
+      "before_sha256": "125de3d7dda5d9b289cf954591deeec73ba5c2c372b7b0bd1218dd1216314bd3",
+      "proposed_sha256": "4e3964d9098a8dbf35a44f5eb6bb589b37380936f189a63f16edcb4ea240a597"
+    },
+    "scripts/pump_volume_sync_differential.py": {
+      "before_sha256": "08dd364b934c4a2031a5b240e8d0f68179e7a0e0a650a03946d05167d8041c6b",
+      "proposed_sha256": "0e3bdefbd9bc668273aae64761af743c916cad1a66662cbf9f0897022fb38993"
+    },
+    "scripts/pump_migrate_differential.py": {
+      "before_sha256": "cb6c69e49d50f3a7ea1062161638ffac2f65efac46d9fe43649fd7c3c01397a5",
+      "proposed_sha256": "4c8d1547cf203d9f9d51379f3b3efa1a1911084ffee6b8557a343e6e4dba722b"
+    },
+    "scripts/pump_migrate_v2_differential.py": {
+      "before_sha256": "e121399e0e65e16adeca3e40b6e76447e6325bdec0c01b6eb4512d3304f471a3",
+      "proposed_sha256": "e45370c2001d1eaeb5a3ce27d259c62469457d5b1c5446b0d0e5816d4594aae9"
+    }
+  },
+  "script_set_changed": false,
+  "program_source_changed": false,
+  "capture_bytes_changed": false,
+  "new_test": "tests/test_pump_state_report_publication.py",
+  "existing_ci_discovery": "contract-tests: python -B -m unittest discover -s tests -v"
+}

@@ -20,9 +20,36 @@ publisher=PumpReport(a.output,ROOT,a.candidate,__file__,extra_inputs=[
  ROOT/'research/imported-lab/analysis/pump_fun/amm-v2-trade-fixture.json',
  ROOT/'evidence/dependencies/donation_relay/deployed.so',
 ])
+CASE_DIFFERENCE_FIELDS=('different_fields','diff','differences','mismatched_fields','mismatches','failures')
+def validate_suite_receipt(name,suite):
+ assert isinstance(suite,dict),f'{name}: suite receipt must be an object'
+ cases=suite.get('cases')
+ assert isinstance(cases,list) and cases,f'{name}: a non-empty cases list is required'
+ count=suite.get('case_count',len(cases))
+ assert type(count) is int and count==len(cases),f'{name}: case_count differs from retained cases'
+ suite['case_count']=count
+ suite_mismatches=[]
+ for key in ('mismatches','failures'):
+  if key in suite:
+   assert isinstance(suite[key],list),f'{name}: {key} must be a list'
+   suite_mismatches.extend(suite[key])
+ if 'mismatch_count' in suite:
+  assert type(suite['mismatch_count']) is int and suite['mismatch_count']==len(suite_mismatches),f'{name}: mismatch_count differs from retained failures'
+ for index,row in enumerate(cases):
+  assert isinstance(row,dict),f'{name} case {index}: result must be an object'
+  if 'match' in row:
+   assert row['match'] is True,f'{name} case {index}: match is not true'
+  diff_fields=tuple(field for field in CASE_DIFFERENCE_FIELDS if field in row)
+  for field in diff_fields:
+   assert row[field]==[],f'{name} case {index}: {field} is not an empty difference list'
+  if 'original' in row or 'candidate' in row:
+   assert row.get('original') is not None and row.get('candidate') is not None,f'{name} case {index}: incomplete original/candidate outcome'
+   if 'match' not in row and not diff_fields:
+    assert row['original']==row['candidate'],f'{name} case {index}: retained outcomes differ'
+ return suite_mismatches
 candidate=pin_program(a.candidate.resolve())
 process_hashes={str(path.relative_to(ROOT)):hashlib.sha256(path.read_bytes()).hexdigest() for path in PROCESS_INPUTS}
-suites={}
+suites={};suite_mismatches={}
 with tempfile.TemporaryDirectory(prefix='fees-differential-') as temp:
  for name,script in [('queries','validate_fee_handlers.py'),('administration','fees_admin_differential.py'),('initialization','fees_initialize_differential.py'),('configuration','fees_config_differential.py'),('extension','fees_extend_differential.py'),('deprecated','fees_deprecated_differential.py'),('upsert','fees_upsert_differential.py'),('admin_transfer','fees_admin_transfer_differential.py'),('donation_create','fees_donation_create_differential.py'),('donation_crank','fees_donation_crank_probe.py'),('social_create','fees_social_create_differential.py'),('social_claim','fees_social_claim_differential.py'),('social_claim_v2','fees_social_claim_v2_differential.py'),('withdrawal','fees_withdraw_differential.py'),('buyback','fees_buyback_differential.py'),('sharing_creation','fees_sharing_create_differential.py'),('sharing_update','fees_sharing_update_differential.py'),('sharing_admin_cto','fees_admin_cto_differential.py')]:
   output=pathlib.Path(temp)/(name+'.json')
@@ -31,9 +58,9 @@ with tempfile.TemporaryDirectory(prefix='fees-differential-') as temp:
   if timed_out:raise SystemExit(f'suite {name} exceeded {a.suite_timeout}s')
   completed.check_returncode()
   assert all(hashlib.sha256((ROOT/path).read_bytes()).hexdigest()==digest for path,digest in process_hashes.items()), 'suite process helper changed'
-  suites[name]=json.loads(output.read_text())
-  if 'case_count' not in suites[name]:suites[name]['case_count']=len(suites[name]['cases'])
+  suites[name]=json.loads(output.read_text(encoding='utf-8'))
+  suite_mismatches[name]=validate_suite_receipt(name,suites[name])
 sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
-report={'scope':'Thirty handler paths, including two deprecated dispatches; historical fixed-admin initializer replay is indexed separately. Independent SBF original/candidate execution; no complete source or byte identity. Per-suite limits are preserved.','original_sha256':sha(ROOT/'evidence/original/pump_fees/deployed.so'),'candidate_sha256':sha(candidate),'case_count':sum(s['case_count'] for s in suites.values()),'mismatches':[f'{n}: {m}' for n,s in suites.items() for m in s.get('mismatches',s.get('failures',[]))],'suite_timeout_seconds':a.suite_timeout,'process_runner_sha256':process_hashes,'suites':suites}
+report={'scope':'Thirty handler paths, including two deprecated dispatches; historical fixed-admin initializer replay is indexed separately. Independent SBF original/candidate execution; no complete source or byte identity. Per-suite limits are preserved.','original_sha256':sha(ROOT/'evidence/original/pump_fees/deployed.so'),'candidate_sha256':sha(candidate),'case_count':sum(s['case_count'] for s in suites.values()),'mismatches':[f'{n}: {m}' for n,items in suite_mismatches.items() for m in items],'suite_timeout_seconds':a.suite_timeout,'process_runner_sha256':process_hashes,'suites':suites}
 assert all(s['original_sha256']==report['original_sha256'] and s['candidate_sha256']==report['candidate_sha256'] for s in suites.values())
-publisher.write((json.dumps(report,separators=(',',':'))+'\n').encode());print(json.dumps({'cases':report['case_count'],'mismatches':report['mismatches']}));assert not report['mismatches']
+print(json.dumps({'cases':report['case_count'],'mismatches':report['mismatches']}));assert not report['mismatches'];publisher.write((json.dumps(report,separators=(',',':'))+'\n').encode('utf-8'))

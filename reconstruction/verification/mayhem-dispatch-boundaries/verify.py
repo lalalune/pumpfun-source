@@ -53,6 +53,9 @@ def main():
         fail("recomputed report differs")
     if not all(report["negative_controls"].values()):
         fail("a comparator negative control did not detect its mutation")
+    mismatches = report["behavior_mismatch_steps"]
+    if mismatches:
+        fail(f"{len(mismatches)} steps differ in behavior; first={mismatches[0]}")
 
     print(json.dumps({
         "ok": True,

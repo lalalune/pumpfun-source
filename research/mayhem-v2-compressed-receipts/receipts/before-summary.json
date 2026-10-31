@@ -1,0 +1,528 @@
+{
+  "capture_sha256": "a87fa9f866272514e6acb852b668c4a08aeb173d56c883039991d114d1199bdb",
+  "errors": [],
+  "limits": "Owned paused rejection only; no successful-trade, source-reconstruction, whole-ELF or security claim",
+  "modes": [
+    {
+      "mode": "buy_v2",
+      "records": {
+        "gzip": {
+          "compressed": false,
+          "decoded_sha256": "e73cf1479878cf1e271265581e71f1f74c547fb2ed6f23b68d5e8c8f52f1cf10",
+          "producer": {
+            "command": [
+              "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+              "-B",
+              "/home/runner/work/pumpfun-source/pumpfun-source/scripts/mayhem_buy_v2_differential.py",
+              "--candidate",
+              "/home/runner/work/pumpfun-source/pumpfun-source/evidence/original/mayhem/deployed.so",
+              "--cases",
+              "/home/runner/work/pumpfun-source/pumpfun-source/research/mayhem-v2-compressed-receipts/cases.json",
+              "--family",
+              "native",
+              "--output",
+              "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/buy_v2/report.json.gz"
+            ],
+            "returncode": 0,
+            "stderr": "",
+            "stdout": "owned_paused_control TransactionErrorInstructionError((1, Tagged(InstructionErrorCustom(6000)))) []\n{\"case_count\": 1, \"successful_original_cases\": 0, \"mismatches\": []}\n"
+          },
+          "real_vm_sends": 2,
+          "verifier": {
+            "command": [
+              "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+              "-B",
+              "/home/runner/work/pumpfun-source/pumpfun-source/scripts/verify_mayhem_buy_v2.py",
+              "--receipts",
+              "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/buy_v2/report.json.gz",
+              "--candidate",
+              "/home/runner/work/pumpfun-source/pumpfun-source/evidence/original/mayhem/deployed.so",
+              "--output",
+              "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/buy_v2/gzip-verified.json"
+            ],
+            "returncode": 1,
+            "stderr": "Traceback (most recent call last):\n  File \"/home/runner/work/pumpfun-source/pumpfun-source/scripts/verify_mayhem_buy_v2.py\", line 92, in <module>\n    if __name__=='__main__':main()\n                            ^^^^^^\n  File \"/home/runner/work/pumpfun-source/pumpfun-source/scripts/verify_mayhem_buy_v2.py\", line 23, in main\n    raw=a.receipts.read_bytes();report=json.loads(gzip.decompress(raw) if a.receipts.suffix=='.gz' else raw);assert report['candidate_sha256']==sha(a.candidate.read_bytes())\n                                                  ^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/gzip.py\", line 644, in decompress\n    if _read_gzip_header(fp) is None:\n       ^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/gzip.py\", line 473, in _read_gzip_header\n    raise BadGzipFile('Not a gzipped file (%r)' % magic)\ngzip.BadGzipFile: Not a gzipped file (b'{\\n')\n",
+            "stdout": ""
+          },
+          "wire_sha256": "e73cf1479878cf1e271265581e71f1f74c547fb2ed6f23b68d5e8c8f52f1cf10"
+        },
+        "plain": {
+          "compressed": false,
+          "decoded_sha256": "e73cf1479878cf1e271265581e71f1f74c547fb2ed6f23b68d5e8c8f52f1cf10",
+          "producer": {
+            "command": [
+              "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+              "-B",
+              "/home/runner/work/pumpfun-source/pumpfun-source/scripts/mayhem_buy_v2_differential.py",
+              "--candidate",
+              "/home/runner/work/pumpfun-source/pumpfun-source/evidence/original/mayhem/deployed.so",
+              "--cases",
+              "/home/runner/work/pumpfun-source/pumpfun-source/research/mayhem-v2-compressed-receipts/cases.json",
+              "--family",
+              "native",
+              "--output",
+              "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/buy_v2/report.json"
+            ],
+            "returncode": 0,
+            "stderr": "",
+            "stdout": "owned_paused_control TransactionErrorInstructionError((1, Tagged(InstructionErrorCustom(6000)))) []\n{\"case_count\": 1, \"successful_original_cases\": 0, \"mismatches\": []}\n"
+          },
+          "real_vm_sends": 2,
+          "verifier": {
+            "command": [
+              "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+              "-B",
+              "/home/runner/work/pumpfun-source/pumpfun-source/scripts/verify_mayhem_buy_v2.py",
+              "--receipts",
+              "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/buy_v2/report.json",
+              "--candidate",
+              "/home/runner/work/pumpfun-source/pumpfun-source/evidence/original/mayhem/deployed.so",
+              "--output",
+              "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/buy_v2/plain-verified.json"
+            ],
+            "returncode": 0,
+            "stderr": "",
+            "stdout": "{\n  \"scope\": \"Offline verification of saved signed buy_v2 receipts; never executes a VM or RPC.\",\n  \"receipt_sha256\": \"e73cf1479878cf1e271265581e71f1f74c547fb2ed6f23b68d5e8c8f52f1cf10\",\n  \"candidate_sha256\": \"a87fa9f866272514e6acb852b668c4a08aeb173d56c883039991d114d1199bdb\",\n  \"original_sha256\": \"a87fa9f866272514e6acb852b668c4a08aeb173d56c883039991d114d1199bdb\",\n  \"case_count\": 1,\n  \"verified_signed_transactions\": 2,\n  \"successful_cases\": 0,\n  \"rejection_cases\": 1,\n  \"successful_quote_and_cpi_checks\": 0,\n  \"complete_event_and_state_checks\": 0,\n  \"complete_failed_transaction_rollback_checks\": 2,\n  \"mismatches\": []\n}\n"
+          },
+          "wire_sha256": "e73cf1479878cf1e271265581e71f1f74c547fb2ed6f23b68d5e8c8f52f1cf10"
+        },
+        "repeat": {
+          "compressed": false,
+          "decoded_sha256": "e73cf1479878cf1e271265581e71f1f74c547fb2ed6f23b68d5e8c8f52f1cf10",
+          "producer": {
+            "command": [
+              "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+              "-B",
+              "/home/runner/work/pumpfun-source/pumpfun-source/scripts/mayhem_buy_v2_differential.py",
+              "--candidate",
+              "/home/runner/work/pumpfun-source/pumpfun-source/evidence/original/mayhem/deployed.so",
+              "--cases",
+              "/home/runner/work/pumpfun-source/pumpfun-source/research/mayhem-v2-compressed-receipts/cases.json",
+              "--family",
+              "native",
+              "--output",
+              "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/buy_v2/repeat.json.gz"
+            ],
+            "returncode": 0,
+            "stderr": "",
+            "stdout": "owned_paused_control TransactionErrorInstructionError((1, Tagged(InstructionErrorCustom(6000)))) []\n{\"case_count\": 1, \"successful_original_cases\": 0, \"mismatches\": []}\n"
+          },
+          "real_vm_sends": 2,
+          "verifier": {
+            "command": [
+              "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+              "-B",
+              "/home/runner/work/pumpfun-source/pumpfun-source/scripts/verify_mayhem_buy_v2.py",
+              "--receipts",
+              "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/buy_v2/repeat.json.gz",
+              "--candidate",
+              "/home/runner/work/pumpfun-source/pumpfun-source/evidence/original/mayhem/deployed.so",
+              "--output",
+              "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/buy_v2/repeat-verified.json"
+            ],
+            "returncode": 1,
+            "stderr": "Traceback (most recent call last):\n  File \"/home/runner/work/pumpfun-source/pumpfun-source/scripts/verify_mayhem_buy_v2.py\", line 92, in <module>\n    if __name__=='__main__':main()\n                            ^^^^^^\n  File \"/home/runner/work/pumpfun-source/pumpfun-source/scripts/verify_mayhem_buy_v2.py\", line 23, in main\n    raw=a.receipts.read_bytes();report=json.loads(gzip.decompress(raw) if a.receipts.suffix=='.gz' else raw);assert report['candidate_sha256']==sha(a.candidate.read_bytes())\n                                                  ^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/gzip.py\", line 644, in decompress\n    if _read_gzip_header(fp) is None:\n       ^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/gzip.py\", line 473, in _read_gzip_header\n    raise BadGzipFile('Not a gzipped file (%r)' % magic)\ngzip.BadGzipFile: Not a gzipped file (b'{\\n')\n",
+            "stdout": ""
+          },
+          "wire_sha256": "e73cf1479878cf1e271265581e71f1f74c547fb2ed6f23b68d5e8c8f52f1cf10"
+        }
+      }
+    },
+    {
+      "mode": "sell_v2",
+      "records": {
+        "gzip": {
+          "compressed": false,
+          "decoded_sha256": "d3bd3d3b31c35d77ee86f381e9ed38d4e9ddc077458c3fa334630dc4605fea3a",
+          "producer": {
+            "command": [
+              "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+              "-B",
+              "/home/runner/work/pumpfun-source/pumpfun-source/scripts/mayhem_sell_v2_differential.py",
+              "--candidate",
+              "/home/runner/work/pumpfun-source/pumpfun-source/evidence/original/mayhem/deployed.so",
+              "--cases",
+              "/home/runner/work/pumpfun-source/pumpfun-source/research/mayhem-v2-compressed-receipts/cases.json",
+              "--family",
+              "native",
+              "--output",
+              "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/sell_v2/report.json.gz"
+            ],
+            "returncode": 0,
+            "stderr": "",
+            "stdout": "owned_paused_control TransactionErrorInstructionError((1, Tagged(InstructionErrorCustom(6000)))) []\n{\"case_count\": 1, \"successful_original_cases\": 0, \"mismatches\": []}\n"
+          },
+          "real_vm_sends": 2,
+          "verifier": {
+            "command": [
+              "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+              "-B",
+              "/home/runner/work/pumpfun-source/pumpfun-source/scripts/verify_mayhem_sell_v2.py",
+              "--receipts",
+              "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/sell_v2/report.json.gz",
+              "--candidate",
+              "/home/runner/work/pumpfun-source/pumpfun-source/evidence/original/mayhem/deployed.so",
+              "--output",
+              "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/sell_v2/gzip-verified.json"
+            ],
+            "returncode": 1,
+            "stderr": "Traceback (most recent call last):\n  File \"/home/runner/work/pumpfun-source/pumpfun-source/scripts/verify_mayhem_sell_v2.py\", line 88, in <module>\n    if __name__=='__main__':main()\n                            ^^^^^^\n  File \"/home/runner/work/pumpfun-source/pumpfun-source/scripts/verify_mayhem_sell_v2.py\", line 22, in main\n    raw=a.receipts.read_bytes();report=json.loads(gzip.decompress(raw) if a.receipts.suffix=='.gz' else raw);assert report['candidate_sha256']==sha(a.candidate.read_bytes())\n                                                  ^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/gzip.py\", line 644, in decompress\n    if _read_gzip_header(fp) is None:\n       ^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/gzip.py\", line 473, in _read_gzip_header\n    raise BadGzipFile('Not a gzipped file (%r)' % magic)\ngzip.BadGzipFile: Not a gzipped file (b'{\\n')\n",
+            "stdout": ""
+          },
+          "wire_sha256": "d3bd3d3b31c35d77ee86f381e9ed38d4e9ddc077458c3fa334630dc4605fea3a"
+        },
+        "plain": {
+          "compressed": false,
+          "decoded_sha256": "d3bd3d3b31c35d77ee86f381e9ed38d4e9ddc077458c3fa334630dc4605fea3a",
+          "producer": {
+            "command": [
+              "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+              "-B",
+              "/home/runner/work/pumpfun-source/pumpfun-source/scripts/mayhem_sell_v2_differential.py",
+              "--candidate",
+              "/home/runner/work/pumpfun-source/pumpfun-source/evidence/original/mayhem/deployed.so",
+              "--cases",
+              "/home/runner/work/pumpfun-source/pumpfun-source/research/mayhem-v2-compressed-receipts/cases.json",
+              "--family",
+              "native",
+              "--output",
+              "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/sell_v2/report.json"
+            ],
+            "returncode": 0,
+            "stderr": "",
+            "stdout": "owned_paused_control TransactionErrorInstructionError((1, Tagged(InstructionErrorCustom(6000)))) []\n{\"case_count\": 1, \"successful_original_cases\": 0, \"mismatches\": []}\n"
+          },
+          "real_vm_sends": 2,
+          "verifier": {
+            "command": [
+              "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+              "-B",
+              "/home/runner/work/pumpfun-source/pumpfun-source/scripts/verify_mayhem_sell_v2.py",
+              "--receipts",
+              "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/sell_v2/report.json",
+              "--candidate",
+              "/home/runner/work/pumpfun-source/pumpfun-source/evidence/original/mayhem/deployed.so",
+              "--output",
+              "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/sell_v2/plain-verified.json"
+            ],
+            "returncode": 0,
+            "stderr": "",
+            "stdout": "{\n  \"scope\": \"Offline verification of saved signed sell_v2 receipts; never executes a VM or RPC.\",\n  \"receipt_sha256\": \"d3bd3d3b31c35d77ee86f381e9ed38d4e9ddc077458c3fa334630dc4605fea3a\",\n  \"candidate_sha256\": \"a87fa9f866272514e6acb852b668c4a08aeb173d56c883039991d114d1199bdb\",\n  \"original_sha256\": \"a87fa9f866272514e6acb852b668c4a08aeb173d56c883039991d114d1199bdb\",\n  \"case_count\": 1,\n  \"verified_signed_transactions\": 2,\n  \"successful_cases\": 0,\n  \"rejection_cases\": 1,\n  \"successful_quote_and_cpi_checks\": 0,\n  \"complete_event_and_state_checks\": 0,\n  \"complete_failed_transaction_rollback_checks\": 2,\n  \"mismatches\": []\n}\n"
+          },
+          "wire_sha256": "d3bd3d3b31c35d77ee86f381e9ed38d4e9ddc077458c3fa334630dc4605fea3a"
+        },
+        "repeat": {
+          "compressed": false,
+          "decoded_sha256": "d3bd3d3b31c35d77ee86f381e9ed38d4e9ddc077458c3fa334630dc4605fea3a",
+          "producer": {
+            "command": [
+              "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+              "-B",
+              "/home/runner/work/pumpfun-source/pumpfun-source/scripts/mayhem_sell_v2_differential.py",
+              "--candidate",
+              "/home/runner/work/pumpfun-source/pumpfun-source/evidence/original/mayhem/deployed.so",
+              "--cases",
+              "/home/runner/work/pumpfun-source/pumpfun-source/research/mayhem-v2-compressed-receipts/cases.json",
+              "--family",
+              "native",
+              "--output",
+              "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/sell_v2/repeat.json.gz"
+            ],
+            "returncode": 0,
+            "stderr": "",
+            "stdout": "owned_paused_control TransactionErrorInstructionError((1, Tagged(InstructionErrorCustom(6000)))) []\n{\"case_count\": 1, \"successful_original_cases\": 0, \"mismatches\": []}\n"
+          },
+          "real_vm_sends": 2,
+          "verifier": {
+            "command": [
+              "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+              "-B",
+              "/home/runner/work/pumpfun-source/pumpfun-source/scripts/verify_mayhem_sell_v2.py",
+              "--receipts",
+              "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/sell_v2/repeat.json.gz",
+              "--candidate",
+              "/home/runner/work/pumpfun-source/pumpfun-source/evidence/original/mayhem/deployed.so",
+              "--output",
+              "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/sell_v2/repeat-verified.json"
+            ],
+            "returncode": 1,
+            "stderr": "Traceback (most recent call last):\n  File \"/home/runner/work/pumpfun-source/pumpfun-source/scripts/verify_mayhem_sell_v2.py\", line 88, in <module>\n    if __name__=='__main__':main()\n                            ^^^^^^\n  File \"/home/runner/work/pumpfun-source/pumpfun-source/scripts/verify_mayhem_sell_v2.py\", line 22, in main\n    raw=a.receipts.read_bytes();report=json.loads(gzip.decompress(raw) if a.receipts.suffix=='.gz' else raw);assert report['candidate_sha256']==sha(a.candidate.read_bytes())\n                                                  ^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/gzip.py\", line 644, in decompress\n    if _read_gzip_header(fp) is None:\n       ^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/gzip.py\", line 473, in _read_gzip_header\n    raise BadGzipFile('Not a gzipped file (%r)' % magic)\ngzip.BadGzipFile: Not a gzipped file (b'{\\n')\n",
+            "stdout": ""
+          },
+          "wire_sha256": "d3bd3d3b31c35d77ee86f381e9ed38d4e9ddc077458c3fa334630dc4605fea3a"
+        }
+      }
+    },
+    {
+      "mode": "buy_pump_swap",
+      "records": {
+        "gzip": {
+          "compressed": false,
+          "decoded_sha256": "0fb872c8fe28d966efd7997ea6263a61337d4c38b54b2cf82df224c4383cd7d7",
+          "producer": {
+            "command": [
+              "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+              "-B",
+              "/home/runner/work/pumpfun-source/pumpfun-source/scripts/mayhem_pump_swap_differential.py",
+              "--candidate",
+              "/home/runner/work/pumpfun-source/pumpfun-source/evidence/original/mayhem/deployed.so",
+              "--cases",
+              "/home/runner/work/pumpfun-source/pumpfun-source/research/mayhem-v2-compressed-receipts/cases.json",
+              "--family",
+              "native",
+              "--instruction",
+              "buy_pump_swap",
+              "--output",
+              "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/buy_pump_swap/report.json.gz"
+            ],
+            "returncode": 0,
+            "stderr": "",
+            "stdout": "owned_paused_control TransactionErrorInstructionError((1, Tagged(InstructionErrorCustom(6000)))) []\n{\"case_count\": 1, \"successful_original_cases\": 0, \"mismatches\": []}\n"
+          },
+          "real_vm_sends": 2,
+          "verifier": {
+            "command": [
+              "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+              "-B",
+              "/home/runner/work/pumpfun-source/pumpfun-source/scripts/verify_mayhem_pump_swap.py",
+              "--receipts",
+              "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/buy_pump_swap/report.json.gz",
+              "--candidate",
+              "/home/runner/work/pumpfun-source/pumpfun-source/evidence/original/mayhem/deployed.so",
+              "--output",
+              "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/buy_pump_swap/gzip-verified.json"
+            ],
+            "returncode": 1,
+            "stderr": "Traceback (most recent call last):\n  File \"/home/runner/work/pumpfun-source/pumpfun-source/scripts/verify_mayhem_pump_swap.py\", line 69, in <module>\n    if __name__=='__main__':main()\n                            ^^^^^^\n  File \"/home/runner/work/pumpfun-source/pumpfun-source/scripts/verify_mayhem_pump_swap.py\", line 22, in main\n    raw=a.receipts.read_bytes();report=json.loads(gzip.decompress(raw) if a.receipts.suffix=='.gz' else raw)\n                                                  ^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/gzip.py\", line 644, in decompress\n    if _read_gzip_header(fp) is None:\n       ^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/gzip.py\", line 473, in _read_gzip_header\n    raise BadGzipFile('Not a gzipped file (%r)' % magic)\ngzip.BadGzipFile: Not a gzipped file (b'{\\n')\n",
+            "stdout": ""
+          },
+          "wire_sha256": "0fb872c8fe28d966efd7997ea6263a61337d4c38b54b2cf82df224c4383cd7d7"
+        },
+        "plain": {
+          "compressed": false,
+          "decoded_sha256": "0fb872c8fe28d966efd7997ea6263a61337d4c38b54b2cf82df224c4383cd7d7",
+          "producer": {
+            "command": [
+              "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+              "-B",
+              "/home/runner/work/pumpfun-source/pumpfun-source/scripts/mayhem_pump_swap_differential.py",
+              "--candidate",
+              "/home/runner/work/pumpfun-source/pumpfun-source/evidence/original/mayhem/deployed.so",
+              "--cases",
+              "/home/runner/work/pumpfun-source/pumpfun-source/research/mayhem-v2-compressed-receipts/cases.json",
+              "--family",
+              "native",
+              "--instruction",
+              "buy_pump_swap",
+              "--output",
+              "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/buy_pump_swap/report.json"
+            ],
+            "returncode": 0,
+            "stderr": "",
+            "stdout": "owned_paused_control TransactionErrorInstructionError((1, Tagged(InstructionErrorCustom(6000)))) []\n{\"case_count\": 1, \"successful_original_cases\": 0, \"mismatches\": []}\n"
+          },
+          "real_vm_sends": 2,
+          "verifier": {
+            "command": [
+              "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+              "-B",
+              "/home/runner/work/pumpfun-source/pumpfun-source/scripts/verify_mayhem_pump_swap.py",
+              "--receipts",
+              "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/buy_pump_swap/report.json",
+              "--candidate",
+              "/home/runner/work/pumpfun-source/pumpfun-source/evidence/original/mayhem/deployed.so",
+              "--output",
+              "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/buy_pump_swap/plain-verified.json"
+            ],
+            "returncode": 0,
+            "stderr": "",
+            "stdout": "{\n  \"scope\": \"Independent offline saved-receipt checks for both Mayhem PumpSwap trades; no VM or RPC.\",\n  \"receipt_sha256\": \"0fb872c8fe28d966efd7997ea6263a61337d4c38b54b2cf82df224c4383cd7d7\",\n  \"candidate_sha256\": \"a87fa9f866272514e6acb852b668c4a08aeb173d56c883039991d114d1199bdb\",\n  \"original_sha256\": \"a87fa9f866272514e6acb852b668c4a08aeb173d56c883039991d114d1199bdb\",\n  \"case_count\": 1,\n  \"verified_signed_transactions\": 2,\n  \"successful_cases\": 0,\n  \"rejection_cases\": 1,\n  \"successful_quote_and_cpi_checks\": 0,\n  \"complete_event_and_state_checks\": 0,\n  \"complete_failed_transaction_rollback_checks\": 2,\n  \"mismatches\": []\n}\n"
+          },
+          "wire_sha256": "0fb872c8fe28d966efd7997ea6263a61337d4c38b54b2cf82df224c4383cd7d7"
+        },
+        "repeat": {
+          "compressed": false,
+          "decoded_sha256": "0fb872c8fe28d966efd7997ea6263a61337d4c38b54b2cf82df224c4383cd7d7",
+          "producer": {
+            "command": [
+              "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+              "-B",
+              "/home/runner/work/pumpfun-source/pumpfun-source/scripts/mayhem_pump_swap_differential.py",
+              "--candidate",
+              "/home/runner/work/pumpfun-source/pumpfun-source/evidence/original/mayhem/deployed.so",
+              "--cases",
+              "/home/runner/work/pumpfun-source/pumpfun-source/research/mayhem-v2-compressed-receipts/cases.json",
+              "--family",
+              "native",
+              "--instruction",
+              "buy_pump_swap",
+              "--output",
+              "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/buy_pump_swap/repeat.json.gz"
+            ],
+            "returncode": 0,
+            "stderr": "",
+            "stdout": "owned_paused_control TransactionErrorInstructionError((1, Tagged(InstructionErrorCustom(6000)))) []\n{\"case_count\": 1, \"successful_original_cases\": 0, \"mismatches\": []}\n"
+          },
+          "real_vm_sends": 2,
+          "verifier": {
+            "command": [
+              "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+              "-B",
+              "/home/runner/work/pumpfun-source/pumpfun-source/scripts/verify_mayhem_pump_swap.py",
+              "--receipts",
+              "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/buy_pump_swap/repeat.json.gz",
+              "--candidate",
+              "/home/runner/work/pumpfun-source/pumpfun-source/evidence/original/mayhem/deployed.so",
+              "--output",
+              "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/buy_pump_swap/repeat-verified.json"
+            ],
+            "returncode": 1,
+            "stderr": "Traceback (most recent call last):\n  File \"/home/runner/work/pumpfun-source/pumpfun-source/scripts/verify_mayhem_pump_swap.py\", line 69, in <module>\n    if __name__=='__main__':main()\n                            ^^^^^^\n  File \"/home/runner/work/pumpfun-source/pumpfun-source/scripts/verify_mayhem_pump_swap.py\", line 22, in main\n    raw=a.receipts.read_bytes();report=json.loads(gzip.decompress(raw) if a.receipts.suffix=='.gz' else raw)\n                                                  ^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/gzip.py\", line 644, in decompress\n    if _read_gzip_header(fp) is None:\n       ^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/gzip.py\", line 473, in _read_gzip_header\n    raise BadGzipFile('Not a gzipped file (%r)' % magic)\ngzip.BadGzipFile: Not a gzipped file (b'{\\n')\n",
+            "stdout": ""
+          },
+          "wire_sha256": "0fb872c8fe28d966efd7997ea6263a61337d4c38b54b2cf82df224c4383cd7d7"
+        }
+      }
+    },
+    {
+      "mode": "sell_pump_swap",
+      "records": {
+        "gzip": {
+          "compressed": false,
+          "decoded_sha256": "833317bfbfe2c68dbfc4d08b58d535824ea1f007f9b86c226d2e2fbffe65c885",
+          "producer": {
+            "command": [
+              "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+              "-B",
+              "/home/runner/work/pumpfun-source/pumpfun-source/scripts/mayhem_pump_swap_differential.py",
+              "--candidate",
+              "/home/runner/work/pumpfun-source/pumpfun-source/evidence/original/mayhem/deployed.so",
+              "--cases",
+              "/home/runner/work/pumpfun-source/pumpfun-source/research/mayhem-v2-compressed-receipts/cases.json",
+              "--family",
+              "native",
+              "--instruction",
+              "sell_pump_swap",
+              "--output",
+              "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/sell_pump_swap/report.json.gz"
+            ],
+            "returncode": 0,
+            "stderr": "",
+            "stdout": "owned_paused_control TransactionErrorInstructionError((1, Tagged(InstructionErrorCustom(6000)))) []\n{\"case_count\": 1, \"successful_original_cases\": 0, \"mismatches\": []}\n"
+          },
+          "real_vm_sends": 2,
+          "verifier": {
+            "command": [
+              "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+              "-B",
+              "/home/runner/work/pumpfun-source/pumpfun-source/scripts/verify_mayhem_pump_swap.py",
+              "--receipts",
+              "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/sell_pump_swap/report.json.gz",
+              "--candidate",
+              "/home/runner/work/pumpfun-source/pumpfun-source/evidence/original/mayhem/deployed.so",
+              "--output",
+              "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/sell_pump_swap/gzip-verified.json"
+            ],
+            "returncode": 1,
+            "stderr": "Traceback (most recent call last):\n  File \"/home/runner/work/pumpfun-source/pumpfun-source/scripts/verify_mayhem_pump_swap.py\", line 69, in <module>\n    if __name__=='__main__':main()\n                            ^^^^^^\n  File \"/home/runner/work/pumpfun-source/pumpfun-source/scripts/verify_mayhem_pump_swap.py\", line 22, in main\n    raw=a.receipts.read_bytes();report=json.loads(gzip.decompress(raw) if a.receipts.suffix=='.gz' else raw)\n                                                  ^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/gzip.py\", line 644, in decompress\n    if _read_gzip_header(fp) is None:\n       ^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/gzip.py\", line 473, in _read_gzip_header\n    raise BadGzipFile('Not a gzipped file (%r)' % magic)\ngzip.BadGzipFile: Not a gzipped file (b'{\\n')\n",
+            "stdout": ""
+          },
+          "wire_sha256": "833317bfbfe2c68dbfc4d08b58d535824ea1f007f9b86c226d2e2fbffe65c885"
+        },
+        "plain": {
+          "compressed": false,
+          "decoded_sha256": "833317bfbfe2c68dbfc4d08b58d535824ea1f007f9b86c226d2e2fbffe65c885",
+          "producer": {
+            "command": [
+              "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+              "-B",
+              "/home/runner/work/pumpfun-source/pumpfun-source/scripts/mayhem_pump_swap_differential.py",
+              "--candidate",
+              "/home/runner/work/pumpfun-source/pumpfun-source/evidence/original/mayhem/deployed.so",
+              "--cases",
+              "/home/runner/work/pumpfun-source/pumpfun-source/research/mayhem-v2-compressed-receipts/cases.json",
+              "--family",
+              "native",
+              "--instruction",
+              "sell_pump_swap",
+              "--output",
+              "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/sell_pump_swap/report.json"
+            ],
+            "returncode": 0,
+            "stderr": "",
+            "stdout": "owned_paused_control TransactionErrorInstructionError((1, Tagged(InstructionErrorCustom(6000)))) []\n{\"case_count\": 1, \"successful_original_cases\": 0, \"mismatches\": []}\n"
+          },
+          "real_vm_sends": 2,
+          "verifier": {
+            "command": [
+              "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+              "-B",
+              "/home/runner/work/pumpfun-source/pumpfun-source/scripts/verify_mayhem_pump_swap.py",
+              "--receipts",
+              "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/sell_pump_swap/report.json",
+              "--candidate",
+              "/home/runner/work/pumpfun-source/pumpfun-source/evidence/original/mayhem/deployed.so",
+              "--output",
+              "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/sell_pump_swap/plain-verified.json"
+            ],
+            "returncode": 0,
+            "stderr": "",
+            "stdout": "{\n  \"scope\": \"Independent offline saved-receipt checks for both Mayhem PumpSwap trades; no VM or RPC.\",\n  \"receipt_sha256\": \"833317bfbfe2c68dbfc4d08b58d535824ea1f007f9b86c226d2e2fbffe65c885\",\n  \"candidate_sha256\": \"a87fa9f866272514e6acb852b668c4a08aeb173d56c883039991d114d1199bdb\",\n  \"original_sha256\": \"a87fa9f866272514e6acb852b668c4a08aeb173d56c883039991d114d1199bdb\",\n  \"case_count\": 1,\n  \"verified_signed_transactions\": 2,\n  \"successful_cases\": 0,\n  \"rejection_cases\": 1,\n  \"successful_quote_and_cpi_checks\": 0,\n  \"complete_event_and_state_checks\": 0,\n  \"complete_failed_transaction_rollback_checks\": 2,\n  \"mismatches\": []\n}\n"
+          },
+          "wire_sha256": "833317bfbfe2c68dbfc4d08b58d535824ea1f007f9b86c226d2e2fbffe65c885"
+        },
+        "repeat": {
+          "compressed": false,
+          "decoded_sha256": "833317bfbfe2c68dbfc4d08b58d535824ea1f007f9b86c226d2e2fbffe65c885",
+          "producer": {
+            "command": [
+              "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+              "-B",
+              "/home/runner/work/pumpfun-source/pumpfun-source/scripts/mayhem_pump_swap_differential.py",
+              "--candidate",
+              "/home/runner/work/pumpfun-source/pumpfun-source/evidence/original/mayhem/deployed.so",
+              "--cases",
+              "/home/runner/work/pumpfun-source/pumpfun-source/research/mayhem-v2-compressed-receipts/cases.json",
+              "--family",
+              "native",
+              "--instruction",
+              "sell_pump_swap",
+              "--output",
+              "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/sell_pump_swap/repeat.json.gz"
+            ],
+            "returncode": 0,
+            "stderr": "",
+            "stdout": "owned_paused_control TransactionErrorInstructionError((1, Tagged(InstructionErrorCustom(6000)))) []\n{\"case_count\": 1, \"successful_original_cases\": 0, \"mismatches\": []}\n"
+          },
+          "real_vm_sends": 2,
+          "verifier": {
+            "command": [
+              "/opt/hostedtoolcache/Python/3.12.15/x64/bin/python",
+              "-B",
+              "/home/runner/work/pumpfun-source/pumpfun-source/scripts/verify_mayhem_pump_swap.py",
+              "--receipts",
+              "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/sell_pump_swap/repeat.json.gz",
+              "--candidate",
+              "/home/runner/work/pumpfun-source/pumpfun-source/evidence/original/mayhem/deployed.so",
+              "--output",
+              "/home/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/sell_pump_swap/repeat-verified.json"
+            ],
+            "returncode": 1,
+            "stderr": "Traceback (most recent call last):\n  File \"/home/runner/work/pumpfun-source/pumpfun-source/scripts/verify_mayhem_pump_swap.py\", line 69, in <module>\n    if __name__=='__main__':main()\n                            ^^^^^^\n  File \"/home/runner/work/pumpfun-source/pumpfun-source/scripts/verify_mayhem_pump_swap.py\", line 22, in main\n    raw=a.receipts.read_bytes();report=json.loads(gzip.decompress(raw) if a.receipts.suffix=='.gz' else raw)\n                                                  ^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/gzip.py\", line 644, in decompress\n    if _read_gzip_header(fp) is None:\n       ^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/gzip.py\", line 473, in _read_gzip_header\n    raise BadGzipFile('Not a gzipped file (%r)' % magic)\ngzip.BadGzipFile: Not a gzipped file (b'{\\n')\n",
+            "stdout": ""
+          },
+          "wire_sha256": "833317bfbfe2c68dbfc4d08b58d535824ea1f007f9b86c226d2e2fbffe65c885"
+        }
+      }
+    }
+  ],
+  "producer_sha256": {
+    "scripts/mayhem_buy_v2_differential.py": "8090fa81a72c1bd1e92770084ac68ed8511421b9ee3eec1ddbc58c3495f31a32",
+    "scripts/mayhem_pump_swap_differential.py": "210b506986442a7f8a48538db255dde31b67872fc12bb1fda9c89a48f9092d89",
+    "scripts/mayhem_sell_v2_differential.py": "eac0a1885930dbc6b4c503947e3d7ba2e3112c560822cfe86eee5c02db84b05d"
+  },
+  "real_vm_sends": 24,
+  "revision": "246298e2ced747360aca0823afab2e9f03d49ec8",
+  "scope": "Actual signed local captured-image control; receipt producer/verifier transport only",
+  "stage": "before"
+}

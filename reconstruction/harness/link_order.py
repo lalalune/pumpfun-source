@@ -43,7 +43,10 @@ def rule(name):
 
 def check_script(text, default=None):
     """Return {output section: selector count}; raise ValueError if `text` is not admitted."""
-    default = DEFAULT.read_text() if default is None else default
+    default = DEFAULT.read_text(encoding='utf-8') if default is None else default
+    # Line endings are linker whitespace. Compare their LF view without
+    # rewriting the pinned bytes passed to lld or recorded in the receipt.
+    text, default = text.replace('\r\n', '\n'), default.replace('\r\n', '\n')
     counts, rest, pieces = {}, text, []
     for name in SECTIONS:
         if default.count(rule(name)) != 1:
@@ -118,23 +121,42 @@ def configure(crate, rustc, receipt):
 def rustc_args(argv, env):
     """Command for the next wrapper; adds the linker hook only to the root cdylib compilation."""
     rustc, args = argv[1], list(argv[2:])
-    name = args[args.index('--crate-name') + 1] if '--crate-name' in args else None
-    kinds = [args[i + 1] for i, value in enumerate(args[:-1]) if value == '--crate-type']
+    options = args[:args.index('--')] if '--' in args else args
+    def values(flag):
+        result = []
+        for index, value in enumerate(options):
+            if value == flag:
+                if index + 1 == len(options):
+                    raise ValueError(flag + ' requires a value')
+                result.append(options[index + 1])
+            elif value.startswith(flag + '='):
+                result.append(value[len(flag) + 1:])
+        return result
+    names = values('--crate-name')
+    name = names[0] if names else None
+    kinds = [kind for value in values('--crate-type') for kind in value.split(',')]
     if name == env['PUMP_LINK_ROOT_CRATE'] and 'cdylib' in kinds:
-        if any(a.startswith(('linker=', '-Clinker=')) for a in args):
+        codegen = values('--codegen') + values('-C')
+        codegen += [value[2:] for value in options if value.startswith('-C') and len(value) > 2 and not value.startswith('-C=')]
+        if any(value.partition('=')[0] == 'linker' for value in codegen):
             raise ValueError('root crate already sets a linker')
-        args += ['-C', 'linker=' + str(H / 'pump_link_lld.sh')]
+        position = args.index('--') if '--' in args else len(args)
+        args[position:position] = ['-C', 'linker=' + str(H / 'pump_link_lld.sh')]
     return [sys.executable, env['PUMP_LINK_NEXT_WRAPPER'], rustc, *args]
 
 
 def rustc_main(argv, env):
     command = rustc_args(argv, env)
+    if os.name == 'nt':
+        # The Windows CRT execv joins argv without the quoting provided by
+        # subprocess and does not preserve the child's exit status here.
+        raise SystemExit(subprocess.run(command).returncode)
     os.execv(command[0], command)
 
 
 def lld_args(args, env, *, script_path=None, script_bytes=None, default_bytes=None):
     """Linker arguments with the default script replaced; raises unless exactly one default script."""
-    default = (DEFAULT.read_bytes() if default_bytes is None else default_bytes).decode('utf-8')
+    default = (DEFAULT.read_bytes() if default_bytes is None else default_bytes).decode('utf-8').replace('\r\n', '\n')
     raw = Path(env['PUMP_LINK_SCRIPT']).read_bytes() if script_bytes is None else script_bytes
     script = env['PUMP_LINK_SCRIPT'] if script_path is None else str(script_path)
     if hashlib.sha256(raw).hexdigest() != env['PUMP_LINK_SCRIPT_SHA256']:
@@ -145,12 +167,12 @@ def lld_args(args, env, *, script_path=None, script_bytes=None, default_bytes=No
         arg = args[i]
         if arg.startswith('@'):
             raise ValueError('response-file linker input unsupported: ' + arg)
-        if arg in ('-T', '--script'):
+        if arg in ('-T', '-script', '--script'):
             if Path(args[i + 1]).read_text() != default:
                 raise ValueError('unexpected target link script ' + args[i + 1])
             out += [arg, script]; seen += 1; i += 2
             continue
-        if arg.startswith('--script=') or (arg.startswith('-T') and arg != '-T'):
+        if arg.startswith(('--script=', '-script=')) or (arg.startswith('-T') and arg != '-T'):
             raise ValueError('unsupported script argument ' + arg)
         out.append(arg); i += 1
     if seen != 1:
@@ -173,5 +195,5 @@ def lld_main(argv, env):
         Path(env['PUMP_LINK_RECEIPT']).write_text(json.dumps({
             'script': env['PUMP_LINK_SCRIPT'], 'script_sha256': hashlib.sha256(raw).hexdigest(),
             'default_script_sha256': hashlib.sha256(default).hexdigest(), 'lld': lld, 'lld_sha256': sha(lld),
-            'forwarded': args}, indent=1) + '\n', encoding='utf-8')
+            'forwarded': args}, indent=1) + '\n', encoding='utf-8', newline='\n')
         return subprocess.run([lld, *args]).returncode

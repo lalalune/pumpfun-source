@@ -14,6 +14,24 @@ RELAY = "RLAYHr9TRFcKB2ubYQhspcnXiaGpaVzNQvHytt47RZu"
 ORIGINAL_SHA256 = "367f07a62e3f74d358187d175cf3228848e81a56c781a9a75b9df7fed1268563"
 COMPUTE_RE = re.compile(r"Program \S+ consumed \d+ of \d+ compute units")
 
+# The producer has no filtering mode: these ordered cohorts identify the two
+# complete cases whose classifications and transaction totals are verified below.
+PLANNED_STEPS = {
+    "stateful_lifecycle": (
+        "create", "resize_empty", "create_buffer", "write_buffer", "set_buffer",
+        "resize_nonempty_rejected", "set_authority", "old_authority_write_rejected",
+        "new_authority_write", "close", "repeated_close_rejected",
+    ),
+    "admission_matrix": (
+        "write_before_initialization", "resize_before_initialization", "incorrect_owner",
+        "short_account_header", "incorrect_discriminator", "insufficient_rent_buffer",
+        "unauthorized_signer", "readonly_idl", "write_capacity_error",
+        "noncanonical_valid_idl", "truncated_write_payload", "invalid_operation_tag",
+        "missing_create_accounts", "oversized_setup_create", "oversized_resize_capped",
+        "wrong_canonical_create",
+    ),
+}
+
 
 def sha(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
@@ -76,6 +94,17 @@ def validate(report: dict[str, Any], root: Path, candidate: Path) -> list[str]:
         problems.append("case_count")
     if any(not case.get("steps") for case in cases):
         problems.append("case_steps")
+    for case in cases:
+        planned = PLANNED_STEPS.get(case.get("name"))
+        # Preserve the established empty-case diagnostic; every nonempty case
+        # must also retain its complete ordered producer cohort.
+        if planned is None or not case.get("steps"):
+            continue
+        names = [step.get("name") for step in case["steps"]]
+        if names != list(planned):
+            problems.append("case_step_membership:" + case["name"])
+        if case["name"] == "stateful_lifecycle" and case.get("operation_order") != names:
+            problems.append("operation_order")
     if any(case.get("classification") != "equal_observed_behavior" or case.get("problems") for case in cases):
         problems.append("case_classification")
     if report.get("matching_cases") != len(cases) or report.get("different_cases"):

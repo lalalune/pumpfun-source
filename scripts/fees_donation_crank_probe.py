@@ -7,6 +7,7 @@ from fees_donation_create_differential import *
 import sys
 sys.path.insert(0,str(ROOT/'scripts'))
 from pump_amm_reusable_harness import pin_program
+from pump_differential_output import PumpReport
 from solders.compute_budget import set_compute_unit_limit
 from solders.clock import Clock
 RELAY=Pubkey.from_string('RLAYHr9TRFcKB2ubYQhspcnXiaGpaVzNQvHytt47RZu')
@@ -67,7 +68,7 @@ class CrankFixture:
   before=snapshot();r=self.vm.send_transaction(tx);failed=isinstance(r,FailedTransactionMetadata);meta=r.meta() if failed else r
   return {'case':c,'error':str(r.err()) if failed else None,'before':before,'after':snapshot(),'logs':meta.logs(),'inner':json.loads(meta.to_json())['inner_instructions'],'transaction_base64':base64.b64encode(bytes(tx)).decode()}
 def main():
- p=argparse.ArgumentParser();p.add_argument('--output',type=pathlib.Path,required=True);p.add_argument('--candidate',type=pathlib.Path);a=p.parse_args();f=CrankFixture(pin_program(ROOT/'evidence/original/pump_fees/deployed.so'))
+ p=argparse.ArgumentParser();p.add_argument('--output',type=pathlib.Path,required=True);p.add_argument('--candidate',type=pathlib.Path);a=p.parse_args();publisher=PumpReport(a.output,ROOT,a.candidate,__file__,extra_inputs=[ROOT/'evidence/dependencies/donation_relay/deployed.so',ROOT/'research/imported-lab/analysis/pump_fun/amm-v2-trade-fixture.json']);f=CrankFixture(pin_program(ROOT/'evidence/original/pump_fees/deployed.so'))
  cases=[{'name':'base'},{'name':'zero','amount':0},{'name':'one','amount':1},{'name':'large','amount':10**9},{'name':'no-whitelist','whitelist':False}]
  cases += [{'name':'flags-'+str(n),'flags':n} for n in range(256)]
  cases += [{'name':'wrong-'+a['name'],'wrong_account':a['name']} for a in IX['accounts'] if a['name']!='payer']
@@ -96,7 +97,7 @@ def main():
   rows.append({'case':c,'original':x,'candidate':y,'match':match})
   if match is False:failures.append(c['name'])
  report={'scope':'Signed synthetic offline crank fixtures; no full-program byte identity claim.','original_sha256':hashlib.sha256(pin_program(ROOT/'evidence/original/pump_fees/deployed.so').read_bytes()).hexdigest(),'candidate_sha256':hashlib.sha256(pin_program(a.candidate).read_bytes()).hexdigest() if a.candidate else None,'cases':rows,'mismatches':failures}
- a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8',newline='\n')
+ publisher.write((json.dumps(report,indent=2)+'\n').encode('utf-8'))
  print('Cases',len(rows),'mismatches',failures)
  if failures:raise SystemExit(1)
 if __name__=='__main__':main()

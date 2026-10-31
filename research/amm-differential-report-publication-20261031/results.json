@@ -1,0 +1,31 @@
+{
+  "issue": "Eight AMM differential runners read the captured pump_amm image, the captured dependency ELFs, the captured trade/migration fixtures and the AMM source tree, then truncated --output with write_text. Passing an input as --output destroyed captured evidence, or replaced the executing script with its own report.",
+  "base_revision": "52c0b087c7e345766b67b8fdeb8d4784079a955d",
+  "affected": "scripts/pump_amm_{boost_burn,cashback,create,creator_reassignment_cto,creator_reassignment,incentives,migration_create,transfer_creator}_differential.py at base; each writer is the last statement of its main block",
+  "finding": "Base run of the new test: 32 failing subtests in 5 tests. --output on the captured image overwrote it, and --output on the runner itself replaced the module with the report so the next import failed. The AMM family's already-admitted siblings (pump_amm_liquidity, pump_amm_admin, pump_amm_collect, ...) publish through scripts/pump_differential_output.py: PumpReport.",
+  "change": {
+    "publisher": "PumpReport(output, ROOT, candidate, pathlib.Path(__file__), extra_inputs=AMM_REPORT_INPUTS) built before any case executes, and before pin_program replaces the candidate path (migration_create, creator_reassignment_cto)",
+    "report_inputs": "AMM_REPORT_INPUTS in pump_amm_reusable_harness.py: the captured amm-v2-trade-fixture, curve-migrate-v2 and curve-fresh-trades-v3 fixtures plus the programs/pump-amm source tree; the captured images, dependency ELFs, candidate and executing script are protected by PumpReport itself",
+    "write": "publisher.write((json.dumps(report,separators=(',',':'))+'\\n').encode('utf-8')) -- complete bytes, staged then os.replace",
+    "failure": "ValueError: report output aliases an input: <path>, exit 1, before a case runs and before any output directory is created"
+  },
+  "runs": {
+    "case_payload_unchanged": "base and proposed runners were run with the same candidate and inputs; every report is identical after ignoring the script hashes that necessarily change (script_sha256 and hashed script paths). Case counts: create 246, migration_create 37, transfer_creator 267, creator_reassignment 327, cashback 146, boost_burn 506, creator_reassignment_cto 159, incentives sync (family sync), all with no mismatches",
+    "alias_refusals": "32 refusals exercised by the new test (captured image, candidate, captured fixture, executing script, for each of the eight runners); each exits non-zero with the alias message and leaves the target bytes unchanged",
+    "publication_control": "each runner publishes a fresh nested receipt: mismatch-free JSON, case_count > 0, and no staging file left beside it"
+  },
+  "tests": {
+    "new_test": "tests/test_amm_differential_report_publication.py",
+    "before": "32 failing subtests in 5 tests against the base scripts (71.8s)",
+    "after": "5 tests OK (25.5s)"
+  },
+  "required_checks": {
+    "scripts/test_tooling.py": "228 tests OK",
+    "scripts/verify_evidence.py": "9 captures verified",
+    "scripts/test_amm_harness_content_cache.py": "2 tests OK",
+    "tests.test_pump_amm_liquidity_report_publication + tests.test_pump_amm_admin_report_publication + tests.test_amm_pinned_candidate": "14 tests OK"
+  },
+  "environment": {"platform": "macOS arm64", "python": "3.14.3", "solders": "0.27.1"},
+  "unchanged": ["case corpora and comparison fields", "captured ELFs, dependency ELFs and captured fixtures", "report schema and compact separators", "UTF-8 LF receipt bytes", "the AMM harness's runtime behaviour (a module constant is added)"],
+  "not_claimed": "The controls prove admission and publication on synthetic local fixtures; they do not re-run the full AMM differential corpus from a clean checkout and make no byte-identity claim about the rebuilt program."
+}

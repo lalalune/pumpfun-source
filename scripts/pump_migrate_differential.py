@@ -6,6 +6,7 @@ from pathlib import Path
 import sys,json,gzip,argparse,hashlib
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'scripts'))
 import pump_migrate_probe as p
+from pump_differential_output import PumpReport
 cases=[{'boost':True},{},{'boost':True,'complete':0},{'boost':True,'enable_migrate':0}]
 def patch(name,offset,val):return {'boost':True,'mutations':{name:{'patches':[(offset,val.hex())]}}}
 for v in [0,1,10,2039280,15000001,10**9,2**64-1]:cases.append(patch('global',146,v.to_bytes(8,'little')))
@@ -43,12 +44,12 @@ for name in ['pool','lp_mint','pool_authority_mint_account','pool_authority_wsol
  for owner in [str(p.TOKEN),str(p.Pubkey.default())]:cases.append({'boost':True,'mutations':{name:{'owner':owner,'lamports':10000000}}})
 
 def main():
- parser=argparse.ArgumentParser();parser.add_argument('--candidate',type=Path);parser.add_argument('--output',type=Path,required=True);a=parser.parse_args();rows=[]
+ parser=argparse.ArgumentParser();parser.add_argument('--candidate',type=Path);parser.add_argument('--output',type=Path,required=True);a=parser.parse_args();rows=[];publisher=PumpReport(a.output,ROOT,a.candidate,__file__,extra_inputs=[ROOT/'research/imported-lab/analysis/pump_fun/curve-migrate-v2-signed-surfpool.json'])
  for c in cases:
   x=p.run(c);y=p.run(c,a.candidate) if a.candidate else None
   for r in [x,y]:
    if r is not None:r['events']=[l for l in r['logs'] if l.startswith('Program data:')]
   diff=[] if y is None else [k for k in ['error','before','after','events','inner','return'] if x[k]!=y[k]]
   rows.append({'case':c,'original':x,'candidate':y,'mismatched_fields':diff})
- sha=lambda f:hashlib.sha256(f.read_bytes()).hexdigest();result={'scope':'Legacy migrate only; ordinary owned-key signatures, synthetic completed curves and captured genuine AMM/Token/Token22/ATA CPIs. Partial reconstruction evidence, not binary identity.','case_count':len(rows),'candidate_sha256':sha(a.candidate) if a.candidate else None,'original_sha256':sha(ROOT/'evidence/original/pump/deployed.so'),'script_sha256':sha(Path(__file__)),'fixture_sha256':sha(Path(p.__file__)),'cases':rows,'mismatches':[i for i,r in enumerate(rows) if r['mismatched_fields']]};a.output.parent.mkdir(parents=True,exist_ok=True);raw=json.dumps(result,separators=(',',':')).encode();a.output.write_bytes(gzip.compress(raw,mtime=0) if a.output.suffix=='.gz' else raw);print(json.dumps({'case_count':len(rows),'mismatches':result['mismatches']}));assert not result['mismatches']
+ sha=lambda f:hashlib.sha256(f.read_bytes()).hexdigest();result={'scope':'Legacy migrate only; ordinary owned-key signatures, synthetic completed curves and captured genuine AMM/Token/Token22/ATA CPIs. Partial reconstruction evidence, not binary identity.','case_count':len(rows),'candidate_sha256':sha(a.candidate) if a.candidate else None,'original_sha256':sha(ROOT/'evidence/original/pump/deployed.so'),'script_sha256':sha(Path(__file__)),'fixture_sha256':sha(Path(p.__file__)),'cases':rows,'mismatches':[i for i,r in enumerate(rows) if r['mismatched_fields']]};raw=json.dumps(result,separators=(',',':')).encode();publisher.write(gzip.compress(raw,mtime=0) if a.output.suffix=='.gz' else raw);print(json.dumps({'case_count':len(rows),'mismatches':result['mismatches']}));assert not result['mismatches']
 if __name__=='__main__':main()

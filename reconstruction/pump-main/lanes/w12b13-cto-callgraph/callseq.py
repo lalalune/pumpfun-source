@@ -16,7 +16,7 @@ from pathlib import Path
 HERE = Path(__file__).resolve()
 HARNESS = HERE.parents[3] / 'harness'
 sys.path.insert(0, str(HARNESS))
-from score import sections, BASE  # noqa: E402
+from score import body, sections, BASE  # noqa: E402
 from original_input import resolve_original  # noqa: E402
 from elf_symbols import function_symbols  # noqa: E402
 from win import demangle  # noqa: E402
@@ -57,9 +57,9 @@ def syscall_relocs(blob):
 
 
 def body_at(blob, secs, addr, size):
-    t = secs['.text']
-    o = addr - t['addr'] + t['offset']
-    return blob[o:o + size]
+    if size <= 0 or size % 8 or (addr - secs['.text']['addr']) % 8:
+        raise ValueError(f'function range {addr:#x}+{size:#x} is not whole instructions')
+    return body(blob, secs, addr, size)
 
 
 def pump_errors():
@@ -78,7 +78,7 @@ def pump_errors():
         m = re.match(r'^([A-Z][A-Za-z0-9]*)\s*(=\s*(\d+))?\s*,', s)
         if m:
             if m.group(3):
-                idx = int(m.group(3)) - 6000
+                idx = int(m.group(3))
             out[6000 + idx] = m.group(1)
             idx += 1
     return out
@@ -195,6 +195,10 @@ def main():
     w, wsize = int(a.window, 0), int(a.size, 0)
     orig = resolve_original(BASE / 'original.so').read_bytes()
     osecs = sections(orig)
+    try:
+        window = body_at(orig, osecs, w, wsize)
+    except ValueError as error:
+        ap.error(str(error))
     cand = Path(a.cand).read_bytes()
     csecs = sections(cand)
     funcs = function_symbols(cand)
@@ -211,7 +215,7 @@ def main():
     if len(cs) != 1:
         sys.exit(f'--sym matched {len(cs)} candidate functions: {[(hex(s), n) for s, n, _ in cs]}')
     cstart, csize, cname = cs[0]
-    oseq = calls(body_at(orig, osecs, w, wsize), w, syscall_relocs(orig), onames, orig, osecs)
+    oseq = calls(window, w, syscall_relocs(orig), onames, orig, osecs)
     cseq = calls(body_at(cand, csecs, cstart, csize), cstart, syscall_relocs(cand), names, cand, csecs)
     import re as _re
 

@@ -23,7 +23,7 @@ import unittest
 SCRIPTS = Path(__file__).resolve().parent
 SCRIPT = "verify_imported_lab.py"
 # Sibling modules the script imports from scripts/ (atomic publication helpers).
-HELPERS = ["deep_disassembly.py", "window_elf_reader.py"]
+HELPERS = ["deep_disassembly.py", "window_elf_reader.py", "analyze.py"]
 VERIFIERS = [
     "pump_fun_verify_offline",
     "pump_fun_admin_surfpool_verify",

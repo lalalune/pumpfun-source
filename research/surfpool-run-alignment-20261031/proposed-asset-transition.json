@@ -1,0 +1,79 @@
+{
+  "scope": "Proposed maintained-script transition so every Surfpool differential refuses to compare prepared fixtures against runs of a different length; captures, cases and prior receipts remain unchanged.",
+  "base": "963d1eefbed3a81a51d2d52f80026c5434a7a423",
+  "files": {
+    "scripts/pump_buy_v2_surfpool.py": {
+      "before_sha256": "e0d4955d62b68e7d0de09fc6e8689ebdcaf6f4af472e2614a36592477a0f06c6",
+      "proposed_sha256": "e2463d5549f62b330a75a38fb1a77c57d7d92a78f21d4469fab6e0ed4f6387b7"
+    },
+    "scripts/pump_cashback_surfpool.py": {
+      "before_sha256": "abf5fb6c75e43b1c18f87612d44983fccd923ef9c029c569c09baa90e3b4456b",
+      "proposed_sha256": "819225cc0db9f600cb09d3c191b722cc6ab480fc6af51d10aba5c1d56db06cb5"
+    },
+    "scripts/pump_create_control_surfpool.py": {
+      "before_sha256": "f364ce82a74999d620129db4d8f22d033deb8142225d799d0f7fccfc9272fb78",
+      "proposed_sha256": "20a40ea27fe008f8c13e6ec6d54302fede3d3e9b46ce4061f08b0989e32ac489"
+    },
+    "scripts/pump_create_nested_surfpool.py": {
+      "before_sha256": "44f1671ed091fbae5fcec74e4e667bef322fab2e4d2db583f613c84900218ca3",
+      "proposed_sha256": "e70a7ce083e3f83fc0da83a84b64270b027d456287da434559413d2c950cdfc6"
+    },
+    "scripts/pump_create_quote_surfpool.py": {
+      "before_sha256": "43884e3cf3bc03ac83e7efd79dbf0fd87775501be572cb71ea8e01cd4949169d",
+      "proposed_sha256": "def56a6b1a8821b1584b390795d87547c85dd88d835e96ce41337b2764f5daed"
+    },
+    "scripts/pump_create_surfpool.py": {
+      "before_sha256": "869a282757097ea394ac98fe758fc9fc77026a89b52ed327e02151b1cbfdf3b4",
+      "proposed_sha256": "047ace1df4d991bb0745131b7a9ad7b36322ca1e10e0a7c1d5f045d8d62d991b"
+    },
+    "scripts/pump_create_v2_surfpool.py": {
+      "before_sha256": "da51ba6f3b528cba02a72992136a38b43af8835131fa75acb4bcef199f8a7829",
+      "proposed_sha256": "58b5885f49ae1fd30cf09d5bf95cdec19b44b51dc7330525a4869b383992b557"
+    },
+    "scripts/pump_exact_quote_surfpool.py": {
+      "before_sha256": "88d13b340c01e112346eaf42cc0bd8ece75e4659af3c293f82714d6f9aa58e5e",
+      "proposed_sha256": "edc704dbd8c2e3daba66de65de658cac1d1e9e58231e3d5894e7623b8ede188e"
+    },
+    "scripts/pump_global_init_surfpool.py": {
+      "before_sha256": "0321285a32b813aae03c66bd4057ba656ac9e1a564cadc4044ef2fe7b1511a84",
+      "proposed_sha256": "e65bfab1bef0848c1e387001e0f5ea34554471fd393365ad4cb74c73512f8eb9"
+    },
+    "scripts/pump_holder_distribution_surfpool.py": {
+      "before_sha256": "8f0706355cad1a788f84cb847ba03ff27af6d3e9c16d170f348645b1f34e8614",
+      "proposed_sha256": "43544f257a0bce01807c2d211fc87ac1f304801c2f8e0f6f2d79f59c42f7d1ae"
+    },
+    "scripts/pump_idl_authority_surfpool.py": {
+      "before_sha256": "110c0a80de966668c5551e5ae036c7f7611020de83a0fcb0b5eb0c5b70e6ad59",
+      "proposed_sha256": "7be96923861524bb4aded9b2a03a91c8bf43da7cc824c6ad83f7e2769571fcea"
+    },
+    "scripts/pump_legacy_buy_surfpool.py": {
+      "before_sha256": "fea6a598a7cc58b6a9164fb01b2ad2f62f7fe49df04b0462ab11826cc5b2d691",
+      "proposed_sha256": "83e614b68f62188b714d151aca2b3fd5f953aecf2345f724f4e25a19a17d0edc"
+    },
+    "scripts/pump_migrate_surfpool.py": {
+      "before_sha256": "8a335b95d05227fef20c1aa28f6a5afccaa78434786a1819b097205ae3e012cd",
+      "proposed_sha256": "5ceb5cb08fd95f5995ab636b51691da1cee40462a70db4cf1e718b8758b051a0"
+    },
+    "scripts/pump_migrate_v2_surfpool.py": {
+      "before_sha256": "c3060393e2cc3dcf60c067a1554c5ff41581357f4057de74005292caf0df3ca2",
+      "proposed_sha256": "8c4d7285c59e5ef4bfd3fd0d9799b5431d27413851b7b44c258cb50f3a7c8b99"
+    },
+    "scripts/pump_v3_configured_fee_surfpool.py": {
+      "before_sha256": "4601ef7d86ac0b9f9f9b657a337be81e69b21138f1c0e6876082a23471e04b41",
+      "proposed_sha256": "977cc07fa1ff8de0427e08ee6ee5ac2f5844570ad665d00b261f92e6645307d9"
+    },
+    "scripts/pump_v3_token_extensions_surfpool.py": {
+      "before_sha256": "52dde76d8daa2a98b43e7af861ea75fcb8f41454ccf82035ef3a209f73bdb3e7",
+      "proposed_sha256": "c8ef245bd19fb589f304d21ea5589c51efc2fcd2f40cbb03fc29248343c89c07"
+    },
+    "scripts/surfpool_recording_vm.py": {
+      "before_sha256": "59e40598f4af8332d1906282cd3df916f274f25de006186d72ad656fbf9d78fd",
+      "proposed_sha256": "d7ce3ea99a124d7d8c4f28949445db883f70cce5407f6bf66eac727302abf845"
+    }
+  },
+  "script_set_changed": false,
+  "program_source_changed": false,
+  "capture_bytes_changed": false,
+  "new_test": "tests/test_surfpool_run_alignment.py",
+  "existing_ci_discovery": "contract-tests: python -B -m unittest discover -s tests -v"
+}

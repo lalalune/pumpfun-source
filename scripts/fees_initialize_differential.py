@@ -2,6 +2,7 @@
 """Compare FeeProgramGlobal initialization, including System CPI and rollback."""
 import base64
 from fees_admin_differential import *
+from pump_differential_output import PumpReport
 PUMP=Pubkey.from_string('6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P')
 PUMP_GLOBAL=Pubkey.find_program_address([b'global'],PUMP)[0]
 CAPTURE=next(x for x in json.loads((ROOT/'research/imported-lab/analysis/pump_fun/config-snapshot.json').read_text())['accounts'] if x['program_name']=='pump')
@@ -35,7 +36,7 @@ class InitFixture(Fixture):
   balances=[self.vm.get_account(k).lamports for k in [AUTH.pubkey(),OTHER.pubkey(),PAYER.pubkey()]]
   return {'error':str(result.err()) if failed else None,'data_hex':after.data.hex() if after else None,'lamports':after.lamports if after else None,'owner':str(after.owner) if after else None,'balance_deltas':[a-b for a,b in zip(balances,before)],'pump_data':self.vm.get_account(pump_key).data.hex(),'events':[l for l in meta.logs() if l.startswith('Program data:')],'inner_instructions':json.loads(meta.to_json())['inner_instructions'],'logs':meta.logs()}
 def main():
- p=argparse.ArgumentParser();p.add_argument('--candidate',type=pathlib.Path);p.add_argument('--output',type=pathlib.Path,required=True);a=p.parse_args();o=InitFixture(ROOT/'evidence/original/pump_fees/deployed.so');b=InitFixture(a.candidate) if a.candidate else None
+ p=argparse.ArgumentParser();p.add_argument('--candidate',type=pathlib.Path);p.add_argument('--output',type=pathlib.Path,required=True);a=p.parse_args();publisher=PumpReport(a.output,ROOT,a.candidate,__file__);o=InitFixture(ROOT/'evidence/original/pump_fees/deployed.so');b=InitFixture(a.candidate) if a.candidate else None
  valid=bytes([44])*32+bytes([17])+(123).to_bytes(8,'little');cases=[]
  for social in [bytes(32),bytes([44])*32,bytes(OTHER.pubkey())]:
   for flags in [0,1,255]:
@@ -49,6 +50,6 @@ def main():
   rows.append({'case':c,'original':x,'candidate':y,'match':match})
   if match is False:failures.append(c['name'])
  report={'scope':'initialize_fee_program_global only. Local original/candidate SBF execution incl System CPI/state/errors/balances/events/inner instructions; not complete program identity.','original_sha256':o.program_sha256,'candidate_sha256':b.program_sha256 if b else None,'case_count':len(rows),'mismatches':failures,'cases':rows}
- a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(report,separators=(',',':'))+'\n',encoding='utf-8',newline='\n');print(json.dumps({'case_count':len(rows),'mismatches':failures}))
+ publisher.write((json.dumps(report,separators=(',',':'))+'\n').encode('utf-8'));print(json.dumps({'case_count':len(rows),'mismatches':failures}))
  if failures:raise SystemExit(1)
 if __name__=='__main__':main()

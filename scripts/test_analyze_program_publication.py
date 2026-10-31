@@ -6,6 +6,8 @@ import io
 import json
 import re
 import os
+import subprocess
+import sys
 from pathlib import Path
 import tempfile
 import unittest
@@ -54,6 +56,27 @@ class AnalyzeProgramPublicationTests(unittest.TestCase):
             self.assertEqual(len(rows), 20)
             for _, size, count in rows:
                 self.assertEqual(int(size.replace(',', '')) // 8, int(count.replace(',', '')))
+
+    def test_program_help_lists_every_analyzable_program(self):
+        # --program accepts any evidence/original/<name> that has deployed.so
+        # (analyze_program reads that path directly), so its help must name the
+        # same set. pump_fees is analyzed successfully elsewhere in this suite
+        # yet was missing from the enumerated help.
+        supported = {
+            path.parent.name
+            for path in (analyzer.REPO / 'evidence/original').glob('*/deployed.so')
+        }
+        self.assertIn('pump_fees', supported)
+        result = subprocess.run(
+            [sys.executable, str(analyzer.REPO / 'scripts/analyze_program.py'), '--help'],
+            capture_output=True, text=True,
+            env={**os.environ, 'COLUMNS': '200'},
+        )
+        self.assertEqual(result.returncode, 0)
+        match = re.search(r'Program name: ([^\n]*)', result.stdout)
+        self.assertIsNotNone(match, result.stdout)
+        listed = {token.strip() for token in match.group(1).split(',') if token.strip()}
+        self.assertEqual(listed, supported)
 
     def test_unexpected_existing_entry_is_rejected_before_publication(self):
         with tempfile.TemporaryDirectory() as temporary:

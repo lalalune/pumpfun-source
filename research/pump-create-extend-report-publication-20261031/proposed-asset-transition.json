@@ -1,0 +1,27 @@
+{
+  "scope": "Proposed maintained-script asset transition for Pump create/extend differential report publication; captures, suites and prior receipts remain unchanged.",
+  "base": "52c0b087c7e345766b67b8fdeb8d4784079a955d",
+  "files": {
+    "scripts/pump_create_quote_differential.py": {
+      "before_sha256": "b6e223eaeef84020a57a0c88abd9d3640d11626c580f4bcb83b5fdc3fd0be631",
+      "proposed_sha256": "4f2e18b8c7102bb59a7c8002cc89964861fbd2dd982753b2de1288536f2418c7"
+    },
+    "scripts/pump_create_v2_differential.py": {
+      "before_sha256": "912be81d4234173bd1fb9dc42502ad7d466d3a42f7a8652fae957d1a7d6851db",
+      "proposed_sha256": "cdae99767d053c2de96428ded4f3450568746eaa75cad43f15903335b04d97ce"
+    },
+    "scripts/pump_create_mayhem_differential.py": {
+      "before_sha256": "8309983e2897baf0650f83496cb933eee1e907bcb659a21fe1eae776175d0505",
+      "proposed_sha256": "7f92ef8b86fbdfaa265c63307216b6859a1d712b1c7657e0e2a79f296a0c44f7"
+    },
+    "scripts/pump_extend_differential.py": {
+      "before_sha256": "ec9276743c0c024aeac0481e8962ec25a3163bcbea86f1d5edd2a6af3301356d",
+      "proposed_sha256": "53d296ae0974243ef5a7330d7bf070af02b8215462300da96a883888aa3e439e"
+    }
+  },
+  "script_set_changed": false,
+  "program_source_changed": false,
+  "capture_bytes_changed": false,
+  "new_test": "tests/test_pump_create_extend_report_publication.py",
+  "existing_ci_discovery": "contract-tests: python -B -m unittest discover -s tests -v"
+}

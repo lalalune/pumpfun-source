@@ -1,0 +1,247 @@
+{
+  "candidate_sha256": "810df19bdae4af7540a844f8873bf09196cb5e42a867b77e3e007f3f1363dd92",
+  "errors": [],
+  "expectation": "before",
+  "limits": "The upstream producer supplies the real VM executions. This probe adds no transactions, program behavior coverage, binary identity or source reconstruction gain.",
+  "negative_copies": {
+    "declared_order_contradiction": {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python",
+        "-B",
+        "/Users/runner/work/pumpfun-source/pumpfun-source/reconstruction/verification/donation-relay-idl-lifecycle/verify_report.py",
+        "--root",
+        "/Users/runner/work/pumpfun-source/pumpfun-source",
+        "--candidate",
+        "/Users/runner/work/pumpfun-source/pumpfun-source/work/relay-plan-build/donation_relay_candidate.so",
+        "--report",
+        "/Users/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/negative-probes/declared_order_contradiction.json"
+      ],
+      "report_sha256": "570c237002d64acbeec4401607b67da4259633654ebc0480043b6a32e995da1f",
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "{\n  \"problems\": [],\n  \"report_sha256\": \"570c237002d64acbeec4401607b67da4259633654ebc0480043b6a32e995da1f\"\n}\n",
+      "verdict": {
+        "problems": [],
+        "report_sha256": "570c237002d64acbeec4401607b67da4259633654ebc0480043b6a32e995da1f"
+      }
+    },
+    "drop_admission": {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python",
+        "-B",
+        "/Users/runner/work/pumpfun-source/pumpfun-source/reconstruction/verification/donation-relay-idl-lifecycle/verify_report.py",
+        "--root",
+        "/Users/runner/work/pumpfun-source/pumpfun-source",
+        "--candidate",
+        "/Users/runner/work/pumpfun-source/pumpfun-source/work/relay-plan-build/donation_relay_candidate.so",
+        "--report",
+        "/Users/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/negative-probes/drop_admission.json"
+      ],
+      "report_sha256": "4b606d2982190256e83dd6a911ce1d895e3b601ff27ff7907658800732edbf06",
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "{\n  \"problems\": [],\n  \"report_sha256\": \"4b606d2982190256e83dd6a911ce1d895e3b601ff27ff7907658800732edbf06\"\n}\n",
+      "verdict": {
+        "problems": [],
+        "report_sha256": "4b606d2982190256e83dd6a911ce1d895e3b601ff27ff7907658800732edbf06"
+      }
+    },
+    "drop_lifecycle": {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python",
+        "-B",
+        "/Users/runner/work/pumpfun-source/pumpfun-source/reconstruction/verification/donation-relay-idl-lifecycle/verify_report.py",
+        "--root",
+        "/Users/runner/work/pumpfun-source/pumpfun-source",
+        "--candidate",
+        "/Users/runner/work/pumpfun-source/pumpfun-source/work/relay-plan-build/donation_relay_candidate.so",
+        "--report",
+        "/Users/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/negative-probes/drop_lifecycle.json"
+      ],
+      "report_sha256": "d79db84e8cd9fe3901858d0fd68fa64dc8ccb7060129a9ee613d2e0d5d9998db",
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "{\n  \"problems\": [],\n  \"report_sha256\": \"d79db84e8cd9fe3901858d0fd68fa64dc8ccb7060129a9ee613d2e0d5d9998db\"\n}\n",
+      "verdict": {
+        "problems": [],
+        "report_sha256": "d79db84e8cd9fe3901858d0fd68fa64dc8ccb7060129a9ee613d2e0d5d9998db"
+      }
+    },
+    "duplicate_label_admission": {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python",
+        "-B",
+        "/Users/runner/work/pumpfun-source/pumpfun-source/reconstruction/verification/donation-relay-idl-lifecycle/verify_report.py",
+        "--root",
+        "/Users/runner/work/pumpfun-source/pumpfun-source",
+        "--candidate",
+        "/Users/runner/work/pumpfun-source/pumpfun-source/work/relay-plan-build/donation_relay_candidate.so",
+        "--report",
+        "/Users/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/negative-probes/duplicate_label_admission.json"
+      ],
+      "report_sha256": "709ed9b6bf4dce02344a4f5a57112a13abaf69cb95410d06c843c603bfce5751",
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "{\n  \"problems\": [],\n  \"report_sha256\": \"709ed9b6bf4dce02344a4f5a57112a13abaf69cb95410d06c843c603bfce5751\"\n}\n",
+      "verdict": {
+        "problems": [],
+        "report_sha256": "709ed9b6bf4dce02344a4f5a57112a13abaf69cb95410d06c843c603bfce5751"
+      }
+    },
+    "duplicate_label_lifecycle": {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python",
+        "-B",
+        "/Users/runner/work/pumpfun-source/pumpfun-source/reconstruction/verification/donation-relay-idl-lifecycle/verify_report.py",
+        "--root",
+        "/Users/runner/work/pumpfun-source/pumpfun-source",
+        "--candidate",
+        "/Users/runner/work/pumpfun-source/pumpfun-source/work/relay-plan-build/donation_relay_candidate.so",
+        "--report",
+        "/Users/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/negative-probes/duplicate_label_lifecycle.json"
+      ],
+      "report_sha256": "b9bdc510900afdf9d9dc6af9af6eba5e090a943cd52fc08569baa0c83b9e7f3f",
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "{\n  \"problems\": [],\n  \"report_sha256\": \"b9bdc510900afdf9d9dc6af9af6eba5e090a943cd52fc08569baa0c83b9e7f3f\"\n}\n",
+      "verdict": {
+        "problems": [],
+        "report_sha256": "b9bdc510900afdf9d9dc6af9af6eba5e090a943cd52fc08569baa0c83b9e7f3f"
+      }
+    },
+    "duplicate_real_signature_existing_guard": {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python",
+        "-B",
+        "/Users/runner/work/pumpfun-source/pumpfun-source/reconstruction/verification/donation-relay-idl-lifecycle/verify_report.py",
+        "--root",
+        "/Users/runner/work/pumpfun-source/pumpfun-source",
+        "--candidate",
+        "/Users/runner/work/pumpfun-source/pumpfun-source/work/relay-plan-build/donation_relay_candidate.so",
+        "--report",
+        "/Users/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/negative-probes/duplicate_real_signature_existing_guard.json"
+      ],
+      "report_sha256": "683c00bf9aa8058fee270369b23f453d88712649544f86c289087203086941e1",
+      "returncode": 1,
+      "stderr": "",
+      "stdout": "{\n  \"problems\": [\n    \"transaction_uniqueness\"\n  ],\n  \"report_sha256\": \"683c00bf9aa8058fee270369b23f453d88712649544f86c289087203086941e1\"\n}\n",
+      "verdict": {
+        "problems": [
+          "transaction_uniqueness"
+        ],
+        "report_sha256": "683c00bf9aa8058fee270369b23f453d88712649544f86c289087203086941e1"
+      }
+    },
+    "empty_case_existing_guard": {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python",
+        "-B",
+        "/Users/runner/work/pumpfun-source/pumpfun-source/reconstruction/verification/donation-relay-idl-lifecycle/verify_report.py",
+        "--root",
+        "/Users/runner/work/pumpfun-source/pumpfun-source",
+        "--candidate",
+        "/Users/runner/work/pumpfun-source/pumpfun-source/work/relay-plan-build/donation_relay_candidate.so",
+        "--report",
+        "/Users/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/negative-probes/empty_case_existing_guard.json"
+      ],
+      "report_sha256": "d92b4c537dfe9c6ec039012c463df09bf3f11e39a1d8e0f323857054a5f25c7d",
+      "returncode": 1,
+      "stderr": "",
+      "stdout": "{\n  \"problems\": [\n    \"case_steps\"\n  ],\n  \"report_sha256\": \"d92b4c537dfe9c6ec039012c463df09bf3f11e39a1d8e0f323857054a5f25c7d\"\n}\n",
+      "verdict": {
+        "problems": [
+          "case_steps"
+        ],
+        "report_sha256": "d92b4c537dfe9c6ec039012c463df09bf3f11e39a1d8e0f323857054a5f25c7d"
+      }
+    },
+    "reorder_admission": {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python",
+        "-B",
+        "/Users/runner/work/pumpfun-source/pumpfun-source/reconstruction/verification/donation-relay-idl-lifecycle/verify_report.py",
+        "--root",
+        "/Users/runner/work/pumpfun-source/pumpfun-source",
+        "--candidate",
+        "/Users/runner/work/pumpfun-source/pumpfun-source/work/relay-plan-build/donation_relay_candidate.so",
+        "--report",
+        "/Users/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/negative-probes/reorder_admission.json"
+      ],
+      "report_sha256": "b2222bf27b1423d2c82ab79a82dbbefa960ea483bfc1197b8ff47dd1f4e6708e",
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "{\n  \"problems\": [],\n  \"report_sha256\": \"b2222bf27b1423d2c82ab79a82dbbefa960ea483bfc1197b8ff47dd1f4e6708e\"\n}\n",
+      "verdict": {
+        "problems": [],
+        "report_sha256": "b2222bf27b1423d2c82ab79a82dbbefa960ea483bfc1197b8ff47dd1f4e6708e"
+      }
+    },
+    "reorder_lifecycle": {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python",
+        "-B",
+        "/Users/runner/work/pumpfun-source/pumpfun-source/reconstruction/verification/donation-relay-idl-lifecycle/verify_report.py",
+        "--root",
+        "/Users/runner/work/pumpfun-source/pumpfun-source",
+        "--candidate",
+        "/Users/runner/work/pumpfun-source/pumpfun-source/work/relay-plan-build/donation_relay_candidate.so",
+        "--report",
+        "/Users/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/negative-probes/reorder_lifecycle.json"
+      ],
+      "report_sha256": "6ead8c46510e8c338a29370aa19f768b59b5be6af7993fd97c72f258b8b7ea40",
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "{\n  \"problems\": [],\n  \"report_sha256\": \"6ead8c46510e8c338a29370aa19f768b59b5be6af7993fd97c72f258b8b7ea40\"\n}\n",
+      "verdict": {
+        "problems": [],
+        "report_sha256": "6ead8c46510e8c338a29370aa19f768b59b5be6af7993fd97c72f258b8b7ea40"
+      }
+    },
+    "two_step_truncation": {
+      "command": [
+        "/Library/Frameworks/Python.framework/Versions/3.12/bin/python",
+        "-B",
+        "/Users/runner/work/pumpfun-source/pumpfun-source/reconstruction/verification/donation-relay-idl-lifecycle/verify_report.py",
+        "--root",
+        "/Users/runner/work/pumpfun-source/pumpfun-source",
+        "--candidate",
+        "/Users/runner/work/pumpfun-source/pumpfun-source/work/relay-plan-build/donation_relay_candidate.so",
+        "--report",
+        "/Users/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/negative-probes/two_step_truncation.json"
+      ],
+      "report_sha256": "18bb0272e16b60e62f90a5a452c53af45e6f618b8d72339664849f826b22c25b",
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "{\n  \"problems\": [],\n  \"report_sha256\": \"18bb0272e16b60e62f90a5a452c53af45e6f618b8d72339664849f826b22c25b\"\n}\n",
+      "verdict": {
+        "problems": [],
+        "report_sha256": "18bb0272e16b60e62f90a5a452c53af45e6f618b8d72339664849f826b22c25b"
+      }
+    }
+  },
+  "positive": {
+    "command": [
+      "/Library/Frameworks/Python.framework/Versions/3.12/bin/python",
+      "-B",
+      "/Users/runner/work/pumpfun-source/pumpfun-source/reconstruction/verification/donation-relay-idl-lifecycle/verify_report.py",
+      "--root",
+      "/Users/runner/work/pumpfun-source/pumpfun-source",
+      "--candidate",
+      "/Users/runner/work/pumpfun-source/pumpfun-source/work/relay-plan-build/donation_relay_candidate.so",
+      "--report",
+      "/Users/runner/work/pumpfun-source/pumpfun-source/work/scoped-proof/report-one.json"
+    ],
+    "report_sha256": "c206b13d8b8a11170c427672882f2683fb44527920cdff907d15314cafe6233b",
+    "returncode": 0,
+    "stderr": "",
+    "stdout": "{\n  \"problems\": [],\n  \"report_sha256\": \"c206b13d8b8a11170c427672882f2683fb44527920cdff907d15314cafe6233b\"\n}\n",
+    "verdict": {
+      "problems": [],
+      "report_sha256": "c206b13d8b8a11170c427672882f2683fb44527920cdff907d15314cafe6233b"
+    }
+  },
+  "positive_report_sha256": "c206b13d8b8a11170c427672882f2683fb44527920cdff907d15314cafe6233b",
+  "scope": "Actual verifier CLI over a real freshly built candidate and genuine 27-step signed producer control; labelled negative copies only",
+  "verifier_sha256": "4baf2b53c46f5907e443158296131cad479f65c02e4ef80a1b983ff64d79ebf0",
+  "vm_executions_in_this_probe": 0
+}

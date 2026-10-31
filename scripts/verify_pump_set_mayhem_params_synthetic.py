@@ -82,6 +82,8 @@ def main():
     assert "InstructionErrorCustom(2002)" in boundary["error"]
     assert boundary["outer_sol_vault_signer"] is False
     assert boundary["watched_accounts_unchanged"]
+    # all() over an empty map is true; provenance must name the inputs it binds.
+    assert isinstance(build.get("input_sha256"), dict) and build["input_sha256"]
     assert all(sha((ROOT / name).read_bytes()) == expected
                for name, expected in build["input_sha256"].items())
     assert source_manifest(ROOT / "programs/pump", ROOT / "programs/pump", ROOT, cwd=ROOT) == build["program_source_sha256"]

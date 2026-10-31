@@ -136,7 +136,9 @@ def publish_directory(staged, destination):
 # Every locked package resolved. Build the complete cache beside the requested
 # path, then publish it with one rename; a failed copy must not poison a rerun.
 args.output.parent.mkdir(parents=True, exist_ok=True)
-wrapper = Path(tempfile.mkdtemp(prefix='.' + args.output.name + '.', dir=args.output.parent))
+# A valid output basename can sit at the filesystem's component limit; only
+# the published name has to fit there, so keep the staging prefix short.
+wrapper = Path(tempfile.mkdtemp(prefix='.' + args.output.name[:32] + '.', dir=args.output.parent))
 staging = wrapper / 'cache'
 try:
     staging.mkdir()  # The published directory retains ordinary umask permissions.

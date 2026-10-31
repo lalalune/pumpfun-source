@@ -3,7 +3,9 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
+import os
 from attempt_applicability import FIELDS, classify, inspect
+from test_support import directory_link
 
 
 class ApplicabilityTests(unittest.TestCase):
@@ -29,10 +31,26 @@ class ApplicabilityTests(unittest.TestCase):
         (self.root/'result.json').write_text('changed')
         self.assertEqual(classify(self.row, self.context, self.root)['applicability'], 'unverifiable')
 
-    def test_escaping_and_symlink_paths_are_rejected(self):
-        for name in ['../outside', '/absolute', 'link']:
-            if name == 'link': (self.root/'link').symlink_to(self.root/'result.json')
+    def test_escaping_paths_are_rejected(self):
+        for name in ['../outside', '/absolute']:
             self.row['data']['evidence'][0]['path'] = name
+            self.assertEqual(classify(self.row, self.context, self.root)['applicability'], 'unverifiable')
+
+    def test_file_symlink_path_is_rejected(self):
+        try:
+            (self.root/'link').symlink_to(self.root/'result.json')
+        except OSError as error:
+            if os.name == 'nt' and error.winerror == 1314:
+                self.skipTest('Windows file-symlink privilege unavailable')
+            raise
+        self.row['data']['evidence'][0]['path'] = 'link'
+        self.assertEqual(classify(self.row, self.context, self.root)['applicability'], 'unverifiable')
+
+    def test_directory_link_path_is_rejected(self):
+        outside = self.root/'outside'; outside.mkdir()
+        (outside/'result.json').write_bytes(b'{}')
+        with directory_link(outside, self.root/'linked'):
+            self.row['data']['evidence'][0]['path'] = 'linked/result.json'
             self.assertEqual(classify(self.row, self.context, self.root)['applicability'], 'unverifiable')
 
     def test_named_scopes_are_valid_and_selected_exactly(self):

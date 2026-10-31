@@ -6,7 +6,8 @@ import sys
 sys.path.insert(0,'scripts')
 from pump_amm_liquidity_differential import *
 from solders.litesvm import LiteSVM
-from pump_amm_reusable_harness import pin_program
+from pump_amm_reusable_harness import AMM_REPORT_INPUTS, pin_program
+from pump_differential_output import PumpReport
 PUMP=Pubkey.from_string(json.load(open('evidence/upstream/pump.json', encoding='utf-8'))['address']);ATA=Pubkey.from_string('ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL')
 p=json.load(open('research/imported-lab/analysis/pump_fun/curve-migrate-v2-signed-surfpool.json',encoding='utf-8'))
 def run_migration(candidate=None,label='missing_boost',overrides=None):
@@ -29,7 +30,7 @@ def run_migration(candidate=None,label='missing_boost',overrides=None):
  return {'states':states,'error':str(r.err()) if failed else None,'logs':meta.logs(),'inner':json.loads(meta.to_json())['inner_instructions']}
 
 def main():
- parser=argparse.ArgumentParser();parser.add_argument('--candidate',type=pathlib.Path,required=True);parser.add_argument('--output',type=pathlib.Path,required=True);args=parser.parse_args();args.candidate=pin_program(args.candidate);rows=[]
+ parser=argparse.ArgumentParser();parser.add_argument('--candidate',type=pathlib.Path,required=True);parser.add_argument('--output',type=pathlib.Path,required=True);args=parser.parse_args();publisher=PumpReport(args.output,ROOT,args.candidate,pathlib.Path(__file__),extra_inputs=AMM_REPORT_INPUTS);args.candidate=pin_program(args.candidate);rows=[]
  def test(label,curve=None,config=None):
   def mutation(vm,k):
    for key,changes in [(k['bonding_curve'],curve or []),(k['amm_global_config'],config or [])]:
@@ -47,6 +48,6 @@ def main():
   for value in values:test('canonical-config='+str((off,value)),curve=[(81,1,1),(82,1,1),(115,100,8),(123,1,1)],config=[(off,value,size)])
  sha=lambda p:hashlib.sha256(pathlib.Path(p).read_bytes()).hexdigest()
  report={'scope':'Original signed saved Pump migrate_v2 transactions through genuine Pump PDA signer. Historical blockhash freshness disabled; signature verification retained. Synthetic before-account mutations documented per case. Missing-boost cases roll back after successful create_pool; mayhem cases commit and bypass boost. No source or whole-program equality claim.','candidate_sha256':sha(args.candidate),'original_sha256':sha(pin_program(ROOT/'evidence/original/pump_amm/deployed.so')),'script_sha256':sha(__file__),'case_count':len(rows),'mismatches':[i for i,r in enumerate(rows) if not r['match']],'cases':rows}
- args.output.parent.mkdir(parents=True,exist_ok=True);args.output.write_text(json.dumps(report,separators=(',',':'))+'\n',encoding='utf-8',newline='\n');print(json.dumps({'case_count':len(rows),'mismatch_count':len(report['mismatches']),'mismatches':report['mismatches']}))
+ publisher.write((json.dumps(report,separators=(',',':'))+'\n').encode('utf-8'));print(json.dumps({'case_count':len(rows),'mismatch_count':len(report['mismatches']),'mismatches':report['mismatches']}))
  if report['mismatches']:raise SystemExit(1)
 if __name__=='__main__':main()

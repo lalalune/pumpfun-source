@@ -300,6 +300,12 @@ def execute(planned, env, *, runner=subprocess.run):
                       source_unchanged=copied == current == planned['source_sha256'])
         if result.returncode != 0:
             record['wrapper_exit_status'] = exit_code(result.returncode); record['stage'] += '_failed'; return record['wrapper_exit_status']
+        # The backend can report this definite error and still return zero.
+        record['stack_warnings'] = [line.strip() for line in (output/'build.log').read_text(errors='replace').splitlines()
+                                    if 'exceeded max offset' in line]
+        record['stack_diagnostic_gate_passed'] = not record['stack_warnings']
+        if record['stack_warnings']:
+            record['wrapper_exit_status'] = 1; record['stage'] += '_failed'; return 1
         if not record['source_unchanged']: raise ValueError('source/lock changed during compilation')
         record['compiler_output'] = artifact_record(planned['compiled_binary'])
         shutil.copyfile(planned['compiled_binary'], output/'unstripped.so')

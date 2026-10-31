@@ -70,6 +70,8 @@ def main():
     w = next(x for x in original_windows() if x['start'] == st)
     c = Cand(a.cand)
     picks = [(s, n, nm) for s, n, nm in c.funcs if re.search(a.sym, demangle(nm))]
+    if not picks:
+        raise SystemExit(f'no candidate function matches --sym {a.sym!r}')
     ob = blocks(w['raw'], st, ORIG_SECS)
     for s, n, nm in picks:
         cb = blocks(c.fn(s, n), s, c.secs)

@@ -27,12 +27,14 @@ with obj.open('rb') as f:
   for x in s.iter_relocations(): relocs.append({'offset':x['r_offset'],'type':x['r_info_type'],'symbol':symbols.get_symbol(x['r_info_sym']).name})
 original=(ROOT/'evidence/original/pump_fees/deployed.so').read_bytes();start=0xab158;end=0xab2d0;reference=original[start:end]
 diffs=[i for i,(x,y) in enumerate(zip(reference,compiled)) if x!=y]
+# zip stops at the shorter body: a length difference is still a difference.
+first=diffs[0] if diffs else None if len(reference)==len(compiled) else min(len(reference),len(compiled))
 relocation_fields=set()
 for r in relocs:
  offset=r['offset']
  if r['type']==1: relocation_fields.update(range(offset+4,offset+8));relocation_fields.update(range(offset+12,offset+16))
  elif r['type']==10: relocation_fields.update(range(offset+4,offset+8))
-report={'source_sha256':source_before,'rustc_sha256':rustc_before,'rustc_version':subprocess.check_output([str(rustc),'--version','--verbose'],text=True),'command':command,'object_sha256':sha(obj.read_bytes()),'original_binary_sha256':sha(original),'original_function_start':start,'original_function_end':end,'original_function_bytes':len(reference),'compiled_function_bytes':len(compiled),'compiled_function_sha256':sha(compiled),'original_function_sha256':sha(reference),'first_difference':diffs[0] if diffs else None,'different_byte_offsets':diffs,'relocations':relocs,'instruction_match_except_unresolved_relocations':len(reference)==len(compiled) and not(set(diffs)-relocation_fields),'whole_program_byte_equality':False,'scope':'One unlinked function only. Relocations remain unresolved and object bytes are never patched.'}
+report={'source_sha256':source_before,'rustc_sha256':rustc_before,'rustc_version':subprocess.check_output([str(rustc),'--version','--verbose'],text=True),'command':command,'object_sha256':sha(obj.read_bytes()),'original_binary_sha256':sha(original),'original_function_start':start,'original_function_end':end,'original_function_bytes':len(reference),'compiled_function_bytes':len(compiled),'compiled_function_sha256':sha(compiled),'original_function_sha256':sha(reference),'first_difference':first,'different_byte_offsets':diffs,'relocations':relocs,'instruction_match_except_unresolved_relocations':len(reference)==len(compiled) and not(set(diffs)-relocation_fields),'whole_program_byte_equality':False,'scope':'One unlinked function only. Relocations remain unresolved and object bytes are never patched.'}
 # Replace local absolute locations in portable evidence; build command remains reproducible via arguments.
 locations={str(rustc):'<toolchain>/rust/bin/rustc',str(source):'<repo>/'+source.relative_to(ROOT).as_posix(),str(obj):'<output>/'+obj.name}
 report['command']=[locations.get(x,x) for x in command]

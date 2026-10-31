@@ -50,11 +50,19 @@ def locked_append(entry):
         fcntl.flock(lock, fcntl.LOCK_EX)
         with LOG.open('a') as log:
             log.write(json.dumps(entry, sort_keys=True) + '\n')
-        r = sell_score.rank(entry)
+        # Historical distances remain loggable, but cannot update the current scale's best.
+        current = (entry.get('metrics') or {}).get('score_version') == sell_score.SCORE_VERSION
+        r = sell_score.rank(entry) if current else None
         if r is not None:
             best = json.loads(BEST.read_text()) if BEST.exists() else None
             if best is None or r < tuple(best['rank']):
-                BEST.write_text(json.dumps({'rank': list(r), 'entry': entry}, indent=1, sort_keys=True) + '\n')
+                # A torn BEST would stop every later attempt at the read above.
+                temporary = BEST.with_name('.' + BEST.name + '.tmp')
+                try:
+                    temporary.write_text(json.dumps({'rank': list(r), 'entry': entry}, indent=1, sort_keys=True) + '\n')
+                    os.replace(temporary, BEST)
+                finally:
+                    temporary.unlink(missing_ok=True)
         fcntl.flock(lock, fcntl.LOCK_UN)
 
 
@@ -113,7 +121,7 @@ def main():
              'inputs': key_doc, 'out_dir': str(out), 'build_seconds': record.get('seconds')}
     if record['returncode'] != 0:
         log = (out / 'build.log').read_text(errors='replace').splitlines()
-        errors = [line for line in log if line.startswith('error')][:12]
+        errors = (record['stack_warnings'] + [line for line in log if line.startswith('error')])[:12]
         entry.update({'status': 'build_failed', 'errors': errors})
         code = 2
     else:

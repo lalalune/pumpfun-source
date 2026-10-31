@@ -75,6 +75,26 @@ class ParallelReportPublicationTests(unittest.TestCase):
                 mock.patch.object(sys, 'argv', argv):
             return validator.main()
 
+    def test_out_of_range_shard_is_rejected_cleanly(self):
+        # --shards and --workers are bounded by argparse choices, but --shard
+        # only had a bare `assert`, which yields an empty-message traceback
+        # (and is stripped under -O). It must fail as a normal usage error.
+        output = self.root / 'reports/report.json'
+        for shard, shards in (('0', '1'), ('3', '2'), ('5', '4')):
+            with self.subTest(shard=shard, shards=shards):
+                argv = [
+                    'pump_validate_parallel.py',
+                    '--candidate', str(self.candidate),
+                    '--source-directory', str(self.source),
+                    '--build-comparison', str(self.build_comparison),
+                    '--output', str(output),
+                    '--shard', shard, '--shards', shards,
+                ]
+                with mock.patch.object(sys, 'argv', argv):
+                    with self.assertRaises(SystemExit) as raised:
+                        validator.main()
+                self.assertEqual(raised.exception.code, 2)
+
     def test_json_output_is_plain_json(self):
         output = self.root / 'reports/report.json'
         self.assertFalse(self.run_validator(output))

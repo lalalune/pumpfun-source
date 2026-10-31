@@ -11,10 +11,16 @@ Base: main 7d7d9e5 (#2927, 0.51228 / 3,334 slots). Ledger keys `0x22a10-w13-<bas
 | tool | use |
 | --- | --- |
 | `regcon.py <so>... [--frame] [--regs] [--jumps]` | w13a13's region split of target_metric's difflib ratio (R1/R2/R3 matched tokens) |
-| `annot.py orig\|<so>` | execute listing with relative offsets and call targets named from the candidate symbol table |
+| `annot.py orig --symbols <so>` / `annot.py <so>` | execute listing with relative offsets and call targets named from an explicit candidate symbol table |
 | `rdiff.py o.rel c.rel olo ohi [clo chi] [--frame] [--regs]` | masked range diff (labels stripped so jump offsets mask on both sides) |
 | `framemap.py o.rel c.rel [lo hi]` | aligned pairs that differ only by frame offset: (orig slot -> our slot) tally per region |
 | `r3run.py <genes.py> <set>...` | gene-set builds through measure.sh (2 at a time) with regcon split; `ledger_sync.py` records them |
+
+`annot.py orig` cannot infer call names from the stripped captured window. Pass a
+current unstripped candidate with `--symbols`, or set
+`PUMP_ADMIN_CTO_SYMBOL_SO`. Candidate mode uses its own ELF by default. This
+keeps the retained workflow reproducible without a maintainer-specific cache
+path.
 
 ## Region-3 residual map (main 7d7d9e5)
 

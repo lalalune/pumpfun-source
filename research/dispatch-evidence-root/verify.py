@@ -48,6 +48,10 @@ require(direct_scripts(landed) == direct_scripts(parent), 'landed transition cha
 changed = [p for p in git('diff', '--name-only', parent, landed, '--', 'scripts').decode('utf-8').splitlines()
            if p.count('/') == 1 and p.endswith('.py')]
 require(changed == [asset['path']], f'landed transition changed other direct scripts: {changed}')
+# The record is packet data, not a pin: the retained capture set it names is
+# itself checked here, so a record that drops a capture cannot narrow the audit.
+CAPTURES = ('evidence/original/pump_amm/deployed.so', 'evidence/original/pump_fees/deployed.so')
+require(sorted(record['unchangedCaptures']) == list(CAPTURES), 'retained capture set drift')
 for path, expected in record['unchangedCaptures'].items():
     require(sha(git('show', f'{base}:{path}')) == expected, f'base capture drift: {path}')
     require(sha(git('show', f'{parent}:{path}')) == expected, f'landed parent capture drift: {path}')

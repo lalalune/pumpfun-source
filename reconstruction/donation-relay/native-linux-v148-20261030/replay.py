@@ -67,7 +67,7 @@ def tar_members(path):
 def check_source(source, modes=True):
     source = Path(source)
     rows = load('source-inputs.json')['files']
-    require({p.relative_to(source).as_posix() for p in source.rglob('*') if p.is_file()}
+    require({p.relative_to(source).as_posix() for p in source.rglob('*') if not p.is_dir() or p.is_symlink()}
             == {r['path'] for r in rows}, 'source file inventory mismatch')
     for row in rows:
         p = source / row['path']
@@ -132,7 +132,7 @@ def check_registry(registry):
                 'Cargo checksum metadata differs from measured profile: ' + name)
         require(digest(src / '.cargo-ok') == row['generatedMarkerSHA256'], 'Cargo marker mismatch: ' + name)
         expected = {r['path'] for r in by_package[name]} | {'.cargo-checksum.json', '.cargo-ok'}
-        require({p.relative_to(src).as_posix() for p in src.rglob('*') if p.is_file()} == expected,
+        require({p.relative_to(src).as_posix() for p in src.rglob('*') if not p.is_dir() or p.is_symlink()} == expected,
                 'registry package file inventory mismatch: ' + name)
     index = registry / 'index' / namespace
     for row in spec['publicSparseIndex']['retainedFiles']:
@@ -282,7 +282,8 @@ def execute(work):
         result['canonicalOutputHashesEqual'] = result['outputs'] == recipe['expectedOutputs']
     validate_staged(work)
     # Replace only this new launcher's own interim result, never a retained measurement.
-    (work / 'result.json').write_text(json.dumps(result, indent=2) + '\n')
+    (work / 'result.json').write_text(json.dumps(result, indent=2) + '\n',
+                                       encoding='utf-8', newline='\n')
     return result
 
 
@@ -334,7 +335,9 @@ def prepare_registry(archives, out):
                 p.parent.mkdir(parents=True, exist_ok=True)
                 with tar.extractfile(m) as src, p.open('xb') as dst: shutil.copyfileobj(src, dst)
                 p.chmod(m.mode & 0o7777); files[rel.as_posix()] = digest(p)
-        (source / '.cargo-checksum.json').write_text(json.dumps({'files': files, 'package': row['checksum']}, separators=(',', ':')))
+        (source / '.cargo-checksum.json').write_text(
+            json.dumps({'files': files, 'package': row['checksum']}, separators=(',', ':')),
+            encoding='utf-8', newline='\n')
         (source / '.cargo-ok').write_bytes(b'{"v":1}')
     for name, data in tar_members(PACKAGE / 'registry-index.tar.gz').items():
         p = out / 'index' / namespace / name; p.parent.mkdir(parents=True, exist_ok=True); p.write_bytes(data)

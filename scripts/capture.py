@@ -55,12 +55,12 @@ def _capture_to_directory(url,name,key,out):
     (out/'capture.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8',newline='\n'); print(name,slot,len(payload),sha(payload),flush=True)
 def capture(url,name,key,out):
     out=pathlib.Path(out)
-    if out.exists():raise FileExistsError('capture output already exists: '+str(out))
+    if out.is_symlink() or out.exists():raise FileExistsError('capture output already exists: '+str(out))
     out.parent.mkdir(parents=True,exist_ok=True)
     stage=pathlib.Path(tempfile.mkdtemp(prefix='.'+out.name+'.capture-',dir=out.parent))
     try:
         _capture_to_directory(url,name,key,stage)
-        if out.exists():raise FileExistsError('capture output appeared during capture: '+str(out))
+        if out.is_symlink() or out.exists():raise FileExistsError('capture output appeared during capture: '+str(out))
         stage.rename(out)
     finally:
         if stage.exists():shutil.rmtree(stage)

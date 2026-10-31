@@ -1,0 +1,29 @@
+{
+  "issue": "Six bounded Pump differential runners read the captured Pump/AMM images, the captured config snapshot, the saved migration transaction and the dependency ELFs, then truncated --output with write_bytes. Passing an input as --output destroyed captured evidence, or replaced the executing runner with its own report.",
+  "base_revision": "52c0b087c7e345766b67b8fdeb8d4784079a955d",
+  "affected": "scripts/pump_holder_distribution_differential.py, scripts/pump_idl_authority_differential.py, scripts/pump_incentives_admin_differential.py, scripts/pump_volume_sync_differential.py, scripts/pump_migrate_differential.py, scripts/pump_migrate_v2_differential.py at base; each writer is the last statement of its main block",
+  "finding": "Base run of the new test: 20 failing subtests in 5 tests. --output on the captured image overwrote it, and --output on the runner itself replaced the module with the report so the same run could no longer import it. Sibling runners (pump_minimum_fee_differential, pump_create_differential, pump_claim_panic_differential, the AMM family) already admit their destination.",
+  "change": {
+    "publisher": "PumpReport(output, ROOT, candidate, __file__, extra_inputs=[...]) built before any case executes",
+    "report_inputs": "the migration pair declares research/imported-lab/analysis/pump_fun/curve-migrate-v2-signed-surfpool.json, the saved transaction its probe replays; the other four read only inputs PumpReport already protects",
+    "write": "publisher.write(payload) with the existing payload construction (gzip.compress(...,mtime=0) where the runner gzips)",
+    "failure": "ValueError: report output aliases an input: <path>, exit 1, before a case runs and before any output directory is created"
+  },
+  "runs": {
+    "case_payload_unchanged": "base and proposed receipts are identical after ignoring script_sha256: holder_distribution 649 cases, idl_authority 171, incentives_admin 299, volume_sync 341, migrate 228, migrate_v2 827, all with no mismatches",
+    "alias_refusals": "20 refusals exercised by the new test (captured image, captured config snapshot, saved migration transaction for the pair, executing script); each exits non-zero with the alias message and leaves the target bytes unchanged",
+    "publication_control": "each runner publishes a fresh nested receipt: mismatch-free JSON, non-empty cases, and no staging file left beside it"
+  },
+  "tests": {
+    "new_test": "tests/test_pump_state_report_publication.py",
+    "before": "20 failing subtests in 5 tests against the base scripts (218.1s)",
+    "after": "5 tests OK (67.8s)"
+  },
+  "required_checks": {
+    "scripts/test_tooling.py": "228 tests OK",
+    "scripts/verify_evidence.py": "9 captures verified"
+  },
+  "environment": {"platform": "macOS arm64", "python": "3.14.3", "solders": "0.27.1"},
+  "unchanged": ["case corpora and comparison fields", "captured images, dependency ELFs, config snapshot and saved transaction", "report schema, gzip mtime pinning and compact separators", "receipt bytes"],
+  "not_claimed": "The controls prove admission and publication on synthetic local fixtures; they do not re-run the full state/migration corpora against every candidate class and make no byte-identity claim about the rebuilt program."
+}

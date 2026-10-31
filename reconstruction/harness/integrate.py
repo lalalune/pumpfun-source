@@ -37,14 +37,35 @@ def build_source(*args, **kwargs):
     return fastbuild.build(*args, **kwargs)
 
 
+def bound_capture(path):
+    """Return the ELF score.py scores against for this checkout's link form.
+
+    A native checkout stores base/original.so as a symlink, which read_bytes()
+    already follows; a core.symlinks=false checkout stores the link payload as
+    a regular file, and original_input resolves it to the real capture. A
+    synthetic harness may ship integrate.py alone, and then the path is bound
+    as given.
+    """
+    try:
+        from original_input import resolve_original
+    except ImportError:
+        return path
+    return resolve_original(path)
+
+
 def bound_scoring_inputs(src, baseline):
-    """Digest the composed source, scoring baseline and scorer tool.
+    """Digest the composed source, scoring baseline and the scorer's inputs.
 
     A crate build runs arbitrary build-script code, so the build may rewrite
     the composed tree it is scored from, the baseline it is scored against,
-    or the scorer itself; build_score_pair rechecks its bound inputs after
-    the paired build for the same reason. Content hashes (not mtimes) bind
-    the tree, so a build that only touches timestamps is not a change.
+    the scorer itself, or anything the scorer reads or imports;
+    build_score_pair rechecks its bound inputs after the paired build for the
+    same reason. Content hashes (not mtimes) bind the tree, so a build that
+    only touches timestamps is not a change.
+
+    score.py reads the reference ELF and the window inventory through BASE
+    (resolve_original(BASE/'original.so') and BASE/'functions.tsv') and loads
+    the modules beside it, so those are bound alongside the scorer.
     """
     def sha_file(path):
         return hashlib.sha256(Path(path).read_bytes()).hexdigest()
@@ -57,19 +78,33 @@ def bound_scoring_inputs(src, baseline):
         elif path.is_file():
             tree[relative] = sha_file(path)
     scorer = H / 'score.py'
+    support = {path.name: sha_file(path) for path in sorted(H.glob('*.py'))}
+    base = SC / 'base'
+    reference = {}
+    for name in ('original.so', 'functions.tsv'):
+        path = base / name
+        try:
+            if name == 'original.so':
+                # score.py scores against the resolved capture, not the link.
+                path = bound_capture(path)
+            reference[name] = sha_file(path) if path.is_file() else None
+        except OSError:
+            # A synthetic harness may omit the capture; binding absence still
+            # detects a reference file created during the build.
+            reference[name] = None
     # Synthetic/minimal harnesses may omit the scorer and stub its invocation.
     # Binding absence still detects a scorer created during the build.
-    return {'source': tree, 'baseline': sha_file(baseline),
-            'scorer': sha_file(scorer) if scorer.is_file() else None}
+    return {'source': tree, 'baseline': sha_file(baseline), 'reference': reference,
+            'support': support, 'scorer': support.get(scorer.name)}
 
 
 def crate_ignore(root: Path, *patterns):
-    """Skip the crate-root build directory, as fastbuild staging does, plus `patterns` anywhere.
+    """Skip Git metadata, the crate-root build directory, and `patterns` anywhere.
 
     Nested target directories and a regular file named target are source inputs.
     """
     root = Path(root)
-    by_name = shutil.ignore_patterns(*patterns)
+    by_name = shutil.ignore_patterns('.git', *patterns)
 
     def ignore(directory, names):
         ignored = set(by_name(directory, names))
@@ -149,7 +184,7 @@ def make_patch(base: Path, part: Path, out: Path, tmp: Path):
                 mode = path.stat().st_mode
                 path.chmod(mode | 0o100 if executable else mode & ~0o100)
     git_diff = ['git', '-c', 'core.autocrlf=false', 'diff', '--no-index', '--binary',
-                '--no-ext-diff', '--no-textconv', '--no-renames', '--src-prefix=',
+                '--no-color', '--no-ext-diff', '--no-textconv', '--no-renames', '--src-prefix=',
                 '--dst-prefix=', '--', 'a/pump', 'b/pump']
 
     def run_diff(command):
@@ -175,7 +210,7 @@ def git_patch_command(source):
     # outside that prefix. Anchor at the root and prepend the owned output tree.
     found = subprocess.run(['git', '-C', str(source), 'rev-parse', '--show-toplevel'],
                            capture_output=True, text=True)
-    root = Path(found.stdout.rstrip('\r\n')).resolve() if found.returncode == 0 else source
+    root = Path(found.stdout.rstrip('\r\n')).resolve() if found.returncode == 0 else source.resolve()
     directory = source.resolve().relative_to(root).as_posix()
     command = ['git', '-c', 'core.autocrlf=false', 'apply', '--no-index',
                '--whitespace=nowarn', '-p2']
@@ -309,7 +344,7 @@ def apply_part(src, pf, text, patch_command, diagnostic):
             result = subprocess.run(argv, cwd=root, capture_output=True, text=True)
             if result.returncode:
                 detail = result.stdout + result.stderr
-                diagnostic.write_text(detail, encoding='utf-8')
+                diagnostic.write_text(detail, encoding='utf-8', newline='\n')
                 return {'status': 'conflict' if phase == 'check' and result.returncode == 1 else 'error',
                         'phase': phase, 'returncode': result.returncode, 'detail': detail[-1500:]}
         files = git_patched_files(command, root, directory, pf) if git_format else patched_files(text)
@@ -319,7 +354,7 @@ def apply_part(src, pf, text, patch_command, diagnostic):
         for value in (getattr(error, 'stdout', None), getattr(error, 'stderr', None)):
             if value:
                 detail += '\n' + (value.decode('utf-8', errors='replace') if isinstance(value, bytes) else value)
-        diagnostic.write_text(detail, encoding='utf-8')
+        diagnostic.write_text(detail, encoding='utf-8', newline='\n')
         return {'status': 'error', 'detail': detail[-1500:]}
 
 
@@ -332,6 +367,9 @@ def main():
     ap.add_argument('--no-build', action='store_true')
     ap.add_argument('--timeout', type=float, help='compiler deadline in seconds')
     a = ap.parse_args()
+    # GNU patch in POSIX mode cannot locate a file that diff -N records as new,
+    # which would report every part adding a file as a content conflict.
+    os.environ.pop('POSIXLY_CORRECT', None)
     if a.timeout is not None:
         from build_process import validate_timeout
         try:
@@ -387,15 +425,17 @@ def main():
             # Neither conflicts nor patch-tool errors may partly modify src.
             prospective = SC / 'integ' / '.tmp' / a.name / label / 'prospective'
             shutil.copytree(src, prospective)
+            # Both patch tools prune a directory when its last file goes.
+            kept = composition_directories(prospective) & composition_directories(Path(path))
             diagnostic = out / 'rejects' / f'{label}.txt'
             result = (apply_part(prospective, pf, text, patch_command, diagnostic)
                       if text.strip() else {'status': 'applied', 'files': []})
             if result['status'] == 'applied':
                 try:
-                    retained = apply_directory_delta(prospective, added, removed)
+                    retained = apply_directory_delta(prospective, sorted({*added, *kept}), removed)
                 except (FileExistsError, NotADirectoryError) as error:
                     detail = 'directory composition conflict: ' + str(error)
-                    diagnostic.write_text(detail, encoding='utf-8')
+                    diagnostic.write_text(detail, encoding='utf-8', newline='\n')
                     result = {'status': 'conflict', 'detail': detail}
                 else:
                     if added or removed:
@@ -434,10 +474,11 @@ def main():
             else:
                 exit_code = 1
         validate_inputs()
-    except (OSError, ValueError, subprocess.CalledProcessError) as error:
+    except (OSError, ValueError, RuntimeError, subprocess.CalledProcessError) as error:
         report['error'] = str(error)
         exit_code = 1
-    (out / 'report.json').write_text(json.dumps(report, indent=1))
+    (out / 'report.json').write_text(json.dumps(report, indent=1),
+                                     encoding='utf-8', newline='\n')
     print(json.dumps({k: v for k, v in report.items() if k != 'parts'} | {'parts': [{k: p[k] for k in ('label', 'status')} for p in report['parts']]}, indent=1))
     return exit_code
 

@@ -5,6 +5,7 @@ if not __debug__:
 from pathlib import Path
 import json,gzip,argparse,hashlib,sys,struct
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'scripts'));import pump_holder_distribution_probe as p
+from pump_differential_output import PumpReport
 cases=[]
 for mode in [{},{'source':True},{'stable':True},{'stable':True,'token22':True}]:
  rows=[{}, {'amounts':[]},{'amounts':[0]},{'amounts':[0,0]},{'amounts':[1000,2000]},{'amounts':[1,2**64-1]},{'amounts':[2**64-1]},{'remaining_count':0},{'remaining_count':1},{'remaining_count':3},{'existing_dest':True},{'readonly_owner':True},{'readonly_dest':True},{'unsigned':True},{'source':False}]
@@ -50,8 +51,8 @@ for bps in [0,100,10000]:
  src=p.token_data(p.STABLE,p.HOLDER,10**9)+b'\2'+struct.pack('<HHQ',2,8,0)
  for amount in [0,1000,10**9]:cases.append({'stable':True,'token22':True,'amounts':[amount],'mutations':{'quote_mint':{'patches':[(0,mint.hex())]},'holder_rewards_token_account':{'patches':[(0,src.hex())]}}})
 def main():
- a=argparse.ArgumentParser();a.add_argument('--candidate',type=Path);a.add_argument('--output',type=Path,required=True);args=a.parse_args();rows=[]
+ a=argparse.ArgumentParser();a.add_argument('--candidate',type=Path);a.add_argument('--output',type=Path,required=True);args=a.parse_args();rows=[];publisher=PumpReport(args.output,ROOT,args.candidate,__file__)
  for c in cases:
   x=p.run(c);y=p.run(c,args.candidate) if args.candidate else None;diff=[] if y is None else [k for k in ['error','before','after','events','inner','return'] if x[k]!=y[k]];rows.append({'case':c,'original':x,'candidate':y,'mismatched_fields':diff})
- sha=lambda path:hashlib.sha256(path.read_bytes()).hexdigest();r={'scope':'Normally signed local holder distributions with synthetic configured authority and captured actual Token/Token22/ATA CPIs. Bounded parity only; full byte identity remains false.','case_count':len(rows),'original_sha256':sha(ROOT/'evidence/original/pump/deployed.so'),'candidate_sha256':sha(args.candidate) if args.candidate else None,'script_sha256':sha(Path(__file__)),'fixture_sha256':sha(Path(p.__file__)),'cases':rows,'mismatches':[i for i,r in enumerate(rows) if r['mismatched_fields']]};args.output.parent.mkdir(parents=True,exist_ok=True);raw=json.dumps(r,separators=(',',':')).encode();args.output.write_bytes(gzip.compress(raw,mtime=0) if args.output.suffix=='.gz' else raw);print(json.dumps({'case_count':len(rows),'mismatches':r['mismatches']}));assert not r['mismatches']
+ sha=lambda path:hashlib.sha256(path.read_bytes()).hexdigest();r={'scope':'Normally signed local holder distributions with synthetic configured authority and captured actual Token/Token22/ATA CPIs. Bounded parity only; full byte identity remains false.','case_count':len(rows),'original_sha256':sha(ROOT/'evidence/original/pump/deployed.so'),'candidate_sha256':sha(args.candidate) if args.candidate else None,'script_sha256':sha(Path(__file__)),'fixture_sha256':sha(Path(p.__file__)),'cases':rows,'mismatches':[i for i,r in enumerate(rows) if r['mismatched_fields']]};raw=json.dumps(r,separators=(',',':')).encode();publisher.write(gzip.compress(raw,mtime=0) if args.output.suffix=='.gz' else raw);print(json.dumps({'case_count':len(rows),'mismatches':r['mismatches']}));assert not r['mismatches']
 if __name__=='__main__':main()

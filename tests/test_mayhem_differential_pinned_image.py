@@ -136,6 +136,11 @@ class MayhemTradePinnedImageTests(unittest.TestCase):
             fixture.ROOT = root
             fixture.MAY = "mayhem"
             fixture.sha = lambda data: hashlib.sha256(data).hexdigest()
+            fixture.f = types.SimpleNamespace(REPORT_INPUTS=(
+                root / "scripts/pump_trade_fixture.py",
+                root / "research/imported-lab/analysis/pump_fun/"
+                "curve-fresh-trades-v3-signed-surfpool.json",
+            ))
 
             def run(case, binary=None):
                 data = Path(binary or original).read_bytes()
@@ -164,7 +169,17 @@ class MayhemTradePinnedImageTests(unittest.TestCase):
             helper = types.ModuleType("pump_amm_reusable_harness")
             helper.pin_program = pin
 
+            # The script's real report publisher and input-binding helpers.
+            helpers = {}
+            for name in ("pump_differential_output", "pump_diagnostic_audit"):
+                helper_spec = importlib.util.spec_from_file_location(
+                    name, ROOT / "scripts" / f"{name}.py"
+                )
+                helpers[name] = importlib.util.module_from_spec(helper_spec)
+                helper_spec.loader.exec_module(helpers[name])
+
             modules = {
+                **helpers,
                 "mayhem_buy_fixture": fixture,
                 "pump_amm_reusable_harness": helper,
                 "solders": solders,

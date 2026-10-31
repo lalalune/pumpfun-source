@@ -1,0 +1,37 @@
+{
+  "runs": {
+    "before": "41180673792",
+    "after": "41180694278"
+  },
+  "tested_revisions": {
+    "before": "246298e2ced747360aca0823afab2e9f03d49ec8",
+    "after": "32d0ffd95e81fe31f13fc0497198f4a4175ce735"
+  },
+  "mode_comparison": {
+    "buy_v2": {
+      "same_receipts_except_producer_hash": true,
+      "changed_hash_keys": [
+        "scripts/mayhem_buy_v2_differential.py"
+      ]
+    },
+    "sell_v2": {
+      "same_receipts_except_producer_hash": true,
+      "changed_hash_keys": [
+        "scripts/mayhem_sell_v2_differential.py"
+      ]
+    },
+    "buy_pump_swap": {
+      "same_receipts_except_producer_hash": true,
+      "changed_hash_keys": [
+        "scripts/mayhem_pump_swap_differential.py"
+      ]
+    },
+    "sell_pump_swap": {
+      "same_receipts_except_producer_hash": true,
+      "changed_hash_keys": [
+        "scripts/mayhem_pump_swap_differential.py"
+      ]
+    }
+  },
+  "limits": "Captured-ELF controls only, with owned paused rejection; no reconstructed-source equivalence or successful-trade claim"
+}

@@ -1,0 +1,1277 @@
+{
+  "schema": "S1-S2-bounded-causal-witnesses-v1",
+  "variants": {
+    "S1": {
+      "elfSha256": "74ac33d132787888aa8257908750930a3537feb06acc6413d5365426dd23ff8a",
+      "body": {
+        "address": 141840,
+        "bytes": 17992,
+        "name": "_ZN14pump_recovered9admin_cto7execute17h3bd6d7f34f2e30d7E"
+      },
+      "bodySha256": "25bb2ce6b1dadc1d66f0bafe7365ce16c0b82e1b89a7c7e3beef424a35085c78",
+      "instructions": [
+        {
+          "offset": 8,
+          "raw": "7b4a48f800000000",
+          "opcode": 123,
+          "dst": 10,
+          "src": 4,
+          "displacement": -1976,
+          "immediate": 0
+        },
+        {
+          "offset": 256,
+          "raw": "b708000000000000",
+          "opcode": 183,
+          "dst": 8,
+          "src": 0,
+          "displacement": 0,
+          "immediate": 0
+        },
+        {
+          "offset": 392,
+          "raw": "85100000ccff0200",
+          "opcode": 133,
+          "dst": 0,
+          "src": 1,
+          "displacement": 0,
+          "immediate": 196556
+        },
+        {
+          "offset": 400,
+          "raw": "bf08000000000000",
+          "opcode": 191,
+          "dst": 8,
+          "src": 0,
+          "displacement": 0,
+          "immediate": 0
+        },
+        {
+          "offset": 408,
+          "raw": "a708000001000000",
+          "opcode": 167,
+          "dst": 8,
+          "src": 0,
+          "displacement": 0,
+          "immediate": 1
+        },
+        {
+          "offset": 960,
+          "raw": "7b8a40f800000000",
+          "opcode": 123,
+          "dst": 10,
+          "src": 8,
+          "displacement": -1984,
+          "immediate": 0
+        },
+        {
+          "offset": 2704,
+          "raw": "61a183fb00000000",
+          "opcode": 97,
+          "dst": 1,
+          "src": 10,
+          "displacement": -1149,
+          "immediate": 0
+        },
+        {
+          "offset": 2712,
+          "raw": "631a6bfa00000000",
+          "opcode": 99,
+          "dst": 10,
+          "src": 1,
+          "displacement": -1429,
+          "immediate": 0
+        },
+        {
+          "offset": 2720,
+          "raw": "61a180fb00000000",
+          "opcode": 97,
+          "dst": 1,
+          "src": 10,
+          "displacement": -1152,
+          "immediate": 0
+        },
+        {
+          "offset": 2728,
+          "raw": "631a68fa00000000",
+          "opcode": 99,
+          "dst": 10,
+          "src": 1,
+          "displacement": -1432,
+          "immediate": 0
+        },
+        {
+          "offset": 2736,
+          "raw": "79a1d8fb00000000",
+          "opcode": 121,
+          "dst": 1,
+          "src": 10,
+          "displacement": -1064,
+          "immediate": 0
+        },
+        {
+          "offset": 2744,
+          "raw": "7b1a90fb00000000",
+          "opcode": 123,
+          "dst": 10,
+          "src": 1,
+          "displacement": -1136,
+          "immediate": 0
+        },
+        {
+          "offset": 2752,
+          "raw": "71a1e0fb00000000",
+          "opcode": 113,
+          "dst": 1,
+          "src": 10,
+          "displacement": -1056,
+          "immediate": 0
+        },
+        {
+          "offset": 2760,
+          "raw": "731a98fb00000000",
+          "opcode": 115,
+          "dst": 10,
+          "src": 1,
+          "displacement": -1128,
+          "immediate": 0
+        },
+        {
+          "offset": 2768,
+          "raw": "79a148f800000000",
+          "opcode": 121,
+          "dst": 1,
+          "src": 10,
+          "displacement": -1976,
+          "immediate": 0
+        },
+        {
+          "offset": 2776,
+          "raw": "1501f20000000000",
+          "opcode": 21,
+          "dst": 1,
+          "src": 0,
+          "displacement": 242,
+          "immediate": 0
+        },
+        {
+          "offset": 4696,
+          "raw": "ad21010000000000",
+          "opcode": 173,
+          "dst": 1,
+          "src": 2,
+          "displacement": 1,
+          "immediate": 0
+        },
+        {
+          "offset": 4712,
+          "raw": "71a120fa00000000",
+          "opcode": 113,
+          "dst": 1,
+          "src": 10,
+          "displacement": -1504,
+          "immediate": 0
+        },
+        {
+          "offset": 4720,
+          "raw": "7b3a50f800000000",
+          "opcode": 123,
+          "dst": 10,
+          "src": 3,
+          "displacement": -1968,
+          "immediate": 0
+        },
+        {
+          "offset": 4728,
+          "raw": "79a140f800000000",
+          "opcode": 121,
+          "dst": 1,
+          "src": 10,
+          "displacement": -1984,
+          "immediate": 0
+        },
+        {
+          "offset": 4736,
+          "raw": "55011d0000000000",
+          "opcode": 85,
+          "dst": 1,
+          "src": 0,
+          "displacement": 29,
+          "immediate": 0
+        },
+        {
+          "offset": 7720,
+          "raw": "8510000003050000",
+          "opcode": 133,
+          "dst": 0,
+          "src": 1,
+          "displacement": 0,
+          "immediate": 1283
+        }
+      ],
+      "sweep": {
+        "address": 159832,
+        "bytes": 9096,
+        "name": "_ZN14pump_recovered9admin_cto7execute5sweep17h9943ff4781c7e018E"
+      },
+      "sweepCall": {
+        "offset": 7720,
+        "va": 149560,
+        "opcode": 133,
+        "dst": 0,
+        "src": 1,
+        "displacement": 0,
+        "immediate": 1283,
+        "bytes": 8,
+        "raw": "8510000003050000",
+        "callTarget": 159832,
+        "callName": "_ZN14pump_recovered9admin_cto7execute5sweep17h9943ff4781c7e018E"
+      },
+      "expectedBlocks": [
+        {
+          "start": 2680,
+          "end": 2784,
+          "successors": [
+            4720,
+            2784
+          ],
+          "predecessors": [
+            2600,
+            6936
+          ]
+        },
+        {
+          "start": 4712,
+          "end": 4720,
+          "successors": [
+            4720
+          ],
+          "predecessors": [
+            4672
+          ]
+        },
+        {
+          "start": 4720,
+          "end": 4744,
+          "successors": [
+            4976,
+            4744
+          ],
+          "predecessors": [
+            2680,
+            4712
+          ]
+        }
+      ],
+      "sourceLeaf": {
+        "path": "/dev/shm/pump-cto-source-s1/programs/pump/src/creator/admin_cto.rs",
+        "sha256": "7bd0a55d1f9205ccbe45e5bfea4f02556d020674b0e1d8faae41bae04a9cc778"
+      },
+      "firstFeeTagRead": {
+        "offset": 2768,
+        "va": 144608,
+        "opcode": 121,
+        "dst": 1,
+        "src": 10,
+        "displacement": -1976,
+        "immediate": 0,
+        "bytes": 8,
+        "raw": "79a148f800000000",
+        "memoryWidth": 8,
+        "memoryKind": "read",
+        "memoryBase": 10
+      }
+    },
+    "S2": {
+      "elfSha256": "eeb484325eb342fa9a59c19e661b8f8bd0af14b88b61c459946e712db253de88",
+      "body": {
+        "address": 141840,
+        "bytes": 18088,
+        "name": "_ZN14pump_recovered9admin_cto7execute17h3bd6d7f34f2e30d7E"
+      },
+      "bodySha256": "812e3131ef48b86e0f11d1ff08835d7b01a4010ebbfea9b0a020d62dbaf11d2f",
+      "instructions": [
+        {
+          "offset": 8,
+          "raw": "7b4a40f800000000",
+          "opcode": 123,
+          "dst": 10,
+          "src": 4,
+          "displacement": -1984,
+          "immediate": 0
+        },
+        {
+          "offset": 264,
+          "raw": "7b1a50f800000000",
+          "opcode": 123,
+          "dst": 10,
+          "src": 1,
+          "displacement": -1968,
+          "immediate": 0
+        },
+        {
+          "offset": 416,
+          "raw": "7b0a50f800000000",
+          "opcode": 123,
+          "dst": 10,
+          "src": 0,
+          "displacement": -1968,
+          "immediate": 0
+        },
+        {
+          "offset": 616,
+          "raw": "7987380000000000",
+          "opcode": 121,
+          "dst": 7,
+          "src": 8,
+          "displacement": 56,
+          "immediate": 0
+        },
+        {
+          "offset": 2736,
+          "raw": "61a283fb00000000",
+          "opcode": 97,
+          "dst": 2,
+          "src": 10,
+          "displacement": -1149,
+          "immediate": 0
+        },
+        {
+          "offset": 2744,
+          "raw": "632a6bfa00000000",
+          "opcode": 99,
+          "dst": 10,
+          "src": 2,
+          "displacement": -1429,
+          "immediate": 0
+        },
+        {
+          "offset": 2752,
+          "raw": "61a280fb00000000",
+          "opcode": 97,
+          "dst": 2,
+          "src": 10,
+          "displacement": -1152,
+          "immediate": 0
+        },
+        {
+          "offset": 2760,
+          "raw": "632a68fa00000000",
+          "opcode": 99,
+          "dst": 10,
+          "src": 2,
+          "displacement": -1432,
+          "immediate": 0
+        },
+        {
+          "offset": 2768,
+          "raw": "79a2d8fb00000000",
+          "opcode": 121,
+          "dst": 2,
+          "src": 10,
+          "displacement": -1064,
+          "immediate": 0
+        },
+        {
+          "offset": 2776,
+          "raw": "7b2a90fb00000000",
+          "opcode": 123,
+          "dst": 10,
+          "src": 2,
+          "displacement": -1136,
+          "immediate": 0
+        },
+        {
+          "offset": 2784,
+          "raw": "71a2e0fb00000000",
+          "opcode": 113,
+          "dst": 2,
+          "src": 10,
+          "displacement": -1056,
+          "immediate": 0
+        },
+        {
+          "offset": 2792,
+          "raw": "732a98fb00000000",
+          "opcode": 115,
+          "dst": 10,
+          "src": 2,
+          "displacement": -1128,
+          "immediate": 0
+        },
+        {
+          "offset": 2800,
+          "raw": "79a250f800000000",
+          "opcode": 121,
+          "dst": 2,
+          "src": 10,
+          "displacement": -1968,
+          "immediate": 0
+        },
+        {
+          "offset": 2808,
+          "raw": "5f21000000000000",
+          "opcode": 95,
+          "dst": 1,
+          "src": 2,
+          "displacement": 0,
+          "immediate": 0
+        },
+        {
+          "offset": 2816,
+          "raw": "5501690000000000",
+          "opcode": 85,
+          "dst": 1,
+          "src": 0,
+          "displacement": 105,
+          "immediate": 0
+        },
+        {
+          "offset": 2824,
+          "raw": "7b4a88f800000000",
+          "opcode": 123,
+          "dst": 10,
+          "src": 4,
+          "displacement": -1912,
+          "immediate": 0
+        },
+        {
+          "offset": 2832,
+          "raw": "79a160f800000000",
+          "opcode": 121,
+          "dst": 1,
+          "src": 10,
+          "displacement": -1952,
+          "immediate": 0
+        },
+        {
+          "offset": 2840,
+          "raw": "79a448f800000000",
+          "opcode": 121,
+          "dst": 4,
+          "src": 10,
+          "displacement": -1976,
+          "immediate": 0
+        },
+        {
+          "offset": 2848,
+          "raw": "5f14000000000000",
+          "opcode": 95,
+          "dst": 4,
+          "src": 1,
+          "displacement": 0,
+          "immediate": 0
+        },
+        {
+          "offset": 2856,
+          "raw": "79a140f800000000",
+          "opcode": 121,
+          "dst": 1,
+          "src": 10,
+          "displacement": -1984,
+          "immediate": 0
+        },
+        {
+          "offset": 2864,
+          "raw": "1501ff0000000000",
+          "opcode": 21,
+          "dst": 1,
+          "src": 0,
+          "displacement": 255,
+          "immediate": 0
+        },
+        {
+          "offset": 3664,
+          "raw": "bf71000000000000",
+          "opcode": 191,
+          "dst": 1,
+          "src": 7,
+          "displacement": 0,
+          "immediate": 0
+        },
+        {
+          "offset": 3672,
+          "raw": "0701000008000000",
+          "opcode": 7,
+          "dst": 1,
+          "src": 0,
+          "displacement": 0,
+          "immediate": 8
+        },
+        {
+          "offset": 3680,
+          "raw": "6112030000000000",
+          "opcode": 97,
+          "dst": 2,
+          "src": 1,
+          "displacement": 3,
+          "immediate": 0
+        },
+        {
+          "offset": 3688,
+          "raw": "632a6bfa00000000",
+          "opcode": 99,
+          "dst": 10,
+          "src": 2,
+          "displacement": -1429,
+          "immediate": 0
+        },
+        {
+          "offset": 3696,
+          "raw": "6111000000000000",
+          "opcode": 97,
+          "dst": 1,
+          "src": 1,
+          "displacement": 0,
+          "immediate": 0
+        },
+        {
+          "offset": 3704,
+          "raw": "631a68fa00000000",
+          "opcode": 99,
+          "dst": 10,
+          "src": 1,
+          "displacement": -1432,
+          "immediate": 0
+        },
+        {
+          "offset": 3712,
+          "raw": "79a14ffc00000000",
+          "opcode": 121,
+          "dst": 1,
+          "src": 10,
+          "displacement": -945,
+          "immediate": 0
+        },
+        {
+          "offset": 3720,
+          "raw": "7b1a90fb00000000",
+          "opcode": 123,
+          "dst": 10,
+          "src": 1,
+          "displacement": -1136,
+          "immediate": 0
+        },
+        {
+          "offset": 3728,
+          "raw": "71a157fc00000000",
+          "opcode": 113,
+          "dst": 1,
+          "src": 10,
+          "displacement": -937,
+          "immediate": 0
+        },
+        {
+          "offset": 3736,
+          "raw": "731a98fb00000000",
+          "opcode": 115,
+          "dst": 10,
+          "src": 1,
+          "displacement": -1128,
+          "immediate": 0
+        },
+        {
+          "offset": 3744,
+          "raw": "79a047fc00000000",
+          "opcode": 121,
+          "dst": 0,
+          "src": 10,
+          "displacement": -953,
+          "immediate": 0
+        },
+        {
+          "offset": 3752,
+          "raw": "79a43ffc00000000",
+          "opcode": 121,
+          "dst": 4,
+          "src": 10,
+          "displacement": -961,
+          "immediate": 0
+        },
+        {
+          "offset": 3760,
+          "raw": "05008aff00000000",
+          "opcode": 5,
+          "dst": 0,
+          "src": 0,
+          "displacement": -118,
+          "immediate": 0
+        },
+        {
+          "offset": 4904,
+          "raw": "71a120fa00000000",
+          "opcode": 113,
+          "dst": 1,
+          "src": 10,
+          "displacement": -1504,
+          "immediate": 0
+        },
+        {
+          "offset": 4912,
+          "raw": "7b4a48f800000000",
+          "opcode": 123,
+          "dst": 10,
+          "src": 4,
+          "displacement": -1976,
+          "immediate": 0
+        },
+        {
+          "offset": 4920,
+          "raw": "79a150f800000000",
+          "opcode": 121,
+          "dst": 1,
+          "src": 10,
+          "displacement": -1968,
+          "immediate": 0
+        },
+        {
+          "offset": 4928,
+          "raw": "55011d0000000000",
+          "opcode": 85,
+          "dst": 1,
+          "src": 0,
+          "displacement": 29,
+          "immediate": 0
+        },
+        {
+          "offset": 5400,
+          "raw": "61a168fa00000000",
+          "opcode": 97,
+          "dst": 1,
+          "src": 10,
+          "displacement": -1432,
+          "immediate": 0
+        },
+        {
+          "offset": 5408,
+          "raw": "631a40fb00000000",
+          "opcode": 99,
+          "dst": 10,
+          "src": 1,
+          "displacement": -1216,
+          "immediate": 0
+        },
+        {
+          "offset": 5416,
+          "raw": "61a16bfa00000000",
+          "opcode": 97,
+          "dst": 1,
+          "src": 10,
+          "displacement": -1429,
+          "immediate": 0
+        },
+        {
+          "offset": 5424,
+          "raw": "631a43fb00000000",
+          "opcode": 99,
+          "dst": 10,
+          "src": 1,
+          "displacement": -1213,
+          "immediate": 0
+        },
+        {
+          "offset": 5432,
+          "raw": "79a190fb00000000",
+          "opcode": 121,
+          "dst": 1,
+          "src": 10,
+          "displacement": -1136,
+          "immediate": 0
+        },
+        {
+          "offset": 5440,
+          "raw": "7b1a57fb00000000",
+          "opcode": 123,
+          "dst": 10,
+          "src": 1,
+          "displacement": -1193,
+          "immediate": 0
+        },
+        {
+          "offset": 5448,
+          "raw": "71a198fb00000000",
+          "opcode": 113,
+          "dst": 1,
+          "src": 10,
+          "displacement": -1128,
+          "immediate": 0
+        },
+        {
+          "offset": 5456,
+          "raw": "731a5ffb00000000",
+          "opcode": 115,
+          "dst": 10,
+          "src": 1,
+          "displacement": -1185,
+          "immediate": 0
+        },
+        {
+          "offset": 5464,
+          "raw": "7b0a4ffb00000000",
+          "opcode": 123,
+          "dst": 10,
+          "src": 0,
+          "displacement": -1201,
+          "immediate": 0
+        },
+        {
+          "offset": 5472,
+          "raw": "7b3a47fb00000000",
+          "opcode": 123,
+          "dst": 10,
+          "src": 3,
+          "displacement": -1209,
+          "immediate": 0
+        },
+        {
+          "offset": 7840,
+          "raw": "8510000000050000",
+          "opcode": 133,
+          "dst": 0,
+          "src": 1,
+          "displacement": 0,
+          "immediate": 1280
+        }
+      ],
+      "sweep": {
+        "address": 159928,
+        "bytes": 9096,
+        "name": "_ZN14pump_recovered9admin_cto7execute5sweep17h9943ff4781c7e018E"
+      },
+      "sweepCall": {
+        "offset": 7840,
+        "va": 149680,
+        "opcode": 133,
+        "dst": 0,
+        "src": 1,
+        "displacement": 0,
+        "immediate": 1280,
+        "bytes": 8,
+        "raw": "8510000000050000",
+        "callTarget": 159928,
+        "callName": "_ZN14pump_recovered9admin_cto7execute5sweep17h9943ff4781c7e018E"
+      },
+      "expectedBlocks": [
+        {
+          "start": 2824,
+          "end": 2872,
+          "successors": [
+            4912,
+            2872
+          ],
+          "predecessors": [
+            2736,
+            3664
+          ]
+        },
+        {
+          "start": 4904,
+          "end": 4912,
+          "successors": [
+            4912
+          ],
+          "predecessors": [
+            4864
+          ]
+        },
+        {
+          "start": 4912,
+          "end": 4936,
+          "successors": [
+            5168,
+            4936
+          ],
+          "predecessors": [
+            2824,
+            4904
+          ]
+        }
+      ],
+      "feeReadBoundExclusive": 5528,
+      "feeSlot": -1984,
+      "feeReads": [
+        2856
+      ],
+      "directPreservedRanges": [
+        [
+          -1432,
+          -1425
+        ],
+        [
+          -1136,
+          -1127
+        ],
+        [
+          -1912,
+          -1904
+        ]
+      ],
+      "persistenceStart": 2832,
+      "persistenceEnd": 5480
+    }
+  },
+  "S2consumers": {
+    "final_pack": {
+      "frame_range": [
+        -1216,
+        -1184
+      ],
+      "instructions": [
+        {
+          "offset": "0x1518",
+          "va": "0x23f28",
+          "raw": "61a168fa00000000",
+          "opcode": 97,
+          "dst": 1,
+          "src": 10,
+          "displacement": -1432,
+          "immediate": 0
+        },
+        {
+          "offset": "0x1520",
+          "va": "0x23f30",
+          "raw": "631a40fb00000000",
+          "opcode": 99,
+          "dst": 10,
+          "src": 1,
+          "displacement": -1216,
+          "immediate": 0
+        },
+        {
+          "offset": "0x1528",
+          "va": "0x23f38",
+          "raw": "61a16bfa00000000",
+          "opcode": 97,
+          "dst": 1,
+          "src": 10,
+          "displacement": -1429,
+          "immediate": 0
+        },
+        {
+          "offset": "0x1530",
+          "va": "0x23f40",
+          "raw": "631a43fb00000000",
+          "opcode": 99,
+          "dst": 10,
+          "src": 1,
+          "displacement": -1213,
+          "immediate": 0
+        },
+        {
+          "offset": "0x1538",
+          "va": "0x23f48",
+          "raw": "79a190fb00000000",
+          "opcode": 121,
+          "dst": 1,
+          "src": 10,
+          "displacement": -1136,
+          "immediate": 0
+        },
+        {
+          "offset": "0x1540",
+          "va": "0x23f50",
+          "raw": "7b1a57fb00000000",
+          "opcode": 123,
+          "dst": 10,
+          "src": 1,
+          "displacement": -1193,
+          "immediate": 0
+        },
+        {
+          "offset": "0x1548",
+          "va": "0x23f58",
+          "raw": "71a198fb00000000",
+          "opcode": 113,
+          "dst": 1,
+          "src": 10,
+          "displacement": -1128,
+          "immediate": 0
+        },
+        {
+          "offset": "0x1550",
+          "va": "0x23f60",
+          "raw": "731a5ffb00000000",
+          "opcode": 115,
+          "dst": 10,
+          "src": 1,
+          "displacement": -1185,
+          "immediate": 0
+        },
+        {
+          "offset": "0x1558",
+          "va": "0x23f68",
+          "raw": "7b0a4ffb00000000",
+          "opcode": 123,
+          "dst": 10,
+          "src": 0,
+          "displacement": -1201,
+          "immediate": 0
+        },
+        {
+          "offset": "0x1560",
+          "va": "0x23f70",
+          "raw": "7b3a47fb00000000",
+          "opcode": 123,
+          "dst": 10,
+          "src": 3,
+          "displacement": -1209,
+          "immediate": 0
+        }
+      ],
+      "direct_fp_writes_over_target_in_entire_cto": [
+        {
+          "offset": "0x1520",
+          "va": "0x23f30",
+          "raw": "631a40fb00000000",
+          "opcode": 99,
+          "dst": 10,
+          "src": 1,
+          "displacement": -1216,
+          "immediate": 0
+        },
+        {
+          "offset": "0x1530",
+          "va": "0x23f40",
+          "raw": "631a43fb00000000",
+          "opcode": 99,
+          "dst": 10,
+          "src": 1,
+          "displacement": -1213,
+          "immediate": 0
+        },
+        {
+          "offset": "0x1540",
+          "va": "0x23f50",
+          "raw": "7b1a57fb00000000",
+          "opcode": 123,
+          "dst": 10,
+          "src": 1,
+          "displacement": -1193,
+          "immediate": 0
+        },
+        {
+          "offset": "0x1550",
+          "va": "0x23f60",
+          "raw": "731a5ffb00000000",
+          "opcode": 115,
+          "dst": 10,
+          "src": 1,
+          "displacement": -1185,
+          "immediate": 0
+        },
+        {
+          "offset": "0x1558",
+          "va": "0x23f68",
+          "raw": "7b0a4ffb00000000",
+          "opcode": 123,
+          "dst": 10,
+          "src": 0,
+          "displacement": -1201,
+          "immediate": 0
+        },
+        {
+          "offset": "0x1560",
+          "va": "0x23f70",
+          "raw": "7b3a47fb00000000",
+          "opcode": 123,
+          "dst": 10,
+          "src": 3,
+          "displacement": -1209,
+          "immediate": 0
+        }
+      ],
+      "first_pack_store_dominates_first_curve_target_read_in_direct_cfg": true
+    },
+    "curve_consumer": {
+      "curve_pointer_load": {
+        "offset": "0x1f90",
+        "va": "0x249a0",
+        "raw": "7981380000000000",
+        "opcode": 121,
+        "dst": 1,
+        "src": 8,
+        "displacement": 56,
+        "immediate": 0
+      },
+      "pairs": [
+        {
+          "target_load": {
+            "offset": "0x1fd8",
+            "va": "0x249e8",
+            "raw": "79a240fb00000000",
+            "opcode": 121,
+            "dst": 2,
+            "src": 10,
+            "displacement": -1216,
+            "immediate": 0
+          },
+          "curve_store": {
+            "offset": "0x1fe0",
+            "va": "0x249f0",
+            "raw": "7b21080000000000",
+            "opcode": 123,
+            "dst": 1,
+            "src": 2,
+            "displacement": 8,
+            "immediate": 0
+          }
+        },
+        {
+          "target_load": {
+            "offset": "0x1fe8",
+            "va": "0x249f8",
+            "raw": "79a248fb00000000",
+            "opcode": 121,
+            "dst": 2,
+            "src": 10,
+            "displacement": -1208,
+            "immediate": 0
+          },
+          "curve_store": {
+            "offset": "0x1ff0",
+            "va": "0x24a00",
+            "raw": "7b21100000000000",
+            "opcode": 123,
+            "dst": 1,
+            "src": 2,
+            "displacement": 16,
+            "immediate": 0
+          }
+        },
+        {
+          "target_load": {
+            "offset": "0x1ff8",
+            "va": "0x24a08",
+            "raw": "79a250fb00000000",
+            "opcode": 121,
+            "dst": 2,
+            "src": 10,
+            "displacement": -1200,
+            "immediate": 0
+          },
+          "curve_store": {
+            "offset": "0x2000",
+            "va": "0x24a10",
+            "raw": "7b21180000000000",
+            "opcode": 123,
+            "dst": 1,
+            "src": 2,
+            "displacement": 24,
+            "immediate": 0
+          }
+        },
+        {
+          "target_load": {
+            "offset": "0x2008",
+            "va": "0x24a18",
+            "raw": "79a258fb00000000",
+            "opcode": 121,
+            "dst": 2,
+            "src": 10,
+            "displacement": -1192,
+            "immediate": 0
+          },
+          "curve_store": {
+            "offset": "0x2010",
+            "va": "0x24a20",
+            "raw": "7b21200000000000",
+            "opcode": 123,
+            "dst": 1,
+            "src": 2,
+            "displacement": 32,
+            "immediate": 0
+          }
+        }
+      ]
+    },
+    "pool_consumer": {
+      "call": {
+        "offset": "0x2dd8",
+        "va": "0x257e8",
+        "raw": "8510000003c90100",
+        "opcode": 133,
+        "dst": 0,
+        "src": 1,
+        "displacement": 0,
+        "immediate": 116995,
+        "direct_call_target": 1089544
+      },
+      "target_argument": [
+        {
+          "offset": "0x2db8",
+          "va": "0x257c8",
+          "raw": "bfa3000000000000",
+          "opcode": 191,
+          "dst": 3,
+          "src": 10,
+          "displacement": 0,
+          "immediate": 0
+        },
+        {
+          "offset": "0x2dc0",
+          "va": "0x257d0",
+          "raw": "0703000040fbffff",
+          "opcode": 7,
+          "dst": 3,
+          "src": 0,
+          "displacement": 0,
+          "immediate": -1216
+        }
+      ],
+      "callee_start": "0x10a008",
+      "callee_bytes": 4056,
+      "serialized_target_words": [
+        {
+          "target_read": {
+            "offset": "0xe8",
+            "va": "0x10a0f0",
+            "raw": "7935000000000000",
+            "opcode": 121,
+            "dst": 5,
+            "src": 3,
+            "displacement": 0,
+            "immediate": 0
+          },
+          "payload_store": {
+            "offset": "0xf0",
+            "va": "0x10a0f8",
+            "raw": "7b56080000000000",
+            "opcode": 123,
+            "dst": 6,
+            "src": 5,
+            "displacement": 8,
+            "immediate": 0
+          }
+        },
+        {
+          "target_read": {
+            "offset": "0xf8",
+            "va": "0x10a100",
+            "raw": "7935080000000000",
+            "opcode": 121,
+            "dst": 5,
+            "src": 3,
+            "displacement": 8,
+            "immediate": 0
+          },
+          "payload_store": {
+            "offset": "0x100",
+            "va": "0x10a108",
+            "raw": "7b56100000000000",
+            "opcode": 123,
+            "dst": 6,
+            "src": 5,
+            "displacement": 16,
+            "immediate": 0
+          }
+        },
+        {
+          "target_read": {
+            "offset": "0x108",
+            "va": "0x10a110",
+            "raw": "7935100000000000",
+            "opcode": 121,
+            "dst": 5,
+            "src": 3,
+            "displacement": 16,
+            "immediate": 0
+          },
+          "payload_store": {
+            "offset": "0x110",
+            "va": "0x10a118",
+            "raw": "7b56180000000000",
+            "opcode": 123,
+            "dst": 6,
+            "src": 5,
+            "displacement": 24,
+            "immediate": 0
+          }
+        },
+        {
+          "target_read": {
+            "offset": "0x118",
+            "va": "0x10a120",
+            "raw": "7933180000000000",
+            "opcode": 121,
+            "dst": 3,
+            "src": 3,
+            "displacement": 24,
+            "immediate": 0
+          },
+          "payload_store": {
+            "offset": "0x120",
+            "va": "0x10a128",
+            "raw": "7b36200000000000",
+            "opcode": 123,
+            "dst": 6,
+            "src": 3,
+            "displacement": 32,
+            "immediate": 0
+          }
+        }
+      ],
+      "condition": "Pool-present caller path and successful callee allocation; this is a static byte-flow proof, not an invoked CPI."
+    }
+  },
+  "originalOrder": {
+    "originalSha256": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
+    "CTOStart": "0x22a10",
+    "upstreamAnalysisRecord": {
+      "name": "ORIGINAL-SHARED-FLOW.json",
+      "sha256": "05e4f56ad4280ae06df4eda4ae7296dd0bb3cadc8c6def1ee068ec1fdc0ae978",
+      "producerSha256": "39d0496abef9110e4ac7813ba5dc21d248df25ec0e4229fe1a5b2818464d262b"
+    },
+    "witnesses": [
+      {
+        "relative": "0xda8",
+        "raw": "79a1e0f600000000"
+      },
+      {
+        "relative": "0xdc0",
+        "raw": "1501d90000000000"
+      },
+      {
+        "relative": "0xdc8",
+        "raw": "79a1d0ff00000000"
+      },
+      {
+        "relative": "0xde0",
+        "raw": "79a1d8ff00000000"
+      },
+      {
+        "relative": "0xdf8",
+        "raw": "79a1e0ff00000000"
+      },
+      {
+        "relative": "0xe10",
+        "raw": "79a1c8ff00000000"
+      },
+      {
+        "relative": "0xe20",
+        "raw": "79a1d8f600000000"
+      },
+      {
+        "relative": "0xe28",
+        "raw": "1501010000000000"
+      },
+      {
+        "relative": "0x1800",
+        "raw": "7b4ae8f600000000"
+      },
+      {
+        "relative": "0x1810",
+        "raw": "b707000001000000"
+      },
+      {
+        "relative": "0x1818",
+        "raw": "79a1e0f600000000"
+      },
+      {
+        "relative": "0x1820",
+        "raw": "5501010000000000"
+      }
+    ],
+    "bound": "Two machine selections of shared are observed: selected creator snapshot words precede the fee test, then a later shared/flag choice follows fee-Some success. This does not prove literal original Rust trees/helper types/source evaluation order; C1 only preserves current reconstruction effects."
+  },
+  "limits": "Expected data only; verifier must compare to actual archived ELFs. Direct intraprocedural CFG/register/direct-FP reasoning and stated private-buffer nonalias assumption; not Rust lifetime, original type or whole-program equivalence."
+}

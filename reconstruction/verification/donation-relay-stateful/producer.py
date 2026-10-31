@@ -453,6 +453,8 @@ def transaction_identity(cases: list[dict[str, Any]]) -> dict[str, Any]:
 
 
 def execute(root: Path, candidate: Path, output: Path) -> bool:
+    if output.exists() or output.is_symlink():
+        raise SystemExit(f"refusing to overwrite existing report: {output}")
     original = root / "evidence/dependencies/donation_relay/deployed.so"
     token = root / "evidence/dependencies/spl_token/deployed.so"
     associated = root / "evidence/dependencies/associated_token/deployed.so"

@@ -1,0 +1,21 @@
+{
+  "issue": "donation_relay_differential.py read the relay IDL and the imported AMM fixture with Path.read_text() and no encoding, so on an ASCII-locale host a non-ASCII documentation byte aborts the fixture build with UnicodeDecodeError before any case runs.",
+  "base_revision": "963d1eefbed3a81a51d2d52f80026c5434a7a423",
+  "affected": "scripts/donation_relay_differential.py:157 (AMM_FIXTURE) and :168 (IDL) at base",
+  "finding": "Both JSON inputs carry documentation text. The pump IDL consumers were pinned to UTF-8 earlier for the same reason; these two reads were not covered because they name different literals.",
+  "change": {
+    "code": "json.loads(IDL.read_text(encoding='utf-8')) and json.loads(AMM_FIXTURE.read_text(encoding='utf-8'))",
+    "unchanged_behaviour": "case preparation, instruction construction, the two VM runs, comparison and receipt payload"
+  },
+  "runs": {
+    "base": "LC_ALL=C LANG=C PYTHONUTF8=0 PYTHONCOERCECLOCALE=0 python -c '<driver>' with a non-ASCII IDL and AMM fixture -> UnicodeDecodeError: 'ascii' codec can't decode byte 0xe2 (both cases)",
+    "fixed": "same driver -> prepare() returns accounts and the instruction; 2 tests OK"
+  },
+  "tests": {
+    "new_test": "tests/test_donation_relay_json_reads.py",
+    "cases": ["non-ASCII relay IDL decodes and prepares an ordinary donation", "non-ASCII AMM fixture decodes and prepares a native donation"],
+    "before": "FAILED (failures=2) with UnicodeDecodeError",
+    "after": "Ran 2 tests ... OK"
+  },
+  "limits": "This changes only how the two inputs are decoded; it adds no case, no run and no comparison, and changes no capture or prior receipt."
+}

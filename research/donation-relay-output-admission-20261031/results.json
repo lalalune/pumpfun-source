@@ -1,0 +1,45 @@
+{
+  "issue": "donation_relay_differential.py wrote its report with Path(output).write_text(...) and never compared --output with the candidate or the captured inputs it reads, so naming an input as the destination replaced that binary with JSON and the run still exited 0.",
+  "base_revision": "53abf28b1160e4509e0ead2a1daab1f987d92278",
+  "affected": "scripts/donation_relay_differential.py:execute at base, the final Path(output) write; main passed --output straight through",
+  "finding": "The oracle consumes the candidate ELF, the captured relay binary (ORIGINAL, pinned by ORIGINAL_SHA), the captured spl_token and associated_token images, the reserved-IDL record and the AMM fixture. Its report is written only after every case ran, so a destination equal to any of those inputs destroys the bytes the receipt describes while the printed summary and exit status report a matched differential. The sibling Pump/AMM/Fees/Mayhem differentials already admit their report destinations through PumpReport or protect_report_output; the relay differential had no such check.",
+  "change": {
+    "location": "main, after argument parsing and before execute",
+    "code": "protect_output resolves --output against the candidate, ORIGINAL, SPL_TOKEN, ASSOCIATED, IDL, AMM_FIXTURE and this script, and raises ValueError on an equal path or on samefile (hard link, symlink)",
+    "ordering": "the refusal precedes the oracle, so no fixture is loaded and no case runs",
+    "unchanged_behaviour": "case construction, both LiteSVM instances, the paired comparison and effect checks, the report payload, and the exit status for a mismatched differential"
+  },
+  "runs": {
+    "base_alias": {
+      "command": "python -B scripts/donation_relay_differential.py --candidate <temp>/dr-cand.so --group business_rejection --output <temp>/dr-cand.so",
+      "exit": 0,
+      "candidate_before": "367f07a62e3f74d358187d175cf3228848e81a56c781a9a75b9df7fed1268563 (captured relay bytes)",
+      "candidate_after": "2442-byte JSON report, sha256 a9f27d2f288484ca68fb130f41b83c298c7b5e269bd7c5cc5cf0139b41d6159e",
+      "note": "the printed summary still reported differential_matched 3 of 3"
+    },
+    "base_normal": {
+      "command": "python -B scripts/donation_relay_differential.py --candidate evidence/dependencies/donation_relay/deployed.so --group business_rejection --output <temp>/report.json",
+      "exit": 0,
+      "stdout": "case_count 3, differential_matched 3, mismatched_cases []"
+    },
+    "fixed_alias": {
+      "command": "python -B scripts/donation_relay_differential.py --candidate <temp>/dr-fixed.so --group business_rejection --output <temp>/dr-fixed.so",
+      "exit": 1,
+      "stderr": "ValueError: report output aliases an input: <temp>/dr-fixed.so",
+      "candidate_unchanged": "367f07a62e3f74d358187d175cf3228848e81a56c781a9a75b9df7fed1268563"
+    },
+    "reproduction_inputs": "The local-validation-proposal inputs under repro/ are ignored by git; the reproduction staged the tracked spl_token, associated_token, localnet/relay/idl.json and the imported AMM fixture at those paths in a disposable worktree."
+  },
+  "tests": {
+    "new_test": "tests/test_donation_relay_output_admission.py",
+    "cases": [
+      "candidate destination is refused before the cases run and the candidate bytes are unchanged",
+      "the captured relay destination is refused (guard exercised directly; a CLI run would overwrite the tracked capture if it failed)",
+      "hard-link and symlink destinations are refused and the candidate is unchanged",
+      "an unrelated destination is not refused"
+    ],
+    "before": "FAILED (failures=2, errors=1): both CLI alias cases exit 0, and protect_output is absent",
+    "after": "4 tests OK"
+  },
+  "limits": "This admits where the report may be written. It adds no execution, selector or signature coverage, changes no capture, suite or prior receipt, and does not alter the differential's comparison or its report payload. Replacing a prior report at a new path is unchanged."
+}

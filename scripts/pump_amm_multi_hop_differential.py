@@ -7,12 +7,6 @@ import sys,pathlib,os
 _CALLER_CWD=pathlib.Path.cwd()
 ROOT=pathlib.Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'scripts'));os.chdir(ROOT)
 
-_CALLER_CWD=pathlib.Path.cwd()
-ROOT=pathlib.Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'scripts'));os.chdir(ROOT)
-
-_CALLER_CWD=pathlib.Path.cwd()
-ROOT=pathlib.Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'scripts'));os.chdir(ROOT)
-
 from pump_amm_legacy_sell_differential import *
 from pump_differential_output import PumpReport
 

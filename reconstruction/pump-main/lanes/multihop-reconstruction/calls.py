@@ -1,7 +1,7 @@
 # usage: calls.py TOOLS_HARNESS so [symregex]   (default swap_hop$)  or  calls.py TOOLS_HARNESS orig
 import sys,re,subprocess
 H=sys.argv[1]; sys.path.insert(0,H); args=sys.argv[2:]; sys.argv=sys.argv[:1]
-import win, coords
+import win, coords, score
 from pathlib import Path
 if args[0]=='orig':
     W={x['start']:x for x in coords.original_windows()}
@@ -11,7 +11,7 @@ if args[0]=='orig':
     def name(t): return ''
 else:
     path=Path(args[0]); rx=re.compile(args[1] if len(args)>1 else r'8swap_hop17h')
-    fns=coords.candidate_functions(path)
+    fns=score.candidate_functions(path)
     st,n,_=next(f for f in fns if rx.search(f[2]))
     d=win.objdump_text(path,st,st+n)
     blob=path.read_bytes(); cs=coords.sections(blob)

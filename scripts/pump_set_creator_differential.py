@@ -6,6 +6,7 @@ import sys,json,base64,hashlib,argparse
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'scripts'))
 from fees_donation_create_differential import *
+from pump_differential_output import PumpReport
 import pump_validate_admin as pump
 from solders.clock import Clock
 from solders.compute_budget import set_compute_unit_limit
@@ -70,13 +71,13 @@ def cases():
   rows += [{'op':op,**c,'name':op+'-'+c['name']} for c in cs]
  return rows
 def main():
- p=argparse.ArgumentParser();p.add_argument('--candidate',type=Path);p.add_argument('--output',type=Path,required=True);a=p.parse_args();rows=[];bad=[]
+ p=argparse.ArgumentParser();p.add_argument('--candidate',type=Path);p.add_argument('--output',type=Path,required=True);a=p.parse_args();publisher=PumpReport(a.output,ROOT,a.candidate,__file__);rows=[];bad=[]
  paths=[Path(__file__),ROOT/'evidence/original/pump/deployed.so',ROOT/'evidence/upstream/pump.json',ROOT/'scripts/fees_donation_create_differential.py',ROOT/'scripts/fees_admin_differential.py',ROOT/'scripts/pump_validate_admin.py']+([a.candidate] if a.candidate else []);hashes={str(p):hashlib.sha256(p.read_bytes()).hexdigest() for p in paths}
  for c in cases():
   x=run(c);y=run(c,a.candidate) if a.candidate else None;match=all(x[k]==y[k] for k in ['error','before','after','events','inner','return']) if y else None;rows.append({'case':c,'original':x,'candidate':y,'match':match})
   if match is False:bad.append(c['name'])
  sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest();report={'scope':'Normally signed synthetic local creator setters, no privileged signatures or live writes; bounded behavior only.','original_sha256':sha(ROOT/'evidence/original/pump/deployed.so'),'candidate_sha256':sha(a.candidate) if a.candidate else None,'case_count':len(rows),'cases':rows,'mismatches':bad,'provenance':hashes}
  assert all(hashlib.sha256(Path(p).read_bytes()).hexdigest()==h for p,h in hashes.items()),'Input changed during execution'
- a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8',newline='\n');print(len(rows),bad)
+ publisher.write((json.dumps(report,indent=2)+'\n').encode('utf-8'));print(len(rows),bad)
  if bad:raise SystemExit(1)
 if __name__=='__main__':main()

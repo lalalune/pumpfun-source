@@ -13,7 +13,7 @@ from pathlib import Path
 
 H = Path(__file__).resolve().parent
 sys.path.insert(0, str(H))
-from score import sections, body, original_windows, score_with_hash, BASE, normalize  # noqa
+from score import sections, body, original_windows, score_with_hash, BASE, normalize, write_report  # noqa
 from score_admission import report_destination
 from elf_symbols import function_symbols
 
@@ -35,9 +35,13 @@ def read_cstr_at(blob, secs, vaddr, length):
 def sites(blob, secs, start, raw):
     out = []
     n = len(raw); i = 0; insn = []
+    if n % 8:
+        raise ValueError('SBF code must contain complete 8-byte slots')
     while i < n:
         op = raw[i]
         if op == 0x18:
+            if i + 16 > n:
+                raise ValueError('truncated lddw instruction')
             lo = struct.unpack_from('<I', raw, i + 4)[0]; hi = struct.unpack_from('<I', raw, i + 12)[0]
             insn.append((i, op, raw[i + 1], 0, lo | hi << 32)); i += 16
         else:
@@ -64,7 +68,10 @@ def sites(blob, secs, start, raw):
                         break  # Calls may overwrite caller-saved pointer registers.
                     if dst(r3) == ry and o3 == 0x18:
                         ptr = v3; break
-                    if dst(r3) == ry and o3 not in (0x7b, 0x7a, 0x62, 0x72, 0x6a, 0x63, 0x73, 0x6b):
+                    # Conditional jumps read their dst operand; they do not
+                    # overwrite it. Keep the caller-saved call barrier above.
+                    branch = o3 & 7 in (5, 6) and o3 & 0xf0 not in (0x80, 0x90)
+                    if dst(r3) == ry and not branch and o3 not in (0x7b, 0x7a, 0x62, 0x72, 0x6a, 0x63, 0x73, 0x6b):
                         break
                 if ptr is not None:
                     break
@@ -124,47 +131,57 @@ def main():
             ap.error(f'{a.start!r} is not a numeric address')
         print(json.dumps(orig_sites(start), indent=1))
     elif a.cmd == 'fn':
-        blob = a.cand.read_bytes(); cs = sections(blob)
         try:
             address = int(a.addr, 0)
         except ValueError:
             ap.error(f'{a.addr!r} is not a numeric address')
-        f = next(((s, n, nm) for (s, n, nm) in function_symbols(blob) if s == address), None)
+        try:
+            blob = a.cand.read_bytes(); cs = sections(blob)
+            syms = function_symbols(blob)
+        except (OSError, ValueError, KeyError, struct.error) as error:
+            ap.error(str(error))
+        f = next(((s, n, nm) for (s, n, nm) in syms if s == address), None)
         if f is None:
             print(f'coords.py: error: {address:#x} is not a function symbol in the candidate', file=sys.stderr); sys.exit(2)
-        print(json.dumps(cand_sites(blob, cs, f[0], f[1]), indent=1))
+        try:
+            result = cand_sites(blob, cs, f[0], f[1])
+        except (ValueError, KeyError, struct.error) as error:
+            ap.error(str(error))
+        print(json.dumps(result, indent=1))
     else:
         if a.json:
             try:
                 report_destination(a.json, [a.cand, BASE / 'original.so', resolve_original(BASE / 'original.so'), BASE / 'functions.tsv'])
             except ValueError as error:
                 ap.error(str(error))
-        blob = a.cand.read_bytes(); cs = sections(blob)
-        cur, candidate_hash = score_with_hash(a.cand)
-        if candidate_hash != hashlib.sha256(blob).hexdigest():
-            ap.error('candidate changed during coordinate analysis; retry with a stable file')
-        bylen = {}
-        for s, n, nm in function_symbols(blob):
-            bylen.setdefault(n, []).append((s, nm))
-        rows = []
-        for w in original_windows():
-            if cur[w['start']]['normalized']:
-                continue
-            osites = sites(ORIG, OS, w['start'], w['raw'])
-            if not osites:
-                continue
-            best = None
-            on = normalize(w['raw'], w['start'], OS)
-            for (s, nm) in bylen.get(w['bytes'], []):
-                cn = normalize(body(blob, cs, s, w['bytes']), s, cs)
-                diff = [i for i in range(0, len(on), 8) if on[i:i + 8] != cn[i:i + 8]]
-                if diff and not non_coordinate_slots(on, cn, osites):
-                    best = (s, nm, diff, cand_sites(blob, cs, s, w['bytes'])); break
-            rows.append({'start': hex(w['start']), 'bytes': w['bytes'], 'original_sites': osites,
-                         'coordinate_only_candidate': None if not best else {'addr': hex(best[0]), 'symbol': best[1], 'diff_slots': best[2], 'candidate_sites': best[3]}})
+        try:
+            blob = a.cand.read_bytes(); cs = sections(blob)
+            cur, candidate_hash = score_with_hash(a.cand)
+            if candidate_hash != hashlib.sha256(blob).hexdigest():
+                ap.error('candidate changed during coordinate analysis; retry with a stable file')
+            bylen = {}
+            for s, n, nm in function_symbols(blob):
+                bylen.setdefault(n, []).append((s, nm))
+            rows = []
+            for w in original_windows():
+                if cur[w['start']]['normalized']:
+                    continue
+                osites = sites(ORIG, OS, w['start'], w['raw'])
+                if not osites:
+                    continue
+                best = None
+                on = normalize(w['raw'], w['start'], OS)
+                for (s, nm) in bylen.get(w['bytes'], []):
+                    cn = normalize(body(blob, cs, s, w['bytes']), s, cs)
+                    diff = [i for i in range(0, len(on), 8) if on[i:i + 8] != cn[i:i + 8]]
+                    if diff and not non_coordinate_slots(on, cn, osites):
+                        best = (s, nm, diff, cand_sites(blob, cs, s, w['bytes'])); break
+                rows.append({'start': hex(w['start']), 'bytes': w['bytes'], 'original_sites': osites,
+                             'coordinate_only_candidate': None if not best else {'addr': hex(best[0]), 'symbol': best[1], 'diff_slots': best[2], 'candidate_sites': best[3]}})
+        except (OSError, ValueError, KeyError, struct.error) as error:
+            ap.error(str(error))
         if a.json:
-            a.json.parent.mkdir(parents=True, exist_ok=True)
-            a.json.write_text(json.dumps(rows, indent=1) + '\n', encoding='utf-8', newline='\n')
+            write_report(a.json, json.dumps(rows, indent=1) + '\n')
         co = [r for r in rows if r['coordinate_only_candidate']]
         print(f"unmatched windows with Source sites: {len(rows)}; coordinate-only vs an equal-length candidate: {len(co)} ({sum(r['bytes'] for r in co)} B)")
 

@@ -1,0 +1,47 @@
+{
+  "scope": "Proposed maintained-script asset transition for AMM differential report publication; captures, fixtures, suites and prior receipts remain unchanged.",
+  "base": "52c0b087c7e345766b67b8fdeb8d4784079a955d",
+  "files": {
+    "scripts/pump_amm_boost_burn_differential.py": {
+      "before_sha256": "f11a5347486ecc4f47f72b164dd60551fdbba5152369967954b3b2ed4b216d19",
+      "proposed_sha256": "ad97220834c5127164682d365135912e0c2ee56252e498c1f69ec8a300ac7253"
+    },
+    "scripts/pump_amm_cashback_differential.py": {
+      "before_sha256": "833247641ebe3ccfe6a9e0103a90769fce510a9b7756b42edf3588d904a8d7de",
+      "proposed_sha256": "17f68a6a0a7407002877dffc87fe06ad3f6321937c47f621d00e91252cf81460"
+    },
+    "scripts/pump_amm_create_differential.py": {
+      "before_sha256": "241696dc582467d867f7e9d571fa003abeb755b2fed0746c06f8115d684beba0",
+      "proposed_sha256": "4e193a8380d19d262f1b0a98ea168e862a2a6a924fac00135ba0dc6f41d2fcde"
+    },
+    "scripts/pump_amm_creator_reassignment_cto_differential.py": {
+      "before_sha256": "a1abd56ab06fb962c967f808ee6594cfe9dbf24c5b41f7d0225cab00e970f774",
+      "proposed_sha256": "efafc74b1312e23f44d9690121b605bb56d51d4d88649f7cb9b6fadfb804d8cd"
+    },
+    "scripts/pump_amm_creator_reassignment_differential.py": {
+      "before_sha256": "f754cbd25f929c43ee21df68b28e3b79f8413dc10aa5cbf93240508413c39ded",
+      "proposed_sha256": "bd5527cfeb952970ade9460c3e833059b43719f1b75ae18c17abbee63a36c8a2"
+    },
+    "scripts/pump_amm_incentives_differential.py": {
+      "before_sha256": "c3056f19f1453acd820e5fbc63febde682974127d9870adee385bda68c8be5da",
+      "proposed_sha256": "505a92e8b8ef2484cb80f1e1463b272c8ce71b8f2c11fe2bb24832e5e821b87d"
+    },
+    "scripts/pump_amm_migration_create_differential.py": {
+      "before_sha256": "417cbc27a07e854cc6997af69b9f9a21a74d5af95a8c7320a2f532e9afbcb6fc",
+      "proposed_sha256": "d4f40ae521e95e9da8aefaadf58905df10113777169640211994ae257c88839f"
+    },
+    "scripts/pump_amm_transfer_creator_differential.py": {
+      "before_sha256": "e89097040bd3c8ab5fa6dd2f540af0bc9c987830905ba8f29d1b11c5d0c14e02",
+      "proposed_sha256": "3205f2a31a3289f089b225ddacfdff62a38a53045c63bc42113919be728ef173"
+    },
+    "scripts/pump_amm_reusable_harness.py": {
+      "before_sha256": "2a268f447fb4d61957da602e494bb706753914737ec44110d9743ec9cbdbae51",
+      "proposed_sha256": "7a1a90c6592aa1a1c2f8e73e39797b848af93ed407b9e4fbdf7b9acdcbc28587"
+    }
+  },
+  "script_set_changed": false,
+  "program_source_changed": false,
+  "capture_bytes_changed": false,
+  "new_test": "tests/test_amm_differential_report_publication.py",
+  "existing_ci_discovery": "contract-tests: python -B -m unittest discover -s tests -v"
+}

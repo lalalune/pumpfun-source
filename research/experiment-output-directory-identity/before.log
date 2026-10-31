@@ -1,0 +1,60 @@
+test_empty_directory_changes_invalidate_pass_and_fail_results (test_experiment_output_directories.OutputDirectoryIdentityTests.test_empty_directory_changes_invalidate_pass_and_fail_results) ...
+  test_empty_directory_changes_invalidate_pass_and_fail_results (test_experiment_output_directories.OutputDirectoryIdentityTests.test_empty_directory_changes_invalidate_pass_and_fail_results) (code=0, change='remove') ... FAIL
+  test_empty_directory_changes_invalidate_pass_and_fail_results (test_experiment_output_directories.OutputDirectoryIdentityTests.test_empty_directory_changes_invalidate_pass_and_fail_results) (code=0, change='rename') ... FAIL
+  test_empty_directory_changes_invalidate_pass_and_fail_results (test_experiment_output_directories.OutputDirectoryIdentityTests.test_empty_directory_changes_invalidate_pass_and_fail_results) (code=0, change='add') ... FAIL
+  test_empty_directory_changes_invalidate_pass_and_fail_results (test_experiment_output_directories.OutputDirectoryIdentityTests.test_empty_directory_changes_invalidate_pass_and_fail_results) (code=1, change='remove') ... FAIL
+  test_empty_directory_changes_invalidate_pass_and_fail_results (test_experiment_output_directories.OutputDirectoryIdentityTests.test_empty_directory_changes_invalidate_pass_and_fail_results) (code=1, change='rename') ... FAIL
+  test_empty_directory_changes_invalidate_pass_and_fail_results (test_experiment_output_directories.OutputDirectoryIdentityTests.test_empty_directory_changes_invalidate_pass_and_fail_results) (code=1, change='add') ... FAIL
+
+======================================================================
+FAIL: test_empty_directory_changes_invalidate_pass_and_fail_results (test_experiment_output_directories.OutputDirectoryIdentityTests.test_empty_directory_changes_invalidate_pass_and_fail_results) (code=0, change='remove')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<repo>/reconstruction/harness/test_experiment_output_directories.py", line 37, in test_empty_directory_changes_invalidate_pass_and_fail_results
+    self.assertFalse(second['reused'])
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_empty_directory_changes_invalidate_pass_and_fail_results (test_experiment_output_directories.OutputDirectoryIdentityTests.test_empty_directory_changes_invalidate_pass_and_fail_results) (code=0, change='rename')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<repo>/reconstruction/harness/test_experiment_output_directories.py", line 37, in test_empty_directory_changes_invalidate_pass_and_fail_results
+    self.assertFalse(second['reused'])
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_empty_directory_changes_invalidate_pass_and_fail_results (test_experiment_output_directories.OutputDirectoryIdentityTests.test_empty_directory_changes_invalidate_pass_and_fail_results) (code=0, change='add')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<repo>/reconstruction/harness/test_experiment_output_directories.py", line 37, in test_empty_directory_changes_invalidate_pass_and_fail_results
+    self.assertFalse(second['reused'])
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_empty_directory_changes_invalidate_pass_and_fail_results (test_experiment_output_directories.OutputDirectoryIdentityTests.test_empty_directory_changes_invalidate_pass_and_fail_results) (code=1, change='remove')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<repo>/reconstruction/harness/test_experiment_output_directories.py", line 37, in test_empty_directory_changes_invalidate_pass_and_fail_results
+    self.assertFalse(second['reused'])
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_empty_directory_changes_invalidate_pass_and_fail_results (test_experiment_output_directories.OutputDirectoryIdentityTests.test_empty_directory_changes_invalidate_pass_and_fail_results) (code=1, change='rename')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<repo>/reconstruction/harness/test_experiment_output_directories.py", line 37, in test_empty_directory_changes_invalidate_pass_and_fail_results
+    self.assertFalse(second['reused'])
+AssertionError: True is not false
+
+======================================================================
+FAIL: test_empty_directory_changes_invalidate_pass_and_fail_results (test_experiment_output_directories.OutputDirectoryIdentityTests.test_empty_directory_changes_invalidate_pass_and_fail_results) (code=1, change='add')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<repo>/reconstruction/harness/test_experiment_output_directories.py", line 37, in test_empty_directory_changes_invalidate_pass_and_fail_results
+    self.assertFalse(second['reused'])
+AssertionError: True is not false
+
+----------------------------------------------------------------------
+Ran 1 test in 0.416s
+
+FAILED (failures=6)

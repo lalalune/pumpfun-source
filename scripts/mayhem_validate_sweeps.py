@@ -74,10 +74,10 @@ for op in ['sweep_fees','sweep_fees_admin']:
    for tokens in [0,100000]:rows.append(dict(op=op,native=native,kind=kind,tokens=tokens))
   for n in range(75):rows.append(dict(op=op,native=native,opaque=rng.randbytes(32).hex(),timestamp=rng.randrange(-1000,1000),limit=rng.randrange(10000000),tokens=rng.randrange(2000000),token_step=rng.randrange(20000),lamports=rng.randrange(100000,10000000)))
 if __name__=='__main__':
- ap=argparse.ArgumentParser();ap.add_argument('--candidate',type=pathlib.Path,required=True);ap.add_argument('--output',type=pathlib.Path,required=True);a=ap.parse_args()
+ ap=argparse.ArgumentParser();ap.add_argument('--candidate',type=pathlib.Path,required=True);ap.add_argument('--output',type=pathlib.Path,required=True);a=ap.parse_args();publisher=PumpReport(a.output,ROOT,a.candidate,pathlib.Path(__file__),extra_inputs=REPORT_INPUTS)
  original=ROOT/'evidence/original/mayhem/deployed.so';o=SweepFixture(original);b=SweepFixture(a.candidate);results=[];failures=[]
  for index,c in enumerate(rows):
   x=o.execute(c);y=b.execute(c);equal=all(x[k]==y[k] for k in ['error','accounts','events','inner','return_data']);results.append(dict(case=c,original=x,candidate=y,equal=equal))
   if not equal:failures.append(index)
  report={'scope':'Both sweep paths with exact captured dependency ELFs; synthetic accounts and configuration. Partial program reconstruction.','original_sha256':o.sha256,'candidate_sha256':b.sha256,'dependency_sha256':{name:hashlib.sha256((ROOT/f'evidence/dependencies/{name}/deployed.so').read_bytes()).hexdigest() for name in DEPENDENCIES},'source_sha256':{str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in [ROOT/'programs/mayhem/Cargo.toml',ROOT/'programs/mayhem/Cargo.lock',ROOT/'programs/mayhem/src/lib.rs',pathlib.Path(__file__).resolve(),ROOT/'scripts/mayhem_validate_admin.py',ROOT/'scripts/mayhem_validate_fee_recipient.py']},'case_count':len(results),'mismatches':failures,'cases':results}
- a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(report,separators=(',',':'))+'\n',encoding='utf-8',newline='\n');print(json.dumps({'cases':len(results),'mismatches':failures}));raise SystemExit(bool(failures))
+ publisher.write((json.dumps(report,separators=(',',':'))+'\n').encode('utf-8'));print(json.dumps({'cases':len(results),'mismatches':failures}));raise SystemExit(bool(failures))

@@ -4,6 +4,10 @@ import hashlib,json,pathlib,random
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 # .gitignore lists repro/, and this checkout has no repro/programs.json.
 _CAPTURE_ORDER=('pump','pump_amm','pump_fees','mayhem')
+# Anchor decodes arguments before it checks accounts. All-zero arguments decode,
+# so a missing-accounts case reaches the account check rather than stopping at
+# InstructionDidNotDeserialize. 256 bytes is too few for the largest AMM arguments.
+ZERO_ARGUMENTS=bytes(512)
 def program_addresses(root=None):
     """Map each smoke-test program to the address of its captured binary.
 
@@ -57,7 +61,7 @@ def main():
         tests=[('empty',b''),('short',b'\x01'*7),('unknown',b'\xff'*8)]
         idl=ROOT/f'evidence/upstream/{name}.json'
         if idl.exists():
-            for ix in json.loads(idl.read_text(encoding="utf-8"))['instructions']: tests.append((ix['name']+'-missing-accounts',bytes(ix['discriminator'])))
+            for ix in json.loads(idl.read_text(encoding="utf-8"))['instructions']: tests.append((ix['name']+'-missing-accounts',bytes(ix['discriminator'])+ZERO_ARGUMENTS))
         for i in range(64): tests.append((f'random-{i}',rng.randbytes(8+i)))
         rows=[]
         for label,data in tests:

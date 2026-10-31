@@ -44,6 +44,26 @@ def wait_pid_gone(pid, seconds=2.0):
 
 
 class AuditTests(unittest.TestCase):
+    def test_published_verifier_keeps_the_required_member_inventory(self):
+        packet = self.packet()
+        self.seal(packet)
+        for member in ('README.md', 'failed.json', 'inputs.json', 'passed.json', 'skipped.json'):
+            with self.subTest(removed=member):
+                output = self.root / ('missing-' + member)
+                result = self.run_adapter(output)
+                self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+                verify = [sys.executable, '-B', str(output / 'verify.py')]
+                control = subprocess.run(verify, capture_output=True, text=True)
+                self.assertEqual(control.returncode, 0, control.stdout + control.stderr)
+                manifest_path = output / 'manifest.json'
+                manifest = json.loads(manifest_path.read_bytes())
+                (output / member).unlink()
+                del manifest[member]
+                manifest_path.write_text(json.dumps(manifest), encoding='utf-8')
+                rejected = subprocess.run(verify, capture_output=True, text=True)
+                self.assertNotEqual(rejected.returncode, 0, rejected.stdout + rejected.stderr)
+                self.assertIn('required member inventory', json.loads(rejected.stdout)['errors'])
+
     def setUp(self):
         self.temporary = tempfile.TemporaryDirectory(prefix="window-p-audit-")
         self.addCleanup(self.temporary.cleanup)

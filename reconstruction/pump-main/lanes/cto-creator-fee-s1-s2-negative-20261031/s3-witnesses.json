@@ -1,0 +1,332 @@
+{
+  "schema": "S3-selected-native-counterexample-witnesses-v1",
+  "sourceReceiptSha256": "08cd32af2993fc966a0747663f809d50c77b9904121bf83cde91e1c2b9e34465",
+  "source": "65f0162a3dcd381df0f831082dd6732c9af4ab78",
+  "ELFSha256": "100d222047a2281a4409d8f732266955368504479d3d4076b4f6e3af08ef37e4",
+  "body": {
+    "address": 141840,
+    "bytes": 27400,
+    "name": "_ZN14pump_recovered9admin_cto7execute17h3bd6d7f34f2e30d7E"
+  },
+  "bodySha256": "a8bf685d74da8226d39a8fc9f17eb0100b84a56db69415f241bb2a2b3f75e570",
+  "instructions": {
+    "0x8": "7b4a08f700000000",
+    "0x100": "b707000000000000",
+    "0x108": "796108f000000000",
+    "0x110": "7b1a10f700000000",
+    "0x118": "796100f000000000",
+    "0x120": "7b1af8f600000000",
+    "0x128": "6700000020000000",
+    "0x130": "7700000020000000",
+    "0x138": "55000c0000000000",
+    "0x140": "7991180000000000",
+    "0x148": "18020000617a1b000000000000000000",
+    "0x158": "b703000020000000",
+    "0x160": "8510000060210300",
+    "0x168": "6700000020000000",
+    "0x170": "7700000020000000",
+    "0x178": "5500040000000000",
+    "0x180": "bf91000000000000",
+    "0x188": "85100000f3ff0200",
+    "0x190": "bf07000000000000",
+    "0x198": "a707000001000000",
+    "0x3c8": "7b7a00f700000000",
+    "0x9f8": "79a108f700000000",
+    "0xa00": "1501820000000000",
+    "0x1480": "79a208f700000000",
+    "0x1488": "1502710000000000",
+    "0x14d8": "79a108f700000000",
+    "0x14e0": "15017e0000000000",
+    "0x15f0": "71a260f900000000",
+    "0x15f8": "bf52000000000000",
+    "0x1600": "15021d0000000000",
+    "0x1608": "79a2f8f600000000",
+    "0x1610": "07020000ffffffff",
+    "0x1618": "ad92340000000000",
+    "0x17c0": "7b3ac8f600000000",
+    "0x17c8": "71a260f900000000",
+    "0x17d0": "79a200f700000000",
+    "0x17d8": "5502010000000000",
+    "0x1a98": "8510000014310000",
+    "0x9c0": "7b1ae8fa00000000",
+    "0x9d0": "7b1ae0fa00000000",
+    "0x9e0": "7b1ad8fa00000000",
+    "0x9f0": "7b1ad0fa00000000",
+    "0x1440": "7b2ae8fa00000000",
+    "0x1450": "7b2ae0fa00000000",
+    "0x1460": "7b2ad8fa00000000",
+    "0x1470": "7b1ad0fa00000000",
+    "0x14a0": "7b1ae8fa00000000",
+    "0x14b0": "7b1ae0fa00000000",
+    "0x14c0": "7b1ad8fa00000000",
+    "0x14d0": "7b1ad0fa00000000"
+  },
+  "feeSlot": -2296,
+  "sharedSlot": -2304,
+  "prepareCall": 6808,
+  "feeReads": [
+    2552,
+    5248,
+    5336
+  ],
+  "feeTests": [
+    2560,
+    5256,
+    5344
+  ],
+  "feeNoneEntries": [
+    3608,
+    6168,
+    6360
+  ],
+  "feeSomeEntries": [
+    2568,
+    5264,
+    5352
+  ],
+  "privateHead": {
+    "start": 6080,
+    "end": 6112,
+    "successors": [
+      6120,
+      6112
+    ],
+    "predecessors": [
+      5640
+    ]
+  },
+  "noFeeHead": {
+    "start": 3608,
+    "end": 3664,
+    "successors": [
+      6496,
+      3664
+    ],
+    "predecessors": [
+      2488
+    ]
+  },
+  "preFeeStoreGroups": [
+    [
+      2496,
+      2512,
+      2528,
+      2544
+    ],
+    [
+      5184,
+      5200,
+      5216,
+      5232
+    ],
+    [
+      5280,
+      5296,
+      5312,
+      5328
+    ]
+  ],
+  "consumerWitnesses": {
+    "targetFrame": [
+      -1376,
+      -1344
+    ],
+    "targetWrites": {
+      "0x1a00": "7b1aa0fa00000000",
+      "0x1a10": "7b1aa8fa00000000",
+      "0x1a20": "7b1ab0fa00000000",
+      "0x1a30": "7b1ab8fa00000000"
+    },
+    "curvePairs": {
+      "0x4ec0": "79a2a0fa00000000",
+      "0x4ec8": "7b21080000000000",
+      "0x4ed0": "79a2a8fa00000000",
+      "0x4ed8": "7b21100000000000",
+      "0x4ee0": "79a2b0fa00000000",
+      "0x4ee8": "7b21180000000000",
+      "0x4ef0": "79a2b8fa00000000",
+      "0x4ef8": "7b21200000000000"
+    },
+    "pool": {
+      "address": "0x10a0e0",
+      "bytes": 4056,
+      "sha256": "7580e453c6389a4ac640d04381b57cd5259df7db44874515fbe0e4119c02a916",
+      "caller": {
+        "0x51d8": "bfa3000000000000",
+        "0x51e0": "07030000a0faffff",
+        "0x51e8": "bfa5000000000000",
+        "0x51f0": "bf74000000000000",
+        "0x51f8": "851000009ac40100"
+      },
+      "serializer": {
+        "0xe8": "7935000000000000",
+        "0xf0": "7b56080000000000",
+        "0xf8": "7935080000000000",
+        "0x100": "7b56100000000000",
+        "0x108": "7935100000000000",
+        "0x110": "7b56180000000000",
+        "0x118": "7933180000000000",
+        "0x120": "7b36200000000000"
+      }
+    },
+    "sharingFrame": [
+      -1588,
+      -1555
+    ],
+    "sharingAssembly": {
+      "0x4110": "79a2e8f600000000",
+      "0x4118": "6702000008000000",
+      "0x4120": "79a100f700000000",
+      "0x4128": "4f21000000000000",
+      "0x4130": "79a2c0f600000000",
+      "0x4138": "7b2ad8f900000000",
+      "0x4140": "79a2d0f600000000",
+      "0x4148": "7b2ad0f900000000",
+      "0x4150": "631accf900000000",
+      "0x4158": "79a1c0fa00000000",
+      "0x4160": "7b1ae0f900000000",
+      "0x4168": "79a1c5fa00000000",
+      "0x4170": "7b1ae5f900000000"
+    },
+    "sharing": {
+      "address": "0x116718",
+      "bytes": 4040,
+      "sha256": "29448eb927f43b914f919fa969440b2d7192b77a501548ee3f22da69ffe63833",
+      "caller": {
+        "0x4e08": "bfa1000000000000",
+        "0x4e10": "07010000a0f7ffff",
+        "0x4e18": "bfa2000000000000",
+        "0x4e20": "0702000030fdffff",
+        "0x4e28": "bfa3000000000000",
+        "0x4e30": "07030000ccf9ffff",
+        "0x4e38": "85100000d9dd0100"
+      },
+      "serializer": {
+        "0x98": "7134000000000000",
+        "0xe0": "5504030000000000",
+        "0xe8": "7206080000000000",
+        "0xf0": "b709000009000000",
+        "0xf8": "05000b0000000000",
+        "0x100": "0703000001000000",
+        "0x108": "7206080001000000",
+        "0x110": "7931000000000000",
+        "0x118": "7b16090000000000",
+        "0x120": "7931080000000000",
+        "0x128": "7b16110000000000",
+        "0x130": "7931100000000000",
+        "0x138": "7b16190000000000",
+        "0x140": "7931180000000000",
+        "0x148": "7b16210000000000",
+        "0x150": "b709000029000000"
+      }
+    },
+    "scope": "Selected actual instructions, outgoing argument buffers and serializer pairs; no complete bytewise reaching or arbitrary alias proof is replayed."
+  },
+  "originalFamilyCorrection": {
+    "sourceReceiptInOldArchive": "analysis/original-used-target.json",
+    "sourceReceiptSha256": "05e4f56ad4280ae06df4eda4ae7296dd0bb3cadc8c6def1ee068ec1fdc0ae978",
+    "phaseSynthesisSha256": "434bb4ffe1f92edcd2285d5d403d291ba4a774b133beab90539cfeb7cfacc861",
+    "families": [
+      {
+        "name": "Validated nonholder target reconstruction",
+        "meaning": "PRE-fee contiguous32-byte validation object is reconstructed from the incoming pieces before zero/312 comparisons. This already contains7/9 geometry in the original.",
+        "instructions": {
+          "0xc08": "bf71000000000000",
+          "0xc10": "0701000018000000",
+          "0xc18": "0707000001000000",
+          "0xc20": "6172030000000000",
+          "0xc28": "632a4bfb00000000",
+          "0xc30": "6172000000000000",
+          "0xc38": "632a48fb00000000",
+          "0xc40": "7912000000000000",
+          "0xc48": "7b2a5ffb00000000",
+          "0xc50": "7111080000000000",
+          "0xc58": "731a67fb00000000",
+          "0xc60": "7b3ab8f600000000",
+          "0xc68": "7b3a57fb00000000",
+          "0xc70": "79a300f700000000",
+          "0xc78": "7b3a4ffb00000000"
+        },
+        "limit": "Contradicts any blanket rule that original7/9 copies occur only after fees. Width geometry alone cannot name Result/Try or sharing payload."
+      },
+      {
+        "name": "Post-fee shared-nonholder input payload transport",
+        "meaning": "At+1858..1890 original entry-new prefix7/tail9 are copied to separate flag/payload temporaries FP-1336/-1352; then+19d0..1a08 copy those to FP-1360/-1376. This is not the selected target32 destination.",
+        "instructions": {
+          "0x1850": "7b5aa8f600000000",
+          "0x1858": "61a1abf900000000",
+          "0x1860": "631acbfa00000000",
+          "0x1868": "61a1a8f900000000",
+          "0x1870": "631ac8fa00000000",
+          "0x1878": "79a198f900000000",
+          "0x1880": "7b1ab8fa00000000",
+          "0x1888": "71a1a0f900000000",
+          "0x1890": "731ac0fa00000000",
+          "0x1898": "b703000001000000",
+          "0x18a0": "b706000000000000",
+          "0x18a8": "05001c0000000000",
+          "0x19d0": "61a1c8fa00000000",
+          "0x19d8": "631ab0fa00000000",
+          "0x19e0": "61a1cbfa00000000",
+          "0x19e8": "631ab3fa00000000",
+          "0x19f0": "79a1b8fa00000000",
+          "0x19f8": "7b1aa0fa00000000",
+          "0x1a00": "71a1c0fa00000000",
+          "0x1a08": "731aa8fa00000000"
+        },
+        "limit": "The bytes are directly input-derived. Shared/nonholder branch context and admitted source associate them with later sharing payload. This still does not prove an original Result/Try projection or unique source local."
+      },
+      {
+        "name": "Post-flags selected target outer pack and true use",
+        "meaning": "Target tail24 goes FP-1328/-1320/-1312\u2192FP-1664/-1656/-1648 at+19a0..19c8. First8 fromFP-2328 and those words make final target32 FP[-1408,-1376) at+1a10..1a48, distinct from adjacent sharing payload pieces. It reaches curve writes+4b10/+4b20/+4b30/+4b40.",
+        "instructions": {
+          "0x1990": "7b3a20f700000000",
+          "0x1998": "7b7a18f700000000",
+          "0x19a0": "79a1e0fa00000000",
+          "0x19a8": "7b1a90f900000000",
+          "0x19b0": "79a1d8fa00000000",
+          "0x19b8": "7b1a88f900000000",
+          "0x19c0": "79a1d0fa00000000",
+          "0x19c8": "7b1a80f900000000",
+          "0x19d0": "61a1c8fa00000000",
+          "0x19d8": "631ab0fa00000000",
+          "0x19e0": "61a1cbfa00000000",
+          "0x19e8": "631ab3fa00000000",
+          "0x19f0": "79a1b8fa00000000",
+          "0x19f8": "7b1aa0fa00000000",
+          "0x1a00": "71a1c0fa00000000",
+          "0x1a08": "731aa8fa00000000",
+          "0x1a10": "79a1e8f600000000",
+          "0x1a18": "7b1a80fa00000000",
+          "0x1a20": "79a190f900000000",
+          "0x1a28": "7b1a98fa00000000",
+          "0x1a30": "79a188f900000000",
+          "0x1a38": "7b1a90fa00000000",
+          "0x1a40": "79a180f900000000",
+          "0x1a48": "7b1a88fa00000000",
+          "0x4ab8": "79a328f700000000",
+          "0x4ac0": "7931380000000000",
+          "0x4ac8": "7912200000000000",
+          "0x4ad0": "7b2ae8f900000000",
+          "0x4ad8": "7912180000000000",
+          "0x4ae0": "7b2ae0f900000000",
+          "0x4ae8": "7912100000000000",
+          "0x4af0": "7b2ad8f900000000",
+          "0x4af8": "7912080000000000",
+          "0x4b00": "7b2ad0f900000000",
+          "0x4b08": "79a280fa00000000",
+          "0x4b10": "7b21080000000000",
+          "0x4b18": "79a288fa00000000",
+          "0x4b20": "7b21100000000000",
+          "0x4b28": "79a290fa00000000",
+          "0x4b30": "7b21180000000000",
+          "0x4b38": "79a298fa00000000",
+          "0x4b40": "7b21200000000000"
+        },
+        "limit": "This is8+24 selected-value transport. Original source Result type, helper boundary, lifetime or copy-lowering origin are not recoverable from these stores alone."
+      }
+    ],
+    "limit": "Widths identify distinct observed value transports, not original Result/Try/tuple size/helper/lifetime. Absent reset payload is excluded."
+  },
+  "limits": "Direct intraprocedural CFG with normally returning calls and SBF R6-R9 preservation; selected raw consumer points and private-buffer nonalias assumptions. No Rust Result niche, universal alias, full provenance-engine or diagnostic-trace claim."
+}

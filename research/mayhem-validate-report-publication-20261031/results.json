@@ -1,0 +1,30 @@
+{
+  "issue": "The six Mayhem validators read the captured Mayhem image, the captured dependency ELFs and the program sources they hash into the receipt, then truncated --output with write_text. Passing an input as --output destroyed the evidence, or replaced the executing script with its own report.",
+  "base_revision": "52c0b087c7e345766b67b8fdeb8d4784079a955d",
+  "affected": "scripts/mayhem_validate_{admin,fee_recipient,quote_withdraw,sweeps,extend,withdraw}.py at base; each writer is the last statement of the module-level main block",
+  "finding": "Base run of the new test: 24 failing subtests in 5 tests. --output evidence/original/mayhem/deployed.so truncated the captured image; --output scripts/mayhem_validate_admin.py replaced the module with the receipt, so the same run's later import raised NameError: name 'null' is not defined. The sibling Pump runners already admit their report through scripts/pump_differential_output.py: PumpReport.",
+  "change": {
+    "publisher": "PumpReport(a.output, ROOT, a.candidate, pathlib.Path(__file__), extra_inputs=REPORT_INPUTS) built before any case executes",
+    "report_inputs": "REPORT_INPUTS in mayhem_validate_admin.py: evidence/original/mayhem/deployed.so plus programs/mayhem/{Cargo.toml,Cargo.lock,src/lib.rs}; the dependency ELFs, the candidate, the executing script and every loaded module's source are already protected by PumpReport",
+    "write": "publisher.write((json.dumps(report,separators=(',',':'))+'\\n').encode('utf-8')) -- complete bytes, staged then os.replace",
+    "failure": "ValueError: report output aliases an input: <path>, exit 1, before a case runs and before any output directory is created"
+  },
+  "runs": {
+    "case_payload_unchanged": "base and proposed scripts were run with the same candidate (a copy of the captured image) and the same inputs; report['cases'] is identical for all six: admin 1051, fee_recipient 306, quote_withdraw 329, sweeps 692, extend 301, withdraw 274, every mismatches list empty",
+    "alias_refusals": "24 refusals exercised by the new test (captured image, candidate, hashed program source, executing script, for each of the six validators); each exits non-zero with the alias message and leaves the target bytes unchanged",
+    "publication_control": "each validator publishes a fresh nested receipt: mismatch-free JSON, case_count > 0, and no staging file left beside it"
+  },
+  "tests": {
+    "new_test": "tests/test_mayhem_validate_report_publication.py",
+    "before": "24 failing subtests in 5 tests against the base scripts (9.6s)",
+    "after": "5 tests OK (3.7s)"
+  },
+  "required_checks": {
+    "scripts/test_tooling.py": "OK (228 tests)",
+    "scripts/verify_evidence.py": "9 captures verified"
+  },
+  "known_pre_existing_failure": "scripts/test_mayhem_report_encoding.py fails on the base revision already (checked 8 not greater than 10) and here (checked 2), because its threshold counts pinned write_text calls that the admitted writers no longer make; proposed PR #3165 makes that guard accept the PumpReport publication shape.",
+  "environment": {"platform": "macOS arm64", "python": "3.14.3", "solders": "0.27.1"},
+  "unchanged": ["case corpora and comparison fields", "captured ELFs, dependency ELFs and program sources", "report schema and compact separators", "the UTF-8 LF receipt bytes"],
+  "not_claimed": "The controls prove admission and publication on the synthetic local fixtures; they do not re-run the full Mayhem validation corpus from a clean checkout and make no byte-identity claim about the rebuilt program."
+}

@@ -6,12 +6,12 @@ declared error outcomes. No compiler, producer, LiteSVM or network is executed.
 """
 import argparse
 import hashlib
-import importlib.util
 import json
 from pathlib import Path
 import shutil
 import sys
 import tempfile
+import types
 
 sys.dont_write_bytecode = True
 ROOT = Path(__file__).resolve().parents[2]
@@ -45,22 +45,25 @@ def sha(raw):
     return hashlib.sha256(raw).hexdigest()
 
 
-def load_module(name, path):
-    spec = importlib.util.spec_from_file_location(name, path)
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
+def load_module(name, path, raw):
+    module = types.ModuleType(name)
+    module.__file__ = str(path)
+    exec(compile(raw, str(path), 'exec'), module.__dict__)
     return module
 
 
 def retained_runtime(packet, repo):
     """Run the unchanged complete correspondence over an explicit archived view."""
     require(__debug__, 'Run without -O: the archived correspondence requires it')
+    admitted = {}
     for name, expected in SOURCE_PINS.items():
-        require(sha((packet / name).read_bytes()) == expected,
+        raw = (packet / name).read_bytes()
+        require(sha(raw) == expected,
                 'archived verifier/input source binding: ' + name)
-    gate = load_module('retained_multihop_gate', packet / 'verify.py')
+        admitted[name] = raw
+    gate = load_module('retained_multihop_gate', packet / 'verify.py', admitted['verify.py'])
     gate.manifest(packet)
-    correspondence = load_module('retained_multihop_correspondence', packet / 'correspondence.py')
+    correspondence = load_module('retained_multihop_correspondence', packet / 'correspondence.py', admitted['correspondence.py'])
     images = {label: {'candidate': gate.read(packet / 'build' / label / 'candidate.so.gz')}
               for label in IMAGE_PINS}
     for label, expected in IMAGE_PINS.items():

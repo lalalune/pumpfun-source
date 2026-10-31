@@ -8,6 +8,7 @@ from solders.hash import Hash
 from solders.instruction import AccountMeta,Instruction
 from solders.transaction import Transaction
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'scripts'))
+from surfpool_recording_vm import require_aligned_runs
 import pump_migrate_v2_probe as fixture
 import pump_migrate_v2_differential as suite
 from types import SimpleNamespace
@@ -108,7 +109,12 @@ def layouts():
     offset+={'pubkey':32,'u64':8,'i64':8,'bool':1,'u8':1,'u16':2,'u32':4}[t]
  return out
 def normalize_event(data,offsets):
- data=bytearray(data);key=bytes(data[:8]);assert key in offsets,('unknown event',key.hex());off=offsets[key];data[off:off+8]=bytes(8);return bytes(data)
+ data=bytearray(data);key=bytes(data[:8])
+ if key not in offsets:raise ValueError(('unknown event',key.hex()))
+ off=offsets[key]
+ if len(data)<off+8:raise ValueError(('truncated event',key.hex(),len(data)))
+ data[off:off+8]=bytes(8)
+ return bytes(data)
 def decode58(s):
  alphabet='123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';n=0
  for c in s:n=n*58+alphabet.index(c)
@@ -140,7 +146,7 @@ def main():
  indices += list(range(806,822))+[221]+list(range(822,827))
  cases=[suite.cases[i] for i in indices]
  paths=[Path(__file__),Path(fixture.__file__),Path(suite.__file__)]+[ROOT/f'evidence/upstream/{n}.json' for n in ['pump','pump_fees','pump_amm']]+[ROOT/f'evidence/original/{n}/deployed.so' for n in ['pump','pump_fees','pump_amm']]+[ROOT/f'evidence/dependencies/{n}/deployed.so' for n in ['spl_token','spl_token_2022','associated_token']]
- provenance={str(p.relative_to(ROOT)):sha(p.read_bytes()) for p in paths};fixtures=[prepare(c) for c in cases];(a.output/'fixtures.json').write_text(json.dumps(fixtures,indent=2),encoding='utf-8',newline='\n');x=run(original,fixtures,a.surfpool,a.output);y=run(candidate,fixtures,a.surfpool,a.output);bad=[];unexpected=[];offsets=layouts()
+ provenance={str(p.relative_to(ROOT)):sha(p.read_bytes()) for p in paths};fixtures=[prepare(c) for c in cases];(a.output/'fixtures.json').write_text(json.dumps(fixtures,indent=2),encoding='utf-8',newline='\n');x=run(original,fixtures,a.surfpool,a.output);y=run(candidate,fixtures,a.surfpool,a.output);require_aligned_runs(fixtures,x,y);bad=[];unexpected=[];offsets=layouts()
  def error(v):
   if v is None:return None
   m=re.fullmatch(r'TransactionErrorInstructionError\(\((\d+), Tagged\(InstructionErrorCustom\((\d+)\)\)\)\)',v)

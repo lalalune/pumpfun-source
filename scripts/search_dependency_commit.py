@@ -8,6 +8,7 @@ the captured mainnet binary, reporting full_byte_equality per commit. One long-l
 per dependency keeps the cargo cache warm across candidates.
 """
 import argparse, hashlib, json, subprocess, pathlib
+from probe_report import write_json_report
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 sha = lambda b: hashlib.sha256(b).hexdigest()
@@ -105,7 +106,9 @@ def main():
     report = dict(dependency=a.dependency, features=a.features, image=cfg['image'], repo=cfg['repo'],
                   original_sha256=sha(original), original_bytes=len(original),
                   matches=[r['head'] for r in results if r.get('full_byte_equality')], results=results)
-    (out / 'search-report.json').write_text(json.dumps(report, indent=2) + '\n',encoding='utf-8',newline='\n')
+    # Publish atomically: a failed final write must not truncate the report a
+    # previous search left at this path.
+    write_json_report(out / 'search-report.json', report)
     print('\n=== SUMMARY ===')
     for r in results:
         print(r.get('head', r['commit'])[:12], 'built' if r.get('built') else 'BUILD-FAIL',

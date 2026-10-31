@@ -93,6 +93,8 @@ def publish_reports(reports):
         if not path.parent.is_dir() or path.parent.is_symlink():
             raise FileNotFoundError(f'report parent is not a regular directory: {path.parent}')
     staged = []
+    prior = {}
+    replaced = []
     try:
         for path, text in reports:
             path = pathlib.Path(path)
@@ -106,7 +108,23 @@ def publish_reports(reports):
             with os.fdopen(descriptor, 'w', encoding='utf-8', newline='\n') as stream:
                 stream.write(text)
         for temporary, path in staged:
+            prior[path] = path.read_bytes() if path.is_file() else None
             os.replace(temporary, path)
+            replaced.append(path)
+    except BaseException:
+        # Both reports describe one capture together. Restore every file this
+        # call already replaced, so an interruption leaves the previous pair
+        # rather than one regenerated report beside an older one.
+        for path in replaced:
+            data = prior[path]
+            try:
+                if data is None:
+                    path.unlink(missing_ok=True)
+                else:
+                    path.write_bytes(data)
+            except OSError:
+                pass
+        raise
     finally:
         for temporary, _ in staged:
             temporary.unlink(missing_ok=True)

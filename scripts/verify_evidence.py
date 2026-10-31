@@ -24,6 +24,11 @@ PROGRAM_ADDRESS={
 # which hid the loss of up to five captures: deleting four of the nine still passed
 # (verified on a sealed copy). Pin the exact set so a removal is a hard failure.
 EXPECTED_CAPTURES=frozenset(PROGRAM_ADDRESS)
+# The loader branch used to be chosen by the capture's own `loader` field, so any capture could
+# declare `legacy-v2` and skip the ProgramData/PDA binding below: the associated_token capture
+# copied into evidence/original/pump with only `program` changed printed "9 captures verified".
+# Only associated_token is owned by the legacy BPF loader; pin it per folder like the address.
+LEGACY_CAPTURES=frozenset({'evidence/dependencies/associated_token'})
 # The upstream IDLs hashed in evidence/upstream/provenance.json. That file also says which
 # files to hash, so deleting an IDL together with its entry passed. Pin the set here too.
 EXPECTED_UPSTREAM=frozenset({'pump.json','pump_amm.json','pump_fees.json'})
@@ -58,7 +63,9 @@ def main():
         # was never read: a capture taken at `processed`/`confirmed` still passed.
         check(m.get('commitment')=='finalized', f'{key}: commitment {m.get("commitment")!r}')
         check(m['program']==PROGRAM_ADDRESS[key], f'{key}: capture program {m["program"]}, expected {PROGRAM_ADDRESS[key]}')
-        if m.get('loader')=='legacy-v2':
+        loader='legacy-v2' if key in LEGACY_CAPTURES else None
+        check(m.get('loader')==loader, f'{key}: capture loader {m.get("loader")!r}, expected {loader!r}')
+        if loader=='legacy-v2':
             p=(folder/'program-account.bin').read_bytes(); b=(folder/'deployed.so').read_bytes()
             check(p==b and sha(b)==m['payload_sha256']==m['program_sha256'] and type(m['payload_bytes']) is int and len(b)==m['payload_bytes'])
             check(m['owner']=='BPFLoader2111111111111111111111111111111111')

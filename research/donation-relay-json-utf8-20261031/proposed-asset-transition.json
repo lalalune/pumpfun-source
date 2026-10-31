@@ -1,0 +1,15 @@
+{
+  "scope": "Proposed maintained-script transition so the donation-relay differential decodes its relay IDL and AMM fixture as UTF-8; captures, cases and prior receipts remain unchanged.",
+  "base": "963d1eefbed3a81a51d2d52f80026c5434a7a423",
+  "files": {
+    "scripts/donation_relay_differential.py": {
+      "before_sha256": "554fddfccf44a698b93b466ce3e19e090b201c2208745f4c2812676e37e2180c",
+      "proposed_sha256": "3fb4125ea7c8523aeb67834a7fac35206bb57530168cbc222bd9fc2c81806981"
+    }
+  },
+  "script_set_changed": false,
+  "program_source_changed": false,
+  "capture_bytes_changed": false,
+  "new_test": "tests/test_donation_relay_json_reads.py",
+  "existing_ci_discovery": "contract-tests: python -B -m unittest discover -s tests -v"
+}

@@ -31,7 +31,7 @@ ln -s "$MAC/lib/rustlib/aarch64-apple-darwin" "$STAGE/rust/lib/rustlib/aarch64-a
 cp -cRp "$LNX/rust/lib/rustlib/sbpf-solana-solana" "$STAGE/rust/lib/rustlib/sbpf-solana-solana"
 cp -p "$LNX/version.md" "$STAGE/version.md"
 if [ -n "$MAN" ]; then
-  (cd "$STAGE/rust/lib/rustlib" && shasum -a 256 -c "$MAN" >/dev/null)
+  (cd "$STAGE/rust/lib/rustlib" && LC_ALL=C shasum -a 256 -c "$MAN" >/dev/null)
   echo "target libs verified against $MAN"
 fi
 "$STAGE/rust/bin/rustc" --print sysroot >/dev/null

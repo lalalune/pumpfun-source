@@ -54,3 +54,15 @@ The current adapter also admits the reviewed UTF-8/LF-only writer update.
 Its source binding is `d332969152829dc75dc855dc93f3132b9d6674b9765aee3be3bfe0f5c4453a5d`;
 RPC, parsing and admission behavior are unchanged. The earlier binding above
 identifies the historical baseline.
+
+The adapter also rechecks account metadata after the initial observation:
+program rereads must retain the loader owner and `executable: true`, and the
+sliced ProgramData reread must retain its loader owner and `executable: false`.
+Identical account data alone does not establish these properties. These checks
+use uniquely anchored in-memory substitutions after authenticating the same
+archived source hash; no archived script or capture bytes change.
+
+`python -B reconstruction/capture-rpc-retry/test_metadata_rechecks.py` serves
+retained Associated Token and SPL Token accounts over loopback HTTP. Six owner
+or executable changes at the reread boundaries must leave no published capture
+or abandoned stage; unchanged responses preserve the retained ELF bytes.

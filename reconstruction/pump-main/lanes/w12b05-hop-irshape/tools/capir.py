@@ -2,7 +2,7 @@
 """Scratch-only: build crate copy with extra --emit=llvm-ir; copy module .ll to OUT."""
 import argparse, json, sys, shutil
 from pathlib import Path
-H = Path('/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/w12b05-hop-irshape/reconstruction/harness')
+H = Path(__file__).resolve().parents[4] / 'harness'
 sys.path.insert(0, str(H))
 import fastbuild
 ap = argparse.ArgumentParser()

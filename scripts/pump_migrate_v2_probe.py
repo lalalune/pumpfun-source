@@ -37,7 +37,7 @@ def run(c={},candidate=None):
  for name,mutation in c.get('mutations',{}).items():
   key=names[name];a=vm.get_account(key);data=bytearray(a.data if a else b'')
   for off,value in mutation.get('patches',[]):data[off:off+len(bytes.fromhex(value))]=bytes.fromhex(value)
-  if 'length' in mutation:data=data[:mutation['length']]
+  if 'length' in mutation:data=data[:mutation['length']];data.extend(bytes(max(0,mutation['length']-len(data))))
   put(key,Account(mutation.get('lamports',a.lamports if a else 0),bytes(data),Pubkey.from_string(mutation.get('owner',str(a.owner if a else Pubkey.default()))),mutation.get('executable',False)))
  if candidate:vm.add_program_from_file(P,candidate)
 

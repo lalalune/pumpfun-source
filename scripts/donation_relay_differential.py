@@ -29,7 +29,7 @@ Jupiter-style CPI target and is out of scope for this oracle.
 """
 if not __debug__:
     raise SystemExit('Normal Python is required; do not use -O or PYTHONOPTIMIZE.')
-import argparse, base64, hashlib, json, re
+import argparse, base64, hashlib, json, os, re
 from pathlib import Path
 from solders.account import Account
 from solders.clock import Clock
@@ -154,7 +154,7 @@ def prepare(case):
             put(k, lamports=0)
         put(whitelist, disc('MintWhitelistV1') + bytes([wb]) + bytes(4) + bytes(1024), RELAY)
         if native:
-            cap = json.loads(AMM_FIXTURE.read_text())['accounts']['quote_mint']
+            cap = json.loads(AMM_FIXTURE.read_text(encoding='utf-8'))['accounts']['quote_mint']
             put(mint, base64.b64decode(cap['data_base64']), TOKEN, cap['lamports'])
             put(source, lamports=0)
             proof['source_capture'] = {'path': str(AMM_FIXTURE.relative_to(ROOT)), 'sha256': H(AMM_FIXTURE.read_bytes())}
@@ -165,7 +165,7 @@ def prepare(case):
                  'from_token_account': source, 'temp_wsol_token_account': source, 'from': owner.pubkey(),
                  'payer': other.pubkey(), 'mint_whitelist': whitelist, 'associated_token_program': ATA,
                  'token_program': TOKEN, 'system_program': SYSTEM, 'event_authority': event, 'program': RELAY}
-        ix = next(i for i in json.loads(IDL.read_text())['instructions'] if i['name'] == name)
+        ix = next(i for i in json.loads(IDL.read_text(encoding='utf-8'))['instructions'] if i['name'] == name)
         metas = [AccountMeta(names[a['name']], a.get('signer', False), a.get('writable', False)) for a in ix['accounts']]
         message = case.get('message', 'ordinary donation').encode()
         data = (bytes(ix['discriminator']) + (1_000_000).to_bytes(8, 'little') + config
@@ -370,12 +370,29 @@ def execute(candidate, group, output):
     return report['differential_matched'] == report['case_count']
 
 
+def protect_output(output, inputs):
+    """Refuse a report destination that aliases an input the oracle consumes.
+
+    The report is written after the cases run, so a destination that names the
+    candidate or a captured dependency replaces that binary with JSON and the
+    run still looks green: its digests describe the bytes it replaced.
+    """
+    destination = Path(output)
+    for value in inputs:
+        source = Path(value)
+        if destination.resolve() == source.resolve() or (
+                destination.exists() and source.exists() and os.path.samefile(destination, source)):
+            raise ValueError('report output aliases an input: ' + str(source))
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--candidate', type=Path, required=True)
     ap.add_argument('--group', choices=['ordinary', 'business_rejection'], default='ordinary')
     ap.add_argument('--output', type=Path, required=True)
     a = ap.parse_args()
+    protect_output(a.output, [a.candidate.resolve(), ORIGINAL, SPL_TOKEN, ASSOCIATED, IDL,
+                              AMM_FIXTURE, Path(__file__).resolve()])
     ok = execute(a.candidate.resolve(), a.group, a.output.resolve())
     raise SystemExit(0 if ok else 1)
 

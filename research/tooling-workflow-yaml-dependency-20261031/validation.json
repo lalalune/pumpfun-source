@@ -1,0 +1,43 @@
+{
+  "base": "963d1eefbed3a81a51d2d52f80026c5434a7a423",
+  "change": "Add PyYAML==6.0.3; no checker or program code change",
+  "clean_environment": {
+    "platform": "Windows",
+    "python": "3.13.14",
+    "installer": "uv 0.11.14",
+    "before_packages": 4,
+    "after_packages": 5,
+    "binary_wheels_only": true
+  },
+  "workflow_tests": [
+    {
+      "platform": "Windows",
+      "python": "3.13.14",
+      "pyyaml": "6.0.3",
+      "tests": 35,
+      "result": "OK"
+    },
+    {
+      "platform": "WSL Ubuntu native filesystem",
+      "python": "3.12.3",
+      "pyyaml": "6.0.3",
+      "tests": 35,
+      "result": "OK"
+    }
+  ],
+  "required": {
+    "python": "3.12.3",
+    "verify_evidence": {
+      "captures": 9,
+      "result": "OK"
+    },
+    "test_tooling": {
+      "tests": 228,
+      "result": "OK",
+      "command": "python scripts/test_tooling.py"
+    }
+  },
+  "environment_note": "Native validation physically retains identical evidence/program inputs; Windows-mount and symlink-path fixture limitations were corrected without changing tests or captures.",
+  "hosted_ci_claimed": false,
+  "program_source_changed": false
+}

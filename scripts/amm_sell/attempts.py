@@ -35,7 +35,20 @@ NOTE_KINDS = ('finding', 'dead-end', 'idea', 'target', 'prior')
 def entries():
     if not LOG.exists():
         return []
-    return [json.loads(line) for line in LOG.read_text().splitlines() if line.strip()]
+    rows = []
+    for number, line in enumerate(LOG.read_text().splitlines(), 1):
+        if not line.strip():
+            continue
+        try:
+            row = json.loads(line)
+        except ValueError:
+            row = None
+        if isinstance(row, dict):
+            rows.append(row)
+        else:
+            # A write cut short keeps every other attempt queryable.
+            print(f'{LOG.name}:{number}: skipping malformed entry', file=sys.stderr)
+    return rows
 
 
 def short(e):
@@ -47,12 +60,19 @@ def short(e):
             f"score_version={m.get('score_version', 'unversioned')} size={m.get('sell_size')} :: {e['hypothesis'][:200]}")
 
 
+def row_limit(text):
+    value = int(text)
+    if value < 0:
+        raise argparse.ArgumentTypeError('must not be negative')
+    return value
+
+
 def main():
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = p.add_subparsers(dest='cmd', required=True)
     p.set_defaults(score_version=SCORE_VERSION)
     sub.add_parser('summary')
-    b = sub.add_parser('best'); b.add_argument('n', nargs='?', type=int, default=10)
+    b = sub.add_parser('best'); b.add_argument('n', nargs='?', type=row_limit, default=10)
     b.add_argument('--score-version', type=int, default=SCORE_VERSION,
                    help='rank one metric version; defaults to the current scorer')
     g = sub.add_parser('grep'); g.add_argument('text')
@@ -93,7 +113,8 @@ def main():
                   f'n={len(v):4} best_dist={min(dist) if dist else None}')
     elif a.cmd == 'seen':
         h = hashlib.sha256(Path(a.file).read_bytes()).hexdigest()
-        hits = [e for e in builds if e['inputs']['sell'] == h]
+        # A --patch attempt's input hash names its baseline, not what it compiled.
+        hits = [e for e in builds if e.get('output_sha256', {}).get('sell.rs', e['inputs']['sell']) == h]
         print(json.dumps([{'lane': e['lane'], 'approach': e['approach'], 'patch': e['inputs']['patch'],
                            'flags': e['inputs']['flags'], 'metrics': e.get('metrics'), 'status': e.get('status')}
                           for e in hits], indent=1) if hits else 'unseen')

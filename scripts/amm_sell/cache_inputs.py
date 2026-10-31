@@ -49,7 +49,8 @@ def context(swarm, here, baseline, reader, want_disasm):
                         'metadata-map.json', 'ordered.ld')]
     build_environment = {key: value for key, value in os.environ.items()
                          if key.startswith('CARGO_PROFILE_RELEASE_') or key in
-                         ('RUSTC_BOOTSTRAP', 'SOURCE_DATE_EPOCH', 'MACOSX_DEPLOYMENT_TARGET', 'SDKROOT')}
+                         ('CARGO_INCREMENTAL', 'CARGO_BUILD_INCREMENTAL', 'RUSTC_BOOTSTRAP',
+                          'SOURCE_DATE_EPOCH', 'MACOSX_DEPLOYMENT_TARGET', 'SDKROOT')}
     return {'schema': 'amm-cache-inputs-v2', 'baseline': tree(baseline),
             'implementation': {p.name: sha(p) for p in implementations},
             'elf_reader_sha256': sha(reader), 'sdk': tree(swarm / 'infra/sdk-native'),

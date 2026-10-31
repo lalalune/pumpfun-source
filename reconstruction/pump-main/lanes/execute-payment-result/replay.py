@@ -7,9 +7,9 @@ p=argparse.ArgumentParser();p.add_argument('--control',type=Path,required=True);
 sys.path.insert(0,str(ROOT/'scripts'))
 # Only relocate the historical fixture input; execute the unchanged fixture logic.
 p=ROOT/'scripts/pump_trade_fixture.py'
-code=p.read_text();old="R/'research/imported-lab/analysis/pump_fun/curve-fresh-trades-v3-signed-surfpool.json'"
+code=p.read_text();old="x=json.load(open(R/'research/imported-lab/analysis/pump_fun/curve-fresh-trades-v3-signed-surfpool.json',encoding='utf-8'))"
 assert code.count(old)==1
-code=code.replace("x=json.load(open("+old+"))","x="+repr(json.loads(gzip.decompress((HERE/'fixture.json.gz').read_bytes()))))
+code=code.replace(old,"x="+repr(json.loads(gzip.decompress((HERE/'fixture.json.gz').read_bytes()))))
 m=types.ModuleType('pump_trade_fixture');m.__file__=str(p);sys.modules[m.__name__]=m
 exec(compile(code,str(p),'exec'),m.__dict__)
 import pump_v3_configured_fee_differential as suite

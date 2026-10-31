@@ -22,7 +22,7 @@ those programs. There is no frontend, backend, SDK or off-chain service code.
 - `research/` — retained investigation packets with their own verifiers
 - `tests/` — unit tests for the tooling
 
-**Verified checkpoint progress — 2026-10-30**
+**Verified checkpoint progress — 2026-10-31**
 
 | Program | Matched windows | Matched % | Raw-equal bodies | Normalized only | Unmatched | Whole meaningful ELF equal |
 | --- | ---: | ---: | ---: | ---: | ---: | --- |
@@ -34,18 +34,17 @@ those programs. There is no frontend, backend, SDK or off-chain service code.
 | **Total** |**3,337/3,338**|**99.97%**|**3,337**|**0**|**1**|**4/5**|
 
 Matched windows cover **5,185,728/5,213,128 code bytes (99.47%)**.
-The latest fresh Pump Main identity build includes #2766's exact swap-hop
-reconstruction and the admin-CTO refinements from #3028, #3095 and #3131.
-The swap window now matches
-all 18,584 bytes, with no normalized or raw losses elsewhere. Only
-`admin_cto::execute` remains unmatched (27,400 bytes); its instruction-token
-similarity is 62.103%, with 3,306 differing slots. All 771 targeted synthetic
-runtime cases pass. The exact-quote and multi-hop reference models also pass 1,014 and 507
-captured-program cases, respectively. Pump Main's meaningful ELF is not yet equal.
+The latest fresh Pump Main identity build retains the exact 18,584-byte swap
+window and all source refinements through #3621, with no raw or normalized
+losses. Only `admin_cto::execute` remains unmatched (27,400 bytes); its
+instruction-token similarity is **67.346%**, with **3,124 differing slots**.
+All **388 targeted signed synthetic admin-CTO cases** pass on this candidate.
+The new unlinked reference models add captured-program test coverage without
+increasing compiled completion. Pump Main's meaningful ELF is not yet equal.
 
 AMM, Fees, Mayhem and Donation Relay retain their exact meaningful-ELF
 checkpoints. No build of those programs is claimed in this pass. See the
-[latest scores, runtime coverage and limits](reconstruction/pump-main/checkpoints/completion-pass99-20261030/README.md),
+[latest scores, runtime coverage and limits](reconstruction/pump-main/checkpoints/completion-pass102-20261031/README.md),
 [other-program checkpoint provenance](reconstruction/pump-main/checkpoints/completion-20261030/other-programs.json)
 and [Fees Linux rebuild packet](research/fees-linux-fresh-rebuild-20261030/README.md).
 

@@ -1,0 +1,31 @@
+{
+  "base_commit": "13fe4536be64d8c5c10f8905e9d2236f423ac4f4",
+  "before": {
+    "tests": 1,
+    "failing_corruption_cases": 5
+  },
+  "after": {
+    "tests": 1,
+    "failing_corruption_cases": 0
+  },
+  "qualification": {
+    "tests": 62,
+    "errors": 0,
+    "failures": 0
+  },
+  "verify_evidence": {
+    "captures": 9,
+    "exit_code": 0
+  },
+  "tooling": {
+    "tests": 228,
+    "errors": 0,
+    "failures": 0,
+    "exit_code": 0,
+    "seconds": 77.126
+  },
+  "unchanged_frozen_revalidator_sha256": "7f612a5b827441b32917b140a7ae3e54fd59e6280f137b449e03f8f4a3a43472",
+  "program_source_or_build_inputs_changed": false,
+  "new_regression_runs_captured_images": false,
+  "hosted_ci_claim": false
+}

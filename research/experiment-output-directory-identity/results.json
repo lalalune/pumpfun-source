@@ -1,0 +1,40 @@
+{
+  "base": "963d1eefbed3a81a51d2d52f80026c5434a7a423",
+  "python": "3.12.3",
+  "before": {
+    "focused_test_methods": 1,
+    "failed_corruption_subcases": 6
+  },
+  "after": {
+    "experiment_tests": 54,
+    "passed": 52,
+    "skipped": 2,
+    "bisect_tests_passed": 5,
+    "minimizer_tests_passed": 8
+  },
+  "verify_evidence": {
+    "captures_verified": 9
+  },
+  "initial_full_tooling_on_ntfs": {
+    "tests": 222,
+    "errors": 7,
+    "reason": "Linux renameat2(RENAME_NOREPLACE) returned EINVAL on the /mnt/c filesystem in unchanged analysis publication tests.",
+    "raw_sha256": "e99d5323a0db8df7393f0a3300dfb3f4e48735db397f065d7a03f302dd186c72"
+  },
+  "full_tooling_on_native_linux": {
+    "command": "python scripts/test_tooling.py",
+    "tests": 228,
+    "passed": 228,
+    "exit": 0,
+    "seconds": 66.722,
+    "raw_sha256": "111a87b59be6cb630ddb85e5625136b2c41aeddccc279f1bfac6f88e91d2db6e"
+  },
+  "program_sources_or_build_inputs_changed": false,
+  "program_build_or_window_score_claimed": false,
+  "validation_setup": "Physical scripts/tests/harness, pinned evidence and programs on native Linux; other unchanged local source/reference data reused through read-only links.",
+  "intermediate_native_setup": {
+    "tests_until_failfast": 153,
+    "errors": 1,
+    "reason": "An existing quote-control fixture assumes captured paths are inside ROOT; physical local capture copies replaced external links before the final run."
+  }
+}

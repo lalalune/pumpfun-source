@@ -1,0 +1,22 @@
+{
+  "issue": "pump_validate_parallel.py retained one <suite>.log per executed suite with write_text and no newline argument, so newline=None let the host translate the trailing newline and the retained log bytes differed between Windows and the Linux CI.",
+  "base_revision": "ecea7021fcb6a09959901522c6a4edca150a1a1b",
+  "affected": "scripts/pump_validate_parallel.py:250 at base, the retained suite log write",
+  "finding": "The retained directory is the evidence the driver keeps for each executed suite; its log files were the only text artifacts written without a newline pin. The build/qualification evidence families already pin UTF-8 LF.",
+  "change": {
+    "code": "(retained / (name + '.log')).write_text(completed.stdout, encoding='utf-8', newline='\\n')",
+    "unchanged_behaviour": "suite commands, sharding, timeouts, retained failure outputs, the report payload and every exit status"
+  },
+  "runs": {
+    "guard_before": "tests/test_validate_parallel_log_encoding.py fails on the base writer (FAILED, failures=1)",
+    "guard_after": "Ran 1 test ... OK",
+    "existing_suite": "python -B scripts/test_pump_validate_parallel.py -> OK"
+  },
+  "tests": {
+    "new_test": "tests/test_validate_parallel_log_encoding.py",
+    "cases": [
+      "every write_text in the driver pins encoding='utf-8' and newline='\\n', and exactly one such writer remains"
+    ]
+  },
+  "limits": "This changes only the bytes of the retained suite logs; it adds no suite, shard or timeout behavior and alters no prior receipt."
+}

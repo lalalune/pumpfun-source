@@ -86,6 +86,45 @@ def inherited_cases():
  rows += [{'name':'owner-system','sharing_owner':str(Pubkey.default())},{'name':'owner-pump','sharing_owner':str(PUMP)},{'name':'empty-small-grow','shareholders':[],'sharing_length':80},{'name':'holder-empty-small','shareholders':[],'sharing_length':80,'holder':True,'new_none':True},{'name':'bad-weight','shareholders':[(str(AUTH.pubkey()),65535)]},{'name':'many-shareholders','shareholders':[(str(Pubkey.from_bytes(bytes([i])*32)),i) for i in range(10,30)]}]
  rows += [{'name':'holder-shares-multiple','holder':True,'new_none':True,'shareholders':[(str(AUTH.pubkey()),5000),(str(OTHER.pubkey()),5000)]},{'name':'paused-revoked-version0','status':0,'revoked':1,'version':0}]
  return rows
+def fixed_field_offset(type_name,field_name):
+ """Locate a fixed-width Borsh field in the captured account/event IDL."""
+ def width(t):
+  if isinstance(t,str):return {'bool':1,'u8':1,'u16':2,'u32':4,'u64':8,'i64':8,'pubkey':32}[t]
+  element,count=t['array'];return width(element)*count
+ offset=len(next(x['discriminator'] for x in pump.IDL['accounts']+pump.IDL['events'] if x['name']==type_name))
+ for field in next(x for x in pump.IDL['types'] if x['name']==type_name)['type']['fields']:
+  if field['name']==field_name:return offset
+  offset+=width(field['type'])
+ raise KeyError((type_name,field_name))
+def fee_bound_cases():
+ """Pump's u64 fee limits, guard precedence and the independent AMM limit."""
+ configurable=fixed_field_offset('Global','creator_fee_configurable')
+ maximum=fixed_field_offset('Global','max_configurable_creator_fee_bps')
+ whitelist=fixed_field_offset('Global','whitelisted_quote_mints')
+ cashback=fixed_field_offset('BondingCurve','is_cashback_coin')
+ quote=str(Pubkey.from_bytes(bytes([88])*32));u64max=2**64-1
+ def case(name,limit,fee=None,enabled=True):
+  c={'name':'fee-limit-'+name,'quote':quote,'global_patches':[(configurable,bytes([enabled]).hex()),(maximum,limit.to_bytes(8,'little').hex()),(whitelist,bytes([89]*32).hex())],
+     'accounts':{'pool':{'owner':str(Pubkey.default())}},'expected_fee_error':None}
+  if fee is not None:c['fee']=fee
+  return c
+ rows=[]
+ for limit in [0,1,2**63,u64max]:
+  fees=[None]+sorted({0,1,max(0,limit-1),limit,min(u64max,limit+1)})
+  for fee in fees:
+   c=case(str(limit)+'-'+str(fee),limit,fee)
+   if fee is not None and not 1<=fee<=limit:c['expected_fee_error']=6078
+   rows.append(c)
+ for name,expected,locked in [('sol-first',6091,'sol'),('whitelist-first',6091,'whitelist'),('cashback-first',6080,None),('configurable-first',6077,None)]:
+  c=case(name,0,0,False);c['expected_fee_error']=expected
+  if name!='configurable-first':c['curve_patches']=[(cashback,'01')]
+  if locked=='sol':c.pop('quote')
+  if locked=='whitelist':c['global_patches'].append((whitelist,bytes(Pubkey.from_string(quote)).hex()))
+  rows.append(c)
+ c=case('omitted-bypasses-disabled-cashback',0,enabled=False);c['curve_patches']=[(cashback,'01')];rows.append(c)
+ c=case('target-before-fee',0,0,False);c.update(new_creator=str(Pubkey.default()),curve_patches=[(cashback,'01')],expected_fee_error=6030);rows.append(c)
+ c=case('amm-has-own-limit',u64max,u64max);c.pop('accounts');c['expected_fee_error']=6069;rows.append(c)
+ return rows
 def cases():
  rows=inherited_cases()
  rows += [{'name':'fee-'+str(n),'fee':n} for n in [0,1,10,100,999,1000,10000,10001,65535,2**64-1]]
@@ -120,7 +159,7 @@ def cases():
  rows += [{'name':'frozen-wallet-'+str(stable)+'-'+source+'-'+str(bad),'current':str(OTHER.pubkey()),'current_writable':True,**({'quote':str(Pubkey.from_bytes(bytes([88])*32))} if stable else {}),'accounts':{'current_creator_quote_token_account':{'tokens':0,'patches':[(108,'02')]},'creator_vault':{'lamports':1000000},source:({'data':'00','lamports':2039280,'owner':str(TOKEN)} if bad else {'tokens':100})}} for stable in [False,True] for source in ['creator_vault_quote_token_account','coin_creator_vault_ata'] for bad in [False,True]]
  rows += [{'name':'fee-boundary-'+str(n),'quote':str(Pubkey.from_bytes(bytes([88])*32)),'fee':n} for n in [299,300,301]]
  rows += [{'name':'holder-disabled-'+str(i),'global_patches':[(1086,'00')],**v} for i,v in enumerate([{}, {'holder':True,'new_none':True},{'holder':True},{'curve_patches':[(124,'01')],'holder':True,'new_none':True}])]
- return rows
+ return rows+fee_bound_cases()
 def main():
  p=argparse.ArgumentParser();p.add_argument('--candidate',type=Path);p.add_argument('--output',type=Path,required=True);a=p.parse_args();rows=[];bad=[]
  images=[ROOT/f'evidence/original/{n}/deployed.so' for n in ['pump','pump_fees','pump_amm']]+[ROOT/f'evidence/dependencies/{n}/deployed.so' for n in ['spl_token','spl_token_2022','associated_token']]

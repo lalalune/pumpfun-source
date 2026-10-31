@@ -176,7 +176,13 @@ def main():
     missing = set(pairs) - {w['start'] for w in wins}
     if missing:
         ap.error('pair addresses absent from inventory: ' + ', '.join(hex(x) for x in sorted(missing)))
-    ofuncs = {w['start']: (w['bytes'], []) for w in wins}
+    try:
+        only = {int(x, 0) for x in a.only.split(',')} if a.only else None
+    except ValueError:
+        ap.error(f'--only must be comma-separated addresses: {a.only}')
+    if only and only - set(pairs):
+        ap.error('--only addresses are not paired windows: ' + ', '.join(hex(x) for x in sorted(only - set(pairs))))
+    ofuncs ={w['start']: (w['bytes'], []) for w in wins}
     O = Image(ORIG_PATH, ofuncs)
     cfl = candidate_functions(a.cand)
     cfuncs = {}
@@ -297,7 +303,6 @@ def main():
             return []
         return [ckey(t) for _, t in C.calls(s) if not isinstance(t, tuple)]
 
-    only = {int(x, 0) for x in a.only.split(',')} if a.only else None
     report = {'schema': 'pump-main-callgraph-census-v1', 'candidate': str(a.cand),
               'candidate_sha256': hashlib.sha256(C.blob).hexdigest(),
               'method': 'direct call target = site+8+imm*8; callee identity = normalized-body sha256 (score.py masking) with explicit pairing of unmatched windows; difflib alignment of callee key sequences',

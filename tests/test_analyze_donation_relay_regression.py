@@ -30,18 +30,18 @@ class DonationRelayTests(unittest.TestCase):
                             root / 'evidence/upstream/pump.json')
             with patch.object(analysis, 'ROOT', root), contextlib.redirect_stdout(io.StringIO()):
                 self.assertEqual(analysis.program_names(), ['donation_relay'])
-                capture = json.loads((root / 'evidence/dependencies/donation_relay/capture.json').read_text())
+                capture = json.loads((root / 'evidence/dependencies/donation_relay/capture.json').read_text(encoding='utf-8'))
                 self.assertEqual(analysis.program_addresses(), {'donation_relay': capture['program']})
                 analysis.analyze()
-            output = json.loads((root / 'evidence/binary-analysis.json').read_text())
+            output = json.loads((root / 'evidence/binary-analysis.json').read_text(encoding='utf-8'))
             self.assertEqual(set(output), {'donation_relay'})
             for field, value in expected.items():
                 self.assertEqual(output['donation_relay'][field], value, field)
             self.assertEqual(output['donation_relay']['elf_sha256'],
                              hashlib.sha256(raw[:expected['elf_extent']]).hexdigest())
-            inventory = json.loads((root / 'evidence/interface-inventory.json').read_text())
+            inventory = json.loads((root / 'evidence/interface-inventory.json').read_text(encoding='utf-8'))
             self.assertEqual(sorted(inventory), ['pump'])
-            idl = json.loads((ROOT / 'evidence/upstream/pump.json').read_text())
+            idl = json.loads((ROOT / 'evidence/upstream/pump.json').read_text(encoding='utf-8'))
             self.assertEqual(inventory['pump']['address'], idl['address'])
 
     def test_all_five_captures_are_selected_in_order(self):

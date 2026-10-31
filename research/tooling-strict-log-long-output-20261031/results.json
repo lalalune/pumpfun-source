@@ -1,0 +1,53 @@
+{
+  "base_commit": "963d1eefbed3a81a51d2d52f80026c5434a7a423",
+  "scope": "offline strict-log audit publication; no program source/build/score changes",
+  "checks": {
+    "before": {
+      "tests": 2,
+      "failures": 1,
+      "reason": "ENAMETOOLONG staging a supported final filename"
+    },
+    "focused_after": {
+      "command": "python3 -m unittest discover -s scripts -p 'test_pump_strict_ordered_logs*.py' -v",
+      "tests": 22,
+      "failures": 0
+    },
+    "verify_evidence": {
+      "command": "python3 scripts/verify_evidence.py",
+      "captures": 9,
+      "exit_code": 0
+    },
+    "tooling": {
+      "command": "python3 scripts/test_tooling.py",
+      "tests": 228,
+      "failures": 0,
+      "errors": 0,
+      "exit_code": 0,
+      "seconds": 64.912
+    }
+  },
+  "inputs_sha256": {
+    "evidence/original/pump/deployed.so": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
+    "evidence/original/pump/capture.json": "ffb53e71ce9cbee60df91e54cc1d677527a6eeb5806cb8d68e525af698744110",
+    "tests/fixtures/strict-ordered-logs/set-params-rejection.json": "3a881b6615bbe13d99d237f37b9b57f7654aa36618da56230a47474b0bc779cb"
+  },
+  "base_auditor_sha256": "69e95234eda9dce5efcf8bb4369dee51c61f27ba2e58b54048eee4e40463db5d",
+  "validation_environment": {
+    "python": "3.12.3",
+    "solders": "0.27.1",
+    "pyelftools": "0.32",
+    "filesystem": "Ubuntu WSL ext4"
+  },
+  "initial_validation_context": {
+    "filesystem": "WSL Windows mount; sparse checkout",
+    "tooling_tests": 222,
+    "failures": 5,
+    "errors": 11,
+    "resolved_by": "ext4 view and materializing exact committed required input files; no unrelated code edits",
+    "raw_log_sha256": "516d5f6ad81c4025d22aef5ab71f5dd96e456af17fccc34b63466a6d806cc660",
+    "raw_log_location": "work/strict-log-long-output/tooling.log (ignored)"
+  },
+  "new_test_captured_image_execution": false,
+  "hosted_ci_claim": false,
+  "raw_or_normalized_score_losses": "not applicable: no program or build-input changes"
+}

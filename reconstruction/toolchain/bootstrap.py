@@ -249,9 +249,15 @@ def check_linux_libs(root):
 
 def hybrid_ok():
     rust = HYBRID / 'rust'
+    expected = {lib.name: lib for lib in (SDK / 'rust/lib').glob('lib*.dylib')}
+    copied = {lib.name: lib for lib in (rust / 'lib').glob('lib*.dylib')}
+    # A stale/replaced library is an invalid cache, not a new SDK filename
+    # to hash. Reject it so main() can take the existing assembly path.
+    if len(expected) != 2 or copied.keys() != expected.keys():
+        return False
     pairs = [(rust / 'bin/rustc', SDK / 'rust/bin/rustc')]
-    pairs += [(lib, SDK / 'rust/lib' / lib.name) for lib in (rust / 'lib').glob('lib*.dylib')]
-    if len(pairs) != 3 or any(not a.is_file() or sha(a) != sha(b) for a, b in pairs):
+    pairs += [(copied[name], library) for name, library in expected.items()]
+    if any(not a.is_file() or sha(a) != sha(b) for a, b in pairs):
         return False
     host = rust / 'lib/rustlib/aarch64-apple-darwin'
     if not host.is_symlink() or host.resolve() != (SDK / 'rust/lib/rustlib/aarch64-apple-darwin').resolve():
@@ -337,7 +343,9 @@ def main():
             return 1
         print(f'hybrid144 assembled at {HYBRID}')
     sysroot = subprocess.check_output([str(HYBRID / 'rust/bin/rustc'), '--print', 'sysroot'], text=True).strip()
-    assert Path(sysroot).resolve() == (HYBRID / 'rust').resolve(), sysroot
+    if Path(sysroot).resolve() != (HYBRID / 'rust').resolve():
+        print(f'identity toolchain reports sysroot {sysroot}, expected {HYBRID / "rust"}', file=sys.stderr)
+        return 1
 
     (HOME_CACHE / 'locks').mkdir(parents=True, exist_ok=True)
 

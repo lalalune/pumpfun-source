@@ -28,12 +28,22 @@ def demangle(s):
     if not m:
         return s
     rest, parts = m.group(1), []
-    while rest and rest[0].isdigit():
-        n = re.match(r'^(\d+)', rest).group(1); rest = rest[len(n):]
-        part = rest[:int(n)]
+    while rest:
+        length = re.match(r'^([1-9][0-9]*)', rest)
+        if length is None:
+            return s
+        n = length.group(1); rest = rest[len(n):]
+        # Bound before int(): arbitrary ELF names may contain thousands of
+        # digits, exceed Python's integer-string limit, or truncate a component.
+        if len(n) > len(str(len(rest))) or int(n) > len(rest):
+            return s
+        size = int(n)
+        part = rest[:size]
         parts.append(part[1:] if part.startswith('_$') else part)
-        rest = rest[int(n):]
-    if parts and re.fullmatch(r'h[0-9a-f]{16}', parts[-1]):
+        rest = rest[size:]
+    if not parts:
+        return s
+    if re.fullmatch(r'h[0-9a-f]{16}', parts[-1]):
         parts = parts[:-1]
     t = '::'.join(parts)
     for a, b in [('$LT$', '<'), ('$GT$', '>'), ('$RF$', '&'), ('$BP$', '*'), ('$C$', ','), ('$u20$', ' '),
@@ -127,11 +137,15 @@ ORIG = resolve_original(BASE / 'original.so').read_bytes(); ORIG_SECS = sections
 
 def best_candidates(w, cand, top=3):
     og = opgrams(w['raw'])
+    original_total = sum(og.values())
     scored = []
     for (s, n, name) in cand.funcs:
         if not (0.4 * w['bytes'] <= n <= 2.5 * w['bytes']):
             continue
-        cg = cand.grams(s, n); inter = sum((og & cg).values()); uni = sum((og | cg).values()) or 1
+        cg = cand.grams(s, n)
+        smaller, larger = (og, cg) if len(og) <= len(cg) else (cg, og)
+        inter = sum(min(count, larger.get(gram, 0)) for gram, count in smaller.items())
+        uni = original_total + sum(cg.values()) - inter or 1
         scored.append((inter / uni, s, n, name))
     scored.sort(reverse=True)
     res = []
@@ -140,6 +154,8 @@ def best_candidates(w, cand, top=3):
     # scores all tie at zero, so an address-ordered shortlist can exclude even
     # an exact match. These small bodies are cheap to compare exhaustively.
     shortlist = scored[:max(8, top)] if og else scored
+    # Clones share a coarse score, so the cut must not choose among them by address.
+    shortlist = [row for row in scored if row[0] >= shortlist[-1][0]] if shortlist else []
     for j, s, n, name in shortlist:
         ct = cand.tokens(s, n)
         res.append((difflib.SequenceMatcher(None, orig_tok, ct, autojunk=False).ratio(), j, s, n, name))
@@ -224,6 +240,8 @@ def cmd_orig(a):
 
 def cmd_sym(a):
     cand = Cand(a.cand)
+    if not cand.funcs:
+        sys.exit('candidate has no function symbols; use an unstripped ELF')
     for s, n, nm in cand.funcs:
         d = demangle(nm)
         if re.search(a.regex, nm) or re.search(a.regex, d):

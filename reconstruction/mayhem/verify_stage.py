@@ -5,6 +5,7 @@ import gzip
 import hashlib
 import json
 from pathlib import Path, PurePosixPath
+import stat
 
 HERE = Path(__file__).resolve().parent
 MANIFEST_SHA256 = '977c888f1d57b9609d2c6cca8b881fbab036a6a6aa1e8835dee145e79e7b2693'
@@ -78,7 +79,13 @@ def verify(repository, staged=None):
         require(sha(source) == digest and gzip.decompress(compressed) == source, 'staged source differs: ' + name)
         require(record['mapping'][name] == {'canonical_sha256': digest, 'staged_raw_sha256': digest},
                 'source mapping differs: ' + name)
-    actual = {p.relative_to(recipe).as_posix(): sha(p.read_bytes()) for p in recipe.rglob('*') if p.is_file()}
+    entries = list(recipe.rglob('*'))
+    for path in entries:
+        # is_file() below skips links to directories, dangling links and pipes.
+        mode = path.lstat().st_mode
+        require(stat.S_ISREG(mode) or stat.S_ISDIR(mode),
+                'nonregular staged recipe entry: ' + path.relative_to(recipe).as_posix())
+    actual = {p.relative_to(recipe).as_posix(): sha(p.read_bytes()) for p in entries if p.is_file()}
     require(actual == record['copied_recipe_inputs'], 'staged recipe inventory differs')
     prefix = 'research/mayhem-fresh-host-20261028/'
     recipe_rows = {r['path'][len(prefix):]: r for r in records if r['path'].startswith(prefix)}

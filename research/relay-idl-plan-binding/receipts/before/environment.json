@@ -1,0 +1,23 @@
+{
+  "expectation": "before",
+  "host": "macOS-15.8.2-arm64-arm-64bit",
+  "machine": "arm64",
+  "package_files": {
+    "README.md": "7e6b752b920221656a744619abdd74644414686b32100b557520aa28db0984b6",
+    "build_candidate.sh": "12a55a1a4c91944c5f64e41be7bdbc6777e4beec3eefd8856579bbfac889fc74",
+    "producer.py": "3a871fa2b077e4f8899b439269c6f9683ca84863354cd7e93640c3c49823c56a",
+    "test_lifecycle.py": "0a5e3a771f7ae5af6adf7898fdffb82ea8f444222d4a9fbcf369e2fa3ad2b37e",
+    "test_verify_steps.py": "095b3fde5d3e6bccbfc5711eadc9846f5ae6ec455a06ecb1f447d2b9e33e2f68",
+    "verify_report.py": "4baf2b53c46f5907e443158296131cad479f65c02e4ef80a1b983ff64d79ebf0"
+  },
+  "python": "3.12.10 (v3.12.10:0cc81280367, Apr  8 2025, 08:46:59) [Clang 13.0.0 (clang-1300.0.29.30)]",
+  "revision": "c25ecee6cb3f44405da39e715d08e4fa36573ead",
+  "sdk_archive_sha256": "66e20d135fddd70ff519baf7ff320d762957f9aedf93a50e23756db23ad79351",
+  "sdk_authentication": "Caller authenticates official archive SHA256 and runs bootstrap --sdk-check full before this proof",
+  "tools": {
+    "llvm/bin/llvm-objcopy": "8f79cc9a0eab0bd1b19a2ad789e5cb5e6f22d16c2f147d58ca30b9b51d2231e1",
+    "rust/bin/cargo": "cd27e4113fc155b5e79fca97c1cc5447ef89d1c8ce3d0e1e5679d2dd7a9ab0ef",
+    "rust/bin/rustc": "1f26338cc2cabd0a6057dcbd0528bba262b23ca1296d357a55304ee31d1d9e5a"
+  },
+  "verifier_sha256": "4baf2b53c46f5907e443158296131cad479f65c02e4ef80a1b983ff64d79ebf0"
+}

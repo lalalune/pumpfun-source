@@ -22,3 +22,4 @@ if r.get('ok'):
     for p in sorted(d.glob('pump_recovered*.ll'), key=lambda p: p.stat().st_mtime)[-1:]:
         shutil.copy2(p, out / 'pump_recovered.ll')
 print(json.dumps(r, indent=1))
+raise SystemExit(0 if r.get('ok') else 1)

@@ -54,9 +54,11 @@ def main():
     records = []
 
     def diagnostic(stderr):
-        for root, label in zip(roots, ("<root-a>", "<root-b>")):
-            stderr = stderr.replace(str(root), label)
-        stderr = stderr.replace(str(output), "<output>")
+        # Longest first: one path may be a prefix of another, as in checkout and
+        # checkout-b, or an output directory inside a checkout.
+        paths = [*zip(roots, ("<root-a>", "<root-b>")), (output, "<output>")]
+        for path, label in sorted(paths, key=lambda item: -len(str(item[0]))):
+            stderr = stderr.replace(str(path), label)
         stderr = re.sub(r"/var/folders/[^'\"\s]+", "<system-temp>", stderr)
         return "\n".join(stderr.splitlines()[:32])
 

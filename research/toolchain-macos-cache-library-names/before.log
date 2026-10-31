@@ -1,0 +1,47 @@
+test_existing_hybrid_is_verified_and_reused (test_bootstrap_macos.MacHybridTests.test_existing_hybrid_is_verified_and_reused) ... ok
+test_native_assembly_is_verified_and_reused (test_bootstrap_macos.MacHybridTests.test_native_assembly_is_verified_and_reused) ... skipped 'assembly uses macOS clone-copy options'
+test_replaced_host_library_names_reject_cache_without_aborting (test_bootstrap_macos.MacHybridTests.test_replaced_host_library_names_reject_cache_without_aborting) ...
+  test_replaced_host_library_names_reject_cache_without_aborting (test_bootstrap_macos.MacHybridTests.test_replaced_host_library_names_reject_cache_without_aborting) (library='librustc_driver-fixture.dylib') ... ERROR
+  test_replaced_host_library_names_reject_cache_without_aborting (test_bootstrap_macos.MacHybridTests.test_replaced_host_library_names_reject_cache_without_aborting) (library='libstd-fixture.dylib') ... ERROR
+test_target_library_changes_are_rejected (test_bootstrap_macos.MacHybridTests.test_target_library_changes_are_rejected) ... ok
+
+======================================================================
+ERROR: test_replaced_host_library_names_reject_cache_without_aborting (test_bootstrap_macos.MacHybridTests.test_replaced_host_library_names_reject_cache_without_aborting) (library='librustc_driver-fixture.dylib')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<repo>/reconstruction/toolchain/test_bootstrap_macos.py", line 99, in test_replaced_host_library_names_reject_cache_without_aborting
+    self.assertFalse(bootstrap.hybrid_ok())
+                     ^^^^^^^^^^^^^^^^^^^^^
+  File "<repo>/reconstruction/toolchain/bootstrap.py", line 254, in hybrid_ok
+    if len(pairs) != 3 or any(not a.is_file() or sha(a) != sha(b) for a, b in pairs):
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<repo>/reconstruction/toolchain/bootstrap.py", line 254, in <genexpr>
+    if len(pairs) != 3 or any(not a.is_file() or sha(a) != sha(b) for a, b in pairs):
+                                                           ^^^^^^
+  File "<repo>/reconstruction/toolchain/bootstrap.py", line 67, in sha
+    with open(path, 'rb') as stream:
+         ^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/tmpdiw5uf4h/sdk/rust/lib/libstale-fixture.dylib'
+
+======================================================================
+ERROR: test_replaced_host_library_names_reject_cache_without_aborting (test_bootstrap_macos.MacHybridTests.test_replaced_host_library_names_reject_cache_without_aborting) (library='libstd-fixture.dylib')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<repo>/reconstruction/toolchain/test_bootstrap_macos.py", line 99, in test_replaced_host_library_names_reject_cache_without_aborting
+    self.assertFalse(bootstrap.hybrid_ok())
+                     ^^^^^^^^^^^^^^^^^^^^^
+  File "<repo>/reconstruction/toolchain/bootstrap.py", line 254, in hybrid_ok
+    if len(pairs) != 3 or any(not a.is_file() or sha(a) != sha(b) for a, b in pairs):
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<repo>/reconstruction/toolchain/bootstrap.py", line 254, in <genexpr>
+    if len(pairs) != 3 or any(not a.is_file() or sha(a) != sha(b) for a, b in pairs):
+                                                           ^^^^^^
+  File "<repo>/reconstruction/toolchain/bootstrap.py", line 67, in sha
+    with open(path, 'rb') as stream:
+         ^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/tmpdiw5uf4h/sdk/rust/lib/libstale-fixture.dylib'
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.068s
+
+FAILED (errors=2, skipped=1)

@@ -11,7 +11,7 @@ following Source line from CENSUS.json (`fmt` = to_string inlined = hot, `to_str
 import argparse, json, re, sys
 from collections import defaultdict
 from pathlib import Path
-sys.path.insert(0, '/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/restore/reconstruction/harness')
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / 'harness'))
 from win import demangle  # noqa: E402
 
 FN = {'0x14f4e0': r'pump_recovered::pump_recovered::buy_exact_sol_in$', '0x80df8': r'trade::v3_buy_costs$',

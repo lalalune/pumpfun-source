@@ -1,0 +1,134 @@
+{
+  "schema": "bounded-S1-S3-actual-publication-replay-receipt-v1",
+  "status": "PASS_RESEARCH_REPLAY_AND_REQUIRED_CHECKS",
+  "testedInputCommit": "649a241324a66768875229682e7487da7c5a4918",
+  "testedInputTree": "60e317153e3233573ab73dae75b64a6128337f09",
+  "packagingScope": "Subsequent output/docs-only packaging is not the executed Git SHA. Executable inputs remain identical to this tested commit.",
+  "sourceDecision": {
+    "S1": "REJECTED/native no-loss FAIL",
+    "S2": "REJECTED/native no-loss FAIL",
+    "S3": "REJECTED/target metric, native no-loss SUCCESS"
+  },
+  "actualOutput": {
+    "path": "verification-s3.json",
+    "bytes": 3126,
+    "sha256": "fdc17c1f2c99ed0ef58142def9eb56e899280a78a39099371d8cf455cab24bb3"
+  },
+  "priorOutput": {
+    "path": "verification.json",
+    "scope": "Earlier S1/S2-only actual replay; unchanged",
+    "bytes": 1628,
+    "sha256": "460f167f834ca665e7b92c6bdfab21d7501c489b10c382134f1684d55e96f087"
+  },
+  "inputBindings": {
+    "preparedInputInventorySha256": "1dbb05c5eb0aa5c26367a8a999ebf3064dc390654264057ef4a258770d685d03",
+    "fullCheckedInputVectorSha256": "67d32b196c9ecb7dadaff0fdc43bdc384723519238476b0efe846986aebdec75",
+    "localFiles": 314,
+    "externalRuntimeFiles": 5,
+    "eachCheckBeforeAfterEqual": true,
+    "actualBeforeAfterRecordSha256": "35b43b0341281e10294010702f24af0163e2a2449e5b09e7e47766f0cf6384b9",
+    "canonicalCodeDataInputsSha256": "08c8843a2a0f123b9d47dbd18732df6fb78eaa8e36902510565a76179043abc3",
+    "canonicalCodeDataInputCount": 39,
+    "canonicalCodeDataMethod": "SHA256 of UTF-8 JSON: sorted path array of {path,bytes,sha256,git_mode,git_blob}, sort_keys=True,separators=(comma,colon),ensure_ascii=False; rows from testedInputCommit.",
+    "packetCodeDataInputPaths": [
+      "13fe-to-S3.patch",
+      "ECEA-to-S1.patch",
+      "S1-to-S2.patch",
+      "S3-captures.tar.xz",
+      "captures.tar.xz",
+      "inputs.json",
+      "s3-inputs.json",
+      "s3-metric.json",
+      "s3-witnesses.json",
+      "verify.py",
+      "witnesses.json"
+    ],
+    "externalBinaryInputPaths": "inputs.json:coreExternalBinaryPaths (28 paths)",
+    "omittedFromCodeDataVector": "NOTES.md, MANIFEST.json, old/new verification outputs and this receipt; none are verifier inputs."
+  },
+  "checks": [
+    {
+      "name": "portable",
+      "argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "-B",
+        "reconstruction/pump-main/lanes/cto-creator-fee-s1-s2-negative-20261031/verify.py",
+        "--repo",
+        "/dev/shm/pump-cto-s3-publication"
+      ],
+      "startUtc": "2026-10-31T06:14:16.625005+00:00",
+      "endUtc": "2026-10-31T06:14:20.165406+00:00",
+      "elapsedSeconds": 3.5404074539546855,
+      "exitCode": 0,
+      "inputsUnchanged": true,
+      "stdout": {
+        "bytes": 3126,
+        "sha256": "fdc17c1f2c99ed0ef58142def9eb56e899280a78a39099371d8cf455cab24bb3"
+      },
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "processReceiptSha256": "494ebbdcc58e5b0ea59200b6bfea4021e2595fe3535af4b39b2ce1c728f520aa"
+    },
+    {
+      "name": "evidence",
+      "argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "-B",
+        "scripts/verify_evidence.py"
+      ],
+      "startUtc": "2026-10-31T06:14:16.735018+00:00",
+      "endUtc": "2026-10-31T06:14:17.367832+00:00",
+      "elapsedSeconds": 0.6328146060113795,
+      "exitCode": 0,
+      "inputsUnchanged": true,
+      "stdout": {
+        "bytes": 376,
+        "sha256": "c22ebace126744c74c1057a2b8ea791e87f9a1ba6abe84fa45af9976848dd2f9"
+      },
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "processReceiptSha256": "162a4b7cf970dcd95a6c15ed9d7df889ec9fdebbb72c5cd83bd74b489e6f1f71"
+    },
+    {
+      "name": "tooling",
+      "argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "-B",
+        "scripts/test_tooling.py"
+      ],
+      "startUtc": "2026-10-31T06:14:16.595996+00:00",
+      "endUtc": "2026-10-31T06:15:27.738809+00:00",
+      "elapsedSeconds": 71.14281500602374,
+      "exitCode": 0,
+      "inputsUnchanged": true,
+      "stdout": {
+        "bytes": 78,
+        "sha256": "de8722e2e864f1be7f002db5a2baeebdfe82779cd73254909b38d8d662e1d782"
+      },
+      "stderr": {
+        "bytes": 329,
+        "sha256": "98ac44205bb99670d8ff5ec043c4a8adcdacebffd776d1aba88fa34802ec0896"
+      },
+      "processReceiptSha256": "7a63d5dbd5b47419702e045d375789238eadb2b97a72d4e2346a96626875a6b9"
+    }
+  ],
+  "scopeCounts": {
+    "portableExecutions": 1,
+    "evidenceCaptures": 9,
+    "toolingTests": 228,
+    "S3StandaloneVMExecutions": 0,
+    "nativeCompilerOrOfficialScorerExecutions": 0
+  },
+  "toolingReportedUnittestSeconds": 70.445,
+  "sourceAggregateReceiptSha256": "da3f3ce845ced7b0b5b5585456e5330b9349483730f6afc5c150f30c6e4be832",
+  "prelaunchWrapperCorrection": {
+    "actualCheckCommandsStartedBeforeCorrection": 0,
+    "preservedAttemptRecordSha256": "674ccd52301a4ad1a5359cbb5b31fd2295dbff6a305d887235cf2818d437280b",
+    "correctionRecordSha256": "16589ee07433a032a5096a4390d273cfe32fc574fb24f5aa96c598a49a3944ce"
+  },
+  "limits": "Historical normal-cohort research replay plus existing required checks. Native S3 SUCCESS remains distinct from source REJECTION. No S3 standalone VM/runtime363/compiler/official scorer, current-main executable qualification, global966 causal or original Result/type claim. External retained diagnostic is not replayed. Detailed local check records are hash-bound here, not duplicated in this packet."
+}

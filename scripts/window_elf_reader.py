@@ -18,6 +18,8 @@ class Elf:
         self.b = b = path.read_bytes()
         if len(b) < 64 or b[:7] != b'\x7fELF\x02\x01\x01':
             raise ValueError('expected ELF64 little endian')
+        if struct.unpack_from('<H', b, 18)[0] not in (247, 263):
+            raise ValueError('expected BPF or SBPF ELF machine')
         off = struct.unpack_from('<Q', b, 40)[0]
         size, count, ni = struct.unpack_from('<HHH', b, 58)
         if size != 64 or not count or ni >= count or off + size * count > len(b):
@@ -27,12 +29,23 @@ class Elf:
             if section[1] != 8 and section[4] + section[5] > len(b):
                 raise ValueError('section extent exceeds file bytes')
         ns = self.raw[ni]
+        if ns[1] != 3:
+            raise ValueError('section names must use a string table')
         names = b[ns[4]:ns[4] + ns[5]]
-        self.secs = {names[s[0]:].split(b'\0', 1)[0].decode(): s for s in self.raw}
+        def string(table, index):
+            if index >= len(table) or table.find(b'\0', index) < 0:
+                raise ValueError('invalid ELF string offset or missing terminator')
+            return table[index:table.index(b'\0', index)].decode()
+        self.secs = {}
+        for section in self.raw:
+            name = string(names, section[0])
+            if name and name in self.secs:
+                raise ValueError('duplicate named sections are unsupported')
+            self.secs[name] = section
         self.text = self.secs['.text']
         self.lo = self.text[4]
         self.hi = self.lo + self.text[5]
-        if self.text[1] == 8 or self.text[5] % 8:
+        if self.text[1] != 1 or not self.text[2] & 4 or self.text[5] % 8:
             raise ValueError('invalid text extent')
         # LDDW's second slot contains immediate data, regardless of whether its
         # bytes happen to resemble an opcode. Never decode or normalize it alone.
@@ -50,13 +63,16 @@ class Elf:
             if kind not in self.secs:
                 continue
             section = self.secs[kind]
-            if section[5] % 24 or section[6] >= count:
+            expected_type = 11 if kind == '.dynsym' else 2
+            if section[1] != expected_type or section[9] != 24 or section[5] % 24 or section[6] >= count:
                 raise ValueError('invalid symbol table')
             strings_section = self.raw[section[6]]
+            if strings_section[1] != 3:
+                raise ValueError('symbol names must use a string table')
             strings = b[strings_section[4]:strings_section[4] + strings_section[5]]
             for index, pos in enumerate(range(section[4], section[4] + section[5], 24)):
                 n, info, _, idx, value, length = struct.unpack_from('<IBBHQQ', b, pos)
-                name = strings[n:].split(b'\0', 1)[0].decode()
+                name = string(strings, n)
                 if kind == '.dynsym':
                     self.symbols[index] = name
                 if info & 15 == 2 and length and idx < count and self.raw[idx] == self.text:
@@ -127,8 +143,9 @@ class Elf:
         raise ValueError(f'relocation extent is not in a file-backed section: {address:#x}+{size}')
 
     def pattern(self, start, size):
-        return [{'offset': at - start, **r} for at, r in sorted(self.relocations.items())
-                if start <= at < start + size]
+        selected = ((at, r) for at, r in self.relocations.items()
+                    if start <= at < start + size)
+        return [{'offset': at - start, **r} for at, r in sorted(selected)]
 
     def callsites(self, start, size):
         return [{'offset': at - start, 'target': target} for at, target in self.calls.items()

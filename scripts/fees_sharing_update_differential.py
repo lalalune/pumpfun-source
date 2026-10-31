@@ -8,6 +8,7 @@ ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'scripts'))
 import fees_sharing_create_differential as f
 from fees_sharing_create_differential import *
 from pump_amm_reusable_harness import pin_program
+from pump_differential_output import PumpReport
 from solders.clock import Clock
 from solders.system_program import transfer,TransferParams
 TOKEN=Pubkey.from_string('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA');TOKEN22=Pubkey.from_string('TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb');ATA=Pubkey.from_string('ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL')
@@ -139,10 +140,10 @@ def cases():
    out.append({'name':f'{op}-edge-graduated-system-data{length}','op':op,'bootstrap':{'tokens':0,'pool':True},'pump_sol':1000000,'account_mutations':{'coin_creator_vault_ata':{'length':length,'lamports':10000000,'owner':str(Pubkey.default())}}})
  return out
 def main():
- p=argparse.ArgumentParser();p.add_argument('--candidate',type=Path);p.add_argument('--output',type=Path,required=True);a=p.parse_args();rows=[];bad=[]
+ p=argparse.ArgumentParser();p.add_argument('--candidate',type=Path);p.add_argument('--output',type=Path,required=True);a=p.parse_args();publisher=PumpReport(a.output,ROOT,a.candidate,__file__);rows=[];bad=[]
  for c in cases():
   x=run(c);y=run(c,a.candidate) if a.candidate else None;match=all(x[k]==y[k] for k in ['error','before','after','events','inner','return']) if y else None;rows.append({'case':c,'original':x,'candidate':y,'match':match})
   if match is False:bad.append(c['name'])
- report={'scope':'Normally signed synthetic sharing updates; captured original bootstraps creation before candidate replacement. No complete-source or byte identity claim.','original_sha256':hashlib.sha256(ORIGINAL.read_bytes()).hexdigest(),'candidate_sha256':hashlib.sha256(pin_program(a.candidate).read_bytes()).hexdigest() if a.candidate else None,'cases':rows,'mismatches':bad};a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8',newline='\n');print('Cases',len(rows),'mismatches',bad)
+ report={'scope':'Normally signed synthetic sharing updates; captured original bootstraps creation before candidate replacement. No complete-source or byte identity claim.','original_sha256':hashlib.sha256(ORIGINAL.read_bytes()).hexdigest(),'candidate_sha256':hashlib.sha256(pin_program(a.candidate).read_bytes()).hexdigest() if a.candidate else None,'cases':rows,'mismatches':bad};publisher.write((json.dumps(report,indent=2)+'\n').encode('utf-8'));print('Cases',len(rows),'mismatches',bad)
  if bad:raise SystemExit(1)
 if __name__=='__main__':main()

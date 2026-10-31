@@ -46,7 +46,9 @@ def compiled_binding(candidate, build_report):
                 break
     assert report['source_sha256'] == source_manifest(SOURCE_DIRECTORY, workspace, ROOT, cwd=workspace)
     assert report['comparison']['candidate_sha256'] == fixture.sha(candidate)
-    return {'report': str(build_report.relative_to(ROOT)),
+    # Aggregate runners admit an explicit receipt from outside the checkout.
+    label = build_report.relative_to(ROOT) if build_report.is_relative_to(ROOT) else build_report
+    return {'report': str(label),
             'report_sha256': fixture.sha(build_report),
             'attempt_sha256': fixture.sha(attempt_path),
             'candidate_sha256': fixture.sha(candidate),

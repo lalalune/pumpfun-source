@@ -14,7 +14,7 @@ Reported (JSON):
   lost_windows           non-sell windows that are no longer raw-equal (must be [])
   sell_start/sell_size   candidate cashback symbol location (original 0x4c750 / 9024)
   slot_diffs             differing 8-byte slots at equal offsets inside sell
-  align_distance         instruction-level edit distance after masking jump/call offsets
+  align_distance         diagnostic instruction distance with branch labels and rebased addresses
   ja_count/cond_count    unconditional / conditional jumps (original 35 / ?)
   borrow_branch          the instruction pair after the try_borrow_data return check
 """
@@ -32,7 +32,7 @@ ORIGINAL = Path(os.environ.get('AMM_SELL_SWARM', HERE.parent)).resolve() / 'infr
 ORIGINAL_SHA = '6a7ad34596d83b4c435b32f458a56e718e9f82eb4ad38e4316616d15d24d8ff7'
 SELL_START = 0x4c750
 SELL_SIZE = 9024
-SCORE_VERSION = 4
+SCORE_VERSION = 5
 
 
 def rank(entry):
@@ -165,6 +165,52 @@ def normalized_tokens(rows):
     return tokens
 
 
+def rebase_candidate(rows, start, candidate, original):
+    """Rebase diagnostic tokens under the existing ordinal-window pairing.
+
+    This assumes corresponding window order and corresponding offsets inside
+    same-named data sections; it does not establish callee or data semantics.
+    Only reader-admitted direct internal calls and type-8 LDDW relocations
+    participate. Unpaired candidate addresses use a distinct token namespace so
+    they cannot coincide with an original address by accident. Raw bytes and
+    every byte-identity flag remain independent of these diagnostic tokens.
+    """
+    paired = {}
+    if len(candidate.entries) == len(original.entries):
+        paired = dict(zip(candidate.entries, original.entries))
+    moved = []
+    for name in ('.rodata', '.data.rel.ro'):
+        if name not in candidate.secs or name not in original.secs:
+            continue
+        new, old = candidate.secs[name], original.secs[name]
+        if (new[1] == old[1] == 1 and new[2] & 2 and old[2] & 2
+                and new[4] + new[5] <= len(candidate.b)
+                and old[4] + old[5] <= len(original.b)):
+            moved.append((new, old))
+    out = []
+    for row in rows:
+        at = start + row['off']
+        relocation = candidate.relocations.get(at, {}).get('type')
+        if isinstance(row['target'], tuple):
+            target = row['target'][1]
+            if candidate.calls.get(at) == target and relocation != 10 and target in paired:
+                row = {**row, 'target': ('call', paired[target])}
+            else:
+                row = {**row, 'target': None, 'fields': ('unpaired_call', target)}
+        elif row['fields'][0] == 'lddw' and relocation is not None:
+            kind, register, value = row['fields']
+            replacement = None
+            if relocation == 8:
+                for new, old in moved:
+                    offset = value - new[3]
+                    if 0 <= offset < min(new[5], old[5]):
+                        replacement = (kind, register, old[3] + offset)
+                        break
+            row = {**row, 'fields': replacement or ('unpaired_lddw', register, value)}
+        out.append(row)
+    return out
+
+
 def slot_differences(original, candidate):
     """Count 8-byte sell slots that differ; an absent candidate tail is not zero.
 
@@ -244,6 +290,8 @@ def score(out_dir, want_disasm=False):
     names = demangle_map(symbols) if want_disasm else None
     o_rows = listing(original, SELL_START, SELL_SIZE, names)
     c_rows = listing(candidate, sell['start'], sell['size'], names)
+    if (sell['start'], sell['size']) != (SELL_START, SELL_SIZE):
+        c_rows = rebase_candidate(c_rows, sell['start'], candidate, original)
     o_tok, c_tok = normalized_tokens(o_rows), normalized_tokens(c_rows)
     matcher = difflib.SequenceMatcher(None, o_tok, c_tok, autojunk=False)
     distance = alignment_distance(o_tok, c_tok)

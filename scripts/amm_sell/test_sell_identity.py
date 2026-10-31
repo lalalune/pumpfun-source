@@ -80,7 +80,7 @@ class ImageIdentityTests(unittest.TestCase):
         self.assertTrue(report['whole_elf_equal'])
         self.assertTrue(report['allocation_image_equal'])
         self.assertTrue(report['unstripped_elf_equal'])
-        self.assertEqual(report['score_version'], 4)
+        self.assertEqual(report['score_version'], 5)
 
     def test_attempt_cache_separates_old_meaning_and_preserves_new_metrics(self):
         # Native build and flock are never called. The stubs also let this
@@ -141,7 +141,7 @@ class ImageIdentityTests(unittest.TestCase):
             new_paths = [p for p in cache.glob('*.json') if p not in (old_path, v3_path)]
             self.assertEqual(len(new_paths), 1)
             entry = json.loads(new_paths[0].read_bytes())
-            self.assertEqual(entry['inputs']['score_version'], 4)
+            self.assertEqual(entry['inputs']['score_version'], 5)
             self.assertFalse(entry['metrics']['whole_elf_equal'])
             self.assertTrue(entry['metrics']['allocation_image_equal'])
             self.assertFalse(entry['metrics']['unstripped_elf_equal'])

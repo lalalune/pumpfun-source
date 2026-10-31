@@ -5,6 +5,7 @@ if not __debug__:
 import argparse,hashlib,json,struct,gzip,base64
 import pump_trade_fixture as f
 from pump_amm_reusable_harness import pin_program
+from pump_differential_output import PumpReport
 from solders.clock import Clock
 program=f.Pubkey.from_string(f.x['program']);user=f.Keypair.from_seed(bytes([231])*32)
 initial={key:f.vm.get_account(key) for key in f.msg.account_keys}
@@ -122,9 +123,9 @@ def cases():
   for limit in limits:rows.append({**base,'name':op+'_limit_'+str(limit),'max_cost':limit})
  return rows
 def main():
- p=argparse.ArgumentParser();p.add_argument('--candidate',type=f.pathlib.Path);p.add_argument('--output',type=f.pathlib.Path,required=True);a=p.parse_args();a.candidate=pin_program(a.candidate) if a.candidate else None;rows=[];bad=[];original=pin_program(f.R/'evidence/original/pump/deployed.so')
+ p=argparse.ArgumentParser();p.add_argument('--candidate',type=f.pathlib.Path);p.add_argument('--output',type=f.pathlib.Path,required=True);a=p.parse_args();publisher=PumpReport(a.output,f.R,a.candidate,__file__,extra_inputs=f.REPORT_INPUTS);a.candidate=pin_program(a.candidate) if a.candidate else None;rows=[];bad=[];original=pin_program(f.R/'evidence/original/pump/deployed.so')
  for i,c in enumerate(cases()):
   x=run(original,c);y=run(a.candidate,c) if a.candidate else None;match=all(x[k]==y[k] for k in ['error','accounts','inner_instructions','event_payloads','return_data']) if y else None;rows.append({'case':c,'original':x,'candidate':y,'match':match})
   if match is False:bad.append(i)
- sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest();report={'scope':'Transfer-fee quote mint extensions across three v3 handlers; synthetic Token2022 USDC mint/accounts, genuine dependency CPIs and normal verified signatures. Full binary equality false.','original_sha256':sha(original),'candidate_sha256':sha(a.candidate) if a.candidate else None,'harness_sha256':sha(f.pathlib.Path(__file__)),'fixture_import_sha256':sha(f.pathlib.Path(f.__file__)),'case_count':len(rows),'cases':rows,'mismatches':bad};raw=(json.dumps(report,separators=(',',':'))+'\n').encode();a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_bytes(gzip.compress(raw,mtime=0) if a.output.suffix=='.gz' else raw);print(json.dumps({'cases':len(rows),'mismatches':bad}));assert not bad
+ sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest();report={'scope':'Transfer-fee quote mint extensions across three v3 handlers; synthetic Token2022 USDC mint/accounts, genuine dependency CPIs and normal verified signatures. Full binary equality false.','original_sha256':sha(original),'candidate_sha256':sha(a.candidate) if a.candidate else None,'harness_sha256':sha(f.pathlib.Path(__file__)),'fixture_import_sha256':sha(f.pathlib.Path(f.__file__)),'case_count':len(rows),'cases':rows,'mismatches':bad};raw=(json.dumps(report,separators=(',',':'))+'\n').encode();publisher.write(gzip.compress(raw,mtime=0) if a.output.suffix=='.gz' else raw);print(json.dumps({'cases':len(rows),'mismatches':bad}));assert not bad
 if __name__=='__main__':main()

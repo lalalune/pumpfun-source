@@ -63,6 +63,8 @@ def compare(original, candidate):
 def read_range(path, start, size):
     blob = Path(path).read_bytes()
     sec = sections(blob)['.text']
+    if struct.unpack_from('<H', blob, 18)[0] not in (247, 263):
+        raise ValueError('stack-access decoding expects an EM_BPF or EM_SBPF image')
     # WIDTHS and instruction-boundary walking use the legacy layout. Other
     # SBPF versions can move memory operations into arithmetic classes.
     version = struct.unpack_from('<I', blob, 48)[0]

@@ -88,7 +88,7 @@ def strict_package(package, expected):
     check(hashlib.sha256(raw).hexdigest() == expected, ('Known seal', str(package)))
     sidecar = (expected + '  manifest.json\n').encode()
     check(content(package / 'manifest.sha256') == sidecar, ('Exact sidecar', str(package)))
-    check(sha(package / 'manifest.sha256') == SIDECAR_SHA256.get(expected, hashlib.sha256(sidecar).hexdigest()))
+    check(sha(package / 'manifest.sha256') == SIDECAR_SHA256[expected])
     manifest = json.loads(raw)
     allowed_dirs = {''}
     for name in manifest:

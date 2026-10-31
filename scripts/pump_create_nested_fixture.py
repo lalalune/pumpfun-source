@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 """Offline creation reconstruction with ordinary mint and payer signatures."""
+if not __debug__:
+    raise SystemExit('Normal Python is required; do not use -O or PYTHONOPTIMIZE.')
 import argparse,base64,gzip,hashlib,json,struct
 from pathlib import Path
 from solders.account import Account

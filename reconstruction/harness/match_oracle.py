@@ -7,10 +7,16 @@ import os
 from pathlib import Path
 import secrets
 import sys
-import fastbuild
-import score
-from original_input import copy_original_inputs
-from compare_scores import load_report, compare
+try:
+    import elf_symbols  # Admit lazy symbol-reader bytes before any build.
+    import fastbuild
+    import score
+    from original_input import copy_original_inputs
+    from compare_scores import load_report, compare
+except Exception as exc:
+    # An uncaught exception exits 1, which the command contract reads as a valid non-match.
+    print(f'match oracle error: {exc}', file=sys.stderr)
+    raise SystemExit(2)
 
 
 def bound_scoring_inputs(directory):
@@ -126,6 +132,12 @@ def main():
     args = parser.parse_args()
     if args.recipe == 'identity' and args.hybrid is None:
         parser.error('--hybrid is required for identity')
+    # Admit the paths before writing scoring inputs or outputs. fastbuild's
+    # later guard cannot undo writes made by this oracle.
+    source = args.source.resolve()
+    for path in (args.work.resolve(), args.out.resolve()):
+        if path == source or source in path.parents or path in source.parents:
+            raise ValueError('source must not overlap the work or output directory')
     fastbuild.SDK = args.sdk.resolve()
     rustc = (args.hybrid if args.recipe == 'identity' else args.sdk) / 'rust/bin/rustc'
     fastbuild.RECIPES[args.recipe] = dict(fastbuild.RECIPES[args.recipe], rustc=rustc.resolve(), template=args.work / 'unused-template')

@@ -79,7 +79,7 @@ def classify(row, context, evidence_root):
                 reasons.append('linked evidence is not admitted'); continue
             if not path.is_file() or hashlib.sha256(path.read_bytes()).hexdigest() != item['sha256']:
                 reasons.append('missing or changed evidence: ' + relative.as_posix())
-        except OSError:
+        except (OSError, ValueError):  # ValueError: a NUL or lone surrogate in the recorded path
             reasons.append('unreadable evidence: ' + relative.as_posix())
     return {'applicability': 'unverifiable' if reasons else 'compatible', 'reasons': reasons}
 
@@ -88,13 +88,14 @@ def inspect(ledger, context, target, approach, evidence_root):
     if not valid_context(context): raise ValueError('requested context requires five lowercase SHA-256 fields')
     target = address(target)
     rows, errors = [], []
-    for number, line in enumerate(Path(ledger).read_text(encoding='utf-8').split('\n'), 1):
-        if not line.strip(): continue
+    for number, line in enumerate(Path(ledger).read_bytes().split(b'\n'), 1):
         try:
+            line = line.decode('utf-8')
+            if not line.strip(): continue
             row = parse(line)
             if not isinstance(row, dict): raise ValueError('record must be an object')
             recorded_target = address(row.get('target'))
-        except (ValueError, TypeError) as exc:
+        except (ValueError, TypeError, RecursionError) as exc:
             errors.append({'line': number, 'error': str(exc)}); continue
         if recorded_target != target or row.get('approach') != approach: continue
         rows.append({'line': number, 'attempt_id': row.get('attempt_id'), 'status': row.get('status'),

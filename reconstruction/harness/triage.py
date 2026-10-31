@@ -11,7 +11,7 @@ from pathlib import Path
 
 H = Path(__file__).resolve().parent
 sys.path.insert(0, str(H))
-from score import sections, body, normalize, original_windows, score, BASE  # noqa
+from score import sections, body, normalize, original_windows, score, BASE, write_report as publish_report  # noqa
 from elf_symbols import function_symbols
 from original_input import resolve_original
 from score_admission import report_destination
@@ -61,9 +61,7 @@ def frame_difference(original, candidate, offset):
 
 
 def write_report(path, rows):
-    path = Path(path)
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(rows, indent=1), encoding='utf-8', newline='\n')
+    publish_report(path, json.dumps(rows, indent=1))
 
 
 def main():

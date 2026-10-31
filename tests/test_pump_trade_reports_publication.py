@@ -20,6 +20,9 @@ SCRIPTS={'pump_buy_v2_differential.py':216,'pump_sell_v2_differential.py':206,
          'pump_legacy_buy_differential.py':284,'pump_legacy_sell_differential.py':115,
          'pump_legacy_sell_configured_fee_differential.py':28}
 FIXTURE='research/imported-lab/analysis/pump_fun/curve-fresh-trades-v3-signed-surfpool.json'
+# The earned-cashback writer imports the same trade fixture but has no
+# original-only mode, so it joins the alias controls only.
+ALIAS_SCRIPTS=(*SCRIPTS,'pump_earned_cashback_differential.py')
 IMAGES=('original/pump','original/pump_fees','dependencies/spl_token',
         'dependencies/spl_token_2022','dependencies/associated_token')
 DRIVER=r'''
@@ -65,7 +68,7 @@ class TradeReportPublicationTests(unittest.TestCase):
     def setUp(self):
         temporary=tempfile.TemporaryDirectory(prefix='pump-trade-publication-')
         self.addCleanup(temporary.cleanup);self.root=Path(temporary.name).resolve()
-        files=['scripts/'+name for name in (*SCRIPTS,'pump_trade_fixture.py',
+        files=['scripts/'+name for name in (*ALIAS_SCRIPTS,'pump_trade_fixture.py',
                'pump_amm_reusable_harness.py','pump_differential_output.py')]
         files+=[f'evidence/{name}/{file}' for name in IMAGES for file in ('deployed.so','capture.json')]
         files+=['evidence/upstream/pump.json',FIXTURE]
@@ -105,7 +108,7 @@ class TradeReportPublicationTests(unittest.TestCase):
                 self.assertEqual(staged.read_bytes(),b'new staging owner')
 
     def test_transitive_fixture_capture_metadata_and_candidate_outputs_are_rejected(self):
-        for script in SCRIPTS:
+        for script in ALIAS_SCRIPTS:
             # Check every consumed capture file plus shared fixture/source. The
             # two link forms are additionally exercised for public candidate.
             names=['candidate.so',FIXTURE,'scripts/pump_trade_fixture.py','evidence/upstream/pump.json']

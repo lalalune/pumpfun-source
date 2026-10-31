@@ -5,7 +5,8 @@ if not __debug__:
 import sys,base64,struct,json,pathlib,hashlib,argparse,itertools
 sys.path.insert(0,'scripts')
 from pump_amm_admin_differential import *
-from pump_amm_reusable_harness import acquire_harness, pin_program
+from pump_amm_reusable_harness import AMM_REPORT_INPUTS, acquire_harness, pin_program
+from pump_differential_output import PumpReport
 from solders.clock import Clock
 TOKEN=Pubkey.from_string('TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA');TOKEN22=Pubkey.from_string('TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb');ATA=Pubkey.from_string('ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL')
 MINT=Pubkey.from_bytes(bytes([226])*32);USER=OUTSIDER.pubkey();G=Pubkey.find_program_address([b'global_volume_accumulator'],PROGRAM)[0];U=Pubkey.find_program_address([b'user_volume_accumulator',bytes(USER)],PROGRAM)[0]
@@ -125,10 +126,10 @@ def cases(family):
    for end in [21,25,49]:add(new_start=20,new_end=end,now=21,supply=supply,day=1)
  return out
 def main():
- p=argparse.ArgumentParser();p.add_argument('--candidate',type=pathlib.Path,required=True);p.add_argument('--output',type=pathlib.Path,required=True);p.add_argument('--family',choices=['sync','claim','admin'],required=True);a=p.parse_args();rows=[]
+ p=argparse.ArgumentParser();p.add_argument('--candidate',type=pathlib.Path,required=True);p.add_argument('--output',type=pathlib.Path,required=True);p.add_argument('--family',choices=['sync','claim','admin'],required=True);a=p.parse_args();rows=[];publisher=PumpReport(a.output,ROOT,a.candidate,pathlib.Path(__file__),extra_inputs=AMM_REPORT_INPUTS)
  for c in cases(a.family):
   x,y=run(c),run(c,a.candidate);diff=[k for k in x if k!='logs' and x[k]!=y[k]];rows.append({'input':c,'original':x,'candidate':y,'diff':diff})
  sha=lambda p:hashlib.sha256(pathlib.Path(p).read_bytes()).hexdigest()
  report={'scope':'Bounded offline AMM '+a.family+' recovery with synthetic local state and ordinary verified signatures. Full committed state, event, inner CPI, return, transaction and error comparison; not binary identity or whole program equivalence.','case_count':len(rows),'mismatches':[i for i,r in enumerate(rows) if r['diff']],'original_sha256':sha(pin_program(ORIGINAL)),'candidate_sha256':sha(pin_program(a.candidate)),'script_sha256':sha(__file__),'cases':rows}
- a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(report,separators=(',',':'))+'\n',encoding='utf-8',newline='\n');print(json.dumps({k:v for k,v in report.items() if k!='cases'}));raise SystemExit(bool(report['mismatches']))
+ publisher.write((json.dumps(report,separators=(',',':'))+'\n').encode('utf-8'));print(json.dumps({k:v for k,v in report.items() if k!='cases'}));raise SystemExit(bool(report['mismatches']))
 if __name__=='__main__':main()

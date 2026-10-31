@@ -68,7 +68,7 @@ def extract_crate(archive: Path, package: str, destination: Path, package_sha256
     require(len(files) == file_count, f"crate file count differs: {package}")
     checksum = {"files": files, "package": package_sha256}
     (destination / ".cargo-checksum.json").write_text(
-        json.dumps(checksum, separators=(",", ":")), encoding="utf-8"
+        json.dumps(checksum, separators=(",", ":")), encoding="utf-8", newline="\n"
     )
 
 
@@ -125,7 +125,8 @@ def prepare(repo: Path, output: Path) -> dict[str, object]:
         "vendor_closure_sha256": closure_sha256,
         "vendor_packages": receipt,
     }
-    (output / "receipt.json").write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
+    (output / "receipt.json").write_text(json.dumps(result, indent=2) + "\n",
+                                          encoding="utf-8", newline="\n")
     return result
 
 

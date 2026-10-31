@@ -72,7 +72,7 @@ def main():
     # Deterministic, host-independent provenance keys: rglob order varies with
     # the directory scanner and str(relative_to) spells separators per host.
     sources=sorted((ROOT/'programs/pump-amm').rglob('*.rs'), key=lambda p: p.relative_to(ROOT).as_posix())
-    sources=[p for p in sources if 'target' not in p.parts]
+    sources=[p for p in sources if 'target' not in p.relative_to(ROOT/'programs/pump-amm').parts]
     output=PumpReport(a.output,ROOT,a.candidate,__file__,extra_inputs=[ROOT/'programs/pump-amm',*sources])
     original=ROOT/'evidence/original/pump_amm/deployed.so'
     left,right=Harness(original),Harness(a.candidate)

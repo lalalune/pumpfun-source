@@ -56,6 +56,7 @@ from window_elf_reader import Elf
 
 from amm_sell.test_best_version import BestScoreVersionTests
 from amm_sell.test_sell_distance import AlignmentDistanceTests
+from test_amm_sell_shifted_candidate import ShiftedCandidateTests
 
 
 from amm_sell.test_cached_status import CachedAttemptStatusTests
@@ -739,7 +740,7 @@ class GeneratedPacketMembershipTests(unittest.TestCase):
                 finally:
                     artifact.write_bytes(raw)
 
-    def test_partial_signature_packet_keeps_its_generated_program_set(self):
+    def test_partial_signature_packet_refuses_missing_required_programs(self):
         view = self.root / 'partial-view'
         (view / 'scripts').mkdir(parents=True)
         capture = view / 'evidence/original/mayhem/deployed.so'
@@ -749,11 +750,9 @@ class GeneratedPacketMembershipTests(unittest.TestCase):
             shutil.copyfile(analyze.ROOT / 'scripts' / name, view / 'scripts' / name)
         output = view / 'packet'
         generated = self.run_python(view / 'scripts/bytecode_signatures.py', '--output', output)
-        self.assertEqual(generated.returncode, 0, generated.stdout + generated.stderr)
-        self.assertEqual(self.run_python(output / 'verify.py').returncode, 0)
-        manifest = json.loads((output / 'manifest.json').read_bytes())
-        self.assertIn('mayhem-signatures.json', manifest)
-        self.assertNotIn('pump-signatures.json', manifest)
+        self.assertNotEqual(generated.returncode, 0, generated.stdout + generated.stderr)
+        self.assertIn(b'missing captured program ELF', generated.stderr)
+        self.assertFalse(output.exists())
 
 
 class CorpusOptimizationTests(unittest.TestCase):
@@ -1927,6 +1926,42 @@ class EvidenceProgramBindingTests(unittest.TestCase):
         (original / 'pump_amm').rename(original / 'pump')
         (original / 'swap').rename(original / 'pump_amm')
         with self.assertRaisesRegex(verify_evidence.EvidenceError, 'evidence/original/pump: capture program'):
+            self.run_gate()
+
+
+class EvidenceLoaderBindingTests(unittest.TestCase):
+    """The loader branch comes from the folder, not from the capture's own `loader` field."""
+    setUp = EvidenceProgramBindingTests.setUp
+    run_gate = EvidenceProgramBindingTests.run_gate
+
+    def edit(self, folder, **changes):
+        path = self.tmp / folder / 'capture.json'
+        record = json.loads(path.read_text())
+        for key, value in changes.items():
+            if value is None:
+                record.pop(key, None)
+            else:
+                record[key] = value
+        path.write_text(json.dumps(record))
+
+    def test_legacy_capture_refiled_under_an_upgradeable_program_is_rejected(self):
+        # The associated_token payload is self-consistent as a legacy capture; only the
+        # program id changes. This used to print "9 captures verified".
+        pump = self.tmp / 'evidence/original/pump'
+        shutil.rmtree(pump)
+        shutil.copytree(self.tmp / 'evidence/dependencies/associated_token', pump)
+        self.edit('evidence/original/pump', program='6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P')
+        with self.assertRaisesRegex(verify_evidence.EvidenceError, "evidence/original/pump: capture loader 'legacy-v2'"):
+            self.run_gate()
+
+    def test_unknown_loader_value_is_rejected(self):
+        self.edit('evidence/original/pump_fees', loader='upgradeable-v2')
+        with self.assertRaisesRegex(verify_evidence.EvidenceError, "evidence/original/pump_fees: capture loader 'upgradeable-v2'"):
+            self.run_gate()
+
+    def test_legacy_capture_without_its_loader_is_rejected(self):
+        self.edit('evidence/dependencies/associated_token', loader=None)
+        with self.assertRaisesRegex(verify_evidence.EvidenceError, "evidence/dependencies/associated_token: capture loader None, expected 'legacy-v2'"):
             self.run_gate()
 
 

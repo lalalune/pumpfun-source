@@ -14,6 +14,7 @@ from solders.transaction_metadata import FailedTransactionMetadata
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'scripts'))
 from pump_amm_reusable_harness import pin_program
+from pump_differential_output import PumpReport
 IX=next(x for x in IDL['instructions'] if x['name']=='claim_social_fee_pda')
 class Fixture:
  def __init__(self,binary):
@@ -72,12 +73,12 @@ def cases():
  out += [{'name':'trailing-arguments','trailing':'ff01'},{'name':'zero-and-disabled','amount':0,'flags':2},{'name':'zero-and-rate','amount':0,'last':1700000000}]
  return out
 def main():
- p=argparse.ArgumentParser();p.add_argument('--candidate',type=pathlib.Path);p.add_argument('--output',type=pathlib.Path,required=True);a=p.parse_args();orig=pin_program(ROOT/'evidence/original/pump_fees/deployed.so');o=Fixture(orig);b=Fixture(pin_program(a.candidate)) if a.candidate else None;rows=[];bad=[]
+ p=argparse.ArgumentParser();p.add_argument('--candidate',type=pathlib.Path);p.add_argument('--output',type=pathlib.Path,required=True);a=p.parse_args();publisher=PumpReport(a.output,ROOT,a.candidate,__file__);orig=pin_program(ROOT/'evidence/original/pump_fees/deployed.so');o=Fixture(orig);b=Fixture(pin_program(a.candidate)) if a.candidate else None;rows=[];bad=[]
  for c in cases():
   x=o.run(c);y=b.run(c) if b else None;match=all(x[k]==y[k] for k in ['error','before','after','events','inner','return']) if b else None
   rows.append({'case':c,'original':x,'candidate':y,'match':match})
   if match is False:bad.append(c['name'])
  report={'scope':'Synthetic local signed social claim fixtures. No full byte identity claim.','original_sha256':hashlib.sha256(orig.read_bytes()).hexdigest(),'candidate_sha256':hashlib.sha256(pin_program(a.candidate).read_bytes()).hexdigest() if a.candidate else None,'cases':rows,'mismatches':bad}
- a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8',newline='\n');print('Cases',len(rows),'mismatches',bad)
+ publisher.write((json.dumps(report,indent=2)+'\n').encode('utf-8'));print('Cases',len(rows),'mismatches',bad)
  if bad:raise SystemExit(1)
 if __name__=='__main__':main()

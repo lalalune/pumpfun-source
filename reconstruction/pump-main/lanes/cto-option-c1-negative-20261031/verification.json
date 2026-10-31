@@ -1,0 +1,51 @@
+{
+  "status": "PASS_HISTORICAL_NEGATIVE_PRESERVED",
+  "sourcePair": [
+    "39eb377aa6c6ce4aacff273aa13732abb0c0078a",
+    "0fc50efbc599fa1e025169c8db06fceb25c9c192"
+  ],
+  "sourceFiles": 141,
+  "stageFiles": 142,
+  "COREFiles": 236,
+  "nativeBuildSeconds": 87.8,
+  "nativeConclusion": "FAIL/no-loss guard",
+  "savedScore": {
+    "normalized": 1034,
+    "raw": 347,
+    "rawLosses": 687
+  },
+  "layout": {
+    "CTOBytes": [
+      27400,
+      27616
+    ],
+    "CTOLogicalInstructions": [
+      3337,
+      3364
+    ],
+    "textGrowth": 216,
+    "functionAddressDeltas": {
+      "0": 156,
+      "216": 904
+    },
+    "fullExteriorTextChanges": {
+      "callImmediateDelta27": 827,
+      "lddwAddressDelta216": 5196,
+      "callImmediateDelta-27": 2143
+    }
+  },
+  "rawProof": {
+    "feeValidationTests": {
+      "original": 3,
+      "control": 2,
+      "C1": 2
+    },
+    "C1SomeSharedGate": "common +0xa70 / test +0xac8, no private Some gate",
+    "retainedOptionDiscriminator": "r8 tested at +0x12f8 after shared fork",
+    "lateRawTag": true,
+    "clonePointer": "C1 spill FP-0x920; original spill FP-0x8d8",
+    "bump": "C1/original r6; control spills",
+    "limits": "Exact local CFG/raw witnesses, not original Rust source order or semantic equivalence."
+  },
+  "limits": "Verifies archived declarations, recorded score arithmetic and bounded raw/layout facts. No compile, IR run, VM, full scorer, source gain, original-source-order or latest-main executable claim."
+}

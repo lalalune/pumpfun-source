@@ -1,6 +1,6 @@
 """Real admin_cto CLI/VM publication controls; two retained cases per run.
 
-The complete 363-case image-pinning suite remains in its existing test module.
+The complete 388-case image-pinning suite remains in its existing test module.
 These tests exercise publication, input preservation, and deliberate VM mismatch
 receipts. They do not claim new handler coverage or binary equivalence.
 """

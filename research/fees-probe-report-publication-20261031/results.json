@@ -1,0 +1,29 @@
+{
+  "issue": "Two bounded Pump Fees runners read the captured Pump Fees image, the donation relay and SPL dependency ELFs, the shared AMM fixture and the saved fee-selector receipts, then truncated --output with write_text. Passing an input as --output destroyed captured evidence, or replaced the executing runner with its own report.",
+  "base_revision": "52c0b087c7e345766b67b8fdeb8d4784079a955d",
+  "affected": "scripts/fees_donation_crank_probe.py and scripts/validate_fee_handlers.py at base; each writer is the last statement of its respective script",
+  "finding": "Base run of the new test: 9 failing subtests in 6 tests. --output on the captured image overwrote it, and --output on the runner itself replaced the module with the report so the same run could no longer import it. Sibling Fees runners (fees_admin_differential, fees_config_differential, fees_validate_all, the eight fees differentials) already admit their destination.",
+  "change": {
+    "publisher": "PumpReport(output, ROOT, candidate, __file__, extra_inputs=[...]) built immediately after parse_args and before any case executes",
+    "report_inputs": "the crank probe declares evidence/dependencies/donation_relay/deployed.so and research/imported-lab/analysis/pump_fun/amm-v2-trade-fixture.json; validate_fee_handlers declares research/fees-query-inputs/quote-selector-cases.json.gz and fee-selector-cases.json.gz",
+    "write": "publisher.write(payload) with the existing payload construction, indent and trailing newline retained",
+    "failure": "ValueError: report output aliases an input: <path>, exit 1, before a case runs and before any output directory is created"
+  },
+  "runs": {
+    "case_payload_unchanged": "base and proposed receipts are byte-identical: crank probe 357 cases, validate_fee_handlers 10838 cases, both with no mismatches",
+    "alias_refusals": "9 refusals exercised by the new test (captured image, candidate, executing script, shared AMM fixture, both saved selector receipts); each exits non-zero with the alias message and leaves the target bytes unchanged",
+    "publication_control": "each runner publishes a fresh nested receipt: mismatch-free JSON, non-empty cases, and no staging file left beside it"
+  },
+  "tests": {
+    "new_test": "tests/test_fees_probe_report_publication.py",
+    "before": "9 failing subtests in 6 tests against the base scripts (11.6s)",
+    "after": "6 tests OK (3.8s)"
+  },
+  "required_checks": {
+    "scripts/test_tooling.py": "228 tests OK",
+    "scripts/verify_evidence.py": "9 captures verified"
+  },
+  "environment": {"platform": "macOS arm64", "python": "3.14.3", "solders": "0.27.1"},
+  "unchanged": ["case corpora and comparison fields", "captured image, dependency ELFs, AMM fixture and selector receipts", "report schema, indentation and trailing newline", "receipt bytes"],
+  "not_claimed": "The controls prove admission and publication on synthetic local fixtures; they do not re-run the full probe corpora against every candidate class and make no byte-identity claim about the rebuilt program."
+}

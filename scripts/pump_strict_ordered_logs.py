@@ -5,7 +5,7 @@ A completed receipt remains published if a subsequent input check fails. Its
 digests identify the audited bytes; a later writer may already own the output.
 """
 from pathlib import Path
-import argparse,gzip,hashlib,json,os,re,tempfile
+import argparse,gzip,hashlib,json,os,re,secrets
 ORIGINAL='7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d'
 # A compute-meter line names a pubkey. One character also matches the old
 # class, so a real log could be dropped as if it were a meter line.
@@ -38,15 +38,20 @@ def audit(report,candidate_sha256,expected_pairs=None):
     if name not in ['original','candidate']:walk(item,path+[str(name)])
   elif isinstance(value,list):
    for index,item in enumerate(value):walk(item,path+[str(index)])
- walk(report['suites'],[]);require(pairs==expected,'Report pair/log coverage differs')
+ require(isinstance(report['suites'],dict),'Report suites must be a mapping');walk(report['suites'],[]);require(pairs==expected,'Report pair/log coverage differs')
  return {'scope':__doc__,'candidate_sha256':candidate_sha256,'original_sha256':ORIGINAL,'case_pairs':pairs,'strict_ordered_log_mismatch_cases':len(mismatches),'source_normalization':None,'excluded_log_category':'Only complete runtime compute-meter lines matching UNITS; all other log text/order preserved.','mismatches':mismatches,'new_execution_or_signature_coverage_claimed':False}
 def main():
  p=argparse.ArgumentParser();p.add_argument('--report',type=Path,required=True);p.add_argument('--candidate',type=Path,required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--expected-pairs',type=int);a=p.parse_args()
  raw=a.report.read_bytes();report=json.loads(gzip.decompress(raw)if raw.startswith(b'\x1f\x8b')else raw);candidate=a.candidate.read_bytes();result=audit(report,hashlib.sha256(candidate).hexdigest(),a.expected_pairs);result['source_report_sha256']=hashlib.sha256(raw).hexdigest();result['checker_sha256']=hashlib.sha256(Path(__file__).read_bytes()).hexdigest();require(not a.output.exists(),'Output already exists')
  a.output.parent.mkdir(parents=True,exist_ok=True);staged=None;published=False
  try:
-  with tempfile.NamedTemporaryFile('w',dir=a.output.parent,prefix='.'+a.output.name+'.',delete=False,encoding='utf-8',newline='\n')as stream:
-   staged=Path(stream.name);stream.write(json.dumps(result,indent=2)+'\n');stream.flush();os.fsync(stream.fileno())
+  # A plain exclusive open keeps the umask mode of the published audit.
+  # The hidden staged name is unique and links into an absent output only,
+  # preserving the no-replace and no-aliasing guarantees.
+  temporary=a.output.with_name('.'+a.output.name[:32]+'.'+secrets.token_hex(8)+'.tmp')
+  with open(temporary,'x',encoding='utf-8',newline='\n')as stream:
+   staged=temporary
+   stream.write(json.dumps(result,indent=2)+'\n');stream.flush();os.fsync(stream.fileno())
   require(a.report.read_bytes()==raw and a.candidate.read_bytes()==candidate,'Input changed during audit')
   if publish_file(staged,a.output):staged=None
   published=True

@@ -3,7 +3,8 @@ if not __debug__:
 import sys,struct,json,base64,pathlib,hashlib
 sys.path.insert(0,'scripts')
 from pump_amm_liquidity_differential import *
-from pump_amm_reusable_harness import pin_program
+from pump_amm_reusable_harness import AMM_REPORT_INPUTS, pin_program
+from pump_differential_output import PumpReport
 from solders.transaction import Transaction
 ATA=Pubkey.from_string('ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL');USER=OUTSIDER.pubkey();U=Pubkey.find_program_address([b'user_volume_accumulator',bytes(USER)],PROGRAM)[0];DEST=Pubkey.from_bytes(bytes([237])*32)
 ORIGINAL=ROOT/'evidence/original/pump_amm/deployed.so'
@@ -62,9 +63,9 @@ def cases():
  return out
 if __name__=='__main__':
  import argparse
- p=argparse.ArgumentParser();p.add_argument('--candidate',type=pathlib.Path,required=True);p.add_argument('--output',type=pathlib.Path,required=True);a=p.parse_args();rows=[]
+ p=argparse.ArgumentParser();p.add_argument('--candidate',type=pathlib.Path,required=True);p.add_argument('--output',type=pathlib.Path,required=True);a=p.parse_args();rows=[];publisher=PumpReport(a.output,ROOT,a.candidate,pathlib.Path(__file__),extra_inputs=AMM_REPORT_INPUTS)
  for c in cases():
   x,y=run(c),run(c,a.candidate);diff=[k for k in x if k!='logs' and x[k]!=y[k]];rows.append({'case':c,'original':x,'candidate':y,'diff':diff})
  sha=lambda p:hashlib.sha256(pathlib.Path(p).read_bytes()).hexdigest()
  d={'scope':'Bounded normal-signature AMM cashback fixtures; compare full recorded state, inner calls, events and errors; no original-program identity/security claim.','original_sha256':sha(pin_program(ORIGINAL)),'candidate_sha256':sha(pin_program(a.candidate)),'script_sha256':sha(__file__),'case_count':len(rows),'mismatches':[i for i,r in enumerate(rows) if r['diff']],'cases':rows}
- a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(d,separators=(',',':'))+'\n',encoding='utf-8',newline='\n');print(json.dumps({k:v for k,v in d.items() if k!='cases'}));assert not d['mismatches']
+ publisher.write((json.dumps(d,separators=(',',':'))+'\n').encode('utf-8'));print(json.dumps({k:v for k,v in d.items() if k!='cases'}));assert not d['mismatches']

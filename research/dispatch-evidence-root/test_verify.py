@@ -33,6 +33,8 @@ class LandedTransitionTests(unittest.TestCase):
                  ('script count', lambda r: r['directPythonScriptSet'].update(count=0)),
                  ('script digest', lambda r: r['directPythonScriptSet'].update(sha256='0' * 64)),
                  ('capture', lambda r: r['unchangedCaptures'].update({next(iter(r['unchangedCaptures'])): '0' * 64})),
+                 ('dropped capture', lambda r: r['unchangedCaptures'].pop('evidence/original/pump_amm/deployed.so')),
+                 ('empty captures', lambda r: r['unchangedCaptures'].clear()),
                  ('wrong landed commit', lambda r: r.update(landedRevision=r['baseRevision']))]
         for name, change in cases:
             with self.subTest(name=name):

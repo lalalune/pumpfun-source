@@ -104,14 +104,20 @@ class LinuxHybridPublication(fixtures.LinuxToolchainTests):
     def test_replacement_has_no_missing_canonical_window(self):
         bootstrap.assemble_linux()
         (self.hybrid / 'rust/bin/rustc').write_bytes(b'stale compiler')
-        rename = Path.rename
-        missing = []
-        def observe(path, destination):
-            result = rename(path, destination)
-            if not self.hybrid.exists():missing.append(str(path))
+        rename = bootstrap.rename_toolchain
+        windows = []
+        def observe(source, destination, **options):
+            result = rename(source, destination, **options)
+            windows.append(self.hybrid.exists())
             return result
-        with patch.object(Path,'rename',observe):bootstrap.assemble_linux()
-        self.assertEqual(missing,[])
+        with patch.object(bootstrap, 'rename_toolchain', observe):
+            bootstrap.assemble_linux()
+        # assemble_linux publishes through bootstrap.rename_toolchain, which
+        # reaches renamex_np/renameat2 through ctypes; Path.rename is never
+        # called, so observing it left this list empty and the window
+        # assertion unable to fail.
+        self.assertTrue(windows, 'publication seam was never exercised')
+        self.assertNotIn(False, windows, 'canonical installation was missing between publication steps')
         self.assertTrue(bootstrap.hybrid_ok_linux())
 
     def test_backup_retention_failure_keeps_new_and_previous_installations(self):

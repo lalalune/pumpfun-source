@@ -1,0 +1,1135 @@
+{
+  "schema": "pump-cto-option-c1-negative-v1",
+  "historicalControl": "39eb377aa6c6ce4aacff273aa13732abb0c0078a",
+  "historicalCandidate": "0fc50efbc599fa1e025169c8db06fceb25c9c192",
+  "eventualResearchBase": "0d04cf4",
+  "archive": {
+    "path": "captures.tar.xz",
+    "bytes": 4156816,
+    "sha256": "12e1a890f3a415b1e2035e26ff86ad71298821a69444ba702a414da30de58b3c",
+    "members": {
+      "core-source/evidence/original/pump/capture.json": {
+        "bytes": 884,
+        "sha256": "ffb53e71ce9cbee60df91e54cc1d677527a6eeb5806cb8d68e525af698744110"
+      },
+      "core-source/reconstruction/base/functions.tsv": {
+        "bytes": 1459668,
+        "sha256": "fb2c0a47514567d65eb45c1e268dacd5291e4659bb7dceb575a767dc20bcaff8"
+      },
+      "core-source/reconstruction/base/original.so": {
+        "bytes": 40,
+        "sha256": "866f650843ae423a57516a1c735ffed9492821a4aafcbcfddeef17f5a34f43a6"
+      },
+      "core-source/reconstruction/harness/ATTEMPT_APPLICABILITY.md": {
+        "bytes": 2569,
+        "sha256": "b654a96c16b1fdaf085341dac382d420a4cc87332de7a421fb0c25cb519aa1d1"
+      },
+      "core-source/reconstruction/harness/BATCH_METRICS.md": {
+        "bytes": 958,
+        "sha256": "bb2f0e35c5160fd7e8f3cef8d58649d545347ee83cfff5892938ea9901b802a5"
+      },
+      "core-source/reconstruction/harness/BUILD_SCORE_PAIR.md": {
+        "bytes": 4572,
+        "sha256": "5192603290c81120d690f32d7de5b4a6df299a464fd4aa5b4fec659178668908"
+      },
+      "core-source/reconstruction/harness/CONTROL_FLOW.md": {
+        "bytes": 952,
+        "sha256": "88a573e305a71594c6037d9465ccc5e08431794f3afb3b0505b3311b64eb56cb"
+      },
+      "core-source/reconstruction/harness/CYCLE_REGIONS.md": {
+        "bytes": 753,
+        "sha256": "d7caee665d6f3ef8c7ecd051135802663c344e3487fbd8d305ec23613275c8a7"
+      },
+      "core-source/reconstruction/harness/EXPERIMENTS.md": {
+        "bytes": 7092,
+        "sha256": "debef3e040607a81234bbb21d1840cd696f02c04c59033f8850c231938158ac0"
+      },
+      "core-source/reconstruction/harness/RESIDUAL_FIELDS.md": {
+        "bytes": 775,
+        "sha256": "ee7334db65db0664b206d992618721bba3a6507a71c37a9c8bca933cbe131185"
+      },
+      "core-source/reconstruction/harness/SOURCE_INPUTS.md": {
+        "bytes": 1801,
+        "sha256": "8f6b4f93f2bd9cd311b5ff60fedf96f7c328e2999e9d1b0f386c66dd2bb49487"
+      },
+      "core-source/reconstruction/harness/STACK_ACCESS.md": {
+        "bytes": 1605,
+        "sha256": "5cd54d1eb8582ca2555590f1d852d68cde9dbd2d399903f7ee7cece28cfffd8e"
+      },
+      "core-source/reconstruction/harness/attempt_applicability.py": {
+        "bytes": 5688,
+        "sha256": "c2afd7dd0c06d93a4332b09526d6dd2d73a007bac86d8134856a101b89f0f3de"
+      },
+      "core-source/reconstruction/harness/benchmark_alias_groups.py": {
+        "bytes": 1221,
+        "sha256": "3a1e93cadb25f6779545037784081dd84dc0a5a9771914ff08eaa22a8380cc33"
+      },
+      "core-source/reconstruction/harness/benchmark_score_aliases.py": {
+        "bytes": 2696,
+        "sha256": "1df907b9cc115b57e5203ab69a8a2e06076727c02144c07752d7c43b51054852"
+      },
+      "core-source/reconstruction/harness/bisect_membership.py": {
+        "bytes": 4733,
+        "sha256": "51de9ba841bef3ef2a8831971ca50f8a354486b82836ee526b25dee4b69d9f1d"
+      },
+      "core-source/reconstruction/harness/build-score-pair-control.json": {
+        "bytes": 2611,
+        "sha256": "a8cf230964528019afcf3e9b1e8f6af5af93199aba0bac125c1a3e503710b3a7"
+      },
+      "core-source/reconstruction/harness/build_process.py": {
+        "bytes": 2880,
+        "sha256": "d13db0a2a3e35dde85f492b785614eb199c44e9f7658a8d90f73a9e0aed6e891"
+      },
+      "core-source/reconstruction/harness/build_score_pair.py": {
+        "bytes": 7230,
+        "sha256": "dbadad368fa64dfd120e846d1186543806658756a014464e664475c7769cab3c"
+      },
+      "core-source/reconstruction/harness/compare_scores.py": {
+        "bytes": 4767,
+        "sha256": "f6e0c2a90d4e7b34a163d0044e84f55d59a8347e5edee45e0eb1aa0431f109fa"
+      },
+      "core-source/reconstruction/harness/control_flow.py": {
+        "bytes": 7473,
+        "sha256": "73b759cb3b625f5c96ec8ede4fd40a40427f556566d1fb9d781738b2be52bd77"
+      },
+      "core-source/reconstruction/harness/coords.py": {
+        "bytes": 8149,
+        "sha256": "b3dff2b70be4f8731611269bbec21c02b28612f512752444170f179a07d2c11c"
+      },
+      "core-source/reconstruction/harness/elf_symbols.py": {
+        "bytes": 4169,
+        "sha256": "7bae771bbc9039a595e84c956500268b2601d2f97a93b3edcc83fbc348a9a74c"
+      },
+      "core-source/reconstruction/harness/experiment_runner.py": {
+        "bytes": 13537,
+        "sha256": "6ce646fb9672e2afc083d5330f85a743709c789df683425011912652416a8363"
+      },
+      "core-source/reconstruction/harness/fastbuild.py": {
+        "bytes": 20187,
+        "sha256": "8e4f1d19240943b9b50ec74a13a8d946cefe24b95bbaa06568059dcc9fe7b87f"
+      },
+      "core-source/reconstruction/harness/instruction_stream.py": {
+        "bytes": 1347,
+        "sha256": "288c9ceb3f0f177688501922ce56e6a72fe9c3fedcddf9ad1de474412f61ef9d"
+      },
+      "core-source/reconstruction/harness/integrate.py": {
+        "bytes": 22740,
+        "sha256": "27ab80c70fc01fa9e62a4b4e9788db34dd1d6d2ca72af69967efeea37710f22f"
+      },
+      "core-source/reconstruction/harness/link_order.py": {
+        "bytes": 8618,
+        "sha256": "0e10badcc2cb860c0b77a2d32e1a1086885f9f59d4ab163e77678eed42760462"
+      },
+      "core-source/reconstruction/harness/linux144-sbpf-target-libs.sha256": {
+        "bytes": 3117,
+        "sha256": "d9b506af7d0b3681776aae5ed3dd7ec99309db1a95ba40ae1fa0db767586f389"
+      },
+      "core-source/reconstruction/harness/llvm_tools.py": {
+        "bytes": 855,
+        "sha256": "306a50b2ba57f350e250d7c7f596ac400627ecfd24248b2291578b5ddf3fe8af"
+      },
+      "core-source/reconstruction/harness/make_hybrid144.sh": {
+        "bytes": 2409,
+        "sha256": "4c71dcd5dba0c216144d109b10ca9d97f8eb426729ebf5cccee964ace715700d"
+      },
+      "core-source/reconstruction/harness/match_oracle.py": {
+        "bytes": 6227,
+        "sha256": "2b9ef77fd15a8a0b1b70b891bef55c56504dbce89a4e1609d608a3840a067a90"
+      },
+      "core-source/reconstruction/harness/minimize_experiment.py": {
+        "bytes": 4792,
+        "sha256": "43b1f2b9b95e10fb2f9acbaba3ee6c0d0bece3a3ab8decb7f3dfa209b8351843"
+      },
+      "core-source/reconstruction/harness/original_input.py": {
+        "bytes": 1062,
+        "sha256": "9d00b5c253405cec4d2ef292086c6e88d758bd3fe7f8c6a3cba23af114f01ade"
+      },
+      "core-source/reconstruction/harness/pair_candidates.py": {
+        "bytes": 3319,
+        "sha256": "4924afa01a6ae494b94ababba1f19fd4d8fc9281e78fdce47e4e79bfa5e7e19f"
+      },
+      "core-source/reconstruction/harness/pump_link_lld.py": {
+        "bytes": 236,
+        "sha256": "03b61b39cf5e85512086c87298ac302cec78378b00c09c594715d18c0aa86e5b"
+      },
+      "core-source/reconstruction/harness/pump_link_lld.sh": {
+        "bytes": 176,
+        "sha256": "f613b208d47e261e8690fb233e36bd0f0b364ba075c7f6f55e5bf9a435f7fc59"
+      },
+      "core-source/reconstruction/harness/pump_link_rustc.py": {
+        "bytes": 218,
+        "sha256": "94ab1290caee5bb9152fb4e49974960e53c4a5e1f9833c20cd6060ec514a360d"
+      },
+      "core-source/reconstruction/harness/pump_link_rustc.sh": {
+        "bytes": 180,
+        "sha256": "b1343774075a2f3b79fcf89d5c992286c6b549efb353dfc641c8627f768429c5"
+      },
+      "core-source/reconstruction/harness/pump_physical_source_wrapper.py": {
+        "bytes": 1151,
+        "sha256": "8c774934089bff8dbca08589a3ade99922bc8d714f2905f6196d0903b385f99c"
+      },
+      "core-source/reconstruction/harness/pump_physical_source_wrapper.sh": {
+        "bytes": 185,
+        "sha256": "0636b61fbbb2f5022f5ce4e5f4cc580617ac2758a95cc75eff84056295f61527"
+      },
+      "core-source/reconstruction/harness/sbf_default.ld": {
+        "bytes": 452,
+        "sha256": "5e8370b9380f55411d827721e2e43c8cfd1eac71d1383e20b938397bc0bd82c3"
+      },
+      "core-source/reconstruction/harness/score.py": {
+        "bytes": 9945,
+        "sha256": "5640d87864c6bc57005b8ada86f82dd1c944c92f5edf5181de4bb5e7568063f5"
+      },
+      "core-source/reconstruction/harness/score_admission.py": {
+        "bytes": 4464,
+        "sha256": "2d79d738d3a5ec17b3affe1f3e49aa077752f45260dc8b758c915cae1c96d088"
+      },
+      "core-source/reconstruction/harness/source_inputs.py": {
+        "bytes": 4074,
+        "sha256": "7f4662fb8c541f83bd83bfdf85a7466ae6da57a0343624e51367d5044cd3e73e"
+      },
+      "core-source/reconstruction/harness/stack_access.py": {
+        "bytes": 4469,
+        "sha256": "80fb213c166a3e0a10d2db83e6a4fafa6d32d58054445969d887e143ae249791"
+      },
+      "core-source/reconstruction/harness/target_metric.py": {
+        "bytes": 6890,
+        "sha256": "d5d6019c3899ca09fbcc13646c03853bf02f2382a328d07a8b0f0f3879177dff"
+      },
+      "core-source/reconstruction/harness/test_applicability_evidence_paths.py": {
+        "bytes": 3742,
+        "sha256": "99e1ae30e054469714e43a01b087f2ec86d8cf447136c22e43695ed28ac64028"
+      },
+      "core-source/reconstruction/harness/test_applicability_input_errors.py": {
+        "bytes": 2550,
+        "sha256": "e7d895f9cc653d97bd3a51d4a90ac6a738e08f0889534be369604cdf6d4e2cd8"
+      },
+      "core-source/reconstruction/harness/test_attempt_applicability.py": {
+        "bytes": 2827,
+        "sha256": "4d503f8e84b493e259b0ab2d14951a6abc0963f677ad867237f5f6374cdcc699"
+      },
+      "core-source/reconstruction/harness/test_attempt_decimal_targets.py": {
+        "bytes": 1350,
+        "sha256": "2f12fb0637e1c3df6b77257adb55377aeb25ca0cc4594fd207e108c958a91d53"
+      },
+      "core-source/reconstruction/harness/test_batch_target_metric.py": {
+        "bytes": 4472,
+        "sha256": "e2c59ba5ae8e1095bd044bfe66e19ac2caffd5c4893c55fa129f752085aa508e"
+      },
+      "core-source/reconstruction/harness/test_bisect_membership.py": {
+        "bytes": 1836,
+        "sha256": "024b1b9b7dac241f189de442aa57f6d782edb3badbb5647d8be3e4a811d6f72d"
+      },
+      "core-source/reconstruction/harness/test_bisect_missing_source.py": {
+        "bytes": 3287,
+        "sha256": "0bfe2d153db084fc6b5c0938393ef47d73aa465de7e11e03a92dd198c2ba72ce"
+      },
+      "core-source/reconstruction/harness/test_build_pair_boundaries.py": {
+        "bytes": 4037,
+        "sha256": "b8411e9758b11f2c25eba7953cdbe49b4ea28019abad177794f9dc20485abb73"
+      },
+      "core-source/reconstruction/harness/test_build_pair_source_overlap.py": {
+        "bytes": 4054,
+        "sha256": "283bf73988289fe45a6df9923538944fece46680852dacd5049016a930e170f9"
+      },
+      "core-source/reconstruction/harness/test_build_process.py": {
+        "bytes": 15695,
+        "sha256": "90b2d21d752ae9f6df3297c6b9f3ff59ac90702fc317f53a6b9ea665841fa2fa"
+      },
+      "core-source/reconstruction/harness/test_build_publication_boundaries.py": {
+        "bytes": 9090,
+        "sha256": "b31f518971bab79071649fc03d6da6936cfc9c9ac3a283b1bb2f7c6c3e55ecd6"
+      },
+      "core-source/reconstruction/harness/test_build_score_pair.py": {
+        "bytes": 9727,
+        "sha256": "4bec9e629eb13865ac56b3b85a054de41fb8e39b742fd24687d32c3627422ff0"
+      },
+      "core-source/reconstruction/harness/test_build_score_pair_runtime_error.py": {
+        "bytes": 2475,
+        "sha256": "edb17be448ad92bf44cf65f96ec203ce45dbe14676fbffbb234999d601c23a93"
+      },
+      "core-source/reconstruction/harness/test_build_slots.py": {
+        "bytes": 1401,
+        "sha256": "567624ac9ad4bd8aae251c18416da88bfab984217116332dd49e60719d3440b6"
+      },
+      "core-source/reconstruction/harness/test_cache_paths.py": {
+        "bytes": 4550,
+        "sha256": "96ae9c5025b6de1ee06f47c16b438581c136ea7280b47d77e6bda8dd12a44421"
+      },
+      "core-source/reconstruction/harness/test_callid_current_matches.py": {
+        "bytes": 3362,
+        "sha256": "a43535864ccaac76de0d48dab07f8e32989bbe136b6924362f2ac264988925bf"
+      },
+      "core-source/reconstruction/harness/test_candidate_index.py": {
+        "bytes": 2880,
+        "sha256": "1f39493ae0df870f5b4ef79f4b197630aa4fd659fb3c2ab971283ba5baa1f971"
+      },
+      "core-source/reconstruction/harness/test_candidate_limit.py": {
+        "bytes": 1460,
+        "sha256": "df7d3b54644ce89dbc1f9422bd9534fe386bf3c780a6785cb02f1a3222986849"
+      },
+      "core-source/reconstruction/harness/test_candidate_snapshot.py": {
+        "bytes": 1545,
+        "sha256": "cbe8b6a3fcc7e961323cc23d70bcea99d62932b110c2a88ad517bd42aa72d0a2"
+      },
+      "core-source/reconstruction/harness/test_census_argument_constants.py": {
+        "bytes": 6629,
+        "sha256": "3e9db60b3217cb89b161643fd446841beeb028ad24dc2dde1e8a79f63c004a0a"
+      },
+      "core-source/reconstruction/harness/test_census_original_input.py": {
+        "bytes": 2814,
+        "sha256": "3e827c6d0f98385fc1d8f91f15da295b25fe5f074baf497aba9294807312292f"
+      },
+      "core-source/reconstruction/harness/test_compare_overlapping_windows.py": {
+        "bytes": 1239,
+        "sha256": "04a022f51055ad1d8d0282a3718a943cbf59c01f94b5a2f26dc4b6f1342a2509"
+      },
+      "core-source/reconstruction/harness/test_compare_scores.py": {
+        "bytes": 4258,
+        "sha256": "2db90e5777d9e90742cc0d97f634a43ca85ae552b2d1b4f1928b8e20e0cc36b7"
+      },
+      "core-source/reconstruction/harness/test_compare_scores_duplicate_fields.py": {
+        "bytes": 1927,
+        "sha256": "a8142e14b69ed50f7daea3691154fd034bcb7a105009b063c2ae96d070e2cc24"
+      },
+      "core-source/reconstruction/harness/test_compare_scores_output.py": {
+        "bytes": 2358,
+        "sha256": "2b84418f50de01c251f160e96a93fc100a65a45adeddab4f02b4fc602f0364e6"
+      },
+      "core-source/reconstruction/harness/test_compiler_encoding.py": {
+        "bytes": 1693,
+        "sha256": "812b6c50a2b346269f8ef9b052c6c5e8bcbe1b1abe3d8b05cdec8cba34beed9b"
+      },
+      "core-source/reconstruction/harness/test_compiler_log_encoding.py": {
+        "bytes": 1224,
+        "sha256": "0cd2a2ff9042b22ff4bfafe4fed17d7b9cdd57da6db9cc1160be52c6f2aa0f47"
+      },
+      "core-source/reconstruction/harness/test_composition_boundaries.py": {
+        "bytes": 4752,
+        "sha256": "6dd7a21b980b6e9456178a7792cc90247165560dbcff56d98c4c54450fe754e5"
+      },
+      "core-source/reconstruction/harness/test_composition_deadline.py": {
+        "bytes": 1606,
+        "sha256": "4d9864e96f0629de572df6299cad385ab99c2b4943a2634e1fe6c867afa87ebe"
+      },
+      "core-source/reconstruction/harness/test_control_flow.py": {
+        "bytes": 2689,
+        "sha256": "8499ef70264c943df228423df19c6308841284c469ca8a23e862d1d03a30a51f"
+      },
+      "core-source/reconstruction/harness/test_control_flow_isa.py": {
+        "bytes": 4216,
+        "sha256": "ab973c7ffa7f393ab6b7e2de1a4d1cf8cd6c8b4c20e4210aca74d5ba9e2dd6e6"
+      },
+      "core-source/reconstruction/harness/test_coordinate_calls.py": {
+        "bytes": 2055,
+        "sha256": "87d4d751e5d02916092c21a02d94b017593611709a09d696517f775ef84cb34c"
+      },
+      "core-source/reconstruction/harness/test_coordinate_diff_fields.py": {
+        "bytes": 2584,
+        "sha256": "9363c0ffd6d0af70b5fe186d36c9b74cc0dd1a0e874f7c4fd8c5eeb7e05791db"
+      },
+      "core-source/reconstruction/harness/test_coordinate_snapshot.py": {
+        "bytes": 3159,
+        "sha256": "ba9e9e6147c6f28b6a5d46490e16920d9bde0ac4d2a140cd5c4c79f5620d8d91"
+      },
+      "core-source/reconstruction/harness/test_coords_bounds.py": {
+        "bytes": 1147,
+        "sha256": "ddee459efe2a2b898f9b9ef4cbc1556373c8af3c9cac96aac2951680be3f4895"
+      },
+      "core-source/reconstruction/harness/test_coords_cli_admission.py": {
+        "bytes": 2195,
+        "sha256": "e724cff25e7b97e048dae211d70bcd7d4a38419b2401ac16c691bdc791c2f276"
+      },
+      "core-source/reconstruction/harness/test_coords_pairing.py": {
+        "bytes": 1717,
+        "sha256": "b696953a52d4716ade299e14f17426c349cf3be5daf5ac12c453b946e1120dea"
+      },
+      "core-source/reconstruction/harness/test_coords_report_destination.py": {
+        "bytes": 2989,
+        "sha256": "baefdaee8872faebed8d6eaded9184ce3eafdc3c9831728ab888c41adb6f61c9"
+      },
+      "core-source/reconstruction/harness/test_cycle_regions.py": {
+        "bytes": 1383,
+        "sha256": "85792cd52a764d310583dcc6bd549884b78a6e0f571a70953bfab01f2f6cf853"
+      },
+      "core-source/reconstruction/harness/test_demangle_names.py": {
+        "bytes": 2294,
+        "sha256": "fd3853c2eec0a59acfc22b42b5b8351548ef77ed5ca2c7868b2a8426fec212f7"
+      },
+      "core-source/reconstruction/harness/test_diagnostic_output_preservation.py": {
+        "bytes": 2342,
+        "sha256": "8c44f11ba73eb6d6d3d350c79b9165df56392bced241c9ee4bbeb758dabbc673"
+      },
+      "core-source/reconstruction/harness/test_diagnostic_range_boundaries.py": {
+        "bytes": 3147,
+        "sha256": "f992dbf7672758e58ec0066c5ecdfd2f295c85ec7c3af034f300034a5a721329"
+      },
+      "core-source/reconstruction/harness/test_disassembly_snapshot.py": {
+        "bytes": 3848,
+        "sha256": "a9c5593a52d94483bdfb591603568e1210f9658d710ea6ba44fd6092225e303c"
+      },
+      "core-source/reconstruction/harness/test_elf_candidate_admission.py": {
+        "bytes": 1344,
+        "sha256": "b6412a99f46f7024f8a2d6df139c0e7a354a48ebaf9499d02c51b365c9f09a28"
+      },
+      "core-source/reconstruction/harness/test_elf_symbols.py": {
+        "bytes": 5520,
+        "sha256": "28cd77d4fd33368b4ddbbfefe8a51585dc9d178ba67464a42f05aed8447d4241"
+      },
+      "core-source/reconstruction/harness/test_evidence_root_paths.py": {
+        "bytes": 2131,
+        "sha256": "22945a4b536a1ec36ca9d839ca055e2c91e027b21c726acce573f83019d993dc"
+      },
+      "core-source/reconstruction/harness/test_experiment_clis.py": {
+        "bytes": 3460,
+        "sha256": "3a148d3e406ef8fa57461dc348752bb3cd05d5537ef926fdc45fa97cddbbdbe4"
+      },
+      "core-source/reconstruction/harness/test_experiment_declared_name.py": {
+        "bytes": 2917,
+        "sha256": "a8616676f1ea59fab2da2d831a4359d020226fccb1b1550e45ff7351c89edd4e"
+      },
+      "core-source/reconstruction/harness/test_experiment_directory_identity.py": {
+        "bytes": 3726,
+        "sha256": "229bbf8b9dddaafa9af8b0239962653114d39b45f0250bda4a7b0c04d7514b91"
+      },
+      "core-source/reconstruction/harness/test_experiment_executable_snapshot.py": {
+        "bytes": 9477,
+        "sha256": "e2e28aab6b9e9e9a7bf6ea1f74f6dbac3ce765ba17bbc0e0341cb575959bf9b5"
+      },
+      "core-source/reconstruction/harness/test_experiment_matrix_admission.py": {
+        "bytes": 2916,
+        "sha256": "a0557e6e9cbef72fbac15253bb452fcde12c62d563d2e12d880d9699f0b8874e"
+      },
+      "core-source/reconstruction/harness/test_experiment_matrix_overlap.py": {
+        "bytes": 2665,
+        "sha256": "ac6e58996a4ce08ceb0b1181047f5eef550b8f68fd0cade38177950b4a475833"
+      },
+      "core-source/reconstruction/harness/test_experiment_name_case.py": {
+        "bytes": 3308,
+        "sha256": "48d2e3195cf2e22b3f6a5da3ef2fda2778b1765ebf72c25c677ee3d02a3be963"
+      },
+      "core-source/reconstruction/harness/test_experiment_post_run_errors.py": {
+        "bytes": 3570,
+        "sha256": "4f62945e856ffae8ad605d18dd3ae75c20cd446339848c22cae693f2e1abf129"
+      },
+      "core-source/reconstruction/harness/test_experiment_receipt_integrity.py": {
+        "bytes": 5683,
+        "sha256": "2f097355d5ad4ac0bdc4c00ff718126d38cf6c104f3356c57099f8b4d1f8a660"
+      },
+      "core-source/reconstruction/harness/test_experiment_retained_inputs.py": {
+        "bytes": 2762,
+        "sha256": "77ed34d31520f2a1fb9d7f4c763fa91801021a5faac61a41c516fc685110d4b6"
+      },
+      "core-source/reconstruction/harness/test_experiment_root_target.py": {
+        "bytes": 4175,
+        "sha256": "009c6fb65d4999b76f75193df26e1d7f72f34d3b3a08e7ac1c063058e1377ae5"
+      },
+      "core-source/reconstruction/harness/test_experiment_runner.py": {
+        "bytes": 4432,
+        "sha256": "680873d503ba11f968345e7960065cc8b14ed8233d5cb24b8e480fecd4f1ebdb"
+      },
+      "core-source/reconstruction/harness/test_experiment_walk_errors.py": {
+        "bytes": 1543,
+        "sha256": "e06e80b2377a9e815f7d4419590e2762eba0a0d943f5188c79bc122e4fdd4186"
+      },
+      "core-source/reconstruction/harness/test_experiment_worktree_source.py": {
+        "bytes": 2144,
+        "sha256": "fa591b983522e4ce10d82c49ddf179f8b739aa5d129ad091771ab57ea9dbdcc1"
+      },
+      "core-source/reconstruction/harness/test_fastbuild_library_name.py": {
+        "bytes": 3538,
+        "sha256": "f506be4d2b8fd5217c03c6efae61cec3699b94a5e0642b921d889424438e07e3"
+      },
+      "core-source/reconstruction/harness/test_fastbuild_log_persistence.py": {
+        "bytes": 4669,
+        "sha256": "5563758299ccc939a119fdcc5e55ef5dc0b9cc83cd835e6e2eca453790ef37e8"
+      },
+      "core-source/reconstruction/harness/test_fastbuild_manifest_headers.py": {
+        "bytes": 3233,
+        "sha256": "87c2e1cef7162ff79c142479a3a76b7345a0673c95a511e77bcca233e1726ff1"
+      },
+      "core-source/reconstruction/harness/test_fastbuild_output_race.py": {
+        "bytes": 6402,
+        "sha256": "16ac2988bfbe12b6b35a059b4904143f57b09d7c6534aeda215f1b04ca2e5a21"
+      },
+      "core-source/reconstruction/harness/test_fastbuild_path_crates.py": {
+        "bytes": 4034,
+        "sha256": "923be6c78cfb7920f35bf4b15548acdd03470ecb502f2cdf1bafae9e78f504d8"
+      },
+      "core-source/reconstruction/harness/test_fastbuild_shared_output.py": {
+        "bytes": 4398,
+        "sha256": "02732f343c4ad8400d57cff40c6f42be85b32cf61d1683e1e593c7c3e5cafab0"
+      },
+      "core-source/reconstruction/harness/test_fastbuild_source_preflight.py": {
+        "bytes": 4478,
+        "sha256": "7a4e2b10fb42458f991e18bc7e6425442f9f77485309296823ff88e55562d066"
+      },
+      "core-source/reconstruction/harness/test_fastbuild_stack.py": {
+        "bytes": 9101,
+        "sha256": "3246a11f7481540dcd468d9d0bc90197e06ef7719d4ca4226fdbaf416f0388a6"
+      },
+      "core-source/reconstruction/harness/test_fastbuild_workspace_lock.py": {
+        "bytes": 3173,
+        "sha256": "b612b1b942f79df7e97aad774df7a0f2f1c8e43bcda37f4b8fbafba1dd256601"
+      },
+      "core-source/reconstruction/harness/test_hybrid_staging.py": {
+        "bytes": 3395,
+        "sha256": "f8d1629c74008a8c135849035f12c7e0ff5ee0cd09c7c56f0322405603a8a4d0"
+      },
+      "core-source/reconstruction/harness/test_inline_capture_compiler.py": {
+        "bytes": 4143,
+        "sha256": "52f4097a71e04825c8bc94eadd3cb771a7a7f12943dc7c9f2e1ed7eede69f7a2"
+      },
+      "core-source/reconstruction/harness/test_instruction_stream.py": {
+        "bytes": 2919,
+        "sha256": "aaa6547d89b5f646e72e6c15fb41e5d17bd2dd833e53558ef42d3da8aa576ff4"
+      },
+      "core-source/reconstruction/harness/test_integrate.py": {
+        "bytes": 5182,
+        "sha256": "0ced6c2d3634c524381ff8250db6a68c6db6e175d65e0b02377c83a850d32eec"
+      },
+      "core-source/reconstruction/harness/test_integrate_binary_files.py": {
+        "bytes": 4051,
+        "sha256": "5992215e34042b932ffc9723066f99c492ae182244663e9f4e37cd7c5c4aadde"
+      },
+      "core-source/reconstruction/harness/test_integrate_build_input_recheck.py": {
+        "bytes": 5191,
+        "sha256": "937e042ee46045d3daaadae17736cef40b35077c0a9fa74119c63702fbebf98c"
+      },
+      "core-source/reconstruction/harness/test_integrate_empty_files.py": {
+        "bytes": 9772,
+        "sha256": "dfbcf03a94ff76ddea49d7a6c4601233629bc2046e147f857b588d921d34f09f"
+      },
+      "core-source/reconstruction/harness/test_integrate_failures.py": {
+        "bytes": 4639,
+        "sha256": "b7e9f10e4109fd638ed3afdb10c86e396c7dbf7352d6d862e115dee7669ae32a"
+      },
+      "core-source/reconstruction/harness/test_integrate_file_directory.py": {
+        "bytes": 2658,
+        "sha256": "bb45926fbab5ff55bed8e9ac1827033b1bf891ec00d8c0099955352a4e38512b"
+      },
+      "core-source/reconstruction/harness/test_integrate_no_build_cli.py": {
+        "bytes": 21268,
+        "sha256": "7d8f45367738e69e26af6d2d17b200f5c46e9d309e26c026309930c46a1f3c34"
+      },
+      "core-source/reconstruction/harness/test_integrate_orig_sources.py": {
+        "bytes": 5334,
+        "sha256": "092b4b5858829c6a4c54e1b285fe0f3d306137bb87a74f7535dc66f8b22c4b16"
+      },
+      "core-source/reconstruction/harness/test_integrate_retention.py": {
+        "bytes": 2582,
+        "sha256": "3a2e0adb6654d1f9275e5a0e76305f8b736fa6bc0c5d7b2dc870bb88d4e965e3"
+      },
+      "core-source/reconstruction/harness/test_integrate_source_links.py": {
+        "bytes": 5193,
+        "sha256": "131280d24f63242486071ad9fbc2712ec84e3e095d54fbee6b96b39b421779a5"
+      },
+      "core-source/reconstruction/harness/test_integration_preflight.py": {
+        "bytes": 3963,
+        "sha256": "5285d32e2cdb3e56f61c3784a17875d1dd8a9a9827229ab7df011d04545a673c"
+      },
+      "core-source/reconstruction/harness/test_inventory_columns.py": {
+        "bytes": 2562,
+        "sha256": "8020478f94a7dc0ebe1a81a03b876e3d408418d594aecc124aeb5b24eafec011"
+      },
+      "core-source/reconstruction/harness/test_inventory_csv.py": {
+        "bytes": 2458,
+        "sha256": "2e2652d56b3b73ea55e2f66f4ce35c7db86f950ed69000f5b6a4dc9e8643c949"
+      },
+      "core-source/reconstruction/harness/test_inventory_fidelity.py": {
+        "bytes": 2860,
+        "sha256": "4be86cb2f5ff61ac4d22931c9e7b11b9269585d773f6e4bb7da6a5a6d2b73abd"
+      },
+      "core-source/reconstruction/harness/test_ledger_boundaries.py": {
+        "bytes": 2985,
+        "sha256": "53c2aa72d30b751abe8d30467818477ca56b75a8e00d82033f4f14670240e36d"
+      },
+      "core-source/reconstruction/harness/test_ledger_encoding.py": {
+        "bytes": 2143,
+        "sha256": "9b09059e888a986c4924f9079e358bb485814c2b01a2b8e98240ed4b849ee228"
+      },
+      "core-source/reconstruction/harness/test_link_hook_interpreter.py": {
+        "bytes": 3497,
+        "sha256": "36f93aa5ebf8b7577c6e5cb20a89bd6fabb654f8beca0fc8e12e6624505454c9"
+      },
+      "core-source/reconstruction/harness/test_link_order.py": {
+        "bytes": 6417,
+        "sha256": "59b281c2266df7b75f0af8054263ca3fdb9425b9a1739ca7759d305f816f5e7e"
+      },
+      "core-source/reconstruction/harness/test_llvm_tools.py": {
+        "bytes": 3199,
+        "sha256": "381ec1de6aa9c54c3a75426e5ff65f42ed16418a3f229b8c199f0d2043caa386"
+      },
+      "core-source/reconstruction/harness/test_match_oracle.py": {
+        "bytes": 3645,
+        "sha256": "61360817d4a4e7a95693b701dbd086ff0e50b61e0f3d04eb317feaaa2939323d"
+      },
+      "core-source/reconstruction/harness/test_match_oracle_preservation.py": {
+        "bytes": 2919,
+        "sha256": "486a147e9d59e26f125a733cbc464b468a34329c4c630cdf9eaf081b27959c05"
+      },
+      "core-source/reconstruction/harness/test_match_oracle_scoring_input_recheck.py": {
+        "bytes": 4868,
+        "sha256": "a5d799de816530fda829e838ddd0e5c2577ebeb4311d73311cf25f32c266562f"
+      },
+      "core-source/reconstruction/harness/test_match_oracle_verdict_staging.py": {
+        "bytes": 5064,
+        "sha256": "425689e81f3875b0ad95da6dd5111fe36469f1e4d32cac0f6174beece8b3926c"
+      },
+      "core-source/reconstruction/harness/test_minimize_experiment.py": {
+        "bytes": 1332,
+        "sha256": "c6a9b64dead27b169207df74fbd5f561ee7b3fd7b1995d7df8b9d794debdc3f2"
+      },
+      "core-source/reconstruction/harness/test_minimize_initial_report.py": {
+        "bytes": 2788,
+        "sha256": "e120a42ca81cfe5f7adfe0d2bcec99a8540b13922ee1ed44448e6aad11cdb064"
+      },
+      "core-source/reconstruction/harness/test_minimize_oracle_encoding.py": {
+        "bytes": 1953,
+        "sha256": "b386223e72dc35f0d030536609f74cc5cb0ab9cec9f71f4a2f4e0ab811e80e3e"
+      },
+      "core-source/reconstruction/harness/test_minimize_patch_list_encoding.py": {
+        "bytes": 1831,
+        "sha256": "b5aa832e93292af4604ff1b64fb51a2e5c25c612103a44e58f55c85e648e0ac8"
+      },
+      "core-source/reconstruction/harness/test_normalization_conformance.py": {
+        "bytes": 3477,
+        "sha256": "599ae88ace464fb8ab0609956ec105a57320b7fc994fea85d39f3ef7189da6b7"
+      },
+      "core-source/reconstruction/harness/test_objdump_addresses.py": {
+        "bytes": 3385,
+        "sha256": "af54ea9bd5082d0389f92342dd71860ed03bd66a13c139566df0d00b6be331da"
+      },
+      "core-source/reconstruction/harness/test_opgrams.py": {
+        "bytes": 1493,
+        "sha256": "e44acdfca52e1df48db10f2d7a5296826694018e6e8a8367d3d2f78af0ca07f3"
+      },
+      "core-source/reconstruction/harness/test_original_input.py": {
+        "bytes": 6487,
+        "sha256": "c27b199cf9299f22a35645b1f85c8b96337e82162cca5769d9e9707e3ad033ac"
+      },
+      "core-source/reconstruction/harness/test_original_inventory_boundaries.py": {
+        "bytes": 2230,
+        "sha256": "22d2f5aa76a72790c3bf3dacc1b0123ad49ecd1e236f7602c1e5a6a516e33f20"
+      },
+      "core-source/reconstruction/harness/test_pair_candidates.py": {
+        "bytes": 1546,
+        "sha256": "5c4e10f2d97ad7704c84f758b438e7464b5c962aeaf15833e32e579362d60543"
+      },
+      "core-source/reconstruction/harness/test_pair_candidates_limit.py": {
+        "bytes": 2476,
+        "sha256": "003d7f3ee66e71ff7865fe848b9cdf5515e05ffa478d173c8ff2dff0752353e1"
+      },
+      "core-source/reconstruction/harness/test_physical_source_wrapper.py": {
+        "bytes": 4749,
+        "sha256": "611a0b94cf0aab45af204314d464ff47e099e7e00a1fb7010774ced8f4c9cb05"
+      },
+      "core-source/reconstruction/harness/test_portable_census.py": {
+        "bytes": 1670,
+        "sha256": "0ce8387b4a344258e82713a0ffb1e8a0aa8d6ea37c832104af1e7ae7b754e52f"
+      },
+      "core-source/reconstruction/harness/test_report_scorer_inputs.py": {
+        "bytes": 2521,
+        "sha256": "e87f3ca988e330f328166b005dd1dbad7142f03cbdcea3d2d304636e7a9299ae"
+      },
+      "core-source/reconstruction/harness/test_residual_fields.py": {
+        "bytes": 1426,
+        "sha256": "498cc6eb0e8275f4e5fe5475d5dfd306e9f847c490743cd644dd69a0d3dcb6ba"
+      },
+      "core-source/reconstruction/harness/test_roundtrip_status.py": {
+        "bytes": 2512,
+        "sha256": "ed22eea2332368c04de23f5b0c42eebdd90b8731c6df125e07aeaf3dbf9debb7"
+      },
+      "core-source/reconstruction/harness/test_score_admission.py": {
+        "bytes": 2545,
+        "sha256": "e761a511a0016e89204648a3c86867711efc668ecf64af024f359531199cc9ed"
+      },
+      "core-source/reconstruction/harness/test_score_atomic_report.py": {
+        "bytes": 3984,
+        "sha256": "fd961637d510ccf1d50e6ff2579fe365ed6f45a7aacfd0a689ed815cbaf1255d"
+      },
+      "core-source/reconstruction/harness/test_score_baseline_encoding.py": {
+        "bytes": 2746,
+        "sha256": "80a1fd4def7f6344e484f14d924cf0b18910beefc7a0857894b9622b97c3d0f5"
+      },
+      "core-source/reconstruction/harness/test_score_baseline_option_conflict.py": {
+        "bytes": 1463,
+        "sha256": "8b06e77a70cb0953b3dcd6c4d4a8c79cddfe515bb320a975bba991053cb22b18"
+      },
+      "core-source/reconstruction/harness/test_score_body_bounds.py": {
+        "bytes": 3469,
+        "sha256": "b87d018d5de52db9e9d938be3307fddf86b195132964053207373e71e90ccdd3"
+      },
+      "core-source/reconstruction/harness/test_score_empty_baseline.py": {
+        "bytes": 1851,
+        "sha256": "815d81032358d5133a3fefc6fad67f90d76a22a7831f3dce7e3e81bd6c473ec7"
+      },
+      "core-source/reconstruction/harness/test_score_hex_addresses.py": {
+        "bytes": 3953,
+        "sha256": "9bb53ba499647e5c94f2b04ed757a051e42573715b204a5072a5b129a5d8896f"
+      },
+      "core-source/reconstruction/harness/test_score_inputs.py": {
+        "bytes": 2746,
+        "sha256": "133d72644db2936dcb35b0aa81681fdbfb69be9732b12da3facca9dff17e9178"
+      },
+      "core-source/reconstruction/harness/test_score_overlap_admission.py": {
+        "bytes": 1203,
+        "sha256": "b1067f702b6ab0cd19edcb05041ddda3ce792f3b02386e875c067251ee87a8d0"
+      },
+      "core-source/reconstruction/harness/test_score_report_mode.py": {
+        "bytes": 1083,
+        "sha256": "cc19cca43ae6aba1fb9ca60e21e8ab34f6c73e80186da8dc24faf702c729fbe5"
+      },
+      "core-source/reconstruction/harness/test_score_snapshot.py": {
+        "bytes": 4229,
+        "sha256": "37328e85fad5cd5f9354aac05c26ad8413064ce351d1f727d12f73875a8da160"
+      },
+      "core-source/reconstruction/harness/test_score_staging_ownership.py": {
+        "bytes": 2805,
+        "sha256": "df2cbbc80feaca359128738e66eb2ed00c1fd284c19aae4fd4cbc38635ba829f"
+      },
+      "core-source/reconstruction/harness/test_score_symbol_admission.py": {
+        "bytes": 2228,
+        "sha256": "f3cf48e54f7e1dad57babb9c4e64643b76ed7e4a6254e0ed4544bb8f941aab99"
+      },
+      "core-source/reconstruction/harness/test_short_window_ranking.py": {
+        "bytes": 3996,
+        "sha256": "1140231efd9a1bd49bca68cff292a78f7c99cdec6f3be84bed76ec5aa90984ef"
+      },
+      "core-source/reconstruction/harness/test_source_change_time.py": {
+        "bytes": 2597,
+        "sha256": "669414e9a535b48a6dffab6255522c0c4ec4ab449c80326737a9edaecf98fe31"
+      },
+      "core-source/reconstruction/harness/test_source_directory_junctions.py": {
+        "bytes": 1963,
+        "sha256": "04de3ff106b24ccb79f7a03b15c0bece9202c1e78b3c9642d149777b1832d23f"
+      },
+      "core-source/reconstruction/harness/test_source_input_junctions.py": {
+        "bytes": 2486,
+        "sha256": "2460d3e00ce9858a06a32ca13a94b2dd340d09a6f495b43b657993525513a3c1"
+      },
+      "core-source/reconstruction/harness/test_source_inputs.py": {
+        "bytes": 6216,
+        "sha256": "bf8f245b4b564f9b862ba2d88ff3411f9b50386b18b99c49fa4aae26d0dfea7b"
+      },
+      "core-source/reconstruction/harness/test_source_scan_errors.py": {
+        "bytes": 2476,
+        "sha256": "0592b90adbccb0bdba22fd4cc106060e91b5eb98bf23290bcdb980e262c247d8"
+      },
+      "core-source/reconstruction/harness/test_stack_access.py": {
+        "bytes": 1512,
+        "sha256": "77a83561629bd2af7f5bc0302a0930f195e854e603855e4379ee71a1b7115de9"
+      },
+      "core-source/reconstruction/harness/test_stack_access_isa.py": {
+        "bytes": 4858,
+        "sha256": "0f704f53f825691495360ba3dda7b6449bb871f000a63c4ec5a7b73554bc1320"
+      },
+      "core-source/reconstruction/harness/test_stack_access_order.py": {
+        "bytes": 1277,
+        "sha256": "0cc47685250c8852c8642326afc0429909dec7eb3020315c7151f17d839874a9"
+      },
+      "core-source/reconstruction/harness/test_strict_log_coverage.py": {
+        "bytes": 2556,
+        "sha256": "93b90d43872f201403e49ab519102eaec8b6795aef593afc5f9faee96815c54f"
+      },
+      "core-source/reconstruction/harness/test_support.py": {
+        "bytes": 432,
+        "sha256": "2bce4aec52f9ac2a529910d5972999d98b62eb677e19e3035a73fee0e93d5e6a"
+      },
+      "core-source/reconstruction/harness/test_treediff.py": {
+        "bytes": 3810,
+        "sha256": "26a76346e80b1d409d08c916bdaffe13bec2a1b9dd76fbe0289095919a6a28f5"
+      },
+      "core-source/reconstruction/harness/test_treediff_empty.py": {
+        "bytes": 1681,
+        "sha256": "d604a81b715b9178b6819a9e2f2a34429d890509016239101c05f303a3f74941"
+      },
+      "core-source/reconstruction/harness/test_treediff_line_boundaries.py": {
+        "bytes": 4015,
+        "sha256": "0c10ce884dffdc4d7e7ecff82a3ebd9a6b920aca7b5b2c05d1f87a41d0d80ca7"
+      },
+      "core-source/reconstruction/harness/test_treediff_links.py": {
+        "bytes": 3051,
+        "sha256": "447d6777f9b79f73c517ce79709301aeb3e92fa6b11edda7cd6bee572e298fe9"
+      },
+      "core-source/reconstruction/harness/test_treediff_quoted_paths.py": {
+        "bytes": 894,
+        "sha256": "21b6dd802b7c0c7a3797f7d80fe09e2e8bc917499b4f88689f9d093ed3084dcf"
+      },
+      "core-source/reconstruction/harness/test_treediff_roots.py": {
+        "bytes": 1463,
+        "sha256": "88d51c1f504bb56a52f46236baceab83d4096daaba72e099ebbb90e5bf8836f6"
+      },
+      "core-source/reconstruction/harness/test_treediff_scan_errors.py": {
+        "bytes": 2416,
+        "sha256": "f4c868346a1432d429fbfc33b8dfee613ac57db7be9049e4dd9631c708cbd275"
+      },
+      "core-source/reconstruction/harness/test_triage_report.py": {
+        "bytes": 8002,
+        "sha256": "88ce2586f78c47b617af4d328041b8a8d1dbee328043d56f2f7f416a15d4b454"
+      },
+      "core-source/reconstruction/harness/test_triage_report_destination.py": {
+        "bytes": 4199,
+        "sha256": "b9ba269d2f5ff48e7d0d6069b51810d1d120a3e94e13534830b934e11b1c7cfb"
+      },
+      "core-source/reconstruction/harness/test_triage_snapshot.py": {
+        "bytes": 2498,
+        "sha256": "a18f22550445a9a193f90df62eca4abc56cbc874ffe30c04cd40bda43c40bae2"
+      },
+      "core-source/reconstruction/harness/test_triage_symbol_ranges.py": {
+        "bytes": 3559,
+        "sha256": "c43a1ca2b72294e07beb63f52c48f8741b812fafb24c94ec78625ca8bd8997d1"
+      },
+      "core-source/reconstruction/harness/test_window_cache.py": {
+        "bytes": 2825,
+        "sha256": "6dd10bdc9af338e0a1813189edd9963f383bca1e68c5683a3a93d18e10ebcfc7"
+      },
+      "core-source/reconstruction/harness/test_window_cli.py": {
+        "bytes": 2559,
+        "sha256": "37dceab3ca61401a640387791e3e0f7e5ed392d6a5d9abd5f29f09e57c116f42"
+      },
+      "core-source/reconstruction/harness/test_window_list_snapshot.py": {
+        "bytes": 2343,
+        "sha256": "95fe283d43afe277f2c4a416995fc7e5765a90ba5bae25038ae7e59b24421eff"
+      },
+      "core-source/reconstruction/harness/treediff.py": {
+        "bytes": 4120,
+        "sha256": "c4df8b072a807c443d0295a9ad563bb9659ffd062d85f33cd3609896a32cd03f"
+      },
+      "core-source/reconstruction/harness/triage.py": {
+        "bytes": 5650,
+        "sha256": "201f80baa27cb4e76eef76cde86215d5cb6a76ff07a11c3d8c0c5c5360f10e77"
+      },
+      "core-source/reconstruction/harness/win.py": {
+        "bytes": 11159,
+        "sha256": "658cd1b0b7d8fa615e8e986843d1bb597a48d3626e05e0508fba7e651eb50c71"
+      },
+      "core-source/reconstruction/pump-main/baseline/rescore.json": {
+        "bytes": 323071,
+        "sha256": "24fe5efbe4c0b2a959b1e9c273dd76bdae610d7caef215be9f1d4c8b27c083c8"
+      },
+      "core-source/reconstruction/pump-main/baseline/score.json": {
+        "bytes": 351868,
+        "sha256": "d8b94e211ab43543f8c36bcc566440dec73d8c1c590df3fcb33536c88a21727d"
+      },
+      "core-source/reconstruction/toolchain/bootstrap.py": {
+        "bytes": 17209,
+        "sha256": "20d8757e4ea233f994a66b7132275f477f5410f1e2b9d703d1b9914d61832b95"
+      },
+      "core-source/reconstruction/toolchain/linux-v1.44-x86_64/version.md": {
+        "bytes": 240,
+        "sha256": "491be940d44a3d446354c039281404793c670bb0acb8a67a42fae14563f014a9"
+      },
+      "core-source/reconstruction/toolchain/test_bootstrap_linux.py": {
+        "bytes": 8299,
+        "sha256": "9d3f6d9caca5ba711b4ee4c99ceab1fb7ed1e8bb7c3514f6251105bb61273842"
+      },
+      "core-source/reconstruction/toolchain/test_bootstrap_macos.py": {
+        "bytes": 4671,
+        "sha256": "d9f5551045baa631c1c4026651fa8e1a2846c7e8d829fbb11ecd90467d27f205"
+      },
+      "core-source/reconstruction/toolchain/test_dependency_cache.py": {
+        "bytes": 5509,
+        "sha256": "624e3260fc3372a96106168290cd924e85405ea0239b55335c026540acd9dcdd"
+      },
+      "core-source/reconstruction/toolchain/test_library_inventory.py": {
+        "bytes": 6603,
+        "sha256": "8b4316f7b04afcb6b9a72b6048eed5afe38b6de0262f73b580f7cb3dd880b027"
+      },
+      "core-source/reconstruction/toolchain/v1.44-macos-inventory.json": {
+        "bytes": 525621,
+        "sha256": "9e130a98569fc66a9e31087b01caac9173ff6cba0067d5f71c8fd42a90c8c28a"
+      },
+      "raw/c1.zip": {
+        "bytes": 2569180,
+        "sha256": "081b9de25c3c6ed446b3b3d610d08f8d58a0a6e88f7fea16b9aab0a3fc341477"
+      },
+      "raw/control.zip": {
+        "bytes": 2539442,
+        "sha256": "94d7f23a92e0cae60b186ae589bffa7767e2c18f63b93dfb8e97f6c7e4a912c6"
+      },
+      "receipts/c1-download.json": {
+        "bytes": 7321,
+        "sha256": "4887d7eb7c79abf1b836ca508324e9a1b264a08243c43a8b377bc8ac7fb87dc8"
+      },
+      "receipts/c1-independent-review.json": {
+        "bytes": 16106,
+        "sha256": "679d78ca7fb0c3ae6b5ef3df03379b63795d217d5a462437799c57946da1b432"
+      },
+      "receipts/c1-monitor.json": {
+        "bytes": 2235,
+        "sha256": "e56e09b2bae06c2c831b409feaaeb5dbeed2385ea8e44a492071095160cbd8c5"
+      },
+      "receipts/c1-official-admission.json": {
+        "bytes": 438104,
+        "sha256": "7180009c824ab06c85b8cf2b009a152f515d6363832b31644e9b01210db6929e"
+      },
+      "receipts/control-download.json": {
+        "bytes": 6901,
+        "sha256": "72fe8a268ea6fa2a4bb6898581d0f3fb956fd8db77ae2f023709767d0e356d25"
+      },
+      "receipts/control-monitor.json": {
+        "bytes": 1236,
+        "sha256": "f26e79c14283f87b3349e31c07e6f8e3cf598efeff1bd7bf1bea3bc408d33886"
+      }
+    }
+  },
+  "rawArchives": {
+    "control": {
+      "member": "raw/control.zip",
+      "sha256": "94d7f23a92e0cae60b186ae589bffa7767e2c18f63b93dfb8e97f6c7e4a912c6",
+      "members": 43
+    },
+    "c1": {
+      "member": "raw/c1.zip",
+      "sha256": "081b9de25c3c6ed446b3b3d610d08f8d58a0a6e88f7fea16b9aab0a3fc341477",
+      "members": 45
+    }
+  },
+  "coreArchivedPaths": [
+    "evidence/original/pump/capture.json",
+    "reconstruction/base/functions.tsv",
+    "reconstruction/base/original.so",
+    "reconstruction/harness/ATTEMPT_APPLICABILITY.md",
+    "reconstruction/harness/BATCH_METRICS.md",
+    "reconstruction/harness/BUILD_SCORE_PAIR.md",
+    "reconstruction/harness/CONTROL_FLOW.md",
+    "reconstruction/harness/CYCLE_REGIONS.md",
+    "reconstruction/harness/EXPERIMENTS.md",
+    "reconstruction/harness/RESIDUAL_FIELDS.md",
+    "reconstruction/harness/SOURCE_INPUTS.md",
+    "reconstruction/harness/STACK_ACCESS.md",
+    "reconstruction/harness/attempt_applicability.py",
+    "reconstruction/harness/benchmark_alias_groups.py",
+    "reconstruction/harness/benchmark_score_aliases.py",
+    "reconstruction/harness/bisect_membership.py",
+    "reconstruction/harness/build-score-pair-control.json",
+    "reconstruction/harness/build_process.py",
+    "reconstruction/harness/build_score_pair.py",
+    "reconstruction/harness/compare_scores.py",
+    "reconstruction/harness/control_flow.py",
+    "reconstruction/harness/coords.py",
+    "reconstruction/harness/elf_symbols.py",
+    "reconstruction/harness/experiment_runner.py",
+    "reconstruction/harness/fastbuild.py",
+    "reconstruction/harness/instruction_stream.py",
+    "reconstruction/harness/integrate.py",
+    "reconstruction/harness/link_order.py",
+    "reconstruction/harness/linux144-sbpf-target-libs.sha256",
+    "reconstruction/harness/llvm_tools.py",
+    "reconstruction/harness/make_hybrid144.sh",
+    "reconstruction/harness/match_oracle.py",
+    "reconstruction/harness/minimize_experiment.py",
+    "reconstruction/harness/original_input.py",
+    "reconstruction/harness/pair_candidates.py",
+    "reconstruction/harness/pump_link_lld.py",
+    "reconstruction/harness/pump_link_lld.sh",
+    "reconstruction/harness/pump_link_rustc.py",
+    "reconstruction/harness/pump_link_rustc.sh",
+    "reconstruction/harness/pump_physical_source_wrapper.py",
+    "reconstruction/harness/pump_physical_source_wrapper.sh",
+    "reconstruction/harness/sbf_default.ld",
+    "reconstruction/harness/score.py",
+    "reconstruction/harness/score_admission.py",
+    "reconstruction/harness/source_inputs.py",
+    "reconstruction/harness/stack_access.py",
+    "reconstruction/harness/target_metric.py",
+    "reconstruction/harness/test_applicability_evidence_paths.py",
+    "reconstruction/harness/test_applicability_input_errors.py",
+    "reconstruction/harness/test_attempt_applicability.py",
+    "reconstruction/harness/test_attempt_decimal_targets.py",
+    "reconstruction/harness/test_batch_target_metric.py",
+    "reconstruction/harness/test_bisect_membership.py",
+    "reconstruction/harness/test_bisect_missing_source.py",
+    "reconstruction/harness/test_build_pair_boundaries.py",
+    "reconstruction/harness/test_build_pair_source_overlap.py",
+    "reconstruction/harness/test_build_process.py",
+    "reconstruction/harness/test_build_publication_boundaries.py",
+    "reconstruction/harness/test_build_score_pair.py",
+    "reconstruction/harness/test_build_score_pair_runtime_error.py",
+    "reconstruction/harness/test_build_slots.py",
+    "reconstruction/harness/test_cache_paths.py",
+    "reconstruction/harness/test_callid_current_matches.py",
+    "reconstruction/harness/test_candidate_index.py",
+    "reconstruction/harness/test_candidate_limit.py",
+    "reconstruction/harness/test_candidate_snapshot.py",
+    "reconstruction/harness/test_census_argument_constants.py",
+    "reconstruction/harness/test_census_original_input.py",
+    "reconstruction/harness/test_compare_overlapping_windows.py",
+    "reconstruction/harness/test_compare_scores.py",
+    "reconstruction/harness/test_compare_scores_duplicate_fields.py",
+    "reconstruction/harness/test_compare_scores_output.py",
+    "reconstruction/harness/test_compiler_encoding.py",
+    "reconstruction/harness/test_compiler_log_encoding.py",
+    "reconstruction/harness/test_composition_boundaries.py",
+    "reconstruction/harness/test_composition_deadline.py",
+    "reconstruction/harness/test_control_flow.py",
+    "reconstruction/harness/test_control_flow_isa.py",
+    "reconstruction/harness/test_coordinate_calls.py",
+    "reconstruction/harness/test_coordinate_diff_fields.py",
+    "reconstruction/harness/test_coordinate_snapshot.py",
+    "reconstruction/harness/test_coords_bounds.py",
+    "reconstruction/harness/test_coords_cli_admission.py",
+    "reconstruction/harness/test_coords_pairing.py",
+    "reconstruction/harness/test_coords_report_destination.py",
+    "reconstruction/harness/test_cycle_regions.py",
+    "reconstruction/harness/test_demangle_names.py",
+    "reconstruction/harness/test_diagnostic_output_preservation.py",
+    "reconstruction/harness/test_diagnostic_range_boundaries.py",
+    "reconstruction/harness/test_disassembly_snapshot.py",
+    "reconstruction/harness/test_elf_candidate_admission.py",
+    "reconstruction/harness/test_elf_symbols.py",
+    "reconstruction/harness/test_evidence_root_paths.py",
+    "reconstruction/harness/test_experiment_clis.py",
+    "reconstruction/harness/test_experiment_declared_name.py",
+    "reconstruction/harness/test_experiment_directory_identity.py",
+    "reconstruction/harness/test_experiment_executable_snapshot.py",
+    "reconstruction/harness/test_experiment_matrix_admission.py",
+    "reconstruction/harness/test_experiment_matrix_overlap.py",
+    "reconstruction/harness/test_experiment_name_case.py",
+    "reconstruction/harness/test_experiment_post_run_errors.py",
+    "reconstruction/harness/test_experiment_receipt_integrity.py",
+    "reconstruction/harness/test_experiment_retained_inputs.py",
+    "reconstruction/harness/test_experiment_root_target.py",
+    "reconstruction/harness/test_experiment_runner.py",
+    "reconstruction/harness/test_experiment_walk_errors.py",
+    "reconstruction/harness/test_experiment_worktree_source.py",
+    "reconstruction/harness/test_fastbuild_library_name.py",
+    "reconstruction/harness/test_fastbuild_log_persistence.py",
+    "reconstruction/harness/test_fastbuild_manifest_headers.py",
+    "reconstruction/harness/test_fastbuild_output_race.py",
+    "reconstruction/harness/test_fastbuild_path_crates.py",
+    "reconstruction/harness/test_fastbuild_shared_output.py",
+    "reconstruction/harness/test_fastbuild_source_preflight.py",
+    "reconstruction/harness/test_fastbuild_stack.py",
+    "reconstruction/harness/test_fastbuild_workspace_lock.py",
+    "reconstruction/harness/test_hybrid_staging.py",
+    "reconstruction/harness/test_inline_capture_compiler.py",
+    "reconstruction/harness/test_instruction_stream.py",
+    "reconstruction/harness/test_integrate.py",
+    "reconstruction/harness/test_integrate_binary_files.py",
+    "reconstruction/harness/test_integrate_build_input_recheck.py",
+    "reconstruction/harness/test_integrate_empty_files.py",
+    "reconstruction/harness/test_integrate_failures.py",
+    "reconstruction/harness/test_integrate_file_directory.py",
+    "reconstruction/harness/test_integrate_no_build_cli.py",
+    "reconstruction/harness/test_integrate_orig_sources.py",
+    "reconstruction/harness/test_integrate_retention.py",
+    "reconstruction/harness/test_integrate_source_links.py",
+    "reconstruction/harness/test_integration_preflight.py",
+    "reconstruction/harness/test_inventory_columns.py",
+    "reconstruction/harness/test_inventory_csv.py",
+    "reconstruction/harness/test_inventory_fidelity.py",
+    "reconstruction/harness/test_ledger_boundaries.py",
+    "reconstruction/harness/test_ledger_encoding.py",
+    "reconstruction/harness/test_link_hook_interpreter.py",
+    "reconstruction/harness/test_link_order.py",
+    "reconstruction/harness/test_llvm_tools.py",
+    "reconstruction/harness/test_match_oracle.py",
+    "reconstruction/harness/test_match_oracle_preservation.py",
+    "reconstruction/harness/test_match_oracle_scoring_input_recheck.py",
+    "reconstruction/harness/test_match_oracle_verdict_staging.py",
+    "reconstruction/harness/test_minimize_experiment.py",
+    "reconstruction/harness/test_minimize_initial_report.py",
+    "reconstruction/harness/test_minimize_oracle_encoding.py",
+    "reconstruction/harness/test_minimize_patch_list_encoding.py",
+    "reconstruction/harness/test_normalization_conformance.py",
+    "reconstruction/harness/test_objdump_addresses.py",
+    "reconstruction/harness/test_opgrams.py",
+    "reconstruction/harness/test_original_input.py",
+    "reconstruction/harness/test_original_inventory_boundaries.py",
+    "reconstruction/harness/test_pair_candidates.py",
+    "reconstruction/harness/test_pair_candidates_limit.py",
+    "reconstruction/harness/test_physical_source_wrapper.py",
+    "reconstruction/harness/test_portable_census.py",
+    "reconstruction/harness/test_report_scorer_inputs.py",
+    "reconstruction/harness/test_residual_fields.py",
+    "reconstruction/harness/test_roundtrip_status.py",
+    "reconstruction/harness/test_score_admission.py",
+    "reconstruction/harness/test_score_atomic_report.py",
+    "reconstruction/harness/test_score_baseline_encoding.py",
+    "reconstruction/harness/test_score_baseline_option_conflict.py",
+    "reconstruction/harness/test_score_body_bounds.py",
+    "reconstruction/harness/test_score_empty_baseline.py",
+    "reconstruction/harness/test_score_hex_addresses.py",
+    "reconstruction/harness/test_score_inputs.py",
+    "reconstruction/harness/test_score_overlap_admission.py",
+    "reconstruction/harness/test_score_report_mode.py",
+    "reconstruction/harness/test_score_snapshot.py",
+    "reconstruction/harness/test_score_staging_ownership.py",
+    "reconstruction/harness/test_score_symbol_admission.py",
+    "reconstruction/harness/test_short_window_ranking.py",
+    "reconstruction/harness/test_source_change_time.py",
+    "reconstruction/harness/test_source_directory_junctions.py",
+    "reconstruction/harness/test_source_input_junctions.py",
+    "reconstruction/harness/test_source_inputs.py",
+    "reconstruction/harness/test_source_scan_errors.py",
+    "reconstruction/harness/test_stack_access.py",
+    "reconstruction/harness/test_stack_access_isa.py",
+    "reconstruction/harness/test_stack_access_order.py",
+    "reconstruction/harness/test_strict_log_coverage.py",
+    "reconstruction/harness/test_support.py",
+    "reconstruction/harness/test_treediff.py",
+    "reconstruction/harness/test_treediff_empty.py",
+    "reconstruction/harness/test_treediff_line_boundaries.py",
+    "reconstruction/harness/test_treediff_links.py",
+    "reconstruction/harness/test_treediff_quoted_paths.py",
+    "reconstruction/harness/test_treediff_roots.py",
+    "reconstruction/harness/test_treediff_scan_errors.py",
+    "reconstruction/harness/test_triage_report.py",
+    "reconstruction/harness/test_triage_report_destination.py",
+    "reconstruction/harness/test_triage_snapshot.py",
+    "reconstruction/harness/test_triage_symbol_ranges.py",
+    "reconstruction/harness/test_window_cache.py",
+    "reconstruction/harness/test_window_cli.py",
+    "reconstruction/harness/test_window_list_snapshot.py",
+    "reconstruction/harness/treediff.py",
+    "reconstruction/harness/triage.py",
+    "reconstruction/harness/win.py",
+    "reconstruction/pump-main/baseline/rescore.json",
+    "reconstruction/pump-main/baseline/score.json",
+    "reconstruction/toolchain/bootstrap.py",
+    "reconstruction/toolchain/linux-v1.44-x86_64/version.md",
+    "reconstruction/toolchain/test_bootstrap_linux.py",
+    "reconstruction/toolchain/test_bootstrap_macos.py",
+    "reconstruction/toolchain/test_dependency_cache.py",
+    "reconstruction/toolchain/test_library_inventory.py",
+    "reconstruction/toolchain/v1.44-macos-inventory.json"
+  ],
+  "coreExternalBinaryPaths": [
+    "evidence/original/pump/deployed.so",
+    "evidence/original/pump/program-account.bin",
+    "evidence/original/pump/programdata-account.bin",
+    "reconstruction/toolchain/linux-v1.44-x86_64/rust/lib/rustlib/sbpf-solana-solana/lib/libaddr2line-e6aeb2e4b400d273.rlib",
+    "reconstruction/toolchain/linux-v1.44-x86_64/rust/lib/rustlib/sbpf-solana-solana/lib/libadler-a1ecf6226fab4e4c.rlib",
+    "reconstruction/toolchain/linux-v1.44-x86_64/rust/lib/rustlib/sbpf-solana-solana/lib/liballoc-f3c66a8de450488e.rlib",
+    "reconstruction/toolchain/linux-v1.44-x86_64/rust/lib/rustlib/sbpf-solana-solana/lib/libcfg_if-ea0575808b373f94.rlib",
+    "reconstruction/toolchain/linux-v1.44-x86_64/rust/lib/rustlib/sbpf-solana-solana/lib/libcompiler_builtins-c45c2ded080d9668.rlib",
+    "reconstruction/toolchain/linux-v1.44-x86_64/rust/lib/rustlib/sbpf-solana-solana/lib/libcore-52876eb403c2f847.rlib",
+    "reconstruction/toolchain/linux-v1.44-x86_64/rust/lib/rustlib/sbpf-solana-solana/lib/libgetopts-70e39e4d407d9f9d.rlib",
+    "reconstruction/toolchain/linux-v1.44-x86_64/rust/lib/rustlib/sbpf-solana-solana/lib/libgimli-e8cd2ed6ba81ed3d.rlib",
+    "reconstruction/toolchain/linux-v1.44-x86_64/rust/lib/rustlib/sbpf-solana-solana/lib/libhashbrown-acc155a66701b798.rlib",
+    "reconstruction/toolchain/linux-v1.44-x86_64/rust/lib/rustlib/sbpf-solana-solana/lib/liblibc-6e7ddecf4e3040fb.rlib",
+    "reconstruction/toolchain/linux-v1.44-x86_64/rust/lib/rustlib/sbpf-solana-solana/lib/libmemchr-014ff96e10cd0668.rlib",
+    "reconstruction/toolchain/linux-v1.44-x86_64/rust/lib/rustlib/sbpf-solana-solana/lib/libminiz_oxide-35c9473c472b3826.rlib",
+    "reconstruction/toolchain/linux-v1.44-x86_64/rust/lib/rustlib/sbpf-solana-solana/lib/libobject-f88c80390b2ba95c.rlib",
+    "reconstruction/toolchain/linux-v1.44-x86_64/rust/lib/rustlib/sbpf-solana-solana/lib/libpanic_abort-103d29f0ede7c858.rlib",
+    "reconstruction/toolchain/linux-v1.44-x86_64/rust/lib/rustlib/sbpf-solana-solana/lib/libpanic_unwind-0c092adc710fd79f.rlib",
+    "reconstruction/toolchain/linux-v1.44-x86_64/rust/lib/rustlib/sbpf-solana-solana/lib/libproc_macro-b0e8b13964190326.rlib",
+    "reconstruction/toolchain/linux-v1.44-x86_64/rust/lib/rustlib/sbpf-solana-solana/lib/librustc_std_workspace_alloc-43985c5bf5cb3cc1.rlib",
+    "reconstruction/toolchain/linux-v1.44-x86_64/rust/lib/rustlib/sbpf-solana-solana/lib/librustc_std_workspace_core-0d013a368a425fcf.rlib",
+    "reconstruction/toolchain/linux-v1.44-x86_64/rust/lib/rustlib/sbpf-solana-solana/lib/librustc_std_workspace_std-e66af626521502ee.rlib",
+    "reconstruction/toolchain/linux-v1.44-x86_64/rust/lib/rustlib/sbpf-solana-solana/lib/libstd-b21c434e0a696890.rlib",
+    "reconstruction/toolchain/linux-v1.44-x86_64/rust/lib/rustlib/sbpf-solana-solana/lib/libstd_detect-ec5d45a0e20fae33.rlib",
+    "reconstruction/toolchain/linux-v1.44-x86_64/rust/lib/rustlib/sbpf-solana-solana/lib/libsysroot-b6b213ae1df94df5.rlib",
+    "reconstruction/toolchain/linux-v1.44-x86_64/rust/lib/rustlib/sbpf-solana-solana/lib/libtest-080eee5a22e558c4.rlib",
+    "reconstruction/toolchain/linux-v1.44-x86_64/rust/lib/rustlib/sbpf-solana-solana/lib/libunicode_width-e11e6d0a5e02b016.rlib",
+    "reconstruction/toolchain/linux-v1.44-x86_64/rust/lib/rustlib/sbpf-solana-solana/lib/libunwind-411a1a08afc96e48.rlib"
+  ],
+  "sourcePatch": {
+    "path": "source.patch",
+    "bytes": 4220,
+    "sha256": "2110189e417345f55148fe8ed41b88350255478959b8fafbce2025a693eaf7c9"
+  },
+  "limits": "Historical negative measurement only. Original native receipts remain unchanged inside raw ZIPs. No executable claim for latest main."
+}

@@ -34,7 +34,7 @@ The sealed podman recipe (cold, empty target) reproduces the same pair.
 | `infra/original/deployed.so` | captured original, SHA-256 `6a7ad345…8d8ff7` |
 | `baselines/pristine-ws` | workspace staged from the maintained sources by `workspace_recipe.py` |
 | `baselines/warm-target` | warm dependency target cloned (APFS `cp -c`) into each new lane |
-| `ATTEMPTS.jsonl`, `BEST-v4.json`, `cache/`, `sources/` | swarm log, best result, dedupe cache, every tried sell.rs |
+| `ATTEMPTS.jsonl`, `BEST-v5.json`, `cache/`, `sources/` | swarm log, best result, dedupe cache, every tried sell.rs |
 
 ## Use
 
@@ -93,7 +93,7 @@ matching-block alignment, which can overcount a single substitution as two.
 The historical version-2 baseline reports distance 112 and 709 slots. Its distance
 must not be compared directly with version-3 distances; no new native baseline is
 claimed here. Versioned cache keys prevent reuse of the old metric and preserve
-prior receipts. The current best record is also versioned (`BEST-v4.json`) so
+prior receipts. The current best record is also versioned (`BEST-v5.json`) so
 new distances are never ranked against an older metric. Legacy `BEST.json` is
 left untouched; the shared append lock still protects current best updates. Error-macro
 line numbers are encoded as immediates, so edits must keep every
@@ -124,10 +124,23 @@ and branch labels. For the captured SBPF v0 encoding,
 `callx` selects the register from the immediate field; its destination address
 is runtime data and is not reported as a direct target. See the pinned
 [SBPF disassembler](https://github.com/anza-xyz/sbpf/blob/f754c707f99779a756978f87c9afd25eeeb3d92e/src/disassembler.rs#L297).
-Current cache keys, best records and default history queries select version 4,
-leaving version-3 records available as historical evidence. Byte-equality
+Version-4 records remain historical evidence. Byte-equality
 criteria are unchanged. The captured sell window has no indirect calls;
 this correction makes no new native baseline or match-count claim.
+
+Version 5 rebases partial-progress diagnostic tokens when the sell start or size
+moves: direct internal callees use the existing window-order pairing when window
+counts agree; type-8 relocated LDDW pointers retain their offset inside the same
+named `.rodata` or `.data.rel.ro` section, bounded by both file-backed extents.
+Unpaired candidate addresses use separate tokens so they cannot match an original
+address by coincidence. These are pairing assumptions, not callee or data-content
+identity proofs. Raw sell and whole-image equality flags are unchanged, and the
+official reconstruction scorer is unchanged.
+
+Current cache keys, best records (`BEST-v5.json`) and default history queries select
+version 5. Version-4 distances and best records remain unchanged historical evidence
+and must not be ranked with the new scale. The in-memory shifted-capture tests do
+not compile or execute a program and establish no new reconstruction match.
 
 ## Provisioning a new machine
 
