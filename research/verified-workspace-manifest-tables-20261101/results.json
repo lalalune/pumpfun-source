@@ -1,0 +1,50 @@
+{
+  "base": "9120883a957d7d9b2cab6140f66fb5bc9e6774d5",
+  "before": {
+    "plain": {
+      "returncode": 0,
+      "source_unchanged": true,
+      "candidate_sha256": "7afbdfc8e467da02750384ee8f38a92dfbbc1876472ad19aa511a1a8c60837a1"
+    },
+    "header_comment": {
+      "returncode": 1,
+      "error": "virtual manifests must be configured with [workspace]"
+    },
+    "multiline_metadata": {
+      "returncode": 1,
+      "error": "unexpected manifest tables after release profile"
+    },
+    "trailing_comment": {
+      "returncode": 1,
+      "error": "unexpected manifest tables after release profile"
+    }
+  },
+  "after": {
+    "plain": {
+      "returncode": 0,
+      "source_unchanged": true,
+      "candidate_sha256": "7afbdfc8e467da02750384ee8f38a92dfbbc1876472ad19aa511a1a8c60837a1"
+    },
+    "header_comment": {
+      "returncode": 0,
+      "source_unchanged": true,
+      "candidate_sha256": "7afbdfc8e467da02750384ee8f38a92dfbbc1876472ad19aa511a1a8c60837a1"
+    },
+    "multiline_metadata": {
+      "returncode": 0,
+      "source_unchanged": true,
+      "candidate_sha256": "7afbdfc8e467da02750384ee8f38a92dfbbc1876472ad19aa511a1a8c60837a1"
+    },
+    "trailing_comment": {
+      "returncode": 0,
+      "source_unchanged": true,
+      "candidate_sha256": "7afbdfc8e467da02750384ee8f38a92dfbbc1876472ad19aa511a1a8c60837a1"
+    }
+  },
+  "sdk": {
+    "url": "https://github.com/anza-xyz/platform-tools/releases/download/v1.44/platform-tools-osx-aarch64.tar.bz2",
+    "archive_sha256": "66e20d135fddd70ff519baf7ff320d762957f9aedf93a50e23756db23ad79351",
+    "rustc": "rustc 1.79.0-dev",
+    "cargo": "cargo 1.79.0 (804e32543 2025-01-29)"
+  }
+}

@@ -10,6 +10,7 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import re
 import shutil
 import subprocess
 import tomllib
@@ -36,6 +37,35 @@ def check(ok, message="build check failed"):
 def compiler_overrides(env):
     """The dependency-cache key's flags beyond those the seed import compares."""
     return {k: v for k, v in env.items() if k == "RUSTC_BOOTSTRAP" or k.startswith("CARGO_PROFILE_")}
+
+
+def workspace_manifests(text):
+    """Split literal TOML tables without treating comments or values as headers."""
+    parsed = tomllib.loads(text)
+    check(parsed.get("workspace") == {} and set(parsed.get("profile", {})) == {
+        "release"
+    }, "unsupported source workspace/profile layout")
+
+    def table_start(name):
+        pattern = r'(?m)^[ \t]*\[' + re.escape(name) + r'\][ \t]*(?:#[^\n]*)?$'
+        for match in re.finditer(pattern, text):
+            try:
+                # A header-looking line inside a multiline value leaves an
+                # incomplete TOML prefix; a real table follows complete values.
+                tomllib.loads(text[:match.start()])
+            except tomllib.TOMLDecodeError:
+                continue
+            return match.start()
+        raise AssertionError("missing literal manifest table: " + name)
+
+    profile_start = table_start("profile.release")
+    workspace_start = table_start("workspace")
+    check(profile_start < workspace_start and
+          tomllib.loads(text[workspace_start:]) == {"workspace": {}},
+          "unexpected manifest tables after release profile")
+    profile = text[profile_start:workspace_start].strip() + "\n"
+    crate = text[:profile_start].rstrip() + "\n"
+    return crate, '[workspace]\nmembers = ["programs/pump"]\nresolver = "2"\n\n' + profile
 
 
 def finish_report(record, report, receipt, cache, target, log, data_order=False):
@@ -152,18 +182,7 @@ def main():
         check(not out.is_relative_to(primary),
               "workspace staging must be outside the input crate")
         text = (primary / "Cargo.toml").read_text()
-        parsed = tomllib.loads(text)
-        check(parsed.get("workspace") == {} and set(parsed.get("profile", {})) == {
-            "release"
-        }, "unsupported source workspace/profile layout")
-        profile_start = text.index("[profile.release]")
-        workspace_start = text.index("[workspace]")
-        check(
-            profile_start < workspace_start
-            and not text[workspace_start + len("[workspace]") :].strip(),
-            "unexpected manifest tables after release profile")
-        profile = text[profile_start:workspace_start].strip() + "\n"
-        crate_text = text[:profile_start].rstrip() + "\n"
+        crate_text, workspace_text = workspace_manifests(text)
         workspace = out / "source"
         crate = workspace / "programs/pump"
         for source_path in primary_before:
@@ -180,9 +199,7 @@ def main():
             shutil.copy2(src, dest)
         (crate / "Cargo.toml").write_text(crate_text,encoding='utf-8',newline='\n')
         shutil.move(crate / "Cargo.lock", workspace / "Cargo.lock")
-        (workspace / "Cargo.toml").write_text(
-            '[workspace]\nmembers = ["programs/pump"]\nresolver = "2"\n\n' + profile
-        ,encoding='utf-8',newline='\n')
+        (workspace / "Cargo.toml").write_text(workspace_text,encoding='utf-8',newline='\n')
     tools = {
         "rustc": sdk / "rust/bin/rustc",
         "cargo": sdk / "rust/bin/cargo",
