@@ -34,7 +34,7 @@ the admin_cto source is identical.
   - `tools/bdis.py`: a minimal SBF decoder and fn.bin diff, so no ELF is needed.
   - `tools/insmapn.py`: the w14a138/w15a01 insmap generalised to an N-slot junk run.
 - Data:
-  - `data/res-86e2a6b.jsonl` (210 rows), `data/res-90300f9.jsonl` (134), `data/res-90300f9-b.jsonl` (126, 90300f9 source
+  - `data/res-86e2a6b.jsonl` (320 rows), `data/res-90300f9.jsonl` (134), `data/res-90300f9-b.jsonl` (126, 90300f9 source
     scored while `$BASE` was ed47ac7);
   - `data/spec_*.txt`;
   - the insmaps `data/insmap_*.json`.
@@ -74,6 +74,7 @@ The full table is `data/res-86e2a6b.jsonl`. On 90300f9 the 248 untested library 
 | **+8 B (wallet/curve/event) x -8 B (sharing tail) pairs** (spec_x1, spec_f1) | 100 | **0 (sh_iflet/ev_reset_early + rP_back)** | p_colnat/e0u/cu_unwrapcur x sh_iflet/ev_reset_early/lv_sh_ifelse/lv_sh_isnone are all -1, not the -8 the additive model predicts |
 | X = p_colnat + sh_iflet, plus each 0 B gene | 22 | -1 | |
 | sh_iflet + sweep-head spellings (spec_w1) | 26 | -5 | every `sw_*` spelling is byte-identical alone, except sw_ntrv -3 and sw_apdl/sw_dshv (big losers) |
+| sh_iflet + every CPI clone-literal gene (`lf_*`, `lfau_*`, `tai_*`, `rr*`; spec_l2o) | 97 | 0 (rr4R = rP_back) | rr7K/rr4E 0 B -3; the lfau orders -12..-44 |
 | PDA-first (m_pdaf*) and crl2/crl3 + PDA-first (0 B / +64 B) | 7 | -310 | entry true LCS +13, but RA churn loses 0x2000 -57 and 0x3000 -183 |
 | le_vy1 validate-closure family (v7c + ny/le/cf_skc/h289) | 8 | -143 | dead on current main (v7c alone -576) |
 

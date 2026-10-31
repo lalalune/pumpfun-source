@@ -1,0 +1,50 @@
+{
+  "lane": "w15a03-cto-stitch15",
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27,400 B",
+  "bases": ["90300f9 (0.67346, M 2248)", "86e2a6b (#3666, 0.67376, M 2249)", "9120883 (same admin_cto source)"],
+  "result": "no landable change; main is the best zero-loss measurement",
+  "best_zero_loss": {"variant": "main (ties: sh_iflet+rP_back, ev_reset_early+rP_back, hk_copy, hkl3)", "ratio": 0.67376, "slots": 3124, "bytes": 27400,
+    "measure_sh": "sh_iflet+rP_back: 1034/1034, 0 losses, 0.67376 / 3124 / 27400 (exact tie)"},
+  "pr": 3732,
+  "ledger": "approach stitch15, keys 0x22a10-w15-{90300f9,86e2a6b,9120883}-stitch15-*",
+  "attempts": {
+    "singles_90300f9": 248,
+    "lead_reprice_86e2a6b": 95,
+    "zero_byte_pairs_triples": 230,
+    "le_vy1_closure_family": 8,
+    "pda_first": 7,
+    "holder_key_init_and_new_copy": 8,
+    "sweep_head_spellings": 26,
+    "sh_iflet_plus_clone_literal_genes": 97
+  },
+  "re_priced_leads_86e2a6b": {
+    "crl2/crl3": "+72 B, +1", "crl2+t1n": "+48 B, 0", "crl2_dv": "+64 B, 0", "t1n": "-24 B, -1", "I6n": "+16 B, -1",
+    "I6n+t1n (P1)": "-32 B, -3", "vol334_back": "-8 B, -1", "hk_copy/hkl3": "0 B, 0", "I6ssn": "+8 B, -2 (true LCS 0)",
+    "p_colnat": "+8 B, -3", "sh_iflet/ev_reset_early": "-8 B, -5", "K_g_s7_dborrow": "-80 B, -14", "K_sh_prog_let": "-32 B, -11"
+  },
+  "mechanisms_found": [
+    "size-position tax: about 2-6 M of a +-8 B single's price is jump-offset and tail-chunk position cost that cancels when the composite returns to 27,400 B; every +8 (wallet/curve/event) x -8 (sharing tail) pair is -1, not the additive -8",
+    "p_colnat+sh_iflet differs from main only in two branches: the sharing-tag test becomes the original's single jne r7,2, and the wallet collection_native test gains a ja that the original lacks",
+    "insmapn on sh_iflet: one junk 8 B slot in the sweep head (cand 0x2130-0x2508) or the TCF drop-glue (0x53b8-0x5570) gives main +1 (155 positions), and 0x54b8 gives main +2",
+    "insmapn on t1n: a 24 B junk run never repays it, so t1n's -1 is code shape"
+  ],
+  "rejected": [
+    "le_vy1 validate closure family on current main (-143..-576)",
+    "PDA-first m_pdaf* and crl2/crl3+PDA-first (-310; entry true LCS +13 but RA churn 0x2000-0x3800)",
+    "event/pool holder flag from the arg (e0u -4, e0h -225, p0u/p0h, c0h -43)",
+    "holder_key init moved next to validate (hkl1 -182, hkl2 -202 on 86e2a6b)",
+    "new copies (nwl1/nwl3 identical, nwl2 -785)",
+    "13 sweep-head spellings (byte-identical; sw_ntrv -3)",
+    "all 0 B x 0 B pairs (additive or worse)",
+    "crl3 + -72 B sets (-12..-15)"
+  ],
+  "unresolved_residuals": [
+    "crl2/crl3 +1 needs a free -72 B; none in the library",
+    "the original's single jne r7,2 sharing-tag test (sh_iflet) needs a faithful +8 B in the sweep head or TCF drop-glue"
+  ],
+  "next_ideas": [
+    "sh_iflet + one faithful sweep-head (line-648 ConstraintSeeds / line-719 frozen block) or TCF AccountInfo clone/drop instruction: price each with insmapn.py on its fn.bin first",
+    "hkl3 as an alternative 0 B base for validate-side genes",
+    "entry rewrite that keeps PDA-first's +13 entry true-LCS without the 0x2000-0x3800 RA churn"
+  ]
+}
