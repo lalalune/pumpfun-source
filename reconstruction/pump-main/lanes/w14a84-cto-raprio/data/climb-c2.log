@@ -1,0 +1,8 @@
+{"round": 0, "full": 1, "name": "", "ratio": 0.66507, "slots": 3228, "bytes": 27400, "eq_main": true, "L1": 0.70132, "L2": 0.7831}
+{"round": 1, "force": "1686=r6", "full": 1, "name": "fr6_1686", "ratio": 0.66777, "slots": 3228, "bytes": 27400, "eq_main": false, "L1": 0.70401, "L2": 0.7837}
+{"round": 2, "force": "1686=r6,1673=r7", "full": 1, "name": "fr6_1686+fr7_1673", "ratio": 0.66956, "slots": 3222, "bytes": 27400, "eq_main": false, "L1": 0.70611, "L2": 0.7837}
+{"round": 3, "force": "1686=r6,1673=r7,1860=r9", "full": 1, "name": "fr6_1686+fr7_1673+fr9_1860", "ratio": 0.67076, "slots": 3222, "bytes": 27400, "eq_main": false, "L1": 0.70881, "L2": 0.7837}
+{"round": 4, "force": "1686=r6,1673=r7,1860=r9,1882=r9", "full": 1, "name": "fr6_1686+fr7_1673+fr9_1860+fr9_1882", "ratio": 0.67136, "slots": 3221, "bytes": 27400, "eq_main": false, "L1": 0.70911, "L2": 0.7837}
+{"round": 5, "prio": "459=4294967280", "force": "1686=r6,1673=r7,1860=r9,1882=r9", "full": 1, "name": "fr6_1686+fr7_1673+fr9_1860+fr9_1882+top459", "ratio": 0.67166, "slots": 3221, "bytes": 27400, "eq_main": false, "L1": 0.70881, "L2": 0.7837}
+{"round": 6, "prio": "459=4294967280,1649=2147483649", "force": "1686=r6,1673=r7,1860=r9,1882=r9", "full": 1, "name": "fr6_1686+fr7_1673+fr9_1860+fr9_1882+top459+bot1649", "ratio": 0.67196, "slots": 3221, "bytes": 27400, "eq_main": false, "L1": 0.70911, "L2": 0.7837}
+no improvement

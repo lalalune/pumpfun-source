@@ -1,0 +1,41 @@
+aligned L2 pairs 2617 in [0x0,0x40000000), untagged 307; vregs with register votes 1041, with misses 202, total misses 444
+%1655  ours r8  orig r9  miss  22/22  root %1655  votes {'r9': 18, 'r1': 4} at 08e0 0f28 1478 1620 1718 17e8
+%1679  ours r8  orig r6  miss  14/14  root %0     votes {'r6': 8, 'r3': 6} at 4ab8 4ac0 4b58 4b98 4bb0 4bc0
+%1727  ours r3  orig r9  miss  12/12  root %1623  votes {'r9': 8, 'r1': 3, 'r6': 1} at 1d28 2148 2220 2490 25f8 2608
+%468   ours r3  orig r2  miss   7/7   root %468   votes {'r2': 7} at 0550 0550 0558 0568 0578 0588
+%1669  ours r8  orig r7  miss   7/7   root %0     votes {'r7': 7} at 5cc0 5cc8 5ce8 5d10 5d50 5d78
+%1279  ours r3  orig r2  miss   6/6   root %1279  votes {'r2': 5, 'r6': 1} at 4410 4420 4430 4440 4450 4458
+%2143  ours r7  orig r9  miss   5/5   root %4     votes {'r9': 5} at 0140 02b8 02c8 02d8 02e8
+%1678  ours r8  orig r8  miss   5/34  root %0     votes {'r8': 29, 'r4': 5} at 3130 3140 3150 3160 3170
+%1723  ours r6  orig r1  miss   5/5   root %121   votes {'r1': 2, 'r10': 1, 'r7': 1, 'r9': 1} at 1f40 1f40 23d8 30a8 3b98
+%1074  ours r2  orig r3  miss   5/5   root %1074  votes {'r3': 5} at 31b8 31c0 31c0 31d0 3200
+%1080  ours r2  orig r5  miss   5/5   root %1080  votes {'r5': 5} at 3230 3238 3238 3248 32a0
+%1680  ours r5  orig r1  miss   5/5   root %0     votes {'r1': 3, 'r2': 1, 'r10': 1} at 3d88 3d90 3e38 3f38 43d0
+%1264  ours r1  orig r3  miss   5/5   root %1264  votes {'r3': 5} at 3f58 3f60 3f60 3f70 3fe0
+%1282  ours r3  orig r2  miss   5/5   root %1282  votes {'r2': 5} at 4510 4518 4518 4528 45a8
+%1681  ours r8  orig r6  miss   5/5   root %0     votes {'r6': 3, 'r2': 2} at 4e80 4e88 4f40 50e8 50e8
+%370   ours r1  orig r2  miss   5/5   root %370   votes {'r2': 5} at 5528 5570 5580 5590 55a0
+%369   ours r2  orig r3  miss   5/5   root %369   votes {'r3': 5} at 5530 5538 5548 5558 5568
+%1431  ours r3  orig r4  miss   5/5   root %1431  votes {'r4': 5} at 5538 5540 5540 5548 5550
+%467   ours r3  orig r2  miss   4/4   root %467   votes {'r2': 3, 'r6': 1} at 0548 0548 0550 0550
+%1938  ours r0  orig r7  miss   4/4   root %183   votes {'r7': 3, 'r6': 1} at 2d48 2d50 2d78 2fe8
+%1999  ours r7  orig r5  miss   4/4   root %192   votes {'r5': 3, 'r8': 1} at 2e50 2e58 2e88 31e0
+%2186  ours r3  orig r5  miss   4/4   root %227   votes {'r5': 4} at 32c8 32d0 3308 3310
+%236   ours r2  orig r5  miss   4/4   root %236   votes {'r5': 4} at 3340 3348 33d0 39e0
+%1704  ours r3  orig r4  miss   4/4   root %465   votes {'r4': 3, 'r2': 1} at 4a98 4ab0 4ab0 4b78
+%1433  ours r3  orig r4  miss   4/4   root %1433  votes {'r4': 4} at 5558 5560 5560 5568
+%1435  ours r2  orig r3  miss   4/4   root %1435  votes {'r3': 4} at 5570 5578 5578 5580
+%1437  ours r2  orig r3  miss   4/4   root %1437  votes {'r3': 4} at 5590 5598 5598 55a0
+%721   ours r7  orig r9  miss   4/4   root %721   votes {'r9': 4} at 5c00 5c00 5c08 5c08
+%459   ours r2  orig r6  miss   3/3   root %459   votes {'r6': 3} at 0428 0430 0438
+%1687  ours r3  orig r6  miss   3/3   root %0     votes {'r6': 2, 'r2': 1} at 0540 0548 0548
+%472   ours r3  orig r2  miss   3/3   root %472   votes {'r2': 3} at 0588 0588 0590
+%1763  ours r4  orig r0  miss   3/3   root %131   votes {'r0': 2, 'r1': 1} at 26e8 26f0 2718
+%2183  ours r0  orig r6  miss   3/3   root %209   votes {'r6': 3} at 3078 3080 30c8
+%217   ours r6  orig r9  miss   3/3   root %217   votes {'r9': 2, 'r2': 1} at 30f8 3188 34c0
+%1613  ours r3  orig r4  miss   3/3   root %1613  votes {'r4': 3} at 31c8 31d8 3208
+%2180  ours r5  orig r0  miss   3/3   root %226   votes {'r0': 3} at 3228 3230 32a0
+%1615  ours r2  orig r3  miss   3/3   root %1615  votes {'r3': 3} at 32e0 32f0 3318
+%2125  ours r6  orig r0  miss   3/3   root %292   votes {'r0': 3} at 3d98 3da0 3dd0
+%317   ours r2  orig r1  miss   3/3   root %317   votes {'r1': 3} at 3f40 3f40 3f48
+%1643  ours r3  orig r4  miss   3/3   root %1643  votes {'r4': 3} at 3f68 3f78 3fe8
