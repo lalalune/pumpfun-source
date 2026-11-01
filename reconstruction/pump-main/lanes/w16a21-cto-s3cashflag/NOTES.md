@@ -120,3 +120,10 @@ Flag spill slots (`data/slots.txt`):
 - `tab.py`: the screen table. `rec.py`: ledger rows. `pairdiff.py`: skeleton-masked difflib of two candidate builds.
 - The pipeline is w16a08's `t2/` and `t84/` (cap.sh, capq.sh, rx.py, mp.sh, stack.sh, full.sh, rpipe.sh, rpass2.sh),
   copied to this lane's `$OUT` with paths rewritten. It also uses w16a12's `livecs.py` and w16a09's `fuev.py`.
+
+Kept in `$OUT` (`~/.cache/pumpfun-reconstruction/lanes/w16a21-cto-s3cashflag`):
+- raw-IR captures `ir/c5.ll` and `ir/c20.ll`;
+- post-opt slim modules `rx/{c2,c5,c14,c20}/m.ll`;
+- every cell's `fn.bin`/`pei.mir`;
+- the force sets and joint builds in `cm/` and `rx/*__ra`.
+Every other capture can be regenerated from `e/<cell>.py` with `t2/cap.sh`.
