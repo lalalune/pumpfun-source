@@ -72,3 +72,16 @@ import runpy as _rp
 _E=os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),'e')
 for _n,_f in (('S1','bbS1'),('S2','bbS2')):
     if os.path.exists(f'{_E}/{_f}.py'): G[_n]=[tuple(x) for x in _rp.run_path(f'{_E}/{_f}.py')['EDITS']]
+# FTM (oracle; closure idiom of ftc): validate takes `fee:&mut Option<u64>` and rewrites it in place with
+#     `*fee=fee.map(|f|->Result<u64>{..checks..;Ok(f)}).transpose()?;` (the write keeps the value; still a candidate dummy write).
+def _ftm(s):
+    for a,b in [('fee:Option<u64>,new:Option<Pubkey>,holder_key:&Pubkey,sharing:&Pubkey)->Result<Pubkey>{','fee:&mut Option<u64>,new:Option<Pubkey>,holder_key:&Pubkey,sharing:&Pubkey)->Result<Pubkey>{'),
+                (' match fee{Some(f)=>{if st.quote_locked{',' *fee=fee.map(|f|->Result<u64>{if st.quote_locked{'),
+                (_RV+'}None=>{}}',_RV+'Ok(f)}).transpose()?;'),
+                ('let hopt=holder;','let hopt=holder;let mut fee=fee;'),
+                ('validate(&st,hopt,fee,','validate(&st,hopt,&mut fee,'),
+                ('cashback,target,sharing_update,collect_old,skip)};','cashback,target,sharing_update,collect_old,skip,fee)};'),
+                ('let (_holder,cashback,target,sharing_update,collect_old,skip)={','let (_holder,cashback,target,sharing_update,collect_old,skip,fee)={')]:
+        c=s.count(a); assert c==1,('ftm',c,a[:80]); s=s.replace(a,b)
+    return s
+G['ftm']=[_ftm]
