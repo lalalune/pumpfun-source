@@ -6,18 +6,22 @@ stripped transaction. The guard is the signature vector itself: ``tx.signatures
 and all(...)``, or, where the results are held in a variable, ``results and
 all(results)``.
 
-Every tracked Python file under ``scripts``, ``reconstruction`` and ``tests`` is
-parsed, including the source of ``-c`` drivers held as string constants. A guard
-may sit in the same condition (``tx.signatures and all(...)``, ``not checks or
-not all(checks)``, ``len(results) > 0 and all(results)``) or in an
-earlier statement of the same block (``self.assertTrue(results)``). Docstrings
-are prose, not code, and are not parsed.
+Every tracked Python file under ``scripts``, ``reconstruction``, ``tests`` and
+``research`` is parsed, including the source of ``-c`` drivers held as string
+constants. A guard may sit in the same condition (``tx.signatures and
+all(...)``, ``not checks or not all(checks)``, ``len(results) > 0 and
+all(results)``), in an earlier statement of the same block
+(``self.assertTrue(results)``), or in a branch that calls a module-level helper
+which can only leave by raising (``fail(msg)``). Docstrings are prose, not code,
+and are not parsed.
 
 This is a bounded conservative lint of explicit local verification bindings and
 pure boolean/length predicates, not a proof of arbitrary Python control flow,
-aliases or called functions. Unknown effects and overwritten bindings cannot
-supply a proof. Runtime signature verification and exact header counts remain
-separate admission checks.
+aliases or called functions. The one called-function proof it does make stays
+inside the file: a module-level helper counts only when every path through its
+body raises. Unknown effects and overwritten bindings cannot supply a proof.
+Runtime signature verification and exact header counts remain separate
+admission checks.
 """
 import ast
 import subprocess
@@ -25,13 +29,21 @@ import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-TRACKED_ROOTS = ('scripts', 'reconstruction', 'tests')
+TRACKED_ROOTS = ('scripts', 'reconstruction', 'tests', 'research')
 # These files assert that all() of an empty or partial vector is true, then
 # assert that the strong guard rejects the same transaction: the demonstration
 # is the counter-example, not a signature check.
 DEMONSTRATIONS = {
     'reconstruction/pump-main/lanes/v3-sell-payment-layout/test_external_inputs.py',
+    'research/runtime-mayhem-typed-receipts-20261101/probe.py',
     'tests/test_signature_nonempty_sweep.py',
+}
+# Verbatim copies of a checkout's scripts kept for provenance under a
+# ``runtime/inputs/upstream`` directory. Nothing in this repository imports or
+# runs them; they record what the producer shipped, so they stay as they are.
+UPSTREAM_ARCHIVES = {
+    'research/pump-multihop-sell-fees-20261029/runtime/inputs/upstream/tools/focused.py',
+    'research/pump-multihop-token-quote-20261029/runtime/inputs/upstream/tools/focused.py',
 }
 
 CALL_NAMES = {'exec', 'eval', 'compile', 'run', 'check_output', 'check_call', 'Popen', 'call'}
@@ -225,15 +237,17 @@ def effects_before(expression, target):
     return effects
 
 
-def rejects_branch(statements):
+def rejects_branch(statements, helpers=frozenset()):
     """Prove a raise on every path; trailing unreachable raise is not proof."""
     for statement in statements:
         if isinstance(statement, ast.Raise):
             return True
+        if isinstance(statement, ast.Expr) and raises_through(statement.value, helpers):
+            return True
         if isinstance(statement, (ast.Return, ast.Break, ast.Continue)):
             return False
         if isinstance(statement, ast.If):
-            if rejects_branch(statement.body) and rejects_branch(statement.orelse):
+            if rejects_branch(statement.body, helpers) and rejects_branch(statement.orelse, helpers):
                 return True
             if any(isinstance(child, (ast.Return, ast.Break, ast.Continue, ast.Yield, ast.YieldFrom))
                    for child in ast.walk(statement)):
@@ -241,6 +255,67 @@ def rejects_branch(statements):
         elif isinstance(statement, (ast.For, ast.AsyncFor, ast.While, ast.Try, ast.With, ast.AsyncWith, ast.Match)):
             return False
     return False
+
+
+def raises_through(node, helpers):
+    """Only a statically bound local raising helper supplies a call proof."""
+    if not isinstance(node, ast.Call):
+        return False
+    if isinstance(node.func, ast.Name):
+        return node.func.id in helpers
+    return ('sys.exit' in helpers and isinstance(node.func, ast.Attribute)
+            and node.func.attr == 'exit' and isinstance(node.func.value, ast.Name)
+            and node.func.value.id == 'sys')
+
+
+def raising_helpers(tree):
+    """Module-level names whose bodies can only leave by raising.
+
+    ``fail(msg)`` wrappers hide the ``raise`` from the branch walk, so the
+    branch looks like it falls through and the guard is reported as missing.
+    Resolving the local definition keeps the proof inside the file: a helper
+    that can return normally is still not a proof, and a name imported from
+    elsewhere is never assumed to raise.
+    """
+    definitions = [node for node in ast.walk(tree)
+                   if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef))]
+    rebound = {node.id for node in ast.walk(tree)
+               if isinstance(node, ast.Name) and isinstance(node.ctx, (ast.Store, ast.Del))}
+    rebound.update(node.arg for node in ast.walk(tree) if isinstance(node, ast.arg))
+    rebound.update(alias.asname or alias.name.split('.')[0]
+                   for node in ast.walk(tree) if isinstance(node, (ast.Import, ast.ImportFrom))
+                   for alias in node.names)
+    functions = {node.name: node for node in tree.body
+                 if isinstance(node, ast.FunctionDef) and not node.decorator_list
+                 and node.name not in rebound
+                 and sum(d.name == node.name for d in definitions) == 1
+                 and not any(isinstance(child, (ast.Yield, ast.YieldFrom))
+                             for child in ast.walk(node))}
+    # A sys.exit call is usable only with an ordinary stable import. Explicit
+    # rebinding, parameter shadowing and exit replacement invalidate the proof.
+    sys_imports = [n for n in tree.body if isinstance(n, ast.Import)
+                   and any(a.name == 'sys' and a.asname is None for a in n.names)]
+    unstable_sys = any(
+        (isinstance(n, ast.Name) and n.id == 'sys' and isinstance(n.ctx, (ast.Store, ast.Del)))
+        or (isinstance(n, ast.arg) and n.arg == 'sys')
+        or (isinstance(n, ast.Attribute) and isinstance(n.value, ast.Name)
+            and n.value.id == 'sys' and n.attr == 'exit'
+            and isinstance(n.ctx, (ast.Store, ast.Del)))
+        or (isinstance(n, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)) and n.name == 'sys')
+        or (isinstance(n, (ast.Import, ast.ImportFrom))
+            and any((a.asname or a.name.split('.')[0]) == 'sys'
+                    and not (isinstance(n, ast.Import) and a.name == 'sys' and a.asname is None)
+                    for a in n.names))
+        for n in ast.walk(tree))
+    raising = {'sys.exit'} if sys_imports and not unstable_sys else set()
+    changed = True
+    while changed:                      # helpers that call other helpers
+        changed = False
+        for name, node in functions.items():
+            if name not in raising and rejects_branch(node.body, raising):
+                raising.add(name)
+                changed = True
+    return frozenset(raising)
 
 
 def explicit_vector_test(expression, vectors):
@@ -254,7 +329,7 @@ def explicit_vector_test(expression, vectors):
     return visit(expression)
 
 
-def condition_guard(node, child, vectors, parents):
+def condition_guard(node, child, vectors, parents, helpers=frozenset()):
     target = child
     current = child
     while parents.get(id(current)) is not None and not isinstance(parents[id(current)], ast.stmt):
@@ -274,9 +349,9 @@ def condition_guard(node, child, vectors, parents):
         return False
     result = predicate_truth(expression, vectors)
     if isinstance(statement, ast.If) and expression is statement.test:
-        if rejects_branch(statement.body):
+        if rejects_branch(statement.body, helpers):
             return result == {True}
-        if rejects_branch(statement.orelse):
+        if rejects_branch(statement.orelse, helpers):
             return result == {False}
     return result == {False}
 
@@ -328,7 +403,7 @@ def most_recent_binding(node, name, parents, blocks):
     return None, False
 
 
-def statement_guard(node, vectors, parents, blocks):
+def statement_guard(node, vectors, parents, blocks, helpers=frozenset()):
     while node is not None and not isinstance(node, ast.stmt):
         node = parents.get(id(node))
     if node is None or id(node) not in blocks:
@@ -344,7 +419,7 @@ def statement_guard(node, vectors, parents, blocks):
             name = call.func.attr if isinstance(call.func, ast.Attribute) else None
             if name in {'assertTrue', 'assertFalse'} and call.args:
                 expression, polarity = call.args[0], name == 'assertFalse'
-        elif isinstance(earlier, ast.If) and rejects_branch(earlier.body):
+        elif isinstance(earlier, ast.If) and rejects_branch(earlier.body, helpers):
             expression, polarity = earlier.test, True
         if expression is not None and explicit_vector_test(expression, vectors):
             if not any(impure(n) for n in ast.walk(expression)) and predicate_truth(expression, vectors) == {polarity}:
@@ -373,6 +448,7 @@ def unsigned_gates(tree, location):
         for child in ast.iter_child_nodes(node):
             parents[id(child)] = node
     blocks = statement_blocks(tree)
+    helpers = raising_helpers(tree)
     scopes = {}
     for node in ast.walk(tree):
         if (not isinstance(node, ast.Call) or not isinstance(node.func, ast.Name)
@@ -396,9 +472,9 @@ def unsigned_gates(tree, location):
                 vectors.add(source + '.signatures')
         else:
             continue
-        if condition_guard(parents.get(id(node)), node, vectors, parents):
+        if condition_guard(parents.get(id(node)), node, vectors, parents, helpers):
             continue
-        if statement_guard(node, vectors, parents, blocks):
+        if statement_guard(node, vectors, parents, blocks, helpers):
             continue
         yield f'{location}{node.lineno}'
 
@@ -462,10 +538,57 @@ class SignatureGuardTests(unittest.TestCase):
         offenders = []
         for path in tracked_python():
             relative = str(path.relative_to(ROOT))
-            if relative in DEMONSTRATIONS:
+            if relative in DEMONSTRATIONS or relative in UPSTREAM_ARCHIVES:
                 continue
             offenders.extend(f'{relative}:{where}' for where in unsigned_gates_in(path))
         self.assertEqual(offenders, [], 'test the signature vector before all() of its results')
+
+    def test_accepts_a_branch_that_calls_a_raising_helper(self):
+        def gates(source):
+            return list(unsigned_gates(ast.parse(source), ''))
+        self.assertEqual(gates('def fail(msg):\n'
+                               '    raise SystemExit(msg)\n'
+                               'results = tx.verify_with_results()\n'
+                               'if not results or not all(results):\n'
+                               '    fail("unsigned")\n'), [])
+        # A helper may call another one, in any definition order.
+        self.assertEqual(gates('def stop(msg):\n'
+                               '    fail(msg)\n'
+                               'def fail(msg):\n'
+                               '    raise SystemExit(msg)\n'
+                               'results = tx.verify_with_results()\n'
+                               'if not results or not all(results):\n'
+                               '    stop("unsigned")\n'), [])
+        # A helper that can return normally proves nothing.
+        self.assertEqual(gates('def note(msg):\n'
+                               '    print(msg)\n'
+                               'if not all(tx.verify_with_results()):\n'
+                               '    note("unsigned")\n'), ['3'])
+        # Neither does a name imported from somewhere else.
+        self.assertEqual(gates('from helpers import fail\n'
+                               'if not all(tx.verify_with_results()):\n'
+                               '    fail("unsigned")\n'), ['2'])
+
+    def test_unstable_or_lazy_helpers_supply_no_rejection_proof(self):
+        base = ('results=tx.verify_with_results()\n'
+                'if not results or not all(results):\n fail("unsigned")\n')
+        prefixes = (
+            'def fail(msg):\n yield 1\n raise SystemExit(msg)\n',
+            '@lambda f: (lambda *a: None)\ndef fail(msg):\n raise SystemExit(msg)\n',
+            'def fail(msg):\n raise SystemExit(msg)\nfail=lambda *a: None\n',
+            'def fail(msg):\n raise SystemExit(msg)\ndef fail(msg):\n return None\n',
+            'def fail(msg):\n sys.exit(msg)\n',
+        )
+        for prefix in prefixes:
+            self.assertTrue(list(unsigned_gates(ast.parse(prefix + base), '')))
+        shadowed = ('def fail(msg):\n raise SystemExit(msg)\n'
+                    'def check(tx, fail):\n results=tx.verify_with_results()\n'
+                    ' if not results or not all(results):\n  fail("unsigned")\n')
+        self.assertTrue(list(unsigned_gates(ast.parse(shadowed), '')))
+        stable = 'import sys\ndef fail(msg):\n sys.exit(msg)\n'
+        self.assertEqual(list(unsigned_gates(ast.parse(stable + base), '')), [])
+        for rebind in ('sys=object()\n', 'sys.exit=lambda *a: None\n'):
+            self.assertTrue(list(unsigned_gates(ast.parse(stable + rebind + base), '')))
 
     def test_the_sweep_accepts_only_a_non_empty_test(self):
         def gates(source):

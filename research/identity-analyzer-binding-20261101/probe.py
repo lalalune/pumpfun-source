@@ -34,7 +34,11 @@ def reproduce(repo, revision=None):
               'rows': [], 'controls': []}
     with tempfile.TemporaryDirectory(prefix='identity-binding-proof-') as temporary:
         root = Path(temporary)
-        runner = root / 'wrapper.py'
+        # Keep the wrapper at its repository depth: it resolves its default
+        # ROOT as parents[3], which a shallow temporary file (/tmp/x/wrapper.py)
+        # does not have.
+        runner = root / WRAPPER
+        runner.parent.mkdir(parents=True, exist_ok=True)
         runner.write_bytes(wrapper)
         for path, raw in captures.items():
             target = root / path

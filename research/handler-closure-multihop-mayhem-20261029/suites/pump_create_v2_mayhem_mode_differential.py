@@ -23,6 +23,9 @@ New bounded dimensions beyond `scripts/pump_create_mayhem_differential.py`:
     and bogus token vaults, pre-existing mayhem_state, missing accounts);
   - holder-reward and deprecated-cashback option boundaries in Mayhem mode.
 """
+if not __debug__:
+    raise SystemExit('research evidence requires normal Python (assertions enabled)')
+
 import argparse
 import base64
 import gzip
@@ -105,6 +108,16 @@ def _init_global_params(vm):
     return vm.send_transaction(tx)
 
 
+def require_signed(tx):
+    """Require the complete nonempty header signature vector, also under -O."""
+    required = tx.message.header.num_required_signatures
+    if required <= 0 or len(tx.signatures) != required:
+        raise AssertionError('incomplete transaction signature vector')
+    results = tx.verify_with_results()
+    if not results or len(results) != required or not all(results):
+        raise AssertionError('transaction signature verification failed')
+
+
 def run(c, pump_bin=ORIGINAL_PUMP):
     vm = LiteSVM().with_transaction_history(0)
     vm.add_program_from_file(PROGRAM, pump_bin)
@@ -171,7 +184,7 @@ def run(c, pump_bin=ORIGINAL_PUMP):
                + bytes([1 if c.get('is_mayhem_mode', True) else 0]) + bytes.fromhex(c.get('optional_args', '')))
     signers = [k for k in [USER, MINT] if k.pubkey() in {m.pubkey for m in metas if m.is_signer} | {USER.pubkey()}]
     tx = Transaction.new_signed_with_payer([set_compute_unit_limit(1400000), Instruction(PROGRAM, payload, metas)], USER.pubkey(), signers, vm.latest_blockhash())
-    assert all(tx.verify_with_results())
+    require_signed(tx)
 
     def snap():
         out = {}

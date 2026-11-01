@@ -625,7 +625,7 @@ def main():
                 # signature vector was stripped would pass the bare all().
                 results = tx.verify_with_results()
                 required = tx.message.header.num_required_signatures
-                if required <= 0 or len(tx.signatures) != required or len(results) != required or not all(results):
+                if not tx.signatures or not all(results) or required <= 0 or len(tx.signatures) != required or len(results) != required:
                     fail(f"{tag}: signature verification failed")
                 if exp["error"] is None:
                     if rec["error"] is not None:

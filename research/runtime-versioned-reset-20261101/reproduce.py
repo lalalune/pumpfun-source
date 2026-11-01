@@ -1,4 +1,13 @@
 """Real signed local transfers through the reusable AMM VM API."""
+if not __debug__:
+ raise SystemExit('research evidence requires normal Python (assertions enabled)')
+def signatures_verified(tx):
+ """True only for every signature required by the message header."""
+ required = tx.message.header.num_required_signatures
+ if required <= 0 or len(tx.signatures) != required:return False
+ results = tx.verify_with_results()
+ return bool(results) and len(results) == required and all(results)
+
 import argparse,hashlib,json,os,subprocess,sys
 from pathlib import Path
 p=argparse.ArgumentParser();p.add_argument('--repo',type=Path,required=True);p.add_argument('--output',type=Path,required=True);a=p.parse_args();repo=a.repo.resolve();sys.path.insert(0,str(repo/'scripts'))
@@ -32,9 +41,10 @@ for kind in ('legacy','v0-static','v0-alt','v0-alt-readonly','v0-alt-missing','v
   message=MessageV0.try_compile(PAYER.pubkey(),[ix],tables,vm.latest_blockhash())
   if kind=='v0-alt-index':message=MessageV0(message.header,message.account_keys,message.recent_blockhash,message.instructions,[MessageAddressTableLookup(table_key,b'\x01',b'')])
   tx=VersionedTransaction(message,[PAYER])
- assert all(tx.verify_with_results())
+ verified=signatures_verified(tx)
+ if not verified:raise AssertionError('transaction signature verification failed')
  result=vm.send_transaction(tx);error=str(result.err()) if isinstance(result,FailedTransactionMetadata) else None;after=snapshot()
  reused=reusable.acquire_harness(binary);assert reused is h;reset=snapshot()
- rows.append({'kind':kind,'error':error,'signatures_verified':True,'recipient_before':before[str(OUTSIDER.pubkey())]['lamports'],'recipient_after':after[str(OUTSIDER.pubkey())]['lamports'],'recipient_reset':reset[str(OUTSIDER.pubkey())]['lamports'],'complete_watched_accounts_restored':reset==before})
+ rows.append({'kind':kind,'error':error,'signatures_verified':verified,'recipient_before':before[str(OUTSIDER.pubkey())]['lamports'],'recipient_after':after[str(OUTSIDER.pubkey())]['lamports'],'recipient_reset':reset[str(OUTSIDER.pubkey())]['lamports'],'complete_watched_accounts_restored':reset==before})
  print(rows[-1],flush=True)
 a.output.write_text(json.dumps({'base':subprocess.check_output(['git','rev-parse','HEAD'],cwd=repo,text=True).strip(),'captured_amm_sha256':hashlib.sha256(binary.read_bytes()).hexdigest(),'rows':rows},indent=2)+'\n')

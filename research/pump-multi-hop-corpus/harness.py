@@ -3,12 +3,25 @@
 Synthetic local accounts; ordinary test-owned verified outer signatures.
 No live traffic, fabricated PDA signatures or executable modification.
 """
+if not __debug__:
+    raise SystemExit('research evidence requires normal Python (assertions enabled)')
+
 from pathlib import Path
 import argparse,hashlib,json,sys
 P=Path(__file__).resolve().parent;ROOT=next(p for p in P.parents if (p/'evidence/original/pump/deployed.so').is_file())
 sys.path.insert(0,str(ROOT/'scripts'))
 import pump_amm_multi_hop_differential as h
 from pump_amm_admin_differential import Harness
+
+def require_signed(tx):
+    """Require the complete nonempty header signature vector, also under -O."""
+    required = tx.message.header.num_required_signatures
+    if required <= 0 or len(tx.signatures) != required:
+        raise AssertionError('incomplete transaction signature vector')
+    results = tx.verify_with_results()
+    if not results or len(results) != required or not all(results):
+        raise AssertionError('transaction signature verification failed')
+
 
 def legacy_curve(sell,mutation=None):
  def setup(vm,metas):
@@ -50,7 +63,7 @@ def invoke(sell,amount,candidate=None,mutation=None,limit=1):
   return out
  before=snapshot();data=bytes(ix['discriminator'])+h.struct.pack('<QQ',amount,limit)
  tx=h.Transaction.new_signed_with_payer([h.Instruction(h.PROGRAM,data,metas)],h.PAYER.pubkey(),[h.PAYER],vm.vm.latest_blockhash())
- assert all(tx.verify_with_results())
+ require_signed(tx)
  result=vm.vm.send_transaction(tx);failed=isinstance(result,h.FailedTransactionMetadata);meta=result.meta()if failed else result;encoded=json.loads(meta.to_json())
  return {'error':str(result.err())if failed else None,'logs':meta.logs(),'events':[line for line in meta.logs()if line.startswith('Program data: ')],'inner':encoded['inner_instructions'],'return_data':encoded.get('return_data'),'before':before,'after':snapshot(),'transaction_base64':h.base64.b64encode(bytes(tx)).decode(),'program_sha256':{str(pid):hashlib.sha256(path.read_bytes()).hexdigest()for pid,path in programs},'fresh_vm':True}
 

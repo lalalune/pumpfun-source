@@ -13,6 +13,10 @@ indexers, branding or any other off-chain material.
 
 ## Pull requests we accept
 
+At this stage, the only accepted contributions are those that hillclimb
+reconstruction completion percentages toward 100% by resolving remaining
+bytecode differences against the target binaries while preserving existing matches.
+
 - Program source changes under `programs/` that raise a window's match score
   with no raw or normalized losses against a fresh main build.
 - Build-input changes (crate metadata, `Cargo.lock`, dependencies, profiles, flags,
@@ -20,13 +24,22 @@ indexers, branding or any other off-chain material.
   deployed bytes, when they are pinned and reproducible. See
   [reconstruction/pump-main/README.md](reconstruction/pump-main/README.md#build-inputs-are-in-scope-2026-10-30).
 - Toolchain, build-harness and scoring fixes under `reconstruction/` and
-  `scripts/`.
+  `scripts/` that remove a concrete reconstruction blocker and demonstrate the
+  byte-for-byte reconstruction progress enabled by the fix.
 - Differential tests that compare a rebuilt program against the captured
-  original binary.
-- Research packets that explain a remaining byte difference in a program.
+  original binary and support demonstrated reconstruction gains.
+- Research packets that help resolve a remaining byte difference in a program
+  and demonstrate measurable reconstruction gains.
+
+Changes to tooling, build infrastructure or surrounding architecture must be
+the smallest necessary fix for a concrete reconstruction blocker. Document the
+blocked task, how to reproduce the blocker, and the reconstruction progress
+enabled by removing it. These improvements are not independent goals.
 
 ## Pull requests we close without review
 
+- Window dressing, cosmetic cleanup, speculative refactoring, documentation
+  churn and other changes that do not demonstrate reconstruction progress.
 - Frontend, UI, app or website work, including recovered or re-implemented
   components.
 - Backend, API, indexer or off-chain service work.
@@ -43,5 +56,11 @@ python3 reconstruction/harness/fastbuild.py --src <worktree>/programs/pump --wor
 python3 reconstruction/harness/score.py <out>/unstripped.so --baseline <main score.json> --json <out>/score.json
 ```
 
-Include the score summary in the PR description and state any `losses` or
-`raw_losses`. A change that loses any window will not be merged.
+Include the target program and function or window, the byte mismatch being
+resolved, and reproducible before-and-after completion percentages and byte
+comparisons in the PR description. Include the score summary and state any
+`losses` or `raw_losses`. A change that loses any window will not be merged.
+
+Behavioral equivalence, passing tests and normalized matches alone do not
+establish byte-for-byte completion. Report partial gains as partial gains and
+keep raw-byte progress distinct from normalized scores.

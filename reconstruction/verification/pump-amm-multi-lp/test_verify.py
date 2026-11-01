@@ -161,6 +161,7 @@ class VerifierTests(unittest.TestCase):
                 receipt = r['cases'][0][side]['receipts'][0]
                 raw = base64.b64decode(receipt['transaction_base64']) + b'garbage'
                 decoded = Transaction.from_bytes(raw)
+                self.assertTrue(decoded.signatures)
                 self.assertTrue(all(decoded.verify_with_results()))
                 self.assertNotEqual(bytes(decoded), raw)
                 receipt['transaction_base64'] = base64.b64encode(raw).decode()
@@ -187,6 +188,7 @@ class VerifierTests(unittest.TestCase):
                 old = Transaction.from_bytes(base64.b64decode(receipt['transaction_base64']))
                 changed = Transaction.new_signed_with_payer([*instructions, set_compute_unit_limit(100000)],
                                                             lifecycle.FEE_PAYER.pubkey(), signers, old.message.recent_blockhash)
+                self.assertTrue(changed.signatures)
                 self.assertTrue(all(changed.verify_with_results()))
                 transaction_metadata(receipt, changed)
         self.assert_refused(mutate)
@@ -197,6 +199,7 @@ class VerifierTests(unittest.TestCase):
             harness = lifecycle.fixture_only(self.candidate, 0, plan)
             _, instructions, signers, _ = lifecycle.plan_step(harness, plan['steps'][0], 0)
             changed = Transaction.new_signed_with_payer(instructions, lifecycle.FEE_PAYER.pubkey(), signers, Hash.new_unique())
+            self.assertTrue(changed.signatures)
             self.assertTrue(all(changed.verify_with_results()))
             for side in ('original', 'candidate'):
                 transaction_metadata(r['cases'][0][side]['receipts'][0], changed)

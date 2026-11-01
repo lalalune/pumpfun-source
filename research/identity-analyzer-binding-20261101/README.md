@@ -44,6 +44,12 @@ python -B research/identity-analyzer-binding-20261101/probe.py --repo . \
 python -B reconstruction/diagnostics/identity-audit-unoptimized/test_run.py
 ```
 
+The proof stages the wrapper at its repository path inside the temporary
+tree. The wrapper resolves its default root as `parents[3]`, so a copy at
+`<tmp>/wrapper.py` fails at import under a shallow `TMPDIR` such as Linux `/tmp`.
+The wrapper always receives an explicit `--repo`, so its placement does not
+change any recorded result.
+
 Use fresh output paths and the pinned Python requirements. The base command
 needs its local Git revision. The existing CI suite now also runs the complete
 nine-capture proof; its prior four methods remain intact. `results.json` binds
