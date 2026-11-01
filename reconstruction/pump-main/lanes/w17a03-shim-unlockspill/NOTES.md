@@ -18,13 +18,15 @@ its `owner` with `unsafe{core::ptr::read_volatile(&x.owner)}/*shim: ...*/` (line
 
 The source build reproduces the IR oracle's prediction exactly (`L4320`: 0.67466 @27,400).
 
-**Second gain (branch `swarm/w17a03-shim-unlockspill-2`): the program clone's `a.pump_fees` reload pinned inside the
+**Second gain, landed as #3965 (merge 9336aafff; land.py on main e2d200343 with w17a02's #3934: 0.67645 -> 0.67675,
+3,141 slots, 27,400 B, 1034/1034, 0 losses, differential 388/0): the program clone's `a.pump_fees` reload pinned inside the
 event_authority lamports Rc increment** (line 749, no line added; `data/pf5746.py`):
 
 | build | ratio | slots | bytes | normalized / raw | losses |
 | --- | ---: | ---: | ---: | --- | --- |
 | main 6d498c5e6 (#3936) + pf5746 | 0.67496 (oracle 0.67496) | 3,141 | 27,400 | 1034 / 1034 | 0 / 0 |
-| main 442ae70ca (#3936 + w17a04 #3950, 0.67615) + pf5746 | **0.67645** | 3,141 | 27,400 | 1034 / 1034 | 0 / 0 |
+| main 442ae70ca (#3936 + w17a04 #3950, 0.67615) + pf5746 | 0.67645 | 3,141 | 27,400 | 1034 / 1034 | 0 / 0 |
+| main e2d200343 (+ w17a02 #3934, 0.67645) + pf5746 (land.py) | **0.67675** | 3,141 | 27,400 | 1034 / 1034 | 0 / 0 |
 
 Runtime differential: 388 cases, 0 mismatches. The source:
 `let pf:&AccountInfo;` before the sharing CPI; the event_authority literal's
@@ -97,3 +99,22 @@ load relative to the other memory operations in its block. The original's accoun
 run (34 slot accesses against our 24) are RA splits of one long interval; no addressable memory holds that pointer, so
 `read_volatile` cannot reproduce a spill-slot reload (it would read `ctx.accounts` and cost a second load), and a local
 copy read through `read_volatile` becomes an alloca that shifts the whole frame by 8 B.
+
+## Re-screen on the landed state (capture `m442` = 442ae70 + pf5746, 0.67645)
+
+- Rc-window moves (`tools/winscan.py`): sharing run 105, sweep TCF 236, with nothing above 0.67645.
+- Single volatile load pins (`tools/vscreen.py`, 444): nothing above 0.67645 at 27,400. L2735 / L2737 still give +1 M at
+  -16 B (0.67666 @27,384), and none of the 36 pairs with a +8..+24 B pin lands at 27,400 (best 0.67575 @27,408).
+- So the memory-pin lever is used up on this base. The remaining residue is register and spill-colour naming, plus the
+  two structural items below.
+
+## Handoffs
+
+1. **L5713, IR-only, +2 M.** `sharing_config`'s `owner` load belongs inside the event_authority `data.clone()` Rc window.
+   A struct-literal field cannot be read after a later field starts, so this needs the sharing CPI literal restructured
+   (event_authority evaluated first, or the account struct built differently).
+2. **L2735/L2737 as a -16 B repay.** Pin `cashback:` / `holder_enabled:` in the CtoState literal with `read_volatile`
+   (+0/+1 M, -16 B) for any +16 B lead that gains M.
+3. **Rc-window recipe** (general): a load can be pinned inside clone X's Rc increment only if a may-alias store follows it.
+   Spell X's clone as `ptr::read` + `Rc::strong_count` (the count load) + the pin + `Rc::increment_strong_count`. A pin at
+   a block head with no store after it is merged by GVN into the next MustAlias load.

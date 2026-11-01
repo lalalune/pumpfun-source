@@ -16,18 +16,19 @@
   "cand_bytes": 27400
  },
  "best": {
-  "pr": "second PR on swarm/w17a03-shim-unlockspill-2 (first gain landed as #3936, merge 2c470820b)",
-  "ratio": 0.67645,
+  "pr": 3965,
+  "ratio": 0.67675,
   "slots_diff": 3141,
   "cand_bytes": 27400,
   "normalized": 1034,
   "raw": 1034,
   "losses": [],
   "raw_losses": [],
-  "base": "main 442ae70ca (0.67615, after #3936 and w17a04 #3950)",
+  "base": "main e2d200343 (0.67645, after #3936, #3950, #3934)",
   "differential": "388 cases, 0 mismatches",
-  "unstripped_sha16": "203dbb66b4ad14d7",
-  "mechanism": "sharing CPI: the program clone's second a.pump_fees load (accounts+0x98, for lamports) is read with read_volatile inside the event_authority lamports Rc increment (manual ptr::read + Rc::strong_count + Rc::increment_strong_count) into a deferred local pf; program clone lamports:pf.lamports.clone()"
+  "unstripped_sha16": "c1cc9abba1ca4add",
+  "mechanism": "sharing CPI: the program clone's second a.pump_fees load (accounts+0x98, for lamports) is read with read_volatile inside the event_authority lamports Rc increment (manual ptr::read + Rc::strong_count + Rc::increment_strong_count) into a deferred local pf; program clone lamports:pf.lamports.clone()",
+  "merge_commit": "9336aafff"
  },
  "tools": {
   "tools/vscreen.py": "volatile-pin oracle: mark one load/store/memcpy of execute's post-opt IR volatile, llc (~3 s), score",
@@ -110,6 +111,11 @@
    "key": "0x22a10-w17-5998913-unlockspill-tcfclone-pieceorder-v1",
    "what": "sweep TCF program-clone pieces in the original's order",
    "result": "0.62-0.63, no"
+  },
+  {
+   "key": "0x22a10-w17-442ae70-unlockspill-rescreen-v1",
+   "what": "Rc-window moves and single pins on the landed state",
+   "result": "none above 0.67645; L2735/L2737 +1 M at -16 B; no 27,400 B pair"
   }
  ],
  "rejected_mechanisms": [
@@ -138,6 +144,14 @@
    "ratio_before": 0.67436,
    "ratio_after": 0.67466,
    "mechanism": "sweep TCF program-clone owner read_volatile (L4320)"
+  },
+  {
+   "pr": 3965,
+   "merge": "9336aafff",
+   "main_at_land": "e2d200343",
+   "ratio_before": 0.67645,
+   "ratio_after": 0.67675,
+   "mechanism": "program clone a.pump_fees reload pinned inside the event_authority lamports Rc increment (pf5746)"
   }
  ]
 }
