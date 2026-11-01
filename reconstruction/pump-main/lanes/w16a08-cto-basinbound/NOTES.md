@@ -4,7 +4,8 @@ Target `0x22a10` `admin_cto::execute` (`programs/pump/src/creator/admin_cto.rs`)
 Base: main 9bd38c7d5 (admin_cto.rs unchanged since 86e2a6b): 0.67376, 3,124 slots, M 2,249, Mperm 2,293, Mhc 2,300,
 joint Mhc 2,338 (#3746). Main moved to 1f4e396b5 during the lane (#3859, sweep guard tuple, 0.67436). Every number below
 is measured against the 9bd38c7 main capture `m0` (`eq_main: true`), so the table is self-consistent.
-Ledger: approach `basinbound`, keys `0x22a10-w16-9bd38c7-basinbound-<basin>-v1`.
+Ledger: approach `basinbound`, keys `0x22a10-w16-9bd38c7-basinbound-<basin>-v1` (17 rows) and
+`0x22a10-w16-5998913-basinbound-{m0n,S3n,S3b,S3c}-v1`.
 
 **Result: notes only, no source change. Main is still the best zero-loss measurement (0.67376 @ 27,400 on 9bd38c7;
 0.67436 on 1f4e396/5998913). One basin clears main's stacked ceiling, and it has an ordinary source spelling (handoff below).**
@@ -16,14 +17,13 @@ Ledger: approach `basinbound`, keys `0x22a10-w16-9bd38c7-basinbound-<basin>-v1`.
   measured by the same pipeline. The pipeline reproduces w15a28's main numbers exactly: pass 1 gives 7 forces, M 2,277 and
   joint 2,328; pass 2 gives 9 forces, M 2,282 and joint 2,338. **On current main 5998913, S3 stacks to 2,347 against
   main's 2,339 (+8).**
-  - The decisive RA difference: in S3/e1 the post-sweep Result payload can take the original's **r9** (force `1739=r9`,
-    +0.054 alone). On main the same force (`1729=r9`) collapses to 0.59083. Pass 2 adds `1847=r5` (sweep, orig 0x2ae8,
+  - The decisive RA difference: in S3/e1 the post-sweep Result payload can take the original's **r9** (force `1739=r9`:
+    +0.054 raw ratio alone, before the joint permutation). On main the same force (`1729=r9`) collapses to 0.59083. Pass 2 adds `1847=r5` (sweep, orig 0x2ae8,
     +0.015).
   - Real build on main 5998913 (`measure.sh`): admin_cto 0.59599 @ 27,416 B, normalized 1034 with 0 losses, raw 687 losses
     (+16 B). The 363-case differential passes (388 cases, 0 mismatches). It is **not landable as is**. Its raw loss is
     spill-slot numbering: M 1,990, Mperm 2,289, Mhc 2,296, against that main's 2,251 / 2,295 / 2,302. The flag's spill slot
-    shifts the later slots by 8 (w14a142).
-    It also needs the RA forces, and it must give back 16 B.
+    shifts the later slots by 8 (w14a142). It also needs the RA forces, and it must give back 16 B.
   - `S4` (S3 without the event carrier) is byte-identical to w14a142's collapsed `hc`. Restored, it stacks to 2,336 (-2).
 - **Kill: the threaded and and-1 basins, and ov1a.** After the placement restore, the frame normalisation and a
   restore-aware sticky RA climb:
