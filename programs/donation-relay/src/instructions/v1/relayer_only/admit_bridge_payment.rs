@@ -14,7 +14,7 @@ use anchor_lang::prelude::*; use anchor_spl::{associated_token::AssociatedToken,
 // Historical text preceding this macro is unknown.
 #[event_cpi]
 #[derive(Accounts)]
-#[instruction(source_id:[u8;32],source_commitment:[u8;32],payment_id:[u8;32],config_id:[u8;32],amount:u64,minimum_amount:u64,tip_bps:u16)]
+#[instruction(source_id:[u8;32],source_commitment:[u8;32],payment_id:[u8;32],config_id:[u8;32])]
 pub struct AdmitBridgePaymentV1<'info> {
  #[account(init,payer=signer,space=8,seeds=[b"bridge_source_v1",source_id.as_ref()],bump)]
  pub source_marker:Account<'info,BridgeSourceV1>,
@@ -31,7 +31,7 @@ pub struct AdmitBridgePaymentV1<'info> {
  pub debouncer:Account<'info,DebouncerV1>,
  #[account(init_if_needed,payer=signer,associated_token::mint=mint,associated_token::authority=debouncer,associated_token::token_program=token_program)]
  pub debouncer_token_account:Account<'info,TokenAccount>,
- #[account(address=Pubkey::new_from_array(crate::codec::constants::SETTLEMENT) @ crate::business_error_codes::ErrorCode::InvalidMint)]
+ #[account(address=Pubkey::new_from_array(crate::codec::constants::SETTLEMENT))]
  pub mint:Account<'info,Mint>,
  #[account(mut)]
  pub signer:Signer<'info>,

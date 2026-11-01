@@ -13,7 +13,7 @@ use anchor_lang::prelude::*; use anchor_spl::{associated_token::AssociatedToken,
 // Historical text preceding this macro is unknown.
 #[event_cpi]
 #[derive(Accounts)]
-#[instruction(source_id:[u8;32],source_commitment:[u8;32],payment_id:[u8;32],amount:u64)]
+#[instruction(source_id:[u8;32],source_commitment:[u8;32],payment_id:[u8;32])]
 pub struct RecoverBridgePaymentV1<'info> {
  #[account(init,payer=payer,space=8,seeds=[b"bridge_source_v1",source_id.as_ref()],bump)]
  pub source_marker:Account<'info,BridgeSourceV1>,
@@ -25,11 +25,13 @@ pub struct RecoverBridgePaymentV1<'info> {
  #[account(mut,associated_token::mint=mint,associated_token::authority=receiver,associated_token::token_program=token_program)]
  pub receiver_token_account:Account<'info,TokenAccount>,
  /// CHECK: owner of the destination token account.
+ #[account(constraint=destination_owner.key()!=Pubkey::default() && destination_owner.key()!=receiver.key() @ crate::business_error_codes::ErrorCode::InvalidOwner)]
  pub destination_owner:UncheckedAccount<'info>,
  #[account(mut,associated_token::mint=mint,associated_token::authority=destination_owner,associated_token::token_program=token_program)]
  pub destination_token_account:Account<'info,TokenAccount>,
- #[account(address=Pubkey::new_from_array(crate::codec::constants::SETTLEMENT) @ crate::business_error_codes::ErrorCode::InvalidMint)]
+ #[account(address=Pubkey::new_from_array(crate::codec::constants::SETTLEMENT))]
  pub mint:Account<'info,Mint>,
+ #[account(constraint=program_data.upgrade_authority_address==Some(authority.key()) @ crate::business_error_codes::ErrorCode::InvalidAdmin)]
  pub program_data:Account<'info,ProgramData>,
  pub authority:Signer<'info>,
  #[account(mut)]
