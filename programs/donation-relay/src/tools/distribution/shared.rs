@@ -14,19 +14,18 @@ pub fn distribute<'info>(ctx:DistributionContext<'info,'info>,args:DistributionA
  if ctx.remaining.len()<shares.len() {return Err(Code::InsufficientRemainingAccounts.into());}
  let weights:Vec<u16>=shares.iter().map(|share|share.bps).collect();
  let amounts=fair_amounts(total,&weights)?;
- transfer_shares(&ctx,shares.iter().zip(amounts.iter()),decimals,expected_program,seeds)?;
+ transfer_shares(&ctx,shares.iter().zip(amounts.iter()).map(|(share,amount)|(*amount,share.address)),decimals,expected_program,seeds)?;
  Ok(shares.iter().zip(amounts.iter()).map(|(share,amount)|Receipt {share_type:share.share_type.clone(),address:share.address,amount:*amount,bps:share.bps}).collect())
 }
 
 #[inline(never)]
-fn transfer_shares<'info>(ctx:&DistributionContext<'info,'info>,rows:core::iter::Zip<core::slice::Iter<'_,Share>,core::slice::Iter<'_,u64>>,decimals:u8,expected_program:Pubkey,seeds:&[&[&[u8]]])->Result<()> {
- let mint_key=ctx.mint.key;
- for (info,(share,amount)) in ctx.remaining.iter().zip(rows) {
+fn transfer_shares<'info,I:Iterator<Item=(u64,Pubkey)>>(ctx:&DistributionContext<'info,'info>,rows:I,decimals:u8,expected_program:Pubkey,seeds:&[&[&[u8]]])->Result<()> {
+ for ((amount,address),info) in rows.zip(ctx.remaining.iter()) {
   let token=InterfaceAccount::<TokenAccount>::try_from(info)?;
-  if token.owner!=share.address {return Err(worker_error!(InvalidTokenAccountOwner,191).with_pubkeys((token.owner,share.address)));}
-  if token.mint!=*mint_key {return Err(worker_error!(InvalidTokenAccountMint,196).with_pubkeys((token.mint,*mint_key)));}
+  if token.owner!=address {return Err(worker_error!(InvalidTokenAccountOwner,191).with_pubkeys((token.owner,address)));}
+  if token.mint!=ctx.mint.key() {return Err(worker_error!(InvalidTokenAccountMint,196).with_pubkeys((token.mint,ctx.mint.key())));}
   if *info.owner!=expected_program {return Err(worker_error!(InvalidTokenAccountProgram,201).with_pubkeys((*info.owner,expected_program)));}
-  if *amount!=0 {anchor_spl::token_interface::transfer_checked(CpiContext::new_with_signer(ctx.program.clone(),TransferChecked {from:ctx.source.clone(),mint:ctx.mint.clone(),to:info.clone(),authority:ctx.authority.clone()},seeds),*amount,decimals)?;}
+  if amount!=0 {anchor_spl::token_interface::transfer_checked(CpiContext::new_with_signer(ctx.program.clone(),TransferChecked {from:ctx.source.clone(),mint:ctx.mint.clone(),to:info.clone(),authority:ctx.authority.clone()},seeds),amount,decimals)?;}
  }
  Ok(())
 }
