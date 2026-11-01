@@ -4,6 +4,7 @@ import sys,os,json,time
 from concurrent.futures import ThreadPoolExecutor
 T=os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0,T); import fx
 EXTRA=['!990001 = !{!"branch_weights", i32 2000, i32 1}','!990002 = !{!"branch_weights", i32 1, i32 2000}']
+_DECL={}
 def apply(L,edits):
     rep={}; extra=list(EXTRA)
     for e in edits:
@@ -17,7 +18,13 @@ def apply(L,edits):
         if i in rep: out.extend(rep[i])
         else: out.append(l)
     seen=set(); ex2=[]
+    import re as _re
+    have=_DECL.get(id(L))
+    if have is None:
+        have=set(_re.findall(r'^declare [^@]*(@[\w.$-]+)\(',chr(10).join(x for x in L if x.startswith('declare')),_re.M)); _DECL[id(L)]=have
     for x in extra:
+        m=_re.match(r'^declare [^@]*(@[\w.$-]+)\(',x)
+        if m and m.group(1) in have: continue
         if x not in seen: seen.add(x); ex2.append(x)
     return '\n'.join(out+ex2)+'\n'
 def main():

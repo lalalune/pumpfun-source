@@ -130,12 +130,43 @@ three +8 B repay cells, each of which reproduces its IR signature in source:
 | --- | ---: | ---: | ---: | ---: | --- | --- |
 | main ac37d7415 | 0.68424 | 2,284 | 3,313 | 27,400 | 1034 / 1034 | - |
 | yA (alt 28808 form) | 0.68514 | 2,287 | 3,096 | 27,400 | 1034 / 1034 | 0 / 0 |
-| **yB (27964 form, proposed)** | **0.68514** | 2,287 | **3,092** | 27,400 | 1034 / 1034 | 0 / 0 |
+| **yB (27964 form), landed #4026** | **0.68514** | 2,287 | **3,092** | 27,400 | 1034 / 1034 | 0 / 0 |
 
 Not realised: the collect_coin_creator_fee `?` Result-tag cells (pt on the tag word of the `?`, +4..+6 in IR combos on
 two bases). `let r=..; if pt64(tag)!=2 {return r}` and `pt1(r.is_err())` both collapse (1,917 @27,440: a let-bound
 Result instead of `?`), and a `map_err` closure that passes the Err tag word through `pt64` is folded away. A pt on an
 operand inside validate's tests collapses (v284..v338: 1,425-2,278; MIR/LLVM threading is what main relies on).
+
+**Landed #4026:** merge 4d09af488, 0.68424 -> **0.68514** (M 2,287), 3,092 slots, zero losses, differential 388/0.
+
+## 4d. Round 4 on main 4d09af488 (M 2,287): no gain (local exhaustion)
+
+| family (single edits on the slim pre-opt IR) | edits | identical | changed at 27,400 | best |
+| --- | ---: | ---: | ---: | --- |
+| `pt` / `pb` (values, branch conditions) | 1,009 | 822 | 64 | +1 @-8 B (312 compare, CtoState mayhem/holder_reward accounts ptr) |
+| `pc`: pt on a constant stored to a local (phi-of-constants incoming value, `pt1(n,false)` arm form) | 117 | 97 | 2 | -3 @+32 B |
+| `pt` on call results (memcmp, data_is_empty, Option::eq, From) | 52 | 44 | 0 | +1 @-8 B (`hopt==Some(true)` in execute) |
+| w17a06 `vl:fld`, `rr`, `bf`, `bw` (volatile field loads, re-reads, fences, 1:2000 weights) | 700 | 247 | 39 | 0 |
+| `pt` on non-alloca GEPs (field addresses; on ac37d74) | 258 | - | - | 0 @+8 B |
+
+Combinations: 382 mixed-family sets of up to three cells with predicted dM >= 0, and every -8 B (+1) cell against
+every +8 B cell (416 pairs): best 0 at 27,400 B. Source-level checks on top: a pt on `pool_updated` so MIR cannot
+thread the `pargs` block into both arms (lead (a), w17a06 vl:execute:29927), with and without the volatile accounts
+reload for `pargs`: see the ledger rows `0x22a10-w17-4d09af4-passthrough-pargs-*`.
+
+## 4e. Round 5 on main 2f3597f99 (M 2,291, after the CtoState field-order landing): no gain
+
+- Beam: 1,061 pt/pb/call-result singles: best +1 @-8 B (the 312 compare i1, execute `hopt==Some(true)`); every -8 B
+  cell against every +8 B cell (224 pairs): best 0 at 27,400 B.
+- Manual `AccountInfo` literals in derived-Clone order (key, lamports, data, owner, rent_epoch, is_signer, is_writable,
+  executable) for single TCF `to_account_info()` fields are byte-identical to main (system_program,
+  coin_creator_vault_authority), and a pt on such a literal's executable byte is byte-identical too (the byte only
+  flows to a store). Converting all six TCF fields gives 2,110 @27,368; the pool CPI (765) 1,968 @29,864; the wallet
+  create_idempotent (561) 1,924 @29,592 (there the clone call is not inlined and the literal inlines it). So the
+  executable cell of #4018 is specific to the program-clone literal with the volatile owner pin.
+- Reading: the passthrough family is locally exhausted around the current main (rounds 4-5: about 3,000 singles and
+  about 1,300 combinations, nothing above main at 27,400 B). New cells appear when other lanes move the base, so the
+  cheapest continuation is to re-run `ptgen.py` + `screen.py` + `combo.py` after each landing.
 
 ## 5. Leads (a)-(d) from the angle
 
@@ -157,24 +188,3 @@ operand inside validate's tests collapses (v284..v338: 1,425-2,278; MIR/LLVM thr
 - `ptprobe.rs`: the fold-table probe.
 - The oracle itself (`capraw.py`, `preslim.py`, `fx.py`, `oracle.py`, `modparse.py`, `gen.py`) is on
   `origin/swarm/w17a06-shim-irbeam` under `reconstruction/pump-main/lanes/w17a06-shim-irbeam/tools/`.
-
-## Maintained source qualification — 2026-11-01
-
-The current program change is independently rebuilt with the maintained identity
-recipe and official full-window scorer. The four passthrough sites retain their
-measured source behavior on the pinned compiler; an independent small target
-probe checks bool, byte and pointer identity against ordinary controls.
-
-The private capture, beam, screening and signature claims above remain author
-research history. They are not standalone reproducibility or linked-image proof.
-The eight private-cache tool changes added or modified by PR #4026 are excluded
-from the maintained integration: existing tools retain their prior main versions,
-and the new private queue/composition scripts are not shipped. No private oracle
-or patched compiler is used for current acceptance.
-
-Against a freshly built main `8350fae5a`, PR #4026 measures 68.514% token
-similarity at 27,400 bytes with 3,092 positional differences. Adding PR #4023's
-private CtoState declaration order raises token similarity to 68.544% at the
-same size and positional count. Both full-window comparisons preserve all
-1,034 raw and normalized matches with zero losses. No new exact window, whole
-Pump ELF identity, historical source attribution or exhaustive semantics is claimed.

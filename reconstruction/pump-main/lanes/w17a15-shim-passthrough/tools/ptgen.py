@@ -6,6 +6,7 @@ import sys,re,json
 FN={'validate':r'admin_cto8validate17h','execute':r'admin_cto7execute17h','wallet':r'admin_cto7execute6wallet17h','sweep':r'admin_cto7execute5sweep17h'}
 VAL=r'(%[\w.$-]+|%"[^"]+")'
 TY={'i1','i8','i16','i32','i64','ptr'}
+CALLS=False
 FLAGS={'nuw','nsw','exact','disjoint','volatile','inbounds','fast','nnan','ninf','nneg'}
 def mang(t): return 'p0' if t=='ptr' else t
 def decl(t): return f'declare {t} @llvm.bpf.passthrough.{mang(t)}.{mang(t)}(i32, {t})'
@@ -32,11 +33,17 @@ def vtype(l):
         s=m.group(3).strip(); parts=s.split(',')
         if len(parts)>=2: return op,parts[1].split()[0]
         return op,None
-    if op=='call': return op,None
+    if op=='call':
+        if CALLS and '@llvm.' not in l:
+            mm=re.match(r'^\s+\S+ = call (?:noundef |zeroext |signext |range\([^)]*\) |nonnull |align \d+ |dereferenceable\(\d+\) )*(i1|i8|i32|i64|ptr) @',l)
+            if mm: return op,mm.group(1)
+        return op,None
     toks=[x for x in rest if x not in FLAGS]
     if not toks: return op,None
     return op,toks[0].rstrip(',')
-def main(src,dst):
+GEP=False
+def main(src,dst,mode=''):
+    global GEP,CALLS; GEP=(mode=='gep'); CALLS=(mode=='calls')
     L=open(src).read().split('\n'); R=ranges(L); E=[]; seq=1000
     for fn,(a,b) in R.items():
         blkstart={}; cur=a
@@ -47,7 +54,12 @@ def main(src,dst):
             l=L[i]
             op,t=vtype(l)
             if op is None or t not in TY: continue
-            if op in('alloca','getelementptr'): continue
+            if op=='alloca': continue
+            if op=='getelementptr':
+                if not GEP: continue
+                t='ptr'
+            elif GEP: continue
+            if CALLS and op!='call': continue
             v=re.match(r'^\s+'+VAL,l).group(1); seq+=1
             nv=f'%ptv{seq}'
             pat=re.compile(re.escape(v)+r'(?![\w.$-])')

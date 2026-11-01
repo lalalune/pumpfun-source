@@ -1,0 +1,69 @@
+{
+  "lane": "w17a15-shim-passthrough",
+  "wave": 17,
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27,400 B",
+  "angle": "llvm.bpf.passthrough as a zero-footprint shim construct (opaque IntrNoMem identity, deleted by BPFCheckAndAdjustIR before ISel)",
+  "start_main": "bf01b5fd9 (0.68005, M 2,270)",
+  "landed": [
+    {
+      "pr": 4018,
+      "merge_commit": "8330455eb",
+      "admin_cto": "0.68095 -> 0.68244 at land time (main 445fe1405); 0.68005 -> 0.68364 on bf01b5fd9; 0.68424 merged with #4011",
+      "constructs": [
+        "line 8: extern llvm.bpf.passthrough.{i64,i1,i8,p0} declarations",
+        "line 298: pt1 on the holder-arm new.is_some() test",
+        "line 339: ptp on the accounts pointer of the shared-arm curve-box reload",
+        "line 578: pt8 on the raw do_coin byte at the AMM collect test",
+        "line 659: pt1 on the TCF program-clone executable byte"
+      ]
+    },
+    {
+      "pr": 4026,
+      "merge_commit": "4d09af488",
+      "admin_cto": "0.68424 -> 0.68514 (M 2,287), 3,313 -> 3,092 slots",
+      "constructs": [
+        "line 578: pt1 on the do_coin test compare",
+        "line 339: ptp on the accounts pointer of the shared owner test and of CtoState max_fee",
+        "line 312: pt8 on the t==sharing compare byte inside expect_p"
+      ]
+    }
+  ],
+  "best": {
+    "ratio": 0.68514,
+    "slots_diff": 3092,
+    "cand_bytes": 27400,
+    "normalized": 1034,
+    "raw": 1034,
+    "unstripped_sha": "b716dffdadceaa3a",
+    "differential": "388 cases, 0 mismatches"
+  },
+  "calibration": "unused declarations and a neutral pt64 on nf are byte-identical to a fresh main build (unstripped 69f35a15bc2a5d9e); fold table in NOTES.md section 2",
+  "attempts": {
+    "ir_single_edits": "983 (bf01b5f) + 1009 (8330455) + 1004 (ac37d74) + 1126 pt/pb/pc + 52 call results + 700 w17a06 families (4d09af4) + 258 GEPs (ac37d74) + 1061 (2f3597f)",
+    "ir_combinations": "about 2,300 screened sets of 2-5 cells",
+    "source_captures": "about 60 (slim oracle), 9 measure.sh builds, 2 land.py merges"
+  },
+  "rejected": [
+    "C1 (w17a11) with pt1 on the target-split holder: 1,822-1,827 (blocking LLVM JT keeps the hr path through the split)",
+    "pt on any validate test operand (284/289/296/298/314/326/330/334/338): 1,425-2,278",
+    "pt1 on a bool local (do_coin) or pt8 after a bool cast or transmute: byte-identical or a different cell; only a raw byte read reaches the pt8-on-load cell",
+    "pt inside an expect_p operand on the i1, and on a compare stored to a bool alloca: byte-identical (use the pt8-on-the-byte form)",
+    "collect_coin_creator_fee ? Result-tag cells (+4..+6 in IR sets on two bases): let-bound Result + return r collapses (1,917), map_err transmute pass is folded",
+    "pt on pool_updated to stop MIR threading of pargs (lead a), with or without the volatile pargs accounts reload: 2,144-2,150",
+    "pt on constants stored to locals (phi-of-constants incoming values): no gain",
+    "pt on skip at the sweep gate: collapse (-557)",
+    "manual AccountInfo literals for to_account_info() fields as a pt carrier: single TCF fields byte-identical (and pt on their executable byte too); all six TCF fields 2,110, pool CPI 1,968, wallet create_idempotent 1,924"
+  ],
+  "unresolved": [
+    "the fee-tag single phi (w16a24): pt keeps one phi with a store and a compare user (probe a1), but the fo/fb restructuring it needs still costs about -200 M on main",
+    "PDA-first (w17a09 k8) with a passthrough'd curve pointer: not attempted (k8 is about 325 M below main before re-tuning)",
+    "the collect_coin_creator_fee ? Result-tag cell has no known non-collapsing source form"
+  ],
+  "next_ideas": [
+    "re-run tools/ptgen.py + screen.py + combo.py on every new main: the cells are base-specific (the wallet do_coin cell went from +5 to 0 and back with #4017/#4019)",
+    "peel lane: the round-1 do_coin pt8 and holder-arm pt1 may be neutral on later mains; test removal byte-identity with land.py --allow-neutral",
+    "a source form for the collect_coin_creator_fee ? tag cell that keeps the ? operator",
+    "combine passthrough cells with the other shim families after each landing (mixed screens found nothing on 4d09af4 up to 4 cells)"
+  ],
+  "final_main": "2f3597f99 (0.68634, M 2,291): rounds 4-5 found no passthrough cell above main"
+}
