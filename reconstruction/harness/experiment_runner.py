@@ -458,7 +458,8 @@ def persist_trial_resource(budget, attempt, key, *, outcome, failure=None):
                              build_identity={'experiment_key': key}, retained_logs=logs)
     path = attempt / 'resource-receipt.json'
     write_resource_receipt(path, receipt)
-    verify_resource_receipt(receipt, expected_budget=budget.identity)
+    verify_resource_receipt(receipt, expected_budget=budget.identity,
+                            expected_build_identity={'experiment_key': key})
     return path
 
 

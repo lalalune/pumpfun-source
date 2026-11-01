@@ -120,7 +120,8 @@ class ResourceBudgetTests(unittest.TestCase):
 
     def test_receipt_verifier_recomputes_minimum(self):
         monitor, receipt = self.valid_receipt()
-        result = R.verify_receipt(receipt, expected_budget=monitor.identity)
+        result = R.verify_receipt(receipt, expected_budget=monitor.identity,
+                                  expected_build_identity={'source_sha256': 'a' * 64})
         self.assertTrue(result['accepted'])
         self.assertEqual(next(iter(result['minimum_observed_free_bytes'].values())), 800)
 
@@ -131,9 +132,18 @@ class ResourceBudgetTests(unittest.TestCase):
         changed = copy.deepcopy(receipt); changed['observations'][0]['filesystems'][0]['below_floor'] = True; mutations.append(changed)
         changed = copy.deepcopy(receipt); changed['observations'][0]['sequence'] = 9; mutations.append(changed)
         changed = copy.deepcopy(receipt); changed['budget']['implementation_sha256'] = '0' * 64; mutations.append(changed)
+        changed = copy.deepcopy(receipt); changed['outcome'] = 'infrastructure_failure'; mutations.append(changed)
+        changed = copy.deepcopy(receipt); changed['candidate_published'] = 1; mutations.append(changed)
+        changed = copy.deepcopy(receipt); changed['guard_fired'] = {'sequence': 0, 'phase': 'admission', 'classification': 'resource_budget_exceeded'}; mutations.append(changed)
         for changed in mutations:
             with self.subTest(mutation=mutations.index(changed)), self.assertRaises(ValueError):
                 R.verify_receipt(changed, expected_budget=monitor.identity)
+
+    def test_stale_build_identity_is_rejected(self):
+        monitor, receipt = self.valid_receipt()
+        with self.assertRaisesRegex(ValueError, 'build identity'):
+            R.verify_receipt(receipt, expected_budget=monitor.identity,
+                             expected_build_identity={'source_sha256': 'b' * 64})
 
     def test_stale_budget_identity_is_rejected(self):
         _, receipt = self.valid_receipt()

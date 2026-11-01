@@ -274,7 +274,7 @@ def atomic_write_receipt(path, receipt):
     return path
 
 
-def verify_receipt(value, *, expected_budget=None):
+def verify_receipt(value, *, expected_budget=None, expected_build_identity=None):
     """Independently recompute internal receipt acceptance."""
     if isinstance(value, (str, os.PathLike)):
         value = json.loads(Path(value).read_text(encoding='utf-8'))
@@ -296,10 +296,13 @@ def verify_receipt(value, *, expected_budget=None):
     for row in filesystems:
         if (not isinstance(row, dict) or type(row.get('device')) is not int
                 or not isinstance(row.get('probe_path'), str)
-                or not isinstance(row.get('monitored_paths'), list)):
+                or not isinstance(row.get('monitored_paths'), list)
+                or not row['monitored_paths']
+                or not all(isinstance(path, str) and path for path in row['monitored_paths'])):
             raise ValueError('invalid filesystem identity')
         expected_devices.append(row['device'])
-    if len(set(expected_devices)) != len(expected_devices):
+    if (len(set(expected_devices)) != len(expected_devices)
+            or expected_devices != sorted(expected_devices)):
         raise ValueError('duplicate filesystem identity')
     observations = value.get('observations')
     if not isinstance(observations, list) or not observations:
@@ -344,10 +347,30 @@ def verify_receipt(value, *, expected_budget=None):
             raise ValueError('resource guard evidence is inconsistent')
     if value.get('failure_classification') == 'resource_budget_exceeded' and guard is None:
         raise ValueError('resource failure is missing guard evidence')
+    failure = value.get('failure_classification')
+    outcome = value.get('outcome')
+    if failure is not None and (not isinstance(failure, str) or not failure):
+        raise ValueError('invalid resource failure classification')
+    if outcome not in ('running', 'admitted', 'completed', 'success',
+                       'infrastructure_failure'):
+        raise ValueError('invalid resource operation outcome')
+    if outcome == 'infrastructure_failure' and failure is None:
+        raise ValueError('infrastructure resource receipt has no failure classification')
+    if outcome != 'infrastructure_failure' and failure is not None:
+        raise ValueError('successful/running resource receipt carries a failure classification')
+    if guard is not None and failure != 'resource_budget_exceeded':
+        raise ValueError('crossed resource floor is not classified as a resource failure')
+    measurement_failures = [observation for observation in observations
+                            if observation.get('measurement_error') is not None]
+    if failure == 'resource_measurement_unavailable' and not measurement_failures:
+        raise ValueError('measurement failure classification has no failed observation')
     if type(value.get('candidate_published')) is not bool:
         raise ValueError('candidate publication state must be boolean')
-    if not isinstance(value.get('build_identity'), dict):
+    build_identity = value.get('build_identity')
+    if not isinstance(build_identity, dict):
         raise ValueError('resource receipt build identity must be an object')
+    if expected_build_identity is not None and build_identity != expected_build_identity:
+        raise ValueError('stale or unexpected resource build identity')
     if not isinstance(value.get('retained_logs'), list):
         raise ValueError('resource receipt retained logs must be an array')
     return {'accepted': True, 'observation_count': len(observations),

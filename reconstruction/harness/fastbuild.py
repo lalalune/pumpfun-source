@@ -299,7 +299,8 @@ def _write_resource_receipt(budget, path, *, outcome, failure=None,
                              candidate_published=published,
                              build_identity=identity, retained_logs=logs)
     atomic_write_receipt(path, receipt)
-    verify_receipt(receipt, expected_budget=budget.identity)
+    verify_receipt(receipt, expected_budget=budget.identity,
+                   expected_build_identity=identity)
     return str(path)
 
 
