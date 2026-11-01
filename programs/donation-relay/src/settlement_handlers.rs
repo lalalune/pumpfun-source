@@ -34,40 +34,62 @@ pub fn close_epoch(accounts:&mut CloseDonationEpochV1,args:crate::codec::wire::C
  Ok(DonationEpochClosedV1Event {daas_event_discriminator:DaasEventDiscriminator::DonationEpochClosedV1,config_id:accounts.debouncer.config_id,mint:accounts.debouncer.mint,epoch,gross_epoch_amount:gross})
 }
 
+#[inline(never)]
+pub(crate) fn distribute_after_prechecks(accounts:&DistributeAfterJustSwappingV1<'_>)->Result<()> {
+ if !(accounts.distribution.epoch<accounts.epoch_tracker.current_epoch) {return Err(distribution_error!("programs/contracts/src/instructions/v1/relayer_only/distribute/distribute_after_just_swapping.rs",EpochNotClosed,88));}
+ if accounts.distribution.state!=DistributionV1State::Initialized {return Err(distribution_error!("programs/contracts/src/instructions/v1/relayer_only/distribute/distribute_after_just_swapping.rs",InvalidState,93));}
+ if accounts.debouncer.mint!=accounts.distribution.mint {return Err(distribution_error!("programs/contracts/src/instructions/v1/relayer_only/distribute/distribute_after_just_swapping.rs",InvalidMint,98).with_pubkeys((accounts.debouncer.mint,accounts.distribution.mint)));}
+ Ok(())
+}
+
 pub fn distribute_after<'info>(accounts:&mut DistributeAfterJustSwappingV1<'info>,args:crate::codec::wire::DistributeAfterJustSwappingV1,remaining:&'info [AccountInfo<'info>])->Result<DonationEpochProcessedV1Event> {
  let crate::codec::wire::DistributeAfterJustSwappingV1 {shares}=args;
- if !(accounts.distribution.epoch<accounts.epoch_tracker.current_epoch) {return Err(distribution_error!("programs/contracts/src/instructions/v1/relayer_only/distribute/distribute_after_just_swapping.rs",EpochNotClosed,91));}
- if accounts.distribution.state!=DistributionV1State::Initialized {return Err(distribution_error!("programs/contracts/src/instructions/v1/relayer_only/distribute/distribute_after_just_swapping.rs",InvalidState,96));}
- if accounts.debouncer.mint!=accounts.distribution.mint {return Err(distribution_error!("programs/contracts/src/instructions/v1/relayer_only/distribute/distribute_after_just_swapping.rs",InvalidMint,101).with_pubkeys((accounts.debouncer.mint,accounts.distribution.mint)));}
+ distribute_after_prechecks(accounts)?;
  crate::tools::checks::admit_shares(shares.iter().map(|share|share.bps))?;
  let total=accounts.swap_receipt.swap_output_amount;
- if total==0 {return Err(distribution_error!("programs/contracts/src/instructions/v1/relayer_only/distribute/distribute_after_just_swapping.rs",InvalidBalance,110));}
- if accounts.output_distribution_token_account.amount<total {return Err(distribution_error!("programs/contracts/src/instructions/v1/relayer_only/distribute/distribute_after_just_swapping.rs",InvalidBalance,112));}
+ if total==0 {return Err(distribution_error!("programs/contracts/src/instructions/v1/relayer_only/distribute/distribute_after_just_swapping.rs",InvalidBalance,116));}
+ if accounts.output_distribution_token_account.amount<total {return Err(distribution_error!("programs/contracts/src/instructions/v1/relayer_only/distribute/distribute_after_just_swapping.rs",InvalidBalance,118));}
  let remaining=remaining.get(..shares.len()).ok_or(Code::InsufficientRemainingAccounts)?;
  let config=accounts.distribution.config_id;let mint=accounts.distribution.mint;let epoch=accounts.distribution.epoch.to_le_bytes();let bump=accounts.distribution.bump;
  let signer_seeds:&[&[&[u8]];1]=&[&[b"distribution_v1",config.as_ref(),mint.as_ref(),&epoch,&[bump]]];
  let transfers=crate::shared_distribution::distribute(crate::shared_distribution::DistributionContext {remaining,source:accounts.output_distribution_token_account.to_account_info(),mint:accounts.output_mint.to_account_info(),program:accounts.output_mint_program.to_account_info(),authority:accounts.distribution.to_account_info()},crate::shared_distribution::DistributionArgs::new(&shares,signer_seeds,total,accounts.output_mint_program.key,accounts.output_mint.decimals))?;
- accounts.output_distribution_token_account.reload()?;
- burn_and_close(BurnCloseContext {token:accounts.output_distribution_token_account.to_account_info(),mint:accounts.output_mint.to_account_info(),authority:accounts.distribution.to_account_info(),destination:accounts.signer.to_account_info(),program:accounts.output_mint_program.to_account_info()},accounts.output_distribution_token_account.amount,signer_seeds)?;
+ distribute_after_finish(accounts,signer_seeds)?;
  Ok(DonationEpochProcessedV1Event {daas_event_discriminator:DaasEventDiscriminator::DonationEpochProcessedV1,config_id:accounts.distribution.config_id,mint:accounts.distribution.mint,epoch:accounts.distribution.epoch,settled_amount:total,settlement_mint:accounts.output_mint.key(),transfers})
+}
+
+#[inline(never)]
+pub(crate) fn distribute_after_finish<'info>(accounts:&mut DistributeAfterJustSwappingV1<'info>,signer_seeds:&[&[&[u8]];1])->Result<()> {
+ accounts.output_distribution_token_account.reload()?;
+ burn_and_close(BurnCloseContext {token:accounts.output_distribution_token_account.to_account_info(),mint:accounts.output_mint.to_account_info(),authority:accounts.distribution.to_account_info(),destination:accounts.signer.to_account_info(),program:accounts.output_mint_program.to_account_info()},accounts.output_distribution_token_account.amount,signer_seeds)
+}
+
+#[inline(never)]
+pub(crate) fn distribute_non_swap_prechecks(accounts:&DistributeNonSwapOutputMintV1<'_>)->Result<()> {
+ if !(accounts.distribution.epoch<accounts.epoch_tracker.current_epoch) {return Err(distribution_error!("programs/contracts/src/instructions/v1/relayer_only/distribute/distribute_non_swap_output_mint.rs",EpochNotClosed,80));}
+ if accounts.distribution.state!=DistributionV1State::Initialized {return Err(distribution_error!("programs/contracts/src/instructions/v1/relayer_only/distribute/distribute_non_swap_output_mint.rs",InvalidState,85));}
+ if accounts.distribution.mint!=accounts.mint.key() {return Err(distribution_error!("programs/contracts/src/instructions/v1/relayer_only/distribute/distribute_non_swap_output_mint.rs",InvalidMint,91).with_pubkeys((accounts.distribution.mint,accounts.mint.key())));}
+ if accounts.debouncer.mint!=accounts.mint.key() {return Err(distribution_error!("programs/contracts/src/instructions/v1/relayer_only/distribute/distribute_non_swap_output_mint.rs",InvalidMint,96).with_pubkeys((accounts.debouncer.mint,accounts.mint.key())));}
+ Ok(())
 }
 
 pub fn distribute_non_swap<'info>(accounts:&mut DistributeNonSwapOutputMintV1<'info>,args:crate::codec::wire::DistributeNonSwapOutputMintV1,remaining:&'info [AccountInfo<'info>])->Result<DonationEpochProcessedV1Event> {
  let crate::codec::wire::DistributeNonSwapOutputMintV1 {shares}=args;
- if !(accounts.distribution.epoch<accounts.epoch_tracker.current_epoch) {return Err(distribution_error!("programs/contracts/src/instructions/v1/relayer_only/distribute/distribute_non_swap_output_mint.rs",EpochNotClosed,83));}
- if accounts.distribution.state!=DistributionV1State::Initialized {return Err(distribution_error!("programs/contracts/src/instructions/v1/relayer_only/distribute/distribute_non_swap_output_mint.rs",InvalidState,88));}
- if accounts.distribution.mint!=accounts.mint.key() {return Err(distribution_error!("programs/contracts/src/instructions/v1/relayer_only/distribute/distribute_non_swap_output_mint.rs",InvalidMint,94).with_pubkeys((accounts.distribution.mint,accounts.mint.key())));}
- if accounts.debouncer.mint!=accounts.mint.key() {return Err(distribution_error!("programs/contracts/src/instructions/v1/relayer_only/distribute/distribute_non_swap_output_mint.rs",InvalidMint,99).with_pubkeys((accounts.debouncer.mint,accounts.mint.key())));}
+ distribute_non_swap_prechecks(accounts)?;
  crate::tools::checks::admit_shares(shares.iter().map(|share|share.bps))?;
  let total=accounts.distribution.total_amount;
- if accounts.distribution_token_account.amount<total {return Err(distribution_error!("programs/contracts/src/instructions/v1/relayer_only/distribute/distribute_non_swap_output_mint.rs",InvalidBalance,111));}
+ if accounts.distribution_token_account.amount<total {return Err(distribution_error!("programs/contracts/src/instructions/v1/relayer_only/distribute/distribute_non_swap_output_mint.rs",InvalidBalance,117));}
  let remaining=remaining.get(..shares.len()).ok_or(Code::InsufficientRemainingAccounts)?;
  let config=accounts.distribution.config_id;let mint=accounts.distribution.mint;let epoch=accounts.distribution.epoch.to_le_bytes();let bump=accounts.distribution.bump;
  let signer_seeds:&[&[&[u8]];1]=&[&[b"distribution_v1",config.as_ref(),mint.as_ref(),&epoch,&[bump]]];
  let transfers=crate::shared_distribution::distribute(crate::shared_distribution::DistributionContext {remaining,source:accounts.distribution_token_account.to_account_info(),mint:accounts.mint.to_account_info(),program:accounts.token_program.to_account_info(),authority:accounts.distribution.to_account_info()},crate::shared_distribution::DistributionArgs::new(&shares,signer_seeds,total,accounts.token_program.key,accounts.mint.decimals))?;
- accounts.distribution_token_account.reload()?;
- burn_and_close(BurnCloseContext {token:accounts.distribution_token_account.to_account_info(),mint:accounts.mint.to_account_info(),authority:accounts.distribution.to_account_info(),destination:accounts.signer.to_account_info(),program:accounts.token_program.to_account_info()},accounts.distribution_token_account.amount,signer_seeds)?;
+ distribute_non_swap_finish(accounts,signer_seeds)?;
  Ok(DonationEpochProcessedV1Event {daas_event_discriminator:DaasEventDiscriminator::DonationEpochProcessedV1,config_id:accounts.distribution.config_id,mint:accounts.distribution.mint,epoch:accounts.distribution.epoch,settled_amount:total,settlement_mint:accounts.mint.key(),transfers})
+}
+
+#[inline(never)]
+pub(crate) fn distribute_non_swap_finish<'info>(accounts:&mut DistributeNonSwapOutputMintV1<'info>,signer_seeds:&[&[&[u8]];1])->Result<()> {
+ accounts.distribution_token_account.reload()?;
+ burn_and_close(BurnCloseContext {token:accounts.distribution_token_account.to_account_info(),mint:accounts.mint.to_account_info(),authority:accounts.distribution.to_account_info(),destination:accounts.signer.to_account_info(),program:accounts.token_program.to_account_info()},accounts.distribution_token_account.amount,signer_seeds)
 }
 
 pub fn just_swap<'info>(accounts:&mut JustSwapV1<'info>,args:crate::codec::wire::JustSwapV1,remaining:&[AccountInfo<'info>],receipt_bump:u8)->Result<DonationEpochJustSwappedV1Event> {
@@ -106,21 +128,21 @@ pub fn swap_then_distribute<'info>(accounts:&mut SwapThenDistributeV1<'info>,arg
 }
 
 pub fn distribute_exact_non_swap<'info>(accounts:&mut DistributeNonSwapOutputMintV1<'info>,transfers:Vec<ExactTransfer>,remaining:&'info [AccountInfo<'info>])->Result<DonationEpochProcessedExactV1Event> {
+ distribute_non_swap_prechecks(accounts)?;
  let total=accounts.distribution.total_amount;
  let config=accounts.distribution.config_id;let mint=accounts.distribution.mint;let epoch=accounts.distribution.epoch.to_le_bytes();let bump=accounts.distribution.bump;
  let signer_seeds:&[&[&[u8]];1]=&[&[b"distribution_v1",config.as_ref(),mint.as_ref(),&epoch,&[bump]]];
  crate::shared_distribution::distribute_exact(crate::shared_distribution::DistributionContext {remaining,source:accounts.distribution_token_account.to_account_info(),mint:accounts.mint.to_account_info(),program:accounts.token_program.to_account_info(),authority:accounts.distribution.to_account_info()},&transfers,signer_seeds,total,accounts.token_program.key(),accounts.mint.decimals)?;
- accounts.distribution_token_account.reload()?;
- burn_and_close(BurnCloseContext {token:accounts.distribution_token_account.to_account_info(),mint:accounts.mint.to_account_info(),authority:accounts.distribution.to_account_info(),destination:accounts.signer.to_account_info(),program:accounts.token_program.to_account_info()},accounts.distribution_token_account.amount,signer_seeds)?;
+ distribute_non_swap_finish(accounts,signer_seeds)?;
  Ok(DonationEpochProcessedExactV1Event {daas_event_discriminator:DaasEventDiscriminator::DonationEpochProcessedExactV1,config_id:accounts.distribution.config_id,mint:accounts.distribution.mint,epoch:accounts.distribution.epoch,settled_amount:total,settlement_mint:accounts.mint.key(),transfers})
 }
 
 pub fn distribute_exact_after<'info>(accounts:&mut DistributeAfterJustSwappingV1<'info>,transfers:Vec<ExactTransfer>,remaining:&'info [AccountInfo<'info>])->Result<DonationEpochProcessedExactV1Event> {
+ distribute_after_prechecks(accounts)?;
  let total=accounts.swap_receipt.swap_output_amount;
  let config=accounts.distribution.config_id;let mint=accounts.distribution.mint;let epoch=accounts.distribution.epoch.to_le_bytes();let bump=accounts.distribution.bump;
  let signer_seeds:&[&[&[u8]];1]=&[&[b"distribution_v1",config.as_ref(),mint.as_ref(),&epoch,&[bump]]];
  crate::shared_distribution::distribute_exact(crate::shared_distribution::DistributionContext {remaining,source:accounts.output_distribution_token_account.to_account_info(),mint:accounts.output_mint.to_account_info(),program:accounts.output_mint_program.to_account_info(),authority:accounts.distribution.to_account_info()},&transfers,signer_seeds,total,accounts.output_mint_program.key(),accounts.output_mint.decimals)?;
- accounts.output_distribution_token_account.reload()?;
- burn_and_close(BurnCloseContext {token:accounts.output_distribution_token_account.to_account_info(),mint:accounts.output_mint.to_account_info(),authority:accounts.distribution.to_account_info(),destination:accounts.signer.to_account_info(),program:accounts.output_mint_program.to_account_info()},accounts.output_distribution_token_account.amount,signer_seeds)?;
+ distribute_after_finish(accounts,signer_seeds)?;
  Ok(DonationEpochProcessedExactV1Event {daas_event_discriminator:DaasEventDiscriminator::DonationEpochProcessedExactV1,config_id:accounts.distribution.config_id,mint:accounts.distribution.mint,epoch:accounts.distribution.epoch,settled_amount:total,settlement_mint:accounts.output_mint.key(),transfers})
 }
