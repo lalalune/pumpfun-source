@@ -1,0 +1,43 @@
+{
+  "lane": "w16a05-cto-skelsplice",
+  "wave": 16,
+  "target": {"window": "0x22a10", "function": "admin_cto::execute", "file": "programs/pump/src/creator/admin_cto.rs", "pinned_bytes": 27400},
+  "base": {"main": "9bd38c7d5", "admin_cto_source": "86e2a6b74", "ratio": 0.67376, "slots_diff": 3124, "M": 2249, "normalized": 1034, "raw": 1034},
+  "result": "notes only; no landable change. Two-region composites from the archive do not beat main.",
+  "best_zero_loss": {"name": "main", "ratio": 0.67376, "slots_diff": 3124, "bytes": 27400},
+  "best_realised_composite": {"name": "Lsh_t1n", "genes": "v7c+lv_ny+lv_le+lv_cf_skc+lv_h289+lv_sh_ifelse+t1n", "M": 2217, "ratio": 0.66417, "bytes": 27400, "slots_diff": 3042, "measured_with": "raw-IR oracle (capraw+rx), not built"},
+  "index": {"paths": 10027, "unique_builds": 3576, "filter": "26-29 KB, res ratio >= 0.60 or none", "tools": ["tools/idx.py", "tools/regtab.py", "tools/pairs.py", "tools/splcheck.py", "tools/splice2.py", "tools/frontier.py", "tools/regprof.py", "tools/regmap.py", "tools/prov.py"]},
+  "splice_envelope": {
+    "top_clean_pair": {"front": "w15a03-cto-stitch15/L_N3h", "back": "w15a02-cto-t312repay/M_g1", "cut_orig": "0x1c68", "M": 2281, "dM": 32, "bytes": 27400},
+    "clean_of_top400": 180,
+    "families": {"VC validate closure front + near-main back": "+29..+32", "CB cashback-early basin front + fru1/e1 TCF back": "+20..+23", "near-main front + VC wallet back": "+21..+22"},
+    "table": "data/top20.json"
+  },
+  "realised_composites": [
+    {"name": "LN3h", "genes": "VC", "bytes": 27224, "M": 2105},
+    {"name": "LN3h_g1", "genes": "VC+g1 (pair #1)", "bytes": 27256, "M": 2100},
+    {"name": "LN3h_c0s", "genes": "VC + curve store holder==Some(true)", "bytes": 27376, "M": 2189},
+    {"name": "LN3h_c0s_shie", "genes": "VC + c0s + sharing if-let-else", "bytes": 27376, "M": 2203},
+    {"name": "Lsh", "genes": "VC + sharing if-let-else", "bytes": 27224, "M": 2139},
+    {"name": "Lsh_t1n", "genes": "VC + sharing if-let-else + t1n", "bytes": 27400, "M": 2217},
+    {"name": "Lsh_c0s_mv51", "genes": "VC + c0s + sh_ifelse + mv_5_1", "bytes": 27360, "M": 2213},
+    {"name": "At1a", "genes": "CB + t1a", "bytes": 27408, "M": 2235},
+    {"name": "At1a_fru1", "genes": "CB + t1a + fru1 (pair #10)", "bytes": 27408, "M": 2226},
+    {"name": "Lb_fru1", "genes": "CB + fru1", "bytes": 27400, "M": 2225}
+  ],
+  "mechanisms": [
+    "VC closure computes the holder test as and i8 %holder,1; GVN reuses it at the #3409 curve-store re-derivation holder.unwrap_or(false), so the masked holder lives to the store (original [r10-0x950]); main's back half was tuned without that live range.",
+    "Two RA basins: A (main, c0s, c0h, t1n) has the original's TCF accounts register r8 and main's wallet swap; B (VC default) has the original's wallet registers (r9, r7) but moves the TCF accounts pointer to r6 (TCF -122). No archived build has both.",
+    "holder==Some(true) at the curve store breaks the GVN reuse (it is GVN'd to the block's and i8 %0,-3 holder instead); if-let, matches!, unwrap_or_default keep the closure form.",
+    "if let Some(val)=sharing_update{..}else{} repairs most of the w14a42 curve-block pre-merge in VC (tail_hot -33 -> -2 in basin B, -34 -> -20 in basin A).",
+    "Splices that cut inside a duplicated or dropped error block are not functions (157 calls / error-line multiset check); every le306 front at 0x1060 fails."
+  ],
+  "rejected": ["two-region splice composites of the archive (VC, CB, wallet families)", "VC + g1", "CB + fru1/fru6", "VC + TCF-line genes (fru2, s_tai2, tai_tv, k3, sw1)", "VC + mv_5_1 / m_crl2 in basin B", "VC basin A + mv_5_1 / t1a / crl2 / c0s"],
+  "unresolved": ["a source lever that gives the VC basin-B wallet with the basin-A TCF", "sharing CPI naming under L2_lf_au (skeleton +84, M -50 in region)"],
+  "next_ideas": [
+    "Adopt VC in basin B (Lsh: front +26, wallet +15, tail -2) and re-tune only the TCF/sharing/sweep naming (-147) under it; revisit the back-half landings since #3409 (#3430, #3437, #3480, #3495, #3621, #3666) on that base.",
+    "Region-local naming repair of L2_lf_au's sharing CPI (skM +84) and H_hkl2crl3's entry (skM +20 at M = main).",
+    "Re-run idx.py + pairs.py + splcheck.py on new captures (about 3 minutes)."
+  ],
+  "ledger": {"approach": "skelsplice", "keys": "0x22a10-w16-9bd38c7-skelsplice-*"}
+}

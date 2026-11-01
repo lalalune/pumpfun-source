@@ -149,6 +149,19 @@ The post-opt IR of LN3h and main differs after validate in exactly two places (n
 2. **The fee-Some test** at the curve store is `icmp eq %fee.tag,0` (VC) against `icmp eq %fee.tag,1` (main). Flipping
    it back in the IR oracle changes nothing (2,187 both).
 
+**Two register-allocation basins** (`tools/regmap.py`: original register -> ours, over skeleton-matched instructions):
+
+| build | TCF orig r8 (accounts) | TCF orig r9 | wallet orig r9 | wallet orig r7 | TCF dM | wallet dM |
+| --- | --- | --- | --- | --- | ---: | ---: |
+| main | r8 33/43 | r0 19/24 | r7 22/37 | r7 31, r8 12 /45 | 0 | 0 |
+| Lsh_t1n (basin A) | r8 33/43 | r0 19/24 | r7 22/37 | r7 32, r8 11 /45 | -12 | -14 |
+| Lsh, LN3h (basin B) | r6 20, r9 13 /42 | r5 19/23 | **r9 32/38** | **r7 43/47** | -122 | +15 |
+
+Basin A has main's TCF (accounts pointer in r8, as in the original) and main's wallet swap (original r9 in r7, original r7
+partly in r8). Basin B has the original's wallet registers but moves the TCF accounts pointer to r6. The VC family sits
+in basin B by default; `c0s`, `c0h` and `t1n` move it to basin A, and every basin-A VC variant pays the wallet back.
+The original has the basin-A TCF and the basin-B wallet at once; no archived build or screened composite does.
+
 The remaining tail_hot loss is w14a42's curve-block placement (the curve update block is pre-merged after the sharing
 test instead of falling through); `if let Some(val)=sharing_update{..}` repairs 14 of its 34.
 
