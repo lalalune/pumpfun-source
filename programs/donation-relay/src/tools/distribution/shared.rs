@@ -14,7 +14,7 @@ pub fn distribute<'info>(ctx:DistributionContext<'info,'info>,args:DistributionA
  if ctx.remaining.len()<shares.len() {return Err(Code::InsufficientRemainingAccounts.into());}
  let weights:Vec<u16>=shares.iter().map(|share|share.bps).collect();
  let amounts=fair_amounts(total,&weights)?;
- transfer_rows(&ctx,shares.iter().zip(amounts.iter()).map(|(share,&amount)|ExactTransfer {share_type:share.share_type,address:share.address,amount}),decimals,expected_program,seeds)?;
+ transfer_rows(&ctx,shares.iter().zip(amounts.iter()).map(|(share,amount)|ExactTransfer {share_type:share.share_type,address:share.address,amount:*amount}),decimals,expected_program,seeds)?;
  Ok(shares.iter().zip(amounts.iter()).map(|(share,amount)|Receipt {share_type:share.share_type.clone(),address:share.address,amount:*amount,bps:share.bps}).collect())
 }
 
