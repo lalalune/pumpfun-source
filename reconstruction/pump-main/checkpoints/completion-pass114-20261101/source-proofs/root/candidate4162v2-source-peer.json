@@ -1,0 +1,48 @@
+{
+  "schema": "pump-pass114-root-updated4162-source-peer-v1",
+  "status": "PASS_CURRENT_SOURCE_AND_FRESH_MAIN_SCORE_RUNTIME",
+  "reviewed_original_head": "fcc2dc457b8c408cfec21ce8034b33217d6b5cf8",
+  "integration_revision": null,
+  "current_main_parent": "a596efe59d03db759c75b51f8941e4f5664c1933",
+  "program_path": "programs/pump/src/creator/admin_cto.rs",
+  "program_sha256": "e57333592ac09f21b45c5847f2580f525a1e44399ed894f27ac6750531744578",
+  "source_v3_sha256": "75dff1fae41b6c2c714424deda198546f7543628937b635bfe4dc25292223629",
+  "source_files": 311,
+  "physical_lines": 772,
+  "root_read_scope": [
+    "Historical full source source-peer unchanged; all updated 166 readable added lines and independent exact-FCC source/probe reviews read again in current turn.",
+    "FCC vs latest a596 production source replaces alternate T validator shaping with measured stronger aggregate; complete source equality to physical FCC required in eventual integration."
+  ],
+  "checks": [
+    "Each AccountInfo macro preserves key/owner/rent/flags and exactly one cloned lamports/dataRc; weightedclone helpers retain existing pinned-validRc count/trap behavior with legal identity branch probabilities. No CPI or mutableaccountoperation occurs during the clone-run pointer reloads.",
+    "hk72B allocation base captured before sharedholderkeyreference; disjoint ranges prefix0:32, event signerarray32:48, validAdminCtopointer48:56, initializedcashbacku64 56:64, bumpbyte64:65. Bump and scratch values are initialized before volatile reads; no wholeallocation mutable reborrow.",
+    "Cashback is parked before sharingCPI and reloaded once at same semanticcurvefieldstore; scratchpointer always reloads the same live immutableaccountscontext. Sharedreferences have lastuses before later curve&mut block.",
+    "Initialized Optionbool lowbit predicate and OptionPubkey0/1payloadguard match actual pinned target layout; zero-keyerror rebuild initializes all32bytes before Pubkeyassume_init. Existing Optionu64 tagguard/Someunwrap validated separately.",
+    "Private CtoState order and late mayhem write preserve values/error priority; 7/25byte target fragments initialized on both successarms before full32byte reconstruction, errorsreturnbeforepayloadread.",
+    "cvk Boxpointee actualAccountbyte165 maps initialized is_holder_reward, notpadding; pointer remains live across synchronousCPI, no Boxreallocation/reload/dropreplace occurs.",
+    "FinaleventCPI explicit source matches installed Anchor0.31.1eventmacro in accountmetas/discriminator/data/signers/error mapping; addedbumpstoresremainoutsidekey/signertail and do not change message.",
+    "No embedded assembly or deployed-byte arrays, privatecompilerorpost-optIRpatches, target-input substitutions or stoppedcampaignexecution.",
+    "New rcw nonzero assume is valid only for initialized live Rc; actual weighted clone arguments remain live and clones preserve fields/count/order.",
+    "Early pointer-slot store dominates reloads; unmasked lowbyte cashback bool remains 0/1 on pinned little-endian target. Tail layout remains key0:32/signers32:48/pointer48:56/cashback56:64/scratch64:65 in72 bytes.",
+    "Actual FCC q passes vs own fresh a596:2361 to2389 tokens, raw/normalized1034/1035 retained and27400 bytes. Positions3093 to3289 worsen196; no whole-window byte gain.",
+    "Fresh388 paired cases/776canonical signature vectors/7controls and fresh22cross/28signatures/4controls+replay admitted for exactnew image."
+  ],
+  "findings": [],
+  "input_sha256": {
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/root/4162-updated-added-readable.txt": "faa614f9d89794f6ede9663cbf05c7b5ad40553c6ca0ffb58e8e7c91869e8756",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/review4162v2/source-review.json": "e3c5908fe7fc22d3263b541f3d051fb33a48731a40f41b843177d24199e480db",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162-v2/source-peer/review.json": "789b3910a310773b446eeb67c87a997beec7522bc8b5a945c7757cad69603fd3",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162-v2/source-peer/storage-probe/review.json": "589e2edf9399a48cfeef3f4ca0f71d9acbca5f33b2025964669f8011095a83b6",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/late-prs/official-probe/review.json": "2f138c7a2b8df2f5f564a3dbd40bee1d72f2a7a07fd5e7b798288f2b1ccd47e8",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162v2/qualification.json": "6d2cbe7741aa43057cb62253736852a077ebf5dc266bfb7ceacd25900b023092",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/maina596/qualification.json": "15b9debd3aac0a01e7c12a37c950b19583147d5abea2fedd455d37d110c2c686",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162v2/runtime/runtime-validation.json": "41cf94be004e8ce9302925aba3c8474d8818e1b8afc244983d3431a659202509",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162v2/runtime/cross-program/binding.json": "cefe0dd3f4f843075a135f773c316aaa9eceff1eb4f38090bfbed7ecdaaebc66"
+  },
+  "limits": [
+    "Pinned official compiler/target layout and valid-live Anchor/Rc/Box context; not portable unsafe Rust.",
+    "Finite runtime is bounded; token progress is not completed byte progress or whole binary identity.",
+    "Earlier failed643 and old6acf/882 outcomes remain historical and excluded from current-image acceptance.",
+    "Remote merge and hosted CI remain separate; current tree and head must be checked before remote merge."
+  ]
+}

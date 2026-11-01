@@ -1,0 +1,62 @@
+{
+  "schema": "pump-pass114-final-integration-v3-current665-score-binding-v1",
+  "status": "PASS_SOURCE_EQUIVALENCE_AND_LATEST665_SCORE_GATE_RUNTIME_REMOTE_ADMISSION_SEPARATE",
+  "integration_revision": "031cf408f622edb0cdbbfa0cbeff0b9366772c29",
+  "actual_built_revision": "fcc2dc457b8c408cfec21ce8034b33217d6b5cf8",
+  "latest_main_actual_build_revision": "665ffe46b1896a03e056dcffea8ed9826b8f58f1",
+  "source_sha256": "75dff1fae41b6c2c714424deda198546f7543628937b635bfe4dc25292223629",
+  "loaded_image_sha256": "c5caa63750d2615a93b3c25fae2154e4949d60ad559b9f61c1446f180a4de15f",
+  "unstripped_sha256": "176a8f64d84f45288818326bba4bd3cfd6941d4a83a050038ed7535fb7b74dd4",
+  "source_equivalence": {
+    "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/final-integration-v3/source-binding.json",
+    "sha256": "af916ebd0b766390f0a5091ee419819178a2d832d4b85f3301ff251103aa0716",
+    "scope": "Earlierpending665scorelabelisretainedasastage;thisappend-onlyrecordbindsnowcompletedcurrentcomparison."
+  },
+  "selected_qualification": {
+    "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162v2/qualification-vs-main665.json",
+    "sha256": "27a3714f350f40d169ff3bd463cc334af2a609488ac735f03bb0c5e37c48b4c2",
+    "status": "PASS_CANDIDATE_LATEST_MAIN_GAIN_RUNTIME_SEPARATE"
+  },
+  "selected_score": {
+    "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162v2/score-vs-main665.json",
+    "sha256": "3dc04ac0cbbdd88926dbceadbdab7856e651ea1db4702b109cf9171d95098144",
+    "summary": {
+      "candidate_sha256": "176a8f64d84f45288818326bba4bd3cfd6941d4a83a050038ed7535fb7b74dd4",
+      "normalized": 1034,
+      "raw": 1034,
+      "total": 1035,
+      "matched_text_bytes": 1764808,
+      "gains": [],
+      "losses": [],
+      "raw_gains": [],
+      "raw_losses": []
+    }
+  },
+  "latest_main_qualification": {
+    "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/main665/qualification.json",
+    "sha256": "ad066f9d7c962250bf53530867a50d6b641efefdf4c0254e2a088b3dcfd19f62"
+  },
+  "token_evidence": {
+    "original_tokens": 3339,
+    "candidate_tokens": 3339,
+    "matched_tokens": 2389,
+    "ratio": 0.71548,
+    "baseline_matched_tokens": 2367,
+    "matched_token_change": 22,
+    "baseline_ratio": 0.70889,
+    "baseline_positions": 3091,
+    "candidate_positions": 3289,
+    "positional_difference_change": 198
+  },
+  "limits": [
+    "Exact-imageFCCruntimeandrootremoteadmissionstillseparate;thisrecorddoesnotperformremoteaction.",
+    "NoextraSBFbuildforintegrationbecauseallsource/buildinputsmatchactualFCC.",
+    "Historicala596/935/6acf/failed643proofsremainunchanged,separatefromthislatest665binding."
+  ],
+  "execution": {
+    "SBF_builds": 0,
+    "VM_transactions": 0,
+    "remote_calls": 0,
+    "repository_source_edits": false
+  }
+}

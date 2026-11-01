@@ -1,0 +1,79 @@
+{
+  "schema": "pump-pass114-final-integration-v3-source-binding-v1",
+  "status": "PASS_SOURCE_BUILD_INPUT_EQUIVALENCE_LATEST_MAIN665_SCORE_PENDING",
+  "integration_revision": "031cf408f622edb0cdbbfa0cbeff0b9366772c29",
+  "branch": "codex/pass114-final-integration-v3",
+  "worktree": "/Users/shawwalters/.codex/worktrees/pump-pass114-final-integration-v3/pumpfun-source",
+  "parents": [
+    "665ffe46b1896a03e056dcffea8ed9826b8f58f1",
+    "fcc2dc457b8c408cfec21ce8034b33217d6b5cf8"
+  ],
+  "current_main_revision": "665ffe46b1896a03e056dcffea8ed9826b8f58f1",
+  "actual_built_revision": "fcc2dc457b8c408cfec21ce8034b33217d6b5cf8",
+  "actual_built_revision_ancestor": true,
+  "programs_crates_rootCargo_harness_tree_equal_actual_built": true,
+  "canonical20_build_and_scoring_inputs_equal_actual_built": true,
+  "source_v3_snapshot_equal_actual_built": true,
+  "source_sha256": "75dff1fae41b6c2c714424deda198546f7543628937b635bfe4dc25292223629",
+  "source_files": 311,
+  "source_directories": 10,
+  "program_source_sha256": "e57333592ac09f21b45c5847f2580f525a1e44399ed894f27ac6750531744578",
+  "current_main_all_NOTES_and_other_nonprogramfiles_unchanged": true,
+  "only_delta_from_current_main": [
+    "programs/pump/src/creator/admin_cto.rs"
+  ],
+  "clean_worktree": true,
+  "conflict_resolution": "Singleadmin_cto.rs contentconflict resolvedwholefileexactFCC. Orderedmain665+FCCparentsretained. Currentmain4155eventNOTEandallotherdocs retainedbyteforbyte; nonewprogramspelling.",
+  "source_peer": {
+    "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/review4162v2/source-review.json",
+    "sha256": "e3c5908fe7fc22d3263b541f3d051fb33a48731a40f41b843177d24199e480db"
+  },
+  "current_main_delta_peer": {
+    "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/review-main665/source-review.json",
+    "sha256": "8e86b3988b64d354724c1654daa916cde299b189bc59589a9c8ed11fd545106b"
+  },
+  "actual_prior_measured_build_qualification": {
+    "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162v2/qualification.json",
+    "sha256": "6d2cbe7741aa43057cb62253736852a077ebf5dc266bfb7ceacd25900b023092",
+    "scope": "PhysicalFCCfullscore/metric/sourcequalificationretainedunchanged; itsformerbaselinea596doesnotqualifylatest665. Newcurrent665comparisonmustberecordedseparately."
+  },
+  "pending_current_comparison": {
+    "expected_path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162v2/qualification-vs-main665.json",
+    "expected_baseline_actual_build_revision": "665ffe46b1896a03e056dcffea8ed9826b8f58f1",
+    "status": "PENDING_OWN_MAIN665_BUILD_AND_FRESH_CURRENT_NO_LOSS_GAIN_GATE"
+  },
+  "tools_and_scoring_input_sha256": {
+    "reconstruction/harness/fastbuild.py": "c98de708d063186373b092de893235bef4dd9cf62940fd9c47fadae461efed00",
+    "reconstruction/harness/source_inputs.py": "6fde8e438f119aa3ecf003bc71a12fb7da0640cfea241216cba47a242e8cd2fc",
+    "reconstruction/harness/build_process.py": "88b61b7dfecd077f97f3a093b9348078067f9fdea07d9efccb0cb324d094d517",
+    "reconstruction/harness/link_order.py": "53de3cf5e6ff004b03319dc530ef4902d3b67734aced025fbc1957846d452e81",
+    "reconstruction/harness/score.py": "6eae59ba87809bdd6aa42d6227c5598d8ea2196051bf0d796e8020bdb14df714",
+    "reconstruction/harness/score_admission.py": "885b4b55229e3d87086b93c4e8227da8e4ec2713ccd6691fa40a7538d66c3a45",
+    "reconstruction/harness/elf_symbols.py": "f7a69a4b5324959398365b63f20ea9dda8eab223d8790a608c778549d3b966c0",
+    "reconstruction/harness/instruction_stream.py": "be6a3f3a0274d4ae819a6288293b5a1f9b040a322a0414a240217ab96a3dee45",
+    "reconstruction/harness/llvm_tools.py": "306a50b2ba57f350e250d7c7f596ac400627ecfd24248b2291578b5ddf3fe8af",
+    "reconstruction/harness/original_input.py": "9d00b5c253405cec4d2ef292086c6e88d758bd3fe7f8c6a3cba23af114f01ade",
+    "reconstruction/harness/target_metric.py": "909f091fc2bfc1a252f8a7bd557dfd0c38f870bdf6898b0e3c93ec7db195f6a4",
+    "reconstruction/harness/win.py": "8862046dcb0e01673166e68a0b0e5122be4738f0780bcf2f58afc8416bd8cdea",
+    "reconstruction/harness/compare_scores.py": "e59024567db9b2373fe01d377f42308554434d182f5981153cd6814412245b74",
+    "reconstruction/base/functions.tsv": "fb2c0a47514567d65eb45c1e268dacd5291e4659bb7dceb575a767dc20bcaff8",
+    "evidence/original/pump/deployed.so": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
+    "reconstruction/harness/pump_link_lld.py": "03b61b39cf5e85512086c87298ac302cec78378b00c09c594715d18c0aa86e5b",
+    "reconstruction/harness/pump_link_lld.sh": "f613b208d47e261e8690fb233e36bd0f0b364ba075c7f6f55e5bf9a435f7fc59",
+    "reconstruction/harness/sbf_default.ld": "5e8370b9380f55411d827721e2e43c8cfd1eac71d1383e20b938397bc0bd82c3",
+    "reconstruction/harness/pump_physical_source_wrapper.py": "e9493709faefa9b829ebb63004e1251e96e9be5456e69174ffaeeec836d5d72a",
+    "reconstruction/harness/pump_physical_source_wrapper.sh": "0636b61fbbb2f5022f5ce4e5f4cc580617ac2758a95cc75eff84056295f61527"
+  },
+  "files": {
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/final-integration-v3/source-inputs.json": "ec2b5265c206cc4c56f7801457050ebf5fde1598dd54cb89b5103619391d0cae",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/final-integration-v3/delta-from-current-main665.diff": "c72ac1688b1977481472c9f17b50281f3534e2d77c2fd6262291304c5c4ac1a6",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/final-integration-v3/delta-from-actual-built-inputs.diff": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/final-integration-v3/git-show.txt": "3fb63ce06d7b3b643b5f5303ea5635e615cb1d2bc0912b7a3d7e27e97adca8e7"
+  },
+  "findings": [],
+  "limits": [
+    "Noextrabuildneededforthislocalintegrationsourcebecauseeveryactualbuildinput/modeequalsFCC; actualcompiledrefremainsFCC.",
+    "Thissourceproofisnotfinalmergeadmission:latest665freshphysicalbaseline/scoreandexactFCCruntimeareseparaterootgates.",
+    "NoSBFbuild,VM,remotepush/PR/merge/closeorbranchdeletiononthisintegrationlane."
+  ]
+}
