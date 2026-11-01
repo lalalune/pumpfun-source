@@ -7,7 +7,7 @@ Rust that keeps every window byte-identical.
 | --- | --- | --- | --- |
 | (a) | `admit_associated_token_account(.., payer:*const AccountInfo<'info>, ..)` + `let payer=unsafe{&*payer};` (buy_v2.rs:10, :61) | 0x14910 (callers include swap_hop 0x5b3b0) | **kept**: no safe parameter type reproduces it (IR reason below) |
 | (b) | `let _=&c;` dummy borrow before `require_gte!(c.real_token_reserves,..)` (buy_v2.rs:996) | 0x13f630 `buy_exact_quote_in_v2` | **removed**, byte-identical: #3861, merged as 1f4e396b5 |
-| (c) | `v3_buy_costs(..).map_err(core::convert::identity)?` (trade_v3.rs:814, #1878) | 0x147ba0 `buy_v3` | **respelled** `.map_err(anchor_lang::error::Error::from)?`, byte-identical (PR -2) |
+| (c) | `v3_buy_costs(..).map_err(core::convert::identity)?` (trade_v3.rs:814, #1878) | 0x147ba0 `buy_v3` | **respelled** `.map_err(anchor_lang::error::Error::from)?`, byte-identical: #3870, merged as 599891304 |
 
 ## (b) dummy borrow: removed, byte-identical (landed)
 
@@ -52,8 +52,12 @@ Mechanism (final IR of `pump_recovered::buy_v3`, main vs c0, captured with `tool
   `From<Error> for Error`, so it is still a no-op at the type level, and it gives the same MIR shape as `identity`. It
   reads as an ordinary (redundant) error conversion rather than an explicit do-nothing function.
 
+`land.py 3870 --allow-neutral` merged it as 599891304 (on main 1f4e396b5: 1034/1034, zero losses, unstripped
+`a8a70a59…` unchanged, so the whole ELF including symbols is identical).
+
 Ledger: `0x147ba0-w16-9bd38c7-noforcehops-mapid-plainq-v1`, `-mapid-intointo-v1`,
-`0x147ba0-w16-1f4e396-noforcehops-mapid-errorfrom-v1`, `-mapid-letbind-v1`.
+`0x147ba0-w16-1f4e396-noforcehops-mapid-errorfrom-v1`, `-mapid-letbind-v1`,
+`-mapid-errorfrom-landed-v1`.
 
 ## (a) raw-pointer payer: load-bearing, no safe form
 
@@ -84,10 +88,23 @@ Why no ordinary safe spelling can keep the bytes:
   structs. `AccountInfo` is `Freeze`: its `Rc<RefCell<..>>` fields point to the heap.
   So `&AccountInfo`, `&'info AccountInfo<'info>`, generic `T: ToAccountInfo` with `T=&AccountInfo`, `Option<&AccountInfo>`,
   `Signer` by value, and a `{payer, system_program}` pair all carry `noalias`. `Option` also needs an unwrap.
-- Forms without `noalias` change the callers: `&Signer<'info>` (callers pass `&a.user`, an address computation instead
+- Forms without `noalias` change the callers (reasoned from the matched caller code, not built): `&Signer<'info>` (callers pass `&a.user`, an address computation instead
   of the `ldxdw`, and the callee needs one more load), the payer by value (callers clone and copy 48 B), or a struct
   passed by reference (callers build it on the stack).
 - Only a raw pointer or `NonNull` carries the address without `noalias`, and both need the same `unsafe` deref.
+
+Checked with the identity rustc (1.79.0-dev, host target, `-O --emit=llvm-ir`) on an `AccountInfo`-shaped struct:
+
+| parameter type | LLVM parameter attributes |
+| --- | --- |
+| `Signer`-like newtype `{info:&Info}` by value | `noalias nocapture noundef readonly align 8 dereferenceable(48)` |
+| `Option<&Info>` | `noalias nocapture noundef readonly align 8 dereferenceable_or_null(48)` |
+| `(&Info,&Info)` (ScalarPair) | `noalias … dereferenceable(48)` on both pieces |
+| `*const Info` (main's form) | `nocapture noundef readonly` (inferred), no `noalias` |
+| `&Cell<u64>` (a `!Freeze` pointee) | `nocapture noundef nonnull readonly align 8`, no `noalias` |
+
+Only a `!Freeze` pointee drops `noalias` from a safe reference. No safe way exists to view the caller's
+`&AccountInfo` (from `Signer.info`) as a `&Cell<..>`/`&RefCell<..>` (`Cell::from_mut` needs `&mut`).
 
 So (a) stays as it is. It is not counted by land.py's NOFORCE regex. The faithful reading is that the original
 callee's payer pointer was not `noalias` at the ATA create call. Lanes that later find an `&AccountInfo`-typed caller

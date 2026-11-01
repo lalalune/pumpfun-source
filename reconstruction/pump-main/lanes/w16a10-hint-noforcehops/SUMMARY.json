@@ -1,0 +1,52 @@
+{
+  "lane": "w16a10-hint-noforcehops",
+  "wave": 16,
+  "angle": "noforcehops: replace three compiler-steering constructs in Pump Main (outside admin_cto) with ordinary Rust, keeping every window byte-identical",
+  "base": "main 9bd38c7d5 (1034/1034, admin_cto 0.67376/3124/27400, swap_hop matched); ended on main 599891304",
+  "result": "2 of 3 landed byte-identical: (b) dummy borrow removed (#3861 -> 1f4e396b5), (c) map_err(identity) respelled map_err(anchor_lang::error::Error::from) (#3870 -> 599891304). (a) raw-pointer payer kept: no safe parameter type keeps the bytes (noalias IR reason).",
+  "landed": [
+    {"pr": 3861, "merge_commit": "1f4e396b5", "site": "b", "window": "0x13f630 buy_exact_quote_in_v2", "change": "buy_v2.rs:996 `let _=&c;` -> `// layout-pad(1)` comment line (require_gte! stays on line 997)", "metrics": {"normalized": 1034, "raw": 1034, "losses": [], "raw_losses": [], "unstripped": "cmp-equal to baseline 9bd38c7d5 (d0c733f6...)"}},
+    {"pr": 3870, "merge_commit": "599891304", "site": "c", "window": "0x147ba0 buy_v3", "change": "trade_v3.rs:814 `.map_err(core::convert::identity)?` -> `.map_err(anchor_lang::error::Error::from)?` (the crate's conversion idiom, 7 other uses; compiling form of map_err(Into::into); an identity From<Error> for Error here, disclosed in the PR)", "metrics": {"normalized": 1034, "raw": 1034, "losses": [], "raw_losses": [], "unstripped": "cmp-equal to baseline 1f4e396b5 (a8a70a59...)"}}
+  ],
+  "best": {"normalized": 1034, "raw": 1034, "losses": [], "raw_losses": [], "admin_cto": {"ratio": 0.67436, "slots_diff": 3141, "cand_bytes": 27400}, "swap_hop": {"ratio": 1.0, "slots_diff": 0, "cand_bytes": 18584}, "unstripped_sha256_prefix": "a8a70a59c345af69 (unchanged by both landings)"},
+  "attempts": [
+    {"id": "b0", "site": "b", "form": "remove let _=&c (layout-pad line)", "result": "byte-identical (unstripped cmp-equal); landed #3861"},
+    {"id": "c0", "site": "c", "form": "plain v3_buy_costs(..)?", "result": "1033/301, loses 0x147ba0 (3688 B vs 3672): shared Err return laid out after the costs test"},
+    {"id": "c1", "site": "c", "form": ".map_err(Into::into)?", "result": "compile error E0282/E0283 (? applies From again; Into target ambiguous)"},
+    {"id": "c2", "site": "c", "form": ".map_err(anchor_lang::error::Error::from)?", "result": "byte-identical (unstripped cmp-equal); landed #3870"},
+    {"id": "c4", "site": "c", "form": "let costs=v3_buy_costs(..); let (..)=costs?;", "result": "= c0"},
+    {"id": "a1", "site": "a", "form": "payer:&AccountInfo<'info>, no unsafe deref, callers unchanged", "result": "1033/349, loses 0x14910 (6072 B vs 6080, ratio 0.6892)"}
+  ],
+  "mechanisms": {
+    "c": "map_err re-wraps the call result into a fresh Result local; the Err(e) store gives it a ptr-typed slice at +16, so SROA turns the copy from v3_buy_costs's out-param into one `load ptr` of +16 (plus `load i64` of +8) above the Ok/Err branch (Ok arm uses ptrtoint). The Err arm is then an empty edge to the shared Err return and the original layout follows (0x148330 mov64 r7,r4; 0x148338 ja +0x58). Without a re-wrap (plain ?, match-return, let-then-?, if-let) +16 is loaded as i64 in the Ok arm and as ptr in the Err arm, and the shared return block is placed right after the costs test.",
+    "a": "With *const the callee param is `ptr nocapture noundef readonly %payer` (no noalias); with &AccountInfo it is `noalias nocapture noundef readonly align 8 dereferenceable(48)`. The only body difference in final IR is that, with noalias, GVN forwards the payer.key load made for create_associated_token_account_idempotent(&payer.key(),..) to payer.clone() after the call; without it the key is reloaded after the call, exactly as the original (0x154a8 ldxdw r1,[r9] before the call at 0x15578, 0x155b0 ldxdw r5,[r9] after). Every safe pointer-sized parameter carrying the AccountInfo address is noalias because AccountInfo is Freeze (checked with the identity rustc: Signer-like newtype by value, Option<&T>, ScalarPair all noalias; only raw pointers and &!Freeze pointees are not), and the non-noalias safe forms (&Signer, by-value clone, struct by reference) change the matched callers."
+  },
+  "rejected_mechanisms": [
+    "site c: any spelling without a Result->Result re-wrap (plain ?, let-then-?, match Ok/Err return incl. Err(e.into()), if-let Err return, scoped blocks, two call sites)",
+    "site c: map_err(Into::into) (does not compile)",
+    "site a: &AccountInfo / &'info AccountInfo / generic T: ToAccountInfo with T=&AccountInfo / Option<&AccountInfo> / Signer by value / two-field payer struct by value (all noalias, verified by IR attrs); &Signer, by-value AccountInfo, struct by reference (change matched callers)"
+  ],
+  "ledger_keys": [
+    "0x13f630-w16-9bd38c7-noforcehops-dummyborrow-remove-v1",
+    "0x13f630-w16-7e5ba44-noforcehops-dummyborrow-landed-v1",
+    "0x147ba0-w16-9bd38c7-noforcehops-mapid-plainq-v1",
+    "0x147ba0-w16-9bd38c7-noforcehops-mapid-intointo-v1",
+    "0x147ba0-w16-1f4e396-noforcehops-mapid-errorfrom-v1",
+    "0x147ba0-w16-1f4e396-noforcehops-mapid-letbind-v1",
+    "0x147ba0-w16-1f4e396-noforcehops-mapid-errorfrom-landed-v1",
+    "0x14910-w16-9bd38c7-noforcehops-payer-ref-v1"
+  ],
+  "unresolved": [
+    "site a: buy_v2.rs:10/61 keep `payer:*const AccountInfo<'info>` + `unsafe{&*payer}` (not counted by land.py NOFORCE). Revisit only with a caller-side restructure of all six callers (buy_v2 x2 handlers, sell_v2, trade_v3, sweep_fees, multi_hop swap_hop) that keeps their bytes, or a create-call structure in which the payer pointer escapes before the ATA create call.",
+    "site c: map_err(anchor_lang::error::Error::from) is still an identity conversion at the type level; if the owner rules any Result->Result adapter out, no adapter-free spelling is known (all tried forms = plain ?)."
+  ],
+  "tools": [
+    "tools/trial.sh: exact-edit trial runner over measure.sh with cmp against the baseline's candidate.so/unstripped.so",
+    "tools/capture2.py: capture_ir.py plus raw rustc args (-Zdump-mir, -C llvm-args), lane-local only",
+    "tools/abi_attrs.rs: rustc ABI-attribute probe for candidate payer parameter types"
+  ],
+  "next_ideas": [
+    "Site a: a payer-escaping create path is the only safe route left (e.g. a references array or CpiContext-like struct that takes the payer address before the ATA instruction call, with the clones still after it); check MIR SRoA does not remove the escape, and check all six callers stay matched.",
+    "Generalisation for other lanes: a Result->Result adapter before ? (map_err with a From conversion) is the ordinary-Rust lever that hoists the Err payload loads above the Ok/Err branch."
+  ]
+}
