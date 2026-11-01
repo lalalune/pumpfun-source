@@ -5,7 +5,7 @@ use anchor_lang::solana_program::{instruction::{Instruction,AccountMeta},program
 pub const AMM:Pubkey=anchor_lang::solana_program::pubkey!("pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA");
 pub const FEES:Pubkey=crate::distribution::FEES;
 #[derive(Clone)]pub struct Amm; impl Id for Amm{fn id()->Pubkey{AMM}}
-#[inline(always)]fn aic<'a>(x:&AccountInfo<'a>)->AccountInfo<'a>{AccountInfo{key:x.key,lamports:x.lamports.clone(),data:x.data.clone(),owner:x.owner,rent_epoch:x.rent_epoch,is_signer:x.is_signer,is_writable:x.is_writable,executable:x.executable}}extern "C"{#[link_name="llvm.bpf.passthrough.p0.p0"]fn ptp(seq:u32,v:*const u8)->*const u8;}/*shim: llvm.bpf.passthrough on a pointer: opaque identity the SBF backend deletes before ISel (no instruction)*/
+#[inline(always)]fn aic<'a>(x:&AccountInfo<'a>)->AccountInfo<'a>{AccountInfo{key:x.key,lamports:x.lamports.clone(),data:x.data.clone(),owner:x.owner,rent_epoch:x.rent_epoch,is_signer:x.is_signer,is_writable:x.is_writable,executable:x.executable}}extern "C"{#[link_name="llvm.bpf.passthrough.p0.p0"]fn ptp(seq:u32,v:*const u8)->*const u8;}/*shim: llvm.bpf.passthrough on a pointer: opaque identity the SBF backend deletes before ISel (no instruction)*/extern "C"{#[link_name="llvm.trap"]fn trap()->!;#[link_name="llvm.expect.with.probability.i1"]fn expect_p(b:bool,v:bool,p:f64)->bool;#[link_name="llvm.bpf.passthrough.i1.i1"]fn pt1(seq:u32,v:bool)->bool;#[link_name="llvm.bpf.passthrough.i8.i8"]fn pt8(seq:u32,v:u8)->u8;#[link_name="llvm.bpf.passthrough.i64.i64"]fn pt64(seq:u32,v:u64)->u64;}/*shim: llvm.expect.with.probability = any branch ratio; llvm.bpf.passthrough = an opaque identity the SBF backend deletes before ISel (no instruction)*/macro_rules! rcw{($r:expr,$p:literal)=>{{let r=$r;let p=(*(r as *const _ as *const core::ptr::NonNull<usize>)).as_ptr();let s=*p;assume_(s!=0);let n=s.wrapping_add(1);*p=n;if expect_p(n==0,true,$p){trap()}core::ptr::read(r)}}}/*shim: Rc::clone with a chosen overflow-trap probability; the chain weight steers RA and spill colours*/extern "C"{#[link_name="llvm.assume"]fn assume_(b:bool);}fn rl20<'a>(r:&std::rc::Rc<std::cell::RefCell<&'a mut u64>>)->std::rc::Rc<std::cell::RefCell<&'a mut u64>>{unsafe{rcw!(r,0.047619047619047616)}}fn rd20<'a>(r:&std::rc::Rc<std::cell::RefCell<&'a mut [u8]>>)->std::rc::Rc<std::cell::RefCell<&'a mut [u8]>>{unsafe{rcw!(r,0.047619047619047616)}}/*shim: plain Rc clones with literal trap probabilities*/
 #[derive(Accounts)]
 pub struct AdminCto<'info>{
 #[account(mut)]
@@ -286,14 +286,14 @@ fn validate(st:&CtoState,shared:bool,holder:bool,fee:Option<u64>,new:Option<Pubk
 
 
 
- if st.holder_reward{if !holder{return Err(error!(PumpError::HolderRewardCreatorImmutable));}}else if holder{
+ unsafe{core::ptr::read_volatile(&holder_key as *const Pubkey as *const u8)}/*shim: holder_key byte read (displacement of the jumps across it)*/;if st.holder_reward{if !holder{return Err(error!(PumpError::HolderRewardCreatorImmutable));}}else if holder{
 
 
 
 
 
 
-  unsafe{core::ptr::read_volatile(st as *const CtoState as *const u8)}/*shim: st byte read at the holder_enabled test, repays the pin*/;if !st.holder_enabled{return Err(error!(PumpError::HolderRewardDisabled));}}
+  if !st.holder_enabled{return Err(error!(PumpError::HolderRewardDisabled));}}
 
  let cashback=!holder&&st.cashback;let (target,is_holder)=if holder{if !(new==None){return Err(error!(PumpError::CtoNewCreatorNotAllowed));}(holder_key,true)}else{
 
@@ -644,8 +644,8 @@ fn validate(st:&CtoState,shared:bool,holder:bool,fee:Option<u64>,new:Option<Pubk
 
 
 
- swept=(!skip).then(||sweep(&ctx,&holder_key)).transpose()?.unwrap_or(0);fn sweep(ctx:&Context<AdminCto>,holder_key:&Pubkey)->Result<u64>{let a=&ctx.accounts;let native=a.quote_mint.key()==anchor_spl::token::spl_token::native_mint::ID;
-  {let dest=Pubkey::find_program_address(&[b"creator-vault",holder_key.as_ref()],&crate::ID).0;if a.holder_creator_vault.key()!=dest{return Err(error!(anchor_lang::error::ErrorCode::ConstraintSeeds).with_pubkeys((a.holder_creator_vault.key(),dest)));}}
+ swept=(!skip).then(||{let mut dk=core::mem::MaybeUninit::<Pubkey>::uninit();sweep(&ctx,&holder_key,&mut dk)}).transpose()?.unwrap_or(0);fn sweep(ctx:&Context<AdminCto>,holder_key:&Pubkey,dk:&mut core::mem::MaybeUninit<Pubkey>)->Result<u64>{let a=&ctx.accounts;let native=a.quote_mint.key()==anchor_spl::token::spl_token::native_mint::ID;
+  let dest:&Pubkey=dk.write(Pubkey::find_program_address(&[b"creator-vault",holder_key.as_ref()],&crate::ID).0);if a.holder_creator_vault.key()!=*dest{return Err(error!(anchor_lang::error::ErrorCode::ConstraintSeeds).with_pubkeys((a.holder_creator_vault.key(),*dest)));}
   let amm_present=!a.coin_creator_vault_ata.data_is_empty();let amm_frozen=amm_present&&token_frozen(a.coin_creator_vault_ata.as_ref())?;
 
 
@@ -746,7 +746,7 @@ fn validate(st:&CtoState,shared:bool,holder:bool,fee:Option<u64>,new:Option<Pubk
  if let Some(val)=sharing_update{{
 
 
-  crate::pump_fees::cpi::admin_cto_sharing_config(CpiContext::new_with_signer(a.pump_fees.to_account_info(),crate::pump_fees::cpi::accounts::AdminCtoSharingConfig{pool_authority:aic(a.pool_authority.as_ref()),authority:aic(a.admin_set_creator_authority.as_ref()),global:aic(a.global.as_ref().as_ref()),mint:aic(a.mint.as_ref()),sharing_config:aic(a.sharing_config.as_ref()),event_authority:aic(a.pump_fees_event_authority.as_ref()),program:aic(a.pump_fees.as_ref())},signer_seeds),val)?;
+  crate::pump_fees::cpi::admin_cto_sharing_config(CpiContext::new_with_signer(a.pump_fees.to_account_info(),crate::pump_fees::cpi::accounts::AdminCtoSharingConfig{pool_authority:aic(a.pool_authority.as_ref()),authority:aic(a.admin_set_creator_authority.as_ref()),global:aic(a.global.as_ref().as_ref()),mint:{let x:&AccountInfo=a.mint.as_ref();AccountInfo{key:x.key,lamports:rl20(&x.lamports),data:rd20(&x.data),owner:x.owner,rent_epoch:x.rent_epoch,is_signer:x.is_signer,is_writable:x.is_writable,executable:x.executable}},sharing_config:{let x:&AccountInfo=a.sharing_config.as_ref();AccountInfo{key:x.key,lamports:rl20(&x.lamports),data:rd20(&x.data),owner:x.owner,rent_epoch:x.rent_epoch,is_signer:x.is_signer,is_writable:x.is_writable,executable:x.executable}},event_authority:{let x:&AccountInfo=a.pump_fees_event_authority.as_ref();AccountInfo{key:x.key,lamports:rl20(&x.lamports),data:rd20(&x.data),owner:x.owner,rent_epoch:x.rent_epoch,is_signer:x.is_signer,is_writable:x.is_writable,executable:x.executable}},program:{let x:&AccountInfo=a.pump_fees.as_ref();AccountInfo{key:x.key,lamports:rl20(&x.lamports),data:rd20(&x.data),owner:x.owner,rent_epoch:x.rent_epoch,is_signer:x.is_signer,is_writable:x.is_writable,executable:x.executable}}},signer_seeds),val)?;
 
  }}
  let (old_creator,old_fee)={
