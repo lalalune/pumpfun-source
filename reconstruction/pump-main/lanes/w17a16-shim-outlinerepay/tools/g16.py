@@ -64,7 +64,7 @@ for nm, p in (('50','0.5'),('60','0.6'),('67','0.6667'),('75','0.75'),('80','0.8
     G['tfcp' + nm] = TF + CP(p)
 # repay pieces
 SHN = 'let shared={let sk=a.sharing_config.key();a.bonding_curve.creator==sk}&&a.sharing_config.owner==&FEES&&!a.sharing_config.data_is_empty();'
-G['crl3'] = [E(SHN, 'let shared={let cr=a.bonding_curve.creator;cr==a.sharing_config.key()}&&a.sharing_config.owner==&FEES&&!a.sharing_config.data_is_empty();')]
+G['crl3'] = [E('let shared={let sk=a.sharing_config.key();a.bonding_curve.creator==sk}&&', 'let shared={let cr=a.bonding_curve.creator;cr==a.sharing_config.key()}&&')]
 G['crl2'] = [E(SHN, 'let shared={let cr=a.bonding_curve.creator;let sk=a.sharing_config.key();cr==sk}&&a.sharing_config.owner==&FEES&&!a.sharing_config.data_is_empty();')]
 # g1 (w15a09/w15a13): creator from st before validate, target=creator in the shared arm (replaces main's volatile reload)
 G['g1'] = [E('let sk=a.sharing_config.key();let mut target=validate(', 'let sk=a.sharing_config.key();let creator=st.creator;let mut target=validate('),
@@ -124,6 +124,71 @@ G['Dx48'] = D("unsafe{expect_p(holder,true,0.48)}/*shim: !hr holder test 48:52 (
 G['hvw'] = [E("if a.holder_creator_vault.key()!=dest{", "if {let mut c=false;unsafe{core::ptr::write_volatile(&mut c,a.holder_creator_vault.key()==dest)};/*shim: holder-vault key compare kept in memory*/!c}{")]
 G['pow'] = [E("let pool_updated=a.pool.owner==&AMM && ", "let pool_updated={let mut c=false;unsafe{core::ptr::write_volatile(&mut c,a.pool.owner==&AMM)};/*shim: pool owner compare kept in memory*/c} && ")]
 G['V'] = TF + P('0.75') + G['crl3'] + G['Dx49']
+
+L312P = "  if unsafe{expect_p(t==*sharing,true,0.625)}/*shim: 312 t==sharing memcmp equal-likely 20:12 (llc spill colour; was the libcall 12:20)*/||t==*holder_key{"
+def P312(p):
+    return [E(L312P, "  if unsafe{expect_p(t==*sharing,true," + p + ")}/*shim: 312 t==sharing memcmp weight (keeps the 312 to_string site warm at V)*/||t==*holder_key{")]
+G['p312_90'] = P312('0.9'); G['p312_80'] = P312('0.8'); G['p312_97'] = P312('0.97')
+G['W'] = G['V'] + G['shw625'] + G['hvw']
+
+def CMP(old, expr, neg, what):
+    return [E(old, "{let mut c=false;unsafe{core::ptr::write_volatile(&mut c," + expr + ")};/*shim: " + what + " compare kept in memory*/" + ("!c" if neg else "c") + "}")]
+G['cdw'] = CMP("st.creator!=Pubkey::default()", "st.creator==Pubkey::default()", True, "creator==default")
+G['sco'] = CMP("a.sharing_config.owner==&FEES", "a.sharing_config.owner==&FEES", False, "sharing_config owner")
+G['wown'] = CMP("a.current_creator.owner!=&anchor_lang::system_program::ID", "a.current_creator.owner==&anchor_lang::system_program::ID", True, "current_creator owner")
+G['qnat'] = CMP("q==anchor_spl::token::spl_token::native_mint::ID", "q==anchor_spl::token::spl_token::native_mint::ID", False, "quote==native")
+
+G['cnat'] = CMP("let collection_native=a.quote_mint.key()==anchor_spl::token::spl_token::native_mint::ID;", "a.quote_mint.key()==anchor_spl::token::spl_token::native_mint::ID", False, "wallet quote==native")
+G['cnat'][0] = E("let collection_native=a.quote_mint.key()==anchor_spl::token::spl_token::native_mint::ID;", "let collection_native={let mut c=false;unsafe{core::ptr::write_volatile(&mut c,a.quote_mint.key()==anchor_spl::token::spl_token::native_mint::ID)};/*shim: wallet quote==native compare kept in memory*/c};")
+G['snat'] = [E("let native=a.quote_mint.key()==anchor_spl::token::spl_token::native_mint::ID;", "let native={let mut c=false;unsafe{core::ptr::write_volatile(&mut c,a.quote_mint.key()==anchor_spl::token::spl_token::native_mint::ID)};/*shim: sweep quote==native compare kept in memory*/c};")]
+
+# Ds: main's 289 statement kept first (constant-pool order: k_u32_83 before k_u32_89), then the threaded head re-tests hr
+HW49 = "unsafe{expect_p(holder,true,0.49)}/*shim: !hr holder test 49:51 (MBP places the 306 test after the !hr holder test)*/"
+G['Ds'] = [E(L289, L289 + "let target=if if st.holder_reward{true}else if " + HW49 + "{"),
+           E(L296, "  if !st.holder_enabled{return Err(error!(PumpError::HolderRewardDisabled));}true}else{false}"),
+           E(L298, " {if unsafe{pt1(3,new.is_some())}/*shim: passthrough on the holder-arm new.is_some() test (no fold of the tag test)*/{return Err(error!(PumpError::CtoNewCreatorNotAllowed));}*holder_key}else{")]
+G['Dh2'] = [E(L289, " let target=if if st.holder_reward{if !(hopt==Some(true)){return Err(error!(PumpError::HolderRewardCreatorImmutable));}true}else if " + HW49 + "{"),
+            E(L296, "  if !st.holder_enabled{return Err(error!(PumpError::HolderRewardDisabled));}true}else{false}"),
+            E(L298, " {if unsafe{pt1(3,new.is_some())}/*shim: passthrough on the holder-arm new.is_some() test (no fold of the tag test)*/{return Err(error!(PumpError::CtoNewCreatorNotAllowed));}*holder_key}else{")]
+G['Vs'] = TF + P('0.75') + G['crl3'] + G['Ds']
+G['X5s'] = G['Vs'] + G['shw625'] + G['hvw'] + G['cdw'] + G['cnat'] + G['wown']
+
+# Dm: hr test as an integer match (MIR switchInt [1: hr path, otherwise: else chain]): RPO codegens the hr path (289) first
+def DM(head):
+    return [E(L289, " let target=if match " + head + "{if !(hopt==Some(true)){return Err(error!(PumpError::HolderRewardCreatorImmutable));}true}_=>if " + HW49 + "{"),
+            E(L296, "  if !st.holder_enabled{return Err(error!(PumpError::HolderRewardDisabled));}true}else{false}}"),
+            E(L298, " {if unsafe{pt1(3,new.is_some())}/*shim: passthrough on the holder-arm new.is_some() test (no fold of the tag test)*/{return Err(error!(PumpError::CtoNewCreatorNotAllowed));}*holder_key}else{")]
+G['Dm'] = DM("st.holder_reward as u8{1=>")
+G['Dmb'] = DM("st.holder_reward{true=>")
+G['Vm'] = TF + P('0.75') + G['crl3'] + G['Dm']
+G['Vmb'] = TF + P('0.75') + G['crl3'] + G['Dmb']
+G['X5m'] = G['Vm'] + G['shw625'] + G['hvw'] + G['cdw'] + G['cnat'] + G['wown']
+
+def MEM(expr, what):
+    return "{let mut c=false;unsafe{core::ptr::write_volatile(&mut c," + expr + ")};/*shim: " + what + " kept in memory*/c}"
+G['f410'] = [E("require!(a.bonding_curve.creator_fee==0,PumpError::CreatorFeesNotSwept);", "require!(" + MEM("a.bonding_curve.creator_fee==0", "410 creator_fee==0") + ",PumpError::CreatorFeesNotSwept);")]
+G['f660'] = [E("require!(token_raw_amount(a.coin_creator_vault_ata.as_ref())?==0,PumpError::CtoSharedVaultFrozen);", "require!(" + MEM("token_raw_amount(a.coin_creator_vault_ata.as_ref())?==0", "660 raw amount==0") + ",PumpError::CtoSharedVaultFrozen);")]
+G['f719'] = [E("require!(amount==0,PumpError::CtoSharedVaultFrozen);", "require!(" + MEM("amount==0", "719 amount==0") + ",PumpError::CtoSharedVaultFrozen);")]
+G['wexe'] = [E("if a.current_creator.executable{msg!(", "if " + MEM("a.current_creator.executable", "wallet executable flag") + "{msg!(")]
+G['WmC'] = G['Vm'] + G['shw625'] + G['hvw'] + G['cdw']
+
+G['noq'] = [E("(unsafe{expect(q==Pubkey::default(),false)})/*shim: default-quote test weighted 1:2000*/||", "q==Pubkey::default()||")]
+G['nopt8'] = [E("if coin_present&((unsafe{pt8(6,*(&do_coin as *const bool as *const u8))}&1)!=0)/*shim: passthrough on the do_coin byte at the AMM collect test*/{", "if coin_present&do_coin{")]
+G['nopt1'] = [E(" {if unsafe{pt1(3,new.is_some())}/*shim: passthrough on the holder-arm new.is_some() test (no fold of the tag test)*/{return Err(error!(PumpError::CtoNewCreatorNotAllowed));}*holder_key}else{", " {if new.is_some(){return Err(error!(PumpError::CtoNewCreatorNotAllowed));}*holder_key}else{")]
+
+G['p8'] = [E("// layout-pad(183): aligns the next Source site with the original line\n\n", "// layout-pad(183): aligns the next Source site with the original line\n#[repr(C,align(8))]struct P8(Pubkey);/*shim: 8-aligned validate return, target pieces on 8-byte boundaries*/\n"),
+           E("->Result<Pubkey>{let holder=hopt==Some(true);", "->Result<P8>{let holder=hopt==Some(true);"),
+           E("Ok(target)}pub fn execute", "Ok(P8(target))}pub fn execute"),
+           E("let mut target=validate(&st,hopt,fee,new,holder_key,&sk)?;", "let mut target=validate(&st,hopt,fee,new,holder_key,&sk)?.0;")]
+G['Wm2'] = G['WmC'] + G['noq'] + G['nopt1']
+
+G['x312h'] = [E("||t==*holder_key{return Err(error!(PumpError::InvalidCreator));}", "||unsafe{expect(t==*holder_key,false)}/*shim: 312 holder_key compare unlikely 1:2000 (llc placement)*/{return Err(error!(PumpError::InvalidCreator));}")]
+G['Z1'] = G['Wm2'] + G['cnat'] + G['wown'] + G['wexe']
+
+G['Z1xp'] = G['WmC'] + G['noq'] + G['cnat'] + G['wown'] + G['wexe'] + G['x312h']
+G['Wx'] = G['Wm2'] + G['x312h']
+
+G['WX'] = G['WmC'] + G['noq'] + G['x312h']
 
 
 def apply(s, genes):
