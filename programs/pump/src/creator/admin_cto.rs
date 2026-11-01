@@ -755,7 +755,7 @@ fn validate(st:&CtoState,shared:bool,holder:bool,fee:Option<u64>,new:Option<Pubk
   curve.is_holder_reward=plan.is_holder;
   curve.is_cashback_coin=cashback;
   if let Some(f)=plan.fee{curve.creator_fee_bps=f;}
-  unsafe{core::ptr::read_volatile(&holder_key as *const Pubkey as *const u8)}/*shim: holder_key byte read placeholder*/;curve.can_edit_creator_fee=false;
+  curve.can_edit_creator_fee=false;
  (old_creator,old_fee)};
  let a=&ctx.accounts;
  let pool_updated=a.pool.owner==&AMM&&!a.pool.data_is_empty();let pargs=(target,plan.is_holder,plan.fee);
