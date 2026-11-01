@@ -14,6 +14,7 @@ pub struct SignedDonationContext<'a,'info> {
  pub from:AccountInfo<'info>,pub token_program:AccountInfo<'info>,
 }
 pub struct DonationArgs {pub config_id:[u8;32],pub amount:u64,pub message:String,pub tip_bps:u16,pub epoch_tracker_bump:u8,pub debouncer_bump:u8}
+pub struct SignedDonationArgs {pub config_id:[u8;32],pub amount:u64,pub tip_bps:u16,pub epoch_tracker_bump:u8,pub debouncer_bump:u8}
 pub struct DonationAmounts {pub epoch:u128,pub gross_amount:u64,pub tip:u64}
 macro_rules! source_error {
  ($code:ident,$file:literal,$line:literal)=>{anchor_lang::error::Error::from(anchor_lang::error::AnchorError {
@@ -33,9 +34,9 @@ pub fn deserialize_mint(info:&AccountInfo)->Result<Mint> {
 pub fn donate_shared(ctx:DonationContext,args:DonationArgs)->Result<DonationAmounts> {
  check_message(&args.message)?;check_bps(args.tip_bps)?;
  check_mint_for_donation(&ctx.mint_whitelist.mints,&ctx.mint)?;
- donate_with_seeds(SignedDonationContext {epoch_tracker:ctx.epoch_tracker,debouncer:ctx.debouncer,debouncer_token_account:ctx.debouncer_token_account,mint:ctx.mint,from_token_account:ctx.from_token_account,from:ctx.from.to_account_info(),token_program:ctx.token_program},args,&[])
+ donate_with_seeds(SignedDonationContext {epoch_tracker:ctx.epoch_tracker,debouncer:ctx.debouncer,debouncer_token_account:ctx.debouncer_token_account,mint:ctx.mint,from_token_account:ctx.from_token_account,from:ctx.from.to_account_info(),token_program:ctx.token_program},SignedDonationArgs {config_id:args.config_id,amount:args.amount,tip_bps:args.tip_bps,epoch_tracker_bump:args.epoch_tracker_bump,debouncer_bump:args.debouncer_bump},&[])
 }
-pub fn donate_with_seeds(ctx:SignedDonationContext,args:DonationArgs,signer_seeds:&[&[&[u8]]])->Result<DonationAmounts> {
+pub fn donate_with_seeds(ctx:SignedDonationContext,args:SignedDonationArgs,signer_seeds:&[&[&[u8]]])->Result<DonationAmounts> {
  let mint=*ctx.mint.key;
  if ctx.epoch_tracker.state==EpochTrackerV1State::Uninitialized {
   ctx.epoch_tracker.set_inner(EpochTrackerV1 {bump:args.epoch_tracker_bump,state:EpochTrackerV1State::Initialized,config_id:args.config_id,mint,current_epoch:0});
