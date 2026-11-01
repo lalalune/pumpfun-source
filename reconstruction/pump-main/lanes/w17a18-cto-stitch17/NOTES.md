@@ -145,7 +145,17 @@ Leave-one-out reverts of the landed admin_cto changes (slim oracle; 63 genes, 36
 | #4019 pcol (`collection_native==false`) | 2,288 | 27,408 | |
 | #3969 weighted associated_token_program clone | 2,281 | 27,392 | |
 
-No single revert gains on 53ec7fb, and no two-knob composite tried here beats main. The two free -8 B knobs need a
+41 of the 63 genes were priced before the time box. Besides the rows above, reverting the #3936 sweep
+program-clone owner `read_volatile` pin is a tie at 2,295 with main's oracle slots (3,095), with different bytes.
+Two-knob composites (E1-E12): the free knobs paired with placeholder copies at 289/306/307/314/338 or the w17a08
+fence A give at best 2,295 (284 or 298 knob + a copy at 289, same slots), 2,294 elsewhere, and 2,292 with fence A.
+
+No single revert gains on 53ec7fb, and no two-knob composite tried here beats main.
+
+**Peel candidate (not landed):** reverting the #3936 pin (`owner:x.owner` again on the sweep TCF program clone, one
+`read_volatile` fewer) measures 0.68754 with 3,096 slots, 27,400 B, 1034 / 1034 and zero losses on 53ec7fb, equal to
+main, but the bytes differ (unstripped ea724991bc23e106 vs 54344822ddef0bd4). The brief defines a peel as an
+identical-bytes replacement, so it is left for a peel lane / the owner to decide (`land.py --allow-neutral` would accept it). The two free -8 B knobs need a
 +8/+16 B partner at +1; none is known on this main (the w17a08 fence A was 0 M @+16 B on ac37d74).
 
 How to rerun (about 60 captures; 10 minutes at load 100, 25 at load 190):
