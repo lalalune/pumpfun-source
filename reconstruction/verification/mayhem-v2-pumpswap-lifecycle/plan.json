@@ -31,12 +31,18 @@
       ]
     },
     {
-      "name": "pumpswap_failure_retry_atomic",
+      "name": "pumpswap_failure_retry",
       "venue": "pumpswap",
       "steps": [
-        {"name": "sell", "instructions": ["sell_pump_swap"], "expect": "success"},
-        {"name": "slippage_buy", "instructions": ["buy_pump_swap_invalid_reference"], "expect": "failure", "error_contains": "InstructionErrorCustom(6012)"},
-        {"name": "retry_buy", "instructions": ["buy_pump_swap"], "expect": "success"},
+        {"name": "buy", "instructions": ["buy_pump_swap"], "expect": "success"},
+        {"name": "slippage_sell", "instructions": ["sell_pump_swap_invalid_reference"], "expect": "failure", "error_contains": "InstructionErrorCustom(6012)"},
+        {"name": "retry_sell", "instructions": ["sell_pump_swap"], "expect": "success"}
+      ]
+    },
+    {
+      "name": "pumpswap_atomic_buy_sell",
+      "venue": "pumpswap",
+      "steps": [
         {"name": "atomic_buy_sell", "instructions": ["buy_pump_swap", "sell_pump_swap"], "expect": "success"}
       ]
     }
