@@ -86,6 +86,15 @@ byte-identical, `v326l` byte-identical, `v338h` 0.66177, `v338l` 0.65768 @27,392
   inlined back) or 0.636; shared 0.375 0.615; the wallet gate 0.668/0.642 @27,392; wallet `is_writable` 0.67455 @27,408 or
   0.620; `410` 0.375 0.432 @29,168 (and one normalized loss).
 
+## 4b. Later mains (main moved every few minutes as w17a04/w17a06 landed weighted clones)
+
+- On e679b59e9 (0.67915, M 2,267; `capopt.py` capture `eq_main`), 840 single runs give one hit at 27,400 B: the wallet
+  `create_idempotent(..)?` Ok edge at 16:1 (IR `%242 = icmp eq tag,2`), M 2,269 (+2). This is the w14a83 `bb24.i` lever.
+  The best off-size cell, quote==default at 1:2000 (M 2,268 @27,392), was landed by w17a06 as ae14cbeb4.
+- Neither source spelling of the wallet lever works. `let r=create_idempotent(..);if expect_p(r.is_err(),true,0.0588){return r;}`
+  gives 0.66297 on e679b59e9, and `..{r?;}` gives 0.66327 on ae14cbeb4 (0.67945). The let-bound Result changes the IR
+  beyond the weight. A spelling that keeps the `?` edge shape is still open, for example a hand-written `?` helper.
+
 ## 5. Next ideas
 
 1. The remaining weight levers need a structural change first: every single or pair llc weight is at or below main on

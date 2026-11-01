@@ -213,6 +213,17 @@
     0.67455,
     27408
    ]
+  },
+  "later_mains": {
+   "e679b59e9_llc_sweep": "840 runs; wallet create_idempotent ? Ok 16:1 M 2269 (+2) at 27400; quote==default 1:2000 2268 @27392 (landed by w17a06)",
+   "walletcreate_return_e679b59e9": [
+    0.66297,
+    27400
+   ],
+   "walletcreate_qmark_ae14cbeb4": [
+    0.66327,
+    27400
+   ]
   }
  },
  "rejected_mechanisms": [
@@ -230,9 +241,15 @@
   "register/frame naming (~0.165 of the gap) needs structural changes before weights help again"
  ],
  "next_ideas": [
+  "wallet create_idempotent ? Ok-likely 16:1 is +2 M at llc on e679b59e9: find a source spelling that keeps the ? edge shape (hand-written ? helper with the weight inside) instead of a let-bound Result",
   "re-run bws.py on a fresh capopt.py capture after every landed structural change (1 build + ~2 min)",
   "expect_p(new.is_none(),true,0.6667) on the tf_g3 base gives the w16a06 outline+tail-order base from source (M 2225 @27024); pair it with a faithful 376 B repay (Ghidra newpieces/pdaslot shims)",
   "hand-written library paths (rcinc style) to place weights where library code's own unlikely is a no-op (RefCell borrow flags, remaining Rc clones), combined with a structural change"
  ],
- "ledger_keys": "0x22a10-w17-5998913-shimunlock-*-v1, 0x22a10-w17-d4dfb04-shimunlock-*-v1"
+ "ledger_keys": "0x22a10-w17-5998913-shimunlock-*-v1, 0x22a10-w17-d4dfb04-shimunlock-*-v1",
+ "final_main": {
+  "sha": "ae14cbeb4",
+  "ratio": 0.67945,
+  "slots_diff": 3170
+ }
 }
