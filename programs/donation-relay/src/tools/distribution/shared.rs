@@ -31,7 +31,7 @@ fn transfer_shares<'info>(ctx:&DistributionContext<'info,'info>,rows:core::iter:
  Ok(())
 }
 
-pub struct ExactDistributionArgs<'a,'b,'c> {pub transfers:&'a [ExactTransfer],pub seeds:&'a [&'b [&'c [u8]]],pub total:u64,pub expected_program:Pubkey,pub decimals:u8}
+pub struct ExactDistributionArgs<'a,'b,'c> {pub transfers:&'a [ExactTransfer],pub total:u64,pub decimals:u8,pub seeds:&'a [&'b [&'c [u8]]],pub expected_program:Pubkey}
 pub fn distribute_exact<'info>(ctx:DistributionContext<'info,'info>,args:ExactDistributionArgs)->Result<()> {
  if args.total==0 {return Err(worker_error!(InvalidBalance,130));}
  if args.transfers.is_empty() || ctx.remaining.len()!=args.transfers.len() {return Err(worker_error!(InvalidInstructionDataLength,131));}
@@ -71,6 +71,9 @@ pub fn burn_and_close<'info>(ctx:BurnCloseContext<'info>,amount:u64,seeds:&[&[&[
 }
 
 
+impl<'a,'b,'c> ExactDistributionArgs<'a,'b,'c> {
+ pub fn new(transfers:&'a [ExactTransfer],seeds:&'a [&'b [&'c [u8]]],total:u64,expected_program:&Pubkey,decimals:u8)->Self {Self {transfers,seeds,total,expected_program:*expected_program,decimals}}
+}
 impl<'a,'b,'c> DistributionArgs<'a,'b,'c> {
  pub fn new(shares:&'a [Share],seeds:&'a [&'b [&'c [u8]]],total:u64,expected_program:&Pubkey,decimals:u8)->Self {Self {shares,seeds,total,expected_program:*expected_program,decimals}}
 }
