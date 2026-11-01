@@ -1,69 +1,245 @@
 {
-  "lane": "w16a06-cto-bonoutline",
-  "wave": 16,
-  "target": {"window": "0x22a10", "function": "admin_cto::execute", "file": "programs/pump/src/creator/admin_cto.rs", "pinned_bytes": 27400},
-  "base": {"main": "9bd38c7d5", "ratio": 0.67376, "slots_diff": 3124, "bytes": 27400, "M": 2249, "jM": 2275, "Mperm": 2293, "true_lcs": 2255, "true_lcs_rfj": 3007},
-  "result": "notes only; kill test met for every source-reachable cell; main stays best (0.67376 / 3124 / 27400)",
-  "best_zero_loss": {"ratio": 0.67376, "slots_diff": 3124, "bytes": 27400, "source": "main 9bd38c7d5 (no source change)"},
-  "ledger": {"approach": "bonoutline", "keys": "0x22a10-w16-9bd38c7-bonoutline-*-v1"},
-  "fixed_ra_B": {
-    "main": {"bytes": 27408, "M": 2277, "dM": 28},
-    "tf_g3_O": {"bytes": 27032, "M": 2285, "dM": 86},
-    "none_O": {"bytes": 27000, "M": 2040, "dM": 85},
-    "none_O312": {"bytes": 27192, "M": 2281, "dM": 85},
-    "tf_g3_O312": {"bytes": 27248, "M": 2281, "dM": 85},
-    "T": {"bytes": 27192, "M": 2281, "dM": 81, "order": "data/TB_T.txt"},
-    "Tb": {"bytes": 27184, "M": 2285, "dM": 82},
-    "Tv01": {"bytes": 27192, "M": 2274, "dM": 80},
-    "h289": {"bytes": 27016, "M": 1499, "dM": 89},
-    "main_feetagphi": {"bytes": 27232, "M": 2094, "dM": 31},
-    "tf_g3_O_feetagphi": {"bytes": 26840, "M": 2098, "dM": 91}
+ "lane": "w16a06-cto-bonoutline",
+ "wave": 16,
+ "target": {
+  "window": "0x22a10",
+  "function": "admin_cto::execute",
+  "file": "programs/pump/src/creator/admin_cto.rs",
+  "pinned_bytes": 27400
+ },
+ "base": {
+  "main": "9bd38c7d5",
+  "ratio": 0.67376,
+  "slots_diff": 3124,
+  "bytes": 27400,
+  "M": 2249,
+  "jM": 2275,
+  "Mperm": 2293,
+  "true_lcs": 2255,
+  "true_lcs_rfj": 3007
+ },
+ "result": "notes only; kill test met for every source-reachable cell; main stays best (0.67376 / 3124 / 27400)",
+ "best_zero_loss": {
+  "ratio": 0.67376,
+  "slots_diff": 3124,
+  "bytes": 27400,
+  "source": "main 9bd38c7d5 (no source change)"
+ },
+ "ledger": {
+  "approach": "bonoutline",
+  "keys": "0x22a10-w16-9bd38c7-bonoutline-*-v1"
+ },
+ "fixed_ra_B": {
+  "main": {
+   "bytes": 27408,
+   "M": 2277,
+   "dM": 28
   },
-  "real_llc_realisations": {
-    "ir_order_full_B": {"main": 2119, "tf_g3_O": 2127, "T": 2170},
-    "ir_best_single_unit": {"tf_g3_O": 2204, "T": 2200},
-    "bb23i_306_weight_2to1": {"main": 2218, "tf_g3_O": 2232, "none_O312": 2228, "tf_g3_O312": 2228, "T_r2": 2228, "T": 2180, "Tb": 2182, "Tv01": 2180, "none_O": 2049},
-    "bb23i_306_weight_1to1_and1tag": {"main": 2221, "tf_g3_O": 2217, "none_O312": 2213, "T": 2185},
-    "bb23i_306_weight_20to12": {"main": 2204, "tf_g3_O": 2212, "none_O312": 2209, "T": 2163},
-    "weight_greedy": {"tf_g3_O": {"weights": {"bb23.i": "2:1"}, "M": 2232, "bytes": 27032}, "T": {"weights": {"bb28.i": "20:12", "bb33.i": "12:20", "bb38.i": "1:1"}, "M": 2226, "bytes": 27192}},
-    "and1_union_bb7_bb14_bb23": {"main": 2199, "tf_g3_O": 2057, "T": 2163, "Tb": 2170},
-    "ir_and1_holder": {"main": 2056, "tf_g3_O": 1729, "T": 2013},
-    "feetag_phi_757_cpi": {"main": 2063, "tf_g3_O": 2007, "T": 1955, "Tb": 1955},
-    "vtime_306_none_hot_1to2": {"m0": {"bytes": 26976, "M": 2049, "lddw": 86}, "tf_g3": {"bytes": 27032, "M": 2232, "lddw": 86, "note": "byte-identical to tf_g3_O + bb23.i 2:1"}, "T": {"bytes": 27192, "M": 2180, "lddw": 87}}
+  "tf_g3_O": {
+   "bytes": 27032,
+   "M": 2285,
+   "dM": 86
   },
-  "mperm": {"main": 2293, "tf_g3_O": 2243, "tf_g3_O_bb23_2to1": 2275, "none_O312": 2240, "tf_g3_O312": 2240, "T": 2243, "Tb": 2246, "Tv01": 2236, "none_O": 2112},
-  "true_lcs": {"main": 2255, "main_Br_fixedRA": 2287, "tf_g3_O": 2248, "tf_g3_O_Br_fixedRA": 2295, "tf_g3_O_bb23_2to1": 2244, "none_O312": 2244, "O312_bb23_2to1": 2240, "T": 2215, "Tb": 2215, "T_TB_fixedRA": 2291},
-  "true_lcs_rfj": {"main": 3007, "tf_g3_O": 2983, "tf_g3_O_bb23_2to1": 2972, "none_O312": 2985, "O312_bb23_2to1": 2969, "T": 2961},
-  "kill_test": {
-    "rule": "real-llc M + (27400-bytes)/8 >= 2249",
-    "passing_cells_all_unreachable": [
-      "tf_g3_O + bb23.i 2:1 (= tf_g3 + V-time 306 None-hot): 2232 -> 2278",
-      "tf_g3_O + bb23.i 1:1 / 20:12: 2263 / 2258",
-      "tf_g3_O + IR unit move: 2251",
-      "none_O312 or T+r2 + bb23.i 2:1: 2254",
-      "T + greedy weights: 2252"
-    ],
-    "why_unreachable": "O has no non-collapsing ordinary trigger (w15a25) and no faithful 368-376 B repay (w15a25, w15a21); a None-hot 306 test and an error-likely 307 memcmp are not producible by ordinary source (BPI zero/pointer/libcall heuristics + InstCombine canonicalisation); r2 glue has no spelling (w15a02). True LCS of the passing cells is below main and below their own bases, so the difflib gain is alignment-only.",
-    "source_real_best": "Tb 2203 @27176 -> 2231 (fails)"
+  "none_O": {
+   "bytes": 27000,
+   "M": 2040,
+   "dM": 85
   },
-  "mechanisms_found": [
-    "Main's entry+validate already ends at the original's 0x1c20; the inlined 307/312 to_string (+376 B) displace 376 B the original spends elsewhere in entry/validate, so outline bases are short, not long.",
-    "B (original validate order) is worth +80..+89 M at fixed RA on every outline base vs +28 on main; units on O: 312 err after 326 alone +41 / LOO -76.",
-    "The 306 tag frequency (bb23.i) is the only real-llc lever that realises B's tail on outline bases (+32/+33 at 2:1).",
-    "A None-hot 306 test from validate's inliner visit on is simultaneously the 307/312 outline trigger (lddw 86, no V-threading collapse) and the tail-layout lever (tf_g3 + V 1:2 byte-identical to tf_g3_O + post-opt 2:1)."
+  "none_O312": {
+   "bytes": 27192,
+   "M": 2281,
+   "dM": 85
+  },
+  "tf_g3_O312": {
+   "bytes": 27248,
+   "M": 2281,
+   "dM": 85
+  },
+  "T": {
+   "bytes": 27192,
+   "M": 2281,
+   "dM": 81,
+   "order": "data/TB_T.txt"
+  },
+  "Tb": {
+   "bytes": 27184,
+   "M": 2285,
+   "dM": 82
+  },
+  "Tv01": {
+   "bytes": 27192,
+   "M": 2274,
+   "dM": 80
+  },
+  "h289": {
+   "bytes": 27016,
+   "M": 1499,
+   "dM": 89
+  },
+  "main_feetagphi": {
+   "bytes": 27232,
+   "M": 2094,
+   "dM": 31
+  },
+  "tf_g3_O_feetagphi": {
+   "bytes": 26840,
+   "M": 2098,
+   "dM": 91
+  }
+ },
+ "real_llc_realisations": {
+  "ir_order_full_B": {
+   "main": 2119,
+   "tf_g3_O": 2127,
+   "T": 2170
+  },
+  "ir_best_single_unit": {
+   "tf_g3_O": 2204,
+   "T": 2200
+  },
+  "bb23i_306_weight_2to1": {
+   "main": 2218,
+   "tf_g3_O": 2232,
+   "none_O312": 2228,
+   "tf_g3_O312": 2228,
+   "T_r2": 2228,
+   "T": 2180,
+   "Tb": 2182,
+   "Tv01": 2180,
+   "none_O": 2049
+  },
+  "bb23i_306_weight_1to1_and1tag": {
+   "main": 2221,
+   "tf_g3_O": 2217,
+   "none_O312": 2213,
+   "T": 2185
+  },
+  "bb23i_306_weight_20to12": {
+   "main": 2204,
+   "tf_g3_O": 2212,
+   "none_O312": 2209,
+   "T": 2163
+  },
+  "weight_greedy": {
+   "tf_g3_O": {
+    "weights": {
+     "bb23.i": "2:1"
+    },
+    "M": 2232,
+    "bytes": 27032
+   },
+   "T": {
+    "weights": {
+     "bb28.i": "20:12",
+     "bb33.i": "12:20",
+     "bb38.i": "1:1"
+    },
+    "M": 2226,
+    "bytes": 27192
+   }
+  },
+  "and1_union_bb7_bb14_bb23": {
+   "main": 2199,
+   "tf_g3_O": 2057,
+   "T": 2163,
+   "Tb": 2170
+  },
+  "ir_and1_holder": {
+   "main": 2056,
+   "tf_g3_O": 1729,
+   "T": 2013
+  },
+  "feetag_phi_757_cpi": {
+   "main": 2063,
+   "tf_g3_O": 2007,
+   "T": 1955,
+   "Tb": 1955
+  },
+  "vtime_306_none_hot_1to2": {
+   "m0": {
+    "bytes": 26976,
+    "M": 2049,
+    "lddw": 86
+   },
+   "tf_g3": {
+    "bytes": 27032,
+    "M": 2232,
+    "lddw": 86,
+    "note": "byte-identical to tf_g3_O + bb23.i 2:1"
+   },
+   "T": {
+    "bytes": 27192,
+    "M": 2180,
+    "lddw": 87
+   }
+  }
+ },
+ "mperm": {
+  "main": 2293,
+  "tf_g3_O": 2243,
+  "tf_g3_O_bb23_2to1": 2275,
+  "none_O312": 2240,
+  "tf_g3_O312": 2240,
+  "T": 2243,
+  "Tb": 2246,
+  "Tv01": 2236,
+  "none_O": 2112
+ },
+ "true_lcs": {
+  "main": 2255,
+  "main_Br_fixedRA": 2287,
+  "tf_g3_O": 2248,
+  "tf_g3_O_Br_fixedRA": 2295,
+  "tf_g3_O_bb23_2to1": 2244,
+  "none_O312": 2244,
+  "O312_bb23_2to1": 2240,
+  "T": 2215,
+  "Tb": 2215,
+  "T_TB_fixedRA": 2291,
+  "none_O": 2043,
+  "tf_g3_O312": 2244,
+  "Tv01": 2214,
+  "h289": 1535
+ },
+ "true_lcs_rfj": {
+  "main": 3007,
+  "tf_g3_O": 2983,
+  "tf_g3_O_bb23_2to1": 2972,
+  "none_O312": 2985,
+  "O312_bb23_2to1": 2969,
+  "T": 2961
+ },
+ "kill_test": {
+  "rule": "real-llc M + (27400-bytes)/8 >= 2249",
+  "passing_cells_all_unreachable": [
+   "tf_g3_O + bb23.i 2:1 (= tf_g3 + V-time 306 None-hot): 2232 -> 2278",
+   "tf_g3_O + bb23.i 1:1 / 20:12: 2263 / 2258",
+   "tf_g3_O + IR unit move: 2251",
+   "none_O312 or T+r2 + bb23.i 2:1: 2254",
+   "T + greedy weights: 2252"
   ],
-  "rejected": [
-    "IR-order realisations of B (full and per unit) on main, O, T",
-    "and-1 holder (IR) and the and-1 weight union on outline bases",
-    "w15a29 fee-tag phi paired with the outline",
-    "head (289/298) IR moves on top of the 306 weight",
-    "h289 one-holder-test base (collapsed, M 1410)"
-  ],
-  "next_ideas": [
-    "Find an ordinary representation of `new` whose 306 None test is not a canonical icmp-eq-0 on an i8 tag with !range (e.g. the original's i64 SROA piece + and 1 from an entry copy of new), and check V-time BFI with w15a25 capt.sh/vbfi.py before any full build.",
-    "Any O-type trigger must be paired with the tf_g3 creator binding (main's form collapses under O: none_O 1955, m0+V-bias 2049).",
-    "Price the 368 B entry/validate repay pieces (class-E entry copy of new as 1/7/8/8/8/1 SROA pieces, OV duplication, Result<Pubkey> pieces at 0x538-0x580) on tf_g3_vw1_2, not on main."
-  ],
-  "tools": "reconstruction/pump-main/lanes/w16a06-cto-bonoutline/tools (bprice, arel, uo, ux, irB, iru, wg, and1, phix, vw, eoff, blays, tp2, cap1, gx)",
-  "time_used_minutes": 75
+  "why_unreachable": "O has no non-collapsing ordinary trigger (w15a25) and no faithful 368-376 B repay (w15a25, w15a21); a None-hot 306 test and an error-likely 307 memcmp are not producible by ordinary source (BPI zero/pointer/libcall heuristics + InstCombine canonicalisation); r2 glue has no spelling (w15a02). True LCS of the passing cells is below main and below their own bases, so the difflib gain is alignment-only.",
+  "source_real_best": "Tb 2203 @27176 -> 2231 (fails)"
+ },
+ "mechanisms_found": [
+  "Main's entry+validate already ends at the original's 0x1c20; the inlined 307/312 to_string (+376 B) displace 376 B the original spends elsewhere in entry/validate, so outline bases are short, not long.",
+  "B (original validate order) is worth +80..+89 M at fixed RA on every outline base vs +28 on main; units on O: 312 err after 326 alone +41 / LOO -76.",
+  "The 306 tag frequency (bb23.i) is the only real-llc lever that realises B's tail on outline bases (+32/+33 at 2:1).",
+  "A None-hot 306 test from validate's inliner visit on is simultaneously the 307/312 outline trigger (lddw 86, no V-threading collapse) and the tail-layout lever (tf_g3 + V 1:2 byte-identical to tf_g3_O + post-opt 2:1)."
+ ],
+ "rejected": [
+  "IR-order realisations of B (full and per unit) on main, O, T",
+  "and-1 holder (IR) and the and-1 weight union on outline bases",
+  "w15a29 fee-tag phi paired with the outline",
+  "head (289/298) IR moves on top of the 306 weight",
+  "h289 one-holder-test base (collapsed, M 1410)",
+  "306 spellings on tf_g3 (match x as i32 {1=>..,_=>..}, match is_none as i32, if is_none else unwrap_or_default, map to_bytes): all byte-identical to tf_g3, identical V-time BFI"
+ ],
+ "next_ideas": [
+  "Find an ordinary representation of `new` whose 306 None test is not a canonical icmp-eq-0 on an i8 tag with !range (e.g. the original's i64 SROA piece + and 1 from an entry copy of new), and check V-time BFI with w15a25 capt.sh/vbfi.py before any full build.",
+  "Any O-type trigger must be paired with the tf_g3 creator binding (main's form collapses under O: none_O 1955, m0+V-bias 2049).",
+  "Price the 368 B entry/validate repay pieces (class-E entry copy of new as 1/7/8/8/8/1 SROA pieces, OV duplication, Result<Pubkey> pieces at 0x538-0x580) on tf_g3_vw1_2, not on main."
+ ],
+ "tools": "reconstruction/pump-main/lanes/w16a06-cto-bonoutline/tools (bprice, arel, uo, ux, irB, iru, wg, and1, phix, vw, eoff, blays, tp2, cap1, gx)",
+ "time_used_minutes": 95
 }

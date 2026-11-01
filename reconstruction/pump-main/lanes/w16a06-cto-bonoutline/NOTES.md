@@ -206,3 +206,27 @@ original's count (307 and 312 outlined); main has 88.
   - Only `!prof` (the banned `likely`/`unlikely` family) or a cold call on the Some path would do it. A cold call there is
     a codegen-forcing construct under the RULE.
   - Section 7 screens the 306 spellings the angle named.
+
+## 7. Source screen of the 306 test on tf_g3 (`gx.py` genes, `cap1.sh`, w15a25 `reduce.py` + `vbfi.py` for V-time BFI)
+
+| gene on tf_g3 | line 306 | result |
+| --- | --- | --- |
+| `s306mi` | `let t=match new.is_some() as i32{1=>new.unwrap_or_default(),_=>return Err(..)};` (the sweep_fees.rs:145 idiom) | byte-identical to tf_g3 |
+| `s306mz` | `let t=match new.is_none() as i32{0=>new.unwrap_or_default(),_=>return Err(..)};` | byte-identical to tf_g3 |
+| `s306in` | `let t=if new.is_none(){return Err(..);}else{new.unwrap_or_default()};` | byte-identical to tf_g3 |
+| `s306mu` | `let t=match new.map(\|t\|t.to_bytes()){Some(b)=>Pubkey::new_from_array(b),None=>return Err(..)};` | byte-identical to tf_g3 |
+
+- All four have tf_g3's V-time BFI: 306 0.0754, and 307 0.0283 / 312 0.0287, which stay inlined.
+- w14a98 already showed that the `match` Some/None-first, `if let None`, `&new`, `is_none()`/`is_some()` and let-else
+  forms are identical on main or cost RA.
+- The tag reaches validate as a `!range [0,2)` i8, so every spelling canonicalises before V.
+- A None-hot or `and 1` (non-canonical) 306 test needs `new`'s tag to arrive in another representation. The original
+  loads it as an i64 piece and tests `and 1`, which is consistent with w15a11's class-E entry copy. That representation
+  gives 50/50, not None-hot. So in the original, 307/312 were cold for another reason, most likely the extra non-holder
+  split of the OV duplication (w14a89), and its tail order came from the and-1 tag plus that CFG. On tf_g3_O the and-1
+  tag alone is bb23.i 1:1 = 2,217 (+18).
+
+## Verdict
+
+Kill test met: no source-reachable cell reaches main's M 2,249 even with an ideal repay. The price table, the B orders
+for outline bases and the 306-lever mechanism are the hand-off. Next ideas are in `SUMMARY.json`.
