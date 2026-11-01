@@ -9,6 +9,9 @@ bounds up to M 2,281 (+32), but the composites that realise them stay below main
 27,400 B) for the validate-closure family and M 2,235 (-14) for the cashback-early basin (section 4). Section 5 gives the
 mechanism that eats the validate-closure family's back half.
 
+Main moved during the lane to 1f4e396b5 (#3859 w16a07 sweeptuple: 0.67436, 3,141 slots, M 2,251). Sections 1-5 are
+priced against 9bd38c7 (M 2,249); section 6 re-prices the key rows on 1f4e396 (the branch is merged with it).
+
 Families named in these notes (the archive uses `L` for two different things):
 
 - **VC**: the le_vy1 validate closure of w14a21/w14a42/w15a03 (`v7c+lv_ny+lv_le+lv_cf_skc+lv_h289`, w15a03 `L_N3h`).
@@ -119,6 +122,9 @@ and the curve-store spellings `c0*` in `genes_w16.py`.
 | Lsh_c0s_mv51 | VC + c0s + sh_ifelse + mv_5_1 (CB's cashback-early literal) | 27,360 | 2,213 | -36 | | |
 | Lsh_mv_5_1 / Lsh_m_crl2 | Lsh + mv_5_1 / m_crl2 | 27,264 / 27,304 | 2,089 / 2,096 | -160 / -153 | | |
 | Lsh_fru2 / s_tai2 / tai_tv / k3 / sw1 | Lsh + one TCF-line gene | 27,224-27,232 | 2,129-2,154 | -95..-120 | | |
+| T_mv51 / T_mv51_crl2 / T_mv51_t1a | Lsh_t1n + mv_5_1 (/ + m_crl2 / + t1a) | 27,312-27,384 | 2,210-2,212 | -37..-39 | | |
+| Lsh_t1h / Lsh_t1u / Lsh_t1s (on 1f4e396) | Lsh + shared arm `hopt==Some(true)` / `hopt.unwrap_or(false)` / `new.is_some()` arms swapped | 27,224 / 27,352 / 27,400 | 2,139 / 2,215 / 2,216 | vs 2,251: -112 / -36 / -35 | | |
+| T_c0s / T_I6n / T_hkl2 | Lsh_t1n + c0s / I6n / hkl2 | 27,392 / 27,392 / 27,296 | 2,202 / 2,217 / 2,059 | -47 / -32 / -190 | | |
 | At1a | CB + t1a (w15a16) | 27,408 | 2,235 | -14 | +13 | -27 |
 | At1a_fru1 | CB + t1a + fru1 (pair #5/#10 as source) | 27,408 | 2,226 | -23 | | |
 | At1a_fru6 | + fru6 | 27,408 | 2,234 | -15 | | |
@@ -142,7 +148,8 @@ The post-opt IR of LN3h and main differs after validate in exactly two places (n
    (orig 0x5a40), and LN3h uses the same slot. But main's back half (TCF, sharing CPI, tail, all landed after #3409) was
    tuned without that live range; with it the TCF accounts pointer moves from r8 (original and main) to r6 and the TCF
    loses 122 M.
-   - An IR-oracle edit that recomputes `and i8 %0,1` at the store (`iro/ln3h_st.ll`) gives M 2,187: TCF -122 -> -12.
+   - An IR-oracle edit of LN3h's post-opt `m.ll` that recomputes the value at the store (`store i8 %46, ..` ->
+     `%h.st = and i8 %0, 1` + `store i8 %h.st, ..`, then `llc`) gives M 2,187: TCF -122 -> -12.
    - The source spelling `holder==Some(true)` (c0s) reproduces it (2,189): it is GVN'd to the outer block's
      `and i8 %0,-3; icmp ne` holder instead. `if let`, `matches!` and `unwrap_or_default` keep the closure's form (2,105).
    - But the RA change is global: with c0s the front gain falls from +27 to +11 and the wallet from +15 to -15.
@@ -162,6 +169,11 @@ partly in r8). Basin B has the original's wallet registers but moves the TCF acc
 in basin B by default; `c0s`, `c0h` and `t1n` move it to basin A, and every basin-A VC variant pays the wallet back.
 The original has the basin-A TCF and the basin-B wallet at once; no archived build or screened composite does.
 
+What picks the basin in VC is the shared-arm test right after validate (`if shared{if holder{..}else{..}}`), screened on
+1f4e396: `if holder` and `if hopt==Some(true)` (both the outer block's `and i8 %0,-3` holder) keep basin B (2,139);
+`if new.is_none()` (t1n), `if new.is_some()` with the arms swapped (t1s) and `if hopt.unwrap_or(false)` (t1u, the
+closure's and-1 value) all move to basin A (2,215-2,216), as do `c0s`/`c0h` at the curve store.
+
 The remaining tail_hot loss is w14a42's curve-block placement (the curve update block is pre-merged after the sharing
 test instead of falling through); `if let Some(val)=sharing_update{..}` repairs 14 of its 34.
 
@@ -170,6 +182,23 @@ a front family (VC or CB) whose back collapses with a near-main back worth +2..+
 front gain is entangled with a long live range that the original has and main's back was tuned against; the CB family's
 back loss is the w15a16 spill-colour rotation. Best realisations: VC 2,217 (-32, `Lsh_t1n`), CB 2,235 (-14), against
 main 2,249.
+
+## 6. Re-priced on main 1f4e396 (M 2,251; `data/res-1f4e396.jsonl`)
+
+| variant | bytes | M | dM vs 1f4e396 |
+| --- | ---: | ---: | ---: |
+| m0 (main, `eq_main: true`) | 27,400 | 2,251 | 0 |
+| Lsh_t1n | 27,400 | 2,216 | -35 |
+| At1a (CB) | 27,408 | 2,237 | -14 |
+| LN3h_c0s_shie | 27,376 | 2,201 | -50 |
+| Lsh | 27,224 | 2,139 | -112 |
+| LN3h | 27,224 | 2,105 | -146 |
+
+Splices against the new main (`tools/splice2.py`): `L_N3h` front + main back at 0x1c68 = 2,278 (+27); `A_t1a` front +
+main back at 0x1c68 = 2,264 (+13); main front + `Lsh` back from the wallet (0x5a08) = 2,266 (+15). The three-piece
+basin mix `Lsh[0:0x1c68] + main[0x1c68:0x5a08] + Lsh[0x5a08:]` (`splice2.py --three`) is **M 2,293 (+42) at 27,288 B**
+with 157 calls and every error line once: that is what VC is worth if its front and wallet (basin B) could be had with
+main's sweep/TCF/sharing/tail naming (basin A). No screened source reaches it.
 
 ## Next ideas
 

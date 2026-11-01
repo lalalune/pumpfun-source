@@ -30,7 +30,7 @@ nw=int(sys.argv[2]) if len(sys.argv)>2 else 2
 done={json.loads(l)['name'] for l in open(RES)} if os.path.exists(RES) else set()
 q=queue.Queue(); [q.put(s[:2]) for s in specs if s[0] not in done]
 lock=threading.Lock()
-BM=2249
+BM=int(HR.sum())
 def work(w):
     while True:
         try: name,gs=q.get_nowait()
