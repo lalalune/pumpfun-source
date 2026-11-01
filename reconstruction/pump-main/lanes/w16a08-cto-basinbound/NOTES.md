@@ -152,9 +152,8 @@ let e=AdminCtoEvent{is_holder_reward:holder.unwrap_or(false), ..}   // was a.bon
     `2195=r6` (0x3078-0x3310), `1713=r4` and `2151=r9` (as main's).
   - Pass 2 adds `1847=r5` (0x2ae8, a split child of `%161`), `2116=r6`, `1087=r5`, `1709=r3` and `1749=r3`
     (`data/forces.txt`).
-- **Size budget.** +24 B on 9bd38c7, +16 B on 5998913. The catalog has faithful -16 B knobs (`g_rent_ref`, `g_rent_named`,
-  `g_s7_rentlocal`, each about -0.0007 on m06e6bb8). None was tried here: repaying the size is premature while raw M sits
-  at 1,990.
+- **Size budget.** +24 B on 9bd38c7, +16 B on 5998913 (see section 4 for which catalog knobs still apply). Repaying it is
+  premature while raw M sits at 1,990.
 - **The blocker is spill-slot numbering, not code.** On 9bd38c7, unforced S3 has M 1,994, Mperm 2,293 and Mhc 2,300 (main
   2,249 / 2,293 / 2,300). Under the best permutation, 71 of its 109 spill slots move by +8
   (`rx/e1/permhc.json`): the flag's spill slot lands in the middle of the numbering and moves every later slot by 8
@@ -175,6 +174,12 @@ the same: restore (a no-op for both), permhc, then RA pass 1 and pass 2 with the
 - Main's forces are the same 9 as on 9bd38c7, renumbered (`1685=r6,1672=r7,1618=r3,468=r2,2146=r9,1707=r4,1703=r3,1907=r6,2130=r0`).
 - S3n's forces: `1739=r9,1691=r6,469=r2,1678=r7,1285=r2,2195=r6,2198=r5`, then pass 2 adds
   `1847=r5,1959=r5,1713=r4,1709=r3,1749=r3,2154=r9`. The `1739=r9` and `1847=r5` signature is unchanged.
+- Two other spellings fold to S3n byte for byte: `S3b` writes the flag at the head of each arm, and `S3c` initialises it
+  `true` and writes only `false` in the non-holder arm. The per-arm flag is robust to its spelling, but the spelling gives
+  no lever on the spill numbering.
+- Size: the -16 B knobs of `sizeknobs-cto.json` (`g_rent_ref`, `g_rent_named`, `g_s7_rentlocal`, `g_s7_minvar`) no
+  longer apply to the current source. Only `cu_fee_replace` (-8 B) still applies, so the repay has to come from w16a02's
+  catalog.
 - Real build (`measure.sh $OUT/var/S3nb`): ok, admin_cto 0.59599 @ 27,416 (the oracle's exact value), normalized 1034 with
   0 losses, raw 347 (687 raw losses from the +16 B). `pump_admin_cto_differential.py`: 388 cases, 0 mismatches.
 

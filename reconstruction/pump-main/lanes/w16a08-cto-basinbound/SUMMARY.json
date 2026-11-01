@@ -28,7 +28,7 @@
  "pr": 3876,
  "ledger": {
   "approach": "basinbound",
-  "keys": "0x22a10-w16-9bd38c7-basinbound-<basin>-v1 (17 rows), 0x22a10-w16-5998913-basinbound-{m0n,S3n}-v1"
+  "keys": "0x22a10-w16-9bd38c7-basinbound-<basin>-v1 (17 rows), 0x22a10-w16-5998913-basinbound-{m0n,S3n,S3b,S3c}-v1"
  },
  "stacked_ceilings_vs_main_2338": {
   "e1 (= S3 source, per-arm flag out-param + event from holder arg)": 2354,
@@ -60,7 +60,7 @@
   },
   "decisive_forces": "1739=r9 (post-sweep Result payload in the original's r9; main's 1729=r9 collapses to 0.59083), 1691=r6, 469=r2, 1678=r7, 1285=r2, 2198=r5, 2195=r6, 1713=r4, 2151=r9; pass 2: 1847=r5 (orig 0x2ae8, %161 split child), 2116=r6, 1087=r5, 1709=r3, 1749=r3",
   "blocker": "spill-slot numbering: unforced M 1,994 vs Mperm 2,293 (main 2,249 / 2,293); the flag's extra spill slot shifts later slots by 8. The original keeps its flag at [r10-0x950] (-2384).",
-  "size_budget": "+24 B on 9bd38c7, +16 B on 5998913; faithful -16 B knobs exist in sizeknobs-cto.json (g_rent_ref, g_rent_named, g_s7_rentlocal), untested here",
+  "size_budget": "+24 B on 9bd38c7, +16 B on 5998913; the -16 B knobs of sizeknobs-cto.json (g_rent_ref, g_rent_named, g_s7_rentlocal, g_s7_minvar) no longer apply to the current source, only cu_fee_replace (-8 B) does; use w16a02-cto-faithknobs catalog",
   "current_main_5998913": {
    "main": {
     "M": 2251,
@@ -78,7 +78,8 @@
     "delta_vs_main": 8,
     "forces": "1739=r9,1691=r6,469=r2,1678=r7,1285=r2,2195=r6,2198=r5,1847=r5,1959=r5,1713=r4,1709=r3,1749=r3,2154=r9"
    }
-  }
+  },
+  "equivalent_spellings": "S3b (flag writes at the head of each arm) and S3c (init true, only the non-holder arm writes false) fold to S3n byte for byte"
  },
  "killed": "threaded outline triggers (T289n, X1, Y2, Z2, B2), and-1 basins (v14, v21, v26) and ov1a: stacked ceilings 134-239 M below 2,338; true LCS rf- (perfect RA and frame) 34-124 tokens below main",
  "mechanisms": [
@@ -92,7 +93,8 @@
   "and-1 basins v14 v21 v26 as bases",
   "ov1a as a base",
   "S1 tuple form as written (two 8 B alloca band shifts: authority_bump 1 B slot leaves -0x1, target.sroa.0 disappears)",
-  "S0 event carrier alone (0.67246 @27,408, -4 true LCS)"
+  "S0 event carrier alone (0.67246 @27,408, -4 true LCS)",
+  "S3b / S3c spellings of the per-arm flag (fold to S3n; no lever on spill numbering)"
  ],
  "next_ideas": [
   "S3 spill numbering: find an ordinary spelling whose greedy spill order gives the flag the original's [r10-0x950] slot (w15a08 J1 move) instead of inserting it mid-numbering; price with permhc and the restore-aware climb (tools/full.sh)",
