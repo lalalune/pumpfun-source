@@ -1,0 +1,8 @@
+{"function":"pump_recovered::__private::__global::migrate_bonding_curve_creator","calls":[
+{"off":56,"callee":"sol_log_","noreturn":false,"c":"sol_log_(\"Instruction: MigrateBondingCurveCreator\",0x27)"},
+{"off":168,"callee":"<pump_recovered::creator_migration::MigrateBondingCurveCreator_as_anchor_lang::Accounts<pump_recovered::creator_migration::MigrateBondingCurveCreatorBumps>>::try_accounts","noreturn":false,"c":"<pump_recovered::creator_migration::MigrateBondingCurveCreator_as_anchor_lang::Accounts<pump_recovered::creator_migration::MigrateBondingCurveCreatorBumps>>::try_accounts(&lStack_1f0,param_2,&uStack_3f0)"},
+{"off":264,"callee":"memcpy","noreturn":false,"c":"memcpy(auStack_3c8,&uStack_1d8,0x1d8)"},
+{"off":424,"callee":"pump_recovered::creator_migration::execute","noreturn":false,"c":"pump_recovered::creator_migration::execute(&lStack_408,&lStack_1f0)"},
+{"off":512,"callee":"anchor_lang::accounts::account::Account<T>::exit_with_expected_owner","noreturn":false,"c":"anchor_lang::accounts::account::Account<T>::exit_with_expected_owner(&lStack_418,auStack_298,PUMP_PROGRAM_ID_1b79df,param_2)"},
+{"off":592,"callee":"anchor_lang::error::Error::with_account_name","noreturn":false,"c":"anchor_lang::error::Error::with_account_name(&lStack_428,lStack_418,uStack_410,\"bonding_curve\",0xd)"}
+]}

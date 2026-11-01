@@ -1,0 +1,22 @@
+{"function":"pump_recovered::set_creator::set","calls":[
+{"off":112,"callee":"memcmp","noreturn":false,"c":"iVar5 = memcmp(puVar19,&puStack_168,0x20)"},
+{"off":424,"callee":"solana_sysvar::clock::<impl_solana_sysvar::Sysvar_for_solana_clock::Clock>::get","noreturn":false,"c":"solana_sysvar::clock::<impl_solana_sysvar::Sysvar_for_solana_clock::Clock>::get(&puStack_168)"},
+{"off":528,"callee":"<anchor_lang::error::Error_as_core::convert::From<solana_program_error::ProgramError>>::from","noreturn":false,"c":"<anchor_lang::error::Error_as_core::convert::From<solana_program_error::ProgramError>>::from(&uStack_1f8,&puStack_168)"},
+{"off":584,"callee":"sol_log_","noreturn":false,"c":"sol_log_(\"Bonding curve has creator already set\",0x25)"},
+{"off":680,"callee":"core::panicking::panic_bounds_check","noreturn":true,"c":"core::panicking::panic_bounds_check(0,0,&obj_1bdb18_1bdb18)"},
+{"off":840,"callee":"solana_sysvar::clock::<impl_solana_sysvar::Sysvar_for_solana_clock::Clock>::get","noreturn":false,"c":"solana_sysvar::clock::<impl_solana_sysvar::Sysvar_for_solana_clock::Clock>::get(&puStack_e8)"},
+{"off":944,"callee":"<anchor_lang::error::Error_as_core::convert::From<solana_program_error::ProgramError>>::from","noreturn":false,"c":"<anchor_lang::error::Error_as_core::convert::From<solana_program_error::ProgramError>>::from(&uStack_1d8,&puStack_e8)"},
+{"off":1136,"callee":"alloc::raw_vec::handle_error","noreturn":true,"c":"alloc::raw_vec::handle_error(1,0x100)"},
+{"off":1456,"callee":"solana_program::log::sol_log_data","noreturn":false,"c":"solana_program::log::sol_log_data(&puStack_168,1)"},
+{"off":1528,"callee":"abort","noreturn":true,"c":"abort()"},
+{"off":2576,"callee":"alloc::alloc::handle_alloc_error","noreturn":true,"c":"alloc::alloc::handle_alloc_error(1,0x22)"},
+{"off":2776,"callee":"solana_instruction::Instruction::new_with_bytes","noreturn":false,"c":"solana_instruction::Instruction::new_with_bytes(&puStack_168,PUMP_PROGRAM_ID_1b79df,puVar12,0x78,&puStack_e8)"},
+{"off":3088,"callee":"solana_program::program::invoke_signed","noreturn":false,"c":"solana_program::program::invoke_signed(alStack_18,&puStack_168,&puStack_e8,1)"},
+{"off":3904,"callee":"solana_program::log::sol_log_data","noreturn":false,"c":"solana_program::log::sol_log_data(&puStack_e8,1)"},
+{"off":5272,"callee":"solana_instruction::Instruction::new_with_bytes","noreturn":false,"c":"solana_instruction::Instruction::new_with_bytes(&puStack_e8,PUMP_PROGRAM_ID_1b79df,puVar9,0x98,&pcStack_80)"},
+{"off":5584,"callee":"solana_program::program::invoke_signed","noreturn":false,"c":"solana_program::program::invoke_signed(alStack_98,&puStack_e8,&pcStack_80,1)"},
+{"off":5776,"callee":"<anchor_lang::error::Error_as_core::convert::From<solana_program_error::ProgramError>>::from","noreturn":false,"c":"<anchor_lang::error::Error_as_core::convert::From<solana_program_error::ProgramError>>::from(&uStack_208,alStack_18)"},
+{"off":5968,"callee":"<anchor_lang::error::Error_as_core::convert::From<solana_program_error::ProgramError>>::from","noreturn":false,"c":"<anchor_lang::error::Error_as_core::convert::From<solana_program_error::ProgramError>>::from(&uStack_1e8,alStack_98)"},
+{"off":6112,"callee":"alloc::raw_vec::handle_error","noreturn":true,"c":"alloc::raw_vec::handle_error(1,0x78)"},
+{"off":6128,"callee":"alloc::raw_vec::handle_error","noreturn":true,"c":"alloc::raw_vec::handle_error(1,0x98)"}
+]}

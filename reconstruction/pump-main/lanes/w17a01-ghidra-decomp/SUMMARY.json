@@ -1,0 +1,639 @@
+{
+ "lane": "w17a01-ghidra-decomp",
+ "kind": "analysis",
+ "target": "0x22a10 admin_cto::execute",
+ "main": "599891304",
+ "baseline": {
+  "ratio": 0.67436,
+  "M": 2251,
+  "slots": 3141,
+  "bytes": 27400
+ },
+ "decode_check": {
+  "orig": {
+   "ghidra": 3339,
+   "winpy": 3339,
+   "mismatches": 0
+  },
+  "ours": {
+   "ghidra": 3337,
+   "winpy": 3337,
+   "mismatches": 0
+  }
+ },
+ "instruction_alignment": {
+  "ratio": 0.7974835230677052,
+  "aligned": 2662
+ },
+ "regions": [
+  {
+   "id": "E1",
+   "name": "entry: holder PDA + shared test",
+   "orig_range": [
+    "0x0",
+    "0x280"
+   ],
+   "insns": [
+    77,
+    59
+   ],
+   "blocks": [
+    3,
+    3
+   ],
+   "calls": [
+    4,
+    4
+   ],
+   "call_order_same": false,
+   "regs_live_at_joins": [
+    0,
+    2
+   ],
+   "tokens": 78,
+   "exact_gap": 37,
+   "masked_gap": 23
+  },
+  {
+   "id": "E2",
+   "name": "entry: quote_locked (default/native/whitelist)",
+   "orig_range": [
+    "0x280",
+    "0x420"
+   ],
+   "insns": [
+    51,
+    85
+   ],
+   "blocks": [
+    4,
+    6
+   ],
+   "calls": [
+    3,
+    3
+   ],
+   "call_order_same": true,
+   "regs_live_at_joins": [
+    3,
+    3
+   ],
+   "tokens": 50,
+   "exact_gap": 25,
+   "masked_gap": 15
+  },
+  {
+   "id": "E3",
+   "name": "entry: CtoState + new/key copies, mayhem 284",
+   "orig_range": [
+    "0x420",
+    "0x708"
+   ],
+   "insns": [
+    90,
+    24
+   ],
+   "blocks": [
+    4,
+    3
+   ],
+   "calls": [
+    2,
+    2
+   ],
+   "call_order_same": true,
+   "regs_live_at_joins": [
+    5,
+    0
+   ],
+   "tokens": 89,
+   "exact_gap": 60,
+   "masked_gap": 30
+  },
+  {
+   "id": "V1",
+   "name": "validate: holder arm head, 289/298",
+   "orig_range": [
+    "0x708",
+    "0xb00"
+   ],
+   "insns": [
+    119,
+    114
+   ],
+   "blocks": [
+    14,
+    9
+   ],
+   "calls": [
+    6,
+    6
+   ],
+   "call_order_same": false,
+   "regs_live_at_joins": [
+    4,
+    3
+   ],
+   "tokens": 120,
+   "exact_gap": 51,
+   "masked_gap": 20
+  },
+  {
+   "id": "V2",
+   "name": "validate: non-holder arm 306/307/312 memcmps + shared split",
+   "orig_range": [
+    "0xb00",
+    "0xe60"
+   ],
+   "insns": [
+    105,
+    156
+   ],
+   "blocks": [
+    13,
+    14
+   ],
+   "calls": [
+    5,
+    10
+   ],
+   "call_order_same": false,
+   "regs_live_at_joins": [
+    3,
+    0
+   ],
+   "tokens": 104,
+   "exact_gap": 58,
+   "masked_gap": 22
+  },
+  {
+   "id": "V3",
+   "name": "validate: 306/296/326 error blocks + holder exit",
+   "orig_range": [
+    "0xe60",
+    "0x1258"
+   ],
+   "insns": [
+    121,
+    134
+   ],
+   "blocks": [
+    8,
+    8
+   ],
+   "calls": [
+    5,
+    5
+   ],
+   "call_order_same": false,
+   "regs_live_at_joins": [
+    3,
+    0
+   ],
+   "tokens": 121,
+   "exact_gap": 58,
+   "masked_gap": 38
+  },
+  {
+   "id": "V4",
+   "name": "validate: 312/307 error blocks (outlined to_string)",
+   "orig_range": [
+    "0x1258",
+    "0x1490"
+   ],
+   "insns": [
+    65,
+    46
+   ],
+   "blocks": [
+    2,
+    1
+   ],
+   "calls": [
+    7,
+    2
+   ],
+   "call_order_same": false,
+   "regs_live_at_joins": [
+    0,
+    0
+   ],
+   "tokens": 66,
+   "exact_gap": 23,
+   "masked_gap": 21
+  },
+  {
+   "id": "V5",
+   "name": "validate: fee checks 330/334/338",
+   "orig_range": [
+    "0x1490",
+    "0x1800"
+   ],
+   "insns": [
+    101,
+    76
+   ],
+   "blocks": [
+    8,
+    6
+   ],
+   "calls": [
+    9,
+    9
+   ],
+   "call_order_same": true,
+   "regs_live_at_joins": [
+    12,
+    0
+   ],
+   "tokens": 102,
+   "exact_gap": 34,
+   "masked_gap": 17
+  },
+  {
+   "id": "J1",
+   "name": "join: holder/shared arms -> (collect_old, skip, sharing_update, target)",
+   "orig_range": [
+    "0x1800",
+    "0x1990"
+   ],
+   "insns": [
+    50,
+    84
+   ],
+   "blocks": [
+    10,
+    12
+   ],
+   "calls": [
+    1,
+    1
+   ],
+   "call_order_same": true,
+   "regs_live_at_joins": [
+    11,
+    21
+   ],
+   "tokens": 49,
+   "exact_gap": 22,
+   "masked_gap": 9
+  },
+  {
+   "id": "J2",
+   "name": "join: prepare_bonding_curve + 410",
+   "orig_range": [
+    "0x1990",
+    "0x1c88"
+   ],
+   "insns": [
+    91,
+    86
+   ],
+   "blocks": [
+    8,
+    9
+   ],
+   "calls": [
+    4,
+    4
+   ],
+   "call_order_same": true,
+   "regs_live_at_joins": [
+    4,
+    5
+   ],
+   "tokens": 92,
+   "exact_gap": 37,
+   "masked_gap": 14
+  },
+  {
+   "id": "W1",
+   "name": "wallet head: executable / owner checks, shared msg!",
+   "orig_range": [
+    "0x1c88",
+    "0x1f68"
+   ],
+   "insns": [
+    86,
+    80
+   ],
+   "blocks": [
+    8,
+    7
+   ],
+   "calls": [
+    5,
+    5
+   ],
+   "call_order_same": true,
+   "regs_live_at_joins": [
+    2,
+    6
+   ],
+   "tokens": 87,
+   "exact_gap": 13,
+   "masked_gap": 4
+  },
+  {
+   "id": "S1",
+   "name": "sweep head + gate: native, creator-vault PDA, ConstraintSeeds, AMM present/frozen, 660",
+   "orig_range": [
+    "0x1f68",
+    "0x26e8"
+   ],
+   "insns": [
+    228,
+    237
+   ],
+   "blocks": [
+    31,
+    34
+   ],
+   "calls": [
+    18,
+    18
+   ],
+   "call_order_same": false,
+   "regs_live_at_joins": [
+    7,
+    28
+   ],
+   "tokens": 228,
+   "exact_gap": 39,
+   "masked_gap": 11
+  },
+  {
+   "id": "T1",
+   "name": "TCF CPI: inline AccountInfo literals + transfer_creator_fees_to_pump_v2, Rent::get",
+   "orig_range": [
+    "0x26e8",
+    "0x3c50"
+   ],
+   "insns": [
+    685,
+    662
+   ],
+   "blocks": [
+    105,
+    95
+   ],
+   "calls": [
+    3,
+    3
+   ],
+   "call_order_same": true,
+   "regs_live_at_joins": [
+    205,
+    197
+   ],
+   "tokens": 684,
+   "exact_gap": 207,
+   "masked_gap": 24
+  },
+  {
+   "id": "C1",
+   "name": "sharing-config CPI clone run (admin_cto_sharing_config)",
+   "orig_range": [
+    "0x3c50",
+    "0x4aa8"
+   ],
+   "insns": [
+    458,
+    465
+   ],
+   "blocks": [
+    69,
+    74
+   ],
+   "calls": [
+    1,
+    1
+   ],
+   "call_order_same": true,
+   "regs_live_at_joins": [
+    147,
+    151
+   ],
+   "tokens": 457,
+   "exact_gap": 226,
+   "masked_gap": 58
+  },
+  {
+   "id": "P1",
+   "name": "pool CPI: AMM pool owner test, msg, to_account_info clones, admin_cto_pool",
+   "orig_range": [
+    "0x4aa8",
+    "0x4e50"
+   ],
+   "insns": [
+    115,
+    120
+   ],
+   "blocks": [
+    7,
+    7
+   ],
+   "calls": [
+    13,
+    13
+   ],
+   "call_order_same": false,
+   "regs_live_at_joins": [
+    7,
+    2
+   ],
+   "tokens": 116,
+   "exact_gap": 24,
+   "masked_gap": 7
+  },
+  {
+   "id": "EV",
+   "name": "event: Clock::get, AdminCtoEvent emit + self-CPI",
+   "orig_range": [
+    "0x4e50",
+    "0x5558"
+   ],
+   "insns": [
+    220,
+    224
+   ],
+   "blocks": [
+    13,
+    13
+   ],
+   "calls": [
+    12,
+    12
+   ],
+   "call_order_same": true,
+   "regs_live_at_joins": [
+    17,
+    18
+   ],
+   "tokens": 216,
+   "exact_gap": 29,
+   "masked_gap": 7
+  },
+  {
+   "id": "TL",
+   "name": "tails: error tails 92/88, unwrap_failed, From<AnchorError>",
+   "orig_range": [
+    "0x5558",
+    "0x5a18"
+   ],
+   "insns": [
+    141,
+    140
+   ],
+   "blocks": [
+    13,
+    13
+   ],
+   "calls": [
+    9,
+    9
+   ],
+   "call_order_same": true,
+   "regs_live_at_joins": [
+    11,
+    11
+   ],
+   "tokens": 144,
+   "exact_gap": 27,
+   "masked_gap": 3
+  },
+  {
+   "id": "S2",
+   "name": "sweep native arm: Rent min balance, ensure_rent_exempt, transfer_native",
+   "orig_range": [
+    "0x5a18",
+    "0x5c18"
+   ],
+   "insns": [
+    63,
+    65
+   ],
+   "blocks": [
+    9,
+    11
+   ],
+   "calls": [
+    4,
+    4
+   ],
+   "call_order_same": true,
+   "regs_live_at_joins": [
+    11,
+    12
+   ],
+   "tokens": 63,
+   "exact_gap": 13,
+   "masked_gap": 2
+  },
+  {
+   "id": "W2",
+   "name": "wallet body: collect, create_idempotent x2, sweep token arm, CollectCreatorFeeEvent, AMM collect",
+   "orig_range": [
+    "0x5c18",
+    "0x6b08"
+   ],
+   "insns": [
+    473,
+    480
+   ],
+   "blocks": [
+    49,
+    48
+   ],
+   "calls": [
+    46,
+    46
+   ],
+   "call_order_same": true,
+   "regs_live_at_joins": [
+    18,
+    25
+   ],
+   "tokens": 450,
+   "exact_gap": 98,
+   "masked_gap": 12
+  }
+ ],
+ "proposals": [
+  {
+   "lane": "pdaslot",
+   "regions": [
+    "E1"
+   ],
+   "minutes": 120,
+   "orig_shape": "find_program_address is the FIRST call (+0xf8), out-param = aligned 32-byte scratch [r10-0x2d0] that is then reused for sk (sharing_config key, shared test memcmps at +0x1c8/+0x238) and for Pubkey::default (quote_locked); holder_key copied out as 4 aligned dwords to [r10-0x6a0..-0x688]",
+   "ours_shape": "shared test first, then PDA with (Pubkey,u8) sret at odd slot -0x679 and holder_key copied in 7+1-byte pieces",
+   "construct": "move hk before shared; route the PDA through one MaybeUninit<[u64;5]> scratch written via *scr.as_mut_ptr().cast::<(Pubkey,u8)>() = find_program_address(..) (/*shim: orig -0x2d0 PDA/sk/default scratch*/), read holder_key back as [u64;4], and write sk / the default key into the same scratch for the memcmps",
+   "evidence": "E1 exact gap 37 / masked 24 (w16 ceilings attributed); w14a93-cto-pdaheadra tried plain PDA-before-shared reorders (rejected) without controlling the sret slot"
+  },
+  {
+   "lane": "newpieces",
+   "regions": [
+    "E3",
+    "J1",
+    "C1"
+   ],
+   "minutes": 180,
+   "orig_shape": "all SROA pieces of the new stack arg (r5-0xff8) loaded at +0x4d8..+0x538 before the mayhem test: u8@0 u32@1 u24@5 u64@8 u64@16 u64@24 u8@32, spilled (-0x668/-0x660/-0x658/-0x654) and reused for J1 target and for the C1 CPI Option<Pubkey> arg written as pieces into [-0x651,-0x630) (payload 8-aligned at -0x650); sharing_update test is new.tag != 2",
+   "ours_shape": "new read lazily per arm; separate sharing_update tag local (cVar1); CPI arg copied from a 32-byte stack value at -0x560..-0x548 into an object 8 bytes higher (tag -0x649)",
+   "construct": "at the CtoState site read new once through a raw pointer with read_volatile at the original piece offsets (/*shim: orig entry loads 0x4d8-0x538*/); drive match sharing_update from the raw tag byte (!=2); build the CPI arg in a MaybeUninit<[u8;40]> with write_volatile pieces so the tag sits at -0x651 and payload at -0x650",
+   "evidence": "E3 exact gap 60 / masked 30, C1 masked 57 (its only structural residual: 147 of 155 C1 slots already common), J1 masked 9; long-standing w12 residual \"loads all of new SROA pieces before the mayhem test\"; w16a13 su-first / w16a03 Q2 tried ordinary spellings"
+  },
+  {
+   "lane": "vorder",
+   "regions": [
+    "V1",
+    "V2",
+    "V3",
+    "V4",
+    "V5"
+   ],
+   "minutes": 150,
+   "orig_shape": "validate error blocks laid out 289(83) 306(89) 298(90) 326(91) 296(84) | 312(19) 307(30) with outlined <T as ToString>::to_string | 330(80) 338(78) 334(77); holder test param&1",
+   "ours_shape": "298 296 289 326 312 306 307 | 330 338 334, 312/307 inline Display::fmt+unwrap_failed",
+   "construct": "llvm.expect.i1 extern (w17a02 #3934 recipe; link_llvm_intrinsics on lib.rs line 1) 1:2000 on each validate error edge, with payloads read through raw pointers, plus MIR first-reference order of the checks; accept by the k_u32 order of PumpError::name calls in calls.json (regions.py) matching the original",
+   "evidence": "V1-V5 exact gap 214 / masked 120, the largest structural pool; w16a13 tAn2 (#3883) outline at 27,040 B; coordinate with w17a02-shim-unlockplace (306/307/312/338 hints already built)"
+  },
+  {
+   "lane": "ctostate-store",
+   "regions": [
+    "E2",
+    "E3"
+   ],
+   "minutes": 90,
+   "orig_shape": "CtoState flag bytes stored stxb -0xe,-0xf,-0x10 at +0x448..+0x460 (curve flags right after quote_locked) then -0xd (quote_locked), -0xb, -0xc at +0x4b8..+0x4c8; three curve flag bytes +0xa3,+0xa5,+0xa2 loaded before the quote mint copy",
+   "ours_shape": "-0xd first (+0x468), then -0xb,-0xc,-0xe,-0xf,-0x10 at +0x4c8..+0x4e8",
+   "construct": "build st in a MaybeUninit<CtoState> and write_volatile each flag field in the original order at the original points (/*shim: orig stxb order*/), loading the curve flags before quote_locked",
+   "evidence": "E2 exact gap 24 / E3 60 (partly); w15a01 #3666 (fee_configurable first) and w16a17-stitch16 show CtoState spelling moves admin_cto"
+  },
+  {
+   "lane": "pool-gate",
+   "regions": [
+    "P1"
+   ],
+   "minutes": 90,
+   "orig_shape": "lVar50 = accounts[0xe] loaded once; memcmp(*(lVar50+0x18), PUMP_AMM_PROGRAM_ID, 32)==0 && data_is_empty(lVar50)==0",
+   "ours_shape": "data_is_empty(accounts[0xe]) first, then re-reads accounts[0xe] for the owner memcmp",
+   "construct": "let pool=unsafe{core::ptr::read_volatile(&(a.pool.as_ref() as *const AccountInfo))} /*shim: one accounts[0xe] load*/; pool_updated = owner==AMM && !data_is_empty through that pointer",
+   "evidence": "P1 exact gap 24 / masked 7; owner-first ordinary spelling (mpo) rejected in w15a04/w15a33 because it moved the pool pointer"
+  }
+ ],
+ "attempts": [],
+ "rejected_mechanisms": [],
+ "unresolved": [
+  "validate block order source trigger",
+  "312/307 to_string outline room (~360 B)",
+  "register naming in T1/C1/W2 (frame already common)"
+ ],
+ "tools": [
+  "prep.py",
+  "ghidra_scripts/SbfDecomp.java",
+  "run_ghidra.sh",
+  "regions.py"
+ ]
+}

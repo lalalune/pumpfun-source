@@ -1,0 +1,76 @@
+/*  708*/        pump_recovered::PumpError::name(&ppppppplStack_470,&k_u32_84_1b5db8);
+/*  728*/        ppppppplStack_4a8 = (longlong *******)0x0;
+/*  730*/        pppppplStack_4b0 = (longlong ******)0x1;
+/*  738*/        uStack_4b8 = (char *)0x0;
+/*  750*/        ppppppplStack_428 = (longlong *******)&obj_1bd838_1bd838;
+/*  760*/        ppppppplStack_430 = (longlong *******)&uStack_4b8;
+/*  770*/        ppppppplStack_418 = (longlong *******)CONCAT71(ppppppplStack_418._1_7_,3);
+/*  778*/        ppppppplStack_420 = (longlong *******)0x20;
+/*  780*/        ppppppplStack_440 = (longlong *******)0x0;
+/*  788*/        uStack_450 = (char *)0x0;
+/*  7b0*/        lVar47 = <pump_recovered::PumpError_as_core::fmt::Display>::fmt
+/*  798*/                           (&k_u32_84_1b5db8,&uStack_450);
+/*  7b8*/        if (lVar47 != 0) goto LAB_ram_00028118;
+/*  dc0*/        ppppppplStack_288 = ppppppplStack_4a8;
+/*  dd0*/        uStack_290 = (longlong *******)pppppplStack_4b0;
+/*  de0*/        ppppppplStack_298 = (longlong *******)uStack_4b8;
+/*  df0*/        ppppppplStack_2b0 = ppppppplStack_470;
+/*  e00*/        ppppppplStack_2a8 = ppppppplStack_468;
+/*  e10*/        ppppppplStack_2a0 = ppppppplStack_460;
+/*  e28*/        ppppppplStack_2c8 = (longlong *******)0x1b68cc;
+/*  e30*/        uStack_238 = CONCAT44(uStack_238._4_4_,0x17c4);
+/*  e38*/        plStack_280 = (longlong *)CONCAT71(plStack_280._1_7_,2);
+/*  e40*/        ppppppplStack_2b8 = (longlong *******)CONCAT44(ppppppplStack_2b8._4_4_,0x128);
+/*  e48*/        ppppppplStack_2c0 = (longlong *******)0x26;
+/*  e50*/        ppppppplStack_2d0 = (longlong *******)0x0;
+/*  e78*/        <anchor_lang::error::Error_as_core::convert::From<anchor_lang::error::AnchorError>>::from
+/*  e60*/                  (&ppppppplStack_700,&ppppppplStack_2d0);
+/*  e90*/        ppppppplStack_6f0 = ppppppplStack_700;
+/*  e90*/        ppppppplStack_6e8 = ppppppplStack_6f8;
+/* 1018*/        ppppppplStack_288 = ppppppplStack_460;
+/* 1028*/        uStack_290 = ppppppplStack_468;
+/* 1038*/        ppppppplStack_298 = ppppppplStack_470;
+/* 1048*/        ppppppplStack_2b0 = uStack_488;
+/* 1058*/        ppppppplStack_2a8 = (longlong *******)uStack_480;
+/* 1068*/        ppppppplStack_2a0 = (longlong *******)uStack_478;
+/* 1080*/        ppppppplStack_2c8 = (longlong *******)0x1b68cc;
+/* 1088*/        uStack_238 = CONCAT44(uStack_238._4_4_,0x17c9);
+/* 1090*/        plStack_280 = (longlong *)CONCAT71(plStack_280._1_7_,2);
+/* 1098*/        ppppppplStack_2b8 = (longlong *******)CONCAT44(ppppppplStack_2b8._4_4_,0x132);
+/* 10a0*/        ppppppplStack_2c0 = (longlong *******)0x26;
+/* 10a8*/        ppppppplStack_2d0 = (longlong *******)0x0;
+/* 10d0*/        <anchor_lang::error::Error_as_core::convert::From<anchor_lang::error::AnchorError>>::from
+/* 10b8*/                  (&ppppppplStack_8d0,&ppppppplStack_2d0);
+/* 10e8*/        ppppppplStack_6f0 = ppppppplStack_8d0;
+/* 10e8*/        ppppppplStack_6e8 = ppppppplStack_8c8;
+/*  ea0*/        ppppppplStack_288 = ppppppplStack_4a8;
+/*  eb0*/        uStack_290 = (longlong *******)pppppplStack_4b0;
+/*  ec0*/        ppppppplStack_298 = (longlong *******)uStack_4b8;
+/*  ed8*/        ppppppplStack_2c8 = (longlong *******)0x1b68cc;
+/*  ee0*/        uStack_238 = CONCAT44(uStack_238._4_4_,0x17cb);
+/*  ee8*/        plStack_280 = (longlong *)CONCAT71(plStack_280._1_7_,2);
+/*  ef0*/        ppppppplStack_2b8 = (longlong *******)CONCAT44(ppppppplStack_2b8._4_4_,0x146);
+/*  ef8*/        ppppppplStack_2c0 = (longlong *******)0x26;
+/*  f00*/        ppppppplStack_2d0 = (longlong *******)0x0;
+/*  f28*/        <anchor_lang::error::Error_as_core::convert::From<anchor_lang::error::AnchorError>>::from
+/*  f10*/                  (&ppppppplStack_740,&ppppppplStack_2d0);
+/*  f40*/        ppppppplStack_6f0 = ppppppplStack_740;
+/*  f40*/        ppppppplStack_6e8 = ppppppplStack_738;
+/* 17c8*/    bVar36 = true;
+/* 17d8*/    cVar1 = '\0';
+/* 17e8*/    bVar97 = false;
+/* 17e0*/    if ((param_3 & 0xfd) == 0) {
+/* 1830*/      ppppppplStack_2b8 = *(longlong ********)(pcVar46 + 0x19);
+/* 1840*/      ppppppplStack_2c0 = *(longlong ********)(pcVar46 + 0x11);
+/* 1850*/      ppppppplStack_2c8 = *(longlong ********)(pcVar46 + 9);
+/* 1860*/      ppppppplStack_2d0 = (longlong *******)*plVar105;
+/* 1820*/      uStack_658 = (undefined1)*(undefined4 *)(lVar106 + 8);
+/* 1820*/      uStack_657 = (undefined2)((uint)*(undefined4 *)(lVar106 + 8) >> 8);
+/* 1880*/      uStack_655 = *(undefined4 *)(lVar106 + 0xb);
+/* 1890*/      uVar59 = *(undefined8 *)(lVar106 + 0xf);
+/* 1898*/      uVar120 = *(undefined8 *)(lVar106 + 0x17);
+/* 18a8*/      ppppppplStack_528 =
+/* 18a0*/           (longlong *******)CONCAT71(ppppppplStack_528._1_7_,*(undefined1 *)(lVar106 + 0x27));
+/* 18b0*/      ppppppplStack_530 = *(longlong ********)(lVar106 + 0x1f);
+/* 18d0*/      bVar36 = false;
+/* 18d8*/      cVar1 = cVar4;

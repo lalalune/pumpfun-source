@@ -1,0 +1,6 @@
+{"function":"pump_recovered::admin_cto::token_frozen","calls":[
+{"off":24,"callee":"solana_account_info::AccountInfo::data_is_empty","noreturn":false,"c":"lVar1 = solana_account_info::AccountInfo::data_is_empty(param_2)"},
+{"off":64,"callee":"solana_account_info::AccountInfo::try_borrow_data","noreturn":false,"c":"solana_account_info::AccountInfo::try_borrow_data(&lStack_c0,param_2)"},
+{"off":192,"callee":"<anchor_spl::token_interface::TokenAccount_as_anchor_lang::AccountDeserialize>::try_deserialize_unchecked","noreturn":false,"c":"<anchor_spl::token_interface::TokenAccount_as_anchor_lang::AccountDeserialize>::try_deserialize_unchecked(&lStack_c0,&uStack_10)"},
+{"off":344,"callee":"<anchor_lang::error::Error_as_core::convert::From<solana_program_error::ProgramError>>::from","noreturn":false,"c":"<anchor_lang::error::Error_as_core::convert::From<solana_program_error::ProgramError>>::from(&lStack_d0,&lStack_c0)"}
+]}

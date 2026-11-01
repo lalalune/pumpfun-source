@@ -1,0 +1,12 @@
+/*  8b0*/      pump_recovered::PumpError::name(&ppppppplStack_470,&k_u32_83_1b5e78);
+/*  8d0*/      ppppppplStack_4a8 = (longlong *******)0x0;
+/*  8d8*/      pppppplStack_4b0 = (longlong ******)0x1;
+/*  8e0*/      uStack_4b8 = (char *)0x0;
+/*  8f8*/      ppppppplStack_428 = (longlong *******)&obj_1bd838_1bd838;
+/*  908*/      ppppppplStack_430 = (longlong *******)&uStack_4b8;
+/*  918*/      ppppppplStack_418 = (longlong *******)CONCAT71(ppppppplStack_418._1_7_,3);
+/*  920*/      ppppppplStack_420 = (longlong *******)0x20;
+/*  928*/      ppppppplStack_440 = (longlong *******)0x0;
+/*  930*/      uStack_450 = (char *)0x0;
+/*  940*/      lVar47 = <pump_recovered::PumpError_as_core::fmt::Display>::fmt(&k_u32_83_1b5e78,&uStack_450);
+/*  960*/      if (lVar47 != 0) goto LAB_ram_00028118;
