@@ -1,0 +1,163 @@
+{
+  "lane": "w17a22-shim-varpin",
+  "wave": 17,
+  "target": {
+    "window": "0x22a10",
+    "function": "admin_cto::execute",
+    "file": "programs/pump/src/creator/admin_cto.rs",
+    "pinned_bytes": 27400
+  },
+  "angle": "llvm.var.annotation.p0.p0 (declared via link_name) as a zero-instruction memory pin on one local, shim track",
+  "bases": {
+    "a51791e2e": {
+      "ratio": 0.68544,
+      "M": 2288,
+      "use": "calibration (measure.sh)"
+    },
+    "2f3597f99": {
+      "ratio": 0.68634,
+      "M": 2291,
+      "use": "first beams"
+    },
+    "aab087f32": {
+      "ratio": 0.68724,
+      "M": 2294
+    },
+    "53ec7fb53": {
+      "ratio": 0.68754,
+      "M": 2295,
+      "use": "final beams"
+    }
+  },
+  "best_landable": null,
+  "best_measured": {
+    "name": "wxp3",
+    "base": "2f3597f99",
+    "what": "w17a16 Wx outline base + three vann pins (create_idempotent token_program clone, 306 and 326 error Source temps)",
+    "ratio": 0.68733,
+    "slots": 3241,
+    "bytes": 27400,
+    "M": 2295,
+    "lddw": 86,
+    "normalized": 1034,
+    "raw": 1034,
+    "losses": [],
+    "raw_losses": [],
+    "not_proposed_because": "the pinned 48 B clone is copied into the CPI array by a memcpy libcall (internal calls 154 -> 155), and main moved past it (aab087f 0.68724, 53ec7fb 0.68754)"
+  },
+  "calibration": {
+    "declaration_only": "byte-identical to main a51791e2e (candidate sha256 fe3b9cef0b51a446)",
+    "vann_hkx": "byte-identical",
+    "vann_st": "not identical (M 1972 @27216): st is memory-resident but uncaptured; the pin turns forwarded field loads into reloads after calls",
+    "vann_new_param": "byte-identical in 3 placements (black_box(&new) kept E3 only through its memory clobber)"
+  },
+  "fold_table": {
+    "SROA": "skips the pinned alloca (escaping use): no split, no promotion",
+    "GVN_forwarding": "blocked across calls that may write memory; kept within a block and across vann itself",
+    "DSE": "still removes overwritten stores and all stores when no call follows the pin (escape point = the vann call)",
+    "MemCpyOpt": "memcpy(dst <- pinned) still forwarded to the original source when it is unchanged",
+    "StackColoring": "lifetime markers apply; disjoint pinned locals share a slot",
+    "ISel": "call dropped, no instruction, no relocation"
+  },
+  "attempts": [
+    {
+      "what": "calibration builds (decl, decl+vann(hkx))",
+      "result": "byte-identical"
+    },
+    {
+      "what": "IR beam, one pin per alloca, A/B/C placements, a51791e2e",
+      "cells": 1461,
+      "result": "none above main"
+    },
+    {
+      "what": "IR beam, 2f3597f99",
+      "cells": 674,
+      "result": "none above main; zero-cost knobs +16/+40/+48/+64 B"
+    },
+    {
+      "what": "IR beam, 53ec7fb53 (vann + passthrough + volatile/weight families)",
+      "cells": 1523,
+      "result": "none above main; vann knobs now -1 M"
+    },
+    {
+      "what": "passthrough family, 2f3597f99",
+      "cells": 1009,
+      "result": "best pt:validate:27949 +1 M at -8 B (no 0-M +8 B partner; +16 B knobs interact to 0)"
+    },
+    {
+      "what": "size-neutral combos (2f3597f, 53ec7fb)",
+      "cells": 251,
+      "result": "none above main"
+    },
+    {
+      "what": "E3 copy of new as pinned 7 B / 9 B pieces (e3v family)",
+      "result": "original E3 store shapes exactly, M 1393 @27584 (sweep-join layout flip)"
+    },
+    {
+      "what": "E3 9 B piece into hkx's unused tail (frame-neutral)",
+      "result": "1640 @27480: the collapse is the CtoState-site layout cliff, not the frame"
+    },
+    {
+      "what": "pins of target / sharing_update / payload / args tuple",
+      "result": "-247..-647 exact, rfj -5..-21"
+    },
+    {
+      "what": "pin of the Ok((target,su,cashback))? round trip (J2 tuple in memory)",
+      "result": "1892 @27608; rfj J1 +2 J2 +3 S1 +3 C1 +4 but TL -106"
+    },
+    {
+      "what": "vann repay of w17a16 Wx (source-built)",
+      "result": "0.68733 @27400 zero losses on 2f3597f (libcall caveat); validate-only pins <= 2291"
+    },
+    {
+      "what": "priced vann beam on 53ec7fb (exact + rfj per region, 491 cells)",
+      "result": "97 identical, none above main; best rfj +5 (validate 326 error temps, -2 M @+48 B); region bests V1/V4 +9, J2 +7, C1 +6, E3 +4 all with -438..-846 M"
+    },
+    {
+      "what": "accounts pointer in a pinned local, re-read at every use (execute/sweep/wallet)",
+      "result": "1255-1862: the captured slot is reloaded after every Rc-count store"
+    },
+    {
+      "what": "remaining shim families on 53ec7fb (volatile stores, fences)",
+      "result": "none above main (best -1 at 0 B)"
+    },
+    {
+      "what": "branch/switch weight nudges on the J2-pinned base",
+      "result": "best 2118 @27192 (sw:validate:27852); no single nudge restores the tail layout"
+    }
+  ],
+  "rejected_mechanisms": [
+    "vann on live execute values (frame-host shift + RA collapse)",
+    "vann on the noalias new parameter (inert)",
+    "E3 pinned pieces at the CtoState site without a sweep-join layout fix"
+  ],
+  "unresolved_residuals": [
+    "E3 copy of new (orig 0x4d8-0x538) is reachable as pinned pieces but flips the sweep-join placement (w17a10/w17a21 cliff)",
+    "J2 tuple materialization (orig 0x19a0-0x1a48) is structurally positive in J1/J2/S1/C1 but flips the tail layout (TL -106)",
+    "orig -0x680..-0x660 (J2 24 B target copy, new[24..33)) is hkx's unused tail in main"
+  ],
+  "next_ideas": [
+    "combine the J2 round-trip pin (_94) with a tail-layout nudge (single-edit beam on the pinned base, as w17a10 did for e79v)",
+    "put E3 pieces into hkx's tail together with w17a21's sweep-join fix once one exists",
+    "use the zero-cost vann knobs as repay on bases where they are free (re-price per main: they were 0 M on 2f3597f, -1 M on 53ec7fb)",
+    "Wx outline base: wallet create_idempotent clone pins are +3 M at +48 B but cost one memcpy libcall; find a libcall-free +48 B"
+  ],
+  "ledger_keys": [
+    "0x22a10-w17-a51791e-varpin-cal-decl-hkx-v1",
+    "0x22a10-w17-2f3597f-varpin-beamA-v1",
+    "0x22a10-w17-2f3597f-varpin-wxknobs-v1",
+    "0x22a10-w17-2f3597f-varpin-wxrepay-v1",
+    "0x22a10-w17-aab087f-varpin-wxp3-build-v1",
+    "0x22a10-w17-53ec7fb-varpin-bbv-new-v1",
+    "0x22a10-w17-53ec7fb-varpin-wx3-v1",
+    "0x22a10-w17-53ec7fb-varpin-e9h-v1",
+    "0x22a10-w17-53ec7fb-varpin-j2roundtrip-v1",
+    "0x22a10-w17-53ec7fb-varpin-pricedbeam-v1",
+    "0x22a10-w17-53ec7fb-varpin-accpin-v1"
+  ],
+  "pr": 4058,
+  "landed": false,
+  "data": {
+    "priced_beam": "data/priced-vann-53ec7fb.tsv"
+  }
+}

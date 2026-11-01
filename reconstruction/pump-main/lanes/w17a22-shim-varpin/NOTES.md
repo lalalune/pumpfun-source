@@ -3,8 +3,8 @@
 Target `0x22a10` `admin_cto::execute` (`programs/pump/src/creator/admin_cto.rs`), pinned at 27,400 B. Wave 17 shim track.
 Ledger approach `varpin`, keys `0x22a10-w17-<main7>-varpin-*`.
 
-Bases: main a51791e2e (0.68544, M 2,288) for calibration, then main 2f3597f99 (0.68634, M 2,291; #4040 sk lifetime
-start) for every beam. Oracle: w17a06's exact slim pre-opt oracle (`capraw.py` + `preslim.py` + `fx.py`, survivor list
+Bases: main a51791e2e (0.68544, M 2,288) for calibration, main 2f3597f99 (0.68634, M 2,291; #4040 sk lifetime
+start) for the first beams, main 53ec7fb53 (0.68754, M 2,295) for the final ones (main moved five times during the lane). Oracle: w17a06's exact slim pre-opt oracle (`capraw.py` + `preslim.py` + `fx.py`, survivor list
 `surv-1647da0.txt`), re-captured on each main (`m1` reproduces 0.68634 / M 2,291 / 27,400 B, sig `1ce34f20c053`).
 
 ## The construct
@@ -126,6 +126,39 @@ token_program:{let x=a.quote_token_program.to_account_info();unsafe{vann(&x as *
 copy, `ldxdw [new+0x18]` + `ldxb [new+0x20]` = the 9 B copy; E3 +7 rfj) but, as in w17a10, the extra live state at the
 CtoState site flips the sweep-join placement (S1 -49, T1 -225, P1 -89, EV -141 rfj).
 
+On main 53ec7fb (M 2,295):
+
+| cell | what | M @ bytes | exact / rfj LCS vs main |
+| --- | --- | --- | --- |
+| `e9h_dead` | new[24..33) copied into **hkx's unused tail** at hkx+56 (= orig -0x668; main never touches -0x680..-0x660), no new frame host | 1,640 @27,480 | |
+| `e9h_arm` / `e9h_armv` | + the shared arm reads the 9 B back (plain / volatile) | 1,639 @27,600 / 1,509 @27,496 | |
+| `vaA:execute:%_94` | pin the `Ok::<_,Error>((target,sharing_update,cashback))?` Result: the J2 tuple stays in memory as in the original (orig 0x19a0-0x1a48) | 1,892 @27,608 | -317 / -102 (J1 +2, J2 +3, S1 +3, C1 +4, **TL -106**) |
+| `vaA:execute:%_95` | pin the tuple itself | 1,714 @27,600 | -102 rfj (same regions) |
+| `ap_exe` / `ap_sweep` / `ap_wallet` | the accounts pointer kept in a pinned 8 B local and re-read at every use (the original reloads it per clone) | 1,859 / 1,862 / 1,566 | ap_exe -368 / -7 (C1 +5, T1 -8) |
+
+- The hkx-tail cell shows that the E3 collapse is not a frame effect: there is no new host, yet one dead 9 B store at the
+  CtoState site flips the layout. E3 work has to go together with a fix of the sweep-join cliff (w17a21).
+- `framemap.py` on `%_94`: the pinned 72 B Result merges into the 664 B host FI23 (-0x2d0), so every frame offset is
+  main's; its exact loss is RA naming (T1 -160 exact, -1 rfj) plus the tail layout flip. A 1:2000/2000:1 weight beam on
+  that base (222 cells) tops at 2,118 @27,192 (`sw:validate:27852`): no single nudge restores it.
+
+### 3c. Priced vann beam on main 53ec7fb (`data/priced-vann-53ec7fb.tsv`)
+
+All 491 A-placement pins, each scored for exact M and for the true LCS per region, exact and rfj-masked (`tools/price.py`,
+rapidfuzz alignment, about 0.6 s per cell; identical to w17a14's `rc.py`). 97 cells are byte-identical. Best structure
+(rfj) gains, all with an exact loss:
+
+| region | best rfj | cell | dM / dB |
+| --- | ---: | --- | --- |
+| V1 | +9 | `execute:%holder` | -438 / -224 |
+| V4 | +9 | `execute:%_65` | -846 / +32 |
+| J2 | +7 | `execute:%_76` | -465 / -168 |
+| C1 | +6 | `sweep:%_24` | -485 / +64 |
+| E3 | +4 | `execute:%_61` | -528 / +16 |
+| V2/V3 | +2/+3 (total +5) | `validate:%_107` / `%_108` (error temps) | -2 / +48 |
+
+No single pin gains more than +5 rfj overall: a pin does not buy structure, it only moves RA and layout.
+
 ## Tools (`tools/`, experiment only; lane-local paths, set `LANE_OUT`)
 
 - `vgen.py <slim.ll> <edits.jsonl> [ABC]`: the vann pin family (one pin per alloca, placements A/B/C) in w17a06's edit
@@ -135,3 +168,5 @@ CtoState site flips the sweep-join placement (S1 -49, T1 -225, P1 -89, EV -141 r
 - `e3v.py`: the E3 piece cells (section 4). `onbase.py`: singles screened on top of a base cell. `combo2.py`: size-neutral
   subsets (sum of single dB = 0) over several edit families with a predicted-dM floor.
 - `probe/vprobe.rs`: the fold-table probe (about 1 s with the identity rustc; see the w17-plan24 `zfprobe.sh` driver).
+- `price.py <ref fn.bin> <out.jsonl> <cand.bin>...`: per-region true LCS (exact and rfj) via rapidfuzz, needs w17a14's `rc.py`
+  next to it. `e9h.py`, `appin.py`, `bbv.py`: the section 4 edit sets for `ired.py`.
