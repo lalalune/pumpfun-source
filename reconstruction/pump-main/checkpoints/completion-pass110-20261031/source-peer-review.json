@@ -1,0 +1,39 @@
+{
+  "schema": "pass110-4011-independent-source-peer-review-v1",
+  "already_merged_PR": 4011,
+  "baseline_revision": "d20fb326ec8e4cbdbc96ec46a3a802326c91fc3f",
+  "reviewed_revision": "d5751b26ecab94a356f24bb6b4a4d038b58b1d3c",
+  "source": "programs/pump/src/creator/admin_cto.rs",
+  "source_sha256": "da24988605ee1b0c0e127478f01fdf91aeb24f5ee8f03d2f31e2b83b10d0881b",
+  "diff_sha256": "c94891e3783d01b0379f9194fe234315313097e7dd9e09ecb2764c909066396b",
+  "decision": "No concrete new source correctness defect identified under valid live single-threaded typed Anchor invocation assumptions. Fresh root build, no-loss scoring and finite runtime acceptance remain separate gates.",
+  "scope": "Read-only source and pinned local standard-library/Anchor contracts. No private oracle, compiler, VM or source mutation performed for this peer review.",
+  "semantic_findings": [
+    "Original sharing_config.to_account_info() dispatches through blanket ToAccountInfo to as_ref().clone(). The replacement copies all eight AccountInfo fields and clones its lamports and data Rc exactly once; owner is copied last through an aligned read_volatile of the owner field itself. There is no guessed AccountInfo field offset or reference lifetime extension.",
+    "The moved event-authority data clone is the concrete default-Global Rc<RefCell<&mut [u8]>>. RefCell<&mut [u8]> is Sized; neither the underlying mutable slice nor the RefCell borrow flag is copied or borrowed by this operation. The added code uses public into_raw/increment_strong_count/from_raw APIs rather than manually assuming an allocation-header offset.",
+    "ptr::read creates a temporary uncounted duplicate of the event-authority data handle while the original Rc remains owned by the live account. strong_count and read_volatile cannot invoke user callbacks or unwind in the reviewed valid context; into_raw consumes/forgets the duplicate, increment_strong_count adds exactly one owner using that same raw pointer, and from_raw restores exactly one owned handle.",
+    "The source declares ead without initialization but assigns it in the sharing_config owner initializer before the later event_authority data field consumes it. Rust struct expression operands evaluate in written order; no branch reaches event_authority.data without owner initializer completion. The value moves once, so no duplicated Rc destructor is introduced.",
+    "After full account context construction, the owned event_authority AccountInfo is dropped normally on CPI success or a returned CPI error. Its data Rc balances the one added strong count. On the pinned Rc overflow path the clone aborts without unwinding, as the original clone does; no fallible result propagation or allocator callback occurs between the transient duplicate and increment.",
+    "Only a reference-valued owner load is moved within a reference-counting window. Between the old and new locations there is no CPI, account mutation or payload access that changes the owner. The same sharing_config owner reference and same event-authority Rc allocation reach the CPI. No instruction discriminator, account metadata, signer/writable flags, balances, authorization guard, serialization or field contents are intentionally changed."
+  ],
+  "assumptions_and_limits": [
+    "Both source account Rc handles and owner references must be initialized, aligned and live; count is positive because the original strong owner remains alive. Forged/dangling Rc values, unsynchronized access and arbitrary invalid host contexts are excluded.",
+    "The manual temporary-handle sequence relies on no unwind/callback between ptr::read and balanced increment/from_raw; this holds for the actual operations reviewed here. Broader generic allocator or callback variants are not qualified.",
+    "This new data-clone site introduces no manual private Rc-header arithmetic. Other previously selected weighted Rc/header and Anchor Program shims retain their own pinned-layout assumptions; this review does not re-prove them.",
+    "No formal unsafe-Rust equivalence, exhaustive input coverage, historical source attribution, whole Pump ELF identity or token gain is established by this read-only review. Root fresh linked-image and finite signed-runtime checks qualify those separate measurements."
+  ],
+  "pinned_primary_sources": [
+    {
+      "path": "/Users/shawwalters/.cache/solana/v1.44/platform-tools/rust/lib/rustlib/src/rust/library/alloc/src/rc.rs",
+      "sha256": "135c3d4388ab2122fa16052e017fc784c8556c78a011b23f8c39e12aad0fc984"
+    },
+    {
+      "path": "/Users/shawwalters/.cargo/registry/src/index.crates.io-6f17d22bba15001f/solana-account-info-2.3.0/src/lib.rs",
+      "sha256": "6b59aba664bb70fda6e17bcc8cf6eb41fc0bc9d8bcbb797bd70c1b107809c29a"
+    },
+    {
+      "path": "/Users/shawwalters/.cargo/registry/src/index.crates.io-6f17d22bba15001f/anchor-lang-0.31.1/src/lib.rs",
+      "sha256": "1977bc48db27f7cf66c6a3473149efd8bf3ffb49efa3efeffd9b55c4e9ee52dd"
+    }
+  ]
+}

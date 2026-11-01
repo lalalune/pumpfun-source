@@ -1,0 +1,22 @@
+{
+  "ok": true,
+  "source_sha256": "62ff9b52f807522fb4838a2f8666c37a0e619aeecbdefe07d8df1be8cfc3f8ed",
+  "link_order": {
+    "script": "link/ordered.ld",
+    "script_sha256": "6954d9901b005312be6e7f980cb5e74a1440c174547c2040a881acf2e5c25b45",
+    "selectors": {
+      ".text": 555,
+      ".rodata": 0,
+      ".data.rel.ro": 0
+    },
+    "lld_sha256": "a4d765c822f68b267e87765771da87a0fd4d640d9df27884bd10c0750d1b58f4"
+  },
+  "runtime_valid": true,
+  "stack_warnings": [],
+  "recipe": "identity",
+  "triple": "sbpf-solana-solana",
+  "seconds": 69.5,
+  "unstripped": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass110-20261031/root/fresh-main-build/unstripped.so",
+  "unstripped_sha256": "748fbfba8140c508d2ca47affc695ab2d15b7236d11bd710065969c66adac621",
+  "candidate_sha256": "6400ccc305c83d425e67cdc6a9589a4f25ad1fb0c26d081e28fd587b30ac8f31"
+}
