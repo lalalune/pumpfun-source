@@ -4,7 +4,7 @@ macro_rules! jupiter_error {($code:ident,$line:literal)=>{anchor_lang::error::Er
  error_name:Code::$code.name(),error_code_number:Code::$code.into(),error_msg:Code::$code.to_string(),
  error_origin:Some(anchor_lang::error::ErrorOrigin::Source(anchor_lang::error::Source {filename:"programs/contracts/src/cpi/jupiter.rs",line:$line})),compared_values:None})};}
 pub fn invoke_jupiter<'info>(program:Pubkey,authority:Pubkey,remaining:&[AccountInfo<'info>],data:Vec<u8>,seeds:Option<&[&[&[u8]]]>)->Result<()> {
- let metas=remaining.iter().map(|a|if a.is_writable {anchor_lang::solana_program::instruction::AccountMeta::new(*a.key,a.key==&authority)} else {anchor_lang::solana_program::instruction::AccountMeta::new_readonly(*a.key,a.key==&authority)}).collect();
+ let metas=remaining.iter().map(|a|anchor_lang::solana_program::instruction::AccountMeta {pubkey:*a.key,is_signer:a.key==&authority,is_writable:a.is_writable}).collect();
  let infos=remaining.iter().cloned().collect::<Vec<_>>();
  let ix=anchor_lang::solana_program::instruction::Instruction {program_id:program,accounts:metas,data};
  match seeds {Some(seeds)=>anchor_lang::solana_program::program::invoke_signed(&ix,&infos,seeds)?,None=>anchor_lang::solana_program::program::invoke(&ix,&infos)?};Ok(())
