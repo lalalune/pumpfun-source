@@ -993,7 +993,7 @@ fn buy_exact_quote_in_handler<'info>(ctx:Context<'_,'_,'_,'info,BuyV2<'info>>,in
 
 
  let quote_transfer_fee=gross_quote.checked_sub(quote).ok_or_else(||error!(PumpError::Overflow))?;
- let _=&c;
+// layout-pad(1): aligns the next Source site with the original line
  require_gte!(c.real_token_reserves,amount,PumpError::NotEnoughTokensToBuy);a.bonding_curve.apply_buy(amount,quote)?;
   move_curve_tokens(base_token_program,&a.associated_base_bonding_curve,&a.associated_base_user,&a.bonding_curve,base_mint,amount,&[&[b"bonding-curve",base_mint.key().as_ref(),&[ctx.bumps.bonding_curve]]])?;
   if a.user.key()==a.global.whitelist_pda{a.associated_base_bonding_curve.reload()?;a.associated_base_user.reload()?;let quote_mint=a.bonding_curve.quote_mint;a.bonding_curve.sync_virtual_quote_reserves(a.associated_base_bonding_curve.amount,a.associated_base_user.amount,&quote_mint)?;}
