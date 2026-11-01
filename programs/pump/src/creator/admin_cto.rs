@@ -286,30 +286,30 @@ fn validate(st:&CtoState,shared:bool,holder:bool,fee:Option<u64>,new:Option<Pubk
 
 
 
- unsafe{core::ptr::read_volatile(hkr as *const Pubkey as *const u8)}/*shim: holder_key byte read before the holder_reward test, repays the pin*/;if st.holder_reward{if !holder{return Err(error!(PumpError::HolderRewardCreatorImmutable));}}else if holder{
+ if st.holder_reward&&!holder{return Err(error!(PumpError::HolderRewardCreatorImmutable));}let (target,is_holder,cashback)=if holder{
 
 
 
 
 
 
-  if !st.holder_enabled{return Err(error!(PumpError::HolderRewardDisabled));}}
+   if !st.holder_reward&&!st.holder_enabled{return Err(error!(PumpError::HolderRewardDisabled));}
 
- let cashback=!holder&&st.cashback;let (target,is_holder)=if holder{if !(new==None){return Err(error!(PumpError::CtoNewCreatorNotAllowed));}(holder_key,true)}else{
-
-
+ if !(new==None){return Err(error!(PumpError::CtoNewCreatorNotAllowed));}(holder_key,true,false)}else{
 
 
 
 
 
-  let (tg,ih)={let t=new.ok_or_else(||error!(PumpError::CtoNewCreatorRequired))?;
+
+
+  let (tg,ih,cb)={let t=new.ok_or_else(||error!(PumpError::CtoNewCreatorRequired))?;
   if t==Pubkey::default(){return Err(error!(PumpError::CreatorShouldNotBeZero).with_pubkeys((t,Pubkey::default())));}
 
 
 
 
-  require!(t!=holder_key&&t!=sharing,PumpError::InvalidCreator);if ns{(t,false)}else{(st.creator,false)}};(tg,ih)};
+  require!(t!=holder_key&&t!=sharing,PumpError::InvalidCreator);if ns{(t,false,st.cashback&&!holder)}else{(st.creator,false,st.cashback&&!holder)}};(tg,ih,cb)};
 // layout-pad(13): aligns the next Source site with the original line
 
 
@@ -323,11 +323,11 @@ fn validate(st:&CtoState,shared:bool,holder:bool,fee:Option<u64>,new:Option<Pubk
 
 
 
- let fee_bps=match fee{Some(f)=>{if st.quote_locked{return Err(e326());}
+ let fee_bps=match fee{Some(f)=>{if st.quote_locked{return Err(error!(PumpError::CreatorFeeNotConfigurableForQuote));}
 // layout-pad(3): aligns the next Source site with the original line
 
 
-  if cashback{return Err(error!(PumpError::CreatorFeeNotAllowedForCashbackCoin));}
+  if !is_holder&&st.cashback{return Err(error!(PumpError::CreatorFeeNotAllowedForCashbackCoin));}
 
 
 
@@ -769,4 +769,4 @@ fn validate(st:&CtoState,shared:bool,holder:bool,fee:Option<u64>,new:Option<Pubk
 
 fn token_frozen(a:&AccountInfo)->Result<bool>{if a.data_is_empty(){return Ok(false);}let d=a.try_borrow_data()?;let t=anchor_spl::token_interface::TokenAccount::try_deserialize(&mut &d[..])?;Ok(t.is_frozen())}
 
-const X326:&PumpError=&PumpError::CreatorFeeNotConfigurableForQuote;#[custom_mir(dialect="runtime",phase="optimized")]fn e326()->anchor_lang::error::Error{use core::intrinsics::mir::*;mir!{let g:anchor_lang::error::AnchorError;let m:String;let s:anchor_lang::error::Source;let o:anchor_lang::error::ErrorOrigin;{Call(g.error_name=PumpError::name(X326),ReturnTo(bb1),UnwindUnreachable())}bb1={Call(m=<PumpError as ToString>::to_string(X326),ReturnTo(bb2),UnwindUnreachable())}bb2={g.error_msg=Move(m);g.error_code_number=6091_u32;s=anchor_lang::error::Source{filename:"programs/pump/src/creator/admin_cto.rs",line:326_u32};o=anchor_lang::error::ErrorOrigin::Source(Move(s));g.error_origin=Some(Move(o));g.compared_values=None;Call(RET=<anchor_lang::error::Error as From<anchor_lang::error::AnchorError>>::from(Move(g)),ReturnTo(bb3),UnwindUnreachable())}bb3={Return()}}}/*shim: error!(326) with name() writing the error_name field directly (the original's call slot)*/fn token_raw_amount(a:&AccountInfo)->Result<u64>{if a.data_is_empty(){return Ok(0);}let d=a.try_borrow_data()?;let t=anchor_spl::token_interface::TokenAccount::try_deserialize(&mut &d[..])?;Ok(t.amount)}
+fn token_raw_amount(a:&AccountInfo)->Result<u64>{if a.data_is_empty(){return Ok(0);}let d=a.try_borrow_data()?;let t=anchor_spl::token_interface::TokenAccount::try_deserialize(&mut &d[..])?;Ok(t.amount)}
