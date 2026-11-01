@@ -158,13 +158,17 @@ class ExecutableSnapshotTests(unittest.TestCase):
         loaded_bytes = Path(runner.__file__).read_bytes()
         supervisor = self.root / 'process_supervisor.py'
         supervisor_bytes = runner.SUPERVISOR_PATH.read_bytes()
+        resource = self.root / 'resource_budget.py'
+        resource_bytes = runner.RESOURCE_PATH.read_bytes()
         driver.write_bytes(loaded_bytes)
         supervisor.write_bytes(supervisor_bytes)
+        resource.write_bytes(resource_bytes)
         spec = importlib.util.spec_from_file_location('snapshot_driver', driver)
         loaded = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(loaded)
         driver.write_bytes(loaded_bytes + b'\n# later disk revision\n')
         supervisor.write_bytes(supervisor_bytes + b'\n# later supervisor revision\n')
+        resource.write_bytes(resource_bytes + b'\n# later resource revision\n')
         result = loaded.run_trial(self.source, [sys.executable, '-c', 'pass'],
                                   self.root / 'trial')
         self.assertEqual(result['status'], 'pass')
@@ -173,14 +177,20 @@ class ExecutableSnapshotTests(unittest.TestCase):
         self.assertEqual(result['inputs']['supervisor_sha256'], runner.digest(supervisor_bytes))
         self.assertNotEqual(result['inputs']['supervisor_sha256'],
                             runner.digest(supervisor.read_bytes()))
+        self.assertEqual(result['inputs']['resource_budget_implementation_sha256'],
+                         runner.digest(resource_bytes))
+        self.assertNotEqual(result['inputs']['resource_budget_implementation_sha256'],
+                            runner.digest(resource.read_bytes()))
 
     def test_supervisor_source_admission_ignores_valid_executable_bytecode_cache(self):
         import importlib._bootstrap_external as bytecode
         driver = self.root / 'experiment_runner.py'
         supervisor = self.root / 'process_supervisor.py'
+        resource = self.root / 'resource_budget.py'
         marker = self.root / 'cache-executed'
         raw = runner.SUPERVISOR_PATH.read_bytes()
         supervisor.write_bytes(raw)
+        resource.write_bytes(runner.RESOURCE_PATH.read_bytes())
         driver.write_bytes(Path(runner.__file__).read_bytes())
         injected = ('from pathlib import Path\nPath(' + repr(str(marker)) + ').write_text("executed")\n').encode() + raw
         code = compile(injected, str(supervisor), 'exec')

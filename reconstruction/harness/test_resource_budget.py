@@ -41,7 +41,9 @@ class ResourceBudgetTests(unittest.TestCase):
     def test_nonexistent_target_uses_existing_ancestor(self):
         target = self.root / 'not-created' / 'output'
         identity = R.filesystem_identity([target])
-        self.assertEqual(identity[0]['probe_path'], str(self.root))
+        probe = Path(identity[0]['probe_path'])
+        self.assertTrue(probe.exists())
+        self.assertEqual(probe.stat().st_dev, self.root.stat().st_dev)
         self.assertEqual(identity[0]['monitored_paths'], [str(target)])
         self.assertFalse(target.exists())
 

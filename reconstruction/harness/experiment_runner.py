@@ -29,6 +29,21 @@ IMPLEMENTATION_SHA256 = SUPERVISOR.IMPLEMENTATION_SHA256
 SupervisedProcess = SUPERVISOR.SupervisedProcess
 SupervisionError = SUPERVISOR.SupervisionError
 
+RESOURCE_PATH = Path(__file__).resolve().with_name('resource_budget.py')
+RESOURCE_BYTES = RESOURCE_PATH.read_bytes()
+RESOURCE_SPEC = importlib.util.spec_from_file_location('_experiment_resource_budget', RESOURCE_PATH)
+if RESOURCE_SPEC is None or RESOURCE_SPEC.loader is None:
+    raise ImportError(f'cannot load resource budget from {RESOURCE_PATH}')
+RESOURCE = importlib.util.module_from_spec(RESOURCE_SPEC)
+RESOURCE.__dict__['_ADMITTED_SOURCE_BYTES'] = RESOURCE_BYTES
+exec(compile(RESOURCE_BYTES, str(RESOURCE_PATH), 'exec', dont_inherit=True), RESOURCE.__dict__)
+DiskBudgetConfig = RESOURCE.DiskBudgetConfig
+DiskBudgetExceeded = RESOURCE.DiskBudgetExceeded
+DiskMeasurementError = RESOURCE.DiskMeasurementError
+verify_resource_receipt = RESOURCE.verify_receipt
+write_resource_receipt = RESOURCE.atomic_write_receipt
+RESOURCE_IMPLEMENTATION_SHA256 = RESOURCE.IMPLEMENTATION_SHA256
+
 # Generated directories are never source, but only the experiment root's
 # target directory is generated build output: nested target directories can
 # contain source, mirroring source_inputs and build_source_manifest.
@@ -111,7 +126,7 @@ def input_execute_bits(inputs):
     return {path: Path(path).stat().st_mode & 0o111 for path in inputs}
 
 
-def identity(source, command, inputs, timeout, *, environment=None):
+def identity(source, command, inputs, timeout, *, environment=None, resource_monitor=None):
     if not isinstance(command, list):
         raise ValueError('command must be a nonempty argv array')
     command = list(command)
@@ -136,7 +151,9 @@ def identity(source, command, inputs, timeout, *, environment=None):
             'declared_input_paths': declared_paths,
             'environment_sha256': digest(json.dumps(environment, sort_keys=True).encode()),
             'runner_sha256': LOADED_RUNNER_SHA256,
-            'supervisor_sha256': IMPLEMENTATION_SHA256}
+            'supervisor_sha256': IMPLEMENTATION_SHA256,
+            'resource_budget': None if resource_monitor is None else resource_monitor.identity,
+            'resource_budget_implementation_sha256': RESOURCE_IMPLEMENTATION_SHA256}
 
 
 def admitted_inputs_match(admission):
@@ -182,7 +199,10 @@ def artifacts(attempt):
     if not output.is_dir() or linked_source(output):
         raise ValueError('retained output must be a real directory')
     result = {}
-    for path in [attempt / 'stdout.log', attempt / 'stderr.log', *sorted(output_paths(output))]:
+    paths = [attempt / 'stdout.log', attempt / 'stderr.log']
+    if (attempt / 'resource-receipt.json').exists():
+        paths.append(attempt / 'resource-receipt.json')
+    for path in [*paths, *sorted(output_paths(output))]:
         if linked_source(path): raise ValueError('output symlinks and other linked output files are unsupported')
         if path.is_file():
             result[path.relative_to(attempt).as_posix()] = {
@@ -259,7 +279,16 @@ def retained_result_valid(record, admission, key, destination):
         return False
     attempt = destination / name
     try:
-        return (admitted_inputs_match(admission)
+        resource_identity = admission.get('resource_budget')
+        resource_path = attempt / 'resource-receipt.json'
+        resource_valid = resource_identity is None and not resource_path.exists()
+        if resource_identity is not None and resource_path.is_file():
+            verification = verify_resource_receipt(resource_path,
+                                                   expected_budget=resource_identity)
+            receipt = read_json_receipt(resource_path)
+            resource_valid = (verification['accepted']
+                              and receipt.get('build_identity') == {'experiment_key': key})
+        return (resource_valid and admitted_inputs_match(admission)
                 and not attempt.is_symlink()
                 and manifest(attempt / 'source') == admission['source']
                 and artifacts(attempt) == record['artifacts'])
@@ -300,6 +329,8 @@ def partial_artifacts(attempt):
     """Hash only partial logs/output; incomplete data is evidence, never a result."""
     result = {}
     paths = [attempt / 'stdout.log', attempt / 'stderr.log']
+    if (attempt / 'resource-receipt.json').exists():
+        paths.append(attempt / 'resource-receipt.json')
     output = attempt / 'output'
     if output.exists():
         if linked_source(output) or not output.is_dir():
@@ -411,10 +442,34 @@ def mark_attempt_interrupted(attempt, metadata, reason, current_key):
     atomic_json(attempt / 'attempt.json', value)
 
 
-def run_trial(source, command, destination, inputs=(), timeout=300):
+def resource_failure_classification(error):
+    if isinstance(error, DiskBudgetExceeded):
+        return 'resource_budget_exceeded'
+    if isinstance(error, DiskMeasurementError):
+        return 'resource_measurement_unavailable'
+    raise TypeError('not a resource budget failure')
+
+
+def persist_trial_resource(budget, attempt, key, *, outcome, failure=None):
+    logs = [path for path in (attempt / 'stdout.log', attempt / 'stderr.log') if path.is_file()]
+    receipt = budget.receipt(operation='experiment_trial', outcome=outcome,
+                             failure_classification=failure,
+                             candidate_published=False,
+                             build_identity={'experiment_key': key}, retained_logs=logs)
+    path = attempt / 'resource-receipt.json'
+    write_resource_receipt(path, receipt)
+    verify_resource_receipt(receipt, expected_budget=budget.identity)
+    return path
+
+
+def run_trial(source, command, destination, inputs=(), timeout=300, resource_budget=None):
     source, destination = separate_trees(source, destination)
+    if resource_budget is not None and not isinstance(resource_budget, DiskBudgetConfig):
+        raise ValueError('resource_budget must be a DiskBudgetConfig')
+    budget = resource_budget.monitor((destination,)) if resource_budget is not None else None
     environment = dict(os.environ)
-    admission = identity(source, command, inputs, timeout, environment=environment)
+    admission = identity(source, command, inputs, timeout, environment=environment,
+                         resource_monitor=budget)
     receipt_path = check_receipt_inputs(destination, admission['inputs'])
     key = digest(json.dumps(admission, sort_keys=True).encode())
     destination.mkdir(parents=True, exist_ok=True)
@@ -466,10 +521,32 @@ def run_trial(source, command, destination, inputs=(), timeout=300):
         atomic_json(attempt / 'attempt.json', attempt_metadata)
         copied, work, output = (attempt / x for x in ('source', 'work', 'output'))
         try:
-            shutil.copytree(source, copied, ignore=stage_ignore(source))
-            if manifest(copied) != admission['source'] or manifest(source) != admission['source']:
-                raise ValueError('source changed while copying')
             work.mkdir(); output.mkdir()
+            (attempt / 'stdout.log').write_bytes(b'')
+            (attempt / 'stderr.log').write_bytes(b'')
+            status, reason, code = 'error', None, None
+            resource_failure = None
+            if budget is not None:
+                try:
+                    budget.sample('trial_admission_before_staging')
+                except (DiskBudgetExceeded, DiskMeasurementError) as error:
+                    resource_failure = resource_failure_classification(error)
+                    reason = resource_failure
+                persist_trial_resource(
+                    budget, attempt, key, outcome=('running' if resource_failure is None
+                                                   else 'infrastructure_failure'),
+                    failure=resource_failure,
+                )
+            if resource_failure is None:
+                shutil.copytree(source, copied, ignore=stage_ignore(source))
+                if manifest(copied) != admission['source'] or manifest(source) != admission['source']:
+                    raise ValueError('source changed while copying')
+                if budget is not None:
+                    try:
+                        budget.sample('after_staging_before_trial')
+                    except (DiskBudgetExceeded, DiskMeasurementError) as error:
+                        resource_failure = resource_failure_classification(error)
+                        reason = resource_failure
             replacements = {'{source}': str(copied), '{work}': str(work), '{out}': str(output)}
             argv = []
             for arg in admission['command']:
@@ -478,43 +555,84 @@ def run_trial(source, command, destination, inputs=(), timeout=300):
             # Preserve argv[0] for virtual environments/rustup, but do not resolve
             # the alias again: it may now point somewhere other than the hashed tool.
             argv[0] = admission['invocation']
-            status, reason, code = 'error', None, None
-            with (attempt / 'stdout.log').open('wb') as stdout, (attempt / 'stderr.log').open('wb') as stderr:
+            with (attempt / 'stdout.log').open('ab') as stdout, (attempt / 'stderr.log').open('ab') as stderr:
                 process = None
-                try:
-                    if not admitted_inputs_match(admission):
-                        raise OSError('declared input changed before launch')
-                    process = SupervisedProcess.start(
-                        argv, executable=admission['executable'], cwd=work,
-                        stdout=stdout, stderr=stderr, env=environment,
-                    )
-                except OSError as error:
-                    reason = 'process start failed'
-                    stderr.write((str(error) + '\n').encode('utf-8', errors='replace'))
-                except SupervisionError as error:
-                    reason = f'process supervision failed: {error}'
-                else:
+                if resource_failure is None:
                     try:
-                        attempt_metadata = dict(
-                            attempt_metadata, state='running', guardian_pid=process.guardian.pid,
-                            process_group=process.process_group, trial_pid=process.trial_pid,
+                        if not admitted_inputs_match(admission):
+                            raise OSError('declared input changed before launch')
+                        process = SupervisedProcess.start(
+                            argv, executable=admission['executable'], cwd=work,
+                            stdout=stdout, stderr=stderr, env=environment,
                         )
-                        atomic_json(attempt / 'attempt.json', attempt_metadata)
-                        code = process.wait(timeout=timeout)
-                        status = 'pass' if code == 0 else 'fail' if code == 1 else 'error'
-                    except subprocess.TimeoutExpired:
-                        reason = 'timeout'
+                    except OSError as error:
+                        reason = 'process start failed'
+                        stderr.write((str(error) + '\n').encode('utf-8', errors='replace'))
                     except SupervisionError as error:
                         reason = f'process supervision failed: {error}'
-                    finally:
+                    else:
                         try:
-                            process.terminate()
+                            attempt_metadata = dict(
+                                attempt_metadata, state='running', guardian_pid=process.guardian.pid,
+                                process_group=process.process_group, trial_pid=process.trial_pid,
+                            )
+                            atomic_json(attempt / 'attempt.json', attempt_metadata)
+                            if budget is None:
+                                code = process.wait(timeout=timeout)
+                            else:
+                                deadline = time.monotonic() + timeout
+                                while True:
+                                    try:
+                                        budget.sample('trial_runtime')
+                                    except (DiskBudgetExceeded, DiskMeasurementError) as error:
+                                        resource_failure = resource_failure_classification(error)
+                                        reason = resource_failure
+                                        break
+                                    remaining = deadline - time.monotonic()
+                                    if remaining <= 0:
+                                        reason = 'timeout'
+                                        break
+                                    try:
+                                        code = process.wait(timeout=min(remaining,
+                                                                        budget.check_interval))
+                                    except subprocess.TimeoutExpired:
+                                        continue
+                                    break
+                            if code is not None:
+                                status = 'pass' if code == 0 else 'fail' if code == 1 else 'error'
+                        except subprocess.TimeoutExpired:
+                            reason = 'timeout'
                         except SupervisionError as error:
-                            status, reason = 'error', f'process cleanup failed: {error}'
+                            reason = f'process supervision failed: {error}'
+                        finally:
+                            try:
+                                process.terminate()
+                            except SupervisionError as error:
+                                status, reason = 'error', f'process cleanup failed: {error}'
             retained = {}
             try:
-                if manifest(source) != admission['source'] or manifest(copied) != admission['source'] or not admitted_inputs_match(admission):
+                if (resource_failure is None and
+                        (manifest(source) != admission['source']
+                         or manifest(copied) != admission['source']
+                         or not admitted_inputs_match(admission))):
                     status, reason = 'error', 'source or declared input changed during execution'
+                if budget is not None:
+                    if resource_failure is None:
+                        try:
+                            budget.sample('trial_end_before_publication')
+                        except (DiskBudgetExceeded, DiskMeasurementError) as error:
+                            resource_failure = resource_failure_classification(error)
+                            status, reason = 'error', resource_failure
+                    failure = resource_failure
+                    if status == 'error' and failure is None:
+                        failure = ('timeout' if reason == 'timeout' else
+                                   'trial_infrastructure_failure')
+                    persist_trial_resource(
+                        budget, attempt, key,
+                        outcome=('completed' if status in ('pass', 'fail')
+                                 else 'infrastructure_failure'),
+                        failure=failure,
+                    )
                 retained = artifacts(attempt)
             except (OSError, ValueError) as error:
                 # The attempt ran, so its logs and receipt must outlive a failed check.
@@ -547,8 +665,20 @@ def main():
     parser.add_argument('matrix', type=Path, help='JSON: list of {name, source, command, inputs?, timeout?}')
     parser.add_argument('--out', type=Path, required=True)
     parser.add_argument('--max-trials', type=int, default=20)
+    parser.add_argument('--min-free-bytes', type=int,
+                        help='opt in to a measured available-space floor for matrix attempts')
+    parser.add_argument('--disk-path', type=Path, action='append', default=[],
+                        help='additional filesystem path to monitor (repeatable)')
+    parser.add_argument('--disk-check-interval', type=float, default=1.0,
+                        help='runtime disk sampling interval in seconds (default: 1.0)')
     args = parser.parse_args()
     try:
+        if args.min_free_bytes is None and args.disk_path:
+            raise ValueError('--disk-path requires --min-free-bytes')
+        resource_config = (DiskBudgetConfig(args.min_free_bytes,
+                                            tuple(map(str, args.disk_path)),
+                                            args.disk_check_interval)
+                           if args.min_free_bytes is not None else None)
         rows = json.loads(args.matrix.read_text(encoding='utf-8'))
         if not isinstance(rows, list) or not rows or not 0 < len(rows) <= args.max_trials:
             raise ValueError('matrix must be nonempty and within --max-trials')
@@ -564,7 +694,10 @@ def main():
             if not isinstance(row.get('inputs', []), list):
                 raise ValueError('trial inputs must be an array of file paths')
             names.add(name.casefold())
-            admissions.append(identity(row['source'], row['command'], row.get('inputs', []), row.get('timeout', 300)))
+            monitor = (resource_config.monitor((args.out / name,))
+                       if resource_config is not None else None)
+            admissions.append(identity(row['source'], row['command'], row.get('inputs', []),
+                                       row.get('timeout', 300), resource_monitor=monitor))
         # Admit the entire matrix before the first command, including cross-row inputs.
         for row in rows:
             for other, admission in zip(rows, admissions):
@@ -572,7 +705,34 @@ def main():
                 check_receipt_inputs(args.out / row['name'], admission['inputs'])
     except (OSError, ValueError, TypeError, KeyError) as error:
         parser.error(f'invalid experiment matrix: {error}')
-    results = {row['name']: run_trial(row['source'], row['command'], args.out / row['name'], row.get('inputs', []), row.get('timeout', 300)) for row in rows}
+    if resource_config is not None:
+        root_budget = resource_config.monitor((args.out,))
+        failure = None
+        try:
+            root_budget.sample('matrix_admission')
+            outcome = 'admitted'
+        except (DiskBudgetExceeded, DiskMeasurementError) as error:
+            failure = resource_failure_classification(error)
+            outcome = 'infrastructure_failure'
+        receipt_root = args.out / 'resource-admissions' / ('admission-' + uuid.uuid4().hex)
+        receipt = root_budget.receipt(
+            operation='experiment_matrix', outcome=outcome,
+            failure_classification=failure, candidate_published=False,
+            build_identity={'matrix_sha256': digest(args.matrix.read_bytes())},
+        )
+        write_resource_receipt(receipt_root / 'resource-receipt.json', receipt)
+        verify_resource_receipt(receipt, expected_budget=root_budget.identity)
+        if failure is not None:
+            print(json.dumps({'status': 'infrastructure_failure',
+                              'failure_classification': failure,
+                              'resource_receipt': str(receipt_root / 'resource-receipt.json')},
+                             indent=2))
+            return 2
+    trial_options = ({'resource_budget': resource_config}
+                     if resource_config is not None else {})
+    results = {row['name']: run_trial(
+        row['source'], row['command'], args.out / row['name'], row.get('inputs', []),
+        row.get('timeout', 300), **trial_options) for row in rows}
     print(json.dumps(results, indent=2))
     return 2 if any(r['status'] == 'error' for r in results.values()) else 0
 

@@ -21,7 +21,8 @@ from typing import Callable, Iterable
 
 SCHEMA = 'reconstruction-resource-receipt-v1'
 IDENTITY_SCHEMA = 'reconstruction-resource-budget-v1'
-IMPLEMENTATION_SHA256 = hashlib.sha256(Path(__file__).read_bytes()).hexdigest()
+IMPLEMENTATION_BYTES = globals().get('_ADMITTED_SOURCE_BYTES', Path(__file__).read_bytes())
+IMPLEMENTATION_SHA256 = hashlib.sha256(IMPLEMENTATION_BYTES).hexdigest()
 
 
 class ResourceBudgetError(RuntimeError):
@@ -96,13 +97,28 @@ def available_bytes(path):
     return blocks * fragment
 
 
+def filesystem_root(path):
+    """Find a stable existing anchor for one device/mount."""
+    current = existing_probe(path)
+    try:
+        device = current.stat().st_dev
+        while current.parent != current:
+            parent = current.parent
+            if parent.stat().st_dev != device:
+                break
+            current = parent
+    except OSError as error:
+        raise DiskMeasurementError(f'cannot resolve filesystem root for {path}: {error}') from error
+    return current
+
+
 def filesystem_identity(paths: Iterable[os.PathLike | str]):
     requested = sorted({_absolute(path) for path in paths}, key=lambda path: str(path))
     if not requested:
         raise ValueError('at least one filesystem path is required')
     grouped = {}
     for path in requested:
-        probe = existing_probe(path)
+        probe = filesystem_root(path)
         try:
             device = probe.stat().st_dev
         except OSError as error:

@@ -3,6 +3,7 @@ import argparse,hashlib,json,pathlib,subprocess,sys,tempfile
 P=pathlib.Path
 RUNNER='reconstruction/harness/experiment_runner.py'
 SUPERVISOR='reconstruction/harness/process_supervisor.py'
+RESOURCE='reconstruction/harness/resource_budget.py'
 CODE="from pathlib import Path;import sys;data=Path(sys.argv[1],'value').read_bytes();Path(sys.argv[2],'result').write_bytes(data);print(data.decode().strip());raise SystemExit(int(sys.argv[3]))"
 CASES={'clean-pass':0,'clean-fail':1,'pass-on-failure':1,'fail-on-success':0,'boolean-code':0,'float-code':0,'wrong-code':0,'missing-code':0,'error-reason':0,'changed-inputs':0,'missing-inputs':0,'wrong-schema':0,'changed-input-type':0}
 def sha(b):return hashlib.sha256(b).hexdigest()
@@ -29,6 +30,9 @@ def run(repo,revision=None):
   if b'process_supervisor.py' in raw:
    supervisor_raw=subprocess.check_output(['git','-C',str(repo),'show',revision+':'+SUPERVISOR]) if revision else (repo/SUPERVISOR).read_bytes()
    (root/'process_supervisor.py').write_bytes(supervisor_raw);result['supervisor_sha256']=sha(supervisor_raw)
+  if b'resource_budget.py' in raw:
+   resource_raw=subprocess.check_output(['git','-C',str(repo),'show',revision+':'+RESOURCE]) if revision else (repo/RESOURCE).read_bytes()
+   (root/'resource_budget.py').write_bytes(resource_raw);result['resource_budget_sha256']=sha(resource_raw)
   source=root/'source';source.mkdir();(source/'value').write_bytes(b'bounded resumable experiment input\n');before_source=inventory(source)
   matrix=root/'matrix.json';out=root/'out';matrix.write_text(json.dumps([{'name':n,'source':str(source),'command':[sys.executable,'-c',CODE,'{source}','{out}',str(code)]} for n,code in CASES.items()]))
   def cli():
