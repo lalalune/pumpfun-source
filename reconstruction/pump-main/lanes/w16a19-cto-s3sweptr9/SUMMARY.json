@@ -1,0 +1,51 @@
+{
+  "lane": "w16a19-cto-s3sweptr9",
+  "wave": "w16 (continued in w17)",
+  "target": {"window": "0x22a10", "function": "admin_cto::execute", "file": "programs/pump/src/creator/admin_cto.rs", "pinned_bytes": 27400},
+  "base": {"main": "599891304 / 1647da0f2 (admin_cto.rs unchanged)", "ratio": 0.67436, "slots_diff": 3141, "M": 2251, "Mperm": 2295, "Mhc": 2302},
+  "angle": "ordinary source (or, in wave 17, marked shim) lever that puts S3's post-sweep Result payload in the original's r9 without the RA force 1739=r9 (w16a08 #3876 handoff, next idea 2)",
+  "result": "notes only; kill test met (31 ordinary forms + 421 volatile-load shim pins + branch-weight and volatile-slot shim oracles): no unforced payload in r9 and no cell above S3n's Mhc 2,296 or main's 0.67436 @27,400",
+  "best": {"zero_loss_at_pinned_size": "main (no candidate)", "ratio": 0.67436, "slots_diff": 3141, "bytes": 27400},
+  "mechanism": [
+    "S3n: r9 is taken head to tail by %467, the !holder phi of constants (validate's hopt==Some(true)) whose only use is the cashback AND sunk to the curve store (w 3.36e-05 vs payload 1.005e-06); the payload phi %1632 is split, and 1739 takes r3 by allocation order. No copy hint links it to r9.",
+    "main: r9 post-sweep is nf (let nf=a.bonding_curve.creator_fee_bps, held across the pool CPI to the event store) plus the sharing clone-run temps; the original reads the fee at the event and uses r6/r5 for the clone temps.",
+    "Coalescer: SW %1632 does not merge into RP %1664 (bb.359 merges first, bb.270 fails on interference); the ideal order merges them into r6, not r9 (Mhc 2,165).",
+    "Freeing r9 (n1 on main and on S3, cbmem on S3) leaves the payload in r3: its post-sweep piece is the lightest range in the region, so it is spilled; r9 for the payload needs the r6/r7/r8 classes (tag, pool AccountInfo pointer, pool_updated) allocated first over the post-sweep region (w15a04).",
+    "Original gate polarity (s_okq / IR zerogate) on S3n is +170 M only with the bb56.i join restore (0.64758 @27,360, Mhc 2,254): the restored live-in is the sharing tag phi carried in r9 across the post-sweep join; plain it is 0.50090."
+  ],
+  "attempts": {
+    "ordinary_forms": 31,
+    "table": "NOTES.md section 5",
+    "ir_oracles": ["bumpseed", "zerogate (+join restore)", "zerogate on main", "cbmem", "hfmem (i8/i64)", "lifetime drops ltA-ltH, nolt56", "branch weights on gate and sweep.exit", "coalescer ideal order on S3n/main/cashflag cells", "RA forces on n1"],
+    "shim_pins": "421 volatile-load pins on S3n post-validate (data/vpay-S3n-5998913.jsonl): payload r3 in all; best M 2,043 @27,424; 116 pins on n1 (partial)"
+  },
+  "rejected_mechanisms": [
+    "swept spellings: if/else, if !skip, match, let mut, Ok(0)?, unwrap_or(Ok(0)), unwrap_or_default, if let, match on then(), split transpose (byte-identical to S3n or worse)",
+    "gate from the per-arm flag (g_hf, t_hf): 0.50777 @27,560",
+    "bump as sweep argument / &AdminCto+&Bumps / let bump at the seed site (b_arg, b_seed byte-identical; b_accts 0.55418)",
+    "Rent ? site spellings (r_chain identical; r_flat 0.51094)",
+    "vault-seed check scope/polarity (d_scope 0.48212, d_rev 0.59539)",
+    "n1 (event reads the new fee) on main and on S3: frees r9, payload stays r3 (n1 0.67106 @27,376; S3n1 0.59416 @27,392)",
+    "owner-first pool gate (mpo 0.63493 @27,440, n1po, S3n1po)",
+    "branch weights (llvm.expect / likely shims) on the sweep gate (collapse 0.431) or on the sweep Ok/Err (+1 M at most)",
+    "flag through a volatile stack slot (hfmem 0.55068: allocas precede spills, every spill shifts 8 B)",
+    "single read_volatile pins on S3n (none moves the payload)"
+  ],
+  "unresolved_residuals": [
+    "payload r9 = a whole-region RA fact (4th callee-saved class after tag r6, pool ptr r7, pool_updated r8); no construct names a register",
+    "S3 spill numbering (w16a08, w16a20): the binding blocker of every S3 base, including Fdec",
+    "sharing tag carried across the post-sweep join under the original gate polarity"
+  ],
+  "next_ideas": [
+    "Treat 1739=r9 as a consequence of the r6/r7/r8 colours (w15a04 358=r7, 1681=r6), not as its own lever; any future lever must target those colours.",
+    "Under the original gate polarity, find a spelling that re-derives sharing_update's tag after the sweep instead of carrying its phi across bb56.i (largest raw lift on S3, +170 M with the oracle restore).",
+    "n1 has a cheap +24 B size lever (four single volatile pins land it at exactly 27,400 B at its ratio); it still needs the event accounts colour 1681=r6."
+  ],
+  "ledger": {"approach": "s3sweptr9", "key_prefix": "0x22a10-w16-5998913-s3sweptr9-", "rows": 43},
+  "evidence": {
+    "out": "$C/lanes/w16a19-cto-s3sweptr9",
+    "dbg_chain": "dbg/S3n.ra.txt, dbg/S3n.prera.txt, dbg/co_*.ra.txt",
+    "captures": "rx/<form>/{m.ll,fn.bin,res.json}",
+    "pricing": "cm/evn.jsonl, cm/evalf.jsonl, rxq.log"
+  }
+}
