@@ -41,7 +41,15 @@ the `order.py` out-of-order list (LIS 496 to 498) with no change in any function
    `ctx.mint.key()` loads a temporary and folds to one `or.cond` branch, so the four jumps share one 1/32 exit.
    That raises the chance of reaching the amount check from 0.728 to 0.801.
    `findBestLoopTop` moves the latch above the header only when the back-edge frequency exceeds the preheader, exit and fallthrough losses, which needs about 0.793.
-   That one change moved the latch, the `mov r0,2` exit block and the error blocks into the target's order, as `-print-before=block-placement` probabilities predicted.
+   That one change moved the latch, the `mov r0,2` exit block and the error blocks into the target's order.
+   Checked on the final tree from the `successors:` probabilities in `-print-before=block-placement`, with block frequencies solved from them:
+
+   | instance | header | latch | back edge | preheader | latch exit | latch fallthrough | gains minus losses | latch on top |
+   |---|---:|---:|---:|---:|---:|---:|---:|---|
+   | bps (0x25f00) | 2.5849 | 2.0231 | 1.9599 | 0.625 | 0.0632 | 1.2469 | +0.0248 | yes, as in the target |
+   | exact (0x27048) | 2.3542 | 1.7849 | 1.7292 | 0.625 | 0.0558 | 1.1002 | -0.0518 | no, as in the target |
+
+   So the same source gives the two different loop layouts of the two instances, because the exact instance's `share_type==3` test adds one more exit.
 
 ## One generic worker
 
@@ -66,3 +74,23 @@ The exact flow uses `.copied()`, a plain copy with no range, so `share_type==3` 
     python3 $C/relay/tools/relay.py diff <out>/unstripped.so 0x25f00 --sym 'shared::transfer_rows' -c 1
 
 For the placement numbers, add `-C llvm-args=-print-before=block-placement -C llvm-args=-filter-print-funcs=<mangled>` to the rustc arguments and read the `successors:` probabilities. It changes printing only.
+
+## Trial integration, not committed here
+
+`git merge --no-commit origin/swarm/w20-relay-C7-framework-layout` at d60cb0935 on this branch's 937f03d6e, then `git merge --abort`. It merged without conflicts.
+
+- Mac route: 569 of 571, 851,168 B, 0.99915, zero losses, strict 550, `.rodata` byte-equal (23,104 B). Open: 0xb3278 and 0xbcac0, the Linux-only pair.
+- Ordered link of that tree (`mkorder.py`, `RELAY_LINKSCRIPT`): all 8 functions of this cluster at their target addresses. The raw bytes still differ, only in `lddw` (0x18) and `call` (0x85) operands, counted per function in the table below. The Mac build is 720 B short of the target's `.text`, because it lacks that pair, so the code and `.rodata` addresses those operands name are shifted.
+
+| function | size | differing `lddw` | differing `call` |
+|---|---:|---:|---:|
+| 0x18478 | 1656 | 15 | 1 |
+| 0x18af0 | 4496 | 17 | 1 |
+| 0x1a6d8 | 2488 | 0 | 2 |
+| 0x1b090 | 1920 | 18 | 1 |
+| 0x1b810 | 4200 | 13 | 1 |
+| 0x1d2d0 | 2488 | 0 | 2 |
+| 0x24578 | 2376 | 9 | 2 |
+| 0x25f00 | 4424 | 15 | 1 |
+
+Raw byte identity is therefore not shown yet. It needs the ordered Linux build, which is C7's route.
