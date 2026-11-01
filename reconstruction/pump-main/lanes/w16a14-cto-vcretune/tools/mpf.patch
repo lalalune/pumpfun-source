@@ -1,0 +1,4 @@
+11c11
+< L=T+'/llc.sh'
+---
+> L=T+'/'+os.environ.get('MP_LLC','llc.sh')
