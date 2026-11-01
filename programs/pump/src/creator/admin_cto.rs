@@ -281,7 +281,7 @@ struct CtoState{mayhem:bool,holder_reward:bool,cashback:bool,creator:Pubkey,quot
 
 
 fn validate(st:&CtoState,shared:bool,holder:bool,fee:Option<u64>,new:Option<Pubkey>,sharing:Pubkey,holder_key:Pubkey,hkr:&Pubkey)->Result<Plan>{
- let ns=!shared;let mut sharing_update:Option<Option<Pubkey>>=None;unsafe{core::ptr::read_volatile(hkr as *const Pubkey as *const u8)}/*shim: holder_key byte read before the mayhem test, repays the pin*/;unsafe{core::ptr::read_volatile(hkr as *const Pubkey as *const u8)}/*shim: holder_key byte read before the mayhem test, repays the pin*/;if st.mayhem{return Err(error!(PumpError::CtoNotAllowedForMayhemCoin));}
+ let ns=!shared;let mut sharing_update:Option<Option<Pubkey>>=None;if st.mayhem{return Err(error!(PumpError::CtoNotAllowedForMayhemCoin));}
 // Reconstructed positions of the same deployed validations.
 
 
@@ -335,7 +335,7 @@ fn validate(st:&CtoState,shared:bool,holder:bool,fee:Option<u64>,new:Option<Pubk
 
 
 
-  if f==0||f>st.max_fee{return Err(error!(PumpError::CreatorFeeBpsOutOfRange));}Some(f)}None=>None};
+  if unsafe{expect_p(f==0||f>st.max_fee,true,0.98)}/*shim: fee range test weight, the fee arm colder than the error path steers the V2-J1 region splits*/{return Err(error!(PumpError::CreatorFeeBpsOutOfRange));}Some(f)}None=>None};
  let (collect_old,skip)=if ns{(!st.holder_reward&&st.creator!=Pubkey::default(),true)}else{'s:{let x:Option<Pubkey>;if holder{x=None;sharing_update=Some(x);break 's;}x=new;sharing_update=Some(x);}(false,!holder)};Ok(Plan{fee:fee_bps,target,sharing_update,is_holder,cashback,collect_old,skip})}pub fn execute(ctx:Context<AdminCto>,holder:Option<bool>,fee:Option<u64>,new:Option<Pubkey>)->Result<()>{ let a=&ctx.accounts;let mint=a.mint.key();let holder_key=Pubkey::find_program_address(&[b"holder-rewards",mint.as_ref()],&crate::ID).0;let sc:&AccountInfo=a.sharing_config.as_ref();let shared=a.bonding_curve.creator==sc.key()&&sc.owner==&FEES&&!sc.data_is_empty();let plan={let global:&Global=&a.global;let curve:&BondingCurve=&a.bonding_curve;let st=CtoState{mayhem:curve.is_mayhem_mode,holder_reward:curve.is_holder_reward,cashback:curve.is_cashback_coin,creator:curve.creator,quote_locked:{let q=curve.quote_mint;q==Pubkey::default()||q==anchor_spl::token::spl_token::native_mint::ID||global.whitelisted_quote_mints.contains(&q)},max_fee:global.max_configurable_creator_fee_bps,fee_configurable:global.creator_fee_configurable,holder_enabled:global.is_holder_reward_enabled};let hb=holder.unwrap_or(false);let args=&(new,);validate(&st,shared,hb,fee,args.0,a.sharing_config.key(),holder_key,&holder_key)?};let target=plan.target;let sharing_update=plan.sharing_update;let collect_old=plan.collect_old;let skip=plan.skip;let cashback=plan.cashback; crate::trade_types::prepare_bonding_curve(&a.bonding_curve,&a.system_program,&a.admin_set_creator_authority)?;
 
 
@@ -661,7 +661,7 @@ fn validate(st:&CtoState,shared:bool,holder:bool,fee:Option<u64>,new:Option<Pubk
 
   let vsigner:[&[&[u8]];1];let bump=ctx.bumps.creator_vault;let old=a.current_creator.key();let vaultseeds:&[&[u8]]=&[b"creator-vault",old.as_ref(),&[bump]];vsigner=[vaultseeds];
   if native{let min={let rent=Rent::get()?;rent.minimum_balance(0)};let amount=a.creator_vault.lamports().saturating_sub(min);
-   return (if amount>0{crate::legacy_buy::native_payments::ensure_rent_exempt(&a.system_program,&a.admin_set_creator_authority,&a.holder_creator_vault)?;let _=unsafe{core::ptr::read_volatile(holder_key as *const Pubkey as *const u8)};/*shim: holder_key byte read before transfer_native, repays the pin*/crate::collect_v2::transfer_native(a.system_program.as_ref(),&a.creator_vault,&a.holder_creator_vault,amount,&vsigner)}else{Ok(())}).map(|()|amount);}else{let amount=token_raw_amount(a.creator_vault_quote_token_account.as_ref())?;let frozen=token_frozen(a.creator_vault_quote_token_account.as_ref())?;
+   return (if amount>0{crate::legacy_buy::native_payments::ensure_rent_exempt(&a.system_program,&a.admin_set_creator_authority,&a.holder_creator_vault)?;crate::collect_v2::transfer_native(a.system_program.as_ref(),&a.creator_vault,&a.holder_creator_vault,amount,&vsigner)}else{Ok(())}).map(|()|amount);}else{let amount=token_raw_amount(a.creator_vault_quote_token_account.as_ref())?;let frozen=token_frozen(a.creator_vault_quote_token_account.as_ref())?;
 
 
 
@@ -746,7 +746,7 @@ fn validate(st:&CtoState,shared:bool,holder:bool,fee:Option<u64>,new:Option<Pubk
  if let Some(val)=sharing_update{{
 
 
-  crate::pump_fees::cpi::admin_cto_sharing_config(CpiContext::new_with_signer(a.pump_fees.to_account_info(),crate::pump_fees::cpi::accounts::AdminCtoSharingConfig{pool_authority:aicl::<5>(a.pool_authority.as_ref()),authority:aic(a.admin_set_creator_authority.as_ref()),global:aicl::<20>(a.global.as_ref().as_ref()),mint:aicd::<2000>(a.mint.as_ref()),sharing_config:aic(a.sharing_config.as_ref()),event_authority:aic(a.pump_fees_event_authority.as_ref()),program:aic(a.pump_fees.as_ref())},signer_seeds),val)?;
+  crate::pump_fees::cpi::admin_cto_sharing_config(CpiContext::new_with_signer(a.pump_fees.to_account_info(),crate::pump_fees::cpi::accounts::AdminCtoSharingConfig{pool_authority:aic(a.pool_authority.as_ref()),authority:aic(a.admin_set_creator_authority.as_ref()),global:aic(a.global.as_ref().as_ref()),mint:aic(a.mint.as_ref()),sharing_config:aic(a.sharing_config.as_ref()),event_authority:aic(a.pump_fees_event_authority.as_ref()),program:aic(a.pump_fees.as_ref())},signer_seeds),val)?;
 
  }}
  let (old_creator,old_fee)={

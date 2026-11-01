@@ -20,3 +20,18 @@ On that base **two sticky forces outside C1**, `%1729=r0` (piece of `%81`, votes
    r0 is busy because `%81`'s piece holds it in V2, V5, J1 (ours r7).
 
 So C1's naming prize is priced in V2/V5/J1's second-round registers.
+
+## Lever: one branch weight on the fee range test (main 1f7ca411c)
+
+`llc` screen of every conditional branch (`tools/brscreen.py`, 1,184 cells, scored by M and the C1 tile metric). Only one branch moves C1: `bb55.i`, `f==0||f>st.max_fee`, `p(ok)` anywhere from 0.02 to 0.48 against the default 0.5.
+On main without the C1 trap weights and the repay reads:
+
+| p(ok) | M | bytes | C1 tiles exact / 278 |
+|---:|---:|---:|---:|
+| 0.5 (default) | 3,016 | 27,392 | 179 |
+| 0.02 | 3,105 | 27,400 | 267 |
+| 0.1 | 3,128 | 27,408 | 267 |
+| 0.2 - 0.45 | 3,144 | 27,416 | 267 |
+| 0.25 - 0.45, repay reads kept | 3,181 | 27,464 | 278 |
+
+Source form: `if unsafe{expect_p(f==0||f>st.max_fee,true,P)}{..}` reproduces the IR cell (capture signature equal in M and bytes).
