@@ -46,7 +46,8 @@ Diffing candidate and target `.rodata` on this branch leaves these, none tied to
 - `tools/distribution/shared.rs` should disappear as a Location file (C1, C2).
 - `events::v1`: the target has `donation_epoch_processed_exact.rs` before `bridge_donation_admitted.rs`.
 - `admit_bridge_payment.rs`, `bridge_receiver_v1` and `recover_bridge_payment.rs` come right after `upsert_mint_whitelist.rs` in the target. They should follow once those bodies move out of `bridge_handlers.rs`, as the donate paths did.
-- The account-name strings of the bridge structs sit later in the target, and `Unexpected length of input` sits earlier. Two small u32 table differences near `0xc78` and `0xce4` are unexplained.
+- The account-name strings of the bridge structs sit later in the target, and `Unexpected length of input` sits earlier.
+- The u32 differences near `.rodata` `0xc78` and `0xce4` are `ErrorCode` constants, ordered by first use. `0` (`InvalidAdmin`) is used by recover, which still comes too early here, and `13` is used by the open `0x24ec0`, so these should follow C2 and the bridge move. That is a reading of the references, not a build result.
 
 ## Tried and not needed
 
