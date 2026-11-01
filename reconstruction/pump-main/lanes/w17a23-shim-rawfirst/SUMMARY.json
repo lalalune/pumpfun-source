@@ -5,14 +5,75 @@
   "angle": "sweep token arm in the original's call order (token_raw_amount before token_frozen, line 664), made landable with marked shims",
   "result": "notes only; kill condition met: no source-realisable combination brings raw-first to main's M at 27,400 B",
   "bases": {
-    "4d09af488": {"main_M": 2287, "R": [2275, 27376], "RF1": [2281, 27384]},
-    "2f3597f99": {"main_M": 2291, "R1": [2279, 27376], "RF1b": [2285, 27384]},
-    "aab087f32": {"main_M": 2294, "R2": [2282, 27376], "RF2": [2288, 27384], "R2FV_ir": [2292, 27400]}
+    "4d09af488": {
+      "main_M": 2287,
+      "R": [
+        2275,
+        27376
+      ],
+      "RF1": [
+        2281,
+        27384
+      ]
+    },
+    "2f3597f99": {
+      "main_M": 2291,
+      "R1": [
+        2279,
+        27376
+      ],
+      "RF1b": [
+        2285,
+        27384
+      ]
+    },
+    "aab087f32": {
+      "main_M": 2294,
+      "R2": [
+        2282,
+        27376
+      ],
+      "RF2": [
+        2288,
+        27384
+      ],
+      "R2FV_ir": [
+        2292,
+        27400
+      ]
+    },
+    "5e05222b5": {
+      "main_M": 2295,
+      "R3": [
+        2282,
+        27376
+      ],
+      "RF3": [
+        2288,
+        27384
+      ]
+    }
   },
   "best": {
-    "realisable": {"variant": "RF2 = raw-first + black_box(()) fence on the token-arm transfer Ok continuation (line 719)", "M": 2288, "bytes": 27384, "main_M": 2294},
-    "ir_cell": {"variant": "RF2 + vl:sweep:32941 (volatile load of the raw_amount Ok payload from the ? temp)", "M": 2292, "bytes": 27400, "main_M": 2294},
-    "ra_forced": {"variant": "RF2 + private RAPRIO llc FORCE 246=r6 STICKY (original token arm)", "M": 2295, "bytes": 27376, "note": "no source lever"}
+    "realisable": {
+      "variant": "RF2 = raw-first + black_box(()) fence on the token-arm transfer Ok continuation (line 719)",
+      "M": 2288,
+      "bytes": 27384,
+      "main_M": 2294,
+      "main_M_latest": 2295
+    },
+    "ir_cell": {
+      "variant": "RF2 + vl:sweep:32941 (volatile load of the raw_amount Ok payload from the ? temp)",
+      "M": 2292,
+      "bytes": 27400,
+      "main_M": 2294
+    },
+    "ra_forced": {
+      "variant": "RF2 + private RAPRIO llc FORCE 246=r6 STICKY (original token arm)",
+      "M": 2295,
+      "bytes": 27376,
+      "note": "no source lever"
+    }
   },
   "mechanism": "GEP %244 (accounts+72, r3 hint from the transfer arg => priority bit 30) is dequeued while %0 is whole in r8 and takes r6; the amount %246 (no physreg COPY, no hint) later takes the first free callee-saved r8, so tryHintsRecoloring cannot move %244 to r8. On frozen-first main the short frozen byte takes r9 and %244 is recoloured r6->r8.",
   "attempts": [
@@ -38,7 +99,8 @@
   "next_ideas": [
     "union lanes that adopt raw-first (s1+n1po / s1+p2, w16a11) should add the line-719 fence: it is +6 on raw-first and -118 on frozen-first",
     "a register-passed use of the amount (any physreg COPY) would give %246 priority bit 30 and size 2,192 > %244's 1,968, so it would be allocated first and take r6",
-    "the is_holder_reward store from a precomputed bool (orig [r10-0x950]) is an untried faithful respelling of line 755"
+    "the is_holder_reward store from a precomputed bool (orig [r10-0x950]) is an untried faithful respelling of line 755",
+    "%0 (accounts) gets priority bit 30 from physreg COPYs of &a.admin_set_creator_authority (offset 0: prepare_bonding_curve r4, ensure_rent_exempt r3) and the event_authority clone (r2); it is then allocated whole to r8 early, which is what keeps r8 busy when the token-arm GEP is allocated. Removing those hints (fresh vregs for those args) is the untested route to an earlier %0 split"
   ],
   "tools": "reconstruction/pump-main/lanes/w17a23-shim-rawfirst/tools/ (cap.sh, mk.py, variants.py, rapr.sh, apply1.py, occ.py, rc.py, mj.py, jdiff.py, slot.py)",
   "ledger_keys": [
@@ -51,5 +113,6 @@
     "0x22a10-w17-aab087f-rawfirst-transferarg-v1",
     "0x22a10-w17-aab087f-rawfirst-pwscan-v1"
   ],
-  "landed": false
+  "landed": false,
+  "pr": 4063
 }
