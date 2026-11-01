@@ -191,7 +191,7 @@ front gain is entangled with a long live range that the original has and main's 
 back loss is the w15a16 spill-colour rotation. Best realisations: VC 2,217 (-32, `Lsh_t1n`), CB 2,235 (-14), against
 main 2,249.
 
-## 6. Re-priced on main 1f4e396 (M 2,251; `data/res-1f4e396.jsonl`)
+## 6. Re-priced on main 1f4e396 (M 2,251; `data/res-1f4e396.jsonl`, and `data/res-5998913.jsonl` for the t1h/t1u/t1s probes: 599891304 has the same admin_cto source)
 
 | variant | bytes | M | dM vs 1f4e396 |
 | --- | ---: | ---: | ---: |
