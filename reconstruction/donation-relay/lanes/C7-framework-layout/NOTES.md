@@ -36,3 +36,18 @@ C5's admit module); `codec/wire.rs` keeps the anchor derives, plus C2's `Copy` o
 Result on the Mac route: 569 of 571 functions, 851,168 of 851,888 B, 0.99915, zero losses, strict 550. `.rodata` is byte-equal to the target
 (23,104 B). `.dynstr` is equal. `.data.rel.ro` (8,880 B) and `.rel.dyn` (43,536 B) have the target's sizes but differ in addresses. `.text` is 720 B short, which is
 exactly the two Linux-only functions 0xb3278 and 0xbcac0.
+
+## Integration, Linux route (natural order, no script)
+
+The same merged source at d60cb0935 on `linux-build.sh`, official v1.54 archive, 140 s: 571 of 571 functions, 851,888 of 851,888 B, ratio 1.0, strict 549, same_address 433.
+Candidate 929,176 B, which is the deployed size. `.rodata`, `.dynsym` and `.dynstr` are byte-equal. `.data.rel.ro` and `.rel.dyn` hold function addresses and differ only through
+`.text` order: `relchk.py` finds all 1,110 words of `.data.rel.ro` equal once pointers are compared by section and through the refined pairing (70 text, 400 rodata, 2 data).
+So 0xb3278 and 0xbcac0 match on Linux as predicted, and `.text` order is what is left.
+
+Not byte identity yet: `whole_elf_equal` is false on this natural-order build.
+
+## mkorder2.py: why relay.compare's pairing is not enough for the script
+
+`relay.compare` pairs by normalized body, first free. Identical bodies exist (the `(u64, u64)` and `(usize, usize)` with_values, two Signer::try_accounts, two Account::reload, finish_grow, and more), and a wrong pair
+scores the same but puts the instance at the other's address. That is C4's "strict is lower on Linux". `mkorder2.py` resolves such groups from paired callers' k-th calls, paired callees, data content and
+`.data.rel.ro` slots. On the Linux build it pairs 571 of 571 with zero conflicting callees. 8 pairs differ from relay.compare's. One group stays ambiguous: `<&T as Display>::fmt` at 0xaccf0 and 0xb84b0, which are in different rlibs and pair in address order.
