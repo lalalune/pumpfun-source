@@ -12,7 +12,8 @@ C=os.path.expanduser('~/.cache/pumpfun-reconstruction/lanes')
 def fbpath(d): return f"{C}/{d['lane']}/rx/{d['name']}/fn.bin"
 MAIN=open(C+'/w16a02-cto-faithknobs/rx/main/fn.bin','rb').read()
 B=splice.parse(MAIN); BT=splice.targets(B)
-items=[d for d in cat if d['M']>=2200 and not d['identical_to_main'] and os.path.exists(fbpath(d))]
+bad=lambda g: any(x in (g or '') for x in ('devol','tf_g3','O+','O_'))
+items=[d for d in cat if d['M']>=int(os.environ.get('MIN_M','2200')) and not d['identical_to_main'] and not bad(d['genes']) and os.path.exists(fbpath(d))]
 V={}
 def var(i):
     if i not in V: V[i]=splice.Var(B,open(fbpath(items[i]),'rb').read())

@@ -84,3 +84,26 @@ _SHN='let shared={let sk=a.sharing_config.key();a.bonding_curve.creator==sk}&&a.
 G['crl3']=[(_SHN,'let shared={let cr=a.bonding_curve.creator;cr==a.sharing_config.key()}&&a.sharing_config.owner==&FEES&&!a.sharing_config.data_is_empty();')]  # w15a03: +72 B, +1
 # t1 (w14a70 #3402): a1 + separate `?` on create_idempotent and transfer_vault_tokens (the original's create/transfer Err tests)
 G['tsplit']=[(')).and_then(|()|crate::collect_v2::transfer_vault_tokens(','))?;crate::collect_v2::transfer_vault_tokens('),('amount,&vsigner))?;return Ok(amount);}','amount,&vsigner)?;return Ok(amount);}')]
+# deferred-init idiom (the author's style for holder_key, vsigner, swept, event_signers) applied to the sweep dest PDA
+G['d_defer']=[(_DS,'let dest;let d=Pubkey::find_program_address(&[b"creator-vault",holder_key.as_ref()],&crate::ID);dest=d.0;if a.holder_creator_vault.key()!=dest{return Err(error!(anchor_lang::error::ErrorCode::ConstraintSeeds).with_pubkeys((a.holder_creator_vault.key(),dest)));}')]
+G['d_defer2']=[(_DS,'let dest;dest=Pubkey::find_program_address(&[b"creator-vault",holder_key.as_ref()],&crate::ID).0;if a.holder_creator_vault.key()!=dest{return Err(error!(anchor_lang::error::ErrorCode::ConstraintSeeds).with_pubkeys((a.holder_creator_vault.key(),dest)));}')]
+G['d_tupb']=[(_DS,'let (dest,_bump)=Pubkey::find_program_address(&[b"creator-vault",holder_key.as_ref()],&crate::ID);if a.holder_creator_vault.key()!=dest{return Err(error!(anchor_lang::error::ErrorCode::ConstraintSeeds).with_pubkeys((a.holder_creator_vault.key(),dest)));}')]
+# deferred init of the old-creator key used by the vault seeds (same idiom)
+G['v_olddefer']=[('let old=a.current_creator.key();let vaultseeds','let old;old=a.current_creator.key();let vaultseeds')]
+# ---------------- splice-oracle hits (pairs3): w15a30 ev:6012345789abc (AdminCtoEvent literal, is_holder_reward first) x w16a07 m_A6 ----------------
+import json as _json, os as _os
+_H=_json.load(open(_os.path.join(_os.path.dirname(_os.path.abspath(__file__)),'..','data','genes_hit.json')))
+G['ev6']=[tuple(x) for x in _H['ev6']]          # w15a30-cto-litfamily ev_6012345789abc (+8 B, M 2247 alone)
+G['A6']=[tuple(x) for x in _H['A6']]            # w16a07-cto-sweeptuple m_A6: match (amm_present,amm_frozen){..} (-8 B, M 2244 alone)
+G['cu_unwrapcur']=[("if let Some(f)=fee{curve.creator_fee_bps=f;}","curve.creator_fee_bps=fee.unwrap_or(curve.creator_fee_bps);")]
+for _k in list(_H):
+    if _k.startswith('ev') and len(_k)==15: G[_k]=[tuple(x) for x in _H[_k]]   # ev<13-hex order>: AdminCtoEvent literal permutation (w15a30 lit.py)
+# ---------------- execute's emit_cpi!(e) hand-expanded (the wallet's CollectCreatorFeeEvent form, lines 565-575) ----------------
+# The sh_iflet pay band on ev6+A6 (+8 B junk -> 2252, 0x54b8 -> 2253) is the event's Clock/emit_cpi Err paths and the
+# authority_info drop glue; the bindings below change that drop order.
+_EC='emit!(e);emit_cpi!(e);Ok(())'
+_X1='let authority_info=ctx.accounts.event_authority.to_account_info();let authority_bump=ctx.bumps.event_authority;let disc=anchor_lang::event::EVENT_IX_TAG_LE;let inner_data=anchor_lang::Event::data(&e);let ix_data:Vec<u8>=disc.into_iter().map(|b|*b).chain(inner_data.into_iter()).collect();let ix=anchor_lang::solana_program::instruction::Instruction::new_with_bytes(crate::ID,&ix_data,vec![anchor_lang::solana_program::instruction::AccountMeta::new_readonly(*authority_info.key,true)]);'
+G['E0']=[(_EC,'emit!(e);{'+_X1+'anchor_lang::solana_program::program::invoke_signed(&ix,&[authority_info],&[&[b"__event_authority",&[authority_bump]]]).map_err(anchor_lang::error::Error::from)?;}Ok(())')]
+G['E1']=[(_EC,'emit!(e);let event_signers:[&[&[u8]];1];{'+_X1+'let event_infos=[authority_info];({let event_inner:&[&[u8]]=&[b"__event_authority",&[authority_bump]];event_signers=[event_inner];anchor_lang::solana_program::program::invoke_signed(&ix,&event_infos,&event_signers)}).map_err(anchor_lang::error::Error::from)?;}Ok(())')]
+G['E3']=[(_EC,'emit!(e);{'+_X1+'let event_infos=[authority_info];anchor_lang::solana_program::program::invoke_signed(&ix,&event_infos,&[&[b"__event_authority",&[authority_bump]]]).map_err(anchor_lang::error::Error::from)?;}Ok(())')]
+G['E4']=[(_EC,'emit!(e);{'+_X1+'let event_infos=[authority_info];let event_inner:&[&[u8]]=&[b"__event_authority",&[authority_bump]];let event_signers=[event_inner];anchor_lang::solana_program::program::invoke_signed(&ix,&event_infos,&event_signers).map_err(anchor_lang::error::Error::from)?;}Ok(())')]

@@ -34,9 +34,10 @@ class Var:
         sm=difflib.SequenceMatcher(None,[norm(x) for x in base_ins],[norm(x) for x in s.ins],autojunk=False)
         s.hunks=[(i1,i2,j1,j2) for t,i1,i2,j1,j2 in sm.get_opcodes() if t!='equal']
         s.v2b={}   # variant index -> base index for equal regions
+        s.b2v={}   # base index -> variant index for equal regions
         for t,i1,i2,j1,j2 in sm.get_opcodes():
             if t=='equal':
-                for d in range(i2-i1): s.v2b[j1+d]=i1+d
+                for d in range(i2-i1): s.v2b[j1+d]=i1+d; s.b2v[i1+d]=j1+d
 def splice(base_raw,var_raws,B=None,BT=None):
     if B is None: B=parse(base_raw); BT=targets(B)
     vs=[r if isinstance(r,Var) else Var(B,r) for r in var_raws]
@@ -75,7 +76,18 @@ def splice(base_raw,var_raws,B=None,BT=None):
     res=[]
     for o,(b,src) in enumerate(out):
         if isj(b):
-            if src[0]=='b': t=BT[src[1]]; to=b2o.get(t)
+            if src[0]=='b':
+                t=BT[src[1]]; to=b2o.get(t)
+                # a variant may retarget an unchanged jump (into its own hunk, or to another base insn): take the
+                # variant's implied target whenever it differs from the base's
+                for vi,v in enumerate(vs):
+                    j=v.b2v.get(src[1])
+                    if j is None: continue
+                    tv=v.tg[j]
+                    if tv is None: continue
+                    if tv in v.v2b: vt=v.v2b[tv]; to_v=b2o.get(vt) if vt!=t else to
+                    else: to_v=v2o.get((vi,tv))
+                    if to_v is not None and to_v!=to: to=to_v; break
             else:
                 vi,j=src[1],src[2]; tv=vs[vi].tg[j]
                 to=v2o.get((vi,tv))
