@@ -1,1 +1,0 @@
-EDITS=[[" match fee{Some(f)=>{if st.quote_locked{", " let f=match fee{Some(f)=>f,None=>return Ok(target)};if st.quote_locked{"], ["if f==0||f>st.max_fee{return Err(error!(PumpError::CreatorFeeBpsOutOfRange));}}None=>{}}", "if f==0||f>st.max_fee{return Err(error!(PumpError::CreatorFeeBpsOutOfRange));}"]]

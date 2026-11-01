@@ -1,6 +1,0 @@
-{"lane":"w6r2-buyexactquote-ir","target":"0x1489f8","base":"a7135a6a6","best_source":{"ratio":0.851,"bytes":7872,"note":"no improvement over base"},
- "best_oracle":{"hoist_tfq_load":0.8813,"hoist_plus_quote_fee_errjoin_end":0.9464,"masked":0.9811},
- "attempts":["a01","a02","a03","b01","b02","b03","b04","b05","c1","c4","c5","ir-oracle-errblock-jeq-ja-evidence","ir-oracle-sroa-order-and-sink-timing"],
- "rejected":["r-tuple","ref-binding","clone","inline-tuple","FRU","mut","field-destructure","try_into"],
- "unresolved":["ptrtoint sink before peephole hoist (pass 35 vs 38)","r6/r9 rotation","prologue lea","fees slot -0x40 vs -0x160"],
- "next":["keep the non-whitelist phi incoming block alive through InstCombine 35","combine the h01 split helper with a hoisting spelling"]}

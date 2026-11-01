@@ -1,4 +1,0 @@
-{"lane":"admincto-reconstruction","target":"0x22a10","best":{"trial":"t4","bytes":26888,"orig_bytes":27400,"calls":[154,3],"orig_calls":[154,3],"block_jaccard":0.204,"insn_jaccard":0.274,"normalized":1020,"raw":188,"losses":[]},
-"attempts":["12bda072","525d3176","cd821d88","e04cf7b7","4a34f1f2","dec3a0ae"],
-"rejected":["closures behind gates (cold sites lose static bonus)","precomputing gate flags before prepare (sharing CPI goes cold)"],
-"next":["precompute flags without cooling the sharing CPI","named private helpers instead of closures","match block layout of wallet collect (cold in original)"]}

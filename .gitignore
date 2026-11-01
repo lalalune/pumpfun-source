@@ -1,20 +1,2 @@
-/work/
-/.build/
-__pycache__/
-*.pyc
-.venv/
-.agent-worktrees/
-work/
-repro/
-research/
 **/target/
 .DS_Store
-
-# Reconstruction inputs (captured original binaries, toolchain recipe and
-# libraries, harness, attempt ledger) are tracked on purpose. Keep these
-# re-includes last so a broader pattern above can never drop them again.
-!/evidence/**
-!/binaries/**
-!/reconstruction/**
-/reconstruction/**/__pycache__/
-/reconstruction/base/original-windows.pkl

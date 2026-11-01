@@ -1,1 +1,0 @@
-EDITS=[["if f==0||f>st.max_fee{return Err(error!(PumpError::CreatorFeeBpsOutOfRange));}}None=>{}}", "if f==0||f>st.max_fee{return Err(error!(PumpError::CreatorFeeBpsOutOfRange));}unsafe{core::ptr::read_volatile(holder_key as *const Pubkey as *const u8)};}None=>{}}"], ["curve.creator_fee_bps=fee.unwrap_or(curve.creator_fee_bps);", "if let Some(f)=fee{curve.creator_fee_bps=f;}"]]
