@@ -33,3 +33,101 @@ pub struct DonateV1<'info> {
     pub token_program: Interface<'info,TokenInterface>,
     pub system_program: Program<'info,System>,
 }
+
+// Historical source text before this handler is unknown.
+// Historical source text before this handler is unknown.
+// Historical source text before this handler is unknown.
+// Historical source text before this handler is unknown.
+// Historical source text before this handler is unknown.
+// Historical source text before this handler is unknown.
+// Historical source text before this handler is unknown.
+// Historical source text before this handler is unknown.
+// Historical source text before this handler is unknown.
+// Historical source text before this handler is unknown.
+// Historical source text before this handler is unknown.
+// Historical source text before this handler is unknown.
+// Historical source text before this handler is unknown.
+// Historical source text before this handler is unknown.
+// Historical source text before this handler is unknown.
+// Historical source text before this handler is unknown.
+// Historical source text before this handler is unknown.
+// Historical source text before this handler is unknown.
+// Historical source text before this handler is unknown.
+// Historical source text before this handler is unknown.
+// Historical source text before this handler is unknown.
+// Historical source text before this handler is unknown.
+// Historical source text before this handler is unknown.
+// Historical source text before this handler is unknown.
+// Historical source text before this handler is unknown.
+// Historical source text before this handler is unknown.
+// Historical source text before this handler is unknown.
+// Historical source text before this handler is unknown.
+// Historical source text before this handler is unknown.
+// Historical source text before this handler is unknown.
+// Historical source text before this handler is unknown.
+// Historical source text before this handler is unknown.
+// Historical source text before this handler is unknown.
+// Historical source text before this handler is unknown.
+// Historical source text before this handler is unknown.
+// Historical source text before this handler is unknown.
+// Historical source text before this handler is unknown.
+// Historical source text before this handler is unknown.
+// Historical source text before this handler is unknown.
+// Historical source text before this handler is unknown.
+// Historical source text before this handler is unknown.
+// Historical source text before this handler is unknown.
+// Historical source text before this handler is unknown.
+// Historical source text before this handler is unknown.
+// Historical source text before this handler is unknown.
+// Historical source text before this handler is unknown.
+// Historical source text before this handler is unknown.
+// Historical source text before this handler is unknown.
+// Historical source text before this handler is unknown.
+impl<'info> DonateV1<'info> {
+    pub fn donate_v1_handler(
+        accounts: &mut Self,
+        args: crate::codec::wire::DonateV1,
+        epoch_tracker_bump: u8,
+        debouncer_bump: u8,
+    ) -> Result<DonationMadeV1Event> {
+        let crate::codec::wire::DonateV1 {
+            amount,
+            config_id,
+            tip_bps,
+            message,
+            credited_to,
+        } = args;
+
+        let result = crate::shared_donation::donate_shared(
+            crate::shared_donation::DonationContext {
+                epoch_tracker: &mut accounts.epoch_tracker,
+                debouncer: &mut accounts.debouncer,
+                debouncer_token_account: accounts.debouncer_token_account.to_account_info(),
+                mint: accounts.mint.to_account_info(),
+                from_token_account: accounts.from_token_account.to_account_info(),
+                from: &accounts.from,
+                token_program: accounts.token_program.to_account_info(),
+                mint_whitelist: &accounts.mint_whitelist,
+            },
+            crate::shared_donation::DonationArgs {
+                config_id: config_id,
+                amount,
+                tip_bps,
+                message: message.clone(),
+                epoch_tracker_bump,
+                debouncer_bump,
+            },
+        )?;
+
+        Ok(DonationMadeV1Event {
+            daas_event_discriminator: DaasEventDiscriminator::DonationV1,
+            config_id: config_id,
+            mint: accounts.mint.key(),
+            epoch: result.epoch,
+            gross_amount: result.gross_amount,
+            tip: result.tip,
+            message,
+            credited_to,
+        })
+    }
+}

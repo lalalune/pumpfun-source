@@ -1,7 +1,7 @@
 use crate::tools::fair_distribution::fair_amounts;
 use anchor_lang::prelude::*;
 use anchor_spl::token_interface::{TokenAccount,TransferChecked};
-use crate::anchor_framework::{Share,Receipt};
+use crate::anchor_framework::{Share,Receipt,ExactTransfer};
 use crate::business_error_codes::ErrorCode as Code;
 macro_rules! worker_error {($code:ident,$line:literal)=>{anchor_lang::error::Error::from(anchor_lang::error::AnchorError {
  error_name:Code::$code.name(),error_code_number:Code::$code.into(),error_msg:Code::$code.to_string(),
@@ -9,116 +9,45 @@ macro_rules! worker_error {($code:ident,$line:literal)=>{anchor_lang::error::Err
 pub struct DistributionContext<'a,'info> {pub remaining:&'a [AccountInfo<'info>],pub source:AccountInfo<'info>,pub mint:AccountInfo<'info>,pub program:AccountInfo<'info>,pub authority:AccountInfo<'info>}
 pub struct DistributionArgs<'a,'b,'c> {pub shares:&'a [Share],pub total:u64,pub decimals:u8,pub seeds:&'a [&'b [&'c [u8]]],pub expected_program:Pubkey}
 pub fn distribute<'info>(ctx:DistributionContext<'info,'info>,args:DistributionArgs)->Result<Vec<Receipt>> {
- let DistributionContext {remaining,source,mint,program,authority}=ctx;
  let shares=args.shares;let total=args.total;let decimals=args.decimals;let expected_program=args.expected_program;let seeds=args.seeds;
- if program.key()!=expected_program {return Err(worker_error!(InvalidTokenAccountProgram,74).with_pubkeys((program.key(),expected_program)));}
- if remaining.len()<shares.len() {return Err(Code::InsufficientRemainingAccounts.into());}
+ if ctx.program.key()!=expected_program {return Err(worker_error!(InvalidTokenAccountProgram,82).with_pubkeys((ctx.program.key(),expected_program)));}
+ if ctx.remaining.len()<shares.len() {return Err(Code::InsufficientRemainingAccounts.into());}
  let weights:Vec<u16>=shares.iter().map(|share|share.bps).collect();
- let amounts=fair_amounts(total,&weights)?;let mint_key=mint.key();
- for (index,share) in shares.iter().enumerate() {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                  let info=&remaining[index];
-  let token=InterfaceAccount::<TokenAccount>::try_from(info)?;
-  if token.owner!=share.address {return Err(worker_error!(InvalidTokenAccountOwner,98).with_pubkeys((token.owner,share.address)));}
-  if token.mint!=mint_key {return Err(worker_error!(InvalidTokenAccountMint,105).with_pubkeys((token.mint,mint_key)));}
-  if *token.to_account_info().owner!=expected_program {return Err(worker_error!(InvalidTokenAccountProgram,112).with_pubkeys((*token.to_account_info().owner,expected_program)));}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                   let amount=amounts[index];
-  if amount!=0 {anchor_spl::token_interface::transfer_checked(CpiContext::new_with_signer(program.clone(),TransferChecked {from:source.clone(),mint:mint.clone(),to:info.clone(),authority:authority.clone()},seeds),amount,decimals)?;}
- }
+ let amounts=fair_amounts(total,&weights)?;
+ transfer_rows(&ctx,shares.iter().zip(amounts.iter()).map(|(share,amount)|ExactTransfer {share_type:share.share_type,address:share.address,amount:*amount}),decimals,expected_program,seeds)?;
  Ok(shares.iter().zip(amounts.iter()).map(|(share,amount)|Receipt {share_type:share.share_type.clone(),address:share.address,amount:*amount,bps:share.bps}).collect())
+}
+
+pub struct ExactDistributionArgs<'a,'b,'c> {pub transfers:&'a [ExactTransfer],pub total:u64,pub decimals:u8,pub seeds:&'a [&'b [&'c [u8]]],pub expected_program:Pubkey}
+pub fn distribute_exact<'info>(ctx:DistributionContext<'info,'info>,args:ExactDistributionArgs)->Result<()> {
+ if args.total==0 {return Err(worker_error!(InvalidBalance,130));}
+ if args.transfers.is_empty() || ctx.remaining.len()!=args.transfers.len() {return Err(worker_error!(InvalidInstructionDataLength,131));}
+ let mut sum:u64=0;
+ for (row,info) in args.transfers.iter().zip(ctx.remaining.iter()) {
+  sum=sum.checked_add(row.amount).ok_or(Code::ArithmeticOverflow)?;
+  if info.key()==ctx.source.key() {return Err(worker_error!(InvalidTokenAccountState,142).with_pubkeys((info.key(),ctx.source.key())));}
+ }
+ if sum!=args.total {return Err(worker_error!(InvalidBalance,148).with_values((sum,args.total)));}
+ if ctx.program.key()!=args.expected_program {return Err(worker_error!(InvalidTokenAccountProgram,149).with_pubkeys((ctx.program.key(),args.expected_program)));}
+ let before=TokenAccount::try_deserialize_unchecked(&mut &ctx.source.try_borrow_data()?[..])?.amount;
+ if before<args.total {return Err(worker_error!(InvalidBalance,158));}
+ transfer_rows(&ctx,args.transfers.iter().copied(),args.decimals,args.expected_program,args.seeds)?;
+ let after=TokenAccount::try_deserialize_unchecked(&mut &ctx.source.try_borrow_data()?[..])?.amount;
+ let spent=before.checked_sub(after).ok_or(Code::ArithmeticOverflow)?;
+ if spent!=args.total {return Err(worker_error!(InputAmountMismatch,170).with_values((spent,args.total)));}
+ Ok(())
+}
+
+#[inline(never)]
+fn transfer_rows<'info,I:Iterator<Item=ExactTransfer>>(ctx:&DistributionContext<'info,'info>,rows:I,decimals:u8,expected_program:Pubkey,seeds:&[&[&[u8]]])->Result<()> {
+ for (row,info) in rows.zip(ctx.remaining.iter()) {
+  let token=InterfaceAccount::<TokenAccount>::try_from(info)?;
+  if token.owner!=row.address {return Err(worker_error!(InvalidTokenAccountOwner,191).with_pubkeys((token.owner,row.address)));}
+  if token.mint!=ctx.mint.key() {return Err(worker_error!(InvalidTokenAccountMint,196).with_pubkeys((token.mint,ctx.mint.key())));}
+  if *info.owner!=expected_program {return Err(worker_error!(InvalidTokenAccountProgram,201).with_pubkeys((*info.owner,expected_program)));}
+  if row.amount!=0 {anchor_spl::token_interface::transfer_checked(CpiContext::new_with_signer(ctx.program.clone(),TransferChecked {from:ctx.source.clone(),mint:ctx.mint.clone(),to:info.clone(),authority:ctx.authority.clone()},seeds),row.amount,decimals)?;}
+ }
+ Ok(())
 }
 
 pub struct BurnCloseContext<'info> {pub token:AccountInfo<'info>,pub mint:AccountInfo<'info>,pub authority:AccountInfo<'info>,pub destination:AccountInfo<'info>,pub program:AccountInfo<'info>}
@@ -129,6 +58,9 @@ pub fn burn_and_close<'info>(ctx:BurnCloseContext<'info>,amount:u64,seeds:&[&[&[
 }
 
 
+impl<'a,'b,'c> ExactDistributionArgs<'a,'b,'c> {
+ pub fn new(transfers:&'a [ExactTransfer],seeds:&'a [&'b [&'c [u8]]],total:u64,expected_program:&Pubkey,decimals:u8)->Self {Self {transfers,seeds,total,expected_program:*expected_program,decimals}}
+}
 impl<'a,'b,'c> DistributionArgs<'a,'b,'c> {
  pub fn new(shares:&'a [Share],seeds:&'a [&'b [&'c [u8]]],total:u64,expected_program:&Pubkey,decimals:u8)->Self {Self {shares,seeds,total,expected_program:*expected_program,decimals}}
 }
