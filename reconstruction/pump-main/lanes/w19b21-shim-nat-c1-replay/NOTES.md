@@ -35,3 +35,8 @@ On main without the C1 trap weights and the repay reads:
 | 0.25 - 0.45, repay reads kept | 3,181 | 27,464 | 278 |
 
 Source form: `if unsafe{expect_p(f==0||f>st.max_fee,true,P)}{..}` reproduces the IR cell (capture signature equal in M and bytes).
+
+## Result: with the original's plan flags, C1 needs no weight at all
+
+w19b25's natural V1..J2 (#4195, M 3,217 with the three C1 trap weights) minus those weights: **M 3,303 (0.98922) at 27,400 B, C1 458/458, all3 3,334.** The fee weight above was a stand-in for that V shape, so it is dropped too.
+What is left: E3 one inverted branch (`jne r8,0,0x900` as `jeq`+`ja`, +8 B), the S2 native arm's amount registers plus the last repay read, and jump offsets that follow from those.

@@ -5,7 +5,7 @@ use anchor_lang::solana_program::{instruction::{Instruction,AccountMeta},program
 pub const AMM:Pubkey=anchor_lang::solana_program::pubkey!("pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA");
 pub const FEES:Pubkey=crate::distribution::FEES;
 #[derive(Clone)]pub struct Amm; impl Id for Amm{fn id()->Pubkey{AMM}}
-extern "C"{#[link_name="llvm.expect.with.probability.i1"]fn expect_p(b:bool,v:bool,p:f64)->bool;}/*shim: llvm.expect.with.probability for branch weights*/
+
 #[derive(Accounts)]
 pub struct AdminCto<'info>{
 #[account(mut)]
@@ -97,7 +97,7 @@ pub sharing_config_reset:bool,
 pub swept_to_holder_vault:u64,
 pub pool_updated:bool,
 }
-struct CtoState{mayhem:bool,holder_reward:bool,cashback:bool,creator:Pubkey,quote_locked:bool,holder_enabled:bool,fee_configurable:bool,max_fee:u64}struct Plan{fee:Option<u64>,target:Pubkey,sharing_update:Option<Option<Pubkey>>,is_holder:bool,cashback:bool,collect_old:bool,skip:bool}
+#[cold]fn cm326(){}/*shim: empty cold marker: keeps 326's to_string out of line at validate's inliner*/struct CtoState{mayhem:bool,holder_reward:bool,cashback:bool,creator:Pubkey,quote_locked:bool,holder_enabled:bool,fee_configurable:bool,max_fee:u64}struct Plan{fee:Option<u64>,target:Pubkey,sharing_update:Option<Option<Pubkey>>,is_holder:bool,cashback:bool,collect_old:bool,skip:bool}
 // layout-pad(183): aligns the next Source site with the original line
 
 
@@ -295,7 +295,7 @@ fn validate(st:&CtoState,shared:bool,holder:bool,fee:Option<u64>,new:Option<Pubk
 
   if !st.holder_enabled{return Err(error!(PumpError::HolderRewardDisabled));}}
 
- let cashback=!holder&&st.cashback;let (target,is_holder)=if holder{if !(new==None){return Err(error!(PumpError::CtoNewCreatorNotAllowed));}(holder_key,true)}else{
+ let (target,is_holder,cashback)=if holder{if !(new==None){return Err(error!(PumpError::CtoNewCreatorNotAllowed));}(holder_key,true,false)}else{
 
 
 
@@ -303,13 +303,13 @@ fn validate(st:&CtoState,shared:bool,holder:bool,fee:Option<u64>,new:Option<Pubk
 
 
 
-  let (tg,ih)={let t=new.ok_or_else(||error!(PumpError::CtoNewCreatorRequired))?;
+  let (tg,ih,cb)={let t=new.ok_or_else(||error!(PumpError::CtoNewCreatorRequired))?;
   if t==Pubkey::default(){return Err(error!(PumpError::CreatorShouldNotBeZero).with_pubkeys((t,Pubkey::default())));}
 
 
 
 
-  require!(t!=holder_key&&t!=sharing,PumpError::InvalidCreator);if ns{(t,false)}else{(st.creator,false)}};(tg,ih)};
+  require!(t!=holder_key&&t!=sharing,PumpError::InvalidCreator);if ns{(t,false,st.cashback&&!holder)}else{(st.creator,false,st.cashback&&!holder)}};(tg,ih,cb)};
 // layout-pad(13): aligns the next Source site with the original line
 
 
@@ -323,11 +323,11 @@ fn validate(st:&CtoState,shared:bool,holder:bool,fee:Option<u64>,new:Option<Pubk
 
 
 
- let fee_bps=match fee{Some(f)=>{if st.quote_locked{return Err(error!(PumpError::CreatorFeeNotConfigurableForQuote));}
+ let fee_bps=match fee{Some(f)=>{if st.quote_locked{let e=error!(PumpError::CreatorFeeNotConfigurableForQuote);cm326();/*shim: cold marker after the error is built*/return Err(e);}
 // layout-pad(3): aligns the next Source site with the original line
 
 
-  if cashback{return Err(error!(PumpError::CreatorFeeNotAllowedForCashbackCoin));}
+  if !is_holder&&st.cashback{return Err(error!(PumpError::CreatorFeeNotAllowedForCashbackCoin));}
 
 
 
@@ -335,7 +335,7 @@ fn validate(st:&CtoState,shared:bool,holder:bool,fee:Option<u64>,new:Option<Pubk
 
 
 
-  if unsafe{expect_p(f==0||f>st.max_fee,true,0.98)}/*shim: fee range test weight, the fee arm colder than the error path steers the V2-J1 region splits*/{return Err(error!(PumpError::CreatorFeeBpsOutOfRange));}Some(f)}None=>None};
+  if f==0||f>st.max_fee{return Err(error!(PumpError::CreatorFeeBpsOutOfRange));}Some(f)}None=>None};
  let (collect_old,skip)=if ns{(!st.holder_reward&&st.creator!=Pubkey::default(),true)}else{'s:{let x:Option<Pubkey>;if holder{x=None;sharing_update=Some(x);break 's;}x=new;sharing_update=Some(x);}(false,!holder)};Ok(Plan{fee:fee_bps,target,sharing_update,is_holder,cashback,collect_old,skip})}pub fn execute(ctx:Context<AdminCto>,holder:Option<bool>,fee:Option<u64>,new:Option<Pubkey>)->Result<()>{ let a=&ctx.accounts;let mint=a.mint.key();let holder_key=Pubkey::find_program_address(&[b"holder-rewards",mint.as_ref()],&crate::ID).0;let sc:&AccountInfo=a.sharing_config.as_ref();let shared=a.bonding_curve.creator==sc.key()&&sc.owner==&FEES&&!sc.data_is_empty();let plan={let global:&Global=&a.global;let curve:&BondingCurve=&a.bonding_curve;let st=CtoState{mayhem:curve.is_mayhem_mode,holder_reward:curve.is_holder_reward,cashback:curve.is_cashback_coin,creator:curve.creator,quote_locked:{let q=curve.quote_mint;q==Pubkey::default()||q==anchor_spl::token::spl_token::native_mint::ID||global.whitelisted_quote_mints.contains(&q)},max_fee:global.max_configurable_creator_fee_bps,fee_configurable:global.creator_fee_configurable,holder_enabled:global.is_holder_reward_enabled};let hb=holder.unwrap_or(false);let args=&(new,);validate(&st,shared,hb,fee,args.0,a.sharing_config.key(),holder_key,&holder_key)?};let target=plan.target;let sharing_update=plan.sharing_update;let collect_old=plan.collect_old;let skip=plan.skip;let cashback=plan.cashback; crate::trade_types::prepare_bonding_curve(&a.bonding_curve,&a.system_program,&a.admin_set_creator_authority)?;
 
 
@@ -661,7 +661,7 @@ fn validate(st:&CtoState,shared:bool,holder:bool,fee:Option<u64>,new:Option<Pubk
 
   let vsigner:[&[&[u8]];1];let bump=ctx.bumps.creator_vault;let old=a.current_creator.key();let vaultseeds:&[&[u8]]=&[b"creator-vault",old.as_ref(),&[bump]];vsigner=[vaultseeds];
   if native{let min={let rent=Rent::get()?;rent.minimum_balance(0)};let amount=a.creator_vault.lamports().saturating_sub(min);
-   return (if amount>0{crate::legacy_buy::native_payments::ensure_rent_exempt(&a.system_program,&a.admin_set_creator_authority,&a.holder_creator_vault)?;crate::collect_v2::transfer_native(a.system_program.as_ref(),&a.creator_vault,&a.holder_creator_vault,amount,&vsigner)}else{Ok(())}).map(|()|amount);}else{let amount=token_raw_amount(a.creator_vault_quote_token_account.as_ref())?;let frozen=token_frozen(a.creator_vault_quote_token_account.as_ref())?;
+   return (if amount>0{crate::legacy_buy::native_payments::ensure_rent_exempt(&a.system_program,&a.admin_set_creator_authority,&a.holder_creator_vault)?;let _=unsafe{core::ptr::read_volatile(holder_key as *const Pubkey as *const u8)};/*shim: holder_key byte read before transfer_native, repays the pin*/crate::collect_v2::transfer_native(a.system_program.as_ref(),&a.creator_vault,&a.holder_creator_vault,amount,&vsigner)}else{Ok(())}).map(|()|amount);}else{let amount=token_raw_amount(a.creator_vault_quote_token_account.as_ref())?;let frozen=token_frozen(a.creator_vault_quote_token_account.as_ref())?;
 
 
 
