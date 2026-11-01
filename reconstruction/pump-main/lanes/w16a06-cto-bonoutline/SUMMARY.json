@@ -20,10 +20,10 @@
  },
  "result": "notes only; kill test met for every source-reachable cell; main stays best (0.67376 / 3124 / 27400)",
  "best_zero_loss": {
-  "ratio": 0.67376,
-  "slots_diff": 3124,
+  "ratio": 0.67436,
+  "slots_diff": 3141,
   "bytes": 27400,
-  "source": "main 9bd38c7d5 (no source change)"
+  "source": "main 7e5ba44a7 (no source change by this lane)"
  },
  "ledger": {
   "approach": "bonoutline",
@@ -241,5 +241,40 @@
   "Price the 368 B entry/validate repay pieces (class-E entry copy of new as 1/7/8/8/8/1 SROA pieces, OV duplication, Result<Pubkey> pieces at 0x538-0x580) on tf_g3_vw1_2, not on main."
  ],
  "tools": "reconstruction/pump-main/lanes/w16a06-cto-bonoutline/tools (bprice, arel, uo, ux, irB, iru, wg, and1, phix, vw, eoff, blays, tp2, cap1, gx)",
- "time_used_minutes": 95
+ "time_used_minutes": 100,
+ "recheck_7e5ba44a7": {
+  "main": {
+   "M": 2251,
+   "Br_fixedRA": 2279
+  },
+  "tf_g3_O": {
+   "bytes": 27024,
+   "M": 2201,
+   "Br": 2287,
+   "bb23_2to1": 2234,
+   "bb23_1to1": 2219,
+   "bb23_20to12": 2214
+  },
+  "O312": {
+   "bytes": 27184,
+   "M": 2198,
+   "Br": 2283,
+   "bb23_2to1": 2230,
+   "bb23_1to1": 2215,
+   "bb23_20to12": 2211
+  },
+  "tf_g3_vtime_1to2": {
+   "bytes": 27032,
+   "M": 2234,
+   "lddw": 86
+  },
+  "note": "all deltas carry over (+2 M from #3859 on every base); kill test unchanged"
+ },
+ "base_latest": {
+  "main": "7e5ba44a7",
+  "ratio": 0.67436,
+  "slots_diff": 3141,
+  "bytes": 27400,
+  "M": 2251
+ }
 }

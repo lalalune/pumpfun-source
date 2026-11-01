@@ -226,7 +226,26 @@ original's count (307 and 312 outlined); main has 88.
   split of the OV duplication (w14a89), and its tail order came from the and-1 tag plus that CFG. On tf_g3_O the and-1
   tag alone is bb23.i 1:1 = 2,217 (+18).
 
+## 8. Re-check on main 7e5ba44a7 (#3859, w16a07 sweep tuple: 0.67436, M 2,251)
+
+The new captures (`m1` is `eq_main: true`; `tfg3n` is tf_g3 on the merged source) carry every delta over. The #3859
+sweep change adds +2 M on each base and does not touch validate.
+
+| cell | bytes | M | + fixed-RA Br | bb23.i 2:1 | 1:1 | 20:12 |
+| --- | ---: | ---: | --- | --- | --- | --- |
+| main (m1) | 27,400 | 2,251 | 2,279 @27,408 (+28) | 2,218 | 2,223 | 2,206 |
+| tf_g3_O (tfg3n_O) | 27,024 | 2,201 | 2,287 @27,032 (+86) | **2,234** (+33) | 2,219 | 2,214 |
+| O312 (m1_O312) | 27,184 | 2,198 | 2,283 @27,192 (+85) | **2,230** (+32) | 2,215 | 2,211 |
+| tf_g3 + V-time 306 Some:None 1:2 | 27,032 | 2,234 (lddw 86, = tfg3n_O + 2:1) | | | | |
+
+Kill test against 2,251 with the ideal repay:
+- tfg3n_O + 2:1: 2,280. Unreachable, as for O.
+- m1_O312 + 2:1: 2,256 (+5). Unreachable: 2:1 is not BPI-producible.
+- m1_O312 + 1:1 / 20:12: 2,241 / 2,237. These fail.
+- The conclusions of sections 4-7 stand.
+
 ## Verdict
 
-Kill test met: no source-reachable cell reaches main's M 2,249 even with an ideal repay. The price table, the B orders
+Kill test met: no source-reachable cell reaches main's M (2,249 on 9bd38c7d5, 2,251 on 7e5ba44a7) even with an ideal
+repay. The price table, the B orders
 for outline bases and the 306-lever mechanism are the hand-off. Next ideas are in `SUMMARY.json`.
