@@ -87,6 +87,12 @@ Attempts to pin the placement, all on the collapsed bases:
   `vl:validate:28014` 1,767 @27,392 and `vl:execute:28969` 1,761. The best one **does** restore main's block layout:
   the frame/reg/jump-masked diff to main is only the intended E3/J1/C1 changes, 3,209 of 3,337 tokens. The exact loss
   is then register names and the frame shift from the two new allocas. 141 edits on `c1a`: best 1,574;
+- pairs of the 24 best singles on `e79v` (276 runs, `ex/scr_e79v_pairs.jsonl`): none beats 1,767;
+- `vl:validate:28014` is a volatile read of the `st.quote_locked` byte at 326, `read_volatile(&st.quote_locked)`. It is
+  not a general pin (`ex/qpin.py`): main alone falls to 1,876, `c1a` reaches 1,511, `x3h` 1,887, the dead `new` probe 1,897
+  and `j1v` 1,804. It is one more chaotic perturbation, which happens to put `e79v` back on main's layout;
+- `mp.py` on `e79v` + `vl:validate:28014` against main: Mperm 2,012 vs 2,308, frame-masked LCS 2,377 vs 2,494. The
+  remaining gap is register naming, not frame: a frame pass alone cannot recover it;
 - `-tail-dup-placement=false` / `-enable-tail-merge=false` on both sides: no information (main itself loses 640 M
   without tail merge).
 
@@ -97,9 +103,10 @@ Attempts to pin the placement, all on the collapsed bases:
   But it is not separable from the rest of the function: main's RA basin and its layout of the sweep join are tuned
   for the lazy loads, and even a dead instruction at the CtoState site flips the layout.
 - To use it you must re-tune the basin around it, as waves 13-17 did for main. A single nudge (`vl:validate:28014`)
-  already restores the layout on `e79v`, so the starting point would be `e79v` + that nudge (M 1,767), followed by a
-  frame pass (place e7/e9 where the original has them, at -0x658/-0x668, where main keeps target pieces) and an RA nudge
-  search. That is a multi-lane project, not a single landing.
+  already restores the layout on `e79v`, so the starting point would be `e79v` + that nudge (M 1,767). Its
+  frame-masked gap to main is still 117 tokens (Mperm 2,012 vs 2,308), so the work is mostly an RA-nudge search
+  (weighted traps, volatile reloads), with a frame pass second (place e7/e9 where the original has them, at
+  -0x658/-0x668, where main keeps target pieces). That is a multi-lane project, not a single landing.
 - Ranking or screening structural candidates by exact M on main's basin will reject every one of them. Compare them with
   `tools/mdiff.py` (layout) and frame/reg/jump-masked region matches (`tools/regm.py`) first.
 

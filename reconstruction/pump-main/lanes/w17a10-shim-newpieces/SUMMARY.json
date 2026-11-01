@@ -25,7 +25,8 @@
     {"key": "0x22a10-w17-af6ca66-newpieces-j1arm-v1", "form": "shared arm builds sharing_update from pieces (J1 -> C1 only)", "M": 1565, "bytes": 27720},
     {"key": "0x22a10-w17-af6ca66-newpieces-e79-v1", "form": "c1a + volatile entry 7 B / 9 B copies into allocas (original E3 piece set)", "M": 1445, "bytes": 27456},
     {"key": "0x22a10-w17-af6ca66-newpieces-e79v-shimscreen-v1", "form": "906 w17a06 single shim edits on e79v (+141 on c1a)", "M": 1767, "bytes": 27392},
-    {"key": "0x22a10-w17-af6ca66-newpieces-entry-dead-probes-v2", "form": "dead probes at the CtoState site (volatile byte of new, fence, dead copies)", "M": 1631, "bytes": 27536}
+    {"key": "0x22a10-w17-af6ca66-newpieces-entry-dead-probes-v2", "form": "dead probes at the CtoState site (volatile byte of new, fence, dead copies)", "M": 1631, "bytes": 27536},
+    {"key": "0x22a10-w17-af6ca66-newpieces-e79v-pairs-v1", "form": "276 pairs of the top-24 singles on e79v", "M": 1767, "bytes": 27392, "Mperm": 2012, "lcs_f": 2377, "main_Mperm": 2308, "main_lcs_f": 2494}
   ],
   "mechanisms_found": [
     "A C1-only piecewise construction of the CPI argument (i64 reads at +8/+16) makes SROA split the sharing payload back through _71, the arms and the args copy: tag/new+8/new+16 are then loaded at the original E3 spot (+0x540..0x550, orig +0x4d8/+0x508/+0x518, r9 included).",
@@ -50,7 +51,7 @@
     "sweep join: original tail-duplicates the jne r7,2 test into the native-return predecessor (orig +0x24a8); main does not"
   ],
   "next_ideas": [
-    "Start from e79v + vl:validate:28014 (M 1,767, main's layout restored) and re-tune: frame pass placing e7/e9 at the original -0x658/-0x668 (where main keeps target pieces), then RA nudge/weight searches (w17a04 weighted traps, w17a06 volatile reloads) on that base; a multi-lane project",
+    "Start from e79v + vl:validate:28014 (M 1,767, main's layout restored; frame-masked LCS 2,377 vs main 2,494, so register naming dominates) and re-tune with RA nudge/weight searches (w17a04 weighted traps, w17a06 volatile reloads), then a frame pass placing e7/e9 at the original -0x658/-0x668; a multi-lane project",
     "Find what makes the sweep join keep a hot chain-tail predecessor when RA adds reloads (a pin for bb58.i), so structural changes upstream stop flipping the sharing CPI region",
     "Screen structural candidates by tools/mdiff.py layout and masked region matches (tools/regm.py) before exact M"
   ],
