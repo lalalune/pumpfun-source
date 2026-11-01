@@ -128,6 +128,19 @@
         "main": 2794
       },
       "status": "analyzed: +61 fully-masked structure (E1 +34, C1 +28, J1 +5), exact -325 from RA naming"
+    },
+    {
+      "id": "k8-retune",
+      "desc": "brscan (108) and probscan (59: probabilities of main's 6 expect shims) on k8",
+      "status": "rejected, max +1"
+    },
+    {
+      "id": "k10",
+      "desc": "k8 + early volatile sharing_config ptr + volatile curve re-read at quote_locked",
+      "M": 1921,
+      "bytes": 27368,
+      "fully_masked": 2848,
+      "status": "rejected"
     }
   ],
   "rejected_mechanisms": [

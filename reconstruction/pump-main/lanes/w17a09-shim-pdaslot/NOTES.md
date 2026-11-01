@@ -104,6 +104,10 @@ vs main 2,270 @27,400, but **fully masked (regs+frame+jumps) 2,855 vs main 2,794
 (fully masked): E1 +34, C1 +28, J1 +5, S1 +2, T1 -8, W2 -2. The exact loss is RA naming only (T1 -240, C1 -79,
 S1 -13 exact). So PDA-first is the right skeleton, and now it shrinks the code by 16 B instead of growing it 40 B. What remains is an RA-basin
 re-tune of k8: the T1/C1 spill-colour shims that main carries were tuned on the shared-first basin.
+First re-tune screens on k8, both no gain: llvm.expect true/false on all 54 `br i1` (`brscan.py`, max = base 1,945), and
+the probabilities of main's six expect shims (rcinc/rcincp traps, 312 `expect_p`, default-quote) over a 10-point grid
+(`probscan.py`, 59 variants, max +1). `k10` = k8 + the two first-divergence shims (early volatile sharing_config
+pointer, volatile curve re-read at quote_locked) gives 1,921 exact and 2,848 fully masked.
 
 **For w17a14-shim-shimwhole (b01+p8+PF composite):** its exact loss was attributed to "hk gone, holder_key/mint
 +0x28" (40 B frame shift). The landed `[u64;9]` holder_key slot (#3993) is exactly that 40 B placeholder. On current
@@ -117,7 +121,8 @@ frame below -0x658 no longer moves.
 - `mk.py` + `edits.py`: the exact source edits of every variant (line count asserted).
 - `dis.py <fx name> [--range a-b] [--full]`: disassemble an fx `fn.bin` and diff it against the original window.
 - `reg.py <names..>`: matched tokens per REGIONS.md region; `mask.py`: exact vs frame/jump vs fully masked LCS.
-- `irs.py <base.s.ll> <spec.py>`: IR edit screen with region deltas; `brscan.py`: llvm.expect scan of every `br i1`.
+- `irs.py <base.s.ll> <spec.py>`: IR edit screen with region deltas; `brscan.py`: llvm.expect scan of every `br i1`;
+  `probscan.py`: grid over the probability constants of the expect shims already in the module.
 - `raseq.py <fx name>`: debug-llc greedy trace, first N assign/evict decisions (vreg@slot->reg); `radiff.py a b`: first divergent greedy decisions outside E1, keyed by live-range start slot.
 
 Ledger keys: `0x22a10-w17-442ae70-pdaslot-<id>-v1`.
