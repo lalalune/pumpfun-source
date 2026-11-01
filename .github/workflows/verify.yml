@@ -517,6 +517,7 @@ jobs:
               python -B reconstruction/verification/mayhem-dispatch-boundaries/test_inventory.py
               python -B reconstruction/verification/mayhem-dispatch-boundaries/test_producer.py
               python -B reconstruction/verification/mayhem-stateful-lifecycle/test_lifecycle.py
+              python -B reconstruction/verification/mayhem-v2-pumpswap-lifecycle/test_lifecycle.py
           - suite: host-fragments
             commands: |
               python -B tests/test_extra_host_input_validation.py
