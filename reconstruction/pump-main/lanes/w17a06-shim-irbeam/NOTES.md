@@ -114,3 +114,31 @@ Not source-reachable this round:
 - `bpp:validate:28222` (a 5:3 weight on `st.quote_locked`). `expect_p` there is lost, because the bool goes through an
   alloca before the `br`;
 - `bf:wallet` (the no-coin fence). Source fences land in both jump-threaded copies.
+
+## 5. Round 4 (main ae14cbe, M 2,268): no landable cell
+
+- Singles: 1,100 edits, including 495 branch-probability edits (1:1, 5:3, 3:5, 1:10, 10:1, 1:100, 100:1, 2:1, 1:2).
+  Nothing is above main at 27,400 B. The best off-size cells are (0, -24) volatile CtoState byte loads and (0, +8)
+  validate fee-test weights.
+- Pairs: 309. The best at size is `bf:sweep:33292 + bf:wallet:31696`, +1, two fences. The wallet no-coin fence
+  (`bf:wallet:31108`, +1 alone) is again the jump-threaded copy. A source fence guarded by `if collection_native` still
+  lands in both copies: 2,254 @27,408.
+- Main then moved twice (w17a09 pdaslot, w17a13 pool gate), and round 5 restarts on bf01b5f.
+
+**Hazard for other lanes:** `git stash` in a worktree uses the SHARED stash of the main repository. A `stash pop` with
+nothing of your own on the stack pops another session's entry. It conflicted here and the entry was kept intact. Do
+not use `git stash` in swarm worktrees.
+
+## 6. Round 5 (main bf01b5f, M 2,270): no landable cell; IR-only leads for the next lane
+
+- 1,113 priority singles plus 979 local-volatile singles, 226 pairs, and a beam limited to realizable cells
+  (`tools/realiz.py`: `acc` = ctx.accounts reloads, `fld` = account-field pointer reloads, `br` = weights on a `br`
+  fed directly by an icmp or call result). No realizable pair or triple reaches main at 27,400 B (best -2).
+- **IR-only lead, +4 at 27,400:** `vl:execute:28888 + vl:wallet:30857 + vl:wallet:30865 + vl:validate:28392 +
+  vl:execute:30081 + vl:execute:30253`, M 2,274 (0.68125). Its core is `vl:execute:28888`, +3 M at -96 B: a volatile
+  load of the Err payload pointer in validate's `?` residual (bb76) keeps the residual in memory and drops 12
+  instructions. The other five are repay cells: wallet `?` residual copies, validate's existing placeholder temp, a
+  pool-CPI accounts reload, and a CPI `val` word. None has a known one-line spelling yet. A lane that finds one for
+  the `?` residual pointer (a hand-written `match` with a volatile read of the error's pointer half) could start here.
+- The wallet no-coin fence (`bf:wallet:31113`) is +1 at size again on this main. It still has no single-copy source
+  form.

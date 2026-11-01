@@ -1,0 +1,77 @@
+{
+ "lane": "w17a06-shim-irbeam",
+ "wave": 17,
+ "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27400 B",
+ "landed": [
+  {
+   "pr": 3961,
+   "merge_commit": "af6ca66a2",
+   "admin_cto": "0.67735 -> 0.67825 on land (0.67675 -> 0.67765 measured on 9336aaf)",
+   "constructs": [
+    "read_volatile(transmute::<&&mut AdminCto,*const &AdminCto>(a)) at the pool owner test (line 761)",
+    "read_volatile of the curve Box pointer for target=a.bonding_curve.creator in the shared non-holder arm (line 339)"
+   ],
+   "beam_cells": [
+    "vl:execute:29769",
+    "vl:execute:28873"
+   ]
+  },
+  {
+   "pr": 3992,
+   "merge_commit": "ae14cbeb4",
+   "admin_cto": "0.67915 -> 0.67945 on land (0.67855 -> 0.67885 measured on fd78179)",
+   "constructs": [
+    "(unsafe{expect(q==Pubkey::default(),false)}) on the quote_locked default test (line 339)",
+    "read_volatile of the curve Box pointer for curve.creator=target (line 754)"
+   ],
+   "beam_cells": [
+    "bwf:execute:28642",
+    "vl:execute:29604"
+   ]
+  }
+ ],
+ "best": {
+  "ratio": 0.67945,
+  "slots_diff": 3170,
+  "bytes": 27400,
+  "main": "ae14cbeb4"
+ },
+ "tools": {
+  "preslim.py + fx.py": "exact slim pre-opt oracle, about 2 s per evaluation, token-identical to the full raw-IR oracle (data/surv-1647da0.txt survivor list + optnone keep-uses caller with all-call-site constant args)",
+  "gen.py": "edit generator over the pre-opt bodies of validate/execute/wallet/sweep: vl, vs, rr, bf (black_box(()) fence), bw (2000:1/1:2000), bp (1:1, 5:3, 3:5), sw (switch weights), na (noalias/attr drops)",
+  "screen.py / beam.py / beam2.py": "single screen, pair and triple beams with output-signature dedupe",
+  "calvars.py / caldrive.py / capv.py": "calibration variants, capture driver (2 build slots), per-variant capture",
+  "srcvars*.py + mv.py": "source realisations of beam cells and measure.sh wrapper"
+ },
+ "attempts": {
+  "calibration_constructs": 28,
+  "single_edits": "1374 (1647da0) + 851 (d4dfb04) + 1071 (af6ca66) + 1100 (ae14cbe) + 2092 (bf01b5f)",
+  "pairs": "251 + 195 + 200 + 309 + 226 (+115 realizable-only combos)",
+  "triples": "174 + 86"
+ },
+ "rejected_mechanisms": [
+  "read_volatile of a local: forces a frame alloca (-754 M)",
+  "read_volatile of a 32 B Pubkey param: 32 byte loads (-510 M)",
+  "any as-cast or coercion of a pointer into the by-value ctx (a, &ctx.accounts): DeduceReadOnly drops readonly on ctx (-689 M); use transmute",
+  "core::intrinsics::likely/unlikely: no-op (hint lost through an alloca)",
+  "core::intrinsics::assume(!(holder&&new.is_some())): -257 M",
+  "extern llvm.expect on pool_updated: +2784 B",
+  "ptr::copy_nonoverlapping for a Pubkey assignment: -412 M",
+  "*const ctx params on sweep/wallet: MIR stops merging ctx.accounts reloads (-141 / -6 M)",
+  "noalias/dereferenceable/readonly drops on nested-fn params at IR level: byte-identical except sweep ctx",
+  "volatile accounts-pointer reload for pargs (vl:execute:29927): every spelling makes MIR jump threading duplicate the pargs block (-123 M)",
+  "black_box(()) fence on the wallet no-coin arm: MIR jump threading duplicates the arm, so the fence lands twice (-61 M)",
+  "expect_p on st.quote_locked in validate: hint lost (bool goes through an alloca)"
+ ],
+ "unresolved_residuals": [
+  "IR-only cells without a faithful spelling: vl:execute:29927/29631 (+1,+8) accounts reloads in pargs/sharing CPI; bf:wallet no-coin fence (+1,0); bpp:validate quote_locked 5:3 (0,+8)",
+  "beam cells are RA-state specific: the d4dfb04 +3 pair did not exist on af6ca66, so every new main needs a fresh screen",
+  "IR-only +4 at 27400 on bf01b5f: vl:execute:28888 (validate ? residual Err pointer, +3 M at -96 B) + 5 repay cells; needs one-line spellings"
+ ],
+ "next_ideas": [
+  "rerun tools/gen.py + screen.py + beam on each new main (about 15 min per round with the slim oracle) and realise only cells with a known faithful form: Box-pointer reloads, final-field loads, expect on a br fed by a MIR call result",
+  "make a MIR-JT-proof spelling for accounts reloads inside jump-threaded regions (e.g. compute the reload before the && chain)",
+  "add expect_p families with more ratios on brs fed directly by call results",
+  "use the slim oracle for other lanes' IR experiments (110 s -> 2 s)"
+ ]
+}
