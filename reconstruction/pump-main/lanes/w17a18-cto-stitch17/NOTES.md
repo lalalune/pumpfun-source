@@ -50,6 +50,23 @@ measure.sh confirmed it.
 | I01 + vol338b | also remove the 338 placeholder | 2,246 | 27,392 | -25 / -8 vs I01 |
 | I01 + wlwe | `is_writable==false` | 2,268 | 27,408 | -3 / +8 vs I01 |
 
+## 3. Re-price after #4018 (w17a15 passthrough shims): the I01 pair now costs 6 M, so it is reverted (+6 M)
+
+#4018 was measured by its lane on d5751b2 (without I01) at **0.68424** (M 2,284). land.py merged it onto 445fe14
+(with I01) and measured 0.68244 (M 2,278), which was still closer than 0.68095, so it landed. On the shim-era main the
+two I01 edits now interact with the passthrough shims:
+
+| key (slim oracle on main 8330455) | edit | M | bytes |
+| --- | --- | ---: | ---: |
+| m0f | main 8330455 | 2,278 | 27,400 |
+| unpcolf | `!collection_native` again | 2,283 | 27,392 |
+| re334f | the 334 `holder_key` byte-read placeholder again (now marked `/*shim:*/`) | 2,279 | 27,408 |
+| **unI01f** | **both** | **2,284** | **27,400** |
+
+measure.sh on 8330455 + unI01f: **0.68424**, 3,313 slots, 27,400 B, 1034 / 1034, zero losses, unstripped
+a950162cc7d5201c (byte-identical to w17a15's merged build on d5751b2). Differential 388 / 0. The placeholder comes
+back as a marked shim (forcing +1, land with `--allow-forcing`).
+
 ## Tools (`tools/`, experiment only; paths point at this lane's `$OUT`)
 
 - `cap.py <name> <genes> <slot>`: copy a pristine base crate, apply `genes17.py` genes (line count checked), capture

@@ -50,3 +50,21 @@ G['c2']=[('if collect_old{wallet(&ctx)?;}','collect_old.then(||wallet(&ctx)).tra
 G['gwclk']=[('     let e=CollectCreatorFeeEvent{timestamp:Clock::get()?.unix_timestamp,','     let ts=Clock::get()?.unix_timestamp;let e=CollectCreatorFeeEvent{timestamp:ts,')]
 G['mapamt']=[('(if amount>0{crate::legacy_buy::native_payments::ensure_rent_exempt(&a.system_program,&a.admin_set_creator_authority,&a.holder_creator_vault)?;crate::collect_v2::transfer_native(a.system_program.as_ref(),&a.creator_vault,&a.holder_creator_vault,amount,&vsigner)}else{Ok(())}).map(|()|amount)','if amount>0{crate::legacy_buy::native_payments::ensure_rent_exempt(&a.system_program,&a.admin_set_creator_authority,&a.holder_creator_vault)?;crate::collect_v2::transfer_native(a.system_program.as_ref(),&a.creator_vault,&a.holder_creator_vault,amount,&vsigner).map(|()|amount)}else{Ok(amount)}')]
 G['mkql']=[('let q=a.bonding_curve.quote_mint;(unsafe{expect(q==Pubkey::default(),false)})','let q=a.bonding_curve.quote_mint;(unsafe{expect(Pubkey::default()==q,false)})')]
+# fallback: the w16a17 union library (g16) for genes not re-spelled here (most apply verbatim to the shim-era source)
+def _g16():
+    import sys,os
+    p=os.path.expanduser('~/.cache/pumpfun-reconstruction/lanes/w16a17-cto-stitch16/tools')
+    if p not in sys.path: sys.path.insert(0,p)
+    import g16; return g16
+class _GD(dict):
+    def __missing__(self,k):
+        g=_g16()
+        if k.startswith('lit:') and k not in g.G: g.G[k]=g._litgene(k)
+        if k in g.G: return g.G[k]
+        raise KeyError(k)
+G=_GD(G)
+G['unpcol']=[('if collection_native==false||coin_present{','if !collection_native||coin_present{')]
+G['re334']=[('   if !st.fee_configurable{return Err(error!(PumpError::CreatorFeeNotConfigurable));}','   unsafe{core::ptr::read_volatile(holder_key as *const Pubkey as *const u8)}/*shim: holder_key byte read placeholder before the fee_configurable test*/;if !st.fee_configurable{return Err(error!(PumpError::CreatorFeeNotConfigurable));}')]
+G['re334u']=[('   if !st.fee_configurable{return Err(error!(PumpError::CreatorFeeNotConfigurable));}','   unsafe{core::ptr::read_volatile(holder_key as *const Pubkey as *const u8)};if !st.fee_configurable{return Err(error!(PumpError::CreatorFeeNotConfigurable));}')]
+G['re334']=[('  if !st.fee_configurable{return Err(error!(PumpError::CreatorFeeNotConfigurable));}','  unsafe{core::ptr::read_volatile(holder_key as *const Pubkey as *const u8)}/*shim: holder_key byte read placeholder before the fee_configurable test*/;if !st.fee_configurable{return Err(error!(PumpError::CreatorFeeNotConfigurable));}')]
+G['re334u']=[('  if !st.fee_configurable{return Err(error!(PumpError::CreatorFeeNotConfigurable));}','  unsafe{core::ptr::read_volatile(holder_key as *const Pubkey as *const u8)};if !st.fee_configurable{return Err(error!(PumpError::CreatorFeeNotConfigurable));}')]
