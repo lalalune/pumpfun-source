@@ -97,7 +97,7 @@ pub sharing_config_reset:bool,
 pub swept_to_holder_vault:u64,
 pub pool_updated:bool,
 }
-struct CtoState{mayhem:bool,holder_reward:bool,cashback:bool,creator:Pubkey,quote_locked:bool,holder_enabled:bool,fee_configurable:bool,max_fee:u64}struct Plan{fee:Option<u64>,target:Pubkey,sharing_update:Option<Option<Pubkey>>,is_holder:bool,cashback:bool,collect_old:bool,skip:bool}
+#[cold]fn cm326(){}/*shim: empty cold marker: keeps 326's to_string out of line at validate's inliner*/struct CtoState{mayhem:bool,holder_reward:bool,cashback:bool,creator:Pubkey,quote_locked:bool,holder_enabled:bool,fee_configurable:bool,max_fee:u64}struct Plan{fee:Option<u64>,target:Pubkey,sharing_update:Option<Option<Pubkey>>,is_holder:bool,cashback:bool,collect_old:bool,skip:bool}
 // layout-pad(183): aligns the next Source site with the original line
 
 
@@ -281,7 +281,7 @@ struct CtoState{mayhem:bool,holder_reward:bool,cashback:bool,creator:Pubkey,quot
 
 
 fn validate(st:&CtoState,shared:bool,holder:bool,fee:Option<u64>,new:Option<Pubkey>,sharing:Pubkey,holder_key:Pubkey,hkr:&Pubkey)->Result<Plan>{
- let ns=!shared;let mut sharing_update:Option<Option<Pubkey>>=None;unsafe{core::ptr::read_volatile(hkr as *const Pubkey as *const u8)}/*shim: holder_key byte read before the mayhem test, repays the pin*/;unsafe{core::ptr::read_volatile(hkr as *const Pubkey as *const u8)}/*shim: holder_key byte read before the mayhem test, repays the pin*/;if st.mayhem{return Err(error!(PumpError::CtoNotAllowedForMayhemCoin));}
+ let ns=!shared;let mut sharing_update:Option<Option<Pubkey>>=None;if st.mayhem{return Err(error!(PumpError::CtoNotAllowedForMayhemCoin));}
 // Reconstructed positions of the same deployed validations.
 
 
@@ -295,7 +295,7 @@ fn validate(st:&CtoState,shared:bool,holder:bool,fee:Option<u64>,new:Option<Pubk
 
   if !st.holder_enabled{return Err(error!(PumpError::HolderRewardDisabled));}}
 
- let cashback=!holder&&st.cashback;let (target,is_holder)=if holder{if !(new==None){return Err(error!(PumpError::CtoNewCreatorNotAllowed));}(holder_key,true)}else{
+ let (target,is_holder,cashback)=if holder{if !(new==None){return Err(error!(PumpError::CtoNewCreatorNotAllowed));}(holder_key,true,false)}else{
 
 
 
@@ -303,13 +303,13 @@ fn validate(st:&CtoState,shared:bool,holder:bool,fee:Option<u64>,new:Option<Pubk
 
 
 
-  let (tg,ih)={let t=new.ok_or_else(||error!(PumpError::CtoNewCreatorRequired))?;
+  let (tg,ih,cb)={let t=new.ok_or_else(||error!(PumpError::CtoNewCreatorRequired))?;
   if t==Pubkey::default(){return Err(error!(PumpError::CreatorShouldNotBeZero).with_pubkeys((t,Pubkey::default())));}
 
 
 
 
-  require!(t!=holder_key&&t!=sharing,PumpError::InvalidCreator);if ns{(t,false)}else{(st.creator,false)}};(tg,ih)};
+  require!(t!=holder_key&&t!=sharing,PumpError::InvalidCreator);if ns{(t,false,st.cashback&&!holder)}else{(st.creator,false,st.cashback&&!holder)}};(tg,ih,cb)};
 // layout-pad(13): aligns the next Source site with the original line
 
 
@@ -323,11 +323,11 @@ fn validate(st:&CtoState,shared:bool,holder:bool,fee:Option<u64>,new:Option<Pubk
 
 
 
- let fee_bps=match fee{Some(f)=>{if st.quote_locked{return Err(error!(PumpError::CreatorFeeNotConfigurableForQuote));}
+ let fee_bps=match fee{Some(f)=>{if st.quote_locked{let e=error!(PumpError::CreatorFeeNotConfigurableForQuote);cm326();/*shim: cold marker after the error is built*/return Err(e);}
 // layout-pad(3): aligns the next Source site with the original line
 
 
-  if cashback{return Err(error!(PumpError::CreatorFeeNotAllowedForCashbackCoin));}
+  if !is_holder&&st.cashback{return Err(error!(PumpError::CreatorFeeNotAllowedForCashbackCoin));}
 
 
 
