@@ -304,7 +304,7 @@ fn validate(st:&CtoState,hopt:Option<bool>,fee:Option<u64>,new:Option<Pubkey>,ho
 
 
   let t=if unsafe{expect_p(new.is_none(),true,0.75)}/*shim: 306 None probability*/{return Err(error!(PumpError::CtoNewCreatorRequired));}else{unsafe{core::ptr::read_unaligned((&new as *const Option<Pubkey> as *const u8).add(1) as *const Pubkey)}/*shim: 306 payload read, no tag re-test*/};
-  if t==Pubkey::default(){return Err(error!(PumpError::CreatorShouldNotBeZero).with_pubkeys((t,Pubkey::default())));}
+  if t==Pubkey::default(){return Err(error!(PumpError::CreatorShouldNotBeZero).with_pubkeys((unsafe{let mut k=core::mem::MaybeUninit::<Pubkey>::uninit();let kp=k.as_mut_ptr() as *mut u8;core::ptr::copy_nonoverlapping((&t as *const Pubkey as *const u8).add(8),kp.add(8),24);(kp as *mut u64).write_unaligned(((&new as *const Option<Pubkey> as *const u8).add(1) as *const u64).read_unaligned());k.assume_init()}/*shim: 307 key read back from the t stack slot (no memcpy forwarding to new+1), first word from new+1*/,Pubkey::default())));}
 
 
 
