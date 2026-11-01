@@ -8,6 +8,7 @@ import gzip
 import hashlib
 import io
 import json
+import math
 import sys
 import types
 import uuid
@@ -80,7 +81,15 @@ def _document(root: Path, name: str, inventory: dict, *, compressed=False):
             raw = handle.read(64 * 1024 * 1024 + 1)
         if len(raw) > 64 * 1024 * 1024:
             raise ValueError("receipt decompression limit")
-        return json.loads(raw, object_pairs_hook=P._pairs)
+        def constant(value):
+            raise ValueError("nonfinite JSON constant: " + value)
+        def number(value):
+            result = float(value)
+            if not math.isfinite(result):
+                raise ValueError("nonfinite JSON number")
+            return result
+        return json.loads(raw, object_pairs_hook=P._pairs,
+                          parse_constant=constant, parse_float=number)
     return P.read_json(root / name)
 
 

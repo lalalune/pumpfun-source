@@ -156,6 +156,17 @@ class GuidedVerificationTests(unittest.TestCase):
         result = self.verify(report)
         self.assertFalse(result["valid"])
 
+    def test_nonfinite_compressed_evidence_is_rejected(self):
+        report = self.copy_report()
+        path = next((report / "observations").glob("*.json.gz"))
+        raw = gzip.decompress(path.read_bytes()).replace(b'"boundary_case":',
+                                                          b'"nonfinite":NaN,"boundary_case":', 1)
+        path.write_bytes(gzip.compress(raw, mtime=0))
+        self.reseal(report)
+        result = self.verify(report)
+        self.assertFalse(result["valid"])
+        self.assertTrue(any("nonfinite JSON" in row for row in result["failures"]), result)
+
 
 if __name__ == "__main__":
     unittest.main()
