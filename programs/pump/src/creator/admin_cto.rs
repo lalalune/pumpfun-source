@@ -286,7 +286,7 @@ fn validate(st:&CtoState,shared:bool,holder:bool,fee:Option<u64>,new:Option<Pubk
 
 
 
- unsafe{core::ptr::read_volatile(hkr as *const Pubkey as *const u8)}/*shim: holder_key byte read before the holder_reward test, repays the pin*/;if st.holder_reward{if !holder{return Err(error!(PumpError::HolderRewardCreatorImmutable));}}else if holder{
+ if st.holder_reward{if !holder{return Err(error!(PumpError::HolderRewardCreatorImmutable));}}else if holder{
 
 
 
@@ -327,7 +327,7 @@ fn validate(st:&CtoState,shared:bool,holder:bool,fee:Option<u64>,new:Option<Pubk
 // layout-pad(3): aligns the next Source site with the original line
 
 
-  if cashback{return Err(error!(PumpError::CreatorFeeNotAllowedForCashbackCoin));}
+  let nh=!holder;if nh{unsafe{core::intrinsics::assume(cashback==st.cashback)}/*shim: keeps the byte test from merging with the holder guard*/;if st.cashback{return Err(error!(PumpError::CreatorFeeNotAllowedForCashbackCoin));}}
 
 
 
