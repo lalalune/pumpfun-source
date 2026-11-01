@@ -12,6 +12,40 @@ Every outer transaction is signed normally with retained deterministic wallet
 keypairs. PDAs are never added as outer signers. Captured PumpSwap, Pump Fees,
 SPL Token, Token-2022, and Associated Token images perform genuine CPI behavior.
 
+## Behavior-guided corpus selection
+
+`behavior.py` adds an optional selection layer over the unchanged v1 case
+grammar. It executes a bounded candidate pool against the captured original,
+validates every signed original receipt, and assigns a versioned
+`pump-admin-cto-behavior-fingerprint-v1` identity. The canonical fingerprint
+contains only observed transaction properties:
+
+- exact outcome/error sequences and whether failure occurred before or after
+  an observed inner CPI;
+- event identities, inner-CPI instruction sequences and Token/Token-2022/ATA
+  program paths;
+- signer-role observations and return-data identity; and
+- account-class state-transition categories, including presence, owner,
+  lamport, data-length and token-amount directions.
+
+Account keys and raw amounts are reduced to canonical account/transition
+classes where appropriate. Complete signed receipts remain in the report. A
+fingerprint is a finite behavioral partition, not bytecode coverage: a new
+fingerprint must not be described as a new branch or instruction path.
+
+The selector excludes unsupported and infrastructure cases, deduplicates exact
+case identities, anchors underrepresented successful sequences, known failures
+and boundary inputs, then retains one deterministic representative per new
+fingerprint before filling the remaining bound. Frequency, fingerprint, case
+index and case ID provide stable tie-breaking. `selection.json` also records a
+generator-order baseline from the same observed pool and with the same retained
+case count. Improvement means only that the guided corpus retained more
+observed fingerprint classes under those equal bounds.
+
+Pools are limited to 512 cases and selected corpora to 128. Every selected case
+keeps its root seed, case index and case ID and is passed unchanged to the
+existing differential executor and counterexample reducer.
+
 ## Case model and comparison
 
 `case_model.py` uses a versioned SHA-256 counter stream rather than Python's RNG.
@@ -87,6 +121,40 @@ uv run --offline --python 3.12 --with solders==0.27.1 python -I -B "$tool" repla
   --candidate /path/to/candidate.so
 ```
 
+Run a behavior-guided original control and candidate comparison with the same
+pool and retained-corpus budget:
+
+```sh
+guided=reconstruction/verification/pump-admin-cto-fuzzer/guided_campaign.py
+guided_verify=reconstruction/verification/pump-admin-cto-fuzzer/verify_guided.py
+
+uv run --offline --python 3.12 --with solders==0.27.1 python -I -B "$guided" \
+  --original "$original" --candidate "$original" \
+  --expected-original-sha256 7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d \
+  --expected-candidate-sha256 7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d \
+  --seed 20261101 --pool-count 64 --corpus-limit 16 \
+  --output "$out/guided-control"
+
+uv run --offline --python 3.12 --with solders==0.27.1 python -I -B "$guided" \
+  --original "$original" --candidate /path/to/provenance-verified/candidate.so \
+  --expected-original-sha256 7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d \
+  --expected-candidate-sha256 EXPECTED_SHA256 \
+  --seed 20261101 --pool-count 64 --corpus-limit 16 \
+  --output "$out/guided-candidate"
+
+uv run --offline --python 3.12 --with solders==0.27.1 python -I -B \
+  "$guided_verify" --report "$out/guided-candidate" \
+  --original "$original" --candidate /path/to/provenance-verified/candidate.so \
+  --reexecute
+```
+
+The guided verifier regenerates the seed pool, revalidates every original
+receipt, recomputes fingerprints, group frequencies, anchors, ranks, selected
+cases, the equal-budget baseline, differential classifications, signatures and
+aggregates. `--reexecute` independently repeats both the original observation
+pool and selected differentials. Producer novelty and passing booleans are not
+trusted.
+
 The original image must match the captured Pump SHA-256 above. Every executable, dependency, IDL, fixture, and producer is copied to an
 immutable temporary snapshot before execution and rehashed at completion.
 Source modules are compiled from the hashed `.py` bytes in private namespaces;
@@ -141,6 +209,12 @@ its local one-minimality claim is independently checked only with reexecution.
 Corrupt receipts, changed executable identities, mutated
 inputs, invalid case IDs, invalid reductions, publication races, and extension
 panic handling have deterministic regressions.
+
+The guided regressions additionally cover stable fingerprint encoding, shared
+outcomes, distinct outcomes, success/boundary/failure selection, unsupported
+exclusion, exact-input deduplication, corpus limits, seed replay, safe
+publication and independently resealed novelty, outcome, event, signature,
+membership, rank and aggregate tampering.
 
 See `QUALIFICATION.md` for the bounded campaign results used to qualify this
 implementation.
