@@ -12,7 +12,16 @@ import sub,sc
 O,t=sys.argv[1],sys.argv[2]
 B=open(O+'/tmp/Bspec.txt').read().strip().split(',')
 pm=O+'/br/m0.s'; pv=O+f'/br/{t}.s'
-names,new,miss=sub.border2(pm,pv,B)
+import os
+if os.environ.get('BRPOS')=='1':
+    # positional resolution: the variant block at main's index (validate span 14..39 has the same block count)
+    R=sub.R; _,blm,_=R.parse(pm); ebm=R.explicit(blm); nm=[x[0] for x in ebm]
+    am=sub.resolve(pm,B); im=[nm.index(x) for x in am]
+    pre,blocks,post=R.parse(pv); eb=R.explicit(blocks); names=[x[0] for x in eb]
+    listed=[names[i] for i in im]; lo,hi=min(im),max(im); span=names[lo:hi+1]; rest=[x for x in span if x not in listed]
+    new=names[:lo]+listed+rest+names[hi+1:]; miss=[]
+else:
+    names,new,miss=sub.border2(pm,pv,B)
 res={'tag':t,'miss':miss}
 for rev,nm in ((0,'B'),(1,'Br')):
     tx,fl=sub.emit(pv,new,rev); p=O+f'/br/{t}_{nm}.s'; open(p,'w').write(tx)

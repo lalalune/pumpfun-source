@@ -1,0 +1,261 @@
+{
+ "lane": "w16a04-cto-lanchorceil",
+ "wave": 16,
+ "target": {
+  "window": "0x22a10",
+  "function": "admin_cto::execute",
+  "file": "programs/pump/src/creator/admin_cto.rs",
+  "pinned_bytes": 27400
+ },
+ "base": {
+  "main": "9bd38c7d5",
+  "ratio": 0.67376,
+  "slots_diff": 3124,
+  "bytes": 27400,
+  "M": 2249,
+  "Mperm": 2293,
+  "Mhc": 2300,
+  "joint_p1": 2328,
+  "joint_p2": 2338
+ },
+ "result": "notes only: clean kill of the force hand-off; no landable change",
+ "best_landable": {
+  "ratio": 0.67436,
+  "slots_diff": 3141,
+  "bytes": 27400,
+  "note": "current main 1f4e396 (this branch merges it); this lane has no source change"
+ },
+ "joint_matrix_top": [
+  {
+   "composite": "L_tai2 + c2",
+   "pass": "p1",
+   "joint": 2359,
+   "d_vs_main_p2": 21,
+   "forced": "0.67984 @27416",
+   "unforced": "M 2199 @27392"
+  },
+  {
+   "composite": "L + c2, base holder pair + c2 tax",
+   "pass": "h",
+   "joint": 2359,
+   "d_vs_main_p2": 21,
+   "forced": "0.68385 @27384",
+   "unforced": "M 2205 @27392"
+  },
+  {
+   "composite": "L + c2",
+   "pass": "p2",
+   "joint": 2358,
+   "d_vs_main_p2": 20,
+   "forced": "0.67775 @27392"
+  },
+  {
+   "composite": "main + c2",
+   "pass": "p2",
+   "joint": 2354,
+   "d_vs_main_p2": 16,
+   "forced": "0.68245 @27376",
+   "unforced": "M 2218 @27392"
+  },
+  {
+   "composite": "L + n1 + po, base 358=r7",
+   "pass": "h",
+   "joint": 2353,
+   "d_vs_main_p2": 15,
+   "forced": "0.67975 @27400"
+  },
+  {
+   "composite": "L",
+   "pass": "p2",
+   "joint": 2350,
+   "d_vs_main_p2": 12,
+   "forced": "0.67775 @27416",
+   "unforced": "M 2234 @27400 (0.66926)"
+  },
+  {
+   "composite": "L + s_tai2",
+   "pass": "p2",
+   "joint": 2349,
+   "d_vs_main_p2": 11
+  },
+  {
+   "composite": "L + n1",
+   "pass": "p1",
+   "joint": 2349,
+   "d_vs_main_p2": 11,
+   "forced": "0.67855 @27400"
+  },
+  {
+   "composite": "L + po, base 359=r7",
+   "pass": "h",
+   "joint": 2345,
+   "forced": "0.67735 @27400"
+  },
+  {
+   "composite": "L_tai2 + po, base 358=r7",
+   "pass": "h",
+   "joint": 2345
+  },
+  {
+   "composite": "L + sh_iflet + rP_back",
+   "pass": "p1",
+   "joint": 2341,
+   "note": "different binary, identical metrics to L"
+  },
+  {
+   "composite": "L, base holder pair",
+   "pass": "h",
+   "joint": 2340,
+   "forced": "0.68255 @27392"
+  },
+  {
+   "composite": "L + tf_g1a",
+   "pass": "p1",
+   "joint": 2338
+  },
+  {
+   "composite": "L + s1",
+   "pass": "p1",
+   "joint": 2332
+  },
+  {
+   "composite": "L + payload 1659=r9",
+   "pass": "single",
+   "joint": null,
+   "forced": "0.56022 @27400 (collapse)"
+  }
+ ],
+ "B_Br_positional": {
+  "main+Br": "2277 @27408, joint 2328",
+  "main+9f+Br": "2310 @27384, joint 2366",
+  "L+Br": "2262 @27408, joint 2344",
+  "L+pair+Br": "2290 @27400 (0.68604)",
+  "L+pair+6f+Br": "2308 @27400 (0.69143), joint 2369",
+  "L p2+Br": "2295 @27424, joint 2381",
+  "L+c2 p2+Br": "2290 @27400, joint 2385",
+  "L_tai2 p2+Br": "2282 @27400, joint 2376",
+  "note": "Br adds +28..+32 on every base; B and L are additive; the L lead holds under the original's validate order. w14a98's content resolver mis-maps bb95.i/bb23.i on L (use BRPOS=1)."
+ },
+ "decisive_forces": [
+  {
+   "composite": "L+c2 p2",
+   "force": "2172=r0",
+   "loo": -23,
+   "value": "c2 tax: TCF pump_creator_vault_ata clone temps in r0 (orig 0x3370-0x33b8); evicts %209 (accounts+232 Rc ptr held in r0; orig r6)",
+   "lever": "none (TCF clone naming cascade; w15a24 c2climb, w14a17, w14 sweepr0)"
+  },
+  {
+   "composite": "L+c2 p2",
+   "force": "1686=r6",
+   "loo": -7,
+   "value": "event accounts piece (split of %0), orig 0x4e80-0x50e8",
+   "lever": "none (w15a33 payload-phi chain, w15a04 n1)"
+  },
+  {
+   "composite": "L+c2 p2",
+   "force": "1673=r7 / 1907=r6",
+   "loo": -7,
+   "value": "post-event tail accounts piece / sharing program clone temp",
+   "lever": "none (w15a12, w15a24)"
+  },
+  {
+   "composite": "L p2",
+   "force": "1687=r6",
+   "loo": -24,
+   "value": "event accounts piece",
+   "lever": "none"
+  },
+  {
+   "composite": "L p2",
+   "force": "2173=r0",
+   "loo": -17,
+   "value": "TCF pcva clone temps in r0 (main's same force is -0.0019)",
+   "lever": "none"
+  },
+  {
+   "composite": "main+c2 p1",
+   "force": "2178=r0",
+   "loo": -26,
+   "value": "c2 tax",
+   "lever": "none"
+  }
+ ],
+ "new_mechanisms": [
+  "Holder-piece force pair on L: 1702=r5 (holder arg local piece, sticky) + 2094=r6 (max_fee bb12 piece, split of %10 = global+1072) -> L 0.66926 -> 0.67775 @27392 (+28 M), window rotation 11 -> 6; it is the RA form of w15a32's two-fact SSC cell (holder arg loses a spill piece, cashback byte SS#317 gains one). Cause: list-ilp puts the max_fee load after the cashback select diamonds (bb12), its piece (w 2.93e-3) evicts the holder piece (sz 712, w 2.16e-3) from r5 because the new-ptr piece 1952 in r6 is heavier (2.38e-3); in main the holder piece 1699 (sz 600, w 2.40e-3) keeps r5 and max_fee loads in bb8 into r6. Same pair on L+c2: 1701=r5,2093=r6 (0.66067 -> 0.66886 @27384).",
+  "c2 is a joint lead on main itself (main+c2 joint 2346 p1 / 2354 p2 vs 2328 / 2338) but only with its tax force 2178=r0 (LOO -26).",
+  "Payload phi force (main 1657=r9) is a collapse on L: %1659=r9 0.56022 @27400.",
+  "Pool-pointer force for the owner-first gate keeps its id on L (359=r7: L+po 0.62955 -> 0.67046 @27400); 358=r7 on L_tai2+po (0.66866 @27400) and L+n1+po (0.66777 @27376). The colmap screen misses it.",
+  "Size-pinned (27,400 B) RA ceilings: L 0.67525, L + holder pair 0.68214, main 0.68244: no RA-only advantage for L at the pinned size."
+ ],
+ "attempts": {
+  "captures": [
+   "m0",
+   "L",
+   "L_tai2",
+   "Lc2",
+   "Ls1",
+   "Lsh",
+   "Ltf",
+   "Ln1",
+   "Lpo",
+   "Ln1po",
+   "Ltpo",
+   "Mc2",
+   "Ltc2",
+   "Lmfst",
+   "Lmfq",
+   "Lmfa"
+  ],
+  "pipes": "pass 1 on every capture; pass 2 on L, L_tai2, L+c2, main+c2; base-forced passes on L (holder pair) and the po composites (pool pointer)",
+  "ledger_keys": "0x22a10-w16-9bd38c7-lac-*-v1"
+ },
+ "rejected_mechanisms": [
+  "max_fee read into a local before the CtoState literal (mfh_st 2110 @27392), before quote_locked (mfh_q 1957 @27256), at the head (mfh_a 1950 @27448)",
+  "payload phi 1659=r9 on L (0.56022)",
+  "s1, tf_g1a, po (without the pool force) on L: joints at or below main",
+  "B/Br with w14a98 content resolution on L (mis-resolved blocks; corrected with positional resolution)"
+ ],
+ "unresolved_residuals": [
+  "a source lever for the holder-piece pair (max_fee load scheduled after the cashback select diamonds in L's bb11)",
+  "the c2 tax force (TCF pcva clone temps vs the accounts+232 Rc pointer in r0)",
+  "main-family RA forces (event accounts piece, post-event tail piece, sharing program clone temp)"
+ ],
+ "next_ideas": [
+  "w15a32 (spill-weight owner): use the pair 1702=r5,2094=r6 as the RA target; a lever must keep the max_fee load in the bb8 segment without moving the cashback load, or shorten the holder piece by about 5 instructions so it outweighs the new-ptr piece 1952",
+  "price any new L lever with lpipe.sh + brjoint.sh BRPOS=1; L+pair+Br is 2290 @27400 (main+Br 2277 @27408)",
+  "c2 tax: a TCF pcva lamports-first literal whose accounts+232 Rc pointer lands in r6 (orig) would make c2 a real lead (main+c2+2178=r0 0.67166 @27400 per w15a24; joint +18)"
+ ],
+ "size_pinned_RA_ceilings_27400": {
+  "main (w15a24)": "0.68244 (8 forces)",
+  "L": "0.67525 (4 forces)",
+  "L + holder pair": "0.68214 (pair + 5 forces)",
+  "L + po (359=r7)": "0.67735 (7 forces)",
+  "L + n1 + po (358=r7)": "0.67975 (9 forces)",
+  "note": "the L basin is not a better RA base at the pinned size; its joint lead needs a free spill permutation"
+ },
+ "base_recheck": {
+  "main": "1f4e396 (w16a07 sweeptuple #3859)",
+  "ratio": 0.67436,
+  "slots_diff": 3141,
+  "M": 2251,
+  "Mperm": 2295,
+  "Mhc": 2302,
+  "joint_p1": 2329,
+  "L": {
+   "M": 2236,
+   "Mperm": 2309,
+   "Mhc": 2318,
+   "joint_p1": 2341
+  },
+  "L+c2": {
+   "M": 2205,
+   "joint_p1": 2351
+  },
+  "main+c2": {
+   "M": 2218,
+   "Mperm": 2285,
+   "Mhc": 2292
+  },
+  "holder_pair": "1703=r5,2095=r6 (holder arg is %385 on 1f4e396): L 0.67835 @27392 (rot 6); + 2174=r0 0.67855 @27400"
+ }
+}

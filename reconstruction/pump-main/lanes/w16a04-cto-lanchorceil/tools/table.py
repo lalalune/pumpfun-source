@@ -4,6 +4,7 @@ import json,os,sys
 O=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 GENES={'m0':'main','L':'L = mv_5_1+t1n+m_crl2+devol','L_tai2':'L + s_tai2','Lc2':'L + c2','Ls1':'L + s1','Lsh':'L + sh_iflet+rP_back',
        'Ltf':'L + tf_g1a','Ln1':'L + n1','Lpo':'L + po','Ln1po':'L + n1 + po','Ltpo':'L_tai2 + po','Mc2':'main + c2','Ltc2':'L_tai2 + c2'}
+PASSN={'h':'base'}
 rows=[json.loads(l) for l in open(O+'/data/joint.jsonl')]
 best={}
 for r in rows: best[(r['rx'],r['pass'])]=r
@@ -14,7 +15,8 @@ print('| composite | pass | bytes | M | Mperm | Mhc | forces | climb ratio @ byt
 print('| --- | --- | ---: | ---: | ---: | ---: | ---: | --- | ---: | ---: | ---: | ---: | --- | --- |')
 for r in allr:
     j=r.get('joint')
-    print(f"| {GENES.get(r['rx'],r['rx'])} | {r['pass']} | {r.get('bytes')} | {r.get('M')} | {r.get('Mperm')} | {r.get('Mhc')} | {r.get('nforces')} | {r.get('climb_ratio')} @ {r.get('climb_bytes')} | {r.get('fM')} | {r.get('fMperm')} | **{j}** | {j-2338 if j else '':+} | {r.get('fLCS','')}/{r.get('fLCSrfj','')} | {r.get('rot')}/{r.get('frot')} |")
+    base={'L':'1702=r5,2094=r6 (holder pair)','Lpo':'359=r7 (pool ptr)','Ltpo':'358=r7 (pool ptr)','Ln1po':'358=r7 (pool ptr)','Lc2':'1701=r5,2093=r6,2172=r0 (holder pair + c2 tax)'}.get(r['rx'],'') if r['pass']=='h' else ''
+    print(f"| {GENES.get(r['rx'],r['rx'])} | {r['pass']+(' ['+base+']' if base else '')} | {r.get('bytes')} | {r.get('M')} | {r.get('Mperm')} | {r.get('Mhc')} | {r.get('nforces')} | {r.get('climb_ratio')} @ {r.get('climb_bytes')} | {r.get('fM')} | {r.get('fMperm')} | **{j}** | {j-2338 if j else '':+} | {r.get('fLCS','')}/{r.get('fLCSrfj','')} | {r.get('rot')}/{r.get('frot')} |")
 print()
 for r in allr:
     if r.get('forces'): print(f"- {GENES.get(r['rx'],r['rx'])} {r['pass']}: `{r['forces']}`")

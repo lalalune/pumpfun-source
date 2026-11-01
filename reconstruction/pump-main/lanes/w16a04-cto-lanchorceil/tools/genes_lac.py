@@ -19,3 +19,9 @@ G['g0']=[(_NA,"else{sharing_update=Some(args.0);target=st.creator;(false,true)}}
 G['n1']=[("let nf=a.bonding_curve.creator_fee_bps;","                                      "),("new_creator_fee_bps:nf,","new_creator_fee_bps:a.bonding_curve.creator_fee_bps,")]
 # po (w15a04 _po.py): owner-first pool gate (original order)
 G['po']=[("let pool_updated=!a.pool.data_is_empty() && a.pool.owner==&AMM;","let pool_updated=a.pool.owner==&AMM && !a.pool.data_is_empty();")]
+# ---- w16a04 hand-off probes for the holder-piece pair (1702=r5, 2094=r6): keep the max_fee load ahead of the cashback
+#      diamond (main loads max_fee in bb8 into r6; L sinks it into bb12 where it takes r5 from the holder piece) ----
+_MF='max_fee:a.global.max_configurable_creator_fee_bps,'
+G['mfh_st']=[(' let mut st=CtoState{',' let mf=a.global.max_configurable_creator_fee_bps;let mut st=CtoState{'),(_MF,'max_fee:mf,')]
+G['mfh_q']=[('let quote_locked={','let mf=a.global.max_configurable_creator_fee_bps;let quote_locked={'),(_MF,'max_fee:mf,')]
+G['mfh_a']=[('{ let a=&ctx.accounts;','{ let a=&ctx.accounts;let mf=a.global.max_configurable_creator_fee_bps;'),(_MF,'max_fee:mf,')]
