@@ -1,0 +1,1 @@
+EDITS=[["if st.holder_reward&&!(hopt==Some(true)){return Err(error!(PumpError::HolderRewardCreatorImmutable));}", "if st.holder_reward{if !holder{return Err(error!(PumpError::HolderRewardCreatorImmutable));}}"], ["sharing_update=Some(args.0);", "sharing_update=Some(new);"]]

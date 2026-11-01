@@ -1,0 +1,14 @@
+restored-asm tag map: mapped 3340 unmapped 0
+aligned L2 pairs 2623 in [0x0,0x40000000), untagged 306; vregs with register votes 1046, with misses 202, total misses 434
+%1664  ours r8  orig r9  miss  22/22  root %1664  votes {'r9': 18, 'r1': 4} at 08e0 0f28 1478 1620 1718 17e8
+%1739  ours r3  orig r9  miss  12/12  root %1632  votes {'r9': 8, 'r1': 3, 'r6': 1} at 1d28 2148 2220 2490 25f8 2608
+%470   ours r3  orig r2  miss   7/7   root %470   votes {'r2': 7} at 0550 0550 0558 0568 0578 0588
+%1689  ours r6  orig r3  miss   7/7   root %0     votes {'r3': 7} at 4ab8 4ac0 4b58 4b70 4b98 4bb0
+%1678  ours r8  orig r7  miss   7/7   root %0     votes {'r7': 7} at 5cc0 5cc8 5ce8 5d10 5d50 5d78
+%2151  ours r7  orig r9  miss   6/6   root %4     votes {'r9': 6} at 0140 02b8 02c8 02d8 02e8 0478
+%1285  ours r3  orig r2  miss   6/6   root %1285  votes {'r2': 5, 'r6': 1} at 4410 4420 4430 4440 4450 4458
+%1688  ours r8  orig r8  miss   5/34  root %0     votes {'r8': 29, 'r4': 5} at 3130 3140 3150 3160 3170
+%1735  ours r6  orig r1  miss   5/5   root %123   votes {'r1': 2, 'r10': 1, 'r7': 1, 'r9': 1} at 1f40 1f40 23d8 30a8 3b98
+%1081  ours r2  orig r3  miss   5/5   root %1081  votes {'r3': 5} at 31b8 31c0 31c0 31d0 3200
+%1087  ours r2  orig r5  miss   5/5   root %1087  votes {'r5': 5} at 3230 3238 3238 3248 32a0
+%1690  ours r5  orig r1  miss   5/5   root %0     votes {'r1': 3, 'r2': 1, 'r10': 1} at 3d88 3d90 3e38 3f38 43d0
