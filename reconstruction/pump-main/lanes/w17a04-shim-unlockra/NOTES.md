@@ -29,7 +29,22 @@ owner:x.owner,rent_epoch:x.rent_epoch,is_signer:x.is_signer,is_writable:x.is_wri
 `&AccountInfo`, so it keeps the noalias scope of the derived `clone(&self)`. With plain clones (`ccr_plain`) it is
 byte-identical to main (sha `edd56f45`), unlike the inline literal (0.60117). With `lamports: rcincr(..)` at p = 1e-5
 on the TCF `coin_creator` (`current_creator`), main fd78179b8 goes 0.67855 -> 0.67915 (M 2,267, 27,400 B, zero losses,
-differential 388/0). The p window is a single point on the oracle: 9.5e-6 and 1.05e-5 lose.
+differential 388/0). The p window is a single point on the oracle: 9.5e-6 and 1.05e-5 lose. Landed as #3991 (merge
+e679b59e9).
+
+## State at the end of the lane (main ae14cbeb4, after w17a06's #3992: 0.67945, M 2,268)
+
+The weighted-trap family is locally exhausted. On both e679b59e9 (`rx/b8`) and ae14cbeb4 (`rx/m9`, a capopt capture):
+- no new single trap gains: every one of the 38 unweighted positions, at 22 log-spaced p from 2e-6 to 1e-2;
+- no pair or triple gains: 700 random samples on each base;
+- no single re-tune of the four landed weights gains (p from 2e-6 to 2e-3).
+
+On b8, the vl/bl/bu singles gain only off-size, apart from drop-glue loads that cannot be realized:
+- `bu:206` (default-quote test, +1 at 27,392), which w17a06 landed with a curve-box reload in #3992;
+- the drop-glue volatile loads +1/+2 at 27,408.
+
+The next lever has to change the base. Any landing elsewhere re-rolls the chaotic landscape, so re-capture
+(`tools/capopt.py`, about 30 s) and re-screen the traps (`tools/pabs.py`, about 3 min) after each one.
 
 ## Mechanism: a weighted Rc-clone overflow trap re-sorts the spill-slot colouring
 

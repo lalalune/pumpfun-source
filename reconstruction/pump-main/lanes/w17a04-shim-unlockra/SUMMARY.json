@@ -37,20 +37,17 @@
    "before": 0.67825,
    "after": 0.67855,
    "M": 2265
-  }
- ],
- "pending": [
+  },
   {
-   "branch": "swarm/w17a04-shim-unlockra-4",
-   "change": "TCF coin_creator (inline current_creator) via aiclone_r helper (derived-Clone shape, keeps noalias) with rcincr p=1e-5",
+   "pr": 3991,
+   "merge": "e679b59e9",
+   "change": "TCF coin_creator (inline current_creator) via aiclone_r helper with rcincr p=1e-5",
    "before": 0.67855,
    "after": 0.67915,
-   "M": 2267,
-   "slots": 3220,
-   "differential": "388/0",
-   "sha": "fe001a2af7a467af"
+   "M": 2267
   }
  ],
+ "pending": [],
  "mechanism": "Rc::inc_strong's own core::intrinsics::unlikely is a no-op on rustc 1.79-dev, so its overflow-trap edge gets BPI's unreachable weight (~1e-6). Copying inc_strong into an inline(always) helper whose trap test carries llvm.expect / llvm.expect.with.probability makes every later block slightly colder; StackSlotColoring sorts spill slots by frequency-weighted use, so near-tied clone-run spill slots renumber toward the original. No instruction or register moves in the landed cases.",
  "rules": [
   "Pointer-held accounts (Interface, Program, Signer, UncheckedAccount, manual literals) take the derive literal codegen-neutrally; an inline AccountInfo field rewritten as a literal changes codegen (cc_plain 0.60117 @27408), but an inline(always) &AccountInfo helper shaped like the derived Clone (aiclone_r) is byte-identical (ccr_plain sha edd56f45) and can carry the weighted clone.",
@@ -75,9 +72,9 @@
   "pairs of 1:2000 traps on #3950 base (inc-combos)"
  ],
  "next_ideas": [
-  "creator_vault (pump_creator_vault, inline) and the other inline fields are now realizable through aiclone_r; screen them on the b8 oracle (rx/b8) and stack.",
+  "Re-capture (tools/capopt.py) and re-screen traps (tools/pabs.py) after every landing elsewhere: the response is chaotic, so new single-trap windows can appear.",
   "Map the target spill-slot permutation (w16a08 permhc 'moved' set) onto the clone-run slot weights and solve for per-clone trap probabilities instead of random search.",
-  "Peel: find ordinary spellings that reproduce the same spill-slot numbering without the weighted traps."
+  "Peel: ordinary spellings that reproduce the same spill-slot numbering without the weighted traps."
  ],
  "tools": [
   "tools/vscreen.py",
@@ -89,5 +86,14 @@
   "tools/mkvar.sh",
   "tools/mkvar2.sh"
  ],
- "ledger_keys": "0x22a10-w17-<main7>-unlockra-*"
+ "ledger_keys": "0x22a10-w17-<main7>-unlockra-*",
+ "end_state": {
+  "main": "ae14cbeb4",
+  "ratio": 0.67945,
+  "M": 2268,
+  "slots": 3170,
+  "bytes": 27400,
+  "note": "after w17a06 #3992 on top of this lane's #3991"
+ },
+ "exhausted": "weighted-trap family on e679b59e9 and ae14cbeb4: singles (38 positions x 22 p), 700 random pairs/triples, re-tunes of the 4 landed weights: no zero-loss gain at 27,400 B"
 }
