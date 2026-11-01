@@ -72,7 +72,7 @@ pub mod anchor_framework {
             emit!(event);emit_cpi!(event);Ok(event)
         }
         pub fn recover_bridge_payment_v1(ctx:Context<RecoverBridgePaymentV1>,source_id:[u8;32],source_commitment:[u8;32],payment_id:[u8;32],amount:u64)->Result<BridgePaymentRecoveredV1Event> {
-            let event=crate::bridge_handlers::recover_bridge_payment(ctx.accounts,crate::bridge_handlers::RecoverArgs {source_id,source_commitment,payment_id,amount},ctx.bumps.receiver)?;
+            let event=crate::bridge_handlers::recover_bridge_payment(ctx.accounts,source_id,source_commitment,payment_id,amount,ctx.bumps.receiver)?;
             emit!(event);emit_cpi!(event);Ok(event)
         }
         pub fn close_donation_epoch_v1(ctx:Context<CloseDonationEpochV1>,config_id:[u8;32],epoch:u128)->Result<DonationEpochClosedV1Event> {

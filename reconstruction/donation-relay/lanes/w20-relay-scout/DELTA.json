@@ -16,8 +16,8 @@
 "identical_to_old_binary_v148": 105,
 "old_binary_functions": 492,
 "old_binary_functions_without_identical_partner": 387,
-"skeleton_matched": 544,
-"skeleton_matched_bytes": 773224
+"skeleton_matched": 545,
+"skeleton_matched_bytes": 776384
 },
 "clusters": {
 "C1-distribute-bps": {
@@ -43,15 +43,7 @@
 "0x27048"
 ]
 },
-"C3-bridge-handlers": {
-"bytes": 11720,
-"functions": [
-"0x20580",
-"0x21608",
-"0x933a0"
-]
-},
-"C4-jupiter-swap": {
+"C3-jupiter-swap": {
 "bytes": 11120,
 "functions": [
 "0x11668",
@@ -59,11 +51,18 @@
 "0x1ec18"
 ]
 },
-"C5-donate": {
+"C4-donate": {
 "bytes": 8952,
 "functions": [
 "0x28e48",
 "0x29ca8"
+]
+},
+"C5-bridge-handlers": {
+"bytes": 8560,
+"functions": [
+"0x20580",
+"0x21608"
 ]
 },
 "C6-checks": {
@@ -1434,7 +1433,7 @@
 "status": "modified",
 "name": "cpi::jupiter::invoke_jupiter",
 "skeleton_match": false,
-"cluster": "C4-jupiter-swap",
+"cluster": "C3-jupiter-swap",
 "old_v154_symbol": "donation_relay_source_proposal::cpi::jupiter::invoke_jupiter",
 "similarity": 0.859,
 "identical_to_old_binary": null,
@@ -1450,7 +1449,7 @@
 "status": "modified",
 "name": "cpi::jupiter::swap_observed",
 "skeleton_match": false,
-"cluster": "C4-jupiter-swap",
+"cluster": "C3-jupiter-swap",
 "old_v154_symbol": "donation_relay_source_proposal::cpi::jupiter::swap_observed",
 "similarity": 0.509,
 "identical_to_old_binary": null,
@@ -1729,7 +1728,7 @@
 "status": "modified",
 "name": "swap_then_distribute_v1 handler",
 "skeleton_match": false,
-"cluster": "C4-jupiter-swap",
+"cluster": "C3-jupiter-swap",
 "old_v154_symbol": "donation_relay_source_proposal::settlement_handlers::swap_then_distribute",
 "similarity": 0.899,
 "identical_to_old_binary": null,
@@ -1767,7 +1766,7 @@
 "status": "added",
 "name": "admit_bridge_payment handler body",
 "skeleton_match": false,
-"cluster": "C3-bridge-handlers",
+"cluster": "C5-bridge-handlers",
 "old_v154_symbol": null,
 "similarity": 0,
 "identical_to_old_binary": null,
@@ -1787,7 +1786,7 @@
 "status": "added",
 "name": "recover_bridge_payment handler body",
 "skeleton_match": false,
-"cluster": "C3-bridge-handlers",
+"cluster": "C5-bridge-handlers",
 "old_v154_symbol": null,
 "similarity": 0,
 "identical_to_old_binary": null,
@@ -2030,7 +2029,7 @@
 "status": "added",
 "name": "tools::donate::shared::donate_shared",
 "skeleton_match": false,
-"cluster": "C5-donate",
+"cluster": "C4-donate",
 "old_v154_symbol": null,
 "similarity": 0,
 "identical_to_old_binary": null,
@@ -2049,7 +2048,7 @@
 "status": "added",
 "name": "tools::donate::shared signed transfer core (called by donate_shared and admit)",
 "skeleton_match": false,
-"cluster": "C5-donate",
+"cluster": "C4-donate",
 "old_v154_symbol": null,
 "similarity": 0,
 "identical_to_old_binary": null,
@@ -3917,9 +3916,9 @@
 "addr": "0x933a0",
 "size": 3160,
 "status": "added",
-"name": "#[program] recover_bridge_payment_v1 wrapper",
-"skeleton_match": false,
-"cluster": "C3-bridge-handlers",
+"name": "donation_relay_source_proposal::anchor_framework::relay_anchor_idl_reconstruction_probe::recover_bridge_payment_v1",
+"skeleton_match": true,
+"cluster": null,
 "old_v154_symbol": null,
 "similarity": 0,
 "identical_to_old_binary": null,

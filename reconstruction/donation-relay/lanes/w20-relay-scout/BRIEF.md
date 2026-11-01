@@ -13,7 +13,8 @@ Base every lane on **`origin/swarm/w20-relay-scout`**. It holds a skeleton of th
 | plus the skeleton from the on-chain IDL | 538 | 740,872 | 0.86968 |
 | plus `#[instruction]` trimmed, default mint error, two recover constraints | 540 | 768,112 | 0.90166 |
 | plus `check_message` and `check_bps` in `require!` shape | 542 | 769,080 | 0.90279 |
-| **branch tip**, plus `check_relayer` key pointer, direct arguments to admit | **544** | **773,224** | **0.90766** |
+| plus `check_relayer` key pointer, direct arguments to admit | 544 | 773,224 | 0.90766 |
+| **branch tip**, plus direct arguments to recover | **545** | **776,384** | **0.91137** |
 
 All numbers are normalized matches, not byte identity. No function is at its final address yet, and whole-ELF identity is the only acceptance test. Do not merge to main before that: main currently reproduces the old target, and its packet `reconstruction/donation-relay/native-linux-v148-20261030/verify.py` binds that source.
 
@@ -58,10 +59,11 @@ python3 $C/relay/rea/v.py new 0x20580                             # annotated ps
 Other material:
 
 - `$C/relay/live/idl.onchain.json`: the program's own IDL from account `6mCmANHqUcqWCLAUtB3DFJSDv14yWPq4wXUzDhdMj3Ge`, with accounts, seeds, args, events, docs and constants. Readable form: `$C/relay/rea/IDL.md`.
-- `$C/relay/rea/FINDINGS.md`: handler-by-handler reading from the REA session. `c/new/<addr>.c` has pseudo-C for 463 functions. It was written before the toolchain was known, so ignore its "almost nothing is identical" framing: that was the compiler.
+- `$C/relay/rea/FINDINGS.md`: handler-by-handler reading from the REA session. `c/new/<addr>.c` has pseudo-C for 463 functions. It was written before the toolchain was known, so read its "almost no function is byte-identical" as the compiler change, not source change.
 - `$C/relay/LOCATIONS.target.txt` against `LOCATIONS.skeleton.txt`: every panic `Location` (file, line, column, referencing function).
 - `$C/relay/RODATA.skeleton.diff.txt`: `.rodata` diff against the skeleton.
-- `$C/relay/DELTA.md` and `DELTA.json`: the full table. REA: `python3 $C/rea/reaq.py $C/relay/live/deployed.elf decompile 0x20580 --text`, at most 1 REA or Ghidra process per lane rule.
+- `$C/relay/DELTA.md` and `DELTA.json`: the full table.
+- Fresh REA queries: `python3 $C/rea/reaq.py $C/relay/live/deployed.elf decompile 0x20580 --text`, at most 1 REA or Ghidra process at a time. **Trap:** for a stripped ELF, `reaq.py` falls back to Pump Main's function names as seeds, which would be wrong addresses here. I placed the right seeds for the shared session only. For `--session <lane>`, first copy `$T/seeds.target.tsv` to `$C/rea/reaq/0985c3a02b9f0203-<lane>/seeds.tsv`.
 
 ## Instructions
 
@@ -91,19 +93,19 @@ New types: `BridgeSourceV1`, `BridgePaymentV1` (empty, `#[account]` at `state/v1
 
 Against the old source rebuilt on v1.54: 443 identical (588,792 B), 16 modified (40,120 B), 112 added (222,976 B), 6 removed (24,280 B). Only 105 of the 571 are identical to a function of the old deployed ELF, which is the compiler change rather than source change. The removed ones are mostly splits: `donate_shared` became 0x28e48 + 0x29ca8, `distribute` became 0x24578 + 0x25f00, `distribute_after` became 0x18af0 + 0x18478 + 0x1a6d8, `distribute_non_swap` became 0x1b810 + 0x1b090 + 0x1d2d0.
 
-27 functions are open, 78,664 B, in 7 clusters, largest first. `DELTA.md` lists them by address.
+26 functions are open, 75,504 B, in 7 clusters, largest first. `DELTA.md` lists them by address.
 
 | cluster | bytes | functions | source area |
 |---|---:|---|---|
 | C1-distribute-bps | 24,048 | 0x18478 0x18af0 0x1a6d8 0x1b090 0x1b810 0x1d2d0 0x24578 0x25f00 | `settlement_handlers.rs`: `distribute_after`, `distribute_non_swap`; `tools/distribution/shared.rs`: `distribute` |
 | C2-distribute-exact | 14,320 | 0x8eb0 0x19c80 0x1c878 0x24ec0 0x27048 | exact functions in `settlement_handlers.rs` and `tools/distribution/shared.rs` |
-| C3-bridge-handlers | 11,720 | 0x20580 0x21608 0x933a0 | `bridge_handlers.rs`, recover's wrapper in `lib.rs` |
-| C4-jupiter-swap | 11,120 | 0x11668 0x11f80 0x1ec18 | `cpi/jupiter.rs`, `swap_then_distribute` |
-| C5-donate | 8,952 | 0x28e48 0x29ca8 | `tools/donate/shared.rs`, plus the five donate `Location`s (see below) |
+| C3-jupiter-swap | 11,120 | 0x11668 0x11f80 0x1ec18 | `cpi/jupiter.rs`, `swap_then_distribute` |
+| C4-donate | 8,952 | 0x28e48 0x29ca8 | `tools/donate/shared.rs`, plus the five donate `Location`s (see below) |
+| C5-bridge-handlers | 8,560 | 0x20580 0x21608 | `bridge_handlers.rs` |
 | C6-checks | 5,792 | 0x227e8 0x22b78 0x23230 | `tools/checks.rs` |
 | C7-framework-layout | 2,712 | 0x1590, plus 0xb3278 0xbcac0 (Linux build only, see below) | one generic instance, then `.text` order, `.rodata`, whole ELF |
 
-C2 depends on C1's split helpers (0x18478, 0x1a6d8, 0x1b090, 0x1d2d0), and C3 depends on C5's signed-transfer core (0x29ca8). Agree on helper names through the branch: C1 and C5 should push their helper signature early.
+C2 depends on C1's split helpers (0x18478, 0x1a6d8, 0x1b090, 0x1d2d0), and C5 depends on C4's signed-transfer core (0x29ca8). Agree on helper names through the branch: C1 and C4 should push their helper signature early.
 
 ## What I learned
 
@@ -115,15 +117,14 @@ Facts, checked by building:
 4. **Recover's constraints live in `try_accounts`, with `InvalidOwner` and `InvalidAdmin`:** `destination_owner != default && != receiver`, and `program_data.upgrade_authority_address == Some(authority.key())`.
 5. **`DaasEventDiscriminator`'s niche is code:** `stb [r6+0x58], 0x7` was `0x4`. It is fixed on the branch.
 6. **Boundaries.** `relaylib.Elf.functions()` reproduces all 492 old symbols, with no extras or misses. REA's `relayfn.py` misses a few. Pointers in `.data.rel.ro` are stored in the high 4 bytes of the word (`Elf.ptr`). `Location` file strings now include the trailing NUL in their length.
-7. **Direct handler arguments.** Admit's handler takes `source_id, source_commitment, payment_id, config_id, amount, minimum_amount, tip_bps, receiver_bump, epoch_tracker_bump, debouncer_bump`, not an args struct. That took its wrapper 0x99d70 to exact. Its body 0x20580 is still open: the signer seeds are built later than in the skeleton.
+7. **Direct handler arguments.** Admit's handler takes `source_id, source_commitment, payment_id, config_id, amount, minimum_amount, tip_bps, receiver_bump, epoch_tracker_bump, debouncer_bump`, and recover's takes `source_id, source_commitment, payment_id, amount, receiver_bump`, not args structs. That took both wrappers (0x99d70, 0x933a0) to exact. Both bodies are still open. Admit builds its signer seeds later than the skeleton does. Recover is at 4,296 of 4,328 B: `accounts.program.try_borrow_data()?` then `UpgradeableLoaderState::try_deserialize_unchecked` is right, and the amount checks at line 95 still differ (the target has an overflow check on the destination side).
 8. **`check_relayer`:** `let key=signer.key; if *key!=RELAYER {.. with_pubkeys((*key,RELAYER))}` is exact.
-9. **The final build has to be Linux.** 0xb3278 and 0xbcac0 are not source work. The Linux build of the same source has them and the Mac build cannot: in the deployed ELF and on Linux, `spl_token::instruction::transfer_checked` calls a different `RawVec::grow_one` instance from `spl_token_2022::instruction::*`, and on the Mac both call one. The likely cause is that rustc picks the upstream copy of a shared generic by crate hash, and Cargo's metadata hash includes the host. So the Mac route tops out at 569 of 571, and that is expected: use it for iteration and confirm with `linux-build.sh`.
+9. **The final build has to be Linux.** 0xb3278 and 0xbcac0 are not source work. The Linux build of the same source has them and the Mac build does not: in the deployed ELF and on Linux, `spl_token::instruction::transfer_checked` calls a different `RawVec::grow_one` instance from `spl_token_2022::instruction::*`, and on the Mac both call one. The likely cause is that rustc picks the upstream copy of a shared generic by crate hash, and Cargo's metadata hash includes the host. So the Mac route tops out at 569 of 571, and that is expected: use it for iteration and confirm with `linux-build.sh`.
 10. **Line numbers are literals in the error macros.** The per-file sites are in `$C/relay/rea/source_lines.json`; `tools/donate/shared.rs` moved by +42 (applied), `tools/distribution/shared.rs` has new sites 82, 131-201.
 
 Readings not yet confirmed by a build:
 
-- **Recover's handler probably takes direct arguments too:** its wrapper 0x933a0 passes `r3`, `r4`, `[r5-0x1000]`, `[r5-0xff8]`, then the receiver bump from `[ctx+0x22]`. The skeleton still passes `RecoverArgs`.
-- **Recover's handler** first checks `program` (line 56 key against `crate::ID`, 57 `executable`, 58 owner against the upgradeable loader), then borrows `program`'s data and decodes it with `UpgradeableLoaderState::try_deserialize_unchecked` (0xae260). Line 66 then compares the decoded programdata address, most likely with `program_data.key()`. The skeleton's line 66 is a first guess.
+- **Recover's line 66** most likely compares the programdata address decoded from `program` with `program_data.key()`, as the skeleton now does. The rest of the function still differs, so this is not proved yet.
 - **`Location`s pin source files.** The target has `donate.rs:116:34`, `donate_native.rs:165:34`, `donate_native_pubkey_config_id.rs:159:34`, `donate_pubkey_config_id.rs:118:34`, `donate_pubkey_config_id_with_payer.rs:129:34`. Those five handlers currently report `donation_handlers.rs` (strict false). So the handler bodies belong in the instruction files at those coordinates, and `donation_handlers.rs` must vanish from `.rodata`. The target has no `Location` in `tools/distribution/shared.rs`, so no panicking `[index]` there.
 - **`with_values` has three instances in the target:** 0x638 (swap_observed, admit, exact), 0xe00 (the `admit_shares` sites), 0x1590 (14 try_accounts closures). The skeleton has two. 0x1590's body equals 0x638's, so check the argument types once the callers match.
 

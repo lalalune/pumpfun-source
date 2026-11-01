@@ -11,7 +11,7 @@
 | added, against the old source rebuilt on v1.54 | 112 | 222,976 |
 | removed: old source functions on v1.54 with no partner | 6 | 24,280 |
 | new functions identical to a function of the old deployed ELF (v1.48) | 105 of 571 | |
-| matched by the current skeleton (`swarm/w20-relay-scout`) | 544 of 571 | 773,224 of 851,888 |
+| matched by the current skeleton (`swarm/w20-relay-scout`) | 545 of 571 | 776,384 of 851,888 |
 
 `identical` means same length and same bytes after masking internal call immediates and relocated lddw values, the same normalization the scorer uses. Most of the difference from the old deployed ELF is the compiler (v1.48 to v1.54), not the source.
 
@@ -32,14 +32,13 @@
 | C2-distribute-exact | `0x1c878` | 2648 | added | distribute_exact_non_swap_output_mint_v1 handler | 0 |
 | C2-distribute-exact | `0x24ec0` | 4160 | added | tools::distribution::shared exact distribution | 0 |
 | C2-distribute-exact | `0x27048` | 4336 | added | tools::distribution::shared exact transfer worker | 0 |
-| C3-bridge-handlers | `0x20580` | 4232 | added | admit_bridge_payment handler body | 0 |
-| C3-bridge-handlers | `0x21608` | 4328 | added | recover_bridge_payment handler body | 0 |
-| C3-bridge-handlers | `0x933a0` | 3160 | added | #[program] recover_bridge_payment_v1 wrapper | 0 |
-| C4-jupiter-swap | `0x11668` | 2328 | modified | cpi::jupiter::invoke_jupiter | 0.859 |
-| C4-jupiter-swap | `0x11f80` | 2832 | modified | cpi::jupiter::swap_observed | 0.509 |
-| C4-jupiter-swap | `0x1ec18` | 5960 | modified | swap_then_distribute_v1 handler | 0.899 |
-| C5-donate | `0x28e48` | 3680 | added | tools::donate::shared::donate_shared | 0 |
-| C5-donate | `0x29ca8` | 5272 | added | tools::donate::shared signed transfer core (called by donate_shared and admit) | 0 |
+| C3-jupiter-swap | `0x11668` | 2328 | modified | cpi::jupiter::invoke_jupiter | 0.859 |
+| C3-jupiter-swap | `0x11f80` | 2832 | modified | cpi::jupiter::swap_observed | 0.509 |
+| C3-jupiter-swap | `0x1ec18` | 5960 | modified | swap_then_distribute_v1 handler | 0.899 |
+| C4-donate | `0x28e48` | 3680 | added | tools::donate::shared::donate_shared | 0 |
+| C4-donate | `0x29ca8` | 5272 | added | tools::donate::shared signed transfer core (called by donate_shared and admit) | 0 |
+| C5-bridge-handlers | `0x20580` | 4232 | added | admit_bridge_payment handler body | 0 |
+| C5-bridge-handlers | `0x21608` | 4328 | added | recover_bridge_payment handler body | 0 |
 | C6-checks | `0x227e8` | 912 | modified | tools::checks native mint for program | 0.595 |
 | C6-checks | `0x22b78` | 432 | added | tools::checks::native_mint_pair | 0 |
 | C6-checks | `0x23230` | 4448 | modified | tools::checks::typed_mint_safe | 0.69 |
@@ -300,7 +299,7 @@
 | `0x90d60` | 3264 | identical | yes | donation_relay_source_proposal::anchor_framework::relay_anchor_idl_reconstruction_probe::donate_native_v1 |
 | `0x91a20` | 3264 | identical | yes | donation_relay_source_proposal::anchor_framework::relay_anchor_idl_reconstruction_probe::donate_native_pubkey_config_id_ |
 | `0x926e0` | 3264 | identical | yes | donation_relay_source_proposal::anchor_framework::relay_anchor_idl_reconstruction_probe::donate_pubkey_config_id_with_pa |
-| `0x933a0` | 3160 | added | OPEN | #[program] recover_bridge_payment_v1 wrapper |
+| `0x933a0` | 3160 | added | yes | donation_relay_source_proposal::anchor_framework::relay_anchor_idl_reconstruction_probe::recover_bridge_payment_v1 |
 | `0x93ff8` | 448 | identical | yes | entrypoint |
 | `0x941b8` | 272 | identical | yes | _RNvCscR3e5J6VSLN_7___rustc12___rust_alloc |
 | `0x942c8` | 8 | identical | yes | _RNvCscR3e5J6VSLN_7___rustc14___rust_dealloc |
