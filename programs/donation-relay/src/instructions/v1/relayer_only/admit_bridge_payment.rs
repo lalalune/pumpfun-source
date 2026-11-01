@@ -39,3 +39,16 @@ pub struct AdmitBridgePaymentV1<'info> {
  pub associated_token_program:Program<'info,AssociatedToken>,
  pub system_program:Program<'info,System>,
 }
+use crate::business_error_codes::ErrorCode as Code;
+macro_rules! bridge_error {($file:literal,$code:ident,$line:literal)=>{anchor_lang::error::Error::from(anchor_lang::error::AnchorError {
+ error_name:Code::$code.name(),error_code_number:Code::$code.into(),error_msg:Code::$code.to_string(),
+ error_origin:Some(anchor_lang::error::ErrorOrigin::Source(anchor_lang::error::Source {filename:$file,line:$line})),compared_values:None})};}
+
+pub fn admit_bridge_payment<'info>(accounts:&mut AdmitBridgePaymentV1<'info>,source_id:[u8;32],source_commitment:[u8;32],payment_id:[u8;32],config_id:[u8;32],amount:u64,minimum_amount:u64,tip_bps:u16,receiver_bump:u8,epoch_tracker_bump:u8,debouncer_bump:u8)->Result<BridgeDonationAdmittedV1Event> {
+ if amount==0 {return Err(bridge_error!("programs/contracts/src/instructions/v1/relayer_only/admit_bridge_payment.rs",OutputAmountMustBeGreaterThanZero,57));}
+ if amount<minimum_amount {return Err(bridge_error!("programs/contracts/src/instructions/v1/relayer_only/admit_bridge_payment.rs",InputAmountMismatch,58));}
+ crate::tools::checks::check_bps(tip_bps)?;
+ let amounts=crate::tools::donate::shared::donate_with_seeds(crate::tools::donate::shared::SignedDonationContext {epoch_tracker:&mut accounts.epoch_tracker,debouncer:&mut accounts.debouncer,debouncer_token_account:accounts.debouncer_token_account.to_account_info(),mint:accounts.mint.to_account_info(),from_token_account:accounts.receiver_token_account.to_account_info(),from:accounts.receiver.to_account_info(),token_program:accounts.token_program.to_account_info()},crate::tools::donate::shared::SignedDonationArgs {config_id,amount,tip_bps,epoch_tracker_bump,debouncer_bump},&[&[b"bridge_receiver_v1",source_id.as_ref(),&[receiver_bump]]])?;
+ if amounts.gross_amount!=amount {return Err(bridge_error!("programs/contracts/src/instructions/v1/relayer_only/admit_bridge_payment.rs",InputAmountMismatch,83).with_values((amounts.gross_amount,amount)));}
+ Ok(BridgeDonationAdmittedV1Event {daas_event_discriminator:DaasEventDiscriminator::BridgeDonationAdmittedV1,source_id:source_id,source_commitment:source_commitment,payment_id:payment_id,config_id:config_id,mint:accounts.mint.key(),epoch:amounts.epoch,gross_amount:amounts.gross_amount,tip:amounts.tip})
+}
