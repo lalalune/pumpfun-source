@@ -37,7 +37,22 @@ The target's `message.clone()` panic Locations pin the handler bodies to the ins
 - Comment lines fill the gap between each struct and its handler, as the files already do before the macros. The original text in those gaps is unknown. Only the coordinate is pinned.
 - `donation_handlers.rs` is deleted and `lib.rs` keeps its line count, so `lib.rs:36:1` still holds.
 
-Results: all five handlers are strict, `programs/contracts/src/donation_handlers.rs` is gone from `.rodata`, and the five donate path strings are at their target offsets at the start of `.rodata`.
+Results: all five handlers are strict and `programs/contracts/src/donation_handlers.rs` is gone from `.rodata`. The five donate path strings are in target order. Three are at their exact target offsets (`0x0`, `0xe5`, `0x140`). `donate_native.rs` and `donate_pubkey_config_id.rs` are `0x34` late only because of the extra `tools/distribution/shared.rs` path at `0x2a1`, which is the first `.rodata` difference on this branch.
+
+## Checks
+
+These cover `0x28e48`, `0x29ca8` and the five handlers, on the source of `8a24b2221`. Later commits on this branch change only this file.
+
+- **Mac route (`measure.sh`):** 547 of 571 functions, 785,336 B, strict 535, zero losses.
+- **Linux route (`linux-build.sh`, official v1.54 archive, 138 s):** 549 of 571, 786,056 B, strict 526. All seven are matched and strict. `0xb3278` and `0xbcac0` match there as the brief predicted.
+- **Raw bytes, both routes:** every instruction slot of the seven is identical except call immediates and `lddw` immediates, which hold addresses. So these are not yet raw-identical in place: that needs the rest of `.text` and `.rodata` to land at the target's addresses.
+- **Trial merge, not pushed:** this branch with C5 `1faf3dca8`, C6 `e4b092a10`, C1 `c0e7d2635` and C3 `e8f417e91` gave 562 of 571, 822,544 B, strict 549, zero losses on the Mac route. The only conflict was C3's line 83 next to the core call in `bridge_handlers.rs`, and C5 already holds both changes.
+
+`whole_elf_equal` is false on every build above.
+
+### For C7: strict is lower on Linux
+
+16 functions are strict on the Mac and not on Linux: 11 `try_accounts` with `call 0x10970->0x10520` and 5 IDL functions with `call 0x109f0->0x104a0`. Target `0x10970` and `0x109f0` are two 128 B `<Signer as Accounts<B>>::try_accounts` instances, and on Linux callers reach the instance paired with the other one. I did not determine whether that is the scorer's pairing or a real swap of the two instances, and it is not caused by this lane's change.
 
 ## What is left in `.rodata`, outside this cluster
 
