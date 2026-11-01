@@ -309,6 +309,15 @@ class HolderDistributionCapturedTests(unittest.TestCase):
         self.assertTrue(any(f[1] == str(FLOOR) for f in finals))
         self.assertTrue(any(f[4] == '-' and f[3] != '0' for f in finals))
 
+    def test_host_rejects_unknown_quote(self):
+        # A misspelt quote must fail loudly in the driver instead of being
+        # folded into `missing`, whose `error:3012` says nothing about the typo.
+        line = '1,1,1,nativ,1000000000,2,-\n'
+        result = subprocess.run([str(self.host)], input=line, capture_output=True, text=True)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertFalse(result.stdout.startswith('ok,'))
+        self.assertIn('unknown quote nativ', result.stderr)
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -45,7 +45,8 @@ fn main() {
             quote: match f[3] {
                 "native" => Quote::Native,
                 "token" => Quote::Token,
-                _ => Quote::Missing,
+                "missing" => Quote::Missing,
+                other => panic!("unknown quote {other}"),
             },
             rewards_lamports: f[4].parse().unwrap(),
             recipient_accounts: f[5].parse().unwrap(),
