@@ -8,3 +8,8 @@ Target `0x22a10` `admin_cto::execute`, pinned at 27,400 B. See the PR body for t
 - `nf` used to hold r9 from the pool gate to the event. With r9 free, the pool_updated flag takes r9 instead of evicting old_fee
   from r6, the arm's accounts reload loses r6 and the sweep layout collapses. `cvk` (marked shim) keeps a long range in r9: the
   curve box pointer, read at the gate head and last used at the event, at the size of the removed reads.
+
+## Placeholder move (after #4151)
+
+The holder_key byte placeholder at the curve block moves to the end of the event CPI, so the block keeps its size and the jump at
+original 0x53d8 (`ja 0x54f0`) gets the original's displacement. Priced by moving each placeholder over every block head (IR screen).
