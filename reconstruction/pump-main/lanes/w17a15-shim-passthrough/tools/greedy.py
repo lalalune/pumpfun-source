@@ -8,8 +8,8 @@ L=open(base).read().split('\n'); E={}
 for l in open(ef):
     e=json.loads(l); E[e['id']]=e
 S=[json.loads(l) for l in open(sf)]; S=[r for r in S if 'M' in r]
-M0=int(os.environ.get('M0','2270'))
-cand=[r['id'] for r in S if r['sig'] not in ('6ebb02255691','bb0e5243e68f') and r['M']-M0>=-3 and abs(r['bytes']-27400)<=16]
+M0=2270
+cand=[r['id'] for r in S if r['sig']!='6ebb02255691' and r['M']-M0>=-3 and abs(r['bytes']-27400)<=16]
 cur=start.split(',') if start else []
 cache={}
 if os.path.exists(outf):

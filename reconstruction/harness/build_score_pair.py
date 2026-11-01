@@ -116,7 +116,7 @@ def _run_pair(base, candidate, out, sdk, hybrid, timeout):
     out = out.resolve()
     for repo in (base, candidate):
         source = (repo / 'programs/pump').resolve()
-        if out == source or source in out.parents or out in source.parents:
+        if fastbuild.contains_path(source, out) or fastbuild.contains_path(out, source):
             raise ValueError('output must not overlap a Pump source tree')
     before = {name: source_receipt(repo) for name, repo in [('base', base), ('candidate', candidate)]}
     out.mkdir(parents=True, exist_ok=False)

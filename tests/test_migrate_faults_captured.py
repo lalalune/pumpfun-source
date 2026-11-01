@@ -410,7 +410,11 @@ class MigrateFaultsCapturedTests(unittest.TestCase):
         self.assertEqual(captured['curve'], (item['slack'], bytes(after)))
         self.assertEqual(captured['pool_lamports'], 2_888_400)
         keys = names(item)
-        self.assertEqual(captured['pool'], POOL_DISC + captured['pool'][8:9] + struct.pack('<H', 0) + bytes(AUTHORITY) + bytes(MINT) + bytes(keys['quote_mint'])
+        _, pool_bump = Pubkey.find_program_address(
+            [b'pool', struct.pack('<H', 0), bytes(AUTHORITY), bytes(MINT), bytes(keys['quote_mint'])], PUMP_AMM)
+        # The Pool account stores its canonical bump at byte 8; reading it back
+        # from the account let any bump the program wrote agree with itself.
+        self.assertEqual(captured['pool'], POOL_DISC + bytes([pool_bump]) + struct.pack('<H', 0) + bytes(AUTHORITY) + bytes(MINT) + bytes(keys['quote_mint'])
                          + bytes(keys['lp_mint']) + bytes(keys['pool_base_token_account']) + bytes(keys['pool_quote_token_account'])
                          + struct.pack('<Q', initial) + bytes(CREATOR) + bytes([item['mayhem'], item['cashback']])
                          + boosted.to_bytes(16, 'little') + struct.pack('<QBB', item['cfb'], item['can_edit'], item['holder']) + bytes(16))

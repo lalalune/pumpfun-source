@@ -97,7 +97,7 @@ pub sharing_config_reset:bool,
 pub swept_to_holder_vault:u64,
 pub pool_updated:bool,
 }
-struct CtoState{creator:Pubkey,max_fee:u64,mayhem:bool,holder_reward:bool,cashback:bool,quote_locked:bool,holder_enabled:bool,fee_configurable:bool}
+struct CtoState{creator:Pubkey,max_fee:u64,mayhem:bool,holder_reward:bool,holder_enabled:bool,fee_configurable:bool,cashback:bool,quote_locked:bool}
 // layout-pad(183): aligns the next Source site with the original line
 
 

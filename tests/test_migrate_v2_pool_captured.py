@@ -511,7 +511,7 @@ class MigrateV2PoolCapturedTests(unittest.TestCase):
         struct.pack_into('<QQQQ', after, 8, 0, 0, 0, 0)
         self.assertEqual(captured['curve'], (item['slack'], bytes(after)))
         self.assertEqual(captured['pool_lamports'], max(2_888_400, item['pool_lamports']))
-        self.assertEqual(captured['pool'], self.pool_bytes(item, initial, boosted, captured['pool']))
+        self.assertEqual(captured['pool'], self.pool_bytes(item, initial, boosted))
         expected = [self.create_event(item, base, quote, pool_base, pool_quote + boosted, initial, lp_out)]
         self.assertEqual(captured['events'][0][:len(expected[0])], expected[0])
         self.assertEqual(len(captured['events']), 2 + int(boosted > 0))
@@ -522,9 +522,14 @@ class MigrateV2PoolCapturedTests(unittest.TestCase):
         self.assertEqual(migrated[0][:72], MIGRATION_EVENT + bytes(USER.pubkey()) + bytes(MINT))
         self.assertEqual(struct.unpack_from('<QQQ', migrated[0], 72), (base, quote, item['fee']))
 
-    def pool_bytes(self, item, initial, boosted, seen):
+    def pool_bytes(self, item, initial, boosted):
         keys = names(item)
-        return (POOL_DISC + seen[8:9] + struct.pack('<H', 0) + bytes(AUTHORITY) + bytes(MINT) + bytes(keys['quote_mint'])
+        _, pool_bump = Pubkey.find_program_address(
+            [b'pool', struct.pack('<H', 0), bytes(AUTHORITY), bytes(MINT), bytes(keys['quote_mint'])], PUMP_AMM)
+        # The Pool account stores its canonical bump at byte 8. Reading that
+        # byte back from the account made the expectation agree with whatever
+        # the program wrote, so a non-canonical bump went unnoticed.
+        return (POOL_DISC + bytes([pool_bump]) + struct.pack('<H', 0) + bytes(AUTHORITY) + bytes(MINT) + bytes(keys['quote_mint'])
                 + bytes(keys['lp_mint']) + bytes(keys['pool_base_token_account']) + bytes(keys['pool_quote_token_account'])
                 + struct.pack('<Q', initial) + bytes(CREATOR) + bytes([item['mayhem'], item['cashback']])
                 + boosted.to_bytes(16, 'little') + struct.pack('<QBB', item['cfb'], item['can_edit'], item['holder'])

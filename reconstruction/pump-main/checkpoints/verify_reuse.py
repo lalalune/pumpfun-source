@@ -92,6 +92,9 @@ def main():
     args=parser.parse_args()
     packets=args.packets or sorted(p for p in Path(args.repo_root).glob(
         'reconstruction/pump-main/checkpoints/*') if p.is_dir())
+    # A wrong --repo-root, or a checkpoints folder that went missing, used to
+    # leave this empty and still print PASS: a scan of nothing proves nothing.
+    check(packets,f'no checkpoint packets found under {args.repo_root}')
     reusing=[(p,verify(p,args.repo_root)) for p in packets]
     bound=[(p,h) for p,h in reusing if h is not None]
     for packet,receipt in bound:

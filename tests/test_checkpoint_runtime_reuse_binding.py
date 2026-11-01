@@ -47,6 +47,19 @@ def rewrite(path, update):
 
 
 class RuntimeReuseBindingTests(unittest.TestCase):
+    def test_empty_or_missing_discovery_never_reports_success(self):
+        with tempfile.TemporaryDirectory(prefix='reuse-empty-') as temporary:
+            empty = Path(temporary)
+            for root in (empty, empty / 'missing'):
+                for flag in (None, '-O', '-OO'):
+                    with self.subTest(root=root, optimization=flag):
+                        command = [sys.executable, *([flag] if flag else []), '-B',
+                                   str(VERIFIER), '--repo-root', str(root)]
+                        result = subprocess.run(command, capture_output=True, text=True, timeout=30)
+                        self.assertEqual(result.returncode, 1, result.stdout + result.stderr)
+                        self.assertIn('no checkpoint packets found', result.stderr)
+                        self.assertNotIn('PASS:', result.stdout)
+
     def test_pristine_checkpoints_bind_their_reuse(self):
         completed = run(ROOT)
         self.assertEqual(completed.returncode, 0, completed.stdout + completed.stderr)

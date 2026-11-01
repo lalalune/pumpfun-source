@@ -1,0 +1,58 @@
+{
+  "base": {
+    "revision": "8330455eb0897493714da67aa4de6f9743d82b84",
+    "expect": "base",
+    "packets": {
+      "pump-fees-admin-cto-sharing-direct-20261030": {
+        "verify.py_sha256": "c8cb58b0e850fb556abc9e2fa51a9bc44682de15088ad434cea34cd8d95c0f24",
+        "MANIFEST.json_sha256": "f7be7e19bbe3f7acdf520ea0e4b08f9716d07024d1889005edae8f65eb86152d",
+        "modes": {
+          "pristine": "reached-image-stage",
+          "changed": "refused",
+          "extra": "refused",
+          "symlink": "reached-image-stage",
+          "duplicate": "reached-image-stage"
+        }
+      },
+      "pump-global-admin-sequences-20261030": {
+        "verify.py_sha256": "a28f69a3ef6893b8eebb38d2abe2d1549ba413c42f532b13c09d641c70739610",
+        "MANIFEST.json_sha256": "1cb96d0ad8e030d027c926c7b3d0d637b192f320f42932e00329ffe6f53c6684",
+        "modes": {
+          "pristine": "reached-image-stage",
+          "changed": "refused",
+          "extra": "refused",
+          "symlink": "reached-image-stage",
+          "duplicate": "reached-image-stage"
+        }
+      }
+    }
+  },
+  "fixed": {
+    "revision": "8330455eb0897493714da67aa4de6f9743d82b84+fix",
+    "expect": "fixed",
+    "packets": {
+      "pump-fees-admin-cto-sharing-direct-20261030": {
+        "verify.py_sha256": "17ab9fdf94dd5503ec5a5b0e991b97de02546a2e7e2769f5d4bbdf388eeda309",
+        "MANIFEST.json_sha256": "aa0be977d6dba54775aa1845a07b99c1117423035f6f7f35d8fbfe69705318fc",
+        "modes": {
+          "pristine": "reached-image-stage",
+          "changed": "refused",
+          "extra": "refused",
+          "symlink": "refused",
+          "duplicate": "refused"
+        }
+      },
+      "pump-global-admin-sequences-20261030": {
+        "verify.py_sha256": "0b16e112f607a668986e63f2642b533107c59a11f2bf11affedd2768f210d56a",
+        "MANIFEST.json_sha256": "65a8fb032b8c561b2850ea369fe0f724e1dc8b3982b23b96baca931206cf4654",
+        "modes": {
+          "pristine": "reached-image-stage",
+          "changed": "refused",
+          "extra": "refused",
+          "symlink": "refused",
+          "duplicate": "refused"
+        }
+      }
+    }
+  }
+}

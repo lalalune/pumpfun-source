@@ -89,7 +89,8 @@ def ata(owner, mint, program=TOKEN):
 GLOBAL = pda([b'global'])
 CURVE = pda([b'bonding-curve', bytes(MINT)])
 AUTHORITY = pda([b'pool-authority', bytes(MINT)])
-POOL = pda([b'pool', struct.pack('<H', 0), bytes(AUTHORITY), bytes(MINT), bytes(WSOL)], PUMP_AMM)
+POOL_SEEDS = [b'pool', struct.pack('<H', 0), bytes(AUTHORITY), bytes(MINT), bytes(WSOL)]
+POOL, POOL_BUMP = Pubkey.find_program_address(POOL_SEEDS, PUMP_AMM)
 LP_MINT = pda([b'pool_lp_mint', bytes(POOL)], PUMP_AMM)
 AMM_CONFIG = pda([b'global_config'], PUMP_AMM)
 BOOST_AUTHORITY = pda([b'boost_vault', bytes(POOL)], PUMP_AMM)
@@ -454,7 +455,7 @@ class MigratePoolCapturedTests(unittest.TestCase):
         struct.pack_into('<QQQQ', after, 8, 0, 0, 0, 0)
         self.assertEqual(captured['curve'], (item['slack'], bytes(after)))
         self.assertEqual(captured['pool_lamports'], max(2_888_400, item['pool_lamports']))
-        self.assertEqual(captured['pool'], self.pool_bytes(item, initial, boosted, captured['pool']))
+        self.assertEqual(captured['pool'], self.pool_bytes(item, initial, boosted))
         expected = [self.create_event(item, base, quote, pool_base, pool_quote + boosted, initial, lp_out)]
         self.assertEqual(captured['events'][0][:len(expected[0])], expected[0])
         self.assertEqual(len(captured['events']), 2 + int(boosted > 0))
@@ -465,10 +466,13 @@ class MigratePoolCapturedTests(unittest.TestCase):
         self.assertEqual(migrated[0][:72], MIGRATION_EVENT + bytes(USER.pubkey()) + bytes(MINT))
         self.assertEqual(struct.unpack_from('<QQQ', migrated[0], 72), (base, quote, item['fee']))
 
-    def pool_bytes(self, item, initial, boosted, seen):
+    def pool_bytes(self, item, initial, boosted):
         token = TOKEN22 if item['t22'] else TOKEN
         keys = names(token)
-        return (POOL_DISC + seen[8:9] + struct.pack('<H', 0) + bytes(AUTHORITY) + bytes(MINT) + bytes(WSOL) + bytes(LP_MINT)
+        # The Pool account stores its canonical bump at byte 8. Reading that
+        # byte back from the account made the expectation agree with whatever
+        # the program wrote, so a non-canonical bump went unnoticed.
+        return (POOL_DISC + bytes([POOL_BUMP]) + struct.pack('<H', 0) + bytes(AUTHORITY) + bytes(MINT) + bytes(WSOL) + bytes(LP_MINT)
                 + bytes(keys['pool_base_token_account']) + bytes(keys['pool_quote_token_account'])
                 + struct.pack('<Q', initial) + bytes(CREATOR) + bytes([item['mayhem'], item['cashback']])
                 + boosted.to_bytes(16, 'little') + struct.pack('<QBB', item['cfb'], item['can_edit'], item['holder'])

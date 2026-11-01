@@ -117,7 +117,7 @@ jobs:
               python scripts/test_tooling.py
               python -B scripts/test_pump_text_layout_linker_options.py
               python -B scripts/test_tooling_litesvm_collection.py
-              python -B -m unittest discover -s scripts -p 'test_sbf_backend*.py'
+              python -B scripts/run_discovered_tests.py scripts 'test_sbf_backend*.py' --expect 19
               python -B scripts/test_pump_diagnostic_audit_coverage.py
               python -B tests/test_diagnostic_pair_admission.py
               python -B scripts/test_pump_diagnostic_audit_publication.py
@@ -453,6 +453,9 @@ jobs:
               python -B research/tooling-indirect-call-decoding-20261030/test_verify.py
               python -B tests/test_checkpoint_manifest_paths.py
               python -B tests/test_packet_manifest_census.py
+              python -B tests/test_v3_buy_crossing_section_audit.py
+              python -B tests/test_checkpoint_runtime_reuse_binding.py
+              python -B research/pair-case-output/verify.py
               python -B tests/test_verifier_module_imports.py
               python -B tests/test_reconstruction_packet_manifests.py
               python -B tests/test_borrowed_selection_packet_files.py
@@ -495,12 +498,13 @@ jobs:
               python -B reconstruction/verification/pump-migration-lifecycle/test_output_refusal.py
               python -B reconstruction/verification/pump-admin-cto-stateful/test_lifecycle.py
               python -B reconstruction/verification/pump-admin-cto-stateful/test_receipts.py
+              python -B reconstruction/verification/pump-cross-program-fee-lifecycle/test_lifecycle.py
               python -B reconstruction/donation-relay/native-linux-v148-20261030/test_analyzer_isolation.py
               python -B reconstruction/verification/mayhem-dispatch-boundaries/test_inventory.py
               python -B reconstruction/verification/mayhem-dispatch-boundaries/test_producer.py
           - suite: host-fragments
             commands: |
-              python -B -m unittest discover -s tests -p 'test_global_*_captured.py' -v
+              python -B scripts/run_discovered_tests.py tests 'test_global_*_captured.py' --expect 2
               python -B tests/test_pump_amm_liquidity_captured.py
               python -B tests/test_pump_amm_caller_fixture_inputs.py
               python -B tests/test_pump_amm_collect_coin_creator_fee_captured.py

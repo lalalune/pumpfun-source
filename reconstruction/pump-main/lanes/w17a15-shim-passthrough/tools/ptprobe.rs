@@ -32,10 +32,3 @@ extern "C" { fn g(x: u64) -> u64; fn h(x: u64) -> u64; fn k(x: u64) -> u64; fn r
 // J. sinking: pt computed early, used in one arm only
 #[no_mangle] pub fn j0(c:bool,x:u64)->u64{let a=x*3;if c{unsafe{g(a)}}else{0}}
 #[no_mangle] pub fn j1(c:bool,x:u64)->u64{let a=unsafe{pt64(12,x*3)};if c{unsafe{g(a)}}else{0}}
-// K. compare predicate canonicalisation: x>=5 becomes x>4 either way; pt on the compare result keeps the materialised bool only when it has another user
-#[no_mangle] pub fn k0(x:u64)->u64{if x>=5{unsafe{g(x)}}else{0}}
-#[no_mangle] pub fn k1(x:u64)->u64{if unsafe{pt64(13,x)}>=5{unsafe{g(x)}}else{0}}
-#[no_mangle] pub fn k2(x:u64)->u64{if unsafe{pt1(14,x>=5)}{unsafe{g(x)}}else{0}}
-// L. a bool compare folded into a zext'd value: (b as u64)==1 -> b
-#[no_mangle] pub fn l0(b:bool)->u64{if (b as u64)==1{unsafe{g(1)}}else{0}}
-#[no_mangle] pub fn l1(b:bool)->u64{if unsafe{pt64(15,b as u64)}==1{unsafe{g(1)}}else{0}}

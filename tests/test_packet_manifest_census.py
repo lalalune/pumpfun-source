@@ -229,5 +229,78 @@ class PacketManifestCensus(unittest.TestCase):
                         self.assertTrue(any(mark in text for mark in marks[mode]), text)
 
 
+    def test_both_admin_packet_admissions_preserve_pristine_and_reject_tampering(self):
+        names = ('pump-fees-admin-cto-sharing-direct-20261030',
+                 'pump-global-admin-sequences-20261030')
+        marks = {'changed': ('packet member differs', 'manifest mismatch'),
+                 'extra': ('packet file set differs', 'manifest set differs'),
+                 'symlink': ('symlink',),
+                 'duplicate': ('duplicate packet manifest path',)}
+        for name in names:
+            for mode in ('pristine', 'changed', 'extra', 'symlink', 'duplicate'):
+                with self.subTest(packet=name, mode=mode), tempfile.TemporaryDirectory() as temporary:
+                    root = Path(temporary)
+                    packet = root / 'packet'
+                    shutil.copytree(RESEARCH / name, packet)
+                    if mode == 'changed': (packet / 'README.md').write_bytes(b'changed')
+                    elif mode == 'extra': (packet / 'runtime/unlisted.bin').write_bytes(b'extra')
+                    elif mode == 'symlink':
+                        member = packet / 'README.md'
+                        member.replace(root / 'README.md')
+                        member.symlink_to(root / 'README.md')
+                    elif mode == 'duplicate':
+                        path = packet / 'MANIFEST.json'
+                        manifest = json.loads(path.read_text())
+                        manifest['files'].append(dict(manifest['files'][0]))
+                        path.write_text(json.dumps(manifest))
+                    result = run(packet)
+                    text = result.stdout + result.stderr
+                    if mode == 'pristine':
+                        self.assertIn('/nonexistent/', text)
+                        self.assertTrue(all(mark not in text for group in marks.values()
+                                            for mark in group), text)
+                    else:
+                        self.assertNotEqual(result.returncode, 0)
+                        self.assertNotIn('/nonexistent/', text)
+                        self.assertTrue(any(mark in text for mark in marks[mode]), text)
+
+    def test_global_admin_packet_cached_producer_cannot_bypass_source_admission(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            packet = root / 'packet'
+            shutil.copytree(RESEARCH / 'pump-global-admin-sequences-20261030', packet)
+            producer = packet / 'producer.py'
+            source = root / 'cached_source.py'
+            marker = root / 'executed'
+            source.write_text('from pathlib import Path\nPath(' + repr(str(marker)) + ').write_text("executed")\n')
+            cached = Path(importlib.util.cache_from_source(str(producer)))
+            cached.parent.mkdir(parents=True, exist_ok=True)
+            py_compile.compile(str(source), cfile=str(cached), doraise=True)
+            data = bytearray(cached.read_bytes())
+            data[8:16] = struct.pack('<II', int(producer.stat().st_mtime), producer.stat().st_size)
+            cached.write_bytes(data)
+            result = run(packet)
+            self.assertNotEqual(result.returncode, 0)
+            self.assertNotIn('/nonexistent/', result.stdout + result.stderr)
+            self.assertIn('cached Python bytecode', result.stdout + result.stderr)
+            self.assertFalse(marker.exists(), 'unlisted cached producer executed')
+
+    def test_admin_packets_cannot_hide_members_behind_reserved_names(self):
+        for name in ('pump-fees-admin-cto-sharing-direct-20261030',
+                     'pump-global-admin-sequences-20261030'):
+            for extra in ('nested/MANIFEST.json', '__pycache__/unlisted.txt'):
+                with self.subTest(packet=name, extra=extra), tempfile.TemporaryDirectory() as temporary:
+                    packet = Path(temporary) / 'packet'
+                    shutil.copytree(RESEARCH / name, packet)
+                    path = packet / extra
+                    path.parent.mkdir(parents=True, exist_ok=True)
+                    path.write_bytes(b'{}')
+                    result = run(packet)
+                    text = result.stdout + result.stderr
+                    self.assertNotEqual(result.returncode, 0, text)
+                    self.assertNotIn('/nonexistent/', text)
+                    self.assertIn('file set differs' if 'fees-' in name else 'manifest set differs', text)
+
+
 if __name__ == '__main__':
     unittest.main()

@@ -36,9 +36,7 @@ def vtype(l):
     toks=[x for x in rest if x not in FLAGS]
     if not toks: return op,None
     return op,toks[0].rstrip(',')
-GEP=False
-def main(src,dst,mode=''):
-    global GEP; GEP=(mode=='gep')
+def main(src,dst):
     L=open(src).read().split('\n'); R=ranges(L); E=[]; seq=1000
     for fn,(a,b) in R.items():
         blkstart={}; cur=a
@@ -49,11 +47,7 @@ def main(src,dst,mode=''):
             l=L[i]
             op,t=vtype(l)
             if op is None or t not in TY: continue
-            if op=='alloca': continue
-            if op=='getelementptr':
-                if not GEP: continue
-                t='ptr'
-            elif GEP: continue
+            if op in('alloca','getelementptr'): continue
             v=re.match(r'^\s+'+VAL,l).group(1); seq+=1
             nv=f'%ptv{seq}'
             pat=re.compile(re.escape(v)+r'(?![\w.$-])')

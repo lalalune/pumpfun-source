@@ -157,3 +157,24 @@ operand inside validate's tests collapses (v284..v338: 1,425-2,278; MIR/LLVM thr
 - `ptprobe.rs`: the fold-table probe.
 - The oracle itself (`capraw.py`, `preslim.py`, `fx.py`, `oracle.py`, `modparse.py`, `gen.py`) is on
   `origin/swarm/w17a06-shim-irbeam` under `reconstruction/pump-main/lanes/w17a06-shim-irbeam/tools/`.
+
+## Maintained source qualification — 2026-11-01
+
+The current program change is independently rebuilt with the maintained identity
+recipe and official full-window scorer. The four passthrough sites retain their
+measured source behavior on the pinned compiler; an independent small target
+probe checks bool, byte and pointer identity against ordinary controls.
+
+The private capture, beam, screening and signature claims above remain author
+research history. They are not standalone reproducibility or linked-image proof.
+The eight private-cache tool changes added or modified by PR #4026 are excluded
+from the maintained integration: existing tools retain their prior main versions,
+and the new private queue/composition scripts are not shipped. No private oracle
+or patched compiler is used for current acceptance.
+
+Against a freshly built main `8350fae5a`, PR #4026 measures 68.514% token
+similarity at 27,400 bytes with 3,092 positional differences. Adding PR #4023's
+private CtoState declaration order raises token similarity to 68.544% at the
+same size and positional count. Both full-window comparisons preserve all
+1,034 raw and normalized matches with zero losses. No new exact window, whole
+Pump ELF identity, historical source attribution or exhaustive semantics is claimed.

@@ -5,7 +5,7 @@ import sys,os
 OUT=os.path.expanduser('~/.cache/pumpfun-reconstruction/lanes/w17a15-shim-passthrough')
 sys.path.insert(0,OUT+'/tools'); from variants import VARIANTS
 def build(name):
-    src=open(OUT+'/src/'+os.environ.get('MKBASE','cal0')+'.rs').read().split('\n'); n=len(src)
+    src=open(OUT+'/src/cal0.rs').read().split('\n'); n=len(src)
     for ln,old,new in VARIANTS[name]:
         l=src[ln-1]; assert l.count(old)==1,(name,ln,old,l.count(old)); src[ln-1]=l.replace(old,new)
     assert len(src)==n
