@@ -49,7 +49,8 @@ pub fn distribute_after<'info>(accounts:&mut DistributeAfterJustSwappingV1<'info
  let total=accounts.swap_receipt.swap_output_amount;
  if total==0 {return Err(distribution_error!("programs/contracts/src/instructions/v1/relayer_only/distribute/distribute_after_just_swapping.rs",InvalidBalance,116));}
  if accounts.output_distribution_token_account.amount<total {return Err(distribution_error!("programs/contracts/src/instructions/v1/relayer_only/distribute/distribute_after_just_swapping.rs",InvalidBalance,118));}
- let remaining=remaining.get(..shares.len()).ok_or(Code::InsufficientRemainingAccounts)?;
+ if remaining.len()<shares.len() {return Err(Code::InsufficientRemainingAccounts.into());}
+ let remaining=&remaining[..shares.len()];
  let config=accounts.distribution.config_id;let mint=accounts.distribution.mint;let epoch=accounts.distribution.epoch.to_le_bytes();let bump=accounts.distribution.bump;
  let signer_seeds:&[&[&[u8]];1]=&[&[b"distribution_v1",config.as_ref(),mint.as_ref(),&epoch,&[bump]]];
  let transfers=crate::shared_distribution::distribute(crate::shared_distribution::DistributionContext {remaining,source:accounts.output_distribution_token_account.to_account_info(),mint:accounts.output_mint.to_account_info(),program:accounts.output_mint_program.to_account_info(),authority:accounts.distribution.to_account_info()},crate::shared_distribution::DistributionArgs::new(&shares,signer_seeds,total,accounts.output_mint_program.key,accounts.output_mint.decimals))?;
@@ -78,7 +79,8 @@ pub fn distribute_non_swap<'info>(accounts:&mut DistributeNonSwapOutputMintV1<'i
  crate::tools::checks::admit_shares(shares.iter().map(|share|share.bps))?;
  let total=accounts.distribution.total_amount;
  if accounts.distribution_token_account.amount<total {return Err(distribution_error!("programs/contracts/src/instructions/v1/relayer_only/distribute/distribute_non_swap_output_mint.rs",InvalidBalance,117));}
- let remaining=remaining.get(..shares.len()).ok_or(Code::InsufficientRemainingAccounts)?;
+ if remaining.len()<shares.len() {return Err(Code::InsufficientRemainingAccounts.into());}
+ let remaining=&remaining[..shares.len()];
  let config=accounts.distribution.config_id;let mint=accounts.distribution.mint;let epoch=accounts.distribution.epoch.to_le_bytes();let bump=accounts.distribution.bump;
  let signer_seeds:&[&[&[u8]];1]=&[&[b"distribution_v1",config.as_ref(),mint.as_ref(),&epoch,&[bump]]];
  let transfers=crate::shared_distribution::distribute(crate::shared_distribution::DistributionContext {remaining,source:accounts.distribution_token_account.to_account_info(),mint:accounts.mint.to_account_info(),program:accounts.token_program.to_account_info(),authority:accounts.distribution.to_account_info()},crate::shared_distribution::DistributionArgs::new(&shares,signer_seeds,total,accounts.token_program.key,accounts.mint.decimals))?;
