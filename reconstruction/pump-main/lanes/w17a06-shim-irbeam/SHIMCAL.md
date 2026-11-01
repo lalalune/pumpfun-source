@@ -39,6 +39,14 @@ construct (for example "black_box") counts too.** Write shim comments without th
 | `*const` param: sweep `ctx` | `ctx:*const Context<AdminCto>` + `let ctx=unsafe{&*ctx};` | **MIR changes**: `ctx.accounts` is reloaded at every `a.x` access (no `&` immutability) | the accounts pointer is reloaded in the sweep | -141 | +8 | no | 0 |
 | `*const` param: wallet `ctx` | same in wallet | same as sweep (76 changed lines) | reloads in the wallet | -6 | 0 | no | 0 |
 | `ptr::write` instead of assignment | `unsafe{ptr::write(&mut curve.creator,target)}` (754) | identical IR | identical | 0 | 0 | yes | 0 |
+| `*const` param: validate `st` | `st:*const CtoState` + `let st=unsafe{&*st};` | MIR no longer merges the repeated `st.x` reads (111 changed lines in validate) | validate reshapes | -96 | 0 | no | 0 |
+| `ptr::read` instead of a copy | `let old_creator=unsafe{ptr::read(&curve.creator)}` (753) | identical IR | identical | 0 | 0 | yes | 0 |
+| `ptr::copy_nonoverlapping` instead of assignment | `copy_nonoverlapping(&target,&mut curve.creator,1)` (754) | extra 32 B temporaries and memcpys (the `&target` borrow keeps `target` in memory) | the curve update reshapes | -412 | +200 | no | 0 |
+| `MaybeUninit` local | `let mut swept=MaybeUninit::<u64>::uninit(); swept.write(..); swept.assume_init()` | three 8 B allocas | promoted; identical | 0 | 0 | yes | 0 |
+| Option tag byte test | `if unsafe{*(&fee as *const Option<u64> as *const u8)}&1!=0{..unwrap_unchecked()}` (757) | the Option is spilled to a 16 B alloca, then `load i8`, `and 1`, `icmp` | the `&1` test survives | -1 | 0 | no | 0 |
+| `transmute::<Option<bool>,u8>` | `curve.is_holder_reward=transmute::<Option<bool>,u8>(holder)==1` (755) | the `unwrap_or` match is replaced by a byte compare | `assume(o<3)` + `icmp eq 1` | -20 | +24 | no | 0 |
+| `read_volatile` of `ctx.accounts` (landed, beam cell) | `read_volatile(core::mem::transmute::<&&mut AdminCto,*const &AdminCto>(a))` | `load volatile ptr` of ctx+8 | a separate reload of the accounts pointer | +2 | +16 | no | 1 |
+| same through an `as` cast or coercion | `read_volatile(a as *const &mut AdminCto as *const &AdminCto)`, `read_volatile(a)`, `&ctx.accounts as ..` | `&raw const ctx.accounts` after RefProp: **execute's `ctx` loses `readonly`** | the accounts pointer is reloaded after every call | -689 | +64 | no | 1 |
 
 Probe-only findings (`probe/cal.rs`): `ptr::write`, `ptr::copy_nonoverlapping` and `ptr::read` give the same IR as
 plain assignment, and rustc's MergeFunctions aliases the probe functions. A `MaybeUninit` local is promoted like a

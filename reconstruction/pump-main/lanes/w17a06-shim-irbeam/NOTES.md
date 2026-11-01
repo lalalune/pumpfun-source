@@ -91,3 +91,26 @@ Ranked lever table (main d4dfb04, M 2,258 @ 27,400; dM / dbytes):
 | vl:execute:28871 | volatile `ctx.accounts` load in the shared arm | 339 | 0 | -8 | transmute form as above | repay knob |
 | vl:execute:28873 | volatile curve Box pointer load in the shared arm | 339 | -1 | -16 | `read_volatile(&a.bonding_curve as *const Box<..> as *const &Account<..>)` | landed (with 29769) |
 | vs:execute:28489/28491 | volatile stores of the holder-rewards seed array | 339 | 0 | 0 | write_volatile of the seed slice | neutral |
+
+## 4. Round 3 (main af6ca66 0.67825 -> fd78179 0.67855): +1 M
+
+| build | admin_cto ratio | slots | bytes | normalized / raw | losses | sha16 |
+| --- | ---: | ---: | ---: | --- | --- | --- |
+| main fd78179b8 | 0.67855 | 3,220 | 27,400 | 1034 / 1034 | - | |
+| this lane (sQR2) | **0.67885** | 3,170 | 27,400 | 1034 / 1034 | 0 / 0 | 6157a46096aa17da |
+
+Differential: 388 cases, 0 mismatches. The beam pair is `bwf:execute:28642` + `vl:execute:29604` on af6ca66 (M 2,265 at
+27,400, signature `6f03c0bcb95f`), and the source capture reproduces it exactly:
+- line 339, quote_locked: `(unsafe{expect(q==Pubkey::default(),false)})||..`. This is the existing extern
+  `llvm.expect.i1` from line 8. The expect result feeds the `br` directly, so the 1:2000 weight survives. Alone it gives
+  +1 M at -8 B. Wrap the unsafe block in parentheses: in statement position `unsafe{..}||..` parses as a block
+  followed by a closure;
+- line 754, the curve update: `unsafe{read_volatile(curve as *const Box<Account<BondingCurve>> as *const &mut Account<BondingCurve>)}.creator=target;`
+  is a volatile reload of the Box pointer for the creator store (0 M at +8 B alone).
+
+Not source-reachable this round:
+- `vl:execute:29927` (+1, +8: a `ctx.accounts` reload for `pargs`) and `vl:execute:29631` (+1, +8, sharing CPI). Every
+  spelling makes MIR jump threading duplicate the `pargs` block into both `pool_updated` arms: 2,141 @27,256;
+- `bpp:validate:28222` (a 5:3 weight on `st.quote_locked`). `expect_p` there is lost, because the bool goes through an
+  alloca before the `br`;
+- `bf:wallet` (the no-coin fence). Source fences land in both jump-threaded copies.
