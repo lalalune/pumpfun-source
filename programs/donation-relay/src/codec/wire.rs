@@ -1,6 +1,6 @@
 //! Wire structs reconstructed from the captured Relay IDL.
 use anchor_lang::prelude::*;
-#[derive(AnchorDeserialize,AnchorSerialize,Clone)]
+#[derive(AnchorDeserialize,AnchorSerialize,Clone,Copy)]
 pub enum ShareType {Beneficiary, Fee, Tip}
 #[derive(AnchorDeserialize,AnchorSerialize,Clone)]
 pub struct Share {pub share_type:ShareType,pub address:Pubkey,pub bps:u16}
