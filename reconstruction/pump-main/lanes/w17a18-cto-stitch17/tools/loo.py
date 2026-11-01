@@ -15,7 +15,7 @@ for l in log:
     pre=subprocess.run(['git','-C',REPO,'show',f'{h}^1:{F}'],capture_output=True,text=True).stdout.split('\n')
     post=subprocess.run(['git','-C',REPO,'show',f'{h}:{F}'],capture_output=True,text=True).stdout.split('\n')
     if len(pre)!=len(post): continue
-    eds=[]; ok=True; part=[]
+    eds=[]; ok=True
     for i,(a,b) in enumerate(zip(pre,post)):
         if a==b: continue
         p=0
@@ -27,15 +27,9 @@ for l in log:
             new=a[p0:len(a)-s+ctx] if s>=ctx else a[p0:]
             if cur.count(old)==1: break
         else:
-            ok=False; part.append(None); continue
-        eds.append((old,new)); part.append((old,new))
-    import re as _re
-    _m=_re.search(r'\(#(\d+)\)',subj); _key='loo'+(_m.group(1) if _m else h[:7])
-    if not ok:
-        for k,e in enumerate(part):
-            if e is not None and cur.count(e[0])==1: genes[f'{_key}p{k}']={'eds':[e],'subj':'partial '+subj[:110]}
-        continue
-    if not eds: continue
+            ok=False; break
+        eds.append((old,new))
+    if not ok or not eds: continue
     # apply jointly to check
     t=cur
     try:
