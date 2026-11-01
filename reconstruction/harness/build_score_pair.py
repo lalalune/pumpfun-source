@@ -14,6 +14,7 @@ import score
 from original_input import copy_original_inputs
 from source_inputs import snapshot
 from build_process import validate_timeout
+from resource_budget import DiskBudgetConfig
 
 
 def sha(path):
@@ -81,7 +82,7 @@ def bound_inputs(scoring_inputs, sdk, hybrid):
                       ('build_score_pair.py', 'fastbuild.py', 'score.py', 'original_input.py', 'compare_scores.py', 'pump_physical_source_wrapper.py',
                           'link_order.py', 'pump_link_rustc.py', 'pump_link_lld.py',
                           'pump_link_rustc.sh', 'pump_link_lld.sh', 'pump_physical_source_wrapper.sh', 'sbf_default.ld',
-                          'build_process.py', 'elf_symbols.py', 'instruction_stream.py',
+                          'build_process.py', 'resource_budget.py', 'elf_symbols.py', 'instruction_stream.py',
                           'llvm_tools.py', 'score_admission.py', 'source_inputs.py')},
             'sdk_inventory_sha256': sha(canonical.parent / 'toolchain/v1.44-macos-inventory.json'),
             'target_library_manifest_sha256': sha(Path(__file__).parent / 'linux144-sbpf-target-libs.sha256'),
@@ -93,14 +94,16 @@ def bound_inputs(scoring_inputs, sdk, hybrid):
             'objcopy_sha256': sha(sdk / 'llvm/bin/llvm-objcopy')}
 
 
-def run_pair(base, candidate, out, sdk, hybrid, timeout=None):
+def run_pair(base, candidate, out, sdk, hybrid, timeout=None, resource_budget=None):
     validate_timeout(timeout)
+    if resource_budget is not None and not isinstance(resource_budget, DiskBudgetConfig):
+        raise ValueError('resource_budget must be a DiskBudgetConfig')
     missing = object()
     config = [(fastbuild, 'SDK'), (fastbuild, 'LOCKDIR'), (score, 'BASE'), (score, 'OBJDUMP')]
     saved = [(module, name, getattr(module, name, missing)) for module, name in config]
     recipe = fastbuild.RECIPES['identity']
     try:
-        return _run_pair(base, candidate, out, sdk, hybrid, timeout)
+        return _run_pair(base, candidate, out, sdk, hybrid, timeout, resource_budget)
     finally:
         fastbuild.RECIPES['identity'] = recipe
         for module, name, value in saved:
@@ -110,7 +113,7 @@ def run_pair(base, candidate, out, sdk, hybrid, timeout=None):
                 setattr(module, name, value)
 
 
-def _run_pair(base, candidate, out, sdk, hybrid, timeout):
+def _run_pair(base, candidate, out, sdk, hybrid, timeout, resource_budget):
     # Admit the canonical output before creating scoring inputs or receipts.
     # fastbuild's later guard cannot undo writes made by this coordinator.
     out = out.resolve()
@@ -133,6 +136,8 @@ def _run_pair(base, candidate, out, sdk, hybrid, timeout):
     copy_original_inputs(canonical, score.BASE)
     binding = bound_inputs(score.BASE, sdk, hybrid)
     receipt = {'sources': before, 'recipe': 'identity', 'cold_targets': True,
+               'resource_budget': (None if resource_budget is None
+                                   else resource_budget.as_dict()),
                **binding, 'builds': {}}
     def save():
         (out / 'receipt.json').write_text(json.dumps(receipt, indent=2) + '\n',
@@ -141,8 +146,11 @@ def _run_pair(base, candidate, out, sdk, hybrid, timeout):
     reports = {}
     try:
         for name, repo in [('base', base), ('candidate', candidate)]:
+            build_options = ({'resource_budget': resource_budget}
+                             if resource_budget is not None else {})
             result = fastbuild.build(repo / 'programs/pump', out / (name + '-work'), out / name,
-                                     quiet=True, recipe='identity', timeout=timeout)
+                                     quiet=True, recipe='identity', timeout=timeout,
+                                     **build_options)
             # Public receipt avoids serializing local absolute output paths.
             receipt['builds'][name] = {k: v for k, v in result.items()
                                       if k not in ('unstripped', 'log')}
@@ -179,11 +187,23 @@ def main():
     parser.add_argument('--sdk', type=Path, default=Path.home() / '.cache/solana/v1.44/platform-tools')
     parser.add_argument('--hybrid', type=Path, default=Path(os.environ.get('PUMP_RECON_HOME', str(Path.home() / '.cache/pumpfun-reconstruction'))) / 'toolchains/hybrid144')
     parser.add_argument('--timeout', type=float, help='compiler deadline per build in seconds')
+    parser.add_argument('--min-free-bytes', type=int,
+                        help='opt in to a measured floor for both cold build workspaces')
+    parser.add_argument('--disk-path', type=Path, action='append', default=[],
+                        help='additional filesystem path to monitor (repeatable)')
+    parser.add_argument('--disk-check-interval', type=float, default=1.0)
     args = parser.parse_args()
     try:
         for repo in (args.base, args.candidate):
             _reject_directory_link(repo)
-        return run_pair(args.base.resolve(), args.candidate.resolve(), args.out.resolve(), args.sdk.resolve(), args.hybrid.resolve(), timeout=args.timeout)
+        if args.min_free_bytes is None and args.disk_path:
+            raise ValueError('--disk-path requires --min-free-bytes')
+        budget = (DiskBudgetConfig(args.min_free_bytes, tuple(map(str, args.disk_path)),
+                                   args.disk_check_interval)
+                  if args.min_free_bytes is not None else None)
+        return run_pair(args.base.resolve(), args.candidate.resolve(), args.out.resolve(),
+                        args.sdk.resolve(), args.hybrid.resolve(), timeout=args.timeout,
+                        resource_budget=budget)
     except (OSError, ValueError, RuntimeError, subprocess.CalledProcessError) as error:
         parser.exit(2, f'build/score gate failed: {error}\n')
 

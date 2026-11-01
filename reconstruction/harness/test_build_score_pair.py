@@ -101,6 +101,20 @@ class PairTests(unittest.TestCase):
                 self.run_pair()
             scorer.assert_not_called()
 
+    def test_resource_budget_is_bound_and_passed_to_both_cold_builds(self):
+        budget = pair.DiskBudgetConfig(123456, (str(self.root),), .25)
+        windows = {0: {'bytes': 8, 'normalized': True, 'raw': True}}
+        with patch.object(pair.fastbuild, 'build', side_effect=self.build) as build, \
+             patch.object(pair.score, 'score', return_value=windows):
+            self.assertEqual(pair.run_pair(
+                self.root / 'base', self.root / 'candidate', self.out,
+                self.sdk, self.hybrid, resource_budget=budget), 0)
+        self.assertEqual(len(build.call_args_list), 2)
+        self.assertTrue(all(call.kwargs['resource_budget'] is budget
+                            for call in build.call_args_list))
+        receipt = json.loads((self.out / 'receipt.json').read_text())
+        self.assertEqual(receipt['resource_budget'], budget.as_dict())
+
 
 class SourceReceiptTests(unittest.TestCase):
     def setUp(self):
