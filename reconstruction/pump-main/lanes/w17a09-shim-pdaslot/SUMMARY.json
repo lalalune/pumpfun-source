@@ -1,0 +1,51 @@
+{
+  "lane": "w17a09-shim-pdaslot",
+  "wave": 17,
+  "track": "shim",
+  "target": {"window": "0x22a10", "function": "admin_cto::execute", "file": "programs/pump/src/creator/admin_cto.rs", "pinned_bytes": 27400, "region": "E1 (orig 0x0-0x280)"},
+  "best": {
+    "pr": 3993,
+    "base": "ae14cbeb4",
+    "ratio_before": 0.67945,
+    "ratio_after": 0.67975,
+    "slots_diff": 3170,
+    "bytes": 27400,
+    "normalized": 1034,
+    "raw": 1034,
+    "losses": [],
+    "differential": "388/0",
+    "unstripped_sha16": "86273945c085694c",
+    "mechanism": "holder_key in a 72 B MaybeUninit<[u64;9]> (key at +0, 40 B tail keeps hk's old frame region -0x680..-0x658) and the find_program_address (Pubkey,u8) result as a statement temporary: StackColoring merges it into the -0x2d0 host, so out-param -0x2d0, seeds -0x450 and the 4 aligned descending holder_key copies equal the original (orig 0x80-0x138 byte-identical). Marked /*shim:*/ on line 339; validate/sweep take holder_key by reference.",
+    "also_measured": {"442ae70": "0.67615 -> 0.67645", "af6ca66": "0.67825 -> 0.67855", "fd78179": "0.67855 -> 0.67885"}
+  },
+  "attempts": [
+    {"id": "v1", "desc": "task proposal: PDA-first + scoped MaybeUninit<[u64;5]> for PDA, sk and default key", "M": 1489, "bytes": 27496, "status": "rejected"},
+    {"id": "v2", "desc": "v1 with a function-long scratch", "M": 1563, "bytes": 27496, "status": "rejected"},
+    {"id": "v3", "desc": "PDA-first let holder_key=FPA(..).0", "M": 1773, "bytes": 27440, "status": "rejected"},
+    {"id": "v4", "desc": "PDA-first, main binding (hk alive)", "M": 1941, "bytes": 27440, "status": "rejected"},
+    {"id": "v5", "desc": "main order, PDA into a long-lived aligned [u64;5] scratch", "M": 2257, "bytes": 27400, "status": "neutral"},
+    {"id": "v6", "desc": "v5 PDA-first", "M": 1941, "bytes": 27440, "status": "rejected"},
+    {"id": "v7/n7/h7", "desc": "main order + 72 B holder_key slot + PDA temp", "status": "landable gain (+0.0003 on 4 bases)"},
+    {"id": "v8/g8", "desc": "PDA-first + 72 B holder_key slot", "M": 1969, "bytes": 27440, "status": "rejected (E1 +24 exact, masked +15, RA cascade T1 -249)"},
+    {"id": "v9", "desc": "v8 + early volatile sharing_config ptr", "M": 1963, "bytes": 27424, "status": "rejected"},
+    {"id": "v10/g10", "desc": "v9 + volatile curve re-read at quote_locked", "M": 1917, "bytes": 27368, "status": "rejected (greedy identical to main through decision ~450)"},
+    {"id": "ir-expect/brscan", "desc": "llvm.expect true/false on every br i1 of execute/validate/sweep/wallet on v8, e1ab, e1abcb (324 variants)", "status": "rejected, best 1963"},
+    {"id": "ir-volatile", "desc": "volatile shared flag, volatile sharing_config/curve reloads", "status": "rejected"}
+  ],
+  "rejected_mechanisms": [
+    "routing sk / Pubkey::default() through the PDA scratch (adds copies, +96 B)",
+    "short-lived PDA result without a frame placeholder (40 B frame shift, about -0.075)",
+    "PDA-first call order on main's RA basin: greedy cascade (sharing_config evicts accounts from r8; with the two fixing shims the accounts re-split after the stack-arg eviction still diverges)"
+  ],
+  "unresolved_residuals": [
+    "E1 call order (PDA first): structurally +15 masked tokens and +24 exact E1 tokens, blocked by the RA cascade into W1/S1/T1/C1",
+    "hkx 40 B tail is a placeholder for the original's target[8..32) host (-0x680, J1/J2) and 9 B new piece (-0x668/-0x660, E3)",
+    "E1 RA naming: orig stack-args r6, new ptr r7, curve r9, sharing_config and shared spilled (-0x8e0/-0x920); ours stack-args r9, sharing_config r7, shared r6"
+  ],
+  "next_ideas": [
+    "Peel: replace the [u64;9] tail with the real objects once newpieces / x24host give J1's 24 B target host and E3's 9 B new piece (then holder_key is a plain Pubkey again)",
+    "PDA-first RA re-tune: start from g10 (first ~450 greedy decisions equal main) and steer the post-eviction re-split of accounts (%0) so the C1 range at slot 58176 gets r8; candidates: give the quote_locked curve range main's start (load it right after the PDA), or weight the shared-test blocks with llvm.expect.with.probability",
+    "Combine PDA-first with E3 new-piece loads (orig keeps the new ptr in r7 across E1-E3), which changes the stack-args/new-ptr live ranges toward the original's assignment"
+  ],
+  "ledger_keys": ["0x22a10-w17-442ae70-pdaslot-<id>-v1", "0x22a10-w17-ae14cbe-pdaslot-hk72-v1", "0x22a10-w17-e679b59-pdaslot-g8-v1", "0x22a10-w17-e679b59-pdaslot-g10-v1"]
+}

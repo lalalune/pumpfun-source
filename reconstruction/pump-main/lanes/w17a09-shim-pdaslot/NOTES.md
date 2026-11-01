@@ -11,9 +11,11 @@ with the seeds at `-0x2d0` and odd-offset copies.
 
 | build | admin_cto ratio | M | slots | bytes | normalized/raw | differential |
 |---|---:|---:|---:|---:|---|---|
-| main af6ca66a2 (baseline) | 0.67825 | 2,264 | 3,220 | 27,400 | 1034/1034 | 388/0 |
-| **n7 (this PR)** | **0.67855** | 2,265 | 3,220 | 27,400 | 1034/1034, no losses | 388/0 |
-| same edit on main 442ae70 | 0.67615 -> 0.67645 | 2,257 -> 2,258 | 3,141 | 27,400 | 1034/1034 | 388/0 |
+| main ae14cbeb4 (baseline at landing) | 0.67945 | 2,268 | 3,170 | 27,400 | 1034/1034 | 388/0 |
+| **h7 (this PR, merged with ae14cbeb4)** | **0.67975** | 2,269 | 3,170 | 27,400 | 1034/1034, no losses | 388/0 |
+| same edit on main fd78179 | 0.67855 -> 0.67885 | | 3,220 | 27,400 | 1034/1034 | 388/0 |
+| same edit on main af6ca66 (n7) | 0.67825 -> 0.67855 | 2,264 -> 2,265 | 3,220 | 27,400 | 1034/1034 | 388/0 |
+| same edit on main 442ae70 (v7) | 0.67615 -> 0.67645 | 2,257 -> 2,258 | 3,141 | 27,400 | 1034/1034 | 388/0 |
 
 Mechanism (`/*shim:*/`-marked, on the existing line 339, no line added):
 
@@ -61,9 +63,23 @@ AccountInfo pointer volatile **before** the PDA (so `%1` is long and queued befo
 the curve box pointer volatile at `quote_locked` (no PRE across E1). The first ~25 greedy decisions then equal main's
 exactly (accounts r8, sharing_config r7, shared r6, stack args r9), but later decisions still diverge (T1 spill slots
 +8, C1 -69): M 1,880. A llvm.expect scan over every `br i1` of execute/validate/sweep/wallet (108 variants on each of
-v8, e1ab, e1abcb) found nothing better than e1abcb+`ex5f` 1,947. PDA-first therefore needs its own RA basin
-re-tune (like the waves that took main from 0.49 to 0.68), or must wait until E3/J1 (new pieces, target host) match
-the original so the RA converges.
+v8, e1ab, e1abcb) found nothing better than e1abcb+`ex5f` 1,947.
+
+Second divergence, traced on a clean base (main e679b59 `main4` M 2,267 vs the same shims `g10` M 1,917;
+`tools/radiff.py`, `ra/*.ra.txt`): every greedy decision outside E1 is identical up to the stack-arg load range
+`%394` evicting accounts `%0` from r8 (decision #424 in main, #451 in g10). Main then allocates the C1/W2 range at
+slot 58176 straight into the freed r8. In g10 the volatile curve re-read is a separate long range (`%15`, start slot
+3728, hint r8). It is dequeued first, evicts r9, and the re-split accounts piece keeps r8 across C1 [57952..]. The
+58176 range must then evict r7, and that cascades. In main the curve pointer for `quote_locked` is `%4@1648`. It is
+one of the first ranges dequeued (decision 7), because it starts right after the PDA call. So the curve range would
+need main's start and size without overlapping the sharing_config range. No single source spelling found here gives
+both. PDA-first therefore needs its own RA-basin re-tune, as main needed from 0.49 to 0.68, or it must wait until
+E3/J1 (new pieces, target host) match the original and the RA converges.
+
+**Caveat on the 442ae70 oracle rows:** `ir/m442.ll` (copied from w17a03's out dir) was w17a03-shim-unlockspill-2's
+variant (it carries the pump_fees volatile reload at C1), not plain main. Its M 2,258 equals that PR's 0.67645, while
+plain 442ae70 measures 2,257. The v-variants were captured from plain 442ae70, so v-vs-m442 region deltas carry
+C1 -1 from that difference. The g-rows and every real build in this file use clean bases.
 
 ## Trials (slim raw-IR oracle unless noted; main 442ae70 oracle M 2,258 = real 2,257)
 
@@ -89,6 +105,6 @@ the original so the RA converges.
 - `dis.py <fx name> [--range a-b] [--full]`: disassemble an fx `fn.bin` and diff it against the original window.
 - `reg.py <names..>`: matched tokens per REGIONS.md region; `mask.py`: exact vs frame/jump vs fully masked LCS.
 - `irs.py <base.s.ll> <spec.py>`: IR edit screen with region deltas; `brscan.py`: llvm.expect scan of every `br i1`.
-- `raseq.py <fx name>`: debug-llc greedy trace, first N assign/evict decisions (vreg@slot->reg).
+- `raseq.py <fx name>`: debug-llc greedy trace, first N assign/evict decisions (vreg@slot->reg); `radiff.py a b`: first divergent greedy decisions outside E1, keyed by live-range start slot.
 
 Ledger keys: `0x22a10-w17-442ae70-pdaslot-<id>-v1`.
