@@ -96,6 +96,19 @@ C1 -1 from that difference. The g-rows and every real build in this file use cle
 | v9 | v8 + early volatile sharing_config ptr (= IR e1ab) | 1,963 @27,424 | stack-args copy evicts accounts |
 | v10 | v9 + volatile curve re-read at quote_locked (= IR e1abcb) | 1,880 @27,408 | first 25 greedy steps = main |
 | IR | expect true/false on E1/E2 branches; volatile shared; volatile sharing_config/curve reloads | <= 1,963 | |
+| g8 / g10 | v8 / v10 on clean main e679b59 (oracle 2,267) | 1,969 / 1,917 | trace table above |
+| b9/b8/b10 | b01 (validate takes holder_key by value, w17a14) on main bf01b5f (oracle 2,270) with the hkx placeholder at 9/8/10 words | 1,836 / 1,983 / 1,732 @27,360 | V1 +8..+10 at 9/10 words, but T1 -109..-255, C1 -27..-77: resizing the placeholder does not rescue b01 |
+
+**Strongest lead (k8, PDA-first on current main bf01b5f, which already has the hkx slot):** oracle exact M 1,945 @27,384 B
+vs main 2,270 @27,400, but **fully masked (regs+frame+jumps) 2,855 vs main 2,794 = +61 structure**. Per region
+(fully masked): E1 +34, C1 +28, J1 +5, S1 +2, T1 -8, W2 -2. The exact loss is RA naming only (T1 -240, C1 -79,
+S1 -13 exact). So PDA-first is the right skeleton, and now it shrinks the code by 16 B instead of growing it 40 B. What remains is an RA-basin
+re-tune of k8: the T1/C1 spill-colour shims that main carries were tuned on the shared-first basin.
+
+**For w17a14-shim-shimwhole (b01+p8+PF composite):** its exact loss was attributed to "hk gone, holder_key/mint
++0x28" (40 B frame shift). The landed `[u64;9]` holder_key slot (#3993) is exactly that 40 B placeholder. On current
+main the PDA result is already a temporary at -0x2d0, so PF on top of main is just the statement reorder (`k8`). The
+frame below -0x658 no longer moves.
 
 ## Tools (`tools/`, experiment only)
 
