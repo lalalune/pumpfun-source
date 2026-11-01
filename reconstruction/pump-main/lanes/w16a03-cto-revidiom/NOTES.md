@@ -1,7 +1,7 @@
 # w16a03-cto-revidiom: reverse idiom dictionary for admin_cto (0x22a10)
 
 Target `0x22a10` `admin_cto::execute` (`programs/pump/src/creator/admin_cto.rs`), pinned at 27,400 B.
-Base: main 9bd38c7d5 (`$BASE` = `baseline-main-9bd38c7d5`: Pump Main 1034/1035 normalized and raw, admin_cto 0.67376,
+Base: main 9bd38c7d5 for the probes, re-checked on 599891304 where noted (`$BASE` was `baseline-main-9bd38c7d5`: Pump Main 1034/1035 normalized and raw, admin_cto 0.67376,
 3,124 slots at 27,400 B; admin_cto.rs is unchanged since 86e2a6b74). Ledger approach `revidiom`, keys
 `0x22a10-w16-9bd38c7-revidiom-*`.
 
@@ -193,6 +193,10 @@ It is still 0.106 below main, for two reasons:
   re-colour the TCF run.
 
 So the valmap family needs one more 16 B frame change and a TCF-run RA change. No ordinary spelling found here gives either.
+
+Re-check on the new main 599891304 (#3859 sweep tuple, admin_cto 0.67436). The oracle reproduces it exactly
+(`main_n`, `eq_main`, exact 2257 / rfj 2984), and `e/vb01v.py` still applies unchanged. vb01v_n is 0.5674 @27,344,
+exact 2028 / rfj 2983: the same picture, with structure one below main.
 
 ### 4.5 Where main makes shapes the original never makes (`tools/alien.py`, `data/alien-shapes-main.txt`)
 

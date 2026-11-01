@@ -162,6 +162,12 @@
    "edit": "vb01v + target-only Ok round trip",
    "ratio": 0.55567,
    "bytes": 27376
+  },
+  {
+   "name": "vb01v_n",
+   "edit": "vb01v on new main 599891304",
+   "ratio": 0.5674,
+   "bytes": 27344
   }
  ],
  "rejected_mechanisms": [
@@ -188,5 +194,19 @@
   "lcs_exact": 2029,
   "lcs_rfj": 2984,
   "edits": "e/vb01v.py"
+ },
+ "base_recheck": {
+  "main": "599891304",
+  "admin_cto": {
+   "ratio": 0.67436,
+   "slots_diff": 3141,
+   "bytes": 27400
+  },
+  "vb01v": {
+   "ratio": 0.5674,
+   "bytes": 27344,
+   "lcs_exact": 2028,
+   "lcs_rfj": 2983
+  }
  }
 }
