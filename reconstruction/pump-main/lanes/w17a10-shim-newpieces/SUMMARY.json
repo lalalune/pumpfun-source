@@ -1,0 +1,59 @@
+{
+  "lane": "w17a10-shim-newpieces",
+  "wave": 17,
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27,400 B",
+  "angle": "E3 + J1 + C1: the original's SROA pieces of the `new` stack argument (tag, 7 B, u64@8, u64@16, 9 B) loaded before the mayhem test and carried through J1 into the packed Option<Pubkey> CPI argument at [-0x651,-0x630)",
+  "bases": {
+    "442ae70ca": {"M": 2257, "ratio": 0.67615, "bytes": 27400},
+    "af6ca66a2": {"M": 2264, "ratio": 0.67825, "bytes": 27400},
+    "fd78179b8 (main at finish)": {"ratio": 0.67855, "slots": 3220}
+  },
+  "result": "no gain; notes only. Every shim form of the piece flow collapses (M 1,445-1,767 vs 2,264) through one placement cliff at the sweep join",
+  "best_zero_loss": null,
+  "best_structural": {
+    "form": "e79v + vl:validate:28014",
+    "M": 1767,
+    "bytes": 27392,
+    "note": "restores main's block layout (masked diff to main = the intended E3/J1/C1 changes only, 3,209/3,337); exact loss is register names and the frame shift from the two entry allocas"
+  },
+  "attempts": [
+    {"key": "0x22a10-w17-442ae70-newpieces-c1split-v1", "form": "C1 CPI arg piecewise from sharing_update16 (c1a-d)", "M": 1458, "bytes": 27712},
+    {"key": "0x22a10-w17-442ae70-newpieces-entryvol-w8w16-v1", "form": "volatile new+8/new+16 at the CtoState site feeding the CPI arg (x3a-g); entry loads alone x3h", "M": 1603, "bytes": 27704},
+    {"key": "0x22a10-w17-442ae70-newpieces-escape-fa-v1", "form": "black_box(&new) after the args copy, validate reads args.0 (Fa), with/without c1a", "M": 1516, "bytes": 27536},
+    {"key": "0x22a10-w17-442ae70-newpieces-c1a-bwsweep-v1", "form": "c1a + llvm.expect.i1 on every br i1 of pre-opt sweep and execute", "M": 1470, "bytes": 27736},
+    {"key": "0x22a10-w17-af6ca66-newpieces-c1a-rerun-v1", "form": "c1a/esc/x3 re-run on af6ca66", "M": 1518, "bytes": 27552},
+    {"key": "0x22a10-w17-af6ca66-newpieces-j1arm-v1", "form": "shared arm builds sharing_update from pieces (J1 -> C1 only)", "M": 1565, "bytes": 27720},
+    {"key": "0x22a10-w17-af6ca66-newpieces-e79-v1", "form": "c1a + volatile entry 7 B / 9 B copies into allocas (original E3 piece set)", "M": 1445, "bytes": 27456},
+    {"key": "0x22a10-w17-af6ca66-newpieces-e79v-shimscreen-v1", "form": "906 w17a06 single shim edits on e79v (+141 on c1a)", "M": 1767, "bytes": 27392},
+    {"key": "0x22a10-w17-af6ca66-newpieces-entry-dead-probes-v2", "form": "dead probes at the CtoState site (volatile byte of new, fence, dead copies)", "M": 1631, "bytes": 27536}
+  ],
+  "mechanisms_found": [
+    "A C1-only piecewise construction of the CPI argument (i64 reads at +8/+16) makes SROA split the sharing payload back through _71, the arms and the args copy: tag/new+8/new+16 are then loaded at the original E3 spot (+0x540..0x550, orig +0x4d8/+0x508/+0x518, r9 included).",
+    "Volatile memcpy of new+1 (7 B) and new+24 (9 B) into allocas at the CtoState site keeps the copies (MemCpyOpt cannot forward); the 9 B lowers exactly like the original (ldxb +0x20, ldxdw +0x18), the 7 B as b/h/w (volatile memcpy cannot overlap).",
+    "Placement cliff: main lays out the sweep join bb58.i (12 preds) after bb87.i (TCF Ok) only because MBP's second pass sees a non-cold CFG conflict when the 660 to_string exit asks for it. Any extra value live across the join makes greedy RA add a reload block (accounts pointer into r5) for 5 preds, the conflict disappears, and the ~800-insn sharing CPI region (bb58.i -> bb90 -> bb35) follows the 660 exit at ~0x2478.",
+    "Earlier (442ae70) the same flip went through bb34 (skip test): main tail-merges the three wallet msg! sol_log_ tails in front of it; extra live values add reloads, bb34 is tail-duplicated and the chains change.",
+    "The CtoState site is chaotic for llc: a single dead volatile byte load of new changes the post-opt IR by that one line and costs 633 M (+136 B)."
+  ],
+  "rejected_mechanisms": [
+    "C1 piecewise CPI argument (any order/type, volatile or not)",
+    "volatile entry loads of new's middle words feeding C1 or dead",
+    "J1-only piece construction of sharing_update",
+    "black_box(&new) / Fa (validate reads the args copy)",
+    "entry 7 B / 9 B allocas (volatile or plain, 10 alloca positions)",
+    "branch weights on every br i1 of sweep/execute as a placement pin",
+    "660 amount==0 weight as a pin (costs 114 M on main)"
+  ],
+  "unresolved_residuals": [
+    "E3: original loads all new pieces before the mayhem test; main loads the tag only (masked match 50/90; e79v 56/90)",
+    "J1: original copies entry pieces e7/e9 -> -0x538/-0x548 in the shared arm; main copies the curve creator pieces and the 32 B payload",
+    "C1: original CPI argument from 7 B/u64 spill/u64 spill/9 B pieces; main from a 32 B alloca (4 aligned u64)",
+    "sweep join: original tail-duplicates the jne r7,2 test into the native-return predecessor (orig +0x24a8); main does not"
+  ],
+  "next_ideas": [
+    "Start from e79v + vl:validate:28014 (M 1,767, main's layout restored) and re-tune: frame pass placing e7/e9 at the original -0x658/-0x668 (where main keeps target pieces), then RA nudge/weight searches (w17a04 weighted traps, w17a06 volatile reloads) on that base; a multi-lane project",
+    "Find what makes the sweep join keep a hot chain-tail predecessor when RA adds reloads (a pin for bb58.i), so structural changes upstream stop flipping the sharing CPI region",
+    "Screen structural candidates by tools/mdiff.py layout and masked region matches (tools/regm.py) before exact M"
+  ],
+  "tools": ["tools/ired.py", "tools/bsweep.py", "tools/dis.py", "tools/rng.py", "tools/mdiff.py", "tools/regm.py", "tools/llcopt.py", "tools/split.py", "ex/*.py"],
+  "landed": false
+}
