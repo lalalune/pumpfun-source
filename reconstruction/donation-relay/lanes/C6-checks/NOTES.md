@@ -8,9 +8,11 @@ Base: `origin/swarm/w20-relay-scout` at `dfcbfc6ae`. Numbers are from the Mac ro
 | 1 | `pub fn native_mint_for_program` | 547 | 777,728 | 0x227e8, 0x22b78 | none |
 | 2 | transfer fee test joined with `\|` in `typed_mint_safe` | 548 | 782,176 | 0x23230 | none |
 
+Linux route (`linux-build.sh`, then `relay.py measure`) at the source of step 2: 550 functions, 782,896 B, zero losses. All three functions are `strict` there too, and 0xb3278 and 0xbcac0 are the two Linux-only gains the brief expects.
+
 ## 0x227e8, 0x22b78: visibility
 
-The target keeps the lookup out of line although it has one caller. As a private `fn` it inlines into `native_mint_pair`. As `pub fn` it stays out of line, and both functions are exact on the first build. The `require!` shape was not needed.
+The target keeps the lookup out of line although it has one caller. As a private `fn` it inlines into `native_mint_pair`. As `pub fn` it stays out of line (`-C remark=inline`: cost 345, threshold 250), and both functions are exact on the first build. The `require!` shape was not needed.
 
 ## 0x23230: the Default Account State extension has to inline
 
@@ -32,8 +34,8 @@ Variants of the fee block, measured against the 540 target tokens:
 | `auth.is_some() \| (older!=0) \| (newer!=0)` | 1 | 4,448 | **540, exact** |
 | `let auth=..is_some(); if (older,newer)!=(0,0) \|\| auth` | 1 | 4,448 | 537 |
 | `let auth=..is_some(); let older; let newer; if auth \|\| older!=0 \|\| newer!=0` | 1 | 4,448 | 536 |
-| `let auth=..; if older!=0 \|\| newer!=0 \|\| auth.is_some()` | 2 | 3,896 | 372 |
-| `let auth=..; let older; let newer` in the same order, without eager `is_some` | 2 | 3,896 | 370 |
+| `let auth=..; let older; let newer; if older!=0 \|\| newer!=0 \|\| auth.is_some()` | 2 | 3,896 | 372 |
+| `let auth=..; if older!=0 \|\| newer!=0 \|\| auth.is_some()` | 2 | 3,896 | 370 |
 | `let safe=..is_none() && older==0 && newer==0; if !safe` | 2 | 3,896 | 349 |
 
 ## For other lanes
