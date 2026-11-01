@@ -1,0 +1,112 @@
+{
+  "schema": "pump-pass114-candidate4162v2-observational-cross-program-binding-v1",
+  "status": "PASS",
+  "actual_build_revision": "fcc2dc457b8c408cfec21ce8034b33217d6b5cf8",
+  "immutable_execution_checkout_revision": "fcc2dc457b8c408cfec21ce8034b33217d6b5cf8",
+  "source_context_v3_sha256": "75dff1fae41b6c2c714424deda198546f7543628937b635bfe4dc25292223629",
+  "source_context_file_count": 311,
+  "source_context_equals_actual_build_source": true,
+  "root_actual_build_link": {
+    "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162v2/build-result.json",
+    "sha256": "0f69178c16077711eb4581bb139777351ec63eaeeb3a8e3707668de9fe4deb3d",
+    "source_sha256": "75dff1fae41b6c2c714424deda198546f7543628937b635bfe4dc25292223629",
+    "candidate_sha256": "c5caa63750d2615a93b3c25fae2154e4949d60ad559b9f61c1446f180a4de15f",
+    "unstripped_sha256": "176a8f64d84f45288818326bba4bd3cfd6941d4a83a050038ed7535fb7b74dd4",
+    "scope": "Independent actual maintained root build; packet itself makes no source-build claim."
+  },
+  "candidate_sha256": "c5caa63750d2615a93b3c25fae2154e4949d60ad559b9f61c1446f180a4de15f",
+  "qualified_producer_inputs_unchanged": true,
+  "producer_input_sha256": {
+    "evidence/upstream/pump.json": "7616681ea557975f9f623ac211080f22a93060781eaf4765b0a488d980997207",
+    "evidence/upstream/pump_amm.json": "b7d8c57a4d9c4dd0109a9ab893052352333252d4eedced10ac091d4d66cab89b",
+    "reconstruction/verification/pump-admin-cto-stateful/lifecycle.py": "e8b64d53f5156892f33fa821423667647e9c3f2362e7740db342cdde5a700dae",
+    "reconstruction/verification/pump-cross-program-fee-lifecycle/candidate-provenance.json": "f7f054afe010f467b294472cb9396758baebef9cc70248da273ad6eb00404893",
+    "reconstruction/verification/pump-cross-program-fee-lifecycle/lifecycle.py": "e4e99a636d978bfc6394e08da08bd75eb1904797943136eb0977427a97f967fe",
+    "reconstruction/verification/pump-cross-program-fee-lifecycle/test_lifecycle.py": "e4cb969668e7725f180293cb016140724aed7f36e4c5e4f8650fa452a04d8969",
+    "reconstruction/verification/pump-cross-program-fee-lifecycle/verify.py": "7c3cc3212c9e4089e71bd37323314e2e10530068ea4a925bdcd4e1754419021f",
+    "research/imported-lab/analysis/pump_fun/amm-v2-trade-fixture.json": "2e775505852caf55203c826ee08b9341aa275f52f59a933c4fb0740535ee316f",
+    "research/imported-lab/analysis/pump_fun/config-snapshot.json": "17b886a6b4aa7fdc89f2fca9a1b67b318d33998794da59fe4df1fe89ca70bd27",
+    "scripts/pump_differential_output.py": "2181582d3cfdd42b8713adfb1dc6ed8072220493b835304282e187232897a5f7"
+  },
+  "packet_candidate_provenance": {
+    "candidate_sha256": "c5caa63750d2615a93b3c25fae2154e4949d60ad559b9f61c1446f180a4de15f",
+    "limits": "Supplied immutable binary only; this packet establishes no source/build linkage.",
+    "schema": "supplied-candidate-input-v1"
+  },
+  "packet_source_binding": {
+    "candidate_source_revision": null,
+    "current_source_manifest_role": "review_context_only"
+  },
+  "report_sha256": "358362cb53e172853867dff36e671ec40b6548aaa342afe37057114a2b09e659",
+  "compressed_report_sha256": "4c68a2b64864cc996339ba453fc55f639ebc7c7d8a045bf254f5d9ae4144b2fc",
+  "classification": "equal_observed_behavior",
+  "transactions": {
+    "original": {
+      "executed_transactions": 11,
+      "valid_signature_vectors": 11,
+      "individual_valid_signatures": 14,
+      "successes": 10,
+      "expected_failures": [
+        {
+          "step": "atomic-unswept-B-to-C",
+          "error": "TransactionErrorInstructionError((2, Tagged(InstructionErrorCustom(6081))))",
+          "rollback_nonfee_equal": true
+        }
+      ]
+    },
+    "candidate": {
+      "executed_transactions": 11,
+      "valid_signature_vectors": 11,
+      "individual_valid_signatures": 14,
+      "successes": 10,
+      "expected_failures": [
+        {
+          "step": "atomic-unswept-B-to-C",
+          "error": "TransactionErrorInstructionError((2, Tagged(InstructionErrorCustom(6081))))",
+          "rollback_nonfee_equal": true
+        }
+      ]
+    }
+  },
+  "signed_transaction_vectors_verified": 22,
+  "individual_valid_signatures": 28,
+  "snapshot_membership_count": 54,
+  "negative_controls": {
+    "after": true,
+    "error": true,
+    "events": true,
+    "inner_instructions": true
+  },
+  "program_invocations": {
+    "ComputeBudget111111111111111111111111111111": 22,
+    "pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA": 56,
+    "11111111111111111111111111111111": 2,
+    "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA": 36,
+    "6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P": 10,
+    "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL": 6
+  },
+  "fees_cpi_observed": false,
+  "independent_replay": {
+    "verified": true,
+    "problems": [],
+    "deterministic_replay_equal": true
+  },
+  "scope": "Fresh finite synthetic signed lifecycle observation on actual candidate4162v2 image. Latest-main a596 merge gate was PENDING at runtime authorization. This evidence does not admit merge or publication; packet remains supplied-binary-only/sourceunknown and actual build linkage is separate.",
+  "limits": [
+    "20 successful and 2 expected-failure transactions across both images; no exhaustive semantics or wholePumpbyteidentity acceptance.",
+    "Fees executable is loaded but this fixture does not invoke Fees.",
+    "No initializer/incentive/oldV3/extension campaigns executed."
+  ],
+  "authored_stage_qualification_link": {
+    "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162v2/authored-stage-qualification.json",
+    "sha256": "73b6da61a202614984f4e356b416c573d74f828cb3d27b6e9d1c592a2023518a"
+  },
+  "runtime_start_admission_link": {
+    "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162v2/runtime/start-admission.json",
+    "sha256": "3c3e0ce708746260c03d3198c16057a743587346284e43481c4ec0f74d58b61e"
+  },
+  "current_main_merge_gate_at_runtime_authorization": "PENDING_LATEST_MAIN_A596",
+  "not_merge_or_publication_admission": true,
+  "prior_physical_baseline_passed": "9357bd934134fc1d63bed6aea66ab435526359f6",
+  "final_current_main_qualification_link": null
+}

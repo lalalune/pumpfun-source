@@ -1,0 +1,193 @@
+{
+  "schema": "pump-completion-pass114-v1",
+  "date": "2026-11-01",
+  "selection": "candidate",
+  "built_revision": "fcc2dc457b8c408cfec21ce8034b33217d6b5cf8",
+  "validated_merged_revision": "b4331b4d16369ce0d24bd1a3ad4c1eaa091dad97",
+  "recipe": "identity",
+  "source_schema": "pump-source-inputs-v3",
+  "source_sha256": "75dff1fae41b6c2c714424deda198546f7543628937b635bfe4dc25292223629",
+  "source_files": 311,
+  "source_directories": 10,
+  "stripped_sha256": "c5caa63750d2615a93b3c25fae2154e4949d60ad559b9f61c1446f180a4de15f",
+  "unstripped_sha256": "176a8f64d84f45288818326bba4bd3cfd6941d4a83a050038ed7535fb7b74dd4",
+  "runtime_valid": true,
+  "stack_warnings": [],
+  "baseline_checkpoint": "../completion-pass113-20261101",
+  "baseline_revision": "9f0f072311eae20cf297be59e1553e8888f29db9",
+  "baseline_document_revision": "8c402aa9543703a23dca200c1ac6af9e57c71003",
+  "baseline_file_sha256": {
+    "README.md": "eb8db0fd4b640815beab1af88e873a605b04ca1a7438e6dfff5a8f843d8a9deb",
+    "admin-runtime.json.gz": "02b8f0056dde98211161ac5340d7a7308c9ef8d7be20c6482ff45b7288a5dac9",
+    "build-qualification.json": "1c94bf1c4f21ee4d943ddd560aa7f2311307e977ccfbcfa630cd58426a021e72",
+    "build-start.json": "45582c63310481e23fbc8fe47296ffd59bf1009a16597e2edc7d5ee19663d20d",
+    "build.json": "64800aa105fa23321c6061d62b1b80a5f0752d47185b9e159853a6fd17f3831f",
+    "cross-program-binding.json": "e4ec4141f1f984a3b7cf05c4c249caef05a6cef0f090d42906b888e1760767b2",
+    "cross-program-runtime.json.gz": "0cdf55ff576216f04050da7a7696dd3724255d33b61c57cc7f18c73cac14dea9",
+    "input-bindings.json": "0cf6772c10e6854d5ba90d66eb2e67577ac806a8357dfa67b026acaa4a240ec5",
+    "proof-index.json": "96d48eccc7795942dedaaa7e4e01895af8c7ba2f908cf226bcf4e7e2ae51057b",
+    "receipt-peer-review.json": "7fe407e052649555b7d7148e3a9606c8d9f362e2bb83969d666623ce9fc338dc",
+    "runtime-validation.json": "680b948c40ec036635a95bbfb6014ddfc50ff93eac198de992b000e04e5de923",
+    "score.json.gz": "be7b9248c4a59797bf572454ea7a84e7a1c8443e6f52d634341e4184be1fd921",
+    "semantic-review.json": "23a135d4e1131c72fa3b486d35fda5f6ad063ebd23fe8d514bd176084b9b5416",
+    "source-inputs.json": "22fb0fd183579a42e5c6024b1bf652601ebfcd4029971984bb47078dcc42404e",
+    "source-peer-review.json": "811107121b7f16d068e63c710009a7ef44d97a82645308460f789d4c3091b552",
+    "summary.json": "0195f113349de4833b2ae3509bb0b0bf8125f1a59e765dee4132348ceeaf0da9",
+    "target-metric.json": "e3cc42c8229f509492c75d6cbfa43dde6dc9ce767b50a6335a348bbec32fcd6b"
+  },
+  "pump": {
+    "raw": 1034,
+    "normalized": 1034,
+    "total": 1035,
+    "matched_code_bytes": 1764808,
+    "total_code_bytes": 1792208,
+    "unmatched": [
+      {
+        "address": "0x22a10",
+        "symbol": "admin_cto::execute",
+        "bytes": 27400
+      }
+    ],
+    "matched_percent": 99.9
+  },
+  "aggregate": {
+    "raw": 3337,
+    "normalized": 3337,
+    "total": 3338,
+    "matched_code_bytes": 5185728,
+    "total_code_bytes": 5213128,
+    "whole_meaningful_elf_equal_programs": 4,
+    "programs": 5,
+    "matched_percent": 99.97,
+    "matched_code_percent": 99.47
+  },
+  "comparison": {
+    "gains": [],
+    "losses": [],
+    "raw_gains": [],
+    "raw_losses": []
+  },
+  "remaining_window": {
+    "window": "0x22a10",
+    "window_bytes": 27400,
+    "symbol": "pump_recovered::admin_cto::execute",
+    "cand_start": "0x22a10",
+    "cand_bytes": 27400,
+    "normalized_equal": false,
+    "raw_equal": false,
+    "ratio": 0.71548,
+    "calls_original": [
+      154,
+      3
+    ],
+    "calls_candidate": [
+      154,
+      3
+    ],
+    "call_counts_original": {
+      "internal": 154,
+      "syscall_or_relocated": 3,
+      "indirect": 0
+    },
+    "call_counts_candidate": {
+      "internal": 154,
+      "syscall_or_relocated": 3,
+      "indirect": 0
+    },
+    "normalized_field_differences": {
+      "comparable": false,
+      "reason": "instruction boundaries or byte lengths differ"
+    },
+    "slots_diff": 3289,
+    "first_diff_offsets": [
+      "0x0",
+      "0x8",
+      "0x10",
+      "0x80",
+      "0x88",
+      "0x90",
+      "0x98",
+      "0xa0",
+      "0xa8",
+      "0xb0",
+      "0xb8",
+      "0xc0"
+    ]
+  },
+  "partial_progress": {
+    "original_tokens": 3339,
+    "candidate_tokens": 3339,
+    "matched_tokens": 2389,
+    "ratio": 0.71548,
+    "baseline_matched_tokens": 2338,
+    "matched_token_change": 51,
+    "baseline_ratio": 0.70021,
+    "baseline_positions": 3189,
+    "candidate_positions": 3289,
+    "positional_difference_change": 100,
+    "fresh_main_matched_tokens": 2367,
+    "fresh_main_token_change": 22,
+    "fresh_main_ratio": 0.70889,
+    "fresh_main_built_revision": "665ffe46b1896a03e056dcffea8ed9826b8f58f1"
+  },
+  "scoring": {
+    "revision": "fcc2dc457b8c408cfec21ce8034b33217d6b5cf8",
+    "input_sha256": {
+      "reconstruction/harness/fastbuild.py": "c98de708d063186373b092de893235bef4dd9cf62940fd9c47fadae461efed00",
+      "reconstruction/harness/source_inputs.py": "6fde8e438f119aa3ecf003bc71a12fb7da0640cfea241216cba47a242e8cd2fc",
+      "reconstruction/harness/build_process.py": "88b61b7dfecd077f97f3a093b9348078067f9fdea07d9efccb0cb324d094d517",
+      "reconstruction/harness/link_order.py": "53de3cf5e6ff004b03319dc530ef4902d3b67734aced025fbc1957846d452e81",
+      "reconstruction/harness/score.py": "6eae59ba87809bdd6aa42d6227c5598d8ea2196051bf0d796e8020bdb14df714",
+      "reconstruction/harness/score_admission.py": "885b4b55229e3d87086b93c4e8227da8e4ec2713ccd6691fa40a7538d66c3a45",
+      "reconstruction/harness/elf_symbols.py": "f7a69a4b5324959398365b63f20ea9dda8eab223d8790a608c778549d3b966c0",
+      "reconstruction/harness/instruction_stream.py": "be6a3f3a0274d4ae819a6288293b5a1f9b040a322a0414a240217ab96a3dee45",
+      "reconstruction/harness/llvm_tools.py": "306a50b2ba57f350e250d7c7f596ac400627ecfd24248b2291578b5ddf3fe8af",
+      "reconstruction/harness/original_input.py": "9d00b5c253405cec4d2ef292086c6e88d758bd3fe7f8c6a3cba23af114f01ade",
+      "reconstruction/harness/target_metric.py": "909f091fc2bfc1a252f8a7bd557dfd0c38f870bdf6898b0e3c93ec7db195f6a4",
+      "reconstruction/harness/win.py": "8862046dcb0e01673166e68a0b0e5122be4738f0780bcf2f58afc8416bd8cdea",
+      "reconstruction/harness/compare_scores.py": "e59024567db9b2373fe01d377f42308554434d182f5981153cd6814412245b74",
+      "reconstruction/base/functions.tsv": "fb2c0a47514567d65eb45c1e268dacd5291e4659bb7dceb575a767dc20bcaff8",
+      "evidence/original/pump/deployed.so": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
+      "reconstruction/harness/pump_link_lld.py": "03b61b39cf5e85512086c87298ac302cec78378b00c09c594715d18c0aa86e5b",
+      "reconstruction/harness/pump_link_lld.sh": "f613b208d47e261e8690fb233e36bd0f0b364ba075c7f6f55e5bf9a435f7fc59",
+      "reconstruction/harness/sbf_default.ld": "5e8370b9380f55411d827721e2e43c8cfd1eac71d1383e20b938397bc0bd82c3",
+      "reconstruction/harness/pump_physical_source_wrapper.py": "e9493709faefa9b829ebb63004e1251e96e9be5456e69174ffaeeec836d5d72a",
+      "reconstruction/harness/pump_physical_source_wrapper.sh": "0636b61fbbb2f5022f5ce4e5f4cc580617ac2758a95cc75eff84056295f61527"
+    }
+  },
+  "source_proofs": "source-proof-index.json",
+  "runtime": {
+    "fresh_VM_case_pairs": 388,
+    "signed_transaction_vectors_verified": 776,
+    "candidate_sha256": "c5caa63750d2615a93b3c25fae2154e4949d60ad559b9f61c1446f180a4de15f",
+    "mismatches": 0,
+    "negative_controls": 7,
+    "report": "admin-runtime.json.gz",
+    "validation": "runtime-validation.json",
+    "reused": false,
+    "scope": "Signed synthetic captured Pump admin_cto calling Fees by genuine CPI. Pool authority nonsigner at transaction boundary; no privileged signer injection. Not full program identity."
+  },
+  "cross_program": {
+    "transactions": 22,
+    "individual_signatures": 28,
+    "negative_controls": 4,
+    "candidate_sha256": "c5caa63750d2615a93b3c25fae2154e4949d60ad559b9f61c1446f180a4de15f",
+    "binding": "cross-program-binding.json",
+    "report": "cross-program-runtime.json.gz",
+    "replay": true
+  },
+  "limits": [
+    "Root independently verified actual merged source HEAD, latest remote main, clean tree, accepted source ancestry and complete build-source equality before publication.",
+    "Exact FCC instruction-token progress is2389/3339 (.71548), versus current physical6652367/.70889; positional differences worsen3091 to3289 (+198).",
+    "Compared with immutable CP113, token similarity rises .70021/2338 to .71548/2389 (+51); positions3189 to3289 (+100). No new exact window or code-byte completion is claimed.",
+    "Fresh v2 candidate c5caa runtime/cross outcomes only; earlier6acf/02462 and other baseline outcomes remain historical.",
+    "Runtime/cross retain truthful pending-at-authorization and not_merge_or_publication_admission stage fields; this final root gate separately establishes current-main qualification after actual merge.",
+    "Actual compiler/type/model proofs retain pinned target/live-context/limited model scopes; dependency source bodies and stale raw/probe.o are not copied as proof.",
+    "Current FCC source peers retain their recorded a596/earlier source review stage scopes; this selected final qualification-vs-main665 separately establishes latest-main score applicability. No historical peer is rewritten.",
+    "Partial instruction-token progress is excluded from completed code-byte totals.",
+    "Whole Pump meaningful ELF equality remains unproved; the other four selections are retained without new identity acceptance.",
+    "Finite synthetic runtime, compiler-specific layout/models and valid-live-Anchor-context assumptions do not prove exhaustive semantics or historical source identity.",
+    "No old initializer, incentive/claim or extension campaign is reopened; no private oracle or post-optimization source/IR edit is used.",
+    "Hosted checks are separate; pending CI is not successful CI."
+  ]
+}

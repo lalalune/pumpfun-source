@@ -1,0 +1,95 @@
+{
+  "schema": "pump-pass114-4162-updated-fcc-independent-source-peer-v1",
+  "status": "PASS_BOUNDED_EXACT_HEAD_SOURCE_BUILD_SCORE_RUNTIME_SEPARATE",
+  "PR": 4162,
+  "reviewed_head": "fcc2dc457b8c408cfec21ce8034b33217d6b5cf8",
+  "previous_independently_reviewed_head": "6acf72dfa8a0beae3dc80eb24cd50fb804dca0c0",
+  "current_main_ancestor": "9357bd934134fc1d63bed6aea66ab435526359f6",
+  "reviewed_program_path": "programs/pump/src/creator/admin_cto.rs",
+  "reviewed_program_source_sha256": "e57333592ac09f21b45c5847f2580f525a1e44399ed894f27ac6750531744578",
+  "source_line_count": 772,
+  "changed_from_previous_review_source_lines": [
+    8,
+    312,
+    339,
+    558,
+    647,
+    745,
+    749,
+    756,
+    758,
+    767
+  ],
+  "full_metadata_body_commits_all_effective_paths_and_complete_update_diff_read": true,
+  "full_body_review": "Complete6acf772line body independently reviewed previously; everyunchangedrawline checked identical; eachof10changedrawlines andall166lineadded-readabletext reviewed. Effectivecurrent935\u2192fccdiffsnapshotretained; current935isFCCancestor.",
+  "findings": [],
+  "analysis": [
+    {
+      "change": "rcw_nonzero_assume_and_clone_run",
+      "reason": "Newllvm.assume(s!=0) is same previousstandalone4160shape and allrcwarguments are liveRc fields. The increment/write/overflowtrap/readclone shape and AccountInfo field identities/counts/order are unchanged. Probabilitiesremain1/(D+1) forD3/40/20/14 plus currentT1constants, allfinite[0,1]. No general RustRclayout oroverflow equivalence claimed."
+    },
+    {
+      "change": "mayhem_after_sharing_key_copy",
+      "reason": "Same reviewed4161change: sharing_config key now copied via existingptp25identity, then mayhemloaded throughptp24identity immediatelybeforevalidate. NoCPI/accountmutation/wrappermove between sites; initializedkey/ref andmayhem remain same; mayhemfirstsemanticerror preserved."
+    },
+    {
+      "change": "walletcoin_empty_tailstores",
+      "reason": "data_is_empty evaluated once at samewallet point, coin_present equals negation. Sixvolatilewrites store initializedbool atbyte64ofactual72Bholderallocation. This region isdisjointfromkey[0,32), signer[32,48), asl[48,56),cashback[56,64). No scratch read affectsflow; laterendbumpstoresoverwrite samebyteonlyafterwalletuse. Aligment1/boolvalue0or1valid."
+    },
+    {
+      "change": "earlyaccounts_pointer_store",
+      "reason": "Accounts*constAdminCto stored intail[48,56) before sweep, and sharingclone reloads nowconsume thatinitialization. StableliveContext aggregate address isunchanged bysynchronousaccountCPIs; private rawtailnotexposed. Allloadsfinishbeforelatercurve&mut. Replacesoneinitializeddiscardedprefixread, noresults/error/CPI change."
+    },
+    {
+      "change": "cashback_unmasked_lowbyte_store",
+      "reason": "cashbackasu64 initialized0or1 storedtotail[56,64) beforesharing, rereadlowu8stored viaaddr_of_mutcast toboolfield. PinnedlittleendianSBPF lowbyteis0or1, so boolvalidvaluepreserved. Nootherwrites overlap thisregion and no wrongtypedwholeallocationread is introduced."
+    },
+    {
+      "change": "late_read_repayment_and_currentClockErr",
+      "reason": "Removes late758prefixread and restores current935Clock::get.map_err closurewithsameinitializedprefixread returningtheidenticalerror; currenterrorprecedence/eventvalues remain. InvalidCreator fillerbudgetisactual9reads (previous6acf8); alltargetlifetime/keyconstruction/errors unchanged. Countsareoneconcreteauthoredsource, not summedoracleprediction."
+    },
+    {
+      "change": "retainedintrinsics_storage_event",
+      "reason": "Typedcurve.creator=target, holderOptionboolpt8mask,7+25targetarrays/lifetimes,cvk+165initializedboolread and exactlockedAnchoremitCPIexpansion with2tailbumpwrites are byte-identical to priorfull6acfsource. No newlayout/targetpayload/provenancecontract beyondpreviousspecificreviews."
+    }
+  ],
+  "prior_bounded_reviews": [
+    {
+      "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/review4160-62/4162/source-review.json": "5b472bf0207ab41c88fc407336c64e26bc922601df695cdf186d26fd7311a0b7"
+    },
+    {
+      "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/review4160-62/4160/source-review.json": "06762934860285cb41ef74bef46da9a05123c8667eff6bb5827eda939648228f"
+    },
+    {
+      "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/review4160-62/4160-new5def/source-review.json": "e28ade4bb28cc34a5101e03c85a185cd64e5b3adf2d55f4d21d8bd2910ddb500"
+    },
+    {
+      "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/review4160-62/4161/source-review.json": "523e646b6c253bdc2a46d50022b5408f3108bc96cb1c9c279a6dfbc906edad1d"
+    },
+    {
+      "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/late-pr-reviews/4155-b3bd88ba6aea/source-review.json": "0d773e1f67dfb88243328c45e96fb9c63fdab31eef6c94987453070aa1c9d67a"
+    }
+  ],
+  "input_sha256": {
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/review4162v2/metadata.json": "901bf6230f39db25fcee8220d999acf18918e4f27f25cc0b61b77ba73b0d98bb",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/review4162v2/head-admin_cto.rs": "e57333592ac09f21b45c5847f2580f525a1e44399ed894f27ac6750531744578",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/review4162v2/previous6acf-admin_cto.rs": "9b2fedfb379b682f7f8d2ad6057357497ae701e96eee9ea526d5613217b4761e",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/review4162v2/current9357-admin_cto.rs": "179ebff89247aae31b655f7f2abd05b6fe44e721f69197d8c6d37181b97af54b",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/review4162v2/update-from-reviewed6acf.diff": "a400d448e4d08bed58aac32350e2c9beb87399454c2050f5b3c772b68ebc3743",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/review4162v2/vs-current9357.diff": "a0fe8176be67e4c5db55b5bdbc98b8194fdd4665d532c97d0f899142fee5a7be",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/root/pr-4162-update-from-built.diff": "8c4ad8af4263161868dab3febddd367517946987824f7023cbb681df27fe6c06",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/root/4162-updated-added-readable.txt": "faa614f9d89794f6ede9663cbf05c7b5ad40553c6ca0ffb58e8e7c91869e8756"
+  },
+  "limits": [
+    "Onlyexactfccnewheadsource reviewed; nextheadmove requiresdelta/requalification.",
+    "Pinnedofficialcompiler/target representations, validinitializedliveAnchoraccounts,Rc,Boxandlocalrefs; notportableunsafeRustorMMIO/concurrentvolatiletraceequivalence.",
+    "Actualauthoredfccimage requiresnewmaintainedordinarybuild/fullscore/no-loss andcurrent935strictgain; old6acfbuild/runtimeproofsremainhistoricalandcannotqualifyfcc.",
+    "Authorclaims.71548/2389/3289positionsareunaccepteduntilactualfreshmeasurement; positionscanworsenwhiletokengainimproves."
+  ],
+  "execution": {
+    "SBF_builds_by_source_review": 0,
+    "VM_transactions": 0,
+    "repository_source_edits": false,
+    "remote_calls": 0
+  }
+}

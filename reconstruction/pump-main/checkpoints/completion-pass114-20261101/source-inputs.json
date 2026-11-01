@@ -1,0 +1,2195 @@
+{
+  "schema": "pump-source-inputs-v3",
+  "sha256": "75dff1fae41b6c2c714424deda198546f7543628937b635bfe4dc25292223629",
+  "files": [
+    {
+      "path": "Cargo.lock",
+      "bytes": 70825,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "65498a93b0e9c1c11f292ccb71b0ce6392d3d568783859e23a2fc8142da545da"
+    },
+    {
+      "path": "Cargo.toml",
+      "bytes": 710,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "de2a8a93b5c2de8bfe3719bb6ece3fc5d9f71e4e10ef7086596cbd67165bf843"
+    },
+    {
+      "path": "idls/mayhem.json",
+      "bytes": 2127,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "3f43967ad791c4dcc976604d9a89279a7ed2d82fefd073431d2fc6c5fcdc8096"
+    },
+    {
+      "path": "idls/pump_amm.json",
+      "bytes": 185086,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "70befca4b03a883a3db23f91985b0ec9529b45c53d3d4b9afd016582ef071b35"
+    },
+    {
+      "path": "idls/pump_fees.json",
+      "bytes": 136538,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "6b9fa3eccc6e06273076a47b581f9fcb9e531bb7c3c88acbcd44db55a4002b29"
+    },
+    {
+      "path": "link/ordered.ld",
+      "bytes": 73681,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "6954d9901b005312be6e7f980cb5e74a1440c174547c2040a881acf2e5c25b45"
+    },
+    {
+      "path": "pump-token-ext/Cargo.toml",
+      "bytes": 92,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "a721097d6155534fdce19b3079fb90c0873fc7cd416bd74893d2d50d3ea40882"
+    },
+    {
+      "path": "pump-token-ext/src/lib.rs",
+      "bytes": 6437,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "47c3285cdc9e61102739c47098fe03d1895036fa257d6edb8a3e6ee75fb3c70d"
+    },
+    {
+      "path": "recovered/README.md",
+      "bytes": 6104,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "2ac123b013f38e5606d2e4395d3dc6ca81df16e3c135603f36749f8d1c1c7015"
+    },
+    {
+      "path": "recovered/account_lifecycle.rs",
+      "bytes": 6631,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "2ba9dab2235210ec2c0cd862bc52a6f41894b59b86049e9cea8867e6afda46cd"
+    },
+    {
+      "path": "recovered/account_lifecycle_admission.rs",
+      "bytes": 6740,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "f9acaaf45ac9f76d8a78e107f262eb066d80bd388c81803b0f91a52a9ca644d7"
+    },
+    {
+      "path": "recovered/account_lifecycle_admission_host.rs",
+      "bytes": 7386,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "0212364c56ce4506f99892919f3cdc77b1f1c8fcbb6d7d692e6af82608f537a0"
+    },
+    {
+      "path": "recovered/account_lifecycle_host.rs",
+      "bytes": 2371,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "204c454ac3bc5126b431ece5399fb64f1697d3fdf22967fbcd7869b46705cd55"
+    },
+    {
+      "path": "recovered/accumulator_length.rs",
+      "bytes": 5273,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "683f78d2f0b39893545b2e150d578276d27986555b98892de0ae9648fc530059"
+    },
+    {
+      "path": "recovered/accumulator_length_host.rs",
+      "bytes": 2205,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "e2e0b6adee1ca57729aa074a6dc6505da16adc0cf1baf52a33cc540fa01bf641"
+    },
+    {
+      "path": "recovered/admin_cto.rs",
+      "bytes": 21470,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "d857730c3f001b3ec01bc6871b0b4c6acde6cfee3c8832cfdc88f22b4a572fa3"
+    },
+    {
+      "path": "recovered/admin_cto_host.rs",
+      "bytes": 4171,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "226c3c0c11fae18d8f7902f19a70564fc7306e8a8838fafab85561d206e3b480"
+    },
+    {
+      "path": "recovered/admin_setter_admission.rs",
+      "bytes": 4172,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "4a045cf1c95e8aa3f5b7e5793ddb096f418f62bd88ee0b90094e33211398507f"
+    },
+    {
+      "path": "recovered/admin_setter_admission_host.rs",
+      "bytes": 3365,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "0da9b23abe831b0f12a22254b2188d5640973aa74323930bef342b5861be7eb0"
+    },
+    {
+      "path": "recovered/anchor_idl.rs",
+      "bytes": 17267,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "42acff2b6b1d22ed4b1116070e7ad4d1014c0249c962f88e916c461e29c0470f"
+    },
+    {
+      "path": "recovered/anchor_idl_host.rs",
+      "bytes": 2802,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "98d43b002b8dcbf6a73b0372b2be4345334143ae1bec988457112ae828f9278b"
+    },
+    {
+      "path": "recovered/buy_v2.rs",
+      "bytes": 4065,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "306083f1bd6fbaa647793bb262b5b6381932a3847b859728be8f6d33cb0e783f"
+    },
+    {
+      "path": "recovered/buy_v2_host.rs",
+      "bytes": 3065,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "0fb71e983f37897876e780b3d9bd75af9e091a725992ca5bff3b0e0ee8b2e27a"
+    },
+    {
+      "path": "recovered/claim_cashback.rs",
+      "bytes": 4506,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "46fe3e8d034d335055c5749b20d3d35da117183f8e5b94efa5362a81fc9289a9"
+    },
+    {
+      "path": "recovered/claim_cashback_admission.rs",
+      "bytes": 2854,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "c058f3256df5b46c27316676d88384a5ccef512ea219b1b76350aedffa717b29"
+    },
+    {
+      "path": "recovered/claim_cashback_admission_host.rs",
+      "bytes": 2920,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "8ec5808952d4f3a8ae358295bb1cdc8e7342b61e0bece46fd18bf033d9d524b6"
+    },
+    {
+      "path": "recovered/claim_cashback_host.rs",
+      "bytes": 1556,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "4511caba8a63d504f87a42a65a92596dda5599dc9b31e97b9582ba00445212c0"
+    },
+    {
+      "path": "recovered/claim_cashback_v2.rs",
+      "bytes": 5177,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "42022499ede1d329f5a0da3bad9b1ce4665c0d3477e79e1ef86291c97eb77a6f"
+    },
+    {
+      "path": "recovered/claim_cashback_v2_admission.rs",
+      "bytes": 6632,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "c7e575ce6f47ee3f3d39785cef635f3be5de9f22a3389b5a88514006e935882c"
+    },
+    {
+      "path": "recovered/claim_cashback_v2_admission_host.rs",
+      "bytes": 6013,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "7438329ec8f75a3ea4a168ebdc811c733228c1101a4d60aa7c6c2dd33f0dd91e"
+    },
+    {
+      "path": "recovered/claim_cashback_v2_host.rs",
+      "bytes": 2101,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "d44d6f2559cf58a3460d53527fa9495fb476a5211f7a40f47e05d8c7167809ba"
+    },
+    {
+      "path": "recovered/claim_cashback_v2_token2022.rs",
+      "bytes": 7339,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "2f2d9ca2ae6c53ae4c0130cda7fa70f6966495aa0c4de90e3120e1ca8319ef25"
+    },
+    {
+      "path": "recovered/claim_cashback_v2_token2022_host.rs",
+      "bytes": 3827,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "0b6f156f6f44f89d5bf7c392b5a4c1283aeee58e43b22dfa2c63e6eb4f98a53c"
+    },
+    {
+      "path": "recovered/collect_account_admission.rs",
+      "bytes": 6409,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "9fd27cb5e8f54c7ce2ebbc67a9570e240aafd630f46056165ba2dfcf8ff09fe0"
+    },
+    {
+      "path": "recovered/collect_account_admission_host.rs",
+      "bytes": 6610,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "0fd8882beccad1a7c31c57447c2be27ec17a8289c2e3004ce794ef2e524df6dd"
+    },
+    {
+      "path": "recovered/config_length.rs",
+      "bytes": 5719,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "4e6f84f51bcb5b4ae067c7e67d77c566c95486b8a0d0b3e4b36b503113ed02e2"
+    },
+    {
+      "path": "recovered/config_length_host.rs",
+      "bytes": 3041,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "fbf47d03192b240690365e464cb7ce26d5d01b1895034922a13596986ffd47d3"
+    },
+    {
+      "path": "recovered/constant_product.rs",
+      "bytes": 684,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "ec71f386f5f42abca163df627c7d8a5741c8954efec8732a1c9093728d33a99b"
+    },
+    {
+      "path": "recovered/constant_product_host.rs",
+      "bytes": 443,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "ee2e9e7fb89d7cdc42525dcafa28c802faab4ccb874652fa9df2307b11bc5825"
+    },
+    {
+      "path": "recovered/create_admission.rs",
+      "bytes": 6173,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "d26fb20a637e9c95be83cc40d4b07ad5edce95e9038b67f69d121ddc844395e5"
+    },
+    {
+      "path": "recovered/create_admission_host.rs",
+      "bytes": 6732,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "f759f067e3bb2094cfaf7467e40cdae4f6a4b91087bd5c37af6ad58a7f6e229e"
+    },
+    {
+      "path": "recovered/create_fee_bounds.rs",
+      "bytes": 1897,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "6f796be232efdb91ebd4a3c10aa6fafe57eef850b40143639e5f097939705c07"
+    },
+    {
+      "path": "recovered/create_fee_bounds_host.rs",
+      "bytes": 1261,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "01dd05942d8a46e9598149e19334b6978585b1c4d041911611767a25fd8e17fa"
+    },
+    {
+      "path": "recovered/create_v2.rs",
+      "bytes": 16392,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "933d82d68e7d6e3a669ecdab8b4383dd867d7ed8589f931f1864c5da8dd5ff8d"
+    },
+    {
+      "path": "recovered/create_v2_host.rs",
+      "bytes": 5169,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "5228b15d5969363d9555db915ea4a49a7911c8458561354c8e81135d7e30ea1a"
+    },
+    {
+      "path": "recovered/create_v2_pool_chain.rs",
+      "bytes": 11327,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "d7abbf39a063d67cf6f32275ffe23a094219dbec0445e2b2bb71d4f323677e1e"
+    },
+    {
+      "path": "recovered/create_v2_pool_chain_host.rs",
+      "bytes": 4403,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "362280b94f619dec6f58518a1216efa3e5a2fbbb8b46a380b82447ef305a0330"
+    },
+    {
+      "path": "recovered/create_v2_quote_extensions.rs",
+      "bytes": 5142,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "1e721deefef38919638b89c5b4e65979dc740aeeeb276432735b560f317c3f36"
+    },
+    {
+      "path": "recovered/create_v2_quote_extensions_host.rs",
+      "bytes": 1565,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "f07667c60eba30f25762ab20a70a8dc6d7ea07795cfc8d8610d6b9f18ad4c77e"
+    },
+    {
+      "path": "recovered/create_v2_quote_pool.rs",
+      "bytes": 4409,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "d9286a6b9e7621d243af578873853800308dab7e5311d1324f076524376cd00b"
+    },
+    {
+      "path": "recovered/create_v2_quote_pool_host.rs",
+      "bytes": 1692,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "6f7bb9593cac083c6a9b31e6d2fffd064aa2e3e1b64a94191b8a23da32f2713d"
+    },
+    {
+      "path": "recovered/creator_assignment.rs",
+      "bytes": 6178,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "48fff63e621d31259769a89483d376a400735c19e859826aec9f8487ec77404a"
+    },
+    {
+      "path": "recovered/creator_assignment_host.rs",
+      "bytes": 3225,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "3d49b8165a151798f07b04ce122b98d5a7745d0b1a51faa65ab61626a8d8b840"
+    },
+    {
+      "path": "recovered/creator_fee_collect.rs",
+      "bytes": 4026,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "9750afed5abeb1be27d7042fcfaecf8e7fcad511ba15d7c2f27ecd1a3f3e763e"
+    },
+    {
+      "path": "recovered/creator_fee_collect_host.rs",
+      "bytes": 1816,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "be76f68773fc55aad8ae57e1356ba84d550b75449bf4f3f27db073e71f36ca72"
+    },
+    {
+      "path": "recovered/creator_fee_collect_token2022.rs",
+      "bytes": 7688,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "f4094af7dcc62eb1a841be4c6672e2e266378a3d8b77470636d8951461704608"
+    },
+    {
+      "path": "recovered/creator_fee_collect_token2022_host.rs",
+      "bytes": 3380,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "1056d45ea32e3c09d80ee7a33ff4fc630bc97ce6eac0bbce831ef30796aab93f"
+    },
+    {
+      "path": "recovered/creator_fee_distribution.rs",
+      "bytes": 6518,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "e54cb25a3644e9b90cb592116379dbf9f262552323bb5991dafc205f93fba5c4"
+    },
+    {
+      "path": "recovered/creator_fee_distribution_host.rs",
+      "bytes": 2593,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "f2997bf243fcdf50d8ffc6588e6a2022a6e91ead8ae0b4153430124f7839d3ed"
+    },
+    {
+      "path": "recovered/creator_fee_distribution_mint_extensions.rs",
+      "bytes": 5967,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "0f0ecaef9ea3388b3ceb8d38b7acc62f7e58b92129c640c36dd83410c837a3ef"
+    },
+    {
+      "path": "recovered/creator_fee_distribution_mint_extensions_host.rs",
+      "bytes": 3877,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "8d34bc4edce7e9538e9d0370581ed0a06499612f29cf793a319b0c6131212025"
+    },
+    {
+      "path": "recovered/creator_fee_distribution_quote.rs",
+      "bytes": 5452,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "a61fa50fdb6bec45a5104dfa2157f0f2c5ed22a23f93a7275dcbeca0366de2c6"
+    },
+    {
+      "path": "recovered/creator_fee_distribution_quote_host.rs",
+      "bytes": 2627,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "5445c89c8a646e06d107c0777d2701d91befcbf2862e7ee2228ec34812bf02c9"
+    },
+    {
+      "path": "recovered/creator_fee_distribution_token2022.rs",
+      "bytes": 6112,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "bb6e3996b98cc25fed620cb3e31220f534ef3713b376f824d1e55f89aace3695"
+    },
+    {
+      "path": "recovered/creator_fee_distribution_token2022_host.rs",
+      "bytes": 3797,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "9a68cf7bc695d0bfe26a00e702f3fee28989d0708a6bc6d70144f6b399e554aa"
+    },
+    {
+      "path": "recovered/curve_walk.rs",
+      "bytes": 8662,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "fb22183f13c52f8761adca40352c4bc0f4d1c7e927539df219d1d449ca09906b"
+    },
+    {
+      "path": "recovered/curve_walk_host.rs",
+      "bytes": 4987,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "09fc2c3878ece3eeec7379cd2ac80737dde0547058f5bc7e4e63ac2707694683"
+    },
+    {
+      "path": "recovered/distribution_alias.rs",
+      "bytes": 7100,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "d35bb0dcbeafc54dff7eed28b229c80b1fb82fae951962c2202c32e7bb483414"
+    },
+    {
+      "path": "recovered/distribution_alias_host.rs",
+      "bytes": 2913,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "f8b022b65d4c2d3b1dd2cdef2aed772265d7fbb878dd52dd4204f6c6c8a50123"
+    },
+    {
+      "path": "recovered/distribution_v2_native_admission.rs",
+      "bytes": 6739,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "577e9841e205028174538384f5a30e610babb4c362decf8b2f44ff7554818700"
+    },
+    {
+      "path": "recovered/distribution_v2_native_admission_host.rs",
+      "bytes": 5983,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "46ead0ed6438bbd655f8d800eef309478381a830e5cdfe5c9b68c499ec64fbe3"
+    },
+    {
+      "path": "recovered/error_log_left_right.rs",
+      "bytes": 18107,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "8db915355c77c4e0ecfb1f49bcd02f4376a7f56dbc23cbb1aa0d152cc5d0e5e6"
+    },
+    {
+      "path": "recovered/error_log_left_right_host.rs",
+      "bytes": 1515,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "eafa1cea6f15906e9b23131a4445d888d2702ca036a021a7ac973208c96b9885"
+    },
+    {
+      "path": "recovered/error_log_left_right_rest.rs",
+      "bytes": 9029,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "a0ab3cea3795aaa59e39d48906d1158f39dfeba7d13c7b70bc461731c8933788"
+    },
+    {
+      "path": "recovered/error_log_left_right_rest_host.rs",
+      "bytes": 1550,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "bf0e806f38ef49bd4654f72daabc7690aa82805edf765d2c5b4b48b94fd78a5f"
+    },
+    {
+      "path": "recovered/error_sites.rs",
+      "bytes": 31634,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "a098f6b3cc840b4ad32b3558bf6a9b91e09d851cef7f4d9a7c5cdf6441a55480"
+    },
+    {
+      "path": "recovered/error_sites_host.rs",
+      "bytes": 1319,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "a20cee2890d74f7ee9f9fb1f54da36a028a8ece80bc969c0aa5f426317b662ca"
+    },
+    {
+      "path": "recovered/error_sites_rest.rs",
+      "bytes": 4612,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "73d3ae8b021593588d06aa2c4a694aff57f4b636c73303a37bb1bdbe07a27258"
+    },
+    {
+      "path": "recovered/error_sites_rest_host.rs",
+      "bytes": 1018,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "1d298a98b0bd50d03680fc0173432536d7ca7b4a254aec15bbe6d505b98cc0b1"
+    },
+    {
+      "path": "recovered/error_sites_trades.rs",
+      "bytes": 12613,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "e45e1a9a9613dc7d7470e9bb23eef69ed3c05bc41bf103354ff0c08e9feb6f82"
+    },
+    {
+      "path": "recovered/error_sites_trades_host.rs",
+      "bytes": 1028,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "360f5bc27e89a6c5937d623f9ef102201c8d00a0911e108b06270ddfc465141b"
+    },
+    {
+      "path": "recovered/fee_params.rs",
+      "bytes": 10727,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "0ff581a275584d5eb8b9620e529a12e3b5d613214453ee09ddd35004acdb51f2"
+    },
+    {
+      "path": "recovered/fee_params_host.rs",
+      "bytes": 2211,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "fa9d2e892d8dd970150533e67c9eae656b4d4d6f4c62540f5c7ec05fa160ab7f"
+    },
+    {
+      "path": "recovered/fee_setter_admission.rs",
+      "bytes": 3664,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "b5294604c637bc410a43dae536c4400deafce93d11fcf1efca062b6719ff95b2"
+    },
+    {
+      "path": "recovered/fee_setter_admission_host.rs",
+      "bytes": 4345,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "2d72339e2715f9f762b20b123a09419cf2b04b308da9ce9c3ffee889db6135bc"
+    },
+    {
+      "path": "recovered/frozen_trade.rs",
+      "bytes": 1981,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "67f334200eec8b072e01d43a0ce97b7d241d14921ad070e5a4bbb919e6756553"
+    },
+    {
+      "path": "recovered/frozen_trade_host.rs",
+      "bytes": 1252,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "8da4978c61a96421fc92ebac1531eed8007363758c33231e728cde0d7c5ab4ea"
+    },
+    {
+      "path": "recovered/frozen_v3_exact_quote.rs",
+      "bytes": 7482,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "8673c62a438b9bf8b1af000368c98d03196655492d8784610e17cc457b294579"
+    },
+    {
+      "path": "recovered/frozen_v3_exact_quote_host.rs",
+      "bytes": 1709,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "66aa860e01d266051365862f29f56f65f4a3bd0829db0d6d4a04fb67bc93b462"
+    },
+    {
+      "path": "recovered/frozen_v3_trade.rs",
+      "bytes": 5514,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "ac1da59beb32af17b28ced36f03a89a8c9dbf767d0d520e540a8aa011d0211d0"
+    },
+    {
+      "path": "recovered/frozen_v3_trade_host.rs",
+      "bytes": 1697,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "4cb6fa7fd9e7c35df8fee3100328cf46d9b52262b0e3090c1a66bb483335dbf4"
+    },
+    {
+      "path": "recovered/global_admin.rs",
+      "bytes": 10292,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "ec325424781a1b91a801baa6dc860bea022aedc0f8a8a42e0f81d7adf9a410c0"
+    },
+    {
+      "path": "recovered/global_admin_host.rs",
+      "bytes": 2386,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "5a28e9d9269a6b6d63d0813b1a21254a5854990cef140b8e3a7ecf31ce7d5b6a"
+    },
+    {
+      "path": "recovered/global_lifecycle.rs",
+      "bytes": 7010,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "acc15581e6101ad9b925ff8f6da4b57dc84e61fde6a35bc5389c0d598516af00"
+    },
+    {
+      "path": "recovered/global_lifecycle_host.rs",
+      "bytes": 3932,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "205214ad5763d89512056a92c369d49fbbf3dd619721f1339e3e43a22e2ae550"
+    },
+    {
+      "path": "recovered/handler_logs.rs",
+      "bytes": 6798,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "b95c66b5f617a3d523f5bf4e6eff32b787d900069ede8dacc581cea1e6dce148"
+    },
+    {
+      "path": "recovered/handler_logs_host.rs",
+      "bytes": 7147,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "8499f128618e1b1d2667282bfc561008c6257535006d334413eed38962088973"
+    },
+    {
+      "path": "recovered/holder_distribution.rs",
+      "bytes": 4354,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "b2e1655ec226590141ac9a16f45276c9175e530083d8bb7cea494e3509c85657"
+    },
+    {
+      "path": "recovered/holder_distribution_admission.rs",
+      "bytes": 6146,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "d177bbc32fee4b418da6abe1e5e060a57e5fd989ea2f0a937ab8b8247e30a434"
+    },
+    {
+      "path": "recovered/holder_distribution_admission_host.rs",
+      "bytes": 7632,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "5029bd6ce5c67131e415059c6887e04492488da7440e0e971882ee80f11df9d9"
+    },
+    {
+      "path": "recovered/holder_distribution_host.rs",
+      "bytes": 2564,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "daa7c982fb38be8d933768358918dd6279a335e3148f7a536e1874cec520503f"
+    },
+    {
+      "path": "recovered/holder_distribution_token.rs",
+      "bytes": 8053,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "a4feda8dbdc593e5d26e47565d8271d65036290b9679b7a0052dc5cd02e89065"
+    },
+    {
+      "path": "recovered/holder_distribution_token_host.rs",
+      "bytes": 3678,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "1daa0d577661142ba5327a7c52023aadda424f114835f47f74cafc0e2f939015"
+    },
+    {
+      "path": "recovered/idl_authority.rs",
+      "bytes": 4285,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "36c0dde710f274233dc8f5ec6bb30ed18619112029025f08f1dae76150f374c2"
+    },
+    {
+      "path": "recovered/idl_authority_host.rs",
+      "bytes": 1972,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "9c93c8df3602892c1215c5604a48f9bcef053a07a6829e8d565d119068bd31d0"
+    },
+    {
+      "path": "recovered/incentive_panics.rs",
+      "bytes": 9414,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "0f68b2e35efc7f81fa1758da8aa3f3d3972a738ed2dc1758a9d8a75319fb1ebe"
+    },
+    {
+      "path": "recovered/incentive_panics_host.rs",
+      "bytes": 3018,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "9fc656c0939e3895841b9c7798a57bb9cf62949975cbc4aaaa16e3fb97e5767d"
+    },
+    {
+      "path": "recovered/instruction_data.rs",
+      "bytes": 8251,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "b8140fd8e4f555d2e685992fde07623d723c2b289d7f5c10ec37b92db4749cd7"
+    },
+    {
+      "path": "recovered/instruction_data_host.rs",
+      "bytes": 1309,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "7e3cecfb2e632c01526feeeb06b3ca1e808e7f227838f5d0ae06df025ac8280f"
+    },
+    {
+      "path": "recovered/legacy_account_admission.rs",
+      "bytes": 14609,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "40ebad47f017ecabf8a8675cd9cfa73fb357b9b637f7f9dcf71db9453c6ceb35"
+    },
+    {
+      "path": "recovered/legacy_account_admission_host.rs",
+      "bytes": 6098,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "4ab4a60fa03d26d4e1696084cf7b2548f2e1a6d21e2af97dd0d1576ee89e9d75"
+    },
+    {
+      "path": "recovered/legacy_buy.rs",
+      "bytes": 10517,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "844d2467c8f29c88fc9457845c3af6711a399dae7be59b6be394e215e4390202"
+    },
+    {
+      "path": "recovered/legacy_buy_host.rs",
+      "bytes": 2784,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "e5b31e7badd6f70561a40998403fe8df03d6801621ebb28969b1e3c0c26aa69c"
+    },
+    {
+      "path": "recovered/legacy_cashback.rs",
+      "bytes": 6695,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "beb09ed268b964152ad3c5bbac37dad334028dd6710e158b76fc0c823a1e1013"
+    },
+    {
+      "path": "recovered/legacy_cashback_host.rs",
+      "bytes": 2198,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "097dcaac0dd95195eadfa229fb73bf57fe350794ca70f68b1f853d016bcedcc6"
+    },
+    {
+      "path": "recovered/legacy_create.rs",
+      "bytes": 4276,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "1dd5306ccaba3eff3a8081dc67b287b09458ae81c86fba4cfdbc161363958d92"
+    },
+    {
+      "path": "recovered/legacy_create_host.rs",
+      "bytes": 1898,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "0b0200962a4b80cac6b62fb4afe43c9c53d2eb50dcee9df9adb3ce798dfdc659"
+    },
+    {
+      "path": "recovered/legacy_mayhem.rs",
+      "bytes": 8707,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "84a0835f0e11e978b8aa95b1af85a1b005bcbe676918fa8b89951337ebbe399d"
+    },
+    {
+      "path": "recovered/legacy_mayhem_host.rs",
+      "bytes": 4027,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "037ae7daa1a844c1ca8aec22d75f329cd52f5079b0655a268aa7a9d32a9732e2"
+    },
+    {
+      "path": "recovered/legacy_sell.rs",
+      "bytes": 6602,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "9e6b04c1f03e7bede913173c15ea03215f8483747676f642afacc4cb5d2c5231"
+    },
+    {
+      "path": "recovered/legacy_sell_host.rs",
+      "bytes": 2688,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "852e34984b4c828b14f0edd538960f6b881d47966dd23e8c3dfb60f17d482ad6"
+    },
+    {
+      "path": "recovered/legacy_whitelist.rs",
+      "bytes": 10932,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "f2840ad862671936a994d02e83f3910a98b46da83d94a788e7dea66fad560469"
+    },
+    {
+      "path": "recovered/legacy_whitelist_admission.rs",
+      "bytes": 13201,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "62e52a85c7e15b8b39fdc19991f89a10cb988d74dc2f15601fb0f0ca708900e8"
+    },
+    {
+      "path": "recovered/legacy_whitelist_admission_host.rs",
+      "bytes": 5696,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "90975bd297acf0b50f5e0737a4f8ff173f72b88e8bbba7fb7e25cc6310300d3a"
+    },
+    {
+      "path": "recovered/legacy_whitelist_host.rs",
+      "bytes": 3123,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "f4a3a177b9d030fa95bf145fdffa02ca18bd4682c1916583f0827f7adadbe132"
+    },
+    {
+      "path": "recovered/mayhem_virtual_params.rs",
+      "bytes": 6404,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "bfd6c3ff5f5545ed42b9ef1ce6fd05f4f5cf86d78d121ce5d1810ed972ab06be"
+    },
+    {
+      "path": "recovered/mayhem_virtual_params_host.rs",
+      "bytes": 2102,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "eba0fe956ae22868cec227d7539d84951ba5e593a60bf0422a8d12c1d9e66407"
+    },
+    {
+      "path": "recovered/migrate.rs",
+      "bytes": 6561,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "9e54c6ffb8e881fabf4cfa979810506726526367d029747f67ed0f384588d1f4"
+    },
+    {
+      "path": "recovered/migrate_alias.rs",
+      "bytes": 7145,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "2e5a38f43aaceb260463cfab5be22a44619d73f5e359a3656cdd3534b871394d"
+    },
+    {
+      "path": "recovered/migrate_alias_host.rs",
+      "bytes": 2068,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "f4f7931d96899efe047e9281e63e64534a00ee74845e690759a76beee5089b06"
+    },
+    {
+      "path": "recovered/migrate_faults.rs",
+      "bytes": 10244,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "5c4c9a272aba815f39a71655c85d2b01e9532fc215af52ff85dec3e7e25cce9d"
+    },
+    {
+      "path": "recovered/migrate_faults_host.rs",
+      "bytes": 2868,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "98ba31c1975c8f75f8535c564fd26fe07bbc33b3f634bd4e64f729ef9cee562b"
+    },
+    {
+      "path": "recovered/migrate_funds.rs",
+      "bytes": 6237,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "46210779423adb7946201410aa889062d928169b1412938184b36a0667759730"
+    },
+    {
+      "path": "recovered/migrate_funds_host.rs",
+      "bytes": 3909,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "c47ef0a132490e50a474f834950a9f0c07240c232a5a39922698cc3918665af7"
+    },
+    {
+      "path": "recovered/migrate_host.rs",
+      "bytes": 2777,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "15781d2a59a3e08c65c5e3158178fda1d829a2718d0ff8bca2dcdc4eea3aad3a"
+    },
+    {
+      "path": "recovered/migrate_pool.rs",
+      "bytes": 7981,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "303d4d93afa4c8502feb4648288c6d29a478d500cd14c0ed016dc6c3a0cc595a"
+    },
+    {
+      "path": "recovered/migrate_pool_host.rs",
+      "bytes": 2071,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "3f6898bbe4aecc57bcf6705ec49f7a9f62f0ccdd78dd7db27ea5dbeabccbe77d"
+    },
+    {
+      "path": "recovered/migrate_v2.rs",
+      "bytes": 9544,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "b09c71c83c832158441c4b81f712b023a22d9a65517b4355991921bdab4099e4"
+    },
+    {
+      "path": "recovered/migrate_v2_faults.rs",
+      "bytes": 12929,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "eec0e34b2fdfd099609b9b16a757cac89045b2ce9ecf66c971f7379ea8daa212"
+    },
+    {
+      "path": "recovered/migrate_v2_faults_host.rs",
+      "bytes": 3339,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "318203033fdbfb84d75c91d3bc917c6091b00b34eb8864705cd8516f9e6eea17"
+    },
+    {
+      "path": "recovered/migrate_v2_host.rs",
+      "bytes": 3376,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "fa52ea57371c1edcfa43c694bd64415a167347c3323a49a94296a598d66c00ee"
+    },
+    {
+      "path": "recovered/migrate_v2_pool.rs",
+      "bytes": 9180,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "d6f2aaae2f762575ace80998e2af75e17df35fcd1bec1542b2c38c4bc577d811"
+    },
+    {
+      "path": "recovered/migrate_v2_pool_host.rs",
+      "bytes": 2430,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "6e23364e80c93f9ef054892cf565097a4cdc916aa0c1dffbe732fdf3f331fb03"
+    },
+    {
+      "path": "recovered/migrate_v2_token2022.rs",
+      "bytes": 8804,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "80709c76aa29763e51424a07c338be9746b94ed52e3cc7dd8de43619bf3713e1"
+    },
+    {
+      "path": "recovered/migrate_v2_token2022_host.rs",
+      "bytes": 4628,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "8014b41ce8acfef932b79682ad3550defe520c60d4c7b9c8e478059857d73f5f"
+    },
+    {
+      "path": "recovered/multi_hop_accounts.rs",
+      "bytes": 13602,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "9d0e26df36d2af42ca6c76277a113a6061b7068530f0ee760c2a8410ce4a6ca4"
+    },
+    {
+      "path": "recovered/multi_hop_accounts_host.rs",
+      "bytes": 7647,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "b43a500956259a64f8495b9f00efbe80f8b72a85cf3c6e629c353fbcf19fe92d"
+    },
+    {
+      "path": "recovered/multi_hop_events.rs",
+      "bytes": 21879,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "790cffd1ccebc3ad2be998c42c649fcc2afaf0c6d54ae633fc4a18984c41ebbb"
+    },
+    {
+      "path": "recovered/multi_hop_events_host.rs",
+      "bytes": 5615,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "a53e73e53e1a863b30641df04f48e460ab7ea2d41277247bf9a23c37065ede58"
+    },
+    {
+      "path": "recovered/multi_hop_failed_events.rs",
+      "bytes": 23013,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "77cfc2b1ddf222cd2c1d8d8df0ad31ff3188284c3763711bd5621699571b1a7b"
+    },
+    {
+      "path": "recovered/multi_hop_failed_events_host.rs",
+      "bytes": 5839,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "3179831a0a663d1378b79221004143f300c23f6b31ec83a7c5f2d0912445da03"
+    },
+    {
+      "path": "recovered/multi_hop_fees.rs",
+      "bytes": 16172,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "6cfa7ccfed3b1dd6f2290aefd61af923357304e716ca8e41a1741aff31cf9790"
+    },
+    {
+      "path": "recovered/multi_hop_fees_host.rs",
+      "bytes": 3950,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "4c469795a3823c1f84ff1decf8add15770b274cef8443dfa61aeb64a01d71b87"
+    },
+    {
+      "path": "recovered/multi_hop_hop.rs",
+      "bytes": 7718,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "17ed8f05f5828425c114ee11c15f0b8c83369866be16ec88600f456e6a5467ab"
+    },
+    {
+      "path": "recovered/multi_hop_hop_host.rs",
+      "bytes": 2160,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "b52c16f1a33c4dbd7bab827bc9bfab813a0a9b1e7d3358bed902590d73dd818f"
+    },
+    {
+      "path": "recovered/multi_hop_route.rs",
+      "bytes": 13784,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "224112ededd2cff382df060a73ee3fdf0e7411fbe42e3c7684c5f3051cd56c23"
+    },
+    {
+      "path": "recovered/multi_hop_route_host.rs",
+      "bytes": 3099,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "161b9094a643b39e849fe0a61a90e0bc77d2dc8c54d0570323985a01e0aefe53"
+    },
+    {
+      "path": "recovered/multi_hop_token2022.rs",
+      "bytes": 20841,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "94f14759819c67347f9b5af5a6312095fee1d5c577c5da4d1899224d2056a19e"
+    },
+    {
+      "path": "recovered/multi_hop_token2022_host.rs",
+      "bytes": 4648,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "44d8eebd7e9014b7312d816ef922877d5eefe7c4eda65a5078e5c5aca355ed14"
+    },
+    {
+      "path": "recovered/quote_control.rs",
+      "bytes": 6216,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "0001e91723b1b586a5533d4f35e43c5be072183daaa9716ff118240c58ea8956"
+    },
+    {
+      "path": "recovered/quote_control_host.rs",
+      "bytes": 2853,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "8c2125d66efa94f0a231ae727725d2d7547e3797b39cc101b14900f777ff8a23"
+    },
+    {
+      "path": "recovered/quote_control_init.rs",
+      "bytes": 4930,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "ac18e33fdb7e663eb7e281cdf454ef6b17688a14d8bcbfa94d201065811becb8"
+    },
+    {
+      "path": "recovered/quote_control_init_host.rs",
+      "bytes": 5031,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "bf855a590b7578665192a463db4d284cd5dff201252e5af2127ca21d27ce8070"
+    },
+    {
+      "path": "recovered/quote_recipients.rs",
+      "bytes": 4424,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "a90790455ca7a5ddb1a14810dba58ecd1772dc5ed5ba9df9fc805231f480d81b"
+    },
+    {
+      "path": "recovered/quote_recipients_host.rs",
+      "bytes": 2273,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "3e9e4f813dbc9187513c87f62a1bf92bdeb583b69269365194755abda1926cbf"
+    },
+    {
+      "path": "recovered/same_tx.rs",
+      "bytes": 4167,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "db166d5cd517453d6f231c4f54d970f8d1e777ffc14c2b65258e31a713afc4ce"
+    },
+    {
+      "path": "recovered/same_tx_host.rs",
+      "bytes": 1253,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "74d4597d68fe9120521b66f268890e4d4371359a76f6f7b0a0732c5a6681e2ba"
+    },
+    {
+      "path": "recovered/same_tx_trades.rs",
+      "bytes": 6242,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "9890296a3670b54a91061e01c1df3dff680e68e57be042619097e27bb4c4a67c"
+    },
+    {
+      "path": "recovered/same_tx_trades_host.rs",
+      "bytes": 1344,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "92f62b9b86eac0a2080119635897f95d876cc88694699cd142c4e693928924e7"
+    },
+    {
+      "path": "recovered/sell_accounting.rs",
+      "bytes": 1377,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "23c1bbd79d6aa2987472a6eba572e0ded99cc8846cffd6bc23883f0700a25983"
+    },
+    {
+      "path": "recovered/sell_accounting_host.rs",
+      "bytes": 528,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "b4aa42643c68895a23b99d5c46ac429cdaff76f0b650b69211b813b48859a39a"
+    },
+    {
+      "path": "recovered/sell_v2.rs",
+      "bytes": 2581,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "138b423fcd37b762c68d12afdb9749dfb21a941f75998804298c18ea1281aee0"
+    },
+    {
+      "path": "recovered/sell_v2_host.rs",
+      "bytes": 2599,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "f8b18cd3b6e024f02e4e411e5f53c73457baa41dac7dbad020c6625f3873b509"
+    },
+    {
+      "path": "recovered/short_curve.rs",
+      "bytes": 3766,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "4248e41d880fa8cd22d583c2e67deb5e98c1161668aa31cdf83f0981f9f03aba"
+    },
+    {
+      "path": "recovered/short_curve_admin_cto.rs",
+      "bytes": 4303,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "6545b66075ea1bbcdad2419c54b64042072e5c0e64d7cdb8c79a67d2df09e3d5"
+    },
+    {
+      "path": "recovered/short_curve_admin_cto_host.rs",
+      "bytes": 1381,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "a7d5cb720a7c08b552ae88361c55c22d54dfeffeefd9c40935459e6c05470047"
+    },
+    {
+      "path": "recovered/short_curve_callers.rs",
+      "bytes": 4668,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "1c33af8f92761978749d321977705d583ffeae8ffe2a1a20195c45c979e787c6"
+    },
+    {
+      "path": "recovered/short_curve_callers_host.rs",
+      "bytes": 1683,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "d288943f8fa0df7cdbfff242a21e5d21dad118540a83ab2660e8b487bd9be24e"
+    },
+    {
+      "path": "recovered/short_curve_host.rs",
+      "bytes": 1331,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "b80997cf6366f5039950bbea317bb92139b5195f1ba1e158f3abede9c730b7a3"
+    },
+    {
+      "path": "recovered/short_curve_quote.rs",
+      "bytes": 4557,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "167ac73d745b2523108163effe527289dce333f2874c7609d918825138a3b8cf"
+    },
+    {
+      "path": "recovered/short_curve_quote_host.rs",
+      "bytes": 1377,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "a6888861e42f919ab34e665f63f230557d210d69fc7c70e804c24cf1fdec7280"
+    },
+    {
+      "path": "recovered/stored_list_native.rs",
+      "bytes": 3642,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "d8f1c6a13ea0b2881927c2a09793b1b2b9e2d60d775f12ffafbd02bd9ca3020c"
+    },
+    {
+      "path": "recovered/stored_list_native_host.rs",
+      "bytes": 988,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "497555cebb7ebf33312af0b6ad968e74c72704e643dbe8bc6ac16d9ca2773319"
+    },
+    {
+      "path": "recovered/sweep_account_admission.rs",
+      "bytes": 6583,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "95a0db103a4796fc9231d38da347d398136eccc3dfab84e7e1e5ef51a5528796"
+    },
+    {
+      "path": "recovered/sweep_account_admission_host.rs",
+      "bytes": 6050,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "c5732908be5eaf74fabbecdf996c86739b81ba8cdce1499991920dde60b6d8ba"
+    },
+    {
+      "path": "recovered/sweep_alias.rs",
+      "bytes": 5291,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "7b30f0608deead20c4327d487f63940127faaa1ef9f033924e9762fdb27ccf12"
+    },
+    {
+      "path": "recovered/sweep_alias_host.rs",
+      "bytes": 1964,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "09831c2bb712559350c2dd24e5942cab581227b0ba6d43102f62b8c55de418e7"
+    },
+    {
+      "path": "recovered/sweep_fees.rs",
+      "bytes": 6020,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "ae7fb0c10f9f9c5e1039d8ab34c4e53806b6dc5c90f35cd92a543810d6fe8a7f"
+    },
+    {
+      "path": "recovered/sweep_fees_host.rs",
+      "bytes": 2437,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "5c4c058260463862fd4d2c1be88ef2d525d143d96a630b3040af6e56529a1259"
+    },
+    {
+      "path": "recovered/sweep_fees_token2022.rs",
+      "bytes": 9820,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "b44b107047765957a48caaad2d5143b07e93ae49f77fd8457e9542d0ff08dd98"
+    },
+    {
+      "path": "recovered/sweep_fees_token2022_host.rs",
+      "bytes": 5772,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "411ddc20a1e104c2d2720671dcf1f6578cc5207cd967db28491bf7c1d8c9024e"
+    },
+    {
+      "path": "recovered/token2022_admission.rs",
+      "bytes": 9489,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "94ddf4f00a751d4a9d6dd4688d14f39f0806de628f9ed1f1d2a939227cf28973"
+    },
+    {
+      "path": "recovered/token2022_admission_host.rs",
+      "bytes": 2317,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "2c8974557c7cc62d57875997183a1e8f3995a0dde748d0842d98b135645dc062"
+    },
+    {
+      "path": "recovered/token2022_base.rs",
+      "bytes": 10784,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "1a20a59a86094fba504f2f8b30c3ac71b7377b9f2cec155471c3c13b1b4f27d0"
+    },
+    {
+      "path": "recovered/token2022_base_host.rs",
+      "bytes": 4268,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "77a756ecec6ef35de1030342ed34e2d8eac8983a07aac83d0644afb749e3d6ba"
+    },
+    {
+      "path": "recovered/token2022_bodies_multi.rs",
+      "bytes": 17414,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "562956a36b88cd6a2eda7dcdf2454b1c95bc3a88aab05a1a2349c61c1e523777"
+    },
+    {
+      "path": "recovered/token2022_bodies_multi_host.rs",
+      "bytes": 5073,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "f5ab569821fe152f6ed2fd3b42fea0327e8bbeae6c9a41e56c2158c5e483827e"
+    },
+    {
+      "path": "recovered/token2022_nontrade_admission.rs",
+      "bytes": 8584,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "9d0d94021cc3fa5eabeb4feaf9421e5f8d8bee809d5eeea301c3dad9c11f2829"
+    },
+    {
+      "path": "recovered/token2022_nontrade_admission_host.rs",
+      "bytes": 1576,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "15b00c9e322cdd49c84c642b4183648926f8039f0ea2aa5b26bc3afaa190b852"
+    },
+    {
+      "path": "recovered/token_incentives.rs",
+      "bytes": 4865,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "6e8fa6db74c12bef45cfc1e834b1412ca85351ec1c270f29aae64a61a96a35db"
+    },
+    {
+      "path": "recovered/token_incentives_host.rs",
+      "bytes": 2351,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "f787f5d41a32aedeecf38257b357b43a33ff3d63e75a168182c55b817c083a89"
+    },
+    {
+      "path": "recovered/token_lengths.rs",
+      "bytes": 7371,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "df88c2bbbf5c45a06591ad456a6b930027bca4435034cc6ec05fd940a38b0729"
+    },
+    {
+      "path": "recovered/token_lengths_ata_precedence.rs",
+      "bytes": 5608,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "fb381ea2b7626a75ed293bdc215a8629393f194ec8363937af79be297fe767da"
+    },
+    {
+      "path": "recovered/token_lengths_ata_precedence_host.rs",
+      "bytes": 1462,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "943592d3bee4e7abe9634e6db91e4ceaf42c79794706d4458a72ab8bbbfb53c9"
+    },
+    {
+      "path": "recovered/token_lengths_create_v2.rs",
+      "bytes": 4642,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "0f5803761e976de8382da7dc75f4245efe992428f22bd51dd02343fcb26690c0"
+    },
+    {
+      "path": "recovered/token_lengths_create_v2_host.rs",
+      "bytes": 1857,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "3d3937a484d732a9da161f82503b09468f525666b5ca33c98872941c51a12e99"
+    },
+    {
+      "path": "recovered/token_lengths_host.rs",
+      "bytes": 1807,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "2de87e9e7281cee4defef19c405ce42ed6669e61dea31935e6671ed84425155d"
+    },
+    {
+      "path": "recovered/token_lengths_precedence.rs",
+      "bytes": 29892,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "cb6286758f73a2d29a8aad896a7239f8480f24b8185664564dd2f6d86640370c"
+    },
+    {
+      "path": "recovered/token_lengths_precedence_host.rs",
+      "bytes": 1025,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "af4b5cc8183ba4645082449d4987be1721fae4fe9d9b20446f239572f6d76b85"
+    },
+    {
+      "path": "recovered/token_lengths_skipped_slots.rs",
+      "bytes": 4351,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "f38349af68d555c4f997ea28977885588dda6f872006cf3dab01998b927f4d28"
+    },
+    {
+      "path": "recovered/token_lengths_skipped_slots_host.rs",
+      "bytes": 1877,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "aacccb9e411f12b4500750effaf98d829ec9851eecfb49e27656c58065712f3d"
+    },
+    {
+      "path": "recovered/token_schedule.rs",
+      "bytes": 5920,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "5ce81a4c48f58253d833886135f47a1a3cd640027fadcf5274e5972eace85e52"
+    },
+    {
+      "path": "recovered/token_schedule_host.rs",
+      "bytes": 2587,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "21e855274897f0d677e2b22ea6a0217defdc057efad8833e2c4659785d7ef8b4"
+    },
+    {
+      "path": "recovered/trade_alias.rs",
+      "bytes": 11762,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "3213c03004a64de8727e1c7a0ff4f0a6ef8757db4b8ea7fd2acf3483030f1828"
+    },
+    {
+      "path": "recovered/trade_alias_host.rs",
+      "bytes": 3990,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "b4bfec8bb39065063cd76981e1211660f15ad66b92e071cf71417879f0b1464d"
+    },
+    {
+      "path": "recovered/trade_cpi_order.rs",
+      "bytes": 5110,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "b20e45a60573a17da42df81d20ad51db25e5f7874edfd4ddb687a2946e8df9d2"
+    },
+    {
+      "path": "recovered/trade_cpi_order_host.rs",
+      "bytes": 1575,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "b503668bf11b9ec79ef161ff60c528e7220b9877326142cfe38d71c452bb5f8b"
+    },
+    {
+      "path": "recovered/trade_recipients.rs",
+      "bytes": 4522,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "140bfa9decf76fbdd24e5c8e4c3e3e73dec7ac08cfa547bac57ad0f97127b4cf"
+    },
+    {
+      "path": "recovered/trade_recipients_host.rs",
+      "bytes": 1817,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "049cdd1ea120877daea9d4497d2a76a2aff0b5b6801df4c0f8ba65fc037d8537"
+    },
+    {
+      "path": "recovered/trade_shareholders.rs",
+      "bytes": 5324,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "6550e863632620b9655f49370150cbe007aa15e2c3b4f477e51c3ed155465422"
+    },
+    {
+      "path": "recovered/trade_shareholders_host.rs",
+      "bytes": 1801,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "1ba817ecdcbef15eca00a6ed979279aa64b87d45f63e4ffb318ac0172a842de1"
+    },
+    {
+      "path": "recovered/trailing_accounts.rs",
+      "bytes": 7314,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "d46b1ba12bc742b6475527dd5f32d8f7faec53aa047156e995333bddb5e19754"
+    },
+    {
+      "path": "recovered/trailing_accounts_deep.rs",
+      "bytes": 12039,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "20a24dfd8dc43b6fa34323c8209bfc8a91be6bc34abc26a0fca4894e49bb00c1"
+    },
+    {
+      "path": "recovered/trailing_accounts_deep_host.rs",
+      "bytes": 1075,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "83a286606806e7ccd5b0adba4bcb0347286d3bfc79d47f54fad6fa8d70bcb258"
+    },
+    {
+      "path": "recovered/trailing_accounts_host.rs",
+      "bytes": 1045,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "506572b08708094a647a3113dc4aff7d90801f3d9f9f1e24dbc157d5feef2fe2"
+    },
+    {
+      "path": "recovered/v2_account_admission.rs",
+      "bytes": 16168,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "a91bf3eebd9b0b7ac5554d95ae64ba2371a4c93a099406cb7c73f3585ad98ff2"
+    },
+    {
+      "path": "recovered/v2_account_admission_host.rs",
+      "bytes": 6843,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "53e9ebe550a75b9a53b41b441eccd42fa093ead681d44aa5efb61e185f4532cc"
+    },
+    {
+      "path": "recovered/v2_cashback.rs",
+      "bytes": 11474,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "6ef165155aabb2fb5b44cc2ff09f825ee138f03bd8ef61e40f22b0fffea35e82"
+    },
+    {
+      "path": "recovered/v2_cashback_host.rs",
+      "bytes": 4430,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "7bf4b604b454019cf34475c2922f1b2fc93b8670ba86bc2b039259399e067b70"
+    },
+    {
+      "path": "recovered/v2_mayhem.rs",
+      "bytes": 7755,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "4f4b9eea0f0773af88df6189ba4ec4408be3fa029d6f92dc02d373911612622f"
+    },
+    {
+      "path": "recovered/v2_mayhem_host.rs",
+      "bytes": 3859,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "2b9be4a9424e380c6937c618eab9d447d5ba7e2e3a4a4e5bafc59738e263cd10"
+    },
+    {
+      "path": "recovered/v2_native_cashback.rs",
+      "bytes": 14904,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "0fb285a82a3b0bef67fb6c977ae9c23d581f1a8b96be75a89b0d16b13ffee906"
+    },
+    {
+      "path": "recovered/v2_native_cashback_host.rs",
+      "bytes": 4518,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "a32eee85c67ab2dc8dd38bbefa6e47905770fef0647268df29933a28f6296968"
+    },
+    {
+      "path": "recovered/v2_token_quote.rs",
+      "bytes": 20139,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "30c35c79157372dc6095161388a9ea4085ef8b339f89ee89395daca0f0cc971a"
+    },
+    {
+      "path": "recovered/v2_token_quote_host.rs",
+      "bytes": 7020,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "34cac518610508e1783258c6fbdfbffbd49239ea4cd8463f50d01b50ec74fe54"
+    },
+    {
+      "path": "recovered/v2_whitelist_native.rs",
+      "bytes": 6941,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "9539e0484bf2ed4351122117ef35aff200c8c3d16b0716cf9c4839407602ba93"
+    },
+    {
+      "path": "recovered/v2_whitelist_native_host.rs",
+      "bytes": 1959,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "ef10c45b5601901b98f52f31befcde31e01816aef307032ae7495b9f22894b7f"
+    },
+    {
+      "path": "recovered/v3_account_admission.rs",
+      "bytes": 14182,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "1c2782963a44b97d1b28f9ba5e3093b339028c15937fad88dec0ab2f66eebb12"
+    },
+    {
+      "path": "recovered/v3_account_admission_host.rs",
+      "bytes": 5466,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "94510fe7769965912d6ae21dbe81a70f396ba6a6799ffca652871512fe5fa502"
+    },
+    {
+      "path": "recovered/v3_alias.rs",
+      "bytes": 4478,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "1e0ca9d377f5830ca6675a659f61b5721bcb98a53eea52002906f8e2e7fe7797"
+    },
+    {
+      "path": "recovered/v3_alias_host.rs",
+      "bytes": 1777,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "1a64f8557b08bc1d9925fbe179cb2d61ce58177640a74e63c3360fddc32666c9"
+    },
+    {
+      "path": "recovered/v3_exact_quote.rs",
+      "bytes": 17814,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "cc9d16fe593589b776f7258b1bbd3ceb644084608880057a6dee08ac6deb3331"
+    },
+    {
+      "path": "recovered/v3_exact_quote_host.rs",
+      "bytes": 5370,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "ff359bf85a5b1a5e07a9ee5708224250c0ac21e4d0f4db4169820f53478d5bf2"
+    },
+    {
+      "path": "recovered/v3_quote_recipients.rs",
+      "bytes": 3083,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "4eea1114f896a6022564df6ae2ea6025fe0a1eed1fb8ad22ed1f00e0998e6f62"
+    },
+    {
+      "path": "recovered/v3_quote_recipients_host.rs",
+      "bytes": 902,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "22c1c55df10706d4f83996e162125e918152f0b4303816ef47745d25a25ab987"
+    },
+    {
+      "path": "recovered/v3_trade_accounting.rs",
+      "bytes": 13714,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "a93bdca86570c2651974df8e70235437ecd140101164faf0565a4a5e95c23a3f"
+    },
+    {
+      "path": "recovered/v3_trade_accounting_host.rs",
+      "bytes": 4323,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "f68dae59b869e2fa6fae775dea47cc7244875590b866936b3fd4888ac430b860"
+    },
+    {
+      "path": "recovered/v3_vault_refactor.rs",
+      "bytes": 4391,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "8f2532be566685a7887a0de34e1a8eea6497fd4d959c72cd677cc40e47d4e865"
+    },
+    {
+      "path": "recovered/v3_vault_refactor_host.rs",
+      "bytes": 1556,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "b208d4c1f23b556b5bce8a3ec21213f3eb1d07e9e71c7076e75dc6ef72f07b51"
+    },
+    {
+      "path": "recovered/volume_sync_admission.rs",
+      "bytes": 2627,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "6096d3291ee697b50d2479af0825642fafd02629ff1f0825817291d2c437c322"
+    },
+    {
+      "path": "recovered/volume_sync_admission_host.rs",
+      "bytes": 2428,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "94ef2eb2b9145db48703da91ee3862fed278e31684525ae702ef470181705e9a"
+    },
+    {
+      "path": "recovered/wsol_accounts.rs",
+      "bytes": 1532,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "68f5078a8d1216a1b8f76f0f50c6d3058d006a38655c1f4be2c3e5b8b7af3fa6"
+    },
+    {
+      "path": "recovered/wsol_accounts_host.rs",
+      "bytes": 1018,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "b750f728f372c3c838d6b33527028d8ef5350d0b3d55c0029d2524a851a1e194"
+    },
+    {
+      "path": "src/admin_set_idl_authority.rs",
+      "bytes": 2696,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "d579c21de6b3d84fb8c4a65ea28de01451f7a5d8fb5d26a1e3d1621dab0940a0"
+    },
+    {
+      "path": "src/buy.rs",
+      "bytes": 10955,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "b152750268c948a39d32c9317aaaaf25855a2e51fd7e42a48bd56e8da440c7ae"
+    },
+    {
+      "path": "src/buy_v2.rs",
+      "bytes": 31682,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "ec3410234ba4eefeab5e958f403e3b9cfb7026de8fe543aad98c892a70754ce8"
+    },
+    {
+      "path": "src/cashback.rs",
+      "bytes": 70,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "1c632938b7f4d9c08b4f6ef173a47f1674b1c53dd255f0a3fd38109570a17863"
+    },
+    {
+      "path": "src/create.rs",
+      "bytes": 290,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "8af4fb0525644d230f5fd394cd479aaeab412ca76d39e7995b963f5dbaae8e33"
+    },
+    {
+      "path": "src/create_v2.rs",
+      "bytes": 20110,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "ee69b5bf8692291b8b5128b3548fdf9dab0834e93d7f75860c10df24b7a147f9"
+    },
+    {
+      "path": "src/creator/admin_cto.rs",
+      "bytes": 37563,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "e57333592ac09f21b45c5847f2580f525a1e44399ed894f27ac6750531744578"
+    },
+    {
+      "path": "src/creator/collect_creator_fee.rs",
+      "bytes": 7107,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "e06da0d7e32e77d08300f5750261f838deec0d0480df85d236edea09e06369c9"
+    },
+    {
+      "path": "src/creator/distribute_creator_fee_v2.rs",
+      "bytes": 7824,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "c4b54902fcf93b74c561c99fbba05eda115a15da14a5043e0c9e41f0364ca621"
+    },
+    {
+      "path": "src/creator/distribute_creator_fees.rs",
+      "bytes": 12569,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "d6f226494a58ba672e3deb8fafae9b9a130da614474da24f5841b0f05632bbea"
+    },
+    {
+      "path": "src/creator/distribute_fee_to_holders.rs",
+      "bytes": 5094,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "854e8bc552dc2ed9f31f41a82dd30fc55b7ca528f85d29521c99d1aff19df761"
+    },
+    {
+      "path": "src/creator/migrate_bonding_curve_creator.rs",
+      "bytes": 1873,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "8c4d373338fa4b16585be3836ced1767fe646b1d5c37c18fc4d96f1a7fcf6219"
+    },
+    {
+      "path": "src/creator/set_creator.rs",
+      "bytes": 2399,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "4e33bac77f03271c9c0a54f53c7cc45446b771a23d0395c93bb93a07bd5a4bae"
+    },
+    {
+      "path": "src/creator/set_metaplex_creator.rs",
+      "bytes": 1667,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "6b62a96f5175f62e5393829e51e888d06cd177af7a2abea4a114ddd17a904fee"
+    },
+    {
+      "path": "src/curve_quote_payments.rs",
+      "bytes": 3896,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "2d8978bfdf66cc06b4aed5205e2b7f1045c502d0d35655ccf8d6de8339e925ac"
+    },
+    {
+      "path": "src/extend_account.rs",
+      "bytes": 4912,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "86503e4a412eca51dd4687c06f10cde5d30e926bb32ec3872ea8e9bec10da7a7"
+    },
+    {
+      "path": "src/fee_cpi.rs",
+      "bytes": 597,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "5dcbe164f1a861a5ef019a5731108c88aa1a033597ad79b9a31341a03f9f5ce4"
+    },
+    {
+      "path": "src/fee_recipient.rs",
+      "bytes": 2208,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "d3b055f677dead8b73766d6a4c3b3db1759f262af5ea33005b173f36a2e720ef"
+    },
+    {
+      "path": "src/global_init.rs",
+      "bytes": 590,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "3d1be6c2c94f0ba166e182d2322ac010cc33056721d63d065e53a53101f6e015"
+    },
+    {
+      "path": "src/incentives.rs",
+      "bytes": 2419,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "eba8b43e22bbd451d38b3c953cd78f559560cef6d0cc6cdfa5cd2a81da127840"
+    },
+    {
+      "path": "src/legacy_native_payments.rs",
+      "bytes": 744,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "c3f89a49553905581274bbe0c01054413beb5483ab310847ca7ec4bc293c7e34"
+    },
+    {
+      "path": "src/lib.rs",
+      "bytes": 72782,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "495a98540d9734314804e4c6a28552debccf03a72a6379b50ea7cac0abb17c0a"
+    },
+    {
+      "path": "src/mayhem_virtual_params.rs",
+      "bytes": 2674,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "1184d66faf1892426b856a0ab975f27a506afe4b16b8bfe05abf4b2b03977a7b"
+    },
+    {
+      "path": "src/migrate.rs",
+      "bytes": 19131,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "1b21b6865551436defa5a2ddf5d893dc606af5a923b280bd72d14e1f4efcaf3c"
+    },
+    {
+      "path": "src/migrate_v2.rs",
+      "bytes": 20625,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "083bb84fc4edea19de396472443102c4537ee1f89f6c48d93c0bc55424f92ef3"
+    },
+    {
+      "path": "src/migration_native_payments.rs",
+      "bytes": 309,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "b4bd06b4bdd7e59b5c2a740160c68baf4c83f282f02d0b117f8dbf82ce9b228e"
+    },
+    {
+      "path": "src/multi_hop_curve_swap.rs",
+      "bytes": 23355,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "05af8c227f130fb6616430de84ca2477867598842e84e680f10ce8691288e60b"
+    },
+    {
+      "path": "src/pump_quote.rs",
+      "bytes": 7575,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "ce9cd7aa7a6910e84f5e28392fe9de1fd42aed5ed2bcd7cb3550dcad8d63380d"
+    },
+    {
+      "path": "src/quote_control/initialize_quote_control.rs",
+      "bytes": 1011,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "51d9657965554ff42f221131c96624b346fbbecb324e856b510be8818d65cfea"
+    },
+    {
+      "path": "src/quote_control/mod.rs",
+      "bytes": 237,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "e645814cbdd8622ae702d9238a2e1448bf794571dc398c09b60625ae9965f3a3"
+    },
+    {
+      "path": "src/quote_control/set_quote_control.rs",
+      "bytes": 4076,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "cda58c7a17fdef0f2f36c5fd4fad0a6a7135ea57c2799089cd43eb6d40524d11"
+    },
+    {
+      "path": "src/quote_control/state.rs",
+      "bytes": 5280,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "18b7f78e338c85dec0215d9472217a253fb70544bf2d56aafb2c4895640482d3"
+    },
+    {
+      "path": "src/quote_control/update_quote_control_mints.rs",
+      "bytes": 5270,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "9d3b34642b7ec0d6205c1ece4c28c2e665fe9fa12d9ca7f08b4c0952bb02968d"
+    },
+    {
+      "path": "src/sell.rs",
+      "bytes": 6802,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "2ffeaa7a2a20b001c69f6c03f69226f35f2d0a631d813aeb051191d62a26e694"
+    },
+    {
+      "path": "src/sell_v2.rs",
+      "bytes": 14676,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "c31c651376180953417d8ec1e5dc14cf0f5c2986551f0751447e71002d9e37e2"
+    },
+    {
+      "path": "src/set_params.rs",
+      "bytes": 320,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "9b766028247e03c764d790894289637d6f18be4f6c7a72cfeb355708420cdbf1"
+    },
+    {
+      "path": "src/set_reserved_fee_recipients.rs",
+      "bytes": 2733,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "235b87abf644c43257c0246d61b1cb0ace029deaf2b4f46b99d3879b86fbfaf8"
+    },
+    {
+      "path": "src/sweep_fees.rs",
+      "bytes": 5471,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "d4a37d627954cd65ccb0a4f0725b033517276b156683d76ed9483cde701ed14a"
+    },
+    {
+      "path": "src/token_incentives/claim_token_incentives.rs",
+      "bytes": 10759,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "5b89bd2850ba8573581d4ffd5de6f8306854b068da0b369df575d80d836207ff"
+    },
+    {
+      "path": "src/token_incentives/close_user_volume_accumulator.rs",
+      "bytes": 535,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "f0c3244111adb9ae53802b1ec533d2e657f2dab6ce1a130e01d08231d2717e7f"
+    },
+    {
+      "path": "src/token_incentives/init_user_volume_accumulator.rs",
+      "bytes": 925,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "ed269338002310868997664750a9202a16b24996abed04fcb2b8e54ec5711761"
+    },
+    {
+      "path": "src/token_incentives/mod.rs",
+      "bytes": 263,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "a9f89d0570ad9fc17bbded573dd81bb76a68e593dca227b0b22524b951d9a8bf"
+    },
+    {
+      "path": "src/token_incentives/volume_accumulator.rs",
+      "bytes": 11587,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "38bc9b1968872dac271b630f71cb1961bc8ffe2c5e1d53341dd6561dc19c86f6"
+    },
+    {
+      "path": "src/trade_types.rs",
+      "bytes": 14531,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "3043c80281db52dcfae706534e16ddd09f20d5a7dd34e53a2db1d3a656504404"
+    },
+    {
+      "path": "src/trade_v3.rs",
+      "bytes": 34782,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "0a255a33831dae46cd4029f8eee2321fcfbf5412d28f3d4ef5d37810e96aa7bf"
+    },
+    {
+      "path": "src/util/constant_product.rs",
+      "bytes": 685,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "d4e705ff2fc96d60fd065bbc882d0641813884f889c4f09b16a3cd21bf1d55fa"
+    },
+    {
+      "path": "src/util/fee.rs",
+      "bytes": 5340,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "2ae7fec44448794662c5ae76a83a2d5630633f707fc4f2e8e34570c0bfb39e91"
+    },
+    {
+      "path": "src/util/payments.rs",
+      "bytes": 17032,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "2dfcc309c7badcb69626b44e44c7c8acd37f9bf6fc1e9ee6c3b89ddd8c714ca2"
+    },
+    {
+      "path": "src/util/transfer_fee.rs",
+      "bytes": 1388,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "2a572b204fce41b8adf86361d82f71974dc3d9641436900bcc22d9477a844305"
+    },
+    {
+      "path": "src/util/user_payments.rs",
+      "bytes": 2826,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "0beaa082ee9fb79dc9c9e37d934d6b92f0b59a8e7055daca8aa52ab82ba1311a"
+    },
+    {
+      "path": "src/util/withheld.rs",
+      "bytes": 427,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "1e47d72c857eb346bbbafe8a22aa10c24186c17e2f8bd55e32e6d0b1bf950242"
+    },
+    {
+      "path": "src/v2_native_payments.rs",
+      "bytes": 777,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "ad9552314b095ae3f7df00e7c778f1f975fa44e169c05499ac64a8d81a1d6b31"
+    },
+    {
+      "path": "src/v2_quote_token_transfers.rs",
+      "bytes": 586,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "c43632807705eb5a464e92971b879239278a74f9a4d79d178e132360c3eec660"
+    },
+    {
+      "path": "src/v2_recipient_payments.rs",
+      "bytes": 680,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "afdf1516ed7cb43f98cd04f73c69837c3d02319841ec4d64e0f3dd239e72bbf5"
+    },
+    {
+      "path": "src/v2_token_transfers.rs",
+      "bytes": 1129,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "e18618a863c91be352e43c8ae137fd5a4b962004a643b0fcde119101a883f590"
+    },
+    {
+      "path": "src/v2_user_token_transfers.rs",
+      "bytes": 528,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "ff85e7af309b4fc62a76be7ebae956271e583845b3a08cc783b87d2e37a5be52"
+    },
+    {
+      "path": "src/v3_native_transfer_fee.rs",
+      "bytes": 75,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "8d9c1d5f07d97213408ad99f727d19732f4fdf2e238d0100722d97ad37abc078"
+    },
+    {
+      "path": "src/volume_sync.rs",
+      "bytes": 1617,
+      "executable": false,
+      "execute_bits": 0,
+      "sha256": "7e5c2d07d5e01aa872bd21c7c2dd96688a4dd0af5dbb5a3d9136bfb19964d085"
+    }
+  ],
+  "directories": [
+    "idls",
+    "link",
+    "pump-token-ext",
+    "pump-token-ext/src",
+    "recovered",
+    "src",
+    "src/creator",
+    "src/quote_control",
+    "src/token_incentives",
+    "src/util"
+  ]
+}

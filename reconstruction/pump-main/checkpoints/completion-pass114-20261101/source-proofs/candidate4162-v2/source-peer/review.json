@@ -1,0 +1,46 @@
+{
+  "status": "PASS_INDEPENDENT_UPDATED4162_SOURCE_SEMANTICS",
+  "reviewed_head": "fcc2dc457b8c408cfec21ce8034b33217d6b5cf8",
+  "program_source_sha256": "e57333592ac09f21b45c5847f2580f525a1e44399ed894f27ac6750531744578",
+  "compared_previous_actual_build": "6acf72dfa8a0beae3dc80eb24cd50fb804dca0c0",
+  "all_effective_program_paths": [
+    "programs/pump/src/creator/admin_cto.rs"
+  ],
+  "full_metadata": {
+    "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/root/pr-4162-updated.json",
+    "sha256": "901bf6230f39db25fcee8220d999acf18918e4f27f25cc0b61b77ba73b0d98bb"
+  },
+  "full_delta": {
+    "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162-v2/source-peer/delta-from6acf.patch",
+    "sha256": "8c4ad8af4263161868dab3febddd367517946987824f7023cbb681df27fe6c06"
+  },
+  "reviewed_added_readable": {
+    "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/root/4162-updated-added-readable.txt",
+    "sha256": "faa614f9d89794f6ede9663cbf05c7b5ad40553c6ca0ffb58e8e7c91869e8756"
+  },
+  "findings": [],
+  "review": [
+    "Complete one-file source delta and all166 added readable source lines plus context read. Validator is byte-identical to independently qualified updated4149 body after removing only cold filler read statements; split7+25 initialization/lifetime and raw Option guards retain previous exact-body proof.",
+    "rcw uses the existing valid-live-Rc pointer/count clone pattern with a nonzero strong-count assume, wrapping increment, write and overflow trap. A live strong Rc cannot have count0; actual standard Rc clone already asserts this in its lowering. Denominator constants3/14/20/40 yield finite probabilities strictly between0 and1. Each AccountInfo field clones the same Rc exactly once.",
+    "hkb base is captured before holder reference; hk72 tail ranges are pairwise disjoint and within allocation. Pointer slot at48 is initialized at647 before sweep, then reloaded as the same live AdminCto reference at749. Sweep cannot reallocate ctx.accounts or this local allocation.",
+    "cashback u64 slot56 is initialized unconditionally at745 before optional sharing CPI and before raw byte write into curve bool at756. Little-endian bool0/1 encoding and no intervening slot clobber prove the unmasked value is a valid bool.",
+    "Six volatile coin_empty bool stores and two later authority bump stores use byte64 only, disjoint from all key/signers/pointer/cashback data. No bool reference is read after the byte is repurposed as bump, and MaybeUninit allocation has no Drop.",
+    "Sharing key copy remains from the same live account via ptp25 identity; mayhem load moves after that pure copy via ptp24 identity and precedes validate. Values, permissions and error order are unchanged.",
+    "Removed line758 read is discarded from an initialized key. Currentmain Clock-error key read returns the same error and executes while key is live.",
+    "Final event expansion preserves the same instruction, authority meta and seeds. Local authority_info/bump and nested seed temporaries live through synchronous invoke_signed; byte64 scratch writes are discarded."
+  ],
+  "slot_probe": {
+    "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162-v2/source-peer/storage-probe/review.json",
+    "sha256": "589e2edf9399a48cfeef3f4ca0f71d9acbca5f33b2025964669f8011095a83b6"
+  },
+  "historical_type_and_validator_proof": {
+    "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/late-prs/official-probe/review.json",
+    "sha256": "2f138c7a2b8df2f5f564a3dbd40bee1d72f2a7a07fd5e7b798288f2b1ccd47e8",
+    "scope": "Applies only unchanged exact validator mechanisms/types and explicit source equivalence; historical runtime images are not reused."
+  },
+  "limits": [
+    "No full contract build, score, VM, remote mutation or branch mutation performed by this peer.",
+    "Actual updated-image current-main score and fresh runtime remain separate required root gates; earlier6acf andmain882 outcomes are historical.",
+    "Finite official model/layout/source evidence does not prove wholeprogram semantics, byte identity or historical source identity."
+  ]
+}

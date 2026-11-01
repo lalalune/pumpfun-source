@@ -1,0 +1,55 @@
+{
+  "compiler": "/Users/shawwalters/.cache/pumpfun-reconstruction/toolchains/hybrid144/rust/bin/rustc",
+  "compiler_sha256": "1f26338cc2cabd0a6057dcbd0528bba262b23ca1296d357a55304ee31d1d9e5a",
+  "actual_anchor_rlib": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/main882/work/target-identity/sbpf-solana-solana/release/deps/libanchor_lang-a00b616ed88ae332.rlib",
+  "anchor_sha256": "650ba4dc9453fc45485d9726c67641ad026af69d966cf954f24fc7029b1ec099",
+  "source_sha256": "11e6dadbaa6a7a0ed29edbe52fe05a700f3c577f13ba118e56670218f295a0d8",
+  "commands": [
+    {
+      "mode": "raw",
+      "command": [
+        "/Users/shawwalters/.cache/pumpfun-reconstruction/toolchains/hybrid144/rust/bin/rustc",
+        "--edition=2021",
+        "--crate-type=lib",
+        "--crate-name=pass114_slot_probe",
+        "--target=sbpf-solana-solana",
+        "-Copt-level=3",
+        "-Cpanic=abort",
+        "-Coverflow-checks=on",
+        "--extern",
+        "anchor_lang=/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/main882/work/target-identity/sbpf-solana-solana/release/deps/libanchor_lang-a00b616ed88ae332.rlib",
+        "-L",
+        "dependency=/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/main882/work/target-identity/sbpf-solana-solana/release/deps",
+        "-L",
+        "dependency=/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/main882/work/target-identity/release/deps",
+        "--emit=llvm-ir=/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162-v2/source-peer/storage-probe/raw/probe.ll",
+        "-Cno-prepopulate-passes",
+        "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162-v2/source-peer/storage-probe/probe.rs"
+      ],
+      "exit_code": 0
+    },
+    {
+      "mode": "optimized",
+      "command": [
+        "/Users/shawwalters/.cache/pumpfun-reconstruction/toolchains/hybrid144/rust/bin/rustc",
+        "--edition=2021",
+        "--crate-type=lib",
+        "--crate-name=pass114_slot_probe",
+        "--target=sbpf-solana-solana",
+        "-Copt-level=3",
+        "-Cpanic=abort",
+        "-Coverflow-checks=on",
+        "--extern",
+        "anchor_lang=/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/main882/work/target-identity/sbpf-solana-solana/release/deps/libanchor_lang-a00b616ed88ae332.rlib",
+        "-L",
+        "dependency=/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/main882/work/target-identity/sbpf-solana-solana/release/deps",
+        "-L",
+        "dependency=/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/main882/work/target-identity/release/deps",
+        "--emit=llvm-ir=/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162-v2/source-peer/storage-probe/optimized/probe.ll,obj=/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162-v2/source-peer/storage-probe/optimized/probe.o,asm=/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162-v2/source-peer/storage-probe/optimized/probe.s",
+        "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162-v2/source-peer/storage-probe/probe.rs"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "scope": "Finite scratch slot exact storage pattern with actual locked Pubkey and AccountInfo; account referent is opaque AccountInfo rather than full AdminCto, since only pointer width/lifetime is relevant. No whole contract build or VM."
+}

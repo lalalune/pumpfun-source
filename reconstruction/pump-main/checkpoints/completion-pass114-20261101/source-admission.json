@@ -1,0 +1,281 @@
+{
+  "schema": "pump-pass114-final-source-admission-v1",
+  "status": "PASS",
+  "selection": "candidate",
+  "final_current_main": "b4331b4d16369ce0d24bd1a3ad4c1eaa091dad97",
+  "actual_built_revision": "fcc2dc457b8c408cfec21ce8034b33217d6b5cf8",
+  "reviewed_original_heads": [
+    "fcc2dc457b8c408cfec21ce8034b33217d6b5cf8",
+    "031cf408f622edb0cdbbfa0cbeff0b9366772c29"
+  ],
+  "physical_paths": {
+    "build_result": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162v2/build-result.json",
+    "build_start": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162v2/build-start.json",
+    "source_inputs": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162v2/build/source-inputs.json",
+    "loaded_image": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162v2/build/candidate.so",
+    "unstripped_image": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162v2/build/unstripped.so",
+    "score": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162v2/score-vs-main665.json",
+    "metric": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162v2/metric.json",
+    "qualification": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162v2/qualification-vs-main665.json"
+  },
+  "expected": {
+    "source_sha256": "75dff1fae41b6c2c714424deda198546f7543628937b635bfe4dc25292223629",
+    "loaded_sha256": "c5caa63750d2615a93b3c25fae2154e4949d60ad559b9f61c1446f180a4de15f",
+    "unstripped_sha256": "176a8f64d84f45288818326bba4bd3cfd6941d4a83a050038ed7535fb7b74dd4"
+  },
+  "fresh_main": {
+    "built_revision": "665ffe46b1896a03e056dcffea8ed9826b8f58f1",
+    "physical_paths": {
+      "build_result": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/main665/build-result.json",
+      "build_start": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/main665/build-start.json",
+      "source_inputs": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/main665/build/source-inputs.json",
+      "loaded_image": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/main665/build/candidate.so",
+      "unstripped_image": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/main665/build/unstripped.so",
+      "score": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/main665/score.json",
+      "metric": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/main665/metric.json",
+      "qualification": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/main665/qualification.json"
+    }
+  },
+  "input_sha256": {
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162-v2/source-peer/review.json": "789b3910a310773b446eeb67c87a997beec7522bc8b5a945c7757cad69603fd3",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162-v2/source-peer/storage-probe/compile.json": "c5622096ef52b2b31104a3315eec1b147427cc4cd3d8ee2736644556d052956a",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162-v2/source-peer/storage-probe/optimized/probe.ll": "ce4baf8417a69b9262b0fd47d33564014ac4b3421e2316f0ff12470e584259ab",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162-v2/source-peer/storage-probe/optimized/probe.o": "1b115821c50382391ca704e14120f8ec2022905655578cf110850180e778708e",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162-v2/source-peer/storage-probe/optimized/probe.s": "cf0f647d5c30c8e22abc69447a6393b63131faa0bb6625e0d41abca5561d3bbe",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162-v2/source-peer/storage-probe/probe.rs": "11e6dadbaa6a7a0ed29edbe52fe05a700f3c577f13ba118e56670218f295a0d8",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162-v2/source-peer/storage-probe/raw/probe.ll": "384c59bea3030766a73099526245419b9f436b40c09b85fa4c4f13d7adf5df7e",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162-v2/source-peer/storage-probe/review.json": "589e2edf9399a48cfeef3f4ca0f71d9acbca5f33b2025964669f8011095a83b6",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162v2/authored-stage-qualification.json": "73b6da61a202614984f4e356b416c573d74f828cb3d27b6e9d1c592a2023518a",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162v2/baseline-qualification.json": "9cc4030897557573a811a9b11af428ccd19557f5ea3a65f099d99360dd10dec3",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162v2/baseline-score.json": "b2ef7f71d2478aef87b52b8b8e4646b156389ed10173fc6235911f64584989cc",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162v2/build-result.json": "0f69178c16077711eb4581bb139777351ec63eaeeb3a8e3707668de9fe4deb3d",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162v2/build-start.json": "8159ee4d9cbd9e02569d501cc68daa6b456b6d4cd0d8f95ccfb1470889813c2a",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162v2/build/candidate.so": "c5caa63750d2615a93b3c25fae2154e4949d60ad559b9f61c1446f180a4de15f",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162v2/build/source-inputs.json": "ec2b5265c206cc4c56f7801457050ebf5fde1598dd54cb89b5103619391d0cae",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162v2/build/unstripped.so": "176a8f64d84f45288818326bba4bd3cfd6941d4a83a050038ed7535fb7b74dd4",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162v2/candidate-build.log": "0f69178c16077711eb4581bb139777351ec63eaeeb3a8e3707668de9fe4deb3d",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162v2/candidate-build.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162v2/candidate-metric.log": "2f319230581b6783bc6c488ebcacbcf316734a50a2cf2b85a6800aec74d894cb",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162v2/candidate-metric.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162v2/candidate-score-vs-main665.log": "3add737c359848bcf42d72f7c2fd81a075e889e021c9842ebfc68b21700ce19d",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162v2/candidate-score-vs-main665.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162v2/candidate-score.log": "3add737c359848bcf42d72f7c2fd81a075e889e021c9842ebfc68b21700ce19d",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162v2/candidate-score.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162v2/metric.json": "cd06791ae698cf40e03ff1084a86b7dc7d1bb00b52aabbb36259f8dc6f2988ce",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162v2/qualification-cli.log": "dbb4023b446dff64e36eb9bd281d8358d936853c34dbb60bbe5df9bfc6005a63",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162v2/qualification-cli.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162v2/qualification-vs-main665.json": "27a3714f350f40d169ff3bd463cc334af2a609488ac735f03bb0c5e37c48b4c2",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162v2/rescore_against_main665.py": "76272a7fcf9ffafb5ce0c68153e7817a47f14e12c535029dd68a8fdab1385156",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162v2/run_qualification.py": "28791375ad97c49e322836ab73a2da6bb74754199dca24907501d90fa211666e",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162v2/runtime/admin-runtime.json.gz": "7dab23929e283a9bef32096ac6946513f713e7b9e122f834a4dfacee01d82068",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162v2/runtime/cross-program/binding.json": "cefe0dd3f4f843075a135f773c316aaa9eceff1eb4f38090bfbed7ecdaaebc66",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162v2/runtime/cross-program/replay.json": "cfd8f19c1979028312da63fd01bbd3fc7b9e2dd5cae5d8b4014b41f84f8ca136",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162v2/runtime/cross-program/report.json": "358362cb53e172853867dff36e671ec40b6548aaa342afe37057114a2b09e659",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162v2/runtime/cross-program/report.json.gz": "4c68a2b64864cc996339ba453fc55f639ebc7c7d8a045bf254f5d9ae4144b2fc",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162v2/runtime/main-runtime.json": "de61d3a8ad41598e935df8f9b421d67ada5879c933865bfb72a8fd5780aa985b",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162v2/runtime/runtime-validation.json": "41cf94be004e8ce9302925aba3c8474d8818e1b8afc244983d3431a659202509",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162v2/runtime/start-admission.json": "3c3e0ce708746260c03d3198c16057a743587346284e43481c4ec0f74d58b61e",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162v2/score-vs-main665.json": "3dc04ac0cbbdd88926dbceadbdab7856e651ea1db4702b109cf9171d95098144",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162v2/score.json": "3dc04ac0cbbdd88926dbceadbdab7856e651ea1db4702b109cf9171d95098144",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162v2/source-inputs-before-build.json": "ec2b5265c206cc4c56f7801457050ebf5fde1598dd54cb89b5103619391d0cae",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/late-prs/official-probe/compile.json": "e687d70765dfab9de9ee3de0a362bab856f8bdb2526b11be80ef48bdd2c4c3cc",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/late-prs/official-probe/main34_validate.storage-audit.json": "4fdb4b85af7fc6c1d63b3a46f0b6574d6f579a2bcff14eb997fcf1c6b1a21f6b",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/late-prs/official-probe/optimized/probe.ll": "5945f53d289ef576fb6d683f27b2ec72040ae536bd268f866ca7553dbcf06ba5",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/late-prs/official-probe/optimized/probe.o": "3b2b76f3cc2f89c8206e1e514a38e2c0fe18e754332bc4c92da3924b0dcd3687",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/late-prs/official-probe/optimized/probe.s": "2bcb7ff3dacaffd974f809dc2b09031f025cdf85757ac0111f031dbe04a5f041",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/late-prs/official-probe/probe.rs": "16b98f7d8fa06bf7abdc22238918cb396c81c062a7509a9141fecb9bda1f7479",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/late-prs/official-probe/raw/probe.ll": "ea831d67d45d65cc45c2609c5b369ace5826483c7dfcd6eb64a84ce417381bff",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/late-prs/official-probe/review.json": "2f138c7a2b8df2f5f564a3dbd40bee1d72f2a7a07fd5e7b798288f2b1ccd47e8",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/late-prs/official-probe/updated4149_validate.storage-audit.json": "d5497bed77324900a1bcfbc044763f2f45d43c47c5061e9cbbf330da179241d2",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/main665/baseline-score.json": "cd64af9062a57223b61a50e59848ead0327dbfe72ab31712c6235d4492902d20",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/main665/baseline-summary.json": "0195f113349de4833b2ae3509bb0b0bf8125f1a59e765dee4132348ceeaf0da9",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/main665/build-result.json": "2eb0b7014f332f289b75a55a478e9795c523e63d2040633b47c50da84170df91",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/main665/build-start.json": "0b74c6829e1a6ea1442d4a38c82f88ba55b877fdfb3135acb0f884e5a14c0289",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/main665/build/candidate.so": "051ea2f20f1b3fdd693b0dd534d51dad6a1c8d86d7ea4785a3a0b641e929a4c3",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/main665/build/source-inputs.json": "f6d3a4c09fe17e806925f2321a149bcd304ab55ff34e932f8683ff10b439322a",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/main665/build/unstripped.so": "38bd1587e820b5b90c40bf9288a117b8d78c672bb320d3b8ecd39c6cde012323",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/main665/finish_qualification.py": "e0a266cb83739b340215f2c68552d33cd5f2304d6c4edc577c25c596e4c0d0f8",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/main665/main-build.log": "2eb0b7014f332f289b75a55a478e9795c523e63d2040633b47c50da84170df91",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/main665/main-build.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/main665/main-metric.log": "a34377b25a8dfd70abb7996cb644937f1f02be9574d56baf0a1a856366ecd0bb",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/main665/main-metric.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/main665/main-score.log": "b986a436ead6e83a42d00158e65e093ad2805dd65eaf8fc9eab1f835052ad984",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/main665/main-score.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/main665/metric.json": "9630a157ae360311027c19a12eef01b6370b67bdfa92f05b6d05643309e31709",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/main665/qualification-cli.log": "59ff60358824946429afc6bc186fe3b1421797cd720dc42ad4b2ae2769674bc3",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/main665/qualification-cli.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/main665/qualification.json": "ad066f9d7c962250bf53530867a50d6b641efefdf4c0254e2a088b3dcfd19f62",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/main665/run_qualification.py": "de0a861200f6533aa1c058d6508f35d35e8c50536538809ef445d40b46ab1ed0",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/main665/score.json": "618fdc72de8ff159b5954328d8574b190c4e80d4b46dd24e2162e2b4d6f04138",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/publisher-controls-v2.json": "8dee5488c1c401556cb86587d10c819c55784584e1c3128691b868afdae25db4",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/review4162v2/head-admin_cto.rs": "e57333592ac09f21b45c5847f2580f525a1e44399ed894f27ac6750531744578",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/review4162v2/source-review.json": "e3c5908fe7fc22d3263b541f3d051fb33a48731a40f41b843177d24199e480db",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/root/candidate4162v2-source-peer.json": "3cf9ead0b0eb1d59f6393a8da09ba0fd7a58b61fea011c0195b58087f180e27e",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/final-integration-v3/source-binding.json": "af916ebd0b766390f0a5091ee419819178a2d832d4b85f3301ff251103aa0716",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/final-integration-v3/current665-score-binding.json": "12fec9af484e3d70371fd57d0276f29f9035edecd573932f6fc117d8416910a2",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/root/aggregate-v2-merge-admission.json": "e454443d7760011441e87ef726e9e7206caedf4e8397a40f649b771a126e5c0d",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/root/component-preflight-v2-main665.json": "7c091990ee1a3f11831d32da2041a15f8b235a89957a94181f0430d0f6947c0f",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/root/pr-4162-merged.json": "9ebae6c94c702f8b5b881b73bfadd42ba0b19ddf18b0be6f2bbafe5aaa392721",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/root/pr-4167-merged.json": "8d87f4351098f4bb4bf65b5a5cf7bcca4e0d8ebb5ab015a905295e6f6af1a0a3"
+  },
+  "runtime_paths": {
+    "plain_report": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162v2/runtime/main-runtime.json",
+    "compressed_report": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162v2/runtime/admin-runtime.json.gz",
+    "validation": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162v2/runtime/runtime-validation.json"
+  },
+  "cross_paths": {
+    "report": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162v2/runtime/cross-program/report.json",
+    "compressed_report": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162v2/runtime/cross-program/report.json.gz",
+    "binding": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162v2/runtime/cross-program/binding.json",
+    "replay": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162v2/runtime/cross-program/replay.json"
+  },
+  "current_source_proofs": [
+    {
+      "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/root/candidate4162v2-source-peer.json",
+      "sha256": "3cf9ead0b0eb1d59f6393a8da09ba0fd7a58b61fea011c0195b58087f180e27e",
+      "kind": "current_root_source_peer",
+      "scope": "Exact FCC source/root current a596/no-loss/runtime review; recorded integration_revision null remains truthful, root final gate separately binds actual merge."
+    },
+    {
+      "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/review4162v2/source-review.json",
+      "sha256": "e3c5908fe7fc22d3263b541f3d051fb33a48731a40f41b843177d24199e480db",
+      "kind": "independent_current_source_peer",
+      "scope": "Exact FCC source delta and unchanged-body proof; stage build/runtime limits retained."
+    },
+    {
+      "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/review4162v2/head-admin_cto.rs",
+      "sha256": "e57333592ac09f21b45c5847f2580f525a1e44399ed894f27ac6750531744578",
+      "kind": "reviewed_current_source",
+      "scope": "Actual FCC reviewed source bytes, same as actual physical build input."
+    },
+    {
+      "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162-v2/source-peer/review.json",
+      "sha256": "789b3910a310773b446eeb67c87a997beec7522bc8b5a945c7757cad69603fd3",
+      "kind": "independent_current_source_peer",
+      "scope": "Independent exact FCC update semantics and tail storage review."
+    },
+    {
+      "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162-v2/source-peer/storage-probe/review.json",
+      "sha256": "589e2edf9399a48cfeef3f4ca0f71d9acbca5f33b2025964669f8011095a83b6",
+      "kind": "current_compiler_model_review",
+      "scope": "Actual pinned target scratch slot layout/init model; opaque AccountInfo referent rather than full AdminCto."
+    },
+    {
+      "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/late-prs/official-probe/review.json",
+      "sha256": "2f138c7a2b8df2f5f564a3dbd40bee1d72f2a7a07fd5e7b798288f2b1ccd47e8",
+      "kind": "historical_unchanged_compiler_model_reference",
+      "scope": "Recorded prior exact validator/type/Box model applies only unchanged source-equivalent mechanisms, not old runtime outcomes."
+    },
+    {
+      "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162-v2/source-peer/storage-probe/compile.json",
+      "sha256": "c5622096ef52b2b31104a3315eec1b147427cc4cd3d8ee2736644556d052956a",
+      "kind": "official_compiler_model_file",
+      "scope": "Current recorded actual pinned-target compiler/model bytes; compiler structural evidence has the review file\u2019s bounded scope."
+    },
+    {
+      "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162-v2/source-peer/storage-probe/probe.rs",
+      "sha256": "11e6dadbaa6a7a0ed29edbe52fe05a700f3c577f13ba118e56670218f295a0d8",
+      "kind": "official_compiler_model_file",
+      "scope": "Current recorded actual pinned-target compiler/model bytes; compiler structural evidence has the review file\u2019s bounded scope."
+    },
+    {
+      "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162-v2/source-peer/storage-probe/raw/probe.ll",
+      "sha256": "384c59bea3030766a73099526245419b9f436b40c09b85fa4c4f13d7adf5df7e",
+      "kind": "official_compiler_model_file",
+      "scope": "Current recorded actual pinned-target compiler/model bytes; compiler structural evidence has the review file\u2019s bounded scope."
+    },
+    {
+      "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162-v2/source-peer/storage-probe/optimized/probe.ll",
+      "sha256": "ce4baf8417a69b9262b0fd47d33564014ac4b3421e2316f0ff12470e584259ab",
+      "kind": "official_compiler_model_file",
+      "scope": "Current recorded actual pinned-target compiler/model bytes; compiler structural evidence has the review file\u2019s bounded scope."
+    },
+    {
+      "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162-v2/source-peer/storage-probe/optimized/probe.o",
+      "sha256": "1b115821c50382391ca704e14120f8ec2022905655578cf110850180e778708e",
+      "kind": "official_compiler_model_file",
+      "scope": "Current recorded actual pinned-target compiler/model bytes; compiler structural evidence has the review file\u2019s bounded scope."
+    },
+    {
+      "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162-v2/source-peer/storage-probe/optimized/probe.s",
+      "sha256": "cf0f647d5c30c8e22abc69447a6393b63131faa0bb6625e0d41abca5561d3bbe",
+      "kind": "official_compiler_model_file",
+      "scope": "Current recorded actual pinned-target compiler/model bytes; compiler structural evidence has the review file\u2019s bounded scope."
+    },
+    {
+      "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/late-prs/official-probe/compile.json",
+      "sha256": "e687d70765dfab9de9ee3de0a362bab856f8bdb2526b11be80ef48bdd2c4c3cc",
+      "kind": "official_compiler_model_file",
+      "scope": "Current recorded actual pinned-target compiler/model bytes; compiler structural evidence has the review file\u2019s bounded scope."
+    },
+    {
+      "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/late-prs/official-probe/probe.rs",
+      "sha256": "16b98f7d8fa06bf7abdc22238918cb396c81c062a7509a9141fecb9bda1f7479",
+      "kind": "official_compiler_model_file",
+      "scope": "Current recorded actual pinned-target compiler/model bytes; compiler structural evidence has the review file\u2019s bounded scope."
+    },
+    {
+      "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/late-prs/official-probe/raw/probe.ll",
+      "sha256": "ea831d67d45d65cc45c2609c5b369ace5826483c7dfcd6eb64a84ce417381bff",
+      "kind": "official_compiler_model_file",
+      "scope": "Current recorded actual pinned-target compiler/model bytes; compiler structural evidence has the review file\u2019s bounded scope."
+    },
+    {
+      "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/late-prs/official-probe/optimized/probe.ll",
+      "sha256": "5945f53d289ef576fb6d683f27b2ec72040ae536bd268f866ca7553dbcf06ba5",
+      "kind": "official_compiler_model_file",
+      "scope": "Current recorded actual pinned-target compiler/model bytes; compiler structural evidence has the review file\u2019s bounded scope."
+    },
+    {
+      "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/late-prs/official-probe/optimized/probe.o",
+      "sha256": "3b2b76f3cc2f89c8206e1e514a38e2c0fe18e754332bc4c92da3924b0dcd3687",
+      "kind": "official_compiler_model_file",
+      "scope": "Current recorded actual pinned-target compiler/model bytes; compiler structural evidence has the review file\u2019s bounded scope."
+    },
+    {
+      "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/late-prs/official-probe/optimized/probe.s",
+      "sha256": "2bcb7ff3dacaffd974f809dc2b09031f025cdf85757ac0111f031dbe04a5f041",
+      "kind": "official_compiler_model_file",
+      "scope": "Current recorded actual pinned-target compiler/model bytes; compiler structural evidence has the review file\u2019s bounded scope."
+    },
+    {
+      "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/late-prs/official-probe/main34_validate.storage-audit.json",
+      "sha256": "4fdb4b85af7fc6c1d63b3a46f0b6574d6f579a2bcff14eb997fcf1c6b1a21f6b",
+      "kind": "historical_unchanged_validator_model_audit",
+      "scope": "Prior exact validator initialization/lifetime audit retained only for source-equivalent unchanged mechanisms."
+    },
+    {
+      "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/late-prs/official-probe/updated4149_validate.storage-audit.json",
+      "sha256": "d5497bed77324900a1bcfbc044763f2f45d43c47c5061e9cbbf330da179241d2",
+      "kind": "historical_unchanged_validator_model_audit",
+      "scope": "Prior exact validator initialization/lifetime audit retained only for source-equivalent unchanged mechanisms."
+    },
+    {
+      "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/final-integration-v3/source-binding.json",
+      "sha256": "af916ebd0b766390f0a5091ee419819178a2d832d4b85f3301ff251103aa0716",
+      "kind": "independent_current_integration_source_peer",
+      "scope": "Whole-source/tree/mode/canonical graph equality between actual FCC build and actual integration; its pending-at-review label remains historical."
+    },
+    {
+      "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/final-integration-v3/current665-score-binding.json",
+      "sha256": "12fec9af484e3d70371fd57d0276f29f9035edecd573932f6fc117d8416910a2",
+      "kind": "independent_current_main_score_peer",
+      "scope": "Append-only final fresh665 score linkage closes prior source review stage gate."
+    },
+    {
+      "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/root/aggregate-v2-merge-admission.json",
+      "sha256": "e454443d7760011441e87ef726e9e7206caedf4e8397a40f649b771a126e5c0d",
+      "kind": "current_root_final_merge_peer",
+      "scope": "Root final exact integration/current665 score/fresh v2 runtime admission; final remote source HEAD recorded separately in this gate."
+    }
+  ],
+  "limits": [
+    "Root independently verified actual merged source HEAD, latest remote main, clean tree, accepted source ancestry and complete build-source equality before publication.",
+    "Exact FCC instruction-token progress is2389/3339 (.71548), versus current physical6652367/.70889; positional differences worsen3091 to3289 (+198).",
+    "Compared with immutable CP113, token similarity rises .70021/2338 to .71548/2389 (+51); positions3189 to3289 (+100). No new exact window or code-byte completion is claimed.",
+    "Fresh v2 candidate c5caa runtime/cross outcomes only; earlier6acf/02462 and other baseline outcomes remain historical.",
+    "Runtime/cross retain truthful pending-at-authorization and not_merge_or_publication_admission stage fields; this final root gate separately establishes current-main qualification after actual merge.",
+    "Actual compiler/type/model proofs retain pinned target/live-context/limited model scopes; dependency source bodies and stale raw/probe.o are not copied as proof.",
+    "Current FCC source peers retain their recorded a596/earlier source review stage scopes; this selected final qualification-vs-main665 separately establishes latest-main score applicability. No historical peer is rewritten."
+  ]
+}
