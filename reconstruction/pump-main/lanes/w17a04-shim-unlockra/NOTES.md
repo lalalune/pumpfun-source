@@ -21,7 +21,15 @@ onto b4a58878b (after w17a03's #3965), zero losses, differential 388/0.
 Third gain (`-3` branch): the TCF `pump_creator_vault_ata` data clone, already a manual literal, goes through `rcincq`
 with p = 5e-6. Main af6ca66a2 (after #3974 and #3961) goes 0.67825 -> 0.67855, 3,220 slots, 27,400 B, zero losses, differential
 388/0. The same edit gave +1 on 7d5e14de9 too (0.67735 -> 0.67765). The IR window is narrow: on the captured main,
-p = 4e-6, 4.9e-6 .. 5.05e-6 and 1e-5 .. 1.4e-5 give +1, while 4.3e-6, 4.6e-6, 4.95e-6 and 5.1e-6 give -9 M at 27,392 B.
+p = 4e-6, 4.9e-6 .. 5.05e-6 and 1e-5 .. 1.4e-5 give +1, while 4.3e-6, 4.6e-6, 4.95e-6 and 5.1e-6 give -9 M at 27,392 B. Landed as #3985 (merge fd78179b8).
+
+Fourth gain (`-4` branch): **inline `AccountInfo` fields are realizable through a derived-Clone-shaped helper.**
+`#[inline(always)] unsafe fn aiclone_r<'a>(x:&AccountInfo<'a>)->AccountInfo<'a>{AccountInfo{key:x.key,lamports:..,data:x.data.clone(),
+owner:x.owner,rent_epoch:x.rent_epoch,is_signer:x.is_signer,is_writable:x.is_writable,executable:x.executable}}` takes
+`&AccountInfo`, so it keeps the noalias scope of the derived `clone(&self)`. With plain clones (`ccr_plain`) it is
+byte-identical to main (sha `edd56f45`), unlike the inline literal (0.60117). With `lamports: rcincr(..)` at p = 1e-5
+on the TCF `coin_creator` (`current_creator`), main fd78179b8 goes 0.67855 -> 0.67915 (M 2,267, 27,400 B, zero losses,
+differential 388/0). The p window is a single point on the oracle: 9.5e-6 and 1.05e-5 lose.
 
 ## Mechanism: a weighted Rc-clone overflow trap re-sorts the spill-slot colouring
 
@@ -69,7 +77,7 @@ p = 4e-6, 4.9e-6 .. 5.05e-6 and 1e-5 .. 1.4e-5 give +1, while 4.3e-6, 4.6e-6, 4.
 
 ## Rules learned from the weighted-trap family
 
-- **Only pointer-held accounts can take the derive literal.** An Interface, Program, Signer or UncheckedAccount holds
+- **Pointer-held accounts take the derive literal; inline fields need the `aiclone_r` helper (fourth gain).** An Interface, Program, Signer or UncheckedAccount holds
   `&AccountInfo`. Its `to_account_info()` written as `{let x:&AccountInfo=a.f.as_ref();AccountInfo{key,lamports,data,
   owner,rent_epoch,is_signer,is_writable,executable}}` is codegen-neutral (token_program and associated_token_program
   are both byte-identical with plain clones). An existing manual literal can take `rcinc`/`rcincp` directly.
