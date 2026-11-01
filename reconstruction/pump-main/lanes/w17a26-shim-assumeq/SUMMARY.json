@@ -1,0 +1,71 @@
+{
+  "lane": "w17a26-shim-assumeq",
+  "wave": 17,
+  "track": "shim",
+  "target": {"window": "0x22a10", "function": "admin_cto::execute", "file": "programs/pump/src/creator/admin_cto.rs", "pinned_bytes": 27400},
+  "base": {"main": "53ec7fb53", "ratio": 0.68754, "M": 2295, "slots_diff": 3096, "normalized": 1034, "raw": 1034},
+  "result": "KILL: no assume cell, assume pair, or size-neutral assume+passthrough pair/triple reaches main's M at 27,400 B",
+  "landed": false,
+  "best": {
+    "at_pinned_size": {"set": "st:execute:30334 (event is_holder_reward reload := stored value) and F4 + pt:execute:28792", "M": 2293, "dM": -2, "bytes": 27400},
+    "off_size": {"cell": "F4 / A26hr (assume holder_reward => holder) = source hu2 (line 755)", "M": 2294, "dM": -1, "bytes": 27392, "sig": "436adad5596b"}
+  },
+  "calibration": {
+    "slim_oracle_main": {"M": 2295, "bytes": 27400, "sig": "61dcfe87f489", "masked_token_diffs_vs_baseline": 0},
+    "neutral_source_assume_line_761": "byte-identical (sig 61dcfe87f489)",
+    "source_equals_ir_cell": "hu2 (source) = F4 (IR) signature 436adad5596b"
+  },
+  "fold_table": {
+    "eq": "assume(y==x): GVN substitutes the earlier value (lower value number), deletes the reload even across a writing call, x stays live (probe e0/e1)",
+    "range": "assume(b<=1) on a raw byte drops and64 rX,1 (probe r0/r1)",
+    "const": "assume(reload==C) substitutes the constant without extending a live range (probe c0/c1)",
+    "bool_eq": "assume(a==b) on i1 is canonicalised to xor; GVN does not substitute (probe b0/b1 identical)",
+    "polarity": "an assume using the other polarity of a compare makes InstCombine flip the br (F4: jeq+ja -> jne, -8 B)",
+    "neutral": "known facts are dropped (n0/n1)"
+  },
+  "attempts": {
+    "eq_nearest_earliest": {"cells": 111, "identical": 18, "best_at_27400": -5, "best_any": "-5 @+8"},
+    "eq_all_dominators": {"cells": 145, "identical": 21, "best_any": "-11 @-8"},
+    "range_i8": {"cells": 24, "identical": 20, "best_any": "-7 @-8"},
+    "store_to_load": {"cells": 2, "best_at_27400": -2},
+    "semantic_after_validate": {"cells": 18, "identical": 13, "best_any": "-1 @-8 (F4, A26hr)"},
+    "pt8_range": {"cells": 2, "best_any": "-4 @+48"},
+    "param_range": {"cells": 8, "best_any": "-8 @-8"},
+    "pt_rescreen_size_partners": {"cells": 1009, "identical": 726, "best_at_27400": 0},
+    "polarity_flips_llc_only": {"cells": 146, "identical": 48, "best": "0 @+8 (pf:770)"},
+    "polarity_pairs_triples": {"sets": 329, "best_at_27400": 0},
+    "assume_pairs": {"sets": 299, "best_at_27400": -2},
+    "assume_pt_combos": {"sets": 450, "best_at_27400": -2},
+    "source_captures": {"cal1": "identical", "hu2": "2294 @27392", "hu1": "2257 @27416", "su1": "2102 @27208"}
+  },
+  "rejected_mechanisms": [
+    "reuse of an earlier same-address load (accounts fields, Box<Account> pointers, AccountInfo fields, tags) via assume(y==x): extends the leader live range, RA ripple -5..-600",
+    "range facts on i8 loads, pt8 results and parameters",
+    "semantic facts after validate (new tag vs holder, mayhem, holder_reward=>holder, fee-Some implications)",
+    "constant facts on re-reads (none inside one pre-opt function; anchor/wallet flag facts would fold copies the original keeps as loads)",
+    "branch polarity flips (llc-only singles, pairs, triples)",
+    "ordinary sharing_update=Some(args.0) in the holder arm (2102 @27208) and curve.is_holder_reward=_holder (2257 @27416)"
+  ],
+  "unresolved_residuals": [
+    "C1 sharing tag is phi[new tag,2,2,0]; assume cannot replace the holder arm's constant 0 by the new tag (GVN keeps constants), and the C1 payload difference is SROA slice shape",
+    "curve-store and64 is holder.unwrap_or(false) = hopt&1 of the parameter byte (+0xa5 = is_holder_reward); the original stores a precomputed holder bool [r10-0x950]; an i1 equality assume is dropped",
+    "account-field reuse in the original is a register/spill decision, not a missing value fact"
+  ],
+  "next_ideas": [
+    "F4/hu2 is a -8 B knob at -1 M: pair it with any future +8 B cell worth >= +2 M (none on 53ec7fb)",
+    "re-run tools/asgen.py + tools/postkeys.py + w17a15 ptgen after each landing; the cells are base-specific",
+    "a holder bool computed once as hopt&1 (the original's [r10-0x950]) needs a non-assume spelling; and-1 basins collapse validate (w14a127, w15a11, w17a20)"
+  ],
+  "ledger_keys": [
+    "0x22a10-w17-53ec7fb-assumeq-cal-v1",
+    "0x22a10-w17-53ec7fb-assumeq-beam1-v1",
+    "0x22a10-w17-53ec7fb-assumeq-sem-v1",
+    "0x22a10-w17-53ec7fb-assumeq-src-hu-v1",
+    "0x22a10-w17-53ec7fb-assumeq-ptre-v1",
+    "0x22a10-w17-53ec7fb-assumeq-polflip-v1",
+    "0x22a10-w17-53ec7fb-assumeq-eqall-v1",
+    "0x22a10-w17-53ec7fb-assumeq-combos-v1",
+    "0x22a10-w17-53ec7fb-assumeq-polpair-v1",
+    "0x22a10-w17-53ec7fb-assumeq-paramrange-v1"
+  ]
+}
