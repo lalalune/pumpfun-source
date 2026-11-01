@@ -281,12 +281,12 @@ struct CtoState{mayhem:bool,holder_reward:bool,cashback:bool,creator:Pubkey,quot
 
 
 fn validate(st:&CtoState,shared:bool,holder:bool,fee:Option<u64>,new:Option<Pubkey>,sharing:Pubkey,holder_key:Pubkey,hkr:&Pubkey)->Result<Plan>{
- let ns=!shared;let mut sharing_update:Option<Option<Pubkey>>=None;unsafe{core::ptr::read_volatile(hkr as *const Pubkey as *const u8)}/*shim: holder_key byte read before the mayhem test, repays the pin*/;unsafe{core::ptr::read_volatile(hkr as *const Pubkey as *const u8)}/*shim: holder_key byte read before the mayhem test, repays the pin*/;if st.mayhem{return Err(error!(PumpError::CtoNotAllowedForMayhemCoin));}
+ let ns=!shared;let mut sharing_update:Option<Option<Pubkey>>=None;if st.mayhem{return Err(error!(PumpError::CtoNotAllowedForMayhemCoin));}
 // Reconstructed positions of the same deployed validations.
 
 
 
- if st.holder_reward{if !holder{return Err(error!(PumpError::HolderRewardCreatorImmutable));}}else if holder{
+ unsafe{core::ptr::read_volatile(hkr as *const Pubkey as *const u8)}/*shim: holder_key byte read before the holder_reward test, repays the pin*/;if st.holder_reward{if !holder{return Err(error!(PumpError::HolderRewardCreatorImmutable));}}else if holder{
 
 
 
@@ -323,7 +323,7 @@ fn validate(st:&CtoState,shared:bool,holder:bool,fee:Option<u64>,new:Option<Pubk
 
 
 
- let fee_bps=match fee{Some(f)=>{if st.quote_locked{return Err(error!(PumpError::CreatorFeeNotConfigurableForQuote));}
+ let fee_bps=match fee{Some(f)=>{if st.quote_locked{return Err(e326());}
 // layout-pad(3): aligns the next Source site with the original line
 
 
@@ -661,7 +661,7 @@ fn validate(st:&CtoState,shared:bool,holder:bool,fee:Option<u64>,new:Option<Pubk
 
   let vsigner:[&[&[u8]];1];let bump=ctx.bumps.creator_vault;let old=a.current_creator.key();let vaultseeds:&[&[u8]]=&[b"creator-vault",old.as_ref(),&[bump]];vsigner=[vaultseeds];
   if native{let min={let rent=Rent::get()?;rent.minimum_balance(0)};let amount=a.creator_vault.lamports().saturating_sub(min);
-   return (if amount>0{crate::legacy_buy::native_payments::ensure_rent_exempt(&a.system_program,&a.admin_set_creator_authority,&a.holder_creator_vault)?;let _=unsafe{core::ptr::read_volatile(holder_key as *const Pubkey as *const u8)};/*shim: holder_key byte read before transfer_native, repays the pin*/crate::collect_v2::transfer_native(a.system_program.as_ref(),&a.creator_vault,&a.holder_creator_vault,amount,&vsigner)}else{Ok(())}).map(|()|amount);}else{let amount=token_raw_amount(a.creator_vault_quote_token_account.as_ref())?;let frozen=token_frozen(a.creator_vault_quote_token_account.as_ref())?;
+   return if amount>0{crate::legacy_buy::native_payments::ensure_rent_exempt(&a.system_program,&a.admin_set_creator_authority,&a.holder_creator_vault)?;crate::collect_v2::transfer_native(a.system_program.as_ref(),&a.creator_vault,&a.holder_creator_vault,amount,&vsigner).map(|()|amount)}else{Ok(0)};}else{let amount=token_raw_amount(a.creator_vault_quote_token_account.as_ref())?;let frozen=token_frozen(a.creator_vault_quote_token_account.as_ref())?;
 
 
 
@@ -769,4 +769,4 @@ fn validate(st:&CtoState,shared:bool,holder:bool,fee:Option<u64>,new:Option<Pubk
 
 fn token_frozen(a:&AccountInfo)->Result<bool>{if a.data_is_empty(){return Ok(false);}let d=a.try_borrow_data()?;let t=anchor_spl::token_interface::TokenAccount::try_deserialize(&mut &d[..])?;Ok(t.is_frozen())}
 
-fn token_raw_amount(a:&AccountInfo)->Result<u64>{if a.data_is_empty(){return Ok(0);}let d=a.try_borrow_data()?;let t=anchor_spl::token_interface::TokenAccount::try_deserialize(&mut &d[..])?;Ok(t.amount)}
+const X326:&PumpError=&PumpError::CreatorFeeNotConfigurableForQuote;#[custom_mir(dialect="runtime",phase="optimized")]fn e326()->anchor_lang::error::Error{use core::intrinsics::mir::*;mir!{let g:anchor_lang::error::AnchorError;let m:String;let s:anchor_lang::error::Source;let o:anchor_lang::error::ErrorOrigin;{Call(g.error_name=PumpError::name(X326),ReturnTo(bb1),UnwindUnreachable())}bb1={Call(m=<PumpError as ToString>::to_string(X326),ReturnTo(bb2),UnwindUnreachable())}bb2={g.error_msg=Move(m);g.error_code_number=6091_u32;s=anchor_lang::error::Source{filename:"programs/pump/src/creator/admin_cto.rs",line:326_u32};o=anchor_lang::error::ErrorOrigin::Source(Move(s));g.error_origin=Some(Move(o));g.compared_values=None;Call(RET=<anchor_lang::error::Error as From<anchor_lang::error::AnchorError>>::from(Move(g)),ReturnTo(bb3),UnwindUnreachable())}bb3={Return()}}}/*shim: error!(326) with name() writing the error_name field directly (the original's call slot)*/fn token_raw_amount(a:&AccountInfo)->Result<u64>{if a.data_is_empty(){return Ok(0);}let d=a.try_borrow_data()?;let t=anchor_spl::token_interface::TokenAccount::try_deserialize(&mut &d[..])?;Ok(t.amount)}
