@@ -1,35 +1,141 @@
 {
-  "lane": "w16a11-cto-plaintail",
-  "wave": 16,
-  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27,400 B",
-  "base": {"main": "1f4e396b5 (admin_cto.rs unchanged on 599891304)", "ratio": 0.67436, "slots_diff": 3141, "M": 2251, "Mperm": 2295, "Mhc": 2302,
-           "cells": {"free": 2251, "pin": 2294, "pin_ri9_3c00": 2305, "pin_ria_3c00": 2353, "pin_ri9_2800": 2315, "pin_ria_2800": 2463}, "joint_p1_w16a04": 2329},
-  "result": "notes only; kill test holds on all three counts (no realisable cell above main, no joint above main, pins close <=28% of the register gap)",
-  "best_zero_loss": null,
-  "union_P0": {"genes": "s1 + tai + c2-family (every AccountInfo literal -> to_account_info) + n1po + raw-first + p2", "bytes": 27360, "M": 2028, "Mperm": 2151, "Mhc": 2184,
-               "true_lcs": 2125, "rfj": 3038, "L2": 0.82147, "cells": {"free": 2028, "pin": 2133, "pin_ri9_3c00": 2184, "pin_ria_3c00": 2309, "pin_ri9_2800": 2184, "pin_ria_2800": 2449},
-               "joint_p1": 2306, "climb": "0.64956 @27296 (12 forces)"},
-  "leave_one_out_M": {"P0-S": 2128, "P0-T": 2093, "P0-C": 2026, "P0-N": 2026, "P0-R": 1927, "P0-P": 2035},
-  "pairs_M": {"R": 2244, "RN": 2225, "RP": 2223, "NRP": 2223, "RC": 2217, "CNRP": 2193, "RT": 2149, "RS": 2141, "S1": 2146, "SC": 2118, "ST": 2050, "SN": 2019, "SP": 2014},
-  "L_rows": {"Lv": {"M": 2236, "Mperm": 2309, "Mhc": 2318}, "LP0": {"M": 2024, "Mperm": 2165, "Mhc": 2198, "joint_p1": 2281}},
-  "best_ceiling_cells": {"S1_pin_ria_3c00": 2414, "RS_pin_ria_3c00": 2409, "SC_pin_ria_3c00": 2385, "P0-T_pin_ria_3c00": 2374, "best_realisable_pin_ri9_3c00": "RS 2296 < main 2305"},
-  "mechanisms": [
-    "s1 gives the original's sharing-CPI code shape: L2 +119 (all in orig 0x4000-0x4800: 215 vs 96 L2 matches), rfj LCS +32, but --- LCS -50 (frame/registers).",
-    "Layout flip: with main's frozen-first, S+N, S+P and S+T+C+N+P move a ~110-insn wallet cold block (orig 0x55b8-0x5968, Ok edge back to 0x1d28) right after the sweep-exit join (+0x378 shift of orig 0x4400-0x5400, -60 at 0x5000, -41..-52 at 0x5800); raw-first keeps it cold, so raw-first is +101 M inside P0 though -7 M alone.",
-    "Register facts (orig trace): only swept is held in r9 through the tail (0x3c40-0x5030); the sharing tag is in r6 only for the match (0x3c58-0x3d20) and is reloaded into r6 at 0x4a90 (across the pool gate) and 0x4d48; accounts reloaded from [r10-0x8d8] per clone. P0 spills swept, holds accounts in r7 over the run, reloads a %465 piece into r8.",
-    "Decisive vregs (dbgocc on P0): at the selectOrSplit of the tag %56 and the swept phi %1619, r9 = %465 holder flag (3216..64416) and r8 = %0 accounts (whole function); at %1720 r9 = %1702 (a %465 piece). The faithful tail's register fact is a head fact.",
-    "Pins: pre-coalescer physreg tag->r6 closes 54/196 register-only pairs (28%) at -154 M; swept->r9 destroys alignment (-450 M); sticky 1720=r9 = 0.48943 (the phi spans every sweep exit).",
-    "dotmap swap flags with S or T are artifacts: one chunk (orig 0x4000) hits our identical TCF to_account_info clone run; neighbours unshifted, rfj LCS up.",
-    "mirperm.py hard-coded the CPI account-infos slot (_55.i9x); on this base it is _41.i and the legal pin silently failed. Fixed with auto-detection (tools/mirperm.py)."
-  ],
-  "rejected": ["P0 union", "P0 on L_vol", "all six leave-one-outs", "R/RN/RP/NRP/RC/CNRP/RT/RS", "S1/SC/ST/SN/SP", "tag->r6 and swept->r9 physreg pins", "sticky 1720=r9", "465=spill (+1720=r9)"],
-  "unresolved": ["the head-to-tail holder flag %465 and accounts %0 being register-resident through the tail (a head fact, allfaith lane)", "clone-run temp naming (r0/r1/r2 families) in the s1 sharing run", "TCF lamports Rc in r5 instead of r7 under tai (w15a26 marker fails on P0)"],
-  "next_ideas": [
-    "allfaith (w16a12): any head that frees r9 from %465 in the tail should be re-priced with S+R (RS) first: RS's ideal-register cell is +56 over main, its realisable cell only -9.",
-    "Take raw-first whenever s1 is combined with n1po or p2; otherwise the wallet cold block flips into the tail (-100 M).",
-    "A source form whose curve update recomputes is_holder_reward from hopt instead of reusing the entry holder flag might shorten %465 (check RAPRIO_LOG weights before building).",
-    "Re-run tools/cells.sh with the fixed mirperm.py on any lane that reported legal-pin cells after the CPI slot rename."
-  ],
-  "ledger": "approach plaintail, keys 0x22a10-w16-{1f4e396,5998913}-plaintail-*-v1",
-  "builds": "22 raw-IR captures (one build slot each, at most 2 at a time); no measure.sh build (no candidate)"
+ "lane": "w16a11-cto-plaintail",
+ "wave": 16,
+ "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27,400 B",
+ "base": {
+  "main": "1f4e396b5 (admin_cto.rs unchanged on 599891304)",
+  "ratio": 0.67436,
+  "slots_diff": 3141,
+  "M": 2251,
+  "Mperm": 2295,
+  "Mhc": 2302,
+  "cells": {
+   "free": 2251,
+   "pin": 2294,
+   "pin_ri9_3c00": 2305,
+   "pin_ria_3c00": 2353,
+   "pin_ri9_2800": 2315,
+   "pin_ria_2800": 2463
+  },
+  "joint_p1_w16a04": 2329
+ },
+ "result": "notes only; kill test holds: no realisable cell above main (best RS 2,296 vs 2,305), no joint above main (best LP0-S 2,329 = main p1 2,329 < 2,338; P0 2,306), pins close <=28% of the register gap",
+ "best_zero_loss": null,
+ "union_P0": {
+  "genes": "s1 + tai + c2-family (every AccountInfo literal -> to_account_info) + n1po + raw-first + p2",
+  "bytes": 27360,
+  "M": 2028,
+  "Mperm": 2151,
+  "Mhc": 2184,
+  "true_lcs": 2125,
+  "rfj": 3038,
+  "L2": 0.82147,
+  "cells": {
+   "free": 2028,
+   "pin": 2133,
+   "pin_ri9_3c00": 2184,
+   "pin_ria_3c00": 2309,
+   "pin_ri9_2800": 2184,
+   "pin_ria_2800": 2449
+  },
+  "joint_p1": 2306,
+  "climb": "0.64956 @27296 (12 forces)"
+ },
+ "leave_one_out_M": {
+  "P0-S": 2128,
+  "P0-T": 2093,
+  "P0-C": 2026,
+  "P0-N": 2026,
+  "P0-R": 1927,
+  "P0-P": 2035
+ },
+ "pairs_M": {
+  "R": 2244,
+  "RN": 2225,
+  "RP": 2223,
+  "NRP": 2223,
+  "RC": 2217,
+  "CNRP": 2193,
+  "RT": 2149,
+  "RS": 2141,
+  "S1": 2146,
+  "SC": 2118,
+  "ST": 2050,
+  "SN": 2019,
+  "SP": 2014
+ },
+ "L_rows": {
+  "Lv": {
+   "M": 2236,
+   "Mperm": 2309,
+   "Mhc": 2318
+  },
+  "LP0": {
+   "M": 2024,
+   "Mperm": 2165,
+   "Mhc": 2198,
+   "joint_p1": 2281
+  },
+  "LOO_M": {
+   "LP0-S": 2114,
+   "LP0-T": 2091,
+   "LP0-P": 2030,
+   "LP0-N": 2022,
+   "LP0-C": 2021,
+   "LP0-R": 1924
+  },
+  "LP0-S": {
+   "M": 2114,
+   "Mperm": 2247,
+   "Mhc": 2258,
+   "ri9_2800": 2122,
+   "ria_2800": 2265,
+   "joint_p1": 2329,
+   "climb": "0.66767 @27360 (12 forces)"
+  },
+  "LP0-T_ria_2800": 2350
+ },
+ "best_ceiling_cells": {
+  "S1_pin_ria_3c00": 2414,
+  "RS_pin_ria_3c00": 2409,
+  "SC_pin_ria_3c00": 2385,
+  "P0-T_pin_ria_3c00": 2374,
+  "best_realisable_pin_ri9_3c00": "RS 2296 < main 2305"
+ },
+ "mechanisms": [
+  "s1 gives the original's sharing-CPI code shape: L2 +119 (all in orig 0x4000-0x4800: 215 vs 96 L2 matches), rfj LCS +32, but --- LCS -50 (frame/registers).",
+  "Layout flip: with main's frozen-first, S+N, S+P and S+T+C+N+P move a ~110-insn wallet cold block (orig 0x55b8-0x5968, Ok edge back to 0x1d28) right after the sweep-exit join (+0x378 shift of orig 0x4400-0x5400, -60 at 0x5000, -41..-52 at 0x5800); raw-first keeps it cold, so raw-first is +101 M inside P0 though -7 M alone.",
+  "Register facts (orig trace): only swept is held in r9 through the tail (0x3c40-0x5030); the sharing tag is in r6 only for the match (0x3c58-0x3d20) and is reloaded into r6 at 0x4a90 (across the pool gate) and 0x4d48; accounts reloaded from [r10-0x8d8] per clone. P0 spills swept, holds accounts in r7 over the run, reloads a %465 piece into r8.",
+  "Decisive vregs (dbgocc on P0): at the selectOrSplit of the tag %56 and the swept phi %1619, r9 = %465 holder flag (3216..64416) and r8 = %0 accounts (whole function); at %1720 r9 = %1702 (a %465 piece). The faithful tail's register fact is a head fact.",
+  "Pins: pre-coalescer physreg tag->r6 closes 54/196 register-only pairs (28%) at -154 M; swept->r9 destroys alignment (-450 M); sticky 1720=r9 = 0.48943 (the phi spans every sweep exit).",
+  "dotmap swap flags with S or T are artifacts: one chunk (orig 0x4000) hits our identical TCF to_account_info clone run; neighbours unshifted, rfj LCS up.",
+  "mirperm.py hard-coded the CPI account-infos slot (_55.i9x); on this base it is _41.i and the legal pin silently failed. Fixed with auto-detection (tools/mirperm.py).",
+  "Plain vs partial TCF forms: w16a12's T (s1+s_tai2+c2+n1+po+rev_ff) is M 2,094, 59 above P0-P; the TCF CpiContext program literal and the coin_creator_vault_ata literal are main-side compensators worth about 59 M as built.",
+  "Spilling the accounts pointer for the whole function (sticky 0=spill) costs 250-515 M (+550-700 B) on main, R, P0 and RS; the needed fact is a tail-only split of %0. Raw-first's own -7 M is the same fact (orig add64 r8,72 consumes the accounts base in place; ours copies it)."
+ ],
+ "rejected": [
+  "P0 union",
+  "P0 on L_vol",
+  "all six leave-one-outs",
+  "R/RN/RP/NRP/RC/CNRP/RT/RS",
+  "S1/SC/ST/SN/SP",
+  "tag->r6 and swept->r9 physreg pins",
+  "sticky 1720=r9",
+  "465=spill (+1720=r9)",
+  "all six leave-one-outs of P0 on L_vol"
+ ],
+ "unresolved": [
+  "the head-to-tail holder flag %465 and accounts %0 being register-resident through the tail (a head fact, allfaith lane)",
+  "clone-run temp naming (r0/r1/r2 families) in the s1 sharing run",
+  "TCF lamports Rc in r5 instead of r7 under tai (w15a26 marker fails on P0)"
+ ],
+ "next_ideas": [
+  "allfaith (w16a12): any head that frees r9 from %465 in the tail should be re-priced with S+R (RS) first: RS's ideal-register cell is +56 over main, its realisable cell only -9.",
+  "Take raw-first whenever s1 is combined with n1po or p2; otherwise the wallet cold block flips into the tail (-100 M).",
+  "A source form whose curve update recomputes is_holder_reward from hopt instead of reusing the entry holder flag might shorten %465 (check RAPRIO_LOG weights before building).",
+  "Re-run tools/cells.sh with the fixed mirperm.py on any lane that reported legal-pin cells after the CPI slot rename."
+ ],
+ "ledger": "approach plaintail, keys 0x22a10-w16-{1f4e396,5998913}-plaintail-*-v1",
+ "builds": "28 raw-IR captures (one build slot each, at most 2 at a time); no measure.sh build (no candidate)",
+ "pr": 3879
 }

@@ -10,8 +10,8 @@ Ledger: approach `plaintail`, keys `0x22a10-w16-<sha7>-plaintail-<cell>-v1` (22 
 **Result: notes only, no source change. The kill test holds on all three counts.**
 1. No union, leave-one-out or pair, on main or on L, has a realisable cell above main's. The best `+pin+regideal r9` cell
    is RS (raw-first + s1) at 2,296 (orig 0x3c00-0x5040) against main's 2,305. The best P0-family cell is P0_T at 2,249.
-2. No joint ceiling reaches main's. With the sticky RAPRIO climb plus a spill permutation, P0 reaches 2,306, P0_T 2,304
-   and LP0 2,281. w16a04 measures main at 2,329 (p1) on this base.
+2. No joint ceiling exceeds main's. With the sticky RAPRIO climb plus a spill permutation, P0 reaches 2,306, P0_T 2,304,
+   LP0 2,281 and LP0-S 2,329 (a tie). w16a04 measures main at 2,329 (p1) on this base.
 3. The tag and swept pins close at most 28% of P0's register-only mismatches, and they cost 154-450 M.
 
 The angle's premise is also only half right: in the original the sharing tag is **not** held in r6 over the sharing clone
@@ -73,6 +73,22 @@ run (section 4). Only `swept` in r9 is a held, whole-tail fact.
 
 `*` On L heads the legal pin is not legal: the 11-slot window rotation (w16a04 `winrot`) makes `mirperm` move the wrong
 colours, so pin < free there. Use L's free and regideal-only cells (Lv: ri9 2,253, ria 2,344 over 0x2800).
+
+Leave-one-out on L (`spec4.txt`). The comparable cells on L are regideal without the pin; main's are ri9 2,258 / 2,268
+and ria 2,252 / 2,362 (0x3c00 / 0x2800).
+
+| variant | bytes | M | Mperm | Mhc | LCS --- | rfj | ri9 3c00 | ria 3c00 | ri9 2800 | ria 2800 | joint p1 |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| LP0 | 27360 | 2024 | 2165 | 2198 | 2110 | 3045 | 2043 | 2162 | 2043 | 2301 | 2281 |
+| LP0-S | 27384 | 2114 | 2247 | 2258 | 2154 | 3023 | 2122 | 2126 | 2122 | 2265 | 2,329 (ties main p1) |
+| LP0-T | 27344 | 2091 | 2186 | 2223 | 2152 | 3043 | 2110 | 2229 | 2121 | 2350 | |
+| LP0-P | 27368 | 2030 | 2171 | 2204 | 2116 | 3045 | 2049 | 2164 | 2049 | 2303 | |
+| LP0-N | 27384 | 2022 | 2163 | 2198 | 2108 | 3043 | 2040 | 2158 | 2040 | 2297 | |
+| LP0-C | 27368 | 2021 | 2158 | 2191 | 2106 | 3040 | 2040 | 2159 | 2038 | 2294 | |
+| LP0-R | 27392 | 1924 | 2066 | 2099 | 2010 | 2942 | 1943 | 2061 | 1943 | 2200 | |
+
+On L the pattern repeats: S and T are the as-built losers, raw-first is worth about +100 inside the union (the same
+wallet-block flip, -61 at 0x5000 and -55 at 0x5800), and no cell reaches main's.
 The L+one-lead rows (s1, s_tai2, c2) are w16a04's (#3855) and are not recomputed here.
 
 What the table says:
@@ -95,6 +111,12 @@ What the table says:
   - True LCS rfj is +32 (3,038 against 3,006), while `---` is -132.
   - In that chunk the s1 sharing clone run is instruction-for-instruction the original's. Only registers and frame
     offsets differ (`sbs2.py` view, section 4).
+- **Plain versus partial TCF forms.** w16a12's tail union `T` = `s1+s_tai2+c2+n1+po+rev_ff` (#3878) is M 2,094 @27,352,
+  with cells 2,199 / 2,250 / 2,371. That is 59 above P0-P, which is the same union except for the plain conversions.
+  - P0-P converts the TCF `CpiContext::new` program literal and the `coin_creator_vault_ata` literal to
+    `to_account_info()` as well. `T` converts only the `program:` field (s_tai2) and only reorders
+    `pump_creator_vault_ata` (c2).
+  - Those two remaining literals are main-side compensators worth about 59 M as built.
 - **The dotmap swap flags are artifacts.** Every flagged row shows one chunk, orig 0x4000, with a median shift of about
   -0xf88, and its neighbours are not shifted. With T (or S), the sharing program clone and the TCF program clone are the
   same rfj sequence, so the original's unique 5-grams at 0x4000 hit our TCF clone. True LCS rfj is up in those rows, not
@@ -180,6 +202,12 @@ uses r9 as a temp in 50 mismatched pairs. The larger mismatch families are the r
 - Sticky prices on P0:
   - `465=spill`: 2,020 (-8; L1 +0.012, L2 -0.007).
   - `465=spill` + `1720=r9`: 1,585 (L2 0.604).
+- Spilling the accounts pointer for the whole function (`0=spill`) costs 250-515 M and adds 550-700 B on every base:
+  main 1,736 @28,096, R 1,807, P0 1,779, RS 1,779 (`spillforces` row).
+  - The original keeps accounts in a register in the head and reloads it only in the tail.
+  - So the needed fact is a tail-only split of `%0`, which no force reproduces.
+- Raw-first's own -7 M is the same fact. The original's `add64 r8,72` consumes the accounts base in place. Ours copies it
+  (`mov64 r6,r8; add64 r6,72`), because `%0` stays live in r8.
 
 ## 5. Sticky RAPRIO joint ceilings (w16a04 `lpipe.sh` = w15a28 pipe.sh; sticky colmap screen of 80, 12-round climb, permhc)
 
@@ -189,6 +217,7 @@ uses r9 as a temp in 50 mismatched pairs. The larger mismatch families are the r
 | P0 | 2,028 | 0.64956 @27,296 (12) | 2,164 | 2,306 | 2,306 | -27/+40 |
 | P0-T | 2,093 | 0.66236 @27,184 (9) | 2,202 | 2,283 | 2,304 | +1/+27 |
 | LP0 | 2,024 | 0.65037 @27,328 (11) | 2,168 | 2,261 | 2,281 | -62/+32 |
+| LP0-S | 2,114 | 0.66767 @27,360 (12) | 2,227 | 2,319 | 2,329 | -15/+18 |
 
 - P0's climb forces are main's own families with new numbers: 1675=r6/1677=r6 (accounts pieces, main 1684=r6) and
   332=r2, 323=r4, 350=r7, 1665=r7, 467=r2, 2145=r7, 216=r9, 2179=r5.
@@ -199,8 +228,9 @@ uses r9 as a temp in 50 mismatched pairs. The larger mismatch families are the r
 
 ## 6. Verdict and hand-off
 
-- Kill test: realisable max 2,296 (RS) < 2,305; joint max 2,306 (P0) < 2,329/2,338; pins close at most 28% < 50%. The
-  faithful tail is closed on main-like heads. The allfaith lane (w16a12) picks it up with heads.
+- Kill test: realisable max 2,296 (RS) < 2,305; joint max 2,329 (LP0-S, a tie with main p1; P0 2,306) <= 2,329 < 2,338;
+  pins close at most 28% < 50%. The faithful tail is closed on main-like heads. The allfaith lane (w16a12) picks it up
+  with heads.
 - What the faithful tail is worth, and what it needs:
   - It is worth +119 L2 (the sharing CPI's code shape) and +61 M in the ideal-register cell, all of it s1's.
   - It needs the original's register naming of the clone-run temps and swept in r9 from the sweep exit to the event.
