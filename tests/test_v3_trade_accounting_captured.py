@@ -541,6 +541,13 @@ class V3TradeAccountingCaptured(unittest.TestCase):
         results = self.run_all(random_cases())
         self.assertGreaterEqual(sum(a[0] == 'ok' for *_, a in results), 60)
 
+    def test_host_rejects_unknown_table(self):
+        line = host_line(default_case()).replace('table=tiers', 'table=tier')
+        out = subprocess.run([str(host_binary())], input=line + '\n', capture_output=True, text=True)
+        self.assertNotEqual(out.returncode, 0)
+        self.assertEqual(out.stdout, '')
+        self.assertIn('unknown table', out.stderr)
+
     def test_checker_rejects_tampered_outcomes(self):
         picks = [default_case(quote='sol'), default_case(quote='t22', tf=(0, 0, 0, 250, 10**18)),
                  default_case(quote='t22', buy=1, tf=(0, 0, 0, 250, 10**18), limit=10**15)]

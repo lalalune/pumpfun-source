@@ -66,7 +66,8 @@ fn parse(line: &str) -> Case {
         table: match m["table"] {
             "tiers" => FeeTable::Tiers,
             "stable" => FeeTable::Stable,
-            _ => FeeTable::Flat,
+            "flat" => FeeTable::Flat,
+            other => panic!("unknown table {other}"),
         },
         transfer_fee,
         epoch: n("epoch"),
