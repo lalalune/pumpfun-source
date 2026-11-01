@@ -1,0 +1,342 @@
+[
+ {
+  "seg": 0,
+  "clone": 1,
+  "field": "ctx program (a1 manual, pump_amm)",
+  "part": "dat",
+  "orig_ins": 8,
+  "main_ins": 9,
+  "delta_B": 8,
+  "main_extra": [
+   "026f0 stxdw [r4+0x0], r1"
+  ],
+  "orig_extra": []
+ },
+ {
+  "seg": 1,
+  "clone": 2,
+  "field": "payer (admin_set_creator_authority)",
+  "part": "lam",
+  "orig_ins": 21,
+  "main_ins": 21,
+  "delta_B": 0,
+  "main_extra": [
+   "02708 stxdw [r10-0x950], r5",
+   "02750 ldxb r5, [r2+0x28]",
+   "02758 stxdw [r10-0x9e0], r5",
+   "02770 ldxb r5, [r2+0x2a]"
+  ],
+  "orig_extra": [
+   "02770 ldxb r5, [r2+0x2a]",
+   "02788 ldxb r6, [r2+0x28]",
+   "027a8 ldxdw r6, [r2+0x18]",
+   "027b8 stxdw [r10-0x9e0], r2"
+  ]
+ },
+ {
+  "seg": 2,
+  "clone": 2,
+  "field": "payer (admin_set_creator_authority)",
+  "part": "dat",
+  "orig_ins": 9,
+  "main_ins": 9,
+  "delta_B": 0,
+  "main_extra": [],
+  "orig_extra": []
+ },
+ {
+  "seg": 3,
+  "clone": 3,
+  "field": "quote_mint",
+  "part": "lam",
+  "orig_ins": 25,
+  "main_ins": 24,
+  "delta_B": -8,
+  "main_extra": [],
+  "orig_extra": [
+   "02838 stxdw [r10-0x978], r5"
+  ]
+ },
+ {
+  "seg": 4,
+  "clone": 3,
+  "field": "quote_mint",
+  "part": "dat",
+  "orig_ins": 9,
+  "main_ins": 9,
+  "delta_B": 0,
+  "main_extra": [],
+  "orig_extra": []
+ },
+ {
+  "seg": 5,
+  "clone": 4,
+  "field": "token_program (quote_token_program)",
+  "part": "lam",
+  "orig_ins": 24,
+  "main_ins": 23,
+  "delta_B": -8,
+  "main_extra": [],
+  "orig_extra": [
+   "02958 stxdw [r10-0x990], r9"
+  ]
+ },
+ {
+  "seg": 6,
+  "clone": 4,
+  "field": "token_program (quote_token_program)",
+  "part": "dat",
+  "orig_ins": 9,
+  "main_ins": 9,
+  "delta_B": 0,
+  "main_extra": [],
+  "orig_extra": []
+ },
+ {
+  "seg": 7,
+  "clone": 5,
+  "field": "system_program",
+  "part": "lam",
+  "orig_ins": 24,
+  "main_ins": 25,
+  "delta_B": 8,
+  "main_extra": [
+   "02a38 stxdw [r10-0x980], r5"
+  ],
+  "orig_extra": []
+ },
+ {
+  "seg": 8,
+  "clone": 5,
+  "field": "system_program",
+  "part": "dat",
+  "orig_ins": 9,
+  "main_ins": 9,
+  "delta_B": 0,
+  "main_extra": [],
+  "orig_extra": []
+ },
+ {
+  "seg": 9,
+  "clone": 6,
+  "field": "associated_token_program",
+  "part": "lam",
+  "orig_ins": 23,
+  "main_ins": 22,
+  "delta_B": -8,
+  "main_extra": [],
+  "orig_extra": [
+   "02b80 stxdw [r10-0x9a8], r6"
+  ]
+ },
+ {
+  "seg": 10,
+  "clone": 6,
+  "field": "associated_token_program",
+  "part": "dat",
+  "orig_ins": 8,
+  "main_ins": 8,
+  "delta_B": 0,
+  "main_extra": [],
+  "orig_extra": []
+ },
+ {
+  "seg": 11,
+  "clone": 7,
+  "field": "coin_creator (current_creator)",
+  "part": "lam",
+  "orig_ins": 23,
+  "main_ins": 24,
+  "delta_B": 8,
+  "main_extra": [
+   "02c58 stxdw [r10-0x9a8], r7"
+  ],
+  "orig_extra": []
+ },
+ {
+  "seg": 12,
+  "clone": 7,
+  "field": "coin_creator (current_creator)",
+  "part": "dat",
+  "orig_ins": 8,
+  "main_ins": 8,
+  "delta_B": 0,
+  "main_extra": [],
+  "orig_extra": []
+ },
+ {
+  "seg": 13,
+  "clone": 8,
+  "field": "coin_creator_vault_authority",
+  "part": "lam",
+  "orig_ins": 23,
+  "main_ins": 24,
+  "delta_B": 8,
+  "main_extra": [
+   "02d60 stxdw [r10-0x998], r5"
+  ],
+  "orig_extra": []
+ },
+ {
+  "seg": 14,
+  "clone": 8,
+  "field": "coin_creator_vault_authority",
+  "part": "dat",
+  "orig_ins": 9,
+  "main_ins": 9,
+  "delta_B": 0,
+  "main_extra": [],
+  "orig_extra": []
+ },
+ {
+  "seg": 15,
+  "clone": 9,
+  "field": "coin_creator_vault_ata (a2 manual)",
+  "part": "lam",
+  "orig_ins": 23,
+  "main_ins": 22,
+  "delta_B": -8,
+  "main_extra": [],
+  "orig_extra": [
+   "02f40 ldxdw r1, [r10-0x9b8]"
+  ]
+ },
+ {
+  "seg": 16,
+  "clone": 9,
+  "field": "coin_creator_vault_ata (a2 manual)",
+  "part": "dat",
+  "orig_ins": 8,
+  "main_ins": 12,
+  "delta_B": 32,
+  "main_extra": [
+   "02f50 mov64 r9, r5",
+   "02f68 ldxdw r5, [r2+0x0]",
+   "02f78 stxdw [r4+0x0], r1",
+   "02f80 ldxdw r5, [r10-0x998]"
+  ],
+  "orig_extra": []
+ },
+ {
+  "seg": 17,
+  "clone": 10,
+  "field": "pump_creator_vault (creator_vault)",
+  "part": "lam",
+  "orig_ins": 25,
+  "main_ins": 25,
+  "delta_B": 0,
+  "main_extra": [
+   "02fe8 ldxdw r4, [r10-0x950]"
+  ],
+  "orig_extra": [
+   "02ff0 stxdw [r10-0xb38], r9"
+  ]
+ },
+ {
+  "seg": 18,
+  "clone": 10,
+  "field": "pump_creator_vault (creator_vault)",
+  "part": "dat",
+  "orig_ins": 12,
+  "main_ins": 9,
+  "delta_B": -24,
+  "main_extra": [],
+  "orig_extra": [
+   "030b0 ldxdw r3, [r10-0x9b0]",
+   "030b8 ldxdw r3, [r10-0x978]",
+   "030c0 ldxdw r3, [r10-0x8e0]"
+  ]
+ },
+ {
+  "seg": 19,
+  "clone": 11,
+  "field": "pump_creator_vault_ata (a3 manual, pcva)",
+  "part": "lam",
+  "orig_ins": 23,
+  "main_ins": 24,
+  "delta_B": 8,
+  "main_extra": [
+   "030c8 ldxdw r6, [r1+0x10]",
+   "030f8 stxdw [r10-0xb78], r9",
+   "03108 stxdw [r10-0x8e0], r4"
+  ],
+  "orig_extra": [
+   "030f0 ldxdw r9, [r1+0x8]",
+   "03110 ldxdw r7, [r10-0x988]"
+  ]
+ },
+ {
+  "seg": 20,
+  "clone": 11,
+  "field": "pump_creator_vault_ata (a3 manual, pcva)",
+  "part": "dat",
+  "orig_ins": 14,
+  "main_ins": 16,
+  "delta_B": 16,
+  "main_extra": [
+   "03188 ldxdw r9, [r1+0x8]",
+   "031d8 ldxdw r4, [r10-0x970]",
+   "031e0 ldxdw r4, [r8+0x48]",
+   "031e8 ldxdw r7, [r4+0x18]"
+  ],
+  "orig_extra": [
+   "031a8 stxdw [r10-0xbb0], r0",
+   "031b0 ldxdw r2, [r1+0x10]"
+  ]
+ },
+ {
+  "seg": 21,
+  "clone": 12,
+  "field": "event_authority (pump_amm_event_authority)",
+  "part": "lam",
+  "orig_ins": 19,
+  "main_ins": 19,
+  "delta_B": 0,
+  "main_extra": [
+   "03230 ldxdw r4, [r10-0x988]",
+   "03280 stxdw [r10-0xbc0], r1"
+  ],
+  "orig_extra": [
+   "03218 ldxdw r3, [r10-0x8d8]",
+   "03290 ldxdw r1, [r1+0x18]"
+  ]
+ },
+ {
+  "seg": 22,
+  "clone": 12,
+  "field": "event_authority (pump_amm_event_authority)",
+  "part": "dat",
+  "orig_ins": 13,
+  "main_ins": 12,
+  "delta_B": -8,
+  "main_extra": [],
+  "orig_extra": [
+   "032c0 stxdw [r10-0xbf0], r1"
+  ]
+ },
+ {
+  "seg": 23,
+  "clone": 13,
+  "field": "program (a4 manual, pump_amm)",
+  "part": "lam",
+  "orig_ins": 23,
+  "main_ins": 25,
+  "delta_B": 16,
+  "main_extra": [
+   "033a8 ldxdw r8, [r1+0x18]",
+   "033b0 stxdw [r10-0xbf8], r8"
+  ],
+  "orig_extra": []
+ },
+ {
+  "seg": 24,
+  "clone": 13,
+  "field": "program (a4 manual, pump_amm)",
+  "part": "dat",
+  "orig_ins": 9,
+  "main_ins": 9,
+  "delta_B": 0,
+  "main_extra": [],
+  "orig_extra": []
+ }
+]
