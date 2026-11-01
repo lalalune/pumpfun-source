@@ -346,15 +346,16 @@ def select_corpus(cases: list[dict], observations: list[dict], limit: int) -> di
             row = min(candidates, key=class_key)
             if row["case_id"] not in reasons:
                 ordered.append(row)
-                reasons[row["case_id"]] = reason
+                reasons[row["case_id"]] = []
+            reasons[row["case_id"]].append(reason)
     for row in reps:
         if row["case_id"] not in reasons:
             ordered.append(row)
-            reasons[row["case_id"]] = "novel-behavior-representative"
+            reasons[row["case_id"]] = ["novel-behavior-representative"]
     remainder = sorted((row for row in eligible if row["case_id"] not in reasons), key=class_key)
     for row in remainder:
         ordered.append(row)
-        reasons[row["case_id"]] = "bounded-class-member"
+        reasons[row["case_id"]] = ["bounded-class-member"]
     retained_count = min(limit, len(eligible))
     selected_rows = ordered[:retained_count]
     unguided_rows = eligible[:retained_count]
@@ -363,7 +364,7 @@ def select_corpus(cases: list[dict], observations: list[dict], limit: int) -> di
         return [{"rank": rank, "case_id": row["case_id"],
                  "case_index": row["case_index"],
                  "fingerprint_sha256": row["fingerprint_sha256"],
-                 **({"selection_reason": reasons[row["case_id"]]} if guided else {})}
+                 **({"selection_reasons": reasons[row["case_id"]]} if guided else {})}
                 for rank, row in enumerate(values, 1)]
 
     selected_classes = {row["fingerprint_sha256"] for row in selected_rows}
