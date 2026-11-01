@@ -98,3 +98,9 @@ The exact validator body received an official-target lifetime/initialization
 and Option-layout review. These are pinned compiler, valid live Anchor-context
 reconstruction shims, not portable layout guarantees or historical source proof.
 The private experiment helpers were not used for qualification and were removed.
+
+## T chunk placement (wave 19)
+
+The non-holder t chunk (original 0xc08-0xdc0) now follows the 326 head as in the original: 306 None test 50:50, an annotation block on
+T's None edge (non-empty at CodeGenPrepare, dropped at ISel), holder_key compared before sharing. Explicit creator and new forwards remove
+the MemCpyOpt walk-limit dependence (memssa-check-limit 100). Tools and tables: origin/swarm/w17a30-shim-hk2stand-2.
