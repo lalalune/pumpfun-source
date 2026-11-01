@@ -758,7 +758,7 @@ fn validate(st:&CtoState,hopt:Option<bool>,fee:Option<u64>,new:Option<Pubkey>,ho
   curve.can_edit_creator_fee=false;
  (old_creator,old_fee)};
  let a=&ctx.accounts;
- let nf=a.bonding_curve.creator_fee_bps;let pool_updated=!a.pool.data_is_empty() && unsafe{core::ptr::read_volatile(core::mem::transmute::<&&mut AdminCto,*const &AdminCto>(a))}/*shim: reload the accounts pointer for the pool owner test*/.pool.owner==&AMM;let pargs=(target,a.bonding_curve.is_holder_reward,fee);
+ let nf=a.bonding_curve.creator_fee_bps;let pool_updated=a.pool.owner==&AMM && !unsafe{core::ptr::read_volatile(core::mem::transmute::<&&mut AdminCto,*const &AdminCto>(a))}/*shim: reload the accounts pointer for the pool data_is_empty test*/.pool.data_is_empty();let pargs=(target,a.bonding_curve.is_holder_reward,fee);
  if pool_updated{
 
 
