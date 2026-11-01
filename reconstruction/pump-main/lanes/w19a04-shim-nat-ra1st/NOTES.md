@@ -9,3 +9,7 @@ An RA first-divergence walk on the natural base showed the tag and payload colou
 - token arm, CPI path: `create_idempotent(..)?;transfer_vault_tokens(..)?;` then the tail `Ok(amount)`, which threads straight to the post-sweep block (0x60d8 `mov r9,r6; ..; ja 0x3c68`), with separate Err blocks 0x6380 and 0x63a8.
 
 J stays one block right before the post-sweep block, so it falls through and the tail-duplicated copies at 0x24a0 and 0x2608 keep their `ja`. Two `read_volatile` placeholders repay the pin.
+
+## Natural flags plus plain clones in the sharing CPI
+
+w19b25's flags (`if !is_holder&&st.cashback` at 330, cashback per shared arm) set the tag, holder bool and cashback colours. With them, the trap weights in the sharing CPI are no longer needed: plain clones give C1 458/458 tokens exact, without the weights C1 had 370.
