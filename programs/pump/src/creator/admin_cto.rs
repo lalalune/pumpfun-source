@@ -4,7 +4,7 @@ use crate::trade_types::BondingCurve;
 use anchor_lang::solana_program::{instruction::{Instruction,AccountMeta},program::invoke_signed};
 pub const AMM:Pubkey=anchor_lang::solana_program::pubkey!("pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA");
 pub const FEES:Pubkey=crate::distribution::FEES;
-#[derive(Clone)]pub struct Amm; impl Id for Amm{fn id()->Pubkey{AMM}}
+#[derive(Clone)]pub struct Amm; impl Id for Amm{fn id()->Pubkey{AMM}}struct RS(anchor_lang::error::Error);enum QS<T>{Ok(T),Err(anchor_lang::error::Error)}impl<U> core::ops::FromResidual<RS> for core::result::Result<U,anchor_lang::error::Error>{#[inline]#[track_caller]fn from_residual(r:RS)->Self{Err(r.0)}}impl<T> core::ops::FromResidual<RS> for QS<T>{#[inline]fn from_residual(r:RS)->Self{QS::Err(r.0)}}impl<T> core::ops::Try for QS<T>{type Output=T;type Residual=RS;#[inline]fn from_output(v:T)->Self{QS::Ok(v)}#[inline]fn branch(self)->core::ops::ControlFlow<RS,T>{match self{QS::Ok(v)=>core::ops::ControlFlow::Continue(v),QS::Err(e)=>{let mut w:[usize;2]=unsafe{core::mem::transmute(e)};unsafe{core::ptr::write_volatile(&mut w[0],w[0])};let e:anchor_lang::error::Error=unsafe{core::mem::transmute(w)};core::ops::ControlFlow::Break(RS(e))}}}}/*shim: Try carrier for the sweep ?, the Err arm keeps word 0 in memory (repays the pin, 32 B in the sweep error path)*/trait TrQ<T>{fn trq(self)->QS<Option<T>>;}impl<T> TrQ<T> for Option<Result<T>>{#[inline]fn trq(self)->QS<Option<T>>{match self{Some(Ok(x))=>QS::Ok(Some(x)),Some(Err(e))=>QS::Err(e),None=>QS::Ok(None)}}}/*shim: Option<Result>::transpose into the sweep carrier (same body as core transpose)*/
 #[inline(always)]fn aic<'a>(x:&AccountInfo<'a>)->AccountInfo<'a>{AccountInfo{key:x.key,lamports:x.lamports.clone(),data:x.data.clone(),owner:x.owner,rent_epoch:x.rent_epoch,is_signer:x.is_signer,is_writable:x.is_writable,executable:x.executable}}extern "C"{#[link_name="llvm.bpf.passthrough.p0.p0"]fn ptp(seq:u32,v:*const u8)->*const u8;}/*shim: llvm.bpf.passthrough on a pointer: opaque identity the SBF backend deletes before ISel (no instruction)*/
 #[derive(Accounts)]
 pub struct AdminCto<'info>{
@@ -293,7 +293,7 @@ fn validate(st:&CtoState,shared:bool,holder:bool,fee:Option<u64>,new:Option<Pubk
 
 
 
-  unsafe{core::ptr::read_volatile(st as *const CtoState as *const u8)}/*shim: st byte read at the holder_enabled test, repays the pin*/;if !st.holder_enabled{return Err(error!(PumpError::HolderRewardDisabled));}}
+  if !st.holder_enabled{return Err(error!(PumpError::HolderRewardDisabled));}}
 
  let cashback=!holder&&st.cashback;let (target,is_holder)=if holder{if !(new==None){return Err(error!(PumpError::CtoNewCreatorNotAllowed));}(holder_key,true)}else{
 
@@ -644,7 +644,7 @@ fn validate(st:&CtoState,shared:bool,holder:bool,fee:Option<u64>,new:Option<Pubk
 
 
 
- swept=(!skip).then(||sweep(&ctx,&holder_key)).transpose()?.unwrap_or(0);fn sweep(ctx:&Context<AdminCto>,holder_key:&Pubkey)->Result<u64>{let a=&ctx.accounts;let native=a.quote_mint.key()==anchor_spl::token::spl_token::native_mint::ID;
+ swept=(!skip).then(||sweep(&ctx,&holder_key)).trq()?.unwrap_or(0);fn sweep(ctx:&Context<AdminCto>,holder_key:&Pubkey)->Result<u64>{let a=&ctx.accounts;let native=a.quote_mint.key()==anchor_spl::token::spl_token::native_mint::ID;
   {let dest=Pubkey::find_program_address(&[b"creator-vault",holder_key.as_ref()],&crate::ID).0;if a.holder_creator_vault.key()!=dest{return Err(error!(anchor_lang::error::ErrorCode::ConstraintSeeds).with_pubkeys((a.holder_creator_vault.key(),dest)));}}
   let amm_present=!a.coin_creator_vault_ata.data_is_empty();let amm_frozen=amm_present&&token_frozen(a.coin_creator_vault_ata.as_ref())?;
 

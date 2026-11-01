@@ -23,3 +23,7 @@ Works for pair returns (`Result<()>`, `{i64,ptr}`) and sret returns (`Result<boo
   Capture signature = IR cell `sw1:execute:30473` (`6dd63220ed77`). `self` must not be dropped: a `Drop` in `branch` keeps the MIR inliner out (M 2,086 / 1,789).
 - **Passthrough on the tag:** inside the forwarder, `t=(*w).0;Call(u=pt64(7_u32,t),ReturnTo(bb2),..);bb2={(*w).0=u;Return()}`. Toy: the IR is `icmp eq i64 (passthrough tag), 2`; same code when nothing folds.
 - Two `Return()` blocks in a forwarder do not carry a weight: SimplifyCFG hoists the identical `ret`s and drops the branch. Put the weight in `branch`.
+
+## First gain: the sweep `?` carries the pin repay
+
+On e59b48eb1 (0.81611, M 2,725) the only repay is the 32 B `st` byte read at the holder_enabled test; without it the union is M 2,810 at 27,368 B. The sweep `?` residual cell repays the same 32 B in the cold error path: `vs:execute:29284` in the `.trq()` carrier (w17a35 form `w0`), M 2,813 at 27,400 B, real build 0.84247, 1,657 slots.
