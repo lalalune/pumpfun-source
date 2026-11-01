@@ -47,7 +47,9 @@ byte identity: no raw byte comparison at the final address has passed and `whole
 | Linux v1.54, `linux-build.sh` (142 s) | 551 | 790,216 | 0.92761 | 522 | none |
 
 Linux adds 0xb3278 and 0xbcac0, as the brief predicted. Its strict count is lower because same-named generics pair by address
-and come out in another order on that host; none of the three cluster functions is affected.
+and come out in another order on that host. Checked: the 16 functions strict on Mac but not on Linux are all `try_accounts`, and each
+reports a callee pair among the same-bodied `Signer::try_accounts` instances (0x10970, 0x109f0). Five go the other way and are strict only
+on Linux, among them `just_swap` and both `Account::reload` instances. None of the three cluster functions is affected.
 
 Scratch merge of this tip with C1 (c0e7d2635), C6 (0fd6a1bfa) and C5 (ddba01c1e) on the Mac route: 564 of 571, 832,952 B, 0.97777,
 no losses, all three still strict, and the two Jupiter functions at their final addresses (0x11668, 0x11f80). The only conflict is
