@@ -1,0 +1,22 @@
+{
+  "schema": "pump-cross-program-candidate-provenance-v1",
+  "candidate_sha256": "9dfc496c288be94d866cb96652ef4325e194a1cde30665e8414775a2dd2a9890",
+  "unstripped_sha256": "0560a48221c1093110e21e3234135b6c0d4d877db66e09b956af1d989cc72011",
+  "source_revision": "7e26cbf36c5c0c824e3eb36417ce8a35866f530a",
+  "build_input_receipts": {
+    "source_inputs_file_sha256": "5bb86666396cb94b35d4beb0f860a2dc5b0556e46535d513bbba344f844346ee",
+    "source_inputs_payload_sha256": "5b98c39480e0dfda54471b098e99c53e724af2238ebb8cb562dc7bd8f9000232",
+    "link_receipt_sha256": "8ab70b7bf06b5324c25b744a49832e3251327fcbf8ed2ad90d884a224867bb94",
+    "build_log_sha256": "ac0a3beb1446da75d749f5bcad40a4526da1e9c506a78afc4bb5a1fce3aebdaa",
+    "link_map_sha256": "1a76e80d0ad741829aecf569cbf8383435b9800014bc193677cadb22ad5ece57"
+  },
+  "prior_qualification": {
+    "path": "reconstruction/verification/pump-migration-lifecycle/results/current-main.json.gz",
+    "sha256": "0b4d2075eee03a6bac3e4e7e880393a372c788bfaca8f3f9d445e6e1b0710f93",
+    "schema": "pump-migration-lifecycle-v1",
+    "candidate_sha256": "9dfc496c288be94d866cb96652ef4325e194a1cde30665e8414775a2dd2a9890",
+    "transaction_count_per_image": 41,
+    "mismatch_cases": []
+  },
+  "limits": "The executed immutable candidate was built from the named historical source revision. The current checkout source manifest is retained as review context and is not represented as the build input for this candidate."
+}

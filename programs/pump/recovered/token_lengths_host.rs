@@ -14,6 +14,13 @@ use token_lengths::{answer, read_of, Answer, Kind};
 fn run(line: &str) -> String {
     let f: Vec<&str> = line.split(',').collect();
     let kind = if f[2] == "mint" { Kind::Mint } else { Kind::Token };
+    // `-` is the only spelling for "this account has no first instruction".
+    // A `.ok()` here read every malformed column as `-` as well, and the
+    // answer for that case is `same`, so a broken row looked like a clean one.
+    let first_op = match f[7] {
+        "-" => None,
+        other => Some(other.parse().unwrap()),
+    };
     let result = answer(
         read_of(f[0], f[1]),
         f[3] == "t22",
@@ -21,7 +28,7 @@ fn run(line: &str) -> String {
         f[4].parse().unwrap(),
         f[5] == "1",
         f[6] == "1",
-        f[7].parse::<u8>().ok(),
+        first_op,
     );
     match result {
         Answer::Same => "same".to_string(),

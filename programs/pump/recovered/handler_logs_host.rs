@@ -155,7 +155,13 @@ fn answer(line: &str) -> String {
             handler_logs::sync(&key(f[1]), before, if reset { 0 } else { before })
         }
         "cashback" => handler_logs::cashback_native(n(1), n(2)),
-        "cashback_token" => handler_logs::cashback_token(f[1].parse().ok()),
+        // `-` is the missing accumulator ATA; a balance is a u64. `.ok()` read
+        // every malformed balance as the missing account too, and both answer
+        // "No cashback to claim", so a corrupted case looked like a valid one.
+        "cashback_token" => handler_logs::cashback_token(match f[1] {
+            "-" => None,
+            held => Some(held.parse().unwrap()),
+        }),
         "collect" => {
             let quote = match f[5].split_once(':') {
                 Some((_, amount)) => Collect::Token(amount.parse().unwrap()),
