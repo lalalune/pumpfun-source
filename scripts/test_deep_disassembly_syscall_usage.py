@@ -39,7 +39,9 @@ class DeepDisassemblySyscallUsageTests(unittest.TestCase):
         self.assertEqual(sorted({name for window in windows for name in window["syscalls"]}),
                          sorted(expected))
         self.assertIn("`sol_log_`", readme)
-        self.assertEqual(externs["custom_panic"], 1)
+        self.assertNotIn("custom_panic", externs)
+        # The hook has a positive-size dynamic function definition in .text.
+        self.assertEqual(summary["total_internal_calls"], len(elf.calls) + 1)
 
 
 if __name__ == "__main__":

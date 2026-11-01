@@ -1,0 +1,269 @@
+{
+  "baseline_revision": "9bd38c7d5a4684b647ab59fc8942ed56e990e3b3",
+  "current_revision": "599891304e83e853ec723dc1417550bef4e1c074",
+  "already_merged_source_prs": [
+    3859,
+    3861,
+    3870
+  ],
+  "semantic_review": {
+    "3859": "amm_frozen is computed as amm_present && token_frozen before either branch; false,true tuple unreachable by construction. The tuple match preserves present/frozen/empty call and error order. Event literal moves one immutable boolean read before Clock retrieval without changing serialized layout or side effects.",
+    "3861": "Removes an unused borrow, no evaluation with side effects. Source site line retained.",
+    "3870": "Concrete error type maps through reflexive Error::from, preserving error value and propagation. No on-chain ABI change."
+  },
+  "section_changes": [
+    {
+      "section": ".text",
+      "baseline_size": 1792208,
+      "candidate_size": 1792208,
+      "different_common_position_bytes": 5148,
+      "missing_or_extra_bytes": 0,
+      "first_offsets": [
+        148946,
+        149034,
+        149626,
+        149866,
+        149922,
+        150018,
+        150274,
+        150890,
+        150946,
+        151008,
+        151010,
+        151016,
+        151017,
+        151018,
+        151019,
+        151024,
+        151025,
+        151026,
+        151027,
+        151032,
+        151033,
+        151034,
+        151035,
+        151040,
+        151041,
+        151044,
+        151045,
+        151046,
+        151047,
+        151048
+      ],
+      "last_offsets": [
+        161931,
+        161936,
+        161937,
+        161938,
+        161939,
+        161969,
+        164850,
+        166338,
+        166362,
+        166898
+      ],
+      "all_differences_within_admin_cto": true,
+      "admin_cto_section_relative_start": 141552,
+      "admin_cto_section_relative_end_exclusive": 168952
+    },
+    {
+      "section": ".rel.dyn",
+      "baseline_size": 98384,
+      "candidate_size": 98384,
+      "different_common_position_bytes": 9,
+      "missing_or_extra_bytes": 0,
+      "first_offsets": [
+        8800,
+        8816,
+        8832,
+        8848,
+        8864,
+        8880,
+        8896,
+        94176,
+        96560
+      ],
+      "last_offsets": [
+        8800,
+        8816,
+        8832,
+        8848,
+        8864,
+        8880,
+        8896,
+        94176,
+        96560
+      ]
+    },
+    {
+      "section": ".symtab",
+      "baseline_size": 437976,
+      "candidate_size": 437952,
+      "different_common_position_bytes": 49744,
+      "missing_or_extra_bytes": 24,
+      "first_offsets": [
+        37040,
+        37041,
+        37160,
+        37304,
+        37328,
+        37400,
+        37520,
+        37592,
+        37593,
+        37616,
+        37617,
+        37640,
+        37641,
+        37660,
+        37662,
+        37664,
+        37665,
+        37666,
+        37672,
+        37680,
+        37684,
+        37686,
+        37688,
+        37689,
+        37690,
+        37696,
+        37712,
+        37736,
+        37760,
+        37784
+      ],
+      "last_offsets": [
+        437784,
+        437808,
+        437809,
+        437832,
+        437856,
+        437880,
+        437881,
+        437904,
+        437928,
+        437929
+      ]
+    },
+    {
+      "section": ".strtab",
+      "baseline_size": 292634,
+      "candidate_size": 292623,
+      "different_common_position_bytes": 223337,
+      "missing_or_extra_bytes": 11,
+      "first_offsets": [
+        29441,
+        29442,
+        29443,
+        29452,
+        29453,
+        29454,
+        29464,
+        29465,
+        29467,
+        29468,
+        29469,
+        29470,
+        29471,
+        29472,
+        29473,
+        29474,
+        29475,
+        29476,
+        29477,
+        29478,
+        29479,
+        29480,
+        29481,
+        29482,
+        29483,
+        29484,
+        29485,
+        29486,
+        29487,
+        29488
+      ],
+      "last_offsets": [
+        292613,
+        292614,
+        292615,
+        292616,
+        292617,
+        292618,
+        292619,
+        292620,
+        292621,
+        292622
+      ]
+    }
+  ],
+  "score": {
+    "candidate_sha256": "a8a70a59c345af69cc8907f5a7acf7af2ca9d221826f8663e3c256493b9b390b",
+    "normalized": 1034,
+    "raw": 1034,
+    "total": 1035,
+    "matched_text_bytes": 1764808,
+    "gains": [],
+    "losses": [],
+    "raw_gains": [],
+    "raw_losses": []
+  },
+  "proof_limit": "Fresh current and baseline images independently built. No new exact window. No whole Pump ELF equality. Author global codegen-hint counts not adopted.",
+  "elf_comparison": {
+    "scope": "Unstripped ELF section data at common relative positions, with missing or extra tail bytes counted separately. First/last offsets are section-relative. Header field differences are listed separately; no whole-file or header equality is claimed.",
+    "baseline_sha256": "d0c733f630b54ee70b3f7cea18cb40f8edd9b9fdea9abddfe313cde4be251ff5",
+    "candidate_sha256": "a8a70a59c345af69cc8907f5a7acf7af2ca9d221826f8663e3c256493b9b390b",
+    "baseline_bytes": 2665688,
+    "candidate_bytes": 2665648,
+    "elf_header_fields_changed": [
+      {
+        "field": "e_shoff",
+        "baseline": 2664920,
+        "candidate": 2664880
+      }
+    ],
+    "section_header_fields_changed": [
+      {
+        "section": ".symtab",
+        "fields": [
+          {
+            "field": "sh_size",
+            "baseline": 437976,
+            "candidate": 437952
+          },
+          {
+            "field": "sh_info",
+            "baseline": 18231,
+            "candidate": 18230
+          }
+        ]
+      },
+      {
+        "section": ".shstrtab",
+        "fields": [
+          {
+            "field": "sh_offset",
+            "baseline": 2372184,
+            "candidate": 2372160
+          }
+        ]
+      },
+      {
+        "section": ".strtab",
+        "fields": [
+          {
+            "field": "sh_offset",
+            "baseline": 2372281,
+            "candidate": 2372257
+          },
+          {
+            "field": "sh_size",
+            "baseline": 292634,
+            "candidate": 292623
+          }
+        ]
+      }
+    ]
+  }
+}

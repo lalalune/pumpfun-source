@@ -3,6 +3,8 @@
 import argparse
 import hashlib
 import importlib.util
+import os
+import secrets
 from pathlib import Path
 import shutil
 import sys
@@ -16,10 +18,37 @@ TOOLS = {'census': 'census.py', 'callid': 'callid_audit.py', 'dataref': 'dataref
 
 
 def exclusive_report(path, text):
-    # The early argument check is useful feedback, but another writer can
-    # occupy that name while analysis runs. Refuse it at the actual open.
-    with path.open('x') as stream:
-        return stream.write(text)
+    # Complete each report privately before claiming its fresh destination.
+    # A failed write must not leave a truncated file that blocks a retry.
+    for _ in range(100):
+        temporary = path.with_name(f'.census-{os.getpid()}-{secrets.token_hex(8)}')
+        try:
+            stream = temporary.open('x', encoding='utf-8', newline='\n')
+        except FileExistsError:
+            continue
+        break
+    else:
+        raise FileExistsError('could not create a unique census report staging file')
+    metadata = os.fstat(stream.fileno())
+    identity = metadata.st_dev, metadata.st_ino
+    try:
+        with stream:
+            written = stream.write(text)
+        if os.name == 'nt':
+            os.rename(temporary, path)  # Windows refuses an occupied destination.
+            temporary = None
+        else:
+            os.link(temporary, path)  # Publish without replacing a late writer.
+        return written
+    finally:
+        if temporary is not None:
+            try:
+                metadata = temporary.lstat()
+            except FileNotFoundError:
+                pass
+            else:
+                if (metadata.st_dev, metadata.st_ino) == identity:
+                    temporary.unlink()
 
 
 def load_harness(name, root):

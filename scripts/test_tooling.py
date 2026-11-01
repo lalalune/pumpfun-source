@@ -1321,7 +1321,13 @@ class InternalCallDecodeTests(unittest.TestCase):
                     if relocation['type'] == 10:
                         record, _ = deep_disassembly.decode_instruction(elf.b, offset, elf)
                         self.assertEqual(record['extern_symbol'], relocation['symbol'])
-                        self.assertNotIn('call_target', record)
+                        if relocation['symbol'] == 'custom_panic':
+                            hook = next(function for function in elf.funcs
+                                        if function['name'] == 'custom_panic')
+                            self.assertEqual(record['call_target'], hook['start'])
+                            self.assertEqual(record['call_name'], 'custom_panic')
+                        else:
+                            self.assertNotIn('call_target', record)
 
 
 class RelocationTypeTests(unittest.TestCase):

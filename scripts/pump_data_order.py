@@ -398,6 +398,7 @@ def derive_payload(build, text_order):
     assert context.get("target_library_profile") == profile, (
         "baseline target-library profile context differs"
     )
+    assert context["sdk"], 'baseline SDK binding is empty'
     assert all(sha(sdk / name) == h for name, h in context["sdk"].items()), (
         "baseline SDK differs from cache context"
     )

@@ -141,7 +141,7 @@ def clone_file(source, dest):
 class DependencyCache:
     def __init__(
         self, cache_root, repository, crate, workspace, sdk, env, wrapper, direct=False,
-        target_library_profile=None
+        target_library_profile=None, wrapper_launcher=None
     ):
         self.sdk = sdk
         self.target = (target_library_profile or {}).get("target", "sbf-solana-solana")
@@ -272,6 +272,9 @@ class DependencyCache:
         }
         if target_library_profile is not None:
             self.context["target_library_profile"] = target_library_profile
+        if wrapper_launcher is not None:
+            self.context["wrapper_launcher_sha256"] = sha(wrapper_launcher)
+            self.context["wrapper_python"] = env["PUMP_VERIFIED_PYTHON"]
         self.key = digest(self.context)
         self.entry = self.root / self.key
         self.record = {
@@ -385,7 +388,7 @@ class DependencyCache:
             "Cargo configuration changed during build"
         ))
         artifacts = []
-        for line in log.read_text().splitlines():
+        for line in log.read_text(encoding="utf-8").splitlines():
             try:
                 r = json.loads(line)
             except ValueError:
@@ -480,6 +483,7 @@ class DependencyCache:
         check(r.get("target_library_profile", {}).get("cache_context") == self.context.get("target_library_profile"), (
             "seed target-library profile differs"
         ))
+        check(r["source_sha256"], "cache verification failed: clean build binds no source")
         check(all(sha(self.repo / k) == v for k, v in r["source_sha256"].items()), "cache verification failed: all(sha(self.repo / k) == v for k, v in r['source_sha256'].items())")
         check(sha(build / "candidate.so") == r["comparison"]["candidate_sha256"], "cache verification failed: sha(build / 'candidate.so') == r['comparison']['candidate_sha256']")
         check(sha(build / "unstripped.so") == r["unstripped_sha256"], "cache verification failed: sha(build / 'unstripped.so') == r['unstripped_sha256']")
@@ -487,6 +491,11 @@ class DependencyCache:
         check(tools.get("rustc", r.get("rustc_sha256")) == self.tools["rust/bin/rustc"], "cache verification failed: tools.get('rustc', r.get('rustc_sha256')) == self.tools['rust/bin/rust")
         check(tools.get("cargo", r.get("cargo_sha256")) == self.tools["rust/bin/cargo"], "cache verification failed: tools.get('cargo', r.get('cargo_sha256')) == self.tools['rust/bin/carg")
         check(r["source_wrapper_sha256"] == self.context["wrapper_sha256"], "cache verification failed: r['source_wrapper_sha256'] == self.context['wrapper_sha256']")
+        check(r.get("source_wrapper_launcher_sha256") == self.context.get("wrapper_launcher_sha256"),
+              "seed compiler wrapper launcher differs")
+        if "wrapper_python" in self.context:
+            check(r["environment"].get("PUMP_VERIFIED_PYTHON") == self.context["wrapper_python"],
+                  "seed compiler wrapper Python differs")
         check((
             Path(r["environment"]["CARGO_HOME"]).resolve()
             == Path(self.env["CARGO_HOME"]).resolve()

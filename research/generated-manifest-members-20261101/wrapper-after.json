@@ -1,0 +1,95 @@
+{
+  "source_revision": "60a42309a4908577f0a386513eeaee6cd6f84f42",
+  "source_sha256": {
+    "scripts/analyze_program.py": "4f32c8013e9359d32d2685860cc0c3628c2c44887d89cecf94609f360e038b73",
+    "scripts/deep_disassembly.py": "d2b9873473bbeea33bb5d953d0c6385b1127d81aedba652bb1b82de636849aa5",
+    "scripts/window_elf_reader.py": "d3b57510531d7977110e73474cf89310b68bf6705d134ffb3bc759e18d30bedd",
+    "research/tooling-analysis-output-retention-20261029/generate.py": "2d4e21689de7940cb361c38d75dda5f25ffb8e790f1e1650cbb8b7a0015bc985"
+  },
+  "programs": [
+    {
+      "program": "pump",
+      "direct_exit": 0,
+      "wrapper_exit": 0,
+      "all_packet_bytes_identical": true,
+      "analysis_payload_sha256": {
+        "summary.json": "6226356f2f1745dfba9145e4d1a306bc3368bc1bec078d8614628e7b959fa241",
+        "section-layout.json": "fea3384b251bc28f996debca34a923ea24fec0733a6586a1288e17259f8f0ca6",
+        "call-graph.json": "d3ccd95981eda3d8bc1ce97fa9923b63f130561a90027b2eeaa25e170c70353a",
+        "function-index.json": "40dc17d6d629d8651ac0c36e4835b5b1e12a268fc0126874a900dba0549a965c",
+        "window-inventory.json": "13ac0bf9fe503bee5ace5771a6098446a44032c68d47ff52b9f2c6a6e2bbb5cd",
+        "README.md": "e2c14835ae1f87b734616cb62a69090f2fcef559b674fdbe41100265a51d6002"
+      }
+    },
+    {
+      "program": "pump_amm",
+      "direct_exit": 0,
+      "wrapper_exit": 0,
+      "all_packet_bytes_identical": true,
+      "analysis_payload_sha256": {
+        "summary.json": "cc2cb74458504f7919af5d65a30a640337c398879b52c860f02d7bf68dfc3920",
+        "section-layout.json": "1541f8ad3e9cba120e94d56295de9bdde0b5642acc34d9ecbf9792dc9242dc70",
+        "call-graph.json": "c7ed4019ff7c468f9b8dd872584d254621269d12051274f7c94c4cfc2e7deedd",
+        "function-index.json": "8f5c824d85054160f9fe1f9d2f3f08d7ac2ba0ee2496afb7fb9db9638a987ac4",
+        "window-inventory.json": "91aaf45e5749b92e884cabaa844e79c443d6cdd5f408bae51a760df34aeb13fb",
+        "README.md": "39e70a75c7410857ad04c65005dc3d0c889da94ee03f399e98098f50ea54faa8"
+      }
+    },
+    {
+      "program": "pump_fees",
+      "direct_exit": 0,
+      "wrapper_exit": 0,
+      "all_packet_bytes_identical": true,
+      "analysis_payload_sha256": {
+        "summary.json": "ac3733f2585b5d0279d358bbe81d36cfdaf054f6e5cc061ceb444e491c1eb80a",
+        "section-layout.json": "2f16f2b72bac65dca6add92890451ad92c6ed76c6a83a95325cd64070667ec05",
+        "call-graph.json": "b51029dc7871a16491ae7c0c74d6c7452ef869a67db9024c180e89eb58e99197",
+        "function-index.json": "c15e2c8154ac78b1c58aec08a2422f5c81e14c5959060f569fd77614f9038932",
+        "window-inventory.json": "9216b90ad79c944f2917745ff9ef96534be28d993b99f1fb9795ab0db76c9159",
+        "README.md": "dca2769cea67fcc7e1c2160c589abb7ef1b76d21e0e095a7ffd38e0a10a48440"
+      }
+    },
+    {
+      "program": "mayhem",
+      "direct_exit": 0,
+      "wrapper_exit": 0,
+      "all_packet_bytes_identical": true,
+      "analysis_payload_sha256": {
+        "summary.json": "0da6495e8448a936e6593df438cb71db34ec8fa16a284185f065923124c39235",
+        "section-layout.json": "3947352711ba0c9ba4eec876fc755c461950198a03262c460edc06fa38df5f9c",
+        "call-graph.json": "e7608ecbd667d522a18b0b7b0c30e1e7ed9ea090b22ac20a0b5019f4eca940da",
+        "function-index.json": "67d339a498383aec8dc05e52324a7a3a122a91cde58f4923456c0be8a9e54efc",
+        "window-inventory.json": "06b6867efe27ec820cb8506ce8f7f921abc8cfc1ce578cb2b837a0668717c2c7",
+        "README.md": "b6598670d071a1ecf7fe9c03cd0e9fd0813ae7739ae5210df60dd700dd8676fc"
+      }
+    }
+  ],
+  "controls": [
+    {
+      "case": "scripts/analyze_program.py",
+      "exit": 1,
+      "published": false
+    },
+    {
+      "case": "scripts/deep_disassembly.py",
+      "exit": 1,
+      "published": false
+    },
+    {
+      "case": "scripts/window_elf_reader.py",
+      "exit": 1,
+      "published": false
+    },
+    {
+      "case": "file",
+      "exit": 1,
+      "preserved": true
+    },
+    {
+      "case": "empty_directory",
+      "exit": 1,
+      "preserved": true
+    }
+  ],
+  "inputs_unchanged": true
+}

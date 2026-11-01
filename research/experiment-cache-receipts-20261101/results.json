@@ -1,0 +1,824 @@
+{
+  "before": {
+    "runner_sha256": "c4aad02e4887f6e5025cf33087b07e00cada62697a378996dd204147de01dd98",
+    "cases": {
+      "clean-pass": {
+        "expected_status": "pass",
+        "expected_returncode": 0,
+        "first": {
+          "status": "pass",
+          "returncode": 0,
+          "reason": null,
+          "reused": false,
+          "schema": "experiment-result-v1"
+        },
+        "warm": {
+          "status": "pass",
+          "returncode": 0,
+          "reason": null,
+          "reused": true,
+          "schema": "experiment-result-v1"
+        },
+        "resumed": {
+          "status": "pass",
+          "returncode": 0,
+          "reason": null,
+          "reused": true,
+          "schema": "experiment-result-v1"
+        },
+        "same_attempt_reused": true,
+        "current_admission_matches_saved": true,
+        "key_binds_saved_inputs": true,
+        "next_resume_reuses_same": true,
+        "old_attempt_preserved": true,
+        "result_sha256": "2f5df95faaf8950392bd69f4bbb9bccbcd63286ee3a82640f7501d2ab306c8e8"
+      },
+      "clean-fail": {
+        "expected_status": "fail",
+        "expected_returncode": 1,
+        "first": {
+          "status": "fail",
+          "returncode": 1,
+          "reason": null,
+          "reused": false,
+          "schema": "experiment-result-v1"
+        },
+        "warm": {
+          "status": "fail",
+          "returncode": 1,
+          "reason": null,
+          "reused": true,
+          "schema": "experiment-result-v1"
+        },
+        "resumed": {
+          "status": "fail",
+          "returncode": 1,
+          "reason": null,
+          "reused": true,
+          "schema": "experiment-result-v1"
+        },
+        "same_attempt_reused": true,
+        "current_admission_matches_saved": true,
+        "key_binds_saved_inputs": true,
+        "next_resume_reuses_same": true,
+        "old_attempt_preserved": true,
+        "result_sha256": "2f5df95faaf8950392bd69f4bbb9bccbcd63286ee3a82640f7501d2ab306c8e8"
+      },
+      "pass-on-failure": {
+        "expected_status": "fail",
+        "expected_returncode": 1,
+        "first": {
+          "status": "fail",
+          "returncode": 1,
+          "reason": null,
+          "reused": false,
+          "schema": "experiment-result-v1"
+        },
+        "warm": {
+          "status": "fail",
+          "returncode": 1,
+          "reason": null,
+          "reused": true,
+          "schema": "experiment-result-v1"
+        },
+        "resumed": {
+          "status": "pass",
+          "returncode": 1,
+          "reason": null,
+          "reused": true,
+          "schema": "experiment-result-v1"
+        },
+        "same_attempt_reused": true,
+        "current_admission_matches_saved": true,
+        "key_binds_saved_inputs": true,
+        "next_resume_reuses_same": true,
+        "old_attempt_preserved": true,
+        "result_sha256": "2f5df95faaf8950392bd69f4bbb9bccbcd63286ee3a82640f7501d2ab306c8e8"
+      },
+      "fail-on-success": {
+        "expected_status": "pass",
+        "expected_returncode": 0,
+        "first": {
+          "status": "pass",
+          "returncode": 0,
+          "reason": null,
+          "reused": false,
+          "schema": "experiment-result-v1"
+        },
+        "warm": {
+          "status": "pass",
+          "returncode": 0,
+          "reason": null,
+          "reused": true,
+          "schema": "experiment-result-v1"
+        },
+        "resumed": {
+          "status": "fail",
+          "returncode": 0,
+          "reason": null,
+          "reused": true,
+          "schema": "experiment-result-v1"
+        },
+        "same_attempt_reused": true,
+        "current_admission_matches_saved": true,
+        "key_binds_saved_inputs": true,
+        "next_resume_reuses_same": true,
+        "old_attempt_preserved": true,
+        "result_sha256": "2f5df95faaf8950392bd69f4bbb9bccbcd63286ee3a82640f7501d2ab306c8e8"
+      },
+      "boolean-code": {
+        "expected_status": "pass",
+        "expected_returncode": 0,
+        "first": {
+          "status": "pass",
+          "returncode": 0,
+          "reason": null,
+          "reused": false,
+          "schema": "experiment-result-v1"
+        },
+        "warm": {
+          "status": "pass",
+          "returncode": 0,
+          "reason": null,
+          "reused": true,
+          "schema": "experiment-result-v1"
+        },
+        "resumed": {
+          "status": "pass",
+          "returncode": false,
+          "reason": null,
+          "reused": true,
+          "schema": "experiment-result-v1"
+        },
+        "same_attempt_reused": true,
+        "current_admission_matches_saved": true,
+        "key_binds_saved_inputs": true,
+        "next_resume_reuses_same": true,
+        "old_attempt_preserved": true,
+        "result_sha256": "2f5df95faaf8950392bd69f4bbb9bccbcd63286ee3a82640f7501d2ab306c8e8"
+      },
+      "float-code": {
+        "expected_status": "pass",
+        "expected_returncode": 0,
+        "first": {
+          "status": "pass",
+          "returncode": 0,
+          "reason": null,
+          "reused": false,
+          "schema": "experiment-result-v1"
+        },
+        "warm": {
+          "status": "pass",
+          "returncode": 0,
+          "reason": null,
+          "reused": true,
+          "schema": "experiment-result-v1"
+        },
+        "resumed": {
+          "status": "pass",
+          "returncode": 0.0,
+          "reason": null,
+          "reused": true,
+          "schema": "experiment-result-v1"
+        },
+        "same_attempt_reused": true,
+        "current_admission_matches_saved": true,
+        "key_binds_saved_inputs": true,
+        "next_resume_reuses_same": true,
+        "old_attempt_preserved": true,
+        "result_sha256": "2f5df95faaf8950392bd69f4bbb9bccbcd63286ee3a82640f7501d2ab306c8e8"
+      },
+      "wrong-code": {
+        "expected_status": "pass",
+        "expected_returncode": 0,
+        "first": {
+          "status": "pass",
+          "returncode": 0,
+          "reason": null,
+          "reused": false,
+          "schema": "experiment-result-v1"
+        },
+        "warm": {
+          "status": "pass",
+          "returncode": 0,
+          "reason": null,
+          "reused": true,
+          "schema": "experiment-result-v1"
+        },
+        "resumed": {
+          "status": "pass",
+          "returncode": 2,
+          "reason": null,
+          "reused": true,
+          "schema": "experiment-result-v1"
+        },
+        "same_attempt_reused": true,
+        "current_admission_matches_saved": true,
+        "key_binds_saved_inputs": true,
+        "next_resume_reuses_same": true,
+        "old_attempt_preserved": true,
+        "result_sha256": "2f5df95faaf8950392bd69f4bbb9bccbcd63286ee3a82640f7501d2ab306c8e8"
+      },
+      "missing-code": {
+        "expected_status": "pass",
+        "expected_returncode": 0,
+        "first": {
+          "status": "pass",
+          "returncode": 0,
+          "reason": null,
+          "reused": false,
+          "schema": "experiment-result-v1"
+        },
+        "warm": {
+          "status": "pass",
+          "returncode": 0,
+          "reason": null,
+          "reused": true,
+          "schema": "experiment-result-v1"
+        },
+        "resumed": {
+          "status": "pass",
+          "returncode": null,
+          "reason": null,
+          "reused": true,
+          "schema": "experiment-result-v1"
+        },
+        "same_attempt_reused": true,
+        "current_admission_matches_saved": true,
+        "key_binds_saved_inputs": true,
+        "next_resume_reuses_same": true,
+        "old_attempt_preserved": true,
+        "result_sha256": "2f5df95faaf8950392bd69f4bbb9bccbcd63286ee3a82640f7501d2ab306c8e8"
+      },
+      "error-reason": {
+        "expected_status": "pass",
+        "expected_returncode": 0,
+        "first": {
+          "status": "pass",
+          "returncode": 0,
+          "reason": null,
+          "reused": false,
+          "schema": "experiment-result-v1"
+        },
+        "warm": {
+          "status": "pass",
+          "returncode": 0,
+          "reason": null,
+          "reused": true,
+          "schema": "experiment-result-v1"
+        },
+        "resumed": {
+          "status": "pass",
+          "returncode": 0,
+          "reason": "post-run validation failed: owned changed input",
+          "reused": true,
+          "schema": "experiment-result-v1"
+        },
+        "same_attempt_reused": true,
+        "current_admission_matches_saved": true,
+        "key_binds_saved_inputs": true,
+        "next_resume_reuses_same": true,
+        "old_attempt_preserved": true,
+        "result_sha256": "2f5df95faaf8950392bd69f4bbb9bccbcd63286ee3a82640f7501d2ab306c8e8"
+      },
+      "changed-inputs": {
+        "expected_status": "pass",
+        "expected_returncode": 0,
+        "first": {
+          "status": "pass",
+          "returncode": 0,
+          "reason": null,
+          "reused": false,
+          "schema": "experiment-result-v1"
+        },
+        "warm": {
+          "status": "pass",
+          "returncode": 0,
+          "reason": null,
+          "reused": true,
+          "schema": "experiment-result-v1"
+        },
+        "resumed": {
+          "status": "pass",
+          "returncode": 0,
+          "reason": null,
+          "reused": true,
+          "schema": "experiment-result-v1"
+        },
+        "same_attempt_reused": true,
+        "current_admission_matches_saved": false,
+        "key_binds_saved_inputs": false,
+        "next_resume_reuses_same": true,
+        "old_attempt_preserved": true,
+        "result_sha256": "2f5df95faaf8950392bd69f4bbb9bccbcd63286ee3a82640f7501d2ab306c8e8"
+      },
+      "missing-inputs": {
+        "expected_status": "pass",
+        "expected_returncode": 0,
+        "first": {
+          "status": "pass",
+          "returncode": 0,
+          "reason": null,
+          "reused": false,
+          "schema": "experiment-result-v1"
+        },
+        "warm": {
+          "status": "pass",
+          "returncode": 0,
+          "reason": null,
+          "reused": true,
+          "schema": "experiment-result-v1"
+        },
+        "resumed": {
+          "status": "pass",
+          "returncode": 0,
+          "reason": null,
+          "reused": true,
+          "schema": "experiment-result-v1"
+        },
+        "same_attempt_reused": true,
+        "current_admission_matches_saved": false,
+        "key_binds_saved_inputs": false,
+        "next_resume_reuses_same": true,
+        "old_attempt_preserved": true,
+        "result_sha256": "2f5df95faaf8950392bd69f4bbb9bccbcd63286ee3a82640f7501d2ab306c8e8"
+      },
+      "wrong-schema": {
+        "expected_status": "pass",
+        "expected_returncode": 0,
+        "first": {
+          "status": "pass",
+          "returncode": 0,
+          "reason": null,
+          "reused": false,
+          "schema": "experiment-result-v1"
+        },
+        "warm": {
+          "status": "pass",
+          "returncode": 0,
+          "reason": null,
+          "reused": true,
+          "schema": "experiment-result-v1"
+        },
+        "resumed": {
+          "status": "pass",
+          "returncode": 0,
+          "reason": null,
+          "reused": true,
+          "schema": "not-an-experiment-result"
+        },
+        "same_attempt_reused": true,
+        "current_admission_matches_saved": true,
+        "key_binds_saved_inputs": true,
+        "next_resume_reuses_same": true,
+        "old_attempt_preserved": true,
+        "result_sha256": "2f5df95faaf8950392bd69f4bbb9bccbcd63286ee3a82640f7501d2ab306c8e8"
+      },
+      "changed-input-type": {
+        "expected_status": "pass",
+        "expected_returncode": 0,
+        "first": {
+          "status": "pass",
+          "returncode": 0,
+          "reason": null,
+          "reused": false,
+          "schema": "experiment-result-v1"
+        },
+        "warm": {
+          "status": "pass",
+          "returncode": 0,
+          "reason": null,
+          "reused": true,
+          "schema": "experiment-result-v1"
+        },
+        "resumed": {
+          "status": "pass",
+          "returncode": 0,
+          "reason": null,
+          "reused": true,
+          "schema": "experiment-result-v1"
+        },
+        "same_attempt_reused": true,
+        "current_admission_matches_saved": true,
+        "key_binds_saved_inputs": false,
+        "next_resume_reuses_same": true,
+        "old_attempt_preserved": true,
+        "result_sha256": "2f5df95faaf8950392bd69f4bbb9bccbcd63286ee3a82640f7501d2ab306c8e8"
+      }
+    },
+    "source_preserved": true,
+    "runner_preserved": true,
+    "actual_matrix_clis": 4
+  },
+  "after": {
+    "runner_sha256": "552879ffc345c2b33b33e153d2c2635cb9f8be2e4880d222060ca44ca8bba1fa",
+    "cases": {
+      "clean-pass": {
+        "expected_status": "pass",
+        "expected_returncode": 0,
+        "first": {
+          "status": "pass",
+          "returncode": 0,
+          "reason": null,
+          "reused": false,
+          "schema": "experiment-result-v1"
+        },
+        "warm": {
+          "status": "pass",
+          "returncode": 0,
+          "reason": null,
+          "reused": true,
+          "schema": "experiment-result-v1"
+        },
+        "resumed": {
+          "status": "pass",
+          "returncode": 0,
+          "reason": null,
+          "reused": true,
+          "schema": "experiment-result-v1"
+        },
+        "same_attempt_reused": true,
+        "current_admission_matches_saved": true,
+        "key_binds_saved_inputs": true,
+        "next_resume_reuses_same": true,
+        "old_attempt_preserved": true,
+        "result_sha256": "2f5df95faaf8950392bd69f4bbb9bccbcd63286ee3a82640f7501d2ab306c8e8"
+      },
+      "clean-fail": {
+        "expected_status": "fail",
+        "expected_returncode": 1,
+        "first": {
+          "status": "fail",
+          "returncode": 1,
+          "reason": null,
+          "reused": false,
+          "schema": "experiment-result-v1"
+        },
+        "warm": {
+          "status": "fail",
+          "returncode": 1,
+          "reason": null,
+          "reused": true,
+          "schema": "experiment-result-v1"
+        },
+        "resumed": {
+          "status": "fail",
+          "returncode": 1,
+          "reason": null,
+          "reused": true,
+          "schema": "experiment-result-v1"
+        },
+        "same_attempt_reused": true,
+        "current_admission_matches_saved": true,
+        "key_binds_saved_inputs": true,
+        "next_resume_reuses_same": true,
+        "old_attempt_preserved": true,
+        "result_sha256": "2f5df95faaf8950392bd69f4bbb9bccbcd63286ee3a82640f7501d2ab306c8e8"
+      },
+      "pass-on-failure": {
+        "expected_status": "fail",
+        "expected_returncode": 1,
+        "first": {
+          "status": "fail",
+          "returncode": 1,
+          "reason": null,
+          "reused": false,
+          "schema": "experiment-result-v1"
+        },
+        "warm": {
+          "status": "fail",
+          "returncode": 1,
+          "reason": null,
+          "reused": true,
+          "schema": "experiment-result-v1"
+        },
+        "resumed": {
+          "status": "fail",
+          "returncode": 1,
+          "reason": null,
+          "reused": false,
+          "schema": "experiment-result-v1"
+        },
+        "same_attempt_reused": false,
+        "current_admission_matches_saved": true,
+        "key_binds_saved_inputs": true,
+        "next_resume_reuses_same": true,
+        "old_attempt_preserved": true,
+        "result_sha256": "2f5df95faaf8950392bd69f4bbb9bccbcd63286ee3a82640f7501d2ab306c8e8"
+      },
+      "fail-on-success": {
+        "expected_status": "pass",
+        "expected_returncode": 0,
+        "first": {
+          "status": "pass",
+          "returncode": 0,
+          "reason": null,
+          "reused": false,
+          "schema": "experiment-result-v1"
+        },
+        "warm": {
+          "status": "pass",
+          "returncode": 0,
+          "reason": null,
+          "reused": true,
+          "schema": "experiment-result-v1"
+        },
+        "resumed": {
+          "status": "pass",
+          "returncode": 0,
+          "reason": null,
+          "reused": false,
+          "schema": "experiment-result-v1"
+        },
+        "same_attempt_reused": false,
+        "current_admission_matches_saved": true,
+        "key_binds_saved_inputs": true,
+        "next_resume_reuses_same": true,
+        "old_attempt_preserved": true,
+        "result_sha256": "2f5df95faaf8950392bd69f4bbb9bccbcd63286ee3a82640f7501d2ab306c8e8"
+      },
+      "boolean-code": {
+        "expected_status": "pass",
+        "expected_returncode": 0,
+        "first": {
+          "status": "pass",
+          "returncode": 0,
+          "reason": null,
+          "reused": false,
+          "schema": "experiment-result-v1"
+        },
+        "warm": {
+          "status": "pass",
+          "returncode": 0,
+          "reason": null,
+          "reused": true,
+          "schema": "experiment-result-v1"
+        },
+        "resumed": {
+          "status": "pass",
+          "returncode": 0,
+          "reason": null,
+          "reused": false,
+          "schema": "experiment-result-v1"
+        },
+        "same_attempt_reused": false,
+        "current_admission_matches_saved": true,
+        "key_binds_saved_inputs": true,
+        "next_resume_reuses_same": true,
+        "old_attempt_preserved": true,
+        "result_sha256": "2f5df95faaf8950392bd69f4bbb9bccbcd63286ee3a82640f7501d2ab306c8e8"
+      },
+      "float-code": {
+        "expected_status": "pass",
+        "expected_returncode": 0,
+        "first": {
+          "status": "pass",
+          "returncode": 0,
+          "reason": null,
+          "reused": false,
+          "schema": "experiment-result-v1"
+        },
+        "warm": {
+          "status": "pass",
+          "returncode": 0,
+          "reason": null,
+          "reused": true,
+          "schema": "experiment-result-v1"
+        },
+        "resumed": {
+          "status": "pass",
+          "returncode": 0,
+          "reason": null,
+          "reused": false,
+          "schema": "experiment-result-v1"
+        },
+        "same_attempt_reused": false,
+        "current_admission_matches_saved": true,
+        "key_binds_saved_inputs": true,
+        "next_resume_reuses_same": true,
+        "old_attempt_preserved": true,
+        "result_sha256": "2f5df95faaf8950392bd69f4bbb9bccbcd63286ee3a82640f7501d2ab306c8e8"
+      },
+      "wrong-code": {
+        "expected_status": "pass",
+        "expected_returncode": 0,
+        "first": {
+          "status": "pass",
+          "returncode": 0,
+          "reason": null,
+          "reused": false,
+          "schema": "experiment-result-v1"
+        },
+        "warm": {
+          "status": "pass",
+          "returncode": 0,
+          "reason": null,
+          "reused": true,
+          "schema": "experiment-result-v1"
+        },
+        "resumed": {
+          "status": "pass",
+          "returncode": 0,
+          "reason": null,
+          "reused": false,
+          "schema": "experiment-result-v1"
+        },
+        "same_attempt_reused": false,
+        "current_admission_matches_saved": true,
+        "key_binds_saved_inputs": true,
+        "next_resume_reuses_same": true,
+        "old_attempt_preserved": true,
+        "result_sha256": "2f5df95faaf8950392bd69f4bbb9bccbcd63286ee3a82640f7501d2ab306c8e8"
+      },
+      "missing-code": {
+        "expected_status": "pass",
+        "expected_returncode": 0,
+        "first": {
+          "status": "pass",
+          "returncode": 0,
+          "reason": null,
+          "reused": false,
+          "schema": "experiment-result-v1"
+        },
+        "warm": {
+          "status": "pass",
+          "returncode": 0,
+          "reason": null,
+          "reused": true,
+          "schema": "experiment-result-v1"
+        },
+        "resumed": {
+          "status": "pass",
+          "returncode": 0,
+          "reason": null,
+          "reused": false,
+          "schema": "experiment-result-v1"
+        },
+        "same_attempt_reused": false,
+        "current_admission_matches_saved": true,
+        "key_binds_saved_inputs": true,
+        "next_resume_reuses_same": true,
+        "old_attempt_preserved": true,
+        "result_sha256": "2f5df95faaf8950392bd69f4bbb9bccbcd63286ee3a82640f7501d2ab306c8e8"
+      },
+      "error-reason": {
+        "expected_status": "pass",
+        "expected_returncode": 0,
+        "first": {
+          "status": "pass",
+          "returncode": 0,
+          "reason": null,
+          "reused": false,
+          "schema": "experiment-result-v1"
+        },
+        "warm": {
+          "status": "pass",
+          "returncode": 0,
+          "reason": null,
+          "reused": true,
+          "schema": "experiment-result-v1"
+        },
+        "resumed": {
+          "status": "pass",
+          "returncode": 0,
+          "reason": null,
+          "reused": false,
+          "schema": "experiment-result-v1"
+        },
+        "same_attempt_reused": false,
+        "current_admission_matches_saved": true,
+        "key_binds_saved_inputs": true,
+        "next_resume_reuses_same": true,
+        "old_attempt_preserved": true,
+        "result_sha256": "2f5df95faaf8950392bd69f4bbb9bccbcd63286ee3a82640f7501d2ab306c8e8"
+      },
+      "changed-inputs": {
+        "expected_status": "pass",
+        "expected_returncode": 0,
+        "first": {
+          "status": "pass",
+          "returncode": 0,
+          "reason": null,
+          "reused": false,
+          "schema": "experiment-result-v1"
+        },
+        "warm": {
+          "status": "pass",
+          "returncode": 0,
+          "reason": null,
+          "reused": true,
+          "schema": "experiment-result-v1"
+        },
+        "resumed": {
+          "status": "pass",
+          "returncode": 0,
+          "reason": null,
+          "reused": false,
+          "schema": "experiment-result-v1"
+        },
+        "same_attempt_reused": false,
+        "current_admission_matches_saved": true,
+        "key_binds_saved_inputs": true,
+        "next_resume_reuses_same": true,
+        "old_attempt_preserved": true,
+        "result_sha256": "2f5df95faaf8950392bd69f4bbb9bccbcd63286ee3a82640f7501d2ab306c8e8"
+      },
+      "missing-inputs": {
+        "expected_status": "pass",
+        "expected_returncode": 0,
+        "first": {
+          "status": "pass",
+          "returncode": 0,
+          "reason": null,
+          "reused": false,
+          "schema": "experiment-result-v1"
+        },
+        "warm": {
+          "status": "pass",
+          "returncode": 0,
+          "reason": null,
+          "reused": true,
+          "schema": "experiment-result-v1"
+        },
+        "resumed": {
+          "status": "pass",
+          "returncode": 0,
+          "reason": null,
+          "reused": false,
+          "schema": "experiment-result-v1"
+        },
+        "same_attempt_reused": false,
+        "current_admission_matches_saved": true,
+        "key_binds_saved_inputs": true,
+        "next_resume_reuses_same": true,
+        "old_attempt_preserved": true,
+        "result_sha256": "2f5df95faaf8950392bd69f4bbb9bccbcd63286ee3a82640f7501d2ab306c8e8"
+      },
+      "wrong-schema": {
+        "expected_status": "pass",
+        "expected_returncode": 0,
+        "first": {
+          "status": "pass",
+          "returncode": 0,
+          "reason": null,
+          "reused": false,
+          "schema": "experiment-result-v1"
+        },
+        "warm": {
+          "status": "pass",
+          "returncode": 0,
+          "reason": null,
+          "reused": true,
+          "schema": "experiment-result-v1"
+        },
+        "resumed": {
+          "status": "pass",
+          "returncode": 0,
+          "reason": null,
+          "reused": false,
+          "schema": "experiment-result-v1"
+        },
+        "same_attempt_reused": false,
+        "current_admission_matches_saved": true,
+        "key_binds_saved_inputs": true,
+        "next_resume_reuses_same": true,
+        "old_attempt_preserved": true,
+        "result_sha256": "2f5df95faaf8950392bd69f4bbb9bccbcd63286ee3a82640f7501d2ab306c8e8"
+      },
+      "changed-input-type": {
+        "expected_status": "pass",
+        "expected_returncode": 0,
+        "first": {
+          "status": "pass",
+          "returncode": 0,
+          "reason": null,
+          "reused": false,
+          "schema": "experiment-result-v1"
+        },
+        "warm": {
+          "status": "pass",
+          "returncode": 0,
+          "reason": null,
+          "reused": true,
+          "schema": "experiment-result-v1"
+        },
+        "resumed": {
+          "status": "pass",
+          "returncode": 0,
+          "reason": null,
+          "reused": false,
+          "schema": "experiment-result-v1"
+        },
+        "same_attempt_reused": false,
+        "current_admission_matches_saved": true,
+        "key_binds_saved_inputs": true,
+        "next_resume_reuses_same": true,
+        "old_attempt_preserved": true,
+        "result_sha256": "2f5df95faaf8950392bd69f4bbb9bccbcd63286ee3a82640f7501d2ab306c8e8"
+      }
+    },
+    "source_preserved": true,
+    "runner_preserved": true,
+    "actual_matrix_clis": 4
+  }
+}

@@ -22,17 +22,15 @@ H = Path(__file__).resolve().parent
 sys.path.insert(0, str(H))
 from score import sections, normalize, body, candidate_functions, original_windows  # noqa: E402
 from win import Cand, insns, demangle, best_candidates, ORIG, ORIG_SECS  # noqa: E402
-from instruction_stream import instruction_offsets
+from instruction_stream import decode_instructions, instruction_offsets
 from compare_scores import publish_report
 from collections import Counter
 
 
 def decode(raw, offset):
-    op, regs, displacement, immediate = struct.unpack_from('<BBhi', raw, offset)
-    if op == 0x18:
-        immediate = (immediate & 0xffffffff) | (struct.unpack_from('<I', raw, offset + 12)[0] << 32)
-    return dict(opcode=op, dst=regs & 15, src=regs >> 4,
-                displacement=displacement, immediate=immediate)
+    width = 16 if raw[offset] == 0x18 else 8
+    row = decode_instructions(raw[offset:offset + width])[0]
+    return {key: row[key] for key in ('opcode', 'dst', 'src', 'displacement', 'immediate')}
 
 
 def field_differences(original, candidate, limit=12):

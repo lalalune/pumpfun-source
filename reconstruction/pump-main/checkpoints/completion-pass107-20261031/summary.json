@@ -1,0 +1,157 @@
+{
+  "schema": "pump-completion-pass107-v1",
+  "date": "2026-10-31",
+  "built_revision": "1647da0f22312730b2e6b3eec7a468d9d3d89041",
+  "validated_merged_revision": "1647da0f22312730b2e6b3eec7a468d9d3d89041",
+  "recipe": "identity",
+  "source_schema": "pump-source-inputs-v3",
+  "source_sha256": "ec7bb2a3ecc79d2e4f7be7b2ad97b61e48f51d2b3d9cdbdae352e9f25fe81398",
+  "source_files": 305,
+  "source_directories": 10,
+  "prior_source_schema": "pump-source-inputs-v3",
+  "prior_source_sha256": "592675b7a28f371f0a0723f075133dc98ad40dd57de675fc0e2831a6d0863005",
+  "source_receipt_note": "Fresh v3 snapshot binds every selected crate file, directory membership and execute bits. New unlinked reference models are included in the snapshot but not compiled into the program. Active source changes through #3859, #3861 and #3870 are independently rebuilt; #3828 is included in the fresh baseline.",
+  "unstripped_sha256": "a8a70a59c345af69cc8907f5a7acf7af2ca9d221826f8663e3c256493b9b390b",
+  "stripped_sha256": "97b0fd021317d6898bfa0ca99c6b4c76f384989ab2040aa8ee107129d7754d1d",
+  "runtime_valid": true,
+  "stack_warnings": [],
+  "build_tool_sha256": {
+    "reconstruction/harness/fastbuild.py": "c98de708d063186373b092de893235bef4dd9cf62940fd9c47fadae461efed00",
+    "reconstruction/harness/source_inputs.py": "6fde8e438f119aa3ecf003bc71a12fb7da0640cfea241216cba47a242e8cd2fc",
+    "reconstruction/harness/build_process.py": "88b61b7dfecd077f97f3a093b9348078067f9fdea07d9efccb0cb324d094d517",
+    "reconstruction/harness/link_order.py": "53de3cf5e6ff004b03319dc530ef4902d3b67734aced025fbc1957846d452e81"
+  },
+  "scoring": {
+    "revision": "1647da0f22312730b2e6b3eec7a468d9d3d89041",
+    "sha256": {
+      "reconstruction/harness/score.py": "6eae59ba87809bdd6aa42d6227c5598d8ea2196051bf0d796e8020bdb14df714",
+      "reconstruction/harness/score_admission.py": "885b4b55229e3d87086b93c4e8227da8e4ec2713ccd6691fa40a7538d66c3a45",
+      "reconstruction/harness/elf_symbols.py": "f7a69a4b5324959398365b63f20ea9dda8eab223d8790a608c778549d3b966c0",
+      "reconstruction/harness/instruction_stream.py": "288c9ceb3f0f177688501922ce56e6a72fe9c3fedcddf9ad1de474412f61ef9d",
+      "reconstruction/harness/llvm_tools.py": "306a50b2ba57f350e250d7c7f596ac400627ecfd24248b2291578b5ddf3fe8af",
+      "reconstruction/harness/original_input.py": "9d00b5c253405cec4d2ef292086c6e88d758bd3fe7f8c6a3cba23af114f01ade",
+      "reconstruction/harness/target_metric.py": "46fb70ae6d40f93d5e4d3bf864bae492be61d5b1294e38742812e3bbc26369ed",
+      "reconstruction/harness/win.py": "46217d8a5f49fb8731e60dedc849bd890c15d3a20307797626c5cd4a0f33e6a5",
+      "reconstruction/harness/compare_scores.py": "e59024567db9b2373fe01d377f42308554434d182f5981153cd6814412245b74",
+      "reconstruction/base/functions.tsv": "fb2c0a47514567d65eb45c1e268dacd5291e4659bb7dceb575a767dc20bcaff8",
+      "evidence/original/pump/deployed.so": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d"
+    }
+  },
+  "baseline_checkpoint": "../completion-pass106-20261031",
+  "baseline_revision": "9bd38c7d5a4684b647ab59fc8942ed56e990e3b3",
+  "baseline_unstripped_sha256": "d0c733f630b54ee70b3f7cea18cb40f8edd9b9fdea9abddfe313cde4be251ff5",
+  "pump": {
+    "raw": 1034,
+    "normalized": 1034,
+    "total": 1035,
+    "matched_percent": 99.9,
+    "matched_code_bytes": 1764808,
+    "total_code_bytes": 1792208,
+    "unmatched": [
+      {
+        "address": "0x22a10",
+        "symbol": "admin_cto::execute",
+        "bytes": 27400
+      }
+    ]
+  },
+  "aggregate": {
+    "raw": 3337,
+    "normalized": 3337,
+    "total": 3338,
+    "matched_percent": 99.97,
+    "matched_code_bytes": 5185728,
+    "total_code_bytes": 5213128,
+    "whole_meaningful_elf_equal_programs": 4,
+    "programs": 5
+  },
+  "comparison": {
+    "gains": [],
+    "losses": [],
+    "raw_gains": [],
+    "raw_losses": []
+  },
+  "remaining_window": {
+    "window": "0x22a10",
+    "window_bytes": 27400,
+    "symbol": "pump_recovered::admin_cto::execute",
+    "cand_start": "0x22a10",
+    "cand_bytes": 27400,
+    "normalized_equal": false,
+    "raw_equal": false,
+    "ratio": 0.67436,
+    "calls_original": [
+      154,
+      3
+    ],
+    "calls_candidate": [
+      154,
+      3
+    ],
+    "call_counts_original": {
+      "internal": 154,
+      "syscall_or_relocated": 3,
+      "indirect": 0
+    },
+    "call_counts_candidate": {
+      "internal": 154,
+      "syscall_or_relocated": 3,
+      "indirect": 0
+    },
+    "normalized_field_differences": {
+      "comparable": false,
+      "reason": "instruction boundaries or byte lengths differ"
+    },
+    "slots_diff": 3141,
+    "first_diff_offsets": [
+      "0x0",
+      "0x8",
+      "0x10",
+      "0x80",
+      "0x88",
+      "0x90",
+      "0x98",
+      "0xa0",
+      "0xa8",
+      "0xb0",
+      "0xb8",
+      "0xc0"
+    ]
+  },
+  "partial_progress": {
+    "baseline_ratio": 0.67376,
+    "candidate_ratio": 0.67436,
+    "baseline_positional_differences": 3124,
+    "candidate_positional_differences": 3141,
+    "bytes": 27400,
+    "note": "The token-similarity ratio improves; positional differences increase by 17. No new exact window."
+  },
+  "semantic_review": {
+    "source_file_sha256": "fc1d6c427e3bb613da604bb3f06970f9333e4a8b44289c9ffebfb5adc490d337",
+    "independent_review": "semantic-review.json",
+    "description": "Tuple matching preserves the sweep guard truth table; amm_frozen implies amm_present. Moving the immutable event boolean read preserves serialization. Separate dummy-borrow removal and reflexive error conversion preserve program behavior."
+  },
+  "runtime": {
+    "case_count": 388,
+    "mismatches": 0,
+    "candidate_sha256": "97b0fd021317d6898bfa0ca99c6b4c76f384989ab2040aa8ee107129d7754d1d",
+    "original_sha256": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
+    "report": "admin-runtime.json.gz",
+    "uncompressed_sha256": "bb48af8cc69863cab9650c5cd0654047d7781047ed42c03b13d17b701024a42b",
+    "compressed_sha256": "2c9218d4ca22de4b45b6dc9bec8b40383827b4e58e88c8196d090ac7083e2578",
+    "producer_sha256": "6d8a141f8933fc17cc2a520e86da2741f6f1aba6d4201e414e62c4a2293c4364",
+    "reused": false,
+    "fresh_VM_case_pairs": 388,
+    "signed_transaction_vectors_verified": 776,
+    "validation": "runtime-validation.json",
+    "scope": "Signed synthetic captured Pump admin_cto calling Fees by genuine CPI. Pool authority nonsigner at transaction boundary; no privileged signer injection. Not full program identity."
+  },
+  "limits": [
+    "No new exact window; Pump whole meaningful ELF remains unequal.",
+    "Positional instruction differences increase from 3,124 to 3,141 despite a higher similarity ratio.",
+    "Reference models remain unlinked; their bounded tests add no compiled completion.",
+    "The four other program identity checkpoints are retained without new whole-ELF acceptance.",
+    "Prior stopped claim-token-incentive and other campaigns remain excluded.",
+    "Hosted CI status is recorded separately; local checks do not establish hosted completion."
+  ]
+}

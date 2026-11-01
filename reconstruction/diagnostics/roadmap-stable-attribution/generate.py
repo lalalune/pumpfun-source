@@ -11,7 +11,7 @@ import uuid
 
 ROOT = Path(__file__).resolve().parents[3]
 SOURCE = 'scripts/reconstruction_roadmap.py'
-REVIEWED = 'ef43f2af32498bf26c38181e1495d901a36f65ee687550111965f6f079255411'
+REVIEWED = '529e187a98c05fc83cb17b80972594897d23a9eef75e30cb55b76341b05bc88a'
 READER = 'scripts/window_elf_reader.py'
 REVIEWED_READER = 'd3b57510531d7977110e73474cf89310b68bf6705d134ffb3bc759e18d30bedd'
 

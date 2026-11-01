@@ -1,0 +1,51 @@
+{
+  "base": "a073c5c8e561dfe0f8a842d27aa1b446de140333",
+  "writer_pr": "https://github.com/lalalune/pumpfun-source/pull/3925",
+  "writer_head": "1b0be728950b66a26b86e92069cd69c6e85ce5bd",
+  "pin_patch_sha256": "45ca018ec6e8d3859cf46cfdf5ce7a0b621636d1c3ed2db8f442be6067138543",
+  "writer_patch_sha256": "c2ee9658a3163d1ed7d6b9eda3276dc27bfddf928201d295bfb486aaf3753e79",
+  "generator_cli_calls": 6,
+  "emitted_verifier_calls": 4,
+  "both_orders_identical": true,
+  "original_inputs_unchanged": true,
+  "results": [
+    {
+      "order": "pin_then_writer",
+      "combined_source_sha256": "92027a277b52c301eee207ce9d675352f8d927af0fd4afec37980d370a4e31be",
+      "packet_sha256": {
+        "summary.json": "c7ae6ef6005df09ecb33a0b694fc47d3354022dbd462d398f2fd70cdd5d69a9c",
+        "dynamic-call-inputs.json": "83aa962151ac6058822342b388eb17ee96038cc079361a69e5eceface75a2d32",
+        "README.md": "d76213af5eb4d2247d845453dafe09abe0231728170aab80457c2c80e94499dd",
+        "reconstruction-plan.json": "06dd96ca5775b3e8ed2df656e178af0a01de3b5a88778c4bd4baeb2f81d076be",
+        "pump-details.json": "b61a65c91454ffeaac93a002c54d028f74b8aaa1955e0b55650e3f107008d186",
+        "manifest.json": "c84c3d492dc0284a9a1934d8d2c4242d6bf3abc03e054c915cfd0e4f4f2af4cc",
+        "pump_amm-details.json": "5bac91ace828a4e3f552c7a1c4d9a43f40d1334561c2bb8bf2daf1e80f6a5f70",
+        "verify.py": "3a692f6470f82dce49241ad544e73fae4d982a96ccd88ddadf0a756abcd1b638",
+        "mayhem-details.json": "79050205203351e99e7f45cdd988853bfd027c6d305d0f72cbe69df2b7c11dde"
+      },
+      "normal_exit": 0,
+      "write_limit_rejected": true,
+      "no_partial_output": true,
+      "retry_exit": 0
+    },
+    {
+      "order": "writer_then_pin",
+      "combined_source_sha256": "92027a277b52c301eee207ce9d675352f8d927af0fd4afec37980d370a4e31be",
+      "packet_sha256": {
+        "summary.json": "c7ae6ef6005df09ecb33a0b694fc47d3354022dbd462d398f2fd70cdd5d69a9c",
+        "dynamic-call-inputs.json": "83aa962151ac6058822342b388eb17ee96038cc079361a69e5eceface75a2d32",
+        "README.md": "d76213af5eb4d2247d845453dafe09abe0231728170aab80457c2c80e94499dd",
+        "reconstruction-plan.json": "06dd96ca5775b3e8ed2df656e178af0a01de3b5a88778c4bd4baeb2f81d076be",
+        "pump-details.json": "b61a65c91454ffeaac93a002c54d028f74b8aaa1955e0b55650e3f107008d186",
+        "manifest.json": "c84c3d492dc0284a9a1934d8d2c4242d6bf3abc03e054c915cfd0e4f4f2af4cc",
+        "pump_amm-details.json": "5bac91ace828a4e3f552c7a1c4d9a43f40d1334561c2bb8bf2daf1e80f6a5f70",
+        "verify.py": "3a692f6470f82dce49241ad544e73fae4d982a96ccd88ddadf0a756abcd1b638",
+        "mayhem-details.json": "79050205203351e99e7f45cdd988853bfd027c6d305d0f72cbe69df2b7c11dde"
+      },
+      "normal_exit": 0,
+      "write_limit_rejected": true,
+      "no_partial_output": true,
+      "retry_exit": 0
+    }
+  ]
+}

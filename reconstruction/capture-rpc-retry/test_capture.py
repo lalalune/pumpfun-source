@@ -204,6 +204,44 @@ class CaptureRetryTests(unittest.TestCase):
             self.assertIn('archived capture source changed', result.stderr)
             self.assertNotIn('untrusted source executed', result.stderr)
 
+    def run_adapter_with_rename_module(self, deep_text):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            (root / 'scripts').mkdir()
+            (root / 'scripts/capture.py').write_bytes((ROOT / 'scripts/capture.py').read_bytes())
+            (root / 'scripts/deep_disassembly.py').write_text(deep_text, encoding='utf-8')
+            adapter = root / 'reconstruction/capture-rpc-retry/capture_retry.py'
+            adapter.parent.mkdir(parents=True)
+            adapter.write_bytes(Path(__file__).with_name('capture_retry.py').read_bytes())
+            return subprocess.run([sys.executable, '-B', str(adapter)], capture_output=True, text=True)
+
+    def test_changed_rename_is_rejected_before_execution(self):
+        deep = (ROOT / 'scripts/deep_disassembly.py').read_text(encoding='utf-8')
+        anchor = '    if os.name == "nt" and not exchange:\n'
+        self.assertEqual(deep.count(anchor), 1)
+        changed = deep.replace(anchor, "    raise RuntimeError('untrusted rename executed')\n" + anchor)
+        result = self.run_adapter_with_rename_module(changed)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn('reviewed no-replace rename changed', result.stderr)
+        self.assertNotIn('untrusted rename executed', result.stderr)
+
+    def test_rename_binding_ignores_the_rest_of_the_analysis_module(self):
+        deep = (ROOT / 'scripts/deep_disassembly.py').read_text(encoding='utf-8')
+        # Only rename_directory is admitted; the module's own imports never run.
+        changed = "raise RuntimeError('analysis module executed')\n" + deep
+        result = self.run_adapter_with_rename_module(changed)
+        self.assertEqual(result.returncode, 0, result.stderr)
+
+    def test_admitted_rename_refuses_an_existing_empty_destination(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            stage, destination = Path(temporary) / 'stage', Path(temporary) / 'capture'
+            stage.mkdir(); (stage / 'manifest.json').write_text('{}')
+            destination.mkdir()
+            with self.assertRaises(OSError):
+                module.rename_directory(stage, destination)
+            self.assertTrue((stage / 'manifest.json').exists())
+            self.assertEqual(list(destination.iterdir()), [])
+
     def check_retry(self, name, failure):
         folder, manifest, responses = capture_responses(name)
         with tempfile.TemporaryDirectory() as temporary:

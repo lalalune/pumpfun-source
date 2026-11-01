@@ -1,0 +1,69 @@
+{
+  "tested_base": "a073c5c8e561dfe0f8a842d27aa1b446de140333",
+  "sources": [
+    {
+      "source": "scripts/reconstruction_roadmap.py",
+      "before_sha256": "ef43f2af32498bf26c38181e1495d901a36f65ee687550111965f6f079255411",
+      "after_sha256": "529e187a98c05fc83cb17b80972594897d23a9eef75e30cb55b76341b05bc88a",
+      "all_bytes_outside_generated_verifier_unchanged": true
+    },
+    {
+      "source": "scripts/revalidate_all.py",
+      "before_sha256": "fbdedcd033bbfc1d40f0c4e2b16b3fa44d4c0176b93de37eedefb347d2d2c6ec",
+      "after_sha256": "2d037c093e69a94c8a9f9c78a01a671506dd2c9f4fb50f603e752caf249c622a",
+      "all_bytes_outside_generated_verifier_unchanged": true
+    },
+    {
+      "source": "reconstruction/tooling/revalidation-qualification/audit.py",
+      "before_sha256": "c2ec568448d39e918ebb438e2af736e7a134c79e825dc88adad57ac272eb5740",
+      "after_sha256": "09ee5b1099f55d1eb3e646ccd1056eb8e391b82eab77647cfaeb735fa706d024",
+      "all_bytes_outside_generated_verifier_and_explicit_root_pin_unchanged": true
+    }
+  ],
+  "current_adapter_transitions": [
+    {
+      "adapter": "reconstruction/diagnostics/defined-dynamic-calls/generate.py",
+      "before_sha256": "0b33f6115e1f324bed483249e084ea70f479277c766a3ab49ee7a435f082eb63",
+      "after_sha256": "2488b8ecf878d592a8f5a674c0913ac93698cd67bc59108ed57a68a9d3d73683",
+      "changed_identity": "scripts/reconstruction_roadmap.py",
+      "old_reviewed_identity": "ef43f2af32498bf26c38181e1495d901a36f65ee687550111965f6f079255411",
+      "new_reviewed_identity": "529e187a98c05fc83cb17b80972594897d23a9eef75e30cb55b76341b05bc88a",
+      "all_other_bytes_unchanged": true
+    },
+    {
+      "adapter": "reconstruction/diagnostics/roadmap-reviewed-regeneration/generate.py",
+      "before_sha256": "0ef463a0203de87cbd0dfed54f7792131ca2a7818f05f8ac27482d0b3d19e86e",
+      "after_sha256": "f3ad053b962576ea7605c5656bffb89202c21fd17e57ae360d4f7454b536baed",
+      "changed_identity": "scripts/reconstruction_roadmap.py",
+      "old_reviewed_identity": "ef43f2af32498bf26c38181e1495d901a36f65ee687550111965f6f079255411",
+      "new_reviewed_identity": "529e187a98c05fc83cb17b80972594897d23a9eef75e30cb55b76341b05bc88a",
+      "all_other_bytes_unchanged": true
+    },
+    {
+      "adapter": "reconstruction/diagnostics/roadmap-stable-attribution/generate.py",
+      "before_sha256": "eec54646bc47b007633fe918716bfa4ec430521d9c7fd21f36e61c6bee8c8d2a",
+      "after_sha256": "f8cc6b6fa65f9ec2fdc2026d5b556f5d6b5174913e35f5a8151b5cb71fdb6f32",
+      "changed_identity": "scripts/reconstruction_roadmap.py",
+      "old_reviewed_identity": "ef43f2af32498bf26c38181e1495d901a36f65ee687550111965f6f079255411",
+      "new_reviewed_identity": "529e187a98c05fc83cb17b80972594897d23a9eef75e30cb55b76341b05bc88a",
+      "all_other_bytes_unchanged": true
+    },
+    {
+      "adapter": "reconstruction/diagnostics/manifest-admission/run.py",
+      "before_sha256": "f3408de8212a096bffd3d2b6ea43ac91b7a4de6c3302457fc17333d45486ce69",
+      "after_sha256": "eeefb0a15f68976377745f1d0727e05a4c11361d1c37504d8a1079e9a6a85058",
+      "changed_identity": "scripts/revalidate_all.py",
+      "old_reviewed_identity": "fbdedcd033bbfc1d40f0c4e2b16b3fa44d4c0176b93de37eedefb347d2d2c6ec",
+      "new_reviewed_identity": "2d037c093e69a94c8a9f9c78a01a671506dd2c9f4fb50f603e752caf249c622a",
+      "all_other_bytes_unchanged": true
+    }
+  ],
+  "qualification_binding": "The qualification source above contains the fifth explicit root binding.",
+  "preservation": "Original first-four producer sources, helper allowlists and proof/receipt files unchanged; public README only appends. Archived roadmap/proof bytes and their pins unchanged.",
+  "counts": {
+    "original_duplicate_false_passes": 36,
+    "additional_duplicate_false_passes": 27,
+    "total": 63
+  },
+  "limits": "Only current generated standalone verifier admission changes; prior historical generated scripts remain unchanged. No program/VM/compiler execution."
+}

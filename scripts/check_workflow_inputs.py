@@ -360,7 +360,7 @@ def references(name, source):
                         tokens = shlex.split(strip_comment(line))
                     except ValueError:
                         if COMMAND_PREFIX.match(line):
-                            unsupported.add((name, job_id, 'unparsed shell command'))
+                            unsupported.add((name, str(job_id), 'unparsed shell command'))
                         continue
                     index, command_directory, split_string = _parse_command_context(tokens, cwd)
                     if split_string:
@@ -370,7 +370,7 @@ def references(name, source):
                     if interpreter is None:
                         continue
                     if '${{' in line or '$' in command_directory or command_directory.startswith('/'):
-                        unsupported.add((name, job_id, 'dynamic command/directory'))
+                        unsupported.add((name, str(job_id), 'dynamic command/directory'))
                         continue
                     index += 1
                     python = interpreter.startswith('python')
@@ -393,7 +393,7 @@ def references(name, source):
                         continue
                     script = tokens[index]
                     if script.startswith(('/', '<')) or any(c in script for c in '$`*?'):
-                        unsupported.add((name, job_id, 'nonliteral script'))
+                        unsupported.add((name, str(job_id), 'nonliteral script'))
                         continue
                     path = posixpath.normpath(posixpath.join(command_directory, script))
                     if path.split('/')[0] in ROOTS and path.endswith(('.py', '.sh')):

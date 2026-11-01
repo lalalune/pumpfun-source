@@ -82,3 +82,11 @@ replaces or removes the original candidate path during analysis, argument text
 still describes the bytes used for call sites and the recorded candidate hash.
 `test_census_disassembly_snapshot.py` exercises unchanged, replaced and removed
 paths with retained compiler artifacts when `PUMP_OBJDUMP` names an SBF tool.
+
+Each JSON/Markdown report is now completed in a private sibling file before
+no-replace publication. An ordinary write failure leaves that destination absent,
+so the same command can be retried; an existing or late report stays intact.
+The [actual retained-data proof](../../../research/census-report-publication-20261101/README.md)
+exercises file-size failures and same-path retries without changing diagnostics
+or archived source pins. This protects each report independently, not a transaction
+across several requested outputs or power-loss durability.

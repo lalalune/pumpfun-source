@@ -142,6 +142,8 @@ wrapper = Path(tempfile.mkdtemp(prefix='.' + args.output.name[:32] + '.', dir=ar
 staging = wrapper / 'cache'
 try:
     staging.mkdir()  # The published directory retains ordinary umask permissions.
+    # Local-only lockfiles still need the registry root expected by build adapters.
+    (staging / 'registry').mkdir()
     for origin, area, name, expected in copies:
         for namespace in namespaces:
             target = staging / area / namespace / name

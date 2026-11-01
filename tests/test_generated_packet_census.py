@@ -32,8 +32,8 @@ class GeneratedPacketCensusTests(unittest.TestCase):
             if result.returncode:
                 raise AssertionError(result.stdout + result.stderr)
 
-    def verify(self, packet):
-        return subprocess.run([sys.executable, '-I', '-B', str(packet / 'verify.py')],
+    def verify(self, packet, mode=()):
+        return subprocess.run([sys.executable, '-I', '-B', *mode, str(packet / 'verify.py')],
                               capture_output=True, text=True, timeout=10)
 
     def packets(self):
@@ -110,6 +110,92 @@ class GeneratedPacketCensusTests(unittest.TestCase):
                 result = self.verify(packet)
                 self.assertEqual(result.returncode, 1, result.stdout + result.stderr)
                 self.assertIn('manifest artifact set mismatch', result.stdout)
+
+    def test_duplicate_decoded_manifest_names_are_rejected_in_all_modes(self):
+        for tool, packet in self.packets():
+            path = packet / 'manifest.json'
+            original = path.read_text(encoding='utf-8')
+            digest = json.loads(original)['summary.json']
+            for key, value in (('"summary.json"', '0' * 64),
+                               ('"summary.json"', digest),
+                               ('"\\u0073ummary.json"', '0' * 64)):
+                repeated = '{' + key + ': ' + json.dumps(value) + ',' + original.lstrip()[1:]
+                path.write_text(repeated, encoding='utf-8')
+                for mode in ((), ('-O',), ('-OO',)):
+                    with self.subTest(tool=tool, key=key, value=value, mode=mode):
+                        result = self.verify(packet, mode)
+                        self.assertEqual(result.returncode, 1, result.stdout + result.stderr)
+                        self.assertIn('duplicate manifest key: summary.json', result.stdout)
+                        self.assertNotIn('All checks passed.', result.stdout)
+                        self.assertEqual(path.read_text(encoding='utf-8'), repeated)
+
+
+class GeneratedAuditManifestTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.temporary = tempfile.TemporaryDirectory()
+        cls.addClassCleanup(cls.temporary.cleanup)
+        cls.root = Path(cls.temporary.name).resolve()
+        cohort = cls.root / 'source'
+        names = [f'scripts/{name}.py' for name in (
+            'analyze_program', 'deep_disassembly', 'analyze', 'window_elf_reader',
+            'reconstruction_roadmap', 'revalidate_all')]
+        names += ['reconstruction/tooling/revalidation-qualification/audit.py']
+        for name in names:
+            path = cohort / name
+            path.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(ROOT / name, path)
+        shutil.copytree(ROOT / 'evidence', cohort / 'evidence')
+
+        def generate(script, output, arguments=()):
+            result = subprocess.run([
+                sys.executable, '-I', '-B', str(cohort / script), *arguments,
+                '--output', str(output)], cwd=cohort, capture_output=True,
+                text=True, timeout=60)
+            if result.returncode:
+                raise AssertionError(result.stdout + result.stderr)
+
+        # Auditors see only a fresh static capture packet whose verifier hashes
+        # files. Never run the repository's unrelated archived/program checks.
+        generate('scripts/analyze_program.py', cohort / 'research/static-mayhem',
+                 ('--program', 'mayhem'))
+        assert sorted(p.name for p in (cohort / 'research').iterdir()) == ['static-mayhem']
+        for label, script, arguments in (
+            ('roadmap', 'scripts/reconstruction_roadmap.py', ()),
+            ('root-audit', 'scripts/revalidate_all.py', ()),
+            ('qualified-audit', 'reconstruction/tooling/revalidation-qualification/audit.py',
+             ('--repo', str(cohort))),
+        ):
+            generate(script, cls.root / label, arguments)
+
+    def test_generated_audit_manifests_reject_duplicates_in_all_modes(self):
+        for label in ('roadmap', 'root-audit', 'qualified-audit'):
+            packet = self.root / label
+            path = packet / 'manifest.json'
+            original = path.read_text(encoding='utf-8')
+            manifest = json.loads(original)
+            variants = [(original, True),
+                        (original.replace('"summary.json"', '"\\u0073ummary.json"', 1), True),
+                        (json.dumps({**manifest, 'summary.json': '0' * 64}), False),
+                        ('{', False)]
+            for key, value in (('"summary.json"', '0' * 64),
+                               ('"summary.json"', manifest['summary.json']),
+                               ('"\\u0073ummary.json"', '0' * 64)):
+                variants.append(('{' + key + ':' + json.dumps(value) + ','
+                                 + original.lstrip()[1:], False))
+            for index, (raw, valid) in enumerate(variants):
+                path.write_text(raw, encoding='utf-8')
+                for mode in ((), ('-O',), ('-OO',)):
+                    with self.subTest(producer=label, case=index, mode=mode):
+                        result = subprocess.run([
+                            sys.executable, '-I', '-B', *mode, str(packet / 'verify.py')],
+                            capture_output=True, text=True, timeout=10)
+                        self.assertEqual(result.returncode == 0, valid,
+                                         result.stdout + result.stderr)
+                        if index >= 4:
+                            self.assertIn('duplicate manifest key: summary.json', result.stdout)
+                        self.assertEqual(path.read_text(encoding='utf-8'), raw)
+            path.write_text(original, encoding='utf-8')
 
 
 if __name__ == '__main__':

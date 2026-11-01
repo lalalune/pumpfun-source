@@ -93,7 +93,50 @@ SYSCALL_NAMES = {
 }
 
 
-def decode_instruction(b, offset, elf):
+def defined_dynamic_calls(elf):
+    """Resolve admitted positive-size .text functions without changing the reader.
+
+    This is the defined-symbol distinction accepted in PR #1502. Zero-sized
+    or otherwise unadmitted symbols remain unresolved by this bounded helper;
+    their exclusion is not a claim that the loader treats them as external.
+    """
+    sections = getattr(elf, "secs", {})
+    raw = getattr(elf, "raw", ())
+    rel, sym, text = (sections.get(name) for name in (".rel.dyn", ".dynsym", ".text"))
+    if rel is None or sym is None or text is None or text not in raw:
+        return {}
+    # Resolve through the table actually linked by the relocations, not a
+    # same-named function in some other symbol table.
+    if (rel[1] != 9 or rel[9] != 16 or rel[5] % 16
+            or rel[6] >= len(raw) or raw[rel[6]] != sym
+            or sym[1] != 11 or sym[9] != 24 or sym[5] % 24):
+        return {}
+    b = elf.b
+    if rel[4] + rel[5] > len(b) or sym[4] + sym[5] > len(b):
+        return {}
+    admitted = {(function["start"], function["size"]) for function in elf.funcs}
+    text_index = raw.index(text)
+    calls = {}
+    for position in range(rel[4], rel[4] + rel[5], 16):
+        address, info = struct.unpack_from("<QQ", b, position)
+        if info & 0xffffffff != 10 or not text[3] <= address <= text[3] + text[5] - 8:
+            continue
+        index = info >> 32
+        if index >= sym[5] // 24:
+            continue
+        _, kind, _, section, value, size = struct.unpack_from("<IBBHQQ", b, sym[4] + index * 24)
+        target = text[4] + value - text[3]
+        if (section != text_index or kind & 15 != 2 or size == 0
+                or (target, size) not in admitted):
+            continue
+        at = text[4] + address - text[3]
+        relocation = elf.relocations.get(at, {})
+        if b[at] == 0x85 and relocation.get("type") == 10:
+            calls[at] = {"target": target, "name": relocation.get("symbol") or None}
+    return calls
+
+
+def decode_instruction(b, offset, elf, defined_calls=None):
     """Decode a single BPF instruction into a structured record."""
     if offset + 8 > len(b):
         return None, 8
@@ -124,7 +167,19 @@ def decode_instruction(b, offset, elf):
     elif opcode == 0x85:
         # src_reg is the decoded nibble, not the packed register byte.
         # Type-10 external calls also use src=1 with a placeholder immediate.
-        if src_reg == 1 and elf.relocations.get(offset, {}).get("type") != 10:
+        defined = None
+        if getattr(elf, "relocations", {}).get(offset, {}).get("type") == 10:
+            if defined_calls is None:
+                defined_calls = defined_dynamic_calls(elf)
+            defined = defined_calls.get(offset)
+        if defined is not None:
+            result["mnemonic"] = f'call {defined["name"] or hex(defined["target"])}'
+            result["call_target"] = defined["target"]
+            result["call_name"] = defined["name"]
+            # Preserve the legacy relocation label; a resolved target determines
+            # the diagnostic category rather than the presence of this metadata.
+            result["extern_symbol"] = elf.relocations[offset].get("symbol", "?")
+        elif src_reg == 1 and elf.relocations.get(offset, {}).get("type") != 10:
             target = offset + 8 + imm * 8
             target_name = None
             for f in elf.funcs:
@@ -702,6 +757,7 @@ def build_packet(program, output_dir, output_label):
     print(f"[disasm] Reading {deployed_path}")
     elf = Elf(deployed_path)
     call_symbols = relocated_syscalls(elf)
+    defined_calls = defined_dynamic_calls(elf)
     entries = elf.entries
     boundaries = entries + [elf.hi]
 
@@ -732,7 +788,7 @@ def build_packet(program, output_dir, output_label):
         instructions = []
         offset = start
         while offset < end:
-            insn, step = decode_instruction(elf.b, offset, elf)
+            insn, step = decode_instruction(elf.b, offset, elf, defined_calls)
             if insn:
                 instructions.append(insn)
                 # Captured programs reach syscalls through type-10 relocations,
@@ -741,7 +797,7 @@ def build_packet(program, output_dir, output_label):
                     insn["syscall"] = call_symbols[offset]
                 if insn.get("syscall"):
                     syscall_usage[insn["syscall"]] += 1
-                if insn.get("extern_symbol"):
+                if insn.get("extern_symbol") and "call_target" not in insn:
                     extern_usage[insn["extern_symbol"]] += 1
             offset += step
 
@@ -780,7 +836,8 @@ def build_packet(program, output_dir, output_label):
                 insn["syscall"] for insn in instructions if insn.get("syscall")
             )),
             "extern_calls": sorted(set(
-                insn["extern_symbol"] for insn in instructions if insn.get("extern_symbol")
+                insn["extern_symbol"] for insn in instructions
+                if insn.get("extern_symbol") and "call_target" not in insn
             )),
             "internal_calls": sum(1 for insn in instructions if insn.get("call_target")),
             "branches": sum(1 for insn in instructions if "branch_target" in insn),
@@ -951,6 +1008,14 @@ import hashlib, json, os, sys
 PACKET = os.path.dirname(os.path.abspath(__file__))
 EXPECTED_FILES = frozenset(__EXPECTED_PACKET_FILES__)
 
+def manifest_members(pairs):
+    result = {}
+    for name, value in pairs:
+        if name in result:
+            raise ValueError("duplicate manifest key: " + name)
+        result[name] = value
+    return result
+
 def sha256_file(path):
     h = hashlib.sha256()
     with open(path, "rb") as f:
@@ -961,8 +1026,11 @@ def sha256_file(path):
 def main():
     if set(os.listdir(PACKET)) != EXPECTED_FILES | {"manifest.json"}:
         print("FAIL: packet directory entry set mismatch"); return 1
-    with open(os.path.join(PACKET, "manifest.json"), encoding="utf-8") as stream:
-        manifest = json.load(stream)
+    try:
+        with open(os.path.join(PACKET, "manifest.json"), encoding="utf-8") as stream:
+            manifest = json.load(stream, object_pairs_hook=manifest_members)
+    except ValueError as error:
+        print(f"FAIL: invalid manifest: {error}"); return 1
     if not isinstance(manifest, dict) or set(manifest) != EXPECTED_FILES:
         print("FAIL: manifest artifact set mismatch"); return 1
     errors = 0

@@ -36,7 +36,8 @@ class RetainedInputsTests(unittest.TestCase):
             for name in ('stdout.log', 'stderr.log'): (attempt / name).write_bytes(b'')
             command = [sys.executable, '-c', 'pass']
             admission = runner.identity(source, command, [], 300)
-            record = {'key': runner.digest(json.dumps(admission, sort_keys=True).encode()),
+            record = {'schema': 'experiment-result-v1', 'returncode': 0, 'reason': None,
+                      'key': runner.digest(json.dumps(admission, sort_keys=True).encode()),
                       'attempt': attempt.name, 'status': 'pass', 'inputs': admission,
                       'artifacts': runner.artifacts(attempt)}
             (destination / 'latest.json').write_text(json.dumps(record), encoding='utf-8')

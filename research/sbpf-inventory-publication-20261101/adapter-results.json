@@ -1,0 +1,390 @@
+{
+  "base": "1647da0f22312730b2e6b3eec7a468d9d3d89041",
+  "legacy_generator_revision": "d07c6f6507bcf4e901bb9aefe4d93a58bd03a692",
+  "tool_revision": "422a6316cbb1ac60b07b60a555bfbcb8e557bcef",
+  "tool_sha256": "2a718bab638958721abc112cb5ff0461d38a02916c43fb6698549aac0939322b",
+  "capture_count": 9,
+  "all_inputs_unchanged": true,
+  "normal_payload_files_identical": 27,
+  "semantic_manifest_unchanged": true,
+  "cases": [
+    {
+      "case": "before-current-generator",
+      "exit": 1,
+      "wrapper_sha256": "6a2a720540cd3a9bdd6b3913a377c1b7f4a92014c5bd4834bbcf3d388b417cdb",
+      "generator_sha256": "0d3714567123a34fd504b97609d00bd1a61eb223213d8b2dc39af68a61081bcf",
+      "source_and_capture_bytes_unchanged": true,
+      "packet": null,
+      "source_drift_rejected": true
+    },
+    {
+      "case": "after-current-generator",
+      "exit": 0,
+      "wrapper_sha256": "a1ff5d984f8dbea30e9360df4082c96b26cd03b0b8b4632dce1d2b8d60cbb94b",
+      "generator_sha256": "0d3714567123a34fd504b97609d00bd1a61eb223213d8b2dc39af68a61081bcf",
+      "source_and_capture_bytes_unchanged": true,
+      "packet": {
+        "programs": [
+          {
+            "name": "pump",
+            "instruction_count": 215873,
+            "input_sha256": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
+            "text_bytes": 1792208,
+            "covered_text_bytes": 1792208,
+            "diagnostics_bytes": 0
+          },
+          {
+            "name": "pump_amm",
+            "instruction_count": 139524,
+            "input_sha256": "6a7ad34596d83b4c435b32f458a56e718e9f82eb4ad38e4316616d15d24d8ff7",
+            "text_bytes": 1162040,
+            "covered_text_bytes": 1162040,
+            "diagnostics_bytes": 0
+          },
+          {
+            "name": "pump_fees",
+            "instruction_count": 96083,
+            "input_sha256": "4f2955d0f6b40cc9ff7daa18ccad7d19119ba1249759f4e7e3bb691beee6b35e",
+            "text_bytes": 799648,
+            "covered_text_bytes": 799648,
+            "diagnostics_bytes": 0
+          },
+          {
+            "name": "mayhem",
+            "instruction_count": 83947,
+            "input_sha256": "a87fa9f866272514e6acb852b668c4a08aeb173d56c883039991d114d1199bdb",
+            "text_bytes": 706744,
+            "covered_text_bytes": 706744,
+            "diagnostics_bytes": 0
+          },
+          {
+            "name": "donation_relay",
+            "instruction_count": 89394,
+            "input_sha256": "367f07a62e3f74d358187d175cf3228848e81a56c781a9a75b9df7fed1268563",
+            "text_bytes": 752488,
+            "covered_text_bytes": 752488,
+            "diagnostics_bytes": 0
+          },
+          {
+            "name": "associated_token",
+            "instruction_count": 11219,
+            "input_sha256": "6804554e69fd3a58caa191dc4a58f4c67223d30ca28ab8987f39fc18d2f7374d",
+            "text_bytes": 92056,
+            "covered_text_bytes": 92056,
+            "diagnostics_bytes": 0
+          },
+          {
+            "name": "spl_token",
+            "instruction_count": 12061,
+            "input_sha256": "8190d3f7ceb6cb7a7a8d8924bff89f9f611e15ce1f806f2b6237f3311a98f697",
+            "text_bytes": 102608,
+            "covered_text_bytes": 102608,
+            "diagnostics_bytes": 0
+          },
+          {
+            "name": "spl_token_2022",
+            "instruction_count": 64164,
+            "input_sha256": "15a2e615a42e20f31714bbaaee43002ae6f1cda2e8d7118243117ab3c1342e2d",
+            "text_bytes": 531640,
+            "covered_text_bytes": 531640,
+            "diagnostics_bytes": 0
+          },
+          {
+            "name": "token_metadata",
+            "instruction_count": 76037,
+            "input_sha256": "31f0a627dba051a938de650464e55cc5397a4be0fd496929c1f9cf02fe5e9011",
+            "text_bytes": 628040,
+            "covered_text_bytes": 628040,
+            "diagnostics_bytes": 0
+          }
+        ],
+        "tool_revision": "422a6316cbb1ac60b07b60a555bfbcb8e557bcef",
+        "tool_sha256": "2a718bab638958721abc112cb5ff0461d38a02916c43fb6698549aac0939322b",
+        "generator_sha256": "a1ff5d984f8dbea30e9360df4082c96b26cd03b0b8b4632dce1d2b8d60cbb94b",
+        "semantic_manifest_sha256": "2e9efd32a34aa6fd7879943ebd821a75da0157c77be995c196a1cc3ba07faf77",
+        "payload_sha256": {
+          "associated_token.json.gz": "23ae1695d0686a068b6b47199597a435f297800c0ec737114bf5f3777594ea53",
+          "associated_token.s.gz": "213156bbef0b020eae949979780766d850eead28b962d4f6556b705b60de6f24",
+          "associated_token.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "donation_relay.json.gz": "174a17fc3c9b0a8e569063ae4d03d528c96f5eecf1c113b44aafd57f59287311",
+          "donation_relay.s.gz": "c4f2cca21adba6598a029e4ea9ccbf683aabbf35b23720b81c57786482e1d4ab",
+          "donation_relay.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "mayhem.json.gz": "b3682c3459b9b325ebdfddf401388f99b89d73199afd764d075d2e89801336c4",
+          "mayhem.s.gz": "89deda0364a0e107a0aa3a403d041fdf39fd4adc861e9f79cae3e36547ef9d65",
+          "mayhem.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "pump.json.gz": "76bc961d6931cd6a7c33d9409a1ccf62727f391d7532068cd6fb8a9643d988f0",
+          "pump.s.gz": "4b6a23faa68d8e8968ebc945283f8c22c05c0433e79025ba834e0661b1c64305",
+          "pump.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "pump_amm.json.gz": "f1be318c88b4f41ac9fb199b7c9ad2b7ea86be79b2242e6c65d6378e138e09d7",
+          "pump_amm.s.gz": "dabf51a4066ad36d14339e682cfb52fe18871787c7041e7d5369e314eed4e302",
+          "pump_amm.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "pump_fees.json.gz": "b3e25158076929912bb872d9786320b0f874a28b2acffaeba1050eeb401d90c8",
+          "pump_fees.s.gz": "41f860a1d0a8c51eb6f8e6c9e0ea32a42fbc0b0e120def237d0e25e1823e45c6",
+          "pump_fees.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "spl_token.json.gz": "ffe8397bd1aa928cda636a04f12f238b7e4ca8a662863dcb935fc46fdee16aab",
+          "spl_token.s.gz": "1891e1c769c742917437153d21c0a447b39989242924e39b402aa761d9362047",
+          "spl_token.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "spl_token_2022.json.gz": "920d684299d4d7db8d8e2acf480a8cf4ac20b3c9383c9cd7f7a4dd5c77c6d1ad",
+          "spl_token_2022.s.gz": "3879fb5dae5ebb0d7ed1a7c69903eae88d0cb69a0764b1ca5a73e5787211f3f7",
+          "spl_token_2022.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "token_metadata.json.gz": "29b83a2a0824aa0b331e78974d3d8b2a490cca7c6f1f99e26589a3ef5133f471",
+          "token_metadata.s.gz": "e0fe9309b928a197022bc0bec0a0834589df16e2c9b243ac6403fd6371a9194d",
+          "token_metadata.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "source_drift_rejected": false
+    },
+    {
+      "case": "historical-admitted-control",
+      "exit": 0,
+      "wrapper_sha256": "6a2a720540cd3a9bdd6b3913a377c1b7f4a92014c5bd4834bbcf3d388b417cdb",
+      "generator_sha256": "08070b3ea6c8e5627a85c8d53bd63fc6fc25b2534f1da9fd82e0adce6a59013f",
+      "source_and_capture_bytes_unchanged": true,
+      "packet": {
+        "programs": [
+          {
+            "name": "pump",
+            "instruction_count": 215873,
+            "input_sha256": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
+            "text_bytes": 1792208,
+            "covered_text_bytes": 1792208,
+            "diagnostics_bytes": 0
+          },
+          {
+            "name": "pump_amm",
+            "instruction_count": 139524,
+            "input_sha256": "6a7ad34596d83b4c435b32f458a56e718e9f82eb4ad38e4316616d15d24d8ff7",
+            "text_bytes": 1162040,
+            "covered_text_bytes": 1162040,
+            "diagnostics_bytes": 0
+          },
+          {
+            "name": "pump_fees",
+            "instruction_count": 96083,
+            "input_sha256": "4f2955d0f6b40cc9ff7daa18ccad7d19119ba1249759f4e7e3bb691beee6b35e",
+            "text_bytes": 799648,
+            "covered_text_bytes": 799648,
+            "diagnostics_bytes": 0
+          },
+          {
+            "name": "mayhem",
+            "instruction_count": 83947,
+            "input_sha256": "a87fa9f866272514e6acb852b668c4a08aeb173d56c883039991d114d1199bdb",
+            "text_bytes": 706744,
+            "covered_text_bytes": 706744,
+            "diagnostics_bytes": 0
+          },
+          {
+            "name": "donation_relay",
+            "instruction_count": 89394,
+            "input_sha256": "367f07a62e3f74d358187d175cf3228848e81a56c781a9a75b9df7fed1268563",
+            "text_bytes": 752488,
+            "covered_text_bytes": 752488,
+            "diagnostics_bytes": 0
+          },
+          {
+            "name": "associated_token",
+            "instruction_count": 11219,
+            "input_sha256": "6804554e69fd3a58caa191dc4a58f4c67223d30ca28ab8987f39fc18d2f7374d",
+            "text_bytes": 92056,
+            "covered_text_bytes": 92056,
+            "diagnostics_bytes": 0
+          },
+          {
+            "name": "spl_token",
+            "instruction_count": 12061,
+            "input_sha256": "8190d3f7ceb6cb7a7a8d8924bff89f9f611e15ce1f806f2b6237f3311a98f697",
+            "text_bytes": 102608,
+            "covered_text_bytes": 102608,
+            "diagnostics_bytes": 0
+          },
+          {
+            "name": "spl_token_2022",
+            "instruction_count": 64164,
+            "input_sha256": "15a2e615a42e20f31714bbaaee43002ae6f1cda2e8d7118243117ab3c1342e2d",
+            "text_bytes": 531640,
+            "covered_text_bytes": 531640,
+            "diagnostics_bytes": 0
+          },
+          {
+            "name": "token_metadata",
+            "instruction_count": 76037,
+            "input_sha256": "31f0a627dba051a938de650464e55cc5397a4be0fd496929c1f9cf02fe5e9011",
+            "text_bytes": 628040,
+            "covered_text_bytes": 628040,
+            "diagnostics_bytes": 0
+          }
+        ],
+        "tool_revision": "422a6316cbb1ac60b07b60a555bfbcb8e557bcef",
+        "tool_sha256": "2a718bab638958721abc112cb5ff0461d38a02916c43fb6698549aac0939322b",
+        "generator_sha256": "6a2a720540cd3a9bdd6b3913a377c1b7f4a92014c5bd4834bbcf3d388b417cdb",
+        "semantic_manifest_sha256": "2e9efd32a34aa6fd7879943ebd821a75da0157c77be995c196a1cc3ba07faf77",
+        "payload_sha256": {
+          "associated_token.json.gz": "23ae1695d0686a068b6b47199597a435f297800c0ec737114bf5f3777594ea53",
+          "associated_token.s.gz": "213156bbef0b020eae949979780766d850eead28b962d4f6556b705b60de6f24",
+          "associated_token.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "donation_relay.json.gz": "174a17fc3c9b0a8e569063ae4d03d528c96f5eecf1c113b44aafd57f59287311",
+          "donation_relay.s.gz": "c4f2cca21adba6598a029e4ea9ccbf683aabbf35b23720b81c57786482e1d4ab",
+          "donation_relay.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "mayhem.json.gz": "b3682c3459b9b325ebdfddf401388f99b89d73199afd764d075d2e89801336c4",
+          "mayhem.s.gz": "89deda0364a0e107a0aa3a403d041fdf39fd4adc861e9f79cae3e36547ef9d65",
+          "mayhem.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "pump.json.gz": "76bc961d6931cd6a7c33d9409a1ccf62727f391d7532068cd6fb8a9643d988f0",
+          "pump.s.gz": "4b6a23faa68d8e8968ebc945283f8c22c05c0433e79025ba834e0661b1c64305",
+          "pump.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "pump_amm.json.gz": "f1be318c88b4f41ac9fb199b7c9ad2b7ea86be79b2242e6c65d6378e138e09d7",
+          "pump_amm.s.gz": "dabf51a4066ad36d14339e682cfb52fe18871787c7041e7d5369e314eed4e302",
+          "pump_amm.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "pump_fees.json.gz": "b3e25158076929912bb872d9786320b0f874a28b2acffaeba1050eeb401d90c8",
+          "pump_fees.s.gz": "41f860a1d0a8c51eb6f8e6c9e0ea32a42fbc0b0e120def237d0e25e1823e45c6",
+          "pump_fees.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "spl_token.json.gz": "ffe8397bd1aa928cda636a04f12f238b7e4ca8a662863dcb935fc46fdee16aab",
+          "spl_token.s.gz": "1891e1c769c742917437153d21c0a447b39989242924e39b402aa761d9362047",
+          "spl_token.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "spl_token_2022.json.gz": "920d684299d4d7db8d8e2acf480a8cf4ac20b3c9383c9cd7f7a4dd5c77c6d1ad",
+          "spl_token_2022.s.gz": "3879fb5dae5ebb0d7ed1a7c69903eae88d0cb69a0764b1ca5a73e5787211f3f7",
+          "spl_token_2022.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "token_metadata.json.gz": "29b83a2a0824aa0b331e78974d3d8b2a490cca7c6f1f99e26589a3ef5133f471",
+          "token_metadata.s.gz": "e0fe9309b928a197022bc0bec0a0834589df16e2c9b243ac6403fd6371a9194d",
+          "token_metadata.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "source_drift_rejected": false
+    },
+    {
+      "case": "reject-unreviewed-generator",
+      "exit": 1,
+      "wrapper_sha256": "a1ff5d984f8dbea30e9360df4082c96b26cd03b0b8b4632dce1d2b8d60cbb94b",
+      "generator_sha256": "0e7f857b6262209fbf0ae0a86acf5907123e26edeec163ac026710e57760ef69",
+      "source_and_capture_bytes_unchanged": true,
+      "packet": null,
+      "source_drift_rejected": true
+    },
+    {
+      "case": "reject-previous-generator",
+      "exit": 1,
+      "wrapper_sha256": "a1ff5d984f8dbea30e9360df4082c96b26cd03b0b8b4632dce1d2b8d60cbb94b",
+      "generator_sha256": "08070b3ea6c8e5627a85c8d53bd63fc6fc25b2534f1da9fd82e0adce6a59013f",
+      "source_and_capture_bytes_unchanged": true,
+      "packet": null,
+      "source_drift_rejected": true
+    },
+    {
+      "case": "direct-current-control",
+      "exit": 0,
+      "wrapper_sha256": "a1ff5d984f8dbea30e9360df4082c96b26cd03b0b8b4632dce1d2b8d60cbb94b",
+      "generator_sha256": "0d3714567123a34fd504b97609d00bd1a61eb223213d8b2dc39af68a61081bcf",
+      "source_and_capture_bytes_unchanged": true,
+      "packet": {
+        "programs": [
+          {
+            "name": "pump",
+            "instruction_count": 215873,
+            "input_sha256": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
+            "text_bytes": 1792208,
+            "covered_text_bytes": 1792208,
+            "diagnostics_bytes": 0
+          },
+          {
+            "name": "pump_amm",
+            "instruction_count": 139524,
+            "input_sha256": "6a7ad34596d83b4c435b32f458a56e718e9f82eb4ad38e4316616d15d24d8ff7",
+            "text_bytes": 1162040,
+            "covered_text_bytes": 1162040,
+            "diagnostics_bytes": 0
+          },
+          {
+            "name": "pump_fees",
+            "instruction_count": 96083,
+            "input_sha256": "4f2955d0f6b40cc9ff7daa18ccad7d19119ba1249759f4e7e3bb691beee6b35e",
+            "text_bytes": 799648,
+            "covered_text_bytes": 799648,
+            "diagnostics_bytes": 0
+          },
+          {
+            "name": "mayhem",
+            "instruction_count": 83947,
+            "input_sha256": "a87fa9f866272514e6acb852b668c4a08aeb173d56c883039991d114d1199bdb",
+            "text_bytes": 706744,
+            "covered_text_bytes": 706744,
+            "diagnostics_bytes": 0
+          },
+          {
+            "name": "donation_relay",
+            "instruction_count": 89394,
+            "input_sha256": "367f07a62e3f74d358187d175cf3228848e81a56c781a9a75b9df7fed1268563",
+            "text_bytes": 752488,
+            "covered_text_bytes": 752488,
+            "diagnostics_bytes": 0
+          },
+          {
+            "name": "associated_token",
+            "instruction_count": 11219,
+            "input_sha256": "6804554e69fd3a58caa191dc4a58f4c67223d30ca28ab8987f39fc18d2f7374d",
+            "text_bytes": 92056,
+            "covered_text_bytes": 92056,
+            "diagnostics_bytes": 0
+          },
+          {
+            "name": "spl_token",
+            "instruction_count": 12061,
+            "input_sha256": "8190d3f7ceb6cb7a7a8d8924bff89f9f611e15ce1f806f2b6237f3311a98f697",
+            "text_bytes": 102608,
+            "covered_text_bytes": 102608,
+            "diagnostics_bytes": 0
+          },
+          {
+            "name": "spl_token_2022",
+            "instruction_count": 64164,
+            "input_sha256": "15a2e615a42e20f31714bbaaee43002ae6f1cda2e8d7118243117ab3c1342e2d",
+            "text_bytes": 531640,
+            "covered_text_bytes": 531640,
+            "diagnostics_bytes": 0
+          },
+          {
+            "name": "token_metadata",
+            "instruction_count": 76037,
+            "input_sha256": "31f0a627dba051a938de650464e55cc5397a4be0fd496929c1f9cf02fe5e9011",
+            "text_bytes": 628040,
+            "covered_text_bytes": 628040,
+            "diagnostics_bytes": 0
+          }
+        ],
+        "tool_revision": "422a6316cbb1ac60b07b60a555bfbcb8e557bcef",
+        "tool_sha256": "2a718bab638958721abc112cb5ff0461d38a02916c43fb6698549aac0939322b",
+        "generator_sha256": "0d3714567123a34fd504b97609d00bd1a61eb223213d8b2dc39af68a61081bcf",
+        "semantic_manifest_sha256": "2e9efd32a34aa6fd7879943ebd821a75da0157c77be995c196a1cc3ba07faf77",
+        "payload_sha256": {
+          "associated_token.json.gz": "23ae1695d0686a068b6b47199597a435f297800c0ec737114bf5f3777594ea53",
+          "associated_token.s.gz": "213156bbef0b020eae949979780766d850eead28b962d4f6556b705b60de6f24",
+          "associated_token.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "donation_relay.json.gz": "174a17fc3c9b0a8e569063ae4d03d528c96f5eecf1c113b44aafd57f59287311",
+          "donation_relay.s.gz": "c4f2cca21adba6598a029e4ea9ccbf683aabbf35b23720b81c57786482e1d4ab",
+          "donation_relay.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "mayhem.json.gz": "b3682c3459b9b325ebdfddf401388f99b89d73199afd764d075d2e89801336c4",
+          "mayhem.s.gz": "89deda0364a0e107a0aa3a403d041fdf39fd4adc861e9f79cae3e36547ef9d65",
+          "mayhem.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "pump.json.gz": "76bc961d6931cd6a7c33d9409a1ccf62727f391d7532068cd6fb8a9643d988f0",
+          "pump.s.gz": "4b6a23faa68d8e8968ebc945283f8c22c05c0433e79025ba834e0661b1c64305",
+          "pump.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "pump_amm.json.gz": "f1be318c88b4f41ac9fb199b7c9ad2b7ea86be79b2242e6c65d6378e138e09d7",
+          "pump_amm.s.gz": "dabf51a4066ad36d14339e682cfb52fe18871787c7041e7d5369e314eed4e302",
+          "pump_amm.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "pump_fees.json.gz": "b3e25158076929912bb872d9786320b0f874a28b2acffaeba1050eeb401d90c8",
+          "pump_fees.s.gz": "41f860a1d0a8c51eb6f8e6c9e0ea32a42fbc0b0e120def237d0e25e1823e45c6",
+          "pump_fees.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "spl_token.json.gz": "ffe8397bd1aa928cda636a04f12f238b7e4ca8a662863dcb935fc46fdee16aab",
+          "spl_token.s.gz": "1891e1c769c742917437153d21c0a447b39989242924e39b402aa761d9362047",
+          "spl_token.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "spl_token_2022.json.gz": "920d684299d4d7db8d8e2acf480a8cf4ac20b3c9383c9cd7f7a4dd5c77c6d1ad",
+          "spl_token_2022.s.gz": "3879fb5dae5ebb0d7ed1a7c69903eae88d0cb69a0764b1ca5a73e5787211f3f7",
+          "spl_token_2022.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "token_metadata.json.gz": "29b83a2a0824aa0b331e78974d3d8b2a490cca7c6f1f99e26589a3ef5133f471",
+          "token_metadata.s.gz": "e0fe9309b928a197022bc0bec0a0834589df16e2c9b243ac6403fd6371a9194d",
+          "token_metadata.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "source_drift_rejected": false
+    }
+  ]
+}

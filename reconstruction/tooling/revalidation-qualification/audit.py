@@ -32,7 +32,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[3]
 VERSION = "pump-revalidation-qualification-v1"
 FROZEN_SOURCE = "scripts/revalidate_all.py"
-FROZEN_SHA256 = 'fbdedcd033bbfc1d40f0c4e2b16b3fa44d4c0176b93de37eedefb347d2d2c6ec'
+FROZEN_SHA256 = '2d037c093e69a94c8a9f9c78a01a671506dd2c9f4fb50f603e752caf249c622a'
 REPORT_MEMBERS = (
     "README.md",
     "failed.json",
@@ -507,6 +507,12 @@ import hashlib,json,stat,sys
 from pathlib import Path
 PACKET=Path(__file__).resolve().parent
 REQUIRED_MEMBERS=__REQUIRED_MEMBERS__
+def manifest_members(pairs):
+ result={}
+ for name,value in pairs:
+  if name in result:raise ValueError("duplicate manifest key: "+name)
+  result[name]=value
+ return result
 def sha(path):
  h=hashlib.sha256()
  with path.open("rb") as source:
@@ -515,7 +521,9 @@ def sha(path):
 def main():
  manifest_path=PACKET/"manifest.json";errors=[]
  if not stat.S_ISREG(manifest_path.lstat().st_mode):errors.append("manifest type")
- manifest=json.loads(manifest_path.read_text(encoding="utf-8"))
+ try:manifest=json.loads(manifest_path.read_text(encoding="utf-8"),object_pairs_hook=manifest_members)
+ except ValueError as error:
+  print(json.dumps({"verified":False,"errors":[str(error)]},indent=2));return 1
  if sorted(manifest)!=list(REQUIRED_MEMBERS):errors.append("required member inventory")
  entries={path.name:path for path in PACKET.iterdir() if path.name!="manifest.json"}
  actual=sorted(entries)

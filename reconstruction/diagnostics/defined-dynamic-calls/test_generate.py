@@ -1,12 +1,22 @@
 """Actual defined/undefined relocations, unchanged matching data and full CLI."""
 import hashlib
 import json
+import os
 from pathlib import Path
 import subprocess
 import sys
 import tempfile
 import unittest
 import generate
+
+try:
+    import resource
+except ImportError:
+    resource = None
+
+
+def limit_file_size():
+    resource.setrlimit(resource.RLIMIT_FSIZE, (64, 64))
 
 ROOT = Path(__file__).resolve().parents[3]
 EXPECTED = {
@@ -17,6 +27,63 @@ EXPECTED = {
 
 
 class DynamicCallTests(unittest.TestCase):
+    def run_cli(self, output, **kwargs):
+        return subprocess.run([sys.executable, '-B', '-X', 'utf8', str(Path(generate.__file__)),
+                               '--repo', str(ROOT), '--output', str(output)],
+                              capture_output=True, text=True, encoding='utf-8', timeout=90, **kwargs)
+
+    @unittest.skipUnless(resource is not None and os.name == 'posix', 'requires POSIX file-size limits')
+    def test_failed_write_preserves_retry_destination(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            parent = Path(temporary).resolve()
+            output = parent / 'packet'
+            failed = self.run_cli(output, preexec_fn=limit_file_size)
+            self.assertNotEqual(failed.returncode, 0)
+            self.assertFalse(output.exists())
+            self.assertEqual(list(parent.iterdir()), [])
+            retried = self.run_cli(output)
+            self.assertEqual(retried.returncode, 0, retried.stderr)
+            manifest = json.loads((output / 'manifest.json').read_bytes())
+            self.assertIn('dynamic-call-inputs.json', manifest)
+            for name, digest in manifest.items():
+                self.assertEqual(hashlib.sha256((output / name).read_bytes()).hexdigest(), digest)
+
+    def test_dangling_output_link_does_not_create_its_target(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            parent = Path(temporary).resolve()
+            output, target = parent / 'packet', parent / 'untouched'
+            try:
+                output.symlink_to(target, target_is_directory=True)
+            except (OSError, NotImplementedError) as error:
+                self.skipTest(f'symlinks unavailable: {error}')
+            result = self.run_cli(output)
+            self.assertNotEqual(result.returncode, 0)
+            self.assertTrue(output.is_symlink())
+            self.assertFalse(target.exists())
+
+    def test_late_empty_destination_is_preserved(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            parent = Path(temporary).resolve()
+            output = parent / 'packet'
+            created = []
+            def observe(frame, event, arg):
+                if (event == 'return' and frame.f_code.co_name == 'generate_roadmap'
+                        and frame.f_code.co_filename == str(ROOT / 'scripts/reconstruction_roadmap.py')):
+                    sys.setprofile(None)
+                    if not output.exists():
+                        output.mkdir()
+                        created.append(True)
+                return observe
+            sys.setprofile(observe)
+            try:
+                with self.assertRaises(FileExistsError):
+                    generate.generate(ROOT, output)
+            finally:
+                sys.setprofile(None)
+            self.assertEqual(created, [True])
+            self.assertEqual(list(output.iterdir()), [])
+            self.assertEqual(list(parent.iterdir()), [output])
+
     def test_actual_defined_hooks_are_internal_graph_edges(self):
         roadmap, reader, proof, _ = generate.load_sources(ROOT)
         fixed_reader = generate.resolved_reader(reader)

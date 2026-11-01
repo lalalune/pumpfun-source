@@ -298,10 +298,12 @@ jobs:
               python -B scripts/test_deep_disassembly_publication.py
               python -B scripts/test_pump_macos_frontier_archive_publication.py
               python -B scripts/test_sbpf_disassembly_inventory_publication.py
+              python -B research/sbpf-section-name-admission/test_inventory.py
               python -B scripts/test_sbpf_disassembly_roundtrip_publication.py
               python -B scripts/test_pump_strict_ordered_logs_publication.py
               python -B scripts/test_verify_recovered_builds_receipts.py
               python -B scripts/test_pump_build_verified_tool_binding.py
+              python -B scripts/test_verified_compiler_log_encoding.py
               python -B scripts/test_pump_compare_function_bytes_report.py
               python -B tests/test_pump_compare_report_staging.py
               python -B tests/test_experiment_placeholder_expansion.py
@@ -485,6 +487,9 @@ jobs:
               python -B reconstruction/verification/donation-relay-xtx-sequences/test_sequences.py
               python -B reconstruction/verification/pump-migration-lifecycle/test_lifecycle.py
               python -B reconstruction/verification/pump-migration-lifecycle/test_output_refusal.py
+              python -B reconstruction/verification/pump-admin-cto-stateful/test_lifecycle.py
+              python -B reconstruction/verification/pump-admin-cto-stateful/test_receipts.py
+              python -B reconstruction/donation-relay/native-linux-v148-20261030/test_analyzer_isolation.py
               python -B reconstruction/verification/mayhem-dispatch-boundaries/test_inventory.py
               python -B reconstruction/verification/mayhem-dispatch-boundaries/test_producer.py
           - suite: host-fragments

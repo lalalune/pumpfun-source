@@ -1,18 +1,43 @@
 """Retryable RPC capture using a hash-bound, in-memory archived-source adapter."""
+import ast
+import ctypes
+import errno
 import hashlib
+import os
 from pathlib import Path
+import sys
 import types
 
 ROOT = Path(__file__).resolve().parents[2]
-SOURCE_SHA256 = 'f9fe433b33480cf95bd4310d5ce6f6eb97996817d56ad770ccceb24df0dd8f9f'
+SOURCE_SHA256 = '44bf6a2cdc987eeea9c5947bdd89f9b9fbd263d62cbc4876966125f1f5d3a482'
 source_path = ROOT / 'scripts/capture.py'
 raw = source_path.read_bytes()
 if hashlib.sha256(raw).hexdigest() != SOURCE_SHA256:
     raise ValueError('archived capture source changed; review the adapter before use')
 
+# Since 77e3ff4ce the archived capture publishes through
+# deep_disassembly.rename_directory (native no-replace rename). Admit only that
+# function's reviewed source, not the whole analysis module and its imports, so
+# the adapter still executes nothing but hash-bound bytes.
+RENAME_PATH = ROOT / 'scripts/deep_disassembly.py'
+RENAME_SHA256 = '36cbb216db93f59f699edbd8c46f798f8fdbf180bfcfa20fefd2a645a06d6cde'
+rename_text = RENAME_PATH.read_bytes().decode('utf-8')
+rename_nodes = [node for node in ast.parse(rename_text).body
+                if isinstance(node, ast.FunctionDef) and node.name == 'rename_directory']
+rename_source = ast.get_source_segment(rename_text, rename_nodes[0]) if len(rename_nodes) == 1 else None
+if rename_source is None or hashlib.sha256(rename_source.encode('utf-8')).hexdigest() != RENAME_SHA256:
+    raise ValueError('reviewed no-replace rename changed; review the adapter before use')
+rename_namespace = {'__builtins__': __builtins__, 'ctypes': ctypes, 'errno': errno, 'os': os, 'sys': sys}
+exec(compile(rename_source, str(RENAME_PATH), 'exec', optimize=0), rename_namespace)
+
 module = types.ModuleType('capture_rpc_retry')
 module.__file__ = str(source_path)
+module.rename_directory = rename_namespace['rename_directory']
 text = raw.decode('utf-8')
+rename_import = "        from deep_disassembly import rename_directory\n"
+if text.count(rename_import) != 1:
+    raise ValueError('reviewed no-replace rename import is not unique')
+text = text.replace(rename_import, '')
 anchor = "            if 'error' in result: raise RuntimeError(result['error'])"
 replacement = """            check(isinstance(result, dict), 'RPC response must be an object')
             check(result.get('jsonrpc') == '2.0', 'unexpected RPC protocol version')

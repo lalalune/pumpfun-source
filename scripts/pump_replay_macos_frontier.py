@@ -97,6 +97,7 @@ def main():
     output = staging_dir(OUT.parent, 'evidence')
     try:
         manifest = json.loads((INPUT / 'MANIFEST.json').read_text())
+        assert manifest, 'replay input manifest binds no source'
         assert all(sha(INPUT / name) == digest for name, digest in manifest.items())
         for name in ('candidate.so', 'unstripped.so', 'build-comparison.json',
                      'build-attempt.json'):

@@ -66,3 +66,17 @@ archived source hash; no archived script or capture bytes change.
 retained Associated Token and SPL Token accounts over loopback HTTP. Six owner
 or executable changes at the reread boundaries must leave no published capture
 or abandoned stage; unchanged responses preserve the retained ELF bytes.
+
+Since `fcfebcf73` and `77e3ff4ce`, the archived capture publishes through
+`deep_disassembly.rename_directory`, a native no-replace rename, instead of
+`Path.rename`. Its source binding is
+`44bf6a2cdc987eeea9c5947bdd89f9b9fbd263d62cbc4876966125f1f5d3a482`. The adapter
+admits only that function's source (`ast` segment, SHA-256
+`36cbb216db93f59f699edbd8c46f798f8fdbf180bfcfa20fefd2a645a06d6cde`). It compiles
+the function with `optimize=0` against `ctypes`, `errno`, `os` and `sys`, and
+supplies it in place of the archived lazy import. The rest of
+`deep_disassembly.py`, including its `window_elf_reader` import, is never
+executed, so unrelated analysis edits do not re-break this adapter. A changed
+rename body is refused before any capture code runs. Three tests cover the
+changed body, an unrelated module edit, and refusal of an existing empty
+destination.

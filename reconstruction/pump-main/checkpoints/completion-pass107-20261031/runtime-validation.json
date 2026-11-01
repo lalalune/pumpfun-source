@@ -1,0 +1,123 @@
+{
+  "schema": "checkpoint107-fresh-runtime-validation-v1",
+  "fresh_VM_case_pairs": 388,
+  "mismatches": [],
+  "candidate_sha256": "97b0fd021317d6898bfa0ca99c6b4c76f384989ab2040aa8ee107129d7754d1d",
+  "original_sha256": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
+  "uncompressed_sha256": "bb48af8cc69863cab9650c5cd0654047d7781047ed42c03b13d17b701024a42b",
+  "compressed_sha256": "2c9218d4ca22de4b45b6dc9bec8b40383827b4e58e88c8196d090ac7083e2578",
+  "signed_transaction_vectors_verified": 776,
+  "nonempty_signature_vectors": true,
+  "top_level_pool_authority_signer": false,
+  "top_level_pool_authority_signer_derived_from_transactions": false,
+  "pool_authority": "8bHZAsmMgRf2vHKrXhBmN6WXFNy6pDSuGVTKTTWsk2CG",
+  "producer_inputs": [
+    {
+      "recorded_path": "/Users/shawwalters/.codex/worktrees/pump-pass6-runtime-tools/pumpfun-source/scripts/pump_admin_cto_differential.py",
+      "sha256": "6d8a141f8933fc17cc2a520e86da2741f6f1aba6d4201e414e62c4a2293c4364",
+      "current_relative_path": "scripts/pump_admin_cto_differential.py"
+    },
+    {
+      "recorded_path": "/Users/shawwalters/.codex/worktrees/pump-pass6-runtime-tools/pumpfun-source/evidence/original/pump/deployed.so",
+      "sha256": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
+      "current_relative_path": "evidence/original/pump/deployed.so"
+    },
+    {
+      "recorded_path": "/Users/shawwalters/.codex/worktrees/pump-pass6-runtime-tools/pumpfun-source/evidence/original/pump_fees/deployed.so",
+      "sha256": "4f2955d0f6b40cc9ff7daa18ccad7d19119ba1249759f4e7e3bb691beee6b35e",
+      "current_relative_path": "evidence/original/pump_fees/deployed.so"
+    },
+    {
+      "recorded_path": "/Users/shawwalters/.codex/worktrees/pump-pass6-runtime-tools/pumpfun-source/evidence/original/pump_amm/deployed.so",
+      "sha256": "6a7ad34596d83b4c435b32f458a56e718e9f82eb4ad38e4316616d15d24d8ff7",
+      "current_relative_path": "evidence/original/pump_amm/deployed.so"
+    },
+    {
+      "recorded_path": "/Users/shawwalters/.codex/worktrees/pump-pass6-runtime-tools/pumpfun-source/evidence/dependencies/spl_token/deployed.so",
+      "sha256": "8190d3f7ceb6cb7a7a8d8924bff89f9f611e15ce1f806f2b6237f3311a98f697",
+      "current_relative_path": "evidence/dependencies/spl_token/deployed.so"
+    },
+    {
+      "recorded_path": "/Users/shawwalters/.codex/worktrees/pump-pass6-runtime-tools/pumpfun-source/evidence/dependencies/spl_token_2022/deployed.so",
+      "sha256": "15a2e615a42e20f31714bbaaee43002ae6f1cda2e8d7118243117ab3c1342e2d",
+      "current_relative_path": "evidence/dependencies/spl_token_2022/deployed.so"
+    },
+    {
+      "recorded_path": "/Users/shawwalters/.codex/worktrees/pump-pass6-runtime-tools/pumpfun-source/evidence/dependencies/associated_token/deployed.so",
+      "sha256": "6804554e69fd3a58caa191dc4a58f4c67223d30ca28ab8987f39fc18d2f7374d",
+      "current_relative_path": "evidence/dependencies/associated_token/deployed.so"
+    },
+    {
+      "recorded_path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass107-followup/root/fresh-main-build/candidate.so",
+      "sha256": "97b0fd021317d6898bfa0ca99c6b4c76f384989ab2040aa8ee107129d7754d1d",
+      "current_relative_path": null
+    },
+    {
+      "recorded_path": "/Users/shawwalters/.codex/worktrees/pump-pass6-runtime-tools/pumpfun-source/scripts/fees_donation_create_differential.py",
+      "sha256": "f29d5081024ca9f442ead5ca257f85b97adbac5e4aebd522605c1fc6bd3cfa31",
+      "current_relative_path": "scripts/fees_donation_create_differential.py"
+    },
+    {
+      "recorded_path": "/Users/shawwalters/.codex/worktrees/pump-pass6-runtime-tools/pumpfun-source/scripts/fees_admin_differential.py",
+      "sha256": "c66411910d4d357581c7331aa3fc7b43f9fb8d41440d548c5ce6327b7fd625ee",
+      "current_relative_path": "scripts/fees_admin_differential.py"
+    },
+    {
+      "recorded_path": "/Users/shawwalters/.codex/worktrees/pump-pass6-runtime-tools/pumpfun-source/scripts/pump_validate_admin.py",
+      "sha256": "ce490e241e683860ba1547278143664ec269529f2ffeaae48c8215b54e5f77b9",
+      "current_relative_path": "scripts/pump_validate_admin.py"
+    },
+    {
+      "recorded_path": "/Users/shawwalters/.codex/worktrees/pump-pass6-runtime-tools/pumpfun-source/scripts/pump_amm_admin_differential.py",
+      "sha256": "ca4349b5461611e668e393e6125a699b20a765a7f2710dfd5e9bde5bb56ce335",
+      "current_relative_path": "scripts/pump_amm_admin_differential.py"
+    },
+    {
+      "recorded_path": "/Users/shawwalters/.codex/worktrees/pump-pass6-runtime-tools/pumpfun-source/evidence/upstream/pump.json",
+      "sha256": "7616681ea557975f9f623ac211080f22a93060781eaf4765b0a488d980997207",
+      "current_relative_path": "evidence/upstream/pump.json"
+    },
+    {
+      "recorded_path": "/Users/shawwalters/.codex/worktrees/pump-pass6-runtime-tools/pumpfun-source/evidence/upstream/pump_fees.json",
+      "sha256": "6b9fa3eccc6e06273076a47b581f9fcb9e531bb7c3c88acbcd44db55a4002b29",
+      "current_relative_path": "evidence/upstream/pump_fees.json"
+    },
+    {
+      "recorded_path": "/Users/shawwalters/.codex/worktrees/pump-pass6-runtime-tools/pumpfun-source/evidence/upstream/pump_amm.json",
+      "sha256": "b7d8c57a4d9c4dd0109a9ab893052352333252d4eedced10ac091d4d66cab89b",
+      "current_relative_path": "evidence/upstream/pump_amm.json"
+    }
+  ],
+  "consumer": {
+    "path": "scripts/pump_validate_all.py",
+    "sha256": "1bcc33e97cee13ae99dc7765233d73394d447ac390e77769f2c122fe9164a5e2"
+  },
+  "negative_controls": [
+    {
+      "mutation": "false_match",
+      "rejected": true
+    },
+    {
+      "mutation": "integer_match",
+      "rejected": true
+    },
+    {
+      "mutation": "missing_outcome",
+      "rejected": true
+    },
+    {
+      "mutation": "changed_committed_state",
+      "rejected": true
+    },
+    {
+      "mutation": "missing_error",
+      "rejected": true
+    }
+  ],
+  "scope": "Signed synthetic captured Pump admin_cto calling Fees by genuine CPI. Pool authority nonsigner at transaction boundary; no privileged signer injection. Not full program identity.",
+  "limits": [
+    "Finite signed synthetic captured-program comparisons, not exhaustive semantic equivalence.",
+    "Prior stopped claim-token-incentive campaigns remain excluded.",
+    "No reuse of the historical checkpoint104 runtime receipt for this changed image."
+  ]
+}

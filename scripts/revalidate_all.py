@@ -371,6 +371,14 @@ python3 verify.py
 """Verify integrity of this audit packet."""
 import hashlib, json, os, sys
 PACKET = os.path.dirname(os.path.abspath(__file__))
+def manifest_members(pairs):
+    result = {}
+    for name, value in pairs:
+        if name in result:
+            raise ValueError("duplicate manifest key: " + name)
+        result[name] = value
+    return result
+
 def sha256_file(path):
     h = hashlib.sha256()
     with open(path, "rb") as f:
@@ -378,7 +386,11 @@ def sha256_file(path):
             h.update(chunk)
     return h.hexdigest()
 def main():
-    manifest = json.load(open(os.path.join(PACKET, "manifest.json")))
+    try:
+        with open(os.path.join(PACKET, "manifest.json"), encoding="utf-8") as stream:
+            manifest = json.load(stream, object_pairs_hook=manifest_members)
+    except ValueError as error:
+        print(f"FAIL: invalid manifest: {error}"); return 1
     errors = 0
     for name, expected in manifest.items():
         path = os.path.join(PACKET, name)

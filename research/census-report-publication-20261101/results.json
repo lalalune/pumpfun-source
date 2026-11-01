@@ -1,0 +1,249 @@
+{
+  "base": "60a42309a4908577f0a386513eeaee6cd6f84f42",
+  "before": {
+    "source_sha256": {
+      "reconstruction/diagnostics/census-portability/run.py": "709e30a7573c44a776dce2476e578b31278712ebc608773bdae61f9aa9ccf23a",
+      "reconstruction/harness/score.py": "6eae59ba87809bdd6aa42d6227c5598d8ea2196051bf0d796e8020bdb14df714",
+      "reconstruction/harness/llvm_tools.py": "306a50b2ba57f350e250d7c7f596ac400627ecfd24248b2291578b5ddf3fe8af",
+      "reconstruction/harness/original_input.py": "9d00b5c253405cec4d2ef292086c6e88d758bd3fe7f8c6a3cba23af114f01ade",
+      "reconstruction/harness/score_admission.py": "885b4b55229e3d87086b93c4e8227da8e4ec2713ccd6691fa40a7538d66c3a45",
+      "reconstruction/harness/win.py": "46217d8a5f49fb8731e60dedc849bd890c15d3a20307797626c5cd4a0f33e6a5",
+      "reconstruction/harness/coords.py": "7d75ecd0bf83e4b6157540cd5c217d02140f96da5cbc12efc92772b05d9542ce",
+      "reconstruction/harness/elf_symbols.py": "f7a69a4b5324959398365b63f20ea9dda8eab223d8790a608c778549d3b966c0",
+      "reconstruction/harness/instruction_stream.py": "288c9ceb3f0f177688501922ce56e6a72fe9c3fedcddf9ad1de474412f61ef9d",
+      "reconstruction/pump-main/lanes/callgraph-census/census.py": "fbd917eb6e18485d78bc3c88b88d27f652f82a1305cf9a3b9756c234bcbdd87a",
+      "reconstruction/pump-main/lanes/callgraph-census/callid_audit.py": "e99c63252b954babecb8559723872acea76e5d233680c871a9bef763f4b81709",
+      "reconstruction/pump-main/lanes/callgraph-census/dataref_audit.py": "af21df696c2aa31f1ed2b45cff228b19fc0856507159e067e1641366906b5812",
+      "reconstruction/pump-main/lanes/callgraph-census/blocksim.py": "f7ef66ad5db10e65ad2fcf0e2cc0ef7183c429bce427da6d6379e3efe7cfb202",
+      "reconstruction/pump-main/lanes/callgraph-census/hotness.py": "f8a0d0f9f5f708d9fd83261a2cb223f4d5ecd03f1e22487b82e824a23847e2da"
+    },
+    "input_sha256": {
+      "evidence/original/pump/deployed.so": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
+      "reconstruction/base/functions.tsv": "fb2c0a47514567d65eb45c1e268dacd5291e4659bb7dceb575a767dc20bcaff8",
+      "reconstruction/pump-main/lanes/callgraph-census/NOTES.md": "85486801b86d91822a0a4a89eae3554da7731823360614fcc044d9ff392139da",
+      "reconstruction/pump-main/lanes/callgraph-census/CENSUS.json": "a89ddf4f4526610f555ff87971dc6657c8225dee09e45e5df7dfdc93b2ff5edd"
+    },
+    "cases": {
+      "normal_json": {
+        "returncode": 0,
+        "report_write_reached": true,
+        "exists": true,
+        "symlink": false,
+        "bytes": 9424,
+        "sha256": "8520b6b7330cefb6415c348428aa553f94766e313e98a22162ab1c4cbc46efe4",
+        "file_size_error": false,
+        "staging_leftovers": [],
+        "stdout_sha256": "c07484187895b2d1c19b20d044730ac29846c83a3a588d8ce9371e81bdd6924e",
+        "targets": 16
+      },
+      "limited_json": {
+        "returncode": 1,
+        "report_write_reached": true,
+        "exists": true,
+        "symlink": false,
+        "bytes": 64,
+        "sha256": "11cd2d164d01ef297a5c3a7c7cedf5ab8e14c97a98761ad5f7e4d4656e82084d",
+        "file_size_error": true,
+        "staging_leftovers": [],
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "targets": null
+      },
+      "retry_json": {
+        "returncode": 2,
+        "report_write_reached": false,
+        "exists": true,
+        "symlink": false,
+        "bytes": 64,
+        "sha256": "11cd2d164d01ef297a5c3a7c7cedf5ab8e14c97a98761ad5f7e4d4656e82084d",
+        "file_size_error": false,
+        "staging_leftovers": [],
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "targets": null
+      },
+      "late_json": {
+        "returncode": 2,
+        "report_write_reached": true,
+        "exists": true,
+        "symlink": false,
+        "bytes": 21,
+        "sha256": "3a5027e49cf063c2a1a56df6dcfac246e9df70c2ac2368d67942e9a72f8233c4",
+        "file_size_error": false,
+        "staging_leftovers": [],
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "targets": null
+      },
+      "normal_md": {
+        "returncode": 0,
+        "report_write_reached": true,
+        "exists": true,
+        "symlink": false,
+        "bytes": 4050,
+        "sha256": "37badb16ec66463aed5b752e89a9b144416720384d458961c9a0e0cca8ac548e",
+        "file_size_error": false,
+        "staging_leftovers": [],
+        "stdout_sha256": "c07484187895b2d1c19b20d044730ac29846c83a3a588d8ce9371e81bdd6924e"
+      },
+      "limited_md": {
+        "returncode": 1,
+        "report_write_reached": true,
+        "exists": true,
+        "symlink": false,
+        "bytes": 64,
+        "sha256": "4bd1803751f3fa9039ed29343a9d6c944b90c9594c388741e4bff0dd3a5ec092",
+        "file_size_error": true,
+        "staging_leftovers": [],
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "retry_md": {
+        "returncode": 2,
+        "report_write_reached": false,
+        "exists": true,
+        "symlink": false,
+        "bytes": 64,
+        "sha256": "4bd1803751f3fa9039ed29343a9d6c944b90c9594c388741e4bff0dd3a5ec092",
+        "file_size_error": false,
+        "staging_leftovers": [],
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "late_md": {
+        "returncode": 2,
+        "report_write_reached": true,
+        "exists": true,
+        "symlink": false,
+        "bytes": 21,
+        "sha256": "3a5027e49cf063c2a1a56df6dcfac246e9df70c2ac2368d67942e9a72f8233c4",
+        "file_size_error": false,
+        "staging_leftovers": [],
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "inputs_preserved": true
+  },
+  "after": {
+    "source_sha256": {
+      "reconstruction/diagnostics/census-portability/run.py": "1ffd19b293e004e3b8095ee712b83c0d2cb51ab0aee971986afbfbe0cfd717d6",
+      "reconstruction/harness/score.py": "6eae59ba87809bdd6aa42d6227c5598d8ea2196051bf0d796e8020bdb14df714",
+      "reconstruction/harness/llvm_tools.py": "306a50b2ba57f350e250d7c7f596ac400627ecfd24248b2291578b5ddf3fe8af",
+      "reconstruction/harness/original_input.py": "9d00b5c253405cec4d2ef292086c6e88d758bd3fe7f8c6a3cba23af114f01ade",
+      "reconstruction/harness/score_admission.py": "885b4b55229e3d87086b93c4e8227da8e4ec2713ccd6691fa40a7538d66c3a45",
+      "reconstruction/harness/win.py": "46217d8a5f49fb8731e60dedc849bd890c15d3a20307797626c5cd4a0f33e6a5",
+      "reconstruction/harness/coords.py": "7d75ecd0bf83e4b6157540cd5c217d02140f96da5cbc12efc92772b05d9542ce",
+      "reconstruction/harness/elf_symbols.py": "f7a69a4b5324959398365b63f20ea9dda8eab223d8790a608c778549d3b966c0",
+      "reconstruction/harness/instruction_stream.py": "288c9ceb3f0f177688501922ce56e6a72fe9c3fedcddf9ad1de474412f61ef9d",
+      "reconstruction/pump-main/lanes/callgraph-census/census.py": "fbd917eb6e18485d78bc3c88b88d27f652f82a1305cf9a3b9756c234bcbdd87a",
+      "reconstruction/pump-main/lanes/callgraph-census/callid_audit.py": "e99c63252b954babecb8559723872acea76e5d233680c871a9bef763f4b81709",
+      "reconstruction/pump-main/lanes/callgraph-census/dataref_audit.py": "af21df696c2aa31f1ed2b45cff228b19fc0856507159e067e1641366906b5812",
+      "reconstruction/pump-main/lanes/callgraph-census/blocksim.py": "f7ef66ad5db10e65ad2fcf0e2cc0ef7183c429bce427da6d6379e3efe7cfb202",
+      "reconstruction/pump-main/lanes/callgraph-census/hotness.py": "f8a0d0f9f5f708d9fd83261a2cb223f4d5ecd03f1e22487b82e824a23847e2da"
+    },
+    "input_sha256": {
+      "evidence/original/pump/deployed.so": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
+      "reconstruction/base/functions.tsv": "fb2c0a47514567d65eb45c1e268dacd5291e4659bb7dceb575a767dc20bcaff8",
+      "reconstruction/pump-main/lanes/callgraph-census/NOTES.md": "85486801b86d91822a0a4a89eae3554da7731823360614fcc044d9ff392139da",
+      "reconstruction/pump-main/lanes/callgraph-census/CENSUS.json": "a89ddf4f4526610f555ff87971dc6657c8225dee09e45e5df7dfdc93b2ff5edd"
+    },
+    "cases": {
+      "normal_json": {
+        "returncode": 0,
+        "report_write_reached": true,
+        "exists": true,
+        "symlink": false,
+        "bytes": 9424,
+        "sha256": "8520b6b7330cefb6415c348428aa553f94766e313e98a22162ab1c4cbc46efe4",
+        "file_size_error": false,
+        "staging_leftovers": [],
+        "stdout_sha256": "c07484187895b2d1c19b20d044730ac29846c83a3a588d8ce9371e81bdd6924e",
+        "targets": 16
+      },
+      "limited_json": {
+        "returncode": 1,
+        "report_write_reached": true,
+        "exists": false,
+        "symlink": false,
+        "bytes": null,
+        "sha256": null,
+        "file_size_error": true,
+        "staging_leftovers": [],
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "retry_json": {
+        "returncode": 0,
+        "report_write_reached": true,
+        "exists": true,
+        "symlink": false,
+        "bytes": 9424,
+        "sha256": "8520b6b7330cefb6415c348428aa553f94766e313e98a22162ab1c4cbc46efe4",
+        "file_size_error": false,
+        "staging_leftovers": [],
+        "stdout_sha256": "c07484187895b2d1c19b20d044730ac29846c83a3a588d8ce9371e81bdd6924e",
+        "targets": 16
+      },
+      "late_json": {
+        "returncode": 2,
+        "report_write_reached": true,
+        "exists": true,
+        "symlink": false,
+        "bytes": 21,
+        "sha256": "3a5027e49cf063c2a1a56df6dcfac246e9df70c2ac2368d67942e9a72f8233c4",
+        "file_size_error": false,
+        "staging_leftovers": [],
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "targets": null
+      },
+      "normal_md": {
+        "returncode": 0,
+        "report_write_reached": true,
+        "exists": true,
+        "symlink": false,
+        "bytes": 4050,
+        "sha256": "37badb16ec66463aed5b752e89a9b144416720384d458961c9a0e0cca8ac548e",
+        "file_size_error": false,
+        "staging_leftovers": [],
+        "stdout_sha256": "c07484187895b2d1c19b20d044730ac29846c83a3a588d8ce9371e81bdd6924e"
+      },
+      "limited_md": {
+        "returncode": 1,
+        "report_write_reached": true,
+        "exists": false,
+        "symlink": false,
+        "bytes": null,
+        "sha256": null,
+        "file_size_error": true,
+        "staging_leftovers": [],
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "retry_md": {
+        "returncode": 0,
+        "report_write_reached": true,
+        "exists": true,
+        "symlink": false,
+        "bytes": 4050,
+        "sha256": "37badb16ec66463aed5b752e89a9b144416720384d458961c9a0e0cca8ac548e",
+        "file_size_error": false,
+        "staging_leftovers": [],
+        "stdout_sha256": "c07484187895b2d1c19b20d044730ac29846c83a3a588d8ce9371e81bdd6924e"
+      },
+      "late_md": {
+        "returncode": 2,
+        "report_write_reached": true,
+        "exists": true,
+        "symlink": false,
+        "bytes": 21,
+        "sha256": "3a5027e49cf063c2a1a56df6dcfac246e9df70c2ac2368d67942e9a72f8233c4",
+        "file_size_error": false,
+        "staging_leftovers": [],
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "inputs_preserved": true
+  },
+  "comparison": {
+    "actual_cli_calls": 16,
+    "changed_sources": [
+      "reconstruction/diagnostics/census-portability/run.py"
+    ],
+    "normal_reports_identical": true,
+    "all_inputs_preserved": true,
+    "target_count": 16
+  }
+}

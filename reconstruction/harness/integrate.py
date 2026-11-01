@@ -21,7 +21,7 @@ distinct on case-insensitive filesystems. Labels and composition names exclude
 trailing dots and reserved Windows device names. --base-of labels match the
 declared --part spelling exactly.
 """
-import argparse, ast, errno, hashlib, json, os, shutil, subprocess, sys, re
+import argparse, ast, errno, hashlib, json, os, shutil, subprocess, sys, re, tempfile
 from pathlib import Path
 
 H = Path(__file__).resolve().parent
@@ -42,6 +42,21 @@ def build_source(*args, **kwargs):
     # File-only composition does not need the builder's POSIX locking support.
     import fastbuild
     return fastbuild.build(*args, **kwargs)
+
+
+def scoring_subprocess(command, **kwargs):
+    """Run the scorer with no bytecode cache beside the harness to read.
+
+    The build runs arbitrary build-script code before the scorer starts, and a
+    __pycache__ entry whose header matches the source's mtime and size is
+    executed in place of that source. -B and -I stop imports from writing
+    bytecode; they do not stop them from reading it. Give the child an empty
+    cache directory of its own so the modules it imports are compiled from the
+    sources on disk.
+    """
+    with tempfile.TemporaryDirectory(prefix='pump-score-cache-') as cache:
+        env = {**os.environ, 'PYTHONPYCACHEPREFIX': cache, 'PYTHONDONTWRITEBYTECODE': '1'}
+        return subprocess.run(command, env=env, **kwargs)
 
 
 def bound_capture(path):
@@ -469,7 +484,7 @@ def main():
                 report['score_error'] = {'error': 'composed source, scoring baseline or scorer changed during build; refusing to score'}
                 exit_code = 1
             elif res['ok']:
-                s = subprocess.run([sys.executable, str(H / 'score.py'), str(out / 'build/unstripped.so'),
+                s = scoring_subprocess([sys.executable, str(H / 'score.py'), str(out / 'build/unstripped.so'),
                                    '--expect-sha256', res['unstripped_sha256'],
                                    '--baseline', str(baseline),
                                    '--json', str(out / 'score.json'), '--quiet'],

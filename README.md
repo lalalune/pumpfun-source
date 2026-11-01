@@ -34,19 +34,20 @@ those programs. There is no frontend, backend, SDK or off-chain service code.
 | **Total** |**3,337/3,338**|**99.97%**|**3,337**|**0**|**1**|**4/5**|
 
 Matched windows cover **5,185,728/5,213,128 code bytes (99.47%)**.
-The latest fresh Pump Main identity build retains the exact 18,584-byte swap
-window and all source refinements through #3666, with no raw or normalized
-losses. Only `admin_cto::execute` remains unmatched (27,400 bytes); its
-instruction-token similarity is **67.376%**, with **3,124 differing slots**.
-The **388 targeted signed synthetic admin-CTO cases** are reused by identical
-binary hashes and admitted by the current strict consumers; no new VM run is
-claimed for this checkpoint.
+The latest fresh Pump Main identity build preserves all matched windows, with
+no raw or normalized losses. Only `admin_cto::execute` remains unmatched
+(27,400 bytes); its instruction-token similarity is **67.436%**, with **3,141
+positional differences**. The previous checkpoint measured 67.376% and 3,124
+positional differences; the two metrics move independently.
+All **388 targeted signed synthetic admin-CTO cases** pass in a fresh comparison
+of this candidate against the captured program. All 776 original/candidate
+transaction signature vectors verify. This is bounded runtime evidence.
 The new unlinked reference models add captured-program test coverage without
 increasing compiled completion. Pump Main's meaningful ELF is not yet equal.
 
 AMM, Fees, Mayhem and Donation Relay retain their exact meaningful-ELF
-checkpoints. No build of those programs is claimed in this pass. See the
-[latest scores, runtime coverage and limits](reconstruction/pump-main/checkpoints/completion-pass106-20261031/README.md),
+checkpoints. Separate bounded tests do not replace those identity receipts. See the
+[latest scores, runtime coverage and limits](reconstruction/pump-main/checkpoints/completion-pass107-20261031/README.md),
 [other-program checkpoint provenance](reconstruction/pump-main/checkpoints/completion-20261030/other-programs.json)
 and [Fees Linux rebuild packet](research/fees-linux-fresh-rebuild-20261030/README.md).
 
