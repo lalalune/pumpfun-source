@@ -141,6 +141,47 @@ With the `pf` pin gone (#4107), the manual Rc increment of `pump_fees_event_auth
 measure.sh on q3: 1034 / 1034, zero losses, admin_cto 0.68754 / 3,096 / 27,400 B, unstripped sha256
 54344822ddef0bd4 = baseline 70b3b637a (whole ELF identical). One `unreachable_unchecked` and one manual Rc increment fewer.
 
+
+## 6. Gain: a size-complementary pair on a neutral drift base, +1 M (0.68754 -> 0.68784)
+
+The screens of section 3 used single B cells. Pairing the best -8 B and +8 B cells of three bases (N1, B02, T1; 280
+combos) found **M 2,296 @27,400 B** on B02 + `pt:validate:27954` (-8 B) + `vs:validate:27903` (+8 B), and on T1 likewise.
+A substitution grid (110 combos) reduces it to four cells, **each of which is -1 M on main alone**:
+
+| cell | IR edit | source (line) | alone on main |
+| --- | --- | --- | --- |
+| `ai:validate:27896` | `llvm.annotation.i32` on the 306 error code (`From<PumpError>::from(89)`) | 306, hand-expanded `error!` | -1 @+8 B |
+| `vs:validate:27903` | volatile store of the 306 `Source.filename` pointer | 306, same expansion | -1 @+8 B |
+| `kn:validate:312` (= `pt:validate:27954`) | drop #4026's `pt8(4,..)` on the 312 compare byte | 312 | -1 @-8 B |
+| `pt:execute:28908` (= `au`/`pb` twins, = w17a26 F4) | passthrough on execute `holder=hopt==Some(true)` | 339 | -1 @-8 B |
+| all four | | | **+1 @0 B** (sig `58d60ead7274`) |
+
+Substitutions: the 27965 (312 error) or 28047 (326) error-code annotation instead of 27896 gives 2,295; other +8 B
+volatile Source stores give 2,295. So the pair of 306-error cells is specific, and the two -8 B cells are the size
+partners. Source (Fb, no line added; Fa = the same with a `MaybeUninit` Source, same bytes):
+
+```rust
+// line 8 (appended): extern "C"{#[link_name="llvm.annotation.i32.p0"]fn ann32(v:u32,s:*const u8,f:*const u8,l:u32)->u32;}/*shim: ..*/
+// line 306: error! hand-expanded, the code annotated and the filename pointer stored volatile
+return Err(anchor_lang::error::Error::from(anchor_lang::error::AnchorError{error_name:..,error_code_number:unsafe{ann32(PumpError::CtoNewCreatorRequired.into(),core::ptr::null(),core::ptr::null(),0)}/*shim: ..*/,error_msg:..,error_origin:Some(anchor_lang::error::ErrorOrigin::Source({let mut s=anchor_lang::error::Source{filename:file!(),line:line!()};unsafe{core::ptr::write_volatile(&mut s.filename as *mut &str as *mut *const u8,file!().as_ptr())}/*shim: ..*/;s})),compared_values:None}));
+// line 312: expect_p(t==*sharing,true,0.625) (the pt8(4,..) passthrough removed)
+// line 339: let holder=unsafe{pt1(40,hopt==Some(true))}/*shim: ..*/;
+```
+
+| build | admin_cto ratio | M | slots | bytes | normalized / raw | losses | unstripped sha256 |
+| --- | ---: | ---: | ---: | ---: | --- | --- | --- |
+| main 57001c014 | 0.68754 | 2,295 | 3,096 | 27,400 | 1034 / 1034 | - | 54344822ddef0bd4 |
+| **Fb (this PR)** | **0.68784** | 2,296 | 3,103 | 27,400 | 1034 / 1034 | 0 / 0 | 1ccf9a84cfec3ce5 |
+
+Calls 154 / 3. Differential (Fa, same unstripped bytes as Fb): 388 cases, 0 mismatches. Source captures reproduce
+each IR cell's signature exactly (c1 = `337242774252`, c2a/c2b = `4a24997fd149`, Fa/Fb = `58d60ead7274`).
+
+**Mechanism reading.** Each cell alone costs 1 M through layout (+-8 B moves every jump that spans it); the two 306
+cells change the 306 error block the way the original lays it out (the code kept in a register for the store, the
+filename pointer stored first), and the two -8 B cells (the 312 byte passthrough and the F4 holder polarity) return the
+jumps between them to their sizes. That is why the drift screen of single cells could not see it: the gain needs four
+non-neutral cells whose layout costs cancel.
+
 ## Tools (`tools/`, experiment only; copy next to w17a06's oracle tools)
 
 - `screenq.py`: w17a24 `screenp.py` + a signature -> M cache across result files.
