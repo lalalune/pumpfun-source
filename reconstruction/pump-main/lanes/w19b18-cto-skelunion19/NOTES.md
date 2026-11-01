@@ -5,3 +5,5 @@ w19b08 cleanroom, w19a02 and w19b06's `Plan` return) + w19a08 `n1` (the Some(Non
 Tools, tables and the valley table: origin/swarm/w19b18-cto-skelunion19.
 
 #4174 landed xf2 (M 2,725). This step: Rc trap weights pool_authority lamports 1:5 and mint data 1:200 in the sharing CPI, `hkr` reference parameter for the repay read, read moved before the holder_reward test. A volatile read is a MIR Call and blocks MIR jump threading of `holder` when it sits between the two tests, so that is where a read goes.
+
+This step: union of w19a04's sweep exits, w19a08's shared polarity and Some(None) blocks, the original's load order in the CtoState literal, and three clone-run trap weights, with no repay read.
