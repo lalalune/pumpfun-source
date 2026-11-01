@@ -75,6 +75,9 @@ fn hex(text: &str) -> Vec<u8> {
     if text == "-" {
         return Vec::new();
     }
+    if text.len() % 2 != 0 {
+        panic!("odd-length hex {text}");
+    }
     (0..text.len() / 2).map(|i| u8::from_str_radix(&text[2 * i..2 * i + 2], 16).unwrap()).collect()
 }
 

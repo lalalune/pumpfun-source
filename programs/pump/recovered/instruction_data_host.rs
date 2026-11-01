@@ -15,6 +15,9 @@ fn main() {
     for line in stdin.lock().lines() {
         let line = line.unwrap();
         let f: Vec<&str> = line.trim().split(',').collect();
+        if f[0].len() % 2 != 0 {
+            panic!("odd-length hex {}", f[0]);
+        }
         let data: Vec<u8> =
             (0..f[0].len() / 2).map(|i| u8::from_str_radix(&f[0][2 * i..2 * i + 2], 16).unwrap()).collect();
         let accounts: Vec<(bool, bool)> =

@@ -573,6 +573,15 @@ class CreateV2CapturedTests(unittest.TestCase):
     def test_seeded_random_cases_match_captured_program(self):
         self.run_cases(random_cases())
 
+    def test_odd_length_hex_is_rejected(self):
+        # A trailing half byte must be rejected, not silently dropped.
+        fields = host_line(case()).split(',')
+        fields[2] += 'a'
+        result = subprocess.run([str(self.host)], input=','.join(fields) + '\n', capture_output=True, text=True)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertEqual(result.stdout, '')
+        self.assertIn('odd-length hex', result.stderr)
+
     def test_checker_rejects_tampered_outcomes(self):
         # Negative control: a passing create must fail once the host's reserves,
         # fee or minted total is off, or an error is claimed instead.

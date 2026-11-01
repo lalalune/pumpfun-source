@@ -271,6 +271,15 @@ class InstructionDataCapturedTests(unittest.TestCase):
         answers = self.check(account_cases())
         self.assertIn('passed', answers)
 
+    def test_odd_length_hex_is_rejected(self):
+        # A trailing half byte must be rejected, not silently dropped.
+        fields = host_line(plain(bytes(range(1, 9)))).split(',')
+        fields[0] += 'a'
+        result = subprocess.run([str(self.host)], input=','.join(fields) + '\n', capture_output=True, text=True)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertEqual(result.stdout, '')
+        self.assertIn('odd-length hex', result.stderr)
+
 
 if __name__ == '__main__':
     unittest.main()
