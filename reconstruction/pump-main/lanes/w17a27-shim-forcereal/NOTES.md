@@ -81,6 +81,7 @@ because block frequencies move both buffers and every other interval together.
 | volatile load (read_volatile of the field) | 446 | 223 | 2,295 | 2,295 | 0 | 0 | 9 (best 2,203) |
 | llvm.bpf.passthrough, pre-opt (w17a15 generator) | 1,009 | 726 | 2,295 | 2,294 @27,392 / @27,408 | 0 | 22 (best 2,207 @27,400) | 3 |
 | volatile ctx.accounts re-derivation (va1) in ATA#1 / ATA#2 / event blocks | 4 + 4 hoisted | 0 | | 2,287 @27,416 | 0 | 0 (still r8) | 0 |
+| original event read order (IR emulation of ordinary source: is_holder_reward and/or `nf` read after Clock::get) | 4 | 0 | 2,256 | 2,287 @27,392 | 0 | 0 | 0 |
 
 "Realise" = all gained tokens of the force present (or all but one). Every realising cell collapses elsewhere
 (layout via MBP, or the frame via StackColoring): the force's 7-9 tokens come with a 60-800 token loss.
