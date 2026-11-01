@@ -23,3 +23,12 @@ Two source facts:
 This also closes 0x1590, the third `with_values` instance from C7: the (u64,u64) instance is 0x638, and
 the 14 try_accounts closures use the (usize,usize) one, which the scorer now pairs with 0x1590.
 Result: 548 of 571, 783,536 B, no losses.
+
+## swap_then_distribute (0x1ec18): exact
+
+The whole 5,960 B came down to where the `u64` payload of `swap_observed`'s result is loaded. With `?` the MIR
+builds a `ControlFlow` and LLVM merges both arms' loads of `_49+8` into one load before the branch (`_139.1`, with
+`_138.cast = ptrtoint`), so `ldxdw r0, [r10-0x20]` sits before the tag test and takes r0 for the rest of the block.
+The target loads it twice, once in each arm. An explicit
+`match swap_observed(..) {Ok(total)=>total,Err(error)=>return Err(error)}` gives exactly that.
+Result: 549 of 571, 789,496 B, no losses.
