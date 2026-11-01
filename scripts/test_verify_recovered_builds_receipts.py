@@ -57,13 +57,14 @@ class RecoveredBuildReceiptTests(unittest.TestCase):
         (self.root / 'cand' / name).write_text(json.dumps(row))
         return 'cand/' + name
 
-    def run_verifier(self, reports, validated_cases):
+    def run_verifier(self, reports, validated_cases, sequence=()):
         status = {'pump': {
             'candidate_artifact': 'cand/candidate.so',
             'comparison_report': 'cand/report.json',
             'build_log': 'cand/build.log',
             'validated_cases': validated_cases,
             'validation_reports': reports,
+            'signed_sequence_reports': list(sequence),
         }}
         repro = self.root / 'repro'
         repro.mkdir(exist_ok=True)
@@ -95,6 +96,23 @@ class RecoveredBuildReceiptTests(unittest.TestCase):
     def test_boolean_case_count_is_rejected(self):
         a = self.receipt('a.json', case_count=True)
         self.assertNotEqual(self.run_verifier([a, a], 2), 0)
+
+    def test_a_signed_sequence_with_no_steps_is_rejected(self):
+        # all() over an empty step list is true, so the receipt verified nothing.
+        sequence = self.receipt('sequence.json', steps=[])
+        self.assertNotEqual(self.run_verifier([], 0, sequence=[sequence]), 0)
+
+    def test_a_signed_sequence_with_a_matching_step_verifies(self):
+        step = {'match': True, 'original': {'signature_verification': True},
+                'candidate': {'signature_verification': True}}
+        sequence = self.receipt('sequence.json', steps=[step])
+        self.assertEqual(self.run_verifier([], 0, sequence=[sequence]), 0)
+
+    def test_a_signed_sequence_with_a_failed_step_is_rejected(self):
+        step = {'match': False, 'original': {'signature_verification': True},
+                'candidate': {'signature_verification': True}}
+        sequence = self.receipt('sequence.json', steps=[step])
+        self.assertNotEqual(self.run_verifier([], 0, sequence=[sequence]), 0)
 
     def test_failures_shadowed_by_empty_mismatches_are_rejected(self):
         a = self.receipt('a.json', case_count=10000,

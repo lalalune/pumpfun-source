@@ -1,0 +1,59 @@
+{
+  "candidate": {
+    "bytes": 747480,
+    "sha256": "810df19bdae4af7540a844f8873bf09196cb5e42a867b77e3e007f3f1363dd92"
+  },
+  "candidate_build_receipt_sha256": "e318a1085cc67222b9d9502b24ac178c47580dc6898d7719d062cb2bf6a73046",
+  "case_count": 12,
+  "classification_counts": {
+    "different_behavior": 0,
+    "equal_observed_behavior": 12,
+    "infrastructure_failure": 0,
+    "unsupported_fixture": 0
+  },
+  "fixture_identity_sha256": "eb0ee9a92bc2959245b2bbf8fafb1a4774478407c8f79cac407f15e641c53dc2",
+  "individual_signature_count": 60,
+  "negative_controls": {
+    "all_detected": true,
+    "control_count": 7,
+    "receipt_sha256": "0a90932996bdc80e9f15ecafb82a0f5218a6b62a5fc190196ad85cc56cd48825"
+  },
+  "original_positive_case_count": 11,
+  "original_positive_cases": [
+    "same_epoch_a_then_b",
+    "interleaved_a_b_a",
+    "three_donors_one_transaction",
+    "a_success_b_fail_c_success",
+    "different_balance_boundaries",
+    "authority_substitution",
+    "separate_configurations",
+    "separate_mints",
+    "zero_and_u64_boundary",
+    "rejected_close_between_donors",
+    "failed_donor_retry"
+  ],
+  "program_inputs": {
+    "associated_token_sha256": "6804554e69fd3a58caa191dc4a58f4c67223d30ca28ab8987f39fc18d2f7374d",
+    "captured_donation_relay_sha256": "367f07a62e3f74d358187d175cf3228848e81a56c781a9a75b9df7fed1268563",
+    "spl_token_sha256": "8190d3f7ceb6cb7a7a8d8924bff89f9f611e15ce1f806f2b6237f3311a98f697"
+  },
+  "report_sha256": "4af6b9e914ad440f5b63225e4a160e33f98400ceea2d85e5c30c2cfe74861620",
+  "replay_byte_identical": true,
+  "schema": "donation-relay-multidonor-qualification-v1",
+  "source_manifest_sha256": "0082e5e1aa7139a1e8c5b62b2222be4eb7041c4e712d0d8d90b3dceea57e15fe",
+  "strict_mismatch_count": 0,
+  "test_results": {
+    "existing_stateful": 11,
+    "existing_xtx_sequences": 19,
+    "new_multidonor": 21,
+    "total_passed": 51,
+    "total_failed": 0
+  },
+  "transaction_count": 28,
+  "unique_blockhash_count": 28,
+  "unique_transaction_count": 28,
+  "upstream": {
+    "audit_build_base": "aab087f32d0ec96c723a4628582cfc2410bb2cc5",
+    "final_synchronization": "5e05222b54c4549cbec293160bb5fc65b4921792"
+  }
+}

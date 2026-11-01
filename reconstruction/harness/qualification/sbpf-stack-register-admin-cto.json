@@ -1,0 +1,75 @@
+{
+  "analyzer_source_manifest_sha256": "4b079e6179ddbe708847379f16ad16fb0297ae2e021fe41c7db5a3cd279f2290",
+  "candidate": {
+    "function_bytes": 27400,
+    "function_start": 141840,
+    "instructions": 3337,
+    "sha256": "54344822ddef0bd4b1f7b4e8a6c80e5aae7e7fb804c5c82c67e7ebff369e9229"
+  },
+  "control_flow_matching": {
+    "ambiguous": 69,
+    "matched": 296,
+    "unmatched_candidate": 77,
+    "unmatched_original": 82
+  },
+  "deterministic_replay": true,
+  "exact_facts": {
+    "candidate": {
+      "derived_stack_accesses": 0,
+      "pointer_escapes": 143,
+      "potential_stack_accesses": 25,
+      "proven_stack_accesses": 1442,
+      "stack_pointer_aliases": 462,
+      "suspected_spill_reload_patterns": 31,
+      "unknown_memory_accesses": 516
+    },
+    "original": {
+      "derived_stack_accesses": 0,
+      "pointer_escapes": 142,
+      "potential_stack_accesses": 0,
+      "proven_stack_accesses": 1473,
+      "stack_pointer_aliases": 456,
+      "suspected_spill_reload_patterns": 39,
+      "unknown_memory_accesses": 511
+    }
+  },
+  "heuristic_correspondences": {
+    "access_certainty_difference": 64,
+    "access_width_difference": 18,
+    "candidate_only_stack_operation": 469,
+    "liveness_differences": 252,
+    "moved_frame_slot": 201,
+    "original_only_stack_operation": 470
+  },
+  "normalization": "official reconstruction/harness/score.py normalize invoked unchanged",
+  "original": {
+    "function_bytes": 27400,
+    "function_start": 141840,
+    "instructions": 3339,
+    "sha256": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d"
+  },
+  "provenance_findings": [
+    {
+      "fact": "r1 = r10-0x6c0 reaches a call argument",
+      "formation_offsets": [
+        128,
+        136
+      ],
+      "image": "original",
+      "pointer_escape_offset": 248
+    }
+  ],
+  "report_sha256": "7ab1ff86db35b89fd3b5f45fd350f70bf52c6e5fd9ddd22d29cd0a167cab7305",
+  "schema": "sbpf-stack-register-admin-cto-qualification-v1",
+  "test_results": {
+    "control_flow": 29,
+    "elf_symbols": 13,
+    "instruction_stream": 6,
+    "new_provenance": 26,
+    "residual_analysis": 11,
+    "stack_access": 13,
+    "total_failed": 0,
+    "total_passed": 98
+  },
+  "upstream_sha": "67e06453c887c7690c336746ee8e26156bcd8775"
+}

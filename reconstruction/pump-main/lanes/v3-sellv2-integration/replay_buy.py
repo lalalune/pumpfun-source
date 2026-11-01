@@ -23,7 +23,10 @@ rows=[];bad=[];changed=[]
 def logs(row):return [x for x in row['logs'] if not re.fullmatch(r'Program [1-9A-HJ-NP-Za-km-z]+ consumed \d+ of \d+ compute units',x)]
 for i,c in enumerate(cases):
  receipts={k:suite.run(p,c) for k,p in images.items()}
- for r in receipts.values():assert all(Transaction.from_bytes(b64decode(r['transaction_base64'])).verify_with_results())
+ for r in receipts.values():
+  tx=Transaction.from_bytes(b64decode(r['transaction_base64']))
+  # solders verifies no signature when the vector is empty, and all([]) is true.
+  assert tx.signatures and all(tx.verify_with_results()),'receipt transaction is unsigned'
  diff=[k for k in fields if receipts['original'][k]!=receipts['candidate'][k]]
  regression=[k for k in fields if receipts['control'][k]!=receipts['candidate'][k]]
  logdiff=logs(receipts['original'])!=logs(receipts['candidate'])

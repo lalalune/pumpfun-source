@@ -208,7 +208,8 @@ class Pair:
         all_signers = [self.fixture.fee, *signers]
         unique_signers = list({str(s.pubkey()): s for s in all_signers}.values())
         tx = Transaction.new_signed_with_payer(instructions, self.fixture.fee.pubkey(), unique_signers, blockhash)
-        verified = all(tx.verify_with_results())
+        # solders verifies no signature when the vector is empty, and all([]) is true.
+        verified = bool(tx.signatures) and all(tx.verify_with_results())
         if not verified:
             raise RuntimeError("locally signed transaction failed signature verification")
         addresses = self.fixture.watched() | set(watch or ()) | set(tx.message.account_keys)

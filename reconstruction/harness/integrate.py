@@ -2,26 +2,32 @@
 """Compose several delivered crate snapshots onto a base crate, build and score.
 
   integrate.py --name NAME --base-src <crate> --part <label>=<crate snapshot dir> [--part ...]
-               [--base-of <label>=<crate it was derived from>] [--no-build]
+               [--base-of <label>=<crate it was derived from>]
+               [--no-build | --fresh-control --expect-base-sha256 <digest>]
 
 Each part is turned into a patch against the crate it was derived from (default: --base-src),
 then applied in order. Empty-file transitions use Git patch metadata; ordinary text
 changes retain `patch -p2 --forward`. File and directory changes are checked
 together before changing the composed tree. Directory changes are applied after
 each file patch; a removal that still holds composed files is reported as retained.
-Rejects are reported and the part is skipped
-(the composition continues). The composed crate is built with fastbuild.py and scored.
+Rejects are reported and the part is skipped (the composition continues).
+Historical mode builds the composed crate and scores against the checked-in
+baseline. Explicit fresh-control mode instead builds the admitted base and
+composition in isolated cold workspaces, scores both against private copies of
+the same captured evidence, and refuses any lost membership.
 A build runs arbitrary build-script code, so the composed source, the scoring
 baseline and the scorer are rechecked after the build; a build that changes
 any of them is refused a score.
 Output: SC/integ/<NAME>/{src, parts/<label>.patch, rejects/, report.json}
+Fresh mode additionally retains fresh-control/{receipt.json, scoring inputs,
+build artifacts, score reports}; its receipt is the authoritative qualification.
 Names must be fresh; an earlier result is never overwritten.
 Part labels must be unique ignoring case so their retained patch names remain
 distinct on case-insensitive filesystems. Labels and composition names exclude
 trailing dots and reserved Windows device names. --base-of labels match the
 declared --part spelling exactly.
 """
-import argparse, ast, errno, hashlib, json, os, shutil, subprocess, sys, re, tempfile
+import argparse, ast, errno, hashlib, json, os, secrets, shutil, subprocess, sys, re, tempfile
 from pathlib import Path
 
 H = Path(__file__).resolve().parent
@@ -42,6 +48,51 @@ def build_source(*args, **kwargs):
     # File-only composition does not need the builder's POSIX locking support.
     import fastbuild
     return fastbuild.build(*args, **kwargs)
+
+
+def run_fresh_control(*args, **kwargs):
+    # Preserve --no-build and historical-mode portability: fresh_control imports
+    # the compiler coordinator and is loaded only for the explicit paired mode.
+    import types
+    path = H / 'fresh_control_inputs.py'
+    raw = path.read_bytes()
+    admission = types.ModuleType('_fresh_control_admission')
+    admission.__file__ = str(path)
+    admission.__dict__['_ADMITTED_SOURCE_BYTES'] = raw
+    exec(compile(raw, str(path), 'exec', dont_inherit=True), admission.__dict__)
+    return admission.load_context().load('fresh_control').run_pair(*args, **kwargs)
+
+
+def publish_report(path, report):
+    """Atomically replace this run's report without exposing partial JSON."""
+    payload = json.dumps(report, indent=1, ensure_ascii=False) + '\n'
+    for _ in range(100):
+        temporary = path.parent / f'.report-{os.getpid()}-{secrets.token_hex(8)}'
+        try:
+            stream = temporary.open('x', encoding='utf-8', newline='\n')
+        except FileExistsError:
+            continue
+        break
+    else:
+        raise FileExistsError('could not create integration report staging file')
+    metadata = os.fstat(stream.fileno())
+    identity = metadata.st_dev, metadata.st_ino
+    try:
+        with stream:
+            stream.write(payload)
+            stream.flush()
+            os.fsync(stream.fileno())
+        os.replace(temporary, path)
+        temporary = None
+    finally:
+        if temporary is not None:
+            try:
+                current = temporary.lstat()
+            except FileNotFoundError:
+                pass
+            else:
+                if (current.st_dev, current.st_ino) == identity:
+                    temporary.unlink()
 
 
 def scoring_subprocess(command, **kwargs):
@@ -392,6 +443,14 @@ def main():
     ap.add_argument('--part', action='append', default=[])
     ap.add_argument('--base-of', action='append', default=[])
     ap.add_argument('--no-build', action='store_true')
+    ap.add_argument('--fresh-control', action='store_true',
+                    help='build and score admitted base plus composition; reject every fresh loss')
+    ap.add_argument('--expect-base-sha256',
+                    help='required source_inputs.py digest for --fresh-control base admission')
+    ap.add_argument('--sdk', type=Path,
+                    default=Path.home() / '.cache/solana/v1.44/platform-tools')
+    ap.add_argument('--hybrid', type=Path,
+                    default=Path(os.environ.get('PUMP_RECON_HOME', str(Path.home() / '.cache/pumpfun-reconstruction'))) / 'toolchains/hybrid144')
     ap.add_argument('--timeout', type=float, help='compiler deadline in seconds')
     a = ap.parse_args()
     # GNU patch in POSIX mode cannot locate a file that diff -N records as new,
@@ -403,15 +462,31 @@ def main():
             validate_timeout(a.timeout)
         except ValueError as error:
             ap.error(str(error))
+    if a.fresh_control and a.no_build:
+        ap.error('--fresh-control cannot be combined with --no-build')
+    if a.fresh_control:
+        if not a.expect_base_sha256 or not re.fullmatch(r'[0-9a-f]{64}', a.expect_base_sha256):
+            ap.error('--fresh-control requires --expect-base-sha256 as 64 lowercase hex digits')
+    elif a.expect_base_sha256:
+        ap.error('--expect-base-sha256 is only valid with --fresh-control')
     baseline = SC / 'pump-main/baseline/score.json'
-    if not a.no_build and not baseline.is_file():
+    if not a.no_build and not a.fresh_control and not baseline.is_file():
         raise FileNotFoundError(f'Required scoring baseline is missing: {baseline}')
     try:
         out, base, parts = preflight(a.name, a.base_src, a.part, a.base_of)
     except (ValueError, OSError) as error:
         ap.error(str(error))
+    if a.fresh_control:
+        try:
+            admitted_base = snapshot(base)
+        except (OSError, ValueError) as error:
+            ap.error(str(error))
+        if admitted_base['sha256'] != a.expect_base_sha256:
+            ap.error('fresh base source digest differs from --expect-base-sha256')
     (out / 'parts').mkdir(parents=True); (out / 'rejects').mkdir()
-    report = {'name': a.name, 'base': str(a.base_src), 'parts': []}
+    report = {'name': a.name, 'base': str(a.base_src),
+              'mode': 'fresh_control' if a.fresh_control else ('compose_only' if a.no_build else 'historical_baseline'),
+              'parts': []}
     exit_code = 0
     try:
         sources = sorted({base, *(path for _, path, _ in parts), *(derived for _, _, derived in parts)}, key=str)
@@ -475,7 +550,30 @@ def main():
                 exit_code = 1
                 break
         validate_inputs()
-        if not a.no_build and not exit_code:
+        if a.fresh_control:
+            rejected = [part for part in report['parts'] if part['status'] not in ('applied', 'empty')]
+            if exit_code or rejected:
+                report['qualification'] = {
+                    'accepted': False,
+                    'rejection_reasons': ['part_application_error' if exit_code else 'part_not_applied'],
+                    'rejected_parts': [{'label': part['label'], 'status': part['status']} for part in rejected],
+                }
+                exit_code = 1
+            else:
+                fresh = run_fresh_control(base, src, out / 'fresh-control',
+                                          sdk=a.sdk.resolve(), hybrid=a.hybrid.resolve(), timeout=a.timeout)
+                report['fresh_control'] = fresh
+                report['qualification'] = {
+                    **fresh['qualification'],
+                    'required_parts': [part['label'] for part in report['parts']],
+                    'applied_parts': [part['label'] for part in report['parts']
+                                      if part['status'] == 'applied'],
+                    'empty_parts': [part['label'] for part in report['parts']
+                                    if part['status'] == 'empty'],
+                }
+                if not report['qualification']['accepted']:
+                    exit_code = 1
+        elif not a.no_build and not exit_code:
             build_options = {'timeout': a.timeout} if a.timeout is not None else {}
             bound = bound_scoring_inputs(src, baseline)
             res = build_source(src, out / 'work', out / 'build', quiet=True, **build_options)
@@ -505,8 +603,7 @@ def main():
     except (OSError, ValueError, RuntimeError, subprocess.CalledProcessError) as error:
         report['error'] = str(error)
         exit_code = 1
-    (out / 'report.json').write_text(json.dumps(report, indent=1),
-                                     encoding='utf-8', newline='\n')
+    publish_report(out / 'report.json', report)
     print(json.dumps({k: v for k, v in report.items() if k != 'parts'} | {'parts': [{k: p[k] for k in ('label', 'status')} for p in report['parts']]}, indent=1))
     return exit_code
 

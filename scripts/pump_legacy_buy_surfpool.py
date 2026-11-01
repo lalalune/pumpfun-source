@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Normally signed offline Surfpool original/candidate Pump creator collection checks."""
+"""Normally signed offline Surfpool legacy buy / buy_exact_sol_in comparisons."""
 if not __debug__:
     raise SystemExit('Normal Python is required; do not use -O or PYTHONOPTIMIZE.')
 import argparse

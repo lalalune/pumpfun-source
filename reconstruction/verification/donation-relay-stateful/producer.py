@@ -247,14 +247,15 @@ class Pair:
             [set_compute_unit_limit(1_400_000), instruction], self.fixture.fee.pubkey(),
             [self.fixture.fee, *signers], left.latest_blockhash(),
         )
-        if not all(tx.verify_with_results()):
+        # solders verifies no signature when the vector is empty, and all([]) is true.
+        if not tx.signatures or not all(tx.verify_with_results()):
             raise RuntimeError("locally signed transaction did not verify")
         addresses = watch | set(tx.message.account_keys)
         rows = {side: self._run(vm, tx, addresses) for side, vm in self.vms.items()}
         mismatches = self.compare_rows(rows["original"], rows["candidate"])
         return {
             "signature": str(tx.signatures[0]),
-            "signature_verified": all(tx.verify_with_results()),
+            "signature_verified": bool(tx.signatures) and all(tx.verify_with_results()),
             "mismatches": mismatches,
             "original": rows["original"],
             "candidate": rows["candidate"],

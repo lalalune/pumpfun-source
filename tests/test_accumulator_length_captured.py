@@ -251,6 +251,7 @@ class AccumulatorLengthCapturedTests(unittest.TestCase):
         cls.tmp = tempfile.TemporaryDirectory()
         host = Path(cls.tmp.name) / 'accumulator-length-host'
         subprocess.run(['rustc', '--edition=2021', '-O', '-D', 'warnings', str(HOST_SOURCE), '-o', str(host)], check=True)
+        cls.host = str(host)
         cls.rows = [row for name, reads in MODULES.items() for row in replay(name, reads)]
         text = ''.join(row[1] + '\n' for row in cls.rows)
         out = subprocess.run([str(host)], input=text, capture_output=True, text=True, check=True).stdout
@@ -273,6 +274,14 @@ class AccumulatorLengthCapturedTests(unittest.TestCase):
             self.assertEqual(result, twin)
         if target == 'user' and result['error'] is None and after and after[1] and read != 'extend':
             self.assertEqual(after[1][USER_DECODED:], reshape('user', bytes(USER_DECODED), length)[USER_DECODED:])
+
+    def test_a_malformed_twin_or_read_is_refused(self):
+        # `.ok()` read a malformed twin column as "the twin succeeded", and the
+        # catchall read any unknown token as `extend`; both answers are real.
+        for line in ('user,claim,137,1000000,not-a-code', 'user,nonsense,137,1000000,-'):
+            with self.subTest(line=line):
+                run = subprocess.run([self.host], input=line + '\n', capture_output=True, text=True)
+                self.assertNotEqual(run.returncode, 0, run.stdout)
 
     def test_every_replay_matches_captured_program(self):
         self.assertEqual(len(self.answers), len(self.rows))
