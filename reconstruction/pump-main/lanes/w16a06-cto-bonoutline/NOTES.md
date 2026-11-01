@@ -5,16 +5,20 @@ Base: main 9bd38c7d5 (admin_cto unchanged since 9120883a9): 0.67376, 3,124 slots
 Mperm 2,293, true LCS 2,255 (rfj 3,007). Ledger approach `bonoutline`, keys `0x22a10-w16-9bd38c7-bonoutline-*-v1`.
 
 **Result: no landable change (kill test met for every source-reachable cell).** Main is still the best zero-loss
-measurement (0.67376 / 3,124 slots / 27,400 B).
+measurement: 0.67376 / 3,124 slots / 27,400 B on 9bd38c7d5, then 0.67436 on 7e5ba44a7 (#3859). Section 8 re-checks
+the table on 7e5ba44a7: every delta carries over.
 
-- At fixed RA, B is worth about **three times as much on an outline base as on main**: +81 to +86 M, against main's +28.
+- At fixed RA, B is worth about **three times as much on an outline base as on main**: +80 to +89 M, against main's +28.
   The angle's premise holds. Once validate has the original's size, B's jump gain turns into real M.
 - Real llc does not deliver it. IR-order realisations lose (main -130, O -72, T -30). The only real-llc lever that pays
   on an outline base is the **306 Some/None branch weight (`bb23.i`)**. At 2:1 (error edge hot) it gives the original
   tail order `306 296 326 312 307` on O and O312: +32/+33 M at the same RA.
 - Every cell that passes the ideal-repay bound sits on an IR-forced outline base (O or O312), or needs a branch
   probability that ordinary source cannot produce. The source triggers T, Tb and Tv01 stay below main + repay.
-  Under true LCS (unmasked and rfj), even the passing cells are below main and below their own base (section 5).
+  Under true LCS (unmasked and rfj), even the passing cells are below main and below their own base (section 4).
+- **A None-hot 306 test, applied from validate's inliner visit on, is also the 307/312 outline trigger.** It gives
+  lddw 86 with no collapse on the tf_g3 base, and is byte-identical to `tf_g3_O` + bb23.i 2:1 (section 6). No ordinary
+  spelling produces it (section 7).
 
 ## 0. Oracle (tools/, experiment only; paths point at this lane's `$OUT`)
 
