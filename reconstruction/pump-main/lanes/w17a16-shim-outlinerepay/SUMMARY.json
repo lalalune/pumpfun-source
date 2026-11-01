@@ -1,0 +1,58 @@
+{
+  "lane": "w17a16-shim-outlinerepay",
+  "wave": 17,
+  "target": "0x22a10 admin_cto::execute",
+  "pinned_bytes": 27400,
+  "landed": false,
+  "pr": 4020,
+  "result": "notes only; two real-build zero-loss above-main candidates (q on a51791e 0.68544->0.68553, vskcw on 2f3597f 0.68634->0.68643), both with both 307/312 to_string outlined (lddw 86, .rel.dyn equal to the original) and the original validate error order; each lost the race to main (land.py exit 3 twice)",
+  "best_zero_loss_measurement": {
+    "name": "vskcw",
+    "base_main": "2f3597f99 / 638fce2a3",
+    "main_ratio": 0.68634,
+    "ratio": 0.68643,
+    "M": 2292,
+    "bytes": 27400,
+    "lddw": 86,
+    "normalized": 1034,
+    "raw": 1034,
+    "differential": "388/0",
+    "elf_meta": "rel_dyn_entry_delta 0, relocation multiset equal to the original",
+    "genes": "WX+vsk+cnat+wown (tools/g16.py)"
+  },
+  "latest_main": {
+    "sha": "53ec7fb53",
+    "M": 2295,
+    "outline_needs_M": 2296,
+    "best_at_27400": {"genes": "WXvp+qr560+cnat", "M": 2294},
+    "pre_repay_base": {"genes": "WXvp", "M": 2300, "bytes": 27328}
+  },
+  "mechanisms": [
+    "outline base: tf_g3 creator binding + expect_p(new.is_none(),true,0.75) with the payload read through a raw pointer (= tfC1 + llc 3:1 on the 306 tag test, token for token); its frame is main's frame",
+    "original validate order from source: explicitly threaded validate head (if-if) + expect_p(holder,true,0.49) on the !hr holder test; the holder_enabled test block must not be layout-glued to either successor",
+    "k_u32 constant-pool order: the hr test as match st.holder_reward as u8{1=>..,_=>..} so RPO codegens the 289 arm before the non-holder arm; with a plain if, k_u32_83/89 swap and creator_migration::execute loses its raw match",
+    "repay: crl3 (+72 B, 0 M), shared split expect_p 0.625 (+56 B, +1), write_volatile compares kept in memory (holder-vault +32/+4, creator==default +32/0, wallet collection_native +40/-3, current_creator owner +32/-5), vsk sharing_config reload in the sk copy (+8/+5), expect on the 312 holder_key compare (0 B/+4), hand-written ? with a volatile Err residual (wallet coin token_frozen +32/-3)"
+  ],
+  "rejected": [
+    "c1 / g1c1 / tfvc1 outline bases (collapse)",
+    "k8 PDA-first, b01, Fa, t1n, p8 on the outline base (collapse)",
+    "write_volatile compares at sharing_config owner, quote_locked native, sweep native, 410 creator_fee (collapse)",
+    "shared weight p 0.55/0.7/0.75/0.8/0.9 (smaller and lower)",
+    "312 compare weight 0.9/0.97 (byte-identical)",
+    "Ds (289 statement first + re-tested hr) collapse; Dmb (match on the bool) keeps the swapped constant order",
+    "hand-written ? residual at the sweep amm_frozen token_frozen (collapse)",
+    "lifetime early-END of st at bb31.i (+2 llc-only but st still read by the fee checks)"
+  ],
+  "residuals": [
+    "the last 72-80 B of repay cost 6-8 M on every base",
+    "main's newer inline-base shims (w17a19 lifetime markers, w17a18 placeholder move to the top of validate) do not carry to the outline base"
+  ],
+  "next_ideas": [
+    "re-tune main's lifetime and placeholder shims on the outline base (WXvp is +5 over main before repay)",
+    "a cheaper 72 B repay: wallet ? residuals (IR cells vs:wallet +1 M at +24 B), the fee switch llc weight (+2 at -8 B)",
+    "source handle for the 307/312 error-name String lifetime start (+4 llc-only)",
+    "peel candidates: the 306 read_unaligned payload read, the as-u8 match (needed only for the constant-pool order), main's default-quote expect (inert on the outline base)"
+  ],
+  "tools": ["tools/g16.py", "tools/cap.sh", "tools/meas.sh", "tools/pw.py", "tools/bsum.py", "tools/info.py", "tools/mbb.py"],
+  "ledger_keys": "0x22a10-w17-<main7>-outlinerepay-*"
+}

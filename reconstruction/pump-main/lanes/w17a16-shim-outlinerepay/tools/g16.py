@@ -192,7 +192,12 @@ G['p8'] = [E("// layout-pad(183): aligns the next Source site with the original 
            E("let mut target=validate(&st,hopt,fee,new,holder_key,&sk)?;", "let mut target=validate(&st,hopt,fee,new,holder_key,&sk)?.0;")]
 G['Wm2'] = G['WmC'] + G['noq'] + G['nopt1']
 
-G['x312h'] = [E("||t==*holder_key{return Err(error!(PumpError::InvalidCreator));}", "||unsafe{expect(t==*holder_key,false)}/*shim: 312 holder_key compare unlikely 1:2000 (llc placement)*/{return Err(error!(PumpError::InvalidCreator));}")]
+def _x312h(s):
+    a = "||t==*holder_key{"
+    assert s.count(a) == 1
+    return s.replace(a, "||unsafe{expect(t==*holder_key,false)}/*shim: 312 holder_key compare unlikely 1:2000 (llc placement)*/{")
+G['x312h'] = [_x312h]
+G['nolte'] = [E("{unsafe{lte(32,&t as *const Pubkey as *mut u8)}/*shim: lifetime end of t at the 312 InvalidCreator error (t is dead there; recolours that block's error temps)*/;return Err(error!(PumpError::InvalidCreator));}", "{return Err(error!(PumpError::InvalidCreator));}")]
 G['Z1'] = G['Wm2'] + G['cnat'] + G['wown'] + G['wexe']
 
 G['Z1xp'] = G['WmC'] + G['noq'] + G['cnat'] + G['wown'] + G['wexe'] + G['x312h']
@@ -214,6 +219,23 @@ G['WX60'] = _rep(G['WX'], G['shw625'], G['shw60'])
 G['WX70'] = _rep(G['WX'], G['shw625'], G['shw70'])
 
 G['vsk'] = [E("let sk:&Pubkey=unsafe{skm.as_mut_ptr().write(a.sharing_config.key());&*skm.as_ptr()};", "let sk:&Pubkey=unsafe{skm.as_mut_ptr().write(core::ptr::read_volatile(&a.sharing_config)/*shim: volatile reload of the sharing_config account ref for the sk copy*/.key());&*skm.as_ptr()};")]
+
+for _nm,_p in (('55','0.55'),('65','0.65'),('75','0.75'),('80','0.8'),('90','0.9')):
+    G['shw'+_nm] = SHW(_p)
+    G['WXv'+_nm] = _rep(G['WX'], G['shw625'], G['shw'+_nm]) + G['vsk']
+G['WXv'] = G['WX'] + G['vsk']
+
+G['ph334'] = [E(" unsafe{core::ptr::read_volatile(holder_key as *const Pubkey as *const u8)}/*shim: holder_key byte read placeholder*/;if st.mayhem{", " if st.mayhem{"),
+              E("  if !st.fee_configurable{return Err(error!(PumpError::CreatorFeeNotConfigurable));}", "  unsafe{core::ptr::read_volatile(holder_key as *const Pubkey as *const u8)}/*shim: holder_key byte read placeholder before the fee_configurable test*/;if !st.fee_configurable{return Err(error!(PumpError::CreatorFeeNotConfigurable));}")]
+
+def QV(call, what):
+    return ("match " + call + "{Ok(v)=>v,Err(e)=>{let mut r=core::mem::MaybeUninit::<anchor_lang::error::Error>::uninit();unsafe{core::ptr::write_volatile(r.as_mut_ptr(),e)};/*shim: " + what + " ? residual kept in memory*/return Err(unsafe{r.assume_init()})}}")
+G['qr560'] = [E("let do_coin=coin_present&&!token_frozen(a.coin_creator_vault_ata.as_ref())?;", "let do_coin=coin_present&&!" + QV("token_frozen(a.coin_creator_vault_ata.as_ref())", "coin token_frozen") + ";")]
+G['qr559'] = [E("&&!token_frozen(a.creator_vault_quote_token_account.as_ref())?);", "&&!" + QV("token_frozen(a.creator_vault_quote_token_account.as_ref())", "quote token_frozen") + ");")]
+G['WXvp'] = G['WX'] + G['vsk'] + G['ph334']
+
+G['qr649'] = [E("let amm_frozen=amm_present&&token_frozen(a.coin_creator_vault_ata.as_ref())?;", "let amm_frozen=amm_present&&" + QV("token_frozen(a.coin_creator_vault_ata.as_ref())", "sweep amm token_frozen") + ";")]
+G['qrpbc'] = [E("crate::trade_types::prepare_bonding_curve(&a.bonding_curve,&a.system_program,&a.admin_set_creator_authority)?;", QV("crate::trade_types::prepare_bonding_curve(&a.bonding_curve,&a.system_program,&a.admin_set_creator_authority)", "prepare_bonding_curve") + ";")]
 
 
 def apply(s, genes):

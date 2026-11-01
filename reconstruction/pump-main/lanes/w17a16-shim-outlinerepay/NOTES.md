@@ -1,21 +1,27 @@
 # w17a16-shim-outlinerepay: 307/312 to_string outline + the original's validate order, repaid to 27,400 B
 
 Target `0x22a10` `admin_cto::execute` (`programs/pump/src/creator/admin_cto.rs`), pinned at 27,400 B. Shim track.
-Main moved four times during the lane (bf01b5f M 2,270 -> 8330455 2,278 -> 8350fae 2,284 -> a51791e 2,288); every result
-below names its base. Ledger: approach `outlinerepay`, keys `0x22a10-w17-<main7>-outlinerepay-*`.
+Main moved seven times during the lane (bf01b5f M 2,270 -> 8330455 2,278 -> 8350fae 2,284 -> a51791e 2,288 -> 2f3597f
+2,291 -> aab087f 2,294 -> 53ec7fb 2,295); every result below names its base. Ledger: approach `outlinerepay`, keys
+`0x22a10-w17-<main7>-outlinerepay-*` (and `0x22a10-w17-a51791e-outlinerepay-q-v1`).
 
-## Result (landing candidate on main 2f3597f99 / 638fce2a3, 0.68634)
+## Result: notes only (no landing). The branch carries no source change; `tools/g16.py` rebuilds every candidate.
 
-| build | admin_cto ratio | M | bytes | lddw | normalized / raw | `.rel.dyn` vs original | differential |
-| --- | ---: | ---: | ---: | ---: | --- | --- | --- |
-| main 2f3597f99 (w17a19 lifetime shim) | 0.68634 | 2,291 | 27,400 | 88 | 1034 / 1034 | +2 entries | |
-| **this PR (vskcw)** | **0.68643** | 2,292 | 27,400 | **86** | 1034 / 1034, zero losses | **equal** | 388 / 0 |
-| earlier: q on a51791e2e (0.68544) | 0.68553 | 2,289 | 27,400 | 86 | 1034 / 1034, zero losses | equal | 388 / 0 |
+Two real-build, zero-loss, above-main candidates were reached, and both lost the race to main before land.py could merge:
 
-q's landing hit a programs/ conflict when w17a19 landed; on 2f3597f q fell to 2,287 @27,392. The lane's IR beam on the new
-base (`vl:execute:28995`, +5 M at +8 B) is the volatile reload of the `sharing_config` account ref in w17a19's `sk` copy;
-with it (`vsk`) the assembly is `WX + vsk + cnat + wown` (WX = tf_g3 + 306 3:1 + crl3 + threaded head + shared weight +
-hvw + cdw + 312 holder_key expect, main's default-quote expect removed).
+| candidate | base main (ratio, M) | ratio | M | bytes | lddw | normalized / raw | `.rel.dyn` vs original | differential |
+| --- | --- | ---: | ---: | ---: | ---: | --- | --- | --- |
+| q (`WX+cnat+wown`) | a51791e (0.68544, 2,288) | **0.68553** | 2,289 | 27,400 | **86** | 1034 / 1034, zero losses | **equal** | 388 / 0 |
+| vskcw (`WX+vsk+cnat+wown`) | 2f3597f / 638fce2 (0.68634, 2,291) | **0.68643** | 2,292 | 27,400 | 86 | 1034 / 1034, zero losses | equal | 388 / 0 |
+
+- land.py on #4020 returned exit 3 twice: w17a19-shim-lifetime (2f3597f) and w17a19-shim-lifetime-2 (aab087f) changed
+  admin_cto.rs while the build ran. Each new inline-base shim (+1..+3 M on main) does not carry to the outline base:
+  the lifetime end of `t` at the 312 error block is inert there (312 is outlined), and w17a18's move of the 334
+  placeholder to the top of validate collapses the threaded head (vskcw 2,279; with the placeholder at its previous
+  position 2,292).
+- **Latest numbers on main 53ec7fb (M 2,295; the outline needs 2,296 because two fewer lddw add two instructions):**
+  pre-repay base WXvp (= WX + vsk, placeholder kept before the fee_configurable test) 2,300 @27,328; best at 27,400 B
+  `WXvp + qr560 + cnat` 2,294 and `WXvp + qrpbc + cnat` 2,294 @27,384. The repay of the last 72 B costs 6-8 M.
 
 - Both 307 and 312 `to_string` calls are outlined, as in the original: the callee multiset now equals the original's, and
   `elf_meta_diff.py` reports no relocation difference at all ("all non-.text differences follow from .text content";
@@ -88,6 +94,18 @@ hvw + cdw + 312 holder_key expect, main's default-quote expect removed).
 | Z1x (with nopt1) | 27,400 | 2,290, but the 298 constant moves (raw-loss risk) |
 
 ## Leads for the next lane
+
+- **Combine, do not race.** The outline + original validate order is worth +5..+10 M before repay on every main
+  measured (WXvp 2,300 @27,328 on 53ec7fb). Main's newer inline-base shims (w17a19 lifetime markers, w17a18 placeholder
+  move) were tuned without it. A lane that re-tunes them on the outline base, or a landing window with main frozen,
+  lands it.
+- Newest repay knobs (53ec7fb, on WXvp): `vsk` (volatile reload of the sharing_config ref in the w17a19 `sk` copy) +5 M
+  at +8 B; hand-written `?` with the Err residual kept in memory (`match r{Ok(v)=>v,Err(e)=>{write_volatile into a
+  MaybeUninit<Error>;return Err(..)}}`) at the wallet coin `token_frozen` (qr560) -3 M at +32 B, at prepare_bonding_curve
+  (qrpbc) +32..+56 B, at the quote `token_frozen` (qr559) -8, at the sweep `amm_frozen` (qr649) collapse.
+- Lifetime screens (w17a19 `xstart.py`, llc-only) on the 27,400 B candidate: an extra START of the 307/312 error-name
+  Strings (`%_37.i`/`%_48.i`, macro temporaries, no source handle) +4 M; an early END of `st` at `bb31.i` +2 M but `st`
+  is still read by the fee checks there (unsafe). No named-slot variant gains.
 
 - The base before repay is far above main: Wx is 2,298 @27,320 (+10). The repay costs 8-9 M for its last 72-80 B; any
   cheaper 80 B (or a faithful piece that adds bytes) lands directly. IR-beam cells with +8..+24 B at >= 0 M exist in the

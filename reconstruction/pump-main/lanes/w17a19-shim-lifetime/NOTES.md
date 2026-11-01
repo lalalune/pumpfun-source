@@ -49,6 +49,25 @@ Peel note: the construct to replace is the extra lifetime start; any ordinary-Ru
 dead, already-conservative slot between the fee_configurable field and the creator copy reproduces it. A plain
 `let x` binding inside the creator field does not: MIR CopyProp removes its storage markers.
 
+
+## Second gain (branch -2): lifetime end of validate's `t` at the 312 InvalidCreator error, 0.68634 -> 0.68724
+
+| build | admin_cto ratio | slots | bytes | normalized / raw | losses | calls | unstripped sha16 |
+| --- | ---: | ---: | ---: | --- | --- | --- | --- |
+| main 2f3597f99 (#4040) | 0.68634 | 3,092 | 27,400 | 1034 / 1034 | - | 154 / 3 | |
+| t312 | **0.68724** | 3,092 | 27,400 | 1034 / 1034 | 0 / 0 | 154 / 3 | 8e7e505382d975b7 |
+
+Differential 388 / 0. Source (validate, line 330, no line added):
+`||t==*holder_key{unsafe{lte(32,&t as *const Pubkey as *mut u8)}/*shim: ...*/;return Err(error!(PumpError::InvalidCreator));}`.
+
+`t` (the non-holder arm's new creator, 32 B, `t.i` after inlining) is conservative (two rustc ends) and stays live
+through the 312 error block, where it is dead. The extra END at the head of that block ends it there, so that block's
+error temps (the 160 B AnchorError, the 24 B name String, the to_string buffer and formatter) no longer interfere with
+`t`. The host list is unchanged (same offsets and sizes); only the colouring of that block's temps moves, and with it
+their scheduling. Found by the post-opt "early END" screen (`xstart.py --mode early`: an extra END of a slot at each
+earlier block start, scanning back until a use): of 1,202 variants on main 2f3597f only this one gains (two rows, the
+same edit). The capture of the source form has the probe's exact signature (`60f85431781c`).
+
 ## Screens (all on main 8330455 unless noted; tools in `$C/lanes/w17a19-shim-lifetime/tools`)
 
 - `lscr.py` (pre-opt IR, capraw slim + opt -O3 + llc, ~2-4 s/variant under load): 307 execute variants over 17 anchors

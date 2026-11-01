@@ -78,6 +78,12 @@ jobs:
               python -B reconstruction/pump-main/lanes/w14a88-cto-sweeptagmem/test_mv.py
           - suite: composition-patch-bytes
             commands: |
+              python -B reconstruction/harness/test_integrate_fresh_regression.py
+              python -B reconstruction/harness/test_integrate_fresh_mode.py
+              python -B reconstruction/harness/test_fresh_control.py
+              python -B reconstruction/harness/test_fresh_control_inputs.py
+              python -B reconstruction/harness/test_verify_fresh_control.py
+              python -B research/fresh-integration-baseline-20261101/verify.py
               python -B reconstruction/harness/test_integrate_failures.py
               python -B reconstruction/harness/test_pair_case_alias.py
               python -B reconstruction/harness/test_integrate_no_build_cli.py
