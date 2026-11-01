@@ -1,0 +1,44 @@
+{
+  "schema": "mayhem-v2-pumpswap-plan-v1",
+  "fixture_classification": "synthetic_preinitialized",
+  "lifecycles": [
+    {
+      "name": "v2_buy_buy_sell",
+      "venue": "v2",
+      "steps": [
+        {"name": "buy_1", "instructions": ["buy_v2"], "expect": "success"},
+        {"name": "buy_2", "instructions": ["buy_v2"], "expect": "success"},
+        {"name": "sell_1", "instructions": ["sell_v2"], "expect": "success"}
+      ]
+    },
+    {
+      "name": "v2_failure_retry_atomic",
+      "venue": "v2",
+      "steps": [
+        {"name": "buy", "instructions": ["buy_v2"], "expect": "success"},
+        {"name": "slippage_sell", "instructions": ["sell_v2_invalid_reference"], "expect": "failure", "error_contains": "InstructionErrorCustom(6012)"},
+        {"name": "retry_sell", "instructions": ["sell_v2"], "expect": "success"},
+        {"name": "atomic_buy_sell", "instructions": ["buy_v2", "sell_v2"], "expect": "success"}
+      ]
+    },
+    {
+      "name": "pumpswap_buy_buy_sell",
+      "venue": "pumpswap",
+      "steps": [
+        {"name": "buy_1", "instructions": ["buy_pump_swap"], "expect": "success"},
+        {"name": "buy_2", "instructions": ["buy_pump_swap"], "expect": "success"},
+        {"name": "sell_1", "instructions": ["sell_pump_swap"], "expect": "success"}
+      ]
+    },
+    {
+      "name": "pumpswap_failure_retry_atomic",
+      "venue": "pumpswap",
+      "steps": [
+        {"name": "sell", "instructions": ["sell_pump_swap"], "expect": "success"},
+        {"name": "slippage_buy", "instructions": ["buy_pump_swap_invalid_reference"], "expect": "failure", "error_contains": "InstructionErrorCustom(6012)"},
+        {"name": "retry_buy", "instructions": ["buy_pump_swap"], "expect": "success"},
+        {"name": "atomic_buy_sell", "instructions": ["buy_pump_swap", "sell_pump_swap"], "expect": "success"}
+      ]
+    }
+  ]
+}
