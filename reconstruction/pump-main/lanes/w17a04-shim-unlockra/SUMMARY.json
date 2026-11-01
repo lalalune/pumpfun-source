@@ -1,0 +1,93 @@
+{
+ "lane": "w17a04-shim-unlockra",
+ "wave": 17,
+ "target": {
+  "window": "0x22a10",
+  "function": "admin_cto::execute",
+  "file": "programs/pump/src/creator/admin_cto.rs",
+  "pinned_bytes": 27400
+ },
+ "start": {
+  "main": "599891304 / 1647da0f2",
+  "ratio": 0.67436,
+  "M": 2251,
+  "slots": 3141
+ },
+ "landed": [
+  {
+   "pr": 3950,
+   "merge": "442ae70ca",
+   "change": "TCF token_program clone as the derive literal, lamports via rcinc (llvm.expect 1:2000 on the Rc overflow trap)",
+   "before": 0.67466,
+   "after": 0.67615,
+   "M": 2257
+  },
+  {
+   "pr": 3969,
+   "merge": "7d5e14de9",
+   "change": "TCF associated_token_program clone as the derive literal, lamports via rcincp (llvm.expect.with.probability p=2e-5)",
+   "before": 0.67675,
+   "after": 0.67735,
+   "M": 2261
+  },
+  {
+   "pr": 3985,
+   "merge": "fd78179b8",
+   "change": "TCF pump_creator_vault_ata data clone via rcincq (p=5e-6)",
+   "before": 0.67825,
+   "after": 0.67855,
+   "M": 2265
+  }
+ ],
+ "pending": [
+  {
+   "branch": "swarm/w17a04-shim-unlockra-4",
+   "change": "TCF coin_creator (inline current_creator) via aiclone_r helper (derived-Clone shape, keeps noalias) with rcincr p=1e-5",
+   "before": 0.67855,
+   "after": 0.67915,
+   "M": 2267,
+   "slots": 3220,
+   "differential": "388/0",
+   "sha": "fe001a2af7a467af"
+  }
+ ],
+ "mechanism": "Rc::inc_strong's own core::intrinsics::unlikely is a no-op on rustc 1.79-dev, so its overflow-trap edge gets BPI's unreachable weight (~1e-6). Copying inc_strong into an inline(always) helper whose trap test carries llvm.expect / llvm.expect.with.probability makes every later block slightly colder; StackSlotColoring sorts spill slots by frequency-weighted use, so near-tied clone-run spill slots renumber toward the original. No instruction or register moves in the landed cases.",
+ "rules": [
+  "Pointer-held accounts (Interface, Program, Signer, UncheckedAccount, manual literals) take the derive literal codegen-neutrally; an inline AccountInfo field rewritten as a literal changes codegen (cc_plain 0.60117 @27408), but an inline(always) &AccountInfo helper shaped like the derived Clone (aiclone_r) is byte-identical (ccr_plain sha edd56f45) and can carry the weighted clone.",
+  "The M response to the trap probability is chaotic at the 1% scale; screen with the exact expect.with.probability weights ceil(p*(2^31-2)+1) on the IR oracle of the CURRENT main, then build; source builds matched the oracle exactly in every realizable case.",
+  "lamports and data traps of the same clone are equivalent; stacking a second 1:2000 trap on #3950 loses."
+ ],
+ "screens": {
+  "vl_vs_bl_bu_singles_m0": "1,023 rows; only Rc-trap bu (+6/+2/+1), vl:1821 (+1, = w17a03 #3936) and two non-sensible hints",
+  "bpi_perturbation_x0.999_1.001_0.98_1.02": "584 rows, no gain; many validate branches hit the same -10 M @-8 B knife edge",
+  "trap_probability_singles": "on m0/b1/b3/m5/b7 (pabs.py, 16-22 log-spaced p per position)",
+  "source_condition_absolute_p_m5": "363/618 rows, no gain"
+ },
+ "ra_force_ceilings_on_main": {
+  "1685=r6": 0.67675,
+  "1685=r6,1672=r7": 0.67885,
+  "main 9-force set": "0.68425 @27376",
+  "1658=r9": "0.66807 @27280"
+ },
+ "rejected": [
+  "rc2094: current_creator manual literal + rcincp p=1.6e-4 -> 0.64829 (inline AccountInfo literal not neutral)",
+  "rc2051 p=1.6e-5 on d4dfb04 -> 0.67416 @27392 (chaotic window)",
+  "pairs of 1:2000 traps on #3950 base (inc-combos)"
+ ],
+ "next_ideas": [
+  "creator_vault (pump_creator_vault, inline) and the other inline fields are now realizable through aiclone_r; screen them on the b8 oracle (rx/b8) and stack.",
+  "Map the target spill-slot permutation (w16a08 permhc 'moved' set) onto the clone-run slot weights and solve for per-clone trap probabilities instead of random search.",
+  "Peel: find ordinary spellings that reproduce the same spill-slot numbering without the weighted traps."
+ ],
+ "tools": [
+  "tools/vscreen.py",
+  "tools/vcombo.py",
+  "tools/pscreen.py",
+  "tools/pabs.py",
+  "tools/force.py",
+  "tools/capopt.py",
+  "tools/mkvar.sh",
+  "tools/mkvar2.sh"
+ ],
+ "ledger_keys": "0x22a10-w17-<main7>-unlockra-*"
+}
