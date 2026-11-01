@@ -5,7 +5,7 @@ Base: main `1f4e396b5` (w16a07 sweeptuple #3859 landed after the angle was writt
 `599891304`): admin_cto 0.67436, 3,141 slots, M 2,251, Mperm 2,295, Mhc 2,302, 1034/1035.
 Angle: price the faithful tail forms as one union instead of one form at a time, and test whether one missing register
 fact (sharing tag in r6, swept in r9) blocks all of them.
-Ledger: approach `plaintail`, keys `0x22a10-w16-<sha7>-plaintail-<cell>-v1` (22 capture rows + 7 analysis rows).
+Ledger: approach `plaintail`, keys `0x22a10-w16-<sha7>-plaintail-<cell>-v1` (28 capture rows + 10 analysis rows).
 
 **Result: notes only, no source change. The kill test holds on all three counts.**
 1. No union, leave-one-out or pair, on main or on L, has a realisable cell above main's. The best `+pin+regideal r9` cell
