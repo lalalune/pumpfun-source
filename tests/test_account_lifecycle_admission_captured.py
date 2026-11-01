@@ -225,6 +225,12 @@ class AccountLifecycleAdmissionCapturedTests(unittest.TestCase):
     def test_single_faults_match_captured_program(self):
         self.run_cases(single_cases())
 
+    def test_unknown_command_is_rejected(self):
+        # `delete` is not a route: it must not fall through to `extend`.
+        out = subprocess.run([str(self.host)], input='delete\n', capture_output=True, text=True)
+        self.assertNotEqual(out.returncode, 0)
+        self.assertIn('unknown command delete', out.stderr)
+
     def test_fault_pairs_match_captured_program(self):
         self.run_cases(pair_cases())
 

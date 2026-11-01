@@ -32,7 +32,8 @@ fn request(line: &str) -> Request {
     let handler = match words.next().unwrap() {
         "sell" => Handler::Sell,
         "buy" => Handler::Buy,
-        _ => Handler::BuyExactSol,
+        "exact" => Handler::BuyExactSol,
+        other => panic!("unknown handler {other}"),
     };
     let empty = Slot::default();
     let mut r = Request {

@@ -168,7 +168,8 @@ fn answer(line: &str) -> String {
         "create" => answer_init(&words[1..], false),
         "init" => answer_init(&words[1..], true),
         "close" => answer_close(&words[1..]),
-        _ => answer_extend(&words[1..]),
+        "extend" => answer_extend(&words[1..]),
+        other => panic!("unknown command {other}"),
     }
 }
 

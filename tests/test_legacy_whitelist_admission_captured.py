@@ -488,6 +488,12 @@ class LegacyWhitelistAdmissionCapturedTests(unittest.TestCase):
         for ix, q, _, _ in cases:
             self.assertIsNone(self.program.run(build(ix, q, ()))['error'], ix)
 
+    def test_unknown_handler_is_rejected(self):
+        # `exac` is not a handler: it must not fall through to `exact`.
+        out = subprocess.run([str(self.host)], input='exac user.unsigned\n', capture_output=True, text=True)
+        self.assertNotEqual(out.returncode, 0)
+        self.assertIn('unknown handler exac', out.stderr)
+
     def test_one_fault_matches_captured_program(self):
         self.compare(single_cases())
 
