@@ -67,6 +67,37 @@ measure.sh on 8330455 + unI01f: **0.68424**, 3,313 slots, 27,400 B, 1034 / 1034,
 a950162cc7d5201c (byte-identical to w17a15's merged build on d5751b2). Differential 388 / 0. The placeholder comes
 back as a marked shim (forcing +1, land with `--allow-forcing`).
 
+**Landed: #4019 (merge ac37d7415):** 0.68244 -> 0.68424, 3,313 slots, zero losses, forcing_delta +1, differential 388/0.
+
+## 4. Leave-one-out re-pricing of the landed shims on ac37d74 (`tools/loo.py`)
+
+Every landing re-shuffles the near-tie landscape, so an earlier landing can turn neutral or harmful once later ones
+are in (section 3 is one such case). `tools/loo.py N` builds, for each of the last N first-parent landings that touched
+admin_cto.rs, a gene that reverts only that landing's changed segment on each changed line (common prefix/suffix
+trimmed, with enough context to be unique on the current text); `looNNNN_k` reverts only its k-th changed line.
+Slim oracle on main ac37d74 (M 2,284, oracle slots 3,312):
+
+| revert | M | bytes | note |
+| --- | ---: | ---: | --- |
+| #3985 weighted pump_creator_vault_ata data clone (`rcincq`) | 2,284 | 27,400 | **byte-identical to main: the shim is now inert -> peeled** |
+| #4018 site 298 (`pt1(3,new.is_some())`) | 2,284 | 27,392 | free -8 B knob (0 M) |
+| #3936 sweep program-clone owner `read_volatile` pin | 2,284 | 27,400 | tie, different bytes, same slots |
+| #3495 shared test as `creator==sk` key local | 2,284 | 27,400 | tie, different bytes |
+| #3993 `sweep(&ctx,holder_key)` borrow | 2,284 | 27,400 | byte-identical (not a shim) |
+| #4018 site 339 (`ptp(1,..)` on the shared-arm reload) | 2,282 | 27,408 | |
+| #4018 sites 578 / 659 (`pt8` do_coin, `pt1` executable) | 2,279 | 27,400 | the two +5 cells still pay |
+| #4011 sharing_config owner in the Rc increment | 2,282 | 27,400 | |
+| #4000 owner-first pool gate | 2,283 | 27,400 | |
+| #3992 default-quote weight / curve-box reload at the creator store | 2,283 @27,408 / 2,280 @27,392 | | |
+| #3991 / #3969 / #3950 / #3934 weighted clones and the 312 expect_p | 2,282 / 2,273 / 2,278 / 2,274 | | still pay |
+| #3666 CtoState fee_configurable first | 2,283 | 27,400 | |
+| #3386 fee-Some exit edge | 2,257 | 27,400 | |
+
+The free -8 B knob (revert the 298 passthrough) was paired with 17 +8 B partners (second placeholder copies at
+284/289/296/306/307/314/326/330/338, wlwe, mapamt, the #3992 weight, pcol, gwclk, cb5, cumatch, shfk) and with
+passthroughs of the accounts pointer at the CtoState loads and the shared owner test (`ptsh`, `ptmf`, `ptmy`, ...).
+Best: ties at 2,284 (p2_284 / p2_289 / ptmf at 3,311 oracle slots, one fewer than main); nothing above main.
+
 ## Tools (`tools/`, experiment only; paths point at this lane's `$OUT`)
 
 - `cap.py <name> <genes> <slot>`: copy a pristine base crate, apply `genes17.py` genes (line count checked), capture
