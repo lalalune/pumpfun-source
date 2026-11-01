@@ -32,3 +32,40 @@ builds a `ControlFlow` and LLVM merges both arms' loads of `_49+8` into one load
 The target loads it twice, once in each arm. An explicit
 `match swap_observed(..) {Ok(total)=>total,Err(error)=>return Err(error)}` gives exactly that.
 Result: 549 of 571, 789,496 B, no losses.
+
+`just_swap` keeps `?` and is exact with it: the same MIR shape leaves its two payload loads in their arms. So the `match`
+in `swap_then_distribute` may not be the original spelling, but the bytes are equal and nothing else in the function moves.
+
+## Where it stands
+
+All three cluster functions are normalized-equal and `strict` true, with the Mac route and the Linux route. This is not
+byte identity: no raw byte comparison at the final address has passed and `whole_elf_equal` is false.
+
+| route, this branch | functions | `.text` bytes | ratio | strict | losses |
+|---|---:|---:|---:|---:|---|
+| Mac hybrid, `measure.sh` | 549 | 789,496 | 0.92676 | 531 | none |
+| Linux v1.54, `linux-build.sh` (142 s) | 551 | 790,216 | 0.92761 | 522 | none |
+
+Linux adds 0xb3278 and 0xbcac0, as the brief predicted. Its strict count is lower because same-named generics pair by address
+and come out in another order on that host. Checked: the 16 functions strict on Mac but not on Linux are all `try_accounts`, and each
+reports a callee pair among the same-bodied `Signer::try_accounts` instances (0x10970, 0x109f0). Five go the other way and are strict only
+on Linux, among them `just_swap` and both `Account::reload` instances. None of the three cluster functions is affected.
+
+Scratch merge of this tip with C1 (c0e7d2635), C6 (0fd6a1bfa) and C5 (ddba01c1e) on the Mac route: 564 of 571, 832,952 B, 0.97777,
+no losses, all three still strict, and the two Jupiter functions at their final addresses (0x11668, 0x11f80). The only conflict is
+`bridge_handlers.rs`, which C5 deletes: its `admit_bridge_payment.rs` already has the same `with_values` at line 83, so take C5's side.
+
+## For whoever finishes the layout
+
+- `swap_then_distribute` and `just_swap` still live in `settlement_handlers.rs`. The target's order is donate handlers, `close_epoch`,
+  the distribute handlers, `just_swap`, `swap_then_distribute`, `upsert_mint_whitelist`, admit, recover, then `tools::checks`, so they belong in
+  `instructions/v1/relayer_only/distribute/just_swap.rs` and `swap_then_distribute.rs`. I did not move them: C1 and C2 are still editing
+  that file next to them, and the move only changes the order once the rest of `settlement_handlers.rs` moves too.
+- Keep `swap_then_distribute`'s `match` through any such move, and re-measure 0x1ec18 if `distribute`'s signature changes.
+
+## General lessons from this lane
+
+- An out-of-line `with_values::<T>` needs a second caller. Until then the inliner takes it into the only caller and that function
+  looks far bigger than the target, so check `xref.py` on the target's instance before reshaping the caller.
+- A read placed right after two reloads can show up as `mov64 rX, rY` on a failure path, because the load forwards from the earlier read.
+- If a `Result` payload is loaded before the tag test where the target loads it in each arm, try `match` in place of `?`.
