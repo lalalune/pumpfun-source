@@ -123,6 +123,10 @@ become `jNCC +1; ja` (+8 B), with jumps re-fixed and registers/frame assumed unc
 
 ## Next ideas
 
+- On 7e5ba44, main + the sh_iflet flip is 27,392 B at M 2,245. One +8 B junk slot gives 2,253 at cand 0x54b8 and 2,252
+  at 0x5450-0x54a0 (`data/insmap_main7e5ba44_SH_1.json`). That is where the original has its extra `mov64 r9,r1` after
+  the Rent `ProgramError::from` (orig 0x54e0; the swept-r9 copy residual of w14a06/w14a33/w14a70). A source form that
+  produces that copy would let sh_iflet land on top of #3859 at about +2 M.
 - A6 is a faithful -8 B step at the sweep head. Its insertion map is wide (602 main+1 slots), so any faithful +8 B
   construct in 0x3f08-0x4bd8 or 0x4e18-0x5578 pairs with it. ev6 is a repay, not faithful: replace it when a faithful
   +8 B appears.

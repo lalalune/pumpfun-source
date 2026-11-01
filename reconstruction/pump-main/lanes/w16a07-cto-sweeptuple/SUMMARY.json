@@ -38,7 +38,8 @@
   "binary_flip_pairs": 5106,
   "binary_A6_compositions": 214,
   "binary_A6_sh_iflet_compositions": 180,
-  "measure_builds": 1
+  "measure_builds": 1,
+  "insertion_maps": 2
  },
  "price_table": {
   "m_A1=m_A2 (match amm_frozen as i32)": "27392 M2243 (flips the AMM token_frozen ? to jne, wrong site)",
@@ -71,6 +72,7 @@
   "648/660 tail-dup tag-test copies (ldxdw r1,[0x950]; jne r7,2) present only in the original"
  ],
  "next_ideas": [
+  "new main 7e5ba44 + sh_iflet (binary flip) is 27,392 B at M 2,245; one +8 B junk slot gives 2,253 at cand 0x54b8 and 2,252 at 0x5450-0x54a0 (data/insmap_main7e5ba44_SH_1.json). That spot is the original's `mov64 r9,r1` after the Rent ProgramError::from (orig 0x54e0, the w14a06/w14a33/w14a70 swept-r9 copy residual): a source form that produces that copy would land sh_iflet on top of #3859 at about +2 M",
   "A6 + sh_iflet is 27,384 B at M 2,244 with both flips faithful; a faithful +16 B pair (or two +8 B) in cand 0x3f08-0x4bd8 / 0x4e18-0x5578 would make it pay (A6 insmap: 602 main+1 slots)",
   "replace the ev6 repay with a faithful +8 B construct when one appears; compose candidates first with tools/qflip.py / qcompl.py (no build needed)",
   "the first-reference/IR-next polarity lever is general: any `?` whose Ok block should be IR-next can be tested with tools/irmv.py before searching for a source spelling"
