@@ -11,5 +11,5 @@ Target `0x22a10` `admin_cto::execute`, pinned at 27,400 B. See the PR body for t
 
 ## Placeholder move (after #4151)
 
-The holder_key byte placeholder at the curve block moves to the end of the event CPI, so the block keeps its size and the jump at
-original 0x53d8 (`ja 0x54f0`) gets the original's displacement. Priced by moving each placeholder over every block head (IR screen).
+The holder_key byte placeholder before ensure_rent_exempt (line 664) moves to the end of the event CPI. The size stays the same, and every far jump that spans the
+stretch between the two points regains the original's displacement. Priced by moving each placeholder over the tail's block heads (IR screen, 260 cells).
