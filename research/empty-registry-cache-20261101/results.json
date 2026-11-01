@@ -1,0 +1,304 @@
+{
+  "base": "599891304e83e853ec723dc1417550bef4e1c074",
+  "source_sha256_before": {
+    "scripts/prepare_locked_cargo_home.py": "685c3f57bf1224455b1e8bc3ef66ea1034973df4c58cb3d5ecf5bd62e670331a",
+    "scripts/build_supported_sbpf_candidate.py": "d9f89779f82d7d0c6a5eab88cb346f90ad7699bae1edfb45a9169f5d655c970c",
+    "scripts/build_source_manifest.py": "ae80aa7894424e1283bd85f02fa5748a8bc92eb044b81ba53d2d3cdc36706ecc",
+    "scripts/supported_sbpf_policies/v1.53.json": "ba7d7e9cfb917ba15f9f96eca5182d6bb02f52b41affddde1c1f9ba6a211fba7"
+  },
+  "source_sha256_after": {
+    "scripts/prepare_locked_cargo_home.py": "81230f4f50a8d8ffa45f5be0653c90a6d07a483ba360c9d70a4cad26635575cd",
+    "scripts/build_supported_sbpf_candidate.py": "d9f89779f82d7d0c6a5eab88cb346f90ad7699bae1edfb45a9169f5d655c970c",
+    "scripts/build_source_manifest.py": "ae80aa7894424e1283bd85f02fa5748a8bc92eb044b81ba53d2d3cdc36706ecc",
+    "scripts/supported_sbpf_policies/v1.53.json": "ba7d7e9cfb917ba15f9f96eca5182d6bb02f52b41affddde1c1f9ba6a211fba7"
+  },
+  "tool_sha256": {
+    "v1.53/platform-tools/version.md": "5c1bf9f42483d4b3a0ecea4893756b6efdd456560c07a07e6cba3a47ab0b014f",
+    "v1.53/platform-tools/llvm/bin/llc": "aab7ec3316e415ef7d942aebdc550fee01e5cc8dc5a5f74ebf2404b1e7c110ba",
+    "v1.53/platform-tools/llvm/bin/llvm-objcopy": "1d8b8f2e312e12a06a8f508f705dad795b2752d554978755f6508885c40309f2",
+    "v1.53/platform-tools/rust/lib/librustc_driver-701c94505f05bbc4.dylib": "2b163bac47ce063864b046007e4940738888ba733b1a727a621ce0829eca5512",
+    "v1.53/platform-tools/rust/lib/librustc-stable_rt.lsan.dylib": "a6c34fcb6d515c6d5d750ad2cfc302abae272a7dc90912b802c1481bf44cccc7",
+    "v1.53/platform-tools/rust/lib/librustc-stable_rt.asan.dylib": "153e592aa29bcc688681d41e8edcebb6acbb3308746af8a1366c7dfd915635c4",
+    "v1.53/platform-tools/rust/lib/librustc-stable_rt.tsan.dylib": "026f19b8505f4c8372e5a17ba67208ce973911949e5915f16468dcaff1f2a00f",
+    "v1.53/platform-tools/rust/lib/rustlib/sbpf-solana-solana/lib/libunicode_width-3975932187228226.rlib": "e6d6bb8fc4605f2c107dab5e004518032e4a17ad93074bab84bdda5746ae565d",
+    "v1.53/platform-tools/rust/lib/rustlib/sbpf-solana-solana/lib/libcfg_if-8e66b6eac5221e0c.rlib": "bd5eac9fbb6a59d60f8896026671012253cecba859c09d1ef04c7916c374fbc7",
+    "v1.53/platform-tools/rust/lib/rustlib/sbpf-solana-solana/lib/libadler2-cfba247160901e87.rlib": "e8e421dfa85f447c7cbabbf3ac42bfe392abb4d46d5e28237aec25fee388f56f",
+    "v1.53/platform-tools/rust/lib/rustlib/sbpf-solana-solana/lib/librustc_literal_escaper-59136af6446b1b1f.rlib": "d20d341a489b710488d851c3818320773820987f939eb48be7d0c6ba5a0f8d62",
+    "v1.53/platform-tools/rust/lib/rustlib/sbpf-solana-solana/lib/libcompiler_builtins-d02f1d3ca25f4ffa.rlib": "e9da983767759b497ae97d81a822fcfacd6c1a4c625d7ed415bbdf298c7f1930",
+    "v1.53/platform-tools/rust/lib/rustlib/sbpf-solana-solana/lib/libminiz_oxide-70d3f43fceda8947.rlib": "d1493105f0abb3d1dfa9a43f1c72a8c73268b6f90664356fec17c7571192ff60",
+    "v1.53/platform-tools/rust/lib/rustlib/sbpf-solana-solana/lib/libcore-673053c840437f62.rlib": "a008c3231a428a26ac9258fac8f4a1ad3d1e822498049555292a90c4ecf8cf80",
+    "v1.53/platform-tools/rust/lib/rustlib/sbpf-solana-solana/lib/libunwind-8ed5144466c05f76.rlib": "9aab5d08b6d20ad2343691fc2d6bd2535f8ad52436be4247ee50b9453c4171af",
+    "v1.53/platform-tools/rust/lib/rustlib/sbpf-solana-solana/lib/libmemchr-3f9e1a6fa21b45a5.rlib": "4344f87b876ef2d6a9b02d52cab435a6a0abf06071196d7d9946dd9d0aa98730",
+    "v1.53/platform-tools/rust/lib/rustlib/sbpf-solana-solana/lib/libtest-8ca35a7c8f409ad4.rlib": "ffd24ef10d1874ea4b7c97554b11284a6f1bc930a214d75e3a233e787a7d42e9",
+    "v1.53/platform-tools/rust/lib/rustlib/sbpf-solana-solana/lib/libobject-000881ab9975a807.rlib": "b076581d845d4d8800468115ab6d9046d11ee9e58996c2ab5587423d152392e4",
+    "v1.53/platform-tools/rust/lib/rustlib/sbpf-solana-solana/lib/libstd-62ff8588f8d5a587.rlib": "eead2ac9f763ed1e3ee47f913908daf8096db4623da5a161494a6986e59e46ef",
+    "v1.53/platform-tools/rust/lib/rustlib/sbpf-solana-solana/lib/librustc_std_workspace_alloc-3bc1dfa35eace01d.rlib": "2da007ba0f11aa53071933babb4e3971f0803d238d4c107328e80353cd747053",
+    "v1.53/platform-tools/rust/lib/rustlib/sbpf-solana-solana/lib/libaddr2line-fe831f862f7b9b15.rlib": "1a4ec2b68d6c93ffd3dc8a06b0c0c96c81bcf7e65783174bf9b0f5d54c4152f7",
+    "v1.53/platform-tools/rust/lib/rustlib/sbpf-solana-solana/lib/librustc_std_workspace_std-98cff7d95c52e739.rlib": "e48942c0757642b9d38cf87b0ff15b2baa1a5b29e87ce62f1443335d5d5c72b7",
+    "v1.53/platform-tools/rust/lib/rustlib/sbpf-solana-solana/lib/libsysroot-156a2d907651191c.rlib": "00955f03d03bd6fb005c7e2f04d9cf370d0aacd47f719128e198b6debde6cec4",
+    "v1.53/platform-tools/rust/lib/rustlib/sbpf-solana-solana/lib/librustc_std_workspace_core-58f800566669db80.rlib": "3ab4c83245ca6aa7c505aef0479bd06843cd3005c5a21308fe1e8347ee0fe02a",
+    "v1.53/platform-tools/rust/lib/rustlib/sbpf-solana-solana/lib/libgimli-d74e4b39ec1dd81e.rlib": "27cecac805b2105606f6d342701cfff23dbdc3278006d7a6b3877c8379dd3523",
+    "v1.53/platform-tools/rust/lib/rustlib/sbpf-solana-solana/lib/liblibc-2ac2e8709fa696ba.rlib": "20ddafd554dd335a2d07b6af574ef5614843df869d304bddce0dca255d0e873b",
+    "v1.53/platform-tools/rust/lib/rustlib/sbpf-solana-solana/lib/liballoc-9b3e3f8db6f32888.rlib": "4e9ac2fe3b710ed3fbcac36b4a45aefd676468b3b4da6698ac2e26438ac9c4ce",
+    "v1.53/platform-tools/rust/lib/rustlib/sbpf-solana-solana/lib/libhashbrown-7f8a16822ffdc3bc.rlib": "6b0c5c691115f3be79dbe96a917d20c662d932b9f67c7218ede75a628059a3c8",
+    "v1.53/platform-tools/rust/lib/rustlib/sbpf-solana-solana/lib/libgetopts-a3f45538c28cc99a.rlib": "d49913aaa09a14cbdedd1b4554879cdb7ea273ce208a908a58304447a9448ff0",
+    "v1.53/platform-tools/rust/lib/rustlib/sbpf-solana-solana/lib/libpanic_unwind-6d38305f2348060e.rlib": "8b4c06b303be3d2efb46b0353dd235991afbf4e31387906a00d91c9efb1a7ffc",
+    "v1.53/platform-tools/rust/lib/rustlib/sbpf-solana-solana/lib/libproc_macro-f3641aafe9be9fc9.rlib": "46a8afb6916a045f057c8bc1b07374dff664ac030130a7f049cd59d0d8e0cc40",
+    "v1.53/platform-tools/rust/lib/rustlib/sbpf-solana-solana/lib/libstd_detect-e01993adbb578dbe.rlib": "cea6ceaa7f0265f9fcf90971277310e2800cd242c7bbfae0c7212a647bb7b432",
+    "v1.53/platform-tools/rust/lib/rustlib/sbpf-solana-solana/lib/libpanic_abort-f105455aa9068490.rlib": "4b759505acf9231d588a9030e6db6d3a60175bf20838069b9695b9bebf7c7de3",
+    "v1.53/platform-tools/rust/lib/rustlib/aarch64-apple-darwin/lib/libstd-936a8b88a860b686.dylib": "3d15f55e014643b6d4ea6891f2635da43fd55315b06e8422b2aff01d2beb300c",
+    "v1.53/platform-tools/rust/lib/rustlib/aarch64-apple-darwin/bin/rust-lld": "bf59d2b06b83b3bc0d3ff63ea1153cdf214f43f5d2d3bf9006891e800d70fabc",
+    "v1.53/platform-tools/rust/bin/rustdoc": "ed86c6ddca387ab0ad9db9f1ca0a1239531713bde75d080d29165a27ea7cb346",
+    "v1.53/platform-tools/rust/bin/cargo": "1eb15e30b4fddb0342872595b63b076d5f8599db716fec43de4d177de8d90fbc",
+    "v1.53/platform-tools/rust/bin/rustc": "c58ec8ad482a40216152a4e4a6172f485be22a7f4482623e7e3cdf6c7085beb8",
+    "v1.53/platform-tools/llvm/bin/clang": "2763a1c1eca0c7b1f0513183d8880b01db3d0bfafc60ad49c7ee29c963eea4ae",
+    "v1.53/platform-tools/llvm/bin/llvm-ar": "4a4ed7b1327923367128eaab3e76871c3e4f932fc5ff0efdf19c498779e1e48f",
+    "v1.53/platform-tools/llvm/bin/llvm-objdump": "9e1ee0abcd8a6aecb3b846dafe48b9f5601185d79219722a437b245be3c84a09",
+    "v1.52/platform-tools/llvm/bin/llvm-objcopy": "12415dc01e08e4f606a1a4eac8c197d560c7883161d266312c821bf5db7bf8be"
+  },
+  "rustc_version": "rustc 1.89.0-dev\nbinary: rustc\ncommit-hash: unknown\ncommit-date: unknown\nhost: aarch64-apple-darwin\nrelease: 1.89.0-dev\nLLVM version: 20.1.7\n",
+  "cargo_version": "cargo 1.89.0 (d96b80636 2026-01-27)\n",
+  "before": {
+    "build_cases": {
+      "dependency_free": {
+        "lock_returncode": 0,
+        "registry_exists": false,
+        "cache_files": {
+          "cache-manifest.json": "49e413f2fa2767f4dd8b58c498d93904dd5f82c8781b9afd4e9591ddec141e3e"
+        },
+        "manifest": {
+          "scope": "Existing local archives verified against a fixed Cargo.lock; no network download.",
+          "lockfile_sha256": "2615971c60ec04115965fb8dc48dd10bd8218dabfc80f948c845c8de3e71db7f",
+          "registry_config_sha256": null,
+          "packages": []
+        },
+        "pipeline": {
+          "plan_error": "an existing offline registry cache outside output is required",
+          "output_created": false
+        },
+        "empty_registry_control": {
+          "returncode": 0,
+          "compile_returncode": 0,
+          "stage": "complete",
+          "source_unchanged": true,
+          "candidate_sha256": "97d893470423638451c2f822b77354aca30c660ada427234b03fa6f111d7f759"
+        },
+        "plain_cargo": {
+          "returncode": 0,
+          "candidate_sha256": "97d893470423638451c2f822b77354aca30c660ada427234b03fa6f111d7f759"
+        },
+        "caller_source_preserved": true,
+        "prepared_files_preserved": true,
+        "prepare_returncode": 0
+      },
+      "local_path_only": {
+        "lock_returncode": 0,
+        "registry_exists": false,
+        "cache_files": {
+          "cache-manifest.json": "4e7a80fa3f983c55852936f959293c8ce7e1b44bc503fd8002b25a60cba545ce"
+        },
+        "manifest": {
+          "scope": "Existing local archives verified against a fixed Cargo.lock; no network download.",
+          "lockfile_sha256": "a45cb4eb207f9c1cb989bc33570ab49ca50d1d168d96e51194559d21a850ff7e",
+          "registry_config_sha256": null,
+          "packages": []
+        },
+        "pipeline": {
+          "plan_error": "an existing offline registry cache outside output is required",
+          "output_created": false
+        },
+        "empty_registry_control": {
+          "returncode": 0,
+          "compile_returncode": 0,
+          "stage": "complete",
+          "source_unchanged": true,
+          "candidate_sha256": "782849b0d07278f3b7e29ea63d0a3e5a572ae91374da93f7b631df874f212617"
+        },
+        "plain_cargo": {
+          "returncode": 0,
+          "candidate_sha256": "782849b0d07278f3b7e29ea63d0a3e5a572ae91374da93f7b631df874f212617"
+        },
+        "caller_source_preserved": true,
+        "prepared_files_preserved": true,
+        "prepare_returncode": 0
+      }
+    },
+    "cache_controls": {
+      "nonempty": {
+        "returncode": 0,
+        "files": {
+          "cache-manifest.json": "58eb94d1d273975e5b9afb432cb09ade7cc127ebc5115b5fcef65b235a777c0f",
+          "registry/cache/index.crates.io-1949cf8c6b5b557f/Inflector-0.11.4.crate": "fe438c63458706e03479442743baae6c88256498e6431708f6dfc520a26515d3",
+          "registry/cache/index.crates.io-6f17d22bba15001f/Inflector-0.11.4.crate": "fe438c63458706e03479442743baae6c88256498e6431708f6dfc520a26515d3",
+          "registry/index/index.crates.io-1949cf8c6b5b557f/.cache/in/fl/inflector": "06020a974f41d341d32cb23f2f3bdce3ac1c063998da889b4830b8202b6a6a91",
+          "registry/index/index.crates.io-1949cf8c6b5b557f/config.json": "2ab400bc26836822d18b877d6c77e6eb473b8e01d81371a1930342a3e4ddeb0e",
+          "registry/index/index.crates.io-6f17d22bba15001f/.cache/in/fl/inflector": "06020a974f41d341d32cb23f2f3bdce3ac1c063998da889b4830b8202b6a6a91",
+          "registry/index/index.crates.io-6f17d22bba15001f/config.json": "2ab400bc26836822d18b877d6c77e6eb473b8e01d81371a1930342a3e4ddeb0e"
+        },
+        "registry_exists": true,
+        "manifest": {
+          "scope": "Existing local archives verified against a fixed Cargo.lock; no network download.",
+          "lockfile_sha256": "5a9e379b2d00139a89597370a3c63237688d4572c3b7fc7ec43c27a223279894",
+          "registry_config_sha256": "2ab400bc26836822d18b877d6c77e6eb473b8e01d81371a1930342a3e4ddeb0e",
+          "packages": [
+            {
+              "package": "Inflector",
+              "version": "0.11.4",
+              "archive_sha256": "fe438c63458706e03479442743baae6c88256498e6431708f6dfc520a26515d3",
+              "index_sha256": "06020a974f41d341d32cb23f2f3bdce3ac1c063998da889b4830b8202b6a6a91"
+            }
+          ]
+        }
+      },
+      "occupied_output": {
+        "returncode": 1,
+        "preserved": true
+      },
+      "missing_archive": {
+        "returncode": 1,
+        "output_created": false
+      },
+      "unsupported_registry": {
+        "returncode": 2,
+        "output_created": false
+      }
+    },
+    "cache_sources_preserved": true
+  },
+  "after": {
+    "build_cases": {
+      "dependency_free": {
+        "lock_returncode": 0,
+        "registry_exists": true,
+        "cache_files": {
+          "cache-manifest.json": "49e413f2fa2767f4dd8b58c498d93904dd5f82c8781b9afd4e9591ddec141e3e"
+        },
+        "manifest": {
+          "scope": "Existing local archives verified against a fixed Cargo.lock; no network download.",
+          "lockfile_sha256": "2615971c60ec04115965fb8dc48dd10bd8218dabfc80f948c845c8de3e71db7f",
+          "registry_config_sha256": null,
+          "packages": []
+        },
+        "pipeline": {
+          "returncode": 0,
+          "compile_returncode": 0,
+          "stage": "complete",
+          "source_unchanged": true,
+          "candidate_sha256": "97d893470423638451c2f822b77354aca30c660ada427234b03fa6f111d7f759"
+        },
+        "empty_registry_control": {
+          "returncode": 0,
+          "compile_returncode": 0,
+          "stage": "complete",
+          "source_unchanged": true,
+          "candidate_sha256": "97d893470423638451c2f822b77354aca30c660ada427234b03fa6f111d7f759"
+        },
+        "plain_cargo": {
+          "returncode": 0,
+          "candidate_sha256": "97d893470423638451c2f822b77354aca30c660ada427234b03fa6f111d7f759"
+        },
+        "caller_source_preserved": true,
+        "prepared_files_preserved": true,
+        "prepare_returncode": 0
+      },
+      "local_path_only": {
+        "lock_returncode": 0,
+        "registry_exists": true,
+        "cache_files": {
+          "cache-manifest.json": "4e7a80fa3f983c55852936f959293c8ce7e1b44bc503fd8002b25a60cba545ce"
+        },
+        "manifest": {
+          "scope": "Existing local archives verified against a fixed Cargo.lock; no network download.",
+          "lockfile_sha256": "a45cb4eb207f9c1cb989bc33570ab49ca50d1d168d96e51194559d21a850ff7e",
+          "registry_config_sha256": null,
+          "packages": []
+        },
+        "pipeline": {
+          "returncode": 0,
+          "compile_returncode": 0,
+          "stage": "complete",
+          "source_unchanged": true,
+          "candidate_sha256": "782849b0d07278f3b7e29ea63d0a3e5a572ae91374da93f7b631df874f212617"
+        },
+        "empty_registry_control": {
+          "returncode": 0,
+          "compile_returncode": 0,
+          "stage": "complete",
+          "source_unchanged": true,
+          "candidate_sha256": "782849b0d07278f3b7e29ea63d0a3e5a572ae91374da93f7b631df874f212617"
+        },
+        "plain_cargo": {
+          "returncode": 0,
+          "candidate_sha256": "782849b0d07278f3b7e29ea63d0a3e5a572ae91374da93f7b631df874f212617"
+        },
+        "caller_source_preserved": true,
+        "prepared_files_preserved": true,
+        "prepare_returncode": 0
+      }
+    },
+    "cache_controls": {
+      "nonempty": {
+        "returncode": 0,
+        "files": {
+          "cache-manifest.json": "58eb94d1d273975e5b9afb432cb09ade7cc127ebc5115b5fcef65b235a777c0f",
+          "registry/cache/index.crates.io-1949cf8c6b5b557f/Inflector-0.11.4.crate": "fe438c63458706e03479442743baae6c88256498e6431708f6dfc520a26515d3",
+          "registry/cache/index.crates.io-6f17d22bba15001f/Inflector-0.11.4.crate": "fe438c63458706e03479442743baae6c88256498e6431708f6dfc520a26515d3",
+          "registry/index/index.crates.io-1949cf8c6b5b557f/.cache/in/fl/inflector": "06020a974f41d341d32cb23f2f3bdce3ac1c063998da889b4830b8202b6a6a91",
+          "registry/index/index.crates.io-1949cf8c6b5b557f/config.json": "2ab400bc26836822d18b877d6c77e6eb473b8e01d81371a1930342a3e4ddeb0e",
+          "registry/index/index.crates.io-6f17d22bba15001f/.cache/in/fl/inflector": "06020a974f41d341d32cb23f2f3bdce3ac1c063998da889b4830b8202b6a6a91",
+          "registry/index/index.crates.io-6f17d22bba15001f/config.json": "2ab400bc26836822d18b877d6c77e6eb473b8e01d81371a1930342a3e4ddeb0e"
+        },
+        "registry_exists": true,
+        "manifest": {
+          "scope": "Existing local archives verified against a fixed Cargo.lock; no network download.",
+          "lockfile_sha256": "5a9e379b2d00139a89597370a3c63237688d4572c3b7fc7ec43c27a223279894",
+          "registry_config_sha256": "2ab400bc26836822d18b877d6c77e6eb473b8e01d81371a1930342a3e4ddeb0e",
+          "packages": [
+            {
+              "package": "Inflector",
+              "version": "0.11.4",
+              "archive_sha256": "fe438c63458706e03479442743baae6c88256498e6431708f6dfc520a26515d3",
+              "index_sha256": "06020a974f41d341d32cb23f2f3bdce3ac1c063998da889b4830b8202b6a6a91"
+            }
+          ]
+        }
+      },
+      "occupied_output": {
+        "returncode": 1,
+        "preserved": true
+      },
+      "missing_archive": {
+        "returncode": 1,
+        "output_created": false
+      },
+      "unsupported_registry": {
+        "returncode": 2,
+        "output_created": false
+      }
+    },
+    "cache_sources_preserved": true
+  },
+  "comparison": {
+    "cache_file_maps_identical": true,
+    "complete_manifests_identical": true,
+    "nonempty_files_identical": true,
+    "nonempty_manifest_identical": true,
+    "plain_and_control_and_fixed_pipeline_hashes_identical": true
+  },
+  "consumer_revision": "599891304e83e853ec723dc1417550bef4e1c074",
+  "integration": {
+    "consumer_revision": "7fd3fe422d920ec3cef8eb138791d70a1bd2acdc",
+    "source_sha256": {
+      "scripts/prepare_locked_cargo_home.py": "81230f4f50a8d8ffa45f5be0653c90a6d07a483ba360c9d70a4cad26635575cd",
+      "scripts/build_supported_sbpf_candidate.py": "3ed5e4e5b927cee13b550437840a1cfb33e7885e8fb6216dcb2dc120fb2951fc",
+      "scripts/build_source_manifest.py": "ae80aa7894424e1283bd85f02fa5748a8bc92eb044b81ba53d2d3cdc36706ecc",
+      "scripts/supported_sbpf_policies/v1.53.json": "ba7d7e9cfb917ba15f9f96eca5182d6bb02f52b41affddde1c1f9ba6a211fba7"
+    },
+    "all_checks_passed": true,
+    "pipeline_hashes": {
+      "dependency_free": "97d893470423638451c2f822b77354aca30c660ada427234b03fa6f111d7f759",
+      "local_path_only": "782849b0d07278f3b7e29ea63d0a3e5a572ae91374da93f7b631df874f212617"
+    },
+    "candidate_hashes_equal_to_exact_base_consumer": true
+  }
+}

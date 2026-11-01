@@ -444,7 +444,23 @@ shutil.copyfile = copy
             self.assertEqual(manifest['packages'], [])
             self.assertIsNone(manifest['registry_config_sha256'])
             self.assertEqual(manifest['lockfile_sha256'], hashlib.sha256(lock.read_bytes()).hexdigest())
-            self.assertFalse((output / 'registry').exists())
+            self.assertTrue((output / 'registry').is_dir())
+            self.assertEqual(list((output / 'registry').iterdir()), [])
+            self.assertFalse((root / 'absent-cargo-home').exists())
+
+    @unittest.skipUnless(sys.platform == 'darwin' and os.environ.get('PUMP_SUPPORTED_TEST_TOOLS'),
+                         'requires authenticated v1.53 SDK and pinned v1.52 objcopy')
+    def test_supported_build_accepts_prepared_local_only_caches(self):
+        repo = Path(__file__).resolve().parents[1]
+        with tempfile.TemporaryDirectory(prefix='empty-cache-sdk-test-') as temporary:
+            output = Path(temporary) / 'result.json'
+            result = subprocess.run([sys.executable, '-B',
+                str(repo / 'research/empty-registry-cache-20261101/probe.py'), '--repo', str(repo),
+                '--tools', os.environ['PUMP_SUPPORTED_TEST_TOOLS'], '--expect', 'fixed', '--output', str(output)],
+                capture_output=True, text=True, timeout=180)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            record = json.loads(output.read_text())
+            self.assertEqual(set(record['build_cases']), {'dependency_free', 'local_path_only'})
 
     def test_supported_cache_namespaces_supply_configuration(self):
         for namespace in ('index.crates.io-1949cf8c6b5b557f', 'index.crates.io-6f17d22bba15001f'):

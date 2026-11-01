@@ -1,0 +1,40 @@
+{
+  "revision": "1647da0f22312730b2e6b3eec7a468d9d3d89041",
+  "build_tools": [
+    "reconstruction/harness/fastbuild.py",
+    "reconstruction/harness/source_inputs.py",
+    "reconstruction/harness/build_process.py",
+    "reconstruction/harness/link_order.py"
+  ],
+  "scoring_inputs": [
+    "reconstruction/harness/score.py",
+    "reconstruction/harness/score_admission.py",
+    "reconstruction/harness/elf_symbols.py",
+    "reconstruction/harness/instruction_stream.py",
+    "reconstruction/harness/llvm_tools.py",
+    "reconstruction/harness/original_input.py",
+    "reconstruction/harness/target_metric.py",
+    "reconstruction/harness/win.py",
+    "reconstruction/harness/compare_scores.py",
+    "reconstruction/base/functions.tsv",
+    "evidence/original/pump/deployed.so"
+  ],
+  "sha256": {
+    "reconstruction/harness/fastbuild.py": "c98de708d063186373b092de893235bef4dd9cf62940fd9c47fadae461efed00",
+    "reconstruction/harness/source_inputs.py": "6fde8e438f119aa3ecf003bc71a12fb7da0640cfea241216cba47a242e8cd2fc",
+    "reconstruction/harness/build_process.py": "88b61b7dfecd077f97f3a093b9348078067f9fdea07d9efccb0cb324d094d517",
+    "reconstruction/harness/link_order.py": "53de3cf5e6ff004b03319dc530ef4902d3b67734aced025fbc1957846d452e81",
+    "reconstruction/harness/score.py": "6eae59ba87809bdd6aa42d6227c5598d8ea2196051bf0d796e8020bdb14df714",
+    "reconstruction/harness/score_admission.py": "885b4b55229e3d87086b93c4e8227da8e4ec2713ccd6691fa40a7538d66c3a45",
+    "reconstruction/harness/elf_symbols.py": "f7a69a4b5324959398365b63f20ea9dda8eab223d8790a608c778549d3b966c0",
+    "reconstruction/harness/instruction_stream.py": "288c9ceb3f0f177688501922ce56e6a72fe9c3fedcddf9ad1de474412f61ef9d",
+    "reconstruction/harness/llvm_tools.py": "306a50b2ba57f350e250d7c7f596ac400627ecfd24248b2291578b5ddf3fe8af",
+    "reconstruction/harness/original_input.py": "9d00b5c253405cec4d2ef292086c6e88d758bd3fe7f8c6a3cba23af114f01ade",
+    "reconstruction/harness/target_metric.py": "46fb70ae6d40f93d5e4d3bf864bae492be61d5b1294e38742812e3bbc26369ed",
+    "reconstruction/harness/win.py": "46217d8a5f49fb8731e60dedc849bd890c15d3a20307797626c5cd4a0f33e6a5",
+    "reconstruction/harness/compare_scores.py": "e59024567db9b2373fe01d377f42308554434d182f5981153cd6814412245b74",
+    "reconstruction/base/functions.tsv": "fb2c0a47514567d65eb45c1e268dacd5291e4659bb7dceb575a767dc20bcaff8",
+    "evidence/original/pump/deployed.so": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d"
+  },
+  "python": "Python 3.13.12"
+}
