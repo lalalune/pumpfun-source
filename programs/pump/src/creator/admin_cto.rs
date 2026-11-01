@@ -661,7 +661,7 @@ fn validate(st:&CtoState,hopt:Option<bool>,fee:Option<u64>,new:&Option<Pubkey>,h
 
   let vsigner:[&[&[u8]];1];let bump=ctx.bumps.creator_vault;let old=a.current_creator.key();let vaultseeds:&[&[u8]]=&[b"creator-vault",old.as_ref(),&[bump]];vsigner=[vaultseeds];
   if native{let min={let rent=Rent::get()?;rent.minimum_balance(0)};let amount=a.creator_vault.lamports().saturating_sub(min);
-   (if amount>0{unsafe{core::ptr::read_volatile(holder_key as *const Pubkey as *const u8)}/*shim: holder_key byte read placeholder*/;crate::legacy_buy::native_payments::ensure_rent_exempt(&a.system_program,&a.admin_set_creator_authority,&a.holder_creator_vault)?;crate::collect_v2::transfer_native(a.system_program.as_ref(),&a.creator_vault,&a.holder_creator_vault,amount,&vsigner)}else{Ok(())}).map(|()|amount)}else{let frozen=token_frozen(a.creator_vault_quote_token_account.as_ref())?;let amount=token_raw_amount(a.creator_vault_quote_token_account.as_ref())?;
+   (if amount>0{crate::legacy_buy::native_payments::ensure_rent_exempt(&a.system_program,&a.admin_set_creator_authority,&a.holder_creator_vault)?;crate::collect_v2::transfer_native(a.system_program.as_ref(),&a.creator_vault,&a.holder_creator_vault,amount,&vsigner)}else{Ok(())}).map(|()|amount)}else{let frozen=token_frozen(a.creator_vault_quote_token_account.as_ref())?;let amount=token_raw_amount(a.creator_vault_quote_token_account.as_ref())?;
 
 
 
@@ -755,7 +755,7 @@ fn validate(st:&CtoState,hopt:Option<bool>,fee:Option<u64>,new:&Option<Pubkey>,h
   curve.is_holder_reward=holder.unwrap_or(false);
   unsafe{core::ptr::addr_of_mut!(curve.is_cashback_coin).cast::<u8>().write(core::ptr::read_volatile(hkb.add(7).cast::<u8>()))};/*shim: cashback flag byte stored back unmasked*/
   if unsafe{pt1(30,*(&fee as *const Option<u64> as *const u64)!=0)}/*shim: passthrough on the raw fee tag test (keeps the jne tag,0 form)*/{curve.creator_fee_bps=unsafe{fee.unwrap_unchecked()};}
-  unsafe{core::ptr::read_volatile(holder_key as *const Pubkey as *const u8)}/*shim: holder_key byte read placeholder*/;curve.can_edit_creator_fee=false;
+  curve.can_edit_creator_fee=false;
  (old_creator,old_fee)};
  let a=&ctx.accounts;
  let cvk=unsafe{core::ptr::read_volatile(&a.bonding_curve as *const Box<Account<BondingCurve>> as *const *const u8)}/*shim: curve pointer held in a register from the pool gate to the event (its range steers the tail colours as the original swept range does)*/;let pool_updated=a.pool.owner==&AMM && !unsafe{core::ptr::read_volatile(core::mem::transmute::<&&mut AdminCto,*const &AdminCto>(a))}/*shim: reload the accounts pointer for the pool data_is_empty test*/.pool.data_is_empty();let pargs=(target,a.bonding_curve.is_holder_reward,fee);
