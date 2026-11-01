@@ -51,5 +51,5 @@ pub use crate::instructions::v1::recover_bridge_payment::*; pub(crate) use crate
 pub use crate::events::v1::bridge_donation_admitted::*;
 pub use crate::events::v1::bridge_payment_recovered::*;
 pub use crate::events::v1::donation_epoch_processed_exact::*;
-#[derive(AnchorSerialize,AnchorDeserialize,Clone)]
+#[derive(AnchorSerialize,AnchorDeserialize,Clone,Copy)]
 pub struct ExactTransfer {pub share_type:ShareType,pub address:Pubkey,pub amount:u64}
