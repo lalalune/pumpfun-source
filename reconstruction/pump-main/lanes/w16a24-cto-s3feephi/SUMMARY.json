@@ -1,0 +1,52 @@
+{
+  "lane": "w16a24-cto-s3feephi",
+  "waves": "w16 (died at the 2026-11-01 02:30 UTC app restart), continued in w17 on the shim track",
+  "target": {"window": "0x22a10", "function": "admin_cto::execute", "file": "programs/pump/src/creator/admin_cto.rs", "pinned_bytes": 27400},
+  "base": {"main": "599891304 (merged to 1647da0f2, programs/pump/src unchanged)", "ratio": 0.67436, "M": 2251, "slots_diff": 3141, "bytes": 27400, "S3n_stacked_ceiling": 2347, "ftcT_pass2_joint": 2342},
+  "result": "notes only; kill test holds for ordinary-source and shim spellings of the fee-tag phi",
+  "best_zero_loss": {"ratio": 0.67436, "slots_diff": 3141, "bytes": 27400, "note": "main; no cell of this lane beats it"},
+  "landed": false,
+  "ledger": {"approach": "s3feephi", "key_pattern": "0x22a10-w16-5998913-s3feephi-<cell>-v1"},
+  "original_fee_dataflow": {
+    "value": "entry slot [r10-0x930]; range check orig 0x1648, 757 store 0x4ba0, pool CPI stack arg [r10-0xff8] at 0x4dd8 (same as main)",
+    "tag": "ONE phi of constants in r7: mov64 r7,1 in the range-check OK block (0x1810), mov64 r7,0 at 0x0e48/0x1108/0x14f8; spilled to [r10-0x8e8] at 0x1998; reloaded for the 757 test (0x4b80, jne r1,0) and the pool CPI tag [r10-0x1000] (0x4dc8)",
+    "main": "keeps the entry tag %fee.0 live from the entry spill [r10-0x8e8]; the OK block holds only the line-338 read_volatile (ldxb r1,[r10-0x6a0])"
+  },
+  "cells": [
+    {"cell": "fo", "bytes": 27240, "M": 2050, "note": "byte-identical to w16a12 ftc/ftt"},
+    {"cell": "fo8", "bytes": 27232, "M": 2060, "note": "338 placeholder dropped"},
+    {"cell": "fo84", "bytes": 27224, "M": 2063, "note": "both placeholders dropped"},
+    {"cell": "foT", "bytes": 27304, "M": 1863},
+    {"cell": "s3fo", "bytes": 27296, "M": 1949, "Mperm": 2159, "Mhc": 2165, "ra_pass1": {"M": 2104, "forces": 7, "joint_Mhc": 2210}},
+    {"cell": "s3fo8", "bytes": 27472, "M": 1581, "note": "collapse"},
+    {"cell": "s3foT", "bytes": 27248, "M": 1916, "Mperm": 2104, "Mhc": 2126},
+    {"cell": "ir_1phi_fo", "bytes": 27240, "M": 2084, "note": "llc oracle: fo's two tag phis merged (+34)"},
+    {"cell": "ir_1phi_s3fo", "bytes": 27288, "M": 2043, "note": "llc oracle (+94)", "ra_pass1": {"M": 2157, "forces": 7, "joint_Mperm": 2236, "joint_Mhc": 2241}},
+    {"cell": "ir_1phi_s3foT", "bytes": 27216, "M": 2014},
+    {"cell": "ir_1phi_foT", "bytes": 27192, "M": 1973},
+    {"cell": "fb (shim: bool flag + unwrap_unchecked)", "bytes": 27288, "M": 2080},
+    {"cell": "s3fb (shim)", "bytes": 27352, "M": 2036, "note": "+46 over S3n raw 1,990"},
+    {"cell": "fb8 (shim, 338 dropped)", "bytes": 27280, "M": 2057},
+    {"cell": "s3fb8 (shim, 338 dropped)", "bytes": 27536, "M": 1589, "note": "collapse"},
+    {"cell": "s3fbx (shim transmute tag)", "bytes": 27288, "M": 1946, "note": "zext folded into a second phi"},
+    {"cell": "s3fbo (shim transmute Option)", "bytes": 27296, "M": 1949, "note": "byte-identical to s3fo"},
+    {"cell": "fe (*fo=fee)", "bytes": 27392, "M": 2244, "note": "LLVM folds the phi back to %fee.0: main data flow at -8 B"},
+    {"cell": "s3fe", "bytes": 27408, "M": 1989, "note": "-8 B knob at -1 M on S3n"}
+  ],
+  "mechanisms": [
+    "InstCombine splits a constant-incoming tag phi with any cast/compare user into a second phi (i1 for the 757 branch, i64 for the pool tag); the original has one tag; merging them is +34 (fo) / +94 (s3fo) at the IR level",
+    "On main, fo/fb flip the block placement at the sharing_update None test (curve update laid out before the sharing CPI, rfj -45 at orig 0x4800); branch weights on that test do not move it; S3n+fo does not flip",
+    "fb (bool flag, pool tag rebuilt through a branch) is the only spelling that keeps one flag phi, at +48 B against the merged-phi oracle",
+    "S3 + dropping the 338 placeholder collapses in every fee form (s3fo8, s3fb8)"
+  ],
+  "rejected": ["fo", "fo8", "fo84", "foT", "s3fo", "s3fo8", "s3foT", "fb", "fb8", "s3fb8", "s3fbx", "s3fbo", "fe", "s3fe", "branch weights on the sharing test"],
+  "unresolved": [
+    "How the original keeps one tag phi through InstCombine",
+    "Which MachineBlockPlacement input flips the curve-update block on main+fo"
+  ],
+  "next_ideas": [
+    "A spelling whose OK-path tag is proven 1 only after InstCombine's last run (between fe, which folds the phi away, and fo, which splits it)",
+    "Find the block-frequency change behind the main+fo placement flip before trying a source lever",
+    "S3 lanes: fe is a -8 B knob at -1 M on S3n; fb raises S3n raw M by 46"
+  ]
+}
