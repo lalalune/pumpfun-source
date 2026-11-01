@@ -1,0 +1,104 @@
+{
+ "lane": "w16a08-cto-basinbound",
+ "wave": 16,
+ "target": {
+  "window": "0x22a10",
+  "function": "admin_cto::execute",
+  "file": "programs/pump/src/creator/admin_cto.rs",
+  "pinned_bytes": 27400
+ },
+ "base": {
+  "main": "9bd38c7d5",
+  "ratio": 0.67376,
+  "slots_diff": 3124,
+  "M": 2249,
+  "Mperm": 2293,
+  "Mhc": 2300,
+  "joint_pass1": 2328,
+  "joint_pass2": 2338,
+  "note": "main moved to 1f4e396b5 (#3859, 0.67436) and 599891304 during the lane; the stacked table is measured against the frozen 9bd38c7 capture m0 (eq_main true)"
+ },
+ "result": "notes only, no source change; main remains the best zero-loss measurement",
+ "best_zero_loss": {
+  "ratio": 0.67376,
+  "slots_diff": 3124,
+  "bytes": 27400,
+  "source": "main 9bd38c7 (unchanged)"
+ },
+ "pr": 3876,
+ "ledger": {
+  "approach": "basinbound",
+  "keys": "0x22a10-w16-9bd38c7-basinbound-<basin>-v1 (17 rows), 0x22a10-w16-5998913-basinbound-{m0n,S3n}-v1"
+ },
+ "stacked_ceilings_vs_main_2338": {
+  "e1 (= S3 source, per-arm flag out-param + event from holder arg)": 2354,
+  "S1 (per-arm flag as validate tuple, two 8 B alloca bands unshifted by oracle)": 2342,
+  "hc (= S4 source, per-arm flag without the event carrier; collapsed, layout restored)": 2336,
+  "F2 (BPI-only outline probe, not landable, 26,920 B)": 2302,
+  "v26": 2204,
+  "B2": 2194,
+  "T289n": 2189,
+  "v21": 2167,
+  "ov1a": 2154,
+  "X1": 2120,
+  "v14": 2119,
+  "Y2": 2100,
+  "Z2": 2099
+ },
+ "handoff": {
+  "basin": "per-arm holder flag, ordinary source S3 (tools/../e/S3n.py): validate(.., hf:&mut bool) with *hf=true / *hf=false per arm, curve.is_holder_reward=_holder (=hf via the block tuple), event is_holder_reward:holder.unwrap_or(false)",
+  "byte_identical_to": "w14a142 IR e1 (hphi+hcs+hev); S3 without the event carrier (S4) is byte-identical to w14a142 hc",
+  "stacked_ceiling": 2354,
+  "real_build_main_5998913": {
+   "ratio": 0.59599,
+   "bytes": 27416,
+   "normalized": 1034,
+   "normalized_losses": 0,
+   "raw": 347,
+   "raw_losses": 687,
+   "differential": "388 cases, 0 mismatches"
+  },
+  "decisive_forces": "1739=r9 (post-sweep Result payload in the original's r9; main's 1729=r9 collapses to 0.59083), 1691=r6, 469=r2, 1678=r7, 1285=r2, 2198=r5, 2195=r6, 1713=r4, 2151=r9; pass 2: 1847=r5 (orig 0x2ae8, %161 split child), 2116=r6, 1087=r5, 1709=r3, 1749=r3",
+  "blocker": "spill-slot numbering: unforced M 1,994 vs Mperm 2,293 (main 2,249 / 2,293); the flag's extra spill slot shifts later slots by 8. The original keeps its flag at [r10-0x950] (-2384).",
+  "size_budget": "+24 B on 9bd38c7, +16 B on 5998913; faithful -16 B knobs exist in sizeknobs-cto.json (g_rent_ref, g_rent_named, g_s7_rentlocal), untested here",
+  "current_main_5998913": {
+   "main": {
+    "M": 2251,
+    "Mperm": 2295,
+    "Mhc": 2302,
+    "joint_pass1": 2329,
+    "joint_pass2": 2339
+   },
+   "S3n": {
+    "M": 1990,
+    "Mperm": 2289,
+    "Mhc": 2296,
+    "joint_pass1": 2308,
+    "joint_pass2": 2347,
+    "delta_vs_main": 8,
+    "forces": "1739=r9,1691=r6,469=r2,1678=r7,1285=r2,2195=r6,2198=r5,1847=r5,1959=r5,1713=r4,1709=r3,1749=r3,2154=r9"
+   }
+  }
+ },
+ "killed": "threaded outline triggers (T289n, X1, Y2, Z2, B2), and-1 basins (v14, v21, v26) and ov1a: stacked ceilings 134-239 M below 2,338; true LCS rf- (perfect RA and frame) 34-124 tokens below main",
+ "mechanisms": [
+  "every collapsed basin carries exactly one extra bb56.i live-in: r5 = the accounts pointer (8 reloads + 4 COPY r6 feeders); never the sharing tag or a holder flag (w15a20's ov1a attribution read slot -2272 against main's numbering; ov1a's frame is 8 B deeper)",
+  "T289n/B2/Y2/v14/v21/v26/ov1a keep execute's args=&(new,) copy (%_45.sroa.5, 32 B), coloured into the target.i.sroa.0 slot at -0x548: (-0x8e0,-0x548] moves 8 B deeper",
+  "on T289n the first RA force is 245=r8: %0 (accounts pointer) stays unsplit in r8 over [96..67296], so wallet()'s accounts copy (orig 0x20e8 add64 r8,72) is r6",
+  "the per-arm flag lets the post-sweep Result payload take r9 (the original's register): +0.054 alone on e1/S3, a collapse on main"
+ ],
+ "rejected": [
+  "threaded outline triggers T289n X1 Y2 Z2 B2 as bases",
+  "and-1 basins v14 v21 v26 as bases",
+  "ov1a as a base",
+  "S1 tuple form as written (two 8 B alloca band shifts: authority_bump 1 B slot leaves -0x1, target.sroa.0 disappears)",
+  "S0 event carrier alone (0.67246 @27,408, -4 true LCS)"
+ ],
+ "next_ideas": [
+  "S3 spill numbering: find an ordinary spelling whose greedy spill order gives the flag the original's [r10-0x950] slot (w15a08 J1 move) instead of inserting it mid-numbering; price with permhc and the restore-aware climb (tools/full.sh)",
+  "ordinary levers for 1739=r9 (payload in r9 at the post-sweep joins) and 1847=r5 on S3",
+  "then repay +16 B with a faithful -16 B knob (g_rent_ref / g_rent_named / g_s7_rentlocal) and run measure.sh + the differential",
+  "reuse tools/llcw.py and tools/ares.py to price any variant at main's layout under RA forces"
+ ],
+ "unresolved_residuals": "validate rf- loss of the threaded triggers (0x800 -42, 0x1000 +17..+22); S3's spill-slot numbering; S1's two alloca band shifts"
+}

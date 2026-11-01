@@ -6,18 +6,37 @@ joint Mhc 2,338 (#3746). Main moved to 1f4e396b5 during the lane (#3859, sweep g
 is measured against the 9bd38c7 main capture `m0` (`eq_main: true`), so the table is self-consistent.
 Ledger: approach `basinbound`, keys `0x22a10-w16-9bd38c7-basinbound-<basin>-v1`.
 
-**Result: notes only, no source change; main is still the best zero-loss measurement (0.67376 @ 27,400 on 9bd38c7).**
-- **Kill (threaded and and-1 basins, ov1a):** after the placement restore, the frame normalisation and a restore-aware
-  sticky RA climb, every threaded outline trigger (T289n, X1, Y2, Z2, B2), every and-1 basin (v14, v21, v26) and ov1a
-  stays 140-240 M below main's 2,338. Their perfect-RA-and-frame skeleton (true LCS `rf-`) is also 34-124 tokens below
-  main's, so no RA or frame lever can lift them. They are closed as bases.
-- **Per-arm holder flag basin (w14a142): not killed.** Its uncollapsed IR form `e1` (hphi+hcs+hev) stacks to **2,354, +16
-  over main's 2,338** measured by the same pipeline (the pipeline reproduces w15a28's main numbers exactly). The collapsed
-  form `hc` stacks to __HC__. The ordinary-source form `S1` (w14a142 tv1 + event `is_holder_reward` from the holder argument)
-  has e1's code and main's layout, with an 8 B frame shift: __S1__.
-- Mechanism (all collapsed basins): the extra `bb56.i` live-in is always **r5 = the accounts pointer** (8 reloads + 4
-  `COPY killed $r6` feeders), not the sharing tag and not a holder flag. ov1a included: w15a20 read its `-2272` against main's
-  slot numbering, but ov1a's frame is 8 B deeper, so `-2272` is its accounts slot.
+**Result: notes only, no source change. Main is still the best zero-loss measurement (0.67376 @ 27,400 on 9bd38c7;
+0.67436 on 1f4e396/5998913). One basin clears main's stacked ceiling, and it has an ordinary source spelling (handoff below).**
+
+- **Handoff: the per-arm holder flag basin, `S3`.** `validate` takes an out-parameter `hf:&mut bool`, sets `*hf=true` in the
+  holder arm and `*hf=false` in the non-holder arm; execute stores `curve.is_holder_reward` from it, and the event's
+  `is_holder_reward` reads `holder.unwrap_or(false)`. That is ordinary Rust (no volatile, hint or dummy access), and it is
+  **byte-identical to w14a142's IR-only `e1`** (hphi+hcs+hev). Its stacked ceiling is **2,354, +16 over main's 2,338**,
+  measured by the same pipeline. The pipeline reproduces w15a28's main numbers exactly: pass 1 gives 7 forces, M 2,277 and
+  joint 2,328; pass 2 gives 9 forces, M 2,282 and joint 2,338. **On current main 5998913, S3 stacks to 2,347 against
+  main's 2,339 (+8).**
+  - The decisive RA difference: in S3/e1 the post-sweep Result payload can take the original's **r9** (force `1739=r9`,
+    +0.054 alone). On main the same force (`1729=r9`) collapses to 0.59083. Pass 2 adds `1847=r5` (sweep, orig 0x2ae8,
+    +0.015).
+  - Real build on main 5998913 (`measure.sh`): admin_cto 0.59599 @ 27,416 B, normalized 1034 with 0 losses, raw 687 losses
+    (+16 B). The 363-case differential passes (388 cases, 0 mismatches). It is **not landable as is**. Its raw loss is
+    spill-slot numbering: M 1,990, Mperm 2,289, Mhc 2,296, against that main's 2,251 / 2,295 / 2,302. The flag's spill slot
+    shifts the later slots by 8 (w14a142).
+    It also needs the RA forces, and it must give back 16 B.
+  - `S4` (S3 without the event carrier) is byte-identical to w14a142's collapsed `hc`. Restored, it stacks to 2,336 (-2).
+- **Kill: the threaded and and-1 basins, and ov1a.** After the placement restore, the frame normalisation and a
+  restore-aware sticky RA climb:
+  - every threaded outline trigger (T289n, X1, Y2, Z2, B2), every and-1 basin (v14, v21, v26) and ov1a stays **134-239 M
+    below** main's 2,338;
+  - their perfect-RA-and-frame skeleton (true LCS `rf-`) is also 34-124 tokens below main's, so no RA or frame lever can
+    lift them.
+
+  They are closed as bases. F2, the BPI-only outline probe, which is not landable, reaches 2,302 (-36) at 26,920 B.
+- **Mechanism of every collapse.** The extra `bb56.i` live-in is always **r5 = the accounts pointer** (`ctx.accounts`,
+  spilled at entry right after the `[r10-720]` store). It is fed by 8 reloads and 4 `COPY killed $r6`, in all 10 collapsed
+  basins. It is never the sharing tag and never a holder flag. ov1a is included: w15a20 read its `-2272` against main's slot
+  numbering, but ov1a's frame is 8 B deeper, so `-2272` is ov1a's accounts slot.
 
 ## Method (all oracles, no build slot after the 11 raw-IR captures)
 
@@ -41,18 +60,148 @@ Ledger: approach `basinbound`, keys `0x22a10-w16-9bd38c7-basinbound-<basin>-v1`.
      climbed force set is scored at main's layout (`screen_r.py`, `sclimb_r.py` are w14a84's with this llc).
    - Joint: `permhc.py` (and `shperm.py` for shifted frames) on the final forced restored build.
 
-__TABLE__
+## 1. Stacked-bound table (main 9bd38c7; M = matched masked tokens, as the scorer counts them)
 
-__FINDINGS__
+- **M restored**: `ares.py` placement restore.
+- **Frame bound**: `shperm.py` with the alloca band unshifted, then the best spill perm and swap climb; plain `permhc` Mhc
+  where the frame equals main's.
+- **RA pass 1 / 2**: the restore-aware sticky climb. M is that of the forced, restored build, with the force count.
+- **Stacked ceiling**: the joint (`permhc`, or `shperm` for shifted frames) on the final forced restored build.
+
+| basin | bytes raw / restored | M raw | M restored | extra bb56.i live-in (slot) | frame bound | RA pass 1: M @ bytes (forces) | RA pass 2 | stacked ceiling | vs 2,338 |
+| --- | --- | ---: | ---: | --- | ---: | --- | --- | ---: | ---: |
+| m0 | 27400 / 27400 | 2249 | 2249 | - | 2300 | 2277 @27376 (7) | 2282 @27376 (+2) | 2338 | +0 |
+| e1 | 27424 / 27424 | 1994 | 1994 | - | 2300 | 2206 @27312 (9) | 2274 @27312 (+5) | 2354 | +16 |
+| hc | 27520 / 27464 | 1724 | 2040 | r5 (-2264) | 2205 | 2210 @27472 (5) | 2258 @27424 (+10) | 2336 | -2 |
+| F2 | 26920 / 26920 | 2186 | 2186 | - | 2261 | 2208 @26912 (5) | 2220 @26920 (+4) | 2302 | -36 |
+| X1 | 26992 / 26936 | 1548 | 1926 | r5 (-2264) | 2013 | 2038 @26912 (6) | - | 2120 | -218 |
+| T289n | 27008 / 26952 | 1410 | 1814 | r5 (-2272) | 2046 | 2024 @26968 (10) | - | 2189 | -149 |
+| B2 | 26960 / 26904 | 1438 | 1844 | r5 (-2272) | 2046 | 2053 @26928 (11) | - | 2194 | -144 |
+| Y2 | 26960 / 26904 | 1411 | 1658 | r5 (-2272) | 1988 | 2021 @26888 (10) | - | 2100 | -238 |
+| Z2 | 27016 / 26960 | 1471 | 1803 | r5 (-2264) | 1995 | 2027 @26944 (6) | - | 2099 | -239 |
+| v14 | 27416 / 27360 | 1372 | 1617 | r5 (-2272) | 2058 | 1841 @27336 (4) | - | 2119 | -219 |
+| v21 | 27416 / 27360 | 1438 | 1777 | r5 (-2272) | 2110 | 2029 @27392 (5) | - | 2167 | -171 |
+| v26 | 27440 / 27384 | 1448 | 1853 | r5 (-2272) | 2061 | 2062 @27400 (10) | - | 2204 | -134 |
+| ov1a | 27448 / 27392 | 1426 | 1763 | r5 (-2272) | 2095 | 2017 @27424 (5) | - | 2154 | -184 |
+| **S3** (source, = e1 byte for byte) | 27424 / 27424 | 1994 | 1994 | - | 2300 | = e1 | = e1 | **2354** | **+16** |
+| S4 (source, = hc byte for byte) | 27520 / 27464 | 1724 | 2040 | r5 (-2264) | 2205 | = hc | = hc | 2336 | -2 |
+| S1 (source tuple form; two 8 B alloca bands unshifted by the oracle) | 27424 / 27424 | 1358 | 1358 | - | 2297 | 2243 (unshifted) @27400 (6, = main's 6) | 2262 (unshifted) @27400 (+3, = main's) | 2342 | +4 |
+| S0 (event carrier alone) | 27408 / 27408 | 2245 | 2245 | - | 2297 | - | - | - | - |
+
+- The kill threshold (2,338 - 40 = 2,298) is cleared only by e1/S3 (2,354) and hc/S4 (2,336). F2 (2,302) is the
+  non-landable BPI probe.
+- Placement share of each collapse (M restored - M raw): +245 to +406 M. Frame share (frame bound - M restored): +87 to
+  +441 M. RA share (pass-1 M - M restored): +112 to +363 M for the threaded and and-1 basins (T289n +210 with 10 forces),
+  against main's +28.
+- Per orig chunk, after the restore the threaded triggers keep validate's own true-LCS rfj loss (0x800 -42, 0x1000 +17..+22,
+  `data/evc3-restored.txt`). Elsewhere they are within -2..-8 of main. v14 keeps a second move at 0x4800 (-43).
+- True LCS by mask after the restore (`data/evm-restored.txt`): T289n `---` -303, `r--` -204, `-f-` -174, `rf-` -54,
+  `rfj` -35. With registers and frame both perfect, every threaded or and-1 basin stays 34-124 tokens below main
+  (`rf-`). Only e1/S3 ties main's skeleton (`rf-` 0, `rfj` +1).
+
+## 2. Why the collapsed basins stay low after the restore
+
+- **Placement.** One extra live-in, r5 = the accounts pointer, makes the branch-folder tail merge split `bb56.i`. MBP
+  then hoists the 6 KB sharing/event/pool/curve chunk ahead of the sweep body (w15a20, w14a142). `ares.py` undoes this
+  in every basin: the sharing call returns to main's place, and rfj vs main goes from -527..-579 to -12..-59
+  (v14 -108, which keeps a second move at 0x4800).
+- **Frame.** T289n, B2, Y2, v14, v21, v26 and ov1a keep execute's `args=&(new,)` copy as `%_45.sroa.5 = alloca [32 x i8]`
+  (w15a25). It is coloured into the 7 B `target.i.sroa.0` slot at -0x548 and pushes (-0x8e0,-0x548] 8 B deeper. The spill
+  range becomes -0xc38..-0x8e0. X1 (copy forwarded), Z2, F2 and hc have main's frame. Undoing the shift is worth +1 (Y2) to
+  +167 M (`shperm.py <rx> 0x8e0 0x548 8`).
+- **RA.** On T289n the first force is `245=r8`, the accounts-pointer copy in `wallet()` (orig 0x20e8 `add64 r8,72`).
+  `dbgocc.py` shows why ours is r6: at its `selectOrSplit`, r8 holds `%0` (the accounts pointer), unsplit over
+  [96..67296]. This is w15a28's GPF `%249` mechanism and w15a25's "r6 instead of the accounts pointer". Next come `1286=r1`
+  (sharing-CPI clone run 0x40a0), `4=r9` (head 0x140-0x478) and `1636=r9` (Result payload). B2 picks the same chain. The
+  climb recovers about 210 M, but the remaining validate skeleton loss (`rf-` -54) and the 8 B frame keep T289n at 2,189.
+
+## 3. The per-arm holder flag basin (handoff)
+
+Source (`e/S3n.py`, 7 single-line edits on main, line count kept):
+
+```rust
+fn validate(.., holder_key:&Pubkey, sharing:&Pubkey, hf:&mut bool) -> Result<Pubkey> { ..
+  let target = if holder { if new.is_some() {return Err(..);} *hf=true; *holder_key } else { ..
+    if t==*sharing||t==*holder_key {return Err(..);} *hf=false; t };
+..
+let mut hf=false; let mut target=validate(&st,hopt,fee,new,&holder_key,&sk,&mut hf)?;
+.. (hf,cashback,target,sharing_update,collect_old,skip)};   // was (holder,..)
+curve.is_holder_reward=_holder;                             // was holder.unwrap_or(false)
+let e=AdminCtoEvent{is_holder_reward:holder.unwrap_or(false), ..}   // was a.bonding_curve.is_holder_reward
+```
+
+- **It is faithful, not steering.** The original stores a per-arm 0/1 flag inside validate: `stxdw [r10-0x950]` at
+  0xe40, 0x1130 and 0x14e0, and from r6 at 0x1830 and 0x18b0 (w15a08 section 4). `hf` is that flag. `let mut hf=false` is
+  the definite initialisation that `&mut` needs. The values are unchanged: `hf` equals `holder` on every Ok path, and the
+  differential passes.
+- **Layout.** The event read of the holder argument keeps `%0` live past the curve store, so greedy does not carry the
+  accounts pointer across `bb56.i`, and the layout is main's (sharing call 0x4a30). Without that read (S4 = hc), the join
+  splits. The tuple form w14a142 tried (`S1` here, `-> Result<(Pubkey,bool)>`) has the same code (true LCS `rf-` 0 vs
+  main) but two 8 B alloca band shifts:
+  - the 1 B `authority_bump` slot leaves -0x1;
+  - the 7 B `target.sroa.0` piece disappears.
+
+  With both undone, S1's frame bound is 2,297 (`shperm2.py S1__r 0x450 0x1 -8 0x8d0 0x658 -8`). Its shift-aware climb
+  (`rpipe_s.sh`) picks exactly main's 9 forces, renumbered, and reaches a joint of 2,342 (+4). The payload-in-r9 force
+  collapses S1 (`1726=r9`: 0.578). The out-param form has neither shift, and it is the one whose RA takes the original's r9.
+- **What the RA forces buy.** e1/S3 forced (14 forces) against main forced (9 forces): true LCS `---` +50 against +35 and
+  `-f-` +56 against +39, both relative to main unforced. The gain is registers in the sweep region: orig 0x2800 +38
+  against main's 0.
+  - e1's decisive forces: `1739=r9` (Result payload at the post-sweep joins, orig 0x1d28-0x2608), `1691=r6` and
+    `1678=r7` (`%0` pieces, as main's `1684`/`1671`), `469=r2` (0x548), `1285=r2` (0x4410 sharing CPI), `2198=r5` and
+    `2195=r6` (0x3078-0x3310), `1713=r4` and `2151=r9` (as main's).
+  - Pass 2 adds `1847=r5` (0x2ae8, a split child of `%161`), `2116=r6`, `1087=r5`, `1709=r3` and `1749=r3`
+    (`data/forces.txt`).
+- **Size budget.** +24 B on 9bd38c7, +16 B on 5998913. The catalog has faithful -16 B knobs (`g_rent_ref`, `g_rent_named`,
+  `g_s7_rentlocal`, each about -0.0007 on m06e6bb8). None was tried here: repaying the size is premature while raw M sits
+  at 1,990.
+- **The blocker is spill-slot numbering, not code.** On 9bd38c7, unforced S3 has M 1,994, Mperm 2,293 and Mhc 2,300 (main
+  2,249 / 2,293 / 2,300). Under the best permutation, 71 of its 109 spill slots move by +8
+  (`rx/e1/permhc.json`): the flag's spill slot lands in the middle of the numbering and moves every later slot by 8
+  (w14a142 section 3b). The original keeps its flag at `[r10-0x950]` (-2384), the slot main gives the sweep clone-run spill. A landing
+  needs a source spelling whose greedy spill order puts the flag's slot where the original's is (w15a08 J1), plus
+  ordinary levers for `1739=r9` and `1847=r5`.
+
+## 4. The handoff on current main (5998913, after #3859)
+
+Both builds are captured on the lane branch (`m0n` = main, `eq_main: true`; `S3n` = main + `e/S3n.py`). The pipeline is
+the same: restore (a no-op for both), permhc, then RA pass 1 and pass 2 with the joint.
+
+| build | bytes | M | Mperm | Mhc | RA pass 1: M (forces) / joint | RA pass 2: M (forces) / joint |
+| --- | ---: | ---: | ---: | ---: | --- | --- |
+| main m0n | 27,400 | 2,251 | 2,295 | 2,302 | 2,278 (7) / 2,329 | 2,283 (9) / **2,339** |
+| S3n | 27,416 | 1,990 | 2,289 | 2,296 | 2,204 (7) / 2,308 | 2,273 (13) / **2,347** |
+
+- Main's forces are the same 9 as on 9bd38c7, renumbered (`1685=r6,1672=r7,1618=r3,468=r2,2146=r9,1707=r4,1703=r3,1907=r6,2130=r0`).
+- S3n's forces: `1739=r9,1691=r6,469=r2,1678=r7,1285=r2,2195=r6,2198=r5`, then pass 2 adds
+  `1847=r5,1959=r5,1713=r4,1709=r3,1749=r3,2154=r9`. The `1739=r9` and `1847=r5` signature is unchanged.
+- Real build (`measure.sh $OUT/var/S3nb`): ok, admin_cto 0.59599 @ 27,416 (the oracle's exact value), normalized 1034 with
+  0 losses, raw 347 (687 raw losses from the +16 B). `pump_admin_cto_differential.py`: 388 cases, 0 mismatches.
 
 ## Tools (`tools/`, experiment only; paths point at this lane's `$OUT`)
 
-- `cap.sh <name> <edits.py> <slot>` / `capq.sh <slot> name...`: raw-IR capture, then the rx oracle in the background.
-- `ares.py <sbf.mir> <out.mir>`: automatic bb56.i join-restore (prints which live-ins it removed and from how many feeders).
-- `ar.sh <rx>`: stop before branch-folder, `ares.py`, resume; writes `rx/<rx>__r/{fn.bin,res.json,pei.mir}`.
-- `llcw.py`: drop-in llc (same CLI) that applies `ares.py` between RA and branch-folder.
-- `colmap_r.py`: per-vreg original-register votes on the restored layout.
-- `stack.sh <rx>`: restore + permhc (raw and restored) + true LCS + frame-object diff.
-- `rpipe.sh <rx>` / `rpass2.sh <rx> <tag>`: restore-aware sticky RA climb, pass 1 and pass 2, with the joint permhc.
-- `evc3.py <rx>...`: true-LCS per orig 0x800 chunk under `---` and `rfj`; `tab.py`: the stacked table.
-- `mkedits.py`: regenerates `e/*.py` (exact single-occurrence replacements, line count kept).
+- `cap.sh <name> <edits.py> <slot>` and `capq.sh <slot> name...` capture raw IR (`SRCB=` selects the crate), then run the
+  rx oracle in the background. `mkedits.py` regenerates `e/*.py` (exact single-occurrence replacements, line count kept).
+- `ares.py <sbf.mir> <out.mir>` is the automatic bb56.i join-restore. It prints which live-ins it removed and how many
+  feeders it edited. `ar.sh <rx>` runs stop-before-branch-folder, `ares.py` and resume, writing
+  `rx/<rx>__r/{fn.bin,res.json,pei.mir}`.
+- `llcw.py` is a drop-in llc (same CLI) that applies `ares.py` between RA and branch-folder, so any force set is scored at
+  main's layout. It is the patched sticky llc of w15a24, via `$OUT/llvmb`.
+- `colmap_r.py` gives per-vreg original-register votes on the restored layout. Vreg tags are copied from the unrestored
+  tagged asm by block content.
+- `screen_r.py` and `sclimb_r.py` are w14a84's screen and climb through `llcw.py`. `screen_rs.py` and `sclimb_rs.py` also
+  unshift alloca bands before scoring (`SHIFT="lo,hi,d;lo,hi,d"`, raw offsets, band `lo<off<=hi`).
+- `stack.sh <rx>` runs the restore, permhc (raw and restored), true LCS and the frame-object diff. `rpipe.sh <rx>` and
+  `rpass2.sh <rx> <tag>` are the restore-aware RA pass 1 and pass 2 with the joint permhc. `rpipe_s.sh` and `rpass2_s.sh`
+  are the band-shift variants (`SHB=` for `shperm2.py`). `full.sh <rx>` runs all three.
+- `shperm2.py <rx> deep shallow d [deep shallow d...]` is w15a19's `shperm.py` with several alloca bands.
+- `evc3.py <rx>...` gives true LCS per orig 0x800 chunk under `---` and `rfj`. `tab.py` prints the stacked table.
+  `rec.py` writes the ledger rows.
+- `t2/xled.py` in `$OUT` is pinned to the 9bd38c7 `m0` capture as "main", because the baseline moved during the lane.
+
+## Data (`data/`)
+
+- `table.md`: the stacked table.
+- `evc3-restored.txt` and `evm-restored.txt`: true-LCS per-chunk and per-mask deltas of the restored builds.
+- `forces.txt`: every final force set.
+- `colmap-*.txt`: the heads of the restored-layout colour maps.
