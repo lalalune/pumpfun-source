@@ -4,12 +4,18 @@ Target `0x22a10` `admin_cto::execute` (`programs/pump/src/creator/admin_cto.rs`)
 Main moved four times during the lane (bf01b5f M 2,270 -> 8330455 2,278 -> 8350fae 2,284 -> a51791e 2,288); every result
 below names its base. Ledger: approach `outlinerepay`, keys `0x22a10-w17-<main7>-outlinerepay-*`.
 
-## Result (on main a51791e2e, 0.68544)
+## Result (landing candidate on main 2f3597f99 / 638fce2a3, 0.68634)
 
 | build | admin_cto ratio | M | bytes | lddw | normalized / raw | `.rel.dyn` vs original | differential |
 | --- | ---: | ---: | ---: | ---: | --- | --- | --- |
-| main a51791e2e | 0.68544 | 2,288 | 27,400 | 88 | 1034 / 1034 | +2 entries | |
-| **this PR (q)** | **0.68553** | 2,289 | 27,400 | **86** | 1034 / 1034, zero losses | **equal (`rel_dyn_entry_delta 0`, relocation multiset equal)** | 388 / 0 |
+| main 2f3597f99 (w17a19 lifetime shim) | 0.68634 | 2,291 | 27,400 | 88 | 1034 / 1034 | +2 entries | |
+| **this PR (vskcw)** | **0.68643** | 2,292 | 27,400 | **86** | 1034 / 1034, zero losses | **equal** | 388 / 0 |
+| earlier: q on a51791e2e (0.68544) | 0.68553 | 2,289 | 27,400 | 86 | 1034 / 1034, zero losses | equal | 388 / 0 |
+
+q's landing hit a programs/ conflict when w17a19 landed; on 2f3597f q fell to 2,287 @27,392. The lane's IR beam on the new
+base (`vl:execute:28995`, +5 M at +8 B) is the volatile reload of the `sharing_config` account ref in w17a19's `sk` copy;
+with it (`vsk`) the assembly is `WX + vsk + cnat + wown` (WX = tf_g3 + 306 3:1 + crl3 + threaded head + shared weight +
+hvw + cdw + 312 holder_key expect, main's default-quote expect removed).
 
 - Both 307 and 312 `to_string` calls are outlined, as in the original: the callee multiset now equals the original's, and
   `elf_meta_diff.py` reports no relocation difference at all ("all non-.text differences follow from .text content";

@@ -24,7 +24,17 @@ def E(a, b):
 C1 = [E(SIG, SIG + "#[cold]fn cold(){}/*shim: empty #[cold] fn, fully inlined; marks a path cold for the inliner*/"),
       E(L306, "  let t=if let Some(t)=new{cold()/*shim: cold Some arm, 307/312 to_string outline*/;t}else{" + E306 + ";};")]
 # tf_g3 (w15a21 creator binding), replacing main's volatile curve reload in the shared non-holder arm
-TF = [E(STH2, "{ let creator=a.bonding_curve.creator;" + STH2[2:]),
+def _tfhead(s):
+    a = "let (_holder,cashback,target,sharing_update,collect_old,skip)={ "
+    assert s.count(a) == 1
+    return s.replace(a, a + "let creator=a.bonding_curve.creator;")
+def _tfhead2(s):
+    a = "let mut skm=core::mem::MaybeUninit::<Pubkey>::uninit();let st=CtoState{"
+    assert s.count(a) == 1
+    return s.replace(a, "let mut skm=core::mem::MaybeUninit::<Pubkey>::uninit();let creator=a.bonding_curve.creator;let st=CtoState{")
+TF = [_tfhead,
+      E(ARM_V, "else{target=creator;sharing_update=Some(args.0);(false,true)}}")]
+TF2 = [_tfhead2,
       E(ARM_V, "else{target=creator;sharing_update=Some(args.0);(false,true)}}")]
 # tf_g3 variant that keeps main's volatile reload as the creator binding source
 TFV = [E(STH2, "{ let creator=unsafe{core::ptr::read_volatile(&a.bonding_curve as *const Box<Account<BondingCurve>> as *const &Account<BondingCurve>)}/*shim: reload the curve box pointer*/.creator;" + STH2[2:]),
@@ -189,6 +199,21 @@ G['Z1xp'] = G['WmC'] + G['noq'] + G['cnat'] + G['wown'] + G['wexe'] + G['x312h']
 G['Wx'] = G['Wm2'] + G['x312h']
 
 G['WX'] = G['WmC'] + G['noq'] + G['x312h']
+
+G['q'] = G['WX'] + G['cnat'] + G['wown']
+def _swap_tf(genes):
+    return [TF2[0] if g is TF[0] else g for g in genes]
+G['q2'] = _swap_tf(G['q'])
+G['Vm2'] = _swap_tf(G['Vm'])
+
+G['tf3'] = [E("(creator stores ascending)*/;a.bonding_curve.creator},max_fee:", "(creator stores ascending)*/;creator},max_fee:")]
+G['shw60'] = SHW('0.6'); G['shw70'] = SHW('0.7')
+def _rep(genes, old, new):
+    return [new[0] if g is old[0] else g for g in genes]
+G['WX60'] = _rep(G['WX'], G['shw625'], G['shw60'])
+G['WX70'] = _rep(G['WX'], G['shw625'], G['shw70'])
+
+G['vsk'] = [E("let sk:&Pubkey=unsafe{skm.as_mut_ptr().write(a.sharing_config.key());&*skm.as_ptr()};", "let sk:&Pubkey=unsafe{skm.as_mut_ptr().write(core::ptr::read_volatile(&a.sharing_config)/*shim: volatile reload of the sharing_config account ref for the sk copy*/.key());&*skm.as_ptr()};")]
 
 
 def apply(s, genes):
