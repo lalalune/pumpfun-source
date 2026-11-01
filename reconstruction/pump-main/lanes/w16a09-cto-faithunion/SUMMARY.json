@@ -1,0 +1,43 @@
+{
+  "lane": "w16a09-cto-faithunion",
+  "wave": 16,
+  "target": {"window": "0x22a10", "function": "admin_cto::execute", "file": "programs/pump/src/creator/admin_cto.rs", "pinned_bytes": 27400},
+  "base": {"main": "9bd38c7d5", "note": "all captures from a pinned 9bd38c7 crate copy; main moved to 1f4e396b5 / 599891304 during the lane (sweep tail, event literal, buy_v3: not validate or head)",
+           "ratio": 0.67376, "slots_diff": 3124, "M": 2249, "Mperm": 2293, "Mhc": 2300, "lcs_exact": 2255, "lcs_rfj": 3007, "head_rfj": 631,
+           "stacked_ra": {"p1": 2328, "p2": 2338, "p3": 2344}},
+  "result": "notes only; no source change; main remains the best zero-loss measurement",
+  "best_zero_loss": {"ratio": 0.67376, "slots_diff": 3124, "bytes": 27400, "note": "main 9bd38c7 (no candidate beat it)"},
+  "kill_test": {
+    "head_rfj_condition": "fails: A+B-based unions beat 631 by 30-53 (ABb 661, A+B+G 665, ABE 667, E2v 674, E1 678, E2F 684)",
+    "ceiling_condition": "fails: A+B+G (byte-identical to GPF) stacked 2306 at pass 2 / 2313 at pass 3, within 40 M of 2338",
+    "step4_gate": "not met: no union's stacked ceiling reaches main's 2338 (best union -25..-32 at matched pass depth; single class B 2322 beats every union)"
+  },
+  "unions_priced": 37,
+  "key_rows": {
+    "A+B (GPF = G51+GPF)": {"bytes": 27344, "M": 1958, "stacked": 2183, "p1": 2224, "p2": 2306, "p3": 2313, "lcs_rfj": 3026, "head_rfj": 665},
+    "A+B+E (ABE = GPF+Fa)": {"bytes": 27664, "M": 1856, "stacked": 2216, "p1": 2257, "p2": 2289, "p3": 2290, "lcs_rfj": 3047, "op": 3085, "head_rfj": 667},
+    "E2v (Gorig+GPF+Fa+V2+qli+hkt+v01)": {"bytes": 27864, "M": 1847, "stacked": 2121, "p1": 2179, "p2": 2206, "lcs_rfj": 3057, "op": 3094, "head_rfj": 674},
+    "B alone (F0)": {"bytes": 27352, "M": 2117, "stacked": 2205, "p1": 2294, "p2": 2322},
+    "C/D/H family (16 unions on T289n+v14)": {"M_range": [211, 1566], "stacked_range": [1806, 2027], "bag4_range": [1994, 2469], "main_bag4": 2632}
+  },
+  "ablation_ABE": {"main": 2300, "A": 2024, "B": 2206, "E": 2089, "A+B": 2183, "A+E": 1962, "B+E": 1966, "A+B+E": 2216,
+                   "interaction_vs_additive": {"A+B": 253, "A+E": 149, "B+E": -29, "A+B+E": 497},
+                   "ra_ceiling_p2": {"B": 2322, "A+B": 2306, "A+B+E": 2289}},
+  "mechanisms": [
+    "Unions cancel frame/placement cascades: A+B+E unforced stack is +497 over the additive prediction; E's A/B chunk swap is cancelled only when both A and B are present.",
+    "The cancellation stops at the RA ceiling: B 2322 > A+B 2306 > A+B+E 2289 at pass 2; registers (-f-) are the binding residual (ABE -21 vs main at pass 2 while rf- +25, r-- +28).",
+    "ABE's low-numbered decisive forces are clone-run Rc pieces (%241 LDD %238,8 / %242 LDD %238,16 in clone.exit186.i), not GPF's accounts pointer %249 (COPY %0; ADD 72 in wallet bb94.i).",
+    "G51 (mv_5_1) is a no-op on GPF (byte-identical); Gorig is +3 M.",
+    "C/D/H unions (T289n + v14 based) are closed by content: bag4 2000-2470 vs main 2632; fnorm recovers 400-1400 M of frame but the stack stays <= 2027.",
+    "The w15a10 faithful form Fa+V2+qli+hkt no longer keeps the layout on 9bd38c7 (A/B chunk swap, Lrfj 2513); blkrestore restores it (3033)."
+  ],
+  "tools": ["tools/genes_fu.py", "tools/fuev.py", "tools/fnorm.py", "tools/blkrestore.py", "tools/binrestore.py", "tools/stk.sh", "tools/chunkmask.py", "tools/futable.py", "tools/recstk.py", "tools/raq.sh", "tools/raq2.sh", "tools/raq3.sh", "tools/scr.py"],
+  "ledger": {"approach": "faithunion", "keys": ["0x22a10-w16-9bd38c7-fu-<union>-v1", "0x22a10-w16-9bd38c7-fu-stk-<union>[_p1|_p2|_p3|_fn1|_fn2]-v1", "0x22a10-w16-9bd38c7-fu-keyfix-E1E2-v1", "0x22a10-w16-9bd38c7-fu-killtest-v1"]},
+  "rejected": ["U_CDH (T289n+v14) and every extension (+A/B, G, b01, E, F, emt, V2/qli/hkt)", "A+B+H", "A+B+b01 (+v01)", "A+B+C/D", "A+B+E+b01 (E1)", "A+B+E+F (E2F)", "A+B+E+C/D+H (E2U)", "all classes (ALL)"],
+  "unresolved": ["register naming in the A+B+E clone-run Rc pieces", "the A+B accounts-pointer colouring (%249) over wallet/sweep"],
+  "next_ideas": [
+    "Price E2v (best skeleton, Lrfj 3057 / op 3094) with a register-only oracle (w15a32 exact spill colour, w15a18 priority/cascade greedy) to see whether its -126 -f- gap is one family.",
+    "A source lever for the clone-run Rc-piece colourings (w15a24/w15a34 clone-order families) would be worth more on A+B+E than on main; re-price ABE/E2v with tools/stk.sh when one exists.",
+    "Use tools/stk.sh (fnorm + blkrestore) to price any swap-collapsed candidate at main's frame and layout in about a minute."
+  ]
+}
