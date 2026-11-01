@@ -18,3 +18,9 @@ copy then uses the original's r2/r3 scratch, and the flag stores land at the ori
 All3 reaches 2,972 (+66) on c3, so the structure is closer, but T1/C1 lose to two RA effects: `%0`'s region split takes r9/r6
 instead of r8 once the sharing_config vreg (hint r1, bit 30) evicts `%0` early, and one extra spill interval rotates the T1/C1
 spill colours by 8 B (155 tokens). See SUMMARY.json for the table.
+
+## Second cell: mayhem read after the sk copy
+
+The curve is reloaded through a passthrough for the mayhem read, after the sk copy, and the sk copy itself now uses a passthrough
+reload instead of a volatile load. A volatile load is a MemoryDef, and one more def between `args` and the sharing arm keeps
+the `(new,)` copy alive (MemCpyOpt walk limit) and collapses the layout. The sk copy gets r2/r3 exactly and accounts stays spill colour 0.
