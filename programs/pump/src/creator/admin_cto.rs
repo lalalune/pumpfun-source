@@ -5,7 +5,7 @@ use anchor_lang::solana_program::{instruction::{Instruction,AccountMeta},program
 pub const AMM:Pubkey=anchor_lang::solana_program::pubkey!("pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA");
 pub const FEES:Pubkey=crate::distribution::FEES;
 #[derive(Clone)]pub struct Amm; impl Id for Amm{fn id()->Pubkey{AMM}}
-extern "C"{#[link_name="llvm.trap"]fn trap()->!;#[link_name="llvm.assume"]fn assume(b:bool);#[link_name="llvm.expect.with.probability.i1"]fn expect_p(b:bool,v:bool,p:f64)->bool;}/*shim: llvm.expect.with.probability, assume and trap for rcw*/struct Wt<const D:u32>;impl<const D:u32> Wt<D>{const P:f64=1.0/(D as f64+1.0);}#[inline(always)]unsafe fn rcw<const D:u32,T>(r:&std::rc::Rc<T>)->std::rc::Rc<T>{let p=(*(r as *const std::rc::Rc<T> as *const core::ptr::NonNull<usize>)).as_ptr();let s=*p;assume(s!=0);let n=s.wrapping_add(1);*p=n;if expect_p(n==0,true,Wt::<D>::P){trap()}core::ptr::read(r)}/*shim: Rc::clone with an explicit 1:D overflow-trap weight*/#[inline(always)]fn aicd<'a,const D:u32>(x:&AccountInfo<'a>)->AccountInfo<'a>{AccountInfo{key:x.key,lamports:x.lamports.clone(),data:unsafe{rcw::<D,_>(&x.data)},owner:x.owner,rent_epoch:x.rent_epoch,is_signer:x.is_signer,is_writable:x.is_writable,executable:x.executable}}/*shim: AccountInfo clone, weighted data*/#[inline(always)]fn aicl<'a,const D:u32>(x:&AccountInfo<'a>)->AccountInfo<'a>{AccountInfo{key:x.key,lamports:unsafe{rcw::<D,_>(&x.lamports)},data:x.data.clone(),owner:x.owner,rent_epoch:x.rent_epoch,is_signer:x.is_signer,is_writable:x.is_writable,executable:x.executable}}/*shim: AccountInfo clone, weighted lamports*/#[inline(always)]fn aicb<'a,const P:u32,const D:u32>(x:&AccountInfo<'a>)->AccountInfo<'a>{AccountInfo{key:x.key,lamports:unsafe{rcw::<P,_>(&x.lamports)},data:unsafe{rcw::<D,_>(&x.data)},owner:x.owner,rent_epoch:x.rent_epoch,is_signer:x.is_signer,is_writable:x.is_writable,executable:x.executable}}/*shim: AccountInfo clone, both Rc weighted*/
+extern "C"{#[link_name="llvm.trap"]fn trap()->!;#[link_name="llvm.assume"]fn assume(b:bool);#[link_name="llvm.expect.with.probability.i1"]fn expect_p(b:bool,v:bool,p:f64)->bool;}/*shim: llvm.expect.with.probability, assume and trap for rcw*/struct Wt<const D:u32>;impl<const D:u32> Wt<D>{const P:f64=1.0/(D as f64+1.0);}#[inline(always)]unsafe fn rcw<const D:u32,T>(r:&std::rc::Rc<T>)->std::rc::Rc<T>{let p=(*(r as *const std::rc::Rc<T> as *const core::ptr::NonNull<usize>)).as_ptr();let s=*p;assume(s!=0);let n=s.wrapping_add(1);*p=n;if expect_p(n==0,true,Wt::<D>::P){trap()}core::ptr::read(r)}/*shim: Rc::clone with an explicit 1:D overflow-trap weight*/#[inline(always)]fn aicd<'a,const D:u32>(x:&AccountInfo<'a>)->AccountInfo<'a>{AccountInfo{key:x.key,lamports:x.lamports.clone(),data:unsafe{rcw::<D,_>(&x.data)},owner:x.owner,rent_epoch:x.rent_epoch,is_signer:x.is_signer,is_writable:x.is_writable,executable:x.executable}}/*shim: AccountInfo clone, weighted data*/#[inline(always)]fn aicl<'a,const D:u32>(x:&AccountInfo<'a>)->AccountInfo<'a>{AccountInfo{key:x.key,lamports:unsafe{rcw::<D,_>(&x.lamports)},data:x.data.clone(),owner:x.owner,rent_epoch:x.rent_epoch,is_signer:x.is_signer,is_writable:x.is_writable,executable:x.executable}}/*shim: AccountInfo clone, weighted lamports*/#[inline(always)]fn aicb<'a,const P:u32,const D:u32>(x:&AccountInfo<'a>)->AccountInfo<'a>{AccountInfo{key:x.key,lamports:unsafe{rcw::<P,_>(&x.lamports)},data:unsafe{rcw::<D,_>(&x.data)},owner:x.owner,rent_epoch:x.rent_epoch,is_signer:x.is_signer,is_writable:x.is_writable,executable:x.executable}}/*shim: AccountInfo clone, both Rc weighted*/extern "C"{#[link_name="llvm.bpf.passthrough.i8.i8"]fn pt8(seq:u32,v:u8)->u8;}/*shim: llvm.bpf.passthrough on a byte: opaque identity the SBF backend deletes before ISel (no instruction)*/
 #[derive(Accounts)]
 pub struct AdminCto<'info>{
 #[account(mut)]
@@ -286,7 +286,7 @@ fn validate(st:&CtoState,shared:bool,holder:bool,fee:Option<u64>,new:Option<Pubk
 
 
 
- unsafe{core::ptr::read_volatile(hkr as *const Pubkey as *const u8)}/*shim: holder_key byte read before the holder_reward test, repays the pin*/;if st.holder_reward{if !holder{return Err(error!(PumpError::HolderRewardCreatorImmutable));}}else if holder{
+ if st.holder_reward{if !holder{return Err(error!(PumpError::HolderRewardCreatorImmutable));}}else if holder{
 
 
 
@@ -327,7 +327,7 @@ fn validate(st:&CtoState,shared:bool,holder:bool,fee:Option<u64>,new:Option<Pubk
 // layout-pad(3): aligns the next Source site with the original line
 
 
-  if cashback{return Err(error!(PumpError::CreatorFeeNotAllowedForCashbackCoin));}
+  if !holder&&unsafe{pt8(330,st.cashback as u8)}!=0/*shim: the cashback byte test keeps its own eq-zero compare*/{return Err(error!(PumpError::CreatorFeeNotAllowedForCashbackCoin));}
 
 
 
