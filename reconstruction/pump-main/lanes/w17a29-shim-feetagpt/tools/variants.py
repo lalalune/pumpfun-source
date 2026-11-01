@@ -72,3 +72,17 @@ V.update({
  'fj1h':FOJE+[VH],
  'fj2':FOJE+[VC,VH],
 })
+# round 6: -32 B knob on foje: volatile holder_reward byte in validate (beam cell vl:validate:27664)
+VR=(' if st.holder_reward&&!(hopt==Some(true)){',' if unsafe{core::ptr::read_volatile(&st.holder_reward)}/*shim: volatile holder_reward byte read in validate (-32 B size knob)*/&&!(hopt==Some(true)){')
+V.update({'fv':FOJE+[VR]})
+# round 7: peel main's basin-tuning volatile shims on foje (the single-phi basin may not need them)
+P1=('target=unsafe{core::ptr::read_volatile(&(*(ptp(1,&**a as *const AdminCto as *const u8) as *const AdminCto)).bonding_curve as *const Box<Account<BondingCurve>> as *const &Account<BondingCurve>)}/*shim: reload the curve box pointer; passthrough on the accounts pointer it derefs*/.creator;','target=a.bonding_curve.creator;')
+P2=('unsafe{core::ptr::read_volatile(curve as *const Box<Account<BondingCurve>> as *const &mut Account<BondingCurve>)}.creator=target;/*shim: reload the curve box pointer for the creator store*/','curve.creator=target;')
+P3=('!unsafe{core::ptr::read_volatile(core::mem::transmute::<&&mut AdminCto,*const &AdminCto>(a))}/*shim: reload the accounts pointer for the pool data_is_empty test*/.pool.data_is_empty()','!a.pool.data_is_empty()')
+P4=('owner:unsafe{core::ptr::read_volatile(&x.owner)}/*shim: pins the sweep program-clone owner load*/','owner:x.owner')
+P5=(' unsafe{core::ptr::read_volatile(holder_key as *const Pubkey as *const u8)}/*shim: holder_key byte read placeholder*/;if st.mayhem{',' if st.mayhem{')
+V.update({'fjp1':FOJE+[P1],'fjp2':FOJE+[P2],'fjp3':FOJE+[P3],'fjp4':FOJE+[P4],'fjp5':FOJE+[P5]})
+# round 8: try to realise climb force 472=r2 (the sharing_config account pointer loaded for sk in the validate entry block)
+SKA=('skm.as_mut_ptr().write(a.sharing_config.key());','skm.as_mut_ptr().write(unsafe{&*(ptp(25,&**a as *const AdminCto as *const u8) as *const AdminCto)}/*shim: passthrough on the accounts pointer of the sk sharing_config load*/.sharing_config.key());')
+SKB=('let shared={let sk=a.sharing_config.key();a.bonding_curve.creator==sk}','let shared={let sk=unsafe{&*(ptp(26,&**a as *const AdminCto as *const u8) as *const AdminCto)}/*shim: passthrough on the accounts pointer of the shared sharing_config key*/.sharing_config.key();a.bonding_curve.creator==sk}')
+V.update({'fjsa':FOJE+[SKA],'fjsb':FOJE+[SKB]})

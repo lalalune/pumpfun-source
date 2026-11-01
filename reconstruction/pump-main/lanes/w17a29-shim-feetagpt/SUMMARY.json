@@ -1,0 +1,75 @@
+{
+ "lane": "w17a29-shim-feetagpt",
+ "wave": 17,
+ "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27,400 B",
+ "base": {
+  "main": "53ec7fb53 (origin/main 5e05222b5, programs identical)",
+  "ratio": 0.68754,
+  "M": 2295,
+  "slots": 3096,
+  "bytes": 27400,
+  "Mperm": 2321,
+  "Mhc": 2329
+ },
+ "result": "notes only, nothing landed; kill test not met (single fee-tag phi prices level with main), size repay not found",
+ "best_zero_loss_at_pin": "none above main (main 0.68754 / 3,096 slots / 27,400 B remains best)",
+ "best_candidates": [
+  {
+   "name": "foje",
+   "M": 2294,
+   "bytes": 27432,
+   "ratio": 0.68683,
+   "real_build": "measure.sh 0.68683 @27,432, normalized 1034 (no losses), raw 347 (size shift), calls 154/3, differential 388 cases / 0 mismatches",
+   "spelling": "fo out-param + pto::<31>(fo) passthrough on the tag word after the validate join + expect(q==native_mint::ID,false) in quote_locked",
+   "Mperm": 2321,
+   "Mhc": 2329,
+   "ra_climb": "2,315 @27,400 with 1684=r7, 472=r2, 2155=r9, 1631=r3 (oracle only)",
+   "ra_single_force": "472=r2 alone: M 2,300 @27,400 (0.68904 > main 0.68754), oracle only; 472 = a.sharing_config account pointer for the sk copy (original r2 at orig 0x548)"
+  },
+  {
+   "name": "fjp5 (foje without the 284 placeholder)",
+   "M": 2294,
+   "bytes": 27424
+  },
+  {
+   "name": "foce",
+   "M": 2286,
+   "bytes": 27424
+  }
+ ],
+ "mechanisms": [
+  "fo on 53ec7fb is -15 M (two phis), not -201 as on 5998913",
+  "a passthrough on the tag word (after the join, at the 757 use, on the OK constant, or on the None init with an uninit value word) gives ONE tag phi with both users; source equals the llc-only single-phi oracle",
+  "the single phi collapses (1,873) through a post-RA tail duplication: the wallet exit test block bb55.i89 loses its dead reload of slot -0x8e0 (the original keeps one at orig 0x3b88), becomes 2 instructions, is copied into bb85.i, and MBP re-chains the error-return chunk (T1 -306, tail -123); the 62.5% zero-heuristic weight on 757 is not the cause",
+  "RA-only: forcing the sweep native-quote memcmp result to r9 (as the original, orig 0x5be0) lifts the collapsed foc to 2,215; on main the same force collapses main",
+  "a 1:2000 weight on quote_locked's q==native_mint::ID branch (existing llvm.expect extern) escapes the collapse with zero footprint on main (byte-identical there): foc 1,873 -> 2,286, foj -> 2,294 (original 757 shape jne r1,0; ja)"
+ ],
+ "rejected": [
+  "fo8/foj8/foc8/foce8/foje8: dropping the 338 placeholder costs 9-22 M on every base",
+  "focs (None-init pt with value word 0): extra value phi, 2,070",
+  "source read_volatile of CtoState cashback / holder_enabled / validate holder_reward bytes: do not reproduce their IR cells (1,782 / 2,276 / 2,234)",
+  "peels on foje: shared-arm curve reload 2,293 @27,456; creator-store reload 2,289 @27,424; pool accounts reload 2,153",
+  "ptp on the sk / shared sharing_config loads (472=r2 attempts): byte-identical / 1,880",
+  "IR combos of -8/-16 B singles on foje: byte cuts saturate at 27,416 (best 2,293); foce combos to 27,400 best 2,281",
+  "statement order: fo after sk byte-identical; sk before args=&(new,) 2,206 @27,272; volatile st.mayhem in validate 2,179 @27,296"
+ ],
+ "unresolved": [
+  "32 B size repay on foje at no M cost",
+  "source forms for the foje RA climb forces (472=r2 alone removes the 32 B, +6 M)"
+ ],
+ "next_ideas": [
+  "realise 472=r2 on foje (one force = a landing at 2,300 @27,400): free r2 at the sk copy (mayhem byte held in r2 across it) or keep the accounts reload live in a callee-saved register as the original does",
+  "re-spell the -16 B volatile CtoState byte cells so the IR cell survives (bind-first, raw byte read)",
+  "re-base other shim lanes on foje: the TCF owner pin and the 284 placeholder are neutral there",
+  "after a landing at the pin, retry dropping the 338 placeholder"
+ ],
+ "ledger_keys": "0x22a10-w17-53ec7fb-feetagpt-*-v1",
+ "beams": {
+  "foc": 176,
+  "foce": 984,
+  "foje": 2964,
+  "fj2": 380,
+  "fv": 369,
+  "fjp5": 89
+ }
+}
