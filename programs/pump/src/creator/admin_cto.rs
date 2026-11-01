@@ -5,7 +5,7 @@ use anchor_lang::solana_program::{instruction::{Instruction,AccountMeta},program
 pub const AMM:Pubkey=anchor_lang::solana_program::pubkey!("pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA");
 pub const FEES:Pubkey=crate::distribution::FEES;
 #[derive(Clone)]pub struct Amm; impl Id for Amm{fn id()->Pubkey{AMM}}
-#[inline(always)]fn aic<'a>(x:&AccountInfo<'a>)->AccountInfo<'a>{AccountInfo{key:x.key,lamports:x.lamports.clone(),data:x.data.clone(),owner:x.owner,rent_epoch:x.rent_epoch,is_signer:x.is_signer,is_writable:x.is_writable,executable:x.executable}}extern "C"{#[link_name="llvm.bpf.passthrough.p0.p0"]fn ptp(seq:u32,v:*const u8)->*const u8;}/*shim: llvm.bpf.passthrough on a pointer: opaque identity the SBF backend deletes before ISel (no instruction)*/
+extern "C"{#[link_name="llvm.expect.with.probability.i1"]fn expect_p(b:bool,v:bool,p:f64)->bool;#[link_name="llvm.assume"]fn assume(b:bool);#[link_name="llvm.trap"]fn trap()->!;}/*shim: branch weight, assume and trap for rcw*/struct Wt<const P:u32>;impl<const P:u32> Wt<P>{const F:f64=(P as f64)/1000000.0;}#[inline(always)]unsafe fn rcw<const P:u32,T>(r:&std::rc::Rc<T>)->std::rc::Rc<T>{let p=(*(r as *const std::rc::Rc<T> as *const core::ptr::NonNull<usize>)).as_ptr();let s=*p;assume(s!=0);let n=s.wrapping_add(1);*p=n;if expect_p(n==0,true,Wt::<P>::F){trap()}core::ptr::read(r)}/*shim: Rc::clone with an explicit overflow-trap weight (P per million)*/#[inline(always)]fn aicl<'a,const L:u32>(x:&AccountInfo<'a>)->AccountInfo<'a>{AccountInfo{key:x.key,lamports:unsafe{rcw::<L,_>(&x.lamports)},data:x.data.clone(),owner:x.owner,rent_epoch:x.rent_epoch,is_signer:x.is_signer,is_writable:x.is_writable,executable:x.executable}}/*shim: AccountInfo clone with a lamports trap weight*/#[inline(always)]fn aicd<'a,const D:u32>(x:&AccountInfo<'a>)->AccountInfo<'a>{AccountInfo{key:x.key,lamports:x.lamports.clone(),data:unsafe{rcw::<D,_>(&x.data)},owner:x.owner,rent_epoch:x.rent_epoch,is_signer:x.is_signer,is_writable:x.is_writable,executable:x.executable}}/*shim: AccountInfo clone with a data trap weight*/#[inline(always)]fn aicb<'a,const L:u32,const D:u32>(x:&AccountInfo<'a>)->AccountInfo<'a>{AccountInfo{key:x.key,lamports:unsafe{rcw::<L,_>(&x.lamports)},data:unsafe{rcw::<D,_>(&x.data)},owner:x.owner,rent_epoch:x.rent_epoch,is_signer:x.is_signer,is_writable:x.is_writable,executable:x.executable}}/*shim: AccountInfo clone with both trap weights*/#[inline(always)]fn aic<'a>(x:&AccountInfo<'a>)->AccountInfo<'a>{AccountInfo{key:x.key,lamports:x.lamports.clone(),data:x.data.clone(),owner:x.owner,rent_epoch:x.rent_epoch,is_signer:x.is_signer,is_writable:x.is_writable,executable:x.executable}}extern "C"{#[link_name="llvm.bpf.passthrough.p0.p0"]fn ptp(seq:u32,v:*const u8)->*const u8;}/*shim: llvm.bpf.passthrough on a pointer: opaque identity the SBF backend deletes before ISel (no instruction)*/
 #[derive(Accounts)]
 pub struct AdminCto<'info>{
 #[account(mut)]
@@ -293,7 +293,7 @@ fn validate(st:&CtoState,shared:bool,holder:bool,fee:Option<u64>,new:Option<Pubk
 
 
 
-  unsafe{core::ptr::read_volatile(st as *const CtoState as *const u8)}/*shim: st byte read at the holder_enabled test, repays the pin*/;if !st.holder_enabled{return Err(error!(PumpError::HolderRewardDisabled));}}
+  unsafe{core::ptr::read_volatile(st as *const CtoState as *const u8)}/*shim: st byte read at the holder_enabled test, repays the pin*/;unsafe{core::ptr::read_volatile(st as *const CtoState as *const u8)}/*shim: second st byte read at the holder_enabled test, repays the pin*/;if !st.holder_enabled{return Err(error!(PumpError::HolderRewardDisabled));}}
 
  let cashback=!holder&&st.cashback;let (target,is_holder)=if holder{if !(new==None){return Err(error!(PumpError::CtoNewCreatorNotAllowed));}(holder_key,true)}else{
 
@@ -746,7 +746,7 @@ fn validate(st:&CtoState,shared:bool,holder:bool,fee:Option<u64>,new:Option<Pubk
  if let Some(val)=sharing_update{{
 
 
-  crate::pump_fees::cpi::admin_cto_sharing_config(CpiContext::new_with_signer(a.pump_fees.to_account_info(),crate::pump_fees::cpi::accounts::AdminCtoSharingConfig{pool_authority:aic(a.pool_authority.as_ref()),authority:aic(a.admin_set_creator_authority.as_ref()),global:aic(a.global.as_ref().as_ref()),mint:aic(a.mint.as_ref()),sharing_config:aic(a.sharing_config.as_ref()),event_authority:aic(a.pump_fees_event_authority.as_ref()),program:aic(a.pump_fees.as_ref())},signer_seeds),val)?;
+  crate::pump_fees::cpi::admin_cto_sharing_config(CpiContext::new_with_signer(a.pump_fees.to_account_info(),crate::pump_fees::cpi::accounts::AdminCtoSharingConfig{pool_authority:aic(a.pool_authority.as_ref()),authority:aicd::<250000>(a.admin_set_creator_authority.as_ref()),global:aic(a.global.as_ref().as_ref()),mint:aic(a.mint.as_ref()),sharing_config:aic(a.sharing_config.as_ref()),event_authority:aic(a.pump_fees_event_authority.as_ref()),program:aic(a.pump_fees.as_ref())},signer_seeds),val)?;
 
  }}
  let (old_creator,old_fee)={
