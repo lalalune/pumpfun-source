@@ -15,6 +15,7 @@ Only the binding helper is exercised; the fake SC/H roots keep the test off the
 real repository tree.
 """
 
+import hashlib
 import sys
 import tempfile
 import unittest
@@ -25,6 +26,9 @@ H = Path(__file__).resolve().parent
 sys.path.insert(0, str(H))
 
 import integrate
+
+INVENTORY = (b'program\tvariant\tscore\toriginal_start\toriginal_end\n'
+             b'pump\tselected\t1\t4096\t4104\n')
 
 
 class ScoringReferenceRecheckTests(unittest.TestCase):
@@ -44,8 +48,7 @@ class ScoringReferenceRecheckTests(unittest.TestCase):
         self.reference = self.base / 'original.so'
         self.reference.write_bytes(b'\x7fELF original capture\n')
         self.inventory = self.base / 'functions.tsv'
-        self.inventory.write_text('program\tvariant\tscore\toriginal_start\toriginal_end\n'
-                                  'pump\tselected\t1\t4096\t4104\n', encoding='utf-8')
+        self.inventory.write_bytes(INVENTORY)
         self.baseline = self.sc / 'baseline.json'
         self.baseline.write_text('{}\n', encoding='utf-8')
         self.src = root / 'src'
@@ -90,7 +93,20 @@ class ScoringReferenceRecheckTests(unittest.TestCase):
         self.assert_rewrite_changes_binding(self.support, b'SCALE = 0\n')
 
     def test_unchanged_inputs_keep_a_stable_binding(self):
-        self.assertEqual(self.bound(), self.bound())
+        # The binding is the contract: these inputs, at these digests. Comparing
+        # two calls with each other only catches nondeterminism - a binding that
+        # stopped covering the inventory, the support modules or the baseline
+        # would still equal its own second reading.
+        digest = lambda data: hashlib.sha256(data).hexdigest()
+        scorer = digest(b'# scorer\n')
+        self.assertEqual(self.bound(), {
+            'source': {'lib.rs': digest(b'pub fn fixture() {}\n')},
+            'baseline': digest(b'{}\n'),
+            'reference': {'original.so': digest(b'\x7fELF original capture\n'),
+                          'functions.tsv': digest(INVENTORY)},
+            'support': {'score.py': scorer, 'score_admission.py': digest(b'SCALE = 1\n')},
+            'scorer': scorer,
+        })
 
 
 if __name__ == '__main__':

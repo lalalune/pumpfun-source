@@ -1,0 +1,44 @@
+{
+  "baseline_revision": "d20fb326ec8e4cbdbc96ec46a3a802326c91fc3f",
+  "current_revision": "d5751b26ecab94a356f24bb6b4a4d038b58b1d3c",
+  "reviewed_program_hash": "6400ccc305c83d425e67cdc6a9589a4f25ad1fb0c26d081e28fd587b30ac8f31",
+  "token_evidence": [
+    {
+      "image": "baseline-build",
+      "sha256": "69f35a15bc2a5d9e333b6bbaa3b236697c53c6eebd0ec15a1e8141e8721d4d35",
+      "original_tokens": 3339,
+      "candidate_tokens": 3337,
+      "matched_tokens": 2270,
+      "ratio": 0.68005
+    },
+    {
+      "image": "final-build",
+      "sha256": "748fbfba8140c508d2ca47affc695ab2d15b7236d11bd710065969c66adac621",
+      "original_tokens": 3339,
+      "candidate_tokens": 3337,
+      "matched_tokens": 2272,
+      "ratio": 0.68065
+    }
+  ],
+  "matched_tokens_gain": 2,
+  "section_differences": [
+    {
+      "section": ".text",
+      "baseline_size": 1792208,
+      "current_size": 1792208,
+      "length_delta": 0,
+      "different_common_position_bytes": 31,
+      "all_text_differences_within_admin_cto": true
+    },
+    {
+      "section": ".symtab",
+      "baseline_size": 437952,
+      "current_size": 437952,
+      "length_delta": 0,
+      "different_common_position_bytes": 2
+    }
+  ],
+  "ELF_comparison_limit": "Section common extents and sizes are compared; whole-file ELF header identity is not claimed. Pump remains unequal to captured original.",
+  "semantic_review": "source-peer-review.json",
+  "scope": "Marked current reconstruction shim in already merged4011; public Rc raw-count APIs balance one cloned owner, same AccountInfo fields, immediate shared owner-reference read; valid initialized single-threaded invocation and existing pinned layout assumptions remain."
+}

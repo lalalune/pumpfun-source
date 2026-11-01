@@ -129,6 +129,8 @@ class MayhemTradePinnedImageTests(unittest.TestCase):
                 def from_bytes(cls, data):
                     return cls()
 
+                signatures = ["signed"]
+
                 def verify_with_results(self):
                     return [True]
 
@@ -211,6 +213,20 @@ class MayhemTradePinnedImageTests(unittest.TestCase):
             self.assertEqual(report["candidate_sha256"], admitted)
             self.assertEqual(candidate_images, [b"admitted image", b"admitted image"])
             self.assertEqual(candidate.read_bytes(), b"replacement image")
+
+            # fb6ab38a also made the CLI treat a transaction as signed only
+            # when it really carries a signature: an unsigned one must abort
+            # the run before any report is published.
+            class UnsignedTransaction(FakeTransaction):
+                signatures = []
+
+            unsigned_output = root / "unsigned-report.json"
+            argv[argv.index("--output") + 1] = str(unsigned_output)
+            with patch.object(module, "Transaction", UnsignedTransaction):
+                with patch.object(sys, "argv", argv), contextlib.redirect_stdout(io.StringIO()):
+                    with self.assertRaises(AssertionError):
+                        module.main()
+            self.assertFalse(unsigned_output.exists())
 
 
 if __name__ == "__main__":
