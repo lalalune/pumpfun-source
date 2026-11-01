@@ -1,0 +1,47 @@
+{
+  "window": "0x22a10",
+  "window_bytes": 27400,
+  "symbol": "pump_recovered::admin_cto::execute",
+  "cand_start": "0x22a10",
+  "cand_bytes": 27400,
+  "normalized_equal": false,
+  "raw_equal": false,
+  "ratio": 0.71548,
+  "calls_original": [
+    154,
+    3
+  ],
+  "calls_candidate": [
+    154,
+    3
+  ],
+  "call_counts_original": {
+    "internal": 154,
+    "syscall_or_relocated": 3,
+    "indirect": 0
+  },
+  "call_counts_candidate": {
+    "internal": 154,
+    "syscall_or_relocated": 3,
+    "indirect": 0
+  },
+  "normalized_field_differences": {
+    "comparable": false,
+    "reason": "instruction boundaries or byte lengths differ"
+  },
+  "slots_diff": 3289,
+  "first_diff_offsets": [
+    "0x0",
+    "0x8",
+    "0x10",
+    "0x80",
+    "0x88",
+    "0x90",
+    "0x98",
+    "0xa0",
+    "0xa8",
+    "0xb0",
+    "0xb8",
+    "0xc0"
+  ]
+}

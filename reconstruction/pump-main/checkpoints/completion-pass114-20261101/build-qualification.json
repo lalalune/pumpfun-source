@@ -1,0 +1,224 @@
+{
+  "schema": "pump-pass114-approved-candidate-build-score-v1",
+  "status": "PASS_CANDIDATE_LATEST_MAIN_GAIN_RUNTIME_SEPARATE",
+  "actual_build_revision": "fcc2dc457b8c408cfec21ce8034b33217d6b5cf8",
+  "baseline_actual_build_revision": "665ffe46b1896a03e056dcffea8ed9826b8f58f1",
+  "original_heads": {
+    "4162": "fcc2dc457b8c408cfec21ce8034b33217d6b5cf8"
+  },
+  "source_sha256": "75dff1fae41b6c2c714424deda198546f7543628937b635bfe4dc25292223629",
+  "source_files": 311,
+  "candidate_sha256": "c5caa63750d2615a93b3c25fae2154e4949d60ad559b9f61c1446f180a4de15f",
+  "unstripped_sha256": "176a8f64d84f45288818326bba4bd3cfd6941d4a83a050038ed7535fb7b74dd4",
+  "build": {
+    "ok": true,
+    "source_sha256": "75dff1fae41b6c2c714424deda198546f7543628937b635bfe4dc25292223629",
+    "link_order": {
+      "script": "link/ordered.ld",
+      "script_sha256": "6954d9901b005312be6e7f980cb5e74a1440c174547c2040a881acf2e5c25b45",
+      "selectors": {
+        ".text": 555,
+        ".rodata": 0,
+        ".data.rel.ro": 0
+      },
+      "lld_sha256": "a4d765c822f68b267e87765771da87a0fd4d640d9df27884bd10c0750d1b58f4"
+    },
+    "runtime_valid": true,
+    "stack_warnings": [],
+    "recipe": "identity",
+    "triple": "sbpf-solana-solana",
+    "seconds": 28.1,
+    "unstripped": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162v2/build/unstripped.so",
+    "unstripped_sha256": "176a8f64d84f45288818326bba4bd3cfd6941d4a83a050038ed7535fb7b74dd4",
+    "candidate_sha256": "c5caa63750d2615a93b3c25fae2154e4949d60ad559b9f61c1446f180a4de15f"
+  },
+  "score": {
+    "candidate_sha256": "176a8f64d84f45288818326bba4bd3cfd6941d4a83a050038ed7535fb7b74dd4",
+    "normalized": 1034,
+    "raw": 1034,
+    "total": 1035,
+    "matched_text_bytes": 1764808,
+    "gains": [],
+    "losses": [],
+    "raw_gains": [],
+    "raw_losses": []
+  },
+  "metric": {
+    "window": "0x22a10",
+    "window_bytes": 27400,
+    "symbol": "pump_recovered::admin_cto::execute",
+    "cand_start": "0x22a10",
+    "cand_bytes": 27400,
+    "normalized_equal": false,
+    "raw_equal": false,
+    "ratio": 0.71548,
+    "calls_original": [
+      154,
+      3
+    ],
+    "calls_candidate": [
+      154,
+      3
+    ],
+    "call_counts_original": {
+      "internal": 154,
+      "syscall_or_relocated": 3,
+      "indirect": 0
+    },
+    "call_counts_candidate": {
+      "internal": 154,
+      "syscall_or_relocated": 3,
+      "indirect": 0
+    },
+    "normalized_field_differences": {
+      "comparable": false,
+      "reason": "instruction boundaries or byte lengths differ"
+    },
+    "slots_diff": 3289,
+    "first_diff_offsets": [
+      "0x0",
+      "0x8",
+      "0x10",
+      "0x80",
+      "0x88",
+      "0x90",
+      "0x98",
+      "0xa0",
+      "0xa8",
+      "0xb0",
+      "0xb8",
+      "0xc0"
+    ]
+  },
+  "no_raw_or_normalized_losses": true,
+  "strict_current_measured_token_gain": true,
+  "token_evidence": {
+    "original_tokens": 3339,
+    "candidate_tokens": 3339,
+    "matched_tokens": 2389,
+    "ratio": 0.71548,
+    "baseline_matched_tokens": 2367,
+    "matched_token_change": 22,
+    "baseline_ratio": 0.70889,
+    "baseline_positions": 3091,
+    "candidate_positions": 3289,
+    "positional_difference_change": 198
+  },
+  "tools_and_scoring_inputs_sha256": {
+    "reconstruction/harness/fastbuild.py": "c98de708d063186373b092de893235bef4dd9cf62940fd9c47fadae461efed00",
+    "reconstruction/harness/source_inputs.py": "6fde8e438f119aa3ecf003bc71a12fb7da0640cfea241216cba47a242e8cd2fc",
+    "reconstruction/harness/build_process.py": "88b61b7dfecd077f97f3a093b9348078067f9fdea07d9efccb0cb324d094d517",
+    "reconstruction/harness/link_order.py": "53de3cf5e6ff004b03319dc530ef4902d3b67734aced025fbc1957846d452e81",
+    "reconstruction/harness/score.py": "6eae59ba87809bdd6aa42d6227c5598d8ea2196051bf0d796e8020bdb14df714",
+    "reconstruction/harness/score_admission.py": "885b4b55229e3d87086b93c4e8227da8e4ec2713ccd6691fa40a7538d66c3a45",
+    "reconstruction/harness/elf_symbols.py": "f7a69a4b5324959398365b63f20ea9dda8eab223d8790a608c778549d3b966c0",
+    "reconstruction/harness/instruction_stream.py": "be6a3f3a0274d4ae819a6288293b5a1f9b040a322a0414a240217ab96a3dee45",
+    "reconstruction/harness/llvm_tools.py": "306a50b2ba57f350e250d7c7f596ac400627ecfd24248b2291578b5ddf3fe8af",
+    "reconstruction/harness/original_input.py": "9d00b5c253405cec4d2ef292086c6e88d758bd3fe7f8c6a3cba23af114f01ade",
+    "reconstruction/harness/target_metric.py": "909f091fc2bfc1a252f8a7bd557dfd0c38f870bdf6898b0e3c93ec7db195f6a4",
+    "reconstruction/harness/win.py": "8862046dcb0e01673166e68a0b0e5122be4738f0780bcf2f58afc8416bd8cdea",
+    "reconstruction/harness/compare_scores.py": "e59024567db9b2373fe01d377f42308554434d182f5981153cd6814412245b74",
+    "reconstruction/base/functions.tsv": "fb2c0a47514567d65eb45c1e268dacd5291e4659bb7dceb575a767dc20bcaff8",
+    "evidence/original/pump/deployed.so": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
+    "reconstruction/harness/pump_link_lld.py": "03b61b39cf5e85512086c87298ac302cec78378b00c09c594715d18c0aa86e5b",
+    "reconstruction/harness/pump_link_lld.sh": "f613b208d47e261e8690fb233e36bd0f0b364ba075c7f6f55e5bf9a435f7fc59",
+    "reconstruction/harness/sbf_default.ld": "5e8370b9380f55411d827721e2e43c8cfd1eac71d1383e20b938397bc0bd82c3",
+    "reconstruction/harness/pump_physical_source_wrapper.py": "e9493709faefa9b829ebb63004e1251e96e9be5456e69174ffaeeec836d5d72a",
+    "reconstruction/harness/pump_physical_source_wrapper.sh": "0636b61fbbb2f5022f5ce4e5f4cc580617ac2758a95cc75eff84056295f61527"
+  },
+  "complete_score_and_metric_recomputed_from_hash_pinned_raw_source": true,
+  "source_inputs_recomputed_from_hash_pinned_raw_source": true,
+  "files": {
+    "build-start.json": "8159ee4d9cbd9e02569d501cc68daa6b456b6d4cd0d8f95ccfb1470889813c2a",
+    "source-inputs-before-build.json": "ec2b5265c206cc4c56f7801457050ebf5fde1598dd54cb89b5103619391d0cae",
+    "baseline-score.json": "b2ef7f71d2478aef87b52b8b8e4646b156389ed10173fc6235911f64584989cc",
+    "baseline-qualification.json": "9cc4030897557573a811a9b11af428ccd19557f5ea3a65f099d99360dd10dec3",
+    "build-result.json": "0f69178c16077711eb4581bb139777351ec63eaeeb3a8e3707668de9fe4deb3d",
+    "build/source-inputs.json": "ec2b5265c206cc4c56f7801457050ebf5fde1598dd54cb89b5103619391d0cae",
+    "build/candidate.so": "c5caa63750d2615a93b3c25fae2154e4949d60ad559b9f61c1446f180a4de15f",
+    "build/unstripped.so": "176a8f64d84f45288818326bba4bd3cfd6941d4a83a050038ed7535fb7b74dd4",
+    "score.json": "3dc04ac0cbbdd88926dbceadbdab7856e651ea1db4702b109cf9171d95098144",
+    "metric.json": "cd06791ae698cf40e03ff1084a86b7dc7d1bb00b52aabbb36259f8dc6f2988ce",
+    "run_qualification.py": "28791375ad97c49e322836ab73a2da6bb74754199dca24907501d90fa211666e",
+    "qualification-cli.log": "dbb4023b446dff64e36eb9bd281d8358d936853c34dbb60bbe5df9bfc6005a63",
+    "qualification-cli.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "candidate-build.log": "0f69178c16077711eb4581bb139777351ec63eaeeb3a8e3707668de9fe4deb3d",
+    "candidate-build.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "candidate-score.log": "3add737c359848bcf42d72f7c2fd81a075e889e021c9842ebfc68b21700ce19d",
+    "candidate-score.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "candidate-metric.log": "2f319230581b6783bc6c488ebcacbcf316734a50a2cf2b85a6800aec74d894cb",
+    "candidate-metric.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "rescore_against_main665.py": "76272a7fcf9ffafb5ce0c68153e7817a47f14e12c535029dd68a8fdab1385156",
+    "score-vs-main665.json": "3dc04ac0cbbdd88926dbceadbdab7856e651ea1db4702b109cf9171d95098144",
+    "candidate-score-vs-main665.log": "3add737c359848bcf42d72f7c2fd81a075e889e021c9842ebfc68b21700ce19d",
+    "candidate-score-vs-main665.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "limits": [
+    "Ordinary actual candidate build/score versus actual fresh current main; current semantic and fresh current-image runtime acceptance remain separate.",
+    "Partial instruction-token similarity and positional distance are distinct; no full window/whole Pump identity claimed.",
+    "No VM, captured campaign, author/private compiler tooling or remote mutation on this build lane."
+  ],
+  "merge_qualification_baseline_actual_revision": "665ffe46b1896a03e056dcffea8ed9826b8f58f1",
+  "latest_main_comparison": {
+    "actual_baseline_build_revision": "665ffe46b1896a03e056dcffea8ed9826b8f58f1",
+    "baseline_source_sha256": "d65fe09c5f2886452b50a41def2df6baacd842824ef25d246159c0ee1e8c9f4d",
+    "baseline_loaded_sha256": "051ea2f20f1b3fdd693b0dd534d51dad6a1c8d86d7ea4785a3a0b641e929a4c3",
+    "baseline_unstripped_sha256": "38bd1587e820b5b90c40bf9288a117b8d78c672bb320d3b8ecd39c6cde012323",
+    "baseline_qualification_sha256": "ad066f9d7c962250bf53530867a50d6b641efefdf4c0254e2a088b3dcfd19f62",
+    "baseline_score_sha256": "618fdc72de8ff159b5954328d8574b190c4e80d4b46dd24e2162e2b4d6f04138",
+    "candidate_actual_build_revision": "fcc2dc457b8c408cfec21ce8034b33217d6b5cf8",
+    "candidate_unstripped_sha256": "176a8f64d84f45288818326bba4bd3cfd6941d4a83a050038ed7535fb7b74dd4",
+    "score": {
+      "candidate_sha256": "176a8f64d84f45288818326bba4bd3cfd6941d4a83a050038ed7535fb7b74dd4",
+      "normalized": 1034,
+      "raw": 1034,
+      "total": 1035,
+      "matched_text_bytes": 1764808,
+      "gains": [],
+      "losses": [],
+      "raw_gains": [],
+      "raw_losses": []
+    },
+    "no_raw_or_normalized_losses": true,
+    "strict_current_measured_token_gain": true,
+    "baseline_ratio": 0.70889,
+    "ratio": 0.71548,
+    "baseline_matched_tokens": 2367,
+    "matched_tokens": 2389,
+    "matched_token_change": 22,
+    "baseline_positions": 3091,
+    "candidate_positions": 3289,
+    "positional_difference_change": 198,
+    "scope": "Actual authored candidate builtfcc rescored against the actual physical current main665 build; original same-main9357 stage receipts remain unchanged and identified separately."
+  },
+  "initial_stage_baseline_actual_build_revision": "9357bd934134fc1d63bed6aea66ab435526359f6",
+  "initial_stage_score": {
+    "candidate_sha256": "176a8f64d84f45288818326bba4bd3cfd6941d4a83a050038ed7535fb7b74dd4",
+    "normalized": 1034,
+    "raw": 1034,
+    "total": 1035,
+    "matched_text_bytes": 1764808,
+    "gains": [],
+    "losses": [],
+    "raw_gains": [],
+    "raw_losses": []
+  },
+  "initial_stage_token_evidence": {
+    "original_tokens": 3339,
+    "candidate_tokens": 3339,
+    "matched_tokens": 2389,
+    "ratio": 0.71548,
+    "baseline_matched_tokens": 2354,
+    "matched_token_change": 35,
+    "baseline_ratio": 0.705,
+    "baseline_positions": 3179,
+    "candidate_positions": 3289,
+    "positional_difference_change": 110
+  },
+  "selected_current_score_path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162v2/score-vs-main665.json",
+  "prior_a596_qualification": {
+    "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162v2/qualification.json",
+    "sha256": "6d2cbe7741aa43057cb62253736852a077ebf5dc266bfb7ceacd25900b023092",
+    "scope": "Prior measured current baseline a596 preserved unchanged; current665 comparison recorded separately."
+  }
+}

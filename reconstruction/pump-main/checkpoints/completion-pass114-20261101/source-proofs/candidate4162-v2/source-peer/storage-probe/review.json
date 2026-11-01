@@ -1,0 +1,56 @@
+{
+  "status": "PASS_BOUNDED_PINNED_SCRATCH_SLOT_LAYOUT_AND_INITIALIZATION",
+  "source_sha256": "11e6dadbaa6a7a0ed29edbe52fe05a700f3c577f13ba118e56670218f295a0d8",
+  "compile": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162-v2/source-peer/storage-probe/compile.json",
+  "checks": {
+    "allocation72_align8": true,
+    "LE_pointer64": true,
+    "bool_to_u64_zero_extend": true,
+    "cashflag_store_then_u8read": true,
+    "accounts_store_before_reload": true,
+    "six_coin_stores": true,
+    "two_bump_stores": true,
+    "key_prefix_live_through_finalcopy": true
+  },
+  "ranges": {
+    "holder_key": [
+      0,
+      32
+    ],
+    "wallet_event_outer_signers": [
+      32,
+      48
+    ],
+    "accounts_pointer": [
+      48,
+      56
+    ],
+    "cashback_u64": [
+      56,
+      64
+    ],
+    "coin_empty_or_bump_u8": [
+      64,
+      65
+    ],
+    "spare": [
+      65,
+      72
+    ]
+  },
+  "cashback_validity": "Input is a valid Rust bool. Official target datalayout is little-endian with64-bit integral pointers; bool\u2192u64 lowers to zero-extension, so byte56 is exactly0/1. Neither earlier wallet signer writes[32,48), accounts pointer[48,56), nor coin/bump byte64 touches[56,64). Actual source has no intervening write to that slot before curve boolean store.",
+  "pointer_validity": "Raw hkb is captured before shared key reference; tail references never overlap the key. Stored accounts pointer retains the same live context provenance, alignment and type; pointer reloads occur after store and before context lifetime ends. Synchronous CPI receives cloned account infos and seed refs, not ownership of the source context or hkx.",
+  "compiler_model_limit": "Actual locked Pubkey and AccountInfo storage/seed model. AccountInfo acts as opaque stable referent instead of full AdminCto because only raw-pointer size/provenance/lifetime is tested. The model is not exact entire execute IR or an exhaustive alias proof.",
+  "files": {
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162-v2/source-peer/storage-probe/compile.json": "c5622096ef52b2b31104a3315eec1b147427cc4cd3d8ee2736644556d052956a",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162-v2/source-peer/storage-probe/optimized/probe.ll": "ce4baf8417a69b9262b0fd47d33564014ac4b3421e2316f0ff12470e584259ab",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162-v2/source-peer/storage-probe/optimized/probe.o": "1b115821c50382391ca704e14120f8ec2022905655578cf110850180e778708e",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162-v2/source-peer/storage-probe/optimized/probe.s": "cf0f647d5c30c8e22abc69447a6393b63131faa0bb6625e0d41abca5561d3bbe",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162-v2/source-peer/storage-probe/optimized/stderr.log": "54881c1a000dd2c44ba3010ec953f113a7a6991da18ac4de1f6d03b884792ac7",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162-v2/source-peer/storage-probe/optimized/stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162-v2/source-peer/storage-probe/probe.rs": "11e6dadbaa6a7a0ed29edbe52fe05a700f3c577f13ba118e56670218f295a0d8",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162-v2/source-peer/storage-probe/raw/probe.ll": "384c59bea3030766a73099526245419b9f436b40c09b85fa4c4f13d7adf5df7e",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162-v2/source-peer/storage-probe/raw/stderr.log": "54881c1a000dd2c44ba3010ec953f113a7a6991da18ac4de1f6d03b884792ac7",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162-v2/source-peer/storage-probe/raw/stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

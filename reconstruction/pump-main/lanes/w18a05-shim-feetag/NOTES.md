@@ -1,10 +1,10 @@
-# w18a05-shim-feetag: creator==sharing_config compare byte kept in its stack temp
+# w18a05-shim-feetag: creator==sharing_config compare kept in memory
 
-Target `0x22a10` `admin_cto::execute`, pinned at 27,400 B. Base 7d8ad9f5b: 0.7038, M 2,350, 3,184 slots.
-After: 0.7044, M 2,352, 3,180 slots, 27,400 B, 1034/1034, no losses or raw losses, differential 388 cases and 0 mismatches.
+Target `0x22a10` `admin_cto::execute`, pinned at 27,400 B. Base 665ffe46b: 0.70889, M 2,367, 3,091 slots.
+After: 0.70979, M 2,370, 3,141 slots, 27,400 B, 1034/1034, no losses or raw losses.
 
-The first half of the `shared` test now reads the compare byte back through `read_volatile` (+56 B at the head of E1).
-Seven of the eight line-312 placeholder reads repay it. V1, V5, S2 +1 and W2 +3 against E1 -1 and T1 -3; all3 is 2,921 against 2,922, so this is
-register and frame naming from a changed RA start, not structure. The head of E1 still differs from the original.
+The first half of the `shared` test writes the compare with `write_volatile` and reads it back from memory. That construct costs about 40 B at
+the head of E1. Removing placeholder reads repays it: the two at line 312, the one at line 664 and the one in the Clock::get error path.
+Differing positional slots rise by 50 while aligned tokens rise by 3, so this is not byte-identical progress in that metric.
 
 The fee-tag phi notes and tools are on `origin/swarm/w18a05-shim-feetag`.
