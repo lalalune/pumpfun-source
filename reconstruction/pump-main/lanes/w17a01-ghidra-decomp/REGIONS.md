@@ -127,8 +127,10 @@ Ours (`regions/E1.ours.c`):
 - then copies `holder_key` out in 7+1-byte pieces.
 
 Source today has `let shared=...` before `let hk=find_program_address(...)`. The original evaluates the PDA first and
-writes it into the same 32-byte scratch slot (-0x2d0) that `sk` and later the quote-mint zero key reuse. The ledger
-shows entry-order trials (w10r1 region1of6) but not "PDA before shared with an aligned out slot". See shim lane 1.
+writes it into the same 32-byte scratch slot (-0x2d0) that `sk` and later the quote-mint zero key reuse.
+w14a93-cto-pdaheadra tried "PDA before shared" composites with the raw-IR oracle and rejected them. None of those
+trials controlled where the `(Pubkey,u8)` sret lands; this decompile shows the slot is the difference. See shim
+lane 1.
 
 ### E2/E3 entry: CtoState packing and the `new` pieces (orig 0x280-0x708)
 
