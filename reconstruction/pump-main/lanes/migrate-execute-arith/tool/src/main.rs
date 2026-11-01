@@ -221,6 +221,8 @@ fn render(ins: Insn, data: &[u8], offset: u64) -> String {
     let uimm = imm;
     match op {
         0x18 => {
+            // decode() only emits an lddw when both slots fit the window, so
+            // the paired high word is always in bounds here.
             let hi = u32::from_le_bytes(
                 data[(offset + 12) as usize..(offset + 16) as usize].try_into().unwrap(),
             );
@@ -299,6 +301,8 @@ fn census(insns: &[Insn], data: &[u8], offset: u64, vaddr: u64) -> serde_style::
             // The high word of an lddw sits in the paired slot 12 bytes into
             // the 16-byte instruction; derive it from the instruction's own
             // address, not an instruction index (lddw slots are 16 bytes).
+            // decode() refuses a window that cuts the pair, so the slot is
+            // always inside both the window and the file here.
             let hi_at = offset + (ins.vaddr - vaddr) + 12;
             let hi = u32::from_le_bytes(data[hi_at as usize..hi_at as usize + 4].try_into().unwrap());
             let full = (ins.imm as u64) | ((hi as u64) << 32);
@@ -445,6 +449,15 @@ fn decode(data: &[u8], offset: u64, vaddr: u64, length: u64) -> Result<Vec<Insn>
         let off = i16::from_le_bytes(data[at + 2..at + 4].try_into().unwrap());
         let imm = u32::from_le_bytes(data[at + 4..at + 8].try_into().unwrap());
         let ins = Insn { vaddr: vaddr + i, opcode: op, dst: regs & 0x0F, src: regs >> 4, off, imm };
+        if op == 0x18 && i + 16 > length {
+            // The high word lives in the second 8-byte slot of the pair.
+            // Outside the window it would silently come from the next
+            // instructions, or panic when the window ends with the file.
+            return Err(format!(
+                "window cuts an lddw pair at {:#x}; refusing to census a misdecoded stream",
+                ins.vaddr
+            ));
+        }
         if mnemonic(op).is_none() && op != 0x00 {
             return Err(format!("unknown opcode {op:#04x} at {:#x}; refusing to census a misdecoded stream", ins.vaddr));
         }
@@ -528,3 +541,6 @@ fn main() -> ExitCode {
     println!("census written: {} instructions", insns.len());
     ExitCode::SUCCESS
 }
+
+#[cfg(test)]
+mod tests;
