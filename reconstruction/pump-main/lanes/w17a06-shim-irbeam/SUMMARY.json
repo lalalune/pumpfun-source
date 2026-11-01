@@ -73,5 +73,6 @@
   "make a MIR-JT-proof spelling for accounts reloads inside jump-threaded regions (e.g. compute the reload before the && chain)",
   "add expect_p families with more ratios on brs fed directly by call results",
   "use the slim oracle for other lanes' IR experiments (110 s -> 2 s)"
- ]
+ ],
+ "tools_note": "The IR tools were removed from the repo by the owner qualification pass fbcd09345 (QUALIFICATION.md): private, not maintained, screening only. Copies stay in ~/.cache/pumpfun-reconstruction/lanes/w17a06-shim-irbeam/tools. Acceptance is measure.sh + land.py + the signed differential only. The slim reducer is NOT exact in general: the qualification found an outside-alias fixture it changed and a missing root it accepted."
 }
