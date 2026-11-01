@@ -1,0 +1,169 @@
+{
+  "schema": "pump-completion-pass110-v1",
+  "date": "2026-10-31",
+  "built_revision": "d5751b26ecab94a356f24bb6b4a4d038b58b1d3c",
+  "validated_merged_revision": "355a277ae60e9e84996b3e8e61af0d3537806b1c",
+  "recipe": "identity",
+  "source_schema": "pump-source-inputs-v3",
+  "source_sha256": "62ff9b52f807522fb4838a2f8666c37a0e619aeecbdefe07d8df1be8cfc3f8ed",
+  "source_files": 307,
+  "source_directories": 10,
+  "prior_source_schema": "pump-source-inputs-v3",
+  "prior_source_sha256": "af4719eafe6627352a2632cbc2fd66fa3447fc9f83dde52e03194078827c9e57",
+  "source_receipt_note": "Fresh v3 source admission and the pinned identity recipe qualify the current marked reconstruction source. The baseline is the CP109 main build; private experiment compilers are not used.",
+  "unstripped_sha256": "748fbfba8140c508d2ca47affc695ab2d15b7236d11bd710065969c66adac621",
+  "stripped_sha256": "6400ccc305c83d425e67cdc6a9589a4f25ad1fb0c26d081e28fd587b30ac8f31",
+  "runtime_valid": true,
+  "stack_warnings": [],
+  "build_tool_sha256": {
+    "reconstruction/harness/fastbuild.py": "c98de708d063186373b092de893235bef4dd9cf62940fd9c47fadae461efed00",
+    "reconstruction/harness/source_inputs.py": "6fde8e438f119aa3ecf003bc71a12fb7da0640cfea241216cba47a242e8cd2fc",
+    "reconstruction/harness/build_process.py": "88b61b7dfecd077f97f3a093b9348078067f9fdea07d9efccb0cb324d094d517",
+    "reconstruction/harness/link_order.py": "53de3cf5e6ff004b03319dc530ef4902d3b67734aced025fbc1957846d452e81"
+  },
+  "scoring": {
+    "revision": "355a277ae60e9e84996b3e8e61af0d3537806b1c",
+    "sha256": {
+      "reconstruction/harness/score.py": "6eae59ba87809bdd6aa42d6227c5598d8ea2196051bf0d796e8020bdb14df714",
+      "reconstruction/harness/score_admission.py": "885b4b55229e3d87086b93c4e8227da8e4ec2713ccd6691fa40a7538d66c3a45",
+      "reconstruction/harness/elf_symbols.py": "f7a69a4b5324959398365b63f20ea9dda8eab223d8790a608c778549d3b966c0",
+      "reconstruction/harness/instruction_stream.py": "be6a3f3a0274d4ae819a6288293b5a1f9b040a322a0414a240217ab96a3dee45",
+      "reconstruction/harness/llvm_tools.py": "306a50b2ba57f350e250d7c7f596ac400627ecfd24248b2291578b5ddf3fe8af",
+      "reconstruction/harness/original_input.py": "9d00b5c253405cec4d2ef292086c6e88d758bd3fe7f8c6a3cba23af114f01ade",
+      "reconstruction/harness/target_metric.py": "909f091fc2bfc1a252f8a7bd557dfd0c38f870bdf6898b0e3c93ec7db195f6a4",
+      "reconstruction/harness/win.py": "8862046dcb0e01673166e68a0b0e5122be4738f0780bcf2f58afc8416bd8cdea",
+      "reconstruction/harness/compare_scores.py": "e59024567db9b2373fe01d377f42308554434d182f5981153cd6814412245b74",
+      "reconstruction/base/functions.tsv": "fb2c0a47514567d65eb45c1e268dacd5291e4659bb7dceb575a767dc20bcaff8",
+      "evidence/original/pump/deployed.so": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d"
+    }
+  },
+  "baseline_checkpoint": "../completion-pass109-20261031",
+  "baseline_revision": "d20fb326ec8e4cbdbc96ec46a3a802326c91fc3f",
+  "baseline_unstripped_sha256": "69f35a15bc2a5d9e333b6bbaa3b236697c53c6eebd0ec15a1e8141e8721d4d35",
+  "pump": {
+    "raw": 1034,
+    "normalized": 1034,
+    "total": 1035,
+    "matched_percent": 99.9,
+    "matched_code_bytes": 1764808,
+    "total_code_bytes": 1792208,
+    "unmatched": [
+      {
+        "address": "0x22a10",
+        "symbol": "admin_cto::execute",
+        "bytes": 27400
+      }
+    ]
+  },
+  "aggregate": {
+    "raw": 3337,
+    "normalized": 3337,
+    "total": 3338,
+    "matched_percent": 99.97,
+    "matched_code_bytes": 5185728,
+    "total_code_bytes": 5213128,
+    "whole_meaningful_elf_equal_programs": 4,
+    "programs": 5
+  },
+  "comparison": {
+    "gains": [],
+    "losses": [],
+    "raw_gains": [],
+    "raw_losses": []
+  },
+  "remaining_window": {
+    "window": "0x22a10",
+    "window_bytes": 27400,
+    "symbol": "pump_recovered::admin_cto::execute",
+    "cand_start": "0x22a10",
+    "cand_bytes": 27400,
+    "normalized_equal": false,
+    "raw_equal": false,
+    "ratio": 0.68065,
+    "calls_original": [
+      154,
+      3
+    ],
+    "calls_candidate": [
+      154,
+      3
+    ],
+    "call_counts_original": {
+      "internal": 154,
+      "syscall_or_relocated": 3,
+      "indirect": 0
+    },
+    "call_counts_candidate": {
+      "internal": 154,
+      "syscall_or_relocated": 3,
+      "indirect": 0
+    },
+    "normalized_field_differences": {
+      "comparable": false,
+      "reason": "instruction boundaries or byte lengths differ"
+    },
+    "slots_diff": 3170,
+    "first_diff_offsets": [
+      "0x0",
+      "0x8",
+      "0x10",
+      "0x80",
+      "0x88",
+      "0x90",
+      "0x98",
+      "0xa0",
+      "0xa8",
+      "0xb0",
+      "0xb8",
+      "0xc0"
+    ]
+  },
+  "partial_progress": {
+    "baseline_ratio": 0.68005,
+    "candidate_ratio": 0.68065,
+    "baseline_matched_tokens": 2270,
+    "candidate_matched_tokens": 2272,
+    "matched_tokens_gain": 2,
+    "baseline_positional_differences": 3170,
+    "candidate_positional_differences": 3170,
+    "bytes": 27400,
+    "note": "Two additional matched instruction tokens; positional differences and exact-window memberships are unchanged."
+  },
+  "semantic_review": {
+    "source_file_sha256": "da24988605ee1b0c0e127478f01fdf91aeb24f5ee8f03d2f31e2b83b10d0881b",
+    "independent_review": "source-peer-review.json",
+    "machine_review": "semantic-review.json",
+    "prior_reviews": "../completion-pass109-20261031/README.md",
+    "prior_checkpoint_file_sha256": {
+      "summary.json": "88a85ce86326f3ee15b7d5f4c1449a3c948b9a2e7ae45e9db240e29fd4a9a006",
+      "source-peer-review.json": "78bf42e1524d9845748cdb0bbcc4ec285bbb33cd1b22ba1b1521e1cb011ccb07",
+      "semantic-review.json": "abe5ef1dd5280a7e88769ecd8bb88ca45767ddc9d220b661a6e8e1da34d3c806",
+      "external-fees-review.json": "0a940b44b6df42cf4f2c2df43e288d2fb0764ce3246e0e3dbb3126904d471a9a",
+      "retained-source-reviews.json": "ac706cc4405b4128c762020678a6d2820cab8706ec4766a6cad899bfd176270f"
+    },
+    "description": "The sharing-config owner read is placed inside one event-authority data Rc clone. Current ownership/initialization/drop assumptions are reviewed separately; prior pinned reconstruction-shim limitations remain applicable."
+  },
+  "runtime": {
+    "case_count": 388,
+    "mismatches": 0,
+    "candidate_sha256": "6400ccc305c83d425e67cdc6a9589a4f25ad1fb0c26d081e28fd587b30ac8f31",
+    "original_sha256": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
+    "report": "admin-runtime.json.gz",
+    "uncompressed_sha256": "6b2f68a530861640f8b58ce30b65cc15a64917b1536a840310918e025ce3ef5e",
+    "compressed_sha256": "b1be34f82cc63be917a78c3220c6f79b3943ab21e85ec409daff626957cb5d26",
+    "producer_sha256": "6d8a141f8933fc17cc2a520e86da2741f6f1aba6d4201e414e62c4a2293c4364",
+    "reused": false,
+    "fresh_VM_case_pairs": 388,
+    "signed_transaction_vectors_verified": 776,
+    "validation": "runtime-validation.json",
+    "scope": "Signed synthetic captured Pump admin_cto calling Fees by genuine CPI. Pool authority nonsigner at transaction boundary; no privileged signer injection. Not full program identity."
+  },
+  "limits": [
+    "No new exact window; Pump whole meaningful ELF remains unequal.",
+    "Marked compiler/layout shims retain the pinned-toolchain, valid live reference and single-threaded Anchor-context assumptions recorded in the current and CP109 reviews; no historical-source attribution or portable Rust layout guarantee.",
+    "The four other program identity checkpoints are retained without new whole-ELF acceptance.",
+    "The externally merged Fees source update3971 remains author-reported cold-build evidence, not new independent acceptance by this pass; its qualification limits remain in CP109.",
+    "Prior stopped claim-token-incentive and other campaigns remain excluded.",
+    "Hosted CI is tracked separately; passing local tests do not establish hosted completion."
+  ]
+}

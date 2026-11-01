@@ -51,7 +51,11 @@ class PumpAdminCtoFeeBoundsCapturedTests(unittest.TestCase):
     def assert_contract(self, case, result):
         self.assertEqual(error_code(result), case['expected_fee_error'], case['name'])
         transaction = Transaction.from_bytes(base64.b64decode(result['transaction_base64']))
-        self.assertTrue(all(transaction.verify_with_results()), case['name'])
+        verified = transaction.verify_with_results()
+        # all() over a transaction with no signatures is vacuously true, so an
+        # unsigned transaction satisfied the check without proving anything.
+        self.assertTrue(verified, 'transaction carries no signature: ' + case['name'])
+        self.assertTrue(all(verified), case['name'])
         self.assertFalse(result['pool_authority_top_level_signer'])
         if case['expected_fee_error'] is not None:
             # Failed instructions roll back state; the transaction payer still pays fees.

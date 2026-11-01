@@ -269,9 +269,14 @@ class CreateFeeBoundsCapturedTests(unittest.TestCase):
         kind, value = answer.split(',')
         if kind == 'error':
             self.assertEqual(captured['error'], int(value))
-            # A rejected create only charges the two signature fees.
+            # A rejected create only charges the two signature fees. The
+            # expectation takes its keys from the before-snapshot, not from the
+            # delta: keyed from the observed delta, a run that stopped recording
+            # an account shrank both sides of the comparison to match.
             payer = USER.pubkey()
-            self.assertEqual(captured['delta'], {k: -TX_FEE if k == payer else 0 for k in captured['delta']})
+            self.assertIn(payer, captured['before'])
+            self.assertEqual(captured['delta'],
+                             {k: -TX_FEE if k == payer else 0 for k in captured['before']})
             self.assertEqual({k: v[1:] for k, v in captured['after'].items()},
                              {k: v[1:] for k, v in captured['before'].items()})
             self.assertEqual(captured['events'], [])
