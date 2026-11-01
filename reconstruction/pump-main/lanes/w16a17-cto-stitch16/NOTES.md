@@ -1,3 +1,13 @@
+> Maintainer scope: this packet records historical private IR/catalog experiments.
+> The private helper scripts and their spec files were excluded after review
+> found unsafe shared-cache deletion, untracked import-time execution and stale
+> metric/cache protocols. Their original bytes remain in PR history. References
+> below describe that historical experiment environment and do not identify
+> maintained replay commands. More aggressively masked diagnostics and deletion
+> heuristics are neither completion evidence nor semantic or byte equivalence.
+> Only independently built source and the official score qualify the current
+> source change; the old SUMMARY.json and data remain historical records.
+
 # w16a17-cto-stitch16: wave-16 integrator for admin_cto::execute (0x22a10)
 
 Target `0x22a10` `admin_cto::execute` (`programs/pump/src/creator/admin_cto.rs`), pinned at 27,400 B.

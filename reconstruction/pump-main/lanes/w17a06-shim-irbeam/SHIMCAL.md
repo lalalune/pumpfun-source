@@ -1,5 +1,7 @@
 # SHIMCAL: calibrated shim constructs for admin_cto.rs (rustc 1.79.0-dev, LLVM 18.1.7, sbpf)
 
+> Historical experiment notes. The private tools and probe execution paths from this lane are not maintained or admitted. An independent genuine LLVM control showed that the reducer changed an outside-alias fixture and accepted a missing root. Its broad oracle mask also differs from canonical score.py. Claims and trial results below are retained as historical author reports, not current acceptance evidence. See QUALIFICATION.md for the selected source, canonical build/score and bounded signed runtime qualification.
+
 Lane `w17a06-shim-irbeam`. Every construct was put ONCE into `programs/pump/src/creator/admin_cto.rs`, on main
 1647da0f2 (programs/ = 599891304: M 2,251, 0.67436, 27,400 B), without adding any line. Each variant was captured
 with capraw (pre-opt IR) and scored with the exact slim oracle (`tools/preslim.py` + `tools/fx.py`; see NOTES.md).

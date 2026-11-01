@@ -1,5 +1,7 @@
 # w17a06-shim-irbeam: shim alphabet calibration and an IR beam over shim-expressible edits
 
+> Historical experiment notes. The private tools and probe execution paths from this lane are not maintained or admitted. An independent genuine LLVM control showed that the reducer changed an outside-alias fixture and accepted a missing root. Its broad oracle mask also differs from canonical score.py. Claims and trial results below are retained as historical author reports, not current acceptance evidence. See QUALIFICATION.md for the selected source, canonical build/score and bounded signed runtime qualification.
+
 Target `0x22a10` `admin_cto::execute` (`programs/pump/src/creator/admin_cto.rs`), pinned at 27,400 B.
 Base: main 1647da0f2 / 11789175c (programs/ identical to 599891304): 0.67436, 3,141 slots, M 2,251 at 27,400 B.
 Wave 17 SHIM track. Ledger: approach `irbeam`, keys `0x22a10-w17-1647da0-irbeam-<item>-v1`.
