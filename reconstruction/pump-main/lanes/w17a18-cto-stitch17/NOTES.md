@@ -98,6 +98,28 @@ The free -8 B knob (revert the 298 passthrough) was paired with 17 +8 B partners
 passthroughs of the accounts pointer at the CtoState loads and the shared owner test (`ptsh`, `ptmf`, `ptmy`, ...).
 Best: ties at 2,284 (p2_284 / p2_289 / ptmf at 3,311 oracle slots, one fewer than main); nothing above main.
 
+**Peel landed: #4025 (merge 8350fae5a):** the #3985 weighted data clone reverted, whole unstripped ELF identical
+(a950162cc7d5201c), forcing_delta 0, differential 388/0.
+
+## 5. LOO on 4d09af4 (#4026 passthrough-2, M 2,287) and on 2f3597f (#4040 lifetime shim, M 2,291)
+
+On 4d09af4 three reverts turn into knobs: removing the 334 placeholder (`loo4019_0`) is +1 M at -8 B again, the
+#4026 312 compare-byte passthrough revert is +1 M at -8 B, and the #4026 shared-owner/max_fee `ptp` pair revert is 0 M
+at -16 B. The 298 passthrough revert stays a free -8 B knob. Paired with 8 B partners (slim oracle, main 2,287):
+
+| composite | M | bytes | oracle slots |
+| --- | ---: | ---: | ---: |
+| remove the 334 placeholder + a placeholder copy before 284 (= the placeholder moved to the top of validate) | **2,288** | 27,400 | 3,095 |
+| same, copy before 289 | 2,288 | 27,400 | 3,095 |
+| revert the 312 compare-byte pt + placeholder before 284 / 289 | 2,288 | 27,400 | 3,095 |
+| either +1 revert + placeholder before 306 / 307 / 338 | 2,287 | 27,400 | 3,091-3,093 |
+| either + placeholder before 296 | 1,439 | 27,424 | collapse |
+| both +1 reverts (-16 B) + w17a08 fence A (+16 B) | 2,284 | 27,400 | |
+
+The move holds on 2f3597f (#4040): 2,292 @27,400 against main 2,291 (the 334 removal alone is 2,292 @27,392).
+measure.sh on 2f3597f (programs = 638fce2): **0.68634 -> 0.68664**, 3,096 slots, 27,400 B, 1034 / 1034, zero losses,
+unstripped 678b0ba01d847c33; differential 388 / 0. The placeholder count is unchanged (forcing delta 0).
+
 ## Tools (`tools/`, experiment only; paths point at this lane's `$OUT`)
 
 - `cap.py <name> <genes> <slot>`: copy a pristine base crate, apply `genes17.py` genes (line count checked), capture

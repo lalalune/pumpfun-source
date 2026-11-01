@@ -281,7 +281,7 @@ struct CtoState{creator:Pubkey,max_fee:u64,mayhem:bool,holder_reward:bool,holder
 
 
 fn validate(st:&CtoState,hopt:Option<bool>,fee:Option<u64>,new:Option<Pubkey>,holder_key:&Pubkey,sharing:&Pubkey)->Result<Pubkey>{let holder=hopt==Some(true);
- if st.mayhem{return Err(error!(PumpError::CtoNotAllowedForMayhemCoin));}
+ unsafe{core::ptr::read_volatile(holder_key as *const Pubkey as *const u8)}/*shim: holder_key byte read placeholder*/;if st.mayhem{return Err(error!(PumpError::CtoNotAllowedForMayhemCoin));}
 // Reconstructed positions of the same deployed validations.
 
 
@@ -331,7 +331,7 @@ fn validate(st:&CtoState,hopt:Option<bool>,fee:Option<u64>,new:Option<Pubkey>,ho
 
 
 
-  unsafe{core::ptr::read_volatile(holder_key as *const Pubkey as *const u8)}/*shim: holder_key byte read placeholder before the fee_configurable test*/;if !st.fee_configurable{return Err(error!(PumpError::CreatorFeeNotConfigurable));}
+  if !st.fee_configurable{return Err(error!(PumpError::CreatorFeeNotConfigurable));}
 
 
 
