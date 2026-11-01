@@ -1,0 +1,151 @@
+{
+ "lane": "w17a07-shim-vcbasin",
+ "wave": 17,
+ "track": "shim",
+ "target": {
+  "window": "0x22a10",
+  "function": "admin_cto::execute",
+  "file": "programs/pump/src/creator/admin_cto.rs",
+  "bytes": 27400
+ },
+ "result": "notes only, no landing: VC basin mixing with marked shims does not beat main; kill test met",
+ "main_during_lane": [
+  {
+   "sha": "1647da0",
+   "M": 2251,
+   "ratio": 0.67436
+  },
+  {
+   "sha": "6d498c5",
+   "M": 2252,
+   "ratio": 0.67466,
+   "note": "w17a03 owner pin"
+  },
+  {
+   "sha": "442ae70",
+   "M": 2257,
+   "ratio": 0.67615,
+   "Mhc": 2306,
+   "note": "w17a04 rcinc"
+  },
+  {
+   "sha": "9336aaf",
+   "M": 2259,
+   "ratio": 0.67675,
+   "Mhc": 2307,
+   "note": "312 expect_p 0.625 + sharing pf pin"
+  },
+  {
+   "sha": "e679b59",
+   "ratio": 0.67915,
+   "note": "landed while writing notes (w17a04 #3991); VC not re-priced"
+  }
+ ],
+ "best_zero_loss": {
+  "build": "main (unchanged)",
+  "ratio": 0.67675,
+  "M": 2259,
+  "bytes": 27400
+ },
+ "vc_on_9336aaf": {
+  "A_VCsh_t1n": {
+   "bytes": 27408,
+   "M": 2221,
+   "Mhc": 2302
+  },
+  "A_n312": {
+   "bytes": 27400,
+   "M": 2217,
+   "Mhc": 2298
+  },
+  "A_c2": {
+   "bytes": 27400,
+   "M": 2205,
+   "Mhc": 2308
+  },
+  "B_VCsh_with_main_312_expect_p": {
+   "bytes": 27392,
+   "M": 1726,
+   "note": "6 KB tail-swap layout"
+  },
+  "B_n312": {
+   "bytes": 27224,
+   "M": 2146,
+   "Mhc": 2250
+  },
+  "splice_three_piece_Bn312_front_main_mid_Bn312_wallet": {
+   "bytes": 27288,
+   "M": 2300
+  },
+  "splice_Bn312_front_main_back_cut_0x1c68": {
+   "bytes": 27392,
+   "M": 2285
+  },
+  "splice_main_front_Bn312_wallet_cut_0x5a08": {
+   "bytes": 27296,
+   "M": 2274
+  }
+ },
+ "attempts": {
+  "basin_B": [
+   "vi/vr: the outer holder or raw hopt carried through a volatile slot to the shared-arm branch -> exactly basin A (2214)",
+   "vh/vhl/vhr/es/esv: the masked holder kept out of registers over the sweep (volatile slot or early curve store) -> TCF -250..-278, accounts stays r6",
+   "ra (read_volatile(&ctx.accounts) at the sweep entry): TCF accounts r8:23 with wallet r9:26, but the TCF spill slots shift by 8: 2025, Mhc 2217; ra2 (+post-sweep re-derive) 1961",
+   "rbar: black_box(()) barrier at the sweep entry (raw IR + opt) -> M unchanged",
+   "hm2: the closure's and-1 reads hopt from a stack-coloured entry slot -> 2152 (+8, wallet +25)",
+   "445 single volatile-load pins on B: all keep basin B, best +32 (TCF clone-run pins)",
+   "146 single llvm.expect 1:2000 branch weights on B: 99 keep basin B (best +13), 47 tail swap or collapse",
+   "source cbr (raw u8 tag read for the outer cashback) on B: 2140 @27,120 (wallet +22)",
+   "source stcb (per-arm cashback in st) on B: 1977, Mhc 2236"
+  ],
+  "basin_A": [
+   "a2/a3: outer cashback from the closure mask or the curve re-read -> collapse (Mhc 2021 / 2054)",
+   "hm: hopt through a lifetime-scoped entry alloca -> mixed register basin (TCF r8 and wallet r9), accounts slot back at -0x8d8, but Mhc 2200 (2148); not expressible in source",
+   "hm1 2215 (Mhc 2288); hm2 tail swap",
+   "source cbn/cbr/cbr2 (new.is_some(), with or without the range fact) -> tail swap (1605-1611); cbrv 1976",
+   "source stcb/stcb3/stcb+c2 (per-arm cashback via st, the original's [r10-0x958] phi) -> 1912-1965",
+   "445 single volatile-load pins on A: all keep basin A, best +4",
+   "66 gentle expect_with_probability weights (2:1, 1:2) on A_c2's front branches: best +6",
+   "TCF literal genes c2/tai_tv on A at 9336aaf: 2205 (Mhc 2308 against main's 2307)"
+  ],
+  "main_side_probes": [
+   "m0_ra (volatile ctx.accounts re-derive in the sweep) 2253 @27,408",
+   "m0_ra2 2247 @27,416",
+   "m0_rbar M-identical"
+  ]
+ },
+ "mechanism_findings": [
+  "Basin B is exactly a second holder value held in a register across validate: carrying it through memory (vi, vr) turns VCsh into basin A token for token.",
+  "The only construct that puts B's TCF accounts pointer in r8 with B's wallet is a re-derivation of ctx.accounts inside the sweep. The original reloads the pointer from a spill slot ([r10-0x8d8]), so the extra value adds a TCF spill slot and moves every TCF offset by 8.",
+  "cbn's tail swap is not the sharing-tag phi folding (cbr removes the range fact and still swaps); it comes with the tag i1 being live across validate.",
+  "The main-tuned wave-17 shims do not carry over to VC: A did not get rcinc's +5, and main's 312 expect_p(0.625) puts VCsh into the tail swap.",
+  "VC's code-shape ceiling (A_c2 Mhc 2308) ties main's (2307); VC's remaining value is its front (+26) and its wallet (+15), which need a register lever that no marked construct gives."
+ ],
+ "unresolved_residuals": [
+  "B front +26 / wallet +15 with main's sweep-TCF-sharing naming (three-piece splice +41 on 9336aaf)",
+  "A's spill-colour rotation (the hopt slot outweighs the accounts slot)"
+ ],
+ "next_ideas": [
+  "Keep the splice targets (+26 front, +15 wallet, +41 three-piece) as yardsticks for any register-steering lever found on main",
+  "An `ra` variant whose second accounts value needs no TCF spill slot",
+  "A source way to give hopt an entry-to-validate memory home in an existing dead frame object (the hm mixed basin)",
+  "Do not re-tune VC against main's wave-17 shims; each one is calibrated on main's basin"
+ ],
+ "tools": [
+  "tools/vscr.py",
+  "tools/genes_vb.py",
+  "tools/probe.py",
+  "tools/bscreen.py",
+  "probes/*.py"
+ ],
+ "data": [
+  "data/res-captures.jsonl",
+  "data/scr-B_load.jsonl",
+  "data/scr-A_load.jsonl",
+  "data/scr-B_bw1.jsonl"
+ ],
+ "ledger": {
+  "approach": "vcbasin",
+  "keys": "0x22a10-w17-<main7>-vcbasin-<trial>-v1"
+ }
+}
