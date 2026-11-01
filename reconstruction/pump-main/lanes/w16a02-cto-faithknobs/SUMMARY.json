@@ -1,7 +1,308 @@
 {
-  "lane": "w16a02-cto-faithknobs",
-  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27,400 B",
-  "base": "main 9bd38c7 (admin_cto source = 86e2a6b/9120883): 0.67376, M 2249, 3124 slots",
-  "result": "DRAFT",
-  "pr": 3858
+ "lane": "w16a02-cto-faithknobs",
+ "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27,400 B",
+ "bases": [
+  "9bd38c7 (0.67376, M 2249, 3124 slots)",
+  "1f4e396 (#3859 A6+ev6 landed by w16a07: 0.67436, M 2251, 3141 slots)"
+ ],
+ "result": "notes and tools; no landing of my own. The exhaustive splice screen ranks w15a30 ev:6012345789abc + w16a07 m_A6 first; built here as H_ev6_A6 = M 2251 (0.67436) at 27,400 B, identical to w16a07 PR #3859 (found independently, landed by that lane). Nothing in the cached library improves on it.",
+ "pr": 3858,
+ "best_zero_loss": {
+  "variant": "H_ev6_A6 (= main 1f4e396 / #3859)",
+  "ratio": 0.67436,
+  "M": 2251,
+  "bytes": 27400,
+  "note": "oracle; measure.sh numbers are w16a07s (3141 slots, 1034/1034, 0 losses, differential ok)"
+ },
+ "ledger": "approach faithknob, keys 0x22a10-w16-{9bd38c7,1f4e396}-faithknob-<name>-v1",
+ "findings": [
+  "call-order map: orig vs main callee order differs at exactly 4 sites: entry PDA-first (#0-3), validate error blocks (#20-29), sweep token arm token_raw_amount before token_frozen (#53/54 = a1), pool gate owner memcmp before data_is_empty (#73/74)",
+  "polarity map: main had exactly two -8 B ? polarity sites (line 660 -> A6, now on main; sharing CPI -> sh_iflet); no third",
+  "sh_iflet -5 M is jump displacement only: one junk slot in the sweep head restores 7 displacements crossing the sharing CPI",
+  "on 1f4e396 the sh_iflet pay band is cand 0x5448-0x5578 (+1) and 0x54b8 (+2): Clock::get()? / emit_cpi Err paths and event-authority drop glue; the original has mov64 r9,r1 there (Err payload via r1 into r9)",
+  "splice oracle v2 reproduces 88/89 cached multi-gene builds byte for byte and ev6+A6 from its parts",
+  "ST1 = sh_iflet+a1+tsplit lands at 27400 with +4 rfj (most faithful token-arm skeleton) but M -4",
+  "deferred init of holder_key is load-bearing: let holder_key=PDA.0 (or let (holder_key,_)=) collapses to M 1869 at 0 B"
+ ],
+ "screens": {
+  "pairs_main_v2": "542 zero-sum pairs, best 2251 ev6+A6, 2250 ev6+sh_iflet / ev6+A1",
+  "on_ev6A6_v2": "2170 composites, none above 2251",
+  "shif_plus8_zero_on_new_main": "1456 composites, max 2250",
+  "triples_v1": "1251, max 2249"
+ },
+ "attempts": {
+  "main": {
+   "base": "9bd38c7",
+   "genes": "-",
+   "bytes": 27400,
+   "M": 2249,
+   "ratio": 0.67376,
+   "error": null
+  },
+  "sh_iflet": {
+   "base": "9bd38c7",
+   "genes": "sh_iflet",
+   "bytes": 27392,
+   "M": 2244,
+   "ratio": 0.67236,
+   "error": null
+  },
+  "S_a1": {
+   "base": "9bd38c7",
+   "genes": "sh_iflet+a1",
+   "bytes": 27368,
+   "M": 2243,
+   "ratio": 0.67236,
+   "error": null
+  },
+  "a1": {
+   "base": "9bd38c7",
+   "genes": "a1",
+   "bytes": 27376,
+   "M": 2242,
+   "ratio": 0.67196,
+   "error": null
+  },
+  "S_d_full": {
+   "base": "9bd38c7",
+   "genes": "sh_iflet+d_full",
+   "bytes": 27384,
+   "M": 1923,
+   "ratio": 0.57627,
+   "error": null
+  },
+  "S_d_progid": {
+   "base": "9bd38c7",
+   "genes": "sh_iflet+d_progid",
+   "bytes": 27488,
+   "M": 2240,
+   "ratio": 0.67026,
+   "error": null
+  },
+  "S_d_ctxkey": {
+   "base": "9bd38c7",
+   "genes": "sh_iflet+d_ctxkey",
+   "bytes": 27392,
+   "M": 2244,
+   "ratio": 0.67236,
+   "error": null
+  },
+  "S_d_errinto": {
+   "base": "9bd38c7",
+   "genes": "sh_iflet+d_errinto",
+   "bytes": 27392,
+   "M": 2244,
+   "ratio": 0.67236,
+   "error": null
+  },
+  "S_d_infokey": {
+   "base": "9bd38c7",
+   "genes": "sh_iflet+d_infokey",
+   "bytes": 27392,
+   "M": 2244,
+   "ratio": 0.67236,
+   "error": null
+  },
+  "S_v_direct": {
+   "base": "9bd38c7",
+   "genes": "sh_iflet+v_direct",
+   "bytes": 27392,
+   "M": 2240,
+   "ratio": 0.67116,
+   "error": null
+  },
+  "S_ap_info": {
+   "base": "9bd38c7",
+   "genes": "sh_iflet+ap_info",
+   "bytes": 27392,
+   "M": 2244,
+   "ratio": 0.67236,
+   "error": null
+  },
+  "ST1": {
+   "base": "9bd38c7",
+   "genes": "sh_iflet+a1+tsplit",
+   "bytes": 27400,
+   "M": 2245,
+   "ratio": 0.67256,
+   "error": null
+  },
+  "T1": {
+   "base": "9bd38c7",
+   "genes": "a1+tsplit",
+   "bytes": 27408,
+   "M": 2243,
+   "ratio": 0.67186,
+   "error": null
+  },
+  "S_tsplit": {
+   "base": "9bd38c7",
+   "genes": "sh_iflet+tsplit",
+   "bytes": 27448,
+   "M": 2135,
+   "ratio": 0.63903,
+   "error": null
+  },
+  "tsplit": {
+   "base": "9bd38c7",
+   "genes": "tsplit",
+   "bytes": 27456,
+   "M": 2135,
+   "ratio": 0.63893,
+   "error": null
+  },
+  "k_hkproj": {
+   "base": "9bd38c7",
+   "genes": "k_hkproj",
+   "bytes": 27400,
+   "M": 1869,
+   "ratio": 0.55992,
+   "error": null
+  },
+  "k_hktup": {
+   "base": "9bd38c7",
+   "genes": "k_hktup",
+   "bytes": 27400,
+   "M": 1869,
+   "ratio": 0.55992,
+   "error": null
+  },
+  "k_req284": {
+   "base": "9bd38c7",
+   "genes": "k_req284",
+   "bytes": 27400,
+   "M": 2249,
+   "ratio": 0.67376,
+   "error": null
+  },
+  "k_hkpid": {
+   "base": "9bd38c7",
+   "genes": "k_hkpid",
+   "bytes": 27512,
+   "M": 2171,
+   "ratio": 0.64932,
+   "error": null
+  },
+  "d_defer": {
+   "base": "9bd38c7",
+   "genes": "d_defer",
+   "bytes": 27400,
+   "M": 1356,
+   "ratio": 0.40623,
+   "error": null
+  },
+  "H_ev6_A6": {
+   "base": "9bd38c7",
+   "genes": "ev6+A6",
+   "bytes": 27400,
+   "M": 2251,
+   "ratio": 0.67436,
+   "error": null
+  },
+  "H_A6": {
+   "base": "9bd38c7",
+   "genes": "A6",
+   "bytes": 27392,
+   "M": 2244,
+   "ratio": 0.67236,
+   "error": null
+  },
+  "v_olddefer": {
+   "base": "9bd38c7",
+   "genes": "v_olddefer",
+   "bytes": 27400,
+   "M": 2241,
+   "ratio": 0.67136,
+   "error": null
+  },
+  "k_req289": {
+   "base": "9bd38c7",
+   "genes": "k_req289",
+   "bytes": 27400,
+   "M": 2249,
+   "ratio": 0.67376,
+   "error": null
+  },
+  "k_req296": {
+   "base": "9bd38c7",
+   "genes": "k_req296",
+   "bytes": 27432,
+   "M": 1423,
+   "ratio": 0.42605,
+   "error": null
+  },
+  "k_req298": {
+   "base": "9bd38c7",
+   "genes": "k_req298",
+   "bytes": 27400,
+   "M": 2249,
+   "ratio": 0.67376,
+   "error": null
+  },
+  "C2_ev76_A6_shif": {
+   "base": "1f4e396",
+   "genes": "ev7601234589abc+A6+sh_iflet",
+   "bytes": 27440,
+   "M": 1987,
+   "ratio": 0.59482,
+   "error": null
+  },
+  "C1_ev67_A6_shif": {
+   "base": "1f4e396",
+   "genes": "ev6701234589abc+A6+sh_iflet",
+   "bytes": 27440,
+   "M": 1987,
+   "ratio": 0.59482,
+   "error": null
+  },
+  "C3_ev67_A6": {
+   "base": "1f4e396",
+   "genes": "ev6701234589abc+A6",
+   "bytes": 27448,
+   "M": 1983,
+   "ratio": 0.59353,
+   "error": null
+  },
+  "C4_ev76_A6": {
+   "base": "1f4e396",
+   "genes": "ev7601234589abc+A6",
+   "bytes": 27448,
+   "M": 1983,
+   "ratio": 0.59353,
+   "error": null
+  },
+  "E1_shif": {
+   "base": "1f4e396",
+   "genes": "E1+sh_iflet",
+   "bytes": 27392,
+   "M": 2245,
+   "ratio": 0.67266,
+   "error": null
+  },
+  "E3_shif": {
+   "base": "1f4e396",
+   "genes": "E3+sh_iflet",
+   "bytes": 27392,
+   "M": 2245,
+   "ratio": 0.67266,
+   "error": null
+  }
+ },
+ "rejected": [
+  "sweep-head spellings on sh_iflet (d_ctxkey, d_errinto, d_infokey, ap_info fold; v_direct -4; d_full/d_defer collapse; d_progid +96 B)",
+  "emit_cpi hand expansion (E1/E3) folds to the macro",
+  "ev double moves (6701..., 7601...) collapse",
+  "tsplit on frozen-first main collapses",
+  "T1/ST1 family -4..-6"
+ ],
+ "unresolved_residuals": [
+  "sh_iflet needs +8 B of real code in the event Err paths on 1f4e396 (orig mov64 r9,r1: error-return payload register r9 vs ours r8)",
+  "token-arm r6/r8 naming blocks a1/T1 (w14a70 +5 bound)"
+ ],
+ "next_ideas": [
+  "move the function error-return payload register from r8 to r9 (RA): would add the original mov64 r9,r1 in the sh_iflet pay band",
+  "price every new capture with tools/splice.py against the catalog before building (exact for local changes)",
+  "ST1 as a faithful base if the token-arm naming lever is found"
+ ],
+ "catalog": "data/sizeknobs-w16.json (region-tagged, drift metrics, splice-priced composites)"
 }
