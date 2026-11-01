@@ -119,3 +119,12 @@ instruction):
 
 Peel targets: an ordinary spelling that keeps the sweep's native result merge as its own block (the fence stops the
 memory ops of the two arms from being merged/scheduled across it), and one that gives the wallet's +16 B back.
+
+**Update: not landed.** `land.py 4021 --allow-forcing` merged main ac37d7415 (w17a18-cto-stitch17-2, 0.68424) into the
+branch and measured 0.68214 (worse), so it rejected the PR. On ac37d74 neither fence cell gains any more: the pre-opt
+beam (807 single cells: fence, bw, swbw, reread, vload fld) and 297 pairs of its 25 code-changing cells top out at main's
+M 2,284. The fences are removed from this branch again (programs/ = origin/main); the cells are recorded in the ledger
+(`0x22a10-w17-8330455-sscorder-swl1-v1`, `0x22a10-w17-ac37d74-sscorder-beam6-v1`).
+
+Lesson for shim lanes: on this fast-moving main a fence or weight cell is worth re-screening after every landing, and a
+lane should land within minutes of measuring; the same two fences went from +4 M to -21 M in one landing.

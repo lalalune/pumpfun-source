@@ -1,52 +1,133 @@
 {
-  "lane": "w17a08-shim-sscorder",
-  "wave": 17,
-  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs)",
-  "angle": "spill-colour order on main with weight shims (StackSlotColoring weight order)",
-  "base": {"main": "bf01b5fd9", "ratio": 0.68005, "M": 2270, "slots": 3170, "bytes": 27400},
-  "landed": [
-    {"pr": 4011, "merge_commit": "d5751b26e", "ratio_before": 0.68005, "ratio_after": 0.68065, "M_after": 2272,
-     "slots": 3170, "bytes": 27400, "normalized": 1034, "raw": 1034, "differential": "388 cases, 0 mismatches",
-     "mechanism": "sharing_config manual AccountInfo literal with owner last; the owner field runs the event_authority data Rc increment (ptr::read + strong_count + increment_strong_count, deferred local ead) with read_volatile(owner) inside the count window (w17a03 L5713 realized); re-colours the sharing_config executable-byte spill k53->k56"}
-  ],
-  "best": {"ratio": 0.68065, "slots": 3170, "bytes": 27400},
-  "tools": {
-    "sscsim.py": "exact StackSlotColoring simulator + no-share relabel; byte-exact on main (eq_main) and equal to the private SSC_WSET llc on random orders; 0.03 s/eval",
-    "ordor.py": "full-spec SSC_WSET order oracle through the private llc",
-    "votes.py": "per-interval original colour at skeleton-aligned spill accesses",
-    "movemap.py / sa.py": "single order moves and annealed order ceiling",
-    "dvec.py / combo.py": "branch-weight edits (post-opt IR) with RA-identity check, singles/pairs/triples",
-    "mvload.py / winmove.py / rr.py": "load moves (plain/volatile), Rc-window volatile moves (L5713 generalised), volatile re-read at a later use",
-    "cap.sh / apply.py": "crate copy + exact edits -> capraw -> preslim -> fx (exact slim pre-opt oracle)",
-    "llcp.sh": "private llc with fastbuild flags (zsh does not word-split unquoted flag variables)"
+ "lane": "w17a08-shim-sscorder",
+ "wave": 17,
+ "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs)",
+ "angle": "spill-colour order on main with weight shims (StackSlotColoring weight order)",
+ "base": {
+  "main": "bf01b5fd9",
+  "ratio": 0.68005,
+  "M": 2270,
+  "slots": 3170,
+  "bytes": 27400
+ },
+ "landed": [
+  {
+   "pr": 4011,
+   "merge_commit": "d5751b26e",
+   "ratio_before": 0.68005,
+   "ratio_after": 0.68065,
+   "M_after": 2272,
+   "slots": 3170,
+   "bytes": 27400,
+   "normalized": 1034,
+   "raw": 1034,
+   "differential": "388 cases, 0 mismatches",
+   "mechanism": "sharing_config manual AccountInfo literal with owner last; the owner field runs the event_authority data Rc increment (ptr::read + strong_count + increment_strong_count, deferred local ead) with read_volatile(owner) inside the count window (w17a03 L5713 realized); re-colours the sharing_config executable-byte spill k53->k56"
+  }
+ ],
+ "best": {
+  "ratio": 0.68065,
+  "slots": 3170,
+  "bytes": 27400
+ },
+ "tools": {
+  "sscsim.py": "exact StackSlotColoring simulator + no-share relabel; byte-exact on main (eq_main) and equal to the private SSC_WSET llc on random orders; 0.03 s/eval",
+  "ordor.py": "full-spec SSC_WSET order oracle through the private llc",
+  "votes.py": "per-interval original colour at skeleton-aligned spill accesses",
+  "movemap.py / sa.py": "single order moves and annealed order ceiling",
+  "dvec.py / combo.py": "branch-weight edits (post-opt IR) with RA-identity check, singles/pairs/triples",
+  "mvload.py / winmove.py / rr.py": "load moves (plain/volatile), Rc-window volatile moves (L5713 generalised), volatile re-read at a later use",
+  "cap.sh / apply.py": "crate copy + exact edits -> capraw -> preslim -> fx (exact slim pre-opt oracle)",
+  "llcp.sh": "private llc with fastbuild flags (zsh does not word-split unquoted flag variables)"
+ },
+ "attempts": [
+  {
+   "name": "brcombo (bf01b5f)",
+   "result": "928 singles / 1770 pairs / 900 triples of branch weights: best 2270 = main"
   },
-  "attempts": [
-    {"name": "brcombo (bf01b5f)", "result": "928 singles / 1770 pairs / 900 triples of branch weights: best 2270 = main"},
-    {"name": "order ceiling (bf01b5f)", "result": "Mperm 2305 / Mhc 2308, best single order move 2274, annealing 2275"},
-    {"name": "sharing-run load moves (bf01b5f)", "result": "2604 cells, only the L5713 window +2 (volatile)"},
-    {"name": "sweep-run load moves (bf01b5f)", "result": "3258 cells, none above main"},
-    {"name": "sco1 source (L5713)", "result": "landed +2"},
-    {"name": "sco2 source (natural field order)", "result": "2201 @27424"},
-    {"name": "brcombo (d5751b2)", "result": "no gain"},
-    {"name": "Rc-window moves (d5751b2)", "result": "1420 cells, no gain"},
-    {"name": "post-opt re-read rr (d5751b2)", "result": "rr197@232 + rr157@169 = 2273 @27400 (+1) IR-only; source read_volatile forms 2074/2052 (pre-opt volatile stops GVN merges)"},
-    {"name": "pre-opt beam (d5751b2)", "result": "801 cells; bf:wallet:31259 do_coin=false fence on the native path +1"},
-    {"name": "fence source f4 (d5751b2)", "result": "2273 @27400 (0.68095) built, 1034/1034, differential 388/0; obsolete after #4017 changed the create_idempotent guard: 2150 @27376 on 445fe14"},
-    {"name": "fence source f1/f3", "result": "2258 @27408 / 2150 @27384"}
-  ],
-  "rejected_mechanisms": [
-    "small trap probabilities (rcincp/expect_p) on clone-run Rc traps: block frequency only falls along the chain, so later-stored spills stay lighter and same-block ties stay tied",
-    "post-opt volatile re-reads of accounts/box pointers as source read_volatile (pre-opt volatile load blocks GVN merges)",
-    "colour moves of the flag interval 186 (S3 flag slot, owned elsewhere)"
-  ],
-  "unresolved_residuals": [
-    "order ceiling on fixed code is +4..+5 M; the gainful orders raise light intervals (315/316/258/281/187) above 186 or swap head intervals (296 vs 181/185), i.e. big weight changes that need code changes",
-    "the 244/245 exact tie (250 between them, +4) needs one of two same-block spills moved to another block",
-    "bf:wallet do_coin fence cell (+1) needs a spelling on the newest main's collection_native==false guard"
-  ],
-  "next_ideas": [
-    "re-run winmove/rr/beam on each new main: cells shift with every landing (the fence cell did)",
-    "use llvm.bpf.passthrough (w17a15) to realize the post-opt rr cells without the pre-opt GVN side effects",
-    "sscsim as a pre-filter: a candidate whose colouring differs from main only in permuted clone-run colours can be priced in 0.03 s"
-  ]
+  {
+   "name": "order ceiling (bf01b5f)",
+   "result": "Mperm 2305 / Mhc 2308, best single order move 2274, annealing 2275"
+  },
+  {
+   "name": "sharing-run load moves (bf01b5f)",
+   "result": "2604 cells, only the L5713 window +2 (volatile)"
+  },
+  {
+   "name": "sweep-run load moves (bf01b5f)",
+   "result": "3258 cells, none above main"
+  },
+  {
+   "name": "sco1 source (L5713)",
+   "result": "landed +2"
+  },
+  {
+   "name": "sco2 source (natural field order)",
+   "result": "2201 @27424"
+  },
+  {
+   "name": "brcombo (d5751b2)",
+   "result": "no gain"
+  },
+  {
+   "name": "Rc-window moves (d5751b2)",
+   "result": "1420 cells, no gain"
+  },
+  {
+   "name": "post-opt re-read rr (d5751b2)",
+   "result": "rr197@232 + rr157@169 = 2273 @27400 (+1) IR-only; source read_volatile forms 2074/2052 (pre-opt volatile stops GVN merges)"
+  },
+  {
+   "name": "pre-opt beam (d5751b2)",
+   "result": "801 cells; bf:wallet:31259 do_coin=false fence on the native path +1"
+  },
+  {
+   "name": "fence source f4 (d5751b2)",
+   "result": "2273 @27400 (0.68095) built, 1034/1034, differential 388/0; obsolete after #4017 changed the create_idempotent guard: 2150 @27376 on 445fe14"
+  },
+  {
+   "name": "fence source f1/f3",
+   "result": "2258 @27408 / 2150 @27384"
+  },
+  {
+   "name": "round 3 on 8330455 (passthrough main)",
+   "result": "branch weights, Rc-window moves: none; rr1316@1353+rr197@232 2281 @27400 IR-only (source 1881/1718)"
+  },
+  {
+   "name": "swl1 fences (bf:sweep:33476 + bf:wallet:31884)",
+   "result": "0.68244 -> 0.68364 on 8330455, 1034/1034, differential 388/0; PR #4021 rejected by land.py after main moved to ac37d74 (merged 0.68214 < 0.68424)"
+  },
+  {
+   "name": "pre-opt beam + pairs on ac37d74",
+   "result": "807 singles, 297 pairs: best = main 2284"
+  }
+ ],
+ "rejected_mechanisms": [
+  "small trap probabilities (rcincp/expect_p) on clone-run Rc traps: block frequency only falls along the chain, so later-stored spills stay lighter and same-block ties stay tied",
+  "post-opt volatile re-reads of accounts/box pointers as source read_volatile (pre-opt volatile load blocks GVN merges)",
+  "colour moves of the flag interval 186 (S3 flag slot, owned elsewhere)"
+ ],
+ "unresolved_residuals": [
+  "order ceiling on fixed code is +4..+5 M; the gainful orders raise light intervals (315/316/258/281/187) above 186 or swap head intervals (296 vs 181/185), i.e. big weight changes that need code changes",
+  "the 244/245 exact tie (250 between them, +4) needs one of two same-block spills moved to another block",
+  "bf:wallet do_coin fence cell (+1) needs a spelling on the newest main's collection_native==false guard"
+ ],
+ "next_ideas": [
+  "re-run winmove/rr/beam on each new main: cells shift with every landing (the fence cell did)",
+  "use llvm.bpf.passthrough (w17a15) to realize the post-opt rr cells without the pre-opt GVN side effects",
+  "sscsim as a pre-filter: a candidate whose colouring differs from main only in permuted clone-run colours can be priced in 0.03 s"
+ ],
+ "best_unlanded": {
+  "ratio": 0.68364,
+  "slots": 3348,
+  "bytes": 27400,
+  "base": "8330455eb",
+  "pr": 4021,
+  "status": "rejected after main moved"
+ },
+ "final_main": {
+  "sha": "ac37d7415",
+  "ratio": 0.68424,
+  "M": 2284
+ }
 }
