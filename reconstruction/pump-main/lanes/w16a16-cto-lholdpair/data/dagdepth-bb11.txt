@@ -1,0 +1,30 @@
+# IR bb11 SelectionDAG (list-ilp, MaxReorderWindow 6): SU depth/height and bottom-up schedule step, Lv vs main (5998913)
+== Lv: step (bottom-up), SU, depth, node
+   26 SU(47) depth 12  t142: ch = STD_V1<Mem:(store (s64) into %ir.sk1 + 24)> t160, TargetFrameIndex:i64<136>, TargetConsta
+   32 SU(9) depth  7  t172: i64,ch = LDB_V1<Mem:(dereferenceable load (s8) from %ir.new)> t112, TargetConstant:i64<0>, t17
+   41 SU(56) depth  4  t235: i64 = AND_rr t249, t250
+   44 SU(30) depth  5  t190: i64,ch = LDB_V1<Mem:(load (s8) from %ir.34, !range !15)> t19, TargetConstant:i64<165>, t185
+   45 SU(72) depth  5  t241: i64,ch = LDB_V1<Mem:(load (s8) from %ir.32, align 2, !range !15)> t19, TargetConstant:i64<162>
+   48 SU(31) depth  5  t182: i64,ch = LDB_V1<Mem:(load (s8) from %ir.36, !range !15)> t11, TargetConstant:i64<1087>, t185
+   49 SU(20) depth  5  t198: i64,ch = LDD_V1<Mem:(load (s64) from %ir.31)> t11, TargetConstant:i64<1072>, t185
+   50 SU(21) depth  5  t185: ch = TokenFactor t33, t37, t42, t47
+   51 SU(57) depth  3  t250: i64 = Select_Ri t242, TargetConstant:i64<0>, TargetConstant:i64<22>, t117, t221
+   52 SU(60) depth  2  t249: i64 = Select_Ri t240, TargetConstant:i64<0>, TargetConstant:i64<17>, t117, t221
+   58 SU(13) depth  2  t213: i64,ch = LDD_V1<Mem:(load (s64) from %ir.30)> t19, TargetConstant:i64<8>, t4
+   60 SU(17) depth  2  t209: i64,ch = LDD_V1<Mem:(load (s64) from %ir.30 + 8)> t19, TargetConstant:i64<16>, t4
+   62 SU(18) depth  2  t205: i64,ch = LDD_V1<Mem:(load (s64) from %ir.30 + 16)> t19, TargetConstant:i64<24>, t4
+   65 SU(19) depth  2  t201: i64,ch = LDD_V1<Mem:(load (s64) from %ir.30 + 24)> t19, TargetConstant:i64<32>, t4
+   66 SU(24) depth  2  t242: i64,ch = LDB_V1<Mem:(load (s8) from %ir.28, !range !15)> t19, TargetConstant:i64<163>, t4
+   67 SU(32) depth  3  t218: i64,ch = LDB_V1<Mem:(load (s8) from %ir.26, align 2, !range !15)> t11, TargetConstant:i64<1086
+== m0: step (bottom-up), SU, depth, node
+   20 SU(56) depth  7  t239: i64 = AND_rr t253, t254
+   27 SU(47) depth 12  t142: ch = STD_V1<Mem:(store (s64) into %ir.sk1 + 24)> t160, TargetFrameIndex:i64<136>, TargetConsta
+   33 SU(9) depth  7  t172: i64,ch = LDB_V1<Mem:(dereferenceable load (s8) from %ir.new)> t112, TargetConstant:i64<0>, t17
+   42 SU(57) depth  6  t254: i64 = Select_Ri t246, TargetConstant:i64<0>, TargetConstant:i64<22>, t117, t225
+   43 SU(60) depth  2  t253: i64 = Select_Ri t244, TargetConstant:i64<0>, TargetConstant:i64<17>, t117, t225
+   50 SU(30) depth  5  t246: i64,ch = LDB_V1<Mem:(load (s8) from %ir.33, !range !15)> t19, TargetConstant:i64<163>, t185
+   51 SU(29) depth  5  t196: i64,ch = LDB_V1<Mem:(load (s8) from %ir.31, !range !15)> t19, TargetConstant:i64<165>, t185
+   52 SU(72) depth  5  t245: i64,ch = LDB_V1<Mem:(load (s8) from %ir.29, align 2, !range !15)> t19, TargetConstant:i64<162>
+   55 SU(31) depth  5  t182: i64,ch = LDB_V1<Mem:(load (s8) from %ir.35, !range !15)> t11, TargetConstant:i64<1087>, t185
+   57 SU(21) depth  5  t185: ch = TokenFactor t27, t31, t36, t41
+   67 SU(32) depth  3  t222: i64,ch = LDB_V1<Mem:(load (s8) from %ir.25, align 2, !range !15)> t11, TargetConstant:i64<1086

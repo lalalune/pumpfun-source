@@ -1,0 +1,101 @@
+{
+ "lane": "w16a16-cto-lholdpair",
+ "wave": 16,
+ "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27,400 B",
+ "base": {
+  "main": "599891304",
+  "ratio": 0.67436,
+  "slots": 3141,
+  "bytes": 27400,
+  "M": 2251,
+  "Mperm": 2295,
+  "Mhc": 2302
+ },
+ "l_vol": {
+  "genes": "mv_5_1+t1n+m_crl2+vol334_back",
+  "ratio": 0.66986,
+  "slots": 3091,
+  "bytes": 27400,
+  "M": 2236,
+  "Mperm": 2309,
+  "Mhc": 2318,
+  "window_rot": 11,
+  "holder_arg_spill_weight": 2.379
+ },
+ "result": "notes only; kill test met (36 ordinary-source forms + 158 IR edits, no unforced marker and no M above 2,251 at a repayable size)",
+ "best_zero_loss": {
+  "source": "main (unchanged)",
+  "ratio": 0.67436,
+  "slots": 3141,
+  "bytes": 27400
+ },
+ "pair_on_5998913": {
+  "ids": "1704 = holder-arg local piece (split of %385), 2096 = max_fee bb12 piece (split of %10)",
+  "1704=r5,2096=r6": {
+   "ratio": 0.67835,
+   "bytes": 27392,
+   "M": 2264,
+   "rot": 6
+  },
+  "1704=r5,2096=r6,2175=r0": {
+   "ratio": 0.67855,
+   "bytes": 27400,
+   "M": 2265,
+   "slots": 3189
+  },
+  "1704=r5,2096=r0": {
+   "ratio": 0.67805,
+   "bytes": 27416,
+   "rot": 6
+  },
+  "1704=r5,2096=r7": {
+   "ratio": 0.67086,
+   "bytes": 27392,
+   "rot": 10
+  },
+  "eviction_table_at_2096": "r5 1704 2.157e-3 < r7 2034 (new tag) 2.269e-3 < r6 1954 (new pointer) 2.378e-3 < r0 2065 (fee_configurable) 2.902e-3; r1-r4, r8, r9 unevictable"
+ },
+ "mechanisms": [
+  "IR bb11 DAG (list-ilp): L's AND_rr (!holder & cashback) has depth 4 because the cashback load precedes the creator memcpy; the sk1-copy stores have depth 12; spread 8 > MaxReorderWindow 6 defers AND_rr to bottom-up step 41, the selects then lose the height rule and the max_fee/he/mayhem/hr loads (RegPressureDiff <= 0) beat them, so the select diamond precedes the loads and they land in bb12. Main: AND_rr depth 7, scheduled at step 20.",
+  "llc -max-sched-reorder=8 oracle: L_vol's holder is fixed but 27,440 B and M 2,213: L's -40 B and Mperm lead are the early select itself.",
+  "The pair needs a second, independent RA fact: in bb12 the max_fee piece must evict the new-pointer piece 1954 or the fee_configurable piece 2065, not the holder piece 1704 or the new-tag piece 2034. A weight lever must make 1954 the cheapest; extra instructions in the shared tail cannot, only ~10 instructions at the head of validate's bb6.i could."
+ ],
+ "attempts": {
+  "ir_oracle": [
+   "b1-b3 bb11 split (identical, CGP merges)",
+   "c1/c2 select as branch diamond (1992/1990, holder fixed)",
+   "a1 select from st.cashback reload (identical)",
+   "a2 holder via stack copy (1609)",
+   "d1 validate tests materialised !holder byte (1682)",
+   "cbn1/cbn2 cashback from new.is_some() (1620)",
+   "bbscan: 148 single unit moves in bb11, best marker u13to8 2249@27448 rot4"
+  ],
+  "source_screens": 36,
+  "source_best": {
+   "name": "Lv_t1a",
+   "M": 2237,
+   "bytes": 27408
+  },
+  "source_marker": "none (holder rank > 0 only with large code losses: sk1/sk2 2197@27272, qlo3 2081, S3ncb1/2 1660/1827)"
+ },
+ "rejected_mechanisms": [
+  "statement order of hopt/holder/cashback/args/sk on L_vol (hb, cbl, hc2, ar1, arsk, sk1, sk2)",
+  "Global/BondingCurve bindings and a plain CtoState constructor helper (gb, bcb, gbcb, sth, sthg: byte-identical)",
+  "validate call-site spellings (cvsk, cvhk identical; cvar collapses)",
+  "quote_locked inline in the literal incl. the original head read order (qlo1-qlo4: 1647-2081)",
+  "late flag use counts (h1, evh, evcb, evhb, evboth, h1evh)",
+  "holder-test spellings (xhm, vhm, hrv, xcba, cbif2)",
+  "shared-arm spellings (g0L target=st.creator, t1a, sutg)",
+  "flags as phis on L_vol (S3n 1988@27416, S3ncb1 1660, S3ncb2 1827)"
+ ],
+ "unresolved_residuals": [
+  "the L basin's holder double reload (spill colour c0 rotation, 11 slots) is tied to its early select; no source lever separates them",
+  "the pair's RA fact is a 4-way near tie in bb12 (2.157/2.269/2.378/2.902e-3)"
+ ],
+ "next_ideas": [
+  "A pre-RA construct of about 10 instructions at the head of validate's bb6.i (before new+1 and the holder test) would make the new-pointer piece the cheapest eviction. The original's instructions there (orig 0x5e8-0x608: three dead reloads and a fee_configurable spill) are RA output, which does not change pre-RA weights, so they are not that construct; no faithful candidate is known.",
+  "Price the L basin only together with a flag-phi skeleton (w16a08 S3n): S3n on L_vol is 1,988 / Mperm 2,301 at +16 B, the same spill-numbering blocker as on main; a lane that solves S3n's numbering should re-test L on top.",
+  "Use tools/ire.py's holder weight/rank as a 5-second screen for any future L-basin variant before capturing joint ceilings."
+ ],
+ "ledger_keys": "0x22a10-w16-5998913-lholdpair-{pairconfirm,dagwindow,irsplit,bbscan,cbnew,irdeps,Lv_*}-v1"
+}
