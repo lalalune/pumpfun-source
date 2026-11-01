@@ -1,0 +1,42 @@
+{
+  "lane": "w17a19-shim-lifetime",
+  "wave": 17,
+  "target": {"window": "0x22a10", "function": "admin_cto::execute", "file": "programs/pump/src/creator/admin_cto.rs", "bytes": 27400},
+  "angle": "explicit llvm.lifetime.start/end markers (lts/lte externs on line 8) as zero-instruction StackColoring and SelectionDAG-chain levers",
+  "landed": [
+    {"pr": 4040, "merge_commit": "2f3597f99", "via": "land.py --allow-forcing", "main_before": "4d09af488 (merged onto 5d61b6dad)",
+     "admin_cto": {"before": 0.68514, "after": 0.68604, "slots": 3092, "bytes": 27400}, "land_measure": {"before": 0.68544, "after": 0.68634},
+     "mechanism": "lifetime start of validate's sk slot (MaybeUninit<Pubkey> declared before the CtoState literal) between the fee_configurable load and the creator memcpy; the LIFETIME_START chain node flips the creator copy to the original's ascending store order; frame unchanged",
+     "unstripped_sha16": "4ad326fd57505151", "differential": "388/0"},
+    {"pr": 4050, "merge_commit": "357523c1a (main aab087f32 via #4054)", "via": "merged by the owner's steward while land.py was running",
+     "admin_cto": {"before": 0.68634, "after": 0.68724, "slots": 3092, "bytes": 27400},
+     "mechanism": "lifetime end of validate's t (conservative 32 B slot) at the head of the 312 InvalidCreator error block where it is dead; that block's error temps recolour, host list unchanged",
+     "unstripped_sha16": "8e7e505382d975b7", "differential": "388/0"}
+  ],
+  "best": {"ratio": 0.68724, "slots_diff": 3092, "bytes": 27400, "normalized": 1034, "raw": 1034, "losses": 0},
+  "main_at_end": {"sha": "53ec7fb53", "admin_cto": 0.68754, "slots": 3096},
+  "attempts": {
+    "preopt_execute_S2_MV_E_X": 307, "preopt_vws_S2_E_Ex": 184, "preopt_deadlive_end": 89,
+    "post_flip_move_extra_c16": 173, "post_marker_moves": 6837, "post_extra_start": 1598, "post_early_end": 3606,
+    "post_liveblock_end": 818, "post_early_start": 582, "post_wrap": 1081, "post_end_before_memcpy": 534, "post_pairs": 990,
+    "b01_repair_probes": 4, "creator_flip_probes": 19
+  },
+  "rejected_mechanisms": [
+    "extension (X) segments of sk1/st/sk/target into wallet/sweep: always add or move a host (M 1,215-1,893)",
+    "extra/moved START of st (the copy's own destination): byte-identical, no flip",
+    "fresh 1-byte carrier allocas for DAG probes: become their own host (frame collapse)",
+    "b01 frame repair: host list restorable (move the ? residual _51.sroa.11 START to its use) but b01 is -259 in code shape and _51 is a compiler temp",
+    "q as the flip carrier at source: q is non-conservative, a START recolours it",
+    "single and paired DAG-only marker perturbations elsewhere (lmove, xstart, wrap, END-before-memcpy): no gain"
+  ],
+  "unresolved_residuals": [
+    "validate error-name Strings at -0x470 instead of -0x488 (needs a slot live across validate in FI47, the original's hk2 copy, plus sk in FI39; the cascade leaves target.i.sroa.0 homeless)",
+    "E3: flag stores -0xe/-0xf/-0x10 before the creator copy and the creator GEP precomputed in a register (orig r9)",
+    "J1/J2/C1 target/new piece data flow (w17a10), not frame"
+  ],
+  "next_ideas": [
+    "peel #4040: any ordinary-Rust StorageLive of a dead conservative slot between the fee_configurable field and the creator copy",
+    "peel #4050: scope t so its StorageDead precedes the 312 error construction while the Ok path keeps it",
+    "hk2 (holder_key copy live across validate) + sk to FI39 with a +56 B repay, using the b01 repair recipe for the 7 B target piece if a source handle for the ? residual is found"
+  ]
+}
