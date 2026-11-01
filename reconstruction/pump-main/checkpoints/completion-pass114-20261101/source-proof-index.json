@@ -1,0 +1,168 @@
+{
+  "schema": "pump-pass114-current-source-proof-index-v1",
+  "proofs": [
+    {
+      "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/root/candidate4162v2-source-peer.json",
+      "sha256": "3cf9ead0b0eb1d59f6393a8da09ba0fd7a58b61fea011c0195b58087f180e27e",
+      "kind": "current_root_source_peer",
+      "scope": "Exact FCC source/root current a596/no-loss/runtime review; recorded integration_revision null remains truthful, root final gate separately binds actual merge.",
+      "checkpoint_path": "source-proofs/root/candidate4162v2-source-peer.json"
+    },
+    {
+      "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/review4162v2/source-review.json",
+      "sha256": "e3c5908fe7fc22d3263b541f3d051fb33a48731a40f41b843177d24199e480db",
+      "kind": "independent_current_source_peer",
+      "scope": "Exact FCC source delta and unchanged-body proof; stage build/runtime limits retained.",
+      "checkpoint_path": "source-proofs/review4162v2/source-review.json"
+    },
+    {
+      "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/review4162v2/head-admin_cto.rs",
+      "sha256": "e57333592ac09f21b45c5847f2580f525a1e44399ed894f27ac6750531744578",
+      "kind": "reviewed_current_source",
+      "scope": "Actual FCC reviewed source bytes, same as actual physical build input.",
+      "checkpoint_path": "source-proofs/review4162v2/head-admin_cto.rs"
+    },
+    {
+      "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162-v2/source-peer/review.json",
+      "sha256": "789b3910a310773b446eeb67c87a997beec7522bc8b5a945c7757cad69603fd3",
+      "kind": "independent_current_source_peer",
+      "scope": "Independent exact FCC update semantics and tail storage review.",
+      "checkpoint_path": "source-proofs/candidate4162-v2/source-peer/review.json"
+    },
+    {
+      "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162-v2/source-peer/storage-probe/review.json",
+      "sha256": "589e2edf9399a48cfeef3f4ca0f71d9acbca5f33b2025964669f8011095a83b6",
+      "kind": "current_compiler_model_review",
+      "scope": "Actual pinned target scratch slot layout/init model; opaque AccountInfo referent rather than full AdminCto.",
+      "checkpoint_path": "source-proofs/candidate4162-v2/source-peer/storage-probe/review.json"
+    },
+    {
+      "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/late-prs/official-probe/review.json",
+      "sha256": "2f138c7a2b8df2f5f564a3dbd40bee1d72f2a7a07fd5e7b798288f2b1ccd47e8",
+      "kind": "historical_unchanged_compiler_model_reference",
+      "scope": "Recorded prior exact validator/type/Box model applies only unchanged source-equivalent mechanisms, not old runtime outcomes.",
+      "checkpoint_path": "source-proofs/late-prs/official-probe/review.json"
+    },
+    {
+      "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162-v2/source-peer/storage-probe/compile.json",
+      "sha256": "c5622096ef52b2b31104a3315eec1b147427cc4cd3d8ee2736644556d052956a",
+      "kind": "official_compiler_model_file",
+      "scope": "Current recorded actual pinned-target compiler/model bytes; compiler structural evidence has the review file\u2019s bounded scope.",
+      "checkpoint_path": "source-proofs/candidate4162-v2/source-peer/storage-probe/compile.json"
+    },
+    {
+      "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162-v2/source-peer/storage-probe/probe.rs",
+      "sha256": "11e6dadbaa6a7a0ed29edbe52fe05a700f3c577f13ba118e56670218f295a0d8",
+      "kind": "official_compiler_model_file",
+      "scope": "Current recorded actual pinned-target compiler/model bytes; compiler structural evidence has the review file\u2019s bounded scope.",
+      "checkpoint_path": "source-proofs/candidate4162-v2/source-peer/storage-probe/probe.rs"
+    },
+    {
+      "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162-v2/source-peer/storage-probe/raw/probe.ll",
+      "sha256": "384c59bea3030766a73099526245419b9f436b40c09b85fa4c4f13d7adf5df7e",
+      "kind": "official_compiler_model_file",
+      "scope": "Current recorded actual pinned-target compiler/model bytes; compiler structural evidence has the review file\u2019s bounded scope.",
+      "checkpoint_path": "source-proofs/candidate4162-v2/source-peer/storage-probe/raw/probe.ll"
+    },
+    {
+      "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162-v2/source-peer/storage-probe/optimized/probe.ll",
+      "sha256": "ce4baf8417a69b9262b0fd47d33564014ac4b3421e2316f0ff12470e584259ab",
+      "kind": "official_compiler_model_file",
+      "scope": "Current recorded actual pinned-target compiler/model bytes; compiler structural evidence has the review file\u2019s bounded scope.",
+      "checkpoint_path": "source-proofs/candidate4162-v2/source-peer/storage-probe/optimized/probe.ll"
+    },
+    {
+      "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162-v2/source-peer/storage-probe/optimized/probe.o",
+      "sha256": "1b115821c50382391ca704e14120f8ec2022905655578cf110850180e778708e",
+      "kind": "official_compiler_model_file",
+      "scope": "Current recorded actual pinned-target compiler/model bytes; compiler structural evidence has the review file\u2019s bounded scope.",
+      "checkpoint_path": "source-proofs/candidate4162-v2/source-peer/storage-probe/optimized/probe.o"
+    },
+    {
+      "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/candidate4162-v2/source-peer/storage-probe/optimized/probe.s",
+      "sha256": "cf0f647d5c30c8e22abc69447a6393b63131faa0bb6625e0d41abca5561d3bbe",
+      "kind": "official_compiler_model_file",
+      "scope": "Current recorded actual pinned-target compiler/model bytes; compiler structural evidence has the review file\u2019s bounded scope.",
+      "checkpoint_path": "source-proofs/candidate4162-v2/source-peer/storage-probe/optimized/probe.s"
+    },
+    {
+      "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/late-prs/official-probe/compile.json",
+      "sha256": "e687d70765dfab9de9ee3de0a362bab856f8bdb2526b11be80ef48bdd2c4c3cc",
+      "kind": "official_compiler_model_file",
+      "scope": "Current recorded actual pinned-target compiler/model bytes; compiler structural evidence has the review file\u2019s bounded scope.",
+      "checkpoint_path": "source-proofs/late-prs/official-probe/compile.json"
+    },
+    {
+      "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/late-prs/official-probe/probe.rs",
+      "sha256": "16b98f7d8fa06bf7abdc22238918cb396c81c062a7509a9141fecb9bda1f7479",
+      "kind": "official_compiler_model_file",
+      "scope": "Current recorded actual pinned-target compiler/model bytes; compiler structural evidence has the review file\u2019s bounded scope.",
+      "checkpoint_path": "source-proofs/late-prs/official-probe/probe.rs"
+    },
+    {
+      "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/late-prs/official-probe/raw/probe.ll",
+      "sha256": "ea831d67d45d65cc45c2609c5b369ace5826483c7dfcd6eb64a84ce417381bff",
+      "kind": "official_compiler_model_file",
+      "scope": "Current recorded actual pinned-target compiler/model bytes; compiler structural evidence has the review file\u2019s bounded scope.",
+      "checkpoint_path": "source-proofs/late-prs/official-probe/raw/probe.ll"
+    },
+    {
+      "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/late-prs/official-probe/optimized/probe.ll",
+      "sha256": "5945f53d289ef576fb6d683f27b2ec72040ae536bd268f866ca7553dbcf06ba5",
+      "kind": "official_compiler_model_file",
+      "scope": "Current recorded actual pinned-target compiler/model bytes; compiler structural evidence has the review file\u2019s bounded scope.",
+      "checkpoint_path": "source-proofs/late-prs/official-probe/optimized/probe.ll"
+    },
+    {
+      "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/late-prs/official-probe/optimized/probe.o",
+      "sha256": "3b2b76f3cc2f89c8206e1e514a38e2c0fe18e754332bc4c92da3924b0dcd3687",
+      "kind": "official_compiler_model_file",
+      "scope": "Current recorded actual pinned-target compiler/model bytes; compiler structural evidence has the review file\u2019s bounded scope.",
+      "checkpoint_path": "source-proofs/late-prs/official-probe/optimized/probe.o"
+    },
+    {
+      "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/late-prs/official-probe/optimized/probe.s",
+      "sha256": "2bcb7ff3dacaffd974f809dc2b09031f025cdf85757ac0111f031dbe04a5f041",
+      "kind": "official_compiler_model_file",
+      "scope": "Current recorded actual pinned-target compiler/model bytes; compiler structural evidence has the review file\u2019s bounded scope.",
+      "checkpoint_path": "source-proofs/late-prs/official-probe/optimized/probe.s"
+    },
+    {
+      "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/late-prs/official-probe/main34_validate.storage-audit.json",
+      "sha256": "4fdb4b85af7fc6c1d63b3a46f0b6574d6f579a2bcff14eb997fcf1c6b1a21f6b",
+      "kind": "historical_unchanged_validator_model_audit",
+      "scope": "Prior exact validator initialization/lifetime audit retained only for source-equivalent unchanged mechanisms.",
+      "checkpoint_path": "source-proofs/late-prs/official-probe/main34_validate.storage-audit.json"
+    },
+    {
+      "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/late-prs/official-probe/updated4149_validate.storage-audit.json",
+      "sha256": "d5497bed77324900a1bcfbc044763f2f45d43c47c5061e9cbbf330da179241d2",
+      "kind": "historical_unchanged_validator_model_audit",
+      "scope": "Prior exact validator initialization/lifetime audit retained only for source-equivalent unchanged mechanisms.",
+      "checkpoint_path": "source-proofs/late-prs/official-probe/updated4149_validate.storage-audit.json"
+    },
+    {
+      "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/final-integration-v3/source-binding.json",
+      "sha256": "af916ebd0b766390f0a5091ee419819178a2d832d4b85f3301ff251103aa0716",
+      "kind": "independent_current_integration_source_peer",
+      "scope": "Whole-source/tree/mode/canonical graph equality between actual FCC build and actual integration; its pending-at-review label remains historical.",
+      "checkpoint_path": "source-proofs/final-integration-v3/source-binding.json"
+    },
+    {
+      "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/final-integration-v3/current665-score-binding.json",
+      "sha256": "12fec9af484e3d70371fd57d0276f29f9035edecd573932f6fc117d8416910a2",
+      "kind": "independent_current_main_score_peer",
+      "scope": "Append-only final fresh665 score linkage closes prior source review stage gate.",
+      "checkpoint_path": "source-proofs/final-integration-v3/current665-score-binding.json"
+    },
+    {
+      "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/root/aggregate-v2-merge-admission.json",
+      "sha256": "e454443d7760011441e87ef726e9e7206caedf4e8397a40f649b771a126e5c0d",
+      "kind": "current_root_final_merge_peer",
+      "scope": "Root final exact integration/current665 score/fresh v2 runtime admission; final remote source HEAD recorded separately in this gate.",
+      "checkpoint_path": "source-proofs/root/aggregate-v2-merge-admission.json"
+    }
+  ],
+  "historical_reference": "../completion-pass113-20261101/proof-index.json",
+  "scope": "Only explicitly selected current proof files copied; dependency bodies and stale raw/probe.o excluded. Historical proof remains historical."
+}

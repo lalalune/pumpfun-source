@@ -1,0 +1,47 @@
+{
+  "status": "PASS_FINITE_TARGET_LIFETIME_AND_FULL_FRAGMENT_INITIALIZATION",
+  "function": "updated4149_validate",
+  "cfg_blocks": 48,
+  "reachable_block_states": 53,
+  "fragment_sizes": {
+    "target_head": 7,
+    "target_tail": 25
+  },
+  "writes": [
+    [
+      "bb48",
+      "target_head",
+      7
+    ],
+    [
+      "bb48",
+      "target_tail",
+      25
+    ],
+    [
+      "bb92",
+      "target_head",
+      7
+    ],
+    [
+      "bb92",
+      "target_tail",
+      25
+    ]
+  ],
+  "reads": [
+    [
+      "bb78",
+      "target_head",
+      true
+    ],
+    [
+      "bb78",
+      "target_tail",
+      true
+    ]
+  ],
+  "violations": [],
+  "ir_sha256": "8641fd863032a93ddb5dcb6882f89a4715fe4c3df84fc9610e6e9d6ef48cfd09",
+  "limits": "Official pre-optimization LLVM CFG for exact validator body and actual Anchor/Pubkey types; byte-copy source validity checked separately. No runtime or whole-program identity claim."
+}

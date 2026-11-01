@@ -1,0 +1,63 @@
+{
+  "commands": [
+    {
+      "mode": "raw",
+      "command": [
+        "/Users/shawwalters/.cache/pumpfun-reconstruction/toolchains/hybrid144/rust/bin/rustc",
+        "--edition=2021",
+        "--crate-type=lib",
+        "--crate-name=pass114_late_probe",
+        "--target=sbpf-solana-solana",
+        "-Copt-level=3",
+        "-Cpanic=abort",
+        "-Coverflow-checks=on",
+        "-Zvalidate-mir",
+        "--extern",
+        "anchor_lang=/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/main882/work/target-identity/sbpf-solana-solana/release/deps/libanchor_lang-a00b616ed88ae332.rlib",
+        "--extern",
+        "pump_recovered=/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/main882/work/target-identity/sbpf-solana-solana/release/deps/libpump_recovered.rlib",
+        "-L",
+        "dependency=/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/main882/work/target-identity/sbpf-solana-solana/release/deps",
+        "-L",
+        "dependency=/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/main882/work/target-identity/release/deps",
+        "--emit=llvm-ir=/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/late-prs/official-probe/raw/probe.ll",
+        "-Cno-prepopulate-passes",
+        "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/late-prs/official-probe/probe.rs"
+      ],
+      "exit_code": 0
+    },
+    {
+      "mode": "optimized",
+      "command": [
+        "/Users/shawwalters/.cache/pumpfun-reconstruction/toolchains/hybrid144/rust/bin/rustc",
+        "--edition=2021",
+        "--crate-type=lib",
+        "--crate-name=pass114_late_probe",
+        "--target=sbpf-solana-solana",
+        "-Copt-level=3",
+        "-Cpanic=abort",
+        "-Coverflow-checks=on",
+        "-Zvalidate-mir",
+        "--extern",
+        "anchor_lang=/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/main882/work/target-identity/sbpf-solana-solana/release/deps/libanchor_lang-a00b616ed88ae332.rlib",
+        "--extern",
+        "pump_recovered=/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/main882/work/target-identity/sbpf-solana-solana/release/deps/libpump_recovered.rlib",
+        "-L",
+        "dependency=/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/main882/work/target-identity/sbpf-solana-solana/release/deps",
+        "-L",
+        "dependency=/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/main882/work/target-identity/release/deps",
+        "--emit=llvm-ir=/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/late-prs/official-probe/optimized/probe.ll,obj=/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/late-prs/official-probe/optimized/probe.o,asm=/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/late-prs/official-probe/optimized/probe.s",
+        "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/late-prs/official-probe/probe.rs"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "compiler": "/Users/shawwalters/.cache/pumpfun-reconstruction/toolchains/hybrid144/rust/bin/rustc",
+  "compiler_sha256": "1f26338cc2cabd0a6057dcbd0528bba262b23ca1296d357a55304ee31d1d9e5a",
+  "actual_dependency_rlibs": {
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/main882/work/target-identity/sbpf-solana-solana/release/deps/libpump_recovered.rlib": "67bda45a48a4d4cad907765022c103c601d76175f902aecf71d9c55dc14dbade",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-branch-pass114-20261101/main882/work/target-identity/sbpf-solana-solana/release/deps/libanchor_lang-a00b616ed88ae332.rlib": "650ba4dc9453fc45485d9726c67641ad026af69d966cf954f24fc7029b1ec099"
+  },
+  "source_sha256": "16b98f7d8fa06bf7abdc22238918cb396c81c062a7509a9141fecb9bda1f7479",
+  "scope": "Bounded official compiler actual-main882 locked type dependencies; custom MIR exact body and main34 validator exact body. No whole contract build or VM."
+}

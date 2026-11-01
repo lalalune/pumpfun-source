@@ -1,0 +1,21 @@
+{
+ "lane": "w19b13-cto-v1-holder-and1",
+ "target": "0x22a10 admin_cto::execute",
+ "pinned_bytes": 27400,
+ "best": {
+  "and1_plus_v4": {"base": "882755412", "base_ratio": 0.70261, "ratio": 0.7038, "slots_diff": 3166, "bytes": 27400, "normalized": 1034, "raw": 1034, "losses": [], "raw_losses": [], "unstripped_sha": "0a038d795cfbcc6d", "pr": 4149},
+  "v4_alone": {"base": "665ffe46b", "base_ratio": 0.70889, "ratio": 0.70979, "slots_diff": 3091, "bytes": 27400, "normalized": 1034, "raw": 1034, "losses": [], "raw_losses": [], "unstripped_sha": "24bbe78dbec263ce", "pr": 4165}
+ },
+ "landing": {"land_py_merged": false, "reached_main_via": "w17a36 train #4162 (credits #4149), integrated by #4167 (b4331b4d1); main bc659cc44 at 0.71548 per that PR", "own_prs": {"4149": "closed unmerged", "4165": "closed unmerged"}},
+ "attempts": "about 3,500 oracle evaluations (post-opt llc cells, weight grids, fill-read scans), 17 source captures and 5 measure.sh builds; ledger approach v1-holder-and1",
+ "mechanisms": {
+  "and1_needs_weights": "BranchProbabilityInfo gives no zero heuristic on a single-bit and; without expect_p 0.625 on the 289 and shared tests every later frequency scales by 0.85 and spill ranks flip (2287 vs 2338)",
+  "curve_store_own_and1": "merging the curve store with validate's and-1 costs 35 M; pt8 keeps it separate",
+  "volatile_captures": "volatile load or memcpy counts as a capture in CaptureTracking; on t or new it blocks creator forwarding (-488)",
+  "partial_copy_not_forwarded": "MemCpyOpt 18 forwards only when M.source == MDep.dest, so a copy from t+8 stays on the stack slot",
+  "keep_new_plus_1_live": "the 307 block must still use new+1 or RA moves (-87); word 0 from new+1 keeps the interval"
+ },
+ "rejected": ["early and-1 (2058)", "merged curve store (-35)", "cashback in the holder block (1506)", "cashback at the validate join (1652)", "ptp(t) or read_volatile(t) for the 307 key (-488)", "whole copy from t (-87)", "four word copies (-3)", "volatile reads on non-error paths of validate (1612)"],
+ "unresolved": ["hand is in r0 with mov r8,r0 / mov r0,r8 around the V2 memcmps; the original keeps it in r8", "12 error payload loads in r8 vs r9", "tag slot -0x950 vs -0x8f8", "original jne shape at 0x640 needs the 289 error next in IR (post-opt -1 M, -8 B)", "word 0 of the 307 key still from new+1"],
+ "next": ["h6 (no early !holder): all-masked +20, C1 +35, exact -322; keep the sret spill", "source for the jne shape: if hr&&!holder RPO form", "target.write(t) from the t slot at original 0x1490 needs the 8/24 split"]
+}

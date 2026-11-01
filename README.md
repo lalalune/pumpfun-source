@@ -25,7 +25,7 @@ those programs. There is no frontend, backend, SDK or off-chain service code.
 **Verified checkpoint progress — 2026-11-01**
 
 **Code-byte completion: 99.47% — 5,185,728 of 5,213,128 bytes matched.**
-**27,400 bytes remain** in one unmatched window. Matched-window completion is
+**27,400 bytes remain** in unmatched raw windows. Matched-window completion is
 **99.97% (3,337/3,338)**.
 
 | Program | Matched / total code bytes | Code bytes matched | Matched windows | Windows matched | Whole meaningful ELF equal |
@@ -37,23 +37,22 @@ those programs. There is no frontend, backend, SDK or off-chain service code.
 | Donation Relay |752,488/752,488|100.00%|492/492|100.00%|**Yes**|
 | **Total** |**5,185,728/5,213,128**|**99.47%**|**3,337/3,338**|**99.97%**|**4/5**|
 
-All **3,337 matched windows are raw-equal**; there are no normalized-only matches.
-The latest fresh Pump Main identity build preserves all matched windows, with
-no raw or normalized losses. Only `admin_cto::execute` remains unmatched
-(27,400 bytes); its instruction-token similarity is **70.021%**, adding **4
-matched tokens** since CP112 (69.901%). Positional byte differences change from
-3,173 to **3,189**; no new exact window is claimed. Partial token similarity is
-excluded from the completed-byte total.
+All **3,337 matched windows are raw-equal**; normalized-only Pump windows: **0**.
+The latest fresh Pump Main identity build preserves all matched windows with
+no raw or normalized losses. The targeted `admin_cto::execute` window is 27,400 bytes;
+its instruction-token similarity is **71.548%**, adding **51 matched tokens**
+since CP113 (70.021%,2,338 tokens). Positional byte differences change from
+3,189 to **3,289**. Partial token similarity is excluded from completed-byte totals.
 All **388 targeted signed synthetic admin-CTO pairs** pass for this exact new
-image, with **776 nonempty signature vectors** verified. A separate signed
-cross-program lifecycle and independent replay also pass. This is bounded
-runtime evidence; pinned compiler/layout and valid-context limits remain.
+image, with **776 canonical signed vectors** verified and seven rejection controls.
+A separate 22-transaction cross-program lifecycle, four controls and independent
+replay also pass. Finite runtime and compiler/layout/valid-context limits remain.
 The new unlinked reference models add captured-program test coverage without
 increasing compiled completion. Pump Main's meaningful ELF is not yet equal.
 
 AMM, Fees, Mayhem and Donation Relay retain their exact meaningful-ELF
 checkpoints. Separate bounded tests do not replace those identity receipts. See the
-[latest scores, runtime coverage and limits](reconstruction/pump-main/checkpoints/completion-pass113-20261101/README.md),
+[latest scores, runtime coverage and limits](reconstruction/pump-main/checkpoints/completion-pass114-20261101/README.md),
 [other-program checkpoint provenance](reconstruction/pump-main/checkpoints/completion-20261030/other-programs.json)
 and [Fees Linux rebuild packet](research/fees-linux-fresh-rebuild-20261030/README.md).
 
