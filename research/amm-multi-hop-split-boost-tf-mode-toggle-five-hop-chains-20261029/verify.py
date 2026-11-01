@@ -556,6 +556,8 @@ def main():
     def cfg(label, idx):
         return x(label, idx)["cfg"]
 
+    roundtrip_before = cfg_fields(grouped[("T-all-roundtrip", "original")][0]["before"].get(CONFIG))
+
     # A: 5-hop anchors.
     check(tail("A-buy5", 0) == 5207955235891
           and x("A-buy5", 0)["deltas"].get("bb22") == 4515471
@@ -578,12 +580,16 @@ def main():
           and x("T-boost-off-off", 1)["error"] is None
           and "Custom(6005)" in err("T-outsider", "original", 0)
           and "Custom(3010)" in err("T-unsigned", "original", 0)
-          and cfg("T-all-roundtrip", 5) == cfg("T-all-roundtrip", 5)
+          and all({k: v for k, v in cfg("T-all-roundtrip", i).items()
+                   if k not in ("mayhem", "cashback", "boost_enabled")}
+                  == {k: v for k, v in roundtrip_before.items()
+                      if k not in ("mayhem", "cashback", "boost_enabled")}
+                  for i in range(6))
           and cfg("T-all-roundtrip", 5)["mayhem"] == 1
           and cfg("T-all-roundtrip", 5)["cashback"] == 1
           and cfg("T-all-roundtrip", 5)["boost_enabled"] == 1
           and all(x("T-all-roundtrip", i)["events"] == 0 for i in range(6)),
-          "mayhem same-state 6043, cashback same-state 6051, boost toggle no same-state check, outsider 6005, unsigned 3010, all-roundtrip restores all three flags, toggles emit 0 events")
+          "mayhem same-state 6043, cashback same-state 6051, boost toggle no same-state check, outsider 6005, unsigned 3010, all-roundtrip restores all three flags and moves no other config field, toggles emit 0 events")
     # B: toggles around the chain.
     check(tail("B-mayhem-off-buy", 1) == 5207955235891
           and x("B-mayhem-off-sell", 1)["deltas"].get("userquote") == 178541

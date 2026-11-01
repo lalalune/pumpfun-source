@@ -1,0 +1,509 @@
+[
+ {
+  "composite": "me/hkl3",
+  "bytes": 27400,
+  "M": 2251,
+  "rfj_lcs": 3002,
+  "jumps_bad": 112,
+  "jumps_aligned": 262,
+  "drift_med": {
+   "entry": -22,
+   "validate_tail": -21,
+   "sharecpi": -13,
+   "event_err": -6
+  },
+  "parts": [
+   {
+    "lane": "w16a17-cto-stitch16",
+    "name": "hkl3",
+    "genes": "hkl3",
+    "dB": 0,
+    "dM": 0
+   }
+  ]
+ },
+ {
+  "composite": "me/hkcopy",
+  "bytes": 27400,
+  "M": 2251,
+  "rfj_lcs": 3001,
+  "jumps_bad": 112,
+  "jumps_aligned": 262,
+  "drift_med": {
+   "entry": -22,
+   "validate_tail": -21,
+   "sharecpi": -13,
+   "event_err": -6
+  },
+  "parts": [
+   {
+    "lane": "w16a17-cto-stitch16",
+    "name": "hkcopy",
+    "genes": "hkcopy",
+    "dB": 0,
+    "dM": 0
+   }
+  ]
+ },
+ {
+  "composite": "me/q5",
+  "bytes": 27400,
+  "M": 2251,
+  "rfj_lcs": 2999,
+  "jumps_bad": 112,
+  "jumps_aligned": 262,
+  "drift_med": {
+   "entry": -22,
+   "validate_tail": -21,
+   "sharecpi": -13,
+   "event_err": -6
+  },
+  "parts": [
+   {
+    "lane": "w16a17-cto-stitch16",
+    "name": "q5",
+    "genes": "q5",
+    "dB": 0,
+    "dM": 0
+   }
+  ]
+ },
+ {
+  "composite": "lfb5",
+  "bytes": 27400,
+  "M": 2251,
+  "rfj_lcs": 3003,
+  "jumps_bad": 112,
+  "jumps_aligned": 262,
+  "drift_med": {
+   "entry": -22,
+   "validate_tail": -21,
+   "sharecpi": -13,
+   "event_err": -6
+  },
+  "parts": [
+   {
+    "lane": "w15a30-cto-litfamily",
+    "name": "lfb5",
+    "genes": "b5:10234567",
+    "dB": 0,
+    "dM": 0
+   }
+  ]
+ },
+ {
+  "composite": "lkb6",
+  "bytes": 27400,
+  "M": 2250,
+  "rfj_lcs": 3003,
+  "jumps_bad": 112,
+  "jumps_aligned": 262,
+  "drift_med": {
+   "entry": -22,
+   "validate_tail": -21,
+   "sharecpi": -13,
+   "event_err": -6
+  },
+  "parts": [
+   {
+    "lane": "w15a30-cto-litfamily",
+    "name": "lkb6",
+    "genes": "b6:21034567",
+    "dB": 0,
+    "dM": -1
+   }
+  ]
+ },
+ {
+  "composite": "lfb5+lkb6",
+  "bytes": 27400,
+  "M": 2250,
+  "rfj_lcs": 3005,
+  "jumps_bad": 112,
+  "jumps_aligned": 262,
+  "drift_med": {
+   "entry": -22,
+   "validate_tail": -21,
+   "sharecpi": -13,
+   "event_err": -6
+  },
+  "parts": [
+   {
+    "lane": "w15a30-cto-litfamily",
+    "name": "lfb5",
+    "genes": "b5:10234567",
+    "dB": 0,
+    "dM": 0
+   },
+   {
+    "lane": "w15a30-cto-litfamily",
+    "name": "lkb6",
+    "genes": "b6:21034567",
+    "dB": 0,
+    "dM": -1
+   }
+  ]
+ },
+ {
+  "composite": "me/crl3t1n",
+  "bytes": 27448,
+  "M": 2251,
+  "rfj_lcs": 3005,
+  "jumps_bad": 109,
+  "jumps_aligned": 261,
+  "drift_med": {
+   "entry": -13,
+   "validate_tail": -12,
+   "sharecpi": -7,
+   "event_err": 0
+  },
+  "parts": [
+   {
+    "lane": "w16a17-cto-stitch16",
+    "name": "crl3t1n",
+    "genes": "crl3t1n",
+    "dB": 48,
+    "dM": 0
+   }
+  ]
+ },
+ {
+  "composite": "me/g1t1n",
+  "bytes": 27416,
+  "M": 2251,
+  "rfj_lcs": 3004,
+  "jumps_bad": 114,
+  "jumps_aligned": 261,
+  "drift_med": {
+   "entry": -22,
+   "validate_tail": -22,
+   "sharecpi": -11,
+   "event_err": -4
+  },
+  "parts": [
+   {
+    "lane": "w16a17-cto-stitch16",
+    "name": "g1t1n",
+    "genes": "g1t1n",
+    "dB": 16,
+    "dM": 0
+   }
+  ]
+ },
+ {
+  "composite": "me/shif+N_I6ssn",
+  "bytes": 27400,
+  "M": 2243,
+  "rfj_lcs": 3003,
+  "jumps_bad": 119,
+  "jumps_aligned": 263,
+  "drift_med": {
+   "entry": -22,
+   "validate_tail": -20,
+   "sharecpi": -12,
+   "event_err": -6
+  },
+  "parts": [
+   {
+    "lane": "w16a17-cto-stitch16",
+    "name": "shif",
+    "genes": "shif",
+    "dB": -8,
+    "dM": -6
+   },
+   {
+    "lane": "w15a03-cto-stitch15",
+    "name": "N_I6ssn",
+    "genes": "I6ssn",
+    "dB": 8,
+    "dM": -2
+   }
+  ]
+ },
+ {
+  "composite": "me/shif+F_N6",
+  "bytes": 27400,
+  "M": 2245,
+  "rfj_lcs": 3002,
+  "jumps_bad": 119,
+  "jumps_aligned": 263,
+  "drift_med": {
+   "entry": -22,
+   "validate_tail": -20,
+   "sharecpi": -12,
+   "event_err": -6
+  },
+  "parts": [
+   {
+    "lane": "w16a17-cto-stitch16",
+    "name": "shif",
+    "genes": "shif",
+    "dB": -8,
+    "dM": -6
+   },
+   {
+    "lane": "w15a01-cto-devolfill",
+    "name": "F_N6",
+    "genes": "lf_fee_configurable+N6",
+    "dB": 8,
+    "dM": 0
+   }
+  ]
+ },
+ {
+  "composite": "me/shif+me/colnat",
+  "bytes": 27400,
+  "M": 2249,
+  "rfj_lcs": 3000,
+  "jumps_bad": 114,
+  "jumps_aligned": 262,
+  "drift_med": {
+   "entry": -22,
+   "validate_tail": -21,
+   "sharecpi": -13,
+   "event_err": -7
+  },
+  "parts": [
+   {
+    "lane": "w16a17-cto-stitch16",
+    "name": "shif",
+    "genes": "shif",
+    "dB": -8,
+    "dM": -6
+   },
+   {
+    "lane": "w16a17-cto-stitch16",
+    "name": "colnat",
+    "genes": "colnat",
+    "dB": 8,
+    "dM": -3
+   }
+  ]
+ },
+ {
+  "composite": "me/shif+N_cu_unwrapcur",
+  "bytes": 27400,
+  "M": 2250,
+  "rfj_lcs": 2999,
+  "jumps_bad": 114,
+  "jumps_aligned": 263,
+  "drift_med": {
+   "entry": -22,
+   "validate_tail": -21,
+   "sharecpi": -13,
+   "event_err": -5
+  },
+  "parts": [
+   {
+    "lane": "w16a17-cto-stitch16",
+    "name": "shif",
+    "genes": "shif",
+    "dB": -8,
+    "dM": -6
+   },
+   {
+    "lane": "w15a03-cto-stitch15",
+    "name": "N_cu_unwrapcur",
+    "genes": "cu_unwrapcur",
+    "dB": 8,
+    "dM": -5
+   }
+  ]
+ },
+ {
+  "composite": "me/shif+wl_writ_eq",
+  "bytes": 27400,
+  "M": 2250,
+  "rfj_lcs": 3000,
+  "jumps_bad": 113,
+  "jumps_aligned": 262,
+  "drift_med": {
+   "entry": -22,
+   "validate_tail": -21,
+   "sharecpi": -12,
+   "event_err": -6
+  },
+  "parts": [
+   {
+    "lane": "w16a17-cto-stitch16",
+    "name": "shif",
+    "genes": "shif",
+    "dB": -8,
+    "dM": -6
+   },
+   {
+    "lane": "w15a16-cto-mpermrank",
+    "name": "wl_writ_eq",
+    "genes": null,
+    "dB": 8,
+    "dM": -6
+   }
+  ]
+ },
+ {
+  "composite": "me/shif+me/a1",
+  "bytes": 27368,
+  "M": 2244,
+  "rfj_lcs": 3002,
+  "jumps_bad": 118,
+  "jumps_aligned": 263,
+  "drift_med": {
+   "entry": -22,
+   "validate_tail": -21,
+   "sharecpi": -15,
+   "event_err": -9
+  },
+  "parts": [
+   {
+    "lane": "w16a17-cto-stitch16",
+    "name": "shif",
+    "genes": "shif",
+    "dB": -8,
+    "dM": -6
+   },
+   {
+    "lane": "w16a17-cto-stitch16",
+    "name": "a1",
+    "genes": "a1",
+    "dB": -24,
+    "dM": -7
+   }
+  ]
+ },
+ {
+  "composite": "H_hkl2",
+  "bytes": 27400,
+  "M": 2250,
+  "rfj_lcs": 3006,
+  "jumps_bad": 112,
+  "jumps_aligned": 262,
+  "drift_med": {
+   "entry": -22,
+   "validate_tail": -21,
+   "sharecpi": -13,
+   "event_err": -6
+  },
+  "parts": [
+   {
+    "lane": "w15a03-cto-stitch15",
+    "name": "H_hkl2",
+    "genes": "hkl2",
+    "dB": 0,
+    "dM": -1
+   }
+  ]
+ },
+ {
+  "composite": "H_hkl2crl3",
+  "bytes": 27472,
+  "M": 2251,
+  "rfj_lcs": 3010,
+  "jumps_bad": 112,
+  "jumps_aligned": 262,
+  "drift_med": {
+   "entry": -13,
+   "validate_tail": -12,
+   "sharecpi": -4,
+   "event_err": 3
+  },
+  "parts": [
+   {
+    "lane": "w15a03-cto-stitch15",
+    "name": "H_hkl2crl3",
+    "genes": "hkl2+m_crl3",
+    "dB": 72,
+    "dM": 0
+   }
+  ]
+ },
+ {
+  "composite": "me/crl3+me/t1n",
+  "bytes": 27448,
+  "M": 2251,
+  "rfj_lcs": 3005,
+  "jumps_bad": 109,
+  "jumps_aligned": 261,
+  "drift_med": {
+   "entry": -13,
+   "validate_tail": -12,
+   "sharecpi": -7,
+   "event_err": 0
+  },
+  "parts": [
+   {
+    "lane": "w16a17-cto-stitch16",
+    "name": "crl3",
+    "genes": "crl3",
+    "dB": 72,
+    "dM": 1
+   },
+   {
+    "lane": "w16a17-cto-stitch16",
+    "name": "t1n",
+    "genes": "t1n",
+    "dB": -24,
+    "dM": -1
+   }
+  ]
+ },
+ {
+  "composite": "me/hkl3+lfb5",
+  "bytes": 27400,
+  "M": 2251,
+  "rfj_lcs": 3004,
+  "jumps_bad": 112,
+  "jumps_aligned": 262,
+  "drift_med": {
+   "entry": -22,
+   "validate_tail": -21,
+   "sharecpi": -13,
+   "event_err": -6
+  },
+  "parts": [
+   {
+    "lane": "w16a17-cto-stitch16",
+    "name": "hkl3",
+    "genes": "hkl3",
+    "dB": 0,
+    "dM": 0
+   },
+   {
+    "lane": "w15a30-cto-litfamily",
+    "name": "lfb5",
+    "genes": "b5:10234567",
+    "dB": 0,
+    "dM": 0
+   }
+  ]
+ },
+ {
+  "composite": "me/hkl3+me/q5",
+  "bytes": 27400,
+  "M": 2251,
+  "rfj_lcs": 3000,
+  "jumps_bad": 112,
+  "jumps_aligned": 262,
+  "drift_med": {
+   "entry": -22,
+   "validate_tail": -21,
+   "sharecpi": -13,
+   "event_err": -6
+  },
+  "parts": [
+   {
+    "lane": "w16a17-cto-stitch16",
+    "name": "hkl3",
+    "genes": "hkl3",
+    "dB": 0,
+    "dM": 0
+   },
+   {
+    "lane": "w16a17-cto-stitch16",
+    "name": "q5",
+    "genes": "q5",
+    "dB": 0,
+    "dM": 0
+   }
+  ]
+ }
+]

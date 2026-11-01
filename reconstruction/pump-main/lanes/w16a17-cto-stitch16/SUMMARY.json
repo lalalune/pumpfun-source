@@ -1,0 +1,287 @@
+{
+ "lane": "w16a17-cto-stitch16",
+ "wave": 16,
+ "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27,400 B",
+ "base": {
+  "main": "599891304 (admin_cto.rs = 1f4e396: A6 + ev6)",
+  "ratio": 0.67436,
+  "M": 2251,
+  "slots": 3141,
+  "bytes": 27400
+ },
+ "result": "notes only; no landing. No composite of the cached capture library reaches M 2,252 at 27,400 B, and no M 2,251 tie has fewer positional slots than main.",
+ "landed": false,
+ "pr": 3886,
+ "best_zero_loss": {
+  "variant": "main (ties: hkl3+lfb5 2,251 with rfj 3,004; lfb5, q5, hk_copy 2,251 at main's slots)",
+  "ratio": 0.67436,
+  "M": 2251,
+  "bytes": 27400,
+  "slots": 3141
+ },
+ "ledger": "approach stitch16, keys 0x22a10-w16-5998913-stitch16-<name>-v1",
+ "catalog": {
+  "round1": "1,990 unique w15/w16 captures (data/cat16_r1.json in $OUT); export data/sizeknobs-w16b.json (604 rows)",
+  "round2": "2,174 unique captures, 873 usable source rows on the new main (data/cat16_r2.json in $OUT); data/repay_prices_5998913.json",
+  "bases": "res-<sha7> file or ledger key sha7, else nearer main by diff size; old 924, new 377, older (excluded) 333, guessed 579",
+  "translation": "splice(old main, [new main, capture]); 16/16 recaptured singles byte-identical to their translations"
+ },
+ "screens": {
+  "pairs_zero_sum": "5,000 valid conflict-free pairs at 27,400 B: best 2,251 (109 ties, all 0 B + 0 B); best traded pair 2,250",
+  "zero_byte_triples": "3,650 conflict-free of 9,139: best 2,251 (244 ties), all at main's slots except hkl3",
+  "lead_g1": "g1 27,520 B M 2,253: no conflict-free repay set",
+  "lead_crl3": "crl3 27,472 B M 2,252: best repay 2,237",
+  "lead_crl3t1n": "crl3+t1n 27,448 B M 2,251: every -48 B set carries t1n",
+  "lead_C3b": "crl3+g1+t1n 27,488 B M 2,252: best repay 2,239",
+  "lead_g1t1n": "g1+t1n 27,416 B M 2,251: best repay 2,247 (and that uses the placeholder gene dv334)",
+  "lead_shif": "sh_iflet 27,392 B M 2,245: best +8 B repay 2,250 (wl_writ_eq, cu_unwrapcur; built 2,250)",
+  "lead_tAn2": "w16a13 tAn2 27,040 B M 2,219: no <= 3-knob set adds +360 B",
+  "envelope": "idxM16b.npz, 4,288 builds: best clean two-region splice 2,290 at 27,584 B (w16a09 E2U front + main-like back); front families whose backs collapse"
+ },
+ "bounds": [
+  "g1+t1n perfect -16 B repay (any two deletions): 2,252, via an RA artefact (max_fee reload at cand 0x15b0)",
+  "crl3+t1n with 48 B of its own unmatched code deleted after the TCF: M 2,246-2,248 at 3,063-3,082 slots"
+ ],
+ "builds": {
+  "singles": {
+   "g1": [
+    27520,
+    2253
+   ],
+   "crl3": [
+    27472,
+    2252
+   ],
+   "crl2": [
+    27472,
+    2252
+   ],
+   "t1n": [
+    27376,
+    2250
+   ],
+   "sh_iflet": [
+    27392,
+    2245
+   ],
+   "a1": [
+    27376,
+    2244
+   ],
+   "I6n": [
+    27416,
+    2250
+   ],
+   "hkl2": [
+    27288,
+    2048
+   ],
+   "hk_copy": [
+    27400,
+    2251
+   ],
+   "hkl3": [
+    27400,
+    2251
+   ],
+   "q5": [
+    27400,
+    2251
+   ],
+   "lfb5": [
+    27400,
+    2251
+   ],
+   "cu_unwrapcur": [
+    27408,
+    2246
+   ],
+   "p_colnat": [
+    27408,
+    2248
+   ],
+   "wl_writ_eq": [
+    27408,
+    2245
+   ],
+   "K_g_w_clock_local": [
+    27416,
+    2248
+   ],
+   "cu_match": [
+    27392,
+    2244
+   ],
+   "c2": [
+    27392,
+    2246
+   ],
+   "mv_5_1": [
+    27392,
+    2223
+   ],
+   "ev_nf_inline": [
+    27376,
+    2239
+   ],
+   "K_sh_prog_let": [
+    27368,
+    2239
+   ],
+   "tsplit": [
+    27456,
+    2139
+   ]
+  },
+  "composites": {
+   "crl3+t1n": [
+    27448,
+    2251
+   ],
+   "g1+t1n": [
+    27416,
+    2251
+   ],
+   "g1+t3n": [
+    27416,
+    2251
+   ],
+   "g1+t1n+l2l_cashback": [
+    27416,
+    2251
+   ],
+   "tf_f6+t1n": [
+    27416,
+    2249
+   ],
+   "cs7+t1n": [
+    27424,
+    2249
+   ],
+   "g1+t1n+sh_iflet": [
+    27408,
+    2246
+   ],
+   "g1+t1n+c2": [
+    27408,
+    2247
+   ],
+   "g1+t1n+cu_match": [
+    27408,
+    2245
+   ],
+   "g1+t1n+a1": [
+    27392,
+    2245
+   ],
+   "g1+t1n+l2l_cashback+c2_L_share_none_first": [
+    27408,
+    2247
+   ],
+   "crl3+t1n+I6n": [
+    27440,
+    2249
+   ],
+   "crl3+g1+t1n": [
+    27488,
+    2252
+   ],
+   "sh_iflet+cu_unwrapcur": [
+    27400,
+    2250
+   ],
+   "sh_iflet+wl_writ_eq": [
+    27400,
+    2250
+   ],
+   "hkl3+lfb5": [
+    27400,
+    2251
+   ],
+   "lfb5+lkb6": [
+    27400,
+    2250
+   ],
+   "mv_5_1+t1n+m_crl2": [
+    27408,
+    2237
+   ],
+   "mv_5_1+t1n+m_crl2+vol334_back (L_vol)": [
+    27400,
+    2236
+   ],
+   "crlT1/3/4/5 (shared entry creator copy)": [
+    27440,
+    1915
+   ],
+   "crlT6": [
+    27560,
+    1587
+   ],
+   "sh_iflet+a1+tsplit (ST1)": [
+    27400,
+    2247
+   ],
+   "a1+tsplit (T1)": [
+    27408,
+    2245
+   ],
+   "hkl3+lfb5+lkb6": [
+    27400,
+    2250
+   ],
+   "csA creator:*cref (pointer before quote_locked)": [
+    27400,
+    2251,
+    "byte-identical"
+   ],
+   "csC new_from_array": [
+    27400,
+    2251,
+    "byte-identical"
+   ],
+   "csI block deref": [
+    27400,
+    2251,
+    "byte-identical"
+   ],
+   "csF creator local + shorthand": [
+    27400,
+    2250
+   ],
+   "csH cref shared by shared test and literal": [
+    27464,
+    1593
+   ],
+   "fl1/fl3 curve flags read before quote_locked": [
+    27352,
+    2115,
+    "front +12 (entry.st +10), back -148"
+   ],
+   "fl2 flags before the holder PDA": [
+    27464,
+    1579
+   ]
+  }
+ },
+ "rejected_mechanisms": [
+  "repaying g1/crl3/crl2 or their t1n composites to 27,400 B with any 1-3 library knobs",
+  "sh_iflet + any +8 B library knob (max 2,250)",
+  "0 B + 0 B pairs and 0 B triples (ties only)",
+  "one entry creator copy shared by the shared test and the shared-arm target (collapses -333..-664)",
+  "g1-family variants cs7/tf_f6 with t1n (2,249)",
+  "outline base tAn2 with library repays (no +360 B set)",
+  "CtoState creator through a pointer/explicit copy (byte-identical) or a shared cref (collapse)",
+  "curve flags read early (fl1: front +12 but back -148; fl2 collapses)"
+ ],
+ "unresolved": [
+  "a faithful 16-120 B repay after the sweep for the entry/validate size leads (library repays below -24 B cost >= 3 M)",
+  "a lossless ~48 B removal of main-only code after the TCF to land crl3+t1n with fewer slots",
+  "sh_iflet's +8 B pay band in the event Err paths (cand 0x5448-0x5578; no library knob lands there)"
+ ],
+ "next_ideas": [
+  "Look for main-only code after the TCF that a source spelling can drop (xled ours-only runs at cand 0x4068-0x4158 and 0x41f8-0x4300 in the sharing CPI build, the join at 0x1830-0x1920); pair it with crl2/crl3 or crl3+g1+t1n",
+  "fl1 (curve flags read before quote_locked, the original's early loads) is a new faithful front: +12 M in entry.st/holder_head at -48 B net, back -148 under main's back-half tuning; re-tune the back half under it as w16a14 does for VC",
+  "Rebuild the catalog with tools/cat16b.py --prev and splice new captures with scr16.py pairsnew/lead before building"
+ ]
+}

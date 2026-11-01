@@ -172,9 +172,42 @@ for _o in ['ORLKWSED','RLOKWSED','ROKLWSED','ROLWKSED','ROLKSWED','ROLKWESD','RO
 SITES={'tcf':'crate::pump_amm::cpi::accounts::TransferCreatorFeesToPumpV2{','cre':'anchor_spl::associated_token::Create{payer:a.admin_set_creator_authority.to_account_info(),associated_token:a.current_creator_quote_token_account','ccf':'crate::pump_amm::cpi::accounts::CollectCoinCreatorFee{','pool':'crate::pump_amm::cpi::accounts::AdminCtoPool{','hcre':'anchor_spl::associated_token::Create{payer:a.admin_set_creator_authority.to_account_info(),associated_token:a.holder_creator_vault_quote_token_account'}
 def lfx(site,label,mode=''):
     def g(s):
-        i=s.index(SITES[site]); assert s.count(SITES[site])==1
-        m=re.compile(r'([,{])'+label+r':a\.(\w+)\.to_account_info\(\)').search(s,i)
-        assert m and m.start()<s.index('}',i)+1+0 or True
+        message=f'{site}:{label} is not inside the accounts literal'
+        if s.count(SITES[site])!=1:
+            raise AssertionError(message+' (site is not unique)')
+        i=s.index(SITES[site]); start=s.index('{',i)
+        # Bound the literal and distinguish its own fields from nested clones.
+        # Quoted expressions are outside this lane's supported input syntax.
+        depth=0; levels={}; end=None; pos=start
+        while pos<len(s):
+            if s.startswith('//',pos):
+                pos=s.find('\n',pos+2)
+                if pos<0: break
+                continue
+            if s.startswith('/*',pos):
+                comment=1; pos+=2
+                while comment and pos<len(s):
+                    if s.startswith('/*',pos): comment+=1; pos+=2
+                    elif s.startswith('*/',pos): comment-=1; pos+=2
+                    else: pos+=1
+                if comment: break
+                continue
+            c=s[pos]
+            if c in ('"', "'"):
+                raise AssertionError(message+' (unsupported quoted syntax)')
+            if c=='{': depth+=1
+            elif c=='}': depth-=1
+            levels[pos]=depth
+            if depth==0:
+                end=pos; break
+            pos+=1
+        if end is None:
+            raise AssertionError(message+' (unterminated literal)')
+        pattern=re.compile(r'([,{])'+re.escape(label)+r':a\.(\w+)\.to_account_info\(\)')
+        matches=[m for m in pattern.finditer(s,start,end) if levels.get(m.start())==1]
+        if len(matches)!=1:
+            raise AssertionError(message+' (field is missing or not unique)')
+        m=matches[0]
         acct=m.group(2); expr=f'a.{acct}.as_ref()'+('.as_ref()' if 'aa' in mode else '')
         return s[:m.start()+1]+label+':'+lf_text(expr,'ROLKWSED','dl' in mode)+s[m.end():]
     return [g]

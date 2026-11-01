@@ -1,0 +1,812 @@
+{
+"valid_pairs": 5000,
+"at_27400": 5000,
+"hist": [
+[
+2246,
+533
+],
+[
+2247,
+599
+],
+[
+2248,
+518
+],
+[
+2249,
+405
+],
+[
+2250,
+275
+],
+[
+2251,
+109
+]
+],
+"top_nonzero_delta": [
+{
+"mode": "pairs",
+"names": [
+"N_cu_unwrapcur",
+"L2_rr0K"
+],
+"lanes": [
+"w15a03-cto-stitch15",
+"w15a03-cto-stitch15"
+],
+"genes": [
+"cu_unwrapcur",
+"sh_iflet+rr0K"
+],
+"deltas": [
+8,
+-8
+],
+"Ms": [
+2246,
+2245
+],
+"bytes": 27400,
+"M": 2250,
+"src": "r1"
+},
+{
+"mode": "pairsnew",
+"names": [
+"L2_rr0K",
+"wl_writ_eq"
+],
+"lanes": [
+"w15a03-cto-stitch15",
+"w15a16-cto-mpermrank"
+],
+"genes": [
+"sh_iflet+rr0K",
+"wl_writ_eq"
+],
+"deltas": [
+-8,
+8
+],
+"Ms": [
+2245,
+2245
+],
+"bytes": 27400,
+"M": 2250,
+"src": "r2new"
+},
+{
+"mode": "pairs",
+"names": [
+"N_p_colnat",
+"L2_rr0K"
+],
+"lanes": [
+"w15a03-cto-stitch15",
+"w15a03-cto-stitch15"
+],
+"genes": [
+"p_colnat",
+"sh_iflet+rr0K"
+],
+"deltas": [
+8,
+-8
+],
+"Ms": [
+2248,
+2245
+],
+"bytes": 27400,
+"M": 2249,
+"src": "r1"
+},
+{
+"mode": "pairs",
+"names": [
+"L2_rr7O",
+"N_cu_match"
+],
+"lanes": [
+"w15a03-cto-stitch15",
+"w15a03-cto-stitch15"
+],
+"genes": [
+"sh_iflet+rr7O",
+"cu_match"
+],
+"deltas": [
+8,
+-8
+],
+"Ms": [
+2246,
+2244
+],
+"bytes": 27400,
+"M": 2249,
+"src": "r1"
+},
+{
+"mode": "pairs",
+"names": [
+"L2_rr7O",
+"b6xl"
+],
+"lanes": [
+"w15a03-cto-stitch15",
+"w15a30-cto-litfamily"
+],
+"genes": [
+"sh_iflet+rr7O",
+"R:b6xl"
+],
+"deltas": [
+8,
+-8
+],
+"Ms": [
+2246,
+2244
+],
+"bytes": 27400,
+"M": 2249,
+"src": "r1"
+},
+{
+"mode": "pairs",
+"names": [
+"N_cu_unwrapcur",
+"b6xl"
+],
+"lanes": [
+"w15a03-cto-stitch15",
+"w15a30-cto-litfamily"
+],
+"genes": [
+"cu_unwrapcur",
+"R:b6xl"
+],
+"deltas": [
+8,
+-8
+],
+"Ms": [
+2246,
+2244
+],
+"bytes": 27400,
+"M": 2249,
+"src": "r1"
+},
+{
+"mode": "pairsnew",
+"names": [
+"wl_writ_eq",
+"N_cu_match"
+],
+"lanes": [
+"w15a16-cto-mpermrank",
+"w15a03-cto-stitch15"
+],
+"genes": [
+"wl_writ_eq",
+"cu_match"
+],
+"deltas": [
+8,
+-8
+],
+"Ms": [
+2245,
+2244
+],
+"bytes": 27400,
+"M": 2249,
+"src": "r2new"
+},
+{
+"mode": "pairsnew",
+"names": [
+"wl_writ_eq",
+"b6xl"
+],
+"lanes": [
+"w15a16-cto-mpermrank",
+"w15a30-cto-litfamily"
+],
+"genes": [
+"wl_writ_eq",
+"R:b6xl"
+],
+"deltas": [
+8,
+-8
+],
+"Ms": [
+2245,
+2244
+],
+"bytes": 27400,
+"M": 2249,
+"src": "r2new"
+},
+{
+"mode": "pairs",
+"names": [
+"V_df_cashback",
+"N_I6ssn"
+],
+"lanes": [
+"w15a01-cto-devolfill",
+"w15a03-cto-stitch15"
+],
+"genes": [
+"devol+df_cashback",
+"I6ssn"
+],
+"deltas": [
+-8,
+8
+],
+"Ms": [
+2250,
+2249
+],
+"bytes": 27400,
+"M": 2248,
+"src": "r1"
+},
+{
+"mode": "pairs",
+"names": [
+"V_df_fee_configurable",
+"N_I6ssn"
+],
+"lanes": [
+"w15a01-cto-devolfill",
+"w15a03-cto-stitch15"
+],
+"genes": [
+"devol+df_fee_configurable",
+"I6ssn"
+],
+"deltas": [
+-8,
+8
+],
+"Ms": [
+2250,
+2249
+],
+"bytes": 27400,
+"M": 2248,
+"src": "r1"
+},
+{
+"mode": "pairs",
+"names": [
+"V_df_holder_enabled",
+"N_I6ssn"
+],
+"lanes": [
+"w15a01-cto-devolfill",
+"w15a03-cto-stitch15"
+],
+"genes": [
+"devol+df_holder_enabled",
+"I6ssn"
+],
+"deltas": [
+-8,
+8
+],
+"Ms": [
+2250,
+2249
+],
+"bytes": 27400,
+"M": 2248,
+"src": "r1"
+},
+{
+"mode": "pairs",
+"names": [
+"V_df_holder_reward",
+"N_I6ssn"
+],
+"lanes": [
+"w15a01-cto-devolfill",
+"w15a03-cto-stitch15"
+],
+"genes": [
+"devol+df_holder_reward",
+"I6ssn"
+],
+"deltas": [
+-8,
+8
+],
+"Ms": [
+2250,
+2249
+],
+"bytes": 27400,
+"M": 2248,
+"src": "r1"
+},
+{
+"mode": "pairs",
+"names": [
+"V_df_quote_locked",
+"N_I6ssn"
+],
+"lanes": [
+"w15a01-cto-devolfill",
+"w15a03-cto-stitch15"
+],
+"genes": [
+"devol+df_quote_locked",
+"I6ssn"
+],
+"deltas": [
+-8,
+8
+],
+"Ms": [
+2250,
+2249
+],
+"bytes": 27400,
+"M": 2248,
+"src": "r1"
+},
+{
+"mode": "pairs",
+"names": [
+"V_dl_cashback",
+"N_I6ssn"
+],
+"lanes": [
+"w15a01-cto-devolfill",
+"w15a03-cto-stitch15"
+],
+"genes": [
+"devol+dl_cashback",
+"I6ssn"
+],
+"deltas": [
+-8,
+8
+],
+"Ms": [
+2250,
+2249
+],
+"bytes": 27400,
+"M": 2248,
+"src": "r1"
+},
+{
+"mode": "pairs",
+"names": [
+"V_dl_holder_enabled",
+"N_I6ssn"
+],
+"lanes": [
+"w15a01-cto-devolfill",
+"w15a03-cto-stitch15"
+],
+"genes": [
+"devol+dl_holder_enabled",
+"I6ssn"
+],
+"deltas": [
+-8,
+8
+],
+"Ms": [
+2250,
+2249
+],
+"bytes": 27400,
+"M": 2248,
+"src": "r1"
+},
+{
+"mode": "pairs",
+"names": [
+"V_dl_holder_reward",
+"N_I6ssn"
+],
+"lanes": [
+"w15a01-cto-devolfill",
+"w15a03-cto-stitch15"
+],
+"genes": [
+"devol+dl_holder_reward",
+"I6ssn"
+],
+"deltas": [
+-8,
+8
+],
+"Ms": [
+2250,
+2249
+],
+"bytes": 27400,
+"M": 2248,
+"src": "r1"
+},
+{
+"mode": "pairs",
+"names": [
+"V_dl_mayhem",
+"N_I6ssn"
+],
+"lanes": [
+"w15a01-cto-devolfill",
+"w15a03-cto-stitch15"
+],
+"genes": [
+"devol+dl_mayhem",
+"I6ssn"
+],
+"deltas": [
+-8,
+8
+],
+"Ms": [
+2250,
+2249
+],
+"bytes": 27400,
+"M": 2248,
+"src": "r1"
+},
+{
+"mode": "pairs",
+"names": [
+"V_dl_quote_locked",
+"N_I6ssn"
+],
+"lanes": [
+"w15a01-cto-devolfill",
+"w15a03-cto-stitch15"
+],
+"genes": [
+"devol+dl_quote_locked",
+"I6ssn"
+],
+"deltas": [
+-8,
+8
+],
+"Ms": [
+2250,
+2249
+],
+"bytes": 27400,
+"M": 2248,
+"src": "r1"
+},
+{
+"mode": "pairs",
+"names": [
+"N_p_colnat",
+"N_cu_match"
+],
+"lanes": [
+"w15a03-cto-stitch15",
+"w15a03-cto-stitch15"
+],
+"genes": [
+"p_colnat",
+"cu_match"
+],
+"deltas": [
+8,
+-8
+],
+"Ms": [
+2248,
+2244
+],
+"bytes": 27400,
+"M": 2248,
+"src": "r1"
+},
+{
+"mode": "pairs",
+"names": [
+"N_p_colnat",
+"b6xl"
+],
+"lanes": [
+"w15a03-cto-stitch15",
+"w15a30-cto-litfamily"
+],
+"genes": [
+"p_colnat",
+"R:b6xl"
+],
+"deltas": [
+8,
+-8
+],
+"Ms": [
+2248,
+2244
+],
+"bytes": 27400,
+"M": 2248,
+"src": "r1"
+},
+{
+"mode": "pairs",
+"names": [
+"L2_rr7E",
+"N_cu_match"
+],
+"lanes": [
+"w15a03-cto-stitch15",
+"w15a03-cto-stitch15"
+],
+"genes": [
+"sh_iflet+rr7E",
+"cu_match"
+],
+"deltas": [
+8,
+-8
+],
+"Ms": [
+2245,
+2244
+],
+"bytes": 27400,
+"M": 2248,
+"src": "r1"
+},
+{
+"mode": "pairs",
+"names": [
+"L2_rr7E",
+"b6xl"
+],
+"lanes": [
+"w15a03-cto-stitch15",
+"w15a30-cto-litfamily"
+],
+"genes": [
+"sh_iflet+rr7E",
+"R:b6xl"
+],
+"deltas": [
+8,
+-8
+],
+"Ms": [
+2245,
+2244
+],
+"bytes": 27400,
+"M": 2248,
+"src": "r1"
+},
+{
+"mode": "pairsnew",
+"names": [
+"V_df_cashback",
+"cs9"
+],
+"lanes": [
+"w15a01-cto-devolfill",
+"w15a21-cto-creatorcopy"
+],
+"genes": [
+"devol+df_cashback",
+null
+],
+"deltas": [
+-8,
+8
+],
+"Ms": [
+2250,
+2249
+],
+"bytes": 27400,
+"M": 2248,
+"src": "r2new"
+},
+{
+"mode": "pairsnew",
+"names": [
+"V_df_fee_configurable",
+"cs9"
+],
+"lanes": [
+"w15a01-cto-devolfill",
+"w15a21-cto-creatorcopy"
+],
+"genes": [
+"devol+df_fee_configurable",
+null
+],
+"deltas": [
+-8,
+8
+],
+"Ms": [
+2250,
+2249
+],
+"bytes": 27400,
+"M": 2248,
+"src": "r2new"
+},
+{
+"mode": "pairsnew",
+"names": [
+"V_df_holder_enabled",
+"cs9"
+],
+"lanes": [
+"w15a01-cto-devolfill",
+"w15a21-cto-creatorcopy"
+],
+"genes": [
+"devol+df_holder_enabled",
+null
+],
+"deltas": [
+-8,
+8
+],
+"Ms": [
+2250,
+2249
+],
+"bytes": 27400,
+"M": 2248,
+"src": "r2new"
+},
+{
+"mode": "pairsnew",
+"names": [
+"V_df_holder_reward",
+"cs9"
+],
+"lanes": [
+"w15a01-cto-devolfill",
+"w15a21-cto-creatorcopy"
+],
+"genes": [
+"devol+df_holder_reward",
+null
+],
+"deltas": [
+-8,
+8
+],
+"Ms": [
+2250,
+2249
+],
+"bytes": 27400,
+"M": 2248,
+"src": "r2new"
+},
+{
+"mode": "pairsnew",
+"names": [
+"V_df_quote_locked",
+"cs9"
+],
+"lanes": [
+"w15a01-cto-devolfill",
+"w15a21-cto-creatorcopy"
+],
+"genes": [
+"devol+df_quote_locked",
+null
+],
+"deltas": [
+-8,
+8
+],
+"Ms": [
+2250,
+2249
+],
+"bytes": 27400,
+"M": 2248,
+"src": "r2new"
+},
+{
+"mode": "pairsnew",
+"names": [
+"V_dl_cashback",
+"cs9"
+],
+"lanes": [
+"w15a01-cto-devolfill",
+"w15a21-cto-creatorcopy"
+],
+"genes": [
+"devol+dl_cashback",
+null
+],
+"deltas": [
+-8,
+8
+],
+"Ms": [
+2250,
+2249
+],
+"bytes": 27400,
+"M": 2248,
+"src": "r2new"
+},
+{
+"mode": "pairsnew",
+"names": [
+"V_dl_holder_enabled",
+"cs9"
+],
+"lanes": [
+"w15a01-cto-devolfill",
+"w15a21-cto-creatorcopy"
+],
+"genes": [
+"devol+dl_holder_enabled",
+null
+],
+"deltas": [
+-8,
+8
+],
+"Ms": [
+2250,
+2249
+],
+"bytes": 27400,
+"M": 2248,
+"src": "r2new"
+},
+{
+"mode": "pairsnew",
+"names": [
+"V_dl_holder_reward",
+"cs9"
+],
+"lanes": [
+"w15a01-cto-devolfill",
+"w15a21-cto-creatorcopy"
+],
+"genes": [
+"devol+dl_holder_reward",
+null
+],
+"deltas": [
+-8,
+8
+],
+"Ms": [
+2250,
+2249
+],
+"bytes": 27400,
+"M": 2248,
+"src": "r2new"
+}
+]
+}

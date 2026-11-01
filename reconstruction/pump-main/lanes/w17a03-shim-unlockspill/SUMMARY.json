@@ -1,0 +1,143 @@
+{
+ "lane": "w17a03-shim-unlockspill",
+ "wave": 17,
+ "track": "shim (owner decision 2026-11-01)",
+ "target": {
+  "window": "0x22a10",
+  "function": "admin_cto::execute",
+  "file": "programs/pump/src/creator/admin_cto.rs",
+  "pinned_bytes": 27400
+ },
+ "base": {
+  "main": "1647da0f2 (programs as on 599891304)",
+  "ratio": 0.67436,
+  "slots_diff": 3141,
+  "M": 2251,
+  "cand_bytes": 27400
+ },
+ "best": {
+  "pr": "second PR on swarm/w17a03-shim-unlockspill-2 (first gain landed as #3936, merge 2c470820b)",
+  "ratio": 0.67645,
+  "slots_diff": 3141,
+  "cand_bytes": 27400,
+  "normalized": 1034,
+  "raw": 1034,
+  "losses": [],
+  "raw_losses": [],
+  "base": "main 442ae70ca (0.67615, after #3936 and w17a04 #3950)",
+  "differential": "388 cases, 0 mismatches",
+  "unstripped_sha16": "203dbb66b4ad14d7",
+  "mechanism": "sharing CPI: the program clone's second a.pump_fees load (accounts+0x98, for lamports) is read with read_volatile inside the event_authority lamports Rc increment (manual ptr::read + Rc::strong_count + Rc::increment_strong_count) into a deferred local pf; program clone lamports:pf.lamports.clone()"
+ },
+ "tools": {
+  "tools/vscreen.py": "volatile-pin oracle: mark one load/store/memcpy of execute's post-opt IR volatile, llc (~3 s), score",
+  "tools/vcomb.py": "score sets of pins (L<line>, S<line>, M<line>)",
+  "tools/mv.sh": "copy crate, apply exact edits (line count kept), measure.sh",
+  "tools/dis.py": "dump admin_cto::execute (orig or a candidate) as relative-offset text",
+  "tools/mvscreen.py": "move+pin oracle: a load moved to its block head / before the block's last store / before the terminator, volatile",
+  "tools/posscan.py": "every legal insertion point of one (moved, volatile) load in a line range",
+  "tools/winscan.py": "every load moved EARLIER into a preceding Rc inc_strong window, volatile",
+  "tools/accscan.py": "every accounts-pointer reload moved to every earlier block head, volatile",
+  "tools/ctost2.py": "CtoState store-order / write_volatile IR probe"
+ },
+ "attempts": [
+  {
+   "key": "0x22a10-w17-5998913-unlockspill-vloadscreen-v1",
+   "what": "446 single volatile-load pins on main",
+   "result": "225 identical; L4320 0.67466@27400 (+1 M); L2735/L2737 0.67456@27384"
+  },
+  {
+   "key": "0x22a10-w17-5998913-unlockspill-v4320-v1",
+   "what": "source read_volatile on the sweep TCF program-clone owner",
+   "result": "0.67466@27400, 1034/1034, 0 losses = oracle"
+  },
+  {
+   "key": "0x22a10-w17-5998913-unlockspill-vstorescreen-v1",
+   "what": "559 single volatile-store pins",
+   "result": "none above main"
+  },
+  {
+   "key": "0x22a10-w17-5998913-unlockspill-vmemcpyscreen-v1",
+   "what": "29 volatile memcpys",
+   "result": "all byte-identical"
+  },
+  {
+   "key": "0x22a10-w17-5998913-unlockspill-b2round-v1",
+   "what": "second-round pins and 153 pairs on top of L4320",
+   "result": "nothing above 0.67466 at 27400; L2735/L2737 +1 M at -16 B"
+  },
+  {
+   "key": "0x22a10-w17-5998913-unlockspill-ctostate-storeorder-v1",
+   "what": "CtoState stores as write_volatile in the original's order",
+   "result": "0.67147-0.67267 at -80..-104 B; creator word copies collapse 0.480"
+  },
+  {
+   "key": "0x22a10-w17-5998913-unlockspill-s3n-vload-v1",
+   "what": "every load pin on S3n (per-arm holder flag)",
+   "result": "best 0.611; pins do not fix S3's spill numbering"
+  },
+  {
+   "key": "0x22a10-w17-5998913-unlockspill-cse160-v1",
+   "what": "one load of the sharing-CPI event_authority pointer",
+   "result": "0.65898-0.66886 @27384"
+  },
+  {
+   "key": "0x22a10-w17-5998913-unlockspill-movepin-v1",
+   "what": "move+pin screens (sweep TCF, sharing run, entry)",
+   "result": "L5713 (sharing_config owner) before the event_authority data Rc store: 0.67525 with L4320 (IR only)"
+  },
+  {
+   "key": "0x22a10-w17-5998913-unlockspill-l5713-posscan-v1",
+   "what": "all insertion points of L5713",
+   "result": "only inside the event_authority data Rc window; not realisable (struct-literal field order)"
+  },
+  {
+   "key": "0x22a10-w17-6d498c5-unlockspill-rcwindowscan-v1",
+   "what": "loads moved into earlier Rc windows",
+   "result": "L5784 (program clone a.pump_fees reload) into the event_authority lamports window 0.67496 (+1 M)"
+  },
+  {
+   "key": "0x22a10-w17-6d498c5-unlockspill-pf5784-blocktop-v1",
+   "what": "source pin at the event_authority key head",
+   "result": "0.67266@27392: GVN merges the volatile load into the later a.pump_fees load"
+  },
+  {
+   "key": "0x22a10-w17-6d498c5-unlockspill-pf5746-rcwindow-v1",
+   "what": "source pin inside the event_authority lamports Rc increment",
+   "result": "0.67496 (= oracle) on 6d498c5; 0.67645 on 442ae70 (w17a04 base 0.67615)"
+  },
+  {
+   "key": "0x22a10-w17-5998913-unlockspill-tcfclone-pieceorder-v1",
+   "what": "sweep TCF program-clone pieces in the original's order",
+   "result": "0.62-0.63, no"
+  }
+ ],
+ "rejected_mechanisms": [
+  "volatile stores and volatile memcpys (the BPF scheduler already keeps stores in IR order; volatile memcpy lowers the same)",
+  "read_volatile of ctx.accounts to imitate the original's [r10-0x8d8] accounts-pointer reloads (costs a second load per site; the original's reloads are RA splits of one spilled interval)",
+  "a volatile local copy of the accounts pointer (an IR alloca is always placed above the 33 ISel sret slots, so it can never take the spill slot -0x8d8; it shifts the frame by 8 B)",
+  "CtoState field stores in the original's order through write_volatile",
+  "pins on the S3 per-arm holder flag basin"
+ ],
+ "unresolved_residuals": [
+  "sharing clone run (orig 0x3c00-0x4800): accounts pointer reloaded before every clone in the original (34 slot accesses vs 24); greedy RA keeps it in r5 across the run in ours",
+  "entry: holder PDA before the shared chain, 1/7/8/8/8/1 SROA copy of new, CtoState store order",
+  "to_string 307/312 outline: three String::new() inits (-0x460/-0x468/-0x470) and two extra fmt arg sets in ours",
+  "L2735/L2737 give -16 B at +0/+1 M: a free size knob for any +16 B change"
+ ],
+ "next_ideas": [
+  "realise L5713 (sharing_config owner inside the event_authority data Rc window, IR +2 M): needs event_authority evaluated before sharing_config or another way to read a struct-literal field after a later field starts",
+  "re-run tools/winscan.py and tools/vscreen.py on the new main (w17a04's rcinc weights move spill colours, so the pin landscape shifts)",
+  "use L2735/L2737 (CtoState cashback / holder_enabled read_volatile) as an M-neutral -16 B repay for +16 B leads",
+  "combine Rc-window pins with w17a04's rcinc weights: pins fix in-block load order, weights fix spill colours"
+ ],
+ "landed": [
+  {
+   "pr": 3936,
+   "merge": "2c470820b",
+   "ratio_before": 0.67436,
+   "ratio_after": 0.67466,
+   "mechanism": "sweep TCF program-clone owner read_volatile (L4320)"
+  }
+ ]
+}

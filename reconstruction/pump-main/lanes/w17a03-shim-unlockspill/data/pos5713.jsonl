@@ -1,0 +1,228 @@
+{"pos": 5714, "ratio": 0.65498, "bytes": 27392, "slots": null, "at": "%640 = getelementptr inbounds i8, ptr %_473, i64 32"}
+{"pos": 5715, "ratio": 0.65498, "bytes": 27392, "slots": null, "at": "%_6.i218 = load i64, ptr %640, align 8, !alias.scope !8698, !noalias !8701, !nou"}
+{"pos": 5716, "ratio": 0.65498, "bytes": 27392, "slots": null, "at": "%641 = getelementptr inbounds i8, ptr %_473, i64 40"}
+{"pos": 5718, "ratio": 0.65498, "bytes": 27392, "slots": null, "at": "%643 = getelementptr inbounds i8, ptr %_473, i64 41"}
+{"pos": 5717, "ratio": 0.65498, "bytes": 27392, "slots": null, "at": "%642 = load i8, ptr %641, align 8, !range !394, !alias.scope !8698, !noalias !87"}
+{"pos": 5719, "ratio": 0.65498, "bytes": 27392, "slots": null, "at": "%644 = load i8, ptr %643, align 1, !range !394, !alias.scope !8698, !noalias !87"}
+{"pos": 5720, "ratio": 0.65678, "bytes": 27392, "slots": null, "at": "%645 = getelementptr inbounds i8, ptr %_473, i64 42"}
+{"pos": 5721, "ratio": 0.65678, "bytes": 27392, "slots": null, "at": "%646 = load i8, ptr %645, align 2, !range !394, !alias.scope !8698, !noalias !87"}
+{"pos": 5722, "ratio": 0.65678, "bytes": 27392, "slots": null, "at": "%647 = getelementptr inbounds i8, ptr %_270, i64 160"}
+{"pos": 5724, "ratio": 0.65678, "bytes": 27392, "slots": null, "at": "%648 = getelementptr inbounds i8, ptr %_158, i64 16"}
+{"pos": 5725, "ratio": 0.65678, "bytes": 27392, "slots": null, "at": "%_476 = load ptr, ptr %648, align 8, !nonnull !2, !noundef !2"}
+{"pos": 5723, "ratio": 0.65678, "bytes": 27392, "slots": null, "at": "%_158 = load ptr, ptr %647, align 8, !nonnull !2, !align !3, !noundef !2"}
+{"pos": 5726, "ratio": 0.65678, "bytes": 27392, "slots": null, "at": "%self.val.i222 = load i64, ptr %_476, align 8, !noundef !2"}
+{"pos": 5727, "ratio": 0.67525, "bytes": 27400, "slots": 3139, "at": "%cond.i223 = icmp ne i64 %self.val.i222, 0"}
+{"pos": 5728, "ratio": 0.67525, "bytes": 27400, "slots": 3139, "at": "call void @llvm.assume(i1 %cond.i223)"}
+{"pos": 5729, "ratio": 0.67525, "bytes": 27400, "slots": 3139, "at": "%strong1.i224 = add i64 %self.val.i222, 1"}
+{"pos": 5731, "ratio": 0.64999, "bytes": 27384, "slots": null, "at": "%_7.i225 = icmp eq i64 %strong1.i224, 0"}
+{"pos": 5730, "ratio": 0.67525, "bytes": 27400, "slots": 3139, "at": "store i64 %strong1.i224, ptr %_476, align 8"}
+{"pos": 5734, "err": "s = %\"_ZN71_$LT$solana_account_info..AccountInfo$u20$as$u20$core..clone..Clone$GT$5clone17h759150bcde62cc00E.exit221\"\n^\n"}
+{"pos": 5735, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/ps1ttilqwk/m.ll': input module cannot be verified\n"}
+{"pos": 5736, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/psngstg7c2/m.ll': input module cannot be verified\n"}
+{"pos": 5738, "err": "s = %\"_ZN71_$LT$solana_account_info..AccountInfo$u20$as$u20$core..clone..Clone$GT$5clone17h759150bcde62cc00E.exit221\"\n^\n"}
+{"pos": 5732, "ratio": 0.64999, "bytes": 27384, "slots": null, "at": "br i1 %_7.i225, label %bb4.i227, label %_ZN5alloc2rc10RcInnerPtr10inc_strong17hb"}
+{"pos": 5741, "ratio": 0.64999, "bytes": 27384, "slots": null, "at": "%_480 = load ptr, ptr %649, align 8, !nonnull !2, !noundef !2"}
+{"pos": 5739, "ratio": 0.64999, "bytes": 27384, "slots": null, "at": "%_160 = load ptr, ptr %647, align 8, !nonnull !2, !align !3, !noundef !2"}
+{"pos": 5740, "ratio": 0.64999, "bytes": 27384, "slots": null, "at": "%649 = getelementptr inbounds i8, ptr %_160, i64 8"}
+{"pos": 5743, "ratio": 0.65848, "bytes": 27424, "slots": null, "at": "%cond.i230 = icmp ne i64 %self.val.i229, 0"}
+{"pos": 5744, "ratio": 0.65848, "bytes": 27424, "slots": null, "at": "call void @llvm.assume(i1 %cond.i230)"}
+{"pos": 5742, "ratio": 0.64999, "bytes": 27384, "slots": null, "at": "%self.val.i229 = load i64, ptr %_480, align 8, !noundef !2"}
+{"pos": 5745, "ratio": 0.65848, "bytes": 27424, "slots": null, "at": "%strong1.i231 = add i64 %self.val.i229, 1"}
+{"pos": 5747, "ratio": 0.65848, "bytes": 27424, "slots": null, "at": "%_7.i232 = icmp eq i64 %strong1.i231, 0"}
+{"pos": 5746, "ratio": 0.65848, "bytes": 27424, "slots": null, "at": "store i64 %strong1.i231, ptr %_480, align 8"}
+{"pos": 5750, "err": ":                                         ; preds = %_ZN5alloc2rc10RcInnerPtr10inc_strong17hbf2f50dabd5a1ea9E.exit228\n^\n"}
+{"pos": 5751, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/ps9t_7r8xw/m.ll': input module cannot be verified\n"}
+{"pos": 5754, "err": "10inc_strong17h485e41ed5d8892acE.exit235: ; preds = %_ZN5alloc2rc10RcInnerPtr10inc_strong17hbf2f50dabd5a1ea9E.exit228\n^\n"}
+{"pos": 5752, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/psz5rago7x/m.ll': input module cannot be verified\n"}
+{"pos": 5748, "ratio": 0.65848, "bytes": 27424, "slots": null, "at": "br i1 %_7.i232, label %bb4.i234, label %_ZN5alloc2rc10RcInnerPtr10inc_strong17h4"}
+{"pos": 5755, "ratio": 0.65848, "bytes": 27424, "slots": null, "at": "%_161 = load ptr, ptr %647, align 8, !nonnull !2, !align !3, !noundef !2"}
+{"pos": 5756, "ratio": 0.65738, "bytes": 27416, "slots": null, "at": "%_320 = load ptr, ptr %_161, align 8, !nonnull !2, !align !392, !noundef !2"}
+{"pos": 5757, "ratio": 0.64809, "bytes": 27392, "slots": null, "at": "%650 = getelementptr inbounds i8, ptr %_161, i64 24"}
+{"pos": 5758, "ratio": 0.64809, "bytes": 27392, "slots": null, "at": "%_322 = load ptr, ptr %650, align 8, !nonnull !2, !align !392, !noundef !2"}
+{"pos": 5759, "ratio": 0.65188, "bytes": 27376, "slots": null, "at": "%651 = getelementptr inbounds i8, ptr %_161, i64 32"}
+{"pos": 5760, "ratio": 0.65188, "bytes": 27376, "slots": null, "at": "%_163 = load i64, ptr %651, align 8, !noundef !2"}
+{"pos": 5762, "ratio": 0.65768, "bytes": 27416, "slots": null, "at": "%653 = load i8, ptr %652, align 8, !range !394, !noundef !2"}
+{"pos": 5761, "ratio": 0.65768, "bytes": 27416, "slots": null, "at": "%652 = getelementptr inbounds i8, ptr %_161, i64 40"}
+{"pos": 5763, "ratio": 0.64549, "bytes": 27384, "slots": null, "at": "%654 = getelementptr inbounds i8, ptr %_161, i64 41"}
+{"pos": 5764, "ratio": 0.64549, "bytes": 27384, "slots": null, "at": "%655 = load i8, ptr %654, align 1, !range !394, !noundef !2"}
+{"pos": 5766, "ratio": 0.64239, "bytes": 27368, "slots": null, "at": "%657 = load i8, ptr %656, align 2, !range !394, !noundef !2"}
+{"pos": 5765, "ratio": 0.64239, "bytes": 27368, "slots": null, "at": "%656 = getelementptr inbounds i8, ptr %_161, i64 42"}
+{"pos": 5767, "ratio": 0.64658, "bytes": 27368, "slots": null, "at": "%x22 = load ptr, ptr %585, align 8, !nonnull !2, !align !3, !noundef !2"}
+{"pos": 5769, "ratio": 0.64658, "bytes": 27368, "slots": null, "at": "%_484 = load ptr, ptr %658, align 8, !nonnull !2, !noundef !2"}
+{"pos": 5768, "ratio": 0.64658, "bytes": 27368, "slots": null, "at": "%658 = getelementptr inbounds i8, ptr %x22, i64 16"}
+{"pos": 5770, "ratio": 0.64418, "bytes": 27368, "slots": null, "at": "%self.val.i236 = load i64, ptr %_484, align 8, !noundef !2"}
+{"pos": 5772, "ratio": 0.66527, "bytes": 27408, "slots": null, "at": "call void @llvm.assume(i1 %cond.i237)"}
+{"pos": 5771, "ratio": 0.66527, "bytes": 27408, "slots": null, "at": "%cond.i237 = icmp ne i64 %self.val.i236, 0"}
+{"pos": 5773, "ratio": 0.66527, "bytes": 27408, "slots": null, "at": "%strong1.i238 = add i64 %self.val.i236, 1"}
+{"pos": 5774, "ratio": 0.66527, "bytes": 27408, "slots": null, "at": "store i64 %strong1.i238, ptr %_484, align 8"}
+{"pos": 5778, "err": ":                                         ; preds = %_ZN5alloc2rc10RcInnerPtr10inc_strong17h485e41ed5d8892acE.exit235\n^\n"}
+{"pos": 5775, "ratio": 0.66527, "bytes": 27408, "slots": null, "at": "%_7.i239 = icmp eq i64 %strong1.i238, 0"}
+{"pos": 5779, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/ps52qoz58u/m.ll': input module cannot be verified\n"}
+{"pos": 5776, "ratio": 0.66527, "bytes": 27408, "slots": null, "at": "br i1 %_7.i239, label %bb4.i241, label %_ZN5alloc2rc10RcInnerPtr10inc_strong17hb"}
+{"pos": 5782, "err": "10inc_strong17hbf2f50dabd5a1ea9E.exit242: ; preds = %_ZN5alloc2rc10RcInnerPtr10inc_strong17h485e41ed5d8892acE.exit235\n^\n"}
+{"pos": 5780, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/pszmyfy17z/m.ll': input module cannot be verified\n"}
+{"pos": 5783, "ratio": 0.66527, "bytes": 27408, "slots": null, "at": "%_329 = load ptr, ptr %x22, align 8, !nonnull !2, !align !392, !noundef !2"}
+{"pos": 5784, "ratio": 0.64918, "bytes": 27376, "slots": null, "at": "%_176 = load ptr, ptr %585, align 8, !nonnull !2, !align !3, !noundef !2"}
+{"pos": 5785, "ratio": 0.64918, "bytes": 27376, "slots": null, "at": "%659 = getelementptr inbounds i8, ptr %_176, i64 8"}
+{"pos": 5787, "ratio": 0.64679, "bytes": 27376, "slots": null, "at": "%self.val.i243 = load i64, ptr %_488, align 8, !noundef !2"}
+{"pos": 5786, "ratio": 0.64918, "bytes": 27376, "slots": null, "at": "%_488 = load ptr, ptr %659, align 8, !nonnull !2, !noundef !2"}
+{"pos": 5788, "ratio": 0.65457, "bytes": 27352, "slots": null, "at": "%cond.i244 = icmp ne i64 %self.val.i243, 0"}
+{"pos": 5789, "ratio": 0.65457, "bytes": 27352, "slots": null, "at": "call void @llvm.assume(i1 %cond.i244)"}
+{"pos": 5790, "ratio": 0.65457, "bytes": 27352, "slots": null, "at": "%strong1.i245 = add i64 %self.val.i243, 1"}
+{"pos": 5792, "ratio": 0.65457, "bytes": 27352, "slots": null, "at": "%_7.i246 = icmp eq i64 %strong1.i245, 0"}
+{"pos": 5791, "ratio": 0.65457, "bytes": 27352, "slots": null, "at": "store i64 %strong1.i245, ptr %_488, align 8"}
+{"pos": 5795, "err": ":                                         ; preds = %_ZN5alloc2rc10RcInnerPtr10inc_strong17hbf2f50dabd5a1ea9E.exit242\n^\n"}
+{"pos": 5793, "ratio": 0.65457, "bytes": 27352, "slots": null, "at": "br i1 %_7.i246, label %bb4.i248, label %_ZN5alloc2rc10RcInnerPtr10inc_strong17h4"}
+{"pos": 5799, "err": "10inc_strong17h485e41ed5d8892acE.exit249: ; preds = %_ZN5alloc2rc10RcInnerPtr10inc_strong17hbf2f50dabd5a1ea9E.exit242\n^\n"}
+{"pos": 5796, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/pslcu5vj_9/m.ll': input module cannot be verified\n"}
+{"pos": 5797, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/pskxzb7r1i/m.ll': input module cannot be verified\n"}
+{"pos": 5800, "ratio": 0.65457, "bytes": 27352, "slots": null, "at": "%660 = getelementptr inbounds i8, ptr %x22, i64 24"}
+{"pos": 5801, "ratio": 0.65457, "bytes": 27352, "slots": null, "at": "%_331 = load ptr, ptr %660, align 8, !nonnull !2, !align !392, !noundef !2"}
+{"pos": 5802, "ratio": 0.65457, "bytes": 27352, "slots": null, "at": "%661 = getelementptr inbounds i8, ptr %x22, i64 32"}
+{"pos": 5803, "ratio": 0.65457, "bytes": 27352, "slots": null, "at": "%_177 = load i64, ptr %661, align 8, !noundef !2"}
+{"pos": 5804, "ratio": 0.65457, "bytes": 27352, "slots": null, "at": "%662 = getelementptr inbounds i8, ptr %x22, i64 40"}
+{"pos": 5805, "ratio": 0.65457, "bytes": 27352, "slots": null, "at": "%663 = load i8, ptr %662, align 8, !range !394, !noundef !2"}
+{"pos": 5806, "ratio": 0.65457, "bytes": 27352, "slots": null, "at": "%664 = getelementptr inbounds i8, ptr %x22, i64 41"}
+{"pos": 5807, "ratio": 0.65457, "bytes": 27352, "slots": null, "at": "%665 = load i8, ptr %664, align 1, !range !394, !noundef !2"}
+{"pos": 5808, "ratio": 0.65457, "bytes": 27352, "slots": null, "at": "%666 = getelementptr inbounds i8, ptr %x22, i64 42"}
+{"pos": 5810, "ratio": 0.65457, "bytes": 27352, "slots": null, "at": "%668 = getelementptr inbounds i8, ptr %_120, i64 72"}
+{"pos": 5809, "ratio": 0.65457, "bytes": 27352, "slots": null, "at": "%667 = load i8, ptr %666, align 2, !range !394, !noundef !2"}
+{"pos": 5811, "ratio": 0.65457, "bytes": 27352, "slots": null, "at": "store ptr %_306, ptr %668, align 8"}
+{"pos": 5814, "ratio": 0.64909, "bytes": 27384, "slots": null, "at": "%_122.sroa.5.0..sroa_idx = getelementptr inbounds i8, ptr %_120, i64 88"}
+{"pos": 5812, "ratio": 0.64819, "bytes": 27384, "slots": null, "at": "%_122.sroa.4.0..sroa_idx = getelementptr inbounds i8, ptr %_120, i64 80"}
+{"pos": 5813, "ratio": 0.64819, "bytes": 27384, "slots": null, "at": "store ptr %_442, ptr %_122.sroa.4.0..sroa_idx, align 8"}
+{"pos": 5815, "ratio": 0.64909, "bytes": 27384, "slots": null, "at": "store ptr %_446, ptr %_122.sroa.5.0..sroa_idx, align 8"}
+{"pos": 5817, "ratio": 0.64909, "bytes": 27384, "slots": null, "at": "store ptr %_305, ptr %_122.sroa.6.0..sroa_idx, align 8"}
+{"pos": 5816, "ratio": 0.64909, "bytes": 27384, "slots": null, "at": "%_122.sroa.6.0..sroa_idx = getelementptr inbounds i8, ptr %_120, i64 96"}
+{"pos": 5818, "ratio": 0.65518, "bytes": 27400, "slots": 3134, "at": "%_122.sroa.7.0..sroa_idx = getelementptr inbounds i8, ptr %_120, i64 104"}
+{"pos": 5819, "ratio": 0.65518, "bytes": 27400, "slots": 3134, "at": "store i64 %_127, ptr %_122.sroa.7.0..sroa_idx, align 8"}
+{"pos": 5820, "ratio": 0.65149, "bytes": 27408, "slots": null, "at": "%_122.sroa.8.0..sroa_idx = getelementptr inbounds i8, ptr %_120, i64 112"}
+{"pos": 5821, "ratio": 0.65149, "bytes": 27408, "slots": null, "at": "store i8 %602, ptr %_122.sroa.8.0..sroa_idx, align 8"}
+{"pos": 5823, "ratio": 0.65548, "bytes": 27400, "slots": 3107, "at": "store i8 %604, ptr %_122.sroa.9.0..sroa_idx, align 1"}
+{"pos": 5822, "ratio": 0.65548, "bytes": 27400, "slots": 3107, "at": "%_122.sroa.9.0..sroa_idx = getelementptr inbounds i8, ptr %_120, i64 113"}
+{"pos": 5824, "ratio": 0.64649, "bytes": 27400, "slots": 3143, "at": "%_122.sroa.10.0..sroa_idx = getelementptr inbounds i8, ptr %_120, i64 114"}
+{"pos": 5825, "ratio": 0.64649, "bytes": 27400, "slots": 3143, "at": "store i8 %606, ptr %_122.sroa.10.0..sroa_idx, align 2"}
+{"pos": 5826, "ratio": 0.63462, "bytes": 27416, "slots": null, "at": "%_122.sroa.12.0..sroa_idx = getelementptr inbounds i8, ptr %_120, i64 120"}
+{"pos": 5827, "ratio": 0.63462, "bytes": 27416, "slots": null, "at": "store ptr %_309, ptr %_122.sroa.12.0..sroa_idx, align 8"}
+{"pos": 5828, "ratio": 0.6426, "bytes": 27400, "slots": 3134, "at": "%_122.sroa.12.sroa.4.0._122.sroa.12.0..sroa_idx.sroa_idx = getelementptr inbound"}
+{"pos": 5829, "ratio": 0.6426, "bytes": 27400, "slots": 3134, "at": "store ptr %_450, ptr %_122.sroa.12.sroa.4.0._122.sroa.12.0..sroa_idx.sroa_idx, a"}
+{"pos": 5830, "ratio": 0.6422, "bytes": 27408, "slots": null, "at": "%_122.sroa.12.sroa.5.0._122.sroa.12.0..sroa_idx.sroa_idx = getelementptr inbound"}
+{"pos": 5831, "ratio": 0.6422, "bytes": 27408, "slots": null, "at": "store ptr %_454, ptr %_122.sroa.12.sroa.5.0._122.sroa.12.0..sroa_idx.sroa_idx, a"}
+{"pos": 5832, "ratio": 0.64132, "bytes": 27432, "slots": null, "at": "%_122.sroa.12.sroa.6.0._122.sroa.12.0..sroa_idx.sroa_idx = getelementptr inbound"}
+{"pos": 5833, "ratio": 0.64132, "bytes": 27432, "slots": null, "at": "store ptr %_308, ptr %_122.sroa.12.sroa.6.0._122.sroa.12.0..sroa_idx.sroa_idx, a"}
+{"pos": 5834, "ratio": 0.6497, "bytes": 27432, "slots": null, "at": "%_122.sroa.12.sroa.7.0._122.sroa.12.0..sroa_idx.sroa_idx = getelementptr inbound"}
+{"pos": 5835, "ratio": 0.6497, "bytes": 27432, "slots": null, "at": "store i64 %_136, ptr %_122.sroa.12.sroa.7.0._122.sroa.12.0..sroa_idx.sroa_idx, a"}
+{"pos": 5836, "ratio": 0.64111, "bytes": 27424, "slots": null, "at": "%_122.sroa.12.sroa.8.0._122.sroa.12.0..sroa_idx.sroa_idx = getelementptr inbound"}
+{"pos": 5837, "ratio": 0.64111, "bytes": 27424, "slots": null, "at": "store i8 %612, ptr %_122.sroa.12.sroa.8.0._122.sroa.12.0..sroa_idx.sroa_idx, ali"}
+{"pos": 5838, "ratio": 0.6486, "bytes": 27424, "slots": null, "at": "%_122.sroa.12.sroa.9.0._122.sroa.12.0..sroa_idx.sroa_idx = getelementptr inbound"}
+{"pos": 5839, "ratio": 0.6486, "bytes": 27424, "slots": null, "at": "store i8 %608, ptr %_122.sroa.12.sroa.9.0._122.sroa.12.0..sroa_idx.sroa_idx, ali"}
+{"pos": 5840, "ratio": 0.6402, "bytes": 27400, "slots": 3143, "at": "%_122.sroa.12.sroa.10.0._122.sroa.12.0..sroa_idx.sroa_idx = getelementptr inboun"}
+{"pos": 5841, "ratio": 0.6402, "bytes": 27400, "slots": 3143, "at": "store i8 %610, ptr %_122.sroa.12.sroa.10.0._122.sroa.12.0..sroa_idx.sroa_idx, al"}
+{"pos": 5842, "ratio": 0.64032, "bytes": 27440, "slots": null, "at": "%_122.sroa.13.0..sroa_idx = getelementptr inbounds i8, ptr %_120, i64 168"}
+{"pos": 5843, "ratio": 0.64032, "bytes": 27440, "slots": null, "at": "store ptr %_312, ptr %_122.sroa.13.0..sroa_idx, align 8"}
+{"pos": 5844, "ratio": 0.63841, "bytes": 27400, "slots": 3145, "at": "%_122.sroa.13.sroa.4.0._122.sroa.13.0..sroa_idx.sroa_idx = getelementptr inbound"}
+{"pos": 5845, "ratio": 0.63841, "bytes": 27400, "slots": 3145, "at": "store ptr %_459, ptr %_122.sroa.13.sroa.4.0._122.sroa.13.0..sroa_idx.sroa_idx, a"}
+{"pos": 5846, "ratio": 0.65219, "bytes": 27400, "slots": 3133, "at": "%_122.sroa.13.sroa.5.0._122.sroa.13.0..sroa_idx.sroa_idx = getelementptr inbound"}
+{"pos": 5848, "ratio": 0.64718, "bytes": 27368, "slots": null, "at": "%_122.sroa.13.sroa.6.0._122.sroa.13.0..sroa_idx.sroa_idx = getelementptr inbound"}
+{"pos": 5847, "ratio": 0.65219, "bytes": 27400, "slots": 3133, "at": "store ptr %_463, ptr %_122.sroa.13.sroa.5.0._122.sroa.13.0..sroa_idx.sroa_idx, a"}
+{"pos": 5849, "ratio": 0.64718, "bytes": 27368, "slots": null, "at": "store ptr %_311, ptr %_122.sroa.13.sroa.6.0._122.sroa.13.0..sroa_idx.sroa_idx, a"}
+{"pos": 5851, "ratio": 0.64718, "bytes": 27368, "slots": null, "at": "store i64 %_144, ptr %_122.sroa.13.sroa.7.0._122.sroa.13.0..sroa_idx.sroa_idx, a"}
+{"pos": 5850, "ratio": 0.64718, "bytes": 27368, "slots": null, "at": "%_122.sroa.13.sroa.7.0._122.sroa.13.0..sroa_idx.sroa_idx = getelementptr inbound"}
+{"pos": 5852, "ratio": 0.64718, "bytes": 27368, "slots": null, "at": "%_122.sroa.13.sroa.8.0._122.sroa.13.0..sroa_idx.sroa_idx = getelementptr inbound"}
+{"pos": 5854, "ratio": 0.64978, "bytes": 27376, "slots": null, "at": "%_122.sroa.13.sroa.9.0._122.sroa.13.0..sroa_idx.sroa_idx = getelementptr inbound"}
+{"pos": 5853, "ratio": 0.64718, "bytes": 27368, "slots": null, "at": "store i8 %622, ptr %_122.sroa.13.sroa.8.0._122.sroa.13.0..sroa_idx.sroa_idx, ali"}
+{"pos": 5855, "ratio": 0.64978, "bytes": 27376, "slots": null, "at": "store i8 %618, ptr %_122.sroa.13.sroa.9.0._122.sroa.13.0..sroa_idx.sroa_idx, ali"}
+{"pos": 5857, "ratio": 0.64159, "bytes": 27384, "slots": null, "at": "store i8 %620, ptr %_122.sroa.13.sroa.10.0._122.sroa.13.0..sroa_idx.sroa_idx, al"}
+{"pos": 5856, "ratio": 0.64159, "bytes": 27384, "slots": null, "at": "%_122.sroa.13.sroa.10.0._122.sroa.13.0..sroa_idx.sroa_idx = getelementptr inboun"}
+{"pos": 5859, "ratio": 0.6402, "bytes": 27400, "slots": 3145, "at": "store ptr %_315, ptr %_122.sroa.14.0..sroa_idx, align 8"}
+{"pos": 5858, "ratio": 0.6402, "bytes": 27400, "slots": 3145, "at": "%_122.sroa.14.0..sroa_idx = getelementptr inbounds i8, ptr %_120, i64 216"}
+{"pos": 5860, "ratio": 0.6402, "bytes": 27400, "slots": 3145, "at": "%_122.sroa.14.sroa.4.0._122.sroa.14.0..sroa_idx.sroa_idx = getelementptr inbound"}
+{"pos": 5862, "ratio": 0.63842, "bytes": 27424, "slots": null, "at": "%_122.sroa.14.sroa.5.0._122.sroa.14.0..sroa_idx.sroa_idx = getelementptr inbound"}
+{"pos": 5863, "ratio": 0.63842, "bytes": 27424, "slots": null, "at": "store ptr %_471, ptr %_122.sroa.14.sroa.5.0._122.sroa.14.0..sroa_idx.sroa_idx, a"}
+{"pos": 5861, "ratio": 0.6402, "bytes": 27400, "slots": 3145, "at": "store ptr %_467, ptr %_122.sroa.14.sroa.4.0._122.sroa.14.0..sroa_idx.sroa_idx, a"}
+{"pos": 5865, "ratio": 0.63771, "bytes": 27408, "slots": null, "at": "store ptr %_314, ptr %_122.sroa.14.sroa.6.0._122.sroa.14.0..sroa_idx.sroa_idx, a"}
+{"pos": 5864, "ratio": 0.63771, "bytes": 27408, "slots": null, "at": "%_122.sroa.14.sroa.6.0._122.sroa.14.0..sroa_idx.sroa_idx = getelementptr inbound"}
+{"pos": 5866, "ratio": 0.63802, "bytes": 27432, "slots": null, "at": "%_122.sroa.14.sroa.7.0._122.sroa.14.0..sroa_idx.sroa_idx = getelementptr inbound"}
+{"pos": 5867, "ratio": 0.63802, "bytes": 27432, "slots": null, "at": "store i64 %_149, ptr %_122.sroa.14.sroa.7.0._122.sroa.14.0..sroa_idx.sroa_idx, a"}
+{"pos": 5868, "ratio": 0.63753, "bytes": 27448, "slots": null, "at": "%_122.sroa.14.sroa.8.0._122.sroa.14.0..sroa_idx.sroa_idx = getelementptr inbound"}
+{"pos": 5869, "ratio": 0.63753, "bytes": 27448, "slots": null, "at": "store i8 %629, ptr %_122.sroa.14.sroa.8.0._122.sroa.14.0..sroa_idx.sroa_idx, ali"}
+{"pos": 5870, "ratio": 0.63723, "bytes": 27448, "slots": null, "at": "%_122.sroa.14.sroa.9.0._122.sroa.14.0..sroa_idx.sroa_idx = getelementptr inbound"}
+{"pos": 5871, "ratio": 0.63723, "bytes": 27448, "slots": null, "at": "store i8 %631, ptr %_122.sroa.14.sroa.9.0._122.sroa.14.0..sroa_idx.sroa_idx, ali"}
+{"pos": 5872, "ratio": 0.63834, "bytes": 27456, "slots": null, "at": "%_122.sroa.14.sroa.10.0._122.sroa.14.0..sroa_idx.sroa_idx = getelementptr inboun"}
+{"pos": 5873, "ratio": 0.63834, "bytes": 27456, "slots": null, "at": "store i8 %633, ptr %_122.sroa.14.sroa.10.0._122.sroa.14.0..sroa_idx.sroa_idx, al"}
+{"pos": 5875, "ratio": 0.63604, "bytes": 27448, "slots": null, "at": "store ptr %_2.i204, ptr %_122.sroa.15.0..sroa_idx, align 8"}
+{"pos": 5874, "ratio": 0.63604, "bytes": 27448, "slots": null, "at": "%_122.sroa.15.0..sroa_idx = getelementptr inbounds i8, ptr %_120, i64 264"}
+{"pos": 5876, "ratio": 0.63443, "bytes": 27432, "slots": null, "at": "%_122.sroa.15.sroa.4.0._122.sroa.15.0..sroa_idx.sroa_idx = getelementptr inbound"}
+{"pos": 5877, "ratio": 0.63443, "bytes": 27432, "slots": null, "at": "store ptr %_12.i205, ptr %_122.sroa.15.sroa.4.0._122.sroa.15.0..sroa_idx.sroa_id"}
+{"pos": 5878, "ratio": 0.6484, "bytes": 27416, "slots": null, "at": "%_122.sroa.15.sroa.5.0._122.sroa.15.0..sroa_idx.sroa_idx = getelementptr inbound"}
+{"pos": 5879, "ratio": 0.6484, "bytes": 27416, "slots": null, "at": "store ptr %_16.i211, ptr %_122.sroa.15.sroa.5.0._122.sroa.15.0..sroa_idx.sroa_id"}
+{"pos": 5881, "ratio": 0.6391, "bytes": 27392, "slots": null, "at": "store ptr %_5.i217, ptr %_122.sroa.15.sroa.6.0._122.sroa.15.0..sroa_idx.sroa_idx"}
+{"pos": 5880, "ratio": 0.6391, "bytes": 27392, "slots": null, "at": "%_122.sroa.15.sroa.6.0._122.sroa.15.0..sroa_idx.sroa_idx = getelementptr inbound"}
+{"pos": 5882, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/psbmjxuofg/m.ll': input module cannot be verified\n"}
+{"pos": 5883, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/pszadgvo69/m.ll': input module cannot be verified\n"}
+{"pos": 5884, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/psz0nvobos/m.ll': input module cannot be verified\n"}
+{"pos": 5885, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/pszacwh730/m.ll': input module cannot be verified\n"}
+{"pos": 5888, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/pswg32q6jq/m.ll': input module cannot be verified\n"}
+{"pos": 5886, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/pskf2ycpgs/m.ll': input module cannot be verified\n"}
+{"pos": 5887, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/pssbh2ts5e/m.ll': input module cannot be verified\n"}
+{"pos": 5889, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/ps3si4jy4p/m.ll': input module cannot be verified\n"}
+{"pos": 5890, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/psu7zqxoxm/m.ll': input module cannot be verified\n"}
+{"pos": 5891, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/psbxp8irtx/m.ll': input module cannot be verified\n"}
+{"pos": 5892, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/psa36estaf/m.ll': input module cannot be verified\n"}
+{"pos": 5893, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/psvtptvefw/m.ll': input module cannot be verified\n"}
+{"pos": 5894, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/ps5k_rvrug/m.ll': input module cannot be verified\n"}
+{"pos": 5895, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/ps4is5ac2b/m.ll': input module cannot be verified\n"}
+{"pos": 5896, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/ps0kkugjam/m.ll': input module cannot be verified\n"}
+{"pos": 5897, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/ps32zuvplu/m.ll': input module cannot be verified\n"}
+{"pos": 5898, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/pseuhj965r/m.ll': input module cannot be verified\n"}
+{"pos": 5899, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/ps6u4fe8xd/m.ll': input module cannot be verified\n"}
+{"pos": 5901, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/ps6ojnu5jo/m.ll': input module cannot be verified\n"}
+{"pos": 5900, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/psxf332der/m.ll': input module cannot be verified\n"}
+{"pos": 5902, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/pstxbxgn_z/m.ll': input module cannot be verified\n"}
+{"pos": 5903, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/ps7sbk5e58/m.ll': input module cannot be verified\n"}
+{"pos": 5904, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/psfrns_1kj/m.ll': input module cannot be verified\n"}
+{"pos": 5905, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/pspa1qcv9w/m.ll': input module cannot be verified\n"}
+{"pos": 5906, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/psytds6mjs/m.ll': input module cannot be verified\n"}
+{"pos": 5907, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/ps7wtvhugt/m.ll': input module cannot be verified\n"}
+{"pos": 5908, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/psp3k57zbu/m.ll': input module cannot be verified\n"}
+{"pos": 5909, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/psm7jsc_9b/m.ll': input module cannot be verified\n"}
+{"pos": 5910, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/pskakrc1ji/m.ll': input module cannot be verified\n"}
+{"pos": 5911, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/psnf1o72it/m.ll': input module cannot be verified\n"}
+{"pos": 5912, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/pswao9a35u/m.ll': input module cannot be verified\n"}
+{"pos": 5913, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/pscfk_ccaf/m.ll': input module cannot be verified\n"}
+{"pos": 5914, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/psypfwsolh/m.ll': input module cannot be verified\n"}
+{"pos": 5915, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/psuy39avg0/m.ll': input module cannot be verified\n"}
+{"pos": 5916, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/psju_vyloa/m.ll': input module cannot be verified\n"}
+{"pos": 5917, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/psjb6dycax/m.ll': input module cannot be verified\n"}
+{"pos": 5918, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/psueg9hjxs/m.ll': input module cannot be verified\n"}
+{"pos": 5919, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/psa3oaa6tr/m.ll': input module cannot be verified\n"}
+{"pos": 5921, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/psjoz8b2ht/m.ll': input module cannot be verified\n"}
+{"pos": 5920, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/psvlpmf_qd/m.ll': input module cannot be verified\n"}
+{"pos": 5922, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/ps944ckcqx/m.ll': input module cannot be verified\n"}
+{"pos": 5923, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/ps4y09ly28/m.ll': input module cannot be verified\n"}
+{"pos": 5924, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/ps1gxttzi1/m.ll': input module cannot be verified\n"}
+{"pos": 5925, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/psmdapgzvg/m.ll': input module cannot be verified\n"}
+{"pos": 5926, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/psov98etls/m.ll': input module cannot be verified\n"}
+{"pos": 5927, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/ps547s8di5/m.ll': input module cannot be verified\n"}
+{"pos": 5928, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/psuma484zt/m.ll': input module cannot be verified\n"}
+{"pos": 5929, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/psii1cah5e/m.ll': input module cannot be verified\n"}
+{"pos": 5930, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/psmj8d2_z5/m.ll': input module cannot be verified\n"}
+{"pos": 5931, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/psypemj7me/m.ll': input module cannot be verified\n"}
+{"pos": 5932, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/psxylmzty6/m.ll': input module cannot be verified\n"}
+{"pos": 5933, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/ps1o72_o5f/m.ll': input module cannot be verified\n"}
+{"pos": 5934, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/ps0cv1mtzt/m.ll': input module cannot be verified\n"}
+{"pos": 5935, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/psinoj2u_6/m.ll': input module cannot be verified\n"}
+{"pos": 5936, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/psxihktj4j/m.ll': input module cannot be verified\n"}
+{"pos": 5938, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/psuuh6i0lw/m.ll': input module cannot be verified\n"}
+{"pos": 5937, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/psucowj8gd/m.ll': input module cannot be verified\n"}
+{"pos": 5939, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/psqrf2e1vi/m.ll': input module cannot be verified\n"}
+{"pos": 5940, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/psqhk1dgh4/m.ll': input module cannot be verified\n"}
+{"pos": 5941, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/ps0e45lm2u/m.ll': input module cannot be verified\n"}
+{"pos": 5942, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/psnqinu08s/m.ll': input module cannot be verified\n"}
+{"pos": 5944, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/ps8b83jf12/m.ll': input module cannot be verified\n"}
+{"pos": 5943, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/psw_qjzjdy/m.ll': input module cannot be verified\n"}
+{"pos": 5945, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/psfx2sgd0x/m.ll': input module cannot be verified\n"}
+{"pos": 5946, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/psqip5xovh/m.ll': input module cannot be verified\n"}
+{"pos": 5947, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/ps0c0du4yc/m.ll': input module cannot be verified\n"}
+{"pos": 5948, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/psjn20negw/m.ll': input module cannot be verified\n"}
+{"pos": 5949, "err": "lters/.cache/pumpfun-reconstruction/lanes/w17a03-shim-unlockspill/scr/ps9wk4pb93/m.ll': input module cannot be verified\n"}

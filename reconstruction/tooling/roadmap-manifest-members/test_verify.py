@@ -97,9 +97,15 @@ if __name__ == '__main__':
     options, remaining = parser.parse_known_args()
     SOURCE_PACKET = options.packet
     result = unittest.main(argv=[sys.argv[0], *remaining], exit=False)
+    # A renamed, emptied or silently skipped case still exits 0 through
+    # wasSuccessful(); the package is checked for exactly four passing tests.
+    passed = (result.result.wasSuccessful() and result.result.testsRun == 4
+              and not result.result.skipped)
     if options.report:
         with options.report.open('x', encoding='utf-8') as stream:
-            json.dump({'python': sys.version, 'passed': result.result.wasSuccessful(),
+            json.dump({'python': sys.version, 'passed': passed,
+                       'tests_run': result.result.testsRun,
+                       'skipped': [case.id() for case, _ in result.result.skipped],
                        'runs': RUNS}, stream, indent=2)
             stream.write('\n')
-    sys.exit(not result.result.wasSuccessful())
+    sys.exit(0 if passed else 1)
