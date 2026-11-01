@@ -11,7 +11,9 @@ loses. This lane prices unions of at least three classes as one basin and stacks
 normalise the frame, then take the RA ceiling.
 Ledger: approach `faithunion`. Captures are `0x22a10-w16-9bd38c7-fu-<union>-v1` (36 rows, written by `tools/scr.py`;
 E1 and E2 were keyed `0x22a10-w16-5998913-fu-*` by mistake, see `-fu-keyfix-E1E2-v1`). Stacked bounds are
-`0x22a10-w16-9bd38c7-fu-stk-<union>[_p1|_p2|_p3]-v1`. The verdict is `0x22a10-w16-9bd38c7-fu-killtest-v1`.
+`0x22a10-w16-9bd38c7-fu-stk-<union>[_p1|_p2|_p3|_fn1|_fn2|_gpfp1|_gpfp2]-v1`. The verdict is
+`0x22a10-w16-9bd38c7-fu-killtest-v1`. There are 38 captures: main, 31 unions of three or more classes, and 6 ablation
+singles and pairs (A, B, Bg, E, A+E, B+E).
 
 **Result: notes only, no source change. Main is still the best zero-loss measurement.**
 - Unions do cancel cascades. A+B+E's unforced stacked bound (2,216) is 497 M above the sum of its three single-class
@@ -76,6 +78,8 @@ E1 and E2 were keyed `0x22a10-w16-5998913-fu-*` by mistake, see `-fu-keyfix-E1E2
   3. `fnorm` plus the spill permutation.
 
   With w15a28's pass-2 forces it gives main's joint exactly (2,338), and GPF's (2,306).
+- `screen_fn.py`, `sclimb_fn.py`, `fnpipe.sh` (new) run the sticky RA screen and greedy climb with the frame-normalised
+  M as the objective, so a frame shift cannot mask a register gain. `fnorm_lib.py` is the importable part of `fnorm.py`.
 - RA passes: `raq.sh` runs pass 1 (w16a04 `lpipe.sh`: colmap vote, sticky single screen, greedy sticky climb), `raq2.sh`
   runs pass 2 and `raq3.sh` pass 3 (`pass2.sh` on top of the previous force set). Each pass then reruns `stk.sh` with
   its force set.
@@ -109,8 +113,8 @@ earlier:
 | E+V2+B+hkt (w15a10) | 27760 | 2049 | 3032 | 3069 | 665 |
 | E+hkc+qli (w15a10) | 27712 | 1970 | 3032 | 3065 | 660 |
 
-Head rfj is close to additive over the head classes (this lane's 9bd38c7 captures): A +22, B +10, E +9, G +6, A+B +34,
-A+B+E +36, A+B+E+b01 +47.
+Head rfj is close to additive over the head classes (this lane's 9bd38c7 captures, G from w15a16's mv_5_1): A +22,
+B +10, E +9, G +6, A+B +34, A+B+E +36, A+B+E+b01 +47.
 C/D (T289n) costs -23 and H (v14) -54. F is neutral (-3).
 
 ## 3. Union table (9bd38c7 base; M = scorer-style masked matches; main M 2,249)
@@ -211,6 +215,9 @@ Column notes:
   +28) both get closer to the original. The registers do not: `-f-` stays at main's level for B and A+B and drops to -21
   for A+B+E. Up to 16 greedy forces do not undo it.
   - A+B's residual is the compound of small register and frame misses (`---` -22 where each mask alone is within 9).
+  - The frame does not hide register gains from the climb. A climb whose screen and objective are the frame-normalised M
+    (`screen_fn.py` / `sclimb_fn.py` / `fnpipe.sh`) picks the same forces on ABE: pass 1 has 7 forces at 2,251 (ratio
+    objective: 8 forces, 2,257) and pass 2 has 13 forces at 2,285 (ratio objective: 2,289).
   - A+B+E's residual is register naming in the clone runs, not GPF's accounts pointer. GPF's decisive head force is
     `%249=r8`, `COPY %0; ADD 72` in wallet's bb94.i (w15a28). ABE's low-numbered forces are different values:
     `%241` (final R9, forced r5) and `%242` (final R7, forced r8) are `LDD %238,8` / `LDD %238,16`, the Rc pointer
