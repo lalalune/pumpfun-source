@@ -4,8 +4,10 @@ Target `0x22a10` `admin_cto::execute` (`programs/pump/src/creator/admin_cto.rs`)
 Base: main 599891304 (merged to 1647da0f2; `programs/pump/src` unchanged), admin_cto 0.67436, M 2,251, 3,141 slots.
 Ledger approach `s3feephi`, keys `0x22a10-w16-5998913-s3feephi-<cell>-v1` (22 rows).
 
-**Result: notes only, nothing landed. The kill test holds for both the ordinary-source and the shim spellings.** No fee-tag
-phi cell stacks above S3n's 2,347, none crosses main's raw M 2,251, and no placeholder-free form ties main. Main stays the
+**Result: notes only, nothing landed. The kill test holds for every ordinary-source and shim spelling.** No source
+spelling of the fee-tag phi stacks above S3n's 2,347, none crosses main's raw M 2,251, and no placeholder-free form ties
+main. The IR oracle that gives the tag ONE phi, as the original has it, does stack above the ceiling on S3: s3fo1p,
+at RA pass 2 with joint Mhc 2,355 @27,264 (section 4). It is a lead for the S3 lanes, not a landable cell. Main stays the
 best zero-loss measurement (0.67436 / 3,141 slots / 27,400 B).
 
 M is the scorer's masked difflib match count against the original window, and ratio = 2M / (6676 + (bytes - 27400)/8).
@@ -93,7 +95,7 @@ Stacked pricing (w16a08 pipeline):
 | --- | ---: | ---: | ---: | ---: | --- | --- |
 | S3n (w16a08) | 27,416 | 1,990 | 2,289 | 2,296 | 2,204 (7) / 2,308 | 2,273 (13) / **2,347** |
 | s3fo | 27,296 | 1,949 | 2,159 | 2,165 | 2,104 (7) / 2,196, 2,210 | - |
-| s3fo1p (IR oracle: one tag phi) | 27,288 | 2,043 | - | - | 2,157 (7) / 2,236, 2,241 | climbing at the time box: M 2,263 @27,256 after 4 rounds (11 forces, +1928=r9 +238=r5 +1695=r6 +337=r2); joint pending |
+| s3fo1p (IR oracle: one tag phi) | 27,288 | 2,043 | - | - | 2,157 (7) / 2,236, 2,241 | 2,278 @27,264 (16) / Mperm 2,334, **Mhc 2,355** |
 | s3fb (shim) | 27,352 | 2,036 | - | - | 2,125 (12) / 2,237, 2,253 | not run (time box) |
 
 Pass-1 forces: s3fo `1674=r9,476=r2,1882=r6,220=r9,1693=r7,1686=r8,1989=r5`; s3fo1p
@@ -106,10 +108,13 @@ in r9 through validate, w16a18).
 - S3+fo stacks at RA pass 1 2,104 / joint 2,210, against S3n's pass 1 2,204 / joint 2,308 and pass 2 2,347. **Below.**
 - fo x T on S3 (s3foT) has Mhc 2,126 before any forces. **Below** ftcT's 2,342.
 - No placeholder-free form ties main (fo8 2,060, fo84 2,063, fb8 2,057).
-- Shim spellings: the best one, s3fb, is +46 over S3n raw. At RA pass 1 it stacks to a joint Mhc of 2,253, 55 below S3n's pass-1 joint of 2,308. The merged-phi oracle reaches 2,241 at pass 1. Neither comes near S3n at the same stage. **Kill.**
+- Shim spellings: the best one, s3fb, is +46 over S3n raw. At RA pass 1 it stacks to a joint Mhc of 2,253, 55 below S3n's pass-1 joint of 2,308. The merged-phi oracle reaches 2,241 at pass 1. Neither comes near S3n at the same stage. **Kill for every source spelling.** One caveat: the merged-phi IR ORACLE s3fo1p does stack above the ceiling at pass 2, with M 2,278 @27,264 (16 forces) and joint Mhc **2,355**. That is +8 over S3n's 2,347 and +16 over main's 2,339. A single validated-fee tag phi, as the original has it, is therefore worth having on S3, but no spelling here produces it at the oracle's size. fb is the nearest: one flag phi, at +48 B for the branch that rebuilds the pool tag.
 
 ## Next ideas
 
+0. **The S3 lanes' target is the single tag phi:** s3fo1p stacks to 2,355 (RA pass 2 joint). A spelling that keeps ONE
+   tag phi with BOTH users (757 branch and pool tag) and without fb's 48 B branch would realise it. Then repay
+   +136 B to reach 27,400 B (fe's -8 B is the wrong direction; see w16a02's +B knobs).
 1. The original reaches InstCombine with a tag phi that has no cast or compare user, or with a non-constant incoming value
    that only becomes a constant after InstCombine's last run. `fe` shows that an incoming `%fee.0` is folded away
    completely, which is too far. A spelling whose OK-path incoming value is proven equal to 1 only by a late pass (for
