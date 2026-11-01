@@ -1,0 +1,55 @@
+{
+  "lane": "w17a12-shim-ctostate-store",
+  "wave": 17,
+  "track": "shim",
+  "target": {"window": "0x22a10", "function": "admin_cto::execute", "file": "programs/pump/src/creator/admin_cto.rs", "pinned_bytes": 27400},
+  "regions": "E2/E3 (original 0x280-0x708): CtoState flag-store order and curve-flag load placement",
+  "bases": {
+    "9336aafff": {"ratio": 0.67675, "M": 2259},
+    "af6ca66a2": {"ratio": 0.67825, "M": 2264, "slots": 3220},
+    "e679b59e9": {"ratio": 0.67915, "slots": 3220, "note": "main at the end of the lane; its 2 new lines are w17a04 sweep clones outside this region"}
+  },
+  "result": "no gain; notes only",
+  "best_zero_loss_at_27400": null,
+  "acceptance_store_order_reproduced": {
+    "ir_cell": "ve1n (tools/ce2.py): early curve flags a3,a5,a2 + global ptr early + volatile stores -0xe,-0xf,-0x10 | creator | -0xd,-0xb,-0xc | -0x18",
+    "ir_metrics": {"M": 2151, "bytes": 27344, "ratio": 0.64507, "M_masked_frame_reg": 2645, "M_masked_frame_reg_jump": 2855},
+    "main_metrics": {"M": 2264, "bytes": 27400, "ratio": 0.67825, "M_masked_frame_reg": 2651, "M_masked_frame_reg_jump": 2785},
+    "source_cell": "sh1 (tools/vars.py): read_volatile early flags + MaybeUninit<CtoState> write_volatile in the original order + assume_init_ref",
+    "source_metrics": {"M": 2059, "bytes": 27368, "ratio": 0.61721},
+    "cause": "spill colouring: the accounts pointer leaves -0x8d8 for -0x8e0 (21-22 aligned accesses), r3 (holder arg) takes -0x8d8; losses in T1/C1/W2/S1"
+  },
+  "attempts": [
+    {"key": "0x22a10-w17-9336aaf-ctostore-postopt-earlyflags-v1", "cells": 1, "best": "2115 @27328"},
+    {"key": "0x22a10-w17-9336aaf-ctostore-postopt-grid-v1", "cells": 287, "best": "2249 @27296 (volatile stores, main order)"},
+    {"key": "0x22a10-w17-9336aaf-ctostore-postopt-loadperm-v1", "cells": 1200, "best": "2259 = main"},
+    {"key": "0x22a10-w17-af6ca66-ctostore-src-sh1-v1", "cells": 1, "best": "2059 @27368"},
+    {"key": "0x22a10-w17-af6ca66-ctostore-postopt-pdafirst-v1", "cells": 32, "best": "2254 @27296"},
+    {"key": "0x22a10-w17-af6ca66-ctostore-postopt-volstoreperm-v1", "cells": 1500, "best": "2247 @27424; 2244 @27400"},
+    {"key": "0x22a10-w17-af6ca66-ctostore-pinrepay-v1", "cells": 2046, "best": "2266 @27392; 2264 tie @27400"},
+    {"key": "0x22a10-w17-af6ca66-ctostore-ve1n-pins-v1", "cells": 996, "best": "2161 @27344"},
+    {"key": "0x22a10-w17-af6ca66-ctostore-ve1n-brweights-v1", "cells": 292, "best": "2157 @27336"},
+    {"key": "0x22a10-w17-af6ca66-ctostore-partialvol-v1", "cells": 384, "best": "2264 tie"}
+  ],
+  "rejected_mechanisms": [
+    "volatile CtoState stores in the original order (any load placement)",
+    "volatile CtoState stores in any of 1500 sampled orders x creator memcpy position",
+    "any subset of the field stores volatile",
+    "non-volatile reorder of the CtoState block (load-unit permutations, store orders)",
+    "early curve-flag loads (any subset, volatile or not), with or without global ptr early, creator GEP early, cashback late, holder and-1 / late",
+    "PDA-first entry (sret stays at -0x679) alone or with early flags",
+    "source shim MaybeUninit + write_volatile + read_volatile early flags",
+    "cashback / holder_enabled volatile pins as -16/-24 B repay with any single volatile partner or pairs of +8 B partners"
+  ],
+  "unresolved_residuals": [
+    "E2/E3 structure: the original-shaped sequence (ve1n) is +70 masked but -113 raw, because the spill-slot creation order differs (accounts ptr first at -0x8d8 in the original; r3 spilled late at -0x918)",
+    "E3 new-piece entry loads (+0x4d8..+0x538), holder_key copy to -0x518 and sharing key at -0x470 (w17a10, b01 leads)",
+    "the cashback bool materialised in the entry by main (mov 1; jne; mov 0, spilled), absent in the original"
+  ],
+  "next_ideas": [
+    "Joint entry rewrite: early flags (ve1n) + new pieces at the CtoState site (w17a10) + PDA first with the -0x2d0 scratch sret (w17a09), judged together on spill-slot order",
+    "Find a source lever that spills the accounts pointer first and the holder arg late (orig -0x8d8 / -0x918), then re-test ve1n on it",
+    "Use the cashback pin (-16 B, 0 M) or the holder_enabled pin (-24 B, 0 M) as repay for a +16/+24 B lead elsewhere"
+  ],
+  "tools": "reconstruction/pump-main/lanes/w17a12-shim-ctostate-store/tools (pscore.py llc-only scorer with objdump listing; ctoedit.py/ce2.py CtoState block edits on instnamer'd post-opt IR; regm.py per-region M; mmask.py masked M; fmap.py frame-offset pairs; s2-s10 screens; vars.py source variants)"
+}
