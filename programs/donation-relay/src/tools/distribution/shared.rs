@@ -56,7 +56,7 @@ fn transfer_exact<'info>(ctx:&DistributionContext<'info,'info>,rows:core::iter::
  for (row,info) in rows.zip(ctx.remaining.iter()) {
   let token=InterfaceAccount::<TokenAccount>::try_from(info)?;
   if token.owner!=row.address {return Err(worker_error!(InvalidTokenAccountOwner,191).with_pubkeys((token.owner,row.address)));}
-  if token.mint!=*ctx.mint.key {return Err(worker_error!(InvalidTokenAccountMint,196).with_pubkeys((token.mint,*ctx.mint.key)));}
+  if token.mint!=ctx.mint.key() {return Err(worker_error!(InvalidTokenAccountMint,196).with_pubkeys((token.mint,ctx.mint.key())));}
   if *info.owner!=*expected_program {return Err(worker_error!(InvalidTokenAccountProgram,201).with_pubkeys((*info.owner,*expected_program)));}
   if row.amount!=0 {anchor_spl::token_interface::transfer_checked(CpiContext::new_with_signer(ctx.program.clone(),TransferChecked {from:ctx.source.clone(),mint:ctx.mint.clone(),to:info.clone(),authority:ctx.authority.clone()},seeds),row.amount,decimals)?;}
  }
