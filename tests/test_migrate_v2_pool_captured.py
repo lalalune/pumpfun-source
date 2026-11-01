@@ -487,6 +487,15 @@ class MigrateV2PoolCapturedTests(unittest.TestCase):
         out = subprocess.run([str(self.host)], input=text, capture_output=True, text=True, check=True).stdout
         return out.splitlines()
 
+    def test_unknown_route_is_rejected(self):
+        # A misspelled route must not fall through to Token-2022 and answer.
+        line = host_line(case()).split(',')
+        line[0] = 't2'
+        out = subprocess.run([str(self.host)], input=','.join(line) + '\n', capture_output=True, text=True)
+        self.assertNotEqual(out.returncode, 0)
+        self.assertEqual(out.stdout, '')
+        self.assertIn('unknown route t2', out.stderr)
+
     def assert_matches(self, item, answer, captured):
         if answer == 'error:-1':
             self.assertIn('IllegalOwner', str(captured['error']))

@@ -18,7 +18,8 @@ fn answer(line: &str) -> String {
         quote_route: match f[0] {
             "sol" => Quote::Native,
             "spl" => Quote::Spl,
-            _ => Quote::Token2022 { fee_bps: n(1) as u16 },
+            "t22" => Quote::Token2022 { fee_bps: n(1) as u16 },
+            other => panic!("unknown route {other}"),
         },
         curve_tokens: n(2),
         real_quote_reserves: n(3),
