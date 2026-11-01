@@ -1,0 +1,97 @@
+{
+  "schema": "pump-pass111-unlinked-model-source-review-v1",
+  "status": "PASS",
+  "actual_build_revision": "435e5332b69ea42321bb636c74af79f468cb143a",
+  "base_revision": "2680b3fb9bbfc86e8e995b03fec4e43fe7327841",
+  "four_program_files_sha256": {
+    "programs/pump/recovered/claim_cashback_v2_admission.rs": "c7e575ce6f47ee3f3d39785cef635f3be5de9f22a3389b5a88514006e935882c",
+    "programs/pump/recovered/claim_cashback_v2_admission_host.rs": "7438329ec8f75a3ea4a168ebdc811c733228c1101a4d60aa7c6c2dd33f0dd91e",
+    "programs/pump/recovered/create_admission.rs": "d26fb20a637e9c95be83cc40d4b07ad5edce95e9038b67f69d121ddc844395e5",
+    "programs/pump/recovered/create_admission_host.rs": "f759f067e3bb2094cfaf7467e40cdae4f6a4b91087bd5c37af6ad58a7f6e229e"
+  },
+  "base_source_sha256": "124807d11a9266f52253c2e4a369a50d6ded4f1a7e097be0befed9889d7e5374",
+  "candidate_source_sha256": "946a97f09fa78dc98d597cb480268d4b456f7ec1eca285603d50d40e07f589e0",
+  "base_source_files": 307,
+  "candidate_source_files": 311,
+  "stripped_sha256": "6f439f1e539ec8156aba443e9a464eedee0996c88720b3eae789e148e4fef7be",
+  "unstripped_sha256": "54344822ddef0bd4b1f7b4e8a6c80e5aae7e7fb804c5c82c67e7ebff369e9229",
+  "byte_identical_to_base": true,
+  "root_qualification": {
+    "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/root/admission-models-repaired/qualification.json",
+    "sha256": "6e858a3a94beecf5b72e2bbae2f88a9293053f12d59111d971695feb90e9c744"
+  },
+  "files": {
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/root/admission-models-repaired/qualification.json": "6e858a3a94beecf5b72e2bbae2f88a9293053f12d59111d971695feb90e9c744",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/root/admission-models-repaired/baseline/build/source-inputs.json": "1a597445a2de86a4877bfa447903561f2896ec9931ec088e90ea3b8abe1ad6c9",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/root/admission-models-repaired/combined/build/source-inputs.json": "41c8a6b1e493f68cfd2d1b9fdbe6198065e16487ee19dc3a80cbf4509cbdfaee",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/root/admission-models-repaired/baseline-score.json": "7778b165d553630f6d26230e535599dfc89a4c73c81478bc0dfc376d8065557d",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/root/admission-models-repaired/combined-score.json": "371dec5968a4a5ae0396542575293a8a13b4f389941d21f0d5af97dcf3d974d3",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/admission4060_4066/repaired435/actual-summary.json": "770a89cfd092eff883a2f975f465a4289427f7f023cd99fac3a7df4e9c3bea04",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/admission4060_4066/repaired435/actual-signed-transactions.json.gz": "25a85f9b21545882373a3e4c7a0157ab3a5694f9a3b686b380e0f3e2f9d10e7d",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/admission4060_4066/repaired435/actual-process-result.json": "278563818d501ea82fc6cf3fbf3d65a249de45f5b1584bd0cffb1f822aa1f99c",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/admission4060_4066/repaired435/native-malformed-red-green.json": "b9343de58f3e04c0f71942fee6d45121c4ec1ffdbc251135a3cc056a7226e08e",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/admission4060_4066/repaired435/native-missing-order-controls.json": "365c131b2984342c8219084f01452401901449a64bd48e4635e67ca9b5b5af18",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/admission4060_4066/repaired435/artifact-relocation.json": "ef6a2c1178d5de76278d5f100fd28cc35cb834ca12d4d8d97fc66d3fdf49f8fe",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/admission4060_4066/4060-authored-host-controls.json": "c3d677eeb7da5eb17c50fdfbd6cdf358410111319ce71b01eb0fe4f381c00bd7",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/admission4060_4066/4066-authored-host-controls.json": "8917860a502ffae8bb578745e9303cd4b87b484c49acc65e91c034872f8c8ff0",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/admission4060_4066/run_admission.py": "28a016faa0f79ea8e460a4ac5d330a683d802b9c0c7e14cb3484b5cce8a736fa",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/admission4060_4066/supervise_validation.py": "45d75fa40bf16d865acd6bbb75869afebf450ee0c8652d92928b1e6ba9468c50",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/admission4060_4066/review-gate.json": "829a906b0935343a98647ac9649760ff76b8c40c76f151e23b8ec9120d894fa4",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/admission4060_4066/peer-missing-order-before.json": "4464c8d08766a9d2d077aa8d0b95e78ebc725ea66dca55f8238024ded4f178c7",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/admission4060_4066/repaired435/reviewed-source/programs/pump/recovered/claim_cashback_v2_admission.rs": "c7e575ce6f47ee3f3d39785cef635f3be5de9f22a3389b5a88514006e935882c",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/admission4060_4066/repaired435/reviewed-source/programs/pump/recovered/claim_cashback_v2_admission_host.rs": "7438329ec8f75a3ea4a168ebdc811c733228c1101a4d60aa7c6c2dd33f0dd91e",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/admission4060_4066/repaired435/reviewed-source/programs/pump/recovered/create_admission.rs": "d26fb20a637e9c95be83cc40d4b07ad5edce95e9038b67f69d121ddc844395e5",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/admission4060_4066/repaired435/reviewed-source/programs/pump/recovered/create_admission_host.rs": "f759f067e3bb2094cfaf7467e40cdae4f6a4b91087bd5c37af6ad58a7f6e229e",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/admission4060_4066/repaired435/reviewed-source/tests/test_claim_cashback_v2_admission_captured.py": "32ace3dd051dbc9eae60947d189620accd9d1356d8ce57e611f723e69fac4741",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/admission4060_4066/repaired435/reviewed-source/tests/test_create_admission_captured.py": "a69dfb60a67ce9f5cda9d7358e1623c4d1f737abcd1bdef69481e507a8a14d4b",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/admission4060_4066/repaired435/reviewed-source/.github/workflows/verify.yml": "42b34c0a1d49be2c2dc5311607cc50cabf667c3a26da782d73b731234db1a036"
+  },
+  "original_pr_heads": {
+    "4060": "873c0d64a01b7eed0954c9ef183b98076d2c792e",
+    "4066": "a4ffb95af82737c3407e2134ae04738c9d8e05d3"
+  },
+  "reviewed_code_sha256": {
+    "programs/pump/recovered/claim_cashback_v2_admission.rs": "c7e575ce6f47ee3f3d39785cef635f3be5de9f22a3389b5a88514006e935882c",
+    "programs/pump/recovered/claim_cashback_v2_admission_host.rs": "7438329ec8f75a3ea4a168ebdc811c733228c1101a4d60aa7c6c2dd33f0dd91e",
+    "programs/pump/recovered/create_admission.rs": "d26fb20a637e9c95be83cc40d4b07ad5edce95e9038b67f69d121ddc844395e5",
+    "programs/pump/recovered/create_admission_host.rs": "f759f067e3bb2094cfaf7467e40cdae4f6a4b91087bd5c37af6ad58a7f6e229e",
+    "tests/test_claim_cashback_v2_admission_captured.py": "32ace3dd051dbc9eae60947d189620accd9d1356d8ce57e611f723e69fac4741",
+    "tests/test_create_admission_captured.py": "a69dfb60a67ce9f5cda9d7358e1623c4d1f737abcd1bdef69481e507a8a14d4b",
+    ".github/workflows/verify.yml": "42b34c0a1d49be2c2dc5311607cc50cabf667c3a26da782d73b731234db1a036"
+  },
+  "reviewed_code_revision": "435e5332b69ea42321bb636c74af79f468cb143a",
+  "fresh_main_integration": {
+    "revision": "4146f3dd54736d9cf2b2536bc3230fa937ef7d25",
+    "main_revision": "2680b3fb9bbfc86e8e995b03fec4e43fe7327841",
+    "program_bytes_unchanged_from_actual_build": true,
+    "reviewed_model_and_test_bytes_unchanged": true,
+    "workflow_delta": "Reviewed main Relay CI commands preserved; both bounded admission test commands preserved."
+  },
+  "runtime": {
+    "receipt": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/admission4060_4066/repaired435/actual-summary.json",
+    "sha256": "770a89cfd092eff883a2f975f465a4289427f7f023cd99fac3a7df4e9c3bea04",
+    "tests": 14,
+    "skips": 0,
+    "actual_signed_transactions": 4263,
+    "individual_signatures": 7610,
+    "only_operations": [
+      "claim_cashback_v2",
+      "create"
+    ],
+    "no_stopped_campaigns_executed": true,
+    "all_failed_nonfee_snapshots_rollback_equal": true,
+    "wrong_selector_controls_rejected_before_vm": 2,
+    "artifact_relocation": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/admission4060_4066/repaired435/artifact-relocation.json"
+  },
+  "native_controls": {
+    "original_malformed_records_false_admitted": 6,
+    "repaired_malformed_records_rejected": 8,
+    "missing_order_controls": 26,
+    "receipt": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/admission4060_4066/repaired435/native-malformed-red-green.json",
+    "order_receipt": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/admission4060_4066/repaired435/native-missing-order-controls.json"
+  },
+  "historical_4053_peer": "Preserved unchanged; this receipt separately binds four added unlinked recovered model/host files and the fresh 311-file source snapshot.",
+  "prior_model_qualification": "Historical initial b637 build/source-review and all pinned runtime files preserved unchanged under root/admission-models; peer missing-order finding repaired in actual435.",
+  "scope": "Four unlinked recovered model/host additions, two bounded captured-original versus native synthetic admission matrices, native-only order controls, and two CI commands. No linked program source or build/scorer recipe changes.",
+  "limits": "Finite captured-original/native model evidence, not candidate runtime equivalence. Byte identity here is fresh baseline-versus-added-model build identity, not whole deployed program reconstruction."
+}

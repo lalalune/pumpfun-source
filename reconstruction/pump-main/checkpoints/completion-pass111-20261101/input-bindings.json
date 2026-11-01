@@ -1,0 +1,50 @@
+{
+  "build_tools": [
+    "reconstruction/harness/fastbuild.py",
+    "reconstruction/harness/source_inputs.py",
+    "reconstruction/harness/build_process.py",
+    "reconstruction/harness/link_order.py"
+  ],
+  "scoring_inputs": [
+    "reconstruction/harness/score.py",
+    "reconstruction/harness/score_admission.py",
+    "reconstruction/harness/elf_symbols.py",
+    "reconstruction/harness/instruction_stream.py",
+    "reconstruction/harness/llvm_tools.py",
+    "reconstruction/harness/original_input.py",
+    "reconstruction/harness/target_metric.py",
+    "reconstruction/harness/win.py",
+    "reconstruction/harness/compare_scores.py",
+    "reconstruction/base/functions.tsv",
+    "evidence/original/pump/deployed.so"
+  ],
+  "additional_link_inputs": [
+    "reconstruction/harness/pump_link_lld.py",
+    "reconstruction/harness/pump_link_lld.sh",
+    "reconstruction/harness/sbf_default.ld"
+  ],
+  "sha256": {
+    "reconstruction/harness/fastbuild.py": "c98de708d063186373b092de893235bef4dd9cf62940fd9c47fadae461efed00",
+    "reconstruction/harness/source_inputs.py": "6fde8e438f119aa3ecf003bc71a12fb7da0640cfea241216cba47a242e8cd2fc",
+    "reconstruction/harness/build_process.py": "88b61b7dfecd077f97f3a093b9348078067f9fdea07d9efccb0cb324d094d517",
+    "reconstruction/harness/link_order.py": "53de3cf5e6ff004b03319dc530ef4902d3b67734aced025fbc1957846d452e81",
+    "reconstruction/harness/score.py": "6eae59ba87809bdd6aa42d6227c5598d8ea2196051bf0d796e8020bdb14df714",
+    "reconstruction/harness/score_admission.py": "885b4b55229e3d87086b93c4e8227da8e4ec2713ccd6691fa40a7538d66c3a45",
+    "reconstruction/harness/elf_symbols.py": "f7a69a4b5324959398365b63f20ea9dda8eab223d8790a608c778549d3b966c0",
+    "reconstruction/harness/instruction_stream.py": "be6a3f3a0274d4ae819a6288293b5a1f9b040a322a0414a240217ab96a3dee45",
+    "reconstruction/harness/llvm_tools.py": "306a50b2ba57f350e250d7c7f596ac400627ecfd24248b2291578b5ddf3fe8af",
+    "reconstruction/harness/original_input.py": "9d00b5c253405cec4d2ef292086c6e88d758bd3fe7f8c6a3cba23af114f01ade",
+    "reconstruction/harness/target_metric.py": "909f091fc2bfc1a252f8a7bd557dfd0c38f870bdf6898b0e3c93ec7db195f6a4",
+    "reconstruction/harness/win.py": "8862046dcb0e01673166e68a0b0e5122be4738f0780bcf2f58afc8416bd8cdea",
+    "reconstruction/harness/compare_scores.py": "e59024567db9b2373fe01d377f42308554434d182f5981153cd6814412245b74",
+    "reconstruction/base/functions.tsv": "fb2c0a47514567d65eb45c1e268dacd5291e4659bb7dceb575a767dc20bcaff8",
+    "evidence/original/pump/deployed.so": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
+    "reconstruction/harness/pump_link_lld.py": "03b61b39cf5e85512086c87298ac302cec78378b00c09c594715d18c0aa86e5b",
+    "reconstruction/harness/pump_link_lld.sh": "f613b208d47e261e8690fb233e36bd0f0b364ba075c7f6f55e5bf9a435f7fc59",
+    "reconstruction/harness/sbf_default.ld": "5e8370b9380f55411d827721e2e43c8cfd1eac71d1383e20b938397bc0bd82c3"
+  },
+  "python": "Python 3.13.12",
+  "revision": "5de7f22dee17d7011445b1956d69b06a27c0d070",
+  "built_revision": "2ab92e24ca59292029aafe59b766b21515f3fdda",
+  "scope": "Actual corrected build2ab; current merged source and unchanged tools independently admitted."
+}

@@ -1,0 +1,64 @@
+{
+  "schema": "pump-pass111-linked-cleanup-source-review-v1",
+  "status": "PASS",
+  "actual_build_revision": "c6941d215aab221a13648fc140d6c6d0f9b75bae",
+  "base_revision": "4631f0fa34dc6cb336d07a9cfe2f4c30f0a3d5ab",
+  "helpers_revision": "c6941d215aab221a13648fc140d6c6d0f9b75bae",
+  "modified_program_files_sha256": {
+    "programs/pump/src/creator/admin_cto.rs": "3583ae730bbbe6bce4b1187c01c3aa836909ba4f65b309998fcaa9aa78a1904e"
+  },
+  "base_source_sha256": "8ee1ed2b61f83304ff9e2acd325c4754c827f91962ed727859b9dbd90a13ce41",
+  "candidate_source_sha256": "ccc39a635769a7da891fdea50abc5f98c1995ed064006b0a083ff60c9775dc2f",
+  "base_source_files": 311,
+  "candidate_source_files": 311,
+  "stripped_sha256": "6f439f1e539ec8156aba443e9a464eedee0996c88720b3eae789e148e4fef7be",
+  "unstripped_sha256": "54344822ddef0bd4b1f7b4e8a6c80e5aae7e7fb804c5c82c67e7ebff369e9229",
+  "byte_identical_to_base": true,
+  "linked_source_cleanup_only": true,
+  "root_qualification": {
+    "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/root/linked-cleanup/qualification.json",
+    "sha256": "7a040ed78fef49855f01c959fcdc1adc27176acf3689d36fbb13114fd022b19c"
+  },
+  "files": {
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/root/linked-cleanup/qualification.json": "7a040ed78fef49855f01c959fcdc1adc27176acf3689d36fbb13114fd022b19c",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/root/linked-cleanup/start-binding.json": "80fb603a4d91e9b8a21eeeb5b5d215311caaea340ba4f09c6718c9ad32b1159e",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/root/linked-cleanup/run_qualification.py": "e82a9c0e7e74f2857bd0b33338194989e8e02482500ce756780a9cd1ad5dd12e",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/root/linked-cleanup/baseline/build-result.json": "419ecfb12f686656b6f3ef09944f46330182812b3fd2efb656907d1207474850",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/root/linked-cleanup/combined/build-result.json": "665bf9fd65d59c2197f0a1f78ba8bc3020792723e0efbf29e94f6e0f244ae273",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/root/linked-cleanup/baseline/build/source-inputs.json": "459889c862d55ee447dfcf8cdcbc85960919312a3ae75e488c1146be7c9c4a3b",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/root/linked-cleanup/combined/build/source-inputs.json": "271d3abd017a8f61616975331ab3c94b38b3021cb28c17e3797c04147f409695",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/root/linked-cleanup/baseline-score.json": "371dec5968a4a5ae0396542575293a8a13b4f389941d21f0d5af97dcf3d974d3",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/root/linked-cleanup/combined-score.json": "371dec5968a4a5ae0396542575293a8a13b4f389941d21f0d5af97dcf3d974d3",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/root/linked-cleanup/reviewed-code/admin_cto.rs": "3583ae730bbbe6bce4b1187c01c3aa836909ba4f65b309998fcaa9aa78a1904e",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/native4098_4099_4102/linked-cleanup-peer/review.json": "adc3175fcc4ae5e32845cf3104d6e6d696cb2cfaf73f067762b4df88ab9545db",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/native4098_4099_4102/linked-cleanup-peer/0-program.rs": "980d02253db1151d0721500eaaeb6ecb1b7bc9138a8ae78d7367a63b94b60878",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/native4098_4099_4102/linked-cleanup-peer/1-account.rs": "663d878ae45c7d38fb24f7fde4a7e81160634350f7df7888f8c053c4c00509d3",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/native4098_4099_4102/linked-cleanup-peer/2-lib.rs": "6b59aba664bb70fda6e17bcc8cf6eb41fc0bc9d8bcbb797bd70c1b107809c29a",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/native4098_4099_4102/linked-cleanup-peer/3-rc.rs": "135c3d4388ab2122fa16052e017fc784c8556c78a011b23f8c39e12aad0fc984",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/native4098_4099_4102/linked-cleanup-peer/Cargo.lock": "65498a93b0e9c1c11f292ccb71b0ce6392d3d568783859e23a2fc8142da545da"
+  },
+  "external_merged_prs": {
+    "4107": "70b3b637a50d7f77e400829490e4e14de61e1632",
+    "4110": "57001c014f3798dbfb05214cd7889407f7c77880"
+  },
+  "independent_source_peer_review": {
+    "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/native4098_4099_4102/linked-cleanup-peer/review.json",
+    "sha256": "adc3175fcc4ae5e32845cf3104d6e6d696cb2cfaf73f067762b4df88ab9545db",
+    "reviewed_revision": "57001c014f3798dbfb05214cd7889407f7c77880",
+    "same_reviewed_program_bytes": true
+  },
+  "historical_extra_host_review": {
+    "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/root/extra-hosts/source-review.json",
+    "sha256": "9a6ae4f9ff071f69dfc24d7a8abd46ae861d36297a297078a408e5bc0666517a",
+    "preserved_unchanged": true
+  },
+  "build_tools_unchanged": true,
+  "scope": "Readmit already externally merged4107/4110 linked admin_cto load/Rc cleanup against retained463 source. The one linked file changes in the311-file vector; unchanged official current-main build/scorer graph rebuilds both source versions to the same complete unstripped/stripped ELF images. This stage adds no reconstruction tokens/windows.",
+  "limits": [
+    "No pending4095/4096/4098/4099/4102/4106 code admitted by this source stage.",
+    "Historical semantic307, model435, hostffe, curve49 and extra463 receipts retain their original sources and scopes.",
+    "Source review relies on pinned compiler/layout, valid typed live Anchor/Rc state and single-threaded Solana assumptions.",
+    "No new VM or private IR execution; historical388-case runtime receipt applies by freshly proven complete image identity, not by rerunning it.",
+    "Pump remains unequal to deployed whole meaningful ELF."
+  ]
+}

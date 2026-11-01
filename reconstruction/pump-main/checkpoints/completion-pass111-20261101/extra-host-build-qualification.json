@@ -1,0 +1,62 @@
+{
+  "status": "PASS",
+  "baseline_revision": "e0c7eba852b98ad62f4730dc957d71c163153d1d",
+  "candidate_revision": "4631f0fa34dc6cb336d07a9cfe2f4c30f0a3d5ab",
+  "baseline": {
+    "ok": true,
+    "source_sha256": "59b070fdbb6180bc7bd5e31701481e525e88583608371e7500a4713eda14964b",
+    "link_order": {
+      "script": "link/ordered.ld",
+      "script_sha256": "6954d9901b005312be6e7f980cb5e74a1440c174547c2040a881acf2e5c25b45",
+      "selectors": {
+        ".text": 555,
+        ".rodata": 0,
+        ".data.rel.ro": 0
+      },
+      "lld_sha256": "a4d765c822f68b267e87765771da87a0fd4d640d9df27884bd10c0750d1b58f4"
+    },
+    "runtime_valid": true,
+    "stack_warnings": [],
+    "recipe": "identity",
+    "triple": "sbpf-solana-solana",
+    "seconds": 27.4,
+    "unstripped": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/root/extra-hosts/baseline/build/unstripped.so",
+    "unstripped_sha256": "54344822ddef0bd4b1f7b4e8a6c80e5aae7e7fb804c5c82c67e7ebff369e9229",
+    "candidate_sha256": "6f439f1e539ec8156aba443e9a464eedee0996c88720b3eae789e148e4fef7be"
+  },
+  "candidate": {
+    "ok": true,
+    "source_sha256": "8ee1ed2b61f83304ff9e2acd325c4754c827f91962ed727859b9dbd90a13ce41",
+    "link_order": {
+      "script": "link/ordered.ld",
+      "script_sha256": "6954d9901b005312be6e7f980cb5e74a1440c174547c2040a881acf2e5c25b45",
+      "selectors": {
+        ".text": 555,
+        ".rodata": 0,
+        ".data.rel.ro": 0
+      },
+      "lld_sha256": "a4d765c822f68b267e87765771da87a0fd4d640d9df27884bd10c0750d1b58f4"
+    },
+    "runtime_valid": true,
+    "stack_warnings": [],
+    "recipe": "identity",
+    "triple": "sbpf-solana-solana",
+    "seconds": 27.2,
+    "unstripped": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/root/extra-hosts/combined/build/unstripped.so",
+    "unstripped_sha256": "54344822ddef0bd4b1f7b4e8a6c80e5aae7e7fb804c5c82c67e7ebff369e9229",
+    "candidate_sha256": "6f439f1e539ec8156aba443e9a464eedee0996c88720b3eae789e148e4fef7be"
+  },
+  "score": {
+    "candidate_sha256": "54344822ddef0bd4b1f7b4e8a6c80e5aae7e7fb804c5c82c67e7ebff369e9229",
+    "normalized": 1034,
+    "raw": 1034,
+    "total": 1035,
+    "matched_text_bytes": 1764808,
+    "gains": [],
+    "losses": [],
+    "raw_gains": [],
+    "raw_losses": []
+  },
+  "program_delta": "M\tprograms/pump/recovered/sweep_fees_token2022_host.rs\nM\tprograms/pump/recovered/v2_token_quote_host.rs\n",
+  "scope": "Two existing unlinked V2/token-fee host parsers modified; fresh baseline and combined builds are byte identical."
+}

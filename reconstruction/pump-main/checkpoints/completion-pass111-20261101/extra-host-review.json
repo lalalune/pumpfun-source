@@ -1,0 +1,75 @@
+{
+  "schema": "pump-pass111-extra-host-source-review-v1",
+  "status": "PASS",
+  "actual_build_revision": "4631f0fa34dc6cb336d07a9cfe2f4c30f0a3d5ab",
+  "base_revision": "e0c7eba852b98ad62f4730dc957d71c163153d1d",
+  "modified_program_files_sha256": {
+    "programs/pump/recovered/sweep_fees_token2022_host.rs": "411ddc20a1e104c2d2720671dcf1f6578cc5207cd967db28491bf7c1d8c9024e",
+    "programs/pump/recovered/v2_token_quote_host.rs": "34cac518610508e1783258c6fbdfbffbd49239ea4cd8463f50d01b50ec74fe54"
+  },
+  "base_source_sha256": "59b070fdbb6180bc7bd5e31701481e525e88583608371e7500a4713eda14964b",
+  "candidate_source_sha256": "8ee1ed2b61f83304ff9e2acd325c4754c827f91962ed727859b9dbd90a13ce41",
+  "base_source_files": 311,
+  "candidate_source_files": 311,
+  "stripped_sha256": "6f439f1e539ec8156aba443e9a464eedee0996c88720b3eae789e148e4fef7be",
+  "unstripped_sha256": "54344822ddef0bd4b1f7b4e8a6c80e5aae7e7fb804c5c82c67e7ebff369e9229",
+  "byte_identical_to_base": true,
+  "root_qualification": {
+    "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/root/extra-hosts/qualification.json",
+    "sha256": "d034f3be47a20498a5d5ac0e6055ca8b67dfa3666e813b049e94752c14ec4551"
+  },
+  "files": {
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/root/extra-hosts/qualification.json": "d034f3be47a20498a5d5ac0e6055ca8b67dfa3666e813b049e94752c14ec4551",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/root/extra-hosts/baseline/build/source-inputs.json": "e605b3474c413df5254bca6186043568ec1f5f725499eec0d696fb7f4e041704",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/root/extra-hosts/combined/build/source-inputs.json": "459889c862d55ee447dfcf8cdcbc85960919312a3ae75e488c1146be7c9c4a3b",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/root/extra-hosts/baseline-score.json": "7778b165d553630f6d26230e535599dfc89a4c73c81478bc0dfc376d8065557d",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/root/extra-hosts/combined-score.json": "371dec5968a4a5ae0396542575293a8a13b4f389941d21f0d5af97dcf3d974d3",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/extra4083_4084/native-validation.json": "5450f2221181ef0bf36d8e39c903c108ac844d4ab5764c821d5a8da74f8191c6",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/extra4083_4084/native-validation.log": "273189fe7939c9f9bdff850a4e1c62cb00591f1a337aaf1fc83d4aebc00e52e0",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/extra4083_4084/native-suite.log": "76cb51a53e56a13fed52e4c8bae264bdd26b1ccac62b387f55be98c41f1f7fc9",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/extra4083_4084/run_native_validation.py": "efd578060dfc99502fd58da08165381a242aaef7d196bce68ef15dfb335ac801",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/extra4083_4084/review-gate.json": "0eaeb50b70883cf1493dd77fdb584cbbbfeeb1f0896d3db36c5b9012b218ebe3",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/extra4083_4084/v2_token_quote-valid-inputs.txt": "1e7a1d2e0b17123f455348a7d1fccd94f47d297faa11b88eb57eab8d1e9d19a4",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/extra4083_4084/v2_token_quote-valid-answers.txt": "5efaaadaafe82b671789180be50997ac69acfc1e2b39af9f924d707a717e7272",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/extra4083_4084/sweep_fees_token2022-valid-inputs.txt": "94d174b42b2d1ea255c3548eef7c15bf238c5c83462f3bedac721a43dca93560",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/extra4083_4084/sweep_fees_token2022-valid-answers.txt": "3fb2f7cf2572243b06a870efd9412932d6bcdeed9b310855a4178d2715574a1c",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/extra4083_4084/reviewed-source/programs/pump/recovered/sweep_fees_token2022_host.rs": "411ddc20a1e104c2d2720671dcf1f6578cc5207cd967db28491bf7c1d8c9024e",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/extra4083_4084/reviewed-source/programs/pump/recovered/v2_token_quote_host.rs": "34cac518610508e1783258c6fbdfbffbd49239ea4cd8463f50d01b50ec74fe54",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/extra4083_4084/reviewed-source/tests/test_v2_token_quote_captured.py": "b19b8ffe35f7a9bb44aacddbe49a65bb2ea6e4995049771673a2b9ef5da7601d",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/extra4083_4084/reviewed-source/tests/test_sweep_fees_token2022_captured.py": "ac71d5c3234183ce2c175e8734337436cb958834beb68e4fc6d6a77fda83e30f",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/extra4083_4084/reviewed-source/tests/test_extra_host_input_validation.py": "114aa8c1ae79d7da1eb69bb69f11039064c0818c56b89cfb69067f17b806f1b3",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/extra4083_4084/reviewed-source/.github/workflows/verify.yml": "493d9c3887b91dce0cdf5a1a97d62f6810f724e0e368f2f984a3d5be9ee28b49"
+  },
+  "original_pr_heads": {
+    "4083": "a6ff30f91a7d34c8fd078bfe5c8b093fd1099cba",
+    "4084": "25bfcba03bfc9e895d01920196a334d40cc485a9"
+  },
+  "reviewed_code_revision": "4631f0fa34dc6cb336d07a9cfe2f4c30f0a3d5ab",
+  "reviewed_code_sha256": {
+    "programs/pump/recovered/sweep_fees_token2022_host.rs": "411ddc20a1e104c2d2720671dcf1f6578cc5207cd967db28491bf7c1d8c9024e",
+    "programs/pump/recovered/v2_token_quote_host.rs": "34cac518610508e1783258c6fbdfbffbd49239ea4cd8463f50d01b50ec74fe54",
+    "tests/test_v2_token_quote_captured.py": "b19b8ffe35f7a9bb44aacddbe49a65bb2ea6e4995049771673a2b9ef5da7601d",
+    "tests/test_sweep_fees_token2022_captured.py": "ac71d5c3234183ce2c175e8734337436cb958834beb68e4fc6d6a77fda83e30f",
+    "tests/test_extra_host_input_validation.py": "114aa8c1ae79d7da1eb69bb69f11039064c0818c56b89cfb69067f17b806f1b3",
+    ".github/workflows/verify.yml": "493d9c3887b91dce0cdf5a1a97d62f6810f724e0e368f2f984a3d5be9ee28b49"
+  },
+  "native_controls": {
+    "tests": 6,
+    "skips": 0,
+    "malformed_records_rejected": 51,
+    "main_false_admissions_repaired": 48,
+    "author_false_admissions_repaired": 41,
+    "valid_native_rows": 3949,
+    "all_valid_native_answers_identical": true,
+    "actual_VM_transactions": 0,
+    "no_captured_modules_imported": true,
+    "no_stopped_campaigns_executed": true
+  },
+  "historical_curve_host_source_review": {
+    "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/root/curve-hosts/source-review.json",
+    "sha256": "93cc85a42af4ebc4616cbd3b7dd3e505827ead587b610c12010cb417da604a6f",
+    "preserved_unchanged": true
+  },
+  "scope": "Two existing unlinked recovered V2/sweep host parsers, native models unchanged. Closed key/token/flag/vector schemas and checked sweep fee bps width; separate six-method native suite and one CI command. Captured V2/token-extension classes not executed.",
+  "limits": "Finite native parser/model compatibility and fresh byte-identical baseline-versus-two-host builds only. No new captured-program/candidate VM comparison or whole deployed-bytecode equivalence claim."
+}

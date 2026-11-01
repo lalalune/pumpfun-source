@@ -1,0 +1,81 @@
+{
+  "schema": "pump-pass111-curve-host-source-review-v1",
+  "status": "PASS",
+  "actual_build_revision": "49b5b0444cc3b5bc2c6af764c75f2dc2d2550ebf",
+  "base_revision": "8bee07558d7c57e56ab1f248791caa71949577d4",
+  "modified_program_files_sha256": {
+    "programs/pump/recovered/curve_walk_host.rs": "09fc2c3878ece3eeec7379cd2ac80737dde0547058f5bc7e4e63ac2707694683"
+  },
+  "base_source_sha256": "958d63ecb3eefb200a17e88ca34d6c8558f27fda5dbe45d18df1880707a3e6e5",
+  "candidate_source_sha256": "59b070fdbb6180bc7bd5e31701481e525e88583608371e7500a4713eda14964b",
+  "base_source_files": 311,
+  "candidate_source_files": 311,
+  "stripped_sha256": "6f439f1e539ec8156aba443e9a464eedee0996c88720b3eae789e148e4fef7be",
+  "unstripped_sha256": "54344822ddef0bd4b1f7b4e8a6c80e5aae7e7fb804c5c82c67e7ebff369e9229",
+  "byte_identical_to_base": true,
+  "root_qualification": {
+    "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/root/curve-hosts/qualification.json",
+    "sha256": "12432c6ce0b61135fb0e86a54addf46f1c2289bf898bf8bef72efd6c0598c90a"
+  },
+  "files": {
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/root/curve-hosts/qualification.json": "12432c6ce0b61135fb0e86a54addf46f1c2289bf898bf8bef72efd6c0598c90a",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/root/curve-hosts/baseline/build/source-inputs.json": "982066e27baac4b43e15ae8bcecc9ee4b05837902e6088909a883b2001b82c88",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/root/curve-hosts/combined/build/source-inputs.json": "e605b3474c413df5254bca6186043568ec1f5f725499eec0d696fb7f4e041704",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/root/curve-hosts/baseline-score.json": "7778b165d553630f6d26230e535599dfc89a4c73c81478bc0dfc376d8065557d",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/root/curve-hosts/combined-score.json": "371dec5968a4a5ae0396542575293a8a13b4f389941d21f0d5af97dcf3d974d3",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/walk4081_4079/native-validation.json": "27fabd3e6dc9a63680ee2c027eded920c6616ba4951e883dd20538000d1ff642",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/walk4081_4079/native-validation.log": "cc5898b73b36a4478e0263453be9d7a6cd5f4d14489359c03db2e87a68dcf838",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/walk4081_4079/native-suite.log": "4dfff9b03ad9b302efafa7d648cdaf401003be2c892ddabd5d4f288dc0213493",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/walk4081_4079/run_native_compatibility.py": "e646f8edc8f5b5f1933c334270d1c5c807d889fcfec983e3f8b45419992c4e83",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/walk4081_4079/authored-related-false-admissions.json": "7508604a727207cf25ab60675435be4fbdc299dba7bada0d0b5236096f082f5a",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/walk4081_4079/review-gate.json": "bf79271d927cc38e3f725341226bea139aa9227a1a86cdaf1b90db503ac99758",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/walk4081_4079/valid-walks.txt": "7e64f94446d1c3f882cd53427dbd63dae6e966ca53ce52221642d3100445273e",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/walk4081_4079/valid-walk-answers.txt": "111971f03df3a4f6ebaff3125d714ffc4b90ef11483e5b17a429d26c811358d1",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/walk4081_4079/llvm-count-controls.json": "3e942e9f0f1d704fef1f7fdc7ce2e9e66761f6c33b32325111035740051b6062",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/walk4081_4079/llvm-count-controls.log": "e93ea63f99916acc1c6c1778beb85a4f87f9b9de03b41461b4c67f5c67e7ea79",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/walk4081_4079/llvm-tools-positive.log": "b95e4bcc8af88cfb9be08a7d720ec025ea47ddadaacfb5a8d031a413f458da02",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/walk4081_4079/run_llvm_count_controls.py": "aae7bfc010d9b89d896dff26415b8587e9270da5f481fe6facacd4338da031a1",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/walk4081_4079/initial-native-failure.json": "95e2254bed039a791b4ab146a12d942449dd4ace9c63cff741d67fbf938c323c",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/walk4081_4079/reviewed-source/programs/pump/recovered/curve_walk_host.rs": "09fc2c3878ece3eeec7379cd2ac80737dde0547058f5bc7e4e63ac2707694683",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/walk4081_4079/reviewed-source/tests/test_curve_walk_captured.py": "ee4ea78a8ca08e0b10361e57c4c9e63632d6f626936c2bfcd5cbcb057dbd6d70",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/walk4081_4079/reviewed-source/tests/test_curve_walk_host_input_validation.py": "306911bfd2ab31564f4838ace1f5d369cbee1129793c287af0b971bb6cf15f39",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/walk4081_4079/reviewed-source/.github/workflows/verify.yml": "6f3339eed073a7f48325554c823a6ddc315ff510794ef3de318ba3d34e7d7dd8"
+  },
+  "original_pr_heads": {
+    "4081": "8b3b9b8e45b43a0f3662212f9c5d41c76f59f13f",
+    "4079": "5c229fea686fe50336415e09c2805b3754f56c96"
+  },
+  "reviewed_code_revision": "49b5b0444cc3b5bc2c6af764c75f2dc2d2550ebf",
+  "reviewed_code_sha256": {
+    "programs/pump/recovered/curve_walk_host.rs": "09fc2c3878ece3eeec7379cd2ac80737dde0547058f5bc7e4e63ac2707694683",
+    "tests/test_curve_walk_captured.py": "ee4ea78a8ca08e0b10361e57c4c9e63632d6f626936c2bfcd5cbcb057dbd6d70",
+    "tests/test_curve_walk_host_input_validation.py": "306911bfd2ab31564f4838ace1f5d369cbee1129793c287af0b971bb6cf15f39",
+    ".github/workflows/verify.yml": "6f3339eed073a7f48325554c823a6ddc315ff510794ef3de318ba3d34e7d7dd8"
+  },
+  "native_controls": {
+    "parser_tests": 5,
+    "LLVM_tools_tests": 8,
+    "skips": 0,
+    "malformed_red_to_green": 10,
+    "native_stateful_walks": 42,
+    "valid_native_operations": 1784,
+    "all_valid_native_answers_identical": true,
+    "LLVM_case_shrink_and_skip_controls": 3,
+    "actual_VM_transactions": 0,
+    "no_captured_modules_imported": true,
+    "no_stopped_campaigns_executed": true
+  },
+  "independent_review": "Root independently read full host parser delta at49b5 and reported no blocker.",
+  "historical_later_host_source_review": {
+    "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/root/later-hosts/source-review.json",
+    "sha256": "4a4a0e40ea94df70eef93677b0cebbcb4c5ae2f42c8152d9ccad792aa8f3ea44",
+    "preserved_unchanged": true
+  },
+  "historical_model_source_review": {
+    "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/root/admission-models-repaired/source-review.json",
+    "sha256": "4233a7425f8386f3855de95292afc26e9a96e659cbd0d216192f335da1888e54",
+    "preserved_unchanged": true
+  },
+  "scope": "One existing unlinked recovered curve-walk host parser; native models unchanged. Separate native-only parser suite and LLVM discovery count CI guard. Captured VM methods were not run.",
+  "limits": "Finite native parser/state-machine compatibility and fresh byte-identical baseline-versus-host-edit builds only; not a fresh captured-program comparison or whole deployed-bytecode equivalence claim."
+}

@@ -1,0 +1,380 @@
+{
+  "schema": "pump-pass111-4117-corrected-source-qualification-v1",
+  "status": "PASS",
+  "actual_build_revision": "2ab92e24ca59292029aafe59b766b21515f3fdda",
+  "external_main_reference_revision": "1e5e58d27200aba794079374590ec897a9c1d60e",
+  "qualified_prior_main_revision": "c6941d215aab221a13648fc140d6c6d0f9b75bae",
+  "source_sha256": "aa3b28c9ad21b697d8445860a754815f323419becb612a7d61cd674af349681e",
+  "source_files": 311,
+  "program_source": "programs/pump/src/creator/admin_cto.rs",
+  "program_source_sha256": "37fec31d2ae10e72b9e975c442a9361205d0648aff8217b67cc6ae41dc5e1459",
+  "build": {
+    "ok": true,
+    "source_sha256": "aa3b28c9ad21b697d8445860a754815f323419becb612a7d61cd674af349681e",
+    "link_order": {
+      "script": "link/ordered.ld",
+      "script_sha256": "6954d9901b005312be6e7f980cb5e74a1440c174547c2040a881acf2e5c25b45",
+      "selectors": {
+        ".text": 555,
+        ".rodata": 0,
+        ".data.rel.ro": 0
+      },
+      "lld_sha256": "a4d765c822f68b267e87765771da87a0fd4d640d9df27884bd10c0750d1b58f4"
+    },
+    "runtime_valid": true,
+    "stack_warnings": [],
+    "recipe": "identity",
+    "triple": "sbpf-solana-solana",
+    "seconds": 39.2,
+    "unstripped": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/source/4117/safe-build/unstripped.so",
+    "unstripped_sha256": "e250a17fc9aad05618f6300605c82263f5570c06e576c96fa5732e68942bdfa5",
+    "candidate_sha256": "f090fdc8d137210d7a55ece039545e65d2a5e0e82654e1a4ef68c502b174f79f"
+  },
+  "physical_main_build": {
+    "ok": true,
+    "source_sha256": "cf9ef26996bdc659ddacf71c6d9f7c801a43de4703f3d2f5f89bc3fbdb9fb77b",
+    "link_order": {
+      "script": "link/ordered.ld",
+      "script_sha256": "6954d9901b005312be6e7f980cb5e74a1440c174547c2040a881acf2e5c25b45",
+      "selectors": {
+        ".text": 555,
+        ".rodata": 0,
+        ".data.rel.ro": 0
+      },
+      "lld_sha256": "a4d765c822f68b267e87765771da87a0fd4d640d9df27884bd10c0750d1b58f4"
+    },
+    "runtime_valid": true,
+    "stack_warnings": [],
+    "recipe": "identity",
+    "triple": "sbpf-solana-solana",
+    "seconds": 39.4,
+    "unstripped": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/source/4117/physical-main-build/unstripped.so",
+    "unstripped_sha256": "01625ef6f6d352002126847faf1a0478a5d9e6e4225c56b4ce5b27b1be926d8a",
+    "candidate_sha256": "f090fdc8d137210d7a55ece039545e65d2a5e0e82654e1a4ef68c502b174f79f"
+  },
+  "physical_main_scope": "Fresh current-main build is a scoring/binary reference only. Its NULL annotation string operands were not semantically approved. Corrected source uses valid global strings.",
+  "score_vs_prior_main": {
+    "candidate_sha256": "e250a17fc9aad05618f6300605c82263f5570c06e576c96fa5732e68942bdfa5",
+    "normalized": 1034,
+    "raw": 1034,
+    "total": 1035,
+    "matched_text_bytes": 1764808,
+    "gains": [],
+    "losses": [],
+    "raw_gains": [],
+    "raw_losses": []
+  },
+  "score_vs_fresh_main": {
+    "candidate_sha256": "e250a17fc9aad05618f6300605c82263f5570c06e576c96fa5732e68942bdfa5",
+    "normalized": 1034,
+    "raw": 1034,
+    "total": 1035,
+    "matched_text_bytes": 1764808,
+    "gains": [],
+    "losses": [],
+    "raw_gains": [],
+    "raw_losses": []
+  },
+  "remaining_window": {
+    "window": "0x22a10",
+    "window_bytes": 27400,
+    "symbol": "pump_recovered::admin_cto::execute",
+    "cand_start": "0x22a10",
+    "cand_bytes": 27400,
+    "normalized_equal": false,
+    "raw_equal": false,
+    "ratio": 0.69542,
+    "calls_original": [
+      154,
+      3
+    ],
+    "calls_candidate": [
+      154,
+      3
+    ],
+    "call_counts_original": {
+      "internal": 154,
+      "syscall_or_relocated": 3,
+      "indirect": 0
+    },
+    "call_counts_candidate": {
+      "internal": 154,
+      "syscall_or_relocated": 3,
+      "indirect": 0
+    },
+    "normalized_field_differences": {
+      "comparable": false,
+      "reason": "instruction boundaries or byte lengths differ"
+    },
+    "slots_diff": 3224,
+    "first_diff_offsets": [
+      "0x0",
+      "0x8",
+      "0x10",
+      "0x80",
+      "0x88",
+      "0x90",
+      "0x98",
+      "0xa0",
+      "0xa8",
+      "0xb0",
+      "0xb8",
+      "0xc0"
+    ]
+  },
+  "tokens": {
+    "original": 3339,
+    "candidate": 3339,
+    "matched": 2322,
+    "ratio": 0.69542,
+    "prior_current_matched": 2295,
+    "gain_since_c694": 27,
+    "cp110_matched": 2272,
+    "gain_since_CP110": 50,
+    "positional_differences": 3224,
+    "prior_c694_positional_differences": 3096,
+    "CP110_positional_differences": 3170,
+    "note": "Token similarity rises; positional byte differences increase by128 versus c694 and54 versusCP110. No exact-window gain."
+  },
+  "loaded_image_equal_to_physical_main": true,
+  "unstripped_image_equal_to_physical_main": false,
+  "root_complete_program_diff_review": {
+    "status": "PASS_BOUNDED_SOURCE_REVIEW",
+    "all_effective_program_changes_read": true,
+    "truth_and_error_order": "Valid typed boolean branches preserve mayhem/holder/disabled/new-required/zero/invalid-creator/fee checks and their error precedence. Both success arms fully initialize target before assume_init.",
+    "lifetime_and_layout": "Exact validate body and actual Pubkey rlib official-target probe: implicit lifetime.start dominates both writes, nonholder end/restart precedes store, 51-block audit has no violations; Option size33 align1 payload+1 is guarded by Some on pinned compiler.",
+    "annotation": "Annotation/file pointers repaired to static NUL global strings; optional extra-arguments pointer remains NULL. Official-target verified IR probe; actual whole-program build decides measurements.",
+    "creator_capture": "Earlier creator capture and later account-reference read are equivalent only for valid live typed wrappers, with no intervening CPI/account-wrapper mutation and single-threaded Solana execution.",
+    "volatile": "Reads/writes touch initialized valid local/reference storage; dynamic volatile sequences change. No MMIO or general portable volatile equivalence claim.",
+    "limits": [
+      "Pinned compiler/layout/Anchor valid-context reconstruction shims, not general portable Rust or historical source provenance.",
+      "Finite runtime evidence is not exhaustive semantics or whole Pump identity.",
+      "Private lane compiler/IR scripts were not executed and are removed from the repair integration."
+    ]
+  },
+  "runtime": {
+    "schema": "checkpoint111-fresh-runtime-validation-v1",
+    "fresh_VM_case_pairs": 388,
+    "mismatches": [],
+    "candidate_sha256": "f090fdc8d137210d7a55ece039545e65d2a5e0e82654e1a4ef68c502b174f79f",
+    "original_sha256": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
+    "uncompressed_sha256": "0b949456d879ac4337e459952c9097ae797a297480f1b27d91ed63605dae8efe",
+    "compressed_sha256": "6ca798499df7021e98b41167351536ed5dc6dbcca306aa5b25bb927f97454581",
+    "signed_transaction_vectors_verified": 776,
+    "nonempty_signature_vectors": true,
+    "top_level_pool_authority_signer": false,
+    "top_level_pool_authority_signer_derived_from_transactions": false,
+    "pool_authority": "8bHZAsmMgRf2vHKrXhBmN6WXFNy6pDSuGVTKTTWsk2CG",
+    "producer_inputs": [
+      {
+        "recorded_path": "/Users/shawwalters/.codex/worktrees/pump-pass111-4117-runtime/pumpfun-source/scripts/pump_admin_cto_differential.py",
+        "sha256": "6d8a141f8933fc17cc2a520e86da2741f6f1aba6d4201e414e62c4a2293c4364",
+        "current_relative_path": "scripts/pump_admin_cto_differential.py"
+      },
+      {
+        "recorded_path": "/Users/shawwalters/.codex/worktrees/pump-pass111-4117-runtime/pumpfun-source/evidence/original/pump/deployed.so",
+        "sha256": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
+        "current_relative_path": "evidence/original/pump/deployed.so"
+      },
+      {
+        "recorded_path": "/Users/shawwalters/.codex/worktrees/pump-pass111-4117-runtime/pumpfun-source/evidence/original/pump_fees/deployed.so",
+        "sha256": "4f2955d0f6b40cc9ff7daa18ccad7d19119ba1249759f4e7e3bb691beee6b35e",
+        "current_relative_path": "evidence/original/pump_fees/deployed.so"
+      },
+      {
+        "recorded_path": "/Users/shawwalters/.codex/worktrees/pump-pass111-4117-runtime/pumpfun-source/evidence/original/pump_amm/deployed.so",
+        "sha256": "6a7ad34596d83b4c435b32f458a56e718e9f82eb4ad38e4316616d15d24d8ff7",
+        "current_relative_path": "evidence/original/pump_amm/deployed.so"
+      },
+      {
+        "recorded_path": "/Users/shawwalters/.codex/worktrees/pump-pass111-4117-runtime/pumpfun-source/evidence/dependencies/spl_token/deployed.so",
+        "sha256": "8190d3f7ceb6cb7a7a8d8924bff89f9f611e15ce1f806f2b6237f3311a98f697",
+        "current_relative_path": "evidence/dependencies/spl_token/deployed.so"
+      },
+      {
+        "recorded_path": "/Users/shawwalters/.codex/worktrees/pump-pass111-4117-runtime/pumpfun-source/evidence/dependencies/spl_token_2022/deployed.so",
+        "sha256": "15a2e615a42e20f31714bbaaee43002ae6f1cda2e8d7118243117ab3c1342e2d",
+        "current_relative_path": "evidence/dependencies/spl_token_2022/deployed.so"
+      },
+      {
+        "recorded_path": "/Users/shawwalters/.codex/worktrees/pump-pass111-4117-runtime/pumpfun-source/evidence/dependencies/associated_token/deployed.so",
+        "sha256": "6804554e69fd3a58caa191dc4a58f4c67223d30ca28ab8987f39fc18d2f7374d",
+        "current_relative_path": "evidence/dependencies/associated_token/deployed.so"
+      },
+      {
+        "recorded_path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/root/4117/runtime-candidate.so",
+        "sha256": "f090fdc8d137210d7a55ece039545e65d2a5e0e82654e1a4ef68c502b174f79f",
+        "current_relative_path": null
+      },
+      {
+        "recorded_path": "/Users/shawwalters/.codex/worktrees/pump-pass111-4117-runtime/pumpfun-source/scripts/fees_donation_create_differential.py",
+        "sha256": "afadeed37a494c19e9f17ed1127d95e1b372fd994f8267092f3bbd5acd4f9074",
+        "current_relative_path": "scripts/fees_donation_create_differential.py"
+      },
+      {
+        "recorded_path": "/Users/shawwalters/.codex/worktrees/pump-pass111-4117-runtime/pumpfun-source/scripts/fees_admin_differential.py",
+        "sha256": "c66411910d4d357581c7331aa3fc7b43f9fb8d41440d548c5ce6327b7fd625ee",
+        "current_relative_path": "scripts/fees_admin_differential.py"
+      },
+      {
+        "recorded_path": "/Users/shawwalters/.codex/worktrees/pump-pass111-4117-runtime/pumpfun-source/scripts/pump_validate_admin.py",
+        "sha256": "ce490e241e683860ba1547278143664ec269529f2ffeaae48c8215b54e5f77b9",
+        "current_relative_path": "scripts/pump_validate_admin.py"
+      },
+      {
+        "recorded_path": "/Users/shawwalters/.codex/worktrees/pump-pass111-4117-runtime/pumpfun-source/scripts/pump_amm_admin_differential.py",
+        "sha256": "ca4349b5461611e668e393e6125a699b20a765a7f2710dfd5e9bde5bb56ce335",
+        "current_relative_path": "scripts/pump_amm_admin_differential.py"
+      },
+      {
+        "recorded_path": "/Users/shawwalters/.codex/worktrees/pump-pass111-4117-runtime/pumpfun-source/evidence/upstream/pump.json",
+        "sha256": "7616681ea557975f9f623ac211080f22a93060781eaf4765b0a488d980997207",
+        "current_relative_path": "evidence/upstream/pump.json"
+      },
+      {
+        "recorded_path": "/Users/shawwalters/.codex/worktrees/pump-pass111-4117-runtime/pumpfun-source/evidence/upstream/pump_fees.json",
+        "sha256": "6b9fa3eccc6e06273076a47b581f9fcb9e531bb7c3c88acbcd44db55a4002b29",
+        "current_relative_path": "evidence/upstream/pump_fees.json"
+      },
+      {
+        "recorded_path": "/Users/shawwalters/.codex/worktrees/pump-pass111-4117-runtime/pumpfun-source/evidence/upstream/pump_amm.json",
+        "sha256": "b7d8c57a4d9c4dd0109a9ab893052352333252d4eedced10ac091d4d66cab89b",
+        "current_relative_path": "evidence/upstream/pump_amm.json"
+      }
+    ],
+    "consumer": {
+      "path": "scripts/pump_validate_all.py",
+      "sha256": "1bcc33e97cee13ae99dc7765233d73394d447ac390e77769f2c122fe9164a5e2"
+    },
+    "negative_controls": [
+      {
+        "mutation": "false_match",
+        "rejected": true
+      },
+      {
+        "mutation": "integer_match",
+        "rejected": true
+      },
+      {
+        "mutation": "missing_outcome",
+        "rejected": true
+      },
+      {
+        "mutation": "changed_committed_state",
+        "rejected": true
+      },
+      {
+        "mutation": "missing_error",
+        "rejected": true
+      }
+    ],
+    "scope": "Signed synthetic captured Pump admin_cto calling Fees by genuine CPI. Pool authority nonsigner at transaction boundary; no privileged signer injection. Not full program identity.",
+    "limits": [
+      "Finite signed synthetic captured-program comparisons, not exhaustive semantic equivalence.",
+      "Prior stopped claim-token-incentive campaigns remain excluded.",
+      "No reuse of historical or intermediate AB runtime receipts for this changed image."
+    ]
+  },
+  "cross_program": {
+    "schema": "pump-pass111-current4053-lifecycle-binding-v1",
+    "immutable_execution_checkout_revision": "2ab92e24ca59292029aafe59b766b21515f3fdda",
+    "source_context_v3_sha256": "aa3b28c9ad21b697d8445860a754815f323419becb612a7d61cd674af349681e",
+    "source_context_file_count": 311,
+    "source_context_equals_actual_build_source": true,
+    "candidate_sha256": "f090fdc8d137210d7a55ece039545e65d2a5e0e82654e1a4ef68c502b174f79f",
+    "qualified_producer_inputs_unchanged": true,
+    "producer_input_sha256": {
+      "evidence/upstream/pump.json": "7616681ea557975f9f623ac211080f22a93060781eaf4765b0a488d980997207",
+      "evidence/upstream/pump_amm.json": "b7d8c57a4d9c4dd0109a9ab893052352333252d4eedced10ac091d4d66cab89b",
+      "reconstruction/verification/pump-admin-cto-stateful/lifecycle.py": "e8b64d53f5156892f33fa821423667647e9c3f2362e7740db342cdde5a700dae",
+      "reconstruction/verification/pump-cross-program-fee-lifecycle/candidate-provenance.json": "f7f054afe010f467b294472cb9396758baebef9cc70248da273ad6eb00404893",
+      "reconstruction/verification/pump-cross-program-fee-lifecycle/lifecycle.py": "e4e99a636d978bfc6394e08da08bd75eb1904797943136eb0977427a97f967fe",
+      "reconstruction/verification/pump-cross-program-fee-lifecycle/test_lifecycle.py": "e4cb969668e7725f180293cb016140724aed7f36e4c5e4f8650fa452a04d8969",
+      "reconstruction/verification/pump-cross-program-fee-lifecycle/verify.py": "7c3cc3212c9e4089e71bd37323314e2e10530068ea4a925bdcd4e1754419021f",
+      "research/imported-lab/analysis/pump_fun/amm-v2-trade-fixture.json": "2e775505852caf55203c826ee08b9341aa275f52f59a933c4fb0740535ee316f",
+      "research/imported-lab/analysis/pump_fun/config-snapshot.json": "17b886a6b4aa7fdc89f2fca9a1b67b318d33998794da59fe4df1fe89ca70bd27",
+      "scripts/pump_differential_output.py": "2181582d3cfdd42b8713adfb1dc6ed8072220493b835304282e187232897a5f7"
+    },
+    "packet_candidate_provenance": {
+      "candidate_sha256": "f090fdc8d137210d7a55ece039545e65d2a5e0e82654e1a4ef68c502b174f79f",
+      "limits": "Supplied immutable binary only; this packet establishes no source/build linkage.",
+      "schema": "supplied-candidate-input-v1"
+    },
+    "packet_source_binding": {
+      "candidate_source_revision": null,
+      "current_source_manifest_role": "review_context_only"
+    },
+    "report_sha256": "502a534d6bd6d6401ecaa7dd26410e89c1a529eaebe05c7dac792e86fc8d0f1a",
+    "classification": "equal_observed_behavior",
+    "transactions": {
+      "original": {
+        "executed_transactions": 11,
+        "valid_signature_vectors": 11,
+        "individual_valid_signatures": 14,
+        "successes": 10,
+        "expected_failures": [
+          {
+            "step": "atomic-unswept-B-to-C",
+            "error": "TransactionErrorInstructionError((2, Tagged(InstructionErrorCustom(6081))))",
+            "rollback_nonfee_equal": true
+          }
+        ]
+      },
+      "candidate": {
+        "executed_transactions": 11,
+        "valid_signature_vectors": 11,
+        "individual_valid_signatures": 14,
+        "successes": 10,
+        "expected_failures": [
+          {
+            "step": "atomic-unswept-B-to-C",
+            "error": "TransactionErrorInstructionError((2, Tagged(InstructionErrorCustom(6081))))",
+            "rollback_nonfee_equal": true
+          }
+        ]
+      }
+    },
+    "snapshot_membership_count": 54,
+    "negative_controls": {
+      "after": true,
+      "error": true,
+      "events": true,
+      "inner_instructions": true
+    },
+    "program_invocations": {
+      "ComputeBudget111111111111111111111111111111": 22,
+      "pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA": 56,
+      "11111111111111111111111111111111": 2,
+      "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA": 36,
+      "6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P": 10,
+      "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL": 6
+    },
+    "fees_cpi_observed": false,
+    "independent_replay": {
+      "verified": true,
+      "problems": [],
+      "deterministic_replay_equal": true
+    },
+    "limits": [
+      "Finite synthetic signed lifecycle; packet provenance is supplied-binary-only, independent root build proves source linkage separately.",
+      "No initializer or incentive campaign execution."
+    ]
+  },
+  "files": {
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/source/4117/safe-build.log": "8a929c4fb32dd8a2d2c7197f993a4ebb64c50b9ecd127978831529552ea4cf68",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/source/4117/physical-main-build.log": "8ce8b82d634399cdddee5b3b5e15d203d6df6161ae59e2838d22572d2ebe0529",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/source/4117/safe-build/source-inputs.json": "4556647b215f89b93b0653276c119a4b3b2003735a39c02ddeac1dce60332aa3",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/source/4117/physical-main-build/source-inputs.json": "2b353febec15ad4da33e3936480806ebf919f8a03ba7811441d3e8f89a75ec7f",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/source/4117/safe-vs-c694-score.json": "b85d578ebeb819713b5e6271bebcf9e2b0312ed03fb6be8a2482eb0aea2a80ed",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/source/4117/safe-vs-physical-main-score.json": "b85d578ebeb819713b5e6271bebcf9e2b0312ed03fb6be8a2482eb0aea2a80ed",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/source/4117/safe-target-metric.json": "e67dd013022dda456061e7661b1f62d47f7c52b980fbe7394e67cd59d58bb752",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/source/4117/physical-main-target-metric.json": "e67dd013022dda456061e7661b1f62d47f7c52b980fbe7394e67cd59d58bb752",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/lifecycle/4117-microprobe/review.json": "3fe189490147361f7f25283f49cc82f6ff355af804a3f555a2682214274b9188",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/lifecycle/4117-microprobe/lifetime-layout-audit.json": "f4b3e935094468ba1e9a7dfa4e063685e0276d841ab92540390fc7b524e8ca8f",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/tools/4117/annotation-probe/probe.json": "0386c8f579a208fd7697cf71053a6b63af1de62c7feed137a8f322f58cf6e1f3",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/tools/4117/review.json": "e2a5bd766c501bc13f9d4be84f0ed0e64fc95396b3f37610d45acefe41971378",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/root/4117/runtime-validation.json": "7083eb03a9ce981c659add97dcac00d9eb3622503754f3b28ed36ff48b57fd40",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/root/4117/cross-program/cross-program-binding.json": "b404f71eda0d2e32ea9eb26b5b0aa22efe020aeb60a771b8a1e5980321f227fb",
+    "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/root/4117/cross-program/replay.json": "cfd8f19c1979028312da63fd01bbd3fc7b9e2dd5cae5d8b4014b41f84f8ca136"
+  }
+}

@@ -1,0 +1,270 @@
+{
+  "schema": "pump-completion-pass111-v1",
+  "date": "2026-11-01",
+  "built_revision": "c6941d215aab221a13648fc140d6c6d0f9b75bae",
+  "validated_merged_revision": "c6941d215aab221a13648fc140d6c6d0f9b75bae",
+  "recipe": "identity",
+  "source_schema": "pump-source-inputs-v3",
+  "source_sha256": "ccc39a635769a7da891fdea50abc5f98c1995ed064006b0a083ff60c9775dc2f",
+  "source_files": 311,
+  "source_directories": 10,
+  "prior_source_schema": "pump-source-inputs-v3",
+  "prior_source_sha256": "62ff9b52f807522fb4838a2f8666c37a0e619aeecbdefe07d8df1be8cfc3f8ed",
+  "source_receipt_note": "Fresh v3 source admission and the pinned identity recipe qualify the current marked reconstruction source. The baseline is the CP110 main build; private experiment compilers are not used.",
+  "unlinked_model_source_update": {
+    "review": "unlinked-model-review.json",
+    "review_sha256": "4233a7425f8386f3855de95292afc26e9a96e659cbd0d216192f335da1888e54",
+    "build_qualification": "unlinked-model-build-qualification.json",
+    "build_qualification_sha256": "6e858a3a94beecf5b72e2bbae2f88a9293053f12d59111d971695feb90e9c744",
+    "prior_semantic_revision": "80cd60a0c9476d843f84989a607ba10fcc3d6d29",
+    "prior_source_sha256": "124807d11a9266f52253c2e4a369a50d6ded4f1a7e097be0befed9889d7e5374",
+    "prior_source_files": 307,
+    "selected_source_files": 311,
+    "added_files_sha256": {
+      "programs/pump/recovered/claim_cashback_v2_admission.rs": "c7e575ce6f47ee3f3d39785cef635f3be5de9f22a3389b5a88514006e935882c",
+      "programs/pump/recovered/claim_cashback_v2_admission_host.rs": "7438329ec8f75a3ea4a168ebdc811c733228c1101a4d60aa7c6c2dd33f0dd91e",
+      "programs/pump/recovered/create_admission.rs": "d26fb20a637e9c95be83cc40d4b07ad5edce95e9038b67f69d121ddc844395e5",
+      "programs/pump/recovered/create_admission_host.rs": "f759f067e3bb2094cfaf7467e40cdae4f6a4b91087bd5c37af6ad58a7f6e229e"
+    },
+    "actual_model_revision": "435e5332b69ea42321bb636c74af79f468cb143a",
+    "model_source_sha256": "946a97f09fa78dc98d597cb480268d4b456f7ec1eca285603d50d40e07f589e0",
+    "whole_unstripped_and_stripped_images_unchanged": true
+  },
+  "later_host_source_update": {
+    "review": "later-host-review.json",
+    "review_sha256": "4a4a0e40ea94df70eef93677b0cebbcb4c5ae2f42c8152d9ccad792aa8f3ea44",
+    "build_qualification": "later-host-build-qualification.json",
+    "build_qualification_sha256": "130b554f78284e3e12c5c51429cfa13c15416d64fe630464c6c5e5f428b5bf7b",
+    "base_revision": "06d6b165726cdeea483050887af050a817af477c",
+    "actual_build_revision": "ffe3268bc5b6ce303f21f26faa532f53535f9ff0",
+    "base_source_sha256": "946a97f09fa78dc98d597cb480268d4b456f7ec1eca285603d50d40e07f589e0",
+    "candidate_source_sha256": "958d63ecb3eefb200a17e88ca34d6c8558f27fda5dbe45d18df1880707a3e6e5",
+    "modified_files_sha256": {
+      "programs/pump/recovered/accumulator_length_host.rs": "e2e0b6adee1ca57729aa074a6dc6505da16adc0cf1baf52a33cc540fa01bf641",
+      "programs/pump/recovered/config_length_host.rs": "fbf47d03192b240690365e464cb7ce26d5d01b1895034922a13596986ffd47d3"
+    },
+    "whole_unstripped_and_stripped_images_unchanged": true
+  },
+  "curve_host_source_update": {
+    "review": "curve-host-review.json",
+    "review_sha256": "93cc85a42af4ebc4616cbd3b7dd3e505827ead587b610c12010cb417da604a6f",
+    "build_qualification": "curve-host-build-qualification.json",
+    "build_qualification_sha256": "12432c6ce0b61135fb0e86a54addf46f1c2289bf898bf8bef72efd6c0598c90a",
+    "base_revision": "8bee07558d7c57e56ab1f248791caa71949577d4",
+    "actual_build_revision": "49b5b0444cc3b5bc2c6af764c75f2dc2d2550ebf",
+    "base_source_sha256": "958d63ecb3eefb200a17e88ca34d6c8558f27fda5dbe45d18df1880707a3e6e5",
+    "candidate_source_sha256": "59b070fdbb6180bc7bd5e31701481e525e88583608371e7500a4713eda14964b",
+    "modified_files_sha256": {
+      "programs/pump/recovered/curve_walk_host.rs": "09fc2c3878ece3eeec7379cd2ac80737dde0547058f5bc7e4e63ac2707694683"
+    },
+    "whole_unstripped_and_stripped_images_unchanged": true
+  },
+  "extra_host_source_update": {
+    "review": "extra-host-review.json",
+    "review_sha256": "9a6ae4f9ff071f69dfc24d7a8abd46ae861d36297a297078a408e5bc0666517a",
+    "build_qualification": "extra-host-build-qualification.json",
+    "build_qualification_sha256": "d034f3be47a20498a5d5ac0e6055ca8b67dfa3666e813b049e94752c14ec4551",
+    "base_revision": "e0c7eba852b98ad62f4730dc957d71c163153d1d",
+    "actual_build_revision": "4631f0fa34dc6cb336d07a9cfe2f4c30f0a3d5ab",
+    "base_source_sha256": "59b070fdbb6180bc7bd5e31701481e525e88583608371e7500a4713eda14964b",
+    "candidate_source_sha256": "8ee1ed2b61f83304ff9e2acd325c4754c827f91962ed727859b9dbd90a13ce41",
+    "modified_files_sha256": {
+      "programs/pump/recovered/sweep_fees_token2022_host.rs": "411ddc20a1e104c2d2720671dcf1f6578cc5207cd967db28491bf7c1d8c9024e",
+      "programs/pump/recovered/v2_token_quote_host.rs": "34cac518610508e1783258c6fbdfbffbd49239ea4cd8463f50d01b50ec74fe54"
+    },
+    "whole_unstripped_and_stripped_images_unchanged": true
+  },
+  "linked_cleanup_source_update": {
+    "review": "linked-cleanup-review.json",
+    "review_sha256": "e21ca024a85591a7aaea78ccbd3d5d2545ac3637606b351f3c194e710ddd1e73",
+    "build_qualification": "linked-cleanup-build-qualification.json",
+    "build_qualification_sha256": "7a040ed78fef49855f01c959fcdc1adc27176acf3689d36fbb13114fd022b19c",
+    "base_revision": "4631f0fa34dc6cb336d07a9cfe2f4c30f0a3d5ab",
+    "actual_build_revision": "c6941d215aab221a13648fc140d6c6d0f9b75bae",
+    "base_source_sha256": "8ee1ed2b61f83304ff9e2acd325c4754c827f91962ed727859b9dbd90a13ce41",
+    "candidate_source_sha256": "ccc39a635769a7da891fdea50abc5f98c1995ed064006b0a083ff60c9775dc2f",
+    "modified_files_sha256": {
+      "programs/pump/src/creator/admin_cto.rs": "3583ae730bbbe6bce4b1187c01c3aa836909ba4f65b309998fcaa9aa78a1904e"
+    },
+    "linked_source_cleanup_only": true,
+    "additional_matched_tokens": 0,
+    "whole_unstripped_and_stripped_images_unchanged": true
+  },
+  "unstripped_sha256": "54344822ddef0bd4b1f7b4e8a6c80e5aae7e7fb804c5c82c67e7ebff369e9229",
+  "stripped_sha256": "6f439f1e539ec8156aba443e9a464eedee0996c88720b3eae789e148e4fef7be",
+  "runtime_valid": true,
+  "stack_warnings": [],
+  "build_tool_sha256": {
+    "reconstruction/harness/fastbuild.py": "c98de708d063186373b092de893235bef4dd9cf62940fd9c47fadae461efed00",
+    "reconstruction/harness/source_inputs.py": "6fde8e438f119aa3ecf003bc71a12fb7da0640cfea241216cba47a242e8cd2fc",
+    "reconstruction/harness/build_process.py": "88b61b7dfecd077f97f3a093b9348078067f9fdea07d9efccb0cb324d094d517",
+    "reconstruction/harness/link_order.py": "53de3cf5e6ff004b03319dc530ef4902d3b67734aced025fbc1957846d452e81"
+  },
+  "scoring": {
+    "revision": "c6941d215aab221a13648fc140d6c6d0f9b75bae",
+    "sha256": {
+      "reconstruction/harness/score.py": "6eae59ba87809bdd6aa42d6227c5598d8ea2196051bf0d796e8020bdb14df714",
+      "reconstruction/harness/score_admission.py": "885b4b55229e3d87086b93c4e8227da8e4ec2713ccd6691fa40a7538d66c3a45",
+      "reconstruction/harness/elf_symbols.py": "f7a69a4b5324959398365b63f20ea9dda8eab223d8790a608c778549d3b966c0",
+      "reconstruction/harness/instruction_stream.py": "be6a3f3a0274d4ae819a6288293b5a1f9b040a322a0414a240217ab96a3dee45",
+      "reconstruction/harness/llvm_tools.py": "306a50b2ba57f350e250d7c7f596ac400627ecfd24248b2291578b5ddf3fe8af",
+      "reconstruction/harness/original_input.py": "9d00b5c253405cec4d2ef292086c6e88d758bd3fe7f8c6a3cba23af114f01ade",
+      "reconstruction/harness/target_metric.py": "909f091fc2bfc1a252f8a7bd557dfd0c38f870bdf6898b0e3c93ec7db195f6a4",
+      "reconstruction/harness/win.py": "8862046dcb0e01673166e68a0b0e5122be4738f0780bcf2f58afc8416bd8cdea",
+      "reconstruction/harness/compare_scores.py": "e59024567db9b2373fe01d377f42308554434d182f5981153cd6814412245b74",
+      "reconstruction/base/functions.tsv": "fb2c0a47514567d65eb45c1e268dacd5291e4659bb7dceb575a767dc20bcaff8",
+      "evidence/original/pump/deployed.so": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d"
+    }
+  },
+  "baseline_checkpoint": "../completion-pass110-20261031",
+  "baseline_revision": "5cb9b14fb398c4e7f81ba7251953c34b43d3e6c4",
+  "baseline_unstripped_sha256": "748fbfba8140c508d2ca47affc695ab2d15b7236d11bd710065969c66adac621",
+  "pump": {
+    "raw": 1034,
+    "normalized": 1034,
+    "total": 1035,
+    "matched_percent": 99.9,
+    "matched_code_bytes": 1764808,
+    "total_code_bytes": 1792208,
+    "unmatched": [
+      {
+        "address": "0x22a10",
+        "symbol": "admin_cto::execute",
+        "bytes": 27400
+      }
+    ]
+  },
+  "aggregate": {
+    "raw": 3337,
+    "normalized": 3337,
+    "total": 3338,
+    "matched_percent": 99.97,
+    "matched_code_bytes": 5185728,
+    "total_code_bytes": 5213128,
+    "whole_meaningful_elf_equal_programs": 4,
+    "programs": 5
+  },
+  "comparison": {
+    "gains": [],
+    "losses": [],
+    "raw_gains": [],
+    "raw_losses": []
+  },
+  "remaining_window": {
+    "window": "0x22a10",
+    "window_bytes": 27400,
+    "symbol": "pump_recovered::admin_cto::execute",
+    "cand_start": "0x22a10",
+    "cand_bytes": 27400,
+    "normalized_equal": false,
+    "raw_equal": false,
+    "ratio": 0.68754,
+    "calls_original": [
+      154,
+      3
+    ],
+    "calls_candidate": [
+      154,
+      3
+    ],
+    "call_counts_original": {
+      "internal": 154,
+      "syscall_or_relocated": 3,
+      "indirect": 0
+    },
+    "call_counts_candidate": {
+      "internal": 154,
+      "syscall_or_relocated": 3,
+      "indirect": 0
+    },
+    "normalized_field_differences": {
+      "comparable": false,
+      "reason": "instruction boundaries or byte lengths differ"
+    },
+    "slots_diff": 3096,
+    "first_diff_offsets": [
+      "0x0",
+      "0x8",
+      "0x10",
+      "0x80",
+      "0x88",
+      "0x90",
+      "0x98",
+      "0xa0",
+      "0xa8",
+      "0xb0",
+      "0xb8",
+      "0xc0"
+    ]
+  },
+  "partial_progress": {
+    "baseline_ratio": 0.68065,
+    "candidate_ratio": 0.68754,
+    "baseline_matched_tokens": 2272,
+    "candidate_matched_tokens": 2295,
+    "matched_tokens_gain": 23,
+    "baseline_positional_differences": 3170,
+    "candidate_positional_differences": 3096,
+    "bytes": 27400,
+    "note": "23 additional matched instruction tokens; positional differences fall by 74 while exact-window memberships are unchanged."
+  },
+  "semantic_review": {
+    "source_file_sha256": "3583ae730bbbe6bce4b1187c01c3aa836909ba4f65b309998fcaa9aa78a1904e",
+    "independent_review": "source-peer-review.json",
+    "machine_review": "semantic-review.json",
+    "prior_reviews": "../completion-pass110-20261031/README.md",
+    "qualification_limits": "../completion-pass109-20261031/README.md",
+    "prior_checkpoint_file_sha256": {
+      "summary.json": "f18be1f71e5abbf0910d9b3d96d70102ca93b065c5faa80db015ccc7a7bd53ee",
+      "admin-runtime.json.gz": "b1be34f82cc63be917a78c3220c6f79b3943ab21e85ec409daff626957cb5d26",
+      "semantic-review.json": "f78a08951ca2c0cdf9ed75294ade85f4113fe9ba2f9ccb4b54c218f6b21bf509",
+      "source-peer-review.json": "3be7bb80fa679dd167fd590ff73ec0bc8d41e4f3995af15c8bfbfc20187f680a",
+      "baseline-build.json": "5e789238ccfaf8a594a09f0cef91f28f241c1357759f62dc10bda2713c061562",
+      "baseline-score.json.gz": "76b30487087170d676dc184f19986c63219c1283a43e929ec55221f7dd92b6da",
+      "README.md": "6d6fe55fed83f340598f007f168b96e9b5013a2087152f80169ec5e23f2b7cf2",
+      "input-bindings.json": "0d343a89a40ada16da514d6a272653280062bb7732142b978b382e338710a8d7",
+      "runtime-validation.json": "4d2341221c4341cf3dab666f04bce67598f9f91bb719c616ef2a735277d812f0",
+      "score.json.gz": "bc3a1dc35a571f5a9e831f27adbde939b65b040691060b4bd9bd06e1682c100f",
+      "source-inputs.json": "b86a0c01df6987656fd042d303776cab4f046e9fe42515466f134f20706bf64f",
+      "build.json": "5b4c246f1b9853f6d124d22d6a5f4009a3bf04cfae3b87afdf9f9677608103f2"
+    },
+    "description": "Private CtoState bool declarations are reordered, marked passthrough wrappers reshape sharing-owner, max-fee and sharing-condition code generation, a MaybeUninit scratch slot starts its lifetime before the full field initializer is written and borrowed, and the dead local Copy Pubkey t ends its lifetime on the InvalidCreator error path before error construction. The existing holder_key byte-read placeholder moves to validate entry, before the mayhem guard, and remains a discarded read from a valid initialized local; dynamic volatile counts on early returns change, so no general volatile/MMIO sequence equivalence is claimed. Unlinked recovered-host parsers now reject malformed reserve, first-op and cashback columns instead of treating them as absent sentinels. Two later externally merged cleanups replace inert volatile pointer loads and a manual lamports Rc increment with ordinary reads/clone; fresh complete image equality admits that linked source change without additional reconstruction gains. Current peer reviews pin official-target microprobes and corroborating backend sources; prior pinned reconstruction-shim limitations remain applicable."
+  },
+  "runtime": {
+    "case_count": 388,
+    "mismatches": 0,
+    "candidate_sha256": "6f439f1e539ec8156aba443e9a464eedee0996c88720b3eae789e148e4fef7be",
+    "original_sha256": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
+    "report": "admin-runtime.json.gz",
+    "uncompressed_sha256": "bd7a55b802bbcd1974e619c8b9707d6666723aa4af1520e415210a2fef905f51",
+    "compressed_sha256": "6a64b71eca130bc85fbdc33576c4e8e92c76e6dda08b1d74dff8f9ad867e8b6b",
+    "producer_sha256": "6d8a141f8933fc17cc2a520e86da2741f6f1aba6d4201e414e62c4a2293c4364",
+    "reused": false,
+    "same_image_receipt_readmitted_after_unlinked_models": true,
+    "new_388_case_VM_execution_after_unlinked_models": false,
+    "source_update_qualification": [
+      "unlinked-model-build-qualification.json",
+      "later-host-build-qualification.json",
+      "curve-host-build-qualification.json",
+      "extra-host-build-qualification.json",
+      "linked-cleanup-build-qualification.json"
+    ],
+    "same_image_receipt_readmitted_after_host_parser_repairs": true,
+    "same_image_receipt_readmitted_after_curve_walk_parser_repair": true,
+    "same_image_receipt_readmitted_after_extra_host_parser_repairs": true,
+    "same_image_receipt_readmitted_after_linked_cleanup": true,
+    "new_388_case_VM_execution_after_linked_cleanup": false,
+    "fresh_VM_case_pairs": 388,
+    "signed_transaction_vectors_verified": 776,
+    "validation": "runtime-validation.json",
+    "scope": "Signed synthetic captured Pump admin_cto calling Fees by genuine CPI. Pool authority nonsigner at transaction boundary; no privileged signer injection. Not full program identity."
+  },
+  "limits": [
+    "No new exact window; Pump whole meaningful ELF remains unequal.",
+    "Marked compiler/layout shims retain the pinned-toolchain, valid live reference and single-threaded Anchor-context assumptions recorded in the current and CP109 reviews; no historical-source attribution or portable Rust layout guarantee.",
+    "The four other program identity checkpoints are retained without new whole-ELF acceptance.",
+    "The externally merged Fees source update3971 remains author-reported cold-build evidence, not new independent acceptance by this pass; its qualification limits remain in CP109.",
+    "Prior stopped claim-token-incentive and other campaigns remain excluded.",
+    "Hosted CI is tracked separately; passing local tests do not establish hosted completion."
+  ]
+}

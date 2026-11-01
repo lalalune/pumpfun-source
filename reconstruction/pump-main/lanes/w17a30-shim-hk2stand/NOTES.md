@@ -78,3 +78,23 @@ base 1,994 @27,248 (collapse); `Result<P8>` (aligned validate return) 1,466 / wi
   + gx genes), `g16.py` (w17a16's genes, ARM_V updated for main 57001c0), `capg.sh` (crate copy + capopt capture),
   `knobs.sh` (repay knob screen), `dreg.py` (difflib matched tokens per region), `acc.py` (r10 access map per region).
 - `specs/`: s0/s1 (stand-in placement, repair), s2 (C1 order), w1 (WXvp), d1 (marker-deletion screen), h1 (vt).
+
+## Maintained source qualification, 2026-11-01
+
+The maintained identity build reproduces 69.542% token similarity (2,322 matched
+instruction tokens), with all 1,034 raw and normalized Pump windows preserved.
+The `llvm.var.annotation` annotation and filename operands now point to valid
+static NUL strings. NULL operands did not meet the documented LLVM contract.
+The correction preserves the loaded image exactly, while the unstripped ELF
+hash changes; full unstripped identity to the authored build is not claimed.
+
+Fresh current-main and corrected builds used the unchanged maintained compiler
+and scorer. The corrected image passed 388 signed Admin CTO case pairs with no
+mismatches, plus 22 cross-program lifecycle transactions and independent replay.
+The candidate remains unequal to the deployed whole Pump ELF. Positional byte
+differences increase from 3,096 to 3,224 despite the token-similarity gain.
+
+The exact validator body received an official-target lifetime/initialization
+and Option-layout review. These are pinned compiler, valid live Anchor-context
+reconstruction shims, not portable layout guarantees or historical source proof.
+The private experiment helpers were not used for qualification and were removed.

@@ -1,0 +1,85 @@
+{
+  "schema": "pump-pass111-current4053-lifecycle-binding-v1",
+  "immutable_execution_checkout_revision": "2ab92e24ca59292029aafe59b766b21515f3fdda",
+  "source_context_v3_sha256": "aa3b28c9ad21b697d8445860a754815f323419becb612a7d61cd674af349681e",
+  "source_context_file_count": 311,
+  "source_context_equals_actual_build_source": true,
+  "candidate_sha256": "f090fdc8d137210d7a55ece039545e65d2a5e0e82654e1a4ef68c502b174f79f",
+  "qualified_producer_inputs_unchanged": true,
+  "producer_input_sha256": {
+    "evidence/upstream/pump.json": "7616681ea557975f9f623ac211080f22a93060781eaf4765b0a488d980997207",
+    "evidence/upstream/pump_amm.json": "b7d8c57a4d9c4dd0109a9ab893052352333252d4eedced10ac091d4d66cab89b",
+    "reconstruction/verification/pump-admin-cto-stateful/lifecycle.py": "e8b64d53f5156892f33fa821423667647e9c3f2362e7740db342cdde5a700dae",
+    "reconstruction/verification/pump-cross-program-fee-lifecycle/candidate-provenance.json": "f7f054afe010f467b294472cb9396758baebef9cc70248da273ad6eb00404893",
+    "reconstruction/verification/pump-cross-program-fee-lifecycle/lifecycle.py": "e4e99a636d978bfc6394e08da08bd75eb1904797943136eb0977427a97f967fe",
+    "reconstruction/verification/pump-cross-program-fee-lifecycle/test_lifecycle.py": "e4cb969668e7725f180293cb016140724aed7f36e4c5e4f8650fa452a04d8969",
+    "reconstruction/verification/pump-cross-program-fee-lifecycle/verify.py": "7c3cc3212c9e4089e71bd37323314e2e10530068ea4a925bdcd4e1754419021f",
+    "research/imported-lab/analysis/pump_fun/amm-v2-trade-fixture.json": "2e775505852caf55203c826ee08b9341aa275f52f59a933c4fb0740535ee316f",
+    "research/imported-lab/analysis/pump_fun/config-snapshot.json": "17b886a6b4aa7fdc89f2fca9a1b67b318d33998794da59fe4df1fe89ca70bd27",
+    "scripts/pump_differential_output.py": "2181582d3cfdd42b8713adfb1dc6ed8072220493b835304282e187232897a5f7"
+  },
+  "packet_candidate_provenance": {
+    "candidate_sha256": "f090fdc8d137210d7a55ece039545e65d2a5e0e82654e1a4ef68c502b174f79f",
+    "limits": "Supplied immutable binary only; this packet establishes no source/build linkage.",
+    "schema": "supplied-candidate-input-v1"
+  },
+  "packet_source_binding": {
+    "candidate_source_revision": null,
+    "current_source_manifest_role": "review_context_only"
+  },
+  "report_sha256": "502a534d6bd6d6401ecaa7dd26410e89c1a529eaebe05c7dac792e86fc8d0f1a",
+  "classification": "equal_observed_behavior",
+  "transactions": {
+    "original": {
+      "executed_transactions": 11,
+      "valid_signature_vectors": 11,
+      "individual_valid_signatures": 14,
+      "successes": 10,
+      "expected_failures": [
+        {
+          "step": "atomic-unswept-B-to-C",
+          "error": "TransactionErrorInstructionError((2, Tagged(InstructionErrorCustom(6081))))",
+          "rollback_nonfee_equal": true
+        }
+      ]
+    },
+    "candidate": {
+      "executed_transactions": 11,
+      "valid_signature_vectors": 11,
+      "individual_valid_signatures": 14,
+      "successes": 10,
+      "expected_failures": [
+        {
+          "step": "atomic-unswept-B-to-C",
+          "error": "TransactionErrorInstructionError((2, Tagged(InstructionErrorCustom(6081))))",
+          "rollback_nonfee_equal": true
+        }
+      ]
+    }
+  },
+  "snapshot_membership_count": 54,
+  "negative_controls": {
+    "after": true,
+    "error": true,
+    "events": true,
+    "inner_instructions": true
+  },
+  "program_invocations": {
+    "ComputeBudget111111111111111111111111111111": 22,
+    "pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA": 56,
+    "11111111111111111111111111111111": 2,
+    "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA": 36,
+    "6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P": 10,
+    "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL": 6
+  },
+  "fees_cpi_observed": false,
+  "independent_replay": {
+    "verified": true,
+    "problems": [],
+    "deterministic_replay_equal": true
+  },
+  "limits": [
+    "Finite synthetic signed lifecycle; packet provenance is supplied-binary-only, independent root build proves source linkage separately.",
+    "No initializer or incentive campaign execution."
+  ]
+}
