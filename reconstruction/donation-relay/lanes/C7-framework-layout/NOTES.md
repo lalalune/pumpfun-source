@@ -28,3 +28,11 @@ This is crate link order, not a symbol hash. The target's rlibs run `solana_pubk
 before `anchor_lang`: rustc allocates crate numbers on first reference, and the link line is the reverse of the postorder over those numbers.
 With `use anchor_lang::prelude::*` and `AnchorDeserialize`/`AnchorSerialize` there, all 27 rlibs on the link line are in the target's relative order for
 the crates checked and the string leaves the `.rodata` diff. No gains, no losses.
+
+## Integration, Mac route
+
+This branch now merges C1 to C6 at their tips of 08:43. Conflicts resolved: `bridge_handlers.rs` stays deleted (C5 moved it, and the with_values edit from C3 and C7 is in
+C5's admit module); `codec/wire.rs` keeps the anchor derives, plus C2's `Copy` on `ShareType`.
+Result on the Mac route: 569 of 571 functions, 851,168 of 851,888 B, 0.99915, zero losses, strict 550. `.rodata` is byte-equal to the target
+(23,104 B). `.dynstr` is equal. `.data.rel.ro` (8,880 B) and `.rel.dyn` (43,536 B) have the target's sizes but differ in addresses. `.text` is 720 B short, which is
+exactly the two Linux-only functions 0xb3278 and 0xbcac0.
