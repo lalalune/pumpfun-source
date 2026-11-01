@@ -1,0 +1,1023 @@
+{"name": "base:0", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": ""}
+{"name": "vl:150", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_270 = load ptr, ptr %3, align 8, !nonnull !2, !align !3, !noundef !2"}
+{"name": "vl:152", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_392 = load ptr, ptr %4, align 8, !nonnull !2, !align !3, !noundef !2"}
+{"name": "vl:153", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_393 = load ptr, ptr %_392, align 8, !nonnull !2, !align !392, !noundef !2"}
+{"name": "vl:158", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_395 = load ptr, ptr %_394, align 8, !nonnull !2, !align !392, !noundef !2"}
+{"name": "vl:157", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_394 = load ptr, ptr %5, align 8, !nonnull !2, !align !3, !noundef !2"}
+{"name": "vl:161", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_273 = load ptr, ptr %6, align 8, !nonnull !2, !align !3, !noundef !2"}
+{"name": "bl:166", "ratio": 0.65966, "M": 2196, "bytes": 27256, "line": "br i1 %8, label %bb1, label %bb5"}
+{"name": "bu:166", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "br i1 %8, label %bb1, label %bb5"}
+{"name": "bl:173", "ratio": 0.65966, "M": 2196, "bytes": 27256, "line": "br i1 %11, label %bb2, label %bb5"}
+{"name": "bu:173", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "br i1 %11, label %bb2, label %bb5"}
+{"name": "vl:170", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_398 = load ptr, ptr %9, align 8, !nonnull !2, !align !392, !noundef !2"}
+{"name": "vs:187", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 14, ptr %13, align 8"}
+{"name": "vs:185", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store ptr @alloc_df68464402562fbf659e5577c3ed192b, ptr %_18, align 8"}
+{"name": "vs:189", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store ptr %mint, ptr %14, align 8"}
+{"name": "vs:191", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 32, ptr %15, align 8"}
+{"name": "vl:196", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_277 = load ptr, ptr %6, align 8, !nonnull !2, !align !3, !noundef !2"}
+{"name": "bl:204", "ratio": 0.66078, "M": 2207, "bytes": 27432, "line": "br i1 %18, label %bb11, label %bb8"}
+{"name": "bl:209", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "br i1 %20, label %bb11, label %bb10"}
+{"name": "bu:209", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "br i1 %20, label %bb11, label %bb10"}
+{"name": "vl:213", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_279 = load ptr, ptr %21, align 8, !nonnull !2, !align !3, !noundef !2"}
+{"name": "bu:204", "ratio": 0.67476, "M": 2252, "bytes": 27392, "line": "br i1 %18, label %bb11, label %bb8"}
+{"name": "vl:224", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_281 = load ptr, ptr %24, align 8, !nonnull !2, !align !3, !noundef !2"}
+{"name": "vl:226", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%26 = load i8, ptr %25, align 2, !range !394, !noundef !2"}
+{"name": "vl:232", "ratio": 0.66457, "M": 2218, "bytes": 27392, "line": "%30 = load i8, ptr %29, align 2, !range !394, !noundef !2"}
+{"name": "vl:230", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_34 = load i64, ptr %28, align 8, !noundef !2"}
+{"name": "vl:234", "ratio": 0.6238, "M": 2081, "bytes": 27368, "line": "%32 = load i8, ptr %31, align 1, !range !394, !noundef !2"}
+{"name": "vl:236", "ratio": 0.67456, "M": 2251, "bytes": 27384, "line": "%34 = load i8, ptr %33, align 1, !range !394, !noundef !2"}
+{"name": "vl:238", "ratio": 0.67456, "M": 2251, "bytes": 27384, "line": "%36 = load i8, ptr %35, align 1, !range !394, !noundef !2"}
+{"name": "vs:240", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 %_34, ptr %37, align 8"}
+{"name": "vs:244", "ratio": 0.67406, "M": 2250, "bytes": 27400, "line": "store i8 %32, ptr %39, align 1"}
+{"name": "vs:242", "ratio": 0.67406, "M": 2250, "bytes": 27400, "line": "store i8 %30, ptr %38, align 8"}
+{"name": "vs:246", "ratio": 0.67406, "M": 2250, "bytes": 27400, "line": "store i8 %34, ptr %40, align 2"}
+{"name": "vs:249", "ratio": 0.67406, "M": 2250, "bytes": 27400, "line": "store i8 %42, ptr %41, align 1"}
+{"name": "vs:251", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i8 %36, ptr %43, align 4"}
+{"name": "vs:253", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i8 %26, ptr %44, align 1"}
+{"name": "vl:262", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_409 = load ptr, ptr %_408, align 8, !nonnull !2, !align !392, !noundef !2"}
+{"name": "vl:258", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_45.sroa.0.0.copyload = load i8, ptr %new, align 1"}
+{"name": "vl:261", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_408 = load ptr, ptr %5, align 8, !nonnull !2, !align !3, !noundef !2"}
+{"name": "bu:269", "ratio": 0.53431, "M": 1791, "bytes": 27624, "line": "br i1 %_9.not.i, label %bb6.i, label %bb2.i"}
+{"name": "bl:269", "ratio": 0.56559, "M": 1882, "bytes": 27232, "line": "br i1 %_9.not.i, label %bb6.i, label %bb2.i"}
+{"name": "bl:273", "ratio": 0.57682, "M": 1926, "bytes": 27416, "line": "br i1 %_19.not.i, label %bb14.i, label %bb7.i"}
+{"name": "vs:281", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 0, ptr %buf.i.i, align 8, !noalias !8555"}
+{"name": "bu:273", "ratio": 0.64882, "M": 2169, "bytes": 27480, "line": "br i1 %_19.not.i, label %bb14.i, label %bb7.i"}
+{"name": "vs:283", "ratio": 0.67406, "M": 2250, "bytes": 27400, "line": "store ptr inttoptr (i64 1 to ptr), ptr %_9.sroa.4.0.buf.sroa_idx.i.i, align 8, !noalias !8555"}
+{"name": "vs:285", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 0, ptr %_9.sroa.5.0.buf.sroa_idx.i.i, align 8, !noalias !8555"}
+{"name": "vs:288", "ratio": 0.67246, "M": 2245, "bytes": 27408, "line": "store i32 0, ptr %46, align 4, !noalias !8555"}
+{"name": "vs:290", "ratio": 0.67246, "M": 2245, "bytes": 27408, "line": "store i32 32, ptr %47, align 8, !noalias !8555"}
+{"name": "vs:292", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i8 3, ptr %48, align 8, !noalias !8555"}
+{"name": "vs:293", "ratio": 0.67406, "M": 2250, "bytes": 27400, "line": "store i64 0, ptr %formatter.i.i, align 8, !noalias !8555"}
+{"name": "vs:295", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 0, ptr %49, align 8, !noalias !8555"}
+{"name": "vs:299", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store ptr @vtable.4, ptr %51, align 8, !noalias !8555"}
+{"name": "bl:301", "ratio": 0.60709, "M": 2028, "bytes": 27440, "line": "br i1 %52, label %bb3.i.i64, label %\"_ZN45_$LT$T$u20$as$u20$alloc..string..ToString$GT$9to_string17h1551814bef63e52cE.exit.i\""}
+{"name": "vs:297", "ratio": 0.67376, "M": 2249, "bytes": 27400, "line": "store ptr %buf.i.i, ptr %50, align 8, !noalias !8555"}
+{"name": "bu:301", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "br i1 %52, label %bb3.i.i64, label %\"_ZN45_$LT$T$u20$as$u20$alloc..string..ToString$GT$9to_string17h1551814bef63e52cE.exit.i\""}
+{"name": "vs:316", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i32 6088, ptr %55, align 8, !noalias !8550"}
+{"name": "vs:317", "ratio": 0.67376, "M": 2249, "bytes": 27400, "line": "store i64 0, ptr %_11.i63, align 8, !noalias !8550"}
+{"name": "vs:319", "ratio": 0.67406, "M": 2250, "bytes": 27400, "line": "store ptr @alloc_ebe040a358b3132776a16f34a7b7aa5b, ptr %_15.sroa.4.0._11.sroa_idx.i, align 8, !noalias !8550"}
+{"name": "vs:323", "ratio": 0.67406, "M": 2250, "bytes": 27400, "line": "store i32 284, ptr %_15.sroa.4.sroa.5.0._15.sroa.4.0._11.sroa_idx.sroa_idx.i, align 8, !noalias !8550"}
+{"name": "vs:321", "ratio": 0.67376, "M": 2249, "bytes": 27400, "line": "store i64 38, ptr %_15.sroa.4.sroa.4.0._15.sroa.4.0._11.sroa_idx.sroa_idx.i, align 8, !noalias !8550"}
+{"name": "vs:325", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i8 2, ptr %56, align 8, !noalias !8550"}
+{"name": "bl:332", "ratio": 0.59119, "M": 1974, "bytes": 27416, "line": "br i1 %_0.sroa.0.0.off0.i.not, label %bb23.i, label %bb16.i"}
+{"name": "bu:332", "ratio": 0.64343, "M": 2151, "bytes": 27480, "line": "br i1 %_0.sroa.0.0.off0.i.not, label %bb23.i, label %bb16.i"}
+{"name": "bl:335", "ratio": 0.51332, "M": 1715, "bytes": 27448, "line": "br i1 %_0.sroa.0.0.off0.i.not, label %bb10.i, label %bb22.i"}
+{"name": "bu:335", "ratio": 0.6374, "M": 2127, "bytes": 27384, "line": "br i1 %_0.sroa.0.0.off0.i.not, label %bb10.i, label %bb22.i"}
+{"name": "bl:339", "ratio": 0.64899, "M": 2166, "bytes": 27392, "line": "br i1 %_31.not.i, label %bb17.i, label %bb22.i"}
+{"name": "bu:339", "ratio": 0.65049, "M": 2171, "bytes": 27392, "line": "br i1 %_31.not.i, label %bb17.i, label %bb22.i"}
+{"name": "vs:347", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 0, ptr %buf.i20.i, align 8, !noalias !8560"}
+{"name": "vs:349", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store ptr inttoptr (i64 1 to ptr), ptr %_9.sroa.4.0.buf.sroa_idx.i21.i, align 8, !noalias !8560"}
+{"name": "vs:351", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 0, ptr %_9.sroa.5.0.buf.sroa_idx.i22.i, align 8, !noalias !8560"}
+{"name": "vs:354", "ratio": 0.67366, "M": 2249, "bytes": 27408, "line": "store i32 0, ptr %58, align 4, !noalias !8560"}
+{"name": "vs:356", "ratio": 0.67366, "M": 2249, "bytes": 27408, "line": "store i32 32, ptr %59, align 8, !noalias !8560"}
+{"name": "vs:358", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i8 3, ptr %60, align 8, !noalias !8560"}
+{"name": "vs:359", "ratio": 0.67406, "M": 2250, "bytes": 27400, "line": "store i64 0, ptr %formatter.i19.i, align 8, !noalias !8560"}
+{"name": "vs:361", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 0, ptr %61, align 8, !noalias !8560"}
+{"name": "vs:363", "ratio": 0.67376, "M": 2249, "bytes": 27400, "line": "store ptr %buf.i20.i, ptr %62, align 8, !noalias !8560"}
+{"name": "vs:365", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store ptr @vtable.4, ptr %63, align 8, !noalias !8560"}
+{"name": "bl:367", "ratio": 0.66627, "M": 2224, "bytes": 27400, "line": "br i1 %64, label %bb3.i23.i, label %\"_ZN45_$LT$T$u20$as$u20$alloc..string..ToString$GT$9to_string17h1551814bef63e52cE.exit24.i\""}
+{"name": "bu:367", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "br i1 %64, label %bb3.i23.i, label %\"_ZN45_$LT$T$u20$as$u20$alloc..string..ToString$GT$9to_string17h1551814bef63e52cE.exit24.i\""}
+{"name": "vs:382", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i32 6084, ptr %67, align 8, !noalias !8550"}
+{"name": "vs:383", "ratio": 0.67376, "M": 2249, "bytes": 27400, "line": "store i64 0, ptr %_33.i, align 8, !noalias !8550"}
+{"name": "vs:387", "ratio": 0.67376, "M": 2249, "bytes": 27400, "line": "store i64 38, ptr %_37.sroa.4.sroa.4.0._37.sroa.4.0._33.sroa_idx.sroa_idx.i, align 8, !noalias !8550"}
+{"name": "vs:385", "ratio": 0.67406, "M": 2250, "bytes": 27400, "line": "store ptr @alloc_ebe040a358b3132776a16f34a7b7aa5b, ptr %_37.sroa.4.0._33.sroa_idx.i, align 8, !noalias !8550"}
+{"name": "vs:389", "ratio": 0.67406, "M": 2250, "bytes": 27400, "line": "store i32 296, ptr %_37.sroa.4.sroa.5.0._37.sroa.4.0._33.sroa_idx.sroa_idx.i, align 8, !noalias !8550"}
+{"name": "vs:391", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i8 2, ptr %68, align 8, !noalias !8550"}
+{"name": "vs:403", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 0, ptr %buf.i27.i, align 8, !noalias !8565"}
+{"name": "vs:405", "ratio": 0.66537, "M": 2221, "bytes": 27400, "line": "store ptr inttoptr (i64 1 to ptr), ptr %_9.sroa.4.0.buf.sroa_idx.i28.i, align 8, !noalias !8565"}
+{"name": "vs:412", "ratio": 0.66497, "M": 2220, "bytes": 27408, "line": "store i32 32, ptr %71, align 8, !noalias !8565"}
+{"name": "vs:407", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 0, ptr %_9.sroa.5.0.buf.sroa_idx.i29.i, align 8, !noalias !8565"}
+{"name": "vs:414", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i8 3, ptr %72, align 8, !noalias !8565"}
+{"name": "vs:415", "ratio": 0.66537, "M": 2221, "bytes": 27400, "line": "store i64 0, ptr %formatter.i26.i, align 8, !noalias !8565"}
+{"name": "vs:410", "ratio": 0.66497, "M": 2220, "bytes": 27408, "line": "store i32 0, ptr %70, align 4, !noalias !8565"}
+{"name": "vs:417", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 0, ptr %73, align 8, !noalias !8565"}
+{"name": "vs:421", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store ptr @vtable.4, ptr %75, align 8, !noalias !8565"}
+{"name": "vs:419", "ratio": 0.66537, "M": 2221, "bytes": 27400, "line": "store ptr %buf.i27.i, ptr %74, align 8, !noalias !8565"}
+{"name": "bl:423", "ratio": 0.66357, "M": 2215, "bytes": 27400, "line": "br i1 %76, label %bb3.i30.i, label %\"_ZN45_$LT$T$u20$as$u20$alloc..string..ToString$GT$9to_string17h1551814bef63e52cE.exit31.i\""}
+{"name": "bu:423", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "br i1 %76, label %bb3.i30.i, label %\"_ZN45_$LT$T$u20$as$u20$alloc..string..ToString$GT$9to_string17h1551814bef63e52cE.exit31.i\""}
+{"name": "vs:438", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i32 6083, ptr %79, align 8, !noalias !8550"}
+{"name": "vs:439", "ratio": 0.67406, "M": 2250, "bytes": 27400, "line": "store i64 0, ptr %_23.i, align 8, !noalias !8550"}
+{"name": "vs:441", "ratio": 0.67406, "M": 2250, "bytes": 27400, "line": "store ptr @alloc_ebe040a358b3132776a16f34a7b7aa5b, ptr %_27.sroa.4.0._23.sroa_idx.i, align 8, !noalias !8550"}
+{"name": "vs:443", "ratio": 0.67406, "M": 2250, "bytes": 27400, "line": "store i64 38, ptr %_27.sroa.4.sroa.4.0._27.sroa.4.0._23.sroa_idx.sroa_idx.i, align 8, !noalias !8550"}
+{"name": "vs:445", "ratio": 0.67406, "M": 2250, "bytes": 27400, "line": "store i32 289, ptr %_27.sroa.4.sroa.5.0._27.sroa.4.0._23.sroa_idx.sroa_idx.i, align 8, !noalias !8550"}
+{"name": "vs:447", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i8 2, ptr %80, align 8, !noalias !8550"}
+{"name": "bl:458", "ratio": 0.66378, "M": 2220, "bytes": 27504, "line": "br i1 %trunc.not.not.i, label %bb27.i, label %bb28.i"}
+{"name": "bu:458", "ratio": 0.57147, "M": 1907, "bytes": 27384, "line": "br i1 %trunc.not.not.i, label %bb27.i, label %bb28.i"}
+{"name": "bl:464", "ratio": 0.59563, "M": 1990, "bytes": 27448, "line": "br i1 %trunc11.not.not.i, label %bb44.i, label %bb79.i"}
+{"name": "bu:464", "ratio": 0.41148, "M": 1376, "bytes": 27496, "line": "br i1 %trunc11.not.not.i, label %bb44.i, label %bb79.i"}
+{"name": "bl:473", "ratio": 0.65898, "M": 2200, "bytes": 27408, "line": "br i1 %83, label %bb32.i, label %bb37.i"}
+{"name": "bu:473", "ratio": 0.59047, "M": 1971, "bytes": 27400, "line": "br i1 %83, label %bb32.i, label %bb37.i"}
+{"name": "vs:483", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store ptr inttoptr (i64 1 to ptr), ptr %_9.sroa.4.0.buf.sroa_idx.i35.i, align 8, !noalias !8571"}
+{"name": "vs:481", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 0, ptr %buf.i34.i, align 8, !noalias !8571"}
+{"name": "vs:490", "ratio": 0.67396, "M": 2250, "bytes": 27408, "line": "store i32 32, ptr %85, align 8, !noalias !8571"}
+{"name": "vs:488", "ratio": 0.67396, "M": 2250, "bytes": 27408, "line": "store i32 0, ptr %84, align 4, !noalias !8571"}
+{"name": "vs:485", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 0, ptr %_9.sroa.5.0.buf.sroa_idx.i36.i, align 8, !noalias !8571"}
+{"name": "vs:492", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i8 3, ptr %86, align 8, !noalias !8571"}
+{"name": "vs:495", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 0, ptr %87, align 8, !noalias !8571"}
+{"name": "vs:493", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 0, ptr %formatter.i33.i, align 8, !noalias !8571"}
+{"name": "bu:501", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "br i1 %90, label %bb3.i37.i, label %\"_ZN45_$LT$T$u20$as$u20$alloc..string..ToString$GT$9to_string17h1551814bef63e52cE.exit38.i\""}
+{"name": "vs:497", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store ptr %buf.i34.i, ptr %88, align 8, !noalias !8571"}
+{"name": "vs:499", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store ptr @vtable.4, ptr %89, align 8, !noalias !8571"}
+{"name": "bl:501", "ratio": 0.67286, "M": 2246, "bytes": 27400, "line": "br i1 %90, label %bb3.i37.i, label %\"_ZN45_$LT$T$u20$as$u20$alloc..string..ToString$GT$9to_string17h1551814bef63e52cE.exit38.i\""}
+{"name": "vs:517", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 0, ptr %_55.i, align 8, !noalias !8550"}
+{"name": "vs:516", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i32 6089, ptr %93, align 8, !noalias !8550"}
+{"name": "vs:521", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 38, ptr %_59.sroa.4.sroa.4.0._59.sroa.4.0._55.sroa_idx.sroa_idx.i, align 8, !noalias !8550"}
+{"name": "vs:519", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store ptr @alloc_ebe040a358b3132776a16f34a7b7aa5b, ptr %_59.sroa.4.0._55.sroa_idx.i, align 8, !noalias !8550"}
+{"name": "vs:523", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i32 306, ptr %_59.sroa.4.sroa.5.0._59.sroa.4.0._55.sroa_idx.sroa_idx.i, align 8, !noalias !8550"}
+{"name": "vs:525", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i8 2, ptr %94, align 8, !noalias !8550"}
+{"name": "bl:534", "ratio": 0.67136, "M": 2241, "bytes": 27400, "line": "br i1 %97, label %bb39.i, label %bb38.i"}
+{"name": "bu:534", "ratio": 0.66357, "M": 2215, "bytes": 27400, "line": "br i1 %97, label %bb39.i, label %bb38.i"}
+{"name": "vs:542", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 0, ptr %buf.i41.i, align 8, !noalias !8577"}
+{"name": "vs:546", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 0, ptr %_9.sroa.5.0.buf.sroa_idx.i43.i, align 8, !noalias !8577"}
+{"name": "vs:544", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store ptr inttoptr (i64 1 to ptr), ptr %_9.sroa.4.0.buf.sroa_idx.i42.i, align 8, !noalias !8577"}
+{"name": "vs:551", "ratio": 0.67396, "M": 2250, "bytes": 27408, "line": "store i32 32, ptr %99, align 8, !noalias !8577"}
+{"name": "vs:549", "ratio": 0.67396, "M": 2250, "bytes": 27408, "line": "store i32 0, ptr %98, align 4, !noalias !8577"}
+{"name": "vs:553", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i8 3, ptr %100, align 8, !noalias !8577"}
+{"name": "vs:554", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 0, ptr %formatter.i40.i, align 8, !noalias !8577"}
+{"name": "vs:556", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 0, ptr %101, align 8, !noalias !8577"}
+{"name": "vs:558", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store ptr %buf.i41.i, ptr %102, align 8, !noalias !8577"}
+{"name": "bl:562", "ratio": 0.66477, "M": 2219, "bytes": 27400, "line": "br i1 %104, label %bb3.i44.i, label %\"_ZN45_$LT$T$u20$as$u20$alloc..string..ToString$GT$9to_string17h1551814bef63e52cE.exit45.i\""}
+{"name": "vs:560", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store ptr @vtable.4, ptr %103, align 8, !noalias !8577"}
+{"name": "bu:562", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "br i1 %104, label %bb3.i44.i, label %\"_ZN45_$LT$T$u20$as$u20$alloc..string..ToString$GT$9to_string17h1551814bef63e52cE.exit45.i\""}
+{"name": "vs:577", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i32 6030, ptr %107, align 8, !noalias !8550"}
+{"name": "vs:578", "ratio": 0.67406, "M": 2250, "bytes": 27400, "line": "store i64 0, ptr %_67.i, align 8, !noalias !8550"}
+{"name": "vs:580", "ratio": 0.67406, "M": 2250, "bytes": 27400, "line": "store ptr @alloc_ebe040a358b3132776a16f34a7b7aa5b, ptr %_71.sroa.4.0._67.sroa_idx.i, align 8, !noalias !8550"}
+{"name": "vs:582", "ratio": 0.67376, "M": 2249, "bytes": 27400, "line": "store i64 38, ptr %_71.sroa.4.sroa.4.0._71.sroa.4.0._67.sroa_idx.sroa_idx.i, align 8, !noalias !8550"}
+{"name": "vs:584", "ratio": 0.67406, "M": 2250, "bytes": 27400, "line": "store i32 307, ptr %_71.sroa.4.sroa.5.0._71.sroa.4.0._67.sroa_idx.sroa_idx.i, align 8, !noalias !8550"}
+{"name": "vs:586", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i8 2, ptr %108, align 8, !noalias !8550"}
+{"name": "bl:603", "ratio": 0.67136, "M": 2241, "bytes": 27400, "line": "br i1 %113, label %bb39.i, label %bb45.i"}
+{"name": "bu:603", "ratio": 0.66357, "M": 2215, "bytes": 27400, "line": "br i1 %113, label %bb39.i, label %bb45.i"}
+{"name": "vs:611", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 0, ptr %buf.i48.i, align 8, !noalias !8583"}
+{"name": "vs:615", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 0, ptr %_9.sroa.5.0.buf.sroa_idx.i50.i, align 8, !noalias !8583"}
+{"name": "vs:613", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store ptr inttoptr (i64 1 to ptr), ptr %_9.sroa.4.0.buf.sroa_idx.i49.i, align 8, !noalias !8583"}
+{"name": "vs:618", "ratio": 0.67366, "M": 2249, "bytes": 27408, "line": "store i32 0, ptr %114, align 4, !noalias !8583"}
+{"name": "vs:620", "ratio": 0.67366, "M": 2249, "bytes": 27408, "line": "store i32 32, ptr %115, align 8, !noalias !8583"}
+{"name": "vs:622", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i8 3, ptr %116, align 8, !noalias !8583"}
+{"name": "vs:623", "ratio": 0.67406, "M": 2250, "bytes": 27400, "line": "store i64 0, ptr %formatter.i47.i, align 8, !noalias !8583"}
+{"name": "vs:625", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 0, ptr %117, align 8, !noalias !8583"}
+{"name": "vs:627", "ratio": 0.67376, "M": 2249, "bytes": 27400, "line": "store ptr %buf.i48.i, ptr %118, align 8, !noalias !8583"}
+{"name": "vs:629", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store ptr @vtable.4, ptr %119, align 8, !noalias !8583"}
+{"name": "bl:631", "ratio": 0.67196, "M": 2243, "bytes": 27400, "line": "br i1 %120, label %bb3.i51.i, label %\"_ZN45_$LT$T$u20$as$u20$alloc..string..ToString$GT$9to_string17h1551814bef63e52cE.exit52.i\""}
+{"name": "bu:631", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "br i1 %120, label %bb3.i51.i, label %\"_ZN45_$LT$T$u20$as$u20$alloc..string..ToString$GT$9to_string17h1551814bef63e52cE.exit52.i\""}
+{"name": "vs:646", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i32 6019, ptr %123, align 8, !noalias !8550"}
+{"name": "vs:647", "ratio": 0.67406, "M": 2250, "bytes": 27400, "line": "store i64 0, ptr %_81.i, align 8, !noalias !8550"}
+{"name": "vs:649", "ratio": 0.67406, "M": 2250, "bytes": 27400, "line": "store ptr @alloc_ebe040a358b3132776a16f34a7b7aa5b, ptr %_85.sroa.4.0._81.sroa_idx.i, align 8, !noalias !8550"}
+{"name": "vs:651", "ratio": 0.67376, "M": 2249, "bytes": 27400, "line": "store i64 38, ptr %_85.sroa.4.sroa.4.0._85.sroa.4.0._81.sroa_idx.sroa_idx.i, align 8, !noalias !8550"}
+{"name": "vs:653", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i32 312, ptr %_85.sroa.4.sroa.5.0._85.sroa.4.0._81.sroa_idx.sroa_idx.i, align 8, !noalias !8550"}
+{"name": "vs:655", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i8 2, ptr %124, align 8, !noalias !8550"}
+{"name": "vl:664", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%target.i.sroa.7.0.copyload284 = load i64, ptr %target.i.sroa.7.0..sroa_idx, align 1, !noalias !8570"}
+{"name": "vl:666", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%target.i.sroa.8.0.copyload285 = load ptr, ptr %target.i.sroa.8.0..sroa_idx, align 1, !noalias !8570"}
+{"name": "bl:672", "ratio": 0.67056, "M": 2238, "bytes": 27392, "line": "br i1 %switch14.i, label %bb75, label %bb47.i"}
+{"name": "bu:672", "ratio": 0.67396, "M": 2250, "bytes": 27408, "line": "br i1 %switch14.i, label %bb75, label %bb47.i"}
+{"name": "vl:677", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%target.i.sroa.7.0.copyload = load i64, ptr %target.i.sroa.7.0.holder_key.sroa_idx, align 1, !noalias !8582"}
+{"name": "vl:679", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%target.i.sroa.8.0.copyload = load ptr, ptr %target.i.sroa.8.0.holder_key.sroa_idx, align 1, !noalias !8582"}
+{"name": "bl:683", "ratio": 0.54014, "M": 1803, "bytes": 27400, "line": "br i1 %switch15.i, label %bb75, label %bb95.i"}
+{"name": "bu:683", "ratio": 0.56031, "M": 1872, "bytes": 27448, "line": "br i1 %switch15.i, label %bb75, label %bb95.i"}
+{"name": "bl:686", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "br i1 %quote_locked.sroa.0.0.off0, label %bb48.i, label %bb52.i"}
+{"name": "bu:686", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "br i1 %quote_locked.sroa.0.0.off0, label %bb48.i, label %bb52.i"}
+{"name": "bl:689", "ratio": 0.66417, "M": 2217, "bytes": 27400, "line": "br i1 %.not.i, label %bb54.i, label %bb53.i"}
+{"name": "vs:697", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 0, ptr %buf.i277, align 8, !noalias !8588"}
+{"name": "bu:689", "ratio": 0.67146, "M": 2241, "bytes": 27392, "line": "br i1 %.not.i, label %bb54.i, label %bb53.i"}
+{"name": "vs:699", "ratio": 0.67406, "M": 2250, "bytes": 27400, "line": "store ptr inttoptr (i64 1 to ptr), ptr %_9.sroa.4.0.buf.sroa_idx.i278, align 8, !noalias !8588"}
+{"name": "vs:701", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 0, ptr %_9.sroa.5.0.buf.sroa_idx.i279, align 8, !noalias !8588"}
+{"name": "vs:704", "ratio": 0.67366, "M": 2249, "bytes": 27408, "line": "store i32 0, ptr %127, align 4, !noalias !8588"}
+{"name": "vs:706", "ratio": 0.67366, "M": 2249, "bytes": 27408, "line": "store i32 32, ptr %128, align 8, !noalias !8588"}
+{"name": "vs:708", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i8 3, ptr %129, align 8, !noalias !8588"}
+{"name": "vs:709", "ratio": 0.67406, "M": 2250, "bytes": 27400, "line": "store i64 0, ptr %formatter.i276, align 8, !noalias !8588"}
+{"name": "vs:711", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 0, ptr %130, align 8, !noalias !8588"}
+{"name": "vs:713", "ratio": 0.67376, "M": 2249, "bytes": 27400, "line": "store ptr %buf.i277, ptr %131, align 8, !noalias !8588"}
+{"name": "vs:715", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store ptr @vtable.4, ptr %132, align 8, !noalias !8588"}
+{"name": "bu:717", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "br i1 %133, label %bb3.i281, label %\"_ZN45_$LT$T$u20$as$u20$alloc..string..ToString$GT$9to_string17h1551814bef63e52cE.exit282\""}
+{"name": "vs:730", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i32 6091, ptr %135, align 8, !noalias !8550"}
+{"name": "bl:717", "ratio": 0.66147, "M": 2208, "bytes": 27400, "line": "br i1 %133, label %bb3.i281, label %\"_ZN45_$LT$T$u20$as$u20$alloc..string..ToString$GT$9to_string17h1551814bef63e52cE.exit282\""}
+{"name": "vs:731", "ratio": 0.66297, "M": 2213, "bytes": 27400, "line": "store i64 0, ptr %_94.i, align 8, !noalias !8550"}
+{"name": "vs:733", "ratio": 0.66297, "M": 2213, "bytes": 27400, "line": "store ptr @alloc_ebe040a358b3132776a16f34a7b7aa5b, ptr %_98.sroa.4.0._94.sroa_idx.i, align 8, !noalias !8550"}
+{"name": "vs:735", "ratio": 0.66297, "M": 2213, "bytes": 27400, "line": "store i64 38, ptr %_98.sroa.4.sroa.4.0._98.sroa.4.0._94.sroa_idx.sroa_idx.i, align 8, !noalias !8550"}
+{"name": "vs:737", "ratio": 0.66297, "M": 2213, "bytes": 27400, "line": "store i32 326, ptr %_98.sroa.4.sroa.5.0._98.sroa.4.0._94.sroa_idx.sroa_idx.i, align 8, !noalias !8550"}
+{"name": "vs:739", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i8 2, ptr %136, align 8, !noalias !8550"}
+{"name": "bl:749", "ratio": 0.6482, "M": 2164, "bytes": 27408, "line": "br i1 %_115.not.i, label %bb58.i, label %bb62.i"}
+{"name": "bu:749", "ratio": 0.66657, "M": 2225, "bytes": 27400, "line": "br i1 %_115.not.i, label %bb58.i, label %bb62.i"}
+{"name": "vs:758", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i32 6080, ptr %141, align 8, !noalias !8550"}
+{"name": "vs:761", "ratio": 0.67376, "M": 2249, "bytes": 27400, "line": "store ptr @alloc_ebe040a358b3132776a16f34a7b7aa5b, ptr %_108.sroa.4.0._104.sroa_idx.i, align 8, !noalias !8550"}
+{"name": "vs:759", "ratio": 0.67376, "M": 2249, "bytes": 27400, "line": "store i64 0, ptr %_104.i, align 8, !noalias !8550"}
+{"name": "vs:763", "ratio": 0.67376, "M": 2249, "bytes": 27400, "line": "store i64 38, ptr %_108.sroa.4.sroa.4.0._108.sroa.4.0._104.sroa_idx.sroa_idx.i, align 8, !noalias !8550"}
+{"name": "vs:765", "ratio": 0.67406, "M": 2250, "bytes": 27400, "line": "store i32 330, ptr %_108.sroa.4.sroa.5.0._108.sroa.4.0._104.sroa_idx.sroa_idx.i, align 8, !noalias !8550"}
+{"name": "vs:767", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i8 2, ptr %142, align 8, !noalias !8550"}
+{"name": "vs:793", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 0, ptr %_9.sroa.5.0.buf.sroa_idx.i57.i, align 8, !noalias !8594"}
+{"name": "vs:789", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 0, ptr %buf.i55.i, align 8, !noalias !8594"}
+{"name": "vs:791", "ratio": 0.66986, "M": 2236, "bytes": 27400, "line": "store ptr inttoptr (i64 1 to ptr), ptr %_9.sroa.4.0.buf.sroa_idx.i56.i, align 8, !noalias !8594"}
+{"name": "vs:796", "ratio": 0.66976, "M": 2236, "bytes": 27408, "line": "store i32 0, ptr %144, align 4, !noalias !8594"}
+{"name": "vs:798", "ratio": 0.66976, "M": 2236, "bytes": 27408, "line": "store i32 32, ptr %145, align 8, !noalias !8594"}
+{"name": "vs:800", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i8 3, ptr %146, align 8, !noalias !8594"}
+{"name": "vs:801", "ratio": 0.66986, "M": 2236, "bytes": 27400, "line": "store i64 0, ptr %formatter.i54.i, align 8, !noalias !8594"}
+{"name": "vs:805", "ratio": 0.66986, "M": 2236, "bytes": 27400, "line": "store ptr %buf.i55.i, ptr %148, align 8, !noalias !8594"}
+{"name": "vs:803", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 0, ptr %147, align 8, !noalias !8594"}
+{"name": "vs:807", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store ptr @vtable.4, ptr %149, align 8, !noalias !8594"}
+{"name": "bl:809", "ratio": 0.66747, "M": 2228, "bytes": 27400, "line": "br i1 %150, label %bb3.i58.i, label %\"_ZN45_$LT$T$u20$as$u20$alloc..string..ToString$GT$9to_string17h1551814bef63e52cE.exit59.i\""}
+{"name": "bu:809", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "br i1 %150, label %bb3.i58.i, label %\"_ZN45_$LT$T$u20$as$u20$alloc..string..ToString$GT$9to_string17h1551814bef63e52cE.exit59.i\""}
+{"name": "vs:829", "ratio": 0.67406, "M": 2250, "bytes": 27400, "line": "store i64 38, ptr %_47.sroa.4.sroa.4.0._47.sroa.4.0._43.sroa_idx.sroa_idx.i, align 8, !noalias !8550"}
+{"name": "vs:825", "ratio": 0.67406, "M": 2250, "bytes": 27400, "line": "store i64 0, ptr %_43.i, align 8, !noalias !8550"}
+{"name": "vs:824", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i32 6090, ptr %153, align 8, !noalias !8550"}
+{"name": "vs:827", "ratio": 0.67406, "M": 2250, "bytes": 27400, "line": "store ptr @alloc_ebe040a358b3132776a16f34a7b7aa5b, ptr %_47.sroa.4.0._43.sroa_idx.i, align 8, !noalias !8550"}
+{"name": "vs:831", "ratio": 0.67406, "M": 2250, "bytes": 27400, "line": "store i32 298, ptr %_47.sroa.4.sroa.5.0._47.sroa.4.0._43.sroa_idx.sroa_idx.i, align 8, !noalias !8550"}
+{"name": "vs:833", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i8 2, ptr %154, align 8, !noalias !8550"}
+{"name": "bl:840", "ratio": 0.64839, "M": 2164, "bytes": 27392, "line": "br i1 %quote_locked.sroa.0.0.off0, label %bb48.i, label %bb54.i"}
+{"name": "bu:840", "ratio": 0.65468, "M": 2185, "bytes": 27392, "line": "br i1 %quote_locked.sroa.0.0.off0, label %bb48.i, label %bb54.i"}
+{"name": "vs:850", "ratio": 0.67376, "M": 2249, "bytes": 27400, "line": "store i64 0, ptr %_117.i, align 8, !noalias !8550"}
+{"name": "vs:852", "ratio": 0.67376, "M": 2249, "bytes": 27400, "line": "store ptr @alloc_ebe040a358b3132776a16f34a7b7aa5b, ptr %_121.sroa.4.0._117.sroa_idx.i, align 8, !noalias !8550"}
+{"name": "vs:849", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i32 6077, ptr %158, align 8, !noalias !8550"}
+{"name": "vs:854", "ratio": 0.67376, "M": 2249, "bytes": 27400, "line": "store i64 38, ptr %_121.sroa.4.sroa.4.0._121.sroa.4.0._117.sroa_idx.sroa_idx.i, align 8, !noalias !8550"}
+{"name": "bu:866", "ratio": 0.65968, "M": 2202, "bytes": 27400, "line": "br i1 %or.cond.not.i, label %bb65.i, label %bb66.i"}
+{"name": "vs:856", "ratio": 0.67406, "M": 2250, "bytes": 27400, "line": "store i32 334, ptr %_121.sroa.4.sroa.5.0._121.sroa.4.0._117.sroa_idx.sroa_idx.i, align 8, !noalias !8550"}
+{"name": "vs:875", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i32 6078, ptr %164, align 8, !noalias !8550"}
+{"name": "vs:858", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i8 2, ptr %159, align 8, !noalias !8550"}
+{"name": "bl:866", "ratio": 0.66487, "M": 2219, "bytes": 27392, "line": "br i1 %or.cond.not.i, label %bb65.i, label %bb66.i"}
+{"name": "vs:876", "ratio": 0.67376, "M": 2249, "bytes": 27400, "line": "store i64 0, ptr %_128.i, align 8, !noalias !8550"}
+{"name": "vs:878", "ratio": 0.67376, "M": 2249, "bytes": 27400, "line": "store ptr @alloc_ebe040a358b3132776a16f34a7b7aa5b, ptr %_132.sroa.4.0._128.sroa_idx.i, align 8, !noalias !8550"}
+{"name": "vs:882", "ratio": 0.67406, "M": 2250, "bytes": 27400, "line": "store i32 338, ptr %_132.sroa.4.sroa.5.0._132.sroa.4.0._128.sroa_idx.sroa_idx.i, align 8, !noalias !8550"}
+{"name": "vs:880", "ratio": 0.67376, "M": 2249, "bytes": 27400, "line": "store i64 38, ptr %_132.sroa.4.sroa.4.0._132.sroa.4.0._128.sroa_idx.sroa_idx.i, align 8, !noalias !8550"}
+{"name": "bl:903", "ratio": 0.66477, "M": 2218, "bytes": 27376, "line": "br i1 %shared.sroa.0.0.off0, label %bb18, label %bb21"}
+{"name": "vs:884", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i8 2, ptr %165, align 8, !noalias !8550"}
+{"name": "bu:903", "ratio": 0.60405, "M": 2013, "bytes": 27312, "line": "br i1 %shared.sroa.0.0.off0, label %bb18, label %bb21"}
+{"name": "bl:917", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "br i1 %_19.not.i, label %bb22, label %bb25"}
+{"name": "bu:920", "ratio": 0.60516, "M": 2017, "bytes": 27320, "line": "br i1 %_0.sroa.0.0.off0.i.not, label %bb20, label %bb25"}
+{"name": "bu:917", "ratio": 0.66507, "M": 2218, "bytes": 27352, "line": "br i1 %_19.not.i, label %bb22, label %bb25"}
+{"name": "bl:920", "ratio": 0.67117, "M": 2238, "bytes": 27344, "line": "br i1 %_0.sroa.0.0.off0.i.not, label %bb20, label %bb25"}
+{"name": "vs:949", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store ptr %target.sroa.7.0, ptr %_71.sroa.3.sroa.8.33.target15.sroa_idx, align 1"}
+{"name": "vs:947", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 %target.sroa.6.0, ptr %_71.sroa.3.sroa.7.33.target15.sroa_idx, align 1"}
+{"name": "vl:960", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_64.sroa.4.0.copyload = load i64, ptr %_64.sroa.4.0..sroa_idx, align 1"}
+{"name": "bl:954", "ratio": 0.64527, "M": 2151, "bytes": 27328, "line": "br i1 %173, label %bb79, label %bb78"}
+{"name": "bu:954", "ratio": 0.53059, "M": 1778, "bytes": 27608, "line": "br i1 %173, label %bb79, label %bb78"}
+{"name": "vl:962", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_64.sroa.5.0.copyload = load ptr, ptr %_64.sroa.5.0..sroa_idx, align 1"}
+{"name": "vl:970", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_80 = load i64, ptr %174, align 8, !noundef !2"}
+{"name": "vl:968", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_302 = load ptr, ptr %6, align 8, !nonnull !2, !align !3, !noundef !2"}
+{"name": "bu:972", "ratio": 0.54014, "M": 1810, "bytes": 27608, "line": "br i1 %175, label %bb27, label %bb28"}
+{"name": "bl:972", "ratio": 0.55914, "M": 1865, "bytes": 27360, "line": "br i1 %175, label %bb27, label %bb28"}
+{"name": "bu:979", "ratio": 0.60583, "M": 2025, "bytes": 27472, "line": "br i1 %_552.sroa.0.0.off0, label %bb32, label %bb34"}
+{"name": "bl:979", "ratio": 0.60621, "M": 2022, "bytes": 27360, "line": "br i1 %_552.sroa.0.0.off0, label %bb32, label %bb34"}
+{"name": "vs:987", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 0, ptr %buf.i, align 8, !noalias !8599"}
+{"name": "vs:989", "ratio": 0.67406, "M": 2250, "bytes": 27400, "line": "store ptr inttoptr (i64 1 to ptr), ptr %_9.sroa.4.0.buf.sroa_idx.i, align 8, !noalias !8599"}
+{"name": "vs:991", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 0, ptr %_9.sroa.5.0.buf.sroa_idx.i, align 8, !noalias !8599"}
+{"name": "vs:996", "ratio": 0.67306, "M": 2247, "bytes": 27408, "line": "store i32 32, ptr %178, align 8, !noalias !8599"}
+{"name": "vs:994", "ratio": 0.67306, "M": 2247, "bytes": 27408, "line": "store i32 0, ptr %177, align 4, !noalias !8599"}
+{"name": "vs:998", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i8 3, ptr %179, align 8, !noalias !8599"}
+{"name": "vs:999", "ratio": 0.67406, "M": 2250, "bytes": 27400, "line": "store i64 0, ptr %formatter.i, align 8, !noalias !8599"}
+{"name": "vs:1001", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 0, ptr %180, align 8, !noalias !8599"}
+{"name": "vs:1003", "ratio": 0.67376, "M": 2249, "bytes": 27400, "line": "store ptr %buf.i, ptr %181, align 8, !noalias !8599"}
+{"name": "bl:1007", "ratio": 0.66507, "M": 2220, "bytes": 27400, "line": "br i1 %183, label %bb3.i, label %\"_ZN45_$LT$T$u20$as$u20$alloc..string..ToString$GT$9to_string17h1551814bef63e52cE.exit\""}
+{"name": "vs:1005", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store ptr @vtable.4, ptr %182, align 8, !noalias !8599"}
+{"name": "bu:1007", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "br i1 %183, label %bb3.i, label %\"_ZN45_$LT$T$u20$as$u20$alloc..string..ToString$GT$9to_string17h1551814bef63e52cE.exit\""}
+{"name": "vs:1022", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i32 6095, ptr %186, align 8"}
+{"name": "vs:1023", "ratio": 0.67376, "M": 2249, "bytes": 27400, "line": "store i64 0, ptr %_82, align 8"}
+{"name": "vs:1027", "ratio": 0.67376, "M": 2249, "bytes": 27400, "line": "store i64 38, ptr %_86.sroa.4.sroa.4.0._86.sroa.4.0._82.sroa_idx.sroa_idx, align 8"}
+{"name": "bl:1040", "ratio": 0.57473, "M": 1917, "bytes": 27360, "line": "br i1 %_553.sroa.0.0.off0, label %bb83, label %bb88"}
+{"name": "vs:1025", "ratio": 0.67406, "M": 2250, "bytes": 27400, "line": "store ptr @alloc_ebe040a358b3132776a16f34a7b7aa5b, ptr %_86.sroa.4.0._82.sroa_idx, align 8"}
+{"name": "vs:1029", "ratio": 0.67406, "M": 2250, "bytes": 27400, "line": "store i32 410, ptr %_86.sroa.4.sroa.5.0._86.sroa.4.0._82.sroa_idx.sroa_idx, align 8"}
+{"name": "vs:1031", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i8 2, ptr %187, align 8"}
+{"name": "bu:1040", "ratio": 0.43133, "M": 1443, "bytes": 27520, "line": "br i1 %_553.sroa.0.0.off0, label %bb83, label %bb88"}
+{"name": "bl:1053", "ratio": 0.59204, "M": 1978, "bytes": 27448, "line": "br i1 %_3.not.i, label %bb2.i73, label %bb1.i"}
+{"name": "vl:1051", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%191 = load i8, ptr %190, align 2, !range !394, !noalias !8604, !noundef !2"}
+{"name": "bu:1053", "ratio": 0.61304, "M": 2050, "bytes": 27496, "line": "br i1 %_3.not.i, label %bb2.i73, label %bb1.i"}
+{"name": "vl:1057", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_156.i = load ptr, ptr %192, align 8, !noalias !8604, !nonnull !2, !align !392, !noundef !2"}
+{"name": "bl:1060", "ratio": 0.59345, "M": 1983, "bytes": 27456, "line": "br i1 %.not.i74, label %bb4.i, label %bb3.i75"}
+{"name": "bu:1060", "ratio": 0.61492, "M": 2056, "bytes": 27488, "line": "br i1 %.not.i74, label %bb4.i, label %bb3.i75"}
+{"name": "vl:1068", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%195 = load i8, ptr %194, align 1, !range !394, !noalias !8604, !noundef !2"}
+{"name": "bl:1070", "ratio": 0.61766, "M": 2063, "bytes": 27432, "line": "br i1 %_7.not.i, label %bb5.i, label %bb9.i"}
+{"name": "bu:1070", "ratio": 0.5415, "M": 1807, "bytes": 27384, "line": "br i1 %_7.not.i, label %bb5.i, label %bb9.i"}
+{"name": "vs:1082", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 0, ptr %buf.i.i67, align 8, !noalias !8607"}
+{"name": "vs:1084", "ratio": 0.67406, "M": 2250, "bytes": 27400, "line": "store ptr inttoptr (i64 1 to ptr), ptr %_9.sroa.4.0.buf.sroa_idx.i.i90, align 8, !noalias !8607"}
+{"name": "vs:1086", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 0, ptr %_9.sroa.5.0.buf.sroa_idx.i.i91, align 8, !noalias !8607"}
+{"name": "vs:1089", "ratio": 0.67306, "M": 2247, "bytes": 27408, "line": "store i32 0, ptr %196, align 4, !noalias !8607"}
+{"name": "vs:1091", "ratio": 0.67306, "M": 2247, "bytes": 27408, "line": "store i32 32, ptr %197, align 8, !noalias !8607"}
+{"name": "vs:1096", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 0, ptr %199, align 8, !noalias !8607"}
+{"name": "vs:1093", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i8 3, ptr %198, align 8, !noalias !8607"}
+{"name": "vs:1094", "ratio": 0.67406, "M": 2250, "bytes": 27400, "line": "store i64 0, ptr %formatter.i.i66, align 8, !noalias !8607"}
+{"name": "vs:1098", "ratio": 0.67376, "M": 2249, "bytes": 27400, "line": "store ptr %buf.i.i67, ptr %200, align 8, !noalias !8607"}
+{"name": "vs:1100", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store ptr @vtable.4, ptr %201, align 8, !noalias !8607"}
+{"name": "bu:1102", "ratio": 0.67146, "M": 2241, "bytes": 27392, "line": "br i1 %202, label %bb3.i.i93, label %\"_ZN45_$LT$T$u20$as$u20$alloc..string..ToString$GT$9to_string17h1551814bef63e52cE.exit.i92\""}
+{"name": "bl:1102", "ratio": 0.66507, "M": 2220, "bytes": 27400, "line": "br i1 %202, label %bb3.i.i93, label %\"_ZN45_$LT$T$u20$as$u20$alloc..string..ToString$GT$9to_string17h1551814bef63e52cE.exit.i92\""}
+{"name": "vs:1117", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i32 6092, ptr %205, align 8, !noalias !8604"}
+{"name": "vs:1120", "ratio": 0.67406, "M": 2250, "bytes": 27400, "line": "store ptr @alloc_ebe040a358b3132776a16f34a7b7aa5b, ptr %_13.sroa.4.0._9.sroa_idx.i, align 8, !noalias !8604"}
+{"name": "vs:1118", "ratio": 0.67376, "M": 2249, "bytes": 27400, "line": "store i64 0, ptr %_9.i, align 8, !noalias !8604"}
+{"name": "vs:1124", "ratio": 0.67406, "M": 2250, "bytes": 27400, "line": "store i32 556, ptr %_13.sroa.4.sroa.5.0._13.sroa.4.0._9.sroa_idx.sroa_idx.i, align 8, !noalias !8604"}
+{"name": "vs:1122", "ratio": 0.67376, "M": 2249, "bytes": 27400, "line": "store i64 38, ptr %_13.sroa.4.sroa.4.0._13.sroa.4.0._9.sroa_idx.sroa_idx.i, align 8, !noalias !8604"}
+{"name": "vs:1126", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i8 2, ptr %206, align 8, !noalias !8604"}
+{"name": "vl:1139", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%209 = load i64, ptr %_18.i, align 8, !range !318, !noalias !8604, !noundef !2"}
+{"name": "bl:1142", "ratio": 0.63769, "M": 2127, "bytes": 27360, "line": "br i1 %210, label %bb66.i77, label %bb65.i76"}
+{"name": "vl:1137", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_19.i = load ptr, ptr %208, align 8, !noalias !8604, !nonnull !2, !align !3, !noundef !2"}
+{"name": "vl:1145", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%212 = load i8, ptr %211, align 8, !range !394, !noalias !8604, !noundef !2"}
+{"name": "bu:1148", "ratio": 0.64929, "M": 2167, "bytes": 27392, "line": "br i1 %_165.not.i, label %bb60.i, label %bb59.i"}
+{"name": "bu:1142", "ratio": 0.647, "M": 2160, "bytes": 27408, "line": "br i1 %210, label %bb66.i77, label %bb65.i76"}
+{"name": "bl:1148", "ratio": 0.59494, "M": 1988, "bytes": 27456, "line": "br i1 %_165.not.i, label %bb60.i, label %bb59.i"}
+{"name": "vl:1158", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_143.i = load ptr, ptr %213, align 8, !noalias !8604, !nonnull !2, !align !3, !noundef !2"}
+{"name": "vl:1151", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_166.1.i = load ptr, ptr %211, align 8, !noalias !8604, !noundef !2"}
+{"name": "vl:1160", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_248.i = load ptr, ptr %214, align 8, !noalias !8604, !nonnull !2, !align !3, !noundef !2"}
+{"name": "vl:1167", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_27.i = load ptr, ptr %217, align 8, !noalias !8604, !nonnull !2, !align !3, !noundef !2"}
+{"name": "vl:1161", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_249.i = load ptr, ptr %_248.i, align 8, !noalias !8604, !nonnull !2, !align !392, !noundef !2"}
+{"name": "bl:1170", "ratio": 0.63532, "M": 2121, "bytes": 27408, "line": "br i1 %216, label %bb13.i, label %bb14.i78"}
+{"name": "bu:1170", "ratio": 0.65528, "M": 2187, "bytes": 27392, "line": "br i1 %216, label %bb13.i, label %bb14.i78"}
+{"name": "vl:1178", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_30.i = load ptr, ptr %218, align 8, !noalias !8604, !nonnull !2, !align !3, !noundef !2"}
+{"name": "bl:1180", "ratio": 0.66787, "M": 2229, "bytes": 27392, "line": "br i1 %_29.i, label %bb19.i, label %bb17.i79"}
+{"name": "bu:1183", "ratio": 0.65588, "M": 2189, "bytes": 27392, "line": "br i1 %_26.i, label %bb27.i84, label %bb20.i"}
+{"name": "bu:1180", "ratio": 0.66916, "M": 2233, "bytes": 27384, "line": "br i1 %_29.i, label %bb19.i, label %bb17.i79"}
+{"name": "bl:1183", "ratio": 0.67146, "M": 2241, "bytes": 27392, "line": "br i1 %_26.i, label %bb27.i84, label %bb20.i"}
+{"name": "vl:1189", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%219 = load i64, ptr %_32.i, align 8, !range !318, !noalias !8604, !noundef !2"}
+{"name": "vl:1187", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_33.i80 = load ptr, ptr %218, align 8, !noalias !8604, !nonnull !2, !align !3, !noundef !2"}
+{"name": "bl:1192", "ratio": 0.66747, "M": 2227, "bytes": 27376, "line": "br i1 %220, label %bb69.i, label %bb68.i"}
+{"name": "bu:1192", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "br i1 %220, label %bb69.i, label %bb68.i"}
+{"name": "vl:1201", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_173.1.i = load ptr, ptr %221, align 8, !noalias !8604, !noundef !2"}
+{"name": "bl:1207", "ratio": 0.67146, "M": 2241, "bytes": 27392, "line": "br i1 %_26.i, label %bb24.i, label %bb20.i"}
+{"name": "vl:1195", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%222 = load i8, ptr %221, align 8, !range !394, !noalias !8604, !noundef !2"}
+{"name": "bu:1207", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "br i1 %_26.i, label %bb24.i, label %bb20.i"}
+{"name": "vl:1212", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_39.i = load ptr, ptr %217, align 8, !noalias !8604, !nonnull !2, !align !3, !noundef !2"}
+{"name": "vl:1214", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%223 = load i64, ptr %_38.i, align 8, !range !318, !noalias !8604, !noundef !2"}
+{"name": "bl:1217", "ratio": 0.67346, "M": 2248, "bytes": 27400, "line": "br i1 %224, label %bb71.i, label %bb70.i81"}
+{"name": "bu:1217", "ratio": 0.65768, "M": 2195, "bytes": 27392, "line": "br i1 %224, label %bb71.i, label %bb70.i81"}
+{"name": "vl:1224", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_181.i = load ptr, ptr %226, align 8, !noalias !8604, !nonnull !2, !align !3, !noundef !2"}
+{"name": "vl:1228", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_182.i = load ptr, ptr %_270, align 8, !noalias !8604, !nonnull !2, !align !3, !noundef !2"}
+{"name": "vl:1230", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_183.i = load ptr, ptr %208, align 8, !noalias !8604, !nonnull !2, !align !3, !noundef !2"}
+{"name": "vl:1235", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_144.i = load ptr, ptr %213, align 8, !noalias !8604, !nonnull !2, !align !3, !noundef !2"}
+{"name": "vl:1237", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_184.i = load ptr, ptr %230, align 8, !noalias !8604, !nonnull !2, !align !3, !noundef !2"}
+{"name": "vs:1249", "ratio": 0.67406, "M": 2250, "bytes": 27400, "line": "store i64 0, ptr %_44.i70, align 8, !noalias !8604"}
+{"name": "vl:1244", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_186.i = load ptr, ptr %233, align 8, !noalias !8604, !nonnull !2, !align !3, !noundef !2"}
+{"name": "vl:1240", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_185.i = load ptr, ptr %_77, align 8, !noalias !8604, !nonnull !2, !align !3, !noundef !2"}
+{"name": "vs:1251", "ratio": 0.67376, "M": 2249, "bytes": 27400, "line": "store ptr inttoptr (i64 8 to ptr), ptr %_187.sroa.4.0._44.sroa_idx.i, align 8, !noalias !8604"}
+{"name": "vs:1255", "ratio": 0.67406, "M": 2250, "bytes": 27400, "line": "store ptr inttoptr (i64 8 to ptr), ptr %236, align 8, !noalias !8604"}
+{"name": "vs:1253", "ratio": 0.67376, "M": 2249, "bytes": 27400, "line": "store i64 0, ptr %_187.sroa.5.0._44.sroa_idx.i, align 8, !noalias !8604"}
+{"name": "vs:1257", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 0, ptr %237, align 8, !noalias !8604"}
+{"name": "bl:1263", "ratio": 0.67086, "M": 2239, "bytes": 27392, "line": "br i1 %240, label %bb26.i, label %bb79.i82"}
+{"name": "bu:1263", "ratio": 0.67056, "M": 2238, "bytes": 27392, "line": "br i1 %240, label %bb26.i, label %bb79.i82"}
+{"name": "bl:1266", "ratio": 0.67146, "M": 2241, "bytes": 27392, "line": "br i1 %do_collect.sroa.0.2.off0.i, label %bb27.i84, label %bb43.i"}
+{"name": "bu:1266", "ratio": 0.65528, "M": 2187, "bytes": 27392, "line": "br i1 %do_collect.sroa.0.2.off0.i, label %bb27.i84, label %bb43.i"}
+{"name": "vl:1275", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_178.1.i = load ptr, ptr %225, align 8, !noalias !8604, !noundef !2"}
+{"name": "bl:1286", "ratio": 0.67146, "M": 2241, "bytes": 27392, "line": "br i1 %_123.i, label %bb44.i83, label %_ZN14pump_recovered9admin_cto7execute6wallet17h67aeb09bf4f58cf9E.exit.thread"}
+{"name": "vl:1269", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%241 = load i8, ptr %225, align 8, !range !394, !noalias !8604, !noundef !2"}
+{"name": "bu:1286", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "br i1 %_123.i, label %bb44.i83, label %_ZN14pump_recovered9admin_cto7execute6wallet17h67aeb09bf4f58cf9E.exit.thread"}
+{"name": "vl:1292", "ratio": 0.67376, "M": 2249, "bytes": 27400, "line": "%_60.i = load ptr, ptr %208, align 8, !noalias !8604, !nonnull !2, !align !3, !noundef !2"}
+{"name": "vl:1295", "ratio": 0.67376, "M": 2249, "bytes": 27400, "line": "%_62.i = load i8, ptr %243, align 1, !alias.scope !8604, !noundef !2"}
+{"name": "vl:1297", "ratio": 0.67256, "M": 2245, "bytes": 27400, "line": "%_63.i = load ptr, ptr %244, align 8, !noalias !8604, !nonnull !2, !align !3, !noundef !2"}
+{"name": "vl:1298", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_145.i = load ptr, ptr %213, align 8, !noalias !8604, !nonnull !2, !align !3, !noundef !2"}
+{"name": "vl:1300", "ratio": 0.67226, "M": 2244, "bytes": 27400, "line": "%_64.i85 = load i8, ptr %245, align 8, !noalias !8604, !noundef !2"}
+{"name": "vl:1302", "ratio": 0.67226, "M": 2244, "bytes": 27400, "line": "%_65.i = load ptr, ptr %246, align 8, !noalias !8604, !nonnull !2, !align !3, !noundef !2"}
+{"name": "vl:1304", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_67.i86 = load ptr, ptr %_77, align 8, !noalias !8604, !nonnull !2, !align !3, !noundef !2"}
+{"name": "vl:1306", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%247 = load i64, ptr %_58.i, align 8, !range !318, !noalias !8604, !noundef !2"}
+{"name": "vl:1309", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_196.0.i = load i64, ptr %249, align 8, !noalias !8604"}
+{"name": "vl:1311", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_196.1.i = load ptr, ptr %250, align 8, !noalias !8604"}
+{"name": "bl:1312", "ratio": 0.65528, "M": 2187, "bytes": 27392, "line": "br i1 %248, label %bb81.i, label %bb82.i"}
+{"name": "bu:1312", "ratio": 0.67086, "M": 2239, "bytes": 27392, "line": "br i1 %248, label %bb81.i, label %bb82.i"}
+{"name": "bl:1319", "ratio": 0.65698, "M": 2193, "bytes": 27400, "line": "br i1 %switch.i, label %bb29.i, label %bb42.i"}
+{"name": "vl:1329", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_199.i = load i64, ptr %_75.i69, align 8, !range !530, !noalias !8604, !noundef !2"}
+{"name": "bu:1319", "ratio": 0.62652, "M": 2091, "bytes": 27392, "line": "br i1 %switch.i, label %bb29.i, label %bb42.i"}
+{"name": "bl:1331", "ratio": 0.66367, "M": 2216, "bytes": 27416, "line": "br i1 %trunc.not.i, label %bb84.i, label %bb83.i"}
+{"name": "bu:1331", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "br i1 %trunc.not.i, label %bb84.i, label %bb83.i"}
+{"name": "vl:1339", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_200.sroa.8.0.copyload.i = load i64, ptr %_200.sroa.8.0..sroa_idx.i, align 8, !noalias !8604"}
+{"name": "vl:1341", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_203.i = load ptr, ptr %189, align 8, !noalias !8604, !nonnull !2, !align !392, !noundef !2"}
+{"name": "vs:1344", "ratio": 0.67406, "M": 2250, "bytes": 27400, "line": "store i64 %_200.sroa.8.0.copyload.i, ptr %251, align 8, !noalias !8604"}
+{"name": "vs:1346", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 %_196.0.i, ptr %252, align 8, !noalias !8604"}
+{"name": "vs:1348", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store ptr %_196.1.i, ptr %253, align 8, !noalias !8604"}
+{"name": "vl:1355", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_208.i = load ptr, ptr %254, align 8, !noalias !8604, !nonnull !2, !noundef !2"}
+{"name": "vl:1357", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_207.i = load i64, ptr %255, align 8, !noalias !8604, !noundef !2"}
+{"name": "vs:1358", "ratio": 0.67376, "M": 2249, "bytes": 27400, "line": "store ptr %_208.i, ptr %_81.i68, align 8, !noalias !8604"}
+{"name": "vs:1360", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 %_207.i, ptr %256, align 8, !noalias !8604"}
+{"name": "vl:1367", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%authority_bump.i = load i8, ptr %257, align 2, !alias.scope !8604, !noundef !2"}
+{"name": "vl:1370", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%me.sroa.0.0.copyload.i.i = load i64, ptr %inner_data.i, align 8, !alias.scope !8612, !noalias !8615"}
+{"name": "vl:1372", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%me.sroa.4.0.copyload.i.i = load ptr, ptr %me.sroa.4.0.self.sroa_idx.i.i, align 8, !alias.scope !8612, !noalias !8615, !nonnull !2, !noundef !2"}
+{"name": "vl:1374", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%me.sroa.5.0.copyload.i.i = load i64, ptr %me.sroa.5.0.self.sroa_idx.i.i, align 8, !alias.scope !8612, !noalias !8615"}
+{"name": "vs:1377", "ratio": 0.67236, "M": 2244, "bytes": 27384, "line": "store ptr @alloc_d1e50873cb16f1fc41ca481a2a657dfa, ptr %258, align 8, !noalias !8604"}
+{"name": "vs:1379", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store ptr getelementptr inbounds (<{ [8 x i8] }>, ptr @alloc_d1e50873cb16f1fc41ca481a2a657dfa, i64 1, i32 0, i64 0), ptr %259, align 8, !noalias !8604"}
+{"name": "vs:1380", "ratio": 0.67406, "M": 2250, "bytes": 27400, "line": "store ptr %me.sroa.4.0.copyload.i.i, ptr %_92.i, align 8, !noalias !8604"}
+{"name": "vs:1384", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 %me.sroa.0.0.copyload.i.i, ptr %_218.sroa.5.0._92.sroa_idx.i, align 8, !noalias !8604"}
+{"name": "vs:1382", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store ptr %me.sroa.4.0.copyload.i.i, ptr %_218.sroa.4.0._92.sroa_idx.i, align 8, !noalias !8604"}
+{"name": "vs:1386", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store ptr %_18.i.i, ptr %_218.sroa.6.0._92.sroa_idx.i, align 8, !noalias !8604"}
+{"name": "vl:1390", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_221.i = load ptr, ptr %260, align 8, !noalias !8604, !nonnull !2, !noundef !2"}
+{"name": "vl:1392", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_220.i = load i64, ptr %261, align 8, !noalias !8604, !noundef !2"}
+{"name": "vl:1395", "ratio": 0.67316, "M": 2247, "bytes": 27400, "line": "%_146.i = load ptr, ptr %authority_info.i, align 8, !noalias !8604, !nonnull !2, !align !392, !noundef !2"}
+{"name": "vs:1400", "ratio": 0.67246, "M": 2245, "bytes": 27408, "line": "store i8 0, ptr %_104.sroa.5.0..sroa_idx.i, align 1, !noalias !8604"}
+{"name": "vs:1398", "ratio": 0.67246, "M": 2245, "bytes": 27408, "line": "store i8 1, ptr %_104.sroa.4.0..sroa_idx.i, align 1, !noalias !8604"}
+{"name": "vs:1401", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 1, ptr %_100.i, align 8, !alias.scope !8617, !noalias !8620"}
+{"name": "vs:1403", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store ptr %_102.i, ptr %262, align 8, !alias.scope !8617, !noalias !8620"}
+{"name": "vs:1405", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 1, ptr %263, align 8, !alias.scope !8617, !noalias !8620"}
+{"name": "vs:1412", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i8 %authority_bump.i, ptr %_116.i, align 1, !noalias !8604"}
+{"name": "vs:1413", "ratio": 0.67376, "M": 2249, "bytes": 27400, "line": "store ptr @alloc_7a7952b5e0d15f2b72d0341cef6d4739, ptr %_112.i, align 8, !noalias !8604"}
+{"name": "vs:1415", "ratio": 0.67346, "M": 2248, "bytes": 27400, "line": "store i64 17, ptr %264, align 8, !noalias !8604"}
+{"name": "vs:1417", "ratio": 0.67406, "M": 2250, "bytes": 27400, "line": "store ptr %_116.i, ptr %265, align 8, !noalias !8604"}
+{"name": "vs:1419", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 1, ptr %266, align 8, !noalias !8604"}
+{"name": "vs:1420", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store ptr %_112.i, ptr %event_signers.i, align 8, !noalias !8604"}
+{"name": "vs:1422", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 2, ptr %267, align 8, !noalias !8604"}
+{"name": "vl:1426", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%268 = load i64, ptr %_109.i, align 8, !range !528, !noalias !8604, !noundef !2"}
+{"name": "bl:1428", "ratio": 0.67146, "M": 2241, "bytes": 27392, "line": "br i1 %269, label %bb90.i, label %bb89.i"}
+{"name": "bu:1428", "ratio": 0.66667, "M": 2225, "bytes": 27392, "line": "br i1 %269, label %bb90.i, label %bb89.i"}
+{"name": "vl:1432", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_201.sroa.0.0.copyload.i = load i64, ptr %270, align 8, !noalias !8604"}
+{"name": "vl:1434", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_201.sroa.5.0.copyload.i = load i64, ptr %_201.sroa.5.0..sroa_idx.i, align 8, !noalias !8604"}
+{"name": "vl:1436", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_201.sroa.6.0.copyload.i = load i64, ptr %_201.sroa.6.0..sroa_idx.i, align 8, !noalias !8604"}
+{"name": "vs:1439", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 %_201.sroa.0.0.copyload.i, ptr %_204.i, align 8, !noalias !8604"}
+{"name": "vs:1441", "ratio": 0.67256, "M": 2245, "bytes": 27400, "line": "store i64 %_201.sroa.5.0.copyload.i, ptr %residual5.sroa.2.0._204.sroa_idx.i, align 8, !noalias !8604"}
+{"name": "vs:1443", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 %_201.sroa.6.0.copyload.i, ptr %residual5.sroa.3.0._204.sroa_idx.i, align 8, !noalias !8604"}
+{"name": "vl:1450", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%event_infos.val33.i = load ptr, ptr %272, align 8, !noalias !8604, !nonnull !2, !noundef !2"}
+{"name": "vl:1452", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%event_infos.val34.i = load ptr, ptr %273, align 8, !noalias !8604"}
+{"name": "vl:1453", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%self1.val.i.i.i.i.i = load i64, ptr %event_infos.val33.i, align 8, !noalias !8604, !noundef !2"}
+{"name": "vs:1455", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 %val.i.i.i.i.i, ptr %event_infos.val33.i, align 8, !noalias !8604"}
+{"name": "bl:1457", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "br i1 %274, label %bb1.i.i.i.i.i, label %\"_ZN4core3ptr84drop_in_place$LT$alloc..rc..Rc$LT$core..cell..RefCell$LT$$RF$mut$u20$u64$GT$$GT$$GT$17h78933b33a7933ef9E"}
+{"name": "bu:1457", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "br i1 %274, label %bb1.i.i.i.i.i, label %\"_ZN4core3ptr84drop_in_place$LT$alloc..rc..Rc$LT$core..cell..RefCell$LT$$RF$mut$u20$u64$GT$$GT$$GT$17h78933b33a7933ef9E"}
+{"name": "vl:1461", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%self2.val.i.i.i.i.i = load i64, ptr %275, align 8, !noalias !8604, !noundef !2"}
+{"name": "vs:1463", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 %val6.i.i.i.i.i, ptr %275, align 8, !noalias !8604"}
+{"name": "vs:1471", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 %val.i.i3.i.i.i, ptr %event_infos.val34.i, align 8, !noalias !8604"}
+{"name": "vl:1469", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%self1.val.i.i2.i.i.i = load i64, ptr %event_infos.val34.i, align 8, !noalias !8604, !noundef !2"}
+{"name": "bl:1473", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "br i1 %277, label %bb1.i.i4.i.i.i, label %\"_ZN4core3ptr74drop_in_place$LT$$u5b$solana_account_info..AccountInfo$u3b$$u20$1$u5d$$GT$17h907ee5ac84b0815bE.exit.i\""}
+{"name": "bu:1473", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "br i1 %277, label %bb1.i.i4.i.i.i, label %\"_ZN4core3ptr74drop_in_place$LT$$u5b$solana_account_info..AccountInfo$u3b$$u20$1$u5d$$GT$17h907ee5ac84b0815bE.exit.i\""}
+{"name": "vl:1477", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%self2.val.i.i5.i.i.i = load i64, ptr %278, align 8, !noalias !8604, !noundef !2"}
+{"name": "vs:1479", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 %val6.i.i6.i.i.i, ptr %278, align 8, !noalias !8604"}
+{"name": "bl:1486", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "br i1 %279, label %\"_ZN4core3ptr89drop_in_place$LT$alloc..vec..Vec$LT$solana_instruction..account_meta..AccountMeta$GT$$GT$17h57f29fa0325d9f10E.exit.i.i\", label"}
+{"name": "vl:1484", "ratio": 0.67306, "M": 2247, "bytes": 27408, "line": "%_1.val.i.i = load i64, ptr %ix.i, align 8, !alias.scope !8622, !noalias !8604, !noundef !2"}
+{"name": "vl:1490", "ratio": 0.67315, "M": 2248, "bytes": 27424, "line": "%_1.val2.i.i = load ptr, ptr %280, align 8, !alias.scope !8622, !noalias !8604"}
+{"name": "bu:1486", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "br i1 %279, label %\"_ZN4core3ptr89drop_in_place$LT$alloc..vec..Vec$LT$solana_instruction..account_meta..AccountMeta$GT$$GT$17h57f29fa0325d9f10E.exit.i.i\", label"}
+{"name": "vl:1497", "ratio": 0.67306, "M": 2247, "bytes": 27408, "line": "%.val.i.i = load i64, ptr %282, align 8, !alias.scope !8622, !noalias !8604, !noundef !2"}
+{"name": "bl:1499", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "br i1 %283, label %\"_ZN4core3ptr52drop_in_place$LT$solana_instruction..Instruction$GT$17h3ecb6a9b9e1b11acE.exit.i\", label %\"_ZN63_$LT$alloc..alloc..Global$u20$a"}
+{"name": "bu:1499", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "br i1 %283, label %\"_ZN4core3ptr52drop_in_place$LT$solana_instruction..Instruction$GT$17h3ecb6a9b9e1b11acE.exit.i\", label %\"_ZN63_$LT$alloc..alloc..Global$u20$a"}
+{"name": "vl:1503", "ratio": 0.67315, "M": 2248, "bytes": 27424, "line": "%.val1.i.i = load ptr, ptr %284, align 8, !alias.scope !8622, !noalias !8604"}
+{"name": "vl:1519", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%event_infos.val32.i = load ptr, ptr %288, align 8, !noalias !8604"}
+{"name": "vl:1517", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%event_infos.val.i = load ptr, ptr %287, align 8, !noalias !8604, !nonnull !2, !noundef !2"}
+{"name": "vs:1522", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 %val.i.i.i.i38.i, ptr %event_infos.val.i, align 8, !noalias !8604"}
+{"name": "vl:1520", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%self1.val.i.i.i.i37.i = load i64, ptr %event_infos.val.i, align 8, !noalias !8604, !noundef !2"}
+{"name": "bl:1524", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "br i1 %289, label %bb1.i.i.i.i45.i, label %\"_ZN4core3ptr84drop_in_place$LT$alloc..rc..Rc$LT$core..cell..RefCell$LT$$RF$mut$u20$u64$GT$$GT$$GT$17h78933b33a7933ef"}
+{"name": "bu:1524", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "br i1 %289, label %bb1.i.i.i.i45.i, label %\"_ZN4core3ptr84drop_in_place$LT$alloc..rc..Rc$LT$core..cell..RefCell$LT$$RF$mut$u20$u64$GT$$GT$$GT$17h78933b33a7933ef"}
+{"name": "vl:1528", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%self2.val.i.i.i.i46.i = load i64, ptr %290, align 8, !noalias !8604, !noundef !2"}
+{"name": "vs:1530", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 %val6.i.i.i.i47.i, ptr %290, align 8, !noalias !8604"}
+{"name": "vl:1536", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%self1.val.i.i2.i.i40.i = load i64, ptr %event_infos.val32.i, align 8, !noalias !8604, !noundef !2"}
+{"name": "bl:1540", "ratio": 0.67286, "M": 2246, "bytes": 27400, "line": "br i1 %292, label %bb1.i.i4.i.i42.i, label %\"_ZN4core3ptr74drop_in_place$LT$$u5b$solana_account_info..AccountInfo$u3b$$u20$1$u5d$$GT$17h907ee5ac84b0815bE.exit48"}
+{"name": "vs:1538", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 %val.i.i3.i.i41.i, ptr %event_infos.val32.i, align 8, !noalias !8604"}
+{"name": "bu:1540", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "br i1 %292, label %bb1.i.i4.i.i42.i, label %\"_ZN4core3ptr74drop_in_place$LT$$u5b$solana_account_info..AccountInfo$u3b$$u20$1$u5d$$GT$17h907ee5ac84b0815bE.exit48"}
+{"name": "vl:1544", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%self2.val.i.i5.i.i43.i = load i64, ptr %293, align 8, !noalias !8604, !noundef !2"}
+{"name": "vs:1546", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 %val6.i.i6.i.i44.i, ptr %293, align 8, !noalias !8604"}
+{"name": "bl:1553", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "br i1 %294, label %\"_ZN4core3ptr89drop_in_place$LT$alloc..vec..Vec$LT$solana_instruction..account_meta..AccountMeta$GT$$GT$17h57f29fa0325d9f10E.exit.i52.i\", lab"}
+{"name": "bu:1553", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "br i1 %294, label %\"_ZN4core3ptr89drop_in_place$LT$alloc..vec..Vec$LT$solana_instruction..account_meta..AccountMeta$GT$$GT$17h57f29fa0325d9f10E.exit.i52.i\", lab"}
+{"name": "vl:1551", "ratio": 0.67276, "M": 2246, "bytes": 27408, "line": "%_1.val.i49.i = load i64, ptr %ix.i, align 8, !alias.scope !8625, !noalias !8604, !noundef !2"}
+{"name": "vl:1557", "ratio": 0.67345, "M": 2249, "bytes": 27424, "line": "%_1.val2.i51.i = load ptr, ptr %295, align 8, !alias.scope !8625, !noalias !8604"}
+{"name": "vl:1564", "ratio": 0.67276, "M": 2246, "bytes": 27408, "line": "%.val.i53.i = load i64, ptr %297, align 8, !alias.scope !8625, !noalias !8604, !noundef !2"}
+{"name": "bl:1566", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "br i1 %298, label %\"_ZN4core3ptr52drop_in_place$LT$solana_instruction..Instruction$GT$17h3ecb6a9b9e1b11acE.exit56.i\", label %\"_ZN63_$LT$alloc..alloc..Global$u20"}
+{"name": "bu:1566", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "br i1 %298, label %\"_ZN4core3ptr52drop_in_place$LT$solana_instruction..Instruction$GT$17h3ecb6a9b9e1b11acE.exit56.i\", label %\"_ZN63_$LT$alloc..alloc..Global$u20"}
+{"name": "vl:1570", "ratio": 0.67345, "M": 2249, "bytes": 27424, "line": "%.val1.i55.i = load ptr, ptr %299, align 8, !alias.scope !8625, !noalias !8604"}
+{"name": "vl:1596", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_231.i = load ptr, ptr %301, align 8, !noalias !8604, !nonnull !2, !align !3, !noundef !2"}
+{"name": "vl:1600", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_147.i = load ptr, ptr %213, align 8, !noalias !8604, !nonnull !2, !align !3, !noundef !2"}
+{"name": "vl:1602", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_232.i = load ptr, ptr %303, align 8, !noalias !8604, !nonnull !2, !align !3, !noundef !2"}
+{"name": "vl:1605", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_233.i = load ptr, ptr %304, align 8, !noalias !8604, !nonnull !2, !align !3, !noundef !2"}
+{"name": "vl:1611", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_234.i = load ptr, ptr %307, align 8, !noalias !8604, !nonnull !2, !align !3, !noundef !2"}
+{"name": "vl:1617", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_236.i = load ptr, ptr %208, align 8, !noalias !8604, !nonnull !2, !align !3, !noundef !2"}
+{"name": "vl:1614", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_235.i = load ptr, ptr %217, align 8, !noalias !8604, !nonnull !2, !align !3, !noundef !2"}
+{"name": "vl:1621", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_237.i = load ptr, ptr %311, align 8, !noalias !8604, !nonnull !2, !align !3, !noundef !2"}
+{"name": "vl:1624", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_238.i = load ptr, ptr %301, align 8, !noalias !8604, !nonnull !2, !align !3, !noundef !2"}
+{"name": "vs:1629", "ratio": 0.67406, "M": 2250, "bytes": 27400, "line": "store i64 0, ptr %_127.i, align 8, !noalias !8604"}
+{"name": "vs:1631", "ratio": 0.67376, "M": 2249, "bytes": 27400, "line": "store ptr inttoptr (i64 8 to ptr), ptr %_239.sroa.4.0._127.sroa_idx.i, align 8, !noalias !8604"}
+{"name": "vs:1633", "ratio": 0.67376, "M": 2249, "bytes": 27400, "line": "store i64 0, ptr %_239.sroa.5.0._127.sroa_idx.i, align 8, !noalias !8604"}
+{"name": "vs:1635", "ratio": 0.67406, "M": 2250, "bytes": 27400, "line": "store ptr inttoptr (i64 8 to ptr), ptr %315, align 8, !noalias !8604"}
+{"name": "vs:1637", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 0, ptr %316, align 8, !noalias !8604"}
+{"name": "bl:1643", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "br i1 %319, label %_ZN14pump_recovered9admin_cto7execute6wallet17h67aeb09bf4f58cf9E.exit.thread, label %bb101.i"}
+{"name": "bu:1643", "ratio": 0.67146, "M": 2241, "bytes": 27392, "line": "br i1 %319, label %_ZN14pump_recovered9admin_cto7execute6wallet17h67aeb09bf4f58cf9E.exit.thread, label %bb101.i"}
+{"name": "vl:1680", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%ctx.val62 = load i8, ptr %322, align 1"}
+{"name": "bu:1676", "ratio": 0.67146, "M": 2241, "bytes": 27392, "line": "br i1 %321, label %bb34, label %bb66"}
+{"name": "bl:1676", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "br i1 %321, label %bb34, label %bb66"}
+{"name": "vl:1684", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_188.i = load ptr, ptr %323, align 8, !noalias !8628, !nonnull !2, !align !3, !noundef !2"}
+{"name": "vl:1686", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_202.i = load ptr, ptr %324, align 8, !noalias !8628, !nonnull !2, !align !3, !noundef !2"}
+{"name": "vl:1687", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_203.i103 = load ptr, ptr %_202.i, align 8, !noalias !8628, !nonnull !2, !align !392, !noundef !2"}
+{"name": "vs:1695", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store ptr @alloc_ed0c7b53f6fd188c408cb80c27c2e0f7, ptr %_10.i102, align 8, !noalias !8628"}
+{"name": "vs:1697", "ratio": 0.67346, "M": 2248, "bytes": 27400, "line": "store i64 13, ptr %327, align 8, !noalias !8628"}
+{"name": "vs:1699", "ratio": 0.67406, "M": 2250, "bytes": 27400, "line": "store ptr %holder_key, ptr %328, align 8, !noalias !8628"}
+{"name": "vs:1701", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 32, ptr %329, align 8, !noalias !8628"}
+{"name": "vl:1708", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_207.i104 = load ptr, ptr %330, align 8, !noalias !8628, !nonnull !2, !align !392, !noundef !2"}
+{"name": "bl:1713", "ratio": 0.50202, "M": 1677, "bytes": 27440, "line": "br i1 %.not.i105, label %bb7.i110, label %bb2.i106"}
+{"name": "vl:1717", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_29.i111 = load ptr, ptr %332, align 8, !noalias !8628, !nonnull !2, !align !3, !noundef !2"}
+{"name": "bu:1713", "ratio": 0.466, "M": 1559, "bytes": 27520, "line": "br i1 %.not.i105, label %bb7.i110, label %bb2.i106"}
+{"name": "bl:1719", "ratio": 0.51175, "M": 1709, "bytes": 27424, "line": "br i1 %_28.i, label %bb14.i134, label %bb9.i112"}
+{"name": "bu:1719", "ratio": 0.47009, "M": 1568, "bytes": 27360, "line": "br i1 %_28.i, label %bb14.i134, label %bb9.i112"}
+{"name": "vs:1727", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 0, ptr %buf.i.i96, align 8, !noalias !8633"}
+{"name": "vs:1729", "ratio": 0.67406, "M": 2250, "bytes": 27400, "line": "store ptr inttoptr (i64 1 to ptr), ptr %_9.sroa.4.0.buf.sroa_idx.i.i107, align 8, !noalias !8633"}
+{"name": "vs:1731", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 0, ptr %_9.sroa.5.0.buf.sroa_idx.i.i108, align 8, !noalias !8633"}
+{"name": "vs:1736", "ratio": 0.67306, "M": 2247, "bytes": 27408, "line": "store i32 32, ptr %334, align 8, !noalias !8633"}
+{"name": "vs:1734", "ratio": 0.67306, "M": 2247, "bytes": 27408, "line": "store i32 0, ptr %333, align 4, !noalias !8633"}
+{"name": "vs:1738", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i8 3, ptr %335, align 8, !noalias !8633"}
+{"name": "vs:1739", "ratio": 0.67406, "M": 2250, "bytes": 27400, "line": "store i64 0, ptr %formatter.i.i95, align 8, !noalias !8633"}
+{"name": "vs:1741", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 0, ptr %336, align 8, !noalias !8633"}
+{"name": "vs:1743", "ratio": 0.67376, "M": 2249, "bytes": 27400, "line": "store ptr %buf.i.i96, ptr %337, align 8, !noalias !8633"}
+{"name": "vs:1745", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store ptr @vtable.4, ptr %338, align 8, !noalias !8633"}
+{"name": "bl:1747", "ratio": 0.65728, "M": 2194, "bytes": 27400, "line": "br i1 %339, label %bb3.i.i109, label %\"_ZN45_$LT$T$u20$as$u20$alloc..string..ToString$GT$9to_string17h4b386cbefe3ebd9eE.exit.i\""}
+{"name": "vs:1763", "ratio": 0.67376, "M": 2249, "bytes": 27400, "line": "store i64 0, ptr %_17.i, align 8, !noalias !8628"}
+{"name": "vs:1762", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i32 2006, ptr %342, align 8, !noalias !8628"}
+{"name": "bu:1747", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "br i1 %339, label %bb3.i.i109, label %\"_ZN45_$LT$T$u20$as$u20$alloc..string..ToString$GT$9to_string17h4b386cbefe3ebd9eE.exit.i\""}
+{"name": "vs:1767", "ratio": 0.67376, "M": 2249, "bytes": 27400, "line": "store i64 38, ptr %_20.sroa.4.sroa.4.0._20.sroa.4.0._17.sroa_idx.sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:1765", "ratio": 0.67406, "M": 2250, "bytes": 27400, "line": "store ptr @alloc_ebe040a358b3132776a16f34a7b7aa5b, ptr %_20.sroa.4.0._17.sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:1771", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i8 2, ptr %343, align 8, !noalias !8628"}
+{"name": "vs:1769", "ratio": 0.67406, "M": 2250, "bytes": 27400, "line": "store i32 648, ptr %_20.sroa.4.sroa.5.0._20.sroa.4.0._17.sroa_idx.sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vl:1791", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_33.i113 = load ptr, ptr %332, align 8, !noalias !8628, !nonnull !2, !align !3, !noundef !2"}
+{"name": "vl:1778", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_211.i = load ptr, ptr %330, align 8, !noalias !8628, !nonnull !2, !align !392, !noundef !2"}
+{"name": "vl:1793", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%348 = load i64, ptr %_32.i99, align 8, !range !318, !noalias !8628, !noundef !2"}
+{"name": "bl:1796", "ratio": 0.59308, "M": 1980, "bytes": 27408, "line": "br i1 %349, label %bb61.i, label %bb60.i114"}
+{"name": "bu:1796", "ratio": 0.50262, "M": 1679, "bytes": 27440, "line": "br i1 %349, label %bb61.i, label %bb60.i114"}
+{"name": "bl:1801", "ratio": 0.48535, "M": 1623, "bytes": 27496, "line": "br i1 %_37.i, label %bb26.i119, label %bb16.i136"}
+{"name": "vl:1799", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_38.i135 = load ptr, ptr %332, align 8, !noalias !8628, !nonnull !2, !align !3, !noundef !2"}
+{"name": "bu:1801", "ratio": 0.48307, "M": 1612, "bytes": 27384, "line": "br i1 %_37.i, label %bb26.i119, label %bb16.i136"}
+{"name": "vl:1804", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%351 = load i8, ptr %350, align 8, !range !394, !noalias !8628, !noundef !2"}
+{"name": "bl:1807", "ratio": 0.46758, "M": 1561, "bytes": 27408, "line": "br i1 %_213.not.i, label %bb14.i134, label %bb19.i115"}
+{"name": "vl:1810", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_214.1.i = load ptr, ptr %350, align 8, !noalias !8628, !noundef !2"}
+{"name": "bu:1807", "ratio": 0.52291, "M": 1746, "bytes": 27416, "line": "br i1 %_213.not.i, label %bb14.i134, label %bb19.i115"}
+{"name": "vl:1821", "ratio": 0.67466, "M": 2252, "bytes": 27400, "line": "%_189.i = load ptr, ptr %354, align 8, !noalias !8632, !nonnull !2, !align !392, !noundef !2"}
+{"name": "vl:1819", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%x.i = load ptr, ptr %353, align 8, !noalias !8628, !nonnull !2, !align !3, !noundef !2"}
+{"name": "vl:1822", "ratio": 0.59775, "M": 1995, "bytes": 27392, "line": "%_190.i = load ptr, ptr %x.i, align 8, !noalias !8632, !nonnull !2, !align !392, !noundef !2"}
+{"name": "vl:1824", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_219.i = load ptr, ptr %355, align 8, !noalias !8632, !nonnull !2, !noundef !2"}
+{"name": "vl:1825", "ratio": 0.61114, "M": 2040, "bytes": 27400, "line": "%self.val.i.i = load i64, ptr %_219.i, align 8, !noalias !8632, !noundef !2"}
+{"name": "vs:1829", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 %strong1.i.i, ptr %_219.i, align 8, !noalias !8632"}
+{"name": "bu:1831", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "br i1 %_7.i.i, label %bb4.i.i, label %_ZN5alloc2rc10RcInnerPtr10inc_strong17h485e41ed5d8892acE.exit.i"}
+{"name": "bl:1831", "ratio": 0.49484, "M": 1654, "bytes": 27472, "line": "br i1 %_7.i.i, label %bb4.i.i, label %_ZN5alloc2rc10RcInnerPtr10inc_strong17h485e41ed5d8892acE.exit.i"}
+{"name": "vl:1854", "ratio": 0.65458, "M": 2185, "bytes": 27400, "line": "%_46.i137 = load i64, ptr %357, align 8, !noalias !8632, !noundef !2"}
+{"name": "vl:1839", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_223.i = load ptr, ptr %356, align 8, !noalias !8632, !nonnull !2, !noundef !2"}
+{"name": "vl:1840", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%self.val.i22.i = load i64, ptr %_223.i, align 8, !noalias !8632, !noundef !2"}
+{"name": "bl:1846", "ratio": 0.49491, "M": 1654, "bytes": 27464, "line": "br i1 %_7.i25.i, label %bb4.i26.i, label %_ZN5alloc2rc10RcInnerPtr10inc_strong17hbf2f50dabd5a1ea9E.exit.i"}
+{"name": "vs:1844", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 %strong1.i24.i, ptr %_223.i, align 8, !noalias !8632"}
+{"name": "bu:1846", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "br i1 %_7.i25.i, label %bb4.i26.i, label %_ZN5alloc2rc10RcInnerPtr10inc_strong17hbf2f50dabd5a1ea9E.exit.i"}
+{"name": "vl:1858", "ratio": 0.65109, "M": 2173, "bytes": 27392, "line": "%361 = load i8, ptr %360, align 1, !range !394, !noalias !8632, !noundef !2"}
+{"name": "vl:1856", "ratio": 0.65428, "M": 2184, "bytes": 27400, "line": "%359 = load i8, ptr %358, align 2, !range !394, !noalias !8632, !noundef !2"}
+{"name": "vl:1864", "ratio": 0.60734, "M": 2027, "bytes": 27392, "line": "%_225.i = load ptr, ptr %_270, align 8, !noalias !8628, !nonnull !2, !align !3, !noundef !2"}
+{"name": "vl:1860", "ratio": 0.60953, "M": 2034, "bytes": 27384, "line": "%363 = load i8, ptr %362, align 8, !range !394, !noalias !8632, !noundef !2"}
+{"name": "vl:1866", "ratio": 0.60524, "M": 2020, "bytes": 27392, "line": "%_2.i.i = load ptr, ptr %_225.i, align 8, !alias.scope !8638, !noalias !8641, !nonnull !2, !align !392, !noundef !2"}
+{"name": "vl:1868", "ratio": 0.60734, "M": 2027, "bytes": 27392, "line": "%_12.i.i = load ptr, ptr %364, align 8, !alias.scope !8638, !noalias !8641, !nonnull !2, !noundef !2"}
+{"name": "vl:1869", "ratio": 0.60524, "M": 2020, "bytes": 27392, "line": "%self.val.i.i.i = load i64, ptr %_12.i.i, align 8, !noalias !8643, !noundef !2"}
+{"name": "vl:1883", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_16.i.i = load ptr, ptr %365, align 8, !alias.scope !8638, !noalias !8641, !nonnull !2, !noundef !2"}
+{"name": "vs:1873", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 %strong1.i.i.i, ptr %_12.i.i, align 8, !noalias !8643"}
+{"name": "vl:1884", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%self.val.i1.i.i = load i64, ptr %_16.i.i, align 8, !noalias !8643, !noundef !2"}
+{"name": "bu:1875", "ratio": 0.67256, "M": 2245, "bytes": 27400, "line": "br i1 %_7.i.i.i, label %bb4.i.i.i, label %_ZN5alloc2rc10RcInnerPtr10inc_strong17h485e41ed5d8892acE.exit.i.i"}
+{"name": "bl:1875", "ratio": 0.49469, "M": 1654, "bytes": 27488, "line": "br i1 %_7.i.i.i, label %bb4.i.i.i, label %_ZN5alloc2rc10RcInnerPtr10inc_strong17h485e41ed5d8892acE.exit.i.i"}
+{"name": "vs:1888", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 %strong1.i3.i.i, ptr %_16.i.i, align 8, !noalias !8643"}
+{"name": "bl:1890", "ratio": 0.48986, "M": 1654, "bytes": 28016, "line": "br i1 %_7.i4.i.i, label %bb4.i5.i.i, label %\"_ZN71_$LT$solana_account_info..AccountInfo$u20$as$u20$core..clone..Clone$GT$5clone17h759150bcde62cc00E.exit.i\""}
+{"name": "vl:1902", "ratio": 0.66926, "M": 2234, "bytes": 27400, "line": "%369 = load i8, ptr %368, align 8, !range !394, !alias.scope !8638, !noalias !8641, !noundef !2"}
+{"name": "vl:1898", "ratio": 0.63751, "M": 2128, "bytes": 27400, "line": "%_5.i.i = load ptr, ptr %366, align 8, !alias.scope !8638, !noalias !8641, !nonnull !2, !align !392, !noundef !2"}
+{"name": "vl:1900", "ratio": 0.63781, "M": 2129, "bytes": 27400, "line": "%_6.i.i = load i64, ptr %367, align 8, !alias.scope !8638, !noalias !8641, !noundef !2"}
+{"name": "bu:1890", "ratio": 0.67256, "M": 2245, "bytes": 27400, "line": "br i1 %_7.i4.i.i, label %bb4.i5.i.i, label %\"_ZN71_$LT$solana_account_info..AccountInfo$u20$as$u20$core..clone..Clone$GT$5clone17h759150bcde62cc00E.exit.i\""}
+{"name": "vl:1904", "ratio": 0.61985, "M": 2070, "bytes": 27424, "line": "%371 = load i8, ptr %370, align 1, !range !394, !alias.scope !8638, !noalias !8641, !noundef !2"}
+{"name": "vl:1906", "ratio": 0.67016, "M": 2237, "bytes": 27400, "line": "%373 = load i8, ptr %372, align 2, !range !394, !alias.scope !8638, !noalias !8641, !noundef !2"}
+{"name": "vl:1907", "ratio": 0.61126, "M": 2041, "bytes": 27416, "line": "%_191.i = load ptr, ptr %323, align 8, !noalias !8628, !nonnull !2, !align !3, !noundef !2"}
+{"name": "vl:1913", "ratio": 0.61126, "M": 2041, "bytes": 27416, "line": "%_12.i28.i = load ptr, ptr %375, align 8, !alias.scope !8644, !noalias !8647, !nonnull !2, !noundef !2"}
+{"name": "vl:1909", "ratio": 0.61126, "M": 2041, "bytes": 27416, "line": "%_226.i = load ptr, ptr %374, align 8, !noalias !8632, !nonnull !2, !align !3, !noundef !2"}
+{"name": "vl:1911", "ratio": 0.6426, "M": 2145, "bytes": 27400, "line": "%_2.i27.i = load ptr, ptr %_226.i, align 8, !alias.scope !8644, !noalias !8647, !nonnull !2, !align !392, !noundef !2"}
+{"name": "vl:1914", "ratio": 0.6426, "M": 2145, "bytes": 27400, "line": "%self.val.i.i29.i = load i64, ptr %_12.i28.i, align 8, !noalias !8649, !noundef !2"}
+{"name": "vs:1918", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 %strong1.i.i31.i, ptr %_12.i28.i, align 8, !noalias !8649"}
+{"name": "vl:1929", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%self.val.i1.i35.i = load i64, ptr %_16.i34.i, align 8, !noalias !8649, !noundef !2"}
+{"name": "bu:1920", "ratio": 0.67346, "M": 2248, "bytes": 27400, "line": "br i1 %_7.i.i32.i, label %bb4.i.i42.i, label %_ZN5alloc2rc10RcInnerPtr10inc_strong17h485e41ed5d8892acE.exit.i33.i"}
+{"name": "bl:1920", "ratio": 0.49469, "M": 1654, "bytes": 27488, "line": "br i1 %_7.i.i32.i, label %bb4.i.i42.i, label %_ZN5alloc2rc10RcInnerPtr10inc_strong17h485e41ed5d8892acE.exit.i33.i"}
+{"name": "vl:1928", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_16.i34.i = load ptr, ptr %376, align 8, !alias.scope !8644, !noalias !8647, !nonnull !2, !noundef !2"}
+{"name": "vs:1933", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 %strong1.i3.i37.i, ptr %_16.i34.i, align 8, !noalias !8649"}
+{"name": "bl:1935", "ratio": 0.49058, "M": 1654, "bytes": 27936, "line": "br i1 %_7.i4.i38.i, label %bb4.i5.i41.i, label %\"_ZN71_$LT$solana_account_info..AccountInfo$u20$as$u20$core..clone..Clone$GT$5clone17h759150bcde62cc00E.exit43.i"}
+{"name": "vl:1945", "ratio": 0.62403, "M": 2083, "bytes": 27400, "line": "%_6.i40.i = load i64, ptr %378, align 8, !alias.scope !8644, !noalias !8647, !noundef !2"}
+{"name": "bu:1935", "ratio": 0.67346, "M": 2248, "bytes": 27400, "line": "br i1 %_7.i4.i38.i, label %bb4.i5.i41.i, label %\"_ZN71_$LT$solana_account_info..AccountInfo$u20$as$u20$core..clone..Clone$GT$5clone17h759150bcde62cc00E.exit43.i"}
+{"name": "vl:1947", "ratio": 0.65938, "M": 2201, "bytes": 27400, "line": "%380 = load i8, ptr %379, align 8, !range !394, !alias.scope !8644, !noalias !8647, !noundef !2"}
+{"name": "vl:1943", "ratio": 0.62373, "M": 2082, "bytes": 27400, "line": "%_5.i39.i = load ptr, ptr %377, align 8, !alias.scope !8644, !noalias !8647, !nonnull !2, !align !392, !noundef !2"}
+{"name": "vl:1949", "ratio": 0.65938, "M": 2201, "bytes": 27400, "line": "%382 = load i8, ptr %381, align 1, !range !394, !alias.scope !8644, !noalias !8647, !noundef !2"}
+{"name": "vl:1951", "ratio": 0.65938, "M": 2201, "bytes": 27400, "line": "%384 = load i8, ptr %383, align 2, !range !394, !alias.scope !8644, !noalias !8647, !noundef !2"}
+{"name": "vl:1955", "ratio": 0.62562, "M": 2088, "bytes": 27392, "line": "%_2.i44.i = load ptr, ptr %_227.i, align 8, !alias.scope !8650, !noalias !8653, !nonnull !2, !align !392, !noundef !2"}
+{"name": "vl:1953", "ratio": 0.62562, "M": 2088, "bytes": 27392, "line": "%_227.i = load ptr, ptr %385, align 8, !noalias !8628, !nonnull !2, !align !3, !noundef !2"}
+{"name": "vl:1957", "ratio": 0.62562, "M": 2088, "bytes": 27392, "line": "%_12.i45.i = load ptr, ptr %386, align 8, !alias.scope !8650, !noalias !8653, !nonnull !2, !noundef !2"}
+{"name": "vl:1958", "ratio": 0.62562, "M": 2088, "bytes": 27392, "line": "%self.val.i.i46.i = load i64, ptr %_12.i45.i, align 8, !noalias !8655, !noundef !2"}
+{"name": "bl:1964", "ratio": 0.49506, "M": 1654, "bytes": 27448, "line": "br i1 %_7.i.i49.i, label %bb4.i.i59.i, label %_ZN5alloc2rc10RcInnerPtr10inc_strong17h485e41ed5d8892acE.exit.i50.i"}
+{"name": "vs:1962", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 %strong1.i.i48.i, ptr %_12.i45.i, align 8, !noalias !8655"}
+{"name": "vl:1972", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_16.i51.i = load ptr, ptr %387, align 8, !alias.scope !8650, !noalias !8653, !nonnull !2, !noundef !2"}
+{"name": "vs:1977", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 %strong1.i3.i54.i, ptr %_16.i51.i, align 8, !noalias !8655"}
+{"name": "bu:1964", "ratio": 0.67615, "M": 2257, "bytes": 27400, "line": "br i1 %_7.i.i49.i, label %bb4.i.i59.i, label %_ZN5alloc2rc10RcInnerPtr10inc_strong17h485e41ed5d8892acE.exit.i50.i"}
+{"name": "vl:1973", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%self.val.i1.i52.i = load i64, ptr %_16.i51.i, align 8, !noalias !8655, !noundef !2"}
+{"name": "bu:1979", "ratio": 0.67615, "M": 2257, "bytes": 27400, "line": "br i1 %_7.i4.i55.i, label %bb4.i5.i58.i, label %\"_ZN71_$LT$solana_account_info..AccountInfo$u20$as$u20$core..clone..Clone$GT$5clone17h759150bcde62cc00E.exit60.i"}
+{"name": "bl:1979", "ratio": 0.49087, "M": 1654, "bytes": 27904, "line": "br i1 %_7.i4.i55.i, label %bb4.i5.i58.i, label %\"_ZN71_$LT$solana_account_info..AccountInfo$u20$as$u20$core..clone..Clone$GT$5clone17h759150bcde62cc00E.exit60.i"}
+{"name": "vl:1991", "ratio": 0.67046, "M": 2238, "bytes": 27400, "line": "%391 = load i8, ptr %390, align 8, !range !394, !alias.scope !8650, !noalias !8653, !noundef !2"}
+{"name": "vl:1987", "ratio": 0.65958, "M": 2202, "bytes": 27408, "line": "%_5.i56.i = load ptr, ptr %388, align 8, !alias.scope !8650, !noalias !8653, !nonnull !2, !align !392, !noundef !2"}
+{"name": "vl:1989", "ratio": 0.65988, "M": 2203, "bytes": 27408, "line": "%_6.i57.i = load i64, ptr %389, align 8, !alias.scope !8650, !noalias !8653, !noundef !2"}
+{"name": "vl:1993", "ratio": 0.67076, "M": 2239, "bytes": 27400, "line": "%393 = load i8, ptr %392, align 1, !range !394, !alias.scope !8650, !noalias !8653, !noundef !2"}
+{"name": "vl:1995", "ratio": 0.67106, "M": 2240, "bytes": 27400, "line": "%395 = load i8, ptr %394, align 2, !range !394, !alias.scope !8650, !noalias !8653, !noundef !2"}
+{"name": "vl:1998", "ratio": 0.62112, "M": 2073, "bytes": 27392, "line": "%_2.i61.i = load ptr, ptr %_228.i, align 8, !alias.scope !8656, !noalias !8659, !nonnull !2, !align !392, !noundef !2"}
+{"name": "vl:1996", "ratio": 0.62112, "M": 2073, "bytes": 27392, "line": "%_228.i = load ptr, ptr %_77, align 8, !noalias !8628, !nonnull !2, !align !3, !noundef !2"}
+{"name": "vl:2000", "ratio": 0.62112, "M": 2073, "bytes": 27392, "line": "%_12.i62.i = load ptr, ptr %396, align 8, !alias.scope !8656, !noalias !8659, !nonnull !2, !noundef !2"}
+{"name": "vl:2001", "ratio": 0.62112, "M": 2073, "bytes": 27392, "line": "%self.val.i.i63.i = load i64, ptr %_12.i62.i, align 8, !noalias !8661, !noundef !2"}
+{"name": "vs:2005", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 %strong1.i.i65.i, ptr %_12.i62.i, align 8, !noalias !8661"}
+{"name": "bl:2007", "ratio": 0.49528, "M": 1654, "bytes": 27424, "line": "br i1 %_7.i.i66.i, label %bb4.i.i76.i, label %_ZN5alloc2rc10RcInnerPtr10inc_strong17h485e41ed5d8892acE.exit.i67.i"}
+{"name": "vs:2020", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 %strong1.i3.i71.i, ptr %_16.i68.i, align 8, !noalias !8661"}
+{"name": "vl:2016", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%self.val.i1.i69.i = load i64, ptr %_16.i68.i, align 8, !noalias !8661, !noundef !2"}
+{"name": "bu:2007", "ratio": 0.67466, "M": 2252, "bytes": 27400, "line": "br i1 %_7.i.i66.i, label %bb4.i.i76.i, label %_ZN5alloc2rc10RcInnerPtr10inc_strong17h485e41ed5d8892acE.exit.i67.i"}
+{"name": "vl:2015", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_16.i68.i = load ptr, ptr %397, align 8, !alias.scope !8656, !noalias !8659, !nonnull !2, !noundef !2"}
+{"name": "bl:2022", "ratio": 0.49168, "M": 1654, "bytes": 27816, "line": "br i1 %_7.i4.i72.i, label %bb4.i5.i75.i, label %\"_ZN71_$LT$solana_account_info..AccountInfo$u20$as$u20$core..clone..Clone$GT$5clone17h759150bcde62cc00E.exit77.i"}
+{"name": "bu:2022", "ratio": 0.67466, "M": 2252, "bytes": 27400, "line": "br i1 %_7.i4.i72.i, label %bb4.i5.i75.i, label %\"_ZN71_$LT$solana_account_info..AccountInfo$u20$as$u20$core..clone..Clone$GT$5clone17h759150bcde62cc00E.exit77.i"}
+{"name": "vl:2030", "ratio": 0.61246, "M": 2045, "bytes": 27416, "line": "%_5.i73.i = load ptr, ptr %398, align 8, !alias.scope !8656, !noalias !8659, !nonnull !2, !align !392, !noundef !2"}
+{"name": "vl:2032", "ratio": 0.61246, "M": 2045, "bytes": 27416, "line": "%_6.i74.i = load i64, ptr %399, align 8, !alias.scope !8656, !noalias !8659, !noundef !2"}
+{"name": "vl:2036", "ratio": 0.67226, "M": 2244, "bytes": 27400, "line": "%403 = load i8, ptr %402, align 1, !range !394, !alias.scope !8656, !noalias !8659, !noundef !2"}
+{"name": "vl:2034", "ratio": 0.67226, "M": 2244, "bytes": 27400, "line": "%401 = load i8, ptr %400, align 8, !range !394, !alias.scope !8656, !noalias !8659, !noundef !2"}
+{"name": "vl:2038", "ratio": 0.67256, "M": 2245, "bytes": 27400, "line": "%405 = load i8, ptr %404, align 2, !range !394, !alias.scope !8656, !noalias !8659, !noundef !2"}
+{"name": "vl:2040", "ratio": 0.63101, "M": 2106, "bytes": 27392, "line": "%_229.i = load ptr, ptr %406, align 8, !noalias !8628, !nonnull !2, !align !3, !noundef !2"}
+{"name": "vl:2042", "ratio": 0.63101, "M": 2106, "bytes": 27392, "line": "%_2.i78.i = load ptr, ptr %_229.i, align 8, !alias.scope !8662, !noalias !8665, !nonnull !2, !align !392, !noundef !2"}
+{"name": "vl:2044", "ratio": 0.63101, "M": 2106, "bytes": 27392, "line": "%_12.i79.i = load ptr, ptr %407, align 8, !alias.scope !8662, !noalias !8665, !nonnull !2, !noundef !2"}
+{"name": "vs:2049", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 %strong1.i.i82.i, ptr %_12.i79.i, align 8, !noalias !8667"}
+{"name": "vl:2045", "ratio": 0.63101, "M": 2106, "bytes": 27392, "line": "%self.val.i.i80.i = load i64, ptr %_12.i79.i, align 8, !noalias !8667, !noundef !2"}
+{"name": "bl:2051", "ratio": 0.49528, "M": 1654, "bytes": 27424, "line": "br i1 %_7.i.i83.i, label %bb4.i.i93.i, label %_ZN5alloc2rc10RcInnerPtr10inc_strong17h485e41ed5d8892acE.exit.i84.i"}
+{"name": "bu:2051", "ratio": 0.67496, "M": 2253, "bytes": 27400, "line": "br i1 %_7.i.i83.i, label %bb4.i.i93.i, label %_ZN5alloc2rc10RcInnerPtr10inc_strong17h485e41ed5d8892acE.exit.i84.i"}
+{"name": "vl:2059", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_16.i85.i = load ptr, ptr %408, align 8, !alias.scope !8662, !noalias !8665, !nonnull !2, !noundef !2"}
+{"name": "vl:2060", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%self.val.i1.i86.i = load i64, ptr %_16.i85.i, align 8, !noalias !8667, !noundef !2"}
+{"name": "bu:2066", "ratio": 0.67496, "M": 2253, "bytes": 27400, "line": "br i1 %_7.i4.i89.i, label %bb4.i5.i92.i, label %\"_ZN71_$LT$solana_account_info..AccountInfo$u20$as$u20$core..clone..Clone$GT$5clone17h759150bcde62cc00E.exit94.i"}
+{"name": "vs:2064", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 %strong1.i3.i88.i, ptr %_16.i85.i, align 8, !noalias !8667"}
+{"name": "bl:2066", "ratio": 0.49204, "M": 1654, "bytes": 27776, "line": "br i1 %_7.i4.i89.i, label %bb4.i5.i92.i, label %\"_ZN71_$LT$solana_account_info..AccountInfo$u20$as$u20$core..clone..Clone$GT$5clone17h759150bcde62cc00E.exit94.i"}
+{"name": "vl:2074", "ratio": 0.62792, "M": 2096, "bytes": 27400, "line": "%_5.i90.i = load ptr, ptr %409, align 8, !alias.scope !8662, !noalias !8665, !nonnull !2, !align !392, !noundef !2"}
+{"name": "vl:2078", "ratio": 0.65808, "M": 2196, "bytes": 27384, "line": "%412 = load i8, ptr %411, align 8, !range !394, !alias.scope !8662, !noalias !8665, !noundef !2"}
+{"name": "vl:2076", "ratio": 0.62822, "M": 2097, "bytes": 27400, "line": "%_6.i91.i = load i64, ptr %410, align 8, !alias.scope !8662, !noalias !8665, !noundef !2"}
+{"name": "vl:2080", "ratio": 0.65808, "M": 2196, "bytes": 27384, "line": "%414 = load i8, ptr %413, align 1, !range !394, !alias.scope !8662, !noalias !8665, !noundef !2"}
+{"name": "vl:2082", "ratio": 0.65838, "M": 2197, "bytes": 27384, "line": "%416 = load i8, ptr %415, align 2, !range !394, !alias.scope !8662, !noalias !8665, !noundef !2"}
+{"name": "vl:2085", "ratio": 0.66806, "M": 2230, "bytes": 27400, "line": "%_2.i95.i = load ptr, ptr %_57.i, align 8, !alias.scope !8668, !noalias !8671, !nonnull !2, !align !392, !noundef !2"}
+{"name": "vl:2087", "ratio": 0.66806, "M": 2230, "bytes": 27400, "line": "%_12.i96.i = load ptr, ptr %417, align 8, !alias.scope !8668, !noalias !8671, !nonnull !2, !noundef !2"}
+{"name": "vs:2092", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 %strong1.i.i99.i, ptr %_12.i96.i, align 8, !noalias !8673"}
+{"name": "bl:2094", "ratio": 0.49565, "M": 1654, "bytes": 27384, "line": "br i1 %_7.i.i100.i, label %bb4.i.i110.i, label %_ZN5alloc2rc10RcInnerPtr10inc_strong17h485e41ed5d8892acE.exit.i101.i"}
+{"name": "vl:2088", "ratio": 0.66806, "M": 2230, "bytes": 27400, "line": "%self.val.i.i97.i = load i64, ptr %_12.i96.i, align 8, !noalias !8673, !noundef !2"}
+{"name": "bu:2094", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "br i1 %_7.i.i100.i, label %bb4.i.i110.i, label %_ZN5alloc2rc10RcInnerPtr10inc_strong17h485e41ed5d8892acE.exit.i101.i"}
+{"name": "vl:2102", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_16.i102.i = load ptr, ptr %418, align 8, !alias.scope !8668, !noalias !8671, !nonnull !2, !noundef !2"}
+{"name": "vl:2103", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%self.val.i1.i103.i = load i64, ptr %_16.i102.i, align 8, !noalias !8673, !noundef !2"}
+{"name": "vs:2107", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 %strong1.i3.i105.i, ptr %_16.i102.i, align 8, !noalias !8673"}
+{"name": "vl:2119", "ratio": 0.65488, "M": 2186, "bytes": 27400, "line": "%_6.i108.i = load i64, ptr %420, align 8, !alias.scope !8668, !noalias !8671, !noundef !2"}
+{"name": "bl:2109", "ratio": 0.49508, "M": 1659, "bytes": 27608, "line": "br i1 %_7.i4.i106.i, label %bb4.i5.i109.i, label %\"_ZN71_$LT$solana_account_info..AccountInfo$u20$as$u20$core..clone..Clone$GT$5clone17h759150bcde62cc00E.exit11"}
+{"name": "vl:2117", "ratio": 0.65548, "M": 2188, "bytes": 27400, "line": "%_5.i107.i = load ptr, ptr %419, align 8, !alias.scope !8668, !noalias !8671, !nonnull !2, !align !392, !noundef !2"}
+{"name": "bu:2109", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "br i1 %_7.i4.i106.i, label %bb4.i5.i109.i, label %\"_ZN71_$LT$solana_account_info..AccountInfo$u20$as$u20$core..clone..Clone$GT$5clone17h759150bcde62cc00E.exit11"}
+{"name": "vl:2121", "ratio": 0.65458, "M": 2185, "bytes": 27400, "line": "%422 = load i8, ptr %421, align 8, !range !394, !alias.scope !8668, !noalias !8671, !noundef !2"}
+{"name": "vl:2131", "ratio": 0.65548, "M": 2188, "bytes": 27400, "line": "%_12.i113.i = load ptr, ptr %428, align 8, !alias.scope !8674, !noalias !8677, !nonnull !2, !noundef !2"}
+{"name": "vl:2127", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_230.i = load ptr, ptr %427, align 8, !noalias !8628, !nonnull !2, !align !3, !noundef !2"}
+{"name": "vl:2125", "ratio": 0.65398, "M": 2183, "bytes": 27400, "line": "%426 = load i8, ptr %425, align 2, !range !394, !alias.scope !8668, !noalias !8671, !noundef !2"}
+{"name": "vl:2123", "ratio": 0.65428, "M": 2184, "bytes": 27400, "line": "%424 = load i8, ptr %423, align 1, !range !394, !alias.scope !8668, !noalias !8671, !noundef !2"}
+{"name": "vl:2129", "ratio": 0.65548, "M": 2188, "bytes": 27400, "line": "%_2.i112.i = load ptr, ptr %_230.i, align 8, !alias.scope !8674, !noalias !8677, !nonnull !2, !align !392, !noundef !2"}
+{"name": "vl:2132", "ratio": 0.65548, "M": 2188, "bytes": 27400, "line": "%self.val.i.i114.i = load i64, ptr %_12.i113.i, align 8, !noalias !8679, !noundef !2"}
+{"name": "bl:2138", "ratio": 0.49671, "M": 1659, "bytes": 27432, "line": "br i1 %_7.i.i117.i, label %bb4.i.i127.i, label %_ZN5alloc2rc10RcInnerPtr10inc_strong17h485e41ed5d8892acE.exit.i118.i"}
+{"name": "vs:2136", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 %strong1.i.i116.i, ptr %_12.i113.i, align 8, !noalias !8679"}
+{"name": "bu:2138", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "br i1 %_7.i.i117.i, label %bb4.i.i127.i, label %_ZN5alloc2rc10RcInnerPtr10inc_strong17h485e41ed5d8892acE.exit.i118.i"}
+{"name": "vl:2146", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_16.i119.i = load ptr, ptr %429, align 8, !alias.scope !8674, !noalias !8677, !nonnull !2, !noundef !2"}
+{"name": "vl:2147", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%self.val.i1.i120.i = load i64, ptr %_16.i119.i, align 8, !noalias !8679, !noundef !2"}
+{"name": "vs:2151", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 %strong1.i3.i122.i, ptr %_16.i119.i, align 8, !noalias !8679"}
+{"name": "bu:2153", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "br i1 %_7.i4.i123.i, label %bb4.i5.i126.i, label %\"_ZN71_$LT$solana_account_info..AccountInfo$u20$as$u20$core..clone..Clone$GT$5clone17h759150bcde62cc00E.exit12"}
+{"name": "bl:2153", "ratio": 0.49456, "M": 1659, "bytes": 27664, "line": "br i1 %_7.i4.i123.i, label %bb4.i5.i126.i, label %\"_ZN71_$LT$solana_account_info..AccountInfo$u20$as$u20$core..clone..Clone$GT$5clone17h759150bcde62cc00E.exit12"}
+{"name": "vl:2163", "ratio": 0.67316, "M": 2247, "bytes": 27400, "line": "%_6.i125.i = load i64, ptr %431, align 8, !alias.scope !8674, !noalias !8677, !noundef !2"}
+{"name": "vl:2161", "ratio": 0.67376, "M": 2249, "bytes": 27400, "line": "%_5.i124.i = load ptr, ptr %430, align 8, !alias.scope !8674, !noalias !8677, !nonnull !2, !align !392, !noundef !2"}
+{"name": "vl:2165", "ratio": 0.67286, "M": 2246, "bytes": 27400, "line": "%433 = load i8, ptr %432, align 8, !range !394, !alias.scope !8674, !noalias !8677, !noundef !2"}
+{"name": "vl:2167", "ratio": 0.67256, "M": 2245, "bytes": 27400, "line": "%435 = load i8, ptr %434, align 1, !range !394, !alias.scope !8674, !noalias !8677, !noundef !2"}
+{"name": "vl:2170", "ratio": 0.6467, "M": 2159, "bytes": 27408, "line": "%x10.i = load ptr, ptr %332, align 8, !noalias !8628, !nonnull !2, !align !3, !noundef !2"}
+{"name": "vl:2169", "ratio": 0.67256, "M": 2245, "bytes": 27400, "line": "%437 = load i8, ptr %436, align 2, !range !394, !alias.scope !8674, !noalias !8677, !noundef !2"}
+{"name": "vl:2173", "ratio": 0.6467, "M": 2159, "bytes": 27408, "line": "%self.val.i129.i = load i64, ptr %_233.i138, align 8, !noalias !8632, !noundef !2"}
+{"name": "vl:2172", "ratio": 0.6467, "M": 2159, "bytes": 27408, "line": "%_233.i138 = load ptr, ptr %438, align 8, !noalias !8632, !nonnull !2, !noundef !2"}
+{"name": "vs:2177", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 %strong1.i131.i, ptr %_233.i138, align 8, !noalias !8632"}
+{"name": "bl:2179", "ratio": 0.49634, "M": 1659, "bytes": 27472, "line": "br i1 %_7.i132.i, label %bb4.i133.i, label %_ZN5alloc2rc10RcInnerPtr10inc_strong17h485e41ed5d8892acE.exit134.i"}
+{"name": "vl:2186", "ratio": 0.64191, "M": 2143, "bytes": 27408, "line": "%_192.i = load ptr, ptr %x10.i, align 8, !noalias !8632, !nonnull !2, !align !392, !noundef !2"}
+{"name": "bu:2179", "ratio": 0.67496, "M": 2253, "bytes": 27400, "line": "br i1 %_7.i132.i, label %bb4.i133.i, label %_ZN5alloc2rc10RcInnerPtr10inc_strong17h485e41ed5d8892acE.exit134.i"}
+{"name": "vl:2188", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_237.i139 = load ptr, ptr %439, align 8, !noalias !8632, !nonnull !2, !noundef !2"}
+{"name": "vl:2189", "ratio": 0.64191, "M": 2143, "bytes": 27408, "line": "%self.val.i135.i = load i64, ptr %_237.i139, align 8, !noalias !8632, !noundef !2"}
+{"name": "vs:2193", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 %strong1.i137.i, ptr %_237.i139, align 8, !noalias !8632"}
+{"name": "bl:2195", "ratio": 0.49596, "M": 1659, "bytes": 27512, "line": "br i1 %_7.i138.i, label %bb4.i139.i, label %_ZN5alloc2rc10RcInnerPtr10inc_strong17hbf2f50dabd5a1ea9E.exit140.i"}
+{"name": "bu:2195", "ratio": 0.66926, "M": 2234, "bytes": 27400, "line": "br i1 %_7.i138.i, label %bb4.i139.i, label %_ZN5alloc2rc10RcInnerPtr10inc_strong17hbf2f50dabd5a1ea9E.exit140.i"}
+{"name": "vl:2203", "ratio": 0.67076, "M": 2239, "bytes": 27400, "line": "%_193.i = load ptr, ptr %440, align 8, !noalias !8632, !nonnull !2, !align !392, !noundef !2"}
+{"name": "vl:2207", "ratio": 0.67106, "M": 2240, "bytes": 27400, "line": "%443 = load i8, ptr %442, align 8, !range !394, !noalias !8632, !noundef !2"}
+{"name": "vl:2205", "ratio": 0.67136, "M": 2241, "bytes": 27400, "line": "%_63.i140 = load i64, ptr %441, align 8, !noalias !8632, !noundef !2"}
+{"name": "vl:2209", "ratio": 0.67106, "M": 2240, "bytes": 27400, "line": "%445 = load i8, ptr %444, align 1, !range !394, !noalias !8632, !noundef !2"}
+{"name": "vl:2211", "ratio": 0.67106, "M": 2240, "bytes": 27400, "line": "%447 = load i8, ptr %446, align 2, !range !394, !noalias !8632, !noundef !2"}
+{"name": "vl:2214", "ratio": 0.66567, "M": 2222, "bytes": 27400, "line": "%_2.i141.i = load ptr, ptr %_68.i141, align 8, !alias.scope !8680, !noalias !8683, !nonnull !2, !align !392, !noundef !2"}
+{"name": "vl:2216", "ratio": 0.66567, "M": 2222, "bytes": 27400, "line": "%_12.i142.i = load ptr, ptr %448, align 8, !alias.scope !8680, !noalias !8683, !nonnull !2, !noundef !2"}
+{"name": "vl:2217", "ratio": 0.66567, "M": 2222, "bytes": 27400, "line": "%self.val.i.i143.i = load i64, ptr %_12.i142.i, align 8, !noalias !8685, !noundef !2"}
+{"name": "vs:2221", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 %strong1.i.i145.i, ptr %_12.i142.i, align 8, !noalias !8685"}
+{"name": "bl:2223", "ratio": 0.49686, "M": 1659, "bytes": 27416, "line": "br i1 %_7.i.i146.i, label %bb4.i.i156.i, label %_ZN5alloc2rc10RcInnerPtr10inc_strong17h485e41ed5d8892acE.exit.i147.i"}
+{"name": "bu:2223", "ratio": 0.66926, "M": 2234, "bytes": 27400, "line": "br i1 %_7.i.i146.i, label %bb4.i.i156.i, label %_ZN5alloc2rc10RcInnerPtr10inc_strong17h485e41ed5d8892acE.exit.i147.i"}
+{"name": "vl:2231", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_16.i148.i = load ptr, ptr %449, align 8, !alias.scope !8680, !noalias !8683, !nonnull !2, !noundef !2"}
+{"name": "vl:2232", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%self.val.i1.i149.i = load i64, ptr %_16.i148.i, align 8, !noalias !8685, !noundef !2"}
+{"name": "vs:2236", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 %strong1.i3.i151.i, ptr %_16.i148.i, align 8, !noalias !8685"}
+{"name": "bu:2238", "ratio": 0.66926, "M": 2234, "bytes": 27400, "line": "br i1 %_7.i4.i152.i, label %bb4.i5.i155.i, label %\"_ZN71_$LT$solana_account_info..AccountInfo$u20$as$u20$core..clone..Clone$GT$5clone17h759150bcde62cc00E.exit15"}
+{"name": "bl:2238", "ratio": 0.49574, "M": 1659, "bytes": 27536, "line": "br i1 %_7.i4.i152.i, label %bb4.i5.i155.i, label %\"_ZN71_$LT$solana_account_info..AccountInfo$u20$as$u20$core..clone..Clone$GT$5clone17h759150bcde62cc00E.exit15"}
+{"name": "vl:2246", "ratio": 0.67406, "M": 2250, "bytes": 27400, "line": "%_5.i153.i = load ptr, ptr %450, align 8, !alias.scope !8680, !noalias !8683, !nonnull !2, !align !392, !noundef !2"}
+{"name": "vl:2248", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_6.i154.i = load i64, ptr %451, align 8, !alias.scope !8680, !noalias !8683, !noundef !2"}
+{"name": "vl:2254", "ratio": 0.67316, "M": 2247, "bytes": 27400, "line": "%457 = load i8, ptr %456, align 2, !range !394, !alias.scope !8680, !noalias !8683, !noundef !2"}
+{"name": "vl:2250", "ratio": 0.67376, "M": 2249, "bytes": 27400, "line": "%453 = load i8, ptr %452, align 8, !range !394, !alias.scope !8680, !noalias !8683, !noundef !2"}
+{"name": "vl:2252", "ratio": 0.67346, "M": 2248, "bytes": 27400, "line": "%455 = load i8, ptr %454, align 1, !range !394, !alias.scope !8680, !noalias !8683, !noundef !2"}
+{"name": "vl:2256", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%x11.i = load ptr, ptr %458, align 8, !noalias !8628, !nonnull !2, !align !3, !noundef !2"}
+{"name": "vl:2257", "ratio": 0.67316, "M": 2247, "bytes": 27400, "line": "%_194.i = load ptr, ptr %x11.i, align 8, !noalias !8632, !nonnull !2, !align !392, !noundef !2"}
+{"name": "vl:2259", "ratio": 0.67286, "M": 2246, "bytes": 27400, "line": "%_241.i = load ptr, ptr %459, align 8, !noalias !8632, !nonnull !2, !noundef !2"}
+{"name": "vs:2264", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 %strong1.i160.i, ptr %_241.i, align 8, !noalias !8632"}
+{"name": "vl:2260", "ratio": 0.67316, "M": 2247, "bytes": 27400, "line": "%self.val.i158.i = load i64, ptr %_241.i, align 8, !noalias !8632, !noundef !2"}
+{"name": "bl:2266", "ratio": 0.49708, "M": 1659, "bytes": 27392, "line": "br i1 %_7.i161.i, label %bb4.i162.i, label %_ZN5alloc2rc10RcInnerPtr10inc_strong17hbf2f50dabd5a1ea9E.exit163.i"}
+{"name": "bu:2266", "ratio": 0.66926, "M": 2234, "bytes": 27400, "line": "br i1 %_7.i161.i, label %bb4.i162.i, label %_ZN5alloc2rc10RcInnerPtr10inc_strong17hbf2f50dabd5a1ea9E.exit163.i"}
+{"name": "vl:2273", "ratio": 0.6415, "M": 2141, "bytes": 27392, "line": "%_73.i = load ptr, ptr %458, align 8, !noalias !8628, !nonnull !2, !align !3, !noundef !2"}
+{"name": "vl:2275", "ratio": 0.66866, "M": 2232, "bytes": 27400, "line": "%_195.i = load ptr, ptr %460, align 8, !noalias !8632, !nonnull !2, !align !392, !noundef !2"}
+{"name": "vl:2277", "ratio": 0.66866, "M": 2232, "bytes": 27400, "line": "%_245.i = load ptr, ptr %461, align 8, !noalias !8632, !nonnull !2, !noundef !2"}
+{"name": "vl:2278", "ratio": 0.66866, "M": 2232, "bytes": 27400, "line": "%self.val.i164.i = load i64, ptr %_245.i, align 8, !noalias !8632, !noundef !2"}
+{"name": "vs:2282", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 %strong1.i166.i, ptr %_245.i, align 8, !noalias !8632"}
+{"name": "bl:2284", "ratio": 0.49805, "M": 1663, "bytes": 27416, "line": "br i1 %_7.i167.i, label %bb4.i168.i, label %_ZN5alloc2rc10RcInnerPtr10inc_strong17h485e41ed5d8892acE.exit169.i"}
+{"name": "bu:2284", "ratio": 0.67346, "M": 2248, "bytes": 27400, "line": "br i1 %_7.i167.i, label %bb4.i168.i, label %_ZN5alloc2rc10RcInnerPtr10inc_strong17h485e41ed5d8892acE.exit169.i"}
+{"name": "vl:2292", "ratio": 0.61621, "M": 2056, "bytes": 27376, "line": "%_75.i142 = load i64, ptr %462, align 8, !noalias !8632, !noundef !2"}
+{"name": "vl:2294", "ratio": 0.61621, "M": 2056, "bytes": 27376, "line": "%464 = load i8, ptr %463, align 8, !range !394, !noalias !8632, !noundef !2"}
+{"name": "vl:2296", "ratio": 0.61801, "M": 2062, "bytes": 27376, "line": "%466 = load i8, ptr %465, align 1, !range !394, !noalias !8632, !noundef !2"}
+{"name": "vl:2300", "ratio": 0.66866, "M": 2232, "bytes": 27400, "line": "%_247.i = load ptr, ptr %469, align 8, !noalias !8628, !nonnull !2, !align !3, !noundef !2"}
+{"name": "vl:2298", "ratio": 0.66687, "M": 2226, "bytes": 27400, "line": "%468 = load i8, ptr %467, align 2, !range !394, !noalias !8632, !noundef !2"}
+{"name": "vl:2302", "ratio": 0.67046, "M": 2238, "bytes": 27400, "line": "%_2.i170.i = load ptr, ptr %_247.i, align 8, !alias.scope !8686, !noalias !8689, !nonnull !2, !align !392, !noundef !2"}
+{"name": "vl:2304", "ratio": 0.66866, "M": 2232, "bytes": 27400, "line": "%_12.i171.i = load ptr, ptr %470, align 8, !alias.scope !8686, !noalias !8689, !nonnull !2, !noundef !2"}
+{"name": "vl:2305", "ratio": 0.67046, "M": 2238, "bytes": 27400, "line": "%self.val.i.i172.i = load i64, ptr %_12.i171.i, align 8, !noalias !8691, !noundef !2"}
+{"name": "vs:2309", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 %strong1.i.i174.i, ptr %_12.i171.i, align 8, !noalias !8691"}
+{"name": "bu:2311", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "br i1 %_7.i.i175.i, label %bb4.i.i185.i, label %_ZN5alloc2rc10RcInnerPtr10inc_strong17h485e41ed5d8892acE.exit.i176.i"}
+{"name": "bl:2311", "ratio": 0.49409, "M": 1651, "bytes": 27456, "line": "br i1 %_7.i.i175.i, label %bb4.i.i185.i, label %_ZN5alloc2rc10RcInnerPtr10inc_strong17h485e41ed5d8892acE.exit.i176.i"}
+{"name": "vl:2319", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_16.i177.i = load ptr, ptr %471, align 8, !alias.scope !8686, !noalias !8689, !nonnull !2, !noundef !2"}
+{"name": "vl:2320", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%self.val.i1.i178.i = load i64, ptr %_16.i177.i, align 8, !noalias !8691, !noundef !2"}
+{"name": "vs:2324", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 %strong1.i3.i180.i, ptr %_16.i177.i, align 8, !noalias !8691"}
+{"name": "bu:2326", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "br i1 %_7.i4.i181.i, label %bb4.i5.i184.i, label %\"_ZN71_$LT$solana_account_info..AccountInfo$u20$as$u20$core..clone..Clone$GT$5clone17h759150bcde62cc00E.exit18"}
+{"name": "bl:2326", "ratio": 0.49446, "M": 1651, "bytes": 27416, "line": "br i1 %_7.i4.i181.i, label %bb4.i5.i184.i, label %\"_ZN71_$LT$solana_account_info..AccountInfo$u20$as$u20$core..clone..Clone$GT$5clone17h759150bcde62cc00E.exit18"}
+{"name": "vl:2334", "ratio": 0.67136, "M": 2241, "bytes": 27400, "line": "%_5.i182.i = load ptr, ptr %472, align 8, !alias.scope !8686, !noalias !8689, !nonnull !2, !align !392, !noundef !2"}
+{"name": "vl:2336", "ratio": 0.67286, "M": 2246, "bytes": 27400, "line": "%_6.i183.i = load i64, ptr %473, align 8, !alias.scope !8686, !noalias !8689, !noundef !2"}
+{"name": "vl:2340", "ratio": 0.67346, "M": 2248, "bytes": 27400, "line": "%477 = load i8, ptr %476, align 1, !range !394, !alias.scope !8686, !noalias !8689, !noundef !2"}
+{"name": "vl:2338", "ratio": 0.67256, "M": 2245, "bytes": 27400, "line": "%475 = load i8, ptr %474, align 8, !range !394, !alias.scope !8686, !noalias !8689, !noundef !2"}
+{"name": "vl:2343", "ratio": 0.64439, "M": 2150, "bytes": 27376, "line": "%x12.i = load ptr, ptr %353, align 8, !noalias !8628, !nonnull !2, !align !3, !noundef !2"}
+{"name": "vl:2342", "ratio": 0.67346, "M": 2248, "bytes": 27400, "line": "%479 = load i8, ptr %478, align 2, !range !394, !alias.scope !8686, !noalias !8689, !noundef !2"}
+{"name": "vl:2344", "ratio": 0.64439, "M": 2150, "bytes": 27376, "line": "%_196.i = load ptr, ptr %x12.i, align 8, !noalias !8632, !nonnull !2, !align !392, !noundef !2"}
+{"name": "vl:2346", "ratio": 0.64439, "M": 2150, "bytes": 27376, "line": "%_197.i = load ptr, ptr %480, align 8, !noalias !8632, !nonnull !2, !align !392, !noundef !2"}
+{"name": "vl:2348", "ratio": 0.64439, "M": 2150, "bytes": 27376, "line": "%_250.i = load ptr, ptr %481, align 8, !noalias !8632, !nonnull !2, !noundef !2"}
+{"name": "vl:2349", "ratio": 0.64649, "M": 2157, "bytes": 27376, "line": "%self.val.i187.i = load i64, ptr %_250.i, align 8, !noalias !8632, !noundef !2"}
+{"name": "bl:2355", "ratio": 0.49431, "M": 1651, "bytes": 27432, "line": "br i1 %_7.i190.i, label %bb4.i191.i, label %_ZN5alloc2rc10RcInnerPtr10inc_strong17h485e41ed5d8892acE.exit192.i"}
+{"name": "vs:2353", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 %strong1.i189.i, ptr %_250.i, align 8, !noalias !8632"}
+{"name": "bu:2355", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "br i1 %_7.i190.i, label %bb4.i191.i, label %_ZN5alloc2rc10RcInnerPtr10inc_strong17h485e41ed5d8892acE.exit192.i"}
+{"name": "vl:2363", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_254.i = load ptr, ptr %482, align 8, !noalias !8632, !nonnull !2, !noundef !2"}
+{"name": "vl:2364", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%self.val.i193.i = load i64, ptr %_254.i, align 8, !noalias !8632, !noundef !2"}
+{"name": "vs:2368", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 %strong1.i195.i, ptr %_254.i, align 8, !noalias !8632"}
+{"name": "bl:2370", "ratio": 0.49476, "M": 1651, "bytes": 27384, "line": "br i1 %_7.i196.i, label %bb4.i197.i, label %_ZN5alloc2rc10RcInnerPtr10inc_strong17hbf2f50dabd5a1ea9E.exit198.i"}
+{"name": "bu:2370", "ratio": 0.66447, "M": 2217, "bytes": 27376, "line": "br i1 %_7.i196.i, label %bb4.i197.i, label %_ZN5alloc2rc10RcInnerPtr10inc_strong17hbf2f50dabd5a1ea9E.exit198.i"}
+{"name": "vl:2378", "ratio": 0.61573, "M": 2055, "bytes": 27392, "line": "%_84.i = load i64, ptr %483, align 8, !noalias !8632, !noundef !2"}
+{"name": "vl:2380", "ratio": 0.61573, "M": 2055, "bytes": 27392, "line": "%485 = load i8, ptr %484, align 8, !range !394, !noalias !8632, !noundef !2"}
+{"name": "vl:2382", "ratio": 0.61573, "M": 2055, "bytes": 27392, "line": "%487 = load i8, ptr %486, align 1, !range !394, !noalias !8632, !noundef !2"}
+{"name": "vl:2384", "ratio": 0.57661, "M": 1925, "bytes": 27408, "line": "%489 = load i8, ptr %488, align 2, !range !394, !noalias !8632, !noundef !2"}
+{"name": "vs:2386", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store ptr %_2.i.i, ptr %490, align 8, !noalias !8628"}
+{"name": "vs:2388", "ratio": 0.62004, "M": 2070, "bytes": 27408, "line": "store ptr %_12.i.i, ptr %_50.sroa.0.sroa.4.0..sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2390", "ratio": 0.61585, "M": 2056, "bytes": 27408, "line": "store ptr %_16.i.i, ptr %_50.sroa.0.sroa.5.0..sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2392", "ratio": 0.61075, "M": 2039, "bytes": 27408, "line": "store ptr %_5.i.i, ptr %_50.sroa.0.sroa.6.0..sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2394", "ratio": 0.62721, "M": 2093, "bytes": 27384, "line": "store i64 %_6.i.i, ptr %_50.sroa.0.sroa.7.0..sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2396", "ratio": 0.59209, "M": 1977, "bytes": 27416, "line": "store i8 %369, ptr %_50.sroa.0.sroa.8.0..sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2398", "ratio": 0.59871, "M": 2000, "bytes": 27440, "line": "store i8 %371, ptr %_50.sroa.0.sroa.9.0..sroa_idx.i, align 1, !noalias !8628"}
+{"name": "vs:2400", "ratio": 0.61824, "M": 2064, "bytes": 27408, "line": "store i8 %373, ptr %_50.sroa.0.sroa.10.0..sroa_idx.i, align 2, !noalias !8628"}
+{"name": "vs:2402", "ratio": 0.60581, "M": 2024, "bytes": 27448, "line": "store ptr %_2.i27.i, ptr %_50.sroa.0.sroa.12.0..sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2404", "ratio": 0.59578, "M": 1989, "bytes": 27408, "line": "store ptr %_12.i28.i, ptr %_50.sroa.0.sroa.12.sroa.4.0._50.sroa.0.sroa.12.0..sroa_idx.sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2406", "ratio": 0.58452, "M": 1952, "bytes": 27424, "line": "store ptr %_16.i34.i, ptr %_50.sroa.0.sroa.12.sroa.5.0._50.sroa.0.sroa.12.0..sroa_idx.sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2408", "ratio": 0.58691, "M": 1960, "bytes": 27424, "line": "store ptr %_5.i39.i, ptr %_50.sroa.0.sroa.12.sroa.6.0._50.sroa.0.sroa.12.0..sroa_idx.sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2412", "ratio": 0.5867, "M": 1959, "bytes": 27416, "line": "store i8 %380, ptr %_50.sroa.0.sroa.12.sroa.8.0._50.sroa.0.sroa.12.0..sroa_idx.sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2410", "ratio": 0.5867, "M": 1959, "bytes": 27416, "line": "store i64 %_6.i40.i, ptr %_50.sroa.0.sroa.12.sroa.7.0._50.sroa.0.sroa.12.0..sroa_idx.sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2414", "ratio": 0.59107, "M": 1973, "bytes": 27400, "line": "store i8 %382, ptr %_50.sroa.0.sroa.12.sroa.9.0._50.sroa.0.sroa.12.0..sroa_idx.sroa_idx.i, align 1, !noalias !8628"}
+{"name": "vs:2416", "ratio": 0.5882, "M": 1964, "bytes": 27416, "line": "store i8 %384, ptr %_50.sroa.0.sroa.12.sroa.10.0._50.sroa.0.sroa.12.0..sroa_idx.sroa_idx.i, align 2, !noalias !8628"}
+{"name": "vs:2418", "ratio": 0.59446, "M": 1984, "bytes": 27392, "line": "store ptr %_2.i44.i, ptr %_50.sroa.0.sroa.13.0..sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2420", "ratio": 0.60201, "M": 2008, "bytes": 27360, "line": "store ptr %_12.i45.i, ptr %_50.sroa.0.sroa.13.sroa.4.0._50.sroa.0.sroa.13.0..sroa_idx.sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2424", "ratio": 0.59668, "M": 1992, "bytes": 27408, "line": "store ptr %_5.i56.i, ptr %_50.sroa.0.sroa.13.sroa.6.0._50.sroa.0.sroa.13.0..sroa_idx.sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2422", "ratio": 0.59727, "M": 1994, "bytes": 27408, "line": "store ptr %_16.i51.i, ptr %_50.sroa.0.sroa.13.sroa.5.0._50.sroa.0.sroa.13.0..sroa_idx.sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2426", "ratio": 0.59697, "M": 1993, "bytes": 27408, "line": "store i64 %_6.i57.i, ptr %_50.sroa.0.sroa.13.sroa.7.0._50.sroa.0.sroa.13.0..sroa_idx.sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2430", "ratio": 0.59668, "M": 1992, "bytes": 27408, "line": "store i8 %393, ptr %_50.sroa.0.sroa.13.sroa.9.0._50.sroa.0.sroa.13.0..sroa_idx.sroa_idx.i, align 1, !noalias !8628"}
+{"name": "vs:2428", "ratio": 0.59668, "M": 1992, "bytes": 27408, "line": "store i8 %391, ptr %_50.sroa.0.sroa.13.sroa.8.0._50.sroa.0.sroa.13.0..sroa_idx.sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2432", "ratio": 0.60315, "M": 2013, "bytes": 27392, "line": "store i8 %395, ptr %_50.sroa.0.sroa.13.sroa.10.0._50.sroa.0.sroa.13.0..sroa_idx.sroa_idx.i, align 2, !noalias !8628"}
+{"name": "vs:2434", "ratio": 0.60078, "M": 2006, "bytes": 27416, "line": "store ptr %_2.i61.i, ptr %_50.sroa.0.sroa.14.0..sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2436", "ratio": 0.61871, "M": 2064, "bytes": 27368, "line": "store ptr %_12.i62.i, ptr %_50.sroa.0.sroa.14.sroa.4.0._50.sroa.0.sroa.14.0..sroa_idx.sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2438", "ratio": 0.61919, "M": 2065, "bytes": 27352, "line": "store ptr %_16.i68.i, ptr %_50.sroa.0.sroa.14.sroa.5.0._50.sroa.0.sroa.14.0..sroa_idx.sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2440", "ratio": 0.61709, "M": 2058, "bytes": 27352, "line": "store ptr %_5.i73.i, ptr %_50.sroa.0.sroa.14.sroa.6.0._50.sroa.0.sroa.14.0..sroa_idx.sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2442", "ratio": 0.61661, "M": 2057, "bytes": 27368, "line": "store i64 %_6.i74.i, ptr %_50.sroa.0.sroa.14.sroa.7.0._50.sroa.0.sroa.14.0..sroa_idx.sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2446", "ratio": 0.61541, "M": 2053, "bytes": 27368, "line": "store i8 %403, ptr %_50.sroa.0.sroa.14.sroa.9.0._50.sroa.0.sroa.14.0..sroa_idx.sroa_idx.i, align 1, !noalias !8628"}
+{"name": "vs:2444", "ratio": 0.61631, "M": 2056, "bytes": 27368, "line": "store i8 %401, ptr %_50.sroa.0.sroa.14.sroa.8.0._50.sroa.0.sroa.14.0..sroa_idx.sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2448", "ratio": 0.59065, "M": 1971, "bytes": 27384, "line": "store i8 %405, ptr %_50.sroa.0.sroa.14.sroa.10.0._50.sroa.0.sroa.14.0..sroa_idx.sroa_idx.i, align 2, !noalias !8628"}
+{"name": "vs:2450", "ratio": 0.58903, "M": 1965, "bytes": 27368, "line": "store ptr %_2.i78.i, ptr %_50.sroa.0.sroa.15.0..sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2454", "ratio": 0.60494, "M": 2019, "bytes": 27392, "line": "store ptr %_16.i85.i, ptr %_50.sroa.0.sroa.15.sroa.5.0._50.sroa.0.sroa.15.0..sroa_idx.sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2452", "ratio": 0.62122, "M": 2073, "bytes": 27384, "line": "store ptr %_12.i79.i, ptr %_50.sroa.0.sroa.15.sroa.4.0._50.sroa.0.sroa.15.0..sroa_idx.sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2458", "ratio": 0.59907, "M": 2000, "bytes": 27408, "line": "store i64 %_6.i91.i, ptr %_50.sroa.0.sroa.15.sroa.7.0._50.sroa.0.sroa.15.0..sroa_idx.sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2456", "ratio": 0.59701, "M": 1994, "bytes": 27432, "line": "store ptr %_5.i90.i, ptr %_50.sroa.0.sroa.15.sroa.6.0._50.sroa.0.sroa.15.0..sroa_idx.sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2460", "ratio": 0.59907, "M": 2000, "bytes": 27408, "line": "store i8 %412, ptr %_50.sroa.0.sroa.15.sroa.8.0._50.sroa.0.sroa.15.0..sroa_idx.sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2462", "ratio": 0.59907, "M": 2000, "bytes": 27408, "line": "store i8 %414, ptr %_50.sroa.0.sroa.15.sroa.9.0._50.sroa.0.sroa.15.0..sroa_idx.sroa_idx.i, align 1, !noalias !8628"}
+{"name": "vs:2464", "ratio": 0.59907, "M": 2000, "bytes": 27408, "line": "store i8 %416, ptr %_50.sroa.0.sroa.15.sroa.10.0._50.sroa.0.sroa.15.0..sroa_idx.sroa_idx.i, align 2, !noalias !8628"}
+{"name": "vs:2466", "ratio": 0.60081, "M": 2007, "bytes": 27440, "line": "store ptr %_2.i95.i, ptr %_50.sroa.0.sroa.16.0..sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2468", "ratio": 0.59859, "M": 1999, "bytes": 27424, "line": "store ptr %_12.i96.i, ptr %_50.sroa.0.sroa.16.sroa.4.0._50.sroa.0.sroa.16.0..sroa_idx.sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2472", "ratio": 0.58811, "M": 1964, "bytes": 27424, "line": "store ptr %_5.i107.i, ptr %_50.sroa.0.sroa.16.sroa.6.0._50.sroa.0.sroa.16.0..sroa_idx.sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2470", "ratio": 0.58892, "M": 1967, "bytes": 27432, "line": "store ptr %_16.i102.i, ptr %_50.sroa.0.sroa.16.sroa.5.0._50.sroa.0.sroa.16.0..sroa_idx.sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2474", "ratio": 0.58811, "M": 1964, "bytes": 27424, "line": "store i64 %_6.i108.i, ptr %_50.sroa.0.sroa.16.sroa.7.0._50.sroa.0.sroa.16.0..sroa_idx.sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2476", "ratio": 0.59021, "M": 1971, "bytes": 27424, "line": "store i8 %422, ptr %_50.sroa.0.sroa.16.sroa.8.0._50.sroa.0.sroa.16.0..sroa_idx.sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2478", "ratio": 0.58979, "M": 1969, "bytes": 27408, "line": "store i8 %424, ptr %_50.sroa.0.sroa.16.sroa.9.0._50.sroa.0.sroa.16.0..sroa_idx.sroa_idx.i, align 1, !noalias !8628"}
+{"name": "vs:2480", "ratio": 0.58979, "M": 1969, "bytes": 27408, "line": "store i8 %426, ptr %_50.sroa.0.sroa.16.sroa.10.0._50.sroa.0.sroa.16.0..sroa_idx.sroa_idx.i, align 2, !noalias !8628"}
+{"name": "vs:2482", "ratio": 0.61048, "M": 2039, "bytes": 27432, "line": "store ptr %_2.i112.i, ptr %_50.sroa.0.sroa.17.0..sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2484", "ratio": 0.60764, "M": 2028, "bytes": 27392, "line": "store ptr %_12.i113.i, ptr %_50.sroa.0.sroa.17.sroa.4.0._50.sroa.0.sroa.17.0..sroa_idx.sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2486", "ratio": 0.60171, "M": 2007, "bytes": 27360, "line": "store ptr %_16.i119.i, ptr %_50.sroa.0.sroa.17.sroa.5.0._50.sroa.0.sroa.17.0..sroa_idx.sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2488", "ratio": 0.60084, "M": 2005, "bytes": 27384, "line": "store ptr %_5.i124.i, ptr %_50.sroa.0.sroa.17.sroa.6.0._50.sroa.0.sroa.17.0..sroa_idx.sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2490", "ratio": 0.60084, "M": 2005, "bytes": 27384, "line": "store i64 %_6.i125.i, ptr %_50.sroa.0.sroa.17.sroa.7.0._50.sroa.0.sroa.17.0..sroa_idx.sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2492", "ratio": 0.60084, "M": 2005, "bytes": 27384, "line": "store i8 %433, ptr %_50.sroa.0.sroa.17.sroa.8.0._50.sroa.0.sroa.17.0..sroa_idx.sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2494", "ratio": 0.60024, "M": 2003, "bytes": 27384, "line": "store i8 %435, ptr %_50.sroa.0.sroa.17.sroa.9.0._50.sroa.0.sroa.17.0..sroa_idx.sroa_idx.i, align 1, !noalias !8628"}
+{"name": "vs:2496", "ratio": 0.59988, "M": 2003, "bytes": 27416, "line": "store i8 %437, ptr %_50.sroa.0.sroa.17.sroa.10.0._50.sroa.0.sroa.17.0..sroa_idx.sroa_idx.i, align 2, !noalias !8628"}
+{"name": "vs:2498", "ratio": 0.59596, "M": 1989, "bytes": 27392, "line": "store ptr %_192.i, ptr %_50.sroa.10.0..sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2500", "ratio": 0.59532, "M": 1986, "bytes": 27368, "line": "store ptr %_233.i138, ptr %_50.sroa.11.0..sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2504", "ratio": 0.59386, "M": 1982, "bytes": 27392, "line": "store ptr %_193.i, ptr %_50.sroa.13.0..sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2502", "ratio": 0.59386, "M": 1982, "bytes": 27392, "line": "store ptr %_237.i139, ptr %_50.sroa.12.0..sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2506", "ratio": 0.60027, "M": 2004, "bytes": 27408, "line": "store i64 %_63.i140, ptr %_50.sroa.14.0..sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2508", "ratio": 0.59997, "M": 2003, "bytes": 27408, "line": "store i8 %443, ptr %_50.sroa.15.0..sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2510", "ratio": 0.59997, "M": 2003, "bytes": 27408, "line": "store i8 %445, ptr %_50.sroa.16.0..sroa_idx.i, align 1, !noalias !8628"}
+{"name": "vs:2512", "ratio": 0.58526, "M": 1953, "bytes": 27384, "line": "store i8 %447, ptr %_50.sroa.17.0..sroa_idx.i, align 2, !noalias !8628"}
+{"name": "vs:2514", "ratio": 0.58675, "M": 1958, "bytes": 27384, "line": "store ptr %_2.i141.i, ptr %_50.sroa.19.0..sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2516", "ratio": 0.58744, "M": 1960, "bytes": 27376, "line": "store ptr %_12.i142.i, ptr %_50.sroa.19.sroa.4.0._50.sroa.19.0..sroa_idx.sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2518", "ratio": 0.6283, "M": 2096, "bytes": 27368, "line": "store ptr %_16.i148.i, ptr %_50.sroa.19.sroa.5.0._50.sroa.19.0..sroa_idx.sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2520", "ratio": 0.59284, "M": 1978, "bytes": 27376, "line": "store ptr %_5.i153.i, ptr %_50.sroa.19.sroa.6.0._50.sroa.19.0..sroa_idx.sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2522", "ratio": 0.59284, "M": 1978, "bytes": 27376, "line": "store i64 %_6.i154.i, ptr %_50.sroa.19.sroa.7.0._50.sroa.19.0..sroa_idx.sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2524", "ratio": 0.59224, "M": 1976, "bytes": 27376, "line": "store i8 %453, ptr %_50.sroa.19.sroa.8.0._50.sroa.19.0..sroa_idx.sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2528", "ratio": 0.60264, "M": 2011, "bytes": 27384, "line": "store i8 %457, ptr %_50.sroa.19.sroa.10.0._50.sroa.19.0..sroa_idx.sroa_idx.i, align 2, !noalias !8628"}
+{"name": "vs:2526", "ratio": 0.60264, "M": 2011, "bytes": 27384, "line": "store i8 %455, ptr %_50.sroa.19.sroa.9.0._50.sroa.19.0..sroa_idx.sroa_idx.i, align 1, !noalias !8628"}
+{"name": "vs:2530", "ratio": 0.60294, "M": 2012, "bytes": 27384, "line": "store ptr %_194.i, ptr %_50.sroa.20.0..sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2532", "ratio": 0.58829, "M": 1964, "bytes": 27408, "line": "store ptr %_245.i, ptr %_50.sroa.20.sroa.4.0._50.sroa.20.0..sroa_idx.sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2534", "ratio": 0.60395, "M": 2016, "bytes": 27400, "line": "store ptr %_241.i, ptr %_50.sroa.20.sroa.5.0._50.sroa.20.0..sroa_idx.sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2536", "ratio": 0.63212, "M": 2110, "bytes": 27400, "line": "store ptr %_195.i, ptr %_50.sroa.20.sroa.6.0._50.sroa.20.0..sroa_idx.sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2540", "ratio": 0.60524, "M": 2020, "bytes": 27392, "line": "store i8 %464, ptr %_50.sroa.20.sroa.8.0._50.sroa.20.0..sroa_idx.sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2538", "ratio": 0.64888, "M": 2165, "bytes": 27376, "line": "store i64 %_75.i142, ptr %_50.sroa.20.sroa.7.0._50.sroa.20.0..sroa_idx.sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2542", "ratio": 0.62101, "M": 2072, "bytes": 27376, "line": "store i8 %466, ptr %_50.sroa.20.sroa.9.0._50.sroa.20.0..sroa_idx.sroa_idx.i, align 1, !noalias !8628"}
+{"name": "vs:2544", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i8 %468, ptr %_50.sroa.20.sroa.10.0._50.sroa.20.0..sroa_idx.sroa_idx.i, align 2, !noalias !8628"}
+{"name": "vs:2548", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store ptr %_2.i170.i, ptr %_50.sroa.21.0..sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2550", "ratio": 0.67166, "M": 2242, "bytes": 27400, "line": "store ptr %_12.i171.i, ptr %_50.sroa.21.sroa.4.0._50.sroa.21.0..sroa_idx.sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2552", "ratio": 0.67166, "M": 2242, "bytes": 27400, "line": "store ptr %_16.i177.i, ptr %_50.sroa.21.sroa.5.0._50.sroa.21.0..sroa_idx.sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2554", "ratio": 0.67166, "M": 2242, "bytes": 27400, "line": "store ptr %_5.i182.i, ptr %_50.sroa.21.sroa.6.0._50.sroa.21.0..sroa_idx.sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2556", "ratio": 0.67346, "M": 2248, "bytes": 27400, "line": "store i64 %_6.i183.i, ptr %_50.sroa.21.sroa.7.0._50.sroa.21.0..sroa_idx.sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2558", "ratio": 0.67256, "M": 2245, "bytes": 27400, "line": "store i8 %475, ptr %_50.sroa.21.sroa.8.0._50.sroa.21.0..sroa_idx.sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2560", "ratio": 0.67316, "M": 2247, "bytes": 27400, "line": "store i8 %477, ptr %_50.sroa.21.sroa.9.0._50.sroa.21.0..sroa_idx.sroa_idx.i, align 1, !noalias !8628"}
+{"name": "vs:2566", "ratio": 0.67316, "M": 2247, "bytes": 27400, "line": "store ptr %_196.i, ptr %_50.sroa.22.0..sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2562", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i8 %479, ptr %_50.sroa.21.sroa.10.0._50.sroa.21.0..sroa_idx.sroa_idx.i, align 2, !noalias !8628"}
+{"name": "vs:2570", "ratio": 0.67136, "M": 2241, "bytes": 27400, "line": "store ptr %_254.i, ptr %_50.sroa.22.sroa.5.0._50.sroa.22.0..sroa_idx.sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2568", "ratio": 0.67106, "M": 2240, "bytes": 27400, "line": "store ptr %_250.i, ptr %_50.sroa.22.sroa.4.0._50.sroa.22.0..sroa_idx.sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2572", "ratio": 0.67136, "M": 2241, "bytes": 27400, "line": "store ptr %_197.i, ptr %_50.sroa.22.sroa.6.0._50.sroa.22.0..sroa_idx.sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2574", "ratio": 0.67226, "M": 2244, "bytes": 27400, "line": "store i64 %_84.i, ptr %_50.sroa.22.sroa.7.0._50.sroa.22.0..sroa_idx.sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2580", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i8 %489, ptr %_50.sroa.22.sroa.10.0._50.sroa.22.0..sroa_idx.sroa_idx.i, align 2, !noalias !8628"}
+{"name": "vs:2576", "ratio": 0.67226, "M": 2244, "bytes": 27400, "line": "store i8 %485, ptr %_50.sroa.22.sroa.8.0._50.sroa.22.0..sroa_idx.sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2578", "ratio": 0.67286, "M": 2246, "bytes": 27400, "line": "store i8 %487, ptr %_50.sroa.22.sroa.9.0._50.sroa.22.0..sroa_idx.sroa_idx.i, align 1, !noalias !8628"}
+{"name": "vs:2583", "ratio": 0.67406, "M": 2250, "bytes": 27400, "line": "store i64 0, ptr %_41.i, align 8, !noalias !8628"}
+{"name": "vs:2585", "ratio": 0.66557, "M": 2222, "bytes": 27408, "line": "store ptr inttoptr (i64 8 to ptr), ptr %_256.sroa.4.0._41.sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2587", "ratio": 0.66587, "M": 2223, "bytes": 27408, "line": "store i64 0, ptr %_256.sroa.5.0._41.sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2591", "ratio": 0.66587, "M": 2223, "bytes": 27408, "line": "store ptr %_219.i, ptr %_42.sroa.4.0..sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2593", "ratio": 0.66587, "M": 2223, "bytes": 27408, "line": "store ptr %_223.i, ptr %_42.sroa.5.0..sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2589", "ratio": 0.66587, "M": 2223, "bytes": 27408, "line": "store ptr %_190.i, ptr %491, align 8, !noalias !8628"}
+{"name": "vs:2595", "ratio": 0.66587, "M": 2223, "bytes": 27408, "line": "store ptr %_189.i, ptr %_42.sroa.6.0..sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2597", "ratio": 0.66587, "M": 2223, "bytes": 27408, "line": "store i64 %_46.i137, ptr %_42.sroa.7.0..sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2599", "ratio": 0.67046, "M": 2238, "bytes": 27400, "line": "store i8 %363, ptr %_42.sroa.8.0..sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2601", "ratio": 0.67136, "M": 2241, "bytes": 27400, "line": "store i8 %361, ptr %_42.sroa.9.0..sroa_idx.i, align 1, !noalias !8628"}
+{"name": "vs:2607", "ratio": 0.67406, "M": 2250, "bytes": 27400, "line": "store ptr inttoptr (i64 8 to ptr), ptr %492, align 8, !noalias !8628"}
+{"name": "vs:2603", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i8 %359, ptr %_42.sroa.10.0..sroa_idx.i, align 2, !noalias !8628"}
+{"name": "vs:2609", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 0, ptr %493, align 8, !noalias !8628"}
+{"name": "bl:2618", "ratio": 0.52209, "M": 1743, "bytes": 27408, "line": "br i1 %496, label %bb26.i119, label %bb79.i143"}
+{"name": "bu:2618", "ratio": 0.58461, "M": 1952, "bytes": 27416, "line": "br i1 %496, label %bb26.i119, label %bb79.i143"}
+{"name": "vl:2629", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_267.i = load ptr, ptr %499, align 8, !noalias !8628, !nonnull !2, !align !392, !noundef !2"}
+{"name": "vs:2634", "ratio": 0.67376, "M": 2249, "bytes": 27400, "line": "store ptr @alloc_ed0c7b53f6fd188c408cb80c27c2e0f7, ptr %_108.i, align 8, !noalias !8628"}
+{"name": "vs:2633", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i8 %ctx.val62, ptr %_113.i, align 1, !noalias !8628"}
+{"name": "vs:2636", "ratio": 0.67346, "M": 2248, "bytes": 27400, "line": "store i64 13, ptr %500, align 8, !noalias !8628"}
+{"name": "vs:2638", "ratio": 0.67316, "M": 2247, "bytes": 27400, "line": "store ptr %old.i, ptr %501, align 8, !noalias !8628"}
+{"name": "vs:2640", "ratio": 0.67316, "M": 2247, "bytes": 27400, "line": "store i64 32, ptr %502, align 8, !noalias !8628"}
+{"name": "vs:2642", "ratio": 0.67406, "M": 2250, "bytes": 27400, "line": "store ptr %_113.i, ptr %503, align 8, !noalias !8628"}
+{"name": "vs:2645", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store ptr %_108.i, ptr %vsigner.i, align 8, !noalias !8628"}
+{"name": "vs:2644", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 1, ptr %504, align 8, !noalias !8628"}
+{"name": "vs:2647", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 3, ptr %505, align 8, !noalias !8628"}
+{"name": "bl:2648", "ratio": 0.46039, "M": 1537, "bytes": 27408, "line": "br i1 %326, label %bb27.i128, label %bb35.i"}
+{"name": "bu:2648", "ratio": 0.51086, "M": 1705, "bytes": 27392, "line": "br i1 %326, label %bb27.i128, label %bb35.i"}
+{"name": "vl:2654", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%506 = load i64, ptr %_90.i, align 8, !range !318, !noalias !8628, !noundef !2"}
+{"name": "vl:2652", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_91.i = load ptr, ptr %332, align 8, !noalias !8628, !nonnull !2, !align !3, !noundef !2"}
+{"name": "bl:2657", "ratio": 0.67016, "M": 2237, "bytes": 27400, "line": "br i1 %507, label %bb82.i117, label %bb81.i116"}
+{"name": "vl:2660", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_263.i = load i64, ptr %508, align 8, !noalias !8628, !noundef !2"}
+{"name": "bu:2657", "ratio": 0.52329, "M": 1747, "bytes": 27408, "line": "br i1 %507, label %bb82.i117, label %bb81.i116"}
+{"name": "bl:2663", "ratio": 0.642, "M": 2143, "bytes": 27400, "line": "br i1 %509, label %bb26.i119, label %bb22.i118"}
+{"name": "bu:2663", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "br i1 %509, label %bb26.i119, label %bb22.i118"}
+{"name": "vs:2678", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i32 6093, ptr %513, align 8, !noalias !8628"}
+{"name": "vl:2666", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_264.1.i = load ptr, ptr %508, align 8, !noalias !8628, !noundef !2"}
+{"name": "vs:2679", "ratio": 0.67376, "M": 2249, "bytes": 27400, "line": "store i64 0, ptr %_95.i, align 8, !noalias !8628"}
+{"name": "vs:2681", "ratio": 0.67376, "M": 2249, "bytes": 27400, "line": "store ptr @alloc_ebe040a358b3132776a16f34a7b7aa5b, ptr %_99.sroa.4.0._95.sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2683", "ratio": 0.67376, "M": 2249, "bytes": 27400, "line": "store i64 38, ptr %_99.sroa.4.sroa.4.0._99.sroa.4.0._95.sroa_idx.sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2685", "ratio": 0.67406, "M": 2250, "bytes": 27400, "line": "store i32 660, ptr %_99.sroa.4.sroa.5.0._99.sroa.4.0._95.sroa_idx.sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2687", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i8 2, ptr %514, align 8, !noalias !8628"}
+{"name": "vl:2698", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_142.i120 = load ptr, ptr %517, align 8, !noalias !8628, !nonnull !2, !align !3, !noundef !2"}
+{"name": "vl:2700", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%518 = load i64, ptr %_141.i, align 8, !range !318, !noalias !8628, !noundef !2"}
+{"name": "bl:2703", "ratio": 0.65009, "M": 2170, "bytes": 27400, "line": "br i1 %519, label %bb94.i, label %bb93.i"}
+{"name": "bu:2703", "ratio": 0.48226, "M": 1611, "bytes": 27440, "line": "br i1 %519, label %bb94.i, label %bb93.i"}
+{"name": "vl:2709", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_269.i = load i64, ptr %_117.i98, align 8, !range !530, !noalias !8628, !noundef !2"}
+{"name": "bl:2714", "ratio": 0.57327, "M": 1913, "bytes": 27384, "line": "br i1 %trunc.not.i129, label %bb85.i, label %bb84.i130"}
+{"name": "bu:2714", "ratio": 0.62766, "M": 2097, "bytes": 27448, "line": "br i1 %trunc.not.i129, label %bb85.i, label %bb84.i130"}
+{"name": "vl:2720", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_148.i = load ptr, ptr %517, align 8, !noalias !8628, !nonnull !2, !align !3, !noundef !2"}
+{"name": "vl:2717", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%522 = load i8, ptr %520, align 8, !range !394, !noalias !8628, !noundef !2"}
+{"name": "vl:2722", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%523 = load i64, ptr %_147.i97, align 8, !range !318, !noalias !8628, !noundef !2"}
+{"name": "bl:2724", "ratio": 0.65009, "M": 2170, "bytes": 27400, "line": "br i1 %524, label %bb96.i, label %bb95.i122"}
+{"name": "bu:2724", "ratio": 0.57673, "M": 1926, "bytes": 27424, "line": "br i1 %524, label %bb96.i, label %bb95.i122"}
+{"name": "vl:2727", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_284.1.i = load ptr, ptr %520, align 8, !noalias !8628, !noundef !2"}
+{"name": "vl:2735", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_288.i = load i64, ptr %526, align 8, !noalias !8628, !noundef !2"}
+{"name": "bl:2738", "ratio": 0.6455, "M": 2155, "bytes": 27408, "line": "br i1 %_283.not.i, label %bb44.i125, label %bb38.i123"}
+{"name": "bu:2738", "ratio": 0.59706, "M": 1993, "bytes": 27400, "line": "br i1 %_283.not.i, label %bb44.i125, label %bb38.i123"}
+{"name": "vl:2742", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_289.1.i = load ptr, ptr %527, align 8, !noalias !8628, !noundef !2"}
+{"name": "bl:2748", "ratio": 0.59689, "M": 1993, "bytes": 27416, "line": "br i1 %_161.not.i, label %bb49.i, label %bb45.i126"}
+{"name": "bu:2748", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "br i1 %_161.not.i, label %bb49.i, label %bb45.i126"}
+{"name": "bl:2751", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "br i1 %_161.not.i, label %bb49.i, label %bb40.i"}
+{"name": "bu:2751", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "br i1 %_161.not.i, label %bb49.i, label %bb40.i"}
+{"name": "vl:2756", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_292.i = load ptr, ptr %529, align 8, !noalias !8628, !nonnull !2, !align !3, !noundef !2"}
+{"name": "vl:2760", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_293.i = load ptr, ptr %_270, align 8, !noalias !8628, !nonnull !2, !align !3, !noundef !2"}
+{"name": "vl:2763", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_294.i = load ptr, ptr %531, align 8, !noalias !8628, !nonnull !2, !align !3, !noundef !2"}
+{"name": "vl:2768", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_198.i = load ptr, ptr %323, align 8, !noalias !8628, !nonnull !2, !align !3, !noundef !2"}
+{"name": "vl:2770", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_295.i = load ptr, ptr %534, align 8, !noalias !8632, !nonnull !2, !align !3, !noundef !2"}
+{"name": "vl:2773", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_296.i = load ptr, ptr %_77, align 8, !noalias !8628, !nonnull !2, !align !3, !noundef !2"}
+{"name": "vl:2777", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_297.i = load ptr, ptr %537, align 8, !noalias !8628, !nonnull !2, !align !3, !noundef !2"}
+{"name": "vs:2788", "ratio": 0.66267, "M": 2212, "bytes": 27400, "line": "store ptr inttoptr (i64 8 to ptr), ptr %540, align 8, !noalias !8628"}
+{"name": "vs:2784", "ratio": 0.66207, "M": 2210, "bytes": 27400, "line": "store ptr inttoptr (i64 8 to ptr), ptr %_298.sroa.4.0._166.sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2786", "ratio": 0.66267, "M": 2212, "bytes": 27400, "line": "store i64 0, ptr %_298.sroa.5.0._166.sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2782", "ratio": 0.66237, "M": 2211, "bytes": 27400, "line": "store i64 0, ptr %_166.i, align 8, !noalias !8628"}
+{"name": "vs:2790", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 0, ptr %541, align 8, !noalias !8628"}
+{"name": "bl:2796", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "br i1 %544, label %bb106.i, label %bb108.i"}
+{"name": "bu:2796", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "br i1 %544, label %bb106.i, label %bb108.i"}
+{"name": "vl:2800", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_310.i = load ptr, ptr %323, align 8, !noalias !8628, !nonnull !2, !noundef !2"}
+{"name": "vl:2804", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_303.i = load ptr, ptr %546, align 8, !noalias !8632, !nonnull !2, !align !3, !noundef !2"}
+{"name": "vl:2802", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_302.i = load i8, ptr %545, align 8, !noalias !8632, !noundef !2"}
+{"name": "bl:2808", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "br i1 %549, label %bb53.i121, label %bb108.i"}
+{"name": "bu:2808", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "br i1 %549, label %bb53.i121, label %bb108.i"}
+{"name": "vs:2824", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i32 6093, ptr %553, align 8, !noalias !8628"}
+{"name": "vs:2825", "ratio": 0.67376, "M": 2249, "bytes": 27400, "line": "store i64 0, ptr %_153.i, align 8, !noalias !8628"}
+{"name": "vs:2827", "ratio": 0.67376, "M": 2249, "bytes": 27400, "line": "store ptr @alloc_ebe040a358b3132776a16f34a7b7aa5b, ptr %_157.sroa.4.0._153.sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2829", "ratio": 0.67376, "M": 2249, "bytes": 27400, "line": "store i64 38, ptr %_157.sroa.4.sroa.4.0._157.sroa.4.0._153.sroa_idx.sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2831", "ratio": 0.67406, "M": 2250, "bytes": 27400, "line": "store i32 719, ptr %_157.sroa.4.sroa.5.0._157.sroa.4.0._153.sroa_idx.sroa_idx.i, align 8, !noalias !8628"}
+{"name": "vs:2833", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i8 2, ptr %554, align 8, !noalias !8628"}
+{"name": "bl:2868", "ratio": 0.58439, "M": 1951, "bytes": 27408, "line": "br i1 %_125.not.not.i, label %bb31.i, label %bb49.i"}
+{"name": "bu:2868", "ratio": 0.66717, "M": 2227, "bytes": 27400, "line": "br i1 %_125.not.not.i, label %bb31.i, label %bb49.i"}
+{"name": "bl:2882", "ratio": 0.66826, "M": 2231, "bytes": 27408, "line": "br i1 %562, label %bb89.i133, label %bb88.i"}
+{"name": "bu:2882", "ratio": 0.58748, "M": 1961, "bytes": 27400, "line": "br i1 %562, label %bb89.i133, label %bb88.i"}
+{"name": "vl:2885", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_133.i = load ptr, ptr %_77, align 8, !noalias !8628, !nonnull !2, !align !3, !noundef !2"}
+{"name": "bl:2889", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "br i1 %565, label %bb49.i, label %bb91.i"}
+{"name": "bu:2889", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "br i1 %565, label %bb49.i, label %bb91.i"}
+{"name": "bl:2912", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "br i1 %570, label %bb88, label %bb87"}
+{"name": "bu:2912", "ratio": 0.67466, "M": 2252, "bytes": 27400, "line": "br i1 %570, label %bb88, label %bb87"}
+{"name": "vs:2921", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i8 %_115, ptr %_114, align 1"}
+{"name": "vl:2920", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_115 = load i8, ptr %571, align 1, !noundef !2"}
+{"name": "vs:2922", "ratio": 0.67256, "M": 2245, "bytes": 27400, "line": "store ptr @alloc_837d2dfc2ca6132d7e624d246f381ca4, ptr %_109, align 8"}
+{"name": "vs:2924", "ratio": 0.67226, "M": 2244, "bytes": 27400, "line": "store i64 14, ptr %572, align 8"}
+{"name": "vs:2926", "ratio": 0.67316, "M": 2247, "bytes": 27400, "line": "store ptr %mint, ptr %573, align 8"}
+{"name": "vs:2928", "ratio": 0.67316, "M": 2247, "bytes": 27400, "line": "store i64 32, ptr %574, align 8"}
+{"name": "vs:2930", "ratio": 0.67406, "M": 2250, "bytes": 27400, "line": "store ptr %_114, ptr %575, align 8"}
+{"name": "vs:2932", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 1, ptr %576, align 8"}
+{"name": "vs:2933", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store ptr %_109, ptr %_106, align 8"}
+{"name": "vs:2935", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 3, ptr %577, align 8"}
+{"name": "vl:2944", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_333 = load ptr, ptr %6, align 8, !nonnull !2, !align !3, !noundef !2"}
+{"name": "bu:2937", "ratio": 0.61, "M": 2038, "bytes": 27448, "line": "br i1 %578, label %bb35, label %bb37"}
+{"name": "bl:2937", "ratio": 0.65648, "M": 2191, "bytes": 27392, "line": "br i1 %578, label %bb35, label %bb37"}
+{"name": "vl:2948", "ratio": 0.67406, "M": 2250, "bytes": 27400, "line": "%old_fee = load i64, ptr %581, align 8, !noundef !2"}
+{"name": "vl:2951", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_336 = load ptr, ptr %6, align 8, !nonnull !2, !align !3, !noundef !2"}
+{"name": "vs:2953", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i8 %582, ptr %583, align 1"}
+{"name": "vs:2956", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i8 %170, ptr %584, align 1"}
+{"name": "bl:2958", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "br i1 %switch53, label %bb38, label %bb39"}
+{"name": "vl:2954", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_337 = load ptr, ptr %6, align 8, !nonnull !2, !align !3, !noundef !2"}
+{"name": "bu:2958", "ratio": 0.67226, "M": 2244, "bytes": 27400, "line": "br i1 %switch53, label %bb38, label %bb39"}
+{"name": "vs:2961", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i8 %sharing_update.sroa.0.0, ptr %val8, align 1"}
+{"name": "vl:2967", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_439 = load ptr, ptr %585, align 8, !nonnull !2, !align !3, !noundef !2"}
+{"name": "vl:2969", "ratio": 0.66687, "M": 2225, "bytes": 27376, "line": "%_2.i = load ptr, ptr %_439, align 8, !alias.scope !8692, !noalias !8695, !nonnull !2, !align !392, !noundef !2"}
+{"name": "vl:2972", "ratio": 0.66687, "M": 2225, "bytes": 27376, "line": "%self.val.i.i145 = load i64, ptr %_12.i144, align 8, !noalias !8697, !noundef !2"}
+{"name": "vl:2971", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_12.i144 = load ptr, ptr %586, align 8, !alias.scope !8692, !noalias !8695, !nonnull !2, !noundef !2"}
+{"name": "vs:2976", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 %strong1.i.i147, ptr %_12.i144, align 8, !noalias !8697"}
+{"name": "bl:2978", "ratio": 0.4718, "M": 1577, "bytes": 27472, "line": "br i1 %_7.i.i148, label %bb4.i.i152, label %_ZN5alloc2rc10RcInnerPtr10inc_strong17h485e41ed5d8892acE.exit.i149"}
+{"name": "bu:2978", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "br i1 %_7.i.i148, label %bb4.i.i152, label %_ZN5alloc2rc10RcInnerPtr10inc_strong17h485e41ed5d8892acE.exit.i149"}
+{"name": "vs:2991", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "store i64 %strong1.i3.i, ptr %_16.i, align 8, !noalias !8697"}
+{"name": "vl:2986", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%_16.i = load ptr, ptr %587, align 8, !alias.scope !8692, !noalias !8695, !nonnull !2, !noundef !2"}
+{"name": "vl:2987", "ratio": 0.67436, "M": 2251, "bytes": 27400, "line": "%self.val.i1.i = load i64, ptr %_16.i, align 8, !noalias !8697, !noundef !2"}
+{"name": "bl:2993", "ratio": 0.46932, "M": 1568, "bytes": 27448, "line": "br i1 %_7.i4.i, label %bb4.i5.i, label %\"_ZN71_$LT$solana_account_info..AccountInfo$u20$as$u20$core..clone..Clone$GT$5clone17h759150bcde62cc00E.exit\""}
+{"name": "bu:3022", "ratio": 0.65938, "M": 2202, "bytes": 27424, "combo": ["bu:3022"]}
+{"name": "bl:3037", "ratio": 0.46726, "M": 1570, "bytes": 27752, "combo": ["bl:3037"]}
+{"name": "bu:2993", "ratio": 0.67436, "M": 2251, "bytes": 27400, "combo": ["bu:2993"]}
+{"name": "bl:3022", "ratio": 0.47017, "M": 1572, "bytes": 27488, "combo": ["bl:3022"]}
+{"name": "bl:3085", "ratio": 0.47161, "M": 1582, "bytes": 27664, "combo": ["bl:3085"]}
+{"name": "bu:3070", "ratio": 0.65279, "M": 2179, "bytes": 27400, "combo": ["bu:3070"]}
+{"name": "bu:3037", "ratio": 0.65938, "M": 2202, "bytes": 27424, "combo": ["bu:3037"]}
+{"name": "bl:3070", "ratio": 0.47524, "M": 1588, "bytes": 27456, "combo": ["bl:3070"]}
+{"name": "bl:3128", "ratio": 0.47694, "M": 1598, "bytes": 27600, "combo": ["bl:3128"]}
+{"name": "bu:3085", "ratio": 0.65848, "M": 2199, "bytes": 27424, "combo": ["bu:3085"]}
+{"name": "bl:3113", "ratio": 0.47635, "M": 1591, "bytes": 27432, "combo": ["bl:3113"]}
+{"name": "bu:3113", "ratio": 0.65709, "M": 2195, "bytes": 27440, "combo": ["bu:3113"]}
+{"name": "bu:3128", "ratio": 0.65709, "M": 2195, "bytes": 27440, "combo": ["bu:3128"]}
+{"name": "bu:3155", "ratio": 0.67436, "M": 2251, "bytes": 27400, "combo": ["bu:3155"]}
+{"name": "bl:3155", "ratio": 0.47941, "M": 1601, "bytes": 27424, "combo": ["bl:3155"]}
+{"name": "bl:3172", "ratio": 0.48189, "M": 1610, "bytes": 27448, "combo": ["bl:3172"]}
+{"name": "bu:3172", "ratio": 0.67436, "M": 2251, "bytes": 27400, "combo": ["bu:3172"]}
+{"name": "bl:3191", "ratio": 0.4809, "M": 1605, "bytes": 27392, "combo": ["bl:3191"]}
+{"name": "bu:3191", "ratio": 0.65319, "M": 2181, "bytes": 27416, "combo": ["bu:3191"]}
+{"name": "bl:3206", "ratio": 0.48474, "M": 1620, "bytes": 27464, "combo": ["bl:3206"]}
+{"name": "bu:3206", "ratio": 0.65319, "M": 2181, "bytes": 27416, "combo": ["bu:3206"]}
+{"name": "bl:3233", "ratio": 0.48554, "M": 1620, "bytes": 27376, "combo": ["bl:3233"]}
+{"name": "bu:3233", "ratio": 0.65349, "M": 2182, "bytes": 27416, "combo": ["bu:3233"]}
+{"name": "bl:3249", "ratio": 0.48495, "M": 1619, "bytes": 27408, "combo": ["bl:3249"]}
+{"name": "bu:3249", "ratio": 0.65349, "M": 2182, "bytes": 27416, "combo": ["bu:3249"]}
+{"name": "bl:3277", "ratio": 0.48974, "M": 1635, "bytes": 27408, "combo": ["bl:3277"]}
+{"name": "bu:3277", "ratio": 0.65349, "M": 2182, "bytes": 27416, "combo": ["bu:3277"]}
+{"name": "bl:3294", "ratio": 0.48928, "M": 1632, "bytes": 27360, "combo": ["bl:3294"]}
+{"name": "bu:3294", "ratio": 0.67436, "M": 2251, "bytes": 27400, "combo": ["bu:3294"]}
+{"name": "bl:3455", "ratio": 0.66587, "M": 2223, "bytes": 27408, "combo": ["bl:3455"]}
+{"name": "bu:3455", "ratio": 0.67146, "M": 2241, "bytes": 27392, "combo": ["bu:3455"]}
+{"name": "bl:3473", "ratio": 0.45577, "M": 1520, "bytes": 27352, "combo": ["bl:3473"]}
+{"name": "bu:3473", "ratio": 0.63434, "M": 2119, "bytes": 27440, "combo": ["bu:3473"]}
+{"name": "bl:3481", "ratio": 0.63464, "M": 2120, "bytes": 27440, "combo": ["bl:3481"]}
+{"name": "bu:3481", "ratio": 0.5144, "M": 1715, "bytes": 27336, "combo": ["bu:3481"]}
+{"name": "bl:3537", "ratio": 0.67436, "M": 2251, "bytes": 27400, "combo": ["bl:3537"]}
+{"name": "bu:3537", "ratio": 0.67436, "M": 2251, "bytes": 27400, "combo": ["bu:3537"]}
+{"name": "bl:3549", "ratio": 0.66147, "M": 2208, "bytes": 27400, "combo": ["bl:3549"]}
+{"name": "bl:3666", "ratio": 0.66896, "M": 2233, "bytes": 27400, "combo": ["bl:3666"]}
+{"name": "bu:3549", "ratio": 0.66747, "M": 2228, "bytes": 27400, "combo": ["bu:3549"]}
+{"name": "bu:3666", "ratio": 0.66707, "M": 2226, "bytes": 27384, "combo": ["bu:3666"]}
+{"name": "bl:3698", "ratio": 0.67436, "M": 2251, "bytes": 27400, "combo": ["bl:3698"]}
+{"name": "bu:3698", "ratio": 0.67436, "M": 2251, "bytes": 27400, "combo": ["bu:3698"]}
+{"name": "bl:3714", "ratio": 0.67436, "M": 2251, "bytes": 27400, "combo": ["bl:3714"]}
+{"name": "bl:3727", "ratio": 0.67436, "M": 2251, "bytes": 27400, "combo": ["bl:3727"]}
+{"name": "bu:3714", "ratio": 0.67436, "M": 2251, "bytes": 27400, "combo": ["bu:3714"]}
+{"name": "bu:3727", "ratio": 0.67436, "M": 2251, "bytes": 27400, "combo": ["bu:3727"]}
+{"name": "bl:3740", "ratio": 0.67436, "M": 2251, "bytes": 27400, "combo": ["bl:3740"]}
+{"name": "bu:3740", "ratio": 0.67436, "M": 2251, "bytes": 27400, "combo": ["bu:3740"]}
+{"name": "bl:3774", "ratio": 0.67436, "M": 2251, "bytes": 27400, "combo": ["bl:3774"]}
+{"name": "bu:3774", "ratio": 0.67436, "M": 2251, "bytes": 27400, "combo": ["bu:3774"]}
+{"name": "bl:3790", "ratio": 0.67436, "M": 2251, "bytes": 27400, "combo": ["bl:3790"]}
+{"name": "bu:3790", "ratio": 0.67436, "M": 2251, "bytes": 27400, "combo": ["bu:3790"]}
+{"name": "bl:3803", "ratio": 0.67436, "M": 2251, "bytes": 27400, "combo": ["bl:3803"]}
+{"name": "bu:3803", "ratio": 0.67436, "M": 2251, "bytes": 27400, "combo": ["bu:3803"]}
+{"name": "bl:3816", "ratio": 0.67436, "M": 2251, "bytes": 27400, "combo": ["bl:3816"]}
+{"name": "bu:3816", "ratio": 0.67436, "M": 2251, "bytes": 27400, "combo": ["bu:3816"]}
