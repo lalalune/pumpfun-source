@@ -754,7 +754,7 @@ fn validate(st:&CtoState,hopt:Option<bool>,fee:Option<u64>,new:Option<Pubkey>,ho
   curve.creator=target;
   curve.is_holder_reward=holder.unwrap_or(false);
   curve.is_cashback_coin=cashback;
-  if let Some(f)=fee{curve.creator_fee_bps=f;}
+  if unsafe{pt1(30,*(&fee as *const Option<u64> as *const u64)!=0)}/*shim: passthrough on the raw fee tag test (keeps the jne tag,0 form)*/{curve.creator_fee_bps=unsafe{fee.unwrap_unchecked()};}
   unsafe{core::ptr::read_volatile(holder_key as *const Pubkey as *const u8)}/*shim: holder_key byte read placeholder*/;curve.can_edit_creator_fee=false;
  (old_creator,old_fee)};
  let a=&ctx.accounts;
