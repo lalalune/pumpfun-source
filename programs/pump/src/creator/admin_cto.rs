@@ -5,7 +5,7 @@ use anchor_lang::solana_program::{instruction::{Instruction,AccountMeta},program
 pub const AMM:Pubkey=anchor_lang::solana_program::pubkey!("pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA");
 pub const FEES:Pubkey=crate::distribution::FEES;
 #[derive(Clone)]pub struct Amm; impl Id for Amm{fn id()->Pubkey{AMM}}
-extern "C"{#[link_name="llvm.trap"]fn trap()->!;#[link_name="llvm.assume"]fn assume(b:bool);#[link_name="llvm.expect.with.probability.i1"]fn expect_p(b:bool,v:bool,p:f64)->bool;}/*shim: llvm.expect.with.probability, assume and trap for rcw*/struct Wt<const D:u32>;impl<const D:u32> Wt<D>{const P:f64=1.0/(D as f64+1.0);}#[inline(always)]unsafe fn rcw<const D:u32,T>(r:&std::rc::Rc<T>)->std::rc::Rc<T>{let p=(*(r as *const std::rc::Rc<T> as *const core::ptr::NonNull<usize>)).as_ptr();let s=*p;assume(s!=0);let n=s.wrapping_add(1);*p=n;if expect_p(n==0,true,Wt::<D>::P){trap()}core::ptr::read(r)}/*shim: Rc::clone with an explicit 1:D overflow-trap weight*/#[inline(always)]fn aicd<'a,const D:u32>(x:&AccountInfo<'a>)->AccountInfo<'a>{AccountInfo{key:x.key,lamports:x.lamports.clone(),data:unsafe{rcw::<D,_>(&x.data)},owner:x.owner,rent_epoch:x.rent_epoch,is_signer:x.is_signer,is_writable:x.is_writable,executable:x.executable}}/*shim: AccountInfo clone, weighted data*/#[inline(always)]fn aicl<'a,const D:u32>(x:&AccountInfo<'a>)->AccountInfo<'a>{AccountInfo{key:x.key,lamports:unsafe{rcw::<D,_>(&x.lamports)},data:x.data.clone(),owner:x.owner,rent_epoch:x.rent_epoch,is_signer:x.is_signer,is_writable:x.is_writable,executable:x.executable}}/*shim: AccountInfo clone, weighted lamports*/#[inline(always)]fn aicb<'a,const P:u32,const D:u32>(x:&AccountInfo<'a>)->AccountInfo<'a>{AccountInfo{key:x.key,lamports:unsafe{rcw::<P,_>(&x.lamports)},data:unsafe{rcw::<D,_>(&x.data)},owner:x.owner,rent_epoch:x.rent_epoch,is_signer:x.is_signer,is_writable:x.is_writable,executable:x.executable}}/*shim: AccountInfo clone, both Rc weighted*/
+
 #[derive(Accounts)]
 pub struct AdminCto<'info>{
 #[account(mut)]
@@ -280,36 +280,36 @@ struct CtoState{mayhem:bool,holder_reward:bool,cashback:bool,creator:Pubkey,quot
 
 
 
-fn validate(st:&CtoState,shared:bool,holder:bool,fee:Option<u64>,new:Option<Pubkey>,sharing:Pubkey,holder_key:Pubkey,hkr:&Pubkey)->Result<Plan>{
+fn validate(st:&CtoState,shared:bool,holder:bool,fee:Option<u64>,new:Option<Pubkey>,sharing:Pubkey,holder_key:Pubkey)->Result<Plan>{
  let ns=!shared;let mut sharing_update:Option<Option<Pubkey>>=None;if st.mayhem{return Err(error!(PumpError::CtoNotAllowedForMayhemCoin));}
 // Reconstructed positions of the same deployed validations.
 
 
 
- unsafe{core::ptr::read_volatile(hkr as *const Pubkey as *const u8)}/*shim: holder_key byte read before the holder_reward test, repays the pin*/;if st.holder_reward{if !holder{return Err(error!(PumpError::HolderRewardCreatorImmutable));}}else if holder{
+ if st.holder_reward&&!holder{return Err(error!(PumpError::HolderRewardCreatorImmutable));}let (target,is_holder,cashback)=if holder{
 
 
 
 
 
 
-  if !st.holder_enabled{return Err(error!(PumpError::HolderRewardDisabled));}}
+   if !st.holder_reward&&!st.holder_enabled{return Err(error!(PumpError::HolderRewardDisabled));}
 
- let cashback=!holder&&st.cashback;let (target,is_holder)=if holder{if !(new==None){return Err(error!(PumpError::CtoNewCreatorNotAllowed));}(holder_key,true)}else{
-
-
+ if !(new==None){return Err(error!(PumpError::CtoNewCreatorNotAllowed));}(holder_key,true,false)}else{
 
 
 
 
 
-  let (tg,ih)={let t=new.ok_or_else(||error!(PumpError::CtoNewCreatorRequired))?;
+
+
+  let (tg,ih,cb)={let t=new.ok_or_else(||error!(PumpError::CtoNewCreatorRequired))?;
   if t==Pubkey::default(){return Err(error!(PumpError::CreatorShouldNotBeZero).with_pubkeys((t,Pubkey::default())));}
 
 
 
 
-  require!(t!=holder_key&&t!=sharing,PumpError::InvalidCreator);if ns{(t,false)}else{(st.creator,false)}};(tg,ih)};
+  require!(t!=holder_key&&t!=sharing,PumpError::InvalidCreator);if ns{(t,false,st.cashback&&!holder)}else{(st.creator,false,st.cashback&&!holder)}};(tg,ih,cb)};
 // layout-pad(13): aligns the next Source site with the original line
 
 
@@ -323,11 +323,11 @@ fn validate(st:&CtoState,shared:bool,holder:bool,fee:Option<u64>,new:Option<Pubk
 
 
 
- let fee_bps=match fee{Some(f)=>{if st.quote_locked{return Err(e326());}
+ let fee_bps=match fee{Some(f)=>{if st.quote_locked{return Err(error!(PumpError::CreatorFeeNotConfigurableForQuote));}
 // layout-pad(3): aligns the next Source site with the original line
 
 
-  if cashback{return Err(error!(PumpError::CreatorFeeNotAllowedForCashbackCoin));}
+  if !is_holder&&st.cashback{return Err(error!(PumpError::CreatorFeeNotAllowedForCashbackCoin));}
 
 
 
@@ -336,7 +336,7 @@ fn validate(st:&CtoState,shared:bool,holder:bool,fee:Option<u64>,new:Option<Pubk
 
 
   if f==0||f>st.max_fee{return Err(error!(PumpError::CreatorFeeBpsOutOfRange));}Some(f)}None=>None};
- let (collect_old,skip)=if ns{(!st.holder_reward&&st.creator!=Pubkey::default(),true)}else{'s:{let x:Option<Pubkey>;if holder{x=None;sharing_update=Some(x);break 's;}x=new;sharing_update=Some(x);}(false,!holder)};Ok(Plan{fee:fee_bps,target,sharing_update,is_holder,cashback,collect_old,skip})}pub fn execute(ctx:Context<AdminCto>,holder:Option<bool>,fee:Option<u64>,new:Option<Pubkey>)->Result<()>{ let a=&ctx.accounts;let mint=a.mint.key();let holder_key=Pubkey::find_program_address(&[b"holder-rewards",mint.as_ref()],&crate::ID).0;let sc:&AccountInfo=a.sharing_config.as_ref();let shared=a.bonding_curve.creator==sc.key()&&sc.owner==&FEES&&!sc.data_is_empty();let plan={let global:&Global=&a.global;let curve:&BondingCurve=&a.bonding_curve;let st=CtoState{mayhem:curve.is_mayhem_mode,holder_reward:curve.is_holder_reward,cashback:curve.is_cashback_coin,creator:curve.creator,quote_locked:{let q=curve.quote_mint;q==Pubkey::default()||q==anchor_spl::token::spl_token::native_mint::ID||global.whitelisted_quote_mints.contains(&q)},max_fee:global.max_configurable_creator_fee_bps,fee_configurable:global.creator_fee_configurable,holder_enabled:global.is_holder_reward_enabled};let hb=holder.unwrap_or(false);let args=&(new,);validate(&st,shared,hb,fee,args.0,a.sharing_config.key(),holder_key,&holder_key)?};let target=plan.target;let sharing_update=plan.sharing_update;let collect_old=plan.collect_old;let skip=plan.skip;let cashback=plan.cashback; crate::trade_types::prepare_bonding_curve(&a.bonding_curve,&a.system_program,&a.admin_set_creator_authority)?;
+ let (collect_old,skip)=if ns{(!st.holder_reward&&st.creator!=Pubkey::default(),true)}else{'s:{let x:Option<Pubkey>;if holder{x=None;sharing_update=Some(x);break 's;}x=new;sharing_update=Some(x);}(false,!holder)};Ok(Plan{fee:fee_bps,target,sharing_update,is_holder,cashback,collect_old,skip})}pub fn execute(ctx:Context<AdminCto>,holder:Option<bool>,fee:Option<u64>,new:Option<Pubkey>)->Result<()>{ let a=&ctx.accounts;let mint=a.mint.key();let holder_key=Pubkey::find_program_address(&[b"holder-rewards",mint.as_ref()],&crate::ID).0;let sc:&AccountInfo=a.sharing_config.as_ref();let shared=a.bonding_curve.creator==sc.key()&&sc.owner==&FEES&&!sc.data_is_empty();let plan={let global:&Global=&a.global;let curve:&BondingCurve=&a.bonding_curve;let st=CtoState{mayhem:curve.is_mayhem_mode,holder_reward:curve.is_holder_reward,cashback:curve.is_cashback_coin,creator:curve.creator,quote_locked:{let q=curve.quote_mint;q==Pubkey::default()||q==anchor_spl::token::spl_token::native_mint::ID||global.whitelisted_quote_mints.contains(&q)},max_fee:global.max_configurable_creator_fee_bps,fee_configurable:global.creator_fee_configurable,holder_enabled:global.is_holder_reward_enabled};let hb=holder.unwrap_or(false);let args=&(new,);validate(&st,shared,hb,fee,args.0,a.sharing_config.key(),holder_key)?};let target=plan.target;let sharing_update=plan.sharing_update;let collect_old=plan.collect_old;let skip=plan.skip;let cashback=plan.cashback; crate::trade_types::prepare_bonding_curve(&a.bonding_curve,&a.system_program,&a.admin_set_creator_authority)?;
 
 
 
@@ -746,7 +746,7 @@ fn validate(st:&CtoState,shared:bool,holder:bool,fee:Option<u64>,new:Option<Pubk
  if let Some(val)=sharing_update{{
 
 
-  crate::pump_fees::cpi::admin_cto_sharing_config(CpiContext::new_with_signer(aicl::<9>(a.pump_fees.as_ref()),crate::pump_fees::cpi::accounts::AdminCtoSharingConfig{pool_authority:a.pool_authority.to_account_info(),authority:a.admin_set_creator_authority.to_account_info(),global:a.global.to_account_info(),mint:a.mint.to_account_info(),sharing_config:a.sharing_config.to_account_info(),event_authority:a.pump_fees_event_authority.to_account_info(),program:a.pump_fees.to_account_info()},signer_seeds),val)?;
+  crate::pump_fees::cpi::admin_cto_sharing_config(CpiContext::new_with_signer(a.pump_fees.to_account_info(),crate::pump_fees::cpi::accounts::AdminCtoSharingConfig{pool_authority:a.pool_authority.to_account_info(),authority:a.admin_set_creator_authority.to_account_info(),global:a.global.to_account_info(),mint:a.mint.to_account_info(),sharing_config:a.sharing_config.to_account_info(),event_authority:a.pump_fees_event_authority.to_account_info(),program:a.pump_fees.to_account_info()},signer_seeds),val)?;
 
  }}
  let (old_creator,old_fee)={
@@ -769,4 +769,4 @@ fn validate(st:&CtoState,shared:bool,holder:bool,fee:Option<u64>,new:Option<Pubk
 
 fn token_frozen(a:&AccountInfo)->Result<bool>{if a.data_is_empty(){return Ok(false);}let d=a.try_borrow_data()?;let t=anchor_spl::token_interface::TokenAccount::try_deserialize(&mut &d[..])?;Ok(t.is_frozen())}
 
-const X326:&PumpError=&PumpError::CreatorFeeNotConfigurableForQuote;#[custom_mir(dialect="runtime",phase="optimized")]fn e326()->anchor_lang::error::Error{use core::intrinsics::mir::*;mir!{let g:anchor_lang::error::AnchorError;let m:String;let s:anchor_lang::error::Source;let o:anchor_lang::error::ErrorOrigin;{Call(g.error_name=PumpError::name(X326),ReturnTo(bb1),UnwindUnreachable())}bb1={Call(m=<PumpError as ToString>::to_string(X326),ReturnTo(bb2),UnwindUnreachable())}bb2={g.error_msg=Move(m);g.error_code_number=6091_u32;s=anchor_lang::error::Source{filename:"programs/pump/src/creator/admin_cto.rs",line:326_u32};o=anchor_lang::error::ErrorOrigin::Source(Move(s));g.error_origin=Some(Move(o));g.compared_values=None;Call(RET=<anchor_lang::error::Error as From<anchor_lang::error::AnchorError>>::from(Move(g)),ReturnTo(bb3),UnwindUnreachable())}bb3={Return()}}}/*shim: error!(326) with name() writing the error_name field directly (the original's call slot)*/fn token_raw_amount(a:&AccountInfo)->Result<u64>{if a.data_is_empty(){return Ok(0);}let d=a.try_borrow_data()?;let t=anchor_spl::token_interface::TokenAccount::try_deserialize(&mut &d[..])?;Ok(t.amount)}
+fn token_raw_amount(a:&AccountInfo)->Result<u64>{if a.data_is_empty(){return Ok(0);}let d=a.try_borrow_data()?;let t=anchor_spl::token_interface::TokenAccount::try_deserialize(&mut &d[..])?;Ok(t.amount)}
