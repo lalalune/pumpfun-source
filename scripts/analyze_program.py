@@ -25,7 +25,7 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO / "scripts"))
 from window_elf_reader import Elf
-from deep_disassembly import directory_identity, publish_packet, temporary_sibling
+from deep_disassembly import defined_dynamic_calls, directory_identity, publish_packet, temporary_sibling
 
 PACKET_FILES = frozenset({
     "README.md",
@@ -102,7 +102,11 @@ def _build_packet(program_name, output_dir, output_label):
     outgoing = collections.defaultdict(list)
     incoming = collections.defaultdict(list)
     relocations = collections.defaultdict(list)
-    for at, target in elf.calls.items():
+    # Keep the matching reader's entries/normalization/call map intact. This
+    # diagnostic graph also includes admitted defined dynamic function calls.
+    diagnostic_calls = dict(elf.calls)
+    diagnostic_calls.update({at: row["target"] for at, row in defined_dynamic_calls(elf).items()})
+    for at, target in sorted(diagnostic_calls.items()):
         index = bisect.bisect_right(entries, at) - 1
         if index >= 0 and at < elf.hi:
             outgoing[entries[index]].append((at, target))
@@ -322,6 +326,14 @@ import hashlib, json, os, sys
 PACKET = os.path.dirname(os.path.abspath(__file__))
 EXPECTED_FILES = frozenset(__EXPECTED_PACKET_FILES__)
 
+def manifest_members(pairs):
+    result = {}
+    for name, value in pairs:
+        if name in result:
+            raise ValueError("duplicate manifest key: " + name)
+        result[name] = value
+    return result
+
 def sha256_file(path):
     h = hashlib.sha256()
     with open(path, "rb") as f:
@@ -332,7 +344,11 @@ def sha256_file(path):
 def main():
     if set(os.listdir(PACKET)) != EXPECTED_FILES | {"manifest.json"}:
         print("FAIL: packet directory entry set mismatch"); return 1
-    manifest = json.load(open(os.path.join(PACKET, "manifest.json"), encoding="utf-8"))
+    try:
+        with open(os.path.join(PACKET, "manifest.json"), encoding="utf-8") as stream:
+            manifest = json.load(stream, object_pairs_hook=manifest_members)
+    except ValueError as error:
+        print(f"FAIL: invalid manifest: {error}"); return 1
     if not isinstance(manifest, dict) or set(manifest) != EXPECTED_FILES:
         print("FAIL: manifest artifact set mismatch"); return 1
     errors = 0

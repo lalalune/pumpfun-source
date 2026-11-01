@@ -88,19 +88,29 @@ class BytecodeSignaturesBoundaryTests(unittest.TestCase):
             bytecode_signatures.detect_token_transfer_patterns(elf_bleed, 0, 8),
             [],
         )
-        # Positive control when the full 16-byte lddw is inside the window and unrelocated:
+        # A complete scalar is not the 32-byte token-program constant.
         self.assertEqual(
-            len(bytecode_signatures.detect_token_transfer_patterns(elf_bleed, 0, 16)),
-            1,
+            bytecode_signatures.detect_token_transfer_patterns(elf_bleed, 0, 16),
+            [],
         )
 
-        # 3. Relocated lddw carries an address/symbol addend, not an SPL Token selector.
+        token = bytecode_signatures.TOKEN_PROGRAMS['Tokenkeg']
+        complete = b''.join(lddw_raw(1, int.from_bytes(token[i:i + 4], 'little'),
+                                    bytes(4) + token[i + 4:i + 8])
+                            for i in range(0, 32, 8))
+        elf_complete = SimpleNamespace(b=complete, relocations={})
+        self.assertEqual(len(bytecode_signatures.detect_token_transfer_patterns(
+            elf_complete, 0, len(complete))), 1)
+        self.assertEqual(bytecode_signatures.detect_token_transfer_patterns(
+            elf_complete, 0, len(complete) - 8), [])
+
+        # 3. Relocated lddw carries an address/symbol addend, not a literal chunk.
         elf_reloc = SimpleNamespace(
-            b=bleed_blob,
+            b=complete,
             relocations={0: {'type': 8, 'symbol': ''}},
         )
         self.assertEqual(
-            bytecode_signatures.detect_token_transfer_patterns(elf_reloc, 0, 16),
+            bytecode_signatures.detect_token_transfer_patterns(elf_reloc, 0, len(complete)),
             [],
         )
 

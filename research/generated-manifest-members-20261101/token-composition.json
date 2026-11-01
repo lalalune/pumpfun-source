@@ -1,0 +1,80 @@
+{
+  "base": "60a42309a4908577f0a386513eeaee6cd6f84f42",
+  "token_pr": "https://github.com/lalalune/pumpfun-source/pull/3920",
+  "token_head": "492a9d7da5614d0f7f87e9d789bbf9efe0d89179",
+  "template_patch_sha256": "e5ed1b815120fc87f3330d618020b9585704e6596b8aeea88766209c546624f5",
+  "actual_generator_calls": 2,
+  "actual_verifier_calls": 12,
+  "same_ten_analysis_payloads": true,
+  "inputs_unchanged": true,
+  "results": [
+    {
+      "cohort": "token_only",
+      "signature_source_sha256": "49181cbd6b037f1612e44a44ff97104f457a35865e30230150467c130472e701",
+      "analysis_payload_sha256": {
+        "mayhem-patterns.json": "d6ff11021c537623860675fde4bd50e46bf2509827181a97ad168583998bdfd9",
+        "summary.json": "de6c3466008ddfa0a764840fc71e2f4ce32663156e51f5ccd7ceb25244301e44",
+        "pump_amm-signatures.json": "deb72e44bee9ac76fb718fc5a6e3436cd7f0e5e5c9946fc6c36d7b987b373088",
+        "shared-signatures.json": "ed6d611547d2371c73bcd41554fc5ddf0602173294bdbf4ec8921effb05efc47",
+        "pump_amm-patterns.json": "76356eade1254fbd0720a24c1a216e86497c977d2830f634bcccb3745450850a",
+        "top-ngrams.json": "d05b8a5e048f2e8ed213579f5694b8b32a3ce596e18ce77e1ee03b72d920c8ba",
+        "pump-patterns.json": "a7e9b3433d88a02673bba152277b172a314e11bf41132fc9866d8142fb755dfb",
+        "README.md": "497279cfdf39cb035b488512721916d9ae727b5e8ab2ca2e79474ad6344efc69",
+        "mayhem-signatures.json": "cb05d0f9c714a48167609a50cc5c1bc6684b107d01e4ae7d150539fdacee9087",
+        "pump-signatures.json": "836802e276fae176d37724eb9345924427ce5ab16732f239fe854f9ff1f5154d"
+      },
+      "verifiers": [
+        {
+          "case": "clean",
+          "normal_O_OO_exit": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "case": "duplicate",
+          "normal_O_OO_exit": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "cohort": "token_plus_manifest",
+      "signature_source_sha256": "2508db813c95f08fc1ea5e1cc96ee3a16bf93dd4dbaa5d6fc6f95c978dc3d7eb",
+      "analysis_payload_sha256": {
+        "mayhem-patterns.json": "d6ff11021c537623860675fde4bd50e46bf2509827181a97ad168583998bdfd9",
+        "summary.json": "de6c3466008ddfa0a764840fc71e2f4ce32663156e51f5ccd7ceb25244301e44",
+        "pump_amm-signatures.json": "deb72e44bee9ac76fb718fc5a6e3436cd7f0e5e5c9946fc6c36d7b987b373088",
+        "shared-signatures.json": "ed6d611547d2371c73bcd41554fc5ddf0602173294bdbf4ec8921effb05efc47",
+        "pump_amm-patterns.json": "76356eade1254fbd0720a24c1a216e86497c977d2830f634bcccb3745450850a",
+        "top-ngrams.json": "d05b8a5e048f2e8ed213579f5694b8b32a3ce596e18ce77e1ee03b72d920c8ba",
+        "pump-patterns.json": "a7e9b3433d88a02673bba152277b172a314e11bf41132fc9866d8142fb755dfb",
+        "README.md": "497279cfdf39cb035b488512721916d9ae727b5e8ab2ca2e79474ad6344efc69",
+        "mayhem-signatures.json": "cb05d0f9c714a48167609a50cc5c1bc6684b107d01e4ae7d150539fdacee9087",
+        "pump-signatures.json": "836802e276fae176d37724eb9345924427ce5ab16732f239fe854f9ff1f5154d"
+      },
+      "verifiers": [
+        {
+          "case": "clean",
+          "normal_O_OO_exit": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "case": "duplicate",
+          "normal_O_OO_exit": [
+            1,
+            1,
+            1
+          ]
+        }
+      ]
+    }
+  ]
+}

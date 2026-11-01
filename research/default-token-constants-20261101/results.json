@@ -1,0 +1,134 @@
+{
+  "before": {
+    "expectation": "base",
+    "source_sha256": {
+      "bytecode_signatures.py": "45dc6ffc56ad8d58d2def2b73add201e3b10551d6a2070bb6cffa518d41a26fb",
+      "window_elf_reader.py": "d3b57510531d7977110e73474cf89310b68bf6705d134ffb3bc759e18d30bedd",
+      "deep_disassembly.py": "47cfa5cf9b7e271ad2ea399220930ad238713b465b030181f74a1990a34275ce"
+    },
+    "input_sha256": {
+      "pump": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
+      "pump_amm": "6a7ad34596d83b4c435b32f458a56e718e9f82eb4ad38e4316616d15d24d8ff7",
+      "mayhem": "a87fa9f866272514e6acb852b668c4a08aeb173d56c883039991d114d1199bdb"
+    },
+    "accepted_detector_sha256": "db684193d9dd3c92269f1902350b61e6c6f2a24e26e7845cb7903314e1c0898d",
+    "programs": {
+      "pump": {
+        "windows": 1035,
+        "exact_constants": 4,
+        "reported_constants": 0,
+        "windows_with_tokens": 0,
+        "witnesses_sha256": "329e415777680e942fcc3039b7093775341dc659265b8d6084f82db5ab65f568"
+      },
+      "pump_amm": {
+        "windows": 785,
+        "exact_constants": 2,
+        "reported_constants": 0,
+        "windows_with_tokens": 0,
+        "witnesses_sha256": "9c62418b669a9cb3fd13f4ae856756b37bfa1d262fd3170a1d506ccbae6b172f"
+      },
+      "mayhem": {
+        "windows": 441,
+        "exact_constants": 20,
+        "reported_constants": 0,
+        "windows_with_tokens": 0,
+        "witnesses_sha256": "5515ff0826de8d6187eaebe4f2a846f4f12fe27acfe498491adfca7ab280c39c"
+      }
+    },
+    "packet_sha256": {
+      "README.md": "21aeff14297bb0ec5257fc31ec5c66db81622c3bfa13c765ca98b52278236738",
+      "manifest.json": "a3fc3606e494d0df85f5a69922c83ce403a4440531b0ffcb23b684b3b88e1e91",
+      "mayhem-patterns.json": "10239667d1285d0a7758e23ed77dc4de005884ad6aad48d3afd25cf6b624f5f8",
+      "mayhem-signatures.json": "c7c5430cccf1d429ab55ca2f1e491d94f13518605dfa71d5f3d705ae0c489616",
+      "pump-patterns.json": "81373e990478cea1f368e9e5783aad53fe54b3455e5580db62009197e7784e4a",
+      "pump-signatures.json": "f83f5aa9357e6f8f731f1b0a5c55045ee9d648121137d510c8fe735dbe99fd11",
+      "pump_amm-patterns.json": "d64fb5a9f2e0d0d53de37de96994779b6e410de7fcf2df97855725035511c9d6",
+      "pump_amm-signatures.json": "e02fc0f3b792e0df64bafdb4f9d22fcd0e2fbd4b3e69b5ec4ff949115760bfbe",
+      "shared-signatures.json": "ed6d611547d2371c73bcd41554fc5ddf0602173294bdbf4ec8921effb05efc47",
+      "summary.json": "e0f1bb8be86553f430e7441c2f36ef591761a8405df6f61ae4c39102665daf29",
+      "top-ngrams.json": "d05b8a5e048f2e8ed213579f5694b8b32a3ce596e18ce77e1ee03b72d920c8ba",
+      "verify.py": "d8062958ad7974e45cfbf496d2570a3d2ef58e30719bc7eb080b66442261bf1d"
+    },
+    "unrelated_report_sha256": {
+      "README.md": "fcf304ac94da8ade43445363b3b74b919eae7a385d78d546f6977127ca3e78b9",
+      "mayhem-patterns.json": "64f11a6fcf285ac7f9385e17bb44a4923ac1fd9d523f097d688c448c0d9b432e",
+      "mayhem-signatures.json": "c48ee418cad0c95525464b9faba10b47b5d414e5658c8415e65f2a6b09e45766",
+      "pump-patterns.json": "aa8af7edb3fda2a9fb5c0744c84c837f24a6a06d7e4d68c25c4f84da867d4923",
+      "pump-signatures.json": "e546da3ee6280c8eb23df54db7a5903e6d5881af930a622a4dda3492ec1c92ef",
+      "pump_amm-patterns.json": "c6ba5e8e83b3043bfd58d0287b8b7b587b0da3f7824f4cb465ecb39d1880376c",
+      "pump_amm-signatures.json": "080e325bc2bf1706f43e7b985aab33097d404394f489b033c148e0425b0ff5c6",
+      "shared-signatures.json": "72be3d1ff09b2e7082e5e28434815e4c24528652de1181981b2baf310fdc7bb0",
+      "summary.json": "d76aa3457b1b1cad788c2aeb112d332b20b3318991754b4559fbcd816b562f73",
+      "top-ngrams.json": "dcdee2e96e6c631fbd592a5e905337288d011d456f31a9776e5c255187628096",
+      "verify.py": "d8062958ad7974e45cfbf496d2570a3d2ef58e30719bc7eb080b66442261bf1d"
+    },
+    "generated_verifier_exit": 0,
+    "all_input_bytes_preserved": true
+  },
+  "after": {
+    "expectation": "fixed",
+    "source_sha256": {
+      "bytecode_signatures.py": "49181cbd6b037f1612e44a44ff97104f457a35865e30230150467c130472e701",
+      "window_elf_reader.py": "d3b57510531d7977110e73474cf89310b68bf6705d134ffb3bc759e18d30bedd",
+      "deep_disassembly.py": "47cfa5cf9b7e271ad2ea399220930ad238713b465b030181f74a1990a34275ce"
+    },
+    "input_sha256": {
+      "pump": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
+      "pump_amm": "6a7ad34596d83b4c435b32f458a56e718e9f82eb4ad38e4316616d15d24d8ff7",
+      "mayhem": "a87fa9f866272514e6acb852b668c4a08aeb173d56c883039991d114d1199bdb"
+    },
+    "accepted_detector_sha256": "db684193d9dd3c92269f1902350b61e6c6f2a24e26e7845cb7903314e1c0898d",
+    "programs": {
+      "pump": {
+        "windows": 1035,
+        "exact_constants": 4,
+        "reported_constants": 4,
+        "windows_with_tokens": 4,
+        "witnesses_sha256": "329e415777680e942fcc3039b7093775341dc659265b8d6084f82db5ab65f568"
+      },
+      "pump_amm": {
+        "windows": 785,
+        "exact_constants": 2,
+        "reported_constants": 2,
+        "windows_with_tokens": 2,
+        "witnesses_sha256": "9c62418b669a9cb3fd13f4ae856756b37bfa1d262fd3170a1d506ccbae6b172f"
+      },
+      "mayhem": {
+        "windows": 441,
+        "exact_constants": 20,
+        "reported_constants": 20,
+        "windows_with_tokens": 10,
+        "witnesses_sha256": "5515ff0826de8d6187eaebe4f2a846f4f12fe27acfe498491adfca7ab280c39c"
+      }
+    },
+    "packet_sha256": {
+      "README.md": "497279cfdf39cb035b488512721916d9ae727b5e8ab2ca2e79474ad6344efc69",
+      "manifest.json": "dee11c45d6484896cbe4c5cfc0b8b63f6bb91809721f56e219c3ffa72443cc6a",
+      "mayhem-patterns.json": "d6ff11021c537623860675fde4bd50e46bf2509827181a97ad168583998bdfd9",
+      "mayhem-signatures.json": "cb05d0f9c714a48167609a50cc5c1bc6684b107d01e4ae7d150539fdacee9087",
+      "pump-patterns.json": "a7e9b3433d88a02673bba152277b172a314e11bf41132fc9866d8142fb755dfb",
+      "pump-signatures.json": "836802e276fae176d37724eb9345924427ce5ab16732f239fe854f9ff1f5154d",
+      "pump_amm-patterns.json": "76356eade1254fbd0720a24c1a216e86497c977d2830f634bcccb3745450850a",
+      "pump_amm-signatures.json": "deb72e44bee9ac76fb718fc5a6e3436cd7f0e5e5c9946fc6c36d7b987b373088",
+      "shared-signatures.json": "ed6d611547d2371c73bcd41554fc5ddf0602173294bdbf4ec8921effb05efc47",
+      "summary.json": "de6c3466008ddfa0a764840fc71e2f4ce32663156e51f5ccd7ceb25244301e44",
+      "top-ngrams.json": "d05b8a5e048f2e8ed213579f5694b8b32a3ce596e18ce77e1ee03b72d920c8ba",
+      "verify.py": "d8062958ad7974e45cfbf496d2570a3d2ef58e30719bc7eb080b66442261bf1d"
+    },
+    "unrelated_report_sha256": {
+      "README.md": "fcf304ac94da8ade43445363b3b74b919eae7a385d78d546f6977127ca3e78b9",
+      "mayhem-patterns.json": "64f11a6fcf285ac7f9385e17bb44a4923ac1fd9d523f097d688c448c0d9b432e",
+      "mayhem-signatures.json": "c48ee418cad0c95525464b9faba10b47b5d414e5658c8415e65f2a6b09e45766",
+      "pump-patterns.json": "aa8af7edb3fda2a9fb5c0744c84c837f24a6a06d7e4d68c25c4f84da867d4923",
+      "pump-signatures.json": "e546da3ee6280c8eb23df54db7a5903e6d5881af930a622a4dda3492ec1c92ef",
+      "pump_amm-patterns.json": "c6ba5e8e83b3043bfd58d0287b8b7b587b0da3f7824f4cb465ecb39d1880376c",
+      "pump_amm-signatures.json": "080e325bc2bf1706f43e7b985aab33097d404394f489b033c148e0425b0ff5c6",
+      "shared-signatures.json": "72be3d1ff09b2e7082e5e28434815e4c24528652de1181981b2baf310fdc7bb0",
+      "summary.json": "d76aa3457b1b1cad788c2aeb112d332b20b3318991754b4559fbcd816b562f73",
+      "top-ngrams.json": "dcdee2e96e6c631fbd592a5e905337288d011d456f31a9776e5c255187628096",
+      "verify.py": "d8062958ad7974e45cfbf496d2570a3d2ef58e30719bc7eb080b66442261bf1d"
+    },
+    "generated_verifier_exit": 0,
+    "all_input_bytes_preserved": true
+  }
+}

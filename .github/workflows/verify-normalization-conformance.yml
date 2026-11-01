@@ -16,4 +16,16 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: python -B -m unittest discover -s reconstruction/harness -p test_normalization_conformance.py -v
+      - name: Execute the normalization conformance regressions
+        # The count keeps a renamed, emptied or split test file from passing as zero tests.
+        run: |
+          python -B - <<'PYTEST'
+          import sys
+          import unittest
+          suite = unittest.defaultTestLoader.discover(
+              'reconstruction/harness', pattern='test_normalization_conformance.py')
+          result = unittest.TextTestRunner(verbosity=2).run(suite)
+          expected = 4
+          print(f'Expected {expected} tests; ran {result.testsRun}; skipped {len(result.skipped)}', file=sys.stderr)
+          sys.exit(0 if result.wasSuccessful() and result.testsRun == expected and not result.skipped else 1)
+          PYTEST

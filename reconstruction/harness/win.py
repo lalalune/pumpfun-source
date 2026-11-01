@@ -204,7 +204,7 @@ def find_window(text):
 def cmd_show(a):
     st, w = find_window(a.start)
     cand = Cand(a.cand)
-    if a.sym:
+    if a.sym is not None:
         cs = [(s, n, nm) for (s, n, nm) in cand.funcs if re.search(a.sym, nm) or re.search(a.sym, demangle(nm))]
         if not cs:
             sys.exit('no candidate symbol matches')

@@ -1,0 +1,78 @@
+{
+  "tested_base": "60a42309a4908577f0a386513eeaee6cd6f84f42",
+  "requirement": "Fresh generated verifiers follow duplicate decoded member admission already accepted in #3525 and #3274; immutable generated packets remain untouched.",
+  "sources": [
+    {
+      "source": "scripts/analyze_program.py",
+      "base_sha256": "0b15933c655b8c6fd8d3504ffa18415f26d67cb58eeee9416e35941a8cb292db",
+      "reviewed_sha256": "4f32c8013e9359d32d2685860cc0c3628c2c44887d89cecf94609f360e038b73",
+      "bytes_outside_generated_verifier_template_unchanged": true
+    },
+    {
+      "source": "scripts/deep_disassembly.py",
+      "base_sha256": "47cfa5cf9b7e271ad2ea399220930ad238713b465b030181f74a1990a34275ce",
+      "reviewed_sha256": "d2b9873473bbeea33bb5d953d0c6385b1127d81aedba652bb1b82de636849aa5",
+      "bytes_outside_generated_verifier_template_unchanged": true
+    },
+    {
+      "source": "scripts/deep_section_analysis.py",
+      "base_sha256": "6eec2ecd0dd8c8b37656a2caca5ef8f1a3c415617ba269c6cd5e3829412b60f9",
+      "reviewed_sha256": "a7a5e3e395cac2da255088549213f196f7c2198190fc8d923dff3e272a26e5c3",
+      "bytes_outside_generated_verifier_template_unchanged": true
+    },
+    {
+      "source": "scripts/bytecode_signatures.py",
+      "base_sha256": "45dc6ffc56ad8d58d2def2b73add201e3b10551d6a2070bb6cffa518d41a26fb",
+      "reviewed_sha256": "65976afb7cae85cf860aa817aef24c142cffdc7147b91d0f6a937a29efcf09ae",
+      "bytes_outside_generated_verifier_template_unchanged": true
+    }
+  ],
+  "wrapper": {
+    "path": "research/tooling-analysis-output-retention-20261029/generate.py",
+    "all_previous_identities_retained": true,
+    "added_reviewed_identities": {
+      "scripts/analyze_program.py": [
+        "4f32c8013e9359d32d2685860cc0c3628c2c44887d89cecf94609f360e038b73"
+      ],
+      "scripts/deep_disassembly.py": [
+        "d2b9873473bbeea33bb5d953d0c6385b1127d81aedba652bb1b82de636849aa5"
+      ]
+    },
+    "other_logic_unchanged": true
+  },
+  "binding_search": [
+    {
+      "source": "scripts/analyze_program.py",
+      "sha256": "0b15933c655b8c6fd8d3504ffa18415f26d67cb58eeee9416e35941a8cb292db",
+      "bindings": [
+        "research/analysis-wrapper-rebind-20261101/results.json",
+        "research/analysis-wrapper-rebind-20261101/source-review.json",
+        "research/tooling-analysis-output-retention-20261029/generate.py"
+      ]
+    },
+    {
+      "source": "scripts/deep_disassembly.py",
+      "sha256": "47cfa5cf9b7e271ad2ea399220930ad238713b465b030181f74a1990a34275ce",
+      "bindings": [
+        "research/tooling-analysis-output-retention-20261029/generate.py"
+      ]
+    },
+    {
+      "source": "scripts/deep_section_analysis.py",
+      "sha256": "6eec2ecd0dd8c8b37656a2caca5ef8f1a3c415617ba269c6cd5e3829412b60f9",
+      "bindings": []
+    },
+    {
+      "source": "scripts/bytecode_signatures.py",
+      "sha256": "45dc6ffc56ad8d58d2def2b73add201e3b10551d6a2070bb6cffa518d41a26fb",
+      "bindings": [
+        "research/signature-register-comparisons-20261101/results.json"
+      ]
+    }
+  ],
+  "limits": [
+    "Current template publication only; no rewrite of archived generated verify.py or manifests.",
+    "No detector, ELF reader, program source, build recipe or captured bytes changed.",
+    "Source hash equality verifies bytes, not runtime equivalence or security clearance."
+  ]
+}

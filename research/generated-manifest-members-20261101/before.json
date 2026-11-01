@@ -1,0 +1,668 @@
+{
+  "source_revision": "60a42309a4908577f0a386513eeaee6cd6f84f42",
+  "source_sha256": {
+    "scripts/analyze_program.py": "0b15933c655b8c6fd8d3504ffa18415f26d67cb58eeee9416e35941a8cb292db",
+    "scripts/deep_disassembly.py": "47cfa5cf9b7e271ad2ea399220930ad238713b465b030181f74a1990a34275ce",
+    "scripts/deep_section_analysis.py": "6eec2ecd0dd8c8b37656a2caca5ef8f1a3c415617ba269c6cd5e3829412b60f9",
+    "scripts/bytecode_signatures.py": "45dc6ffc56ad8d58d2def2b73add201e3b10551d6a2070bb6cffa518d41a26fb",
+    "scripts/analyze.py": "178a21b4f70d9deb63646d216306a252c08c11aa0b52b2e7df77db85fcffd262",
+    "scripts/window_elf_reader.py": "d3b57510531d7977110e73474cf89310b68bf6705d134ffb3bc759e18d30bedd",
+    "scripts/revalidate_all.py": "fbdedcd033bbfc1d40f0c4e2b16b3fa44d4c0176b93de37eedefb347d2d2c6ec"
+  },
+  "capture_sha256": {
+    "evidence/original/pump_amm/deployed.so": "6a7ad34596d83b4c435b32f458a56e718e9f82eb4ad38e4316616d15d24d8ff7",
+    "evidence/original/mayhem/deployed.so": "a87fa9f866272514e6acb852b668c4a08aeb173d56c883039991d114d1199bdb",
+    "evidence/original/pump/deployed.so": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
+    "evidence/original/pump_fees/deployed.so": "4f2955d0f6b40cc9ff7daa18ccad7d19119ba1249759f4e7e3bb691beee6b35e",
+    "evidence/dependencies/spl_token/deployed.so": "8190d3f7ceb6cb7a7a8d8924bff89f9f611e15ce1f806f2b6237f3311a98f697",
+    "evidence/dependencies/associated_token/deployed.so": "6804554e69fd3a58caa191dc4a58f4c67223d30ca28ab8987f39fc18d2f7374d",
+    "evidence/dependencies/donation_relay/deployed.so": "367f07a62e3f74d358187d175cf3228848e81a56c781a9a75b9df7fed1268563",
+    "evidence/dependencies/spl_token_2022/deployed.so": "15a2e615a42e20f31714bbaaee43002ae6f1cda2e8d7118243117ab3c1342e2d",
+    "evidence/dependencies/token_metadata/deployed.so": "31f0a627dba051a938de650464e55cc5397a4be0fd496929c1f9cf02fe5e9011"
+  },
+  "scope": "Actual static generation from retained captures; owned manifest-only variants; no VM/program/compiler execution.",
+  "original_and_private_inputs_unchanged": true,
+  "results": [
+    {
+      "generator": "analyze_program",
+      "generator_sha256": "0b15933c655b8c6fd8d3504ffa18415f26d67cb58eeee9416e35941a8cb292db",
+      "verifier_sha256": "0272094c482e550c397d52a823553e459979746ee90500dbc6c99ad582b05baa",
+      "analysis_payload_sha256": {
+        "summary.json": "0da6495e8448a936e6593df438cb71db34ec8fa16a284185f065923124c39235",
+        "section-layout.json": "3947352711ba0c9ba4eec876fc755c461950198a03262c460edc06fa38df5f9c",
+        "call-graph.json": "e7608ecbd667d522a18b0b7b0c30e1e7ed9ea090b22ac20a0b5019f4eca940da",
+        "function-index.json": "67d339a498383aec8dc05e52324a7a3a122a91cde58f4923456c0be8a9e54efc",
+        "window-inventory.json": "06b6867efe27ec820cb8506ce8f7f921abc8cfc1ce578cb2b837a0668717c2c7",
+        "README.md": "b6598670d071a1ecf7fe9c03cd0e9fd0813ae7739ae5210df60dd700dd8676fc"
+      },
+      "cases": [
+        {
+          "variant": "clean",
+          "canonical_status": "pass",
+          "canonical_errors": [],
+          "generated_cli": {
+            "normal": {
+              "exit": 0,
+              "says_pass": true
+            },
+            "optimized": {
+              "exit": 0,
+              "says_pass": true
+            },
+            "docstrings_removed": {
+              "exit": 0,
+              "says_pass": true
+            }
+          }
+        },
+        {
+          "variant": "contradictory_duplicate",
+          "canonical_status": "manifest_parse_error",
+          "canonical_errors": [
+            "duplicate manifest key: summary.json"
+          ],
+          "generated_cli": {
+            "normal": {
+              "exit": 0,
+              "says_pass": true
+            },
+            "optimized": {
+              "exit": 0,
+              "says_pass": true
+            },
+            "docstrings_removed": {
+              "exit": 0,
+              "says_pass": true
+            }
+          }
+        },
+        {
+          "variant": "identical_duplicate",
+          "canonical_status": "manifest_parse_error",
+          "canonical_errors": [
+            "duplicate manifest key: summary.json"
+          ],
+          "generated_cli": {
+            "normal": {
+              "exit": 0,
+              "says_pass": true
+            },
+            "optimized": {
+              "exit": 0,
+              "says_pass": true
+            },
+            "docstrings_removed": {
+              "exit": 0,
+              "says_pass": true
+            }
+          }
+        },
+        {
+          "variant": "escaped_duplicate",
+          "canonical_status": "manifest_parse_error",
+          "canonical_errors": [
+            "duplicate manifest key: summary.json"
+          ],
+          "generated_cli": {
+            "normal": {
+              "exit": 0,
+              "says_pass": true
+            },
+            "optimized": {
+              "exit": 0,
+              "says_pass": true
+            },
+            "docstrings_removed": {
+              "exit": 0,
+              "says_pass": true
+            }
+          }
+        },
+        {
+          "variant": "escaped_unique",
+          "canonical_status": "pass",
+          "canonical_errors": [],
+          "generated_cli": {
+            "normal": {
+              "exit": 0,
+              "says_pass": true
+            },
+            "optimized": {
+              "exit": 0,
+              "says_pass": true
+            },
+            "docstrings_removed": {
+              "exit": 0,
+              "says_pass": true
+            }
+          }
+        },
+        {
+          "variant": "unique_wrong_digest",
+          "canonical_status": "fail",
+          "canonical_errors": [
+            "hash_mismatch: summary.json"
+          ],
+          "generated_cli": {
+            "normal": {
+              "exit": 1,
+              "says_pass": false
+            },
+            "optimized": {
+              "exit": 1,
+              "says_pass": false
+            },
+            "docstrings_removed": {
+              "exit": 1,
+              "says_pass": false
+            }
+          }
+        },
+        {
+          "variant": "malformed_json",
+          "canonical_status": "manifest_parse_error",
+          "canonical_errors": [
+            "Expecting property name enclosed in double quotes: line 1 column 2 (char 1)"
+          ],
+          "generated_cli": {
+            "normal": {
+              "exit": 1,
+              "says_pass": false
+            },
+            "optimized": {
+              "exit": 1,
+              "says_pass": false
+            },
+            "docstrings_removed": {
+              "exit": 1,
+              "says_pass": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "generator": "deep_disassembly",
+      "generator_sha256": "47cfa5cf9b7e271ad2ea399220930ad238713b465b030181f74a1990a34275ce",
+      "verifier_sha256": "68f87d7e28345503409f11d5d1b3d80941941e850efab8fbc3a3f9fc815fc9e7",
+      "analysis_payload_sha256": {
+        "disassembly.json.gz": "49b541fabc4f6c2a30b8538b14433a3496860b3c726e314c48d54e214076bf9d",
+        "summary.json": "fd5b1299920018742262a87b65a7e9f5446a16c3f146c52516e6ec334742c93c",
+        "windows-deep.json": "f5389fae841b58f25ac13b7e09ae4c8b589cf1ee936c8c6d160aed50fdad79c9",
+        "dispatch-table.json": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+        "extern-usage.json": "7d9424abc9808b6806486fa051589ab72f9659680324c49d44170e96ebe3d7dd",
+        "README.md": "45343d1bc4cd7527e9f6b2d133d0a13341a65edd38f8cae5dab260b8ff6ce386",
+        "syscall-usage.json": "e18711d9fcf7ab09facdc2ffd54c02df734a38905fbd41a4421c6f6e76ad09d7",
+        "fingerprints.json": "c41a18221c2196674b140d124506dd6de7e960c789d39d3cc71862d2dcedfbce",
+        "error-strings.json": "9c8cc3abd58822c00e3ca9b4abe2be69e06e7a9fd185a0671063aaae3c7f9a09",
+        "rodata-strings.json": "482acf266d6abd51f1a2f06278e1a3ce211d49bd0846fb24cb9a78f744681a12"
+      },
+      "cases": [
+        {
+          "variant": "clean",
+          "canonical_status": "pass",
+          "canonical_errors": [],
+          "generated_cli": {
+            "normal": {
+              "exit": 0,
+              "says_pass": true
+            },
+            "optimized": {
+              "exit": 0,
+              "says_pass": true
+            },
+            "docstrings_removed": {
+              "exit": 0,
+              "says_pass": true
+            }
+          }
+        },
+        {
+          "variant": "contradictory_duplicate",
+          "canonical_status": "manifest_parse_error",
+          "canonical_errors": [
+            "duplicate manifest key: summary.json"
+          ],
+          "generated_cli": {
+            "normal": {
+              "exit": 0,
+              "says_pass": true
+            },
+            "optimized": {
+              "exit": 0,
+              "says_pass": true
+            },
+            "docstrings_removed": {
+              "exit": 0,
+              "says_pass": true
+            }
+          }
+        },
+        {
+          "variant": "identical_duplicate",
+          "canonical_status": "manifest_parse_error",
+          "canonical_errors": [
+            "duplicate manifest key: summary.json"
+          ],
+          "generated_cli": {
+            "normal": {
+              "exit": 0,
+              "says_pass": true
+            },
+            "optimized": {
+              "exit": 0,
+              "says_pass": true
+            },
+            "docstrings_removed": {
+              "exit": 0,
+              "says_pass": true
+            }
+          }
+        },
+        {
+          "variant": "escaped_duplicate",
+          "canonical_status": "manifest_parse_error",
+          "canonical_errors": [
+            "duplicate manifest key: summary.json"
+          ],
+          "generated_cli": {
+            "normal": {
+              "exit": 0,
+              "says_pass": true
+            },
+            "optimized": {
+              "exit": 0,
+              "says_pass": true
+            },
+            "docstrings_removed": {
+              "exit": 0,
+              "says_pass": true
+            }
+          }
+        },
+        {
+          "variant": "escaped_unique",
+          "canonical_status": "pass",
+          "canonical_errors": [],
+          "generated_cli": {
+            "normal": {
+              "exit": 0,
+              "says_pass": true
+            },
+            "optimized": {
+              "exit": 0,
+              "says_pass": true
+            },
+            "docstrings_removed": {
+              "exit": 0,
+              "says_pass": true
+            }
+          }
+        },
+        {
+          "variant": "unique_wrong_digest",
+          "canonical_status": "fail",
+          "canonical_errors": [
+            "hash_mismatch: summary.json"
+          ],
+          "generated_cli": {
+            "normal": {
+              "exit": 1,
+              "says_pass": false
+            },
+            "optimized": {
+              "exit": 1,
+              "says_pass": false
+            },
+            "docstrings_removed": {
+              "exit": 1,
+              "says_pass": false
+            }
+          }
+        },
+        {
+          "variant": "malformed_json",
+          "canonical_status": "manifest_parse_error",
+          "canonical_errors": [
+            "Expecting property name enclosed in double quotes: line 1 column 2 (char 1)"
+          ],
+          "generated_cli": {
+            "normal": {
+              "exit": 1,
+              "says_pass": false
+            },
+            "optimized": {
+              "exit": 1,
+              "says_pass": false
+            },
+            "docstrings_removed": {
+              "exit": 1,
+              "says_pass": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "generator": "deep_section_analysis",
+      "generator_sha256": "6eec2ecd0dd8c8b37656a2caca5ef8f1a3c415617ba269c6cd5e3829412b60f9",
+      "verifier_sha256": "57e4e3a6bfa6a8bfdc5938199be05ac952d30535303ced30417731586cc376df",
+      "analysis_payload_sha256": {
+        "summary.json": "d26562b53b62355011f05420888923d367b6cd1e8524294ac9784826b573d61e",
+        "layer1-data-layout.json": "401756427a2eb4f7302f27878dd9c420172d7f787e1c3ebd9cfc3b197d1ba0a8",
+        "layer2-relocation-map.json": "97017165a478e4dca148bef2ec603b537eed62eb3a1de9cd8c456c182ceb8e4e",
+        "layer4-anchor-idl.json": "2de39e62681a6035228ef3e64d5c7513784ff23193785c41a088b1585cb4eee8",
+        "README.md": "8adc742cd88772bb6530cce14bd4798f78e10e5553e65fc0a8a4f5c21bfba7da",
+        "layer5-math-analysis.json": "37935755b82fca00187e8ef2b7923641263761079503b00f894201c73b2aecb0",
+        "layer3-cross-section.json": "102ae51a4e92518dd210a1978b0bf0328d5c3e0b78ab37fb581969da33ff63c4"
+      },
+      "cases": [
+        {
+          "variant": "clean",
+          "canonical_status": "pass",
+          "canonical_errors": [],
+          "generated_cli": {
+            "normal": {
+              "exit": 0,
+              "says_pass": true
+            },
+            "optimized": {
+              "exit": 0,
+              "says_pass": true
+            },
+            "docstrings_removed": {
+              "exit": 0,
+              "says_pass": true
+            }
+          }
+        },
+        {
+          "variant": "contradictory_duplicate",
+          "canonical_status": "manifest_parse_error",
+          "canonical_errors": [
+            "duplicate manifest key: summary.json"
+          ],
+          "generated_cli": {
+            "normal": {
+              "exit": 0,
+              "says_pass": true
+            },
+            "optimized": {
+              "exit": 0,
+              "says_pass": true
+            },
+            "docstrings_removed": {
+              "exit": 0,
+              "says_pass": true
+            }
+          }
+        },
+        {
+          "variant": "identical_duplicate",
+          "canonical_status": "manifest_parse_error",
+          "canonical_errors": [
+            "duplicate manifest key: summary.json"
+          ],
+          "generated_cli": {
+            "normal": {
+              "exit": 0,
+              "says_pass": true
+            },
+            "optimized": {
+              "exit": 0,
+              "says_pass": true
+            },
+            "docstrings_removed": {
+              "exit": 0,
+              "says_pass": true
+            }
+          }
+        },
+        {
+          "variant": "escaped_duplicate",
+          "canonical_status": "manifest_parse_error",
+          "canonical_errors": [
+            "duplicate manifest key: summary.json"
+          ],
+          "generated_cli": {
+            "normal": {
+              "exit": 0,
+              "says_pass": true
+            },
+            "optimized": {
+              "exit": 0,
+              "says_pass": true
+            },
+            "docstrings_removed": {
+              "exit": 0,
+              "says_pass": true
+            }
+          }
+        },
+        {
+          "variant": "escaped_unique",
+          "canonical_status": "pass",
+          "canonical_errors": [],
+          "generated_cli": {
+            "normal": {
+              "exit": 0,
+              "says_pass": true
+            },
+            "optimized": {
+              "exit": 0,
+              "says_pass": true
+            },
+            "docstrings_removed": {
+              "exit": 0,
+              "says_pass": true
+            }
+          }
+        },
+        {
+          "variant": "unique_wrong_digest",
+          "canonical_status": "fail",
+          "canonical_errors": [
+            "hash_mismatch: summary.json"
+          ],
+          "generated_cli": {
+            "normal": {
+              "exit": 1,
+              "says_pass": false
+            },
+            "optimized": {
+              "exit": 1,
+              "says_pass": false
+            },
+            "docstrings_removed": {
+              "exit": 1,
+              "says_pass": false
+            }
+          }
+        },
+        {
+          "variant": "malformed_json",
+          "canonical_status": "manifest_parse_error",
+          "canonical_errors": [
+            "Expecting property name enclosed in double quotes: line 1 column 2 (char 1)"
+          ],
+          "generated_cli": {
+            "normal": {
+              "exit": 1,
+              "says_pass": false
+            },
+            "optimized": {
+              "exit": 1,
+              "says_pass": false
+            },
+            "docstrings_removed": {
+              "exit": 1,
+              "says_pass": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "generator": "bytecode_signatures",
+      "generator_sha256": "45dc6ffc56ad8d58d2def2b73add201e3b10551d6a2070bb6cffa518d41a26fb",
+      "verifier_sha256": "d8062958ad7974e45cfbf496d2570a3d2ef58e30719bc7eb080b66442261bf1d",
+      "analysis_payload_sha256": {
+        "mayhem-patterns.json": "10239667d1285d0a7758e23ed77dc4de005884ad6aad48d3afd25cf6b624f5f8",
+        "summary.json": "e0f1bb8be86553f430e7441c2f36ef591761a8405df6f61ae4c39102665daf29",
+        "pump_amm-signatures.json": "e02fc0f3b792e0df64bafdb4f9d22fcd0e2fbd4b3e69b5ec4ff949115760bfbe",
+        "shared-signatures.json": "ed6d611547d2371c73bcd41554fc5ddf0602173294bdbf4ec8921effb05efc47",
+        "pump_amm-patterns.json": "d64fb5a9f2e0d0d53de37de96994779b6e410de7fcf2df97855725035511c9d6",
+        "top-ngrams.json": "d05b8a5e048f2e8ed213579f5694b8b32a3ce596e18ce77e1ee03b72d920c8ba",
+        "pump-patterns.json": "81373e990478cea1f368e9e5783aad53fe54b3455e5580db62009197e7784e4a",
+        "README.md": "21aeff14297bb0ec5257fc31ec5c66db81622c3bfa13c765ca98b52278236738",
+        "mayhem-signatures.json": "c7c5430cccf1d429ab55ca2f1e491d94f13518605dfa71d5f3d705ae0c489616",
+        "pump-signatures.json": "f83f5aa9357e6f8f731f1b0a5c55045ee9d648121137d510c8fe735dbe99fd11"
+      },
+      "cases": [
+        {
+          "variant": "clean",
+          "canonical_status": "pass",
+          "canonical_errors": [],
+          "generated_cli": {
+            "normal": {
+              "exit": 0,
+              "says_pass": true
+            },
+            "optimized": {
+              "exit": 0,
+              "says_pass": true
+            },
+            "docstrings_removed": {
+              "exit": 0,
+              "says_pass": true
+            }
+          }
+        },
+        {
+          "variant": "contradictory_duplicate",
+          "canonical_status": "manifest_parse_error",
+          "canonical_errors": [
+            "duplicate manifest key: summary.json"
+          ],
+          "generated_cli": {
+            "normal": {
+              "exit": 0,
+              "says_pass": true
+            },
+            "optimized": {
+              "exit": 0,
+              "says_pass": true
+            },
+            "docstrings_removed": {
+              "exit": 0,
+              "says_pass": true
+            }
+          }
+        },
+        {
+          "variant": "identical_duplicate",
+          "canonical_status": "manifest_parse_error",
+          "canonical_errors": [
+            "duplicate manifest key: summary.json"
+          ],
+          "generated_cli": {
+            "normal": {
+              "exit": 0,
+              "says_pass": true
+            },
+            "optimized": {
+              "exit": 0,
+              "says_pass": true
+            },
+            "docstrings_removed": {
+              "exit": 0,
+              "says_pass": true
+            }
+          }
+        },
+        {
+          "variant": "escaped_duplicate",
+          "canonical_status": "manifest_parse_error",
+          "canonical_errors": [
+            "duplicate manifest key: summary.json"
+          ],
+          "generated_cli": {
+            "normal": {
+              "exit": 0,
+              "says_pass": true
+            },
+            "optimized": {
+              "exit": 0,
+              "says_pass": true
+            },
+            "docstrings_removed": {
+              "exit": 0,
+              "says_pass": true
+            }
+          }
+        },
+        {
+          "variant": "escaped_unique",
+          "canonical_status": "pass",
+          "canonical_errors": [],
+          "generated_cli": {
+            "normal": {
+              "exit": 0,
+              "says_pass": true
+            },
+            "optimized": {
+              "exit": 0,
+              "says_pass": true
+            },
+            "docstrings_removed": {
+              "exit": 0,
+              "says_pass": true
+            }
+          }
+        },
+        {
+          "variant": "unique_wrong_digest",
+          "canonical_status": "fail",
+          "canonical_errors": [
+            "hash_mismatch: summary.json"
+          ],
+          "generated_cli": {
+            "normal": {
+              "exit": 1,
+              "says_pass": false
+            },
+            "optimized": {
+              "exit": 1,
+              "says_pass": false
+            },
+            "docstrings_removed": {
+              "exit": 1,
+              "says_pass": false
+            }
+          }
+        },
+        {
+          "variant": "malformed_json",
+          "canonical_status": "manifest_parse_error",
+          "canonical_errors": [
+            "Expecting property name enclosed in double quotes: line 1 column 2 (char 1)"
+          ],
+          "generated_cli": {
+            "normal": {
+              "exit": 1,
+              "says_pass": false
+            },
+            "optimized": {
+              "exit": 1,
+              "says_pass": false
+            },
+            "docstrings_removed": {
+              "exit": 1,
+              "says_pass": false
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

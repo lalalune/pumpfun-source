@@ -5,9 +5,18 @@ captured originals and running differential tests in a local VM. Every Python
 script here is listed below by purpose; a check mark means a GitHub workflow runs it
 directly (others run as libraries of those steps or by hand). The non-Python files
 (`pump_rustc_source_path_wrapper.sh`, `core_linux_v144_inputs.json`,
+`pump_physical_source_wrapper.sh`, `pump_text_layout_rustc.sh`,
+`pump_text_layout_linker.sh`,
 `pump_text_layout_default.ld`, `pump_linux_v144_sbf_libraries.json`,
 `pump_linux_v144_sbpf_libraries.json` and `supported_sbpf_policies/`) are inputs
 to the build scripts.
+
+The verified builder's three `.sh` compiler/link launchers use its selected
+Python interpreter, including when `python3` is absent from `PATH`. The original
+Python implementations remain separate hash-bound inputs. Launcher hashes and selected
+interpreter paths participate in new verified dependency-cache keys and
+seed admission; older cache entries are preserved and are not silently reused
+under the changed route. See the [actual offline build controls](../research/verified-hook-interpreter-20261101/README.md).
 
 ## Conventions
 
@@ -105,7 +114,7 @@ do not treat that historical package path as an installed entrypoint.
 | `build_quote_fees.py` |  | Build recovered two-crate quote-selection code; compare unmodified object bytes. |
 | `build_quote_host.py` | ✓ | Build native recovered fee routing for original-versus-recovered tests. |
 | `build_reconstruction_candidate.py` |  | Proposed routing: defaults/old overrides retain the frozen historical helper. |
-| `build_supported_sbpf_candidate.py` |  | Proposed measured v1.53/v1.54 direct-Cargo adapter. --dry-run never invokes tools. |
+| `build_supported_sbpf_candidate.py` |  | Proposed measured v1.53/v1.54 direct-Cargo adapter. Selects the supplied manifest's package explicitly; --dry-run never invokes tools. |
 | `check_sbf_backend_diagnostics.py` |  | Reject reported backend errors even when Cargo returned zero; no runtime acceptance. |
 | `core_linux_v144_build.py` | ✓ | Fixed-source Fees v1.44 compile and recorded v1.52 strip pipeline. |
 | `measure_relay13_linux_v148.py` |  | SOURCE-ONLY PROPOSAL: one explicit Linux measurement, never a promotion tool. |

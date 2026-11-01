@@ -646,6 +646,14 @@ import hashlib, json, os, sys
 PACKET = os.path.dirname(os.path.abspath(__file__))
 REQUIRED_FILES = frozenset(__REQUIRED_PACKET_FILES__)
 
+def manifest_members(pairs):
+    result = {}
+    for name, value in pairs:
+        if name in result:
+            raise ValueError("duplicate manifest key: " + name)
+        result[name] = value
+    return result
+
 def sha256_file(path):
     h = hashlib.sha256()
     with open(path, "rb") as f:
@@ -654,7 +662,11 @@ def sha256_file(path):
     return h.hexdigest()
 
 def main():
-    manifest = json.load(open(os.path.join(PACKET, "manifest.json")))
+    try:
+        with open(os.path.join(PACKET, "manifest.json"), encoding="utf-8") as stream:
+            manifest = json.load(stream, object_pairs_hook=manifest_members)
+    except ValueError as error:
+        print(f"FAIL: invalid manifest: {error}"); return 1
     if not isinstance(manifest, dict) or not REQUIRED_FILES.issubset(manifest):
         print("FAIL: manifest omits required roadmap artifacts"); return 1
     errors = 0

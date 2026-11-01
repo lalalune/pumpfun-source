@@ -535,6 +535,23 @@ def surface(recs):
 
 def main():
     manifest = json.loads((ROOT / "MANIFEST.json").read_text())
+    # The loop below checks the files the manifest names; a file the packet ships
+    # with no entry passes every check it makes. Compare the two sets first.
+    manifest_paths = {entry['path'] for entry in manifest['files']}
+    if len(manifest_paths) != len(manifest['files']):
+        raise SystemExit('duplicate packet manifest path')
+    entries = list(ROOT.rglob('*'))
+    # Python -B still reads cached bytecode; it must not bypass source admission.
+    if any(p.is_symlink() or p.suffix in ('.pyc', '.pyo') for p in entries):
+        raise SystemExit('packet contains a symlink or cached Python bytecode')
+    packet_paths = {p.relative_to(ROOT).as_posix() for p in entries
+                    if p.is_file() and p != ROOT / 'MANIFEST.json'
+                    and p.name != '.DS_Store' and '.git' not in p.relative_to(ROOT).parts}
+    if manifest_paths != packet_paths:
+        raise SystemExit('packet file set differs from MANIFEST.json: '
+                         f'missing={sorted(packet_paths - manifest_paths)} '
+                         f'extra={sorted(manifest_paths - packet_paths)}')
+
     for entry in manifest["files"]:
         path = ROOT / entry["path"]
         if not path.exists():

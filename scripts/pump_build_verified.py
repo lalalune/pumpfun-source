@@ -13,6 +13,7 @@ from pathlib import Path
 import re
 import shutil
 import subprocess
+import sys
 import tomllib
 from pump_dependency_cache import DependencyCache
 import pump_text_layout
@@ -215,11 +216,13 @@ def main():
                 original, target_is_directory=True
             )
     wrapper = ROOT / "scripts/pump_physical_source_wrapper.py"
+    wrapper_launcher = wrapper.with_suffix(".sh")
     before = source_manifest(crate, workspace, ROOT, cwd=workspace)
     env = os.environ.copy()
     env.pop("PUMP_DATA_ORDER_CERTIFICATE", None)
     env.update(
-        RUSTC_WRAPPER=str(wrapper),
+        RUSTC_WRAPPER=str(wrapper_launcher),
+        PUMP_VERIFIED_PYTHON=sys.executable,
         PUMP_LOGICAL_REGISTRY_SRC=str(cargo_home / "registry/src"),
         PUMP_SOURCE_WRAPPER_LOG=str(out / "physical-source-calls.jsonl"),
         CARGO_HOME=str(cargo_home),
@@ -249,7 +252,8 @@ def main():
     cache = (
         DependencyCache(
             a.dependency_cache, ROOT, crate, workspace, sdk, env, wrapper, direct=True,
-            target_library_profile=(target_library_profile["cache_context"] if target_library_profile else None)
+            target_library_profile=(target_library_profile["cache_context"] if target_library_profile else None),
+            wrapper_launcher=wrapper_launcher,
         )
         if a.dependency_cache
         else None
@@ -293,6 +297,7 @@ def main():
         "primary_source_sha256": primary_before,
         "source_sha256": before,
         "source_wrapper_sha256": sha(wrapper),
+        "source_wrapper_launcher_sha256": sha(wrapper_launcher),
         "builder_sha256": sha(Path(__file__)),
         "selected_toolchain": "v1.44",
         "target": target,
@@ -303,6 +308,7 @@ def main():
             k: env[k]
             for k in [
                 "RUSTC_WRAPPER",
+                "PUMP_VERIFIED_PYTHON",
                 "PUMP_LOGICAL_REGISTRY_SRC",
                 "PUMP_SOURCE_WRAPPER_LOG",
                 "CARGO_HOME",
@@ -350,7 +356,7 @@ def main():
     )
     record["build_log_sha256"] = sha(out / "build.log")
     record["stack_warnings"] = [
-        line.strip() for line in (out / "build.log").read_text().splitlines()
+        line.strip() for line in (out / "build.log").read_text(encoding="utf-8").splitlines()
         if "exceeded max offset" in line
     ]
     record["stack_diagnostic_gate_passed"] = not record["stack_warnings"]

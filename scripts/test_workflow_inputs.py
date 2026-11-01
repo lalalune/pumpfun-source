@@ -313,6 +313,17 @@ class WorkflowInputsTests(unittest.TestCase):
         self.assertFalse(refs)
         self.assertIn(('test.yml', 'test', 'heredoc body requires shell parsing'), unsupported)
 
+    def test_numeric_job_ids_are_reported_as_sortable_strings(self):
+        # YAML permits bare integer mapping keys, so a job id can be an int.
+        # Every uninspected entry must carry a str job id so that main()'s
+        # sorted(unsupported) does not raise TypeError on mixed int/str keys.
+        source = ('jobs:\n  123:\n    steps:\n'
+                  '      - run: |\n          cat <<EOF\n          hi\n          EOF\n'
+                  '      - run: python $DYN.py\n')
+        _, unsupported = check.references('w.yml', source)
+        self.assertTrue(all(isinstance(row[1], str) for row in unsupported))
+        sorted(unsupported)  # must not raise
+
     def test_continuations_compose_with_environment_prefixes(self):
         source = 'jobs:\n  test:\n    steps:\n      - run: |\n          env FLAG=1 \\\n            python -B scripts/env.py\n          FLAG=1 python \\\n            scripts/assignment.py\n'
         refs, unsupported = check.references('test.yml', source)

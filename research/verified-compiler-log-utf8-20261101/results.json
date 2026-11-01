@@ -1,0 +1,636 @@
+{
+  "base_revision": "60a42309a4908577f0a386513eeaee6cd6f84f42",
+  "method": "Thirteen real offline SDK builds per revision; no image execution",
+  "before": {
+    "implementation_sha256": {
+      "scripts/pump_build_verified.py": "f31dd7c72f706092125fa95883c0cf011db2385c5919732966e10cdf71440b19",
+      "scripts/pump_dependency_cache.py": "b54de74061ab1b2a5dbdd770ff1573236becedecdc5d72d701d3272a5a174375",
+      "scripts/pump_text_layout.py": "30a8b6cda493ca9ba2c64ef62e5267004459cf942169ee35ddf32ba027448cfa",
+      "scripts/pump_target_library_profile.py": "ea34b4eb2b31eb72254313a7720b689a470b61252bc1f3e08d17d1de15ee324b",
+      "scripts/pump_data_order.py": "9048c896364edb74275be7052f92f15e42d9fb9ae2dbc055b4259cd69d355062",
+      "scripts/source_manifest_guard.py": "45f4393b7eb78baa7e92e160730ddb66f45428b5665fdb99efcf64328798a9b4",
+      "scripts/build_source_manifest.py": "ae80aa7894424e1283bd85f02fa5748a8bc92eb044b81ba53d2d3cdc36706ecc",
+      "scripts/compare.py": "5fa9eafab36c9dd2796a158d2c800725fee3182d81c1ed9d28cea4ba80d1ecf5",
+      "scripts/analyze.py": "178a21b4f70d9deb63646d216306a252c08c11aa0b52b2e7df77db85fcffd262",
+      "scripts/probe_report.py": "627393042e2a45b0fad0ea64af9527cc8981299898a6317f764af8eda0d7a7da",
+      "scripts/pump_compare_function_bytes.py": "51d3a94229ba350d6cd259de25eba357a7ceb20ac263aea879ee1ef4c08f2539",
+      "scripts/pump_exact_body_inventory.py": "54cd714ff174a4a2697bb872bcb05df05f0a126b21f4cc2a688a3c279923b4bb",
+      "scripts/pump_quote_control_function_match.py": "f2d286c9133153ac71af60b60863c9175bbb3c5de9d52b6119954dfef0521c78",
+      "scripts/pump_physical_source_wrapper.py": "8c774934089bff8dbca08589a3ade99922bc8d714f2905f6196d0903b385f99c",
+      "reconstruction/harness/instruction_stream.py": "288c9ceb3f0f177688501922ce56e6a72fe9c3fedcddf9ad1de474412f61ef9d"
+    },
+    "cases": {
+      "ascii-warning-1": {
+        "locale": [
+          "US-ASCII",
+          1
+        ],
+        "wrapper_returncode": 0,
+        "compiler_returncode": 0,
+        "raw_log_sha256": "0eb5ce21144b58e8b70539f927bced619aeccf6940e8d400ac7f199e87853ef2",
+        "log_hash_recorded": true,
+        "log_contains_message": true,
+        "decode_error": false,
+        "compiled_sha256": "197f22ab447530611f28e2dd78366a3ff3c3f80588ee3f25e952c8b9e5fc369c",
+        "candidate_sha256": "eef26ed23477fc5d99af35da1f74c0977eeabc1ebe95fc237616a83a625b0a0d",
+        "comparison_published": true,
+        "source_unchanged": true,
+        "dependency_inputs_unchanged": true,
+        "recorded_source_unchanged": true,
+        "stack_gate_passed": true,
+        "cache_status": null,
+        "existing_cache_unchanged": null
+      },
+      "ascii-warning-0": {
+        "locale": [
+          "US-ASCII",
+          0
+        ],
+        "wrapper_returncode": 0,
+        "compiler_returncode": 0,
+        "raw_log_sha256": "d401029347e830ce53aad617c3d12b2508f15b27ccdee9aec728a0e9bb177ed0",
+        "log_hash_recorded": true,
+        "log_contains_message": true,
+        "decode_error": false,
+        "compiled_sha256": "197f22ab447530611f28e2dd78366a3ff3c3f80588ee3f25e952c8b9e5fc369c",
+        "candidate_sha256": "eef26ed23477fc5d99af35da1f74c0977eeabc1ebe95fc237616a83a625b0a0d",
+        "comparison_published": true,
+        "source_unchanged": true,
+        "dependency_inputs_unchanged": true,
+        "recorded_source_unchanged": true,
+        "stack_gate_passed": true,
+        "cache_status": null,
+        "existing_cache_unchanged": null
+      },
+      "ascii-failure-1": {
+        "locale": [
+          "US-ASCII",
+          1
+        ],
+        "wrapper_returncode": 1,
+        "compiler_returncode": 101,
+        "raw_log_sha256": "6f096761d41582bd86c946fc62c4d010bdac5f1c5e19fa93dd282f2b9116fcd6",
+        "log_hash_recorded": true,
+        "log_contains_message": true,
+        "decode_error": false,
+        "compiled_sha256": null,
+        "candidate_sha256": null,
+        "comparison_published": false,
+        "source_unchanged": true,
+        "dependency_inputs_unchanged": true,
+        "recorded_source_unchanged": true,
+        "stack_gate_passed": true,
+        "cache_status": null,
+        "existing_cache_unchanged": null
+      },
+      "ascii-failure-0": {
+        "locale": [
+          "US-ASCII",
+          0
+        ],
+        "wrapper_returncode": 1,
+        "compiler_returncode": 101,
+        "raw_log_sha256": "6f096761d41582bd86c946fc62c4d010bdac5f1c5e19fa93dd282f2b9116fcd6",
+        "log_hash_recorded": true,
+        "log_contains_message": true,
+        "decode_error": false,
+        "compiled_sha256": null,
+        "candidate_sha256": null,
+        "comparison_published": false,
+        "source_unchanged": true,
+        "dependency_inputs_unchanged": true,
+        "recorded_source_unchanged": true,
+        "stack_gate_passed": true,
+        "cache_status": null,
+        "existing_cache_unchanged": null
+      },
+      "unicode-warning-1": {
+        "locale": [
+          "US-ASCII",
+          1
+        ],
+        "wrapper_returncode": 0,
+        "compiler_returncode": 0,
+        "raw_log_sha256": "b6f965867ed131b397a8dafd62de3e11beec92d01fbe476f662f195aefabb5ce",
+        "log_hash_recorded": true,
+        "log_contains_message": true,
+        "decode_error": false,
+        "compiled_sha256": "197f22ab447530611f28e2dd78366a3ff3c3f80588ee3f25e952c8b9e5fc369c",
+        "candidate_sha256": "eef26ed23477fc5d99af35da1f74c0977eeabc1ebe95fc237616a83a625b0a0d",
+        "comparison_published": true,
+        "source_unchanged": true,
+        "dependency_inputs_unchanged": true,
+        "recorded_source_unchanged": true,
+        "stack_gate_passed": true,
+        "cache_status": null,
+        "existing_cache_unchanged": null
+      },
+      "unicode-warning-0": {
+        "locale": [
+          "US-ASCII",
+          0
+        ],
+        "wrapper_returncode": 1,
+        "compiler_returncode": null,
+        "raw_log_sha256": "b6f965867ed131b397a8dafd62de3e11beec92d01fbe476f662f195aefabb5ce",
+        "log_hash_recorded": false,
+        "log_contains_message": true,
+        "decode_error": true,
+        "compiled_sha256": "197f22ab447530611f28e2dd78366a3ff3c3f80588ee3f25e952c8b9e5fc369c",
+        "candidate_sha256": null,
+        "comparison_published": false,
+        "source_unchanged": true,
+        "dependency_inputs_unchanged": true,
+        "recorded_source_unchanged": null,
+        "stack_gate_passed": null,
+        "cache_status": null,
+        "existing_cache_unchanged": null
+      },
+      "unicode-failure-1": {
+        "locale": [
+          "US-ASCII",
+          1
+        ],
+        "wrapper_returncode": 1,
+        "compiler_returncode": 101,
+        "raw_log_sha256": "d856d4187d0caafdba1857d9bd3e52fcfd540f26453cc4455a1b25eed2ddd2d2",
+        "log_hash_recorded": true,
+        "log_contains_message": true,
+        "decode_error": false,
+        "compiled_sha256": null,
+        "candidate_sha256": null,
+        "comparison_published": false,
+        "source_unchanged": true,
+        "dependency_inputs_unchanged": true,
+        "recorded_source_unchanged": true,
+        "stack_gate_passed": true,
+        "cache_status": null,
+        "existing_cache_unchanged": null
+      },
+      "unicode-failure-0": {
+        "locale": [
+          "US-ASCII",
+          0
+        ],
+        "wrapper_returncode": 1,
+        "compiler_returncode": null,
+        "raw_log_sha256": "d856d4187d0caafdba1857d9bd3e52fcfd540f26453cc4455a1b25eed2ddd2d2",
+        "log_hash_recorded": false,
+        "log_contains_message": true,
+        "decode_error": true,
+        "compiled_sha256": null,
+        "candidate_sha256": null,
+        "comparison_published": false,
+        "source_unchanged": true,
+        "dependency_inputs_unchanged": true,
+        "recorded_source_unchanged": null,
+        "stack_gate_passed": null,
+        "cache_status": null,
+        "existing_cache_unchanged": null
+      },
+      "cache-seed-1": {
+        "locale": [
+          "US-ASCII",
+          1
+        ],
+        "wrapper_returncode": 0,
+        "compiler_returncode": 0,
+        "raw_log_sha256": "30411c178a1c4269ee7cdca41e1fcb91d0b771fb59d8cda446d6412441ba5bdb",
+        "log_hash_recorded": true,
+        "log_contains_message": true,
+        "decode_error": false,
+        "compiled_sha256": "e9942903d126498cbc1c83f24677517eda22a2c5a6a0d71be53b1f63c1260e3f",
+        "candidate_sha256": "730f6b96c2744689dce26428a0fd17895b8d37f8f14cf0b9f87261404ba3c3c9",
+        "comparison_published": true,
+        "source_unchanged": true,
+        "dependency_inputs_unchanged": true,
+        "recorded_source_unchanged": true,
+        "stack_gate_passed": true,
+        "cache_status": "miss",
+        "existing_cache_unchanged": null
+      },
+      "cache-hit-0": {
+        "locale": [
+          "US-ASCII",
+          0
+        ],
+        "wrapper_returncode": 1,
+        "compiler_returncode": null,
+        "raw_log_sha256": "b5bde989827a2045b565a0cde6989fcba13743a5ef42c8172a9f1fe23670c971",
+        "log_hash_recorded": false,
+        "log_contains_message": true,
+        "decode_error": true,
+        "compiled_sha256": "e9942903d126498cbc1c83f24677517eda22a2c5a6a0d71be53b1f63c1260e3f",
+        "candidate_sha256": null,
+        "comparison_published": false,
+        "source_unchanged": true,
+        "dependency_inputs_unchanged": true,
+        "recorded_source_unchanged": null,
+        "stack_gate_passed": null,
+        "cache_status": null,
+        "existing_cache_unchanged": true
+      },
+      "cache-miss-0": {
+        "locale": [
+          "US-ASCII",
+          0
+        ],
+        "wrapper_returncode": 1,
+        "compiler_returncode": null,
+        "raw_log_sha256": "75eab2ef54773f05cb4d77afa15f51624844c24543f6d1f21dbd344be787c799",
+        "log_hash_recorded": false,
+        "log_contains_message": true,
+        "decode_error": true,
+        "compiled_sha256": "e9942903d126498cbc1c83f24677517eda22a2c5a6a0d71be53b1f63c1260e3f",
+        "candidate_sha256": null,
+        "comparison_published": false,
+        "source_unchanged": true,
+        "dependency_inputs_unchanged": true,
+        "recorded_source_unchanged": null,
+        "stack_gate_passed": null,
+        "cache_status": null,
+        "existing_cache_unchanged": null
+      },
+      "cache-failure-1": {
+        "locale": [
+          "US-ASCII",
+          1
+        ],
+        "wrapper_returncode": 1,
+        "compiler_returncode": 1,
+        "raw_log_sha256": "0ed42f723d233daa705ea779a3b896a0cec08195340ef7b8440b36514377cfe7",
+        "log_hash_recorded": true,
+        "log_contains_message": true,
+        "decode_error": false,
+        "compiled_sha256": null,
+        "candidate_sha256": null,
+        "comparison_published": false,
+        "source_unchanged": true,
+        "dependency_inputs_unchanged": true,
+        "recorded_source_unchanged": true,
+        "stack_gate_passed": true,
+        "cache_status": null,
+        "existing_cache_unchanged": true
+      },
+      "cache-failure-0": {
+        "locale": [
+          "US-ASCII",
+          0
+        ],
+        "wrapper_returncode": 1,
+        "compiler_returncode": null,
+        "raw_log_sha256": "7fca8cef035041e81f317baa680157d838b1c29aa93a34ca4461a3fe88c8fc06",
+        "log_hash_recorded": false,
+        "log_contains_message": true,
+        "decode_error": true,
+        "compiled_sha256": null,
+        "candidate_sha256": null,
+        "comparison_published": false,
+        "source_unchanged": true,
+        "dependency_inputs_unchanged": true,
+        "recorded_source_unchanged": null,
+        "stack_gate_passed": null,
+        "cache_status": null,
+        "existing_cache_unchanged": true
+      }
+    },
+    "runtime_executions": 0,
+    "tool_sha256": {
+      "rust/bin/cargo": "cd27e4113fc155b5e79fca97c1cc5447ef89d1c8ce3d0e1e5679d2dd7a9ab0ef",
+      "rust/bin/rustc": "1f26338cc2cabd0a6057dcbd0528bba262b23ca1296d357a55304ee31d1d9e5a",
+      "llvm/bin/llvm-objcopy": "8f79cc9a0eab0bd1b19a2ad789e5cb5e6f22d16c2f147d58ca30b9b51d2231e1"
+    },
+    "rustc_version": "rustc 1.79.0-dev\nbinary: rustc\ncommit-hash: unknown\ncommit-date: unknown\nhost: aarch64-apple-darwin\nrelease: 1.79.0-dev\nLLVM version: 18.1.7",
+    "copied_capture_unchanged": true,
+    "caller_inputs_unchanged": true,
+    "tools_unchanged": true
+  },
+  "after": {
+    "implementation_sha256": {
+      "scripts/pump_build_verified.py": "271d5c58ff5c633142a20d597ebacd2ba957860aadd6bd2581ee22934add9756",
+      "scripts/pump_dependency_cache.py": "b37f4d2332297cad916d64ef08adca0e499070d9a7981b472efdb2074587ece4",
+      "scripts/pump_text_layout.py": "30a8b6cda493ca9ba2c64ef62e5267004459cf942169ee35ddf32ba027448cfa",
+      "scripts/pump_target_library_profile.py": "ea34b4eb2b31eb72254313a7720b689a470b61252bc1f3e08d17d1de15ee324b",
+      "scripts/pump_data_order.py": "9048c896364edb74275be7052f92f15e42d9fb9ae2dbc055b4259cd69d355062",
+      "scripts/source_manifest_guard.py": "45f4393b7eb78baa7e92e160730ddb66f45428b5665fdb99efcf64328798a9b4",
+      "scripts/build_source_manifest.py": "ae80aa7894424e1283bd85f02fa5748a8bc92eb044b81ba53d2d3cdc36706ecc",
+      "scripts/compare.py": "5fa9eafab36c9dd2796a158d2c800725fee3182d81c1ed9d28cea4ba80d1ecf5",
+      "scripts/analyze.py": "178a21b4f70d9deb63646d216306a252c08c11aa0b52b2e7df77db85fcffd262",
+      "scripts/probe_report.py": "627393042e2a45b0fad0ea64af9527cc8981299898a6317f764af8eda0d7a7da",
+      "scripts/pump_compare_function_bytes.py": "51d3a94229ba350d6cd259de25eba357a7ceb20ac263aea879ee1ef4c08f2539",
+      "scripts/pump_exact_body_inventory.py": "54cd714ff174a4a2697bb872bcb05df05f0a126b21f4cc2a688a3c279923b4bb",
+      "scripts/pump_quote_control_function_match.py": "f2d286c9133153ac71af60b60863c9175bbb3c5de9d52b6119954dfef0521c78",
+      "scripts/pump_physical_source_wrapper.py": "8c774934089bff8dbca08589a3ade99922bc8d714f2905f6196d0903b385f99c",
+      "reconstruction/harness/instruction_stream.py": "288c9ceb3f0f177688501922ce56e6a72fe9c3fedcddf9ad1de474412f61ef9d"
+    },
+    "cases": {
+      "ascii-warning-1": {
+        "locale": [
+          "US-ASCII",
+          1
+        ],
+        "wrapper_returncode": 0,
+        "compiler_returncode": 0,
+        "raw_log_sha256": "923f50690a6816f62b336456d4826dec305155a19c6ca29de95c429b929c7a5c",
+        "log_hash_recorded": true,
+        "log_contains_message": true,
+        "decode_error": false,
+        "compiled_sha256": "197f22ab447530611f28e2dd78366a3ff3c3f80588ee3f25e952c8b9e5fc369c",
+        "candidate_sha256": "eef26ed23477fc5d99af35da1f74c0977eeabc1ebe95fc237616a83a625b0a0d",
+        "comparison_published": true,
+        "source_unchanged": true,
+        "dependency_inputs_unchanged": true,
+        "recorded_source_unchanged": true,
+        "stack_gate_passed": true,
+        "cache_status": null,
+        "existing_cache_unchanged": null
+      },
+      "ascii-warning-0": {
+        "locale": [
+          "US-ASCII",
+          0
+        ],
+        "wrapper_returncode": 0,
+        "compiler_returncode": 0,
+        "raw_log_sha256": "8d5763f00250c1ebfb4f4fea7a5e57f961c45e826fed70de594f02a7b2ccb997",
+        "log_hash_recorded": true,
+        "log_contains_message": true,
+        "decode_error": false,
+        "compiled_sha256": "197f22ab447530611f28e2dd78366a3ff3c3f80588ee3f25e952c8b9e5fc369c",
+        "candidate_sha256": "eef26ed23477fc5d99af35da1f74c0977eeabc1ebe95fc237616a83a625b0a0d",
+        "comparison_published": true,
+        "source_unchanged": true,
+        "dependency_inputs_unchanged": true,
+        "recorded_source_unchanged": true,
+        "stack_gate_passed": true,
+        "cache_status": null,
+        "existing_cache_unchanged": null
+      },
+      "ascii-failure-1": {
+        "locale": [
+          "US-ASCII",
+          1
+        ],
+        "wrapper_returncode": 1,
+        "compiler_returncode": 101,
+        "raw_log_sha256": "d4cef3ef89b6cc9d3d685930d56f5c7e27a3c87eb5c010883eb588154fe7546d",
+        "log_hash_recorded": true,
+        "log_contains_message": true,
+        "decode_error": false,
+        "compiled_sha256": null,
+        "candidate_sha256": null,
+        "comparison_published": false,
+        "source_unchanged": true,
+        "dependency_inputs_unchanged": true,
+        "recorded_source_unchanged": true,
+        "stack_gate_passed": true,
+        "cache_status": null,
+        "existing_cache_unchanged": null
+      },
+      "ascii-failure-0": {
+        "locale": [
+          "US-ASCII",
+          0
+        ],
+        "wrapper_returncode": 1,
+        "compiler_returncode": 101,
+        "raw_log_sha256": "d4cef3ef89b6cc9d3d685930d56f5c7e27a3c87eb5c010883eb588154fe7546d",
+        "log_hash_recorded": true,
+        "log_contains_message": true,
+        "decode_error": false,
+        "compiled_sha256": null,
+        "candidate_sha256": null,
+        "comparison_published": false,
+        "source_unchanged": true,
+        "dependency_inputs_unchanged": true,
+        "recorded_source_unchanged": true,
+        "stack_gate_passed": true,
+        "cache_status": null,
+        "existing_cache_unchanged": null
+      },
+      "unicode-warning-1": {
+        "locale": [
+          "US-ASCII",
+          1
+        ],
+        "wrapper_returncode": 0,
+        "compiler_returncode": 0,
+        "raw_log_sha256": "00183ec89dc080ef2296b51132952b1345cf5634bb876206c4a2eea41b210795",
+        "log_hash_recorded": true,
+        "log_contains_message": true,
+        "decode_error": false,
+        "compiled_sha256": "197f22ab447530611f28e2dd78366a3ff3c3f80588ee3f25e952c8b9e5fc369c",
+        "candidate_sha256": "eef26ed23477fc5d99af35da1f74c0977eeabc1ebe95fc237616a83a625b0a0d",
+        "comparison_published": true,
+        "source_unchanged": true,
+        "dependency_inputs_unchanged": true,
+        "recorded_source_unchanged": true,
+        "stack_gate_passed": true,
+        "cache_status": null,
+        "existing_cache_unchanged": null
+      },
+      "unicode-warning-0": {
+        "locale": [
+          "US-ASCII",
+          0
+        ],
+        "wrapper_returncode": 0,
+        "compiler_returncode": 0,
+        "raw_log_sha256": "00183ec89dc080ef2296b51132952b1345cf5634bb876206c4a2eea41b210795",
+        "log_hash_recorded": true,
+        "log_contains_message": true,
+        "decode_error": false,
+        "compiled_sha256": "197f22ab447530611f28e2dd78366a3ff3c3f80588ee3f25e952c8b9e5fc369c",
+        "candidate_sha256": "eef26ed23477fc5d99af35da1f74c0977eeabc1ebe95fc237616a83a625b0a0d",
+        "comparison_published": true,
+        "source_unchanged": true,
+        "dependency_inputs_unchanged": true,
+        "recorded_source_unchanged": true,
+        "stack_gate_passed": true,
+        "cache_status": null,
+        "existing_cache_unchanged": null
+      },
+      "unicode-failure-1": {
+        "locale": [
+          "US-ASCII",
+          1
+        ],
+        "wrapper_returncode": 1,
+        "compiler_returncode": 101,
+        "raw_log_sha256": "98dd71dd7de7ac196aeb9e25907d4627de3e666d47739c1a1251fec81f17c7b4",
+        "log_hash_recorded": true,
+        "log_contains_message": true,
+        "decode_error": false,
+        "compiled_sha256": null,
+        "candidate_sha256": null,
+        "comparison_published": false,
+        "source_unchanged": true,
+        "dependency_inputs_unchanged": true,
+        "recorded_source_unchanged": true,
+        "stack_gate_passed": true,
+        "cache_status": null,
+        "existing_cache_unchanged": null
+      },
+      "unicode-failure-0": {
+        "locale": [
+          "US-ASCII",
+          0
+        ],
+        "wrapper_returncode": 1,
+        "compiler_returncode": 101,
+        "raw_log_sha256": "98dd71dd7de7ac196aeb9e25907d4627de3e666d47739c1a1251fec81f17c7b4",
+        "log_hash_recorded": true,
+        "log_contains_message": true,
+        "decode_error": false,
+        "compiled_sha256": null,
+        "candidate_sha256": null,
+        "comparison_published": false,
+        "source_unchanged": true,
+        "dependency_inputs_unchanged": true,
+        "recorded_source_unchanged": true,
+        "stack_gate_passed": true,
+        "cache_status": null,
+        "existing_cache_unchanged": null
+      },
+      "cache-seed-1": {
+        "locale": [
+          "US-ASCII",
+          1
+        ],
+        "wrapper_returncode": 0,
+        "compiler_returncode": 0,
+        "raw_log_sha256": "c28a2844809089179b8961159058ccb766e062bd5fb96a30013a808134517427",
+        "log_hash_recorded": true,
+        "log_contains_message": true,
+        "decode_error": false,
+        "compiled_sha256": "e9942903d126498cbc1c83f24677517eda22a2c5a6a0d71be53b1f63c1260e3f",
+        "candidate_sha256": "730f6b96c2744689dce26428a0fd17895b8d37f8f14cf0b9f87261404ba3c3c9",
+        "comparison_published": true,
+        "source_unchanged": true,
+        "dependency_inputs_unchanged": true,
+        "recorded_source_unchanged": true,
+        "stack_gate_passed": true,
+        "cache_status": "miss",
+        "existing_cache_unchanged": null
+      },
+      "cache-hit-0": {
+        "locale": [
+          "US-ASCII",
+          0
+        ],
+        "wrapper_returncode": 0,
+        "compiler_returncode": 0,
+        "raw_log_sha256": "57ee1a84ed9219663893f394edde824e54b74bbf08d7c5d6ae936aa42cfcf58b",
+        "log_hash_recorded": true,
+        "log_contains_message": true,
+        "decode_error": false,
+        "compiled_sha256": "e9942903d126498cbc1c83f24677517eda22a2c5a6a0d71be53b1f63c1260e3f",
+        "candidate_sha256": "730f6b96c2744689dce26428a0fd17895b8d37f8f14cf0b9f87261404ba3c3c9",
+        "comparison_published": true,
+        "source_unchanged": true,
+        "dependency_inputs_unchanged": true,
+        "recorded_source_unchanged": true,
+        "stack_gate_passed": true,
+        "cache_status": "hit",
+        "existing_cache_unchanged": true
+      },
+      "cache-miss-0": {
+        "locale": [
+          "US-ASCII",
+          0
+        ],
+        "wrapper_returncode": 0,
+        "compiler_returncode": 0,
+        "raw_log_sha256": "d97be41835c8cde1700138d03f61318191aea9349c89b519e26e6e25e5d5de41",
+        "log_hash_recorded": true,
+        "log_contains_message": true,
+        "decode_error": false,
+        "compiled_sha256": "e9942903d126498cbc1c83f24677517eda22a2c5a6a0d71be53b1f63c1260e3f",
+        "candidate_sha256": "730f6b96c2744689dce26428a0fd17895b8d37f8f14cf0b9f87261404ba3c3c9",
+        "comparison_published": true,
+        "source_unchanged": true,
+        "dependency_inputs_unchanged": true,
+        "recorded_source_unchanged": true,
+        "stack_gate_passed": true,
+        "cache_status": "miss",
+        "existing_cache_unchanged": null
+      },
+      "cache-failure-1": {
+        "locale": [
+          "US-ASCII",
+          1
+        ],
+        "wrapper_returncode": 1,
+        "compiler_returncode": 1,
+        "raw_log_sha256": "b9c2d905d003e68911bd80c303ddfe3e968e66c44bbe13d3169171f16ee6ee05",
+        "log_hash_recorded": true,
+        "log_contains_message": true,
+        "decode_error": false,
+        "compiled_sha256": null,
+        "candidate_sha256": null,
+        "comparison_published": false,
+        "source_unchanged": true,
+        "dependency_inputs_unchanged": true,
+        "recorded_source_unchanged": true,
+        "stack_gate_passed": true,
+        "cache_status": null,
+        "existing_cache_unchanged": true
+      },
+      "cache-failure-0": {
+        "locale": [
+          "US-ASCII",
+          0
+        ],
+        "wrapper_returncode": 1,
+        "compiler_returncode": 1,
+        "raw_log_sha256": "1d1fcd84ae57336481fa215112c51754c34a85ab4c148b5ede7d6e02f122d1ed",
+        "log_hash_recorded": true,
+        "log_contains_message": true,
+        "decode_error": false,
+        "compiled_sha256": null,
+        "candidate_sha256": null,
+        "comparison_published": false,
+        "source_unchanged": true,
+        "dependency_inputs_unchanged": true,
+        "recorded_source_unchanged": true,
+        "stack_gate_passed": true,
+        "cache_status": null,
+        "existing_cache_unchanged": true
+      }
+    },
+    "runtime_executions": 0,
+    "tool_sha256": {
+      "rust/bin/cargo": "cd27e4113fc155b5e79fca97c1cc5447ef89d1c8ce3d0e1e5679d2dd7a9ab0ef",
+      "rust/bin/rustc": "1f26338cc2cabd0a6057dcbd0528bba262b23ca1296d357a55304ee31d1d9e5a",
+      "llvm/bin/llvm-objcopy": "8f79cc9a0eab0bd1b19a2ad789e5cb5e6f22d16c2f147d58ca30b9b51d2231e1"
+    },
+    "rustc_version": "rustc 1.79.0-dev\nbinary: rustc\ncommit-hash: unknown\ncommit-date: unknown\nhost: aarch64-apple-darwin\nrelease: 1.79.0-dev\nLLVM version: 18.1.7",
+    "copied_capture_unchanged": true,
+    "caller_inputs_unchanged": true,
+    "tools_unchanged": true
+  },
+  "comparison": {
+    "cases": 13,
+    "base_decode_errors": 5,
+    "fixed_decode_errors": 0,
+    "unchanged_success_artifacts": true,
+    "unchanged_compiled_artifacts": true,
+    "sdk_identity": {
+      "rust/bin/cargo": {
+        "observed": "cd27e4113fc155b5e79fca97c1cc5447ef89d1c8ce3d0e1e5679d2dd7a9ab0ef",
+        "inventory": "cd27e4113fc155b5e79fca97c1cc5447ef89d1c8ce3d0e1e5679d2dd7a9ab0ef",
+        "equal": true
+      },
+      "rust/bin/rustc": {
+        "observed": "1f26338cc2cabd0a6057dcbd0528bba262b23ca1296d357a55304ee31d1d9e5a",
+        "inventory": "1f26338cc2cabd0a6057dcbd0528bba262b23ca1296d357a55304ee31d1d9e5a",
+        "equal": true
+      },
+      "llvm/bin/llvm-objcopy": {
+        "observed": "8f79cc9a0eab0bd1b19a2ad789e5cb5e6f22d16c2f147d58ca30b9b51d2231e1",
+        "inventory": "8f79cc9a0eab0bd1b19a2ad789e5cb5e6f22d16c2f147d58ca30b9b51d2231e1",
+        "equal": true
+      }
+    }
+  }
+}

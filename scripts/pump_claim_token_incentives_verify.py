@@ -131,8 +131,14 @@ def main():
         check(diff.sha(raw) == entry["json_sha256"] and len(raw) == entry["json_bytes"], "claim verification failed: diff.sha(raw) == entry['json_sha256'] and len(raw) == entry['json_byte")
         selected = json.loads(raw)
         if entry["name"] == "quote_control":
-            check(selected["cases"] == entry["cases"] == len(selected["results"]), "claim verification failed: selected['cases'] == entry['cases'] == len(selected['results'])")
-            check(selected["mismatches"] == 0, "claim verification failed: selected['mismatches'] == 0")
+            check(type(selected.get("cases")) is int and type(entry.get("cases")) is int
+                  and isinstance(selected.get("results"), list)
+                  and selected["cases"] == entry["cases"] == len(selected["results"]), "claim verification failed: selected['cases'] == entry['cases'] == len(selected['results'])")
+            check(type(selected.get("mismatches")) is int and selected["mismatches"] == 0, "claim verification failed: selected['mismatches'] == 0")
+            # The header is only admitted when the retained rows say the same.
+            check(all(isinstance(row, dict) for row in selected["results"])
+                  and not any(row.get("matches") is not True for row in selected["results"]),
+                  "claim verification failed: not any(row.get('matches') is not True for row in selected['results'])")
             check(isinstance(selected.get("bound_inputs_sha256"), dict) and selected["bound_inputs_sha256"],
                   "claim verification failed: quote-control receipt binds no input")
             for path, expected in selected["bound_inputs_sha256"].items():

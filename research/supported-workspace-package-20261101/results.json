@@ -1,0 +1,546 @@
+{
+  "comparison": {
+    "base": "60a42309a4908577f0a386513eeaee6cd6f84f42",
+    "cases_per_revision": 7,
+    "actual_cargo_builds_per_revision": 14,
+    "base_missing_requested_artifacts": 2,
+    "fixed_missing_requested_artifacts": 0,
+    "base_passing_artifacts_preserved": [
+      "standalone",
+      "implicit_root",
+      "explicit_root",
+      "all_default",
+      "selected_member"
+    ],
+    "all_fixed_artifacts_equal_direct_package_controls": true,
+    "original_manifests_lock_inputs_and_tools_preserved": true,
+    "registry_dependencies": 0,
+    "local_path_dependency_control": true,
+    "image_executions": 0
+  },
+  "before": {
+    "base": "60a42309a4908577f0a386513eeaee6cd6f84f42",
+    "source_sha256": {
+      "scripts/build_supported_sbpf_candidate.py": "3ed5e4e5b927cee13b550437840a1cfb33e7885e8fb6216dcb2dc120fb2951fc",
+      "scripts/build_source_manifest.py": "ae80aa7894424e1283bd85f02fa5748a8bc92eb044b81ba53d2d3cdc36706ecc",
+      "scripts/supported_sbpf_policies/v1.53.json": "ba7d7e9cfb917ba15f9f96eca5182d6bb02f52b41affddde1c1f9ba6a211fba7"
+    },
+    "tool_sha256": {
+      "v1.53/platform-tools/rust/bin/cargo": "1eb15e30b4fddb0342872595b63b076d5f8599db716fec43de4d177de8d90fbc",
+      "v1.53/platform-tools/rust/bin/rustc": "c58ec8ad482a40216152a4e4a6172f485be22a7f4482623e7e3cdf6c7085beb8",
+      "v1.52/platform-tools/llvm/bin/llvm-objcopy": "12415dc01e08e4f606a1a4eac8c197d560c7883161d266312c821bf5db7bf8be"
+    },
+    "cases": {
+      "standalone": {
+        "adapter_exit": 0,
+        "compile_exit": 0,
+        "stage": "complete",
+        "error": null,
+        "comparison_published": true,
+        "candidate_sha256": "56f01efa524d98da3f53429194857dfe6c0c19641dec7fa9940461bb308d80fa",
+        "compiled_cdylibs": [
+          "requested_output.so"
+        ],
+        "selected_package": "selected-root-package",
+        "command": [
+          "SDK_CACHE/v1.53/platform-tools/rust/bin/cargo",
+          "build",
+          "--manifest-path",
+          "OWNED/standalone-adapter/source/standalone/Cargo.toml",
+          "--release",
+          "--target",
+          "sbpf-solana-solana",
+          "--locked",
+          "--offline",
+          "--verbose"
+        ],
+        "direct_explicit_package_exit": 0,
+        "direct_candidate_sha256": "56f01efa524d98da3f53429194857dfe6c0c19641dec7fa9940461bb308d80fa",
+        "caller_source_preserved": true,
+        "caller_cache_preserved": true,
+        "caller_cache_created_files": [
+          ".package-cache-mutate"
+        ],
+        "effective_source_preserved": true,
+        "staged_manifests_equal": true,
+        "staged_lock_equal": true,
+        "path_dependency_compiled": false
+      },
+      "implicit_root": {
+        "adapter_exit": 0,
+        "compile_exit": 0,
+        "stage": "complete",
+        "error": null,
+        "comparison_published": true,
+        "candidate_sha256": "56f01efa524d98da3f53429194857dfe6c0c19641dec7fa9940461bb308d80fa",
+        "compiled_cdylibs": [
+          "requested_output.so"
+        ],
+        "selected_package": "selected-root-package",
+        "command": [
+          "SDK_CACHE/v1.53/platform-tools/rust/bin/cargo",
+          "build",
+          "--manifest-path",
+          "OWNED/implicit_root-adapter/source/implicit_root/Cargo.toml",
+          "--release",
+          "--target",
+          "sbpf-solana-solana",
+          "--locked",
+          "--offline",
+          "--verbose"
+        ],
+        "direct_explicit_package_exit": 0,
+        "direct_candidate_sha256": "56f01efa524d98da3f53429194857dfe6c0c19641dec7fa9940461bb308d80fa",
+        "caller_source_preserved": true,
+        "caller_cache_preserved": true,
+        "caller_cache_created_files": [],
+        "effective_source_preserved": true,
+        "staged_manifests_equal": true,
+        "staged_lock_equal": true,
+        "path_dependency_compiled": false
+      },
+      "explicit_root": {
+        "adapter_exit": 0,
+        "compile_exit": 0,
+        "stage": "complete",
+        "error": null,
+        "comparison_published": true,
+        "candidate_sha256": "56f01efa524d98da3f53429194857dfe6c0c19641dec7fa9940461bb308d80fa",
+        "compiled_cdylibs": [
+          "requested_output.so"
+        ],
+        "selected_package": "selected-root-package",
+        "command": [
+          "SDK_CACHE/v1.53/platform-tools/rust/bin/cargo",
+          "build",
+          "--manifest-path",
+          "OWNED/explicit_root-adapter/source/explicit_root/Cargo.toml",
+          "--release",
+          "--target",
+          "sbpf-solana-solana",
+          "--locked",
+          "--offline",
+          "--verbose"
+        ],
+        "direct_explicit_package_exit": 0,
+        "direct_candidate_sha256": "56f01efa524d98da3f53429194857dfe6c0c19641dec7fa9940461bb308d80fa",
+        "caller_source_preserved": true,
+        "caller_cache_preserved": true,
+        "caller_cache_created_files": [],
+        "effective_source_preserved": true,
+        "staged_manifests_equal": true,
+        "staged_lock_equal": true,
+        "path_dependency_compiled": false
+      },
+      "sibling_default": {
+        "adapter_exit": 1,
+        "compile_exit": 0,
+        "stage": "compile",
+        "error": {
+          "type": "FileNotFoundError",
+          "message": "[Errno 2] No such file or directory: 'OWNED/sibling_default-adapter/target/sbpf-solana-solana/release/requested_output.so'"
+        },
+        "comparison_published": false,
+        "candidate_sha256": null,
+        "compiled_cdylibs": [
+          "unrelated_output.so"
+        ],
+        "selected_package": "selected-root-package",
+        "command": [
+          "SDK_CACHE/v1.53/platform-tools/rust/bin/cargo",
+          "build",
+          "--manifest-path",
+          "OWNED/sibling_default-adapter/source/sibling_default/Cargo.toml",
+          "--release",
+          "--target",
+          "sbpf-solana-solana",
+          "--locked",
+          "--offline",
+          "--verbose"
+        ],
+        "direct_explicit_package_exit": 0,
+        "direct_candidate_sha256": "56f01efa524d98da3f53429194857dfe6c0c19641dec7fa9940461bb308d80fa",
+        "caller_source_preserved": true,
+        "caller_cache_preserved": true,
+        "caller_cache_created_files": [],
+        "effective_source_preserved": true,
+        "staged_manifests_equal": true,
+        "staged_lock_equal": true,
+        "path_dependency_compiled": false
+      },
+      "all_default": {
+        "adapter_exit": 0,
+        "compile_exit": 0,
+        "stage": "complete",
+        "error": null,
+        "comparison_published": true,
+        "candidate_sha256": "56f01efa524d98da3f53429194857dfe6c0c19641dec7fa9940461bb308d80fa",
+        "compiled_cdylibs": [
+          "requested_output.so",
+          "unrelated_output.so"
+        ],
+        "selected_package": "selected-root-package",
+        "command": [
+          "SDK_CACHE/v1.53/platform-tools/rust/bin/cargo",
+          "build",
+          "--manifest-path",
+          "OWNED/all_default-adapter/source/all_default/Cargo.toml",
+          "--release",
+          "--target",
+          "sbpf-solana-solana",
+          "--locked",
+          "--offline",
+          "--verbose"
+        ],
+        "direct_explicit_package_exit": 0,
+        "direct_candidate_sha256": "56f01efa524d98da3f53429194857dfe6c0c19641dec7fa9940461bb308d80fa",
+        "caller_source_preserved": true,
+        "caller_cache_preserved": true,
+        "caller_cache_created_files": [],
+        "effective_source_preserved": true,
+        "staged_manifests_equal": true,
+        "staged_lock_equal": true,
+        "path_dependency_compiled": false
+      },
+      "selected_member": {
+        "adapter_exit": 0,
+        "compile_exit": 0,
+        "stage": "complete",
+        "error": null,
+        "comparison_published": true,
+        "candidate_sha256": "ab61aeda3963e829535637fa9b2514c3894cb319fb57c3e25eda55368413df87",
+        "compiled_cdylibs": [
+          "unrelated_output.so"
+        ],
+        "selected_package": "sibling-package",
+        "command": [
+          "SDK_CACHE/v1.53/platform-tools/rust/bin/cargo",
+          "build",
+          "--manifest-path",
+          "OWNED/selected_member-adapter/source/selected_member/sibling/Cargo.toml",
+          "--release",
+          "--target",
+          "sbpf-solana-solana",
+          "--locked",
+          "--offline",
+          "--verbose"
+        ],
+        "direct_explicit_package_exit": 0,
+        "direct_candidate_sha256": "ab61aeda3963e829535637fa9b2514c3894cb319fb57c3e25eda55368413df87",
+        "caller_source_preserved": true,
+        "caller_cache_preserved": true,
+        "caller_cache_created_files": [],
+        "effective_source_preserved": true,
+        "staged_manifests_equal": true,
+        "staged_lock_equal": true,
+        "path_dependency_compiled": false
+      },
+      "path_dependency": {
+        "adapter_exit": 1,
+        "compile_exit": 0,
+        "stage": "compile",
+        "error": {
+          "type": "FileNotFoundError",
+          "message": "[Errno 2] No such file or directory: 'OWNED/path_dependency-adapter/target/sbpf-solana-solana/release/requested_output.so'"
+        },
+        "comparison_published": false,
+        "candidate_sha256": null,
+        "compiled_cdylibs": [],
+        "selected_package": "selected-root-package",
+        "command": [
+          "SDK_CACHE/v1.53/platform-tools/rust/bin/cargo",
+          "build",
+          "--manifest-path",
+          "OWNED/path_dependency-adapter/source/path_dependency/Cargo.toml",
+          "--release",
+          "--target",
+          "sbpf-solana-solana",
+          "--locked",
+          "--offline",
+          "--verbose"
+        ],
+        "direct_explicit_package_exit": 0,
+        "direct_candidate_sha256": "56f01efa524d98da3f53429194857dfe6c0c19641dec7fa9940461bb308d80fa",
+        "caller_source_preserved": true,
+        "caller_cache_preserved": true,
+        "caller_cache_created_files": [],
+        "effective_source_preserved": true,
+        "staged_manifests_equal": true,
+        "staged_lock_equal": true,
+        "path_dependency_compiled": true
+      }
+    },
+    "image_executions": 0,
+    "capture_preserved": true,
+    "caller_inputs_preserved": true,
+    "tools_preserved": true,
+    "rustc_version": "rustc 1.89.0-dev\nbinary: rustc\ncommit-hash: unknown\ncommit-date: unknown\nhost: aarch64-apple-darwin\nrelease: 1.89.0-dev\nLLVM version: 20.1.7"
+  },
+  "after": {
+    "base": "60a42309a4908577f0a386513eeaee6cd6f84f42",
+    "source_sha256": {
+      "scripts/build_supported_sbpf_candidate.py": "9a5a29b09af7c7539d74558367b57d20cb4b3a47c716ff828bde5003b079cd3d",
+      "scripts/build_source_manifest.py": "ae80aa7894424e1283bd85f02fa5748a8bc92eb044b81ba53d2d3cdc36706ecc",
+      "scripts/supported_sbpf_policies/v1.53.json": "ba7d7e9cfb917ba15f9f96eca5182d6bb02f52b41affddde1c1f9ba6a211fba7"
+    },
+    "tool_sha256": {
+      "v1.53/platform-tools/rust/bin/cargo": "1eb15e30b4fddb0342872595b63b076d5f8599db716fec43de4d177de8d90fbc",
+      "v1.53/platform-tools/rust/bin/rustc": "c58ec8ad482a40216152a4e4a6172f485be22a7f4482623e7e3cdf6c7085beb8",
+      "v1.52/platform-tools/llvm/bin/llvm-objcopy": "12415dc01e08e4f606a1a4eac8c197d560c7883161d266312c821bf5db7bf8be"
+    },
+    "cases": {
+      "standalone": {
+        "adapter_exit": 0,
+        "compile_exit": 0,
+        "stage": "complete",
+        "error": null,
+        "comparison_published": true,
+        "candidate_sha256": "56f01efa524d98da3f53429194857dfe6c0c19641dec7fa9940461bb308d80fa",
+        "compiled_cdylibs": [
+          "requested_output.so"
+        ],
+        "selected_package": "selected-root-package",
+        "command": [
+          "SDK_CACHE/v1.53/platform-tools/rust/bin/cargo",
+          "build",
+          "--manifest-path",
+          "OWNED/standalone-adapter/source/standalone/Cargo.toml",
+          "--package",
+          "selected-root-package",
+          "--release",
+          "--target",
+          "sbpf-solana-solana",
+          "--locked",
+          "--offline",
+          "--verbose"
+        ],
+        "direct_explicit_package_exit": 0,
+        "direct_candidate_sha256": "56f01efa524d98da3f53429194857dfe6c0c19641dec7fa9940461bb308d80fa",
+        "caller_source_preserved": true,
+        "caller_cache_preserved": true,
+        "caller_cache_created_files": [
+          ".package-cache-mutate"
+        ],
+        "effective_source_preserved": true,
+        "staged_manifests_equal": true,
+        "staged_lock_equal": true,
+        "path_dependency_compiled": false
+      },
+      "implicit_root": {
+        "adapter_exit": 0,
+        "compile_exit": 0,
+        "stage": "complete",
+        "error": null,
+        "comparison_published": true,
+        "candidate_sha256": "56f01efa524d98da3f53429194857dfe6c0c19641dec7fa9940461bb308d80fa",
+        "compiled_cdylibs": [
+          "requested_output.so"
+        ],
+        "selected_package": "selected-root-package",
+        "command": [
+          "SDK_CACHE/v1.53/platform-tools/rust/bin/cargo",
+          "build",
+          "--manifest-path",
+          "OWNED/implicit_root-adapter/source/implicit_root/Cargo.toml",
+          "--package",
+          "selected-root-package",
+          "--release",
+          "--target",
+          "sbpf-solana-solana",
+          "--locked",
+          "--offline",
+          "--verbose"
+        ],
+        "direct_explicit_package_exit": 0,
+        "direct_candidate_sha256": "56f01efa524d98da3f53429194857dfe6c0c19641dec7fa9940461bb308d80fa",
+        "caller_source_preserved": true,
+        "caller_cache_preserved": true,
+        "caller_cache_created_files": [],
+        "effective_source_preserved": true,
+        "staged_manifests_equal": true,
+        "staged_lock_equal": true,
+        "path_dependency_compiled": false
+      },
+      "explicit_root": {
+        "adapter_exit": 0,
+        "compile_exit": 0,
+        "stage": "complete",
+        "error": null,
+        "comparison_published": true,
+        "candidate_sha256": "56f01efa524d98da3f53429194857dfe6c0c19641dec7fa9940461bb308d80fa",
+        "compiled_cdylibs": [
+          "requested_output.so"
+        ],
+        "selected_package": "selected-root-package",
+        "command": [
+          "SDK_CACHE/v1.53/platform-tools/rust/bin/cargo",
+          "build",
+          "--manifest-path",
+          "OWNED/explicit_root-adapter/source/explicit_root/Cargo.toml",
+          "--package",
+          "selected-root-package",
+          "--release",
+          "--target",
+          "sbpf-solana-solana",
+          "--locked",
+          "--offline",
+          "--verbose"
+        ],
+        "direct_explicit_package_exit": 0,
+        "direct_candidate_sha256": "56f01efa524d98da3f53429194857dfe6c0c19641dec7fa9940461bb308d80fa",
+        "caller_source_preserved": true,
+        "caller_cache_preserved": true,
+        "caller_cache_created_files": [],
+        "effective_source_preserved": true,
+        "staged_manifests_equal": true,
+        "staged_lock_equal": true,
+        "path_dependency_compiled": false
+      },
+      "sibling_default": {
+        "adapter_exit": 0,
+        "compile_exit": 0,
+        "stage": "complete",
+        "error": null,
+        "comparison_published": true,
+        "candidate_sha256": "56f01efa524d98da3f53429194857dfe6c0c19641dec7fa9940461bb308d80fa",
+        "compiled_cdylibs": [
+          "requested_output.so"
+        ],
+        "selected_package": "selected-root-package",
+        "command": [
+          "SDK_CACHE/v1.53/platform-tools/rust/bin/cargo",
+          "build",
+          "--manifest-path",
+          "OWNED/sibling_default-adapter/source/sibling_default/Cargo.toml",
+          "--package",
+          "selected-root-package",
+          "--release",
+          "--target",
+          "sbpf-solana-solana",
+          "--locked",
+          "--offline",
+          "--verbose"
+        ],
+        "direct_explicit_package_exit": 0,
+        "direct_candidate_sha256": "56f01efa524d98da3f53429194857dfe6c0c19641dec7fa9940461bb308d80fa",
+        "caller_source_preserved": true,
+        "caller_cache_preserved": true,
+        "caller_cache_created_files": [],
+        "effective_source_preserved": true,
+        "staged_manifests_equal": true,
+        "staged_lock_equal": true,
+        "path_dependency_compiled": false
+      },
+      "all_default": {
+        "adapter_exit": 0,
+        "compile_exit": 0,
+        "stage": "complete",
+        "error": null,
+        "comparison_published": true,
+        "candidate_sha256": "56f01efa524d98da3f53429194857dfe6c0c19641dec7fa9940461bb308d80fa",
+        "compiled_cdylibs": [
+          "requested_output.so"
+        ],
+        "selected_package": "selected-root-package",
+        "command": [
+          "SDK_CACHE/v1.53/platform-tools/rust/bin/cargo",
+          "build",
+          "--manifest-path",
+          "OWNED/all_default-adapter/source/all_default/Cargo.toml",
+          "--package",
+          "selected-root-package",
+          "--release",
+          "--target",
+          "sbpf-solana-solana",
+          "--locked",
+          "--offline",
+          "--verbose"
+        ],
+        "direct_explicit_package_exit": 0,
+        "direct_candidate_sha256": "56f01efa524d98da3f53429194857dfe6c0c19641dec7fa9940461bb308d80fa",
+        "caller_source_preserved": true,
+        "caller_cache_preserved": true,
+        "caller_cache_created_files": [],
+        "effective_source_preserved": true,
+        "staged_manifests_equal": true,
+        "staged_lock_equal": true,
+        "path_dependency_compiled": false
+      },
+      "selected_member": {
+        "adapter_exit": 0,
+        "compile_exit": 0,
+        "stage": "complete",
+        "error": null,
+        "comparison_published": true,
+        "candidate_sha256": "ab61aeda3963e829535637fa9b2514c3894cb319fb57c3e25eda55368413df87",
+        "compiled_cdylibs": [
+          "unrelated_output.so"
+        ],
+        "selected_package": "sibling-package",
+        "command": [
+          "SDK_CACHE/v1.53/platform-tools/rust/bin/cargo",
+          "build",
+          "--manifest-path",
+          "OWNED/selected_member-adapter/source/selected_member/sibling/Cargo.toml",
+          "--package",
+          "sibling-package",
+          "--release",
+          "--target",
+          "sbpf-solana-solana",
+          "--locked",
+          "--offline",
+          "--verbose"
+        ],
+        "direct_explicit_package_exit": 0,
+        "direct_candidate_sha256": "ab61aeda3963e829535637fa9b2514c3894cb319fb57c3e25eda55368413df87",
+        "caller_source_preserved": true,
+        "caller_cache_preserved": true,
+        "caller_cache_created_files": [],
+        "effective_source_preserved": true,
+        "staged_manifests_equal": true,
+        "staged_lock_equal": true,
+        "path_dependency_compiled": false
+      },
+      "path_dependency": {
+        "adapter_exit": 0,
+        "compile_exit": 0,
+        "stage": "complete",
+        "error": null,
+        "comparison_published": true,
+        "candidate_sha256": "56f01efa524d98da3f53429194857dfe6c0c19641dec7fa9940461bb308d80fa",
+        "compiled_cdylibs": [
+          "requested_output.so"
+        ],
+        "selected_package": "selected-root-package",
+        "command": [
+          "SDK_CACHE/v1.53/platform-tools/rust/bin/cargo",
+          "build",
+          "--manifest-path",
+          "OWNED/path_dependency-adapter/source/path_dependency/Cargo.toml",
+          "--package",
+          "selected-root-package",
+          "--release",
+          "--target",
+          "sbpf-solana-solana",
+          "--locked",
+          "--offline",
+          "--verbose"
+        ],
+        "direct_explicit_package_exit": 0,
+        "direct_candidate_sha256": "56f01efa524d98da3f53429194857dfe6c0c19641dec7fa9940461bb308d80fa",
+        "caller_source_preserved": true,
+        "caller_cache_preserved": true,
+        "caller_cache_created_files": [],
+        "effective_source_preserved": true,
+        "staged_manifests_equal": true,
+        "staged_lock_equal": true,
+        "path_dependency_compiled": true
+      }
+    },
+    "image_executions": 0,
+    "capture_preserved": true,
+    "caller_inputs_preserved": true,
+    "tools_preserved": true,
+    "rustc_version": "rustc 1.89.0-dev\nbinary: rustc\ncommit-hash: unknown\ncommit-date: unknown\nhost: aarch64-apple-darwin\nrelease: 1.89.0-dev\nLLVM version: 20.1.7"
+  }
+}

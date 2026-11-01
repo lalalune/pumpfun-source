@@ -85,3 +85,59 @@ races are not addressed, and parent symlinks remain intentional. This establishe
 output preservation and unchanged static diagnostic payloads, not source
 reconstruction, runtime equivalence or security acceptance. Historical manifests
 and capture bytes are preserved; no historical inventory pin was refreshed.
+
+## Section-name adapter follow-up
+
+After the original publication packet was frozen, the documented
+`research/sbpf-section-name-admission/inventory.py` command was also found to
+reject current sources. This maintained adapter has previously been rebound in
+[#2510](https://github.com/lalalune/pumpfun-source/pull/2510),
+[#2992](https://github.com/lalalune/pumpfun-source/pull/2992) and
+[#3126](https://github.com/lalalune/pumpfun-source/pull/3126).
+Its old `08070b3...` generator identity matches the merged #3126 source at
+`d07c6f6507bcf4e901bb9aefe4d93a58bd03a692`. The next and only change before this
+publication correction was #3622's `output.name[:32]` staging prefix and its
+two explanatory comment lines, producing `81c0f7...`. The adapter had not been
+updated and already failed at the original tested base.
+
+This follow-up explicitly binds the same adapter to the reviewed current
+generator `0d3714567123a34fd504b97609d00bd1a61eb223213d8b2dc39af68a61081bcf`.
+The full reviewed transition is that prefix correction plus this packet's
+lexical leaf and no-replace publication changes. The new publication import
+loads the existing `deep_disassembly.rename_directory` helper through the
+same scripts directory the adapter already installs on `sys.path`.
+The helper and its `window_elf_reader` dependency remain unchanged. Parsing,
+section-name admission, capture selection, raw disassembly, instruction records
+and generator attribution do not change. The adapter continues identifying its
+own exact bytes as the emitted generator. Its one hard-coded digest is neither
+learned at runtime nor broadened into an allowlist.
+
+`adapter-results.json` records six real CLI invocations against exact current main
+`1647da0f22312730b2e6b3eec7a468d9d3d89041` (after #3912 merged) and the follow-up:
+
+1. The prior adapter rejects the current generator before output creation.
+2. The corrected adapter emits a complete nine-capture packet.
+3. An owned historical adapter plus its exact admitted `08070b3...` generator
+   emits the same 27 payloads and semantic manifest.
+4. The corrected adapter rejects a source containing an unreviewed execution
+   canary before that source can execute.
+5. The corrected adapter rejects the earlier generator identity.
+6. The direct current generator emits the same payloads and semantic manifest
+   with the same executable, independently of any stored host-specific build.
+
+On the tested host, the current adapter also matches the direct result retained in
+`after.json`. All captures, copied sources and executable bytes remain unchanged.
+The original `before.json`, `after.json`, `reproduce.py`, build receipt and this
+README's preceding content are preserved exactly.
+
+```sh
+python -B research/sbpf-inventory-publication-20261101/adapter_probe.py . \
+  --tool-source /path/to/pinned/sbpf --output /tmp/adapter-results.json
+python -B research/sbpf-section-name-admission/test_inventory.py
+```
+
+The six existing section-map tests pass and are now included in CI; five
+inventory publication tests, two long-name tests and nine-capture verification
+also pass. This follows the merged static publication PR with maintained-consumer
+compatibility. It adds no decoder behavior, source reconstruction or runtime
+claim, and it does not rewrite historical stored evidence.

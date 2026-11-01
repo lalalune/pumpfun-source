@@ -215,7 +215,10 @@ def plan(a, repo, env, *, cache_root=None, policy_directory=None):
                'RUSTC': str(tools/'rust/bin/rustc'), 'RUSTDOC': str(tools/'rust/bin/rustdoc'),
                'CARGO_TARGET_SBPF_SOLANA_SOLANA_RUSTFLAGS': policy['target_rustflags'],
                **{k: str(tools/'llvm/bin'/v) for k, v in {'CC':'clang','AR':'llvm-ar','OBJDUMP':'llvm-objdump','OBJCOPY':'llvm-objcopy'}.items()}}
-    command = [str(tools/'rust/bin/cargo'), 'build', '--manifest-path', str(copied_manifest), '--release',
+    # A workspace-root manifest otherwise selects workspace.default-members,
+    # which can exclude the package whose library we will publish below.
+    command = [str(tools/'rust/bin/cargo'), 'build', '--manifest-path', str(copied_manifest),
+               '--package', crate_toml['package']['name'], '--release',
                '--target', policy['target'], '--locked', '--offline', '--verbose']
     return {'scope': 'Proposed controlled research source build; no runtime/identity acceptance',
             'program': a.program, 'tools_version': a.tools_version, 'manifest': str(manifest),

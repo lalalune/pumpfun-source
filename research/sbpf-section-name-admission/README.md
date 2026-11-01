@@ -62,3 +62,26 @@ identifies the historical baseline.
 The current binding retains the UTF-8/LF manifest writer from #3104 and the
 selected-contract-preserving dependency dedupe from #3126. Different-file
 name collisions remain errors; explicitly selected aliases are not dropped.
+
+## Current inventory publication binding (2026-11-01)
+
+The maintained adapter now explicitly admits generator SHA-256
+`0d3714567123a34fd504b97609d00bd1a61eb223213d8b2dc39af68a61081bcf`.
+The prior `08070b3...` binding correctly identified the merged #3126 source.
+The later #3622 bounded-staging-prefix change moved the current generator to
+`81c0f7...` without updating this adapter, so the documented CLI began refusing
+the maintained source before any disassembly. The reviewed current binding
+also includes #3912's lexical-leaf admission and no-replace publication fix.
+
+This is one explicit reviewed source identity, not automatic hash discovery or
+an expanded allowlist. The section-map admission behavior remains unchanged.
+An unreviewed source and the previous generator are rejected by the current
+adapter. A separately reconstructed historical adapter/source control still
+produces its original payloads; no historical stored packet is rewritten.
+
+The [follow-up proof](../sbpf-inventory-publication-20261101/README.md#section-name-adapter-follow-up)
+uses the pinned real disassembler and all nine retained captures. Its complete
+current packet matches the historical control and direct current generator in
+all 27 payload files and semantic manifest fields. The generator digest names
+the actual adapter source as before. The six existing section-name admission
+tests now run in the ordinary tooling CI lane as well.

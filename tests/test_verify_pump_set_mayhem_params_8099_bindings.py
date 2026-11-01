@@ -43,6 +43,9 @@ class StubTransaction:
     @classmethod
     def from_bytes(cls, data):
         return cls()
+    @property
+    def signatures(self):
+        return [bytes(64)]
     def verify_with_results(self):
         return [True]
 stub_solders = types.ModuleType('solders')
@@ -130,9 +133,11 @@ class Mayhem8099EmptyMapTests(unittest.TestCase):
             "watched_accounts_unchanged": True}))
         quote = gzip.compress(json.dumps({
             "cases": 507, "mismatches": 0,
+            "results": [{"matches": True} for _ in range(507)],
             "bound_inputs_sha256": bound_inputs}).encode())
         curve = gzip.compress(json.dumps({
-            "case_count": 56, "passed": 56, "candidate_sha256": candidate}).encode())
+            "case_count": 56, "passed": 56, "candidate_sha256": candidate,
+            "cases": [{"mismatches": []} for _ in range(56)]}).encode())
         (package / "quote-control-regression.json.gz").write_bytes(quote)
         (package / "multi-hop-regression.json.gz").write_bytes(curve)
         (package / "regression-summary.json").write_text(json.dumps({

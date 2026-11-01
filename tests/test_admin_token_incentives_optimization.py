@@ -113,7 +113,7 @@ class AdminTokenIncentivesOptimizationTests(unittest.TestCase):
     def event_bytes(self, mint):
         return DISC + b"\x00" * 32 + mint + b"\x00" * 16
 
-    def write_regression_package(self, bound_inputs):
+    def write_regression_package(self, bound_inputs, quote_rows=None, curve_rows=None):
         """Package files read only under the 80990317 baseline."""
         package = self.build.parent
         candidate = file_sha(self.candidate)
@@ -126,9 +126,14 @@ class AdminTokenIncentivesOptimizationTests(unittest.TestCase):
                 "returncode": 0, "source_unchanged": True,
                 "source_sha256": self.source_sha256}))
         quote = gzip.compress(json.dumps({
-            "cases": 507, "mismatches": 0, "bound_inputs_sha256": bound_inputs}).encode())
+            "cases": 507, "mismatches": 0,
+            "results": quote_rows if quote_rows is not None
+            else [{"matches": True} for _ in range(507)],
+            "bound_inputs_sha256": bound_inputs}).encode())
         curve = gzip.compress(json.dumps({
-            "case_count": 56, "passed": 56, "candidate_sha256": candidate}).encode())
+            "case_count": 56, "passed": 56, "candidate_sha256": candidate,
+            "cases": curve_rows if curve_rows is not None
+            else [{"mismatches": []} for _ in range(56)]}).encode())
         (package / "quote-control-regression.json.gz").write_bytes(quote)
         (package / "multi-hop-regression.json.gz").write_bytes(curve)
         (package / "regression-summary.json").write_text(json.dumps({
@@ -251,8 +256,8 @@ class AdminTokenIncentivesOptimizationTests(unittest.TestCase):
                 self.assertEqual(completed.returncode, 0, completed.stderr)
                 self.assertIn("OK", completed.stdout)
 
-    def run_regression_baseline(self, bound_inputs):
-        self.write_regression_package(bound_inputs)
+    def run_regression_baseline(self, bound_inputs, **rows):
+        self.write_regression_package(bound_inputs, **rows)
         self.write_receipt("none", REGRESSION_BASELINE)
         return [self.run_driver(optimization, REGRESSION_BASELINE) for optimization in MODES]
 
@@ -275,6 +280,21 @@ class AdminTokenIncentivesOptimizationTests(unittest.TestCase):
             self.assertNotEqual(completed.returncode, 0, completed.stdout)
             self.assertNotIn("OK", completed.stdout)
             self.assertIn("quote bound input hash differs", completed.stderr)
+
+    def test_regression_baseline_quote_rows_disagreeing_with_header_rejected_in_all_modes(self):
+        # The header is trusted only when the retained result rows agree with it.
+        rows = [{"matches": True} for _ in range(506)] + [{"matches": False}]
+        for completed in self.run_regression_baseline(self.stub_quote_input(), quote_rows=rows):
+            self.assertNotEqual(completed.returncode, 0, completed.stdout)
+            self.assertNotIn("OK", completed.stdout)
+            self.assertIn("quote regression cases/mismatches differ", completed.stderr)
+
+    def test_regression_baseline_curve_rows_disagreeing_with_header_rejected_in_all_modes(self):
+        rows = [{"mismatches": []} for _ in range(55)] + [{"mismatches": ["hop-3"]}]
+        for completed in self.run_regression_baseline(self.stub_quote_input(), curve_rows=rows):
+            self.assertNotEqual(completed.returncode, 0, completed.stdout)
+            self.assertNotIn("OK", completed.stdout)
+            self.assertIn("curve regression case count differs", completed.stderr)
 
 
 if __name__ == "__main__":

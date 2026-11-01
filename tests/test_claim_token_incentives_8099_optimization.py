@@ -112,9 +112,12 @@ class Claim8099OptimizationTests(unittest.TestCase):
         for name in ("build-attempt.json", "second-build-attempt.json"):
             (self.pkg / name).write_text(json.dumps(
                 {"returncode": 0, "source_unchanged": True, "source_sha256": {}}))
-        quote = {"cases": 507, "mismatches": 0, "bound_inputs_sha256": {}}
+        quote = {"cases": 507, "mismatches": 0,
+                 "results": [{"matches": True} for _ in range(507)],
+                 "bound_inputs_sha256": {"fixture.bin": file_sha(self.fixture)}}
         curve = {"case_count": 56, "passed": 56,
-                 "candidate_sha256": file_sha(self.candidate)}
+                 "candidate_sha256": file_sha(self.candidate),
+                 "cases": [{"mismatches": []} for _ in range(56)]}
         (self.pkg / "quote-control-regression.json.gz").write_bytes(
             gzip.compress(json.dumps(quote).encode()))
         (self.pkg / "multi-hop-regression.json.gz").write_bytes(
@@ -180,6 +183,20 @@ class Claim8099OptimizationTests(unittest.TestCase):
         (self.pkg / "differential.json.gz").write_bytes(
             gzip.compress(json.dumps(receipt).encode()))
 
+    def rewrite_regressions(self, quote=None, curve=None):
+        """Replace a regression receipt and keep the summary's hash in step with it."""
+        for name, document in (("quote-control-regression.json.gz", quote),
+                               ("multi-hop-regression.json.gz", curve)):
+            if document is not None:
+                (self.pkg / name).write_bytes(gzip.compress(json.dumps(document).encode()))
+        summary_path = self.pkg / "regression-summary.json"
+        summary = json.loads(summary_path.read_text())
+        summary["quote_control"]["receipt_sha256"] = file_sha(
+            self.pkg / "quote-control-regression.json.gz")
+        summary["multi_hop_curve"]["receipt_sha256"] = file_sha(
+            self.pkg / "multi-hop-regression.json.gz")
+        summary_path.write_text(json.dumps(summary))
+
     def run_driver(self, optimization):
         env = dict(os.environ)
         env["PYTHONPATH"] = str(SCRIPTS) + os.pathsep + env.get("PYTHONPATH", "")
@@ -209,6 +226,47 @@ class Claim8099OptimizationTests(unittest.TestCase):
                 completed = self.run_driver(optimization)
                 self.assertEqual(completed.returncode, 0, completed.stderr)
                 self.assertIn("OK", completed.stdout)
+
+    def test_quote_rows_disagreeing_with_header_rejected_in_all_modes(self):
+        self.write_receipt("none")
+        self.rewrite_regressions(quote={
+            "cases": 507, "mismatches": 0,
+            "results": [{"matches": True} for _ in range(506)] + [{"matches": False}],
+            "bound_inputs_sha256": {"fixture.bin": file_sha(self.fixture)}})
+        for optimization in MODES:
+            with self.subTest(optimization=optimization or "normal"):
+                completed = self.run_driver(optimization)
+                self.assertNotEqual(completed.returncode, 0, completed.stdout)
+                self.assertNotIn("OK", completed.stdout)
+                self.assertIn("quote['cases'] == 507 and quote['mismatches'] == 0",
+                              completed.stderr)
+
+    def test_quote_without_bound_input_rejected_in_all_modes(self):
+        self.write_receipt("none")
+        self.rewrite_regressions(quote={
+            "cases": 507, "mismatches": 0,
+            "results": [{"matches": True} for _ in range(507)],
+            "bound_inputs_sha256": {}})
+        for optimization in MODES:
+            with self.subTest(optimization=optimization or "normal"):
+                completed = self.run_driver(optimization)
+                self.assertNotEqual(completed.returncode, 0, completed.stdout)
+                self.assertNotIn("OK", completed.stdout)
+                self.assertIn("quote-control receipt binds no input", completed.stderr)
+
+    def test_curve_rows_disagreeing_with_header_rejected_in_all_modes(self):
+        self.write_receipt("none")
+        self.rewrite_regressions(curve={
+            "case_count": 56, "passed": 56,
+            "candidate_sha256": file_sha(self.candidate),
+            "cases": [{"mismatches": []} for _ in range(55)] + [{"mismatches": [3]}]})
+        for optimization in MODES:
+            with self.subTest(optimization=optimization or "normal"):
+                completed = self.run_driver(optimization)
+                self.assertNotEqual(completed.returncode, 0, completed.stdout)
+                self.assertNotIn("OK", completed.stdout)
+                self.assertIn("curve['case_count'] == curve['passed'] == 56",
+                              completed.stderr)
 
 
 if __name__ == "__main__":

@@ -2,9 +2,9 @@
 """Offline raw-packet/source/capture verifier. Never invokes compiler or SDK tools."""
 import argparse
 import hashlib
-import importlib.util
 import json
 from pathlib import Path
+import subprocess
 import sys
 sys.dont_write_bytecode = True
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -37,6 +37,43 @@ def logical_signature(argv):
             seen.append(argv[i + 2]); result[i + 1] = '<physical:' + argv[i + 2] + '>'
     require(set(seen) == roots and len(seen) == 7, 'expected exactly seven physical mount substitutions')
     return result
+
+
+ANALYZER = '''
+import importlib.util, json, sys
+spec = importlib.util.spec_from_file_location('_relay_official_analyze', sys.argv[1])
+module = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(module)
+json.dump(module.elf_layout(sys.stdin.buffer.read()), sys.stdout)
+'''
+
+
+def elf_extent(analyzer, capture, timeout=30):
+    """Ask the checkout's analyzer for the extent from a child process.
+
+    The analyzer is code from the tree under verification, and the checks it
+    is supposed to inform run in this process. Executed here it can reach them
+    -- `sys.modules['__main__'].require = lambda *a: None` makes every
+    require() below pass -- so it runs in a child that can only return a
+    number, and a wrong number still has to agree with the pinned bytes.
+    """
+    analyzer = Path(analyzer)
+    try:
+        result = subprocess.run([sys.executable, '-I', '-B', '-c', ANALYZER, str(analyzer)],
+                                input=capture, capture_output=True,
+                                cwd=analyzer.parent.parent, timeout=timeout)
+    except subprocess.TimeoutExpired as error:
+        raise ValueError('analyzer timed out') from error
+    if result.returncode or result.stderr:
+        raise ValueError('analyzer failed: '
+                         + result.stderr.decode('utf-8', 'replace')[-1500:])
+    try:
+        value = json.loads(result.stdout)['elf_extent']
+        if type(value) is not int or not 0 <= value <= len(capture):
+            raise ValueError('analyzer returned an invalid extent')
+        return value
+    except (json.JSONDecodeError, KeyError, TypeError):
+        raise ValueError('analyzer returned no usable extent')
 
 
 def verify(repo, candidate=None, symbols=None):
@@ -100,9 +137,7 @@ def verify(repo, candidate=None, symbols=None):
     capture = (repo / recipe['capture']['repoPath']).read_bytes()
     require(len(capture) == recipe['capture']['bytes']
             and hashlib.sha256(capture).hexdigest() == recipe['capture']['sha256'], 'captured input mismatch')
-    spec = importlib.util.spec_from_file_location('_relay_official_analyze', repo / 'scripts/analyze.py')
-    module = importlib.util.module_from_spec(spec); spec.loader.exec_module(module)
-    extent = module.elf_layout(capture)['elf_extent']
+    extent = elf_extent(repo / 'scripts/analyze.py', capture)
     require(extent == 818280 and len(data) == extent and data == capture[:extent], 'meaningful ELF bytes differ')
     require(len(capture) - extent == 12168 and not any(capture[extent:]), 'allocation-tail attribution changed')
     return {'status': 'OFFLINE_SOURCE_PACKET_AND_LITERAL_CAPTURE_CHECK_PASS', 'sourceFiles': 60,

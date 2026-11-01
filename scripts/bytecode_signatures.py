@@ -7,7 +7,7 @@ Builds a signature database from all three programs, identifying:
 - Error handling patterns (check + branch + error emission)
 - Account validation sequences
 - CPI (Cross-Program Invocation) patterns
-- Token transfer patterns
+- Token-program constant loads (not transfer or CPI evidence)
 - Anchor serialization/deserialization patterns
 
 Read-only helper imports require only window_elf_reader.py. Packet generation also
@@ -71,6 +71,12 @@ SYSCALL_NAMES = {
 }
 
 INVOKE_SYSCALLS = ("sol_invoke_signed_c", "sol_invoke_signed_rust")
+TOKEN_PROGRAMS = {
+    "Tokenkeg": bytes.fromhex(
+        "06ddf6e1d765a193d9cbe146ceeb79ac1cb485ed5f5b37913a8cf5857eff00a9"),
+    "Tokenz": bytes.fromhex(
+        "06ddf6e1ee758fde18425dbce46ccddab61afc4d83b90d27febdf928d8a18bfc"),
+}
 
 
 def call_symbol(elf, offset):
@@ -204,26 +210,33 @@ def detect_cpi_patterns(elf, start, end):
 
 
 def detect_token_transfer_patterns(elf, start, end):
-    """Detect SPL Token transfer patterns.
+    """Detect exact token-program constants; retain the historical callable name.
 
-    Token transfers involve CPI to the Token program with specific
-    instruction discriminators.
+    Four consecutive LDDW immediates form a 32-byte Tokenkeg/Token-2022 address.
+    Other instructions may separate these loads. This static constant sequence
+    does not establish a transfer, CPI or runtime reachability. Based on the
+    accepted research detector in PR #1159; use current logical boundaries.
     """
     b = elf.b
     relocations = getattr(elf, "relocations", None) or {}
+    chunks = [(offset, b[offset + 4:offset + 8] + b[offset + 12:offset + 16])
+              for offset in instruction_offsets(elf, start, end) if b[offset] == 0x18]
     patterns = []
-    for offset in instruction_offsets(elf, start, end):
-        # Look for lddw loading Token program ID patterns
-        if b[offset] == 0x18 and offset not in relocations:
-            imm_lo = struct.unpack_from("<I", b, offset + 4)[0]
-            imm_hi = struct.unpack_from("<I", b, offset + 12)[0]
-            val64 = imm_lo | (imm_hi << 32)
-            # Token program selector bytes
-            if val64 in (3, 12, 7):  # transfer, transfer_checked, etc.
+    for index in range(len(chunks) - 3):
+        group = chunks[index:index + 4]
+        # Keep relocated loads in the sequence so skipping one cannot splice
+        # unrelated literal chunks into an apparent four-load constant.
+        if any(offset in relocations for offset, _ in group):
+            continue
+        value = b"".join(chunk for _, chunk in group)
+        for name, program_id in TOKEN_PROGRAMS.items():
+            if value == program_id:
                 patterns.append({
-                    "offset": offset - start,
-                    "discriminator": val64,
-                    "type": "spl_token_instruction",
+                    "offset": group[0][0] - start,
+                    "type": "token_program_constant",
+                    "token_program": name,
+                    "program_id_hex": program_id.hex(),
+                    "lddw_slots": 4,
                 })
     return patterns
 
@@ -471,7 +484,8 @@ def _build_packet(output_dir, output_label=None):
 ## Scope
 Bytecode pattern detection across all three incomplete Solana programs,
 identifying shared code patterns, error handling, CPI (Cross-Program
-Invocation), token transfer, serialization, and account validation patterns.
+Invocation), token-program constants, serialization, and account validation patterns.
+Token constants alone do not prove a transfer or CPI.
 
 ## Programs Analyzed
 {chr(10).join(f'- **{p}**: {s["total_windows"]} windows' for p, s in program_summaries.items())}
@@ -510,6 +524,14 @@ import hashlib, json, os, sys
 PACKET = os.path.dirname(os.path.abspath(__file__))
 EXPECTED_FILES = frozenset(__EXPECTED_PACKET_FILES__)
 
+def manifest_members(pairs):
+    result = {}
+    for name, value in pairs:
+        if name in result:
+            raise ValueError("duplicate manifest key: " + name)
+        result[name] = value
+    return result
+
 def sha256_file(path):
     h = hashlib.sha256()
     with open(path, "rb") as f:
@@ -520,8 +542,11 @@ def sha256_file(path):
 def main():
     if set(os.listdir(PACKET)) != EXPECTED_FILES | {"manifest.json"}:
         print("FAIL: packet directory entry set mismatch"); return 1
-    with open(os.path.join(PACKET, "manifest.json"), encoding="utf-8") as stream:
-        manifest = json.load(stream)
+    try:
+        with open(os.path.join(PACKET, "manifest.json"), encoding="utf-8") as stream:
+            manifest = json.load(stream, object_pairs_hook=manifest_members)
+    except ValueError as error:
+        print(f"FAIL: invalid manifest: {error}"); return 1
     if not isinstance(manifest, dict) or set(manifest) != EXPECTED_FILES:
         print("FAIL: manifest artifact set mismatch"); return 1
     errors = 0

@@ -84,12 +84,23 @@ def main(receipt_path=diff.OUTPUT, candidate_path=diff.CANDIDATE,
         check(regression["candidate_sha256"] == receipt["candidate_sha256"], "regression candidate hash differs")
         check(regression["quote_control"]["receipt_sha256"] == diff.sha(quote_file), "quote regression receipt hash differs")
         check(regression["multi_hop_curve"]["receipt_sha256"] == diff.sha(curve_file), "curve regression receipt hash differs")
-        check(quote["cases"] == 507 and quote["mismatches"] == 0, "quote regression cases/mismatches differ")
+        # The header alone says what the retained rows must say; a receipt whose
+        # rows disagree with it is refused rather than published as clean.
+        check(type(quote.get("cases")) is int and type(quote.get("mismatches")) is int
+              and isinstance(quote.get("results"), list) and all(isinstance(row, dict) for row in quote["results"])
+              and len(quote["results"]) == quote["cases"] == 507
+              and quote["mismatches"] == 0
+              and not any(row.get("matches") is not True for row in quote["results"]),
+              "quote regression cases/mismatches differ")
         check(isinstance(quote.get("bound_inputs_sha256"), dict) and quote["bound_inputs_sha256"],
               "quote regression binds no input")
         check(all(checksum == diff.sha(diff.ROOT / path)
                    for path, checksum in quote["bound_inputs_sha256"].items()), "quote bound input hash differs")
-        check(curve["case_count"] == curve["passed"] == 56, "curve regression case count differs")
+        check(type(curve.get("case_count")) is int and type(curve.get("passed")) is int
+              and isinstance(curve.get("cases"), list) and all(isinstance(row, dict) for row in curve["cases"])
+              and len(curve["cases"]) == curve["case_count"] == curve["passed"] == 56
+              and not any(row.get("mismatches") != [] for row in curve["cases"]),
+              "curve regression case count differs")
         check(curve["candidate_sha256"] == receipt["candidate_sha256"], "curve regression candidate hash differs")
     idl = json.loads(diff.IDL.read_text(encoding="utf-8"))
     item = next(item for item in idl["instructions"]

@@ -1,5 +1,6 @@
 import fcntl
 import hashlib
+import importlib.util
 import json
 import os
 from pathlib import Path
@@ -20,6 +21,15 @@ class ReceiptIntegrityTests(unittest.TestCase):
         self.source=self.root/'source';self.source.mkdir();(self.source/'value').write_text('one')
         self.out=self.root/'out'
         self.command=[sys.executable,'-c',"from pathlib import Path;import sys;Path(sys.argv[2],'result').write_bytes(Path(sys.argv[1],'value').read_bytes())",'{source}','{out}']
+
+    def test_real_matrix_retries_contradictory_saved_results(self):
+        path = H.parents[1] / 'research/experiment-cache-receipts-20261101/probe.py'
+        spec = importlib.util.spec_from_file_location('experiment_receipt_probe', path)
+        probe = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(probe)
+        # Four real matrix CLIs create, reuse, corrupt and resume owned receipts.
+        # Actual child commands copy source bytes and return explicit predicates.
+        probe.validate(probe.run(H.parents[1]), 'fixed')
 
     def test_input_changes_during_lock_wait_do_not_reuse_stale_pass(self):
         for kind in ['source','declared']:

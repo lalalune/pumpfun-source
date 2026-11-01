@@ -29,3 +29,20 @@ are preserved; new reports bind their adapter/source hashes under the manifest.
 This diagnostic is qualified only for the retained identity-mapped `.text`
 layouts. It retains historical frontier/planning/attribution limitations and
 does not claim dynamic reachability, semantic equality or security acceptance.
+
+The complete roadmap and dynamic-call attribution are now staged beside the
+destination and published through the shared native no-replace helper. An
+ordinary write failure removes the private stage and leaves the final output
+absent, so the same command can be retried. Existing directories, dangling output
+links and destinations claimed while generation is running are preserved.
+Parent-directory aliases remain supported. This follows the publication fixes
+in [#3002](https://github.com/lalalune/pumpfun-source/pull/3002) and
+[#3006](https://github.com/lalalune/pumpfun-source/pull/3006), which explicitly left
+this sibling generator for a follow-up. It does not change the defined-call
+classifier, source admission, captured inputs or historical packets.
+
+The [real CLI proof](../../../research/defined-calls-publication-20261101/README.md)
+uses all three retained captures, an actual POSIX file-size limit and an observer
+that claims the destination after the roadmap is generated. The guarantee is
+complete publication under ordinary failures on supported hosts, not power-loss
+durability or cleanup after an uncatchable process kill.

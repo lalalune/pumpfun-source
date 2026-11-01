@@ -1321,7 +1321,13 @@ class InternalCallDecodeTests(unittest.TestCase):
                     if relocation['type'] == 10:
                         record, _ = deep_disassembly.decode_instruction(elf.b, offset, elf)
                         self.assertEqual(record['extern_symbol'], relocation['symbol'])
-                        self.assertNotIn('call_target', record)
+                        if relocation['symbol'] == 'custom_panic':
+                            hook = next(function for function in elf.funcs
+                                        if function['name'] == 'custom_panic')
+                            self.assertEqual(record['call_target'], hook['start'])
+                            self.assertEqual(record['call_name'], 'custom_panic')
+                        else:
+                            self.assertNotIn('call_target', record)
 
 
 class RelocationTypeTests(unittest.TestCase):
@@ -1745,7 +1751,9 @@ class DependencyCacheArchiveTests(unittest.TestCase):
             wrapper = root / 'wrapper'
             wrapper.write_text('w')
             (build / 'build-comparison.json').write_text(json.dumps({
-                'returncode': 0, 'source_unchanged': True, 'source_sha256': {},
+                'returncode': 0, 'source_unchanged': True,
+                'source_sha256': {'prog/Cargo.toml': sha(crate / 'Cargo.toml'),
+                                  'prog/Cargo.lock': sha(crate / 'Cargo.lock')},
                 'comparison': {'candidate_sha256': sha(build / 'candidate.so')},
                 'unstripped_sha256': sha(build / 'unstripped.so'),
                 'tool_sha256': {'rustc': 'r', 'cargo': 'c'}, 'source_wrapper_sha256': sha(wrapper),

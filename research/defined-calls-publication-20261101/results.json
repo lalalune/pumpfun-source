@@ -1,0 +1,681 @@
+{
+  "base": "60a42309a4908577f0a386513eeaee6cd6f84f42",
+  "before": {
+    "source_sha256": {
+      "reconstruction/diagnostics/defined-dynamic-calls/generate.py": "0b33f6115e1f324bed483249e084ea70f479277c766a3ab49ee7a435f082eb63",
+      "scripts/reconstruction_roadmap.py": "ef43f2af32498bf26c38181e1495d901a36f65ee687550111965f6f079255411",
+      "scripts/window_elf_reader.py": "d3b57510531d7977110e73474cf89310b68bf6705d134ffb3bc759e18d30bedd",
+      "scripts/deep_disassembly.py": "47cfa5cf9b7e271ad2ea399220930ad238713b465b030181f74a1990a34275ce",
+      "research/tooling-roadmap-call-classification-20261029/proof.py": "4acff7a33fff43773b730b4518a8beb8685abc683740945f27c9296ab4031800",
+      "research/tooling-roadmap-call-classification-20261029/archived/reconstruction_roadmap.py": "e7f51159a9345abe7e7434ecda88346023446b47fc56aab01d0a2d1867b9603f"
+    },
+    "capture_sha256": {
+      "evidence/original/pump/deployed.so": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
+      "evidence/original/pump_amm/deployed.so": "6a7ad34596d83b4c435b32f458a56e718e9f82eb4ad38e4316616d15d24d8ff7",
+      "evidence/original/mayhem/deployed.so": "a87fa9f866272514e6acb852b668c4a08aeb173d56c883039991d114d1199bdb"
+    },
+    "cases": {
+      "normal": {
+        "returncode": 0,
+        "output_exists": true,
+        "output_symlink": false,
+        "files": {
+          "README.md": {
+            "bytes": 1942,
+            "sha256": "d76213af5eb4d2247d845453dafe09abe0231728170aab80457c2c80e94499dd"
+          },
+          "dynamic-call-inputs.json": {
+            "bytes": 436,
+            "sha256": "b00ea5f89e789b531e8c81b55346450338bc5fdae5ee3eb8d27405795dbdedfc"
+          },
+          "manifest.json": {
+            "bytes": 730,
+            "sha256": "f9e25592e3587b3e1eeae3163bff0f199a0bd6b60bfc8eedd4b870e269fa6301"
+          },
+          "mayhem-details.json": {
+            "bytes": 321281,
+            "sha256": "79050205203351e99e7f45cdd988853bfd027c6d305d0f72cbe69df2b7c11dde"
+          },
+          "pump-details.json": {
+            "bytes": 791639,
+            "sha256": "b61a65c91454ffeaac93a002c54d028f74b8aaa1955e0b55650e3f107008d186"
+          },
+          "pump_amm-details.json": {
+            "bytes": 597444,
+            "sha256": "5bac91ace828a4e3f552c7a1c4d9a43f40d1334561c2bb8bf2daf1e80f6a5f70"
+          },
+          "reconstruction-plan.json": {
+            "bytes": 46196,
+            "sha256": "06dd96ca5775b3e8ed2df656e178af0a01de3b5a88778c4bd4baeb2f81d076be"
+          },
+          "summary.json": {
+            "bytes": 8999,
+            "sha256": "c7ae6ef6005df09ecb33a0b694fc47d3354022dbd462d398f2fd70cdd5d69a9c"
+          },
+          "verify.py": {
+            "bytes": 1824,
+            "sha256": "129a7534c79a71e519e6d29770ddfdde00d594cc74b83a7af8f76ab1414bdc98"
+          }
+        },
+        "file_size_error": false,
+        "staging_leftovers": [],
+        "generated_verifier_exit": 0
+      },
+      "long_ascii": {
+        "returncode": 0,
+        "output_exists": true,
+        "output_symlink": false,
+        "files": {
+          "README.md": {
+            "bytes": 1942,
+            "sha256": "d76213af5eb4d2247d845453dafe09abe0231728170aab80457c2c80e94499dd"
+          },
+          "dynamic-call-inputs.json": {
+            "bytes": 436,
+            "sha256": "b00ea5f89e789b531e8c81b55346450338bc5fdae5ee3eb8d27405795dbdedfc"
+          },
+          "manifest.json": {
+            "bytes": 730,
+            "sha256": "f9e25592e3587b3e1eeae3163bff0f199a0bd6b60bfc8eedd4b870e269fa6301"
+          },
+          "mayhem-details.json": {
+            "bytes": 321281,
+            "sha256": "79050205203351e99e7f45cdd988853bfd027c6d305d0f72cbe69df2b7c11dde"
+          },
+          "pump-details.json": {
+            "bytes": 791639,
+            "sha256": "b61a65c91454ffeaac93a002c54d028f74b8aaa1955e0b55650e3f107008d186"
+          },
+          "pump_amm-details.json": {
+            "bytes": 597444,
+            "sha256": "5bac91ace828a4e3f552c7a1c4d9a43f40d1334561c2bb8bf2daf1e80f6a5f70"
+          },
+          "reconstruction-plan.json": {
+            "bytes": 46196,
+            "sha256": "06dd96ca5775b3e8ed2df656e178af0a01de3b5a88778c4bd4baeb2f81d076be"
+          },
+          "summary.json": {
+            "bytes": 8999,
+            "sha256": "c7ae6ef6005df09ecb33a0b694fc47d3354022dbd462d398f2fd70cdd5d69a9c"
+          },
+          "verify.py": {
+            "bytes": 1824,
+            "sha256": "129a7534c79a71e519e6d29770ddfdde00d594cc74b83a7af8f76ab1414bdc98"
+          }
+        },
+        "file_size_error": false,
+        "staging_leftovers": [],
+        "generated_verifier_exit": 0
+      },
+      "long_unicode": {
+        "returncode": 0,
+        "output_exists": true,
+        "output_symlink": false,
+        "files": {
+          "README.md": {
+            "bytes": 1942,
+            "sha256": "d76213af5eb4d2247d845453dafe09abe0231728170aab80457c2c80e94499dd"
+          },
+          "dynamic-call-inputs.json": {
+            "bytes": 436,
+            "sha256": "b00ea5f89e789b531e8c81b55346450338bc5fdae5ee3eb8d27405795dbdedfc"
+          },
+          "manifest.json": {
+            "bytes": 730,
+            "sha256": "f9e25592e3587b3e1eeae3163bff0f199a0bd6b60bfc8eedd4b870e269fa6301"
+          },
+          "mayhem-details.json": {
+            "bytes": 321281,
+            "sha256": "79050205203351e99e7f45cdd988853bfd027c6d305d0f72cbe69df2b7c11dde"
+          },
+          "pump-details.json": {
+            "bytes": 791639,
+            "sha256": "b61a65c91454ffeaac93a002c54d028f74b8aaa1955e0b55650e3f107008d186"
+          },
+          "pump_amm-details.json": {
+            "bytes": 597444,
+            "sha256": "5bac91ace828a4e3f552c7a1c4d9a43f40d1334561c2bb8bf2daf1e80f6a5f70"
+          },
+          "reconstruction-plan.json": {
+            "bytes": 46196,
+            "sha256": "06dd96ca5775b3e8ed2df656e178af0a01de3b5a88778c4bd4baeb2f81d076be"
+          },
+          "summary.json": {
+            "bytes": 8999,
+            "sha256": "c7ae6ef6005df09ecb33a0b694fc47d3354022dbd462d398f2fd70cdd5d69a9c"
+          },
+          "verify.py": {
+            "bytes": 1824,
+            "sha256": "129a7534c79a71e519e6d29770ddfdde00d594cc74b83a7af8f76ab1414bdc98"
+          }
+        },
+        "file_size_error": false,
+        "staging_leftovers": [],
+        "generated_verifier_exit": 0
+      },
+      "parent_alias": {
+        "returncode": 0,
+        "output_exists": true,
+        "output_symlink": false,
+        "files": {
+          "README.md": {
+            "bytes": 1942,
+            "sha256": "d76213af5eb4d2247d845453dafe09abe0231728170aab80457c2c80e94499dd"
+          },
+          "dynamic-call-inputs.json": {
+            "bytes": 436,
+            "sha256": "b00ea5f89e789b531e8c81b55346450338bc5fdae5ee3eb8d27405795dbdedfc"
+          },
+          "manifest.json": {
+            "bytes": 730,
+            "sha256": "f9e25592e3587b3e1eeae3163bff0f199a0bd6b60bfc8eedd4b870e269fa6301"
+          },
+          "mayhem-details.json": {
+            "bytes": 321281,
+            "sha256": "79050205203351e99e7f45cdd988853bfd027c6d305d0f72cbe69df2b7c11dde"
+          },
+          "pump-details.json": {
+            "bytes": 791639,
+            "sha256": "b61a65c91454ffeaac93a002c54d028f74b8aaa1955e0b55650e3f107008d186"
+          },
+          "pump_amm-details.json": {
+            "bytes": 597444,
+            "sha256": "5bac91ace828a4e3f552c7a1c4d9a43f40d1334561c2bb8bf2daf1e80f6a5f70"
+          },
+          "reconstruction-plan.json": {
+            "bytes": 46196,
+            "sha256": "06dd96ca5775b3e8ed2df656e178af0a01de3b5a88778c4bd4baeb2f81d076be"
+          },
+          "summary.json": {
+            "bytes": 8999,
+            "sha256": "c7ae6ef6005df09ecb33a0b694fc47d3354022dbd462d398f2fd70cdd5d69a9c"
+          },
+          "verify.py": {
+            "bytes": 1824,
+            "sha256": "129a7534c79a71e519e6d29770ddfdde00d594cc74b83a7af8f76ab1414bdc98"
+          }
+        },
+        "file_size_error": false,
+        "staging_leftovers": [],
+        "generated_verifier_exit": 0
+      },
+      "limited": {
+        "returncode": 1,
+        "output_exists": true,
+        "output_symlink": false,
+        "files": {
+          "pump-details.json": {
+            "bytes": 64,
+            "sha256": "971144684c8d6cf85c0eecd574aa879b562d03fb5016340dbd40ee9a6a04be90"
+          }
+        },
+        "file_size_error": true,
+        "staging_leftovers": []
+      },
+      "same_destination_retry": {
+        "returncode": 1,
+        "output_exists": true,
+        "output_symlink": false,
+        "files": {
+          "pump-details.json": {
+            "bytes": 64,
+            "sha256": "971144684c8d6cf85c0eecd574aa879b562d03fb5016340dbd40ee9a6a04be90"
+          }
+        },
+        "file_size_error": false,
+        "staging_leftovers": []
+      },
+      "dangling_link": {
+        "returncode": 0,
+        "output_exists": true,
+        "output_symlink": true,
+        "files": {
+          "README.md": {
+            "bytes": 1942,
+            "sha256": "d76213af5eb4d2247d845453dafe09abe0231728170aab80457c2c80e94499dd"
+          },
+          "dynamic-call-inputs.json": {
+            "bytes": 436,
+            "sha256": "b00ea5f89e789b531e8c81b55346450338bc5fdae5ee3eb8d27405795dbdedfc"
+          },
+          "manifest.json": {
+            "bytes": 730,
+            "sha256": "f9e25592e3587b3e1eeae3163bff0f199a0bd6b60bfc8eedd4b870e269fa6301"
+          },
+          "mayhem-details.json": {
+            "bytes": 321281,
+            "sha256": "79050205203351e99e7f45cdd988853bfd027c6d305d0f72cbe69df2b7c11dde"
+          },
+          "pump-details.json": {
+            "bytes": 791639,
+            "sha256": "b61a65c91454ffeaac93a002c54d028f74b8aaa1955e0b55650e3f107008d186"
+          },
+          "pump_amm-details.json": {
+            "bytes": 597444,
+            "sha256": "5bac91ace828a4e3f552c7a1c4d9a43f40d1334561c2bb8bf2daf1e80f6a5f70"
+          },
+          "reconstruction-plan.json": {
+            "bytes": 46196,
+            "sha256": "06dd96ca5775b3e8ed2df656e178af0a01de3b5a88778c4bd4baeb2f81d076be"
+          },
+          "summary.json": {
+            "bytes": 8999,
+            "sha256": "c7ae6ef6005df09ecb33a0b694fc47d3354022dbd462d398f2fd70cdd5d69a9c"
+          },
+          "verify.py": {
+            "bytes": 1824,
+            "sha256": "129a7534c79a71e519e6d29770ddfdde00d594cc74b83a7af8f76ab1414bdc98"
+          }
+        },
+        "file_size_error": false,
+        "staging_leftovers": [],
+        "generated_verifier_exit": 0,
+        "target_exists": true
+      },
+      "existing_empty": {
+        "returncode": 1,
+        "output_exists": true,
+        "output_symlink": false,
+        "files": {},
+        "file_size_error": false,
+        "staging_leftovers": [],
+        "prior_preserved": true
+      },
+      "existing_populated": {
+        "returncode": 1,
+        "output_exists": true,
+        "output_symlink": false,
+        "files": {
+          "owned.txt": {
+            "bytes": 13,
+            "sha256": "3bb4fad543cbbab919a35c5b6f538262a11565ad813532bb0c4be572195db5b6"
+          }
+        },
+        "file_size_error": false,
+        "staging_leftovers": [],
+        "prior_preserved": true
+      },
+      "late_destination": {
+        "returncode": 0,
+        "output_exists": true,
+        "output_symlink": false,
+        "files": {
+          "README.md": {
+            "bytes": 1942,
+            "sha256": "d76213af5eb4d2247d845453dafe09abe0231728170aab80457c2c80e94499dd"
+          },
+          "dynamic-call-inputs.json": {
+            "bytes": 436,
+            "sha256": "b00ea5f89e789b531e8c81b55346450338bc5fdae5ee3eb8d27405795dbdedfc"
+          },
+          "manifest.json": {
+            "bytes": 730,
+            "sha256": "f9e25592e3587b3e1eeae3163bff0f199a0bd6b60bfc8eedd4b870e269fa6301"
+          },
+          "mayhem-details.json": {
+            "bytes": 321281,
+            "sha256": "79050205203351e99e7f45cdd988853bfd027c6d305d0f72cbe69df2b7c11dde"
+          },
+          "pump-details.json": {
+            "bytes": 791639,
+            "sha256": "b61a65c91454ffeaac93a002c54d028f74b8aaa1955e0b55650e3f107008d186"
+          },
+          "pump_amm-details.json": {
+            "bytes": 597444,
+            "sha256": "5bac91ace828a4e3f552c7a1c4d9a43f40d1334561c2bb8bf2daf1e80f6a5f70"
+          },
+          "reconstruction-plan.json": {
+            "bytes": 46196,
+            "sha256": "06dd96ca5775b3e8ed2df656e178af0a01de3b5a88778c4bd4baeb2f81d076be"
+          },
+          "summary.json": {
+            "bytes": 8999,
+            "sha256": "c7ae6ef6005df09ecb33a0b694fc47d3354022dbd462d398f2fd70cdd5d69a9c"
+          },
+          "verify.py": {
+            "bytes": 1824,
+            "sha256": "129a7534c79a71e519e6d29770ddfdde00d594cc74b83a7af8f76ab1414bdc98"
+          }
+        },
+        "file_size_error": false,
+        "staging_leftovers": [],
+        "late_destination_created": false,
+        "late_destination_empty": false,
+        "generated_verifier_exit": 0
+      }
+    },
+    "normal_bindings": {
+      "scripts/reconstruction_roadmap.py": "ef43f2af32498bf26c38181e1495d901a36f65ee687550111965f6f079255411",
+      "scripts/window_elf_reader.py": "d3b57510531d7977110e73474cf89310b68bf6705d134ffb3bc759e18d30bedd",
+      "research/tooling-roadmap-call-classification-20261029/proof.py": "4acff7a33fff43773b730b4518a8beb8685abc683740945f27c9296ab4031800",
+      "adapter_sha256": "0b33f6115e1f324bed483249e084ea70f479277c766a3ab49ee7a435f082eb63"
+    },
+    "inputs_preserved": true
+  },
+  "after": {
+    "source_sha256": {
+      "reconstruction/diagnostics/defined-dynamic-calls/generate.py": "cfc3813b77d4e0006c2eca306b3753a9d431538ac61794cc0406dcdb343693ac",
+      "scripts/reconstruction_roadmap.py": "ef43f2af32498bf26c38181e1495d901a36f65ee687550111965f6f079255411",
+      "scripts/window_elf_reader.py": "d3b57510531d7977110e73474cf89310b68bf6705d134ffb3bc759e18d30bedd",
+      "scripts/deep_disassembly.py": "47cfa5cf9b7e271ad2ea399220930ad238713b465b030181f74a1990a34275ce",
+      "research/tooling-roadmap-call-classification-20261029/proof.py": "4acff7a33fff43773b730b4518a8beb8685abc683740945f27c9296ab4031800",
+      "research/tooling-roadmap-call-classification-20261029/archived/reconstruction_roadmap.py": "e7f51159a9345abe7e7434ecda88346023446b47fc56aab01d0a2d1867b9603f"
+    },
+    "capture_sha256": {
+      "evidence/original/pump/deployed.so": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
+      "evidence/original/pump_amm/deployed.so": "6a7ad34596d83b4c435b32f458a56e718e9f82eb4ad38e4316616d15d24d8ff7",
+      "evidence/original/mayhem/deployed.so": "a87fa9f866272514e6acb852b668c4a08aeb173d56c883039991d114d1199bdb"
+    },
+    "cases": {
+      "normal": {
+        "returncode": 0,
+        "output_exists": true,
+        "output_symlink": false,
+        "files": {
+          "README.md": {
+            "bytes": 1942,
+            "sha256": "d76213af5eb4d2247d845453dafe09abe0231728170aab80457c2c80e94499dd"
+          },
+          "dynamic-call-inputs.json": {
+            "bytes": 436,
+            "sha256": "dfd489f49548b9bd28a8464ed67e09f987536fe2c10d33013d7ebd3593681cf8"
+          },
+          "manifest.json": {
+            "bytes": 730,
+            "sha256": "604d2683e87865b99da08252651b5efb4ad2bfaecb627f6c4155505a3ca8b36e"
+          },
+          "mayhem-details.json": {
+            "bytes": 321281,
+            "sha256": "79050205203351e99e7f45cdd988853bfd027c6d305d0f72cbe69df2b7c11dde"
+          },
+          "pump-details.json": {
+            "bytes": 791639,
+            "sha256": "b61a65c91454ffeaac93a002c54d028f74b8aaa1955e0b55650e3f107008d186"
+          },
+          "pump_amm-details.json": {
+            "bytes": 597444,
+            "sha256": "5bac91ace828a4e3f552c7a1c4d9a43f40d1334561c2bb8bf2daf1e80f6a5f70"
+          },
+          "reconstruction-plan.json": {
+            "bytes": 46196,
+            "sha256": "06dd96ca5775b3e8ed2df656e178af0a01de3b5a88778c4bd4baeb2f81d076be"
+          },
+          "summary.json": {
+            "bytes": 8999,
+            "sha256": "c7ae6ef6005df09ecb33a0b694fc47d3354022dbd462d398f2fd70cdd5d69a9c"
+          },
+          "verify.py": {
+            "bytes": 1824,
+            "sha256": "129a7534c79a71e519e6d29770ddfdde00d594cc74b83a7af8f76ab1414bdc98"
+          }
+        },
+        "file_size_error": false,
+        "staging_leftovers": [],
+        "generated_verifier_exit": 0
+      },
+      "long_ascii": {
+        "returncode": 0,
+        "output_exists": true,
+        "output_symlink": false,
+        "files": {
+          "README.md": {
+            "bytes": 1942,
+            "sha256": "d76213af5eb4d2247d845453dafe09abe0231728170aab80457c2c80e94499dd"
+          },
+          "dynamic-call-inputs.json": {
+            "bytes": 436,
+            "sha256": "dfd489f49548b9bd28a8464ed67e09f987536fe2c10d33013d7ebd3593681cf8"
+          },
+          "manifest.json": {
+            "bytes": 730,
+            "sha256": "604d2683e87865b99da08252651b5efb4ad2bfaecb627f6c4155505a3ca8b36e"
+          },
+          "mayhem-details.json": {
+            "bytes": 321281,
+            "sha256": "79050205203351e99e7f45cdd988853bfd027c6d305d0f72cbe69df2b7c11dde"
+          },
+          "pump-details.json": {
+            "bytes": 791639,
+            "sha256": "b61a65c91454ffeaac93a002c54d028f74b8aaa1955e0b55650e3f107008d186"
+          },
+          "pump_amm-details.json": {
+            "bytes": 597444,
+            "sha256": "5bac91ace828a4e3f552c7a1c4d9a43f40d1334561c2bb8bf2daf1e80f6a5f70"
+          },
+          "reconstruction-plan.json": {
+            "bytes": 46196,
+            "sha256": "06dd96ca5775b3e8ed2df656e178af0a01de3b5a88778c4bd4baeb2f81d076be"
+          },
+          "summary.json": {
+            "bytes": 8999,
+            "sha256": "c7ae6ef6005df09ecb33a0b694fc47d3354022dbd462d398f2fd70cdd5d69a9c"
+          },
+          "verify.py": {
+            "bytes": 1824,
+            "sha256": "129a7534c79a71e519e6d29770ddfdde00d594cc74b83a7af8f76ab1414bdc98"
+          }
+        },
+        "file_size_error": false,
+        "staging_leftovers": [],
+        "generated_verifier_exit": 0
+      },
+      "long_unicode": {
+        "returncode": 0,
+        "output_exists": true,
+        "output_symlink": false,
+        "files": {
+          "README.md": {
+            "bytes": 1942,
+            "sha256": "d76213af5eb4d2247d845453dafe09abe0231728170aab80457c2c80e94499dd"
+          },
+          "dynamic-call-inputs.json": {
+            "bytes": 436,
+            "sha256": "dfd489f49548b9bd28a8464ed67e09f987536fe2c10d33013d7ebd3593681cf8"
+          },
+          "manifest.json": {
+            "bytes": 730,
+            "sha256": "604d2683e87865b99da08252651b5efb4ad2bfaecb627f6c4155505a3ca8b36e"
+          },
+          "mayhem-details.json": {
+            "bytes": 321281,
+            "sha256": "79050205203351e99e7f45cdd988853bfd027c6d305d0f72cbe69df2b7c11dde"
+          },
+          "pump-details.json": {
+            "bytes": 791639,
+            "sha256": "b61a65c91454ffeaac93a002c54d028f74b8aaa1955e0b55650e3f107008d186"
+          },
+          "pump_amm-details.json": {
+            "bytes": 597444,
+            "sha256": "5bac91ace828a4e3f552c7a1c4d9a43f40d1334561c2bb8bf2daf1e80f6a5f70"
+          },
+          "reconstruction-plan.json": {
+            "bytes": 46196,
+            "sha256": "06dd96ca5775b3e8ed2df656e178af0a01de3b5a88778c4bd4baeb2f81d076be"
+          },
+          "summary.json": {
+            "bytes": 8999,
+            "sha256": "c7ae6ef6005df09ecb33a0b694fc47d3354022dbd462d398f2fd70cdd5d69a9c"
+          },
+          "verify.py": {
+            "bytes": 1824,
+            "sha256": "129a7534c79a71e519e6d29770ddfdde00d594cc74b83a7af8f76ab1414bdc98"
+          }
+        },
+        "file_size_error": false,
+        "staging_leftovers": [],
+        "generated_verifier_exit": 0
+      },
+      "parent_alias": {
+        "returncode": 0,
+        "output_exists": true,
+        "output_symlink": false,
+        "files": {
+          "README.md": {
+            "bytes": 1942,
+            "sha256": "d76213af5eb4d2247d845453dafe09abe0231728170aab80457c2c80e94499dd"
+          },
+          "dynamic-call-inputs.json": {
+            "bytes": 436,
+            "sha256": "dfd489f49548b9bd28a8464ed67e09f987536fe2c10d33013d7ebd3593681cf8"
+          },
+          "manifest.json": {
+            "bytes": 730,
+            "sha256": "604d2683e87865b99da08252651b5efb4ad2bfaecb627f6c4155505a3ca8b36e"
+          },
+          "mayhem-details.json": {
+            "bytes": 321281,
+            "sha256": "79050205203351e99e7f45cdd988853bfd027c6d305d0f72cbe69df2b7c11dde"
+          },
+          "pump-details.json": {
+            "bytes": 791639,
+            "sha256": "b61a65c91454ffeaac93a002c54d028f74b8aaa1955e0b55650e3f107008d186"
+          },
+          "pump_amm-details.json": {
+            "bytes": 597444,
+            "sha256": "5bac91ace828a4e3f552c7a1c4d9a43f40d1334561c2bb8bf2daf1e80f6a5f70"
+          },
+          "reconstruction-plan.json": {
+            "bytes": 46196,
+            "sha256": "06dd96ca5775b3e8ed2df656e178af0a01de3b5a88778c4bd4baeb2f81d076be"
+          },
+          "summary.json": {
+            "bytes": 8999,
+            "sha256": "c7ae6ef6005df09ecb33a0b694fc47d3354022dbd462d398f2fd70cdd5d69a9c"
+          },
+          "verify.py": {
+            "bytes": 1824,
+            "sha256": "129a7534c79a71e519e6d29770ddfdde00d594cc74b83a7af8f76ab1414bdc98"
+          }
+        },
+        "file_size_error": false,
+        "staging_leftovers": [],
+        "generated_verifier_exit": 0
+      },
+      "limited": {
+        "returncode": 1,
+        "output_exists": false,
+        "output_symlink": false,
+        "files": null,
+        "file_size_error": true,
+        "staging_leftovers": []
+      },
+      "same_destination_retry": {
+        "returncode": 0,
+        "output_exists": true,
+        "output_symlink": false,
+        "files": {
+          "README.md": {
+            "bytes": 1942,
+            "sha256": "d76213af5eb4d2247d845453dafe09abe0231728170aab80457c2c80e94499dd"
+          },
+          "dynamic-call-inputs.json": {
+            "bytes": 436,
+            "sha256": "dfd489f49548b9bd28a8464ed67e09f987536fe2c10d33013d7ebd3593681cf8"
+          },
+          "manifest.json": {
+            "bytes": 730,
+            "sha256": "604d2683e87865b99da08252651b5efb4ad2bfaecb627f6c4155505a3ca8b36e"
+          },
+          "mayhem-details.json": {
+            "bytes": 321281,
+            "sha256": "79050205203351e99e7f45cdd988853bfd027c6d305d0f72cbe69df2b7c11dde"
+          },
+          "pump-details.json": {
+            "bytes": 791639,
+            "sha256": "b61a65c91454ffeaac93a002c54d028f74b8aaa1955e0b55650e3f107008d186"
+          },
+          "pump_amm-details.json": {
+            "bytes": 597444,
+            "sha256": "5bac91ace828a4e3f552c7a1c4d9a43f40d1334561c2bb8bf2daf1e80f6a5f70"
+          },
+          "reconstruction-plan.json": {
+            "bytes": 46196,
+            "sha256": "06dd96ca5775b3e8ed2df656e178af0a01de3b5a88778c4bd4baeb2f81d076be"
+          },
+          "summary.json": {
+            "bytes": 8999,
+            "sha256": "c7ae6ef6005df09ecb33a0b694fc47d3354022dbd462d398f2fd70cdd5d69a9c"
+          },
+          "verify.py": {
+            "bytes": 1824,
+            "sha256": "129a7534c79a71e519e6d29770ddfdde00d594cc74b83a7af8f76ab1414bdc98"
+          }
+        },
+        "file_size_error": false,
+        "staging_leftovers": [],
+        "generated_verifier_exit": 0
+      },
+      "dangling_link": {
+        "returncode": 1,
+        "output_exists": false,
+        "output_symlink": true,
+        "files": null,
+        "file_size_error": false,
+        "staging_leftovers": [],
+        "target_exists": false
+      },
+      "existing_empty": {
+        "returncode": 1,
+        "output_exists": true,
+        "output_symlink": false,
+        "files": {},
+        "file_size_error": false,
+        "staging_leftovers": [],
+        "prior_preserved": true
+      },
+      "existing_populated": {
+        "returncode": 1,
+        "output_exists": true,
+        "output_symlink": false,
+        "files": {
+          "owned.txt": {
+            "bytes": 13,
+            "sha256": "3bb4fad543cbbab919a35c5b6f538262a11565ad813532bb0c4be572195db5b6"
+          }
+        },
+        "file_size_error": false,
+        "staging_leftovers": [],
+        "prior_preserved": true
+      },
+      "late_destination": {
+        "returncode": 1,
+        "output_exists": true,
+        "output_symlink": false,
+        "files": {},
+        "file_size_error": false,
+        "staging_leftovers": [],
+        "late_destination_created": true,
+        "late_destination_empty": true
+      }
+    },
+    "normal_bindings": {
+      "scripts/reconstruction_roadmap.py": "ef43f2af32498bf26c38181e1495d901a36f65ee687550111965f6f079255411",
+      "scripts/window_elf_reader.py": "d3b57510531d7977110e73474cf89310b68bf6705d134ffb3bc759e18d30bedd",
+      "research/tooling-roadmap-call-classification-20261029/proof.py": "4acff7a33fff43773b730b4518a8beb8685abc683740945f27c9296ab4031800",
+      "adapter_sha256": "cfc3813b77d4e0006c2eca306b3753a9d431538ac61794cc0406dcdb343693ac"
+    },
+    "inputs_preserved": true
+  },
+  "comparison": {
+    "normal_changed_files": [
+      "dynamic-call-inputs.json",
+      "manifest.json"
+    ],
+    "normal_preserved_files": [
+      "README.md",
+      "mayhem-details.json",
+      "pump-details.json",
+      "pump_amm-details.json",
+      "reconstruction-plan.json",
+      "summary.json",
+      "verify.py"
+    ],
+    "bindings_unchanged_except_adapter_sha256": true,
+    "capture_sha256_unchanged": true,
+    "only_generator_source_changed": [
+      "reconstruction/diagnostics/defined-dynamic-calls/generate.py"
+    ],
+    "actual_cli_calls": 20,
+    "late_destination_is_fixed_control_not_base_overwrite_claim": true
+  }
+}

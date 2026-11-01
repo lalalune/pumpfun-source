@@ -1,0 +1,201 @@
+{
+  "base": "60a42309a4908577f0a386513eeaee6cd6f84f42",
+  "before": {
+    "source_sha256": {
+      "reconstruction/harness/win.py": "46217d8a5f49fb8731e60dedc849bd890c15d3a20307797626c5cd4a0f33e6a5",
+      "reconstruction/harness/score.py": "6eae59ba87809bdd6aa42d6227c5598d8ea2196051bf0d796e8020bdb14df714",
+      "reconstruction/harness/score_admission.py": "885b4b55229e3d87086b93c4e8227da8e4ec2713ccd6691fa40a7538d66c3a45",
+      "reconstruction/harness/llvm_tools.py": "306a50b2ba57f350e250d7c7f596ac400627ecfd24248b2291578b5ddf3fe8af",
+      "reconstruction/harness/original_input.py": "9d00b5c253405cec4d2ef292086c6e88d758bd3fe7f8c6a3cba23af114f01ade",
+      "reconstruction/harness/elf_symbols.py": "f7a69a4b5324959398365b63f20ea9dda8eab223d8790a608c778549d3b966c0",
+      "reconstruction/harness/instruction_stream.py": "288c9ceb3f0f177688501922ce56e6a72fe9c3fedcddf9ad1de474412f61ef9d",
+      "reconstruction/harness/target_metric.py": "46fb70ae6d40f93d5e4d3bf864bae492be61d5b1294e38742812e3bbc26369ed",
+      "reconstruction/harness/compare_scores.py": "e59024567db9b2373fe01d377f42308554434d182f5981153cd6814412245b74"
+    },
+    "input_sha256": {
+      "research/pump-multihop-token-quote-20261029/build/parent/symbols.so.gz": "751780a763c04671730b43ab8f13427ef6ab95b66b957be265717bcfd1abf27b",
+      "evidence/original/pump/deployed.so": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
+      "reconstruction/base/functions.tsv": "fb2c0a47514567d65eb45c1e268dacd5291e4659bb7dceb575a767dc20bcaff8"
+    },
+    "candidate_sha256": "e1c9bdc3b248d41ebd73c1f8d0d2756edf95eafa178b8aed4a8ae0715649705a",
+    "objdump_sha256": "24f83fd4c314fdc358920bf9936261985b8c39266f1ba7d556716c9dec1d24f9",
+    "cases": {
+      "show_absent": {
+        "exit_code": 0,
+        "candidate_rows": 3,
+        "stdout_sha256": "e786345ab721a83340df803b78dbe7bc55509ce97c19e8cc4fc9804e2f239e30",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "selected_diff": "--- diff vs <anchor_lang::accounts::signer::Signer as anchor_lang::Accounts<B>>::try_accounts @ 0x12870 (ratio 1.0000; '-' original, '+' candidate)"
+      },
+      "show_empty": {
+        "exit_code": 0,
+        "candidate_rows": 3,
+        "stdout_sha256": "e786345ab721a83340df803b78dbe7bc55509ce97c19e8cc4fc9804e2f239e30",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "selected_diff": "--- diff vs <anchor_lang::accounts::signer::Signer as anchor_lang::Accounts<B>>::try_accounts @ 0x12870 (ratio 1.0000; '-' original, '+' candidate)"
+      },
+      "show_equivalent": {
+        "exit_code": 0,
+        "candidate_rows": 1090,
+        "stdout_sha256": "c6684ae3a039fd0766195d65a855d03d1de6603c078df0b51a5122811ea9182c",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "selected_diff": "--- diff vs <anchor_lang::accounts::signer::Signer as anchor_lang::Accounts<B>>::try_accounts @ 0x12870 (ratio 1.0000; '-' original, '+' candidate)"
+      },
+      "show_restrictive": {
+        "exit_code": 0,
+        "candidate_rows": 1,
+        "stdout_sha256": "fa0ea7b5d11b1ab6fe5cd1d0f199dc394a758f047e52be564b18f66abdaf0213",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "selected_diff": "--- diff vs custom_panic @ 0x156198 (ratio 0.1333; '-' original, '+' candidate)"
+      },
+      "show_no_match": {
+        "exit_code": 1,
+        "candidate_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "73408c3392bd1ab9e6e7df1d9eb2133d9cba3d00922d3b032173c8286259417e",
+        "selected_diff": null
+      },
+      "show_invalid": {
+        "exit_code": 2,
+        "candidate_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "1a1e5a63709aaa957723542eb7f9e0bcb1b868610731b5fea7a39b1f2a9858ff",
+        "selected_diff": null
+      },
+      "sym_empty": {
+        "exit_code": 0,
+        "candidate_rows": 1090,
+        "stdout_sha256": "68bcf77cc91038e65d81e318be549fa38f4f7445c32ed975cf4c29b417f34d3f",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "selected_diff": null
+      },
+      "sym_equivalent": {
+        "exit_code": 0,
+        "candidate_rows": 1090,
+        "stdout_sha256": "68bcf77cc91038e65d81e318be549fa38f4f7445c32ed975cf4c29b417f34d3f",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "selected_diff": null
+      },
+      "metric_empty": {
+        "exit_code": 0,
+        "candidate_rows": 1090,
+        "stdout_sha256": "1b58f4a9944606601f0e3b268cb68a73aeb3259b77c90196627afd33845c6525",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "selected_diff": null
+      },
+      "metric_equivalent": {
+        "exit_code": 0,
+        "candidate_rows": 1090,
+        "stdout_sha256": "1b58f4a9944606601f0e3b268cb68a73aeb3259b77c90196627afd33845c6525",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "selected_diff": null
+      }
+    },
+    "actual_cli_calls": 10,
+    "retained_inputs_preserved": true,
+    "objdump_preserved": true,
+    "selected_top_body_unchanged": true
+  },
+  "after": {
+    "source_sha256": {
+      "reconstruction/harness/win.py": "8862046dcb0e01673166e68a0b0e5122be4738f0780bcf2f58afc8416bd8cdea",
+      "reconstruction/harness/score.py": "6eae59ba87809bdd6aa42d6227c5598d8ea2196051bf0d796e8020bdb14df714",
+      "reconstruction/harness/score_admission.py": "885b4b55229e3d87086b93c4e8227da8e4ec2713ccd6691fa40a7538d66c3a45",
+      "reconstruction/harness/llvm_tools.py": "306a50b2ba57f350e250d7c7f596ac400627ecfd24248b2291578b5ddf3fe8af",
+      "reconstruction/harness/original_input.py": "9d00b5c253405cec4d2ef292086c6e88d758bd3fe7f8c6a3cba23af114f01ade",
+      "reconstruction/harness/elf_symbols.py": "f7a69a4b5324959398365b63f20ea9dda8eab223d8790a608c778549d3b966c0",
+      "reconstruction/harness/instruction_stream.py": "288c9ceb3f0f177688501922ce56e6a72fe9c3fedcddf9ad1de474412f61ef9d",
+      "reconstruction/harness/target_metric.py": "46fb70ae6d40f93d5e4d3bf864bae492be61d5b1294e38742812e3bbc26369ed",
+      "reconstruction/harness/compare_scores.py": "e59024567db9b2373fe01d377f42308554434d182f5981153cd6814412245b74"
+    },
+    "input_sha256": {
+      "research/pump-multihop-token-quote-20261029/build/parent/symbols.so.gz": "751780a763c04671730b43ab8f13427ef6ab95b66b957be265717bcfd1abf27b",
+      "evidence/original/pump/deployed.so": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
+      "reconstruction/base/functions.tsv": "fb2c0a47514567d65eb45c1e268dacd5291e4659bb7dceb575a767dc20bcaff8"
+    },
+    "candidate_sha256": "e1c9bdc3b248d41ebd73c1f8d0d2756edf95eafa178b8aed4a8ae0715649705a",
+    "objdump_sha256": "24f83fd4c314fdc358920bf9936261985b8c39266f1ba7d556716c9dec1d24f9",
+    "cases": {
+      "show_absent": {
+        "exit_code": 0,
+        "candidate_rows": 3,
+        "stdout_sha256": "e786345ab721a83340df803b78dbe7bc55509ce97c19e8cc4fc9804e2f239e30",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "selected_diff": "--- diff vs <anchor_lang::accounts::signer::Signer as anchor_lang::Accounts<B>>::try_accounts @ 0x12870 (ratio 1.0000; '-' original, '+' candidate)"
+      },
+      "show_empty": {
+        "exit_code": 0,
+        "candidate_rows": 1090,
+        "stdout_sha256": "c6684ae3a039fd0766195d65a855d03d1de6603c078df0b51a5122811ea9182c",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "selected_diff": "--- diff vs <anchor_lang::accounts::signer::Signer as anchor_lang::Accounts<B>>::try_accounts @ 0x12870 (ratio 1.0000; '-' original, '+' candidate)"
+      },
+      "show_equivalent": {
+        "exit_code": 0,
+        "candidate_rows": 1090,
+        "stdout_sha256": "c6684ae3a039fd0766195d65a855d03d1de6603c078df0b51a5122811ea9182c",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "selected_diff": "--- diff vs <anchor_lang::accounts::signer::Signer as anchor_lang::Accounts<B>>::try_accounts @ 0x12870 (ratio 1.0000; '-' original, '+' candidate)"
+      },
+      "show_restrictive": {
+        "exit_code": 0,
+        "candidate_rows": 1,
+        "stdout_sha256": "fa0ea7b5d11b1ab6fe5cd1d0f199dc394a758f047e52be564b18f66abdaf0213",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "selected_diff": "--- diff vs custom_panic @ 0x156198 (ratio 0.1333; '-' original, '+' candidate)"
+      },
+      "show_no_match": {
+        "exit_code": 1,
+        "candidate_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "73408c3392bd1ab9e6e7df1d9eb2133d9cba3d00922d3b032173c8286259417e",
+        "selected_diff": null
+      },
+      "show_invalid": {
+        "exit_code": 2,
+        "candidate_rows": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "1a1e5a63709aaa957723542eb7f9e0bcb1b868610731b5fea7a39b1f2a9858ff",
+        "selected_diff": null
+      },
+      "sym_empty": {
+        "exit_code": 0,
+        "candidate_rows": 1090,
+        "stdout_sha256": "68bcf77cc91038e65d81e318be549fa38f4f7445c32ed975cf4c29b417f34d3f",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "selected_diff": null
+      },
+      "sym_equivalent": {
+        "exit_code": 0,
+        "candidate_rows": 1090,
+        "stdout_sha256": "68bcf77cc91038e65d81e318be549fa38f4f7445c32ed975cf4c29b417f34d3f",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "selected_diff": null
+      },
+      "metric_empty": {
+        "exit_code": 0,
+        "candidate_rows": 1090,
+        "stdout_sha256": "1b58f4a9944606601f0e3b268cb68a73aeb3259b77c90196627afd33845c6525",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "selected_diff": null
+      },
+      "metric_equivalent": {
+        "exit_code": 0,
+        "candidate_rows": 1090,
+        "stdout_sha256": "1b58f4a9944606601f0e3b268cb68a73aeb3259b77c90196627afd33845c6525",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "selected_diff": null
+      }
+    },
+    "actual_cli_calls": 10,
+    "retained_inputs_preserved": true,
+    "objdump_preserved": true,
+    "selected_top_body_unchanged": true
+  },
+  "comparison": {
+    "only_changed_case": "show_empty",
+    "all_nine_controls_identical": true,
+    "newly_reported_candidate_rows": 1087,
+    "selected_body_unchanged": true
+  }
+}

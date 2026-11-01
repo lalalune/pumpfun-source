@@ -207,6 +207,19 @@ def check_receipt_inputs(destination, inputs):
     return receipt_path
 
 
+def reusable_result(record, admission, key):
+    """Require saved labels and provenance to describe this completed result."""
+    status = record.get('status')
+    code = record.get('returncode')
+    inputs = record.get('inputs')
+    return (record.get('schema') == 'experiment-result-v1'
+            and record.get('key') == key and status in ('pass', 'fail')
+            and type(code) is int and code == (0 if status == 'pass' else 1)
+            and record.get('reason') is None and inputs == admission
+            # Dict equality alone treats False/0 and integer/float as equal.
+            and digest(json.dumps(inputs, sort_keys=True).encode()) == key)
+
+
 def run_trial(source, command, destination, inputs=(), timeout=300):
     source, destination = separate_trees(source, destination)
     environment = dict(os.environ)
@@ -231,7 +244,7 @@ def run_trial(source, command, destination, inputs=(), timeout=300):
             if not isinstance(name, str) or not name.startswith('attempt-') or Path(name).name != name:
                 raise ValueError('invalid retained attempt path')
             attempt = destination / name
-            if previous.get('key') == key and previous.get('status') in ('pass', 'fail'):
+            if reusable_result(previous, admission, key):
                 try:
                     valid = (admitted_inputs_match(admission)
                              and not attempt.is_symlink()

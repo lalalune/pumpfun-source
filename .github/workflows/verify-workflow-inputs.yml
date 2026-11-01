@@ -15,8 +15,18 @@ jobs:
           python-version: '3.12'
       - run: python -m pip install PyYAML==6.0.3
       - name: Test the input checker
-        # Runs every checker regression suite (scripts/test_workflow_*.py).
-        run: python -B -m unittest discover -s scripts -p 'test_workflow_*.py' -v
+        # Runs every checker regression suite (scripts/test_workflow_*.py); the
+        # count keeps an emptied or renamed suite from passing as zero tests.
+        run: |
+          python -B - <<'PYTEST'
+          import sys
+          import unittest
+          suite = unittest.defaultTestLoader.discover('scripts', pattern='test_workflow_*.py')
+          result = unittest.TextTestRunner(verbosity=2).run(suite)
+          expected = 51
+          print(f'Expected {expected} tests; ran {result.testsRun}; skipped {len(result.skipped)}', file=sys.stderr)
+          sys.exit(0 if result.wasSuccessful() and result.testsRun == expected and not result.skipped else 1)
+          PYTEST
       - name: Check for newly missing script inputs
         env:
           PR_BASE: ${{ github.event.pull_request.base.sha }}

@@ -65,9 +65,20 @@ def main():
     curve = json.loads(gzip.decompress((PACKAGE / "multi-hop-regression.json.gz").read_bytes()))
     check(regressions["quote_control"]["receipt_sha256"] == sha(PACKAGE / "quote-control-regression.json.gz"), "claim verification failed: regressions['quote_control']['receipt_sha256'] == sha(PACKAGE / 'quote")
     check(regressions["multi_hop_curve"]["receipt_sha256"] == sha(PACKAGE / "multi-hop-regression.json.gz"), "claim verification failed: regressions['multi_hop_curve']['receipt_sha256'] == sha(PACKAGE / 'mul")
-    check(quote["cases"] == 507 and quote["mismatches"] == 0, "claim verification failed: quote['cases'] == 507 and quote['mismatches'] == 0")
+    check(type(quote.get("cases")) is int and type(quote.get("mismatches")) is int
+              and isinstance(quote.get("results"), list) and all(isinstance(row, dict) for row in quote["results"])
+              and len(quote["results"]) == quote["cases"] == 507
+          and quote["mismatches"] == 0
+          and not any(row.get("matches") is not True for row in quote["results"]),
+          "claim verification failed: quote['cases'] == 507 and quote['mismatches'] == 0")
+    check(isinstance(quote.get("bound_inputs_sha256"), dict) and quote["bound_inputs_sha256"],
+          "claim verification failed: quote-control receipt binds no input")
     check(all(sha(ROOT / path) == digest for path, digest in quote["bound_inputs_sha256"].items()), "claim verification failed: all(sha(ROOT / path) == digest for path, digest in quote['bound_inputs")
-    check(curve["case_count"] == curve["passed"] == 56, "claim verification failed: curve['case_count'] == curve['passed'] == 56")
+    check(type(curve.get("case_count")) is int and type(curve.get("passed")) is int
+              and isinstance(curve.get("cases"), list) and all(isinstance(row, dict) for row in curve["cases"])
+              and len(curve["cases"]) == curve["case_count"] == curve["passed"] == 56
+          and not any(row.get("mismatches") != [] for row in curve["cases"]),
+          "claim verification failed: curve['case_count'] == curve['passed'] == 56")
     check(curve["candidate_sha256"] == sha(candidate), "claim verification failed: curve['candidate_sha256'] == sha(candidate)")
 
     idl = json.loads(diff.IDL.read_text(encoding="utf-8"))

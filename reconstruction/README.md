@@ -12,6 +12,7 @@ it, function by function, with the deployed original in
 | `harness/score.py` | Official window scorer: an original window matches when a candidate function has the same size and the same bytes after masking only internal call immediates and section-pointer `lddw` values. `raw` means exact bytes. |
 | `harness/win.py` | Window inspection: unmatched list, original/candidate disassembly and normalized diffs. |
 | `harness/target_metric.py` | Per-window closeness: differing normalized slots, instruction ratio and call counts for a candidate build. |
+| `harness/residual_analysis.py`, `harness/RESIDUAL_ANALYSIS.md` | Paired exact-window CFG matching, structural/positional SBPF residual classification, score-receipt binding and deterministic JSON reports. |
 | `harness/coords.py`, `triage.py`, `treediff.py`, `integrate.py` | Source-coordinate extraction, residual triage, tree diffs and multi-lane composition. |
 | `harness/link_order.py`, `pump_link_rustc.py`, `pump_link_lld.py`, `sbf_default.ld` | Pinned link order: when the crate carries `link/ordered.ld`, fastbuild links the root cdylib with it instead of the SBF default script (input-section reordering only; see `pump-main/lanes/w8-sibling-recipes/NOTES.md`). |
 | `harness/make_hybrid144.sh`, `harness/linux144-sbpf-target-libs.sha256` | Recipe and pins for the identity toolchain. |

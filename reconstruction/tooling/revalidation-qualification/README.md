@@ -13,7 +13,7 @@ changes only the lifecycle around those checks:
 6. publish a complete, self-verified audit directory with one rename.
 
 The exact reviewed root source is pinned as SHA-256
-`fbdedcd033bbfc1d40f0c4e2b16b3fa44d4c0176b93de37eedefb347d2d2c6ec`.
+`2d037c093e69a94c8a9f9c78a01a671506dd2c9f4fb50f603e752caf249c622a`.
 The adapter refuses to execute if those bytes change. This binding includes the retained manifest formats, path admission, UTF-8/LF
 report writer, and atomic no-replace publication helper. The adapter executes
 the bytes it checked and binds its source receipt to that same digest.
@@ -161,3 +161,9 @@ must be intentionally reviewed and updated before this adapter will run.
   original program equivalence, or cryptographic trust in the manifest author.
 - No on-chain program source, compiler input, candidate ELF, scorer, or frozen
   research packet is changed by this package.
+
+The reviewed current root identity also includes explicit duplicate-member
+rejection in newly emitted audit verifiers. The qualified adapter's own emitted
+verifier follows the same rule. This template-only transition leaves input
+manifest admission, process supervision and audit verdicts unchanged; existing
+archived audit packets retain their original verifier bytes and source hashes.

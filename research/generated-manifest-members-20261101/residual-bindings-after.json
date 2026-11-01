@@ -1,0 +1,131 @@
+{
+  "source_revision": "a073c5c8e561dfe0f8a842d27aa1b446de140333",
+  "actual_adapter_cli_calls": 20,
+  "results": [
+    {
+      "adapter": "reviewed",
+      "normal_exit": 0,
+      "source_sha256": {
+        "scripts/analyze_program.py": "4f32c8013e9359d32d2685860cc0c3628c2c44887d89cecf94609f360e038b73",
+        "scripts/deep_disassembly.py": "d2b9873473bbeea33bb5d953d0c6385b1127d81aedba652bb1b82de636849aa5",
+        "scripts/analyze.py": "178a21b4f70d9deb63646d216306a252c08c11aa0b52b2e7df77db85fcffd262",
+        "scripts/window_elf_reader.py": "d3b57510531d7977110e73474cf89310b68bf6705d134ffb3bc759e18d30bedd",
+        "scripts/reconstruction_roadmap.py": "529e187a98c05fc83cb17b80972594897d23a9eef75e30cb55b76341b05bc88a",
+        "scripts/revalidate_all.py": "2d037c093e69a94c8a9f9c78a01a671506dd2c9f4fb50f603e752caf249c622a",
+        "reconstruction/diagnostics/roadmap-reviewed-regeneration/generate.py": "f3ad053b962576ea7605c5656bffb89202c21fd17e57ae360d4f7454b536baed",
+        "research/tooling-roadmap-call-classification-20261029/proof.py": "4acff7a33fff43773b730b4518a8beb8685abc683740945f27c9296ab4031800",
+        "research/tooling-roadmap-call-classification-20261029/archived/reconstruction_roadmap.py": "e7f51159a9345abe7e7434ecda88346023446b47fc56aab01d0a2d1867b9603f"
+      },
+      "semantic_payload_sha256": {
+        "observations.json": "22332776e0c77520ec0809ab6d03aae861082c9188e63380628a8b579d5f30b3"
+      },
+      "drift_rejected": true,
+      "previous_identity_admitted": false,
+      "occupied_output_preserved": true
+    },
+    {
+      "adapter": "stable",
+      "normal_exit": 0,
+      "source_sha256": {
+        "scripts/analyze_program.py": "4f32c8013e9359d32d2685860cc0c3628c2c44887d89cecf94609f360e038b73",
+        "scripts/deep_disassembly.py": "d2b9873473bbeea33bb5d953d0c6385b1127d81aedba652bb1b82de636849aa5",
+        "scripts/analyze.py": "178a21b4f70d9deb63646d216306a252c08c11aa0b52b2e7df77db85fcffd262",
+        "scripts/window_elf_reader.py": "d3b57510531d7977110e73474cf89310b68bf6705d134ffb3bc759e18d30bedd",
+        "scripts/reconstruction_roadmap.py": "529e187a98c05fc83cb17b80972594897d23a9eef75e30cb55b76341b05bc88a",
+        "scripts/revalidate_all.py": "2d037c093e69a94c8a9f9c78a01a671506dd2c9f4fb50f603e752caf249c622a",
+        "reconstruction/diagnostics/roadmap-stable-attribution/generate.py": "f8cc6b6fa65f9ec2fdc2026d5b556f5d6b5174913e35f5a8151b5cb71fdb6f32",
+        "research/tooling-roadmap-call-classification-20261029/proof.py": "4acff7a33fff43773b730b4518a8beb8685abc683740945f27c9296ab4031800",
+        "research/tooling-roadmap-call-classification-20261029/archived/reconstruction_roadmap.py": "e7f51159a9345abe7e7434ecda88346023446b47fc56aab01d0a2d1867b9603f"
+      },
+      "semantic_payload_sha256": {
+        "README.md": "e690448c6f8374bfdb75a15526f7d6e1304ffa2d6e94080bd80ab303dd89c1f0",
+        "mayhem-details.json": "9ff6d192b7ac37e482152d6096e9c8f3126183de90f950eafe8c4d8de013dabe",
+        "pump-details.json": "43ddad8998733244aa53b91ccec452f2a1d1b39e3b71b0b2dcb0a714dea65e3d",
+        "pump_amm-details.json": "65d211132ad4d9ed84fb4a81839b7d0c88c8ee4009928daa92568348308ad401",
+        "reconstruction-plan.json": "54c26ca23a0e2a331e8eda934433805359dd9cb0965b893e38e4ae4fe6e6fb7f",
+        "summary.json": "94600091ab58c847d68ef0a6333cfc7d1e32085a11aed8f73f82237e8968ccda"
+      },
+      "drift_rejected": true,
+      "previous_identity_admitted": false,
+      "occupied_output_preserved": true
+    },
+    {
+      "adapter": "defined",
+      "normal_exit": 0,
+      "source_sha256": {
+        "scripts/analyze_program.py": "4f32c8013e9359d32d2685860cc0c3628c2c44887d89cecf94609f360e038b73",
+        "scripts/deep_disassembly.py": "d2b9873473bbeea33bb5d953d0c6385b1127d81aedba652bb1b82de636849aa5",
+        "scripts/analyze.py": "178a21b4f70d9deb63646d216306a252c08c11aa0b52b2e7df77db85fcffd262",
+        "scripts/window_elf_reader.py": "d3b57510531d7977110e73474cf89310b68bf6705d134ffb3bc759e18d30bedd",
+        "scripts/reconstruction_roadmap.py": "529e187a98c05fc83cb17b80972594897d23a9eef75e30cb55b76341b05bc88a",
+        "scripts/revalidate_all.py": "2d037c093e69a94c8a9f9c78a01a671506dd2c9f4fb50f603e752caf249c622a",
+        "reconstruction/diagnostics/defined-dynamic-calls/generate.py": "2488b8ecf878d592a8f5a674c0913ac93698cd67bc59108ed57a68a9d3d73683",
+        "research/tooling-roadmap-call-classification-20261029/proof.py": "4acff7a33fff43773b730b4518a8beb8685abc683740945f27c9296ab4031800",
+        "research/tooling-roadmap-call-classification-20261029/archived/reconstruction_roadmap.py": "e7f51159a9345abe7e7434ecda88346023446b47fc56aab01d0a2d1867b9603f"
+      },
+      "semantic_payload_sha256": {
+        "README.md": "d76213af5eb4d2247d845453dafe09abe0231728170aab80457c2c80e94499dd",
+        "mayhem-details.json": "65d61418d1fa0a9fff2efd5bc10e5677067eb001e77953ef5684007fd5e438c1",
+        "pump-details.json": "48b2041032459674c002dca1007b3663d730aac5792857be52405ebea1a185ae",
+        "pump_amm-details.json": "586895a30c14795280df07c2e8a085db7f8c87e4a456504a6cb17bd9fe592ee1",
+        "reconstruction-plan.json": "63a5ad1a4b4463d2c4a09a7293a0c4009d0aec12d5bf61fe4e5523443ccec195",
+        "summary.json": "8d69f16b2db863555be215731adc5b5ebc302ef8f2a82e413ac41605c9b231e8"
+      },
+      "drift_rejected": true,
+      "previous_identity_admitted": false,
+      "occupied_output_preserved": true
+    },
+    {
+      "adapter": "manifest",
+      "normal_exit": 0,
+      "source_sha256": {
+        "scripts/analyze_program.py": "4f32c8013e9359d32d2685860cc0c3628c2c44887d89cecf94609f360e038b73",
+        "scripts/deep_disassembly.py": "d2b9873473bbeea33bb5d953d0c6385b1127d81aedba652bb1b82de636849aa5",
+        "scripts/analyze.py": "178a21b4f70d9deb63646d216306a252c08c11aa0b52b2e7df77db85fcffd262",
+        "scripts/window_elf_reader.py": "d3b57510531d7977110e73474cf89310b68bf6705d134ffb3bc759e18d30bedd",
+        "scripts/reconstruction_roadmap.py": "529e187a98c05fc83cb17b80972594897d23a9eef75e30cb55b76341b05bc88a",
+        "scripts/revalidate_all.py": "2d037c093e69a94c8a9f9c78a01a671506dd2c9f4fb50f603e752caf249c622a",
+        "reconstruction/diagnostics/manifest-admission/run.py": "eeefb0a15f68976377745f1d0727e05a4c11361d1c37504d8a1079e9a6a85058",
+        "reconstruction/diagnostics/manifest-admission/check.py": "cf657fee3d84ecf32d667017923ea7557195d710684222c51aaa8a2d1a76107c"
+      },
+      "semantic_payload_sha256": {
+        "README.md": "08e592465a235977f4ec9f14ce3ee9bc91dfc03a7a2c060c121df06287f12baa",
+        "failed.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "invocation-errors.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "passed.json": "80bc80323b1cb7a35a6b623831e007b62706c74d41df0470a58f611c2bfb2726",
+        "results.json": "5d5ce53e32c4af61321604203edfdf742bc3d1ec94b3845a9e847828c89eadfa",
+        "skipped.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "summary.json": "d1e579c0fb0209be41815a321a58fc22660668ffdae7df6564609818f282f258"
+      },
+      "drift_rejected": true,
+      "previous_identity_admitted": false,
+      "occupied_output_preserved": true
+    },
+    {
+      "adapter": "qualified",
+      "normal_exit": 0,
+      "source_sha256": {
+        "scripts/analyze_program.py": "4f32c8013e9359d32d2685860cc0c3628c2c44887d89cecf94609f360e038b73",
+        "scripts/deep_disassembly.py": "d2b9873473bbeea33bb5d953d0c6385b1127d81aedba652bb1b82de636849aa5",
+        "scripts/analyze.py": "178a21b4f70d9deb63646d216306a252c08c11aa0b52b2e7df77db85fcffd262",
+        "scripts/window_elf_reader.py": "d3b57510531d7977110e73474cf89310b68bf6705d134ffb3bc759e18d30bedd",
+        "scripts/reconstruction_roadmap.py": "529e187a98c05fc83cb17b80972594897d23a9eef75e30cb55b76341b05bc88a",
+        "scripts/revalidate_all.py": "2d037c093e69a94c8a9f9c78a01a671506dd2c9f4fb50f603e752caf249c622a",
+        "reconstruction/tooling/revalidation-qualification/audit.py": "09ee5b1099f55d1eb3e646ccd1056eb8e391b82eab77647cfaeb735fa706d024"
+      },
+      "semantic_payload_sha256": {
+        "README.md": "ec8a1c85c27a274a75595f2c3f798fda1bf0cf37013905ee92ed81fa33eb9603",
+        "failed.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "passed.json": "80bc80323b1cb7a35a6b623831e007b62706c74d41df0470a58f611c2bfb2726",
+        "results.json": "de40e6ffcf630cd810d9e2ef35100df68af80256b75164d014a52c1c696fb8d2",
+        "skipped.json": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "summary.json": "523763a4a94ad63eb4b24bb11aaa3aafe0a310713303ddbf6835c6c503df9bc0"
+      },
+      "drift_rejected": true,
+      "previous_identity_admitted": false,
+      "occupied_output_preserved": true
+    }
+  ],
+  "input_evidence_unchanged": true,
+  "limits": "Audit roots contain only one newly generated static packet. Comparison excludes verifier/manifest, source provenance/input bindings, elapsed fields and owned path spelling; source bindings are checked explicitly."
+}

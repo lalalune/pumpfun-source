@@ -176,7 +176,7 @@ class ClaimInheritedBindingTests(unittest.TestCase):
     setUp = ClaimSourceBindingTests.setUp
     write = ClaimSourceBindingTests.write
 
-    def write_inherited(self, quote_inputs, maintained_scripts):
+    def write_inherited(self, quote_inputs, maintained_scripts, quote_rows=None):
         for rel, data in ((QUOTE_INPUT, b"quote-input"),
                           ("scripts/" + MAINTAINED_SCRIPT, b"regression-script")):
             path = self.root / rel
@@ -213,7 +213,9 @@ class ClaimInheritedBindingTests(unittest.TestCase):
             "nested_create": {
                 "candidate_sha256": candidate, "original_sha256": target,
                 "case_count": 48, "mismatches": [], "cases": [{}] * 48},
-            "quote_control": {"cases": 507, "mismatches": 0, "results": [{}] * 507,
+            "quote_control": {"cases": 507, "mismatches": 0,
+                              "results": [{"matches": True} for _ in range(507)]
+                              if quote_rows is None else quote_rows,
                               "bound_inputs_sha256": quote_inputs},
         }
         receipts = []
@@ -304,6 +306,13 @@ class ClaimInheritedBindingTests(unittest.TestCase):
     def test_tampered_maintained_script_rejected(self):
         self.write_inherited(self.valid_maps()[0], {MAINTAINED_SCRIPT: "0" * 64})
         self.assert_full_rejected("claim verification failed")
+
+    def test_quote_result_row_disagreeing_with_header_rejected(self):
+        # A header that says zero mismatches over rows that say otherwise.
+        rows = [{"matches": True} for _ in range(506)] + [{"matches": False}]
+        self.write_inherited(*self.valid_maps(), quote_rows=rows)
+        self.assert_full_rejected(
+            "not any(row.get('matches') is not True for row in selected['results'])")
 
 
 if __name__ == "__main__":

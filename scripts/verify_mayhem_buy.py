@@ -23,6 +23,7 @@ def main():
  ap=argparse.ArgumentParser();ap.add_argument('--receipts',type=Path,required=True);ap.add_argument('--candidate',type=Path,required=True);ap.add_argument('--output',type=Path,required=True);a=ap.parse_args();report_output=PumpReport(a.output,ROOT,a.candidate,__file__,extra_inputs=(a.receipts,ROOT/'evidence/original/mayhem/deployed.so'))
  raw=a.receipts.read_bytes();report=json.loads(gzip.decompress(raw) if a.receipts.suffix=='.gz' else raw);assert report['candidate_sha256']==sha(a.candidate.read_bytes())
  assert report['original_sha256']==sha((ROOT/'evidence/original/mayhem/deployed.so').read_bytes())
+ if not report['harness_sha256']: raise ValueError('receipt binds no harness file')
  report_output.inputs.extend(ROOT/path for path in report['harness_sha256'])
  for path,digest in report['harness_sha256'].items():assert sha((ROOT/path).read_bytes())==digest
  if type(report.get('case_count')) is not int or report['case_count']<=0: raise ValueError('case_count must be a positive integer')
