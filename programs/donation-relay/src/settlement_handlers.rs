@@ -58,6 +58,16 @@ pub fn distribute_after<'info>(accounts:&mut DistributeAfterJustSwappingV1<'info
  Ok(DonationEpochProcessedV1Event {daas_event_discriminator:DaasEventDiscriminator::DonationEpochProcessedV1,config_id:accounts.distribution.config_id,mint:accounts.distribution.mint,epoch:accounts.distribution.epoch,settled_amount:total,settlement_mint:accounts.output_mint.key(),transfers})
 }
 
+pub fn distribute_exact_after<'info>(accounts:&mut DistributeAfterJustSwappingV1<'info>,transfers:Vec<ExactTransfer>,remaining:&'info [AccountInfo<'info>])->Result<DonationEpochProcessedExactV1Event> {
+ distribute_after_prechecks(accounts)?;
+ let config=accounts.distribution.config_id;let mint=accounts.distribution.mint;let epoch=accounts.distribution.epoch.to_le_bytes();let bump=accounts.distribution.bump;
+ let signer_seeds:&[&[&[u8]];1]=&[&[b"distribution_v1",config.as_ref(),mint.as_ref(),&epoch,&[bump]]];
+ let total=accounts.swap_receipt.swap_output_amount;
+ crate::shared_distribution::distribute_exact(crate::shared_distribution::DistributionContext {remaining,source:accounts.output_distribution_token_account.to_account_info(),mint:accounts.output_mint.to_account_info(),program:accounts.output_mint_program.to_account_info(),authority:accounts.distribution.to_account_info()},crate::shared_distribution::ExactDistributionArgs::new(&transfers,signer_seeds,total,accounts.output_mint_program.key,accounts.output_mint.decimals))?;
+ distribute_after_finish(accounts,signer_seeds)?;
+ Ok(DonationEpochProcessedExactV1Event {daas_event_discriminator:DaasEventDiscriminator::DonationEpochProcessedExactV1,config_id:config,mint,epoch:accounts.distribution.epoch,settled_amount:total,settlement_mint:accounts.output_mint.key(),transfers})
+}
+
 #[inline(never)]
 pub(crate) fn distribute_after_finish<'info>(accounts:&mut DistributeAfterJustSwappingV1<'info>,signer_seeds:&[&[&[u8]];1])->Result<()> {
  accounts.output_distribution_token_account.reload()?;
@@ -86,6 +96,16 @@ pub fn distribute_non_swap<'info>(accounts:&mut DistributeNonSwapOutputMintV1<'i
  let transfers=crate::shared_distribution::distribute(crate::shared_distribution::DistributionContext {remaining,source:accounts.distribution_token_account.to_account_info(),mint:accounts.mint.to_account_info(),program:accounts.token_program.to_account_info(),authority:accounts.distribution.to_account_info()},crate::shared_distribution::DistributionArgs::new(&shares,signer_seeds,total,accounts.token_program.key,accounts.mint.decimals))?;
  distribute_non_swap_finish(accounts,signer_seeds)?;
  Ok(DonationEpochProcessedV1Event {daas_event_discriminator:DaasEventDiscriminator::DonationEpochProcessedV1,config_id:accounts.distribution.config_id,mint:accounts.distribution.mint,epoch:accounts.distribution.epoch,settled_amount:total,settlement_mint:accounts.mint.key(),transfers})
+}
+
+pub fn distribute_exact_non_swap<'info>(accounts:&mut DistributeNonSwapOutputMintV1<'info>,transfers:Vec<ExactTransfer>,remaining:&'info [AccountInfo<'info>])->Result<DonationEpochProcessedExactV1Event> {
+ distribute_non_swap_prechecks(accounts)?;
+ let config=accounts.distribution.config_id;let mint=accounts.distribution.mint;let epoch=accounts.distribution.epoch.to_le_bytes();let bump=accounts.distribution.bump;
+ let signer_seeds:&[&[&[u8]];1]=&[&[b"distribution_v1",config.as_ref(),mint.as_ref(),&epoch,&[bump]]];
+ let total=accounts.distribution.total_amount;
+ crate::shared_distribution::distribute_exact(crate::shared_distribution::DistributionContext {remaining,source:accounts.distribution_token_account.to_account_info(),mint:accounts.mint.to_account_info(),program:accounts.token_program.to_account_info(),authority:accounts.distribution.to_account_info()},crate::shared_distribution::ExactDistributionArgs::new(&transfers,signer_seeds,total,accounts.token_program.key,accounts.mint.decimals))?;
+ distribute_non_swap_finish(accounts,signer_seeds)?;
+ Ok(DonationEpochProcessedExactV1Event {daas_event_discriminator:DaasEventDiscriminator::DonationEpochProcessedExactV1,config_id:config,mint,epoch:accounts.distribution.epoch,settled_amount:total,settlement_mint:accounts.mint.key(),transfers})
 }
 
 #[inline(never)]
@@ -127,24 +147,4 @@ pub fn swap_then_distribute<'info>(accounts:&mut SwapThenDistributeV1<'info>,arg
  burn_and_close(BurnCloseContext {token:accounts.distribution_token_account.to_account_info(),mint:accounts.mint.to_account_info(),authority:accounts.distribution.to_account_info(),destination:accounts.signer.to_account_info(),program:accounts.token_program.to_account_info()},accounts.distribution_token_account.amount,signer_seeds)?;
  anchor_spl::token_interface::close_account(CpiContext::new_with_signer(accounts.output_mint_program.to_account_info(),anchor_spl::token_interface::CloseAccount {account:accounts.output_distribution_token_account.to_account_info(),destination:accounts.signer.to_account_info(),authority:accounts.distribution.to_account_info()},signer_seeds))?;
  Ok(DonationEpochProcessedV1Event {daas_event_discriminator:DaasEventDiscriminator::DonationEpochProcessedV1,config_id:accounts.distribution.config_id,mint:accounts.distribution.mint,epoch:accounts.distribution.epoch,settled_amount:total,settlement_mint:accounts.output_mint.key(),transfers})
-}
-
-pub fn distribute_exact_non_swap<'info>(accounts:&mut DistributeNonSwapOutputMintV1<'info>,transfers:Vec<ExactTransfer>,remaining:&'info [AccountInfo<'info>])->Result<DonationEpochProcessedExactV1Event> {
- distribute_non_swap_prechecks(accounts)?;
- let config=accounts.distribution.config_id;let mint=accounts.distribution.mint;let epoch=accounts.distribution.epoch.to_le_bytes();let bump=accounts.distribution.bump;
- let signer_seeds:&[&[&[u8]];1]=&[&[b"distribution_v1",config.as_ref(),mint.as_ref(),&epoch,&[bump]]];
- let total=accounts.distribution.total_amount;
- crate::shared_distribution::distribute_exact(crate::shared_distribution::DistributionContext {remaining,source:accounts.distribution_token_account.to_account_info(),mint:accounts.mint.to_account_info(),program:accounts.token_program.to_account_info(),authority:accounts.distribution.to_account_info()},crate::shared_distribution::ExactDistributionArgs::new(&transfers,signer_seeds,total,accounts.token_program.key,accounts.mint.decimals))?;
- distribute_non_swap_finish(accounts,signer_seeds)?;
- Ok(DonationEpochProcessedExactV1Event {daas_event_discriminator:DaasEventDiscriminator::DonationEpochProcessedExactV1,config_id:config,mint,epoch:accounts.distribution.epoch,settled_amount:total,settlement_mint:accounts.mint.key(),transfers})
-}
-
-pub fn distribute_exact_after<'info>(accounts:&mut DistributeAfterJustSwappingV1<'info>,transfers:Vec<ExactTransfer>,remaining:&'info [AccountInfo<'info>])->Result<DonationEpochProcessedExactV1Event> {
- distribute_after_prechecks(accounts)?;
- let config=accounts.distribution.config_id;let mint=accounts.distribution.mint;let epoch=accounts.distribution.epoch.to_le_bytes();let bump=accounts.distribution.bump;
- let signer_seeds:&[&[&[u8]];1]=&[&[b"distribution_v1",config.as_ref(),mint.as_ref(),&epoch,&[bump]]];
- let total=accounts.swap_receipt.swap_output_amount;
- crate::shared_distribution::distribute_exact(crate::shared_distribution::DistributionContext {remaining,source:accounts.output_distribution_token_account.to_account_info(),mint:accounts.output_mint.to_account_info(),program:accounts.output_mint_program.to_account_info(),authority:accounts.distribution.to_account_info()},crate::shared_distribution::ExactDistributionArgs::new(&transfers,signer_seeds,total,accounts.output_mint_program.key,accounts.output_mint.decimals))?;
- distribute_after_finish(accounts,signer_seeds)?;
- Ok(DonationEpochProcessedExactV1Event {daas_event_discriminator:DaasEventDiscriminator::DonationEpochProcessedExactV1,config_id:config,mint,epoch:accounts.distribution.epoch,settled_amount:total,settlement_mint:accounts.output_mint.key(),transfers})
 }
