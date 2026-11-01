@@ -5,12 +5,13 @@ Base: main 599891304 / 1647da0f2 (admin_cto.rs as on 1f4e396b5): 0.67436, 3,141 
 Angle (handoff from w16a08-cto-basinbound #3876, NOTES sections 3-4, next idea 2): find an ordinary source lever that
 puts S3's post-sweep Result payload (the swept value) in the original's r9 without the RA force `1739=r9`.
 Wave-16 lane, died at the 02:30 UTC app restart and CONTINUED in wave 17 (shim track open for `admin_cto.rs`).
-Ledger: approach `s3sweptr9`, keys `0x22a10-w16-5998913-s3sweptr9-*` (40+ rows).
+Ledger: approach `s3sweptr9`, keys `0x22a10-w16-5998913-s3sweptr9-*` (43 rows).
 
 **Result: notes only, kill test met. No source form (ordinary or marked shim) puts the payload in r9 unforced, and no
-screened cell beats S3n's Mhc of 2,296 or main's 0.67436 at 27,400 B.** The mechanism is mapped below: r9 is lost to a
-heavier head-to-tail value in every base, and freeing r9 does not hand it to the payload, because the payload is
-allocated as split pieces and the post-sweep piece is the lightest range in the function.
+screened cell beats S3n's Mhc of 2,296 or main's 0.67436 at 27,400 B.** The mechanism is mapped below. In every base a
+heavier value holds r9 over the payload's range: the `!holder` phi on S3n, and `nf` plus clone temps on main. Freeing r9
+does not hand it to the payload, because the payload is allocated as split pieces and its post-sweep piece is the
+lightest range in that region.
 
 ## 1. Who holds r9, and why the payload loses (dbgocc chain on S3n)
 
