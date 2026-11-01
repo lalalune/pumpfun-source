@@ -172,7 +172,11 @@ The original has the basin-A TCF and the basin-B wallet at once; no archived bui
 What picks the basin in VC is the shared-arm test right after validate (`if shared{if holder{..}else{..}}`), screened on
 1f4e396: `if holder` and `if hopt==Some(true)` (both the outer block's `and i8 %0,-3` holder) keep basin B (2,139);
 `if new.is_none()` (t1n), `if new.is_some()` with the arms swapped (t1s) and `if hopt.unwrap_or(false)` (t1u, the
-closure's and-1 value) all move to basin A (2,215-2,216), as do `c0s`/`c0h` at the curve store.
+closure's and-1 value) all move to basin A (2,215-2,216), as do `c0s`/`c0h` at the curve store. In IR terms basin B is
+the outer block's holder i1 (`icmp eq (and i8 %0,-3), 0`, defined before the closure and also used by `cashback`) staying
+live across the whole inlined validate to the shared-arm branch; the basin-A spellings end it at `cashback`. Basin B's
+front is also the better one (+26 against +10 to 0x1c68), so the original probably keeps that value live as well; what
+it does differently in the TCF is still open.
 
 The remaining tail_hot loss is w14a42's curve-block placement (the curve update block is pre-merged after the sharing
 test instead of falling through); `if let Some(val)=sharing_update{..}` repairs 14 of its 34.
