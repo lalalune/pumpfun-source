@@ -1,7 +1,7 @@
 # Behavior-guided corpus qualification — 2026-11-01
 
 The behavior-guidance implementation was executed from commit
-`16ed5f2b40` on fresh upstream
+`4a104816662c7fdfb9110b2bf0a358eb8ab2b823` on fresh upstream
 `1e5e58d27200aba794079374590ec897a9c1d60e`. It changes no program source,
 captured image, signer rule, strict comparison field, reducer property or score
 normalization.
@@ -16,7 +16,7 @@ generator order retained **13** under the same 64-case observation pool and
 same 16-case corpus limit. This is a three-class retention improvement, not an
 instrumented coverage or bytecode-branch claim. The exact selection was shared
 by both campaigns and has SHA-256
-`23f6ef54465fe6118202293e55fcfc7f2ccfcff8c513d3b1fb9b022ec31d0550`.
+`b5d2dda1488347d3f901f45c69269eccc872ab6bad9b5cac6dfc228db10930a3`.
 It includes four all-success original sequences and twelve mixed/failing
 sequences, including success, failure and numeric-boundary anchors.
 
@@ -31,8 +31,8 @@ sequences, including success, failure and numeric-boundary anchors.
 | `equal_observed_behavior` | 16 | 16 |
 | `different_behavior` | 0 | 0 |
 | `infrastructure_failure` | 0 | 0 |
-| Selected transactions per image | 32 | 32 |
-| Total signed transactions, including selection observations | 167 | 167 |
+| Selected transactions per image | 33 | 33 |
+| Total signed transactions, including selection observations | 169 | 169 |
 | All-success original selected sequences | 4 | 4 |
 | Negative controls detected | 3/3 | 3/3 |
 
@@ -52,21 +52,21 @@ or score claim.
 Control report identities:
 
 - artifact manifest:
-  `c79e53fd6d40659277732f19ae40fc1324a77859d78c077fb4becd9979b7692a`;
+  `73189d520d17cc04666940876bdce2b125a8f80591d67e21594ba1b6ada8e7eb`;
 - summary:
-  `2940df6129c5f08ddf33cfe3cab657cd132938163329969daab6c7022f427df7`.
+  `60a3c5568ffbe1766a5698bbd704bd0d1a96920b2a49cc40cf0d76cd0fb1c538`.
 
 Candidate report identities:
 
 - artifact manifest:
-  `df28896d2e7888d91f75eff6ae03e16a14c17d76197042a17144dfe69a632b05`;
+  `3ca85effffb40dbcd44db1069392c7fb41d1aa9cb805f2fa1d52c1dbc144b772`;
 - summary:
-  `e1042e226dad4ecde0cd6d3328cf314f2c417e8cea1a394a16cacef4899885f1`.
+  `8e7fc861854227d1f8a4784ec97141eb42637b01ed701d8a66922329bb11a66d`.
 
 `verify_guided.py --reexecute` independently admitted all 64 original
 observations and all 16 differential receipts for each report, then reexecuted
 all 80 cases with zero failures or warnings. Each report contains 103 signed
-selection-observation transactions plus 32 selected transactions per image.
+selection-observation transactions plus 33 selected transactions per image.
 The reports are retained locally under
 `~/.cache/pumpfun-reconstruction/daybreak-admin-cto-behavior-guided/`; they are
 not canonical repository inputs.
@@ -74,7 +74,7 @@ not canonical repository inputs.
 The fixed Admin CTO differential was rerun against the same candidate: 388
 cases, zero mismatches. The existing stateful package passed ten tests,
 including a genuine 20-transaction receipt-admission control. The complete
-fuzzer package now passes 97 tests. Adversarial tests independently detect
+fuzzer package now passes 98 tests. Adversarial tests independently detect
 forged fingerprints, corrupt outcomes/events, omitted cases, duplicate IDs,
 altered ranks, false passing totals, invalid signatures and missing evidence
 after outer receipt hashes are recomputed.
