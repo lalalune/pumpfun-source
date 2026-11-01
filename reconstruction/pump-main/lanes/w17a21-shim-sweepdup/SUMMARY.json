@@ -1,0 +1,51 @@
+{
+  "lane": "w17a21-shim-sweepdup",
+  "wave": 17,
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned at 27,400 B",
+  "angle": "reproduce the original's per-exit post-sweep Result test (copies at the 648 and 660 exits, Rent-Err fallthrough into a shared test) and remove main's single post-sweep join",
+  "base": {"main": "ac37d7415 (merged a51791e2e before the notes PR)", "admin_cto_ratio": 0.68424, "M": 2284, "slots": 3313, "bytes": 27400},
+  "result": "notes only: kill test met (every per-exit form, its RA-forced bound and its spill-relabel bound are below main)",
+  "landed": false,
+  "best_zero_loss": null,
+  "bounds_on_ac37d74": {
+    "main": {"M": 2284, "bytes": 27400, "m3": 2805, "Mperm": 2310, "Mhc": 2318},
+    "n2_ir_copies_648_660_orig_polarity": {"M": 2282, "bytes": 27416, "m3": 2806},
+    "n2_payload_r9_forces": {"best_M": 2246, "bytes": 27328},
+    "o3_j60_fold_plus_bb57_before_bb60": {"M": 1967, "bytes": 27424, "m3": 2863, "Mperm": 2157, "Mhc": 2189},
+    "o3_payload_class_r9": {"M": 2076, "bytes": 27384},
+    "thread_amm_err_edges": {"M_range": [1633, 2106]},
+    "s_nat1_source": {"M": 1295, "bytes": 27424, "m3": 2416},
+    "s_nat1_plus_ir_mv58": {"M": 2114, "bytes": 27384, "m1": 2363, "m3": 2859, "Mperm": 2198, "Mhc": 2227},
+    "s_nat1_n1_mv58": {"M": 2177, "bytes": 27320, "m3": 2862},
+    "s_nat1_evd_n1_mv58": {"M": 2180, "bytes": 27296, "m3": 2864}
+  },
+  "findings": [
+    "Per-exit copies of the tag test in 648/660 with the original's polarity (jne r7,2,exit; ja post) are neutral in exact tokens: payload r3 not r9, one trampoline, +16 B (n2 2282 @27416).",
+    "s_nat1 (native tail `if amount>0{ensure_rent_exempt(..)?;transfer_native(..)?;}Ok(amount)`) is the ordinary-source form of the original's sweep-exit IR: sweep.exit preds {648, 660, inner Err join}, JT threads Ok returns to the post chain and the AMM ? Errs to the error exit, early tail-dup gives the 648/660 copies and the 719 jump into the shared test.",
+    "s_nat1 collapses (1295) only because of IR block order: the native-arm blocks sit between the inner join and sweep.exit. Moving the join before sweep.exit in IR restores the original's layout (2114, m1 2363 > main 2358, m3 2859). No source spelling of the arm order changes it (MIR normalises the bool switch); branch weights cannot fix it (best 1811 of 292).",
+    "With the original's join shape the newpieces (c1a, e79v) and the faithful tail no longer collapse in skeleton: e79v on o3 m3 2912 (+107 over main).",
+    "What blocks landing is register naming: the coalescer joins the validate-error, sweep-exit, swept and event payloads into one class that greedy colours r6 (the original's sharing-tag register); forced to r9 it shrinks 40-136 B and stays at 2076-2127; Mperm/Mhc of every per-exit form stay below main's plain M."
+  ],
+  "rejected_mechanisms": [
+    "IR copies with jeq polarity (d648/d660/d2)",
+    "copy into the Rent-Err pred (n3, nrent)",
+    "RAPRIO payload forces on n2 (1744=r9, 1671=r9, 1744=r8)",
+    "j60 fold without the bb57 placement (1658)",
+    "threading the AMM ? Err edges on main or n2 (1633-2106)",
+    "gate forms at line 647: if skip{0}else{sweep?}, if !skip, if skip{Ok(0)}else{sweep}?, match on then()",
+    "sweep tails: s_nat0 (.map + Ok(0)), s_tok1 (no early return), s_nt11",
+    "arm-order spellings of s_nat1 (if !native, ==true, !=false, match bool both orders, ==false, as u8)",
+    "1:2000 / 2000:1 weights on every conditional br of s_nat1"
+  ],
+  "unresolved_residuals": [
+    "a source form that makes the inner vsigner-scope Err join the fallthrough pred of sweep.exit on s_nat1 (MV58)",
+    "payload class colour r9 (original) vs r6 in every per-exit basin; C1 clone run and tail naming in that basin"
+  ],
+  "next_ideas": [
+    "Find the MV58 placement in source: make the inner join first referenced after both sweep arms (for example the native arm as an inlined nested fn, or the vsigner part as an inlined nested fn returning to a last-created join).",
+    "Re-tune the h_n1 basin (s_nat1 + n1 + MV58, 2177 @27320, T1 already 490 = main) for C1 and the tail with a sticky RA climb, then with shims.",
+    "Re-price w17a10 c1a/e79v on s_nat1 + MV58."
+  ],
+  "ledger_keys": "0x22a10-w17-ac37d74-sweepdup-*-v1",
+  "tools": "reconstruction/pump-main/lanes/w17a21-shim-sweepdup/tools/"
+}
