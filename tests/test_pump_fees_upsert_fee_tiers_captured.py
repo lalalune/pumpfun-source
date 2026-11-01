@@ -174,7 +174,9 @@ def run_captured(c):
     before = {k: vm.get_account(k) for k in accounts}
     tx = Transaction.new_signed_with_payer(
         [Instruction(PROGRAM, ix_data, metas)], PAYER.pubkey(), signers, vm.latest_blockhash())
-    if not all(tx.verify_with_results()):
+    # An unsigned transaction yields no results and `not all([])` is false, so
+    # this check passed for a fixture the VM had no signature to accept.
+    if not (tx.signatures and all(tx.verify_with_results())):
         raise ValueError('fixture transaction signature verification failed')
     result = vm.send_transaction(tx)
     failed = isinstance(result, FailedTransactionMetadata)

@@ -61,7 +61,10 @@ class VersionedResetTests(unittest.TestCase):
                 message = MessageV0(message.header, message.account_keys, message.recent_blockhash,
                                     message.instructions, [MessageAddressTableLookup(tables[0].key, b'\x01', b'')])
             tx = VersionedTransaction(message, [PAYER])
-        self.assertTrue(all(tx.verify_with_results()))
+        # solders returns no results for a transaction that carries no
+        # signature, and all([]) is true, so the results alone accept an
+        # unsigned case as a verified one.
+        self.assertTrue(tx.signatures and all(tx.verify_with_results()))
         result = vm.send_transaction(tx)
         error = str(result.err()) if isinstance(result, FailedTransactionMetadata) else None
         if kind in ('legacy', 'static', 'writable', 'multiple'):

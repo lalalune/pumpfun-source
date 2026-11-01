@@ -380,6 +380,9 @@ jobs:
               python -B reconstruction/pump-main/lanes/execute-payment-result/test_verify_current_output_preservation.py
               python -B reconstruction/harness/test_experiment_declared_name.py
               python -B reconstruction/harness/test_experiment_executable_snapshot.py
+              python -B reconstruction/harness/test_process_supervisor.py
+              python -B reconstruction/harness/test_experiment_runner_parent_death.py
+              python -B reconstruction/harness/test_experiment_recovery.py
               python -B reconstruction/harness/test_experiment_source_output_modes.py
               python -B reconstruction/harness/test_experiment_worktree_source.py
               python -B reconstruction/harness/test_experiment_matrix_overlap.py
@@ -502,6 +505,7 @@ jobs:
               python -B reconstruction/donation-relay/native-linux-v148-20261030/test_analyzer_isolation.py
               python -B reconstruction/verification/mayhem-dispatch-boundaries/test_inventory.py
               python -B reconstruction/verification/mayhem-dispatch-boundaries/test_producer.py
+              python -B reconstruction/verification/mayhem-stateful-lifecycle/test_lifecycle.py
           - suite: host-fragments
             commands: |
               python -B scripts/run_discovered_tests.py tests 'test_global_*_captured.py' --expect 2

@@ -1,0 +1,25 @@
+{
+  "schema": "mayhem-stateful-lifecycle-provenance-v1",
+  "captured_original": {
+    "path": "evidence/original/mayhem/deployed.so",
+    "bytes": 777408,
+    "sha256": "a87fa9f866272514e6acb852b668c4a08aeb173d56c883039991d114d1199bdb"
+  },
+  "qualified_candidate": {
+    "artifact_run": 40770208958,
+    "artifact_name": "mayhem-canonical-windows-40770208958-1",
+    "artifact_member": "build/build/target/candidate-v154-strip.so",
+    "bytes": 775416,
+    "sha256": "9af9e3b1cbc9d89340af4d9d46e4c88d3dc2fc67e0090f9370047d97532ff09d",
+    "qualification": "reconstruction/mayhem/native-linux-qualification/QUALIFICATION.json",
+    "meaningful_elf_equal": true
+  },
+  "captured_dependency_programs": [
+    "evidence/original/pump/deployed.so",
+    "evidence/original/pump_fees/deployed.so",
+    "evidence/dependencies/spl_token/deployed.so",
+    "evidence/dependencies/spl_token_2022/deployed.so",
+    "evidence/dependencies/associated_token/deployed.so"
+  ],
+  "fixture_source": "research/imported-lab/analysis/pump_fun/curve-fresh-trades-v3-signed-surfpool.json"
+}

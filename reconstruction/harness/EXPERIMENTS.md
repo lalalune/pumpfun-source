@@ -22,7 +22,77 @@ For this example `source` is the Pump crate directory, not the repository root. 
 
 Declare every relevant external input in `inputs`: oracle/harness scripts, original ELF, window inventory, toolchain executables/libraries and any configuration consumed by your command. Resume identity includes source file bytes/executable bits and directory membership, argv, declared input bytes and execute permission bits, command executable, timeout, environment hash and runner implementation. Environment values are not recorded. Undeclared files, network responses and changing external services are not authenticated: this is not hermetic execution or a sandbox. The source snapshot and declared inputs are checked again after execution.
 
-Each attempt retains stdout/stderr and all output files, with hashes in latest.json. A trial's `latest.json` must not resolve to a declared input of that trial or any other matrix row; the whole matrix is checked before any command starts. Output directory membership, including empty directories, is also recorded. Resume reuses only pass/fail results whose identity and retained artifacts still match. Reuse also requires the current result schema, an exact integer exit/status pair (0/pass or 1/fail), no error reason, and saved input provenance that matches both current admission and its cache key. Inconsistent result metadata retries in a new attempt directory, like an invalid artifact record; prior attempts remain. Errors also retry. A per-trial file lock serializes concurrent users of the same destination. Timeouts kill the process group. Result hashes are integrity checks, not signatures or tamper-proof provenance. A matrix exits 2 on infrastructure error; valid failing predicates remain useful results and do not fail the matrix driver.
+Each attempt retains stdout/stderr and all output files, with hashes in latest.json. A trial's `latest.json` must not resolve to a declared input of that trial or any other matrix row; the whole matrix is checked before any command starts. Output directory membership, including empty directories, is also recorded. Resume reuses only pass/fail results whose identity and retained artifacts still match. Reuse also requires the current result schema, an exact integer exit/status pair (0/pass or 1/fail), no error reason, and saved input provenance that matches both current admission and its cache key. Inconsistent result metadata retries in a new attempt directory, like an invalid artifact record; prior attempts remain. Errors also retry. A per-trial file lock serializes concurrent users of the same destination. Result hashes are integrity checks, not signatures or tamper-proof provenance. A matrix exits 2 on infrastructure error; valid failing predicates remain useful results and do not fail the matrix driver.
+
+## Process cleanup and runner death
+
+Every trial runs in a process group led by a small guardian. The experiment
+runner owns the guardian through a close-on-exec control pipe. Normal exits
+preserve the command's exact integer return code. Timeouts and Python-level
+interruptions close that pipe and request bounded cleanup. The guardian kills
+its own group on normal command completion as well as on EOF or a status-write
+failure, including ordinary grandchildren. A stopped guardian is killed only
+after checking that its live, unreaped PID still owns the group. A reaped
+guardian or historical trial PID is never used to authorize a later signal.
+If the runner receives SIGTERM or SIGKILL, the pipe closes and the guardian
+kills its own group. The guardian
+source bytes are compiled directly and frozen at runner import time; a cached
+bytecode file cannot substitute for those admitted bytes. Their hash
+participates in the experiment identity.
+
+This composes with, and does not replace, `build_process.py`'s compiler
+guardian added by PR #3339. The outer guardian stops the trial group; the
+compiler guardian still stops the nested compiler session if the trial itself
+is killed. A process that deliberately calls `setsid`, double-forks, or is
+otherwise detached can escape both ordinary process groups. The system also
+cannot guarantee cleanup if the guardian itself is independently SIGKILLed.
+Whole-machine crashes are subject to filesystem and
+hardware durability. These are supervision guarantees, not a sandbox.
+
+## Interrupted attempts and recovery
+
+Every `attempt-*` directory has an `attempt.json` with the admitted input
+identity and one of these states:
+
+- `staging` or `running`: no result is admissible; a later locked invocation
+  marks the attempt `interrupted` after its owned group is gone;
+- `interrupted`: partial stdout, stderr and output hashes are retained as
+  evidence, but never reused as a result;
+- `completed`: the result receipt and artifact hashes were synced, but publication may have been
+  interrupted before `latest.json`; a matching attempt is fully revalidated
+  before that pointer is repaired;
+- `published`: publication completed. Historical published attempts remain
+  immutable and only the currently admitted `latest.json` is reused.
+
+Attempt and latest receipts are written through an fsynced temporary file,
+atomically replaced, then followed by a directory fsync. Invalid JSON, invalid
+identity hashes and contradictory result metadata are never accepted. A
+superseded or corrupt regular `latest.json` is copied byte-for-byte into
+`receipt-history/` before replacement. Existing attempt directories are not
+deleted. The output lock ensures concurrent callers perform at most one retry;
+later callers revalidate and reuse that result.
+
+Inspect a retained destination without changing it:
+
+```bash
+find /tmp/trials -name attempt.json -o -name latest.json -o -path '*/receipt-history/*'
+python3 -m json.tool /tmp/trials/TRIAL/attempt-UUID/attempt.json
+```
+
+To resume an interrupted matrix, rerun the same command with the same matrix
+and `--out`. The runner re-hashes the source, executable, declared inputs,
+execute bits, environment, runner and supervisor. Same-identity interrupted
+attempts retry in a new directory; changed identities are explicitly recorded
+as nonmatching and also retry. Do not edit an interrupted receipt to make it
+look completed.
+
+The bounded process and recovery regressions do not require a Solana build:
+
+```bash
+python3 -I -B reconstruction/harness/test_process_supervisor.py -v
+python3 -I -B reconstruction/harness/test_experiment_runner_parent_death.py -v
+python3 -I -B reconstruction/harness/test_experiment_recovery.py -v
+```
 
 Tool aliases are resolved once during admission. The recorded `executable` is
 hashed and executed; `invocation` preserves the declared absolute argv[0] for

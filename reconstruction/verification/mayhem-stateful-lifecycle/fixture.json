@@ -1,0 +1,38 @@
+{
+  "schema": "mayhem-stateful-lifecycle-fixture-v1",
+  "classification": "synthetic_preinitialized",
+  "clock_unix_timestamp": 100,
+  "initial_mayhem_token_vault_amount": 1000000000,
+  "initial_sol_vault_lamports": 10000000000,
+  "trade_arguments": {
+    "tolerance_bps": 2400,
+    "retained_reserve_bps": 9000
+  },
+  "lifecycles": [
+    {
+      "name": "buy_buy_sell",
+      "steps": [
+        {"name": "buy_1", "instructions": ["buy"], "expect": "success"},
+        {"name": "buy_2", "instructions": ["buy"], "expect": "success"},
+        {"name": "sell", "instructions": ["sell"], "expect": "success"}
+      ]
+    },
+    {
+      "name": "admin_gate_atomic_retry",
+      "steps": [
+        {"name": "stop", "instructions": ["stop_trading"], "expect": "success"},
+        {"name": "paused_buy", "instructions": ["buy"], "expect": "failure", "error_contains": "InstructionErrorCustom(6000)", "error_instruction_index": 1},
+        {"name": "unauthorized_resume", "instructions": ["resume_trading_unauthorized"], "expect": "failure", "error_contains": "InstructionErrorCustom(2001)", "error_instruction_index": 1},
+        {"name": "resume", "instructions": ["resume_trading"], "expect": "success"},
+        {"name": "atomic_stop_buy", "instructions": ["stop_trading", "buy"], "expect": "failure", "error_contains": "InstructionErrorCustom(6000)", "error_instruction_index": 2},
+        {"name": "valid_retry", "instructions": ["buy"], "expect": "success"},
+        {"name": "atomic_buy_sell", "instructions": ["buy", "sell"], "expect": "success"}
+      ]
+    }
+  ],
+  "limitations": [
+    "The Pump mint-authority PDA cannot sign an outer initialization transaction in LiteSVM.",
+    "GlobalParams and MayhemState are explicitly synthesized at their canonical Mayhem PDAs.",
+    "No initialization success is claimed; only later captured-program transitions qualify this fixture."
+  ]
+}

@@ -46,8 +46,8 @@ jobs:
       - name: Test nested path-crate invalidation
         # Independent of the step above, so its result is reported on its own.
         if: ${{ !cancelled() }}
-        run: python -m unittest discover -s reconstruction/harness -p test_fastbuild_path_crates.py -v
+        run: python -B scripts/run_discovered_tests.py reconstruction/harness 'test_fastbuild_path_crates.py' --expect 2
       - name: Test pinned link-order hooks
         # The linker script admission check guards the Pump build recipe (link/ordered.ld).
         if: ${{ !cancelled() }}
-        run: python -m unittest discover -s reconstruction/harness -p test_link_order.py -v
+        run: python -B scripts/run_discovered_tests.py reconstruction/harness 'test_link_order.py' --expect 7

@@ -3,21 +3,38 @@
 import argparse
 import fcntl
 import hashlib
+import importlib.util
 import json
 import os
 import re
 from pathlib import Path
 import shutil
-import signal
 import stat
 import subprocess
 import tempfile
+import time
 import uuid
+
+SUPERVISOR_PATH = Path(__file__).resolve().with_name('process_supervisor.py')
+SUPERVISOR_BYTES = SUPERVISOR_PATH.read_bytes()
+SUPERVISOR_SPEC = importlib.util.spec_from_file_location('_experiment_process_supervisor',
+                                                        SUPERVISOR_PATH)
+if SUPERVISOR_SPEC is None or SUPERVISOR_SPEC.loader is None:
+    raise ImportError(f'cannot load process supervisor from {SUPERVISOR_PATH}')
+SUPERVISOR = importlib.util.module_from_spec(SUPERVISOR_SPEC)
+SUPERVISOR.__dict__['_ADMITTED_SOURCE_BYTES'] = SUPERVISOR_BYTES
+exec(compile(SUPERVISOR_BYTES, str(SUPERVISOR_PATH), 'exec', dont_inherit=True),
+     SUPERVISOR.__dict__)
+IMPLEMENTATION_SHA256 = SUPERVISOR.IMPLEMENTATION_SHA256
+SupervisedProcess = SUPERVISOR.SupervisedProcess
+SupervisionError = SUPERVISOR.SupervisionError
 
 # Generated directories are never source, but only the experiment root's
 # target directory is generated build output: nested target directories can
 # contain source, mirroring source_inputs and build_source_manifest.
 ALWAYS_IGNORED = ('.git', '__pycache__')
+ATTEMPT_SCHEMA = 'experiment-attempt-v1'
+RECOVERY_PROCESS_WAIT = 2.0
 
 
 def stage_ignore(source):
@@ -118,7 +135,8 @@ def identity(source, command, inputs, timeout, *, environment=None):
             'inputs': hashes, 'input_execute_bits': input_execute_bits(hashes), 'timeout': timeout,
             'declared_input_paths': declared_paths,
             'environment_sha256': digest(json.dumps(environment, sort_keys=True).encode()),
-            'runner_sha256': LOADED_RUNNER_SHA256}
+            'runner_sha256': LOADED_RUNNER_SHA256,
+            'supervisor_sha256': IMPLEMENTATION_SHA256}
 
 
 def admitted_inputs_match(admission):
@@ -133,9 +151,19 @@ def atomic_json(path, value):
     try:
         with os.fdopen(fd, 'w') as stream:
             json.dump(value, stream, indent=2); stream.write('\n')
+            stream.flush(); os.fsync(stream.fileno())
         os.replace(temporary, path)
+        sync_directory(path.parent)
     finally:
         if os.path.exists(temporary): os.unlink(temporary)
+
+
+def sync_directory(path):
+    descriptor = os.open(path, os.O_RDONLY)
+    try:
+        os.fsync(descriptor)
+    finally:
+        os.close(descriptor)
 
 
 def output_paths(root):
@@ -220,6 +248,169 @@ def reusable_result(record, admission, key):
             and digest(json.dumps(inputs, sort_keys=True).encode()) == key)
 
 
+def valid_attempt_name(name):
+    return (isinstance(name, str) and name.startswith('attempt-')
+            and Path(name).name == name)
+
+
+def retained_result_valid(record, admission, key, destination):
+    name = record.get('attempt', '')
+    if not valid_attempt_name(name) or not reusable_result(record, admission, key):
+        return False
+    attempt = destination / name
+    try:
+        return (admitted_inputs_match(admission)
+                and not attempt.is_symlink()
+                and manifest(attempt / 'source') == admission['source']
+                and artifacts(attempt) == record['artifacts'])
+    except (KeyError, OSError, ValueError):
+        return False
+
+
+def read_json_receipt(path):
+    if linked_source(path) or not path.is_file():
+        raise ValueError('retained receipt must be a real file')
+    value = json.loads(path.read_text(encoding='utf-8'))
+    if not isinstance(value, dict):
+        raise ValueError('retained receipt must contain an object')
+    return value
+
+
+def retain_receipt_history(destination, receipt_path):
+    """Keep an invalidated latest pointer before a retry replaces it."""
+    if linked_source(receipt_path) or not receipt_path.is_file():
+        raise ValueError('retained receipt must be a real file')
+    payload = receipt_path.read_bytes()
+    history = destination / 'receipt-history'
+    history.mkdir(exist_ok=True)
+    if linked_source(history) or not history.is_dir():
+        raise ValueError('receipt history must be a real directory')
+    target = history / ('latest-' + digest(payload) + '.json')
+    if target.exists():
+        if linked_source(target) or not target.is_file() or target.read_bytes() != payload:
+            raise ValueError('retained receipt history collision')
+        return target.name
+    with target.open('xb') as stream:
+        stream.write(payload); stream.flush(); os.fsync(stream.fileno())
+    sync_directory(history)
+    return target.name
+
+
+def partial_artifacts(attempt):
+    """Hash only partial logs/output; incomplete data is evidence, never a result."""
+    result = {}
+    paths = [attempt / 'stdout.log', attempt / 'stderr.log']
+    output = attempt / 'output'
+    if output.exists():
+        if linked_source(output) or not output.is_dir():
+            raise ValueError('partial output must be a real directory')
+        paths.extend(sorted(output_paths(output)))
+    for path in paths:
+        if not path.exists():
+            continue
+        if linked_source(path):
+            raise ValueError('partial output links are unsupported')
+        if path.is_file():
+            result[path.relative_to(attempt).as_posix()] = {
+                'sha256': digest(path.read_bytes()),
+                'executable': bool(path.stat().st_mode & 0o111),
+                'execute_bits': path.stat().st_mode & 0o111,
+            }
+        elif path.is_dir():
+            result[path.relative_to(attempt).as_posix() + '/'] = {'directory': True}
+        else:
+            raise ValueError('special partial output files are unsupported')
+    return result
+
+
+def validate_attempt_metadata(metadata, name):
+    inputs = metadata.get('inputs')
+    state = metadata.get('state')
+    if (metadata.get('schema') != ATTEMPT_SCHEMA or metadata.get('attempt') != name
+            or not valid_attempt_name(name) or not isinstance(inputs, dict)
+            or not isinstance(metadata.get('key'), str)
+            or digest(json.dumps(inputs, sort_keys=True).encode()) != metadata['key']
+            or state not in ('staging', 'running', 'interrupted', 'completed', 'published')
+            or type(metadata.get('created_ns')) is not int):
+        raise ValueError('invalid retained attempt metadata')
+    if state in ('completed', 'published') and not isinstance(metadata.get('result'), dict):
+        raise ValueError('completed attempt is missing its result')
+    return metadata
+
+
+def retained_group_active(metadata):
+    group = metadata.get('process_group')
+    guardian = metadata.get('guardian_pid')
+    trial = metadata.get('trial_pid')
+    if not all(type(value) is int and value > 0 for value in (group, guardian, trial)):
+        return False
+    for pid, expected in ((guardian, guardian), (trial, group)):
+        try:
+            if os.getpgid(pid) == expected == group:
+                return True
+        except ProcessLookupError:
+            pass
+    return False
+
+
+def recover_attempts(destination, current_key):
+    """Close stale attempt states and return completed candidates for recovery."""
+    recovered, completed = [], []
+    for attempt in sorted(destination.glob('attempt-*')):
+        if attempt.is_symlink() or not attempt.is_dir():
+            recovered.append({'attempt': attempt.name, 'state': 'invalid',
+                              'reason': 'attempt path is not a real directory'})
+            continue
+        path = attempt / 'attempt.json'
+        if not path.exists():
+            continue  # Legacy attempt; latest.json remains its only admission path.
+        try:
+            metadata = validate_attempt_metadata(read_json_receipt(path), attempt.name)
+        except (OSError, ValueError, json.JSONDecodeError) as error:
+            recovered.append({'attempt': attempt.name, 'state': 'invalid',
+                              'reason': str(error)})
+            continue
+        if metadata['state'] == 'completed':
+            completed.append(metadata)
+            continue
+        if metadata['state'] in ('interrupted', 'published'):
+            continue
+        deadline = time.monotonic() + RECOVERY_PROCESS_WAIT
+        while retained_group_active(metadata) and time.monotonic() < deadline:
+            time.sleep(.02)
+        if retained_group_active(metadata):
+            raise ValueError('retained attempt process group is still active')
+        try:
+            partial = partial_artifacts(attempt)
+            partial_error = None
+        except (OSError, ValueError) as error:
+            partial, partial_error = {}, str(error)
+        metadata = dict(metadata, state='interrupted', interrupted_ns=time.time_ns(),
+                        reason='runner terminated before completed result publication',
+                        partial_artifacts=partial,
+                        retry_identity_matches=metadata['key'] == current_key)
+        if partial_error:
+            metadata['partial_artifact_error'] = partial_error
+        atomic_json(path, metadata)
+        recovered.append({'attempt': attempt.name, 'state': 'interrupted',
+                          'retry_identity_matches': metadata['retry_identity_matches']})
+    return recovered, sorted(completed, key=lambda value: value['created_ns'], reverse=True)
+
+
+def mark_attempt_interrupted(attempt, metadata, reason, current_key):
+    try:
+        partial = partial_artifacts(attempt)
+        partial_error = None
+    except (OSError, ValueError) as error:
+        partial, partial_error = {}, str(error)
+    value = dict(metadata, state='interrupted', interrupted_ns=time.time_ns(),
+                 reason=reason, partial_artifacts=partial,
+                 retry_identity_matches=metadata['key'] == current_key)
+    if partial_error:
+        value['partial_artifact_error'] = partial_error
+    atomic_json(attempt / 'attempt.json', value)
+
+
 def run_trial(source, command, destination, inputs=(), timeout=300):
     source, destination = separate_trees(source, destination)
     environment = dict(os.environ)
@@ -238,70 +429,117 @@ def run_trial(source, command, destination, inputs=(), timeout=300):
                          input_execute_bits={**admission['input_execute_bits'],
                                              **input_execute_bits(refresh)})
         key = digest(json.dumps(admission, sort_keys=True).encode())
+        recovered, completed = recover_attempts(destination, key)
+        receipt_history = []
         if receipt_path.exists():
-            previous = json.loads(receipt_path.read_text())
-            name = previous.get('attempt', '')
-            if not isinstance(name, str) or not name.startswith('attempt-') or Path(name).name != name:
-                raise ValueError('invalid retained attempt path')
-            attempt = destination / name
-            if reusable_result(previous, admission, key):
-                try:
-                    valid = (admitted_inputs_match(admission)
-                             and not attempt.is_symlink()
-                             and manifest(attempt / 'source') == admission['source']
-                             and artifacts(attempt) == previous['artifacts'])
-                except (OSError, ValueError): valid = False
-                if valid: return dict(previous, reused=True)
+            try:
+                previous = read_json_receipt(receipt_path)
+            except (OSError, ValueError, json.JSONDecodeError):
+                previous = None
+            if previous is not None and retained_result_valid(previous, admission, key, destination):
+                for metadata in completed:
+                    if metadata['attempt'] == previous['attempt']:
+                        atomic_json(destination / metadata['attempt'] / 'attempt.json',
+                                    dict(metadata, state='published',
+                                         published_ns=time.time_ns()))
+                        break
+                return dict(previous, reused=True, recovered_attempts=recovered)
+            receipt_history.append(retain_receipt_history(destination, receipt_path))
+        # A crash after the attempt receipt was synced but before latest.json
+        # moved must not require re-running an already completed valid trial.
+        for metadata in completed:
+            previous = metadata['result']
+            if retained_result_valid(previous, admission, key, destination):
+                atomic_json(receipt_path, previous)
+                atomic_json(destination / metadata['attempt'] / 'attempt.json',
+                            dict(metadata, state='published', published_ns=time.time_ns()))
+                return dict(previous, reused=True, recovered=True,
+                            recovered_attempts=recovered,
+                            receipt_history=receipt_history)
         attempt = destination / ('attempt-' + uuid.uuid4().hex)
         attempt.mkdir()
+        sync_directory(destination)
+        attempt_metadata = {
+            'schema': ATTEMPT_SCHEMA, 'attempt': attempt.name, 'state': 'staging',
+            'created_ns': time.time_ns(), 'key': key, 'inputs': admission,
+        }
+        atomic_json(attempt / 'attempt.json', attempt_metadata)
         copied, work, output = (attempt / x for x in ('source', 'work', 'output'))
-        shutil.copytree(source, copied, ignore=stage_ignore(source))
-        if manifest(copied) != admission['source'] or manifest(source) != admission['source']:
-            raise ValueError('source changed while copying')
-        work.mkdir(); output.mkdir()
-        replacements = {'{source}': str(copied), '{work}': str(work), '{out}': str(output)}
-        argv = []
-        for arg in admission['command']:
-            argv.append(re.sub(r'\{(?:source|work|out)\}',
-                               lambda match: replacements[match.group()], arg))
-        # Preserve argv[0] for virtual environments/rustup, but do not resolve
-        # the alias again: it may now point somewhere other than the hashed tool.
-        argv[0] = admission['invocation']
-        status, reason, code = 'error', None, None
-        with (attempt / 'stdout.log').open('wb') as stdout, (attempt / 'stderr.log').open('wb') as stderr:
-            try:
-                if not admitted_inputs_match(admission):
-                    raise OSError('declared input changed before launch')
-                process = subprocess.Popen(argv, executable=admission['executable'], cwd=work,
-                                           stdout=stdout, stderr=stderr, start_new_session=True,
-                                           env=environment)
-            except OSError as error:
-                reason = 'process start failed'
-                stderr.write((str(error) + '\n').encode('utf-8', errors='replace'))
-            else:
-                try:
-                    code = process.wait(timeout=timeout)
-                    status = 'pass' if code == 0 else 'fail' if code == 1 else 'error'
-                except subprocess.TimeoutExpired:
-                    reason = 'timeout'
-                finally:
-                    try: os.killpg(process.pid, signal.SIGKILL)
-                    # As in build_process: the session may already be gone.
-                    except (ProcessLookupError, PermissionError): pass
-                    process.wait()
-        retained = {}
         try:
-            if manifest(source) != admission['source'] or manifest(copied) != admission['source'] or not admitted_inputs_match(admission):
-                status, reason = 'error', 'source or declared input changed during execution'
-            retained = artifacts(attempt)
-        except (OSError, ValueError) as error:
-            # The attempt ran, so its logs and receipt must outlive a failed check.
-            status, reason = 'error', f'post-run validation failed: {error}'
-        record = {'schema': 'experiment-result-v1', 'key': key, 'attempt': attempt.name,
-                  'status': status, 'reason': reason, 'returncode': code, 'inputs': admission,
-                  'artifacts': retained, 'reused': False}
-        atomic_json(receipt_path, record)
-        return record
+            shutil.copytree(source, copied, ignore=stage_ignore(source))
+            if manifest(copied) != admission['source'] or manifest(source) != admission['source']:
+                raise ValueError('source changed while copying')
+            work.mkdir(); output.mkdir()
+            replacements = {'{source}': str(copied), '{work}': str(work), '{out}': str(output)}
+            argv = []
+            for arg in admission['command']:
+                argv.append(re.sub(r'\{(?:source|work|out)\}',
+                                   lambda match: replacements[match.group()], arg))
+            # Preserve argv[0] for virtual environments/rustup, but do not resolve
+            # the alias again: it may now point somewhere other than the hashed tool.
+            argv[0] = admission['invocation']
+            status, reason, code = 'error', None, None
+            with (attempt / 'stdout.log').open('wb') as stdout, (attempt / 'stderr.log').open('wb') as stderr:
+                process = None
+                try:
+                    if not admitted_inputs_match(admission):
+                        raise OSError('declared input changed before launch')
+                    process = SupervisedProcess.start(
+                        argv, executable=admission['executable'], cwd=work,
+                        stdout=stdout, stderr=stderr, env=environment,
+                    )
+                except OSError as error:
+                    reason = 'process start failed'
+                    stderr.write((str(error) + '\n').encode('utf-8', errors='replace'))
+                except SupervisionError as error:
+                    reason = f'process supervision failed: {error}'
+                else:
+                    try:
+                        attempt_metadata = dict(
+                            attempt_metadata, state='running', guardian_pid=process.guardian.pid,
+                            process_group=process.process_group, trial_pid=process.trial_pid,
+                        )
+                        atomic_json(attempt / 'attempt.json', attempt_metadata)
+                        code = process.wait(timeout=timeout)
+                        status = 'pass' if code == 0 else 'fail' if code == 1 else 'error'
+                    except subprocess.TimeoutExpired:
+                        reason = 'timeout'
+                    except SupervisionError as error:
+                        reason = f'process supervision failed: {error}'
+                    finally:
+                        try:
+                            process.terminate()
+                        except SupervisionError as error:
+                            status, reason = 'error', f'process cleanup failed: {error}'
+            retained = {}
+            try:
+                if manifest(source) != admission['source'] or manifest(copied) != admission['source'] or not admitted_inputs_match(admission):
+                    status, reason = 'error', 'source or declared input changed during execution'
+                retained = artifacts(attempt)
+            except (OSError, ValueError) as error:
+                # The attempt ran, so its logs and receipt must outlive a failed check.
+                status, reason = 'error', f'post-run validation failed: {error}'
+            record = {'schema': 'experiment-result-v1', 'key': key, 'attempt': attempt.name,
+                      'status': status, 'reason': reason, 'returncode': code, 'inputs': admission,
+                      'artifacts': retained, 'reused': False,
+                      'recovered_attempts': recovered, 'receipt_history': receipt_history}
+            attempt_metadata = dict(attempt_metadata, state='completed',
+                                    completed_ns=time.time_ns(), result=record)
+            atomic_json(attempt / 'attempt.json', attempt_metadata)
+            atomic_json(receipt_path, record)
+            attempt_metadata = dict(attempt_metadata, state='published',
+                                    published_ns=time.time_ns())
+            atomic_json(attempt / 'attempt.json', attempt_metadata)
+            return record
+        except BaseException as error:
+            try:
+                mark_attempt_interrupted(
+                    attempt, attempt_metadata,
+                    f'runner aborted before result publication: {type(error).__name__}', key,
+                )
+            except (OSError, ValueError):
+                pass
+            raise
 
 
 def main():
