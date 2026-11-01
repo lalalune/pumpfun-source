@@ -242,6 +242,14 @@ class CurveWalkCapturedTests(unittest.TestCase):
         self.assertEqual([a.split('|')[0] for a in answers],
                          ['ok', 'ok', 'error:6005', 'error:6005', 'error:6005', 'ok', 'ok'])
 
+    def test_an_unknown_operation_is_refused(self):
+        # The driver's catchall read any token as `collect` and answered a real
+        # walk, so a misspelt or shifted operation column still looked checked.
+        setup = plan(random.Random(1))[0] | dict(creator=True, buyback=0, tiers=((0, 95, 30),), creator_bps=0)
+        run = subprocess.run([str(self.host)], input=f'{start_line(setup)}\nplanet,1,2\n',
+                             capture_output=True, text=True)
+        self.assertNotEqual(run.returncode, 0, run.stdout)
+
     def test_full_sell_back_leaves_one_lamport_of_rounding(self):
         setup = plan(random.Random(2))[0] | dict(creator=True, buyback=0, tiers=((0, 95, 30),), creator_bps=0)
         ops = [('buy', 10**13, base.U64, b''), ('collect',), ('sell', 10**13, 0), ('collect',), ('sell', 1, 0)]

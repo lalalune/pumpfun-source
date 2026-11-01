@@ -70,7 +70,10 @@ def validate_suite_receipt(name,suite):
  assert isinstance(suite,dict),f'{name}: suite receipt must be an object'
  cases=suite.get('cases')
  assert isinstance(cases,list) and cases,f'{name}: a non-empty cases list is required'
- count=suite.get('case_count',len(cases))
+ # A default of len(cases) is true by construction: a producer that stopped
+ # declaring case_count would still pass, so require the declared key.
+ assert 'case_count' in suite,f'{name}: case_count must be declared'
+ count=suite['case_count']
  assert type(count) is int and count==len(cases),f'{name}: case_count differs from retained cases'
  suite['case_count']=count
  suite_mismatches=[]

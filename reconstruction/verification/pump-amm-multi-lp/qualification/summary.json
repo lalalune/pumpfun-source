@@ -1,0 +1,47 @@
+{
+  "schema": "pump-amm-multi-lp-qualification-v1",
+  "upstream_commit": "747aae62864e490ac2142906c54fe039a8e9ae66",
+  "build_commit": "7b88e6e06dc5d2bf6ab1b0ef0e0b8486d6fac6b6",
+  "report_sha256": "c652fdc074caaff209e24c79babda3bf3078d2d99fc80707fb841615b31fe58f",
+  "rejected_report": {
+    "reason": "the abbreviated upstream revision was expanded to the wrong 40-character object id",
+    "path": "report-rejected-bad-upstream-id.json.gz",
+    "sha256": "bd7f81de43c5c7c1461f23791b04dde1a757fa024570ffc1e3c9e7c7b30365a3"
+  },
+  "prior_report": {
+    "upstream_commit": "2b9914e2ae2d1342ab135a9860c68c1ca9b42084",
+    "path": "report-upstream-2b9914e2ae.json.gz",
+    "sha256": "bf3c8506c7ad21c724053af5686056a643ac8d47fc24347c288e422cf5b48321"
+  },
+  "original_sha256": "6a7ad34596d83b4c435b32f458a56e718e9f82eb4ad38e4316616d15d24d8ff7",
+  "candidate_sha256": "ebfac4444b969f9114e174acf485907fa541e1f862bc709d18b6d22407c711ed",
+  "candidate_bytes": 1267920,
+  "candidate_source_manifest_sha256": "da44d85497928a0e21d69c4162dfd6ad4d2caee1047bf9574073db4bb67addf1",
+  "exact_checkpoint_sha256": "51a5f6a7fb5a812de7686e593ce6159f6ee59b15771a3d5d37ab661c46d64586",
+  "exact_checkpoint_match": false,
+  "cases": 9,
+  "transactions_per_image": 65,
+  "signatures_per_image": 122,
+  "unique_signatures_per_image": 122,
+  "successful_original_transactions": 62,
+  "failed_original_transactions": 3,
+  "equal_observed_behavior": 9,
+  "different_behavior": 0,
+  "unsupported_fixture": 0,
+  "infrastructure_failure": 0,
+  "original_candidate_mismatches": 0,
+  "negative_controls": 13,
+  "new_tests_passed": 27,
+  "existing_liquidity_tests_passed": 8,
+  "existing_create_pool_cases": 60,
+  "existing_create_pool_behavior_matches": 60,
+  "existing_create_pool_successes": 39,
+  "build": {
+    "toolchain": "v1.44",
+    "compiler_jobs": 2,
+    "source_unchanged": true,
+    "cargo_build_sbf_sha256": "e5b55be5bd22122feedfff845237e7d72ec4134dd2f2186acce15907e15d27a0",
+    "rustc_sha256": "1f26338cc2cabd0a6057dcbd0528bba262b23ca1296d357a55304ee31d1d9e5a",
+    "build_log_sha256": "8ba023876d47177648bf3853dadd8b7bfd50249ef19f73db338ed977af06fed3"
+  }
+}

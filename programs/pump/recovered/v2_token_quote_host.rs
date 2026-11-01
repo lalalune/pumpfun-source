@@ -20,6 +20,7 @@ fn tiers(text: &str) -> Vec<(u128, u64, u64)> {
     text.split('/')
         .map(|t| {
             let p: Vec<&str> = t.split(':').collect();
+            assert_eq!(p.len(), 3, "tier requires three fields");
             (p[0].parse().unwrap(), p[1].parse().unwrap(), p[2].parse().unwrap())
         })
         .collect()
@@ -34,6 +35,7 @@ fn transfer_fee(text: &str) -> Option<TransferFee> {
         return None;
     }
     let p = numbers(text);
+    assert_eq!(p.len(), 5, "transfer fee requires five fields");
     Some(TransferFee {
         older: Fee { epoch: 0, basis_points: p[0], maximum_fee: p[1] },
         newer: Fee { epoch: p[2], basis_points: p[3], maximum_fee: p[4] },
@@ -41,16 +43,66 @@ fn transfer_fee(text: &str) -> Option<TransferFee> {
 }
 
 fn case(line: &str) -> Case {
-    let map: HashMap<&str, &str> = line.split(' ').map(|kv| kv.split_once('=').unwrap()).collect();
+    const FIELDS: &[&str] = &[
+        "amount",
+        "bad",
+        "buyback_bps",
+        "buyback_ok",
+        "cashback",
+        "complete",
+        "configurable",
+        "creator",
+        "curve_base",
+        "curve_creator_bps",
+        "curve_lamports",
+        "curve_quote",
+        "epoch",
+        "exotic",
+        "fee_len",
+        "fee_recipient_ok",
+        "flat",
+        "limit",
+        "mayhem",
+        "mint_supply",
+        "op",
+        "partial",
+        "rqr",
+        "rtr",
+        "stable",
+        "supply",
+        "table",
+        "tf",
+        "tiers",
+        "user_base",
+        "user_quote",
+        "vault_lamports",
+        "vqr",
+        "vtr",
+        "whitelisted",
+    ];
+    let mut map = HashMap::new();
+    for word in line.split(' ') {
+        let (key, value) = word.split_once('=').expect("field must be key=value");
+        assert!(FIELDS.contains(&key), "unknown field {key}");
+        assert!(map.insert(key, value).is_none(), "duplicate field {key}");
+    }
+    assert_eq!(map.len(), FIELDS.len(), "missing request field");
     let n = |k: &str| map[k].parse::<u64>().unwrap();
-    let b = |k: &str| n(k) != 0;
+    let b = |k: &str| match map[k] {
+        "0" => false,
+        "1" => true,
+        other => panic!("flag {k} must be 0 or 1, got {other}"),
+    };
     let flat = numbers(map["flat"]);
     let exotic = numbers(map["exotic"]);
+    assert_eq!(flat.len(), 2, "flat requires two fields");
+    assert_eq!(exotic.len(), 3, "exotic requires three fields");
     Case {
         op: match map["op"] {
             "sell" => Op::Sell,
             "buy" => Op::Buy,
-            _ => Op::BuyExactQuoteIn,
+            "exact" => Op::BuyExactQuoteIn,
+            other => panic!("unknown operation {other}"),
         },
         amount: n("amount"),
         limit: n("limit"),
@@ -70,7 +122,8 @@ fn case(line: &str) -> Case {
         table: match map["table"] {
             "tiers" => FeeTable::Tiers,
             "stable" => FeeTable::Stable,
-            _ => FeeTable::Flat,
+            "flat" => FeeTable::Flat,
+            other => panic!("unknown fee table {other}"),
         },
         transfer_fee: transfer_fee(map["tf"]),
         epoch: n("epoch"),
@@ -100,7 +153,10 @@ fn case(line: &str) -> Case {
             "buyback_key" => BadSlot::BuybackKey,
             "curve_missing" => BadSlot::CurveMissing,
             "user_mint" => BadSlot::UserMint,
-            _ => BadSlot::None,
+            "none" => BadSlot::None,
+            // A catchall read a misspelt slot name as "no bad slot", so a case
+            // labelled as a wrong account ran the happy path on both sides.
+            other => panic!("unknown bad slot {other}"),
         },
     }
 }

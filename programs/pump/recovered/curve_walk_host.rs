@@ -49,19 +49,26 @@ fn state_text(s: &State) -> String {
 }
 
 fn start(f: &[&str]) -> (Setup, State) {
+    assert_eq!(f.len(), 20, "unexpected start column count");
     let n = |i: usize| f[i].parse::<u64>().unwrap();
+    let flag = |i: usize| match f[i] {
+        "0" => false,
+        "1" => true,
+        other => panic!("flag must be 0 or 1, got {other}"),
+    };
     let tiers = f[6]
         .split(';')
         .map(|t| {
             let p: Vec<&str> = t.split(':').collect();
+            assert_eq!(p.len(), 3, "unexpected tier column count");
             (p[0].parse().unwrap(), p[1].parse().unwrap(), p[2].parse().unwrap())
         })
         .collect();
     let setup = Setup {
-        has_creator: n(1) != 0,
+        has_creator: flag(1),
         creator_fee_bps: n(2),
         mint_supply: n(3),
-        creator_fee_configurable: n(4) != 0,
+        creator_fee_configurable: flag(4),
         buyback_bps: n(5),
         tiers,
     };
@@ -70,7 +77,7 @@ fn start(f: &[&str]) -> (Setup, State) {
         virtual_sol_reserves: n(8),
         real_token_reserves: n(9),
         real_sol_reserves: n(10),
-        complete: n(11) != 0,
+        complete: flag(11),
         user_tokens: n(12),
         curve_tokens: n(13),
         user_lamports: n(14),
@@ -95,12 +102,22 @@ fn main() {
             writeln!(out, "started").unwrap();
             continue;
         }
+        let columns = match f[0] {
+            "buy" | "exact" => 4,
+            "sell" => 3,
+            "collect" => 1,
+            other => panic!("unknown op {other}"),
+        };
+        assert_eq!(f.len(), columns, "unexpected operation column count");
         let n = |i: usize| f[i].parse::<u64>().unwrap();
         let op = match f[0] {
             "buy" => Op::Buy { amount: n(1), max_sol_cost: n(2), trailing: hex(f[3]) },
             "exact" => Op::ExactSolIn { spendable: n(1), min_tokens: n(2), trailing: hex(f[3]) },
             "sell" => Op::Sell { amount: n(1), min_sol_output: n(2) },
-            _ => Op::Collect,
+            // A catchall read any token -- a typo, a new operation, a column
+            // shifted into this one -- as `collect` and answered with real state.
+            "collect" => Op::Collect,
+            other => panic!("unknown op {other}"),
         };
         let (setup, state) = walk.as_mut().unwrap();
         let (outcome, trade) = match step(state, setup, &op) {
