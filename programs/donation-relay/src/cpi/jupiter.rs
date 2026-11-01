@@ -13,8 +13,9 @@ pub fn swap_observed<'info>(program:&AccountInfo<'info>,authority:Pubkey,input:&
  let before_input=input.amount;let before_output=output.amount;
  invoke_jupiter(program.key(),authority,remaining,data,Some(seeds))?;
  input.reload()?;output.reload()?;
+ let after_output=output.amount;
  let spent=before_input.checked_sub(input.amount).ok_or(Code::ArithmeticOverflow)?;
  if spent!=expected {return Err(jupiter_error!(InputAmountMismatch,92).with_values((spent,expected)));}
- let delta=output.amount.checked_sub(before_output).ok_or(Code::ArithmeticOverflow)?;
+ let delta=after_output.checked_sub(before_output).ok_or(Code::ArithmeticOverflow)?;
  if delta==0 {return Err(jupiter_error!(OutputAmountMustBeGreaterThanZero,103));}Ok(delta)
 }
