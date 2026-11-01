@@ -42,6 +42,7 @@ pub const SITES: &[(&str, Kind, &str, u64)] = &[
     ("initialize", Kind::Account, "global", 2006),
     ("initialize", Kind::Account, "system_program", 3005),
     ("initialize", Kind::Account, "system_program", 3008),
+    ("initialize", Kind::Account, "user", 2000),
     ("initialize", Kind::Account, "user", 3005),
     ("initialize", Kind::Account, "user", 3010),
     ("sweep_creator_fee", Kind::Account, "bonding_curve", 6004),
