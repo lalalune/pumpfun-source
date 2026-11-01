@@ -174,7 +174,11 @@ What picks the basin in VC is the shared-arm test right after validate (`if shar
 `if new.is_none()` (t1n), `if new.is_some()` with the arms swapped (t1s) and `if hopt.unwrap_or(false)` (t1u, the
 closure's and-1 value) all move to basin A (2,215-2,216), as do `c0s`/`c0h` at the curve store. In IR terms basin B is
 the outer block's holder i1 (`icmp eq (and i8 %0,-3), 0`, defined before the closure and also used by `cashback`) staying
-live across the whole inlined validate to the shared-arm branch; the basin-A spellings end it at `cashback`. Basin B's
+live across the whole inlined validate to the shared-arm branch; the basin-A spellings end it at `cashback`. Two IR-oracle
+probes on Lsh's `m.ll` (shared-arm branch only) separate the cause: recomputing the test from the raw argument at the
+branch (`and i8 %0,-3` there, so `%0` is the value live across validate) stays in basin B (2,139); testing the closure's
+`%46` there (already live to the curve store) gives basin A (2,215). So basin B is "a second holder value live across
+validate", not the i1 itself. Basin B's
 front is also the better one (+26 against +10 to 0x1c68), so the original probably keeps that value live as well; what
 it does differently in the TCF is still open.
 
