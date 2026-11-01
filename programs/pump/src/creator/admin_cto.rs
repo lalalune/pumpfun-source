@@ -286,14 +286,14 @@ fn validate(st:&CtoState,shared:bool,holder:bool,fee:Option<u64>,new:Option<Pubk
 
 
 
- if st.holder_reward{if !holder{return Err(error!(PumpError::HolderRewardCreatorImmutable));}}else if holder{
+ if st.holder_reward{if !holder{return Err(error!(PumpError::HolderRewardCreatorImmutable));}}else if holder{unsafe{core::ptr::read_volatile(&holder_key as *const Pubkey as *const u8)}/*shim: holder_key byte read placeholder*/;
 
 
 
 
 
 
-  unsafe{core::ptr::read_volatile(st as *const CtoState as *const u8)}/*shim: st byte read at the holder_enabled test, repays the pin*/;if !st.holder_enabled{return Err(error!(PumpError::HolderRewardDisabled));}}
+  if !st.holder_enabled{return Err(error!(PumpError::HolderRewardDisabled));}}
 
  let cashback=!holder&&st.cashback;let (target,is_holder)=if holder{if !(new==None){return Err(error!(PumpError::CtoNewCreatorNotAllowed));}(holder_key,true)}else{
 
@@ -644,8 +644,8 @@ fn validate(st:&CtoState,shared:bool,holder:bool,fee:Option<u64>,new:Option<Pubk
 
 
 
- swept=(!skip).then(||sweep(&ctx,&holder_key)).transpose()?.unwrap_or(0);fn sweep(ctx:&Context<AdminCto>,holder_key:&Pubkey)->Result<u64>{let a=&ctx.accounts;let native=a.quote_mint.key()==anchor_spl::token::spl_token::native_mint::ID;
-  {let dest=Pubkey::find_program_address(&[b"creator-vault",holder_key.as_ref()],&crate::ID).0;if a.holder_creator_vault.key()!=dest{return Err(error!(anchor_lang::error::ErrorCode::ConstraintSeeds).with_pubkeys((a.holder_creator_vault.key(),dest)));}}
+ swept=(!skip).then(||{let mut dk=core::mem::MaybeUninit::<Pubkey>::uninit();sweep(&ctx,&holder_key,&mut dk)}).transpose()?.unwrap_or(0);fn sweep(ctx:&Context<AdminCto>,holder_key:&Pubkey,dk:&mut core::mem::MaybeUninit<Pubkey>)->Result<u64>{let a=&ctx.accounts;let native=a.quote_mint.key()==anchor_spl::token::spl_token::native_mint::ID;
+  let dest:&Pubkey=dk.write(Pubkey::find_program_address(&[b"creator-vault",holder_key.as_ref()],&crate::ID).0);if a.holder_creator_vault.key()!=*dest{return Err(error!(anchor_lang::error::ErrorCode::ConstraintSeeds).with_pubkeys((a.holder_creator_vault.key(),*dest)));}
   let amm_present=!a.coin_creator_vault_ata.data_is_empty();let amm_frozen=amm_present&&token_frozen(a.coin_creator_vault_ata.as_ref())?;
 
 
@@ -755,7 +755,7 @@ fn validate(st:&CtoState,shared:bool,holder:bool,fee:Option<u64>,new:Option<Pubk
   curve.is_holder_reward=plan.is_holder;
   curve.is_cashback_coin=cashback;
   if let Some(f)=plan.fee{curve.creator_fee_bps=f;}
-  curve.can_edit_creator_fee=false;
+  unsafe{core::ptr::read_volatile(&holder_key as *const Pubkey as *const u8)}/*shim: holder_key byte read placeholder*/;curve.can_edit_creator_fee=false;
  (old_creator,old_fee)};
  let a=&ctx.accounts;
  let pool_updated=a.pool.owner==&AMM&&!a.pool.data_is_empty();let pargs=(target,plan.is_holder,plan.fee);
