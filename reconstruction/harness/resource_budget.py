@@ -143,11 +143,11 @@ class DiskBudget:
     """One operation's measurements and fail-closed receipt state."""
 
     def __init__(self, floor_bytes, paths, check_interval=1.0,
-                 measure: Callable[[os.PathLike | str], int] = available_bytes):
+                 measure: Callable[[os.PathLike | str], int] | None = None):
         self.floor_bytes = validate_floor(floor_bytes)
         self.check_interval = validate_interval(check_interval)
         self.filesystems = filesystem_identity(paths)
-        self.measure = measure
+        self.measure = available_bytes if measure is None else measure
         self.observations = []
         self.guard_fired = None
 
@@ -162,29 +162,37 @@ class DiskBudget:
         if not isinstance(phase, str) or not phase:
             raise ValueError('resource phase must be a nonempty string')
         rows = []
-        for filesystem in self.filesystems:
-            probe = Path(filesystem['probe_path'])
-            current_probe = existing_probe(probe)
-            try:
-                device = current_probe.stat().st_dev
-            except OSError as error:
-                raise DiskMeasurementError(f'cannot recheck filesystem at {probe}: {error}') from error
-            if device != filesystem['device']:
-                raise DiskMeasurementError(f'filesystem identity changed at {probe}')
-            try:
-                available = self.measure(probe)
-            except ResourceBudgetError:
-                raise
-            except Exception as error:
-                raise DiskMeasurementError(f'available-byte measurement failed at {probe}: {error}') from error
-            if isinstance(available, bool) or not isinstance(available, int) or available < 0:
-                raise DiskMeasurementError(f'invalid available-byte measurement at {probe}')
-            rows.append({'device': filesystem['device'], 'probe_path': str(probe),
-                         'available_bytes': available,
-                         'below_floor': available < self.floor_bytes})
+        measurement_error = None
+        try:
+            for filesystem in self.filesystems:
+                probe = Path(filesystem['probe_path'])
+                current_probe = existing_probe(probe)
+                try:
+                    device = current_probe.stat().st_dev
+                except OSError as error:
+                    raise DiskMeasurementError(f'cannot recheck filesystem at {probe}: {error}') from error
+                if device != filesystem['device']:
+                    raise DiskMeasurementError(f'filesystem identity changed at {probe}')
+                try:
+                    available = self.measure(probe)
+                except ResourceBudgetError:
+                    raise
+                except Exception as error:
+                    raise DiskMeasurementError(f'available-byte measurement failed at {probe}: {error}') from error
+                if isinstance(available, bool) or not isinstance(available, int) or available < 0:
+                    raise DiskMeasurementError(f'invalid available-byte measurement at {probe}')
+                rows.append({'device': filesystem['device'], 'probe_path': str(probe),
+                             'available_bytes': available,
+                             'below_floor': available < self.floor_bytes})
+        except DiskMeasurementError as error:
+            measurement_error = str(error)
         observation = {'sequence': len(self.observations), 'phase': phase,
                        'observed_ns': time.time_ns(), 'filesystems': rows}
+        if measurement_error is not None:
+            observation['measurement_error'] = measurement_error
         self.observations.append(observation)
+        if measurement_error is not None:
+            raise DiskMeasurementError(measurement_error)
         if enforce and any(row['below_floor'] for row in rows):
             if self.guard_fired is None:
                 self.guard_fired = {'sequence': observation['sequence'], 'phase': phase,
@@ -288,8 +296,17 @@ def verify_receipt(value, *, expected_budget=None):
                 or type(observation.get('observed_ns')) is not int):
             raise ValueError('invalid resource observation')
         rows = observation.get('filesystems')
-        if not isinstance(rows, list) or [row.get('device') for row in rows] != expected_devices:
+        measurement_error = observation.get('measurement_error')
+        if not isinstance(rows, list):
             raise ValueError('resource observation filesystem mismatch')
+        devices = [row.get('device') for row in rows]
+        if measurement_error is None:
+            if devices != expected_devices:
+                raise ValueError('resource observation filesystem mismatch')
+        elif (not isinstance(measurement_error, str) or not measurement_error
+              or devices != expected_devices[:len(devices)]
+              or len(devices) >= len(expected_devices)):
+            raise ValueError('invalid resource measurement failure')
         for row in rows:
             available = row.get('available_bytes')
             below = row.get('below_floor')

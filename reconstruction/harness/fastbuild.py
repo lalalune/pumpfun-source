@@ -31,6 +31,8 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))  # sibling modules under -I / load-by-path
 from build_process import run_compiler, validate_timeout
 from source_inputs import snapshot, assert_unchanged
+from resource_budget import (DiskBudgetConfig, DiskBudgetExceeded, DiskMeasurementError,
+                             atomic_write_receipt, verify_receipt)
 import link_order
 
 H = Path(__file__).resolve().parent
@@ -264,7 +266,45 @@ def require_separate(src: Path, work: Path, out: Path):
     return src, work, out
 
 
-def build(src: Path, work: Path, out: Path, quiet=False, recipe=None, timeout=None):
+def _resource_identity(source_inputs, recipe):
+    configured = RECIPES[recipe]
+    toolchain_paths = {
+        'rustc': configured['rustc'],
+        'cargo': SDK / 'rust/bin/cargo',
+        'clang': SDK / 'llvm/bin/clang',
+        'objcopy': SDK / 'llvm/bin/llvm-objcopy',
+    }
+    return {
+        'source_sha256': source_inputs['sha256'],
+        'recipe': recipe,
+        'tools': {name: sha(H / name) for name in
+                  ('fastbuild.py', 'build_process.py', 'resource_budget.py', 'source_inputs.py')},
+        'toolchain': {name: {'path': str(path),
+                             'sha256': sha(path) if Path(path).is_file() else None}
+                      for name, path in toolchain_paths.items()},
+    }
+
+
+def _resource_receipt_path(work):
+    root = work / 'resource-receipts'
+    root.mkdir(parents=True, exist_ok=True)
+    attempt = Path(tempfile.mkdtemp(prefix='attempt-', dir=root))
+    return attempt / 'resource-receipt.json'
+
+
+def _write_resource_receipt(budget, path, *, outcome, failure=None,
+                            published=False, identity=None, logs=()):
+    receipt = budget.receipt(operation='fastbuild', outcome=outcome,
+                             failure_classification=failure,
+                             candidate_published=published,
+                             build_identity=identity, retained_logs=logs)
+    atomic_write_receipt(path, receipt)
+    verify_receipt(receipt, expected_budget=budget.identity)
+    return str(path)
+
+
+def build(src: Path, work: Path, out: Path, quiet=False, recipe=None, timeout=None,
+          resource_budget=None):
     validate_timeout(timeout)
     validate_slots()
     src, work, out = require_separate(src, work, out)
@@ -272,9 +312,77 @@ def build(src: Path, work: Path, out: Path, quiet=False, recipe=None, timeout=No
     staged = (work / 'ws/programs/pump').resolve()
     if out == staged or staged in out.parents:
         raise ValueError('output must not be inside the staged source tree')
+    if resource_budget is not None and not isinstance(resource_budget, DiskBudgetConfig):
+        raise ValueError('resource_budget must be a DiskBudgetConfig')
+    budget = resource_budget.monitor((work, out)) if resource_budget is not None else None
+    resource_path = None
+    identity = None
+    if budget is not None:
+        selected_recipe = recipe or DEFAULT_RECIPE
+        if selected_recipe not in RECIPES:
+            raise ValueError('unknown build recipe: ' + selected_recipe)
+        source_inputs = snapshot(src)
+        identity = _resource_identity(source_inputs, selected_recipe)
+        try:
+            budget.sample('admission_before_staging')
+        except (DiskBudgetExceeded, DiskMeasurementError) as error:
+            resource_path = _resource_receipt_path(work)
+            failure = ('resource_budget_exceeded' if isinstance(error, DiskBudgetExceeded)
+                       else 'resource_measurement_unavailable')
+            receipt = _write_resource_receipt(
+                budget, resource_path, outcome='infrastructure_failure', failure=failure,
+                identity=identity,
+            )
+            return {'ok': False, 'failure_classification': failure,
+                    'source_sha256': source_inputs['sha256'], 'recipe': selected_recipe,
+                    'candidate_published': False, 'resource_receipt': receipt,
+                    'error': str(error)}
+        resource_path = _resource_receipt_path(work)
+        _write_resource_receipt(budget, resource_path, outcome='running', identity=identity)
     with workspace_lock(work):
         with output_lock(out):
-            return _build_locked(src, work, out, quiet=quiet, recipe=recipe, timeout=timeout)
+            try:
+                keywords = {'quiet': quiet, 'recipe': recipe, 'timeout': timeout}
+                if budget is not None:
+                    keywords['resource_budget'] = budget
+                result = _build_locked(src, work, out, **keywords)
+            except (DiskBudgetExceeded, DiskMeasurementError) as error:
+                failure = ('resource_budget_exceeded' if isinstance(error, DiskBudgetExceeded)
+                           else 'resource_measurement_unavailable')
+                logs = [out / 'build.log'] if (out / 'build.log').is_file() else []
+                receipt = _write_resource_receipt(
+                    budget, resource_path, outcome='infrastructure_failure', failure=failure,
+                    identity=identity, logs=logs,
+                )
+                return {'ok': False, 'failure_classification': failure,
+                        'source_sha256': identity['source_sha256'],
+                        'recipe': identity['recipe'], 'candidate_published': False,
+                        'resource_receipt': receipt, 'error': str(error),
+                        **({'log': str(logs[0])} if logs else {})}
+            except BaseException as error:
+                if budget is not None:
+                    logs = [out / 'build.log'] if (out / 'build.log').is_file() else []
+                    _write_resource_receipt(
+                        budget, resource_path, outcome='infrastructure_failure',
+                        failure='build_infrastructure_failure', identity=identity, logs=logs,
+                    )
+                raise
+            if budget is not None:
+                failure = result.get('failure_classification')
+                if not result.get('ok') and failure is None:
+                    failure = ('compiler_timeout' if result.get('timed_out') else
+                               'stack_invalid' if result.get('runtime_valid') is False else
+                               'compiler_failure')
+                    result = dict(result, failure_classification=failure)
+                outcome = 'success' if result.get('ok') else 'infrastructure_failure'
+                logs = [Path(result['log'])] if result.get('log') else []
+                receipt = _write_resource_receipt(
+                    budget, resource_path, outcome=outcome, failure=failure,
+                    published=bool(result.get('ok')), identity=identity, logs=logs,
+                )
+                result = dict(result, resource_receipt=receipt,
+                              candidate_published=bool(result.get('ok')))
+            return result
 
 
 def publish_binary(source, destination):
@@ -285,7 +393,8 @@ def publish_binary(source, destination):
         os.link(source, destination)
 
 
-def _build_locked(src: Path, work: Path, out: Path, quiet=False, recipe=None, timeout=None):
+def _build_locked(src: Path, work: Path, out: Path, quiet=False, recipe=None, timeout=None,
+                  resource_budget=None):
 
     recipe = recipe or DEFAULT_RECIPE
     R = RECIPES[recipe]; triple = R['triple']
@@ -294,6 +403,8 @@ def _build_locked(src: Path, work: Path, out: Path, quiet=False, recipe=None, ti
     ws = work / 'ws'
     crate = stage(src, ws, expected_inputs=source_inputs)
     assert_unchanged(src, source_inputs)
+    if resource_budget is not None:
+        resource_budget.sample('after_staging_before_target_setup')
     # Bind the transformed copy that Cargo actually reads. A build script may
     # generate Rust in src/; that must not be attributed to the admitted tree.
     staged_inputs = snapshot(crate)
@@ -334,6 +445,8 @@ def _build_locked(src: Path, work: Path, out: Path, quiet=False, recipe=None, ti
     env.update(link_env)
     cmd = [str(SDK / 'rust/bin/cargo'), 'build', '--manifest-path', str(crate / 'Cargo.toml'), '--release',
            '--target', triple, '--locked', '--offline']
+    if resource_budget is not None:
+        resource_budget.sample('before_compilation')
     out.mkdir(parents=True, exist_ok=True)
     archive_previous_outputs(out)
     # If out == work, these are previous published evidence. Archive them
@@ -355,11 +468,31 @@ def _build_locked(src: Path, work: Path, out: Path, quiet=False, recipe=None, ti
     slot = acquire_slot()
     t0 = time.time()
     try:
-        r, timed_out = run_compiler(cmd, cwd=ws, env=env, timeout=timeout)
+        compiler_options = {'cwd': ws, 'env': env, 'timeout': timeout}
+        if resource_budget is not None:
+            def monitor():
+                try:
+                    return resource_budget.monitor('compiler_runtime')
+                except DiskMeasurementError as error:
+                    return {'classification': 'resource_measurement_unavailable',
+                            'detail': str(error)}
+            compiler_options.update(monitor=monitor,
+                                    monitor_interval=resource_budget.check_interval)
+        r, timed_out = run_compiler(cmd, **compiler_options)
     finally:
         slot.close()
     dt = time.time() - t0
     (out / 'build.log').write_text(r.stdout, encoding='utf-8', newline='\n')
+    monitored_failure = getattr(r, 'monitor_result', None)
+    if monitored_failure is not None:
+        failure = (monitored_failure.get('classification')
+                   if isinstance(monitored_failure, dict) else 'resource_monitor_stopped')
+        if not quiet:
+            echo_diagnostics(r.stdout[-6000:])
+        return {'ok': False, 'timed_out': False,
+                'failure_classification': failure,
+                'source_sha256': source_inputs['sha256'], 'recipe': recipe,
+                'seconds': round(dt, 1), 'log': str(out / 'build.log')}
     if timed_out or r.returncode != 0:
         if not quiet:
             echo_diagnostics(r.stdout[-6000:])
@@ -375,6 +508,8 @@ def _build_locked(src: Path, work: Path, out: Path, quiet=False, recipe=None, ti
                 'recipe': recipe, 'triple': triple, 'seconds': round(dt, 1),
                 'log': str(out / 'build.log')}
     assert_unchanged(crate, staged_inputs, phase='compilation')
+    if resource_budget is not None:
+        resource_budget.sample('after_compilation_before_publication')
     if link_record:
         if not receipt.is_file():
             raise RuntimeError('pinned link script configured but the linker hook did not run')
@@ -409,6 +544,14 @@ def _build_locked(src: Path, work: Path, out: Path, quiet=False, recipe=None, ti
             except OSError as logging_error:
                 error.add_note('Could not append build log: ' + str(logging_error))
             raise
+    if resource_budget is not None:
+        try:
+            resource_budget.sample('build_end', enforce=False)
+        except DiskMeasurementError:
+            # The candidate is already complete and hash-verified. Retain the
+            # failed end measurement without relabeling it as an incomplete
+            # publication; the receipt verifier still exposes the diagnostic.
+            pass
     return {'ok': True, 'source_sha256': source_inputs['sha256'], 'link_order': link_record, 'runtime_valid': not stack, 'stack_warnings': stack, 'recipe': recipe, 'triple': triple, 'seconds': round(dt, 1), 'unstripped': str(out / 'unstripped.so'),
             'unstripped_sha256': hashes['unstripped.so'], 'candidate_sha256': hashes['candidate.so']}
 
@@ -420,11 +563,23 @@ if __name__ == '__main__':
     ap.add_argument('--out', type=Path)
     ap.add_argument('--recipe', choices=sorted(RECIPES), default=DEFAULT_RECIPE, help='identity (default) = Linux v1.44 sbpf target libs; mac = Codex harness recipe')
     ap.add_argument('--timeout', type=float, help='compiler execution deadline in seconds (excludes staging and slot wait)')
+    ap.add_argument('--min-free-bytes', type=int,
+                    help='opt in to a measured available-space floor on work/output filesystems')
+    ap.add_argument('--disk-path', type=Path, action='append', default=[],
+                    help='additional filesystem path to monitor (repeatable; requires --min-free-bytes)')
+    ap.add_argument('--disk-check-interval', type=float, default=1.0,
+                    help='runtime disk sampling interval in seconds (default: 1.0)')
     a = ap.parse_args()
     try:
         validate_timeout(a.timeout)
+        if a.min_free_bytes is None and a.disk_path:
+            raise ValueError('--disk-path requires --min-free-bytes')
+        budget = (DiskBudgetConfig(a.min_free_bytes, tuple(map(str, a.disk_path)),
+                                   a.disk_check_interval)
+                  if a.min_free_bytes is not None else None)
     except ValueError as error:
         ap.error(str(error))
-    res = build(a.src, a.work, a.out or (a.work / 'last'), recipe=a.recipe, timeout=a.timeout)
+    res = build(a.src, a.work, a.out or (a.work / 'last'), recipe=a.recipe,
+                timeout=a.timeout, resource_budget=budget)
     print(json.dumps(res, indent=2))
     sys.exit(0 if res['ok'] else 1)
