@@ -63,3 +63,47 @@ G['c0uc']=[(_CS,'curve.is_holder_reward=holder.unwrap_or(curve.is_holder_reward)
 _CB='curve.is_cashback_coin=cashback;'
 G['cbcs']=[(_CB,'if _holder{curve.is_cashback_coin=false;}')]
 G['cbcs2']=[(_CB,'if cashback!=curve.is_cashback_coin{curve.is_cashback_coin=cashback;}')]
+# ---- outer cashback in the closure's and-1 form (so the outer `and -3` holder disappears on the t1n base) ----
+_CBO='let cashback=!holder&&st.cashback;'
+G['cbu']=[(_CBO,'let cashback=!hopt.unwrap_or(false)&&st.cashback;')]
+G['cbi']=[(_CBO,'let cashback=if hopt.unwrap_or(false){false}else{st.cashback};')]
+# ---- per-arm holder flag out of the VC closure (the original's 0x950 phi-of-constants at the curve store) ----
+_VH='let mut target=(||->Result<Pubkey>{let st=&st;let holder_key=&holder_key;let sharing=&{sk};let holder=hopt==Some(true);'
+_T298='let target=if holder{if new.is_some(){return Err(error!(PumpError::CtoNewCreatorNotAllowed));}*holder_key}else{let new=new;'
+_T312='if t==*sharing||t==*holder_key{return Err(error!(PumpError::InvalidCreator));}t};'
+_TUP='(holder,cashback,target,sharing_update,collect_old,skip)'
+_CSH='curve.is_holder_reward=holder.unwrap_or(false);'
+G['vflag']=[(_VH,'let (mut target,hflag)=(||->Result<(Pubkey,bool)>{let st=&st;let holder_key=&holder_key;let sharing=&{sk};let holder=hopt==Some(true);'),
+            (_T298,'let (target,hflag)=if holder{if new.is_some(){return Err(error!(PumpError::CtoNewCreatorNotAllowed));}(*holder_key,true)}else{let new=new;'),
+            (_T312,'if t==*sharing||t==*holder_key{return Err(error!(PumpError::InvalidCreator));}(t,false)};'),
+            ('Ok(target)})()?;','Ok((target,hflag))})()?;'),(_TUP,'(hflag,cashback,target,sharing_update,collect_old,skip)'),(_CSH,'curve.is_holder_reward=_holder;')]
+G['vflag2']=[(_VH,'let mut hflag=false;'+_VH.replace('let mut target=','let mut target=')),
+            (_T298,'let target=if holder{if new.is_some(){return Err(error!(PumpError::CtoNewCreatorNotAllowed));}hflag=true;*holder_key}else{let new=new;'),
+            (_TUP,'(hflag,cashback,target,sharing_update,collect_old,skip)'),(_CSH,'curve.is_holder_reward=_holder;')]
+# ---- per-arm cashback out of the VC closure (the original's 0x958 phi at the curve store); outer cashback removed ----
+G['vcb2']=[('let hopt=holder;let holder=hopt==Some(true);let cashback=!holder&&st.cashback;','let hopt=holder;let holder=hopt==Some(true);let mut cbf=false;'),
+           ('\n let cashback=if holder{false}else{st.cashback};\n','\n let cashback=if holder{false}else{st.cashback};cbf=cashback;\n'),
+           (_TUP,'(holder,cbf,target,sharing_update,collect_old,skip)')]
+_TUPF='(hflag,cashback,target,sharing_update,collect_old,skip)'
+G['vboth']=G['vflag2'][:3]+[(_TUP,'(hflag,cbf,target,sharing_update,collect_old,skip)'),(_CSH,'curve.is_holder_reward=_holder;'),
+           ('let hopt=holder;let holder=hopt==Some(true);let cashback=!holder&&st.cashback;','let hopt=holder;let holder=hopt==Some(true);let mut cbf=false;'),
+           ('\n let cashback=if holder{false}else{st.cashback};\n','\n let cashback=if holder{false}else{st.cashback};cbf=cashback;\n')]
+G['vboth']=[e for e in G['vboth'] if not (isinstance(e,tuple) and e[0]==_TUP and e[1]==_TUPF)]
+# ---- sweep-head live ranges: native flag computed after the dest check, or inline at its use ----
+_NAT='let a=&ctx.accounts;let native=a.quote_mint.key()==anchor_spl::token::spl_token::native_mint::ID;\n'
+_DST='return Err(error!(anchor_lang::error::ErrorCode::ConstraintSeeds).with_pubkeys((a.holder_creator_vault.key(),dest)));}\n'
+G['natl']=[(_NAT,'let a=&ctx.accounts;\n'),(_DST,_DST[:-1]+'let native=a.quote_mint.key()==anchor_spl::token::spl_token::native_mint::ID;\n')]
+G['nati']=[(_NAT,'let a=&ctx.accounts;\n'),('  if native{let min=','  if a.quote_mint.key()==anchor_spl::token::spl_token::native_mint::ID{let min=')]
+G['natf']=[(_NAT,'let native=ctx.accounts.quote_mint.key()==anchor_spl::token::spl_token::native_mint::ID;let a=&ctx.accounts;\n')]
+# ---- outer cashback from new's tag (after validate, holder <=> new.is_none()), so hopt is reloaded once (the closure's and-1) ----
+G['cbn']=[(_CBO,'let cashback=new.is_some()&&st.cashback;')]
+G['cbn2']=[(_CBO,'let cashback=st.cashback&&new.is_some();')]
+G['cbn3']=[(_CBO,'let cashback=args.0.is_some()&&st.cashback;')]
+# ---- TCF token_program / system_program as explicit AccountInfo clones (field orders), for B's TCF clone-temp rotation ----
+_TPS='token_program:a.quote_token_program.to_account_info(),system_program:a.system_program.to_account_info(),associated_token_program:a.associated_token_program.to_account_info(),coin_creator'
+_FD={'k':'key:x.key','l':'lamports:x.lamports.clone()','d':'data:x.data.clone()','o':'owner:x.owner','r':'rent_epoch:x.rent_epoch','s':'is_signer:x.is_signer','w':'is_writable:x.is_writable','e':'executable:x.executable'}
+def _lit(acc,order): return '{let x:&AccountInfo='+acc+'.as_ref();AccountInfo{'+','.join(_FD[c] for c in order)+'}}'
+for _o in ['kldorswe','okldrswe','klodrewsx'[:8],'ldkorswe','kldoresw','kldorews','rkldoswe','ekldorsw']:
+    if sorted(_o)!=sorted('kldorswe'): continue
+    G['tp_'+_o]=[(_TPS,_TPS.replace('token_program:a.quote_token_program.to_account_info()','token_program:'+_lit('a.quote_token_program',_o)))]
+    G['sp_'+_o]=[(_TPS,_TPS.replace('system_program:a.system_program.to_account_info()','system_program:'+_lit('a.system_program',_o)))]

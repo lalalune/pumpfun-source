@@ -1,0 +1,36 @@
+{
+  "lane": "w16a14-cto-vcretune",
+  "wave": 16,
+  "target": {"window": "0x22a10", "function": "admin_cto::execute", "file": "programs/pump/src/creator/admin_cto.rs", "pinned_bytes": 27400},
+  "base": {"main": "599891304 (admin_cto.rs = 1f4e396b5)", "ratio": 0.67436, "slots_diff": 3141, "bytes": 27400, "M": 2251, "Mperm": 2295, "Mhc": 2302},
+  "result": "notes only, no landing; main stays the best zero-loss measurement",
+  "best_zero_loss": {"ratio": 0.67436, "slots_diff": 3141, "bytes": 27400, "source": "main (no VC composite beats it)"},
+  "best_vc_composite_at_27400": {"genes": "VCsh+t1n+r59s+r30v (or +r59e)", "M": 2217, "dM": -34, "bytes": 27400, "ratio": 0.66417, "note": "splice-priced and built; r30v also drops the 334 read_volatile placeholder"},
+  "vc_bases": {
+    "B_Lsh": {"genes": "VCsh", "bytes": 27224, "M": 2139, "Mperm": 2241, "Mhc": 2247, "basin": "original wallet registers, TCF accounts pointer r6 (TCF -123)"},
+    "A_Lsh_t1n": {"genes": "VCsh+t1n", "bytes": 27400, "M": 2216, "Mperm": 2259, "Mhc": 2298, "basin": "main's TCF, wallet -14; frame colour rotation (7 window slots)"}
+  },
+  "attempts": {
+    "captures": "about 150 raw-IR captures (vscr.py) on main 5998913: 12 compensator reverts x 2 bases, 52 back-half singles on A, 27 on B, 16 TCF explicit-literal clones on B, the shared-arm / closure-holder / curve-store spellings, 4 per-arm flag forms, 5 cashback forms",
+    "ir_probes": ["skip-polarity sweep gate on B", "sweep-head force 1684=r8 (+1734=r7) on B", "main-form fee-Some test on A", "curve-store holder recompute on A (and 1 / and -3)"],
+    "joint_ceilings": {"B_p1": {"forces": 11, "joint": 2337}, "B_p2": {"forces": 16, "joint": 2355, "forced_M": 2267}, "A_p1": {"forces": 6, "joint": 2312}, "A_p2": {"forces": 14, "joint": 2351, "forced_M": 2277}, "B_vflag2_p1": {"forces": 11, "joint": 2333}, "main_ref_w16a04": {"p1": 2328, "p2": 2338}}
+  },
+  "findings": [
+    "Leave-one-out of the back-half compensators landed since #3409 (#3430 #3437 #3480 #3495 #3621 #3666 #3859) on both VC basins: no revert moves B's TCF basin (-123 in every cell) or A by more than +1; best B single r30w +4, r59s +3. In basin A the compensators are inert (M 2,216 for 8 of 11 reverts).",
+    "Basin A's code shape equals main's (Mhc 2,298 vs 2,302); TCF literal genes c2/tai_tv (Mhc 2,305) and s_tai2 (2,303) put it above main. Its -35 M is the spill colour order: StackSlotColoring colours by weight and VC's masked holder slot (hopt vreg masked in place by the closure's and-1, weight 2.454) outweighs the accounts slot (2.049), takes -0x8d8 and rotates 7 window slots.",
+    "The heavy slot has two hot reloads at the head: the closure's ldxdw+and64 1 (= the original's 0x610) and the outer block's and 253 for cashback (absent in the original). Removing the outer holder i1 (cbn, cbn2, cbu+c0s, vflag2) triggers the 6 KB tail layout swap on A; folding it into the and-1 (cbu) makes the slot heavier (3.387).",
+    "vflag2 (a captured `let mut hflag` set in the closure's holder arm) keeps the original's per-arm holder flag phi at the curve store (LLVM does not fold it back); M-neutral on B (2,132, joint 2,333), collapses A (tail swap). Returning Result<(Pubkey,bool)> (vflag) collapses through the target piece layout; per-arm cashback forms (vcb2, vboth) restructure validate's error blocks.",
+    "Conditional-update idioms at the curve store (if let Some(h)=holder{..}; if holder{cashback=false}) are semantically equal via the 289 check but lose on main (-4..-7) and on VC; the original stores both flags unconditionally.",
+    "B's TCF loss responds to the TCF literal family (frl1 +22, c2 +15, frl1+c2 +30 to M 2,169 at 27,200 B) where A's does not (A_frl1 -117); its decisive RA forces are TCF clone temporaries inside to_account_info() clones (1870 executable byte -80, 1816 rent_epoch -48, 1748 data pointer -32) plus a join constant (1731, -21).",
+    "Joint ceilings: both VC basins beat main at pass 2 (B 2,355 with 16 forces, A 2,351 with 14, main 2,338 with 9) but not at pass 1 (A 2,312 vs main 2,328). A's decisive force is the payload phi 1659=r9 (-69)."
+  ],
+  "rejected_mechanisms": ["every single back-half compensator revert on VC", "conditional curve-store updates (c0cs c0cm c0uc cbcs cbcs2)", "outer cashback via hopt.unwrap_or / new.is_some (cbu cbi cbn cbn2)", "per-arm flags through the closure return type (vflag) or captured cashback (vcb2 vboth)", "native flag placement in the sweep (natl nati natf)", "sweep gate as skip polarity (IR)", "sweep-head register forces alone"],
+  "unresolved_residuals": ["VC-A spill colour order (hopt slot heavier than the accounts slot)", "VC-B TCF clone-temp rotation (accounts pointer r6 in the sweep/TCF)", "the 6 KB tail layout swap triggered on A when the outer holder i1 disappears"],
+  "next_ideas": [
+    "Find the block-frequency cause of A's tail swap when the outer holder i1 disappears (cbn), then pair cbn with a layout repay: that would leave the hopt slot one hot reload like the original and could restore the accounts-first colour order.",
+    "If A's colour order is fixed, add the TCF literal genes c2 / tai_tv / s_tai2 (Mhc 2,305 / 2,303 on A).",
+    "vflag2 is a faithful head piece (the original's per-arm holder flag phi) for any lane that gets B's TCF out of its rotation; B's TCF literal leads frl1+c2 are the starting point."
+  ],
+  "pr": 3884,
+  "ledger": "approach vcretune, keys 0x22a10-w16-1f4e396-vcretune-<cell>-v1"
+}
