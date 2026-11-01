@@ -503,10 +503,14 @@ jobs:
               python -B reconstruction/verification/donation-relay-stateful/test_stateful.py
               python -B reconstruction/verification/donation-relay-xtx-sequences/test_output_refusal.py
               python -B reconstruction/verification/donation-relay-xtx-sequences/test_sequences.py
+              python -B reconstruction/verification/donation-relay-multidonor/test_fixture.py
+              python -B reconstruction/verification/donation-relay-multidonor/test_producer.py
+              python -B reconstruction/verification/donation-relay-multidonor/test_verifier.py
               python -B reconstruction/verification/pump-migration-lifecycle/test_lifecycle.py
               python -B reconstruction/verification/pump-migration-lifecycle/test_output_refusal.py
               python -B reconstruction/verification/pump-admin-cto-stateful/test_lifecycle.py
               python -B reconstruction/verification/pump-admin-cto-stateful/test_receipts.py
+              python -B scripts/run_discovered_tests.py reconstruction/verification/pump-admin-cto-fuzzer 'test_*.py' --expect 71
               python -B reconstruction/verification/pump-cross-program-fee-lifecycle/test_lifecycle.py
               python -B reconstruction/donation-relay/native-linux-v148-20261030/test_analyzer_isolation.py
               python -B reconstruction/verification/mayhem-dispatch-boundaries/test_inventory.py
