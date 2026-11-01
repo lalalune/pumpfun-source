@@ -59,12 +59,18 @@ def assert_regression_receipt(receipt, expected_cases):
     Historical aggregate receipts and count-only shapes keep their existing
     claimed-count check; this does not validate their nested case contents.
     """
+    assert type(expected_cases) is int and expected_cases >= 0
     cases = receipt.get("cases")
     if isinstance(cases, list):
         assert len(cases) == expected_cases
-        assert receipt.get("case_count", len(cases)) == len(cases)
+        # A default of len(cases) compares that list with itself, so a receipt
+        # that stopped declaring its header still passed the agreement check.
+        assert "case_count" in receipt, "a case list requires a declared case_count"
+        assert type(receipt["case_count"]) is int
+        assert receipt["case_count"] == len(cases)
     else:
-        assert receipt.get("case_count", cases) == expected_cases
+        count = receipt.get("case_count", cases)
+        assert type(count) is int and count == expected_cases
     assert receipt["mismatches"] in ([], 0)
 
 

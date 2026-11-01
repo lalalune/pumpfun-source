@@ -27,7 +27,7 @@ jobs:
               sudo apt-get install -y llvm
               python -B reconstruction/tooling/byte-comparison-input-preservation/test_verify.py --objdump /usr/bin/llvm-objdump
               PUMP_OBJDUMP=/usr/bin/llvm-objdump python -I -B reconstruction/pump-main/lanes/multihop-reconstruction/test_rdiff.py
-              python -B -m unittest discover -s reconstruction/harness -p 'test_llvm_tools.py'
+              python -B scripts/run_discovered_tests.py reconstruction/harness 'test_llvm_tools.py' --expect 8
           - suite: contract-tests
             commands: |
               python -B -m unittest discover -s tests -v
@@ -526,6 +526,8 @@ jobs:
               python -B reconstruction/verification/mayhem-stateful-lifecycle/test_lifecycle.py
           - suite: host-fragments
             commands: |
+              python -B tests/test_extra_host_input_validation.py
+              python -B tests/test_curve_walk_host_input_validation.py
               python -B tests/test_length_host_input_validation.py
               python -B scripts/run_discovered_tests.py tests 'test_global_*_captured.py' --expect 2
               python -B tests/test_claim_cashback_v2_admission_captured.py

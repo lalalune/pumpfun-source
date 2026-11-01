@@ -18,6 +18,14 @@ use std::io::{self, BufRead, Write};
 use sweep_fees::{Bucket, QuoteMint, Recipient};
 use sweep_fees_token2022::{Ata, Holding, Hook, Mint, MintOwner, Pausable, Stop, Sweep, TokenProgram, TransferFee};
 
+fn flag(text: &str) -> bool {
+    match text {
+        "0" => false,
+        "1" => true,
+        other => panic!("flag must be 0 or 1, got {other}"),
+    }
+}
+
 fn ata(text: &str) -> Ata {
     match text {
         "missing" => Ata::Missing,
@@ -26,15 +34,16 @@ fn ata(text: &str) -> Ata {
         "uninitialized" => Ata::Uninitialized,
         "wrong_mint" => Ata::WrongMint,
         _ => {
-            let f: Vec<u64> = text.split(':').map(|v| v.parse().unwrap()).collect();
+            let f: Vec<&str> = text.split(':').collect();
+            assert_eq!(f.len(), 7, "holding requires seven fields");
             Ata::Held(Holding {
-                balance: f[0],
-                frozen: f[1] != 0,
-                fee_extension: f[2] != 0,
-                owner_matches: f[3] != 0,
-                memo_required: f[4] != 0,
-                cpi_guard: f[5] != 0,
-                non_transferable: f[6] != 0,
+                balance: f[0].parse().unwrap(),
+                frozen: flag(f[1]),
+                fee_extension: flag(f[2]),
+                owner_matches: flag(f[3]),
+                memo_required: flag(f[4]),
+                cpi_guard: flag(f[5]),
+                non_transferable: flag(f[6]),
             })
         }
     }
@@ -45,16 +54,29 @@ fn fee(text: &str) -> Option<TransferFee> {
         return None;
     }
     let f: Vec<u64> = text.split(':').map(|v| v.parse().unwrap()).collect();
-    Some(TransferFee { older_bps: f[0] as u16, older_max: f[1], newer_epoch: f[2], newer_bps: f[3] as u16, newer_max: f[4] })
+    assert_eq!(f.len(), 5, "transfer fee requires five fields");
+    Some(TransferFee { older_bps: u16::try_from(f[0]).expect("older bps exceeds u16"), older_max: f[1], newer_epoch: f[2], newer_bps: u16::try_from(f[3]).expect("newer bps exceeds u16"), newer_max: f[4] })
 }
 
 fn answer(line: &str) -> String {
     let f: Vec<&str> = line.split(',').collect();
+    assert_eq!(f.len(), 20, "request requires twenty columns");
     let n = |i: usize| f[i].parse::<u64>().unwrap();
     let s = Sweep {
-        bucket: if f[0] == "creator" { Bucket::Creator } else { Bucket::Protocol },
-        mayhem: n(1) != 0,
-        quote_mint: if f[2] == "quote" { QuoteMint::CurveQuote } else { QuoteMint::Other },
+        // Each of these columns has a closed set of documented tokens. The
+        // catchalls used to read anything else as a real value, so a misspelt
+        // or shifted column silently selected a different case.
+        bucket: match f[0] {
+            "protocol" => Bucket::Protocol,
+            "creator" => Bucket::Creator,
+            other => panic!("unknown bucket {other}"),
+        },
+        mayhem: flag(f[1]),
+        quote_mint: match f[2] {
+            "quote" => QuoteMint::CurveQuote,
+            "other" => QuoteMint::Other,
+            other => panic!("unknown quote mint {other}"),
+        },
         creator_fee: n(3),
         protocol_fees: n(4),
         curve_lamports: n(5),
@@ -72,31 +94,35 @@ fn answer(line: &str) -> String {
         token_program: match f[8] {
             "t22" => TokenProgram::Token2022,
             "spl" => TokenProgram::Spl,
-            _ => TokenProgram::Other,
+            "other" => TokenProgram::Other,
+            other => panic!("unknown token program {other}"),
         },
         mint: Mint {
             owner: match f[9] {
                 "t22" => MintOwner::Token2022,
                 "spl" => MintOwner::Spl,
-                _ => MintOwner::Other,
+                "other" => MintOwner::Other,
+                other => panic!("unknown mint owner {other}"),
             },
             fee: fee(f[10]),
             hook: match f[12] {
                 "none" => Hook::None,
                 "unset" => Hook::Unset,
-                _ => Hook::Set,
+                "set" => Hook::Set,
+                other => panic!("unknown hook {other}"),
             },
             pausable: match f[13] {
                 "none" => Pausable::None,
                 "running" => Pausable::Running,
-                _ => Pausable::Paused,
+                "paused" => Pausable::Paused,
+                other => panic!("unknown pausable {other}"),
             },
-            non_transferable: n(14) != 0,
-            default_frozen: n(15) != 0,
+            non_transferable: flag(f[14]),
+            default_frozen: flag(f[15]),
         },
         epoch: n(11),
-        curve_ata_address_ok: n(16) != 0,
-        recipient_ata_address_ok: n(17) != 0,
+        curve_ata_address_ok: flag(f[16]),
+        recipient_ata_address_ok: flag(f[17]),
         curve_ata: ata(f[18]),
         recipient_ata: ata(f[19]),
     };

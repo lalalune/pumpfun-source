@@ -5,6 +5,7 @@ import gzip
 import importlib.util
 import json
 from pathlib import Path
+import tempfile
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -89,6 +90,36 @@ class FeesRetainedOutcomeTests(unittest.TestCase):
             document['cases'][0].update(match=True, different_fields=[], candidate=candidate)
             with self.subTest(candidate=candidate), self.assertRaises(AssertionError):
                 validate('queries', document)
+
+    def test_a_suite_without_a_declared_case_count_is_rejected(self):
+        # Defaulting the count to len(cases) makes the check true by
+        # construction, so a producer that stopped declaring it still passed.
+        validate = self.consumer['validate_suite_receipt']
+        for name, suite in self.suites.items():
+            document = copy.deepcopy(suite)
+            del document['case_count']
+            with self.subTest(suite=name), self.assertRaisesRegex(AssertionError, 'case_count'):
+                validate(name, document)
+            document['case_count'] = len(document['cases']) + 1
+            with self.subTest(suite=name, inflated=True), self.assertRaisesRegex(AssertionError, 'case_count'):
+                validate(name, document)
+
+    def test_aggregate_cli_rejects_undeclared_counts_before_replacing_output(self):
+        # These adapters only return retained bytes; none executes a VM suite.
+        spec = importlib.util.spec_from_file_location('fees_count_receipt_replay', PACKET / 'replay.py')
+        replay = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(replay)
+        with tempfile.TemporaryDirectory() as temporary:
+            corpus = Path(temporary) / 'missing-count.json.gz'
+            document = copy.deepcopy({'suites': self.suites})
+            for suite in document['suites'].values():
+                del suite['case_count']
+            corpus.write_bytes(gzip.compress(json.dumps(document).encode(), mtime=0))
+            result = replay.replay(ROOT, corpus, 'control')
+            self.assertNotEqual(result['exit_code'], 0, result)
+            self.assertIn('case_count must be declared', result['stderr'])
+            self.assertTrue(result['prior_output_preserved'])
+            self.assertIsNone(result['published_cases'])
 
     def test_only_event_lines_from_selected_producer_logs_are_compared(self):
         validate = self.consumer['validate_suite_receipt']
