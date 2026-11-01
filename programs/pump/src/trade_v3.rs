@@ -811,7 +811,7 @@ fn v3_execute_buy<'info>(a:&mut SellV3<'info>,curve_bump:u8,is_sol:bool,amount:u
     let quote=u64::try_from(crate::buy_quote(&a.bonding_curve,amount)?).map_err(|_|error!(PumpError::Truncation))?;
     let fees=v3_trade_fees(a,quote)?;
     let post=if excess>0{let (pool_base,pool_quote)={let (base,real,fee)=(a.associated_base_bonding_curve.amount,a.bonding_curve.real_quote_reserves,a.global.pool_migration_fee);v3_pool_before(real,fee,base,is_sol,amount,quote)}?;Some(v3_post_complete(a,pool_base,pool_quote,excess)?)}else{None};
-    let (pool_quote,total_buyback,quote_transfer_fee)=v3_buy_costs(a.global.buyback_basis_points,a.bonding_curve.is_mayhem_mode as u8,&quote_fee,quote,fees.protocol_fee,fees.creator_fee,post.as_ref()).map_err(core::convert::identity)?;
+    let (pool_quote,total_buyback,quote_transfer_fee)=v3_buy_costs(a.global.buyback_basis_points,a.bonding_curve.is_mayhem_mode as u8,&quote_fee,quote,fees.protocol_fee,fees.creator_fee,post.as_ref()).map_err(anchor_lang::error::Error::from)?;
 // layout-pad(27): aligns the next Source site with the original line
 
 
