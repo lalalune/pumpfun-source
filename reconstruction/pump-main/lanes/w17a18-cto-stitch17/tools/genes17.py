@@ -68,3 +68,47 @@ G['re334']=[('   if !st.fee_configurable{return Err(error!(PumpError::CreatorFee
 G['re334u']=[('   if !st.fee_configurable{return Err(error!(PumpError::CreatorFeeNotConfigurable));}','   unsafe{core::ptr::read_volatile(holder_key as *const Pubkey as *const u8)};if !st.fee_configurable{return Err(error!(PumpError::CreatorFeeNotConfigurable));}')]
 G['re334']=[('  if !st.fee_configurable{return Err(error!(PumpError::CreatorFeeNotConfigurable));}','  unsafe{core::ptr::read_volatile(holder_key as *const Pubkey as *const u8)}/*shim: holder_key byte read placeholder before the fee_configurable test*/;if !st.fee_configurable{return Err(error!(PumpError::CreatorFeeNotConfigurable));}')]
 G['re334u']=[('  if !st.fee_configurable{return Err(error!(PumpError::CreatorFeeNotConfigurable));}','  unsafe{core::ptr::read_volatile(holder_key as *const Pubkey as *const u8)};if !st.fee_configurable{return Err(error!(PumpError::CreatorFeeNotConfigurable));}')]
+_PH='unsafe{core::ptr::read_volatile(holder_key as *const Pubkey as *const u8)}/*shim: holder_key byte read placeholder*/;'
+G['ph326']=[('  match fee{Some(f)=>{if st.quote_locked{','  match fee{Some(f)=>{'+_PH+'if st.quote_locked{')]
+G['ph330']=[('   if cashback{return Err(error!(PumpError::CreatorFeeNotAllowedForCashbackCoin));}','   '+_PH+'if cashback{return Err(error!(PumpError::CreatorFeeNotAllowedForCashbackCoin));}')]
+G['ph314']=[('  let cashback=if holder{false}else{st.cashback};','  '+_PH+'let cashback=if holder{false}else{st.cashback};')]
+G['ph338a']=[('   if f==0||f>st.max_fee{','   '+_PH+'if f==0||f>st.max_fee{')]
+G['ph296']=[('  if holder&&!st.holder_reward&&!st.holder_enabled{','  '+_PH+'if holder&&!st.holder_reward&&!st.holder_enabled{')]
+G['ph289']=[('  if st.holder_reward&&!(hopt==Some(true)){','  '+_PH+'if st.holder_reward&&!(hopt==Some(true)){')]
+G['ph326']=[('match fee{Some(f)=>{if st.quote_locked{','match fee{Some(f)=>{'+_PH+'if st.quote_locked{')]
+G['ph330']=[('if cashback{return Err(error!(PumpError::CreatorFeeNotAllowedForCashbackCoin));}',_PH+'if cashback{return Err(error!(PumpError::CreatorFeeNotAllowedForCashbackCoin));}')]
+G['ph314']=[('let cashback=if holder{false}else{st.cashback};',_PH+'let cashback=if holder{false}else{st.cashback};')]
+G['ph338a']=[('if f==0||f>st.max_fee{',_PH+'if f==0||f>st.max_fee{')]
+G['ph296']=[('if holder&&!st.holder_reward&&!st.holder_enabled{',_PH+'if holder&&!st.holder_reward&&!st.holder_enabled{')]
+G['ph289']=[('if st.holder_reward&&!(hopt==Some(true)){',_PH+'if st.holder_reward&&!(hopt==Some(true)){')]
+# leave-one-out revert genes (data/loo.json from tools/loo.py): looNNNN = whole landing; looNNNN_k = its k-th changed line only
+def _loo():
+    import json,os
+    p=os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),'data','loo.json')
+    if not os.path.exists(p): return
+    for k,v in json.load(open(p)).items():
+        G[k]=[tuple(e) for e in v['eds']]
+        if len(v['eds'])>1:
+            for i,e in enumerate(v['eds']): G[f'{k}_{i}']=[tuple(e)]
+_loo()
+# second placeholder copies (+8 B) at other validate sites (same marked construct as the 334/338 placeholders)
+_PH2='unsafe{core::ptr::read_volatile(holder_key as *const Pubkey as *const u8)}/*shim: holder_key byte read placeholder*/;'
+G['p2_289']=[('if st.holder_reward&&!(hopt==Some(true)){',_PH2+'if st.holder_reward&&!(hopt==Some(true)){')]
+G['p2_296']=[('if holder&&!st.holder_reward&&!st.holder_enabled{',_PH2+'if holder&&!st.holder_reward&&!st.holder_enabled{')]
+G['p2_314']=[('let cashback=if holder{false}else{st.cashback};',_PH2+'let cashback=if holder{false}else{st.cashback};')]
+G['p2_326']=[('match fee{Some(f)=>{if st.quote_locked{','match fee{Some(f)=>{'+_PH2+'if st.quote_locked{')]
+G['p2_330']=[('if cashback{return Err(error!(PumpError::CreatorFeeNotAllowedForCashbackCoin));}',_PH2+'if cashback{return Err(error!(PumpError::CreatorFeeNotAllowedForCashbackCoin));}')]
+G['p2_338']=[('if f==0||f>st.max_fee{',_PH2+'if f==0||f>st.max_fee{')]
+G['p2_306']=[('let t=if let Some(t)=new{t}else{',_PH2+'let t=if let Some(t)=new{t}else{')]
+G['p2_307']=[('if t==Pubkey::default(){return Err(error!(PumpError::CreatorShouldNotBeZero)',_PH2+'if t==Pubkey::default(){return Err(error!(PumpError::CreatorShouldNotBeZero)')]
+G['p2_284']=[('if st.mayhem{return Err(',_PH2+'if st.mayhem{return Err(')]
+def _pa(n,what): return f'unsafe{{&*(ptp({n},&**a as *const AdminCto as *const u8) as *const AdminCto)}}/*shim: passthrough on the accounts pointer of {what}*/'
+G['ptsh']=[('a.bonding_curve.creator==sk}&&a.sharing_config.owner==&FEES&&','a.bonding_curve.creator==sk}&&'+_pa(11,'the shared owner test')+'.sharing_config.owner==&FEES&&')]
+G['ptmf']=[('max_fee:a.global.max_configurable_creator_fee_bps,','max_fee:'+_pa(12,'the max_fee load')+'.global.max_configurable_creator_fee_bps,')]
+G['ptmy']=[('mayhem:a.bonding_curve.is_mayhem_mode,','mayhem:'+_pa(13,'the mayhem load')+'.bonding_curve.is_mayhem_mode,')]
+G['pthr']=[('holder_reward:a.bonding_curve.is_holder_reward,','holder_reward:'+_pa(14,'the holder_reward load')+'.bonding_curve.is_holder_reward,')]
+G['ptcb']=[('cashback:a.bonding_curve.is_cashback_coin,','cashback:'+_pa(15,'the cashback load')+'.bonding_curve.is_cashback_coin,')]
+G['pthe']=[('holder_enabled:a.global.is_holder_reward_enabled}','holder_enabled:'+_pa(16,'the holder_enabled load')+'.global.is_holder_reward_enabled}')]
+G['ptfc']=[('let st=CtoState{fee_configurable:a.global.creator_fee_configurable,','let st=CtoState{fee_configurable:'+_pa(17,'the fee_configurable load')+'.global.creator_fee_configurable,')]
+G['ptcr']=[('creator:a.bonding_curve.creator,max_fee','creator:'+_pa(18,'the CtoState creator copy')+'.bonding_curve.creator,max_fee')]
+G['pthr']=[('mayhem:a.bonding_curve.is_mayhem_mode,holder_reward:a.bonding_curve.is_holder_reward,','mayhem:a.bonding_curve.is_mayhem_mode,holder_reward:'+_pa(14,'the holder_reward load')+'.bonding_curve.is_holder_reward,')]
