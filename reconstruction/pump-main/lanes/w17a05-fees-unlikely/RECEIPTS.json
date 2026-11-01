@@ -1,0 +1,149 @@
+{
+  "schema": 1,
+  "host_setup": {
+    "host": "macOS 26 (Darwin 25.2.0) arm64, Homebrew podman 5.5.2, applehv machine podman-machine-default with Rosetta x86_64 binfmt",
+    "image": "solanafoundation/solana-verifiable-build@sha256:6c73adc767ee7ff212f2532d4695472b12f3d4ac20aea3db22b89d8c614dac50 (already in the machine store; --pull=never)",
+    "sdk": "official Linux x86_64 platform-tools v1.44 tree (archive 6719b889d60677a8a2fcf4c82f68441a1afe0ab093edd2efe9f84a67a808b3e9); cargo/rustc/rust-lld equal the builder TOOLS",
+    "registry": "CARGO_HOME fetched with the macOS v1.44 cargo: cargo fetch --locked of the staged programs/pump-fees/Cargo.lock, 251 packages",
+    "objcopy": "macOS arm64 platform-tools v1.52 llvm-objcopy (repo pins the Linux v1.52 binary 673b3b86...; the strip result equals the pin either way)"
+  },
+  "builder_runs": [
+    {
+      "returncode": 0,
+      "seconds": 1835.1733562499994,
+      "source_unchanged": true,
+      "macro_unchanged": true,
+      "sdk_libraries_unchanged": true,
+      "registry_unchanged": true,
+      "target_initially_empty": true,
+      "original_executable_is_build_input": false,
+      "clean_returncode": 0,
+      "symbols_sha256": "7ec99a6915bcb9245a2d5199996376a76651fa893c71e455b189cf59428f4e66",
+      "candidate_sha256": "5b6ceda57863f0dcc3e0e3623052f8342c2c81883379699e71d7ed5383cb3dcf",
+      "exact_symbols_equal": true,
+      "exact_candidate_equal": true,
+      "candidate_bytes": 873256,
+      "stack_diagnostics": [],
+      "fresh_local_crate_compilations": {
+        "pump-fun-fees-candidate": 1,
+        "pump-fees-math": 1
+      },
+      "controller_script_sha256": "6fffc0c2d0eedf2e84541445c6a388092accb6bf3371e159acc851bc397a92b8",
+      "sdk_tools": {
+        "rust/bin/cargo": "d28444578306fe5a4f40524331411340123004e9e6556322fcabdbe351fe265d",
+        "rust/bin/rustc": "c8807b7ebede8578ac5a257ea333780f9d89bd356064fd8184af7e996cb71a97",
+        "rust/lib/rustlib/x86_64-unknown-linux-gnu/bin/rust-lld": "f28db3647fcf67bd47f012a1c47fe679f5787a4e2bf9cd5b6fe4914b10622bda"
+      },
+      "objcopy_sha256": "12415dc01e08e4f606a1a4eac8c197d560c7883161d266312c821bf5db7bf8be",
+      "environment": {
+        "PATH": "/work/sdk/rust/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+        "RUSTC": "/work/sdk/rust/bin/rustc",
+        "CC": "/work/sdk/llvm/bin/clang",
+        "AR": "/work/sdk/llvm/bin/llvm-ar",
+        "CARGO_HOME": "/cargo",
+        "CARGO_TARGET_DIR": "/work/targets/slot0",
+        "CARGO_BUILD_JOBS": "2",
+        "CARGO_NET_OFFLINE": "true",
+        "RUSTFLAGS": "-Zremap-cwd-prefix="
+      },
+      "run": "v02_2",
+      "what": "this PR source (social.rs cf78111f), cold: empty target",
+      "social_rs_sha256": "cf78111f39134bb0376b63052a2bf2c08f27f9f0eeee2c9a15dcc8f6929ecf2c",
+      "inventory_digests": {
+        "source_inputs": "f6cc3f7a6b804e83e39104b2f6819e0d4776ddc87b291af0d8dff72ec7dda769",
+        "qualified_source_inputs": "28b1e84e6d144ab3b14c5290c9094e3e14ef3fb899aa1397023b8ce3eaa8c6a4",
+        "target_libraries": "e4177ad5929d5687e390cfabbb521fa43fac3b7713b4be5f2a97707a09db96e3",
+        "macro_inputs": "0297651d110da8df0afac42b02e0a2edb6b097aab4fe7d69f47167460ed1664a",
+        "registry_inputs": "57805ddaa2d828eb7d12fb535ec13da464384750a9230d2fbf33d77d7bd5d819",
+        "input_mapping": "f09d576985f05ca77cff2bd67b11cc40882d227170a91ff36dcce62e6c05c71d"
+      },
+      "registry_packages": 251,
+      "source_input_files": 65,
+      "build_log_compiling_lines": 177,
+      "result_json_sha256": "05784c41aa4d617d5d91434d8b6b823da869ad566bbde7885ae882fe7aeadb77"
+    },
+    {
+      "returncode": 0,
+      "seconds": 95.07083270900057,
+      "source_unchanged": true,
+      "macro_unchanged": true,
+      "sdk_libraries_unchanged": true,
+      "registry_unchanged": true,
+      "target_initially_empty": false,
+      "original_executable_is_build_input": false,
+      "clean_returncode": 0,
+      "symbols_sha256": "7ec99a6915bcb9245a2d5199996376a76651fa893c71e455b189cf59428f4e66",
+      "candidate_sha256": "5b6ceda57863f0dcc3e0e3623052f8342c2c81883379699e71d7ed5383cb3dcf",
+      "exact_symbols_equal": true,
+      "exact_candidate_equal": true,
+      "candidate_bytes": 873256,
+      "stack_diagnostics": [],
+      "fresh_local_crate_compilations": {
+        "pump-fun-fees-candidate": 1,
+        "pump-fees-math": 1
+      },
+      "controller_script_sha256": "6fffc0c2d0eedf2e84541445c6a388092accb6bf3371e159acc851bc397a92b8",
+      "sdk_tools": {
+        "rust/bin/cargo": "d28444578306fe5a4f40524331411340123004e9e6556322fcabdbe351fe265d",
+        "rust/bin/rustc": "c8807b7ebede8578ac5a257ea333780f9d89bd356064fd8184af7e996cb71a97",
+        "rust/lib/rustlib/x86_64-unknown-linux-gnu/bin/rust-lld": "f28db3647fcf67bd47f012a1c47fe679f5787a4e2bf9cd5b6fe4914b10622bda"
+      },
+      "objcopy_sha256": "12415dc01e08e4f606a1a4eac8c197d560c7883161d266312c821bf5db7bf8be",
+      "environment": {
+        "PATH": "/work/sdk/rust/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+        "RUSTC": "/work/sdk/rust/bin/rustc",
+        "CC": "/work/sdk/llvm/bin/clang",
+        "AR": "/work/sdk/llvm/bin/llvm-ar",
+        "CARGO_HOME": "/cargo",
+        "CARGO_TARGET_DIR": "/work/targets/slot0",
+        "CARGO_BUILD_JOBS": "2",
+        "CARGO_NET_OFFLINE": "true",
+        "RUSTFLAGS": "-Zremap-cwd-prefix="
+      },
+      "run": "base2",
+      "what": "unchanged main (social.rs ba03d153), local crates fresh, dependencies reused from base1 (--dependency-target/--dependency-provenance)",
+      "social_rs_sha256": "ba03d1530a42fc0371218a769de8276e1389f66708a288b1bb91cd65fe37c468",
+      "inventory_digests": {
+        "source_inputs": "6b9ad1269c1f9cd663e183cc61569d3548328c76b7d2477d05bee6573502c5dd",
+        "qualified_source_inputs": "4b84242b8a65335c23a4ae2167d476be4f387c72da8b57ab4be31397cdf3f310",
+        "target_libraries": "e4177ad5929d5687e390cfabbb521fa43fac3b7713b4be5f2a97707a09db96e3",
+        "macro_inputs": "0297651d110da8df0afac42b02e0a2edb6b097aab4fe7d69f47167460ed1664a",
+        "registry_inputs": "57805ddaa2d828eb7d12fb535ec13da464384750a9230d2fbf33d77d7bd5d819",
+        "input_mapping": "fa9e332a529e4443df6e4dc5f30a609c37156ce8238a5317e3ec3ec3ed40334c"
+      },
+      "registry_packages": 251,
+      "source_input_files": 65,
+      "build_log_compiling_lines": 2,
+      "result_json_sha256": "da47d7058acdaf1edac496c26125dd5c5ba3b9bb9ff08723c098d5cd74ada3b0",
+      "dependency_reuse": {
+        "input_provenance_sha256": "d1124c9168d4368b98ad5c07cfa237e8ee016b451da77073c8c3282ac1f6aec7",
+        "prior_target_initially_empty": true,
+        "all_recorded_source_tool_registry_inputs_equal": true
+      }
+    }
+  ],
+  "other_runs": {
+    "base1": {
+      "what": "unchanged main, cold (empty target); the builder process was SIGKILLed externally at about 21:50 PDT while its container kept running. The container exited 0 after 44m33s; the builder's own post-processing (copy pump_fees_candidate.so to symbols.so, llvm-objcopy --strip-all) was then applied by hand. Its launch.json is the provenance base2 reused.",
+      "symbols_sha256": "7ec99a6915bcb9245a2d5199996376a76651fa893c71e455b189cf59428f4e66",
+      "candidate_sha256": "5b6ceda57863f0dcc3e0e3623052f8342c2c81883379699e71d7ed5383cb3dcf",
+      "candidate_bytes": 873256,
+      "launch_json_sha256": "d1124c9168d4368b98ad5c07cfa237e8ee016b451da77073c8c3282ac1f6aec7"
+    },
+    "quick_v02": {
+      "quick_check_not_a_builder_receipt": true,
+      "returncode": 0,
+      "seconds": 106.27494788169861,
+      "social_rs_sha256": "cf78111f39134bb0376b63052a2bf2c08f27f9f0eeee2c9a15dcc8f6929ecf2c",
+      "warm_target": "/Users/shawwalters/.cache/pumpfun-reconstruction/lanes/w17a05-fees-unlikely/runs/base1/target",
+      "symbols_sha256": "7ec99a6915bcb9245a2d5199996376a76651fa893c71e455b189cf59428f4e66",
+      "candidate_sha256": "5b6ceda57863f0dcc3e0e3623052f8342c2c81883379699e71d7ed5383cb3dcf",
+      "symbols_equal_pin": true,
+      "candidate_equal_pin": true,
+      "compiled": [
+        "Compiling pump-fees-math v0.1.0 (/work/src/linux-e9751bde/pump-fees-math)",
+        "Compiling pump-fun-fees-candidate v0.1.0 (/work/src/linux-e9751bde/programs/pump-fees)"
+      ]
+    }
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "lane": "w17a05-fees-unlikely",
+  "wave": 17,
+  "pr": 3940,
+  "target": "programs/pump-fees/src/social.rs: replace the two core::intrinsics::unlikely (claim_v2 line 9, claim line 66) with ordinary Rust at an unchanged Fees meaningful ELF",
+  "pins": {
+    "EXPECTED_CANDIDATE": "5b6ceda57863f0dcc3e0e3623052f8342c2c81883379699e71d7ed5383cb3dcf",
+    "EXPECTED_SYMBOLS": "7ec99a6915bcb9245a2d5199996376a76651fa893c71e455b189cf59428f4e66"
+  },
+  "result": "exact: a cold build_exact.py run of the PR source gives exact_symbols_equal=true and exact_candidate_equal=true (candidate 5b6ceda5...3dcf, 873,256 B)",
+  "source_change": {
+    "spelling": "let limited=rate_limit!=0 && state.last_claimed!=0 && now<state.last_claimed.saturating_add(rate_limit); if limited {..}",
+    "social_rs_sha256_before": "ba03d1530a42fc0371218a769de8276e1389f66708a288b1bb91cd65fe37c468",
+    "social_rs_sha256_after": "cf78111f39134bb0376b63052a2bf2c08f27f9f0eeee2c9a15dcc8f6929ecf2c",
+    "other_files": ["programs/pump-fees/exact/qualified-source-inputs.json (social.rs digest only)"],
+    "lib_rs_feature_gates": "unchanged; core_intrinsics is now unused"
+  },
+  "receipts": {
+    "pr_source_cold": {"run": "v02_2", "returncode": 0, "seconds": 1835.2, "target_initially_empty": true, "source_unchanged": true, "exact_symbols_equal": true, "exact_candidate_equal": true, "candidate_sha256": "5b6ceda57863f0dcc3e0e3623052f8342c2c81883379699e71d7ed5383cb3dcf"},
+    "main_dependency_reuse": {"run": "base2", "returncode": 0, "seconds": 95.1, "target_initially_empty": false, "exact_symbols_equal": true, "exact_candidate_equal": true},
+    "main_cold_manual_postprocess": {"run": "base1", "symbols_equal_pin": true, "candidate_equal_pin": true, "seconds": 2673},
+    "details": "RECEIPTS.json"
+  },
+  "attempts": [
+    {"spelling": "plain if a && b && c", "native_oracle": "different (claim/claim_v2 block order)", "status": "rejected"},
+    {"spelling": "let limited = a && b && c; if limited", "native_oracle": "identical", "linux_exact": "both pins (cold receipt)", "status": "chosen"},
+    {"spelling": "match a && b && c {true=>{..} false=>{}}", "native_oracle": "identical", "status": "alternative"},
+    {"spelling": "if !(a && b && c) {} else {..}", "native_oracle": "different (= plain)", "status": "rejected"},
+    {"spelling": "if a && b { if c {..} }", "native_oracle": "different (= plain)", "status": "rejected"},
+    {"spelling": "(a) & (b) & (c)", "native_oracle": "different (third shape)", "status": "rejected"}
+  ],
+  "rejected_mechanisms": [
+    "plain removal unlikely(c) -> c: no !prof either way, but the MIR rate_limit switch then targets the continuation directly, so LLVM creates the continuation block before the last_claimed/saturating test blocks (block order differs, bytes differ)",
+    "negated condition with empty then-branch, nested ifs: same bytes as the plain if",
+    "non-short-circuit &: different code shape"
+  ],
+  "mechanism": "core::intrinsics::unlikely is a MIR Call terminator, so the && chain is materialized into a bool whose false edges go through a 'limited = false' assignment block. rustc creates LLVM blocks in first-reference order and a bool switchInt references its 0 target first, so the continuation is created after the test blocks. A let binding (or a match on the bool) leaves the same assignment block after MIR jump threading and reproduces the order without an intrinsic.",
+  "environment": "macOS arm64; Homebrew podman 5.5.2 applehv machine with Rosetta; pinned verifiable-build image already present; official Linux x86_64 v1.44 SDK; v1.44 cargo fetch --locked registry (251 packages); macOS v1.52 llvm-objcopy",
+  "unresolved": [
+    "CI: research/fees-exact-readme-stage-20261030/replay.py and research/fees-linux-fresh-rebuild-20261030/verify.py bind the old social.rs digest; re-binding them is the owner's call"
+  ],
+  "next_ideas": [
+    "Peel lanes removing likely/unlikely from admin_cto shims: replace unlikely(c) with let x = c; if x (or match c {true=>..,false=>..}), not with a bare if c, to keep block creation order",
+    "If the research packets are re-bound, RECEIPTS.json holds the full key fields of the new cold receipt"
+  ]
+}
