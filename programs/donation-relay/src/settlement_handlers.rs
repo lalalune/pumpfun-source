@@ -104,3 +104,23 @@ pub fn swap_then_distribute<'info>(accounts:&mut SwapThenDistributeV1<'info>,arg
  anchor_spl::token_interface::close_account(CpiContext::new_with_signer(accounts.output_mint_program.to_account_info(),anchor_spl::token_interface::CloseAccount {account:accounts.output_distribution_token_account.to_account_info(),destination:accounts.signer.to_account_info(),authority:accounts.distribution.to_account_info()},signer_seeds))?;
  Ok(DonationEpochProcessedV1Event {daas_event_discriminator:DaasEventDiscriminator::DonationEpochProcessedV1,config_id:accounts.distribution.config_id,mint:accounts.distribution.mint,epoch:accounts.distribution.epoch,settled_amount:total,settlement_mint:accounts.output_mint.key(),transfers})
 }
+
+pub fn distribute_exact_non_swap<'info>(accounts:&mut DistributeNonSwapOutputMintV1<'info>,transfers:Vec<ExactTransfer>,remaining:&'info [AccountInfo<'info>])->Result<DonationEpochProcessedExactV1Event> {
+ let total=accounts.distribution.total_amount;
+ let config=accounts.distribution.config_id;let mint=accounts.distribution.mint;let epoch=accounts.distribution.epoch.to_le_bytes();let bump=accounts.distribution.bump;
+ let signer_seeds:&[&[&[u8]];1]=&[&[b"distribution_v1",config.as_ref(),mint.as_ref(),&epoch,&[bump]]];
+ crate::shared_distribution::distribute_exact(crate::shared_distribution::DistributionContext {remaining,source:accounts.distribution_token_account.to_account_info(),mint:accounts.mint.to_account_info(),program:accounts.token_program.to_account_info(),authority:accounts.distribution.to_account_info()},&transfers,signer_seeds,total,accounts.token_program.key(),accounts.mint.decimals)?;
+ accounts.distribution_token_account.reload()?;
+ burn_and_close(BurnCloseContext {token:accounts.distribution_token_account.to_account_info(),mint:accounts.mint.to_account_info(),authority:accounts.distribution.to_account_info(),destination:accounts.signer.to_account_info(),program:accounts.token_program.to_account_info()},accounts.distribution_token_account.amount,signer_seeds)?;
+ Ok(DonationEpochProcessedExactV1Event {daas_event_discriminator:DaasEventDiscriminator::DonationEpochProcessedExactV1,config_id:accounts.distribution.config_id,mint:accounts.distribution.mint,epoch:accounts.distribution.epoch,settled_amount:total,settlement_mint:accounts.mint.key(),transfers})
+}
+
+pub fn distribute_exact_after<'info>(accounts:&mut DistributeAfterJustSwappingV1<'info>,transfers:Vec<ExactTransfer>,remaining:&'info [AccountInfo<'info>])->Result<DonationEpochProcessedExactV1Event> {
+ let total=accounts.swap_receipt.swap_output_amount;
+ let config=accounts.distribution.config_id;let mint=accounts.distribution.mint;let epoch=accounts.distribution.epoch.to_le_bytes();let bump=accounts.distribution.bump;
+ let signer_seeds:&[&[&[u8]];1]=&[&[b"distribution_v1",config.as_ref(),mint.as_ref(),&epoch,&[bump]]];
+ crate::shared_distribution::distribute_exact(crate::shared_distribution::DistributionContext {remaining,source:accounts.output_distribution_token_account.to_account_info(),mint:accounts.output_mint.to_account_info(),program:accounts.output_mint_program.to_account_info(),authority:accounts.distribution.to_account_info()},&transfers,signer_seeds,total,accounts.output_mint_program.key(),accounts.output_mint.decimals)?;
+ accounts.output_distribution_token_account.reload()?;
+ burn_and_close(BurnCloseContext {token:accounts.output_distribution_token_account.to_account_info(),mint:accounts.output_mint.to_account_info(),authority:accounts.distribution.to_account_info(),destination:accounts.signer.to_account_info(),program:accounts.output_mint_program.to_account_info()},accounts.output_distribution_token_account.amount,signer_seeds)?;
+ Ok(DonationEpochProcessedExactV1Event {daas_event_discriminator:DaasEventDiscriminator::DonationEpochProcessedExactV1,config_id:accounts.distribution.config_id,mint:accounts.distribution.mint,epoch:accounts.distribution.epoch,settled_amount:total,settlement_mint:accounts.output_mint.key(),transfers})
+}

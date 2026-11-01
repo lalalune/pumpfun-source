@@ -121,6 +121,26 @@ pub fn distribute<'info>(ctx:DistributionContext<'info,'info>,args:DistributionA
  Ok(shares.iter().zip(amounts.iter()).map(|(share,amount)|Receipt {share_type:share.share_type.clone(),address:share.address,amount:*amount,bps:share.bps}).collect())
 }
 
+pub fn distribute_exact<'info>(ctx:DistributionContext<'info,'info>,transfers:&[crate::anchor_framework::ExactTransfer],seeds:&[&[&[u8]]],total:u64,expected_program:Pubkey,decimals:u8)->Result<()> {
+ let DistributionContext {remaining,source,mint,program,authority}=ctx;
+ if total==0 {return Err(worker_error!(InvalidBalance,142));}
+ if transfers.is_empty() || remaining.len()!=transfers.len() {return Err(worker_error!(InvalidInstructionDataLength,131));}
+ let mut sum:u64=0;
+ for row in transfers.iter() {sum=sum.checked_add(row.amount).ok_or(Code::ArithmeticOverflow)?;}
+ if sum!=total {return Err(worker_error!(InputAmountMismatch,170));}
+ if program.key()!=expected_program {return Err(worker_error!(InvalidTokenAccountProgram,149).with_pubkeys((program.key(),expected_program)));}
+ let mint_key=mint.key();
+ for (index,row) in transfers.iter().enumerate() {
+  let info=&remaining[index];
+  let token=InterfaceAccount::<TokenAccount>::try_from(info)?;
+  if token.owner!=row.address {return Err(worker_error!(InvalidTokenAccountOwner,191).with_pubkeys((token.owner,row.address)));}
+  if token.mint!=mint_key {return Err(worker_error!(InvalidTokenAccountMint,196).with_pubkeys((token.mint,mint_key)));}
+  if *token.to_account_info().owner!=expected_program {return Err(worker_error!(InvalidTokenAccountProgram,201).with_pubkeys((*token.to_account_info().owner,expected_program)));}
+  if row.amount!=0 {anchor_spl::token_interface::transfer_checked(CpiContext::new_with_signer(program.clone(),TransferChecked {from:source.clone(),mint:mint.clone(),to:info.clone(),authority:authority.clone()},seeds),row.amount,decimals)?;}
+ }
+ Ok(())
+}
+
 pub struct BurnCloseContext<'info> {pub token:AccountInfo<'info>,pub mint:AccountInfo<'info>,pub authority:AccountInfo<'info>,pub destination:AccountInfo<'info>,pub program:AccountInfo<'info>}
 pub fn burn_and_close<'info>(ctx:BurnCloseContext<'info>,amount:u64,seeds:&[&[&[u8]]])->Result<()> {
  let BurnCloseContext {token,mint,authority,destination,program}=ctx;
