@@ -91,7 +91,7 @@ executable digest, and passing case count. All ten controls must be rejected.
 
 ## Qualification result
 
-At upstream `e89d79aa8d0ad61cefa99b614390eca13500a743`:
+At upstream `4b6fc7177b70de6ba6c155a1b3585fa5622ed374`:
 
 - original-vs-original: 14/14 equal, 12 successful original transitions, 2
   expected failures, 28 verified signed transactions;
