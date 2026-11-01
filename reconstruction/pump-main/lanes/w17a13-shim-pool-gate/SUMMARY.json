@@ -1,0 +1,48 @@
+{
+  "lane": "w17a13-shim-pool-gate",
+  "wave": 17,
+  "target": {"window": "0x22a10", "function": "admin_cto::execute", "file": "programs/pump/src/creator/admin_cto.rs", "pinned_bytes": 27400},
+  "angle": "P1 pool CPI gate (original 0x4aa8-0x4e50): owner test before data_is_empty, as in the original",
+  "landed": [
+    {
+      "pr": 4000,
+      "merge_commit": "bf01b5fd9",
+      "mechanism": "line 761: main's volatile ctx.accounts reload (w17a06) moved from the pool owner test to the pool data_is_empty test, owner test first: `a.pool.owner==&AMM && !read_volatile(transmute::<&&mut AdminCto,*const &AdminCto>(a)).pool.data_is_empty()`; P1 call order becomes memcmp, data_is_empty, sol_log_, 8 clones, memcpy, admin_cto_pool; read_volatile count unchanged",
+      "land_py": {"main": "5970b65b3", "before": {"ratio": 0.67975, "slots_diff": 3170, "cand_bytes": 27400}, "after": {"ratio": 0.68005, "slots_diff": 3170, "cand_bytes": 27400}, "normalized": 1034, "raw": 1034, "losses": [], "raw_losses": [], "forcing_delta": 0, "runtime": "388 cases, 0 mismatches"},
+      "lane_measurements": [
+        {"main": "af6ca66a2", "before": 0.67825, "after": 0.67855, "slots": 3220, "bytes": 27400},
+        {"main": "ae14cbeb4", "before": 0.67945, "after": 0.67975, "slots": 3170, "bytes": 27400, "unstripped_sha": "b3c99da10fd249e6"}
+      ]
+    }
+  ],
+  "best": {"ratio": 0.68005, "slots_diff": 3170, "bytes": 27400, "M": 2270, "note": "land.py on main 5970b65b3 (now main bf01b5fd9)"},
+  "oracle": "w17a06 slim pre-opt oracle (tools/preslim.py + tools/fx.py) on capv.py source captures; m0/m1/m2 reproduce each baseline's masked signature; once the build cache is warm a source capture takes about 10 s",
+  "attempts": 47,
+  "rejected_mechanisms": [
+    "task form: one volatile accounts[0xe] load for both tests, owner first (pA): M 2131 @27424 vs 2264; byte-identical to plain owner-first (mpo) and a plain single binding (GVN merges the pool loads across the readonly memcmp)",
+    "single pool pointer across memcmp in any form (pA/pB/pC/pD1/pF/pF2): the pointer takes a callee-saved register (r6/r8) and flips the sweep layout (collapse, about -130 M)",
+    "volatile accounts reload at the pool CPI arm head (pD1, arm2, arm2p): collapse",
+    "pargs.1 = holder.unwrap_or(false) (the original's spilled holder flag as the CPI arg) on every base: collapse",
+    "pargs.1 read at the admin_cto_pool call: collapse",
+    "n1 (event reads creator_fee_bps, the original's data flow): -7 M @-24 B (af6ca66), -4 M @-24 B (pE base, landed main m2n 2266 @27376)",
+    "nf loaded after the gate (nfa): 2259 @27416; volatile n1 (n1v): 2260 @27376",
+    "event literal timestamp first only (m0e): -36 M; declaration order (evd): -2 M @-8 B; evd+n1: -6 M @-32 B",
+    "2000:1 weight on the sharing CPI ? Err case on main: 2265 @27392",
+    "faithful tail (holder local + declaration order + n1): collapse 2138 @27400; best layout restore with one switch weight 2258 @27352 / 2256 @27392"
+  ],
+  "unresolved_residuals": [
+    "P1: nf preload before the gate (ldxdw r9,[curve+0x70]); the original reads the new fee at the event",
+    "P1: data_is_empty argument comes from a 3-insn ctx.accounts reload; the original keeps the pool pointer in r7 across memcmp (mov64 r1,r7)",
+    "P1: pool CPI arm head reloads the curve holder byte into r8; the original reloads accounts into r6 and passes the spilled holder flag ldxdw r4,[r10-0x950]",
+    "P1/EV: pool_updated r6 vs r8, swept spilled vs r9, sharing tag spilled vs r6 (global tail RA, see w16a19/w15a33)",
+    "sweep layout is bistable; the collapsed mode is a dead split-reload block ldxdw r1,[r10-0x8e0] in front of the post-sweep check"
+  ],
+  "next_ideas": [
+    "price every tail change against the sweep-layout collapse: keep a volatile accounts reload dominating the pool CPI arm",
+    "faithful tail + a layout weight: sw2:execute:29844 (sharing CPI ? Err) or sw1:execute:29986 (holder None in pargs) restore mode A at 2256-2258; a lane that also frees r6/r9 for the tag/swept could stack on it",
+    "n1 repay: n1 is -4 M at -24 B on the landed main; a +24 B faithful repay worth +5 M would land the original's event read of the new fee",
+    "evdecl (declaration-order event literal) is -2 M at -8 B; same repay search at +8 B"
+  ],
+  "incident": "about 22:57 PDT a broad `pkill -f tools/screen.py` also killed w17a10-shim-newpieces' pair screen (ex/scr_e79v_pairs.jsonl, 187/276 done); restarted from w17a10's out dir with the same files (resumable), appending to ex/scr_e79v_pairs.log",
+  "ledger": {"approach": "poolgate", "keys": "0x22a10-w17-{af6ca66,ae14cbe,bf01b5f}-poolgate-*-v1"}
+}

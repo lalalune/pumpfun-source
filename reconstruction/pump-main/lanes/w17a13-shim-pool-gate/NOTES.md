@@ -28,6 +28,9 @@ The P1 call order is now the original's: `memcmp`, `data_is_empty`, `sol_log_`, 
 
 Runtime differential on both builds: 388 cases, 0 mismatches.
 
+**Landed: #4000, merge bf01b5fd9.** land.py merged main 5970b65b3 (w17a09 #3993 had landed meanwhile) and measured
+admin_cto 0.67975 -> **0.68005**, 3,170 slots, 27,400 B, 1034 / 1034, zero losses, forcing_delta 0, differential 388/0.
+
 ## Why the task's shim spelling loses, and why this one does not
 
 The angle proposed one volatile `accounts[0xe]` load used by both tests, owner first (the original keeps the pool
@@ -66,6 +69,41 @@ pointer in r7 across `memcmp` and passes it to `data_is_empty` with `mov64 r1,r7
 IR single-edit screens (w17a06 `gen.py`/`screen.py`, about 500 edits each, stopped early):
 - on pA, nothing restores the sweep layout at 27,400 (best 2,239 @27,296 from a wallet fence);
 - on m0n, nothing reaches 27,400 above main (best 2,261 @27,384).
+
+## After landing (main bf01b5fd9, M 2,270 @27,400)
+
+Captures got fast once the build cache was warm (about 10 s per source variant with `tools/capv.py`), so the
+faithful tail spellings were re-priced on the landed base:
+
+| key | form on bf01b5fd9 | M | bytes | note |
+| --- | --- | ---: | ---: | --- |
+| m2 | main | 2,270 | 27,400 | reference |
+| evd | event literal in **declaration order** (`is_holder_reward` after `new_creator`) | 2,268 | 27,392 | the event block takes the original's shape: `Clock::get` first, `ldxb [r3+0xa5]` among the curve loads |
+| evdn | evd + n1 | 2,264 | 27,368 | adds the original's `ldxdw r4,[r3+0x70]` |
+| pF2 | single pool pointer + arm-head reload, `pargs` built inside the arm | 2,136 | 27,456 | gate = original shape (`mov64 r1,r6`), collapse |
+| m2h / m2L / m2Ld | holder local / late `pargs.1` / + evd | 2,136 / 2,136 / 2,135 | 27,424-27,432 | collapse |
+| m2Ldn / m2hdn | + n1 (the faithful tail: holder local, declaration order, new fee at the event) | 2,138 | 27,400 | collapse |
+| m2n | n1 alone | 2,266 | 27,376 | -4 M at -24 B |
+| n1v | n1 with the event's fee read through `read_volatile` | 2,260 | 27,376 | |
+| nfa / nfad | `let nf` moved behind the gate / + evd | 2,259 / 2,258 | 27,416 / 27,408 | |
+| evdnv | evd + volatile n1 | 2,248 | 27,368 | |
+| arm2 / arm2p | second accounts reload at the CPI arm head / + `pargs` built in the arm | 2,136 | 27,472 | collapse |
+
+Weight and fence screen on the faithful tail m2hdn (360 edits): the layout comes back with
+`sw2:execute:29844` (2000 on the sharing CPI `?` Err case) at 2,258 @27,352 and with `sw1:execute:29986` (2000 on
+`holder==None` in the `pargs` unwrap_or) at 2,256 @27,392, both still below main. In that mode A the faithful tail loses
+8-12 M inside P1/EV because old_fee and the holder flag take the free r6/r9 (the original spills both). On main itself
+the sharing-CPI weight gives 2,265 @27,392.
+
+### The collapse, mechanically
+
+In the collapsed mode the sweep's `?` exit that leaves after the second token call (main 0x20f8) gets its own split
+block `ldxdw r3,[r10-0x2c8]; ldxdw r1,[r10-0x8e0]` in front of the post-sweep `jne r7,2` check. The r1 reload is dead
+(both successors overwrite r1 at once): it is the reload half of a split interval of the value spilled at
+[r10-0x8e0]. MachineBlockPlacement then makes that split block the check's fallthrough predecessor, so the TCF CPI block
+ends in `ja`, and the AMM collect arm chain is placed right after it. The original has the same kind of dead reload at
+0x2130 (`ldxdw r1,[r10-0x8e0]; ldxb r1,[r10-0x2c8]`), but on the Ok continuation, and it tail-duplicates the check
+into each exit (`ldxdw r9,..; ldxdw r7,..; ldxdw r1,[r10-0x950]; ldxdw r6,[r10-0x8f8]; jne r7,2` at 0x3c40).
 
 ## Reading
 
