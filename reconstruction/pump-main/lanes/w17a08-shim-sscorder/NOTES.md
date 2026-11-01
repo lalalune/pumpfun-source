@@ -9,9 +9,10 @@ Ledger: approach `sscorder`, keys `0x22a10-w17-bf01b5f-sscorder-<item>-v1`.
 | build | admin_cto ratio | M | slots | bytes | normalized / raw | losses | differential |
 | --- | ---: | ---: | ---: | ---: | --- | --- | --- |
 | main bf01b5fd9 | 0.68005 | 2,270 | 3,170 | 27,400 | 1034 / 1034 | - | - |
-| **sco1** (this PR) | **0.68065** | **2,272** | 3,170 | 27,400 | 1034 / 1034 | none | 388 cases, 0 mismatches |
+| **sco1** (#4011, landed d5751b26e) | **0.68065** | **2,272** | 3,170 | 27,400 | 1034 / 1034 | none | 388 cases, 0 mismatches |
 
-measure.sh unstripped sha `748fbfba8140c508`; calls stay 154 / 3. The source capture is byte-identical to the IR oracle
+measure.sh unstripped sha `748fbfba8140c508`; calls stay 154 / 3. Landed with `land.py 4011 --allow-forcing`
+(forcing delta 2, merge commit d5751b26e). The source capture is byte-identical to the IR oracle
 cell (w17a03's L5713 lead, re-measured here on the current main).
 
 ### The shim (line 749, no line added)
@@ -71,3 +72,24 @@ Peel target: an ordinary spelling that puts the sharing_config owner read inside
    colouring at 27,400, none gains), 1,770 pairs of the 60 best, 900 triples: best 2,270 / 2,270 / 2,269.
 5. **Load moves:** of 2,604 sharing-run moves only the L5713 window gains (+2, volatile only); every other position of the
    sharing_config field loads re-allocates registers (2,168-2,253 off-size).
+
+## Round 2 on the landed main d5751b26e (M 2,272, 0.68065)
+
+All screens re-run on a fresh capture of d5751b2 (`fx/m3`, simulator `eq_main: true`):
+
+| screen | cells | best at 27,400 | note |
+| --- | ---: | --- | --- |
+| branch weights (`combo.py`) | 928 singles, 1,770 pairs | 2,272 (= main) | 92 singles re-colour, none gains |
+| Rc-window volatile moves (`winmove.py`, L5713 generalised) | 1,420 | 2,272 | 58 count windows, every earlier load of the function |
+| sharing_config field loads moved again (`mvload.py`) | 266 | 2,272 | rent_epoch / flags around the landed window |
+| post-opt volatile re-read at a later use (`rr.py`, lever b) | 272 | 2,273 @27,392 (rr197@232) | with rr157@169 (+8 B): **2,273 @27,400 (+1)** |
+| pre-opt single shim edits (w17a06 `gen.py`/`screen.py`: vload fld, reread, bw, swbw, fence) | 801 | **2,273** (`bf:wallet:31259`) | the do_coin=false fence on the native path (w17a06's bf:wallet:30918) |
+| single colour-order moves (`movemap.py`) | 13.5k+ | 2,276 (+4) | same families as before: flag 186 (S3 slot, excluded), head raises, the 244/245 exact tie |
+
+Source attempts for the +1 cells:
+- rr197@232 + rr157@169 as `read_volatile` of the curve Box pointer (mayhem byte) and of the sharing_config
+  AccountInfo pointer (owner test): 2,074 @27,280 (pair) and 2,052 @27,424 (mayhem only). A pre-opt volatile load of an
+  accounts pointer stops GVN from merging the later reloads (MemorySSA treats it as a def), so the post-opt cell is not a
+  source cell. Only the pre-opt screen predicts source behaviour.
+- `bf:wallet:31259`: `do_coin` as `if coin_present{..}else{false}` is byte-identical to main (f0). A fence under
+  `if collection_native` in the else arm (f1) lands in both threaded copies plus a dead test: 2,258 @27,408.

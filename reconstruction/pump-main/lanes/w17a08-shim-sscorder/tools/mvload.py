@@ -16,7 +16,7 @@ def uses(L, name, start):
         if pat.search(L[k]): return k
     return None
 def cands(lo, hi, span):
-    L = G['L']; out = []
+    L = G["L"]; out = []; hi = min(hi, len(L))
     blk = dvec.blocks_of(L)
     for i in range(lo, hi):
         m = re.match(r'\s+(%[\w.\-]+) = load (?!volatile)(\S+), ptr (%[\w.\-]+)', L[i])

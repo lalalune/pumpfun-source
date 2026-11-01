@@ -7,5 +7,5 @@ for o, n in g['E']:
     c = t.count(o)
     if c != 1: raise SystemExit(f'edit occurs {c} times: {o[:80]}')
     t = t.replace(o, n)
-if t.count('\n') != n0: raise SystemExit('line count changed')
+if g['E'] and t.count('\n') != n0: raise SystemExit('line count changed')
 open(f, 'w').write(t); print('applied', len(g['E']))
