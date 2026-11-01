@@ -124,6 +124,23 @@ pf=a.pump_fees.as_ref();
 
 The read_volatile count under programs/ drops by 2 (land.py forcing delta -2).
 
+
+## 5b. Second peel (this PR): the event_authority lamports clone as ordinary Rust (byte-identical)
+
+With the `pf` pin gone (#4107), the manual Rc increment of `pump_fees_event_authority.lamports` on line 749
+(`core::ptr::read` + `if strong_count==0{unreachable_unchecked()}` + `into_raw` / `increment_strong_count` /
+`from_raw`) no longer steers anything. Source captures on main 70b3b637a (slim oracle, signature vs main `61dcfe87f489`):
+
+| variant (line 749) | M | bytes | signature |
+| --- | ---: | ---: | --- |
+| q1: drop only the `unreachable_unchecked` guard of the lamports block | 2,295 | 27,400 | identical |
+| **q3: `lamports:{pf=a.pump_fees.as_ref();a.pump_fees_event_authority.lamports.clone()}`** | 2,295 | 27,400 | **identical** |
+| q2: `pf` bound at its declaration + plain `.clone()` | 2,202 | 27,368 | (evaluation order matters: `pf` must be read inside the lamports field) |
+| q4: q3 + drop the guard of the `data` block (the #4011 owner pin block) | 2,232 | 27,384 | (that guard still pays) |
+
+measure.sh on q3: 1034 / 1034, zero losses, admin_cto 0.68754 / 3,096 / 27,400 B, unstripped sha256
+54344822ddef0bd4 = baseline 70b3b637a (whole ELF identical). One `unreachable_unchecked` and one manual Rc increment fewer.
+
 ## Tools (`tools/`, experiment only; copy next to w17a06's oracle tools)
 
 - `screenq.py`: w17a24 `screenp.py` + a signature -> M cache across result files.
