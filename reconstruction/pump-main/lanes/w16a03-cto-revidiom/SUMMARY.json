@@ -45,7 +45,8 @@
   "Dropping main's Ok::<_,Error>((target,sharing_update,cashback))? round trip costs 0.12 (m_nt 0.55019): it is a frame-order construct; it does nothing for valmap (vm_nt 0.55022).",
   "Q4: the sibling create_v2::execute writes the same fee checks followed by fee=creator_fee_bps.0 in the OK path, i.e. a validated-fee local; this confirms w15a29's fee-tag phi reading of the original OK block (priced below main by w15a29/w15a15).",
   "Both Q2 classes are reproducible by ordinary spellings (entry pieces: validate reads args.0, w13a41; val copy: Some(args.0.map(|_|target))), but neither survives on today's skeleton (mA 0.43917 @27584, vmA 0.4494 @27824); the original gets both from its per-arm threaded validate.",
-  "alien.py: 416 of main's 3,334 4-grams occur neither in the original admin_cto nor in any matched window; by admin_cto.rs line: 339 (execute head) 96, 749 (sharing CPI manual AccountInfo literals) 59, 661 (TCF manual literals) 41, 307 (to_string inlined) 24, 664 (sweep token arm) 21."
+  "alien.py: 416 of main's 3,334 4-grams occur neither in the original admin_cto nor in any matched window; by admin_cto.rs line: 339 (execute head) 96, 749 (sharing CPI manual AccountInfo literals) 59, 661 (TCF manual literals) 41, 307 (to_string inlined) 24, 664 (sweep token arm) 21.",
+  "vb01v (valmap + b01 + v01) reaches main's structure (rfj true LCS 2984 vs 2985) with three more original-only shapes (holder_key copy, 312 compare order, val copy) at 0.5677: 176 accesses over 59 spill-area slots are 16 B too deep (allocas 10,440 vs main 10,424) and frame-masked registers are -129, mostly in the TCF clone run (orig 0x2800-0x3800)."
  ],
  "attempts": [
   {
@@ -119,6 +120,48 @@
    "edit": "valmap + validate reads args.0 (both Q2 classes)",
    "ratio": 0.4494,
    "bytes": 27824
+  },
+  {
+   "name": "mb01",
+   "edit": "b01 alone (control)",
+   "ratio": 0.54595,
+   "bytes": 27360
+  },
+  {
+   "name": "vb01",
+   "edit": "valmap + b01",
+   "ratio": 0.5662,
+   "bytes": 27344
+  },
+  {
+   "name": "vb01v",
+   "edit": "valmap + b01 + v01 (best structural: rfj 2984 vs main 2985)",
+   "ratio": 0.5677,
+   "bytes": 27344
+  },
+  {
+   "name": "vm2",
+   "edit": "valmap, payload built in place (= valmap bytes)",
+   "ratio": 0.54993,
+   "bytes": 27352
+  },
+  {
+   "name": "vb2",
+   "edit": "vb01v, payload built in place (= vb01v bytes)",
+   "ratio": 0.5677,
+   "bytes": 27344
+  },
+  {
+   "name": "vbq",
+   "edit": "vb01v + quote_locked via &quote_mint",
+   "ratio": 0.55479,
+   "bytes": 27288
+  },
+  {
+   "name": "vbt",
+   "edit": "vb01v + target-only Ok round trip",
+   "ratio": 0.55567,
+   "bytes": 27376
   }
  ],
  "rejected_mechanisms": [
@@ -134,8 +177,16 @@
   "entry load of new on the Result grid (Q2b) has no matched-corpus precedent"
  ],
  "next_ideas": [
-  "valmap plus a frame partner: screen round-trip tuple orders/arity and size knobs with fdelta.py; a partner must put the accounts pointer back at -0x8d8 and ctx at -0x938",
+  "start from vb01v (e/vb01v.py): find an ordinary change that removes ~16 B of allocas above the spill area (the original's sharing payload has no allocas of its own) and re-colours the TCF clone run; price with slotdelta.py and chunkcmp.py 100 first",
   "use revidiom.py/srcmap.py before any sibling-idiom trial: it answers in seconds whether a shape exists anywhere in the matched corpus and which source line made it",
   "combine valmap with the per-arm threading forms (ov1-ov4) only once their sharing-arm IR position is pinned (w15a11 section 4)"
- ]
+ ],
+ "best_structural": {
+  "name": "vb01v",
+  "ratio": 0.5677,
+  "bytes": 27344,
+  "lcs_exact": 2029,
+  "lcs_rfj": 2984,
+  "edits": "e/vb01v.py"
+ }
 }

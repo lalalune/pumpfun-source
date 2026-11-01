@@ -9,7 +9,9 @@ Base: main 9bd38c7d5 (`$BASE` = `baseline-main-9bd38c7d5`: Pump Main 1034/1035 n
 ordinary spelling replaces a `read_volatile` placeholder at no loss. The deliverable is the pattern -> window -> spelling
 table below, a line-table source map of the whole original program, and two mechanism findings:
 - `Some(args.0.map(|_|target))` is the first source form that reproduces the original's sharing-CPI `val` copy
-  (tag + 7/8/8/8/1 from the validated target), but it moves the frame by 8 B in two regions (0.54993).
+  (tag + 7/8/8/8/1 from the validated target), but its spill slots and registers move (0.54993). Joined with w15a11's
+  b01 and v01 (`vb01v`), it reaches main's structure (rfj true LCS 2984 vs 2985) with three more original-only shapes,
+  at 0.5677. What remains is 16 B of frame and the TCF-run register colouring (section 4.4).
 - The `args=&(new,)` tuple in main works because it loads `new`'s tag early, as the original does (orig 0x4d8). Every
   `Some(new)`-without-args form collapses for that reason alone.
 - A map of where main makes instruction shapes that the original program never makes (`alien.py`): 416 4-grams. 100 of
@@ -143,7 +145,7 @@ against 2722. So a perfect frame partner alone would still leave valmap 124 matc
 
 Control: dropping main's `Ok::<_,Error>((target,sharing_update,cashback))?` round trip alone (`m_nt`) gives 0.55019, the
 same level. That round trip is worth +0.12 on main through the frame. With valmap it does nothing (`vm_nt` 0.55022). So a
-usable valmap needs its own frame-shaping partner. Section 5 lists the order and arity variants screened.
+usable valmap needs its own frame-shaping partner. The table below lists the order and arity variants screened.
 
 Frame-partner screen on valmap (raw-IR oracle, all at 27,352 B):
 
@@ -166,7 +168,33 @@ spelling, but neither survives on today's skeleton. The original produces both b
 arm. In the non-holder shared path the target pieces are then `new`'s entry SSA values (val[8..16) = `[-0x900]`, the
 entry def at 0x510).
 
-### 4.4 Where main makes shapes the original never makes (`tools/alien.py`, `data/alien-shapes-main.txt`)
+### 4.4 valmap joined with b01: two faithful classes, main's structure, not main's frame
+
+b01 (w15a11: validate takes `holder_key` by value, so it reproduces the original's holder_key copy to `[-0x518]` at orig
+0x598-0x5d0) is the other class that has an exact ordinary spelling. Joined with valmap:
+
+| probe | change | ratio @ bytes | exact / j / rj / fj / rfj |
+| --- | --- | --- | --- |
+| mb01 | b01 alone (control) | 0.54595 @27,360 | 1987 / 2110 / 2499 / 2479 / 2950 |
+| vb01 | valmap + b01 | 0.5662 @27,344 | 2027 / 2148 / 2568 / 2450 / 2982 |
+| **vb01v** | valmap + b01 + v01 (312 compares `holder_key` first, the original memcmp order) | **0.5677 @27,344** | 2029 / 2150 / 2570 / 2452 / **2984** |
+| vb2 | vb01v with the payload built in place (`match args.0{..=>Some(Some(target)),..=>Some(None)}`) | = vb01v (same bytes) | |
+| vbq | vb01v + quote_locked through `&a.bonding_curve.quote_mint` (drops the 32 B `q` copy) | 0.55479 @27,288 | 1983 / 2097 / 2595 / 2403 / 2972 |
+| vbt | vb01v + Ok round trip of `target` only | 0.55567 @27,376 | 1991 / 2112 / 2525 / 2450 / 2978 |
+
+The two pieces work together on structure: each alone is rfj 2940 / 2950, together 2984, one below main's 2985. vb01v
+reproduces three original-only shapes at once: the holder_key copy, the 312 compare order and the sharing-CPI val copy.
+It is still 0.106 below main, for two reasons:
+- **Frame** (`slotdelta.py vb01v`): 176 matched accesses over 59 slots (orig `-0xc28..-0x6d8`, the spill area) sit 16 B too
+  deep. vb01v has 10,440 B of allocas against main's 10,424: b01's +32 B copy plus valmap's -16 B. The original evidently
+  carries about 16 B less above its spill area. Fixing that whole delta is worth at most about +0.05 (to about 0.62).
+- **Registers** (`chunkcmp.py 100`, frame masked): -129 vs main. Almost all of it is in orig 0x1800 (-24), the TCF clone
+  run 0x2800-0x3800 (-21/-35) and 0x6000 (-22). The payload middle pieces now live as SSA values across the sweep and
+  re-colour the TCF run.
+
+So the valmap family needs one more 16 B frame change and a TCF-run RA change. No ordinary spelling found here gives either.
+
+### 4.5 Where main makes shapes the original never makes (`tools/alien.py`, `data/alien-shapes-main.txt`)
 
 416 of main's 3,334 4-grams occur neither in the original admin_cto nor in any matched window. They are mapped to
 main's own source lines through the same line-table build. By line of `admin_cto.rs`:
@@ -180,14 +208,16 @@ main's own source lines through the same line-table build. By line of `admin_cto
 | 664 | 21 | sweep native/token arm (`token_frozen` before `token_raw_amount`) |
 | 289 | 10 | holder test (`hopt==Some(true)` basin) |
 
-The two CPI statements built from manual AccountInfo literals (lines 661 and 749) account for 100 of these shapes, mostly at the literal fields. They
-earn main's ratio through RA, but they are the least faithful construct left after the two placeholders. A later lane that
+The two CPI statements built from manual AccountInfo literals (lines 661 and 749) account for 100 of these shapes,
+mostly at the literal fields. They earn main's ratio through RA, but they are the least faithful construct left after the
+two placeholders. A later lane that
 rewrites the clone runs as `to_account_info()` (s1, w15a34) should measure against this count as well as the ratio.
 
 ## 5. Next ideas
 
-1. valmap plus a frame repair: find the form in which the sharing payload pieces are target's allocas (no map temp, no
-   join copy). Price it with `fdelta.py` and the w15a11 `fshift.py` bound on 0x2800-0x3800 / 0x4800-0x6000.
+1. Start from vb01v (`e/vb01v.py`), not from valmap. It needs about 16 B less of allocas above the spill area (the
+   original's sharing payload has no allocas of its own: val reads target's `[-0x550]/[-0x560]`) and a TCF-run RA change.
+   Price each candidate with `slotdelta.py` and `chunkcmp.py 100` before building it.
 2. Use `revidiom.py range` and `srcmap.py` before writing any "sibling idiom" trial. The corpus answers in seconds
    whether an instruction shape exists anywhere else and which source line made it.
 3. Q1 needs the RA pressure of the original's sharing arm, so it can only come from a whole-region change (swept in r9),
