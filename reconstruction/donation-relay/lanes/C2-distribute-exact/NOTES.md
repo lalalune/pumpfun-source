@@ -26,6 +26,10 @@ Base: origin/swarm/w20-relay-C1-distribute-bps c0e7d2635 (553/571, 796,536 B, bu
 6. **`mint.key()`, not `*mint.key` and not a hoisted `let mint_key`.** A local changes the preheader; `*ctx.mint.key` flips the error-block order (mint, program, try_from, owner against the target's program, try_from, owner, mint) and the row pointer's register.
 7. **Handlers.** Read `total` after `signer_seeds`, and put `config_id:config,mint` in the event from the locals: this fixes the load order. Epoch stays re-read from `accounts`.
 
-## Not done
+## Order in settlement_handlers.rs
 
-Linux route and whole ELF are not checked here. See the commit log for later steps.
+`distribute_exact_after` now sits between `distribute_after` and `distribute_after_finish`, and `distribute_exact_non_swap` between `distribute_non_swap` and `distribute_non_swap_finish`, which is the target's order (0x18af0, 0x19c80, 0x1a6d8 and 0x1b810, 0x1c878, 0x1d2d0). No gains or losses from the move.
+
+## Trial integration, Mac route
+
+Scratch merge of C7's tip d60cb0935 (C1 to C6 merged) with this lane's eacd6d9bd, not pushed: 569 of 571 functions, 851,168 of 851,888 B, 0.99915, losses none against this lane's base, strict 550, same_address 243, `.rodata` byte-equal, `.dynstr` equal. Open: 0xb3278 and 0xbcac0, the Linux-only pair. `.text` still has 42 functions out of order (`order.py`), none of them in this cluster except 0x8eb0, a `drop_in_place` instance. `merge-tree` shows no conflict between this tip and any of C1, C3, C4, C5, C6, C7.
