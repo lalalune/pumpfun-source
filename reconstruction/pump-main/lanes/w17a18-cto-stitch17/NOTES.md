@@ -130,3 +130,32 @@ unstripped 678b0ba01d847c33; differential 388 / 0. The placeholder count is unch
 - `tnew3.py`: w16a17 splice translation of the cached library onto the current baseline.
 - `pairs18.py`: the same with cached `splice.Var`s, so size-complementary pairs/triples need no difflib.
 - `rec.py`: ledger rows for every capture.
+
+
+## Independent current-source qualification — 2026-11-01
+
+The historical tables above describe the author's recorded bases and private
+experiments. This review did not execute those private IR/sweep tools; the two
+new helper edits are restored to their preceding main versions.
+
+A fresh official identity build of main `aab087f32` reproduces the selected
+4050 image `8e7e505382d975b7`. The authored source separately reproduces
+`678b0ba01d847c33` at 0.68664, below that current baseline. Composing the
+placeholder move with both maintained lifetime markers produces
+`54344822ddef0bd4` at **0.68754** and **27,400 bytes**, against current 0.68724.
+All **1,034/1,035 raw and normalized windows** remain matched, with zero raw or
+normalized gains or losses. Positional differences increase from **3,092 to
+3,096**; the token-similarity gain does not claim improvement in that metric.
+The actual build revision is `80cd60a0c9476d843f84989a607ba10fcc3d6d29`.
+
+The moved byte read addresses a fully initialized, ordinary local PDA Pubkey
+whose typed reference is already valid before validate runs. It writes no
+account state and changes no predicate or error priority. The earlier read also
+runs on early-return paths, so this review makes no portable volatile/MMIO
+sequence equivalence claim. Its qualification retains the pinned compiler and
+valid live Anchor-context assumptions of the existing reconstruction shims.
+
+The fresh signed runtime comparison is a separate merge gate. Historical
+runtime counts above are retained author context, not a receipt for this new
+composed image. Whole Pump ELF identity remains unproved; the other program
+identity checkpoints receive no new acceptance from this source edit.
