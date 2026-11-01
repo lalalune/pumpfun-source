@@ -1,0 +1,132 @@
+{
+ "lane": "w17a20-shim-ve1nslot",
+ "wave": 17,
+ "target": "0x22a10 admin_cto::execute",
+ "pinned_bytes": 27400,
+ "bases": {
+  "8330455eb": {
+   "ratio": 0.68244,
+   "M": 2278
+  },
+  "a51791e2e": {
+   "ratio": 0.68544,
+   "M": 2288,
+   "slots": 3092
+  }
+ },
+ "result": "KILL at step 2 (colour-order bound); no source change proposed, nothing landed",
+ "best_zero_loss": null,
+ "measurements": {
+  "ve1n_ir_8330455": {
+   "M": 2159,
+   "bytes": 27264,
+   "masked_exact_frame_regs_fr_frj": [
+    2159,
+    2294,
+    2507,
+    2643,
+    2850
+   ],
+   "legal_colour_ceiling": 2202,
+   "votes_ideal": 2282
+  },
+  "ve1nP_ir_8330455": {
+   "M": 2156,
+   "bytes": 27224,
+   "masked": [
+    2156,
+    2359,
+    2477,
+    2643,
+    2861
+   ],
+   "legal_colour_ceiling": 2240,
+   "votes_ideal": 2341
+  },
+  "sh1h2_src_a51791e": {
+   "M": 2158,
+   "bytes": 27256,
+   "masked": [
+    2158,
+    2295,
+    2503,
+    2645,
+    2852
+   ],
+   "legal_colour_ceiling": 2201,
+   "votes_ideal": 2281,
+   "main": 2288
+  },
+  "k8_src_8330455": {
+   "M": 1958,
+   "bytes": 27400,
+   "masked": [
+    1958,
+    2131,
+    2432,
+    2679,
+    2847
+   ],
+   "votes_ideal": 2115
+  },
+  "ve1n_hl2P_ir": {
+   "M": 2018,
+   "bytes": 27592,
+   "frj": 2880,
+   "votes_ideal": 2223
+  },
+  "main_8330455_masked": [
+   2278,
+   2386,
+   2571,
+   2652,
+   2842
+  ],
+  "main_a51791e_masked": [
+   2288,
+   2393,
+   2579,
+   2659,
+   2842
+  ]
+ },
+ "attempts": [
+  "ve1n IR rebuild on 8330455 (tools/ce3.py)",
+  "sscsim bound: r3 interval moved to every rank with accounts first (best 2172; r3 at orig k8: 2154)",
+  "legal colour-order annealing: difflib-M (sa2) and true-LCS proxy (fsa, rapidfuzz) on m0/ve1n/ve1nP/sh1h2",
+  "votes-ideal relabel on 14 cells",
+  "CtoState grid re-screen on 8330455 (64 cells)",
+  "IR PDA-first (k8 shape) on main and ve1n",
+  "IR holder flag computed once (h1a/b/c) on main and ve1n",
+  "IR holder late in bb6.i (hl1/hl2, +/- PDA-first) on main and ve1n",
+  "source captures: k8, sh1, sh1h, sh1hk8, sh1h2, sh1h2k8 (8330455) and sh1h2 (a51791e)"
+ ],
+ "rejected_mechanisms": [
+  "spill-slot order repair of ve1n (legal ceiling 2201-2240 < main; votes-ideal 2281 < main 2288 on a51791e)",
+  "RA-same weight edits (dvec/combo/rcinc/expect) on ve1n: capped by the legal colour ceiling",
+  "volatile early flag reads (sh1h): and-1 x3, memmove creator, select cashback: 2017",
+  "holder and-1 test form (h1a/h1c, hl variants): collapse 1587-2030"
+ ],
+ "unresolved_residuals": [
+  "register naming in T1/C1 after any entry rewrite (accounts r6 instead of r8; T1 temps renamed)",
+  "interval extents differ from the original so its colour map is not a legal colouring of ours",
+  "original keeps mayhem in r8 and spills only cashback/holder_reward (k2/k1); ve1n spills all three (k5/k6/k7)"
+ ],
+ "next_ideas": [
+  "use sh1h2 (plain early reads + 7 write_volatile stores) as the source form of the original E2/E3 inside a full RA-basin re-tune",
+  "holder late (hopt test after the mayhem test, and-1) is the piece that moves r3/r4 toward k8/k10; combine with lighter early-flag intervals (mayhem in a register, no validate reload of the flags)",
+  "best skeletons for an RA re-tune: ve1n hl2P (f+r+j 2880) and src k8 (frame+regs 2679 at exactly 27400 B)"
+ ],
+ "ledger_keys": [
+  "0x22a10-w17-8330455-ve1nslot-rebuild-v1",
+  "0x22a10-w17-8330455-ve1nslot-sscbound-v1",
+  "0x22a10-w17-8330455-ve1nslot-grid-v1",
+  "0x22a10-w17-8330455-ve1nslot-pdafirst-bound-v1",
+  "0x22a10-w17-8330455-ve1nslot-src-sh1h2-v1",
+  "0x22a10-w17-8330455-ve1nslot-src-k8-v1",
+  "0x22a10-w17-8330455-ve1nslot-holderflag-v1",
+  "0x22a10-w17-8330455-ve1nslot-fsa-v1",
+  "0x22a10-w17-8330455-ve1nslot-holderlate-v1",
+  "0x22a10-w17-a51791e-ve1nslot-sh1h2-bound-v1"
+ ]
+}
