@@ -286,7 +286,7 @@ fn validate(st:&CtoState,hopt:Option<bool>,fee:Option<u64>,new:&Option<Pubkey>,h
 
 
 
- let mut target_head=core::mem::MaybeUninit::<[u8;7]>::uninit();let mut target_tail=core::mem::MaybeUninit::<[u8;25]>::uninit();/*shim: separate 7-byte head and 25-byte tail permit a whole-head lifetime end without ending the tail*/if match st.holder_reward as u8{1=>{if !(hopt==Some(true)){return Err({let e=error!(PumpError::HolderRewardCreatorImmutable);unsafe{core::ptr::read_volatile(holder_key as *const Pubkey as *const u8)}/*shim: holder_key byte read placeholder*/;e});}true}_=>if unsafe{expect_p(holder,true,0.49)}/*shim: !hr holder test 49:51 (MBP places the 306 test after the !hr holder test)*/{
+ let mut target_head=core::mem::MaybeUninit::<[u8;7]>::uninit();let mut target_tail=core::mem::MaybeUninit::<[u8;25]>::uninit();/*shim: separate 7-byte head and 25-byte tail permit a whole-head lifetime end without ending the tail*/if match st.holder_reward as u8{1=>{if !(hopt==Some(true)){return Err(error!(PumpError::HolderRewardCreatorImmutable));}true}_=>if unsafe{expect_p(holder,true,0.49)}/*shim: !hr holder test 49:51 (MBP places the 306 test after the !hr holder test)*/{
 
 
 
@@ -309,7 +309,7 @@ fn validate(st:&CtoState,hopt:Option<bool>,fee:Option<u64>,new:&Option<Pubkey>,h
 
 
 
-  if unsafe{expect_p((pt8(4,(t==*holder_key) as u8)&1)==0,true,0.5)}/*shim: 312 t==holder_key memcmp weight; passthrough on the compare byte*/&&unsafe{expect_p(t!=*sharing,true,0.375)}/*shim: 312 t==sharing memcmp weight*/{unsafe{lts(7,target_head.as_mut_ptr().cast::<u8>());lts(25,target_tail.as_mut_ptr().cast::<u8>())}/*shim: start the parts before storing the checked key; copy head before materializing the tail source to preserve SROA order*/;{unsafe{core::ptr::copy_nonoverlapping(&t as *const Pubkey as *const u8,target_head.as_mut_ptr().cast::<u8>(),7);}let b=t.to_bytes();unsafe{core::ptr::copy_nonoverlapping(b.as_ptr().add(7),target_tail.as_mut_ptr().cast::<u8>(),25);}}if unsafe{expect_p(unsafe{*(&fee as *const Option<u64> as *const u64)}==0,true,0.5)}/*shim: T arm fee None edge weight*/{unsafe{ann1(true,b"\0".as_ptr(),b"\0".as_ptr(),0)}/*shim: annotation keeps the T arm None edge block for the PHI copies (no instruction)*/;}}else{return Err(error!(PumpError::InvalidCreator));}}
+  if unsafe{expect_p((pt8(4,(t==*holder_key) as u8)&1)==0,true,0.5)}/*shim: 312 t==holder_key memcmp weight; passthrough on the compare byte*/&&unsafe{expect_p(t!=*sharing,true,0.37)}/*shim: 312 t==sharing memcmp weight*/{unsafe{lts(7,target_head.as_mut_ptr().cast::<u8>());lts(25,target_tail.as_mut_ptr().cast::<u8>())}/*shim: start the parts before storing the checked key; copy head before materializing the tail source to preserve SROA order*/;{unsafe{core::ptr::copy_nonoverlapping(&t as *const Pubkey as *const u8,target_head.as_mut_ptr().cast::<u8>(),7);}let b=t.to_bytes();unsafe{core::ptr::copy_nonoverlapping(b.as_ptr().add(7),target_tail.as_mut_ptr().cast::<u8>(),25);}}if unsafe{expect_p(unsafe{*(&fee as *const Option<u64> as *const u64)}==0,true,0.5)}/*shim: T arm fee None edge weight*/{unsafe{ann1(true,b"\0".as_ptr(),b"\0".as_ptr(),0)}/*shim: annotation keeps the T arm None edge block for the PHI copies (no instruction)*/;}}else{return Err(error!(PumpError::InvalidCreator));}}
 // layout-pad(13): aligns the next Source site with the original line
  let cashback=if holder{false}else{st.cashback};
 
