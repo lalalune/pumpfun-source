@@ -14,8 +14,7 @@ The project is finished. No further development or reconstruction work is needed
 See [CONTRIBUTING.md](CONTRIBUTING.md) and [AGENTS.md](AGENTS.md).
 
 The repository contains the final program sources, required dependency sources,
-IDLs, Cargo manifests and lockfiles. Research material, captured binaries and
-development tooling have been removed.
+IDLs, Cargo manifests and lockfiles.
 
 Repository code is [MIT licensed](LICENSE). Third-party sources retain their
 original licenses and notices.
