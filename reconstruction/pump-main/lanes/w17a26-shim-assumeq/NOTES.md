@@ -120,7 +120,9 @@ Greedy forward selection has nothing to start from: no single is above main.
     `&creator_vault_quote_token_account` GEP at its definition), not missing value facts.
 - Constant facts (`cc`) that do hold, such as anchor's `Signer`/`mut`/`Program` flags or wallet's `!executable` and
   `is_writable`, would turn `ldxb`/`stxb` flag copies into `stb` constants. The original keeps the loads (for example
-  orig 0x3e90 copies the three flag bytes of a clone as one 3 B load), so these move away from it.
+  orig 0x3e90 copies the three flag bytes of a clone as one 3 B load), so these move away from it. Main already has
+  more constant stack stores than the original (`stdw [r10-x],0` 92 vs 84, `stb ..,3` 11 vs 9; `ldxb` 98 vs 96,
+  `stxb` 90 vs 91), so there is no constant-fold gap for `cc` cells to close.
 
 ## 6. For other lanes
 
