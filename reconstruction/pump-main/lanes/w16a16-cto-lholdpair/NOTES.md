@@ -119,8 +119,9 @@ select (L's 40 B) or perturbs the global colouring (M 1,600-2,000).
 | Lv_vhm | validate `matches!(hopt,Some(true))` | 27,520 | 1,404 | 1,446 | 1,467 | 9 | 2.375 (1) |
 
 36 forms. None shows the unforced marker (holder kept in r5, at most 6 rotated slots), and none has M above 2,251:
-- 11 forms are byte-identical to L_vol: statement order of hopt/holder/cashback, Global/BondingCurve bindings, the plain
-  constructor helper (inlined), validate call-site spellings.
+- 9 forms are byte-identical to L_vol (`fn.bin` cmp): hb, cbl, cbif2 (statement order and spelling of hopt/holder/cashback),
+  gb, bcb, gbcb (Global/BondingCurve bindings), sth, sthg (the plain constructor helper is inlined) and cvsk. cvhk differs
+  in bytes but ties L_vol's M, Mperm and Mhc.
 - Forms that remove the second holder reload all lose code: `sk1`/`sk2` (sharing-key copy before `args`) -128 B and M 2,197
   (holder 2.004); `qlo3` 2,081; S3ncb1/S3ncb2 (cashback via validate, no early !holder select) 1,660/1,827 (holder 1.376).
 - Forms that move the `new` tag load earlier (`ar1`, `hc2`, `arsk`) make both the holder and the `new` pointer heavy (2.379,
