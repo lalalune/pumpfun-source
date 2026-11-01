@@ -128,6 +128,16 @@ class MayhemReceiptAdmissionTests(unittest.TestCase):
                     self.assertNotEqual(result.returncode, 0, result.stdout)
                     self.assertFalse(output.exists())
 
+    def test_a_receipt_binding_no_harness_file_cannot_publish_success(self):
+        """The receipt names the harness that produced it; an empty map names nothing."""
+        for script, name in FAMILIES:
+            with self.subTest(script=script, instruction=name):
+                document = copy.deepcopy(self.receipts[name])
+                document['harness_sha256'] = {}
+                result, output = self.verify(script, document)
+                self.assertNotEqual(result.returncode, 0, result.stdout)
+                self.assertFalse(output.exists())
+
     def test_a_changed_signature_still_fails_cryptographic_verification(self):
         for script, name in FAMILIES:
             with self.subTest(script=script, instruction=name):
