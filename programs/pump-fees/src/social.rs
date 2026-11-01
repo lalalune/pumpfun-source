@@ -6,7 +6,7 @@ use crate::types::FeeProgramGlobal;
   if ctx.accounts.fee_program_global.disable_flags&2!=0 {msg!("ClaimSocialFeePda is currently disabled");return Err(FeeError::FeatureDeactivated.into());}
   let timestamp=Clock::get()?.unix_timestamp;let now=timestamp as u64;
   let state=&mut ctx.accounts.social_fee_pda;
-  let rate_limit=ctx.accounts.fee_program_global.claim_rate_limit; if core::intrinsics::unlikely(rate_limit!=0 && state.last_claimed!=0 && now<state.last_claimed.saturating_add(rate_limit)) {msg!("Claim rate limit exceeded");return Ok(None);}
+  let rate_limit=ctx.accounts.fee_program_global.claim_rate_limit; let limited=rate_limit!=0 && state.last_claimed!=0 && now<state.last_claimed.saturating_add(rate_limit); if limited {msg!("Claim rate limit exceeded");return Ok(None);}
   if ctx.accounts.recipient.executable {msg!("Recipient account is executable, so it cannot receive lamports");return Ok(None);}
   let native=ctx.accounts.quote_mint.key()==anchor_spl::token::spl_token::native_mint::ID;
   if native {
@@ -63,7 +63,7 @@ use crate::types::FeeProgramGlobal;
   let state=&mut ctx.accounts.social_fee_pda;
   let timestamp=Clock::get()?.unix_timestamp;let now=timestamp as u64;
   let rate_limit=ctx.accounts.fee_program_global.claim_rate_limit;
-  if core::intrinsics::unlikely(rate_limit!=0 && state.last_claimed!=0 && now<state.last_claimed.saturating_add(rate_limit)) {
+  let limited=rate_limit!=0 && state.last_claimed!=0 && now<state.last_claimed.saturating_add(rate_limit); if limited {
    msg!("Claim rate limit exceeded");return Ok(None);
   }
   let balance=state.to_account_info().lamports();
