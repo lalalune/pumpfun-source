@@ -505,6 +505,17 @@ class SweepFeesToken2022CapturedTests(unittest.TestCase):
     def test_fixed_cases_match_captured_program(self):
         self.run_cases(fixed_cases())
 
+    def test_an_unknown_column_token_is_refused(self):
+        # The parser's catchalls read any other token as a real value, so a
+        # misspelt or shifted column silently selected a different case.
+        malformed = dict(bucket='creatorr', quote_mint='quoted', token_program='t222', mint_owner='spll',
+                         hook='sett', pausable='pausedd')
+        for column, value in malformed.items():
+            with self.subTest(column=column):
+                text = host_line(case(**{column: value})) + '\n'
+                run = subprocess.run([str(self.host)], input=text, capture_output=True, text=True)
+                self.assertNotEqual(run.returncode, 0, run.stdout)
+
     def test_seeded_random_cases_match_captured_program(self):
         self.run_cases(random_cases())
 

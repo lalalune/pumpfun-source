@@ -27,7 +27,7 @@ jobs:
               sudo apt-get install -y llvm
               python -B reconstruction/tooling/byte-comparison-input-preservation/test_verify.py --objdump /usr/bin/llvm-objdump
               PUMP_OBJDUMP=/usr/bin/llvm-objdump python -I -B reconstruction/pump-main/lanes/multihop-reconstruction/test_rdiff.py
-              python -B -m unittest discover -s reconstruction/harness -p 'test_llvm_tools.py'
+              python -B scripts/run_discovered_tests.py reconstruction/harness 'test_llvm_tools.py' --expect 8
           - suite: contract-tests
             commands: |
               python -B -m unittest discover -s tests -v
@@ -78,6 +78,12 @@ jobs:
               python -B reconstruction/pump-main/lanes/w14a88-cto-sweeptagmem/test_mv.py
           - suite: composition-patch-bytes
             commands: |
+              python -B reconstruction/harness/test_integrate_fresh_regression.py
+              python -B reconstruction/harness/test_integrate_fresh_mode.py
+              python -B reconstruction/harness/test_fresh_control.py
+              python -B reconstruction/harness/test_fresh_control_inputs.py
+              python -B reconstruction/harness/test_verify_fresh_control.py
+              python -B research/fresh-integration-baseline-20261101/verify.py
               python -B reconstruction/harness/test_integrate_failures.py
               python -B reconstruction/harness/test_pair_case_alias.py
               python -B reconstruction/harness/test_integrate_no_build_cli.py
@@ -359,6 +365,7 @@ jobs:
               python -B reconstruction/harness/test_score_baseline_option_conflict.py
               python -B reconstruction/harness/test_score_symbol_admission.py
               python -B scripts/run_discovered_tests.py reconstruction/harness 'test_control_flow*.py' --expect 29
+              python -B scripts/run_discovered_tests.py reconstruction/harness 'test_*provenance.py' --expect 36
               python -B scripts/run_discovered_tests.py reconstruction/harness 'test_diagnostic*.py' --expect 26
               python -B reconstruction/harness/test_batch_target_metric.py
               python -B reconstruction/pump-main/test_ledger_negative_limit.py
@@ -497,10 +504,14 @@ jobs:
               python -B reconstruction/verification/donation-relay-stateful/test_stateful.py
               python -B reconstruction/verification/donation-relay-xtx-sequences/test_output_refusal.py
               python -B reconstruction/verification/donation-relay-xtx-sequences/test_sequences.py
+              python -B reconstruction/verification/donation-relay-multidonor/test_fixture.py
+              python -B reconstruction/verification/donation-relay-multidonor/test_producer.py
+              python -B reconstruction/verification/donation-relay-multidonor/test_verifier.py
               python -B reconstruction/verification/pump-migration-lifecycle/test_lifecycle.py
               python -B reconstruction/verification/pump-migration-lifecycle/test_output_refusal.py
               python -B reconstruction/verification/pump-admin-cto-stateful/test_lifecycle.py
               python -B reconstruction/verification/pump-admin-cto-stateful/test_receipts.py
+              python -B scripts/run_discovered_tests.py reconstruction/verification/pump-admin-cto-fuzzer 'test_*.py' --expect 71
               python -B reconstruction/verification/pump-cross-program-fee-lifecycle/test_lifecycle.py
               python -B reconstruction/donation-relay/native-linux-v148-20261030/test_analyzer_isolation.py
               python -B reconstruction/verification/mayhem-dispatch-boundaries/test_inventory.py
@@ -508,7 +519,12 @@ jobs:
               python -B reconstruction/verification/mayhem-stateful-lifecycle/test_lifecycle.py
           - suite: host-fragments
             commands: |
+              python -B tests/test_extra_host_input_validation.py
+              python -B tests/test_curve_walk_host_input_validation.py
+              python -B tests/test_length_host_input_validation.py
               python -B scripts/run_discovered_tests.py tests 'test_global_*_captured.py' --expect 2
+              python -B tests/test_claim_cashback_v2_admission_captured.py
+              python -B tests/test_create_admission_captured.py
               python -B tests/test_pump_amm_liquidity_captured.py
               python -B tests/test_pump_amm_caller_fixture_inputs.py
               python -B tests/test_pump_amm_collect_coin_creator_fee_captured.py

@@ -29,6 +29,19 @@ RUNNERS = (
 )
 ERROR = "Normal Python is required"
 
+# The module docstring names each runner's instruction family. A stale
+# copy-pasted docstring once mislabelled several runners (and, for the two
+# that pass ``description=__doc__`` to argparse, their ``--help`` text); pin a
+# keyword that must appear so that regression does not return unnoticed.
+SUBJECT_KEYWORDS = {
+    "pump_cashback_surfpool.py": "claim_cashback",
+    "pump_exact_quote_surfpool.py": "exact-quote",
+    "pump_holder_distribution_surfpool.py": "holder-distribution",
+    "pump_legacy_buy_surfpool.py": "legacy buy",
+    "pump_migrate_surfpool.py": "migrate",
+    "pump_v3_configured_fee_surfpool.py": "configured creator-fee",
+}
+
 
 def run(script, *arguments, environment=None):
     return subprocess.run(
@@ -66,6 +79,15 @@ class PumpSurfpoolOptimizedModeTests(unittest.TestCase):
                 completed = run(script)
                 self.assertEqual(completed.returncode, 0, completed.stderr)
                 self.assertIn("usage:", completed.stdout)
+
+    def test_module_docstring_names_its_instruction_family(self):
+        import ast
+
+        for script, keyword in SUBJECT_KEYWORDS.items():
+            with self.subTest(script=script):
+                source = (SCRIPTS / script).read_text(encoding="utf-8")
+                docstring = ast.get_docstring(ast.parse(source)) or ""
+                self.assertIn(keyword, docstring)
 
 
 if __name__ == "__main__":

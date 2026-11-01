@@ -2,7 +2,8 @@
 //! `tests/test_accumulator_length_captured.py`. One request per line:
 //! `user,read,len,lamports,twin` or `global,reads,len`, where `read` is
 //! `ignored|load|init|claim|sell|extend`, `reads` is `0|1` and `twin` is the
-//! standard-length error code or `-`.
+//! standard-length error code or `-`. Any other token is refused: `.ok()`
+//! would read a malformed column as "the twin succeeded".
 //! Answers: `same`, `error:<code>` or `paid:<lamports>`.
 #[path = "accumulator_length.rs"]
 mod accumulator_length;
@@ -12,9 +13,20 @@ use std::io::{self, BufRead, Write};
 
 fn answer(line: &str) -> String {
     let f: Vec<&str> = line.split(',').collect();
+    let columns = match f[0] {
+        "user" => 5,
+        "global" => 3,
+        other => panic!("unknown target {other}"),
+    };
+    assert_eq!(f.len(), columns, "unexpected column count");
     let n = |i: usize| f[i].parse::<u64>().unwrap();
     let result = if f[0] == "global" {
-        global_accumulator(n(1) != 0, n(2))
+        let reads = match f[1] {
+            "0" => false,
+            "1" => true,
+            other => panic!("reads must be 0 or 1, got {other}"),
+        };
+        global_accumulator(reads, n(2))
     } else {
         let read = match f[1] {
             "ignored" => UserRead::Ignored,
@@ -22,9 +34,14 @@ fn answer(line: &str) -> String {
             "init" => UserRead::InitIfNeeded,
             "claim" => UserRead::NativeClaim,
             "sell" => UserRead::CashbackSell,
-            _ => UserRead::Extend,
+            "extend" => UserRead::Extend,
+            other => panic!("unknown read {other}"),
         };
-        user_accumulator(read, n(2), n(3), f[4].parse::<u32>().ok())
+        let twin = match f[4] {
+            "-" => None,
+            code => Some(code.parse::<u32>().expect("twin must be an error code or -")),
+        };
+        user_accumulator(read, n(2), n(3), twin)
     };
     match result {
         Answer::Same => "same".to_string(),

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Signed offline Surfpool direct Pump creator-distribution comparisons with captured CPI programs."""
+"""Signed offline Surfpool partial exact-quote v3 purchase comparisons."""
 if not __debug__:
     raise SystemExit('Normal Python is required; do not use -O or PYTHONOPTIMIZE.')
 import argparse,base64,hashlib,json,socket,struct,subprocess,sys,time,urllib.request

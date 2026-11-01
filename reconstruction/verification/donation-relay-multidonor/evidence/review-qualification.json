@@ -1,0 +1,59 @@
+{
+  "candidate": {
+    "bytes": 747480,
+    "sha256": "810df19bdae4af7540a844f8873bf09196cb5e42a867b77e3e007f3f1363dd92"
+  },
+  "captured_original": "367f07a62e3f74d358187d175cf3228848e81a56c781a9a75b9df7fed1268563",
+  "historical_source_build_context": {
+    "candidate_sha256": "810df19bdae4af7540a844f8873bf09196cb5e42a867b77e3e007f3f1363dd92",
+    "complete_compiler_environment_identity_not_requalified": true,
+    "current_sixty_source_files_equal": true,
+    "retained_from": "pass107 follow-up runtime3847 actual Cargo build",
+    "source_manifest_sha256": "0082e5e1aa7139a1e8c5b62b2222be4eb7041c4e712d0d8d90b3dceea57e15fe"
+  },
+  "negative_controls_sha256": "5b0402df4fdec8cf72e7a175ccf4120c0403cbbe1e0d71a629ea54e4f4498458",
+  "new_SBF_builds": 0,
+  "original_author_head": "03d96993d6fa8cdda5435ad2a5f35aaa161a04f8",
+  "producer_source_sha256": {
+    "reconstruction/verification/donation-relay-multidonor/admission.py": "b037f3a33272e25cbd4e54c0967e9e2fb70255e478048f68d8b5f0817e156708",
+    "reconstruction/verification/donation-relay-multidonor/controls.py": "68d30737419caa58de50598304b23c0f16c3495aff10d132ffcacb75150f5fb8",
+    "reconstruction/verification/donation-relay-multidonor/fixture.py": "d63dac00680dc438efe697941b19e79e8130ae52255ce92aa2fe178b624ee246",
+    "reconstruction/verification/donation-relay-multidonor/producer.py": "c65ea813eb5893e30969d048240ba519f8a6a4f4ccffe5d4255e34bec84f744e",
+    "reconstruction/verification/donation-relay-multidonor/test_fixture.py": "eced1a25a1e347727ba71fe94687b12a0b3d35a8612af1e1eb96ea89f320de17",
+    "reconstruction/verification/donation-relay-multidonor/test_producer.py": "343ae6a875d2a127490cea6fc61e90b56a79abd57f1d2ebf0708dd5ebcceb4a0",
+    "reconstruction/verification/donation-relay-multidonor/test_verifier.py": "4d5d0b41dfd04aa404bba573362a7bc1e628cd9c7f00d3a87aac60d1692f7f81",
+    "reconstruction/verification/donation-relay-multidonor/verify.py": "8bb65d287ba9274b1ddffc437c9a87da4f8576ad1acd3eddc6224ea6010924a7"
+  },
+  "program_source_unchanged": true,
+  "qualified_code_revision": "45e0e60a576e0484c9c9cbdffbbf5cf176f5ad5b",
+  "report_sha256": "6ec73a086e12e6e0fbe0b47a691b7025112ab9ab86a6254793c4ac33b87170ba",
+  "runtime": {
+    "candidate_cli": "PASS",
+    "case_count": 12,
+    "classification_counts": {
+      "different_behavior": 0,
+      "equal_observed_behavior": 12,
+      "infrastructure_failure": 0,
+      "unsupported_fixture": 0
+    },
+    "independent_saved_reader_cli": "PASS",
+    "individual_signatures_in_shared_transactions": 60,
+    "negative_controls_detected": 14,
+    "negative_controls_total": 14,
+    "original_control_cli": "PASS",
+    "original_positive_cases": 11,
+    "replay_byte_identical": true,
+    "root_isolated_saved_reader_cli": "PASS",
+    "transactions_per_image": 28
+  },
+  "schema": "donation-relay-multidonor-repaired-qualification-v1",
+  "scope": "supplied_binary_only finite runtime; no new source-build or whole-binary identity acceptance",
+  "source_build_verified_by_this_suite": false,
+  "stopped_campaign_execution": false,
+  "tests": {
+    "code_image_and_receipt_mutation_rejected": true,
+    "focused_methods_passed": 30,
+    "optimized_execution_refused": true,
+    "source_only_cache_and_proxy_bootstrap_controls": true
+  }
+}

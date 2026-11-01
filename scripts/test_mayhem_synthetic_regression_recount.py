@@ -45,10 +45,29 @@ class RegressionRecountTests(unittest.TestCase):
         with self.assertRaises(AssertionError):
             recount(receipt, 3)
 
+    def test_a_case_list_without_a_declared_header_is_rejected(self):
+        # The agreement check must not be satisfied by the list it checks.
+        with self.assertRaises(AssertionError):
+            recount({"mismatches": [], "cases": [{}, {}, {}]}, 3)
+
     def test_consistent_receipt_passes(self):
         for mismatches in ([], 0):
             receipt = {"case_count": 3, "mismatches": mismatches, "cases": [{}, {}, {}]}
             recount(receipt, 3)
+
+    def test_boolean_and_float_headers_are_not_case_counts(self):
+        for count in (True, 1.0, "1"):
+            with self.subTest(count=count):
+                with self.assertRaises(AssertionError):
+                    recount({"case_count": count, "cases": [{}], "mismatches": []}, 1)
+                with self.assertRaises(AssertionError):
+                    recount({"case_count": count, "mismatches": []}, 1)
+
+    def test_expected_count_is_a_nonnegative_integer(self):
+        for count in (True, 1.0, -1):
+            with self.subTest(count=count):
+                with self.assertRaises(AssertionError):
+                    recount({"case_count": count, "mismatches": []}, count)
 
     def test_claimed_mismatches_still_rejected(self):
         receipt = {"case_count": 2, "mismatches": ["case-1"], "cases": [{}, {}]}

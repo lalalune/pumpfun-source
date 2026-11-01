@@ -729,6 +729,13 @@ class V2TokenQuoteCaptured(unittest.TestCase):
         results = self.run_all(random_cases())
         self.assertGreaterEqual(sum(a[0] == 'ok' for *_, a in results), 60)
 
+    def test_an_unknown_bad_slot_is_refused(self):
+        # The driver's catchall read a misspelt slot name as "no bad slot", so a
+        # case labelled as a wrong account ran the happy path on both sides.
+        line = host_line(default_case(bad='curve_kee'))
+        run = subprocess.run([str(host_binary())], input=line + '\n', capture_output=True, text=True)
+        self.assertNotEqual(run.returncode, 0, run.stdout)
+
     def test_checker_rejects_tampered_outcomes(self):
         tf = (0, 0, 0, 250, 10**18)
         picks = [default_case(quote='t22', tf=tf, op=op, vault_lamports=0, curve_lamports=rent(166) - 1) for op in OPS]

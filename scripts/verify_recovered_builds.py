@@ -84,6 +84,8 @@ for name,status in json.loads((ROOT/'repro/status.json').read_text()).items():
   assert r['original_sha256']==sha(original),name
   assert not r['mismatches'] and not r.get('unexpected_errors',[]) and not r.get('unexpected_original_errors',[]),name
   if 'steps' in r:
+   # A receipt that lists no step verifies nothing, and all([]) would accept it.
+   assert r['steps'],name
    assert all(step['match'] and step['original']['signature_verification'] and step['candidate']['signature_verification'] for step in r['steps']),name
   if 'signed_transactions' in r:
    assert r['signed_transactions']==len(r['original'])+len(r['candidate'])==2*r['cases'],name

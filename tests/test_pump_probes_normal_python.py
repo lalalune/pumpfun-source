@@ -108,7 +108,7 @@ for name in ('pump_holder_distribution_probe', 'pump_migrate_probe', 'pump_migra
     for result in (original, candidate):
         assert result['signature_verification'] is True
         tx = Transaction.from_bytes(base64.b64decode(result['transaction_base64']))
-        assert all(tx.verify_with_results())
+        assert tx.signatures and all(tx.verify_with_results())
     assert original['error'] != candidate['error'], name
     rows.append({'probe': name, 'signatures_verified': True, 'wrong_image_detected': True})
 print(json.dumps(rows))

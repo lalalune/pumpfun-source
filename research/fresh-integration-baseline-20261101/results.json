@@ -1,0 +1,49 @@
+{
+  "base_revision": "638fce2a34c8433177f5b778f39cf79e70c971d4",
+  "fixture_sha256": "1527104064401a52967d35a7945cf458b22acd5b1e9acc34a94e9a6981f6a804",
+  "fresh_control": {
+    "accepted": false,
+    "comparison": {
+      "accepted": false,
+      "added": [],
+      "missing": [],
+      "normalized_gained_bytes": 0,
+      "normalized_gains": [],
+      "normalized_losses": [
+        "0x100"
+      ],
+      "normalized_lost_bytes": 8,
+      "raw_gained_bytes": 0,
+      "raw_gains": [],
+      "raw_losses": [
+        "0x100"
+      ],
+      "raw_lost_bytes": 8,
+      "resized": []
+    },
+    "decision": "reject"
+  },
+  "historical_control": {
+    "accepted": true,
+    "builds_observed": [
+      "candidate"
+    ],
+    "comparison": {
+      "accepted": true,
+      "added": [],
+      "missing": [],
+      "normalized_gained_bytes": 0,
+      "normalized_gains": [],
+      "normalized_losses": [],
+      "normalized_lost_bytes": 0,
+      "raw_gained_bytes": 0,
+      "raw_gains": [],
+      "raw_losses": [],
+      "raw_lost_bytes": 0,
+      "resized": []
+    },
+    "decision": "appears_acceptable"
+  },
+  "maintained_comparator_sha256": "e59024567db9b2373fe01d377f42308554434d182f5981153cd6814412245b74",
+  "schema": "pump-fresh-integration-regression-result-v1"
+}

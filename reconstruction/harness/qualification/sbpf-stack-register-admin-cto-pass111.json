@@ -1,0 +1,174 @@
+{
+  "schema": "sbpf-stack-register-independent-qualification-v1",
+  "status": "PASS",
+  "tested_revision": "f37b06e4c584955e80dd02c48ac93e406fa2358c",
+  "reviewed_original_pr": 4068,
+  "reviewed_original_head": "8ff9c97778f818776c0dc388a0bb4abe768439d0",
+  "original": {
+    "bytes": 10485715,
+    "machine": 263,
+    "path": "/Users/shawwalters/.codex/worktrees/pump-pass111-provenance/pumpfun-source/evidence/original/pump/deployed.so",
+    "sbpf_version": 0,
+    "sha256": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
+    "text": {
+      "addr": 288,
+      "offset": 288,
+      "size": 1792208
+    },
+    "window": {
+      "end": 169240,
+      "selector": {
+        "kind": "window",
+        "value": "0x22a10:27400"
+      },
+      "size": 27400,
+      "start": 141840,
+      "symbols": []
+    }
+  },
+  "candidate": {
+    "bytes": 2665720,
+    "machine": 263,
+    "path": "/Users/shawwalters/.codex/artifacts/pumpfun-pr-pass111-20261101/tools/4053/composed-build/unstripped.so",
+    "sbpf_version": 0,
+    "sha256": "54344822ddef0bd4b1f7b4e8a6c80e5aae7e7fb804c5c82c67e7ebff369e9229",
+    "text": {
+      "addr": 288,
+      "offset": 288,
+      "size": 1792208
+    },
+    "window": {
+      "end": 169240,
+      "selector": {
+        "kind": "window",
+        "value": "0x22a10:27400"
+      },
+      "size": 27400,
+      "start": 141840,
+      "symbols": [
+        "_ZN14pump_recovered9admin_cto7execute17h3bd6d7f34f2e30d7E"
+      ]
+    }
+  },
+  "analyzer_source": {
+    "files": {
+      "compare_scores.py": "e59024567db9b2373fe01d377f42308554434d182f5981153cd6814412245b74",
+      "control_flow.py": "9b53869434bed8aa31903c2cc91568994d616b9f343a28764f4cb7be62adceb2",
+      "elf_symbols.py": "f7a69a4b5324959398365b63f20ea9dda8eab223d8790a608c778549d3b966c0",
+      "fresh_control_inputs.py": "f4bdac4c4dccb72d08d323289ac9e9faf47acd18b23c119d664137a2e5189807",
+      "instruction_stream.py": "be6a3f3a0274d4ae819a6288293b5a1f9b040a322a0414a240217ab96a3dee45",
+      "llvm_tools.py": "306a50b2ba57f350e250d7c7f596ac400627ecfd24248b2291578b5ddf3fe8af",
+      "original_input.py": "9d00b5c253405cec4d2ef292086c6e88d758bd3fe7f8c6a3cba23af114f01ade",
+      "residual_analysis.py": "cc7489f04c3427d90cb2d6d3dfdb792902631a5442e74eb8fa0fdb5933453ac1",
+      "sbpf_provenance.py": "b886f78681776398b2355218de4754d003a6cf284961c10ca45978c6322ef2e8",
+      "score.py": "6eae59ba87809bdd6aa42d6227c5598d8ea2196051bf0d796e8020bdb14df714",
+      "score_admission.py": "885b4b55229e3d87086b93c4e8227da8e4ec2713ccd6691fa40a7538d66c3a45",
+      "stack_register_provenance.py": "e03356829bbfdccf16ab693f8aec22b2d5531e78fa03737ac1b8d5b8d7960b02"
+    },
+    "manifest_sha256": "0c919662012d8a89dd851564c89adea7f797e9e0b695afb536c90b81527e1bfa"
+  },
+  "report_sha256": "432a280f6ee7290b52334406497c0aaf1e605ffa8b033505a3ee3ac0796b43e4",
+  "deterministic_cli_replay_byte_identical": true,
+  "register_state_summaries": {
+    "candidate": {
+      "derived_stack_accesses": 0,
+      "fixed_point_steps": 2964,
+      "instructions": 3337,
+      "known_block_entry_register_facts": 802,
+      "maximum_register_pressure": 11,
+      "pointer_escapes": 143,
+      "potential_stack_accesses": 25,
+      "proven_stack_accesses": 1442,
+      "reachable_blocks": 373,
+      "stack_pointer_aliases": 462,
+      "suspected_spill_reload_patterns": 31,
+      "unknown_memory_accesses": 516
+    },
+    "original": {
+      "derived_stack_accesses": 0,
+      "fixed_point_steps": 2334,
+      "instructions": 3339,
+      "known_block_entry_register_facts": 587,
+      "maximum_register_pressure": 11,
+      "pointer_escapes": 142,
+      "potential_stack_accesses": 0,
+      "proven_stack_accesses": 1473,
+      "reachable_blocks": 378,
+      "stack_pointer_aliases": 456,
+      "suspected_spill_reload_patterns": 39,
+      "unknown_memory_accesses": 511
+    }
+  },
+  "heuristic_correspondence_counts": {
+    "access_certainty_difference": 64,
+    "access_width_difference": 18,
+    "candidate_only_stack_operation": 469,
+    "moved_frame_slot": 201,
+    "original_only_stack_operation": 470
+  },
+  "heuristic_liveness_differences": 252,
+  "tests": {
+    "new_provenance_counted": 36,
+    "new_provenance_skips": 0,
+    "adjacent_static_execution_records": 72,
+    "combined_execution_records": 108,
+    "combined_unique_methods": 97,
+    "repeated_imported_class_records": 11,
+    "all_passed": true,
+    "program_VM_executions": 0,
+    "before_after_core_methods": 6,
+    "authored_false_fact_subcases": 15,
+    "actual_cli_executable_cache_modes": [
+      "normal",
+      "-O",
+      "-OO"
+    ],
+    "source_bootstrap_and_before_argument_controls_optimized": true
+  },
+  "primary_VM_semantics": {
+    "scope": "primary VM interpreter source pins; no VM execution",
+    "crate": "solana-sbpf0.12.2",
+    "sources": {
+      "/Users/shawwalters/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/solana-sbpf-0.12.2/src/interpreter.rs": {
+        "sha256": "5f7bde84730af232fb564d1ce0b13b53f01f77544c47e7ea63f321dfeacbbc34",
+        "url": "https://github.com/anza-xyz/sbpf/blob/v0.12.2/src/interpreter.rs"
+      },
+      "/Users/shawwalters/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/solana-sbpf-0.12.2/src/program.rs": {
+        "sha256": "5f34ea65603c6a3f3ea80d0fc75d2227a9193ad095575b80a72864d115e2feaf",
+        "url": "https://github.com/anza-xyz/sbpf/blob/v0.12.2/src/program.rs"
+      }
+    },
+    "reviewed_lines": {
+      "interpreter.rs": [
+        [
+          239,
+          258
+        ],
+        [
+          280,
+          311
+        ],
+        [
+          369,
+          400
+        ]
+      ],
+      "program.rs": [
+        [
+          12,
+          40
+        ]
+      ]
+    }
+  },
+  "historical_author_qualification": "sbpf-stack-register-admin-cto.json retained unchanged",
+  "limits": [
+    "Potential and unknown accesses are never counted as proven stack accesses.",
+    "Calls clobber r0-r5 and invalidate all tracked stack-memory values; known stack-pointer arguments are recorded.",
+    "Suspected spill/reload patterns prove only a same-range reaching store and load.",
+    "Cross-image frame and liveness rows depend on explicitly labelled heuristic block correspondence.",
+    "Static analysis does not execute or verify a program.",
+    "No source, build recipe, scorer normalization or acceptance changes.",
+    "No bytecode completion gain or whole-program equivalence claim."
+  ]
+}

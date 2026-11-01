@@ -31,7 +31,10 @@ rows=[];bad=[];changed=[]
 def logs(row):return [x for x in row['logs'] if not re.fullmatch(r'Program [1-9A-HJ-NP-Za-km-z]+ consumed [0-9]+ of [0-9]+ compute units',x)]
 for i,c in enumerate(cases):
  receipts={k:suite.run(p,c) for k,p in images.items()}
- for r in receipts.values():assert all(Transaction.from_bytes(b64decode(r['transaction_base64'])).verify_with_results())
+ for r in receipts.values():
+  tx=Transaction.from_bytes(b64decode(r['transaction_base64']))
+  # solders verifies no signature when the vector is empty, and all([]) is true.
+  assert tx.signatures and all(tx.verify_with_results()),'receipt transaction is unsigned'
  comparisons={k:{'different_fields':[f for f in fields if receipts['original'][f]!=r[f]],'regression_fields':[f for f in fields if receipts['control'][f]!=r[f]],'ordered_non_meter_logs_equal':logs(receipts['original'])==logs(r),'control_non_meter_logs_equal':logs(receipts['control'])==logs(r)} for k,r in receipts.items() if k!='original'}
  rows.append({'case':c,'receipts':receipts,'comparisons':comparisons})
  if any(d['different_fields'] or not d['ordered_non_meter_logs_equal'] for d in comparisons.values()):bad.append(i)

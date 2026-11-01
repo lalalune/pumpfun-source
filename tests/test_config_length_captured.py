@@ -344,6 +344,7 @@ class ConfigLengthCapturedTests(unittest.TestCase):
         cls.tmp = tempfile.TemporaryDirectory()
         host = Path(cls.tmp.name) / 'config-length-host'
         subprocess.run(['rustc', '--edition=2021', '-O', '-D', 'warnings', str(HOST_SOURCE), '-o', str(host)], check=True)
+        cls.host = str(host)
         cls.rows = list(replay(control_base, control_runs)) + list(replay(create_base, scan_runs))
         for name, base, attribute, slot, build in SHARING_SLOTS:
             cls.rows += replay(base, lambda: sharing_runs(name, base, attribute, slot, build))
@@ -377,6 +378,14 @@ class ConfigLengthCapturedTests(unittest.TestCase):
                 self.assertEqual(result['account'][2][:row['head'] + grown], twin['account'][2][:row['head'] + grown])
         else:
             self.assertEqual(result, twin)
+
+    def test_a_malformed_column_or_request_is_refused(self):
+        # `.ok()` read a malformed `first` column as "no row", and the
+        # catchalls ran quote-distribute or rewards for any unknown token.
+        for line in ('scan,408,1,1,not-a-row', 'typed,nonsense,408,1,1,1,1', 'nonsense,0,100,5'):
+            with self.subTest(line=line):
+                run = subprocess.run([self.host], input=line + '\n', capture_output=True, text=True)
+                self.assertNotEqual(run.returncode, 0, run.stdout)
 
     def test_every_case_matches_captured_program(self):
         self.assertEqual(len(self.answers), len(self.rows))
