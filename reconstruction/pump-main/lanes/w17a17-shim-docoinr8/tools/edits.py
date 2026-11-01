@@ -20,3 +20,10 @@ E['pv1']=[(VT,'let mut target={let mut r='+VC+';if let Err(e)=&mut r{unsafe{let 
 E['pv2']=[(VT,'let mut target={let r='+VC+';if let Err(e)=&r{unsafe{core::ptr::read_volatile((e as *const anchor_lang::error::Error).cast::<usize>().add(1))};}r}/*shim: volatile read of the validate error box word (Result payload phi r9)*/?;')]
 E['cb1']=[('  curve.is_cashback_coin=cashback;','  curve.is_cashback_coin=unsafe{core::ptr::read_volatile(&cashback)}/*shim: cashback lives in a stack byte (ends the !holder head value before the wallet)*/;')]
 E['cb3']=[('  curve.is_holder_reward=holder.unwrap_or(false);','  curve.is_holder_reward=unsafe{core::ptr::read_volatile(&holder)}/*shim: holder arg reloaded from the stack*/.unwrap_or(false);')]
+DC='  let do_coin=coin_present&&!token_frozen(a.coin_creator_vault_ata.as_ref())?;'
+E['bfn1']=[(DC,'  let do_coin=if coin_present{!token_frozen(a.coin_creator_vault_ata.as_ref())?}else{if collection_native{core::hint::black_box(())}/*shim: compiler fence on the native no-coin do_coin=false block*/false};')]
+E['bfn2']=[(DC,'  let do_coin=coin_present&&!token_frozen(a.coin_creator_vault_ata.as_ref())?;if collection_native&&!coin_present{core::hint::black_box(())}/*shim: compiler fence on the native no-coin path*/')]
+
+E['m1']=[]
+E['bfn2b']=E['bfn2']
+E['vcb']=[('fn validate(st:&CtoState,hopt:Option<bool>,fee:Option<u64>,new:Option<Pubkey>,holder_key:&Pubkey,sharing:&Pubkey)->Result<Pubkey>{','fn validate(st:&CtoState,hopt:Option<bool>,fee:Option<u64>,new:Option<Pubkey>,holder_key:&Pubkey,sharing:&Pubkey,cb:bool)->Result<Pubkey>{'),(' let cashback=if holder{false}else{st.cashback};',' let cashback=cb;'),('validate(&st,hopt,fee,new,holder_key,&sk)','validate(&st,hopt,fee,new,holder_key,&sk,cashback)')]

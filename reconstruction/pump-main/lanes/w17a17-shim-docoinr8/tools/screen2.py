@@ -4,9 +4,9 @@
 import sys,os,json,re,shutil
 from concurrent.futures import ThreadPoolExecutor
 T=os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0,T); import fx, rc
-from screen import apply
+from screenpt import apply
 O=rc.orig_window(); OT,OO=rc.mask(O)
-REF=os.path.join(fx.OUT,'fx/m0/fn.bin')
+REF=os.environ.get('REF',os.path.join(fx.OUT,'fx/m0/fn.bin'))
 R0=rc.per(REF,OT,OO,'')
 def wscore(binp):
     d,t,ra,M,b=rc.per(binp,OT,OO,'')

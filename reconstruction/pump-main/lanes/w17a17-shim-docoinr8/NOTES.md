@@ -6,11 +6,13 @@ Base: main `bf01b5fd9`. `programs/pump` is identical on origin/main `d20fb326e`.
 27,400 B. W2 has 372 of 473 tokens exact.
 Ledger: approach `docoinr8`, keys `0x22a10-w17-bf01b5f-docoinr8-<item>-v1`.
 
-**Result: notes only, no landable change.** The sticky bound is still above the kill line, at +13 M for -24 B. But no
-marked shim on the wallet, and no shim on the head values that compete for its registers, puts do_coin in r8
-without an RA cascade. The flag's register is decided by a chain of five head and tail values. The analysis below
-names each link with its greedy step, and gives the one shim-expressible lever that moves part of the chain: the
-Result payload phi into r9, the original's register.
+**Result: notes only, no landable change.** On bf01b5f the sticky bound was still above the kill line, at +13 M for
+-24 B. But no marked shim on the wallet, and no shim on the head values that compete for its registers, puts do_coin in
+r8 without an RA cascade. The only landable shim found (bfn2, a fence, +1 M at 27,400 B) was absorbed by w17a15's
+do_coin passthrough when main moved to ac37d74. On ac37d74 the bound itself collapses (section 4b).
+The flag's register is decided by a chain of five head and tail values. The analysis below names each link with its
+greedy step. It also gives the one shim-expressible lever that moves part of the chain: the Result payload phi into
+r9, the original's register.
 
 ## 1. Oracle
 
@@ -82,7 +84,12 @@ Source variants (slim raw-IR oracle; captures in `edits.py`):
 | pe2 | validate `?` through `map_err(volatile box word)` | 1,873 | 27,304 |
 | pm0 | control: validate `?` written as `match` (no shim) | 936 | 22,592 |
 | pv1/pv2 | volatile read (+write) of the validate error's box word before `?` | 1,709/1,710 | 27,552/27,544 |
-| bfn1/bfn2 | `black_box(())` fence on the native no-coin `do_coin=false` path | see SUMMARY | |
+| bfn1 | `black_box(())` fence inside the `&&` else arm (lands in both MIR copies) | 2,256 | 27,408 |
+| **bfn2** | `if collection_native&&!coin_present{black_box(())}` after the do_coin line | **2,271 (+1)** | **27,400** |
+
+bfn2 reproduces the IR cell `bf:wallet:31113` exactly (signature `f9a932c45b76`): orig 0x6118 `ja` becomes exact.
+It was the only landable shim on bf01b5f, but main moved to ac37d74 (w17a15's passthrough on the do_coin gate) before
+it was built. On ac37d74 the same edit changes code with no M change (2,284 = main), so it was not proposed.
 
 The ATA re-derivation (va1) is a single volatile load from the ctx slot (`ldxdw r1,[r10-0x938]; ldxdw r8,[r1+8]`).
 The accounts value is still r8, because the buffer keeps r7 and r8 is the first free CSR.
@@ -99,8 +106,25 @@ IR screen (w17a06 `gen.py` families on the slim pre-opt module; `scr/`):
 - On that basin, the accounts piece `1683=r7` (RA force) gives **M 2,284 (+14) at 27,304 B, W2 +17**. Accounts are then
   r7 and the buffer r9: the original W2 colouring except do_coin, which is still spilled, because the gate flag `%60`
   now sits in r8 over the wallet (the original spills it at its def, [r10-0x8e0]).
-- Pairs and a greedy beam from `vl:execute:28888` toward 27,400 B: see SUMMARY.json. The best pair is
-  `+vl:wallet:30725` (a volatile wallet-entry accounts load), 2,278 @27,320, W2 +13.
+- Pairs and a greedy beam from `vl:execute:28888` toward 27,400 B. The best pair adds `vl:wallet:30725` (a volatile
+  wallet-entry accounts load): 2,278 @27,320, W2 +13. The greedy beam reaches **M 2,282 at exactly 27,400 B** (+12 on
+  bf01b5f) with seven IR edits: `vl:execute:28888 + vl:wallet:30725 + rr:wallet:30725:30910 + vs:wallet:31142 +
+  vl:wallet:31338 + vs:execute:28883 + bf:execute:28930`. Only the fences and `vl:wallet:30725` have known source forms.
+
+## 4b. Main moved to ac37d74 (w17a15 passthroughs + w17a18 stitch, 0.68424, M 2,284)
+
+Re-captured (`ir/m1.s.ll`, masked-identical to the new baseline):
+- The chain is unchanged: do_coin `%1600` is first dequeued at step 389 with the same four occupants (r6 flag `%59`,
+  r7 buffer `%742`, r8 `%0`, r9 `!holder` `%466`), and is region-split and spilled at its second dequeue.
+- The h8-style sticky force now evicts `%0` at do_coin's first dequeue: M 2,100 @27,416. **The bound collapsed.**
+  The passthrough main no longer gives do_coin a late enough dequeue for a clean r8.
+- `1682=r7` is still a clean RA-only lead: **M 2,291 (+7) at 27,400 B, W2 +7**.
+- The payload-r9 basin cell is now negative: `vl:execute:28999` gives 2,277 @27,312. With `1683=r7` it is 2,288 @27,312.
+- Screens on ac37d74: 179 wallet passthrough cells (w17a15 `ptgen.py`), 314 wallet vl/vs/rr/bf cells, 194 mild
+  `!prof` cells (p=0.35/0.65 on the 97 inlined branches) and the execute vl/vs/rr/bf family (`scr/scr_m1_exec.jsonl`).
+  None beats main at 27,400 B. The best are +1 at +8..+24 B (`vs:wallet:31308/31344`).
+- Ordinary `validate(..,cashback)` (so the cashback AND has a head use and is not sunk to the curve store, where the
+  original stores the spilled byte -0x950 without `and 1`) collapses: M 1,509.
 
 No source spelling of `vl:execute:28888` was found. Every rewrite of the validate `?` (match, map_err, an in-place
 volatile word) changes execute's head MIR and collapses the RA (M 936-1,873).
@@ -110,12 +134,14 @@ volatile word) changes execute's head MIR and collapses the RA (M 936-1,873).
 1. do_coin=r8 is the last link of a chain: `!holder` (`%469`) out of r9 → payload phi `%1667` to r9 → r8 free at
    step 435 → do_coin (dequeued after step 423) keeps r8 → accounts piece to r7 → buffer to r9. A wallet-local
    spelling or shim cannot change it (369 cells, plus w15a12's ten source forms).
-2. The payload-r9 basin is shim-reachable at the IR level (`vl:execute:28888`, +3 M) but costs 96 B. In that basin,
-   `1683=r7` is worth another +11 M. A lane that finds (a) a source form of the `?`-residual volatile and (b) about
-   96 B of faithful repay (for example the outline/new-pieces work, which needs room the other way) should start from
-   `fx/e28888` and `ra/t_e3`.
-3. `1682=r7` on main is a clean +7 M at 27,400 B with no shim found. The lever would be a hint: `%1682` is a split
-   reload of `%0` with no copy hint, so it takes the first free CSR. Only evicting the buffer (cheaper, 7.1e-8 vs 1.7e-7)
-   puts it in r7.
+2. The payload-r9 basin is shim-reachable at the IR level, but only on bf01b5f was it positive: `vl:execute:28888`
+   gave +3 M at -96 B, and a 7-edit greedy reached +12 at 27,400 B. On ac37d74 it is -7. In that basin `1683=r7`
+   adds +11. The `?` residual load has no source form: every rewrite of the validate `?` collapses execute's head.
+3. `1682=r7` is a clean +7 M at 27,400 B on both mains, with no shim found. The lever would be a hint: `%1682` is a
+   split reload of `%0` with no copy hint, so it takes the first free CSR (r8, since r6 and r7 are taken). If r8 and r9
+   were occupied instead, tryEvict would pick do_collect in r6 (4.6e-8, cheaper than the buffer's 7.1e-8), not r7. Only
+   a hint, or the buffer in r9, gives r7. The buffer reaches r9 only when `!holder` (`%466`) leaves r9 before step 323.
+   The original does that by keeping a spilled cashback byte (-0x950), which it stores at the curve store without
+   `and 1`.
 4. Step 4 of the angle (S1 `orig r9 / main r3` at 0x2148/0x2220/0x2490/0x25f8) is the same payload phi: the sweep
    results' `ldxdw r9,[..]; ldxdw r7,[..]` pairs. It moves with lead 2, not with a local flag shim.

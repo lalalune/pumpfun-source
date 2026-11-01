@@ -1,0 +1,66 @@
+{
+  "lane": "w17a17-shim-docoinr8",
+  "wave": 17,
+  "target": "0x22a10 admin_cto::execute (W2 wallet body, orig 0x5c18-0x6b08)",
+  "bases": {
+    "bf01b5fd9": {"ratio": 0.68005, "M": 2270, "slots": 3170, "bytes": 27400, "W2_exact": "372/473"},
+    "ac37d7415": {"ratio": 0.68424, "M": 2284, "slots": 3313, "bytes": 27400, "W2_exact": "376/473"}
+  },
+  "result": "notes only; no landable change",
+  "best_landable": null,
+  "best_zero_loss_measured": {"note": "no measure.sh build: no oracle candidate beat main at 27,400 B on ac37d74"},
+  "bounds": {
+    "bf01b5f_h8_sticky": {"forces": "1600=r8,1598=r6 sticky, prio 1600=1000", "M": 2283, "bytes": 27376, "W2_delta": 16},
+    "bf01b5f_h8_plus_buffer_r9": {"M": 2029, "bytes": 27408, "W2_delta": 28},
+    "bf01b5f_rw7_h8": {"M": 2276, "bytes": 27384, "W2_delta": 10, "note": "gates and r8,1 tail-duplicated like the original"},
+    "bf01b5f_1682_r7": {"M": 2277, "bytes": 27400, "W2_delta": 7},
+    "ac37d74_h8_sticky": {"M": 2100, "bytes": 27416, "note": "do_coin evicts %0 at its first dequeue: the bound collapsed"},
+    "ac37d74_1682_r7": {"M": 2291, "bytes": 27400, "W2_delta": 7}
+  },
+  "chain": [
+    "step 315: !holder %469/%466 takes r9 (head to curve store)",
+    "step 323: ATA buffer %746/%742 (copy hint, priority bit 30) evicts coin_empty from r7",
+    "step 386/389: do_coin %1600 first dequeue; r6 sweep-gate flag %60, r7 buffer+Result tag, r8 accounts %0, r9 !holder; RS_Split",
+    "step 423: %394 evicts %0 from r8",
+    "step 435: Result payload piece %1667 takes r8 (r9 held by !holder) over do_coin's [27760,28512)",
+    "step 1173: %0 split; wallet piece %1682 takes the first free CSR r8",
+    "step 1429: do_coin region-split and spilled (3 stores to [r10-0x928])"
+  ],
+  "attempts": [
+    {"id": "rw7", "form": "gate if do_coin", "M": 2263, "bytes": 27400, "base": "bf01b5f"},
+    {"id": "va1", "form": "shim: ATA create re-derives ctx.accounts (read_volatile transmute)", "M": 2270, "bytes": 27416, "base": "bf01b5f"},
+    {"id": "va2", "form": "shim: whole wallet body re-derives ctx.accounts", "M": 2124, "bytes": 27480, "base": "bf01b5f"},
+    {"id": "pe2", "form": "shim: validate ? via map_err volatile box word", "M": 1873, "bytes": 27304, "base": "bf01b5f"},
+    {"id": "pm0", "form": "control: validate ? as match", "M": 936, "bytes": 22592, "base": "bf01b5f"},
+    {"id": "pm1/pe1", "form": "match + volatile error", "M": 936, "bytes": 22608, "base": "bf01b5f"},
+    {"id": "pv1/pv2", "form": "in-place volatile error box word before ?", "M": 1710, "bytes": 27544, "base": "bf01b5f"},
+    {"id": "cb1", "form": "shim: curve.is_cashback_coin=read_volatile(&cashback)", "M": 1824, "bytes": 27296, "base": "bf01b5f"},
+    {"id": "cb3", "form": "shim: curve.is_holder_reward=read_volatile(&holder)", "M": 1943, "bytes": 27296, "base": "bf01b5f"},
+    {"id": "bfn1", "form": "shim: black_box(()) in the && else arm", "M": 2256, "bytes": 27408, "base": "bf01b5f"},
+    {"id": "bfn2", "form": "shim: if collection_native&&!coin_present{black_box(())}", "M": 2271, "bytes": 27400, "base": "bf01b5f", "note": "= IR cell bf:wallet:31113 (+1); on ac37d74 bfn2b = main (2284)"},
+    {"id": "vcb", "form": "ordinary: validate takes execute's cashback", "M": 1509, "bytes": 27376, "base": "ac37d74"},
+    {"id": "ir-screen-bf01b5f", "form": "369 wallet + 693 execute vl/vs/rr/bf singles", "best": "vl:execute:28888 2273 @27304 (payload phi r9); zero-size best bf:wallet:31113 +1"},
+    {"id": "ir-greedy-bf01b5f", "form": "greedy from vl:execute:28888", "best": "2282 @27400 (7 edits)"},
+    {"id": "ir-screen-ac37d74", "form": "179 wallet passthrough + 314 wallet vl/vs/rr/bf + 194 mild !prof + execute vl/vs/rr/bf", "best": "no cell above 2284 at 27400; +1 at +8..+24 B"},
+    {"id": "ir-pw", "form": "1:2000 !prof on the wallet entry branches", "M": "1826-2149", "note": "layout moves"}
+  ],
+  "rejected_mechanisms": [
+    "wallet-local shims (volatile, fence, passthrough, mild weights): do_coin's colour is fixed by head values",
+    "ending !holder or holder in the head (cb1, cb3, vcb): head RA collapse (T1 -137..-491)",
+    "re-deriving the accounts pointer (va1, va2): still r8, or collapse",
+    "rewriting the validate ? (match, map_err, in-place volatile): head collapse",
+    "sticky do_coin=r8 on ac37d74: evicts %0 at the first dequeue"
+  ],
+  "unresolved_residuals": [
+    "do_coin r8 needs the whole chain: !holder out of r9, payload phi r9, accounts piece r7, buffer r9, sweep-gate flag spilled at its def",
+    "1682=r7 (+7 M, zero size) has no source lever: it needs a copy hint or the buffer in r9",
+    "the original stores a spilled cashback byte (-0x950) without and 1 at the curve store; ours reloads -0x8e8 and masks"
+  ],
+  "next_ideas": [
+    "a source form that gives the wallet accounts reload a copy hint to r7 (for example a phi of the accounts pointer at the ATA create) for the +7 M 1682=r7 lead",
+    "pair a head-region rewrite that removes !holder from r9 (the original's spilled cashback byte) with the T1 repair; every lone head shim collapses T1",
+    "on a future main where the payload phi is r9, re-run tools/occ.py on do_coin: if r8 is free after step ~423, a dequeue-order shim can finish the chain"
+  ],
+  "tools": ["tools/occ.py", "tools/rf.py", "tools/screen2.py", "tools/pw.py", "tools/pwscan.py", "tools/mkc.py", "tools/greedy.py", "tools/cap.sh", "tools/mk.py", "tools/edits.py"],
+  "ledger_keys_prefix": ["0x22a10-w17-bf01b5f-docoinr8-", "0x22a10-w17-ac37d74-docoinr8-"]
+}
