@@ -18,19 +18,18 @@ pub fn native_mint_pair(mint:&Pubkey,program:&Pubkey)->bool {
  native_mint_for_program(program).map(|expected|expected==*mint).unwrap_or_default()
 }
 pub fn check_message(message:&str)->Result<()> {
- if message.len()>=256 {return Err(source_error!(InvalidMessageLength,"programs/contracts/src/tools/checks.rs",55));}Ok(())
+ if !(message.len()<256) {return Err(source_error!(InvalidMessageLength,"programs/contracts/src/tools/checks.rs",55));}Ok(())
 }
 // Preserve the independently observed call boundary; original annotation unknown.
 #[inline(never)]
 pub(crate) fn check_relayer(signer:&Signer<'_>) -> Result<()> {
-    let key=signer.key();let expected=Pubkey::new_from_array(crate::codec::constants::RELAYER);
-    if key!=expected {
+    if signer.key()!=Pubkey::new_from_array(crate::codec::constants::RELAYER) {
         return Err(anchor_lang::error::Error::from(anchor_lang::error::AnchorError {
             error_name:crate::business_error_codes::ErrorCode::SignerIsNotRelayer.name(),error_code_number:crate::business_error_codes::ErrorCode::SignerIsNotRelayer.into(),error_msg:crate::business_error_codes::ErrorCode::SignerIsNotRelayer.to_string(),
             error_origin:Some(anchor_lang::error::ErrorOrigin::Source(anchor_lang::error::Source {
                 filename:"programs/contracts/src/tools/checks.rs",line:80})),
             compared_values:None,
-        }).with_pubkeys((key,expected)));
+        }).with_pubkeys((signer.key(),Pubkey::new_from_array(crate::codec::constants::RELAYER))));
     }
     Ok(())
 }
@@ -117,7 +116,7 @@ pub fn typed_mint_safe(info:&AccountInfo)->anchor_lang::Result<bool> {
 }
 
 pub fn check_bps(bps:u16)->Result<()> {
- if bps>10000 {return Err(source_error!(InvalidBps,"programs/contracts/src/tools/checks.rs",192));}Ok(())
+ if !(bps<=10000) {return Err(source_error!(InvalidBps,"programs/contracts/src/tools/checks.rs",192));}Ok(())
 }
 
 #[inline]
