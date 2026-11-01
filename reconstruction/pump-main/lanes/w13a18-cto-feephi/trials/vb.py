@@ -1,9 +1,0 @@
-EDITS=[
-("fn validate(st:&CtoState,holder:bool,fee:","fn validate(st:&CtoState,holder:bool,shared:bool,fee:"),
-("holder_key:&Pubkey,sharing:&Pubkey)->Result<Pubkey>{","holder_key:&Pubkey,sharing:&Pubkey,out:&mut Pubkey)->Result<()>{"),
-(" let target=if holder{if new.is_some()"," *out=if holder{if new.is_some()"),
-("{return Err(error!(PumpError::InvalidCreator));}t};","{return Err(error!(PumpError::InvalidCreator));}if shared{st.creator}else{t}};"),
-(" Ok(target)}pub fn execute("," Ok(())}pub fn execute("),
-("let mut target=validate(&st,holder,fee,new,&holder_key,&a.sharing_config.key())?;","let mut target=Pubkey::default();validate(&st,holder,shared,fee,new,&holder_key,&a.sharing_config.key(),&mut target)?;"),
-("else{target=st.creator;(Some(args.0),false,true)}","else{(Some(args.0),false,true)}"),
-]

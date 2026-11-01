@@ -1,8 +1,0 @@
-#!/bin/sh
-# experiment-only shim: report a Linux host in `rustc -vV` so Cargo's -C metadata hashes match a Linux host
-REAL=/Users/shawwalters/.cache/pumpfun-reconstruction/toolchains/hybrid144/rust/bin/rustc
-if [ "$1" = "-vV" ] && [ $# -eq 1 ]; then
-  "$REAL" -vV | sed "s/^host: .*/host: ${FAKE_HOST:-x86_64-unknown-linux-gnu}/"
-  exit 0
-fi
-exec "$REAL" "$@"

@@ -1,9 +1,0 @@
-{
-  "lane": "w6r3-execute-ir",
-  "target": "0x72810 sweep::execute",
-  "result": "analysis + re-verification; no new source (target solved by sibling PR #2309)",
-  "oracle": "moving the N-arm chain bb28..bb83 between admit1's test and admit2 on the PR #2307 IR gives llc output identical to the original (fullmask 0); other moves 2-120",
-  "reverify": {"main": "fb25fce02", "control": "1030/295", "with_pr2309": "1031/296", "gains": ["0x72810"], "raw_gains": ["0x65eb0"], "losses": [], "raw_losses": [], "unstripped_sha256_prefix": "8b2fcd0caddd215a"},
-  "attempts": 2,
-  "next_ideas": ["merge PR #2309 (ready); supersedes #2307/#2313 for 0x72810"]
-}

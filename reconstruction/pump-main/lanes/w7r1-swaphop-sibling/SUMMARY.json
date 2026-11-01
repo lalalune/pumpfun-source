@@ -1,7 +1,0 @@
-{"lane":"w7r1-swaphop-sibling","target":"0x5b3b0","base":{"commit":"7e26cbf","ratio":0.7332,"bytes":18544,"calls":"107/107"},
- "best_proposable":{"ratio":0.7332,"note":"no source change kept"},
- "best_diagnostic":{"ratio":0.83057,"bytes":18632,"mechanism":"forced escape of a (black_box, not proposable)"},
- "attempts":["0x5b3b0-main-7e26cbf-whitelist-via-v3-can-cross-helper-v1","0x5b3b0-main-7e26cbf-diag-a-capture-blackbox-position-sweep-v1"],
- "rejected":["v3_can_cross transplant at line 599 (= frame u2)"],
- "residuals":["a.fee_config load merged (orig reloads 3x); orig a is not nocapture","buy-core chain / whitelist memcmp placement"],
- "next_ideas":["natural construct passing a-derived pointer to non-nocapture external callee","re-test v3_can_cross on top of that"]}

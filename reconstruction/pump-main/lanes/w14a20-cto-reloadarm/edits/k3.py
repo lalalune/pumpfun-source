@@ -1,1 +1,0 @@
-EDITS=[('CpiContext::new({let x:&AccountInfo=a.pump_amm.as_ref();AccountInfo{key:x.key,owner:x.owner,lamports:x.lamports.clone(),data:x.data.clone(),rent_epoch:x.rent_epoch,', 'CpiContext::new({let x:&AccountInfo=a.pump_amm.as_ref();AccountInfo{key:x.key,owner:x.owner,lamports:x.lamports.clone(),data:a.pump_amm.data.clone(),rent_epoch:x.rent_epoch,')]

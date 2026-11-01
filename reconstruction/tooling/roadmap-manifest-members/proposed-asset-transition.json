@@ -1,9 +1,0 @@
-{
-  "status": "proposed; historical bindings unchanged",
-  "base_revision": "d3eb610fe8ec98a1847156ba60161b5d842044d0",
-  "asset": "scripts/reconstruction_roadmap.py",
-  "before_sha256": "dfa0eaddcef4bc8451a26a84e18a716947fd3ed718cb46b480a93da2bb28ece2",
-  "after_sha256": "57341376e55d887da037d3d6b6a4cec69be0bcc6a28930e7b23655f89c7553aa",
-  "reason": "Require every producer-selected roadmap artifact before checking manifest hashes. Preserve bound adapter extensions.",
-  "evidence": "reconstruction/tooling/roadmap-manifest-members/results.json"
-}
