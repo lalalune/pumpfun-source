@@ -1,0 +1,39 @@
+{
+  "lane": "w17a18-cto-stitch17",
+  "wave": 17,
+  "angle": "wave-17 integrator (stitch17): re-price the capture library and the landed shims on every new main, land size-complementary composites",
+  "target": {"window": "0x22a10", "function": "admin_cto::execute", "file": "programs/pump/src/creator/admin_cto.rs", "pinned_bytes": 27400},
+  "start_main": {"sha": "bf01b5fd9", "ratio": 0.68005, "M": 2270, "slots": 3170},
+  "landed": [
+    {"pr": 4017, "merge": "445fe1405", "change": "drop the 334 placeholder (vol334b, +1 M @-8 B) + collection_native==false create guard (pcol, 0 M @+8 B)", "before": 0.68065, "after": 0.68095, "slots": 3183, "forcing_delta": -1},
+    {"pr": 4019, "merge": "ac37d7415", "change": "revert #4017 after #4018 (passthrough) landed on top of it: the pair cost 6 M there; placeholder back as a marked shim", "before": 0.68244, "after": 0.68424, "slots": 3313, "forcing_delta": 1},
+    {"pr": 4025, "merge": "8350fae5a", "change": "peel the inert #3985 weighted pump_creator_vault_ata data clone (whole unstripped ELF identical)", "before": 0.68424, "after": 0.68424, "slots": 3313, "forcing_delta": 0, "kind": "peel (--allow-neutral)"},
+    {"pr": 4053, "merge": "53ec7fb53", "change": "move the holder_key placeholder from the 334 fee_configurable test to the 284 mayhem test (top of validate)", "before": 0.68724, "after": 0.68754, "slots": 3096, "forcing_delta": 0}
+  ],
+  "best": {"main": "53ec7fb53", "ratio": 0.68754, "M": 2295, "slots": 3096, "bytes": 27400},
+  "mechanisms": [
+    "splice translation of the w16a17 library onto the shim-era main (tools/tnew3.py, pairs18.py): 106 of 393 captures translate; w15a03 I_01 was the only single above main",
+    "slim pre-opt oracle capture pipeline (tools/cap.py + runq2.py, w17a06 preslim/fx): 10-75 s per source variant under load",
+    "leave-one-out re-pricing of every landed admin_cto change on the newest main (tools/loo.py): found the I01 interaction loss (+6), the inert #3985 shim (peel) and the placeholder move (+1)"
+  ],
+  "rejected": [
+    "source read_volatile of CtoState cashback / holder_enabled (kcb 1,770 @27,400; khe 2,100 @27,448): not the IR cell's -16 B pin",
+    "shared-arm ctx.accounts volatile reload on top of the curve-box reload (kacc -8 M @+8 B)",
+    "g1 (+2 @+144 on d5751b2, +1 on 445fe14), crl3/crl2 (0 @+72), t1n (-2 @-56), I6n (-13): no repay at 27,400 B",
+    "g1/crl3 composites with t1n, a1, vol334b, pcol: best 2,274 @27,512 (g1+a1+vol334b on d5751b2)",
+    "w17a08 fences (fA, fN) with the I01 pieces on ac37d74: best tie 2,284 @27,416 (fA)",
+    "passthrough of the accounts pointer at the CtoState loads (ptmf/ptsh/ptmy/pthr/ptcb/pthe/ptfc/ptcr) with the free 298-passthrough revert on ac37d74: ties at best",
+    "second placeholder copies at 289/296/306/307/314/326/330/338 as 8 B partners: 296/326/330 collapse; others tie",
+    "stacking the 312 compare-byte passthrough revert with the placeholder move on 2f3597f: stays at +1 (D1-D13)"
+  ],
+  "residuals": [
+    "free size knobs on 53ec7fb: removing the 284 placeholder (0 M @-8 B); the 298 passthrough revert was 0 M @-8 B on ac37d74/4d09af4",
+    "every landing reshuffles the near ties: the leave-one-out screen should be rerun after each landing (about 60 captures, 10-15 min with 2 workers)"
+  ],
+  "next_ideas": [
+    "rerun tools/loo.py + runq2.py after each landing; pair any +1 @-8 B revert with the placeholder copies (284/289/306/307/338) or the free -8 B knobs",
+    "w16a17 g1 lead (+1..+2 @+144 B) still lacks a repay; the free -8 B knobs (placeholder, 298 passthrough) plus fA (0 @+16) do not reach -144 B",
+    "IR-only leads owned by other lanes: w17a11 validate order (+17..+23), w17a06 ? residual pointer (+3 @-96 B), w17a16 outline base (2,283 @27,208 on 4d09af4)"
+  ],
+  "ledger_keys": "0x22a10-w17-<main sha7>-stitch17-<name>-v1"
+}

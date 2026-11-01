@@ -120,6 +120,38 @@ The move holds on 2f3597f (#4040): 2,292 @27,400 against main 2,291 (the 334 rem
 measure.sh on 2f3597f (programs = 638fce2): **0.68634 -> 0.68664**, 3,096 slots, 27,400 B, 1034 / 1034, zero losses,
 unstripped 678b0ba01d847c33; differential 388 / 0. The placeholder count is unchanged (forcing delta 0).
 
+**Landed: #4053 (merge 53ec7fb53).** land.py merged it onto aab087f32 (w17a19 #4054 had landed meanwhile, 0.68724)
+and measured **0.68724 -> 0.68754** (M 2,295), 3,096 slots, zero losses, forcing_delta 0, differential 388/0.
+Stacking the second +1 revert (the 312 compare-byte passthrough) on top gives no second +1 on 2f3597f: with
+copies before 289/306/307/338 or the 298-passthrough revert it stays at 2,292 (D2-D12), 2,291 with 284+289.
+
+## 6. Near-tie table on the current main 53ec7fb (M 2,295 @27,400, oracle slots 3,095) for the next replanner
+
+Leave-one-out reverts of the landed admin_cto changes (slim oracle; 63 genes, 36 priced before the time box):
+
+| revert | M | bytes | note |
+| --- | ---: | ---: | --- |
+| #4053 284 placeholder only (`loo4053_0`) | 2,295 | 27,392 | **free -8 B knob** |
+| #4018 298 `pt1(3,new.is_some())` (`loo4018p1`) | 2,295 | 27,392 | **free -8 B knob** |
+| #4025 peel undone / #3993 borrow | 2,295 | 27,400 | byte-identical |
+| #4026 312 compare-byte `pt8` (`loo4026p0`) | 2,294 | 27,392 | -1; + a placeholder copy at 306/307/338: 2,295 @27,400 (ties, same slots) |
+| whole #4053 (placeholder back at 334) | 2,294 | 27,400 | 3,091 slots (4 fewer, but -1 M) |
+| #4037 state-layout merge (`looa51791e`) | 2,294 | 27,400 | |
+| #4000 pool gate / #4011 Rc-increment owner read | 2,294 / 2,293 | 27,400 | |
+| #4018 339 `ptp(1,..)` / a second placeholder back at 334 (`loo4017p0`) | 2,293 @27,408 / 2,294 @27,408 | | |
+| #4054 (`looaab087f`) / #4040 lifetime shims / #3991 | 2,292 | 27,400 | still pay 3 each |
+| #4018 659 `pt1(7,executable)` | 2,290 | 27,400 | |
+| #3992 default-quote weight + box reload / #3974 rP | 2,288 / 2,288 @27,392 | | |
+| #4019 pcol (`collection_native==false`) | 2,288 | 27,408 | |
+| #3969 weighted associated_token_program clone | 2,281 | 27,392 | |
+
+No single revert gains on 53ec7fb, and no two-knob composite tried here beats main. The two free -8 B knobs need a
++8/+16 B partner at +1; none is known on this main (the w17a08 fence A was 0 M @+16 B on ac37d74).
+
+How to rerun (about 60 captures; 10 minutes at load 100, 25 at load 190):
+`python3 tools/loo.py 50` (writes `data/loo.json`, genes `looNNNN`, `looNNNN_k`, partial `looNNNNpK`), then queue
+`<name> <gene>` lines for `tools/runq2.py` against a fresh `basecrate` of the new main.
+
 ## Tools (`tools/`, experiment only; paths point at this lane's `$OUT`)
 
 - `cap.py <name> <genes> <slot>`: copy a pristine base crate, apply `genes17.py` genes (line count checked), capture
@@ -130,3 +162,4 @@ unstripped 678b0ba01d847c33; differential 388 / 0. The placeholder count is unch
 - `tnew3.py`: w16a17 splice translation of the cached library onto the current baseline.
 - `pairs18.py`: the same with cached `splice.Var`s, so size-complementary pairs/triples need no difflib.
 - `rec.py`: ledger rows for every capture.
+- `loo.py`: leave-one-out revert genes for the last N landings that touched admin_cto.rs (sections 4-6).

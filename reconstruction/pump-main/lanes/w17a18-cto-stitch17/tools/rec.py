@@ -9,14 +9,15 @@ MAIN=(2270,27400)
 for l in open(OUT+'/res/cap.jsonl'):
     r=json.loads(l); n=r['name']
     if n in done: continue
-    key=f'0x22a10-w17-bf01b5f-stitch17-{n}-v1'
+    base=r.get('base') or ('53ec7fb' if n.startswith(('j2_','j_r312','m0j')) else '2f3597f' if n.startswith(('i2_','i_B9','i_v334','m0i','D')) else '4d09af4' if n.startswith(('h2_','A','B6_','B9_','C','m0h')) else 'ac37d74' if n.startswith(('g_','h_','i_','j_','k_','m0g')) else 'bf01b5f')
+    key=f'0x22a10-w17-{base}-stitch17-{n}-v1'
     genes='+'.join(r.get('genes',[])) or 'main'
     if 'err' in r:
         st='compile-failed'; data={'output':f'{OUT}/fx/{n}','notes':f"genes {genes}: {r['err']} {r.get('detail','')}"[:500]}
     else:
         st='analyzed'
         data={'output':f'{OUT}/fx/{n}','target':{'ratio':r['ratio'],'slots_diff':r.get('slots'),'cand_bytes':r['bytes']},
-              'notes':f"slim pre-opt oracle (capraw+preslim+fx) on main bf01b5f (oracle M 2270 @27400, slots 3169): genes {genes} -> M {r['M']} @{r['bytes']} (dM {r['M']-2270:+d}, dB {r['bytes']-27400:+d}), oracle slots {r.get('slots')}"}
+              'notes':f"slim pre-opt oracle (capraw+preslim+fx) on main {base}: genes {genes} -> M {r['M']} @{r['bytes']} (dM {r['M']-2270:+d}, dB {r['bytes']-27400:+d}), oracle slots {r.get('slots')}"}
     cmd=['python3',L,'record','--lane','w17a18-cto-stitch17','--approach','stitch17','--target','0x22a10','--dedupe-key',key,
          '--hypothesis',f'stitch17 integrator: price {genes} on the shim-era main bf01b5f (size-complementary composites at 27,400 B)',
          '--status',st,'--data',json.dumps(data)]
