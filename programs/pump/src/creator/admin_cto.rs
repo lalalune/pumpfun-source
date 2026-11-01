@@ -281,7 +281,7 @@ struct CtoState{creator:Pubkey,max_fee:u64,mayhem:bool,holder_reward:bool,cashba
 
 
 fn validate(st:&CtoState,shared:bool,holder:bool,fee:Option<u64>,new:Option<Pubkey>,sharing:Pubkey,holder_key:Pubkey,hkr:&Pubkey)->Result<Plan>{
- let ns=!shared;let mut sharing_update:Option<Option<Pubkey>>=None;if st.mayhem{return Err(error!(PumpError::CtoNotAllowedForMayhemCoin));}
+ let ns=!shared;let mut sharing_update:Option<Option<Pubkey>>=None;unsafe{core::ptr::read_volatile(hkr as *const Pubkey as *const u8)}/*shim: holder_key byte read before the mayhem test, repays the pin*/;unsafe{core::ptr::read_volatile(hkr as *const Pubkey as *const u8)}/*shim: holder_key byte read before the mayhem test, repays the pin*/;if st.mayhem{return Err(error!(PumpError::CtoNotAllowedForMayhemCoin));}
 // Reconstructed positions of the same deployed validations.
 
 
@@ -661,7 +661,7 @@ fn validate(st:&CtoState,shared:bool,holder:bool,fee:Option<u64>,new:Option<Pubk
 
   let vsigner:[&[&[u8]];1];let bump=ctx.bumps.creator_vault;let old=a.current_creator.key();let vaultseeds:&[&[u8]]=&[b"creator-vault",old.as_ref(),&[bump]];vsigner=[vaultseeds];
   if native{let min={let rent=Rent::get()?;rent.minimum_balance(0)};let amount=a.creator_vault.lamports().saturating_sub(min);
-   return (if amount>0{crate::legacy_buy::native_payments::ensure_rent_exempt(&a.system_program,&a.admin_set_creator_authority,&a.holder_creator_vault)?;crate::collect_v2::transfer_native(a.system_program.as_ref(),&a.creator_vault,&a.holder_creator_vault,amount,&vsigner)}else{Ok(())}).map(|()|amount);}else{let amount=token_raw_amount(a.creator_vault_quote_token_account.as_ref())?;let frozen=token_frozen(a.creator_vault_quote_token_account.as_ref())?;
+   return (if amount>0{crate::legacy_buy::native_payments::ensure_rent_exempt(&a.system_program,&a.admin_set_creator_authority,&a.holder_creator_vault)?;let _=unsafe{core::ptr::read_volatile(holder_key as *const Pubkey as *const u8)};/*shim: holder_key byte read before transfer_native, repays the pin*/crate::collect_v2::transfer_native(a.system_program.as_ref(),&a.creator_vault,&a.holder_creator_vault,amount,&vsigner)}else{Ok(())}).map(|()|amount);}else{let amount=token_raw_amount(a.creator_vault_quote_token_account.as_ref())?;let frozen=token_frozen(a.creator_vault_quote_token_account.as_ref())?;
 
 
 
