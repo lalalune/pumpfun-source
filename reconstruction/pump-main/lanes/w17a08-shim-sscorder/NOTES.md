@@ -93,3 +93,29 @@ Source attempts for the +1 cells:
   source cell. Only the pre-opt screen predicts source behaviour.
 - `bf:wallet:31259`: `do_coin` as `if coin_present{..}else{false}` is byte-identical to main (f0). A fence under
   `if collection_native` in the else arm (f1) lands in both threaded copies plus a dead test: 2,258 @27,408.
+
+## Round 3 on main 8330455eb (w17a15 passthrough landed; M 2,278, 0.68244): two marked fences, +4 M
+
+Screens on a fresh capture (`m5`): branch weights (928 singles + pairs + triples) and Rc-window moves (1,396) give
+nothing; the post-opt re-read screen gives rr1316@1353 + rr197@232 = 2,281 @27,400 (the wallet's `collected` re-read
+from the collect result buffer; a `ManuallyDrop` + `ptr::read` source form collapses to 1,881). The pre-opt single-edit
+beam (w17a06 `gen.py`/`screen.py`, 807 cells) has one big fence cell, `bf:sweep:33476` (+4 M at -16 B), and a repay
+screen (88 combos) pairs it with `bf:wallet:31884` (+0 M, +16 B) for **2,282 @27,400**.
+
+| build | admin_cto ratio | M | slots | bytes | normalized / raw | losses | differential |
+| --- | ---: | ---: | ---: | ---: | --- | --- | --- |
+| main 8330455eb | 0.68244 | 2,278 | 3,293 | 27,400 | 1034 / 1034 | - | - |
+| **swl1** (this branch) | **0.68364** | **2,282** | 3,348 | 27,400 | 1034 / 1034 | none | 388 cases, 0 mismatches |
+
+measure.sh unstripped sha `d9ae67ece207fe2c`; calls 154 / 3. The source captures equal the oracle cells
+(sw1 alone: 2,282 @27,384; both: 2,282 @27,400).
+
+The two shims (no line added, both `core::hint::black_box(())`, a zero-size compiler memory barrier that emits no
+instruction):
+- line 664, sweep native arm: the tail `(..transfer_native(..)}else{Ok(())}).map(|()|amount)` becomes
+  `{let r=(..).map(|()|amount);black_box(());r}`: a fence at the merge where the sweep's Result is written (`bb95`);
+- line 579, wallet: `collect_coin_creator_fee(..)?;black_box(());`: a fence on the AMM collect CPI's Ok continuation
+  (`bb103`), the +16 B repay.
+
+Peel targets: an ordinary spelling that keeps the sweep's native result merge as its own block (the fence stops the
+memory ops of the two arms from being merged/scheduled across it), and one that gives the wallet's +16 B back.
