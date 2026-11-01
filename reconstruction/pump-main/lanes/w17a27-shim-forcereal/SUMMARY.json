@@ -1,57 +1,201 @@
 {
-  "lane": "w17a27-shim-forcereal",
-  "wave": 17,
-  "target": {"window": "0x22a10", "function": "admin_cto::execute", "file": "programs/pump/src/creator/admin_cto.rs", "pinned_bytes": 27400},
-  "base": {"main": "53ec7fb53", "ratio": 0.68754, "M": 2295, "slots_diff": 3096, "bytes": 27400, "normalized": 1034, "raw": 1034},
-  "result": "notes only: no zero-footprint cell, pair or triple realises any RA force without a collapse; nothing above main",
-  "best": {"ratio": 0.68754, "M": 2295, "bytes": 27400, "note": "= main; 528 neutral pairs at 27,400 B, none above"},
-  "ra_headroom": {
-    "k40_climb": {"forces": ["1691=r6", "1679=r7", "1626=r3"], "M": 2313, "bytes": 27400},
-    "all_votes_climb": {"forces": ["1691=r6", "1679=r7", "1279=r2", "1910=r6", "1626=r3", "1316=r7", "1882=r8", "1881=r8", "1880=r8", "1741=r9", "1727=r6", "1711=r6"], "M": 2332, "bytes": 27400},
-    "size_changing_singles": {"2152=r9": [2300, 27384], "473=r3": [2298, 27392]}
+ "lane": "w17a27-shim-forcereal",
+ "wave": 17,
+ "target": {
+  "window": "0x22a10",
+  "function": "admin_cto::execute",
+  "file": "programs/pump/src/creator/admin_cto.rs",
+  "pinned_bytes": 27400
+ },
+ "base": {
+  "main": "53ec7fb53",
+  "ratio": 0.68754,
+  "M": 2295,
+  "slots_diff": 3096,
+  "bytes": 27400,
+  "normalized": 1034,
+  "raw": 1034
+ },
+ "result": "notes only: no zero-footprint cell, pair or triple realises any RA force without a collapse; nothing above main",
+ "best": {
+  "ratio": 0.68754,
+  "M": 2295,
+  "bytes": 27400,
+  "note": "= main; 528 neutral pairs at 27,400 B, none above"
+ },
+ "ra_headroom": {
+  "k40_climb": {
+   "forces": [
+    "1691=r6",
+    "1679=r7",
+    "1626=r3"
+   ],
+   "M": 2313,
+   "bytes": 27400
   },
-  "decision_table": {
-    "1691=r6": {"gain": 8, "value": "event accounts reload (spill reload of %0, created last)", "blockers": "r6: pool_updated flag phi %1660 (evicted %357) + event_authority clone buffer %1400; r7: %368 is_holder_reward byte read before Clock::get; r9: %362 nf read before the pool CPI; r8 free", "levers": "none (weights x0.25/x4, dequeue first/last, hints, FORCE 1660=r9+357 spill+1400=r1 all fail)", "families_realising": 0},
-    "1679=r7": {"gain": 7, "value": "wallet ATA#1 accounts reload", "blockers": "buffer %745 (size 704) dequeued before the reload, evicts %725 (coin data_is_empty, w 2.2e-8) from r7; reload created last takes r8", "levers": "PRIO 745 last or WEIGHT 725 x4 / 745 x0.2: realised + second buffer swap in the collect event (2297 @27408); + FORCE 793=r7 = forced output 2302 @27400", "families_realising": "97 bw, 21 lt, 22 pt cells; 169 pairs; all collapsed (best 2236 @27384)"},
-    "1279=r2": {"gain": 7, "value": "sharing clone-run Rc count temp", "blockers": "all ten registers busy, evicts %347 from r1", "levers": "none", "families_realising": 0},
-    "1910=r6": {"gain": 4, "value": "sharing CpiContext program-clone rent_epoch spill temp", "blockers": "evicts %1869 from r9; r6 holds %1863 (w15a24 1906 chain)", "levers": "none", "families_realising": 0},
-    "1626=r3": {"gain": 3, "value": "TCF clone Rc overflow flag", "blockers": "r2 first free; original keeps the data Rc pointer in r2 (lamports-first clone order)", "levers": "clone-run PRIO changes only, all collapse", "families_realising": "6 bw, 6 an, 9 vl, 3 pt cells; 984 pairs; all collapsed (best 2210 @27376)"},
-    "1316=r7": {"gain": 2, "value": "pool-gate [curve+0x70] temp", "blockers": "r1 first free; original keeps the pointer in r7 across the memcmp", "levers": "none"}
+  "all_votes_climb": {
+   "forces": [
+    "1691=r6",
+    "1679=r7",
+    "1279=r2",
+    "1910=r6",
+    "1626=r3",
+    "1316=r7",
+    "1882=r8",
+    "1881=r8",
+    "1880=r8",
+    "1741=r9",
+    "1727=r6",
+    "1711=r6"
+   ],
+   "M": 2332,
+   "bytes": 27400
   },
-  "attempts": [
-    {"id": "climb", "what": "K=40 climb and all-vote singles + climb2 on 53ec7fb", "result": "+18 (K=40), +37 (12 forces) RA-only at 27400"},
-    {"id": "bw", "cells": 1314, "max_M": 2295},
-    {"id": "lt", "cells": 1363, "max_M": 2295},
-    {"id": "an_post", "cells": 1736, "max_M": 2295},
-    {"id": "vl", "cells": 446, "max_M": 2295},
-    {"id": "pt_pre", "cells": 1009, "max_M": 2295},
-    {"id": "trap_weights_fine", "cells": 924, "max_M": 2295},
-    {"id": "va1_accounts_rederive", "cells": 8, "best": [2287, 27416]},
-    {"id": "pairs_post", "cells": 14359, "max_M": 2295},
-    {"id": "pairs_pt", "cells": 146, "max_M": 2295},
-    {"id": "triples", "cells": 6720, "max_M": 2295},
-    {"id": "ra_levers", "runs": 300, "result": "only 1679=r7 has a weight/order lever, and it needs a second change"}
-  ],
-  "rejected_mechanisms": [
-    "branch weights (expect / expect_p) on any conditional br as a register lever",
-    "Rc-trap weights at fine p on the current main",
-    "lifetime start/end DAG-chain cells",
-    "ptr/int annotation (post-opt)",
-    "volatile loads",
-    "llvm.bpf.passthrough (pre-opt)",
-    "volatile ctx.accounts re-derivation at ATA#1 (va1) and hoisted variants",
-    "RAPRIO hints on the forced reload intervals"
-  ],
-  "unresolved_residuals": [
-    "1691=r6 needs the original's event shape: sharing tag in r6 across the pool CPI and Clock::get, nf and is_holder_reward read after Clock::get, Result payload local (r1) instead of the r8 payload class",
-    "1679=r7 needs the ATA#1 buffer dequeued after the accounts reload and the collect-event buffer %793 in r7",
-    "1626=r3 needs the lamports-first TCF clone order",
-    "1279=r2 and 1910=r6 sit in the fully live sharing clone run (w15a24 1906 chain)"
-  ],
-  "next_ideas": [
-    "A source change that shortens the ATA#1 AccountInfo-array buffer below the accounts reload's size (or makes the reload an earlier, longer value) together with the collect-event buffer in r7: the only force with an RA lever",
-    "Re-run tools/climb2.py with all vote genes on every new main: the K=40 cut misses half of the headroom (1279=r2, 1910=r6, 2233=r6, 1316=r7)",
-    "Event-shape structural lanes (n1/evd) re-priced with the 1691=r6 cascade in mind: the forced output already reproduces the original's buffer spill into -0x8d8 and ldxb r6,[r1+0x2e]"
-  ],
-  "tools": "reconstruction/pump-main/lanes/w17a27-shim-forcereal/tools (fscr.py force-realisation screen, gen*.py cell generators, wif.py RAPRIO what-ifs, climb2.py, al.py, bdiff.py, ana.py, vagen.py)"
+  "size_changing_singles": {
+   "2152=r9": [
+    2300,
+    27384
+   ],
+   "473=r3": [
+    2298,
+    27392
+   ]
+  }
+ },
+ "decision_table": {
+  "1691=r6": {
+   "gain": 8,
+   "value": "event accounts reload (spill reload of %0, created last)",
+   "blockers": "r6: pool_updated flag phi %1660 (evicted %357) + event_authority clone buffer %1400; r7: %368 is_holder_reward byte read before Clock::get; r9: %362 nf read before the pool CPI; r8 free",
+   "levers": "none (weights x0.25/x4, dequeue first/last, hints, FORCE 1660=r9+357 spill+1400=r1 all fail)",
+   "families_realising": 0
+  },
+  "1679=r7": {
+   "gain": 7,
+   "value": "wallet ATA#1 accounts reload",
+   "blockers": "buffer %745 (size 704) dequeued before the reload, evicts %725 (coin data_is_empty, w 2.2e-8) from r7; reload created last takes r8",
+   "levers": "PRIO 745 last or WEIGHT 725 x4 / 745 x0.2: realised + second buffer swap in the collect event (2297 @27408); + FORCE 793=r7 = forced output 2302 @27400; exact: WEIGHT 745 x0.2 + 793 (collect-event buffer) x5 = 2302 @27400; a 3D !prof grid (collection_native x coin-empty x collect Some, 179 cells) cannot produce it",
+   "families_realising": "97 bw, 21 lt, 22 pt cells; 169 pairs; all collapsed (best 2236 @27384)"
+  },
+  "1279=r2": {
+   "gain": 7,
+   "value": "sharing clone-run Rc count temp",
+   "blockers": "all ten registers busy, evicts %347 from r1",
+   "levers": "none",
+   "families_realising": 0
+  },
+  "1910=r6": {
+   "gain": 4,
+   "value": "sharing CpiContext program-clone rent_epoch spill temp",
+   "blockers": "evicts %1869 from r9; r6 holds %1863 (w15a24 1906 chain)",
+   "levers": "none",
+   "families_realising": 0
+  },
+  "1626=r3": {
+   "gain": 3,
+   "value": "TCF clone Rc overflow flag",
+   "blockers": "r2 first free; original keeps the data Rc pointer in r2 (lamports-first clone order)",
+   "levers": "clone-run PRIO changes only, all collapse",
+   "families_realising": "6 bw, 6 an, 9 vl, 3 pt cells; 984 pairs; all collapsed (best 2210 @27376)"
+  },
+  "1316=r7": {
+   "gain": 2,
+   "value": "pool-gate [curve+0x70] temp",
+   "blockers": "r1 first free; original keeps the pointer in r7 across the memcmp",
+   "levers": "none"
+  }
+ },
+ "attempts": [
+  {
+   "id": "climb",
+   "what": "K=40 climb and all-vote singles + climb2 on 53ec7fb",
+   "result": "+18 (K=40), +37 (12 forces) RA-only at 27400"
+  },
+  {
+   "id": "bw",
+   "cells": 1314,
+   "max_M": 2295
+  },
+  {
+   "id": "lt",
+   "cells": 1363,
+   "max_M": 2295
+  },
+  {
+   "id": "an_post",
+   "cells": 1736,
+   "max_M": 2295
+  },
+  {
+   "id": "vl",
+   "cells": 446,
+   "max_M": 2295
+  },
+  {
+   "id": "pt_pre",
+   "cells": 1009,
+   "max_M": 2295
+  },
+  {
+   "id": "trap_weights_fine",
+   "cells": 924,
+   "max_M": 2295
+  },
+  {
+   "id": "va1_accounts_rederive",
+   "cells": 8,
+   "best": [
+    2287,
+    27416
+   ]
+  },
+  {
+   "id": "pairs_post",
+   "cells": 14359,
+   "max_M": 2295
+  },
+  {
+   "id": "pairs_pt",
+   "cells": 146,
+   "max_M": 2295
+  },
+  {
+   "id": "triples",
+   "cells": 6720,
+   "max_M": 2295
+  },
+  {
+   "id": "ra_levers",
+   "runs": 300,
+   "result": "only 1679=r7 has a weight/order lever, and it needs a second change"
+  },
+  {
+   "id": "fb_branch_grid",
+   "cells": 179,
+   "max_M": 2295,
+   "note": "no 1679=r7 realisation"
+  }
+ ],
+ "rejected_mechanisms": [
+  "branch weights (expect / expect_p) on any conditional br as a register lever",
+  "Rc-trap weights at fine p on the current main",
+  "lifetime start/end DAG-chain cells",
+  "ptr/int annotation (post-opt)",
+  "volatile loads",
+  "llvm.bpf.passthrough (pre-opt)",
+  "volatile ctx.accounts re-derivation at ATA#1 (va1) and hoisted variants",
+  "RAPRIO hints on the forced reload intervals"
+ ],
+ "unresolved_residuals": [
+  "1691=r6 needs the original's event shape: sharing tag in r6 across the pool CPI and Clock::get, nf and is_holder_reward read after Clock::get, Result payload local (r1) instead of the r8 payload class",
+  "1679=r7 needs the ATA#1 buffer dequeued after the accounts reload and the collect-event buffer %793 in r7",
+  "1626=r3 needs the lamports-first TCF clone order",
+  "1279=r2 and 1910=r6 sit in the fully live sharing clone run (w15a24 1906 chain)"
+ ],
+ "next_ideas": [
+  "A source change that shortens the ATA#1 AccountInfo-array buffer below the accounts reload's size (or makes the reload an earlier, longer value) together with the collect-event buffer in r7: the only force with an RA lever",
+  "Re-run tools/climb2.py with all vote genes on every new main: the K=40 cut misses half of the headroom (1279=r2, 1910=r6, 2233=r6, 1316=r7)",
+  "Event-shape structural lanes (n1/evd) re-priced with the 1691=r6 cascade in mind: the forced output already reproduces the original's buffer spill into -0x8d8 and ldxb r6,[r1+0x2e]"
+ ],
+ "tools": "reconstruction/pump-main/lanes/w17a27-shim-forcereal/tools (fscr.py force-realisation screen, gen*.py cell generators, wif.py RAPRIO what-ifs, climb2.py, al.py, bdiff.py, ana.py, vagen.py)"
 }

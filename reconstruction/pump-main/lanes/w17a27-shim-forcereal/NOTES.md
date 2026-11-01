@@ -63,7 +63,13 @@ them), and a climb over the 20 gainful genes (`data/climb_all_53ec7fb.log`) reac
 | 1626=r3 | none | PRIO on the clone-run pieces 207/215/217/224/225: realised, 2,087-2,207 | FORCE 1626=r3,2194=r5: 2,255 @27,416 |
 | 1279=r2, 1910=r6, 2233=r6, 1316=r7 | none | none | |
 
-So the only force with an RA-level lever is 1679=r7, and that lever needs a second, independent change.
+So the only force with an RA-level lever is 1679=r7, and that lever needs a second, independent change. A single
+weight what-if gives the exact forced output: **WEIGHT 745 x0.2 together with 793 x5, 2,302 @27,400**. Here `%793` is
+the collect-event AccountInfo buffer (bb86.i, `mov rX,r10; add rX,-0x450` before `CollectCreatorFeeEvent::data`). So
+1679=r7 = the ATA#1 buffer about 5x colder plus the collect-event buffer about 5x hotter, with nothing else changed.
+Branch weights cannot do that. A 3D `!prof` grid makes ATA#1 rare and the collect path hot: collection_native
+(bb62.i) x coin-empty (bb13.i) x `Some` (bb84.i), 179 cells. It realises nothing, and the best cells only tie main,
+because block frequencies move both buffers and every other interval together.
 
 ## 4. Family screens on main 53ec7fb (single cells, force metric)
 
