@@ -1,0 +1,137 @@
+# w16a03-cto-revidiom: reverse idiom dictionary for admin_cto (0x22a10)
+
+Target `0x22a10` `admin_cto::execute` (`programs/pump/src/creator/admin_cto.rs`), pinned at 27,400 B.
+Base: main 9bd38c7d5 (`$BASE` = `baseline-main-9bd38c7d5`: Pump Main 1034/1035 normalized and raw, admin_cto 0.67376,
+3,124 slots at 27,400 B; admin_cto.rs is unchanged since 86e2a6b74). Ledger approach `revidiom`, keys
+`0x22a10-w16-9bd38c7-revidiom-*`.
+
+**Result: notes and tools only, no source change.** No spelling found here reproduces a class at or above main, and no
+ordinary spelling replaces a `read_volatile` placeholder at no loss. The deliverable is the pattern -> window -> spelling
+table below, a line-table source map of the whole original program, and two mechanism findings:
+- `Some(args.0.map(|_|target))` is the first source form that reproduces the original's sharing-CPI `val` copy
+  (tag + 7/8/8/8/1 from the validated target), but it moves the frame by 8 B in two regions (0.54993).
+- The `args=&(new,)` tuple in main works because it loads `new`'s tag early, as the original does (orig 0x4d8). Every
+  `Some(new)`-without-args form collapses for that reason alone.
+
+## 1. Method and tools (`tools/`, experiment only, pure Python after one build)
+
+- **Line-table build** (`tools/ir/caplines.py`): the identity build with `--emit=link,asm -C debuginfo=line-tables-only`
+  (one build slot, about 3 min). It writes `pump_recovered.s` with `.loc` lines. `asmlines.py` parses it into per-function
+  instruction lists (1,158 functions). Of the 716 matched windows whose symbol is in that crate, 668 have the same
+  instruction sequence as the original window (`asmcheck.py`). The other 48 are aligned with difflib on mnemonics.
+- **`srcmap.py`**: original address -> source. `loc()` gives the innermost `.loc` (often a core/alloc file).
+  `userloc()` gives the nearest `programs/` `.loc` at or before it, which is the call site of inlined library code.
+  Example: `srcmap.py 0x351f8` -> `distribute_fee_to_holders.rs:124:289` (`... mint:a.quote_mint.to_account_info() ...`).
+- **`revidiom.py`**: shape n-gram index over every matched original window. Registers are alpha-renamed inside each
+  n-gram, so dataflow is kept. r10 offsets and immediates are masked, except and/shift masks and compare constants below 4.
+  Non-r10 memory offsets (field offsets) are kept. `revidiom.py range <lo> <hi>` lists, for an orig admin_cto range, the
+  n-grams that appear in no matched window. It also lists the windows that share the most n-grams (rare ones first),
+  each with the inner and user source location of the hit. `revidiom.py runs` does this for every orig-only run.
+- **`runs.py`**: the orig-only runs. It runs a true-LCS DP (rfj mask) of orig vs main from the two llvm-objdump
+  disassemblies (`odis.py`, `shape.py`).
+- Query scripts:
+  - `q1.py` / `q1src.py`: AccountInfo clone census.
+  - `q2.py` / `q2src.py`: census of 7-byte `[1,8)` piece copies.
+  - `q_owner.py`: owner-check / `data_is_empty` order.
+  - `calls.py`: orig vs main callee sequence.
+  - `binlcs.py`: masked true LCS of a `fn.bin`.
+  - `fdelta.py`: frame-offset deltas over rfj-matched pairs.
+  - `ircmp.py`: post-opt alloca and call diff of two oracle runs.
+- `tools/ir/cap.sh <name> <edits.py> <slot>` is the raw-IR capture plus opt/llc oracle (w15a23's t118 tools, repointed).
+  On 9bd38c7 it reproduces main exactly (`eq_main: true`, 0.67376 / 3,124).
+
+Data (`data/`): `classes-revidiom.txt` (the query classes below), `runs-revidiom.txt` (all 61 orig-only runs of at least
+2 instructions), `q1-*.txt`, `q2-7byte-pieces.txt`, `call-sequence-orig-vs-main.txt`.
+
+## 2. How unusual admin_cto's missing shapes are
+
+| set | 4-grams | in no matched window |
+| --- | ---: | ---: |
+| whole original admin_cto | 3,336 | 636 (19.1%) |
+| whole main admin_cto | 3,334 | 699 (21.0%) |
+| the 61 orig-only runs (true LCS, rfj), with context | 397 | 172 (43%); another 55 occur in at most 8 windows |
+
+275 of the original's 636 corpus-unseen 4-grams are already in main. Main also has 409 corpus-unseen shapes that the
+original lacks. The orig-only runs are twice as unique as the function as a whole. Most of what admin_cto lacks is
+register, spill and phi structure that occurs nowhere else in the program. For those there is no sibling spelling to port,
+and the table says so.
+
+## 3. Pattern -> window -> spelling table
+
+| # | original pattern (orig offsets) | matched windows with the same shape | source construct there | verdict for admin_cto |
+| --- | --- | --- | --- | --- |
+| Q1 | accounts pointer reloaded from `[r10-0x8d8]` before every AccountInfo clone. All 8 sharing-CPI clones (0x3d88-0x44f8), 2 TCF clones (0x3228, 0x3340). 10 of 19 clones in total; main 3 of 19 | none at this density. holder_distribution::execute 5/13 (`anchor_spl::associated_token::create(CpiContext::new(..))` inside the recipient `for` loop, distribute_fee_to_holders.rs:86/124/126); create_v2::initialize_metadata 2/11 (create_v2.rs:591); extend::fund_bonding_curve_rent 2/4; trade::check_quote 2/4; 13 windows 1 each. Every other multi-clone CPI build holds the pointer in a register (migrate*::create_pool 0/13-0/19, init_pump_amm_boost 1/11, try_accounts 0/10) | loop-carried pressure (holder_distribution) or isolated RA splits | no source idiom; pure RA pressure in the sharing arm (`swept` in r9 in the original). Agrees with w15a34 |
+| Q2a | Pubkey payload copied as 7/8/8/8/1 pieces: two overlapping `ldxw/stxw` at k+3 and k, then 8/8/8/1 | all 46 hits outside admin_cto map to core `result.rs:1952` (`Try::branch`, `Ok(v) => Continue(v)`) or to `Ok(..)` construction. pump_quote::read_pubkey (`Ok(Pubkey::new_from_array(bytes))`), parse_pool (`read_pubkey(header,139)?`), historical_curve::decode_v1-v8 and Global/GlobalConfig `try_deserialize` (borsh `Pubkey` fields via `?`), `__global::set_params` | the Ok payload of a `Result<Pubkey,E>` whose Err payload (anchor `Error` = `{i64,ptr}`) sits at 8..24, so SROA splits it on the 8-byte grid | the original's target and sharing payload are `Result<Pubkey>`-grid values (7 B / 9 B allocas plus two SSA pieces) |
+| Q2b | `new` (an `Option<Pubkey>` argument) loaded on that grid at entry, before the mayhem test: tag, 7 B, 8, 8, 9 B (0x4d8-0x538) | none (all 16 4-grams unseen in the corpus) | - | unique to admin_cto. Note that main's early `args` tuple already loads the tag at this point (section 4.1) |
+| Q2c | sharing-CPI `val` = tag from `new` + 7 B and 9 B from the final target allocas `[-0x550]/[-0x560]` + middle from `[-0x900]/[-0x948]` (0x3d20-0x3d80) | same Result-grid windows as Q2a (set_params, Global/GlobalConfig deserialize, decode_v*) | `?` on `Result<Pubkey>` | **reproduced** by `sharing_update=Some(args.0.map(\|_\|target))`, but at 0.54993 (section 4.2) |
+| Q2d | non-holder arm rebuilds `t` in memory from the pieces before the three memcmps (0xc08-0xc78) | no shape match (11 of 18 4-grams unseen) | - | follows from Q2b |
+| Q3-B | curve bools (0xa2/0xa3/0xa5) and the Global pointer loaded right after `shared`, before the quote_locked memcmps (0x268-0x2b8) | 29 of 49 4-grams unseen. Closest: swap_hop (`validate_buyback_fee_recipient_account(&a.global,..)`), DistributeCreatorFees try_accounts | account field reads held across calls | already priced as flaghoist (w14a41 0.64209) and the CtoState literal family (w15a30) |
+| Q3-F | per-arm phi constants `mov rN,0/1` stored to `[-0x950]/[-0x958]/[-0x8f8]` (0xd78-0xe58) | 11 of 32 unseen. constant_product::output, buy_exact_quote_in_v2 (`gross_total(..)?`), sell_v2 (`if c.is_holder_reward{..}else{0}`) | value-producing `if`/`?` joins | generic; no admin_cto-specific spelling |
+| Q3-H | holder `and64 r8,1` in r8, `jeq +1; ja` pairs (0x5e0-0x748) | 21 of 47 unseen. validate_pool / buy_v3 (`parse_pool(..)?`), buy_v2 (`trade_fees(..)`) share only `jeq +1; ja` layout pairs | layout artefacts: BPF `analyzeBranch` cannot reverse conditional branches | and-1 basin already priced (w15a11 v14 0.4109) |
+| Q3-b01 | holder_key and sharing key copied by value at validate entry (0x548-0x5d0) | DistributeCreatorFees try_accounts, buy_v2, v3_emit_buy, creator_migration::execute (key copies into locals or events) | `Pubkey` by value | w15a11 b01 (0.54595) |
+| Q4 | fee OK block (orig 0x1748-0x17a0: `stxdw [-0x918],r4; stxdw [-0x948],r3; mov64 r7,1`) | create_v2::execute:774-779, the same two checks (`require!(a.global.creator_fee_configurable,..)`, `require!(fee<=max,..)`) followed by **`fee=creator_fee_bps.0;`** in the OK path | a validated-fee local assigned in the OK path, so a fee-tag phi of constants appears | the sibling confirms w15a29's reading: the OK-block anchor is the fee-tag phi. Priced at -186..-276 M on main's shape by w15a29 (phiprobe) and w15a15 (j_all 0.30884). Not landable alone |
+
+Call-order differences, orig vs main (`data/call-sequence-orig-vs-main.txt`). The 157 calls match except four places:
+- holder-rewards PDA first (class A);
+- 307/312 `to_string` outlined in the original (class D);
+- in the sweep's token arm, `token_raw_amount` before `token_frozen` (orig 0x20c8/0x2110; w14a70 `a1` family, 0.665);
+- the pool gate `owner==&AMM` before `data_is_empty` (orig 0x4be8/0x4c10; `mpo`, w14a91/w14a106/w15a04, 0.633).
+All four are in the ledger.
+
+## 4. Mechanism findings
+
+### 4.1 Why `Some(new)` without the `args` tuple collapses
+
+`e/u_none.py` (`let args=&(new,);` removed, `Some(new)` in the shared arm; the w14a113 w08 / w14a127 / w15a21 family):
+0.48104 @27,376. The normalized post-opt execute IR differs from main in one place only: where `new`'s tag (`load i8`)
+and the `new+1` GEP are emitted. Main's tuple copy loads the tag right after the CtoState stores. That is the original's
+position: orig 0x4d8 `ldxb r2,[r7+0]` -> `[r10-0x8f8]`, the sharing-tag slot. u_none loads it inside the sharing arm.
+Block count (281) and the alloca set are the same. The true LCS falls from exact 2255 / rfj 2985 to 1617 / 2414, so this
+is a block-layout re-placement, not a frame effect. **Any spelling that drops the early `args` read must keep an early tag
+read.** Several earlier "Some(new) collapses" results (gr_sun, gr_mun, w08, T_noargs) are this effect, not the payload.
+
+### 4.2 The Q2 val shape is reproducible: `Some(args.0.map(|_|target))`
+
+Reading Q2c off the original: the tag comes from `new` (w15a23's webs), and the payload comes from target's Result-grid
+pieces. The shared non-holder arm then needs `Some(<tag of new, payload of target>)`. With `args` kept for the early tag
+read (4.1):
+
+| probe (raw-IR oracle on 9bd38c7) | ratio @ bytes | true LCS exact / j / rj / fj / rfj |
+| --- | --- | --- |
+| main | 0.67376 @27,400 | 2255 / 2367 / 2722 / 2581 / 2985 |
+| `valmap`: `sharing_update=Some(args.0.map(\|_\|target));` | 0.54993 @27,352 | 1949 / 2068 / 2448 / 2457 / 2940 |
+| `valand`: `Some(args.0.and(Some(target)))` | 0.37751 @27,352 | 1451 / 1571 / 1928 / 2339 / 2818 |
+| `u_none` (4.1) | 0.48104 @27,376 | 1617 / 1720 / 2037 / 1909 / 2414 |
+
+`valmap` emits the original's 12-instruction val copy (cand 0x3d28-0x3d88 vs orig 0x3d20-0x3d80) with one extra tag
+reload and offsets 8 B lower:
+- the `stxb` tag;
+- a 7 B piece as two `ldxw/stxw`;
+- the two 8 B SSA spills, in the same order (`[16..24)` first);
+- an 8 B and a 1 B piece.
+
+It is the first source form that does this. `match args.0{Some(_)=>Some(target),None=>None}` and
+`if args.0.is_some(){Some(target)}else{None}` compile to the same bytes (vm_m, vm_i).
+
+It also keeps the structure: rfj is only -45 vs main, and its frame bottom is `-0xc38`, the original's (main stops at
+`-0xc30`). The loss is spill-slot placement and registers:
+- The 2 x 32 B sharing-payload allocas become three 7 B / 9 B pairs: `sharing_update.sroa.6.sroa.*`, `sharing_update16.sroa.*`
+  and the map temp `_63.sroa.5.sroa.*`.
+- The two payload middle pieces become SSA values spilled at validate's exit (cand 0x1790/0x17a0). In the original one of
+  them is `new`'s entry piece (`[-0x900]`, def at 0x510) and the other is the per-arm phi `[-0x948]` (3 defs).
+- The long-lived argument spills then move: accounts pointer `-0x8d8` +8, ctx `-0x938` +16, `-0x918`..`-0x928` -24. Main
+  has these exactly. In all, 360 matched frame accesses are off, against main's 121 (`fdelta.py`, per-slot table in the
+  ledger row).
+
+Control: dropping main's `Ok::<_,Error>((target,sharing_update,cashback))?` round trip alone (`m_nt`) gives 0.55019, the
+same level. That round trip is worth +0.12 on main through the frame. With valmap it does nothing (`vm_nt` 0.55022). So a
+usable valmap needs its own frame-shaping partner. Section 5 lists the order and arity variants screened.
+
+## 5. Next ideas
+
+1. valmap plus a frame repair: find the form in which the sharing payload pieces are target's allocas (no map temp, no
+   join copy). Price it with `fdelta.py` and the w15a11 `fshift.py` bound on 0x2800-0x3800 / 0x4800-0x6000.
+2. Use `revidiom.py range` and `srcmap.py` before writing any "sibling idiom" trial. The corpus answers in seconds
+   whether an instruction shape exists anywhere else and which source line made it.
+3. Q1 needs the RA pressure of the original's sharing arm, so it can only come from a whole-region change (swept in r9),
+   not from the clone-run source.

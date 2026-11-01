@@ -1,0 +1,230 @@
+#### Q1 sharing-CPI clone run (accounts ptr reloaded per clone)
+### orig 0x3d88-0x4638: 281 4-grams, 29 unseen in the matched corpus, 25 rare (<= 8 windows)
+    unseen @0x3d78: ldxb a,[fp] ; stxb [fp],a ; ldxdw a,[fp] ; ldxdw a,[a+0x98]
+    unseen @0x3d80: stxb [fp],a ; ldxdw a,[fp] ; ldxdw a,[a+0x98] ; ldxdw b,[a+0x8]
+    unseen @0x3d88: ldxdw a,[fp] ; ldxdw a,[a+0x98] ; ldxdw b,[a+0x8] ; ldxdw c,[b+0x0]
+    unseen @0x3d90: ldxdw a,[a+0x98] ; ldxdw b,[a+0x8] ; ldxdw c,[b+0x0] ; add64 c,1
+    unseen @0x3e20: jne a,0x1,@ ; ja @ ; ldxdw b,[fp] ; ldxdw b,[b+0x68]
+    unseen @0x3e28: ja @ ; ldxdw a,[fp] ; ldxdw a,[a+0x68] ; ldxdw b,[a+0x8]
+    unseen @0x3e30: ldxdw a,[fp] ; ldxdw a,[a+0x68] ; ldxdw b,[a+0x8] ; ldxdw c,[b+0x0]
+    unseen @0x3e38: ldxdw a,[a+0x68] ; ldxdw b,[a+0x8] ; ldxdw c,[b+0x0] ; add64 c,1
+    unseen @0x4048: stxdw [fp],a ; ldxdw b,[fp] ; ldxdw b,[b+0x8] ; ldxdw b,[b+0x0]
+    unseen @0x4050: ldxdw a,[fp] ; ldxdw a,[a+0x8] ; ldxdw a,[a+0x0] ; ldxdw b,[a+0x8]
+    unseen @0x4058: ldxdw a,[a+0x8] ; ldxdw a,[a+0x0] ; ldxdw b,[a+0x8] ; stxdw [fp],b
+    unseen @0x4168: ja @ ; mov64 a,b ; ldxdw c,[fp] ; ldxdw d,[c+0x10]
+    unseen @0x4170: mov64 a,b ; ldxdw c,[fp] ; ldxdw d,[c+0x10] ; ldxdw c,[d+0x8]
+    unseen @0x4178: ldxdw a,[fp] ; ldxdw b,[a+0x10] ; ldxdw a,[b+0x8] ; stxdw [fp],a
+    unseen @0x4180: ldxdw a,[b+0x10] ; ldxdw b,[a+0x8] ; stxdw [fp],b ; ldxdw b,[b+0x0]
+    unseen @0x4290: ja @ ; mov64 a,b ; ldxdw c,[fp] ; ldxdw d,[c+0x90]
+    unseen @0x4298: mov64 a,b ; ldxdw c,[fp] ; ldxdw d,[c+0x90] ; ldxdw c,[d+0x8]
+    unseen @0x42a0: ldxdw a,[fp] ; ldxdw b,[a+0x90] ; ldxdw a,[b+0x8] ; stxdw [fp],a
+    unseen @0x42a8: ldxdw a,[b+0x90] ; ldxdw b,[a+0x8] ; stxdw [fp],b ; ldxdw b,[b+0x0]
+    unseen @0x43b8: jne a,0x1,@ ; ja @ ; ldxdw b,[fp] ; ldxdw c,[b+0xa0]
+    unseen @0x43c0: ja @ ; ldxdw a,[fp] ; ldxdw b,[a+0xa0] ; ldxdw c,[b+0x8]
+    unseen @0x43c8: ldxdw a,[fp] ; ldxdw b,[a+0xa0] ; ldxdw c,[b+0x8] ; ldxdw a,[c+0x0]
+    unseen @0x43d0: ldxdw a,[b+0xa0] ; ldxdw c,[a+0x8] ; ldxdw b,[c+0x0] ; add64 b,1
+    unseen @0x44c0: stxdw [fp],a ; ldxdw b,[fp] ; stxdw [fp],b ; stxdw [c+0x0],d
+    unseen @0x44e8: ja @ ; stxdw [fp],a ; ldxdw b,[fp] ; ldxdw c,[b+0x98]
+    unseen @0x44f0: stxdw [fp],a ; ldxdw b,[fp] ; ldxdw c,[b+0x98] ; ldxdw d,[c+0x8]
+    unseen @0x44f8: ldxdw a,[fp] ; ldxdw b,[a+0x98] ; ldxdw c,[b+0x8] ; ldxdw d,[c+0x0]
+    unseen @0x4540: ldxdw a,[fp] ; ldxdw a,[fp] ; ldxdw a,[fp] ; ldxb a,[b+0x2a]
+    unseen @0x4548: ldxdw a,[fp] ; ldxdw a,[fp] ; ldxb a,[b+0x2a] ; stxdw [fp],a
+    0x052660 pump_recovered::migrate_v2::init_pump_amm_boost_v2                     grams 212 (rare 8); best @cto0x3f28=win+0xab8 [2 wins] inner rc.rs:0; user migrate_v2.rs:664  let bump=ctx.bumps.pool_authority;{let init=move||(move|signer_seeds:&[&[&[u8]];1]|pump_amm::cpi::init_boost(
+    0x034558 pump_recovered::holder_distribution::execute                           grams 211 (rare 8); best @cto0x3f28=win+0x1680 [2 wins] inner rc.rs:0; user distribute_fee_to_holders.rs:126  transfer_tokens(&a.quote_token_program,source.to_account_info(),&a.quote_mint,recipient_associated_token_accou
+    0x01ac28 pump_recovered::create_v2::initialize_metadata                         grams 207 (rare 7); best @cto0x4160=win+0x15a8 [1 wins] inner rc.rs:3360; user create_v2.rs:591  [b"mint-authority",&[bump]]])?;
+    0x138b20 pump_recovered::pump_recovered::create                                 grams 222 (rare 4); best @cto0x4228=win+0x9e0 [2 wins] inner rc.rs:3360; user lib.rs:0  
+    0x045fa0 pump_recovered::migrate::init_pump_amm_boost                           grams 210 (rare 4); best @cto0x3f38=win+0x770 [4 wins] inner unchecked_account.rs:61; user migrate.rs:530  let bump=ctx.bumps.pool_authority;let init=move |signer_seeds:&[&[&[u8]];1]|pump_amm::cpi::init_boost(CpiCont
+#### Q1 TCF clone reloads
+### orig 0x3200-0x3360: 47 4-grams, 5 unseen in the matched corpus, 14 rare (<= 8 windows)
+    unseen @0x3208: jne a,0x1,@ ; ja @ ; ldxdw b,[fp] ; ldxdw c,[b+0x78]
+    unseen @0x3210: ja @ ; ldxdw a,[fp] ; ldxdw b,[a+0x78] ; ldxdw c,[b+0x8]
+    unseen @0x3218: ldxdw a,[fp] ; ldxdw b,[a+0x78] ; ldxdw c,[b+0x8] ; ldxdw d,[c+0x0]
+    unseen @0x3320: ja @ ; mov64 a,b ; ldxdw c,[fp] ; ldxdw c,[c+0x58]
+    unseen @0x3328: mov64 a,b ; ldxdw c,[fp] ; ldxdw c,[c+0x58] ; ldxdw d,[c+0x8]
+    0x0b3b90 <pump_recovered::create_v2::CreateV2 as anchor_lang::Accounts<pump_rec grams 27 (rare 4); best @cto0x3280=win+0xca8 [2 wins] inner clone.rs:220; user create_v2.rs:27  Accounts)]
+    0x16bdf0 <pump_recovered::bonding_curve_instruction_accounts::Create as anchor_ grams 27 (rare 4); best @cto0x3280=win+0xca8 [2 wins] inner clone.rs:220; user lib.rs:2811  Accounts)]
+    0x045fa0 pump_recovered::migrate::init_pump_amm_boost                           grams 28 (rare 3); best @cto0x31e8=win+0x1230 [3 wins] inner uint_macros.rs:0; user migrate.rs:530  a.wsol_mint.to_account_info(),pool_base_token_account:a.pool_base_token_account.to_account_info(),pool_quote_t
+    0x0b0158 <pump_recovered::create_v2::CreateV2 as anchor_lang::Accounts<pump_rec grams 28 (rare 2); best @cto0x3290=win+0x9b8 [5 wins] inner clone.rs:264; user create_v2.rs:27  Accounts)]
+    0x0b54d0 <pump_recovered::create_v2::CreateV2 as anchor_lang::Accounts<pump_rec grams 27 (rare 2); best @cto0x31e8=win+0x740 [3 wins] inner uint_macros.rs:0; user create_v2.rs:34  token_program)]pub associated_bonding_curve:Box<InterfaceAccount<'info,TokenAccount>>,
+#### Q2 entry: new pieces tag+7/8/8/8/1
+### orig 0x04d8-0x0540: 16 4-grams, 16 unseen in the matched corpus, 0 rare (<= 8 windows)
+    unseen @0x04c0: stxb [fp],a ; stxb [fp],b ; stxdw [fp],c ; ldxb d,[e+0x0]
+    unseen @0x04c8: stxb [fp],a ; stxdw [fp],b ; ldxb c,[d+0x0] ; stxdw [fp],c
+    unseen @0x04d0: stxdw [fp],a ; ldxb b,[c+0x0] ; stxdw [fp],b ; ldxw b,[c+0x4]
+    unseen @0x04d8: ldxb a,[b+0x0] ; stxdw [fp],a ; ldxw a,[b+0x4] ; stxw [fp],a
+    unseen @0x04e0: stxdw [fp],a ; ldxw a,[b+0x4] ; stxw [fp],a ; ldxw a,[b+0x1]
+    unseen @0x04e8: ldxw a,[b+0x4] ; stxw [fp],a ; ldxw a,[b+0x1] ; stxw [fp],a
+    unseen @0x04f0: stxw [fp],a ; ldxw a,[b+0x1] ; stxw [fp],a ; ldxdw a,[b+0x8]
+    unseen @0x04f8: ldxw a,[b+0x1] ; stxw [fp],a ; ldxdw a,[b+0x8] ; stxdw [fp],a
+    unseen @0x0500: stxw [fp],a ; ldxdw a,[b+0x8] ; stxdw [fp],a ; ldxdw c,[b+0x10]
+    unseen @0x0508: ldxdw a,[b+0x8] ; stxdw [fp],a ; ldxdw c,[b+0x10] ; ldxb a,[b+0x20]
+    unseen @0x0510: stxdw [fp],a ; ldxdw b,[c+0x10] ; ldxb a,[c+0x20] ; stxb [fp],a
+    unseen @0x0518: ldxdw a,[b+0x10] ; ldxb c,[b+0x20] ; stxb [fp],c ; ldxdw c,[b+0x18]
+    unseen @0x0520: ldxb a,[b+0x20] ; stxb [fp],a ; ldxdw a,[b+0x18] ; stxdw [fp],a
+    unseen @0x0528: stxb [fp],a ; ldxdw a,[b+0x18] ; stxdw [fp],a ; ldxdw c,[fp]
+    unseen @0x0530: ldxdw a,[b+0x18] ; stxdw [fp],a ; ldxdw c,[fp] ; ldxdw a,[c+0x90]
+    unseen @0x0538: stxdw [fp],a ; ldxdw b,[fp] ; ldxdw a,[b+0x90] ; ldxdw a,[a+0x0]
+#### Q2 sharing-CPI val copy (tag + 7/8/8/8/1)
+### orig 0x3d20-0x3d88: 16 4-grams, 6 unseen in the matched corpus, 0 rare (<= 8 windows)
+    unseen @0x3d08: and64 a,0xff ; jne a,0x2,@ ; ja @ ; stxb [fp],b
+    unseen @0x3d10: jne a,0x2,@ ; ja @ ; stxb [fp],b ; ldxw a,[fp]
+    unseen @0x3d18: ja @ ; stxb [fp],a ; ldxw b,[fp] ; stxw [fp],b
+    unseen @0x3d20: stxb [fp],a ; ldxw b,[fp] ; stxw [fp],b ; ldxw b,[fp]
+    unseen @0x3d78: ldxb a,[fp] ; stxb [fp],a ; ldxdw a,[fp] ; ldxdw a,[a+0x98]
+    unseen @0x3d80: stxb [fp],a ; ldxdw a,[fp] ; ldxdw a,[a+0x98] ; ldxdw b,[a+0x8]
+    0x124a70 pump_recovered::__private::__global::set_params                        grams 10 (rare 0); best @cto0x3d70=win+0x3a8 [16 wins] inner result.rs:1952; user lib.rs:90  #[program]
+    0x1600a8 <pump_recovered::Global as anchor_lang::AccountDeserialize>::try_deser grams 10 (rare 0); best @cto0x3d70=win+0x418 [16 wins] inner result.rs:1952; user lib.rs:1815  #[account]
+    0x09c240 pump_recovered::trade_types::historical_curve::decode_v2               grams 9 (rare 0); best @cto0x3d70=win+0x500 [16 wins] inner result.rs:1952; user trade_types.rs:135  pub(super) fn decode_v2(buf: &mut &[u8]) -> Result<BondingCurve> {
+    0x09c8f8 pump_recovered::trade_types::historical_curve::decode_v3               grams 9 (rare 0); best @cto0x3d70=win+0x500 [16 wins] inner result.rs:1952; user trade_types.rs:161  pub(super) fn decode_v3(buf: &mut &[u8]) -> Result<BondingCurve> {
+    0x09d008 pump_recovered::trade_types::historical_curve::decode_v4               grams 9 (rare 0); best @cto0x3d70=win+0x530 [16 wins] inner result.rs:1952; user trade_types.rs:187  pub(super) fn decode_v4(buf: &mut &[u8]) -> Result<BondingCurve> {
+#### Q2 non-holder arm: t rebuilt from pieces before memcmp
+### orig 0x0c08-0x0c80: 18 4-grams, 11 unseen in the matched corpus, 3 rare (<= 8 windows)
+    unseen @0x0c00: ja @ ; mov64 a,b ; add64 a,k ; add64 b,1
+    unseen @0x0c08: mov64 a,b ; add64 a,k ; add64 b,1 ; ldxw c,[b+0x3]
+    unseen @0x0c10: add64 a,k ; add64 b,1 ; ldxw c,[b+0x3] ; stxw [fp],c
+    unseen @0x0c18: add64 a,1 ; ldxw b,[a+0x3] ; stxw [fp],b ; ldxw b,[a+0x0]
+    unseen @0x0c20: ldxw a,[b+0x3] ; stxw [fp],a ; ldxw a,[b+0x0] ; stxw [fp],a
+    unseen @0x0c28: stxw [fp],a ; ldxw a,[b+0x0] ; stxw [fp],a ; ldxdw a,[c+0x0]
+    unseen @0x0c38: stxw [fp],a ; ldxdw a,[b+0x0] ; stxdw [fp],a ; ldxb b,[b+0x8]
+    unseen @0x0c40: ldxdw a,[b+0x0] ; stxdw [fp],a ; ldxb b,[b+0x8] ; stxb [fp],b
+    unseen @0x0c48: stxdw [fp],a ; ldxb b,[b+0x8] ; stxb [fp],b ; stxdw [fp],c
+    unseen @0x0c50: ldxb a,[a+0x8] ; stxb [fp],a ; stxdw [fp],b ; stxdw [fp],b
+    unseen @0x0c58: stxb [fp],a ; stxdw [fp],b ; stxdw [fp],b ; ldxdw b,[fp]
+    0x19c3c0 anchor_lang::error::ProgramErrorWithOrigin::log                        grams 2 (rare 2); best @cto0x0bf8=win+0x598 [3 wins] inner ?; user ?  
+    0x19cb68 anchor_lang::error::AnchorError::log                                   grams 2 (rare 2); best @cto0x0bf8=win+0x4c8 [3 wins] inner ?; user ?  
+    0x018678 pump_recovered::create_v2::nested_create::walk                         grams 4 (rare 1); best @cto0x0bf0=win+0xc00 [7 wins] inner string.rs:2558; user create_v2.rs:384  pub(super) fn walk(accounts: &[AccountInfo<'_>], g: &Global) -> Result<(u64, u8)> {
+    0x01e7c0 pump_recovered::create_v2::execute                                     grams 4 (rare 1); best @cto0x0bf0=win+0x1520 [7 wins] inner create_v2.rs:258; user create_v2.rs:258  expected,PumpError::InvalidAssociatedQuoteBondingCurve);
+    0x11ef10 pump_recovered::__private::__idl::__idl_create_account                 grams 2 (rare 1); best @cto0x0bf8=win+0x160 [3 wins] inner result.rs:1075; user lib.rs:90  #[program]
+#### Q2 holder arm: target pieces
+### orig 0x1138-0x1180: 12 4-grams, 5 unseen in the matched corpus, 3 rare (<= 8 windows)
+    unseen @0x1120: jeq a,0x0,@ ; mov64 a,1 ; stxdw [fp],a ; stxdw [fp],b
+    unseen @0x1128: mov64 a,1 ; stxdw [fp],a ; stxdw [fp],b ; ldxw a,[fp]
+    unseen @0x1168: stxdw [fp],a ; ldxb a,[fp] ; stxb [fp],a ; mov64 a,0
+    unseen @0x1170: ldxb a,[fp] ; stxb [fp],a ; mov64 a,0 ; stxdw [fp],a
+    unseen @0x1178: stxb [fp],a ; mov64 a,0 ; stxdw [fp],a ; mov64 b,0
+    0x12a4e0 pump_recovered::__private::__global::buy                               grams 5 (rare 2); best @cto0x1130=win+0x2e8 [3 wins] inner lib.rs:90; user lib.rs:90  #[program]
+    0x12abc8 pump_recovered::__private::__global::buy_exact_sol_in                  grams 5 (rare 2); best @cto0x1130=win+0x2e8 [3 wins] inner lib.rs:90; user lib.rs:90  #[program]
+    0x109488 <pump_recovered::pump_amm::accounts::GlobalConfig as anchor_lang::Acco grams 5 (rare 1); best @cto0x1138=win+0x228 [3 wins] inner result.rs:0; user lib.rs:83  declare_program!(pump_amm);
+    0x063cf0 pump_recovered::pump_quote::parse_pool                                 grams 5 (rare 1); best @cto0x1158=win+0x440 [1 wins] inner result.rs:1952; user pump_quote.rs:284  read_pubkey(header, 139)?, quote_vault: read_pubkey(header, 171)?, adjustment })
+    0x1316e8 pump_recovered::__private::__global::distribute_creator_fees_v2        grams 1 (rare 1); best @cto0x1130=win+0x320 [3 wins] inner lib.rs:90; user lib.rs:90  #[program]
+#### Q2 validate exit: target pieces from new
+### orig 0x1850-0x1898: 12 4-grams, 4 unseen in the matched corpus, 4 rare (<= 8 windows)
+    unseen @0x1840: jeq a,0x0,@ ; ja @ ; stxdw [fp],b ; ldxw c,[fp]
+    unseen @0x1880: stxdw [fp],a ; ldxb a,[fp] ; stxb [fp],a ; mov64 b,1
+    unseen @0x1888: ldxb a,[fp] ; stxb [fp],a ; mov64 b,1 ; mov64 c,0
+    unseen @0x1890: stxb [fp],a ; mov64 b,1 ; mov64 c,0 ; ja @
+    0x109488 <pump_recovered::pump_amm::accounts::GlobalConfig as anchor_lang::Acco grams 6 (rare 2); best @cto0x1848=win+0x220 [1 wins] inner result.rs:1951; user lib.rs:83  declare_program!(pump_amm);
+    0x063cf0 pump_recovered::pump_quote::parse_pool                                 grams 5 (rare 1); best @cto0x1870=win+0x440 [1 wins] inner result.rs:1952; user pump_quote.rs:284  read_pubkey(header, 139)?, quote_vault: read_pubkey(header, 171)?, adjustment })
+    0x12a4e0 pump_recovered::__private::__global::buy                               grams 4 (rare 1); best @cto0x1850=win+0x2f0 [3 wins] inner lib.rs:90; user lib.rs:90  #[program]
+    0x12abc8 pump_recovered::__private::__global::buy_exact_sol_in                  grams 4 (rare 1); best @cto0x1850=win+0x2f0 [3 wins] inner lib.rs:90; user lib.rs:90  #[program]
+    0x101448 <pump_recovered::token_incentives::volume_accumulator::GlobalVolumeAcc grams 1 (rare 1); best @cto0x1838=win+0x2b0 [1 wins] inner mod.rs:637; user volume_accumulator.rs:8  #[account]
+#### Q2 after validate: target final copy
+### orig 0x19c0-0x1a30: 17 4-grams, 0 unseen in the matched corpus, 2 rare (<= 8 windows)
+    0x063cf0 pump_recovered::pump_quote::parse_pool                                 grams 14 (rare 1); best @cto0x19e8=win+0x440 [1 wins] inner result.rs:1952; user pump_quote.rs:284  read_pubkey(header, 139)?, quote_vault: read_pubkey(header, 171)?, adjustment })
+    0x1367c0 pump_recovered::pump_recovered::set_params                             grams 13 (rare 1); best @cto0x19c8=win+0x1048 [1 wins] inner lib.rs:292; user lib.rs:292  SetParamsEvent{initial_virtual_token_reserves,initial_virtual_sol_reserves,initial_real_token_reserves,token_t
+    0x102578 <pump_recovered::trade::SellV3 as anchor_lang::Accounts<pump_recovered grams 13 (rare 0); best @cto0x19f8=win+0x2dd0 [16 wins] inner trade_v3.rs:38; user trade_v3.rs:38  Accounts)]
+    0x124a70 pump_recovered::__private::__global::set_params                        grams 13 (rare 0); best @cto0x19f8=win+0x3a8 [16 wins] inner result.rs:1952; user lib.rs:90  #[program]
+    0x043ea0 pump_recovered::migrate::create_pool                                   grams 12 (rare 0); best @cto0x19c0=win+0x1d68 [16 wins] inner context.rs:200; user migrate.rs:332  pump_amm::cpi::accounts::CreatePool{pool:a.pool.to_account_info(),global_config:a.amm_global_config.to_account
+#### Q3-B curve bools and Global ptr loaded early and held
+### orig 0x0140-0x02b8: 49 4-grams, 29 unseen in the matched corpus, 8 rare (<= 8 windows)
+    unseen @0x0130: ldxdw a,[fp] ; stxdw [fp],a ; ldxdw b,[c+0x38] ; ldxdw a,[c+0x90]
+    unseen @0x0138: stxdw [fp],a ; ldxdw b,[c+0x38] ; ldxdw a,[c+0x90] ; stxdw [fp],a
+    unseen @0x0140: ldxdw a,[b+0x38] ; ldxdw c,[b+0x90] ; stxdw [fp],c ; ldxdw c,[c+0x0]
+    unseen @0x0148: ldxdw a,[b+0x90] ; stxdw [fp],a ; ldxdw a,[a+0x0] ; ldxdw c,[a+0x18]
+    unseen @0x01a8: add64 a,k ; mov64 b,c ; add64 b,k ; mov64 d,k
+    unseen @0x01b0: mov64 a,b ; add64 a,k ; mov64 c,k ; call fn
+    unseen @0x01c8: call fn ; mov64 a,0 ; stxdw [fp],a ; ldxdw b,[c-0xff8]
+    unseen @0x01d0: mov64 a,0 ; stxdw [fp],a ; ldxdw b,[c-0xff8] ; ldxdw a,[c-0x1000]
+    unseen @0x01e0: ldxdw a,[b-0xff8] ; ldxdw c,[b-0x1000] ; stxdw [fp],c ; lsh64 d,0x20
+    unseen @0x01e8: ldxdw a,[b-0x1000] ; stxdw [fp],a ; lsh64 c,0x20 ; rsh64 c,0x20
+    unseen @0x01f0: stxdw [fp],a ; lsh64 b,0x20 ; rsh64 b,0x20 ; jne b,0x0,@
+    unseen @0x0200: rsh64 a,0x20 ; jne a,0x0,@ ; ldxdw b,[fp] ; ldxdw b,[b+0x18]
+    unseen @0x0208: jne a,0x0,@ ; ldxdw b,[fp] ; ldxdw b,[b+0x18] ; lddw c,k
+    unseen @0x0210: ldxdw a,[fp] ; ldxdw a,[a+0x18] ; lddw b,k ; mov64 c,k
+    unseen @0x0218: ldxdw a,[a+0x18] ; lddw b,k ; mov64 c,k ; call fn
+    unseen @0x0248: rsh64 a,0x20 ; jne a,0x0,@ ; ldxdw b,[fp] ; call fn
+    unseen @0x0250: jne a,0x0,@ ; ldxdw b,[fp] ; call fn ; ldxdw c,[d+0x38]
+    unseen @0x0258: ldxdw a,[fp] ; call fn ; ldxdw b,[c+0x38] ; xor64 d,1
+    unseen @0x0260: call fn ; ldxdw a,[b+0x38] ; xor64 c,1 ; stxdw [fp],c
+    unseen @0x0268: ldxdw a,[b+0x38] ; xor64 c,1 ; stxdw [fp],c ; stxdw [fp],b
+    unseen @0x0270: xor64 a,1 ; stxdw [fp],a ; stxdw [fp],b ; ldxdw c,[b+0x8]
+    unseen @0x0278: stxdw [fp],a ; stxdw [fp],b ; ldxdw c,[b+0x8] ; ldxb d,[e+0xa3]
+    unseen @0x0280: stxdw [fp],a ; ldxdw b,[a+0x8] ; ldxb c,[d+0xa3] ; stxdw [fp],c
+    unseen @0x0288: ldxdw a,[b+0x8] ; ldxb c,[d+0xa3] ; stxdw [fp],c ; ldxb c,[d+0xa5]
+    unseen @0x0290: ldxb a,[b+0xa3] ; stxdw [fp],a ; ldxb a,[b+0xa5] ; stxdw [fp],a
+    unseen @0x0298: stxdw [fp],a ; ldxb a,[b+0xa5] ; stxdw [fp],a ; ldxb c,[b+0xa2]
+    unseen @0x02a0: ldxb a,[b+0xa5] ; stxdw [fp],a ; ldxb c,[b+0xa2] ; ldxdw a,[b+0x40]
+    unseen @0x02a8: stxdw [fp],a ; ldxb b,[c+0xa2] ; ldxdw a,[c+0x40] ; stxdw [fp],a
+    unseen @0x02b0: ldxb a,[b+0xa2] ; ldxdw c,[b+0x40] ; stxdw [fp],c ; ldxdw c,[b+0x38]
+    0x05b3b0 pump_recovered::multi_hop_curve::swap_hop                              grams 11 (rare 3); best @cto0x0188=win+0x1258 [3 wins] inner account.rs:424; user multi_hop_curve_swap.rs:487  crate::trade::validate_buyback_fee_recipient_account(&a.global,a.buyback_fee_recipient.as_ref(),false,
+    0x0c1d58 <pump_recovered::distribution::DistributeCreatorFees as anchor_lang::A grams 13 (rare 2); best @cto0x0188=win+0xdf0 [3 wins] inner account.rs:424; user distribute_creator_fees.rs:0  
+    0x14a8a8 pump_recovered::pump_recovered::sell_v3                                grams 12 (rare 2); best @cto0x01a0=win+0x30 [4 wins] inner trade_v3.rs:1030; user trade_v3.rs:1030  &a.bonding_curve, &a.system_program, &a.user)?;
+    0x0c5650 <pump_recovered::holder_distribution::DistributeFeeToHolders as anchor grams 12 (rare 2); best @cto0x01b8=win+0x320 [2 wins] inner distribute_fee_to_holders.rs:6; user distribute_fee_to_holders.rs:6  #[derive(Accounts)]
+    0x0c39b0 <pump_recovered::distribution::minimum::GetMinimumDistributableFee as  grams 9 (rare 2); best @cto0x0188=win+0x900 [3 wins] inner account.rs:424; user distribute_creator_fees.rs:0  
+#### Q3-F per-arm phi constants
+### orig 0x0d78-0x0e60: 32 4-grams, 11 unseen in the matched corpus, 8 rare (<= 8 windows)
+    unseen @0x0d68: rsh64 a,0x20 ; jeq a,0x0,@ ; ldxdw b,[fp] ; mov64 c,1
+    unseen @0x0d70: jeq a,0x0,@ ; ldxdw b,[fp] ; mov64 c,1 ; jne b,0x0,@
+    unseen @0x0da8: ldxdw a,[fp] ; ldxdw b,[fp] ; stxdw [fp],c ; jeq a,0x0,@
+    unseen @0x0db0: ldxdw a,[fp] ; stxdw [fp],b ; jeq c,0x0,@ ; ldxdw c,[fp]
+    unseen @0x0dc0: jeq a,0x0,@ ; ldxdw a,[fp] ; stxdw [fp],a ; stxdw [fp],a
+    unseen @0x0e20: ldxdw a,[fp] ; jeq a,0x0,@ ; ja @ ; mov64 a,0
+    unseen @0x0e28: jeq a,0x0,@ ; ja @ ; mov64 a,0 ; stxdw [fp],a
+    unseen @0x0e30: ja @ ; mov64 a,0 ; stxdw [fp],a ; mov64 b,0
+    unseen @0x0e38: mov64 a,0 ; stxdw [fp],a ; mov64 b,0 ; ldxdw c,[fp]
+    unseen @0x0e40: stxdw [fp],a ; mov64 b,0 ; ldxdw c,[fp] ; ja @
+    unseen @0x0e48: mov64 a,0 ; ldxdw b,[fp] ; ja @ ; ldxdw c,[fp]
+    0x0880b0 pump_recovered::constant_product::output                               grams 5 (rare 3); best @cto0x0d88=win+0x108 [1 wins] inner uint_macros.rs:2220; user constant_product.rs:12  pub fn output(amount_in:u128,reserve_in:u128,reserve_out:u128)->Result<u128> {
+    0x13f630 pump_recovered::pump_recovered::buy_exact_quote_in_v2                  grams 8 (rare 2); best @cto0x0e18=win+0x24e8 [2 wins] inner result.rs:1951; user buy_v2.rs:962  gross_total(quote,pf,cf)?;
+    0x0502f0 pump_recovered::migrate_v2::create_pool                                grams 3 (rare 2); best @cto0x0d90=win+0x1410 [1 wins] inner uint_macros.rs:0; user migrate_v2.rs:416  a.quote_mint.to_account_info(),lp_mint:a.lp_mint.to_account_info(),user_base_token_account:a.pool_authority_mi
+    0x05b3b0 pump_recovered::multi_hop_curve::swap_hop                              grams 8 (rare 1); best @cto0x0db8=win+0x2b48 [7 wins] inner multi_hop_curve_swap.rs:600; user multi_hop_curve_swap.rs:600  match complete_fill(global,&a.fee_config,fee_config_len,cap,c,
+    0x144508 pump_recovered::pump_recovered::sell_v2                                grams 7 (rare 1); best @cto0x0db8=win+0x2c80 [7 wins] inner sell_v2.rs:406; user sell_v2.rs:406  c.is_holder_reward{creator_fee_bps}else{0},holder_rewards:if c.is_holder_reward{cf}else{0},
+#### Q3-H holder and-1 in r8, jeq+1;ja pairs
+### orig 0x05d8-0x0750: 47 4-grams, 21 unseen in the matched corpus, 4 rare (<= 8 windows)
+    unseen @0x05c8: ldxdw a,[fp] ; stxdw [fp],a ; mov64 a,b ; jne a,0x0,@
+    unseen @0x05d0: stxdw [fp],a ; mov64 a,b ; jne a,0x0,@ ; mov64 c,d
+    unseen @0x05d8: mov64 a,b ; jne a,0x0,@ ; mov64 c,d ; ldxdw a,[fp]
+    unseen @0x05e0: jne a,0x0,@ ; mov64 b,c ; ldxdw a,[fp] ; ldxdw a,[fp]
+    unseen @0x05e8: mov64 a,b ; ldxdw c,[fp] ; ldxdw c,[fp] ; stxdw [fp],d
+    unseen @0x0600: stxdw [fp],a ; ldxdw b,[fp] ; ldxdw c,[fp] ; and64 c,0x1
+    unseen @0x0608: ldxdw a,[fp] ; ldxdw b,[fp] ; and64 b,0x1 ; mov64 a,c
+    unseen @0x0610: ldxdw a,[fp] ; and64 a,0x1 ; mov64 b,c ; jeq b,0x0,@
+    unseen @0x0618: and64 a,0x1 ; mov64 b,c ; jeq b,0x0,@ ; ldxdw b,[fp]
+    unseen @0x0620: mov64 a,b ; jeq a,0x0,@ ; ldxdw a,[fp] ; mov64 c,d
+    unseen @0x0628: jeq a,0x0,@ ; ldxdw a,[fp] ; mov64 b,c ; jne d,0x0,@
+    unseen @0x0630: ldxdw a,[fp] ; mov64 b,c ; jne d,0x0,@ ; mov64 e,fp
+    unseen @0x0638: mov64 a,b ; jne c,0x0,@ ; mov64 d,fp ; add64 d,k
+    unseen @0x0700: jeq a,0x0,@ ; ja @ ; ldxdw b,[fp] ; mov64 c,d
+    unseen @0x0708: ja @ ; ldxdw a,[fp] ; mov64 b,c ; jeq d,0x0,@
+    unseen @0x0710: ldxdw a,[fp] ; mov64 b,c ; jeq d,0x0,@ ; ja @
+    unseen @0x0718: mov64 a,b ; jeq c,0x0,@ ; ja @ ; ldxdw d,[fp]
+    unseen @0x0720: jeq a,0x0,@ ; ja @ ; ldxdw b,[fp] ; and64 b,0x1
+    unseen @0x0728: ja @ ; ldxdw a,[fp] ; and64 a,0x1 ; jeq a,0x0,@
+    unseen @0x0730: ldxdw a,[fp] ; and64 a,0x1 ; jeq a,0x0,@ ; ja @
+    unseen @0x0738: and64 a,0x1 ; jeq a,0x0,@ ; ja @ ; mov64 a,fp
+    0x0859b0 pump_recovered::trade::v3_emit_buy                                     grams 6 (rare 2); best @cto0x05c0=win+0x540 [4 wins] inner payments.rs:36; user payments.rs:36  TradeEvent{
+    0x065238 pump_recovered::pump_quote::validate_pool                              grams 22 (rare 1); best @cto0x0740=win+0x378 [5 wins] inner result.rs:1951; user pump_quote.rs:408  parse_pool(pool.data)?;
+    0x147ba0 pump_recovered::pump_recovered::buy_v3                                 grams 22 (rare 1); best @cto0x0740=win+0x900 [5 wins] inner result.rs:1951; user trade_v3.rs:813  v3_post_complete(a,pool_base,pool_quote,excess)?)}else{None};
+    0x13b9b8 pump_recovered::pump_recovered::buy_v2                                 grams 21 (rare 1); best @cto0x05c0=win+0x16b0 [4 wins] inner buy_v2.rs:470; user buy_v2.rs:470  crate::legacy_sell::fee_cpi::trade_fees(
+    0x057e40 pump_recovered::multi_hop_curve::complete_fill                         grams 19 (rare 1); best @cto0x05f8=win+0x3c0 [1 wins] inner result.rs:0; user multi_hop_curve_swap.rs:296  crate::legacy_sell::fee_math::get_fees(global, bonding_curve, fee_config, fee_config_len, market_cap, quote)?;
+#### Q3-b01 by-value key copies
+### orig 0x0540-0x05d8: 22 4-grams, 7 unseen in the matched corpus, 1 rare (<= 8 windows)
+    unseen @0x0528: stxb [fp],a ; ldxdw a,[b+0x18] ; stxdw [fp],a ; ldxdw c,[fp]
+    unseen @0x0530: ldxdw a,[b+0x18] ; stxdw [fp],a ; ldxdw c,[fp] ; ldxdw a,[c+0x90]
+    unseen @0x0538: stxdw [fp],a ; ldxdw b,[fp] ; ldxdw a,[b+0x90] ; ldxdw a,[a+0x0]
+    unseen @0x0540: ldxdw a,[fp] ; ldxdw b,[a+0x90] ; ldxdw b,[b+0x0] ; ldxdw c,[b+0x18]
+    unseen @0x0548: ldxdw a,[b+0x90] ; ldxdw a,[a+0x0] ; ldxdw c,[a+0x18] ; stxdw [fp],c
+    unseen @0x05c8: ldxdw a,[fp] ; stxdw [fp],a ; mov64 a,b ; jne a,0x0,@
+    unseen @0x05d0: stxdw [fp],a ; mov64 a,b ; jne a,0x0,@ ; mov64 c,d
+    0x0c1d58 <pump_recovered::distribution::DistributeCreatorFees as anchor_lang::A grams 15 (rare 1); best @cto0x05c0=win+0xa38 [4 wins] inner distribute_creator_fees.rs:39; user distribute_creator_fees.rs:39  Accounts)]
+    0x13b9b8 pump_recovered::pump_recovered::buy_v2                                 grams 14 (rare 1); best @cto0x05c0=win+0x16b0 [4 wins] inner buy_v2.rs:470; user buy_v2.rs:470  crate::legacy_sell::fee_cpi::trade_fees(
+    0x0859b0 pump_recovered::trade::v3_emit_buy                                     grams 13 (rare 1); best @cto0x05c0=win+0x540 [4 wins] inner payments.rs:36; user payments.rs:36  TradeEvent{
+    0x004a08 anchor_lang::accounts::account::Account<T>::try_from_unchecked         grams 10 (rare 1); best @cto0x05c0=win+0x368 [4 wins] inner result.rs:1952; user ?  
+    0x037e08 pump_recovered::creator_migration::execute                             grams 14 (rare 0); best @cto0x0588=win+0x630 [18 wins] inner account.rs:424; user migrate_bonding_curve_creator.rs:15  pub fn execute(mut ctx:Context<MigrateBondingCurveCreator>)->Result<()>{
+#### Q4 validate fee OK block (334/338 placeholders)
+### orig 0x1700-0x17b0: 22 4-grams, 0 unseen in the matched corpus, 0 rare (<= 8 windows)
+    0x01e7c0 pump_recovered::create_v2::execute                                     grams 22 (rare 0); best @cto0x1738=win+0x540 [23 wins] inner create_v2.rs:774; user create_v2.rs:774  require!(a.global.creator_fee_configurable,PumpError::CreatorFeeNotConfigurable);
+    0x049888 pump_recovered::migrate_v2::execute                                    grams 22 (rare 0); best @cto0x1738=win+0x1a98 [23 wins] inner migrate_v2.rs:335; user migrate_v2.rs:335  require!(a.quote_mint.to_account_info().is_writable,PumpError::QuoteMintNotWritable);
+    0x077940 pump_recovered::token_incentives::claim_token_incentives::cashback::cl grams 22 (rare 0); best @cto0x1738=win+0x1298 [23 wins] inner claim_token_incentives.rs:342; user claim_token_incentives.rs:342  require_keys_eq!(recipient,user.key(),PumpError::InvalidCashbackRecipient);
+    0x13b9b8 pump_recovered::pump_recovered::buy_v2                                 grams 22 (rare 0); best @cto0x1738=win+0x13a0 [23 wins] inner buy_v2.rs:369; user buy_v2.rs:369  require!(a.quote_mint.key()==WSOL,PumpError::UnsupportedQuoteMint);NO_FEE};
+    0x13f630 pump_recovered::pump_recovered::buy_exact_quote_in_v2                  grams 22 (rare 0); best @cto0x1738=win+0x1698 [23 wins] inner buy_v2.rs:780; user buy_v2.rs:780  require!(a.quote_mint.key()==WSOL,PumpError::UnsupportedQuoteMint);NO_FEE};

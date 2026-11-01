@@ -1,0 +1,46 @@
+157 157 multiset equal: False
+delete orig:
+     0x00f8 solana_pubkey::Pubkey::find_program_address
+  main:
+=   3  orig 0x01c8..0x0260  main 0x00f8..0x0188
+insert orig:
+  main:
+     0x0220 solana_pubkey::Pubkey::find_program_address
+=  16  orig 0x0340..0x0d58  main 0x02f8..0x0cd0
+insert orig:
+  main:
+     0x0d10 pump_recovered::PumpError::name
+     0x0da0 <pump_recovered::PumpError as core::fmt::Display>::fmt
+     0x0e78 <anchor_lang::error::Error as core::convert::From<anchor_lang::error::AnchorError>>::from
+=   6  orig 0x0f20..0x1278  main 0x0f28..0x11f0
+replace orig:
+     0x12a0 <T as alloc::string::ToString>::to_string
+     0x1308 <anchor_lang::error::Error as core::convert::From<anchor_lang::error::AnchorError>>::from
+     0x1348 pump_recovered::PumpError::name
+     0x1370 <T as alloc::string::ToString>::to_string
+  main:
+     0x1280 <pump_recovered::PumpError as core::fmt::Display>::fmt
+=  23  orig 0x13d8..0x1fa0  main 0x1358..0x1f78
+insert orig:
+  main:
+     0x2098 pump_recovered::admin_cto::token_frozen
+=   1  orig 0x20c8..0x20c8  main 0x20f0..0x20f0
+delete orig:
+     0x2110 pump_recovered::admin_cto::token_frozen
+  main:
+=  13  orig 0x2188..0x2648  main 0x2168..0x2618
+replace orig:
+     0x26e0 0x250f0
+  main:
+     0x26b8 LBB206_185
+=   4  orig 0x3b70..0x4a78  main 0x3b60..0x4a20
+insert orig:
+  main:
+     0x4b90 solana_account_info::AccountInfo::data_is_empty
+=   1  orig 0x4be8..0x4be8  main 0x4bc8..0x4bc8
+replace orig:
+     0x4c10 solana_account_info::AccountInfo::data_is_empty
+     0x4c38 0x27648
+  main:
+     0x4c00 0x27610
+=  81  orig 0x4c70..0x6a68  main 0x4c40..0x6a68

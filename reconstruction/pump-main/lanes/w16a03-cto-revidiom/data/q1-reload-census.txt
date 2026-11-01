@@ -1,0 +1,52 @@
+## 0x022a10 admin_cto  reload-per-clone 10/19 clones
+   +0x2a80 ldxdw r2, [r10 - 0x908] ; ldxdw r2, [r2 + 0x0] (gap 1)
+   +0x3228 ldxdw r3, [r10 - 0x8d8] ; ldxdw r8, [r3 + 0x78] (gap 1)
+   +0x3340 ldxdw r1, [r10 - 0x8d8] ; ldxdw r1, [r1 + 0x58] (gap 1)
+   +0x3d98 ldxdw r1, [r10 - 0x8d8] ; ldxdw r1, [r1 + 0x98] (gap 1)
+   +0x3e40 ldxdw r2, [r10 - 0x8d8] ; ldxdw r2, [r2 + 0x68] (gap 1)
+   +0x3f48 ldxdw r1, [r10 - 0x8d8] ; ldxdw r1, [r1 + 0x0] (gap 1)
+   +0x4188 ldxdw r1, [r10 - 0x8d8] ; ldxdw r4, [r1 + 0x10] (gap 1)
+   +0x42b0 ldxdw r1, [r10 - 0x8d8] ; ldxdw r2, [r1 + 0x90] (gap 1)
+   +0x43d8 ldxdw r1, [r10 - 0x8d8] ; ldxdw r6, [r1 + 0xa0] (gap 1)
+   +0x4508 ldxdw r1, [r10 - 0x8d8] ; ldxdw r7, [r1 + 0x98] (gap 1)
+## 0x034558 pump_recovered::holder_distribution::execute  reload-per-clone 5/13 clones
+   +0x0780 ldxdw r5, [r10 - 0x3a0] ; ldxdw r2, [r5 + 0x38] (gap 1)      distribute_fee_to_holders.rs:0:7  
+   +0x16a0 ldxdw r1, [r10 - 0x3b8] ; ldxdw r1, [r1 + 0x0] (gap 1)       distribute_fee_to_holders.rs:126:4  transfer_tokens(&a.quote_token_program,source.to_account_info(),&a.quote_mint,recipient_associated_token_accoun
+   +0x1c50 ldxdw r3, [r10 - 0x3a0] ; ldxdw r5, [r3 + 0x30] (gap 1)      distribute_fee_to_holders.rs:0:10  
+   +0x1df8 ldxdw r1, [r10 - 0x3b8] ; ldxdw r7, [r1 + 0x0] (gap 1)       distribute_fee_to_holders.rs:86:207  source.to_account_info(),destination:holder_rewards.to_account_info(),authority:holder_rewards.to_account_info(
+   +0x1f20 ldxdw r1, [r10 - 0x3b8] ; ldxdw r2, [r1 + 0x0] (gap 1)       distribute_fee_to_holders.rs:86:207  source.to_account_info(),destination:holder_rewards.to_account_info(),authority:holder_rewards.to_account_info(
+## 0x01ac28 pump_recovered::create_v2::initialize_metadata  reload-per-clone 2/11 clones
+   +0x1300 ldxdw r1, [r10 - 0x360] ; ldxdw r1, [r1 + 0x58] (gap 1)      create_v2.rs:591:82  [b"mint-authority",&[bump]]])?;
+   +0x1400 ldxdw r1, [r10 - 0x360] ; ldxdw r1, [r1 + 0x58] (gap 1)      create_v2.rs:591:82  [b"mint-authority",&[bump]]])?;
+## 0x03d250 pump_recovered::extend::fund_bonding_curve_rent  reload-per-clone 2/4 clones
+   +0x05b0 ldxdw r2, [r10 - 0x180] ; ldxdw r2, [r2 + 0x0] (gap 1)       extend_account.rs:147:8  minimum > available {
+   +0x0658 ldxdw r1, [r10 - 0x188] ; ldxdw r3, [r1 + 0x0] (gap 1)       extend_account.rs:147:8  minimum > available {
+## 0x07f010 pump_recovered::trade::check_quote  reload-per-clone 2/4 clones
+   +0x0310 ldxdw r3, [r10 - 0x168] ; ldxdw r3, [r3 + 0x58] (gap 1)      trade_v3.rs:196:137  quote_token_program,&a.quote_mint.to_account_info(),&a.quote_token_program.to_account_info(),false,a.user.as_re
+   +0x0960 ldxdw r1, [r10 - 0x168] ; ldxdw r1, [r1 + 0x58] (gap 1)      trade_v3.rs:0:78  
+## 0x0b0158 <pump_recovered::create_v2::CreateV2 as anchor_lang::Accounts<pump_recovered::create_v2::CreateV2Bum  reload-per-clone 1/30 clones
+   +0x35e0 ldxdw r1, [r10 - 0x3e8] ; ldxdw r4, [r1 + 0x0] (gap 1)       create_v2.rs:27:10  Accounts)]
+## 0x052660 pump_recovered::migrate_v2::init_pump_amm_boost_v2  reload-per-clone 1/15 clones
+   +0x0ad8 ldxdw r1, [r10 - 0x4a0] ; ldxdw r1, [r1 + 0x0] (gap 1)       migrate_v2.rs:664:0  let bump=ctx.bumps.pool_authority;{let init=move||(move|signer_seeds:&[&[&[u8]];1]|pump_amm::cpi::init_boost(
+## 0x138b20 pump_recovered::pump_recovered::create  reload-per-clone 1/15 clones
+   +0x17e8 ldxdw r1, [r10 - 0x438] ; ldxdw r9, [r1 + 0x28] (gap 1)      lib.rs:342:6  
+## 0x04c158 pump_recovered::migrate_v2::create_token_account_v2  reload-per-clone 1/12 clones
+   +0x14d0 ldxdw r1, [r10 - 0x328] ; ldxdw r3, [r1 + 0x40] (gap 1)      migrate_v2.rs:426:9  Instruction{program_id:anchor_spl::associated_token::ID,accounts:vec![AccountMeta::new(a.pool_authority.key(),t
+## 0x01c880 pump_recovered::create_v2::mint_supply  reload-per-clone 1/11 clones
+   +0x0798 ldxdw r4, [r10 - 0x248] ; ldxdw r2, [r4 + 0x110] (gap 1)     create_v2.rs:607:28  [b"mint-authority",&[bump]]];
+## 0x045fa0 pump_recovered::migrate::init_pump_amm_boost  reload-per-clone 1/11 clones
+   +0x0780 ldxdw r1, [r10 - 0x408] ; ldxdw r1, [r1 + 0x0] (gap 1)       migrate.rs:530:0  let bump=ctx.bumps.pool_authority;let init=move |signer_seeds:&[&[&[u8]];1]|pump_amm::cpi::init_boost(CpiCont
+## 0x04eb28 pump_recovered::migrate_v2::fund_quote_token_account_v2  reload-per-clone 1/8 clones
+   +0x04d0 ldxdw r2, [r10 - 0x248] ; ldxdw r5, [r2 + 0x0] (gap 1)       migrate_v2.rs:398:0  fn fund_quote_token_account_v2<'info>(ctx:&Context<'_,'_,'_,'info,MigrateV2<'info>>,amount:u64,native:bool)->R
+## 0x04e208 pump_recovered::migrate_v2::transfer_base_to_pool_authority  reload-per-clone 1/5 clones
+   +0x03f8 ldxdw r2, [r10 - 0x1b0] ; ldxdw r7, [r2 + 0x0] (gap 1)       migrate_v2.rs:108:0  #[inline(always)]fn transfer_from_curve<'info>(a:&MigrateV2<'info>,from:&InterfaceAccount<'info,TokenAccount>,
+## 0x08f5c8 pump_recovered::payments::v2_transfer_curve_tokens  reload-per-clone 1/5 clones
+   +0x0350 ldxdw r2, [r10 - 0x160] ; ldxdw r0, [r2 + 0x0] (gap 1)       payments.rs:0:0  
+## 0x093050 pump_recovered::payments::mhc_transfer_base_out  reload-per-clone 1/5 clones
+   +0x0340 ldxdw r3, [r10 - 0x148] ; ldxdw r6, [r3 + 0x0] (gap 1)       payments.rs:357:0  anchor_spl::token_2022::transfer_checked(CpiContext::new_with_signer(token_program.clone(),anchor_spl::tok
+## 0x0940c0 pump_recovered::payments::mhc_transfer_buyback_out  reload-per-clone 1/5 clones
+   +0x0340 ldxdw r3, [r10 - 0x148] ; ldxdw r6, [r3 + 0x0] (gap 1)       payments.rs:374:0  anchor_spl::token_2022::transfer_checked(CpiContext::new_with_signer(token_program.clone(),anchor_spl::tok
+## 0x042618 pump_recovered::migrate::transfer_curve_tokens  reload-per-clone 1/4 clones
+   +0x04c0 ldxdw r1, [r10 - 0x1d0] ; ldxdw r1, [r1 + 0x0] (gap 1)       migrate.rs:319:0  anchor_spl::token_2022::transfer_checked(CpiContext::new_with_signer(token_program.clone(),anchor_spl::token_
+## 0x03b8d8 pump_recovered::extend::execute  reload-per-clone 1/2 clones
+   +0x0790 ldxdw r0, [r10 - 0x2e0] ; ldxdw r2, [r0 + 0x8] (gap 1)       extend_account.rs:0:8  

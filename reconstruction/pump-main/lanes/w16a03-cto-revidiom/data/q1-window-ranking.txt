@@ -1,0 +1,60 @@
+0x022a10 reload 10/19 {'A_none': 7, 'A_held': 2, 'A_reload_fp': 10}  ?
+0x034558 reload  5/13 {'A_reload_fp': 5, 'A_fp_far': 1, 'A_held': 3, 'A_none': 3, 'B_none': 1}  pump_recovered::holder_distribution::execute
+0x01ac28 reload  2/11 {'A_none': 6, 'A_reload_fp': 2, 'B_none': 2, 'A_held': 1}  pump_recovered::create_v2::initialize_metadata
+0x03d250 reload  2/ 4 {'A_none': 1, 'A_reload_fp': 2, 'B_none': 1}  pump_recovered::extend::fund_bonding_curve_rent
+0x07f010 reload  2/ 4 {'A_held': 1, 'A_reload_fp': 2, 'B_none': 1}  pump_recovered::trade::check_quote
+0x0b0158 reload  1/30 {'B_none': 13, 'A_held': 6, 'B_from_fp': 5, 'A_none': 3, 'A_fp_far': 1, 'B_other': 1, 'A_reload_fp': 1}  <pump_recovered::create_v2::CreateV2 as anchor_lang::Accounts<pump_recovered::create_v2::CreateV2Bumps>>::try_
+0x052660 reload  1/15 {'A_held': 3, 'A_none': 10, 'A_reload_fp': 1, 'B_from_fp': 1}  pump_recovered::migrate_v2::init_pump_amm_boost_v2
+0x138b20 reload  1/15 {'A_none': 10, 'B_none': 1, 'A_fp_far': 2, 'A_reload_fp': 1, 'A_held': 1}  pump_recovered::pump_recovered::create
+0x04c158 reload  1/12 {'A_none': 2, 'A_held': 2, 'B_none': 4, 'B_from_fp': 3, 'A_reload_fp': 1}  pump_recovered::migrate_v2::create_token_account_v2
+0x01c880 reload  1/11 {'A_none': 7, 'A_reload_fp': 1, 'A_fp_far': 3}  pump_recovered::create_v2::mint_supply
+0x045fa0 reload  1/11 {'A_none': 7, 'A_reload_fp': 1, 'A_held': 2, 'B_from_fp': 1}  pump_recovered::migrate::init_pump_amm_boost
+0x04eb28 reload  1/ 8 {'A_held': 2, 'B_other': 1, 'A_none': 3, 'A_reload_fp': 1, 'B_none': 1}  pump_recovered::migrate_v2::fund_quote_token_account_v2
+0x04e208 reload  1/ 5 {'A_none': 3, 'A_reload_fp': 1, 'B_none': 1}  pump_recovered::migrate_v2::transfer_base_to_pool_authority
+0x08f5c8 reload  1/ 5 {'A_none': 3, 'A_reload_fp': 1, 'B_none': 1}  pump_recovered::payments::v2_transfer_curve_tokens
+0x093050 reload  1/ 5 {'B_none': 2, 'A_none': 2, 'A_reload_fp': 1}  pump_recovered::payments::mhc_transfer_base_out
+0x0940c0 reload  1/ 5 {'B_none': 2, 'A_none': 2, 'A_reload_fp': 1}  pump_recovered::payments::mhc_transfer_buyback_out
+0x042618 reload  1/ 4 {'A_none': 2, 'A_reload_fp': 1, 'B_none': 1}  pump_recovered::migrate::transfer_curve_tokens
+0x03b8d8 reload  1/ 2 {'A_reload_fp': 1, 'A_none': 1}  pump_recovered::extend::execute
+0x0502f0 reload  0/19 {'A_held': 3, 'A_none': 16}  pump_recovered::migrate_v2::create_pool
+0x043ea0 reload  0/13 {'A_held': 3, 'A_none': 10}  pump_recovered::migrate::create_pool
+0x16a3e0 reload  0/12 {'A_held': 5, 'B_from_fp': 5, 'B_none': 2}  <pump_recovered::bonding_curve_instruction_accounts::Create as anchor_lang::Accounts<pump_recovered::bonding_c
+0x08a530 reload  0/11 {'A_held': 1, 'A_none': 10}  pump_recovered::payments::initialize_mayhem
+0x0a9eb8 reload  0/11 {'B_from_fp': 1, 'A_held': 4, 'B_none': 5, 'A_none': 1}  <pump_recovered::buy_v2::BuyV2 as anchor_lang::Accounts<pump_recovered::buy_v2::BuyV2Bumps>>::try_accounts::{{
+0x0ebaa0 reload  0/11 {'B_from_fp': 1, 'A_held': 4, 'B_none': 5, 'A_none': 1}  <pump_recovered::sell_v2::SellV2 as anchor_lang::Accounts<pump_recovered::sell_v2::SellV2Bumps>>::try_accounts
+0x0fdf20 reload  0/11 {'B_from_fp': 3, 'A_held': 4, 'B_none': 4}  <pump_recovered::token_incentives::init_user_volume_accumulator::InitUserVolume as anchor_lang::Accounts<pump_
+0x105b78 reload  0/11 {'B_from_fp': 1, 'A_held': 4, 'B_none': 5, 'A_none': 1}  <pump_recovered::trade::SellV3 as anchor_lang::Accounts<pump_recovered::trade::SellV3Bumps>>::try_accounts::{{
+0x172110 reload  0/11 {'B_from_fp': 1, 'A_held': 4, 'B_none': 5, 'A_none': 1}  <pump_recovered::bonding_curve_instruction_accounts::LegacyBuy as anchor_lang::Accounts<pump_recovered::bondin
+0x0b3b90 reload  0/10 {'A_held': 4, 'B_from_fp': 3, 'B_other': 1, 'B_none': 2}  <pump_recovered::create_v2::CreateV2 as anchor_lang::Accounts<pump_recovered::create_v2::CreateV2Bumps>>::try_
+0x0df2d8 reload  0/10 {'A_held': 4, 'B_from_fp': 4, 'B_none': 2}  <pump_recovered::quote_control::initialize_quote_control::InitializeQuoteControl as anchor_lang::Accounts<pump
+0x164e40 reload  0/10 {'A_held': 4, 'B_from_fp': 4, 'B_none': 2}  <pump_recovered::Initialize as anchor_lang::Accounts<pump_recovered::InitializeBumps>>::try_accounts::{{closur
+0x16bdf0 reload  0/10 {'A_held': 4, 'B_from_fp': 3, 'B_other': 1, 'B_none': 2}  <pump_recovered::bonding_curve_instruction_accounts::Create as anchor_lang::Accounts<pump_recovered::bonding_c
+0x02fa60 reload  0/ 8 {'B_none': 6, 'B_from_fp': 1, 'B_other': 1}  pump_recovered::distribution::v2::distribute_tokens
+0x05a260 reload  0/ 8 {'B_other': 1, 'A_none': 2, 'B_none': 4, 'B_from_fp': 1}  pump_recovered::multi_hop_curve::transfer_input
+0x0b54d0 reload  0/ 7 {'A_held': 6, 'B_none': 1}  <pump_recovered::create_v2::CreateV2 as anchor_lang::Accounts<pump_recovered::create_v2::CreateV2Bumps>>::try_
+0x0f31b8 reload  0/ 7 {'A_held': 6, 'B_none': 1}  <pump_recovered::incentives::AdminUpdateTokenIncentives as anchor_lang::Accounts<pump_recovered::incentives::A
+0x0f7498 reload  0/ 7 {'A_held': 5, 'B_none': 1, 'A_none': 1}  <pump_recovered::token_incentives::claim_token_incentives::ClaimTokenIncentives as anchor_lang::Accounts<pump_
+0x16d730 reload  0/ 7 {'A_held': 6, 'B_none': 1}  <pump_recovered::bonding_curve_instruction_accounts::Create as anchor_lang::Accounts<pump_recovered::bonding_c
+0x014910 reload  0/ 6 {'B_other': 1, 'B_none': 2, 'B_from_fp': 3}  pump_recovered::buy_v2::admit_associated_token_account
+0x0414c0 reload  0/ 6 {'B_none': 5, 'B_from_fp': 1}  pump_recovered::migrate::create_pool_token_account
+0x01db88 reload  0/ 5 {'A_held': 3, 'B_none': 2}  pump_recovered::create_v2::update_metadata_authority
+0x072810 reload  0/ 5 {'A_held': 2, 'A_none': 3}  pump_recovered::sweep::execute
+0x075308 reload  0/ 5 {'A_held': 1, 'B_none': 3, 'A_none': 1}  pump_recovered::token_incentives::claim_token_incentives::claim
+0x08eda0 reload  0/ 5 {'B_none': 2, 'A_none': 3}  pump_recovered::payments::mhc_transfer_quote_out
+0x08fe18 reload  0/ 5 {'A_none': 3, 'B_none': 2}  pump_recovered::payments::v2_transfer_user_tokens
+0x090638 reload  0/ 5 {'A_none': 1, 'B_none': 4}  pump_recovered::payments::collect_transfer_tokens
+0x090e60 reload  0/ 5 {'A_none': 3, 'A_held': 1, 'B_none': 1}  pump_recovered::payments::collect_transfer_user_tokens_ref
+0x091690 reload  0/ 5 {'A_none': 3, 'A_held': 1, 'B_none': 1}  pump_recovered::payments::v2_transfer_curve_tokens_ref
+0x091ef0 reload  0/ 5 {'A_held': 1, 'B_none': 4}  pump_recovered::payments::v2_transfer_quote_tokens
+0x092820 reload  0/ 5 {'A_none': 3, 'B_none': 2}  pump_recovered::payments::collect_transfer_user_quote_tokens
+0x093898 reload  0/ 5 {'A_none': 3, 'B_none': 2}  pump_recovered::payments::collect_transfer_vault_tokens
+0x048710 reload  0/ 4 {'A_none': 3, 'B_none': 1}  pump_recovered::migrate::close_pool_authority_account
+0x054f30 reload  0/ 4 {'A_none': 3, 'B_none': 1}  pump_recovered::migrate_v2::close_pool_authority_account
+0x055630 reload  0/ 4 {'A_none': 3, 'B_none': 1}  pump_recovered::migrate_v2::close_lp_account
+0x055d30 reload  0/ 4 {'A_none': 4}  pump_recovered::migrate_v2::burn_lp_tokens
+0x06cd78 reload  0/ 4 {'B_from_fp': 1, 'B_none': 3}  pump_recovered::legacy_sell::process_cashback_inner
+0x043060 reload  0/ 3 {'A_none': 2, 'A_held': 1}  pump_recovered::migrate::fund_quote_token_account
+0x047e28 reload  0/ 3 {'B_none': 2, 'B_from_fp': 1}  pump_recovered::migrate::base_token_program
+0x048128 reload  0/ 3 {'B_other': 1, 'A_none': 2}  pump_recovered::migrate::close_pool_authority_token_account
+0x058668 reload  0/ 3 {'B_none': 2, 'B_other': 1}  pump_recovered::multi_hop_curve::token_program_for
+0x06a8a8 reload  0/ 3 {'A_held': 1, 'A_none': 2}  pump_recovered::quote_control::update_quote_control_mints::add_quote_control_mint
