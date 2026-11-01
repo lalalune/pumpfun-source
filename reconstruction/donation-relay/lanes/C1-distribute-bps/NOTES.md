@@ -94,3 +94,8 @@ For the placement numbers, add `-C llvm-args=-print-before=block-placement -C ll
 | 0x25f00 | 4424 | 15 | 1 |
 
 Raw byte identity is therefore not shown yet. It needs the ordered Linux build, which is C7's route.
+
+## Linux route
+
+- This branch at 7d25db821, `linux-build.sh`, 137 s, scored with `relay.py measure`: 561 of 571, 817,464 B, 0.95959. All 8 functions of this cluster match with `strict: true`, and so do both `transfer_rows` instances, at 4424 and 4336 B. The other 10 open functions belong to C3 to C6 and are merged only in C7.
+- C7's integrated Linux build (its rev d60cb0935, which still has separate `transfer_shares` and `transfer_exact`), scored read-only from its `linux1/unstripped.so`: 571 of 571, 851,888 B, ratio 1.0, strict 549, `.rodata`, `.dynsym` and `.dynstr` equal. `.text`, `.data.rel.ro` and `.rel.dyn` are not equal yet, since functions are not all at their final addresses, so this is not whole-ELF identity. All 8 functions of this cluster are `strict: true` there too. `distribute` is already at 0x24578.
