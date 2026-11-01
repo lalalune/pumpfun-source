@@ -746,7 +746,7 @@ fn validate(st:&CtoState,shared:bool,holder:bool,fee:Option<u64>,new:Option<Pubk
  if let Some(val)=sharing_update{{
 
 
-  crate::pump_fees::cpi::admin_cto_sharing_config(CpiContext::new_with_signer(a.pump_fees.to_account_info(),crate::pump_fees::cpi::accounts::AdminCtoSharingConfig{pool_authority:aicl::<5>(a.pool_authority.as_ref()),authority:aic(a.admin_set_creator_authority.as_ref()),global:aic(a.global.as_ref().as_ref()),mint:aicd::<200>(a.mint.as_ref()),sharing_config:aic(a.sharing_config.as_ref()),event_authority:aic(a.pump_fees_event_authority.as_ref()),program:aic(a.pump_fees.as_ref())},signer_seeds),val)?;
+  unsafe{let h:unsafe fn(_,_,*const u8)->Result<()>=core::mem::transmute(ptp(44,crate::pump_fees::cpi::admin_cto_sharing_config as *const u8));let hv:*const u8;h(CpiContext::new_with_signer(a.pump_fees.to_account_info(),crate::pump_fees::cpi::accounts::AdminCtoSharingConfig{pool_authority:aicl::<5>(a.pool_authority.as_ref()),authority:aic(a.admin_set_creator_authority.as_ref()),global:aic(a.global.as_ref().as_ref()),mint:aicd::<200>(a.mint.as_ref()),sharing_config:{let c=aic(a.sharing_config.as_ref());hv=c.owner as *const Pubkey as *const u8;c},event_authority:aic(a.pump_fees_event_authority.as_ref()),program:aic(a.pump_fees.as_ref())},signer_seeds),val,hv)}/*shim: extra register arg (r4), physreg COPY hint and range for a C1 clone field (the callee ignores it)*/?;
 
  }}
  let (old_creator,old_fee)={
