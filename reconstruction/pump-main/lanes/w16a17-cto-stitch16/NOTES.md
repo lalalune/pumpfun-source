@@ -5,7 +5,7 @@ Base: main 599891304 (admin_cto.rs as on 1f4e396b5: A6 + ev6): 0.67436, M 2,251,
 raw-IR capture `m0` reproduces it, `eq_main: true`). Successor of w16a02-cto-faithknobs (#3858) and w16a05-cto-skelsplice
 (#3869). Ledger approach `stitch16`, keys `0x22a10-w16-5998913-stitch16-<name>-v1`.
 
-**Result (wave 17): one slots tie-break composite, sh_iflet+rP_back (W17-5); wave 16: notes only.** No composite of the cached library reaches M 2,252 at 27,400 B, and no tie at M 2,251
+**Result (wave 17): LANDED #3974, sh_iflet+rP_back (W17-5): admin_cto slots 3,141 -> 3,132 at 0.67735, zero losses; wave 16: notes only.** No composite of the cached library reaches M 2,252 at 27,400 B, and no tie at M 2,251
 has fewer positional slots than main (land.py ranks admin_cto by ratio, then slots). The library is now one catalog on the
 current main; the splice oracle reproduces every new-main recapture and every built composite tested here byte for byte
 (one size miss, explained below). Every lead that is above main alone (g1 +2, crl3/crl2 +1, crl3+g1+t1n +1) sits 16-120 B
@@ -123,6 +123,19 @@ Its two edits are size-complementary and each loses alone, but together they tie
 admin_cto by (size distance, -ratio, slots), so equal ratio with fewer slots is strictly closer. The spelling is
 ordinary Rust (no shim): the `if let` is the original's sharing-CPI `?` polarity (w16a02), and the re-read through
 `a.pool_authority` is #3437's pre-PR spelling of that one field. w15a03 measured the pair as a tie on 86e2a6b (M only).
+
+**Landed: #3974 (merge 34899afd2).** land.py merged it onto main 7d5e14de9 (after #3969). admin_cto stayed at 0.67735,
+slots went from 3,141 to 3,132, with zero losses, forcing_delta 0 and the differential at 388/0. While the PR was open,
+main moved four times (#3936, #3950, #3934, #3973), and the gain held on each one: 3,133 on d4dfb04, 3,132 on 9336aaf.
+#3973 rewrote the same sharing-CPI line, so the edits were re-applied on top of it.
+
+### W17-6. Screens on main 34899af (after the landing; `tools/tnew.py`-style translation + `w17/pm.py` in `$OUT`)
+
+- 197 cached captures translate cleanly onto main. 18 zero-byte ties all sit at main's oracle slots (3,131). No single
+  capture, 0 B pair or size-complementary pair (425 tried, |X| <= 48 B) beats main or ties it with fewer slots. The
+  closest is wl_writ_eq + N_cu_match (3,122 slots, but M -2).
+- The off-size leads remain: g1 2,263 at 27,520 B, crl3 2,262 at 27,472 B, vol334b_I6n 2,261 at 27,408 B, and the
+  placeholder genes V_df_* 2,260 at 27,392 B (cto-devoltie's).
 
 ## 1. One catalog on the current main (`tools/cat16b.py`, `data/sizeknobs-w16b.json`)
 

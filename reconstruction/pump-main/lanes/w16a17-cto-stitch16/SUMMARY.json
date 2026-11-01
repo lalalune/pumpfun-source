@@ -1,6 +1,6 @@
 {
  "lane": "w16a17-cto-stitch16",
- "wave": 16,
+ "wave": "16, continued in 17",
  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27,400 B",
  "base": {
   "main": "599891304 (admin_cto.rs = 1f4e396: A6 + ev6)",
@@ -9,17 +9,19 @@
   "slots": 3141,
   "bytes": 27400
  },
- "result": "notes only; no landing. No composite of the cached capture library reaches M 2,252 at 27,400 B, and no M 2,251 tie has fewer positional slots than main.",
- "landed": false,
- "pr": 3886,
+ "result": "wave 17: LANDED #3974 (merge 34899afd2): sharing CPI if-let (sh_iflet, -8 B) + pool_authority clone rent_epoch re-read (rP_back, +8 B), ordinary Rust, admin_cto 0.67735 at slots 3,141 -> 3,132 (equal ratio, land.py slots tiebreak), zero losses, differential 388/0. Found by splice-translating the cached library onto the moving main and pricing positional slots. Wave 16: notes only.",
+ "landed": true,
+ "pr": [
+  3886,
+  3974
+ ],
  "best_zero_loss": {
-  "variant": "main (ties: hkl3+lfb5 2,251 with rfj 3,004; lfb5, q5, hk_copy 2,251 at main's slots)",
-  "ratio": 0.67436,
-  "M": 2251,
-  "bytes": 27400,
-  "slots": 3141
+  "ratio": 0.67735,
+  "slots_diff": 3132,
+  "cand_bytes": 27400,
+  "main": "34899afd2"
  },
- "ledger": "approach stitch16, keys 0x22a10-w16-5998913-stitch16-<name>-v1",
+ "ledger": "approach stitch16; keys 0x22a10-w16-5998913-stitch16-<name>-v1 (w16), 0x22a10-w16-{1647da0,6d498c5,442ae70}-stitch16-<name>-v1 and 0x22a10-w17-{d4dfb04,34899af,1647da0}-stitch16-*-v1 (w17)",
  "catalog": {
   "round1": "1,990 unique w15/w16 captures (data/cat16_r1.json in $OUT); export data/sizeknobs-w16b.json (604 rows)",
   "round2": "2,174 unique captures, 873 usable source rows on the new main (data/cat16_r2.json in $OUT); data/repay_prices_5998913.json",
@@ -272,16 +274,224 @@
   "g1-family variants cs7/tf_f6 with t1n (2,249)",
   "outline base tAn2 with library repays (no +360 B set)",
   "CtoState creator through a pointer/explicit copy (byte-identical) or a shared cref (collapse)",
-  "curve flags read early (fl1: front +12 but back -148; fl2 collapses)"
+  "curve flags read early (fl1: front +12 but back -148; fl2 collapses)",
+  "curve flags bound early in the original order (fl4/fl6 = fl1 in size and M; RA naming loss)",
+  "PDA-first entry (m_pdaf) alone or with early flags (TC collapse / placement collapse)",
+  "plain read_volatile of CtoState cashback/holder_enabled at the literal as the w17a03 -16 B repay (+16 B, collapse)",
+  "size-complementary library pairs on 34899af (none above main, no tie with fewer slots)"
  ],
  "unresolved": [
-  "a faithful 16-120 B repay after the sweep for the entry/validate size leads (library repays below -24 B cost >= 3 M)",
-  "a lossless ~48 B removal of main-only code after the TCF to land crl3+t1n with fewer slots",
-  "sh_iflet's +8 B pay band in the event Err paths (cand 0x5448-0x5578; no library knob lands there)"
+  "a faithful or shim repay of 72-120 B for the entry/validate size leads (g1 +2, crl3 +1 on 34899af)",
+  "naming (RA + frame) of the region-best skeleton bases (VC V +59, PDA-first E +37, SC orders +65)",
+  "a source spelling that reproduces w17a03 IR pins L2735/L2737 (-16 B at 0 M)"
  ],
  "next_ideas": [
-  "Look for main-only code after the TCF that a source spelling can drop (xled ours-only runs at cand 0x4068-0x4158 and 0x41f8-0x4300 in the sharing CPI build, the join at 0x1830-0x1920); pair it with crl2/crl3 or crl3+g1+t1n",
-  "fl1 (curve flags read before quote_locked, the original's early loads) is a new faithful front: +12 M in entry.st/holder_head at -48 B net, back -148 under main's back-half tuning; re-tune the back half under it as w16a14 does for VC",
-  "Rebuild the catalog with tools/cat16b.py --prev and splice new captures with scr16.py pairsnew/lead before building"
- ]
+  "Use the skeleton map: put the w17a04 weighted-trap colour lever on A_fru5 (rfj +82 at 27,400 B) or Lv_evcb (+64), whose losses are naming only",
+  "Realize L2735/L2737 in source (the post-opt load the IR pin hits is a re-read at a use, not the literal load); with them g1+t1n and crl3+t1n get partial repays",
+  "Re-run tools/tnew.py-style translation + slot pricing after every landing: size-complementary pairs can tie M and cut positional slots (this lane: -9)",
+  "fl4 (original flag order, rfj +64, 48 B room) as a register-shim base: TC clone byte-field spill scratch r7 -> r5"
+ ],
+ "land": {
+  "pr": 3974,
+  "merge_commit": "34899afd2",
+  "main_before": "7d5e14de9",
+  "before": {
+   "ratio": 0.67735,
+   "slots_diff": 3141,
+   "cand_bytes": 27400
+  },
+  "after": {
+   "ratio": 0.67735,
+   "slots_diff": 3132,
+   "cand_bytes": 27400
+  },
+  "unstripped_sha": "c0799b625c349239",
+  "forcing_delta": 0,
+  "runtime": "388 cases, 0 mismatches"
+ },
+ "w17": {
+  "harvest_r4": {
+   "catalog_rows": 2390,
+   "usable": 980,
+   "new_since_r3": 54,
+   "new_source_above_2200": 0,
+   "pairsnew_combos": 0,
+   "leads_best_at_27400": {
+    "g1t1n": 2247,
+    "crl3": 2241,
+    "C3b": 2239,
+    "crl3t1n": null,
+    "sh_iflet": 2250
+   }
+  },
+  "skeleton_map": {
+   "main": {
+    "M": 2251,
+    "rfj": 2785
+   },
+   "tool": "tools/regm.py, tools/skel.py; data/skel_r4_top60.json",
+   "region_best_rfj_gain": {
+    "E": "+37 fl4p / +34 m_pdaf",
+    "V": "+59 A_tf_g1a (VC closure)",
+    "SC": "+65 Lv_evcb (+54..+64 pdf, fl1/fl4, L2_lfau, B_fru1)",
+    "SH": "+7",
+    "TC": "+6",
+    "PC": "+4"
+   },
+   "best_bases": {
+    "B_fru1": [
+     27224,
+     2139,
+     "+104"
+    ],
+    "A_fru5": [
+     27400,
+     2200,
+     "+82"
+    ],
+    "fl1hk": [
+     27312,
+     2111,
+     "+77"
+    ],
+    "pdf": [
+     27440,
+     1936,
+     "+73"
+    ],
+    "Lv_evcb": [
+     27400,
+     2204,
+     "+64"
+    ],
+    "fl4": [
+     27352,
+     2115,
+     "+64"
+    ],
+    "fru5": [
+     27400,
+     2234,
+     "+33 SC only"
+    ]
+   }
+  },
+  "flag_order": {
+   "original": "cashback(+0xa3)->spill -0x8e8, holder(+0xa5)->spill -0x8e0, mayhem(+0xa2)->r8, right after the shared test",
+   "fl4": [
+    27352,
+    2115,
+    "rfj +64; RA puts cashback in r8; TC clone byte-field spills use r7 for r5 (29 tokens)"
+   ],
+   "fl5": [
+    27200,
+    2071
+   ],
+   "fl6": [
+    27352,
+    2115
+   ],
+   "pdf (m_pdaf)": [
+    27440,
+    1936,
+    "E +11/+34, TC -255"
+   ],
+   "fl4p/fl1p": [
+    27488,
+    1564,
+    "placement collapse"
+   ]
+  },
+  "shim_x_leads_on_442ae70": {
+   "rc0 main": [
+    27400,
+    2257
+   ],
+   "g1+t1n": [
+    27416,
+    2257
+   ],
+   "crl3": [
+    27472,
+    2258
+   ],
+   "crl3+g1+t1n": [
+    27488,
+    2258
+   ],
+   "ntA": [
+    27400,
+    2257,
+    "3144 slots"
+   ],
+   "fru5 (4th literal)": [
+    27400,
+    2240
+   ],
+   "VC A": [
+    27400,
+    2216
+   ],
+   "VC A+fru5": [
+    27400,
+    2200
+   ],
+   "fl4": [
+    27352,
+    2123
+   ],
+   "read_volatile cashback at CtoState literal (not w17a03 IR pin L2735)": [
+    27416,
+    1732
+   ],
+   "g1+t1n+that L2735": [
+    27408,
+    1774
+   ],
+   "g1+t1n+L2737 spelling": [
+    27400,
+    2084
+   ]
+  },
+  "slots_tiebreak": {
+   "rS3 rP_back": [
+    27408,
+    2253
+   ],
+   "rS4 ev_reset_early": [
+    27392,
+    2251
+   ],
+   "rS1=rS2 (+sh_iflet)": [
+    27400,
+    2257,
+    "oracle slots 3132 vs 3140"
+   ]
+  },
+  "post_landing_screens_on_34899af": {
+   "translated": 197,
+   "zero_byte_ties": 18,
+   "better_than_main": 0,
+   "pm_pairs_priced": 270,
+   "pm_better": 0,
+   "off_size_leads": {
+    "g1": [
+     27520,
+     2263
+    ],
+    "crl3": [
+     27472,
+     2262
+    ],
+    "vol334b_I6n": [
+     27408,
+     2261
+    ],
+    "V_df_*": [
+     27392,
+     2260
+    ]
+   }
+  }
+ }
 }
