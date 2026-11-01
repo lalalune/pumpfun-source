@@ -1,0 +1,41 @@
+{
+ "lane": "w19b24-cto-nat-err-slots",
+ "target": "0x22a10",
+ "base": "fad4cb028",
+ "best": {
+  "ratio": 0.96676,
+  "slots_diff": 424,
+  "M": 3228,
+  "cand_bytes": 27400,
+  "normalized": 1034,
+  "raw": 1034,
+  "losses": [],
+  "raw_losses": [],
+  "calls": [
+   154,
+   3
+  ],
+  "differential": "388/0",
+  "unstripped_sha": "4308e5e8d2d73384",
+  "all3": 3327,
+  "structural": 12
+ },
+ "pr": 4200,
+ "landed": false,
+ "land_note": "land.py stopped with SIGTERM by the orchestrator's priority gate for #4202, byte-identical",
+ "attempts": 34,
+ "rejected": [
+  "if !holder&&st.cashback: or.cond merge",
+  "inverted nc flag: text order",
+  "u8 flag: phi merge",
+  "per-arm tuple with MIR JT: compare sunk",
+  "cashback=false in the Some arm: i8 phi at the shared None arm",
+  "constant parameter guard: IPSCCP"
+ ],
+ "unresolved_when_stopped": [
+  "orig 0x640 jne against jeq+ja",
+  "orig 0xe28 jeq+ja against jne",
+  "C1 spill stores"
+ ],
+ "next_ideas": []
+}

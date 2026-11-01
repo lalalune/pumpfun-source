@@ -24,3 +24,22 @@ M 3,104 to 3,228, U 71 to 12, slots to 424, the last fill read removed. Everythi
 - C1 spill colours and store positions (0x3ec0, 0x40f8, 0x4238, 0x44b8, 0x4538, 0x45f0).
 
 Oracle tools on the lane branch history: `rpo.py` (IR RPO of sret-demoted calls), `tr.py`, `trb.py` (pass-by-pass trace).
+
+## Status
+
+Measured on main fad4cb028: 0.96676, 424 slots, M 3,228, 27,400 B, 1034/1034, no losses, 154/3, differential 388/0, sha 4308e5e8d2d73384 (PR #4200). `land.py` was stopped by the orchestrator's priority gate for #4202, which measures byte-identical and carries the same cashback shape in plain Rust (`if !is_holder&&st.cashback`, from #4196 and #4195). Do not land #4200 over #4202.
+
+## Mechanisms worth keeping for peel and ELF lanes
+
+| fact | evidence |
+|---|---|
+| Fee error temps are SDAG sret-demotion objects, one per `{i64,ptr}` call site, numbered in IR RPO at ISel | `rpo.py` order equals the frame order on every build tried |
+| RPO order follows successor operand order: `br c,A,B` puts B's subtree first | flipping one `br` moved 330 ahead of 338 and 334 and nothing else |
+| MBB layout at ISel is IR text order. If the true successor is next in text, ISel inverts the condition | c14: `cont` right after the test block gives `jne byte,0,err` with err out of line |
+| rustc creates the switch's zero target block first, then otherwise | `if !x{err}` gives text err, cont; `if x{err}` gives text cont, err |
+| BPF `analyzeBranch` cannot reverse a conditional branch, so `jne +1; ja N` pairs come from ISel polarity, not placement | residuals at orig 0x640 and 0xe28 have this form |
+| InstCombine flips `br (icmp ne)` to `icmp eq` only for a one-use compare | `%x` shared with phis keeps `br %x,err,cont` |
+| The compare stays above the shared split only if it has users in several blocks | c5, c11: without the Some path use it sinks and JT clones it into `.thread` blocks |
+| GVN cannot fold `%x` at the fee join because `%x` does not dominate it | the phi survives, which is the original's r5 |
+| 326 `error_name` in place needs the to_string call still uninlined when MemCpyOpt runs in `validate` (call slot is block local). The site is 2.2% of validate's entry frequency in raw CFG, just above the 2% cold cutoff | d3: one extra branch folded by JT gives `add r1,-0x2b0`; the call then inlines in execute's round |
+| Constant parameters are no use as such a guard: IPSCCP folds them first | d8 byte-identical |
