@@ -85,3 +85,16 @@ def _ftm(s):
         c=s.count(a); assert c==1,('ftm',c,a[:80]); s=s.replace(a,b)
     return s
 G['ftm']=[_ftm]
+# FTT (oracle; take-and-restore idiom of ftc): validate takes `fee:&mut Option<u64>`, matches `fee.take()` and puts the
+#     validated value back (`*fee=Some(f)`) after the checks. Same stores as ftc but written as a move-out/move-back.
+def _ftt(s):
+    for a,b in [('fee:Option<u64>,new:Option<Pubkey>,holder_key:&Pubkey,sharing:&Pubkey)->Result<Pubkey>{','fee:&mut Option<u64>,new:Option<Pubkey>,holder_key:&Pubkey,sharing:&Pubkey)->Result<Pubkey>{'),
+                (' match fee{Some(f)=>{if st.quote_locked{',' match fee.take(){Some(f)=>{if st.quote_locked{'),
+                (_RV+'}None=>{}}',_RV+'*fee=Some(f);}None=>{}}'),
+                ('let hopt=holder;','let hopt=holder;let mut fee=fee;'),
+                ('validate(&st,hopt,fee,','validate(&st,hopt,&mut fee,'),
+                ('cashback,target,sharing_update,collect_old,skip)};','cashback,target,sharing_update,collect_old,skip,fee)};'),
+                ('let (_holder,cashback,target,sharing_update,collect_old,skip)={','let (_holder,cashback,target,sharing_update,collect_old,skip,fee)={')]:
+        c=s.count(a); assert c==1,('ftt',c,a[:80]); s=s.replace(a,b)
+    return s
+G['ftt']=[_ftt]

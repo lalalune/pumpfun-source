@@ -14,7 +14,7 @@
   "joint_p1": 2329,
   "joint_p2": 2339
  },
- "result": "notes only; kill test holds (see NOTES.md section 0)",
+ "result": "notes only, no landing. Kill test fails as written (ftcT joint p2 2342 > main 2339; LOO partner forms), but joint ceilings come from T RA headroom (T p2 2376 > ftcT) and nothing realisable beats main",
  "landed": false,
  "best_zero_loss": {
   "ratio": 0.67436,
@@ -118,7 +118,8 @@
    "stacked": 2219,
    "pin_ri9": 2250,
    "joint": {
-    "p1": 2321
+    "p1": 2321,
+    "p2": 2376
    }
   },
   "To": {
@@ -400,6 +401,81 @@
    "pin_ri9": null,
    "joint": null
   },
+  "ftt": {
+   "genes": "ftt",
+   "bytes": 27240,
+   "M": 2050,
+   "Mperm": 2165,
+   "Mhc": 2181,
+   "lcs": 2082,
+   "Lrfj": 2943,
+   "stacked": 2173,
+   "pin_ri9": null,
+   "joint": null
+  },
+  "fttT": {
+   "genes": "ftt+s1+s_tai2+c2+n1+po+rev_ff",
+   "bytes": 27304,
+   "M": 1863,
+   "Mperm": 2229,
+   "Mhc": 2239,
+   "lcs": 2092,
+   "Lrfj": 3033,
+   "stacked": 2237,
+   "pin_ri9": null,
+   "joint": null
+  },
+  "g1": {
+   "genes": "h1+ftt+s_tai2+c2+n1+rev_ff",
+   "bytes": 27368,
+   "M": 1865,
+   "Mperm": 2199,
+   "Mhc": 2221,
+   "lcs": 2057,
+   "Lrfj": 3007,
+   "stacked": 2220,
+   "pin_ri9": null,
+   "joint": null
+  },
+  "g2": {
+   "genes": "h1+ftt+s1+s_tai2+c2+n1+po+rev_ff",
+   "bytes": 27360,
+   "M": 1819,
+   "Mperm": 2201,
+   "Mhc": 2227,
+   "lcs": 2050,
+   "Lrfj": 3033,
+   "stacked": 2225,
+   "pin_ri9": null,
+   "joint": null
+  },
+  "g3": {
+   "genes": "ftt+s_tai2+c2+n1+rev_ff",
+   "bytes": 27328,
+   "M": 1907,
+   "Mperm": 2215,
+   "Mhc": 2237,
+   "lcs": 2101,
+   "Lrfj": 3006,
+   "stacked": 2236,
+   "pin_ri9": null,
+   "joint": null
+  },
+  "g4": {
+   "genes": "ftt+c2+rev_ff",
+   "bytes": 27352,
+   "M": 1920,
+   "Mperm": 2217,
+   "Mhc": 2239,
+   "lcs": 2111,
+   "Lrfj": 3004,
+   "stacked": 2238,
+   "pin_ri9": null,
+   "joint": {
+    "p1": 2253,
+    "p2": 2303
+   }
+  },
   "h1": {
    "genes": "h1",
    "bytes": 27416,
@@ -646,6 +722,18 @@
    "pin_ri9": null,
    "joint": null
   },
+  "q1": {
+   "genes": "c2+rev_ff",
+   "bytes": 27368,
+   "M": 2218,
+   "Mperm": 2284,
+   "Mhc": 2291,
+   "lcs": 2235,
+   "Lrfj": 3011,
+   "stacked": null,
+   "pin_ri9": null,
+   "joint": null
+  },
   "t_c2": {
    "genes": "c2",
    "bytes": 27392,
@@ -825,13 +913,31 @@
   "faithunion G51+GPF x T",
   "o_rs carrier on swap cells"
  ],
+ "confirmed_forms": {
+  "needs_partner": [
+   "fee-tag phi (ft/ftc/ftt)",
+   "holder form h1 (t_v_h1)",
+   "c2",
+   "rev_ff (2 of 3 basins)"
+  ],
+  "wrong": [
+   "per-arm cashback (h2p)",
+   "s1",
+   "po (alone)"
+  ],
+  "inert": [
+   "s_tai2",
+   "n1 (partner only in h3T)"
+  ]
+ },
  "unresolved": [
-  "an ordinary carrier for the validated fee that keeps Result<Pubkey> (Pubkey at offset 1); ftc oracle only",
+  "whether the take-and-restore spelling ftt (byte-identical to the ftc oracle) passes the no-steering RULE",
   "swept in r9 across both CPIs, tag in r6 over the pool gate, the 0x54e0 trampoline: not reproduced by any head x tail cell without forces"
  ],
  "next_ideas": [
-  "fee tag reloaded from memory after validate switches (GVN load-PRE phi) with Result<Pubkey> layout kept",
-  "h3c (h2+ftc) is the only head on which T gains (+13 M); price it with the tail-swap-free layout and c2 tax force if an ordinary carrier is found",
+  "if ftt is acceptable: close ftcT/g4 as-built gap (spill colouring M 1863->Mperm 2229) and its 17 RA forces (236=r5,325=r4,2140=r7 decisive)",
+  "otherwise: a fee carrier without a value-preserving write that keeps Result<Pubkey> (Pubkey at offset 1)",
+  "build on g4=ftt+c2+rev_ff, not h3cT (h2 costs -92 Mhc on ftc) and not s1/po (wrong in every basin)",
   "check dotmap chunks 0x2400-0x5000 (aftab2 6 KB swap) whenever the holder argument last use moves"
  ],
  "ledger": "approach allfaith, keys 0x22a10-w16-5998913-allfaith-<cell>-v1"

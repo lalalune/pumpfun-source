@@ -8,25 +8,34 @@ side of the function is tuned to main.
 Ledger: approach `allfaith`, keys `0x22a10-w16-5998913-allfaith-<cell>-v1` (one row per capture, written by `scr.py`), plus
 the summary rows `0x22a10-w16-5998913-allfaith-{e1x,ftcxT,ftcT-jointp2,table,loo}-v1`.
 
-**Result: notes only, no landing; main is still the best zero-loss measurement (0.67436 / 3,141 slots / 27,400 B).
-The kill test does NOT hold, so the hypothesis stays open, narrowed to one pair.**
+**Result: notes only, no landing.** Main is still the best zero-loss measurement (0.67436 / 3,141 slots / 27,400 B).
+The kill test does not hold as written. Its intent, faithful heads adding to the tail union's ceiling, is not met
+either. The hypothesis survives only in the artifact-free metric, and only for one pair: the fee-tag phi with the tail
+union.
 
 | kill-test condition | verdict |
 | --- | --- |
-| no H x T restored joint within 40 M of 2,338 | **fails**: `ftcT` (frame-faithful fee-tag phi x T) p2 joint **2,342** > main p2 2,339 (same pipeline, converged climbs); h1T (running) |
-| no realisable cell beats 2,302 | holds: best H x T pin+ri9 is h1T 2,195 (main 2,305); best H x T as built h1T M 2,075 (main 2,251) |
-| LOO: every form loses inside the basin | **fails**: in the artifact-free metric ft/ftc (+145 / +130), the holder form h1 (+30 / +81), rev_ff (+58), n1 (+21) and c2 (+18 / +11) help inside the basin while losing alone; per-arm cashback, s1 and po lose in both |
+| no H x T restored joint within 40 M of 2,338 | **fails as written**: ftcT p2 is **2,342**, against main's 2,339 on the same pipeline. T on main's own head reaches **2,376** (19 forces), so the head form costs -34 there and the ceiling comes from T's RA headroom, which has no lever. g4 p2 2,303; h1T p1 2,291 / p2 (pass 2 still running at write-up) |
+| no realisable cell beats 2,302 | **holds**: best H x T pin+ri9 is h1T 2,195 (main 2,305); best H x T as built is h1T, M 2,075 (main 2,251) |
+| LOO: every form loses inside the basin | **fails**: in the artifact-free stacked metric, the fee-tag phi (+145 / +130 / +18), holder form h1 (+30 / +81) and c2 (+18 / +11 / +65) help inside the basins while losing alone. rev_ff helps in two of the three. Per-arm cashback, s1 and po lose in both |
 
 What is confirmed (details in sections 3-5):
-- **The tail union T is tuned against main's fee handling.** It costs -83 stacked on main's head but gains +56 on `ftc`'s
-  head (the fee re-made in validate's arms, the fee argument dying in validate as in the original): I = +139 stacked,
-  +141 Mhc. For the other heads I is about 0 (h1, e1, S1) or shared layout or frame damage (h2, h2p, S2, hc, ft).
-- **ftcT's ceiling passes main only through RA forces.** It has 17 sticky forces, the decisive ones being 236=r5, 325=r4
-  and 2140=r7 in the TCF and sharing-CPI clone runs. Its fee carrier `ftc` is an oracle: two semantically no-op stores. No
-  ordinary spelling that keeps validate's `Result<Pubkey>` layout was found. Returning the fee (`ft`) or a holder flag
-  (`S1`/`S2`) moves the Pubkey off Result offset 1, drops main's 7 B `target.sroa.0` piece and shifts every spill slot.
-- None of the three original facts (swept in r9 across both CPIs, tag in r6 at the pool gate, the 0x54e0 trampoline)
-  appears in any cell without forces.
+- **Stacked metric: T stops losing on the fee-tag head.** It costs -83 on main's head and gains +56 on `ftc`'s head:
+  I = +139 stacked, +141 Mhc. On `ftc`'s head the fee is re-made in validate's arms and the fee argument dies in
+  validate, as in the original. For the other heads, I is about 0 (h1, e1, S1) or shared layout or frame damage (h2,
+  h2p, S2, hc, ft).
+- **Joint ceilings do not reward the faithful heads.**
+  - T: 2,376.
+  - ftcT: 2,342. Its decisive forces are 236=r5, 325=r4 and 2140=r7, in the TCF and sharing-CPI clone runs.
+  - g4 (`ftt+c2+rev_ff`, the confirmed core): 2,303.
+  All of these are RA-only, as in lanchorceil's L composites.
+- **The frame-faithful fee carrier has a spelling.** `ftc` (a `&mut` out-param with two no-op stores) is byte-identical
+  to the take-and-restore `ftt`: `match fee.take(){Some(f)=>{..;*fee=Some(f);}None=>{}}`. That spelling has one put-back
+  store and is still a candidate dummy write under the RULE, so it was not proposed for landing. Returning the fee
+  (`ft`) or a holder flag (`S1`/`S2`) moves the Pubkey off Result offset 1, drops main's 7 B `target.sroa.0` piece and
+  shifts every spill slot.
+- **None of the three original facts appears in any cell without forces:** swept in r9 across both CPIs, the tag in r6
+  at the pool gate, and the 0x54e0 trampoline.
 
 ## 1. Oracle (experiment only; one build slot per capture, everything else llc/MIR)
 
@@ -60,6 +69,9 @@ Head forms (on main 1f4e396 text):
   the validated fee for the curve store and the admin_cto_pool tag, so the fee argument dies in validate. `h3` = h2 + ft.
 - `ftc` = the same phi through a `&mut Option<u64>` out-param, so validate keeps `Result<Pubkey>`. It is an oracle only and
   not landable, because its two stores are semantic no-ops (the RULE's dummy writes). `h3c` = h2 + ftc.
+- `ftt` = the take-and-restore spelling: `match fee.take(){Some(f)=>{..checks..;*fee=Some(f);}None=>{}}`. It is
+  **byte-identical to ftc**, with one put-back store and no None-arm store. `ftm` is the closure idiom
+  `*fee=fee.map(|f|..Ok(f)).transpose()?`.
 - `S1`/`S2` = w16a08 basinbound's ordinary-source form of w14a142's per-arm flag: validate returns
   `Result<(Pubkey,bool)>`. S1 also reads the event's is_holder_reward from the holder argument.
 - `h4` = faithunion's best local union `G51+GPF`; nothing was pushed by w16a09.
@@ -71,14 +83,16 @@ plaintail's P0 was not pushed. Its local P0 (`pS+pT+pC+pN+pR+pP`) is a different
 
 
 `M` is the masked difflib match count as built (main 2,251). `restored stacked` = layout restored + frame rebased + spill
-perm, unforced. `pin+ri9` = w15a06's realisable swept-only cell (main 2,305); `pin+ria` = every register ideal over
-0x3c00-0x5040 (main 2,353). `joint` = restored joint ceiling with the lpipe forces (main p1 2,329). An empty cell was not run.
+perm, unforced. Its noise is about +-8: ftt and ftc are byte-identical binaries but stack to 2,173 and 2,181, because
+fnorm matches allocas by IR name. `pin+ri9` = w15a06's realisable swept-only cell (main 2,305); `pin+ria` = every
+register ideal over 0x3c00-0x5040 (main 2,353). `joint` = restored joint ceiling with the lpipe forces (main p1 2,329,
+p2 2,339). An empty cell was not run.
 
 
 | cell | genes | bytes | M | dM | Mperm | Mhc | L--- | Lrfj | 6 KB swap | restored stacked | pin | pin+ri9 | pin+ria | joint p1 (forces) | joint p2 (forces) |
 | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- | ---: | ---: | ---: | ---: | ---: | ---: |
 | m0 | - (main 1f4e396/5998913) | 27400 | 2251 | +0 | 2295 | 2302 | 2257 | 3006 | no | 2302 | 2294 | 2305 | 2353 | 2329 (7) | 2339 (9) |
-| T | s1+s_tai2+c2+n1+po+rev_ff | 27352 | 2094 | -157 | 2182 | 2219 | 2169 | 3038 | 1 outlier | 2219 | 2199 | 2250 | 2371 | 2321 (9) |  |
+| T | s1+s_tai2+c2+n1+po+rev_ff | 27352 | 2094 | -157 | 2182 | 2219 | 2169 | 3038 | 1 outlier | 2219 | 2199 | 2250 | 2371 | 2321 (9) | 2376 (19) |
 | h1 | h1 | 27416 | 2207 | -44 | 2277 | 2284 | 2213 | 3007 | no | 2284 | 2247 | 2258 | 2323 |  |  |
 | h1T | h1+s1+s_tai2+c2+n1+po+rev_ff | 27360 | 2075 | -176 | 2187 | 2207 | 2137 | 3040 | no | 2207 | 2168 | 2195 | 2319 | 2291 (10) |  |
 | h1b | h1b | 27416 | 2207 | -44 | 2277 | 2284 | 2213 | 3007 | no | 2284 |  |  |  |  |  |
@@ -121,6 +135,13 @@ perm, unforced. `pin+ri9` = w15a06's realisable swept-only cell (main 2,305); `p
 | h1c2 | h1+c2 | 27408 | 2180 | -71 | 2272 | 2279 | 2196 | 3011 | no | 2279 |  |  |  |  |  |
 | ftm | ftm | 28128 | 1397 | -854 | 1487 | 1490 | 1490 | 2494 | SWAP | 1747 |  |  |  |  |  |
 | ftmT | ftm+s1+s_tai2+c2+n1+po+rev_ff | 28008 | 1395 | -856 | 1494 | 1504 | 1495 | 2508 | SWAP | 1768 |  |  |  |  |  |
+| ftt | ftt | 27240 | 2050 | -201 | 2165 | 2181 | 2082 | 2943 | 2 outlier | 2173 |  |  |  |  |  |
+| fttT | ftt+s1+s_tai2+c2+n1+po+rev_ff | 27304 | 1863 | -388 | 2229 | 2239 | 2092 | 3033 | 1 outlier | 2237 |  |  |  |  |  |
+| g1 | h1+ftt+s_tai2+c2+n1+rev_ff | 27368 | 1865 | -386 | 2199 | 2221 | 2057 | 3007 | 1 outlier | 2220 |  |  |  |  |  |
+| g2 | h1+ftt+s1+s_tai2+c2+n1+po+rev_ff | 27360 | 1819 | -432 | 2201 | 2227 | 2050 | 3033 | 1 outlier | 2225 |  |  |  |  |  |
+| g3 | ftt+s_tai2+c2+n1+rev_ff | 27328 | 1907 | -344 | 2215 | 2237 | 2101 | 3006 | 1 outlier | 2236 |  |  |  |  |  |
+| g4 | ftt+c2+rev_ff | 27352 | 1920 | -331 | 2217 | 2239 | 2111 | 3004 | 1 outlier | 2238 |  |  |  | 2253 (1) | 2303 (12) |
+| q1 | c2+rev_ff | 27368 | 2218 | -33 | 2284 | 2291 | 2235 | 3011 | no |  |  |  |  |  |  |
 
 
 ### Interaction terms `I = d(HxT) - d(H) - d(T)` (d = metric minus main's)
@@ -355,18 +376,24 @@ w15a33 #3829, w16a04 #3855).
 
 ## 5. Findings and mechanisms
 
-1. **No H x T cell beats main** on any measure: as built, perm-bounded, frame-normalised, in w15a06's realisable cell or in
-   the restored joint ceiling.
+1. **No H x T cell beats main** as built, perm-bounded, frame-normalised or in w15a06's realisable cell.
 
-   | cell | M | stacked | pin+ri9 | joint |
+   | cell | M | stacked | pin+ri9 | restored joint |
    | --- | ---: | ---: | ---: | --- |
-   | main | 2,251 | 2,302 | 2,305 | p1 2,329 / p2 2,339 |
-   | T on main's head (plaintail's cell, the closest to main) | | | | p1 2,321 / p2 (running) |
-   | `h1T` | 2,075 | | 2,195 | p1 2,291 / p2 (running) |
-   | `ftcT` (oracle) | 1,863 | 2,237 | | p1 2,286 (5 forces) / p2 **2,342** (17 forces) |
-   | `h3cT` (oracle) | 1,886 | 2,144 | | p1 2,265 |
-   | `e1T` (IR) | 1,964 | 2,218 | 2,116 | (running) |
-2. **The head x tail hypothesis holds for one pair only: the fee-tag phi (frame-faithful `ftc`) with the tail union.**
+   | main | 2,251 | 2,302 | 2,305 | p1 2,329 / p2 2,339 (9 forces, converged) |
+   | T on main's head (plaintail's cell) | 2,094 | 2,219 | 2,250 | p1 2,321 / p2 **2,376** (19 forces, climb stopped at round 10) |
+   | `ftcT` (= fttT) | 1,863 | 2,237 | | p1 2,286 (5) / p2 **2,342** (17) |
+   | `g4` = ftt+c2+rev_ff | 1,920 | 2,238 | | p1 2,253 (1) / p2 2,303 (12) |
+   | `h1T` | 2,075 | 2,207 | 2,195 | p1 2,291 (10) / p2 (pass 2 still running at write-up) |
+   | `h3cT` | 1,886 | 2,144 | 1,965 | p1 2,265 (12) |
+   | `h2T` | 1,815 | 2,014 | 1,958 | p1 2,213 (10) |
+   | `e1T` (IR) | 1,964 | 2,218 | 2,116 | not finished (stopped for CPU) |
+
+   The restored joint ceiling passes main for T and ftcT, but only through sticky RA forces. Earlier lanes found no
+   source lever for these (w16a04 #3855: L composites to 2,385). The faithful heads lower T's ceiling instead of
+   raising it (ftcT 2,342 < T 2,376).
+2. **In the artifact-free metric the hypothesis holds for one pair only: the fee-tag phi (frame-faithful `ftc`) with the
+   tail union.**
    - Raw M: every head form interacts positively with T (`I = d(HxT) - d(H) - d(T)`): h1 +25, h2 +83, h2f +102,
      h2p +94, h3 +71, ft +151, h3c +170, S1 +115, S2 +139, e1 +129, hc +87.
    - The artifact-free metric (restored stacked: layout restored, frame rebased, spill perm) separates three groups:
@@ -420,8 +447,10 @@ w15a33 #3829, w16a04 #3855).
    - Main's 7 B `target.sroa.0` piece then disappears; it is the trace of the original's 8/24 target split. Every spill slot
      moves by 16 B (8 B for S1/S2): ft 1,113, h3 1,236, h3T 1,150.
    - The `&mut Option<u64>` out-param ftc keeps `Result<Pubkey>` and `target.sroa.0`: 107 spill slots against main's 108.
-   - ftc is oracle-only, because its two stores are semantic no-ops. The closure idiom
-     `*fee=fee.map(|f|..Ok(f)).transpose()?` (`ftm`) is not ftc's code: +728 B, the real tail swap and M 1,397.
+   - ftc itself is oracle-only, because its two stores are semantic no-ops. The **take-and-restore spelling `ftt`**
+     (`match fee.take(){Some(f)=>{..;*fee=Some(f);}None=>{}}`) is **byte-identical** to ftc (ftt == ftc, fttT == ftcT).
+     It has one put-back store, and whether that store passes the no-steering RULE is for the owner to decide. The closure
+     idiom `*fee=fee.map(|f|..Ok(f)).transpose()?` (`ftm`) is not equivalent: +728 B, the real tail swap and M 1,397.
 7. **None of the three original facts holds in any cell without forces** (`livecs.py`, `tramp.py`, `data/livecs.txt`).
    - No callee-saved register is live across the TCF or sharing CPI in any cell, so swept is spilled. The original keeps it
      in r9 across both CPIs.
@@ -434,15 +463,21 @@ w15a33 #3829, w16a04 #3855).
 
 ## 6. Next ideas (for later lanes)
 
-1. **A frame-preserving carrier for the validated fee.** ftc proves that the fee-tag phi with main's `Result<Pubkey>`
-   layout is +71 M / +133 Mhc on h2T and makes T a gain (+13 M on h3c). Both ordinary spellings tried here break the
+1. **A frame-preserving carrier for the validated fee.** ftc (and its byte-identical take-and-restore spelling ftt)
+   proves that the fee-tag phi with main's `Result<Pubkey>` layout is +71 M / +133 Mhc on h2T. It also makes T a gain
+   (+56 stacked on ftc, against -83 on main), and ftcT's joint p2 (2,342) passes main's (2,339). If the owner accepts
+   ftt's move-out/move-back, the next step is ftcT's as-built gap. That gap is spill colouring (M 1,863 vs Mperm 2,229)
+   plus the 17 RA forces; their leave-one-out is in section 4. Otherwise keep looking for a carrier without a
+   value-preserving write. The return-value spellings tried here break the
    layout: ft returns `Result<(Pubkey,Option<u64>)>`, and S1/S2 return `Result<(Pubkey,bool)>`, where bool's niche or the
    align-8 tuple moves the Pubkey off Result offset 1. The original's 8/24 target split says its validate returned a value
    with the Pubkey at offset 1. Look for a source shape in which the fee tag is *reloaded from memory* after validate's
    switches, so that GVN load-PRE builds the phi (w15a29). One example would be validate taking an args struct that holds
    `fee` by reference, if that struct is not SROA'd before GVN.
-2. **Price h3c (h2 + ftc) jointly with the tail swap fix and T's c2 tax force.** It is the faithful head on which the tail
-   union stops costing M. Its gap is in exact tokens (true LCS `---` -243), while its skeleton is close (rfj -10).
+2. **Build on the core `ftt + c2 + rev_ff` (g4).** It is M 1,920 / Mhc 2,239 @27,352 B; joint: p1 2,253 / p2 2,303 (12 forces).
+   - Adding h2 (per-arm holder and cashback) to ftc costs -92 Mhc and -21 joint (h3cT p1 2,265 vs ftcT p1 2,286).
+   - Adding h1 alone does not pay on the ftc head: g1/g2 reach Mhc 2,221/2,227, against 2,237-2,239 for g3/g4/ftcT.
+   - Dropping s1, po and n1 from T costs nothing on the ftc head (g4 = ftcT in Mhc, +57 M).
 3. The 6 KB tail swap is a post-RA layout flip that follows the holder argument's last use. Any lane that changes where
    `holder` (`%0`) dies must check dotmap chunks 0x2400-0x5000 (`aftab2.py`'s `6 KB swap` column). It must not trust
    fuev's single `swap` flag, which also fires on one-chunk outliers in the sharing-CPI clone run.
