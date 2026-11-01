@@ -1,0 +1,128 @@
+{
+ "lane": "w16a18-cto-devoltie",
+ "wave": 16,
+ "target": {
+  "window": "0x22a10",
+  "function": "admin_cto::execute",
+  "file": "programs/pump/src/creator/admin_cto.rs",
+  "pinned_bytes": 27400
+ },
+ "base": {
+  "main": "599891304",
+  "ratio": 0.67436,
+  "slots_diff": 3141,
+  "M": 2251,
+  "bytes": 27400,
+  "normalized": 1034,
+  "raw": 1034
+ },
+ "result": "notes only; no placeholder-free form ties main; both read_volatile placeholders stay (owner decision 2026-11-01: faithful spellings only)",
+ "best": {
+  "ratio": 0.67436,
+  "slots_diff": 3141,
+  "bytes": 27400,
+  "source": "main (unchanged)"
+ },
+ "landed": false,
+ "kill_test": {
+  "splice_screened": 168,
+  "captured_spellings": 25,
+  "tie_found": false
+ },
+ "measurements": {
+  "vb (line-334 placeholder removed)": {
+   "bytes": 27392,
+   "M": 2250,
+   "dM": -1,
+   "note": "capture d_vb == splice of w15a03 N_vol334_back onto main1f"
+  },
+  "vb+v338 (both removed)": {
+   "bytes": 27384,
+   "M": 2228,
+   "dM": -23
+  },
+  "vb insmap (junk +8 B)": {
+   "positions_restoring_2251": 518,
+   "max": 2251,
+   "bands": [
+    "0x180-0x1a0",
+    "0x6d8-0x8b8",
+    "0x978-0xac0",
+    "0xad8-0xeb8",
+    "0xf10-0x14a8",
+    "0x1588-0x17a0",
+    "0x17b8-0x18d0",
+    "0x19c0-0x1a90",
+    "0x1c78"
+   ]
+  },
+  "vb insmatch (one original token)": {
+   "entry+validate": {
+    "pairs": 2226,
+    "M2252": 933,
+    "M2251": 1246
+   },
+   "rest": {
+    "pairs": 2913,
+    "max": 2251,
+    "M2251": 7
+   }
+  },
+  "vb + +8 B captures (46)": {
+   "best": "N_I6ssn",
+   "bytes": 27400,
+   "M": 2248,
+   "slots": 3141
+  },
+  "vb + zero-sum pairs (122 applied of 350)": {
+   "best": "N_I6n+c2_L_share_none_first",
+   "bytes": 27400,
+   "M": 2246
+  },
+  "sibling idioms on vb (nf, rq4, rqhead, rkn307, req284/289/298, rq338b/c, reff, rqall)": {
+   "bytes": 27392,
+   "M": 2250,
+   "note": "all byte-identical to vb"
+  },
+  "if-let / wildcard fee arm on vb (d_ifl, d_wc, d_iflrq4)": {
+   "bytes": 27400,
+   "M": 2163,
+   "dM": -88
+  },
+  "fee-tag phi as fee_checked helper (fh, fh757, fhcpi, fh_mt, #[inline] variants, fh_and)": {
+   "note": "collapse: nested sweep un-inlined (execute 18448 B + sweep 9088 B); opt remark cost=4220 threshold=45 vs main -10780/250; caused by the helper boundary itself (fh_mt has no phi)"
+  }
+ },
+ "rejected_mechanisms": [
+  "vol334_back + any cached +8 B capture (best -3)",
+  "vol334_back + zero-sum pairs (best -5)",
+  "create_v2/admin_cto_pool require!/require_keys_neq! idioms on vb (byte-identical)",
+  "match arm order None-first on vb (identical)",
+  "match &fee / let f=*f (identical)",
+  "if-let or _=> fee arm (-88)",
+  "fee-tag phi through a fee_checked helper (inliner cliff: sweep un-inlined)",
+  "fee-tag phi through and_then single ? (same cliff)"
+ ],
+ "unresolved_residuals": [
+  "334 placeholder = pure fill: needs exactly one validate/entry instruction; the faithful candidates (insmatch) are RA facts of the original (r9 = max_fee across validate, i1 holder flag spill, fee_configurable at [r10-0x940]) or the PDA-first entry",
+  "338 placeholder = anchor of the range-check OK block, whose original content is the fee-tag phi constant mov64 r7,1 plus two spills; every source form of that phi costs 186-1,138 M (w15a29, w16a12) or hits the sweep inliner cliff (this lane)"
+ ],
+ "next_ideas": [
+  "joint fee-tag-phi move: re-make the fee inside the inlined validate body without a new helper/? (keep Result<Pubkey> layout, keep sweep inlined), repay the -176 B with the 307/312 to_string outline (w16a13 tAn2, #3632); price with w16a12 restored-joint pipeline first",
+  "check opt -pass-remarks-missed=inline whenever a capture shrinks to ~18.4 KB: any extra ? between validate and the sweep can make the sweep call site cold (threshold 45)",
+  "an RA lane that keeps max_fee in a callee-saved register across validate (orig r9) is the only route to the insmatch +1 cells"
+ ],
+ "ledger": {
+  "approach": "devoltie",
+  "keys": "0x22a10-w16-5998913-devoltie-<form>-v1",
+  "rows": 29
+ },
+ "tools": [
+  "tools/scr.py",
+  "tools/capraw.py",
+  "tools/genes_dt.py",
+  "tools/vbscreen.py",
+  "tools/insmatch2.py",
+  "tools/gaps2.py"
+ ]
+}
