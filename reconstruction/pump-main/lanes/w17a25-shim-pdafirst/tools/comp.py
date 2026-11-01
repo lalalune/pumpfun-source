@@ -48,3 +48,5 @@ C['PAT']=C['ANN']+[(T1H,'(_,false)=>if !a.coin_creator_vault_ata.data_is_empty()
 C['PAC']=[(C1H,C1H.replace('crate::pump_fees::cpi::admin_cto_sharing_config(','let a='+PA+'/*shim: annotated accounts pointer at the sharing clone-run head (RA firewall)*/;crate::pump_fees::cpi::admin_cto_sharing_config('))]
 C['PAS']=[('fn sweep(ctx:&Context<AdminCto>,holder_key:&Pubkey)->Result<u64>{let a=&ctx.accounts;','fn sweep(ctx:&Context<AdminCto>,holder_key:&Pubkey)->Result<u64>{let a=&ctx.accounts;let a='+PA+'/*shim: annotated accounts pointer at the sweep head (RA firewall)*/;')]
 C['PAE4']=[('let mut sharing_update:Option<Option<Pubkey>>=None;','let a2:&AdminCto='+PA+'/*shim: annotated accounts pointer after validate (RA firewall)*/;let a=&a2;let mut sharing_update:Option<Option<Pubkey>>=None;')]
+C['F0']=[('let shared={','let a2:&AdminCto='+VR+'/*shim: fresh accounts pointer before the shared test (RA firewall)*/;let a=&a2;let shared={')]
+C['PA0']=C['ANN']+[('let shared={','let a2:&AdminCto='+PA+'/*shim: annotated accounts pointer before the shared test (RA firewall)*/;let a=&a2;let shared={')]

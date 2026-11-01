@@ -1,0 +1,127 @@
+{
+ "lane": "w17a25-shim-pdafirst",
+ "wave": 17,
+ "track": "shim (PDA-first entry behind an RA firewall)",
+ "target": {
+  "window": "0x22a10",
+  "function": "admin_cto::execute",
+  "file": "programs/pump/src/creator/admin_cto.rs",
+  "pinned_bytes": 27400
+ },
+ "bases": {
+  "start": "4d09af488 (0.68514, slim-oracle M 2287)",
+  "mid": "aab087f32 (0.68724, M 2294)",
+  "end": "53ec7fb53 (0.68754, M 2295)"
+ },
+ "result": "KILL: notes and tools only, no source change proposed. Volatile/manual-slot firewalls decouple the protected region from the PDA-first entry (pf9v+F reproduces main+F there) but re-basin it on main too (main+F -53..-680); identity intrinsics (ptp, llvm.ptr.annotation) are near-transparent but do not decouple. Best pf9v+F T1+C1 is -150 (kill threshold -40).",
+ "best_zero_loss": null,
+ "pr": 4057,
+ "kill_test": {
+  "criterion": "no firewall brings pf9v's T1+C1 within 40 tokens of main's while keeping E1 >= +20",
+  "best_cells": {
+   "pFE4": "2004 @27392 (E1 +21, T1 -131, C1 -19) on 4d09af4 (main 2287)",
+   "pFJ": "1932 @27272 (E1 +24, T1 -100, C1 -67) on 4d09af4",
+   "pPASMS": "2029 @27456 (E1 +27, T1 -154, C1 -24) on 53ec7fb (main 2295)",
+   "pMSTe": "1958 @27456 (E1 +27, T1 -167, C1 -24) on aab087f (main 2294)"
+  },
+  "met": true
+ },
+ "tools": {
+  "tools/cap.sh": "crate copy + exact edits -> capraw pre-opt IR -> preslim -> fx (w17a06 exact slim oracle); deletes stale pump_recovered*.ll first and fails on error[E..] (the w17a08 copy silently reuses the previous variant's IR when a variant does not compile)",
+  "tools/q.sh": "two-wide capture queue with per-region rc.py tables against fx/${REF}",
+  "tools/comp.py + tools/mk.py": "named source-edit components (PDA-first k8/pf9v, volatile firewalls FT/FC/FS/FW/FJ/FE/FE2/FE4/F0, ptp PT/PC, ptr.annotation PAT/PAC/PAS/PAE4/PA0, manual hkx-tail slot MSst/MSstn/MSc1/MSc1n/MShk/MSt1cv/MSt1ep) composed into edit files",
+  "tools/cdiff.py": "two candidates side by side over an original window range (each aligned to the original)",
+  "tools/rsize.py": "candidate instruction count per original region",
+  "tools/radiff2.py": "greedy RA trace diff keyed by live-range start slot with a slot shift"
+ },
+ "findings": [
+  "Firewall decoupling is real: a volatile ctx.accounts reload at a region head makes that region's allocation independent of the entry (T1: mFT -278 vs pFT -282; C1: mFC -77 vs pFC -76; sweep head: mFS -202 vs pFS -209).",
+  "No memory firewall is transparent: the fresh accounts vreg is a new short range allocated early by greedy (caller-saved r2 in the clone runs) where main has a late split piece of %0 (r8 in T1, r5 in C1); main+F loses 53 (manual slot, plain reads, C1) to 680 (after E1) tokens.",
+  "Identity intrinsics are not firewalls: ptp is deleted before ISel; llvm.ptr.annotation's COPY is coalesced into %0 (mPATC -13 on main but pPATC = pf9v in T1/C1).",
+  "The original reloads accounts from its spill slot -0x8d8 at all 8 C1 clone heads and at 3 T1 sites (creator_vault, pump_amm_event_authority, pump_amm program clones); main keeps C1's piece in r5 and T1's in r8 up to the event_authority clone; pf9v keeps r8 through the program clone, so the event_authority pointer and the copy-out scratch move (r8->r3, r1->r3).",
+  "Manual per-clone reloads from the hkx tail (-0x680) reproduce the original's C1 reload structure (rfj C1 +5) but cost ~53 naming tokens on main; the offset can never be -0x8d8 from source because the frame below the last IR alloca (mint, -0x6c0) is 33 backend 16 B sret-demotion temporaries.",
+  "pf9v's spill colours k6..k10 rotate because the curve-pointer spill interval SS#321 is shorter and heavier (1.375 vs 1.038); sscsim restoring main's rank gains only +5.",
+  "pf9v's C1 loss is partly inherited from T1: on aab087f the T1-only manual reloads (pMST, pMSTe) move pf9v's C1 from -49 to -24 without touching C1; on 53ec7fb pf9v itself is at C1 -24 (T1 still -235).",
+  "pf9v on the latest main 53ec7fb: 1960 @27432 vs main 2295 (E1 +27, T1 -235, C1 -24, W2 -21)."
+ ],
+ "attempts": [
+  {
+   "name": "k8 / pf9v (4d09af4)",
+   "M": "1954 @27400 / 1925 @27392",
+   "regions": "E1 +25/+27, T1 -234/-235, C1 -48/-49"
+  },
+  {
+   "name": "FT/FC/FTC volatile reload at T1/C1 heads",
+   "main": "1919 / 2162 / 1802",
+   "pf9v": "1778 / 1904 / 1759"
+  },
+  {
+   "name": "PT/PC passthrough at T1/C1 heads",
+   "pf9v": "1918 @27384 (= pf9v RA)"
+  },
+  {
+   "name": "FS sweep head / FW wallet head / FJ J2",
+   "main": "1957 / 1967 / 1823",
+   "pf9v": "1836 / 1807 / 1932"
+  },
+  {
+   "name": "FE after E1 / FE2 after quote_locked / FE4 after validate / F0 before shared",
+   "main": "1605 / 1577 / 1512 / 2112",
+   "pf9v": "1613 / 1597 / 2004 / 1607"
+  },
+  {
+   "name": "manual hkx-tail slot, C1 per-clone reloads (volatile / plain)",
+   "main": "2151 / 2191",
+   "pf9v": "1857 / 1934"
+  },
+  {
+   "name": "manual slot at 3 T1 sites / 2 T1 sites (aab087f)",
+   "main": "2205 / 2142",
+   "pf9v": "1937 / 1958"
+  },
+  {
+   "name": "ptr.annotation T1+C1 / sweep head / after validate / before shared",
+   "main": "2281 / 2043 / 2295 (no-op) / 2043",
+   "pf9v": "1923 / 2000 / 1960 / 2000"
+  },
+  {
+   "name": "combos on 53ec7fb: pPASMS / pFE4MS",
+   "pf9v": "2029 @27456 / 1928 @27352"
+  },
+  {
+   "name": "m2 / pf9v2 (53ec7fb)",
+   "M": "2295 @27400 / 1960 @27432"
+  }
+ ],
+ "rejected_mechanisms": [
+  "volatile ctx.accounts reload as an RA firewall at any region head (decouples, re-basins)",
+  "ptp passthrough / llvm.ptr.annotation on the accounts pointer as an RA firewall (no new live range survives)",
+  "manual accounts spill slot in the hkx tail with per-clone reloads (structure right, naming -53 on main)",
+  "hand-spill at -0x8d8 (frame bottom is backend sret-demotion temporaries; unreachable from source)",
+  "curve-pointer spill colour repair on pf9v (+5 only)"
+ ],
+ "unresolved_residuals": [
+  "PDA-first (E1 +27 exact, +24 rfj) costs ~360 M on every main tested, almost all register naming in T1/C1/W2 from the greedy re-basin.",
+  "A transparent firewall would need a fresh accounts range that greedy allocates late, like a split product of %0; source-level ranges are enqueued with the global bit and allocated early."
+ ],
+ "next_ideas": [
+  "Do not retry PDA-first until the T1/C1 clone runs are robust on main itself (e.g. their accounts reload sites match the original's), so a re-basin no longer costs hundreds of tokens.",
+  "If a lane gets main's T1/C1 to reload accounts at the original's sites (8 in C1, 3 in T1), re-test pf9v+that: the manual-slot rows show the structure is reachable (C1 rfj +5) and pf9v's C1 loss is partly inherited from T1.",
+  "pFE4 (firewall after validate, 2004 @27392 on 4d09af4) and pPASMS (2029 @27456 on 53ec7fb) are the best PDA-first bases if someone wants to RA-tune the PDA-first basin with weight shims."
+ ],
+ "ledger_keys": [
+  "0x22a10-w17-4d09af4-pdafirst-base-k8-pf9v-v1",
+  "0x22a10-w17-4d09af4-pdafirst-fw-volreload-T1C1-v1",
+  "0x22a10-w17-4d09af4-pdafirst-fw-ptp-T1C1-v1",
+  "0x22a10-w17-4d09af4-pdafirst-fw-volreload-sweep-wallet-join-v1",
+  "0x22a10-w17-4d09af4-pdafirst-fw-volreload-entry-v1",
+  "0x22a10-w17-4d09af4-pdafirst-spillcolour-curve321-v1",
+  "0x22a10-w17-4d09af4-pdafirst-manualslot-C1-v1",
+  "0x22a10-w17-aab087f-pdafirst-manualslot-T1-v1",
+  "0x22a10-w17-aab087f-pdafirst-ptrann-T1C1-v1",
+  "0x22a10-w17-53ec7fb-pdafirst-ptrann-sweep-E4-pre-v1",
+  "0x22a10-w17-53ec7fb-pdafirst-fw-volreload-preshared-v1",
+  "0x22a10-w17-aab087f-pdafirst-handspill-8d8-frame-v1",
+  "0x22a10-w17-53ec7fb-pdafirst-combos-v1"
+ ]
+}

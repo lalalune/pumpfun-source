@@ -1,7 +1,8 @@
 # w17a25-shim-pdafirst: PDA-first entry behind an RA firewall (admin_cto 0x22a10, shim track)
 
 Target `0x22a10` `admin_cto::execute` (`programs/pump/src/creator/admin_cto.rs`), pinned at 27,400 B.
-Bases: main 4d09af488 (0.68514, slim-oracle M 2,287, "m0"), then main aab087f32 (0.68724, M 2,294, "m1").
+Bases: main 4d09af488 (0.68514, slim-oracle M 2,287, "m0"), main aab087f32 (0.68724, M 2,294, "m1") and main 53ec7fb53
+(0.68754, M 2,295, "m2"). Each m/p pair below is on one base.
 Ledger: approach `pdafirst`, keys `0x22a10-w17-<sha7>-pdafirst-<item>-v1`.
 
 Angle: make the PDA-first entry (E1, the original's call order) landable by decoupling the T1/C1 clone runs from the
@@ -17,8 +18,8 @@ The firewall mechanism works, but every firewall re-basins the region it protect
 - **No firewall is transparent.** The protected region's accounts value is now a fresh, short vreg. Greedy allocates it
   on its own (a caller-saved r2 in the clone runs, where main has a split piece of `%0` in r8/r5), and every scratch
   register and spill colour in the region moves. main+F loses 53..680 tokens for every placement tried.
-- Best PDA-first cells: pFE4 (firewall after validate) 2,004 @27,392 and pMST (manual slot at the 3 original T1 reload
-  sites) 1,937 @27,456. main is 2,287/2,294. Best pf9v+F T1+C1: -150 (pFE4), -167 (pFJ), -211 (pMST). Kill threshold: -40.
+- Best PDA-first cells: pFE4 (firewall after validate) 2,004 @27,392 (main 2,287) and pPASMS 2,029 @27,456 (main
+  2,295). Best pf9v+F T1+C1: -150 (pFE4), -167 (pFJ), -178 (pPASMS), -191 (pMSTe). Kill threshold: -40.
 
 ## Per-region price table (slim pre-opt oracle; region deltas vs main, w17a01 regions via `rc.py`)
 
@@ -45,6 +46,24 @@ The firewall mechanism works, but every firewall re-basins the region it protect
 | m1 | main aab087f | 2,294 @27,400 | | | | |
 | pf9v1 | pf9v on aab087f | 1,932 @27,392 | +27 | -235 | -49 | W2 -23 |
 | mMST / pMST | manual slot at the 3 original T1 reload sites (creator_vault, event_authority, program clones) | 2,205 @27,408 / 1,937 @27,456 | | -72 / -187 | 0 / -24 | m1 base |
+| mMSTe / pMSTe | manual slot at the event_authority and program clones only | 2,142 @27,432 / 1,958 @27,456 | | -103 / -167 | -4 / -24 | m1 base |
+| mPATC / pPATC | `llvm.ptr.annotation` on the accounts pointer at T1 and C1 heads | 2,281 @27,392 / 1,923 @27,416 | 0 / +27 | -3 / -238 | -4 / -53 | m1 base; nearly transparent on main, but NOT a firewall |
+| m2 | main 53ec7fb | 2,295 @27,400 | | | | |
+| pf9v2 | pf9v on 53ec7fb | 1,960 @27,432 | +27 | -235 | -24 | W2 -21 |
+| mPAS / pPAS | `llvm.ptr.annotation` at the sweep head | 2,043 @27,400 / 2,000 @27,432 | 0 / +27 | -132 / -189 | -4 / -22 | m2 base; pPAS T1 reg-masked only -34 |
+| mPAE4 / pPAE4 | `llvm.ptr.annotation` after validate | 2,295 / 1,960 | | | | m2 base; byte-identical to m2 / pf9v2 (no-op) |
+| mPA0 / pPA0 | `llvm.ptr.annotation` before the shared test | 2,043 / 2,000 | | | | m2 base; byte-identical to mPAS / pPAS |
+| mF0 / pF0 | volatile `ctx.accounts` reload right before the shared test | 2,112 @27,344 / 1,607 @27,584 | -6 / +23 | -12 / -490 | -7 / -28 | m2 base; mF0 W2 -57, S1 -23 |
+| pPASMS | pf9v + ptr.annotation at the sweep head + manual slot at the event_authority/program clones | 2,029 @27,456 | +27 | -154 | -24 | m2 base; best PDA-first M on the latest main (-266) |
+| pFE4MS | pf9v + volatile firewall after validate + the same manual T1 reloads | 1,928 @27,352 | +21 | -206 | -6 | m2 base |
+
+Two firewall classes, two failure modes:
+- **Memory re-derivations** (volatile `ctx.accounts` reload, manual hkx-tail slot) create a fresh vreg, so the protected
+  region is allocated independently of the entry (`pf9v+F ~= main+F` there), but it is allocated as a new short range and
+  the region re-basins on main as well.
+- **Identity intrinsics** (`ptp` passthrough, `llvm.ptr.annotation`) do not create a lasting new range: the passthrough
+  is deleted before ISel and the annotation's COPY is coalesced back into `%0`. They are (nearly) transparent on main and
+  leave pf9v's T1/C1 exactly where they were.
 
 ## What the original does that we do not
 
@@ -59,6 +78,14 @@ The firewall mechanism works, but every firewall re-basins the region it protect
   1,930). The T1 loss is mostly register naming, not this rotation.
 - Manual reloads from a stack slot reproduce the original's reload structure (C1 rfj +5), but the slot is at -0x680
   (the hkx tail), not -0x8d8, and the plain-load form still costs ~53 tokens of naming on main.
+- **Hand-spill at -0x8d8 is not reachable from source (checked with `framemap.py` on main aab087f).** The idea: put
+  accounts in an 8 B alloca at -0x8d8, make every post-E1 use a manual reload, so `%0` is never spilled, spill colour 0
+  disappears, every other colour keeps its offset, and every reload is `ldxdw rX,[r10-0x8d8]` like the original's.
+  But the frame below the last IR alloca (`mint`, FI144 at -0x6c0) is 33 backend-created 16 B objects (FI145-FI177,
+  -0x6d0..-0x8d0: the sret-demotion temporaries of the 33 calls returning 16 B), so any new IR alloca lands at -0x6c8
+  and pushes all of them, and the spill area, down by 8.
+- pf9v's C1 loss is partly inherited from T1: on aab087f, the T1-only manual reloads (pMST, pMSTe) move pf9v's C1 from
+  -49 to -24 without touching C1. On 53ec7fb pf9v itself is already at C1 -24 (T1 still -235).
 
 ## Tools (`tools/`, experiment only; paths point at this lane's cache dir)
 
