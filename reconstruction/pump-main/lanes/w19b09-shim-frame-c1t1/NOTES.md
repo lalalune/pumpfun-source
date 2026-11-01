@@ -40,3 +40,18 @@ python3 scripts/pump_admin_cto_differential.py --candidate <out>/candidate.so --
 
 Source input fingerprint: `9f28d6cfbe5089ca1f7f33919e6b55211675ab71648781ff54555dbbda060dcb`.
 Unstripped SHA-256: `730dfd47229fd7aed04fc47a70b5262b1d620908fe236bd28a9d1d2644e8fd68`.
+
+## J1 target pieces at the original's offsets
+
+Measured on main `0325ac1d5`.
+
+| | admin_cto | slots | bytes | normalized / raw | losses |
+| --- | ---: | ---: | ---: | --- | --- |
+| before | 0.70051 | 3,193 | 27,400 | 1034 / 1034 | |
+| after | 0.70261 | 3,197 | 27,400 | 1034 / 1034 | none |
+
+Window J1 (original 0x1858-0x1890): the join copy now reads `-0x655`, `-0x658`, `-0x668`, `-0x660` and writes `-0x535`, `-0x538`, as the original does.
+`validate` writes the 7 B and 9 B pieces through `place` into `n7` (-0x658) and `n9` (-0x668) and rebuilds its result from them. Two 8 B stand-ins take
+`event_signers`' 16 B place, so the 7 B join piece merges into the one at -0x538. `tg9`, `target` (6 B) and `s68` are lifetime-only stand-ins that keep
+the DAG chain nodes and the host assignment. The shared arm takes the curve creator piecewise, because the stand-ins' markers would stop MemCpyOpt
+forwarding a local creator copy. This drops 72 B of spill code, repaid by 9 more `holder_key` fill reads in the 312 block.
