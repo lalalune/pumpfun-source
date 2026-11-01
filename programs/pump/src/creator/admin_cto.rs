@@ -746,7 +746,11 @@ fn validate(st:&CtoState,shared:bool,holder:bool,fee:Option<u64>,new:Option<Pubk
  if let Some(val)=sharing_update{{
 
 
+<<<<<<< Updated upstream
   crate::pump_fees::cpi::admin_cto_sharing_config(CpiContext::new_with_signer(a.pump_fees.to_account_info(),crate::pump_fees::cpi::accounts::AdminCtoSharingConfig{pool_authority:aicl::<5>(a.pool_authority.as_ref()),authority:a.admin_set_creator_authority.to_account_info(),global:aicl::<20>(a.global.as_ref().as_ref()),mint:aicd::<2000>(a.mint.as_ref()),sharing_config:a.sharing_config.to_account_info(),event_authority:a.pump_fees_event_authority.to_account_info(),program:a.pump_fees.to_account_info()},signer_seeds),val)?;
+=======
+  crate::pump_fees::cpi::admin_cto_sharing_config(CpiContext::new_with_signer(aicl::<9>(a.pump_fees.as_ref()),crate::pump_fees::cpi::accounts::AdminCtoSharingConfig{pool_authority:aic(a.pool_authority.as_ref()),authority:aic(a.admin_set_creator_authority.as_ref()),global:aic(a.global.as_ref().as_ref()),mint:aic(a.mint.as_ref()),sharing_config:aic(a.sharing_config.as_ref()),event_authority:aic(a.pump_fees_event_authority.as_ref()),program:aic(a.pump_fees.as_ref())},signer_seeds),val)?;
+>>>>>>> Stashed changes
 
  }}
  let (old_creator,old_fee)={
