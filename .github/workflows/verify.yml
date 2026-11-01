@@ -75,6 +75,7 @@ jobs:
           - suite: admin-frame-diagnostics
             commands: |
               python -B reconstruction/pump-main/lanes/w12a02-cto-iroracle/test_diagnostics.py
+              python -B reconstruction/pump-main/lanes/w14a88-cto-sweeptagmem/test_mv.py
           - suite: composition-patch-bytes
             commands: |
               python -B reconstruction/harness/test_integrate_failures.py
@@ -357,8 +358,8 @@ jobs:
               python -B reconstruction/harness/test_score_empty_baseline.py
               python -B reconstruction/harness/test_score_baseline_option_conflict.py
               python -B reconstruction/harness/test_score_symbol_admission.py
-              python -B -m unittest discover -s reconstruction/harness -p 'test_control_flow*.py'
-              python -B -m unittest discover -s reconstruction/harness -p 'test_diagnostic*.py'
+              python -B scripts/run_discovered_tests.py reconstruction/harness 'test_control_flow*.py' --expect 29
+              python -B scripts/run_discovered_tests.py reconstruction/harness 'test_diagnostic*.py' --expect 26
               python -B reconstruction/harness/test_batch_target_metric.py
               python -B reconstruction/pump-main/test_ledger_negative_limit.py
               python -B reconstruction/diagnostics/census-portability/test_output_guard.py
@@ -426,7 +427,7 @@ jobs:
               python -B reconstruction/harness/test_score_atomic_report.py
               python -B reconstruction/harness/test_coords_report_destination.py
               python -B reconstruction/harness/test_short_window_ranking.py
-              python -B -m unittest discover -s reconstruction/harness -p 'test_triage*.py'
+              python -B scripts/run_discovered_tests.py reconstruction/harness 'test_triage*.py' --expect 17
               python -B reconstruction/harness/test_applicability_evidence_paths.py
               python -B reconstruction/harness/test_diagnostic_range_boundaries.py
               python -B research/static-range-git-original-20261101/reproduce.py --checkout . --expect fixed --output work/static-range-git-original.json
@@ -471,7 +472,7 @@ jobs:
               python -B research/tooling-arithmetic-shift-counts-20261030/test_verify.py
               python -B research/tooling-revalidation-manifests-20261030/test_verify.py
               python -B research/tooling-revalidation-invocation-20261030/test_verify.py
-              python -B -m unittest discover -s reconstruction/tooling/revalidation-qualification -p 'test_*.py'
+              python -B scripts/run_discovered_tests.py reconstruction/tooling/revalidation-qualification 'test_*.py' --expect 67
               python -B reconstruction/relocation-text-addresses/test_analyze.py
               python -B reconstruction/math-register-comparisons/test_analyze.py
               python -B research/math-register-default-20261101/test_verify.py
@@ -479,7 +480,7 @@ jobs:
               python research/tooling-terminal-error-patterns-20261030/verify.py
               python research/tooling-token-program-constant-detector-20261029/verify.py
               python -B research/tooling-token-program-constant-detector-20261029/test_verify.py
-              python -B -m unittest discover -s reconstruction/capture-rpc-retry -p 'test_*.py'
+              python -B scripts/run_discovered_tests.py reconstruction/capture-rpc-retry 'test_*.py' --expect 27
               python -B reconstruction/verification/donation-relay-idl-lifecycle/test_lifecycle.py
               python -B reconstruction/verification/donation-relay-idl-lifecycle/test_verify_steps.py
               python -B reconstruction/verification/donation-relay-stateful/test_stateful.py

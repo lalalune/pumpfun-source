@@ -161,7 +161,10 @@ def main():
         inventories[label], blobs[label] = inv, blob
         current = census(original, inv)
         recorded = read_json(HERE / f'{label}-score.json.gz')['windows']
-        require(all(current[k] == {f: recorded[k][f] for f in ('normalized', 'raw')} for k in current), 'official census disagreement')
+        # Recount over the recorded keys, not only over the windows this run
+        # produced: a window the run dropped is not named by a comparison that
+        # iterates the run's own result.
+        require(set(current) == set(recorded) and all(current[k] == {f: recorded[k][f] for f in ('normalized', 'raw')} for k in recorded), 'official census disagreement')
         summaries[label] = {f: sum(v[f] for v in current.values()) for f in ('normalized', 'raw')}
         require(summaries[label] == {'normalized': 1020, 'raw': 188}, 'membership totals changed')
     for field in ('normalized', 'raw'):
