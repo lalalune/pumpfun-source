@@ -1,0 +1,81 @@
+main admin_cto 4-grams absent from the original admin_cto and from all matched windows: 416 of 3334
+  34  admin_cto.rs:339:0  Ok(target)}pub fn execute(ctx:Context<AdminCto>,holder:Option<bool>,fee:Option<u64>,new:O   e.g. @0xf0 mov64 a,k ; call fn ; mov64 b,0 ; ldxdw c,[d-0xff8]
+  24  admin_cto.rs:307:94  t,Pubkey::default())));}   e.g. @0x13f8 ldxdw a,[fp] ; ldxdw b,[fp] ; ja @ ; ldxw c,[d+0x3]
+  18  admin_cto.rs:339:653  CtoState{fee_configurable:a.global.creator_fee_configurable,creator:a.bonding_curve.creato   e.g. @0x448 and64 a,0x1 ; ldxb b,[c+0xa2] ; ldxb d,[c+0xa5] ; ldxb e,[c+0xa3]
+  16  admin_cto.rs:749:1112  x.key}},sharing_config:a.sharing_config.to_account_info(),event_authority:AccountInfo{data   e.g. @0x4358 ja @ ; mov64 a,b ; ldxdw c,[d+0xa0] ; ldxdw e,[c+0x10]
+  13  admin_cto.rs:339:1343  a.bonding_curve.creator;(false,true)}}else{(!st.holder_reward&&st.creator!=Pubkey::default   e.g. @0x1870 ldxw a,[b+0x0] ; stxw [fp],a ; ldxw b,[b+0x3] ; stxw [fp],b
+  10  admin_cto.rs:289:5  st.holder_reward&&!(hopt==Some(true)){return Err(error!(PumpError::HolderRewardCreatorImmu   e.g. @0x5d0 mov64 a,b ; mov64 c,b ; jeq a,0x0,@ ; mov64 d,e
+   9  admin_cto.rs:661:956  x.owner,rent_epoch:x.rent_epoch,is_signer:x.is_signer,is_writable:x.is_writable,executable   e.g. @0x30b8 ja @ ; stxdw [fp],a ; ldxdw b,[c+0x48] ; ldxdw d,[b+0x10]
+   8  admin_cto.rs:0:1246     e.g. @0x17b8 mov64 a,b ; ldxdw c,[fp] ; mov64 b,1 ; mov64 c,0
+   7  admin_cto.rs:339:1073  (new,);let sk=a.sharing_config.key();let mut target=validate(&st,hopt,fee,new,&holder_key,   e.g. @0x520 ldxb a,[b+0x0] ; ldxdw c,[fp] ; ldxdw c,[c+0x90] ; ldxdw c,[c+0x0]
+   7  admin_cto.rs:719:569  crate::collect_v2::transfer_vault_tokens(&a.quote_token_program,&a.creator_vault_quote_tok   e.g. @0x60b0 mov64 a,k ; ldxdw b,[fp] ; ldxdw c,[fp] ; mov64 d,e
+   6  admin_cto.rs:339:148  a.mint.key();let shared={let sk=a.sharing_config.key();a.bonding_curve.creator==sk}&&a.sha   e.g. @0x68 stxdw [fp],a ; ldxdw b,[b+0x0] ; stxdw [fp],b ; ldxdw c,[d+0x90]
+   6  admin_cto.rs:664:0  (if amount>0{crate::legacy_buy::native_payments::ensure_rent_exempt(&a.system_program,&   e.g. @0x20c8 add64 a,k ; ldxb b,[fp] ; ldxdw c,[a+0x0] ; mov64 d,fp
+   6  admin_cto.rs:664:383  token_raw_amount(a.creator_vault_quote_token_account.as_ref())?;   e.g. @0x20f0 call fn ; ldxdw a,[fp] ; stxdw [fp],b ; jeq a,0x2,@
+   6  admin_cto.rs:661:471  a.quote_mint.to_account_info(),token_program:a.quote_token_program.to_account_info(),syste   e.g. @0x2a38 stxdw [fp],a ; stxdw [fp],b ; ldxdw c,[fp] ; ldxdw c,[c+0x0]
+   6  admin_cto.rs:749:501  x.is_writable,executable:x.executable,is_signer:x.is_signer,rent_epoch:x.rent_epoch,lampor   e.g. @0x3fc0 stxdw [fp],a ; ldxb a,[b+0x29] ; stxdw [fp],a ; ldxdw a,[fp]
+   6  admin_cto.rs:749:738  x.is_writable,executable:x.executable,is_signer:x.is_signer,rent_epoch:x.rent_epoch,lampor   e.g. @0x40d8 stxdw [fp],a ; ldxb a,[b+0x29] ; stxdw [fp],a ; ldxdw a,[fp]
+   5  admin_cto.rs:661:1285  a.creator_vault_quote_token_account.owner,lamports:x.lamports.clone(),rent_epoch:x.rent_ep   e.g. @0x31f8 stxdw [a+0x0],b ; jne c,0x1,@ ; ja @ ; ldxdw d,[d+0x78]
+   5  admin_cto.rs:746:28  val)=>{   e.g. @0x3d48 ldxdw a,[fp] ; stxdw [fp],a ; ldxdw b,[fp] ; ldxdw a,[b+0x98]
+   5  admin_cto.rs:749:961  x.rent_epoch,is_signer:x.is_signer,is_writable:x.is_writable,executable:x.executable,lampo   e.g. @0x41e8 stxdw [fp],a ; ldxdw a,[b+0x20] ; stxdw [fp],a ; ldxdw a,[fp]
+   5  admin_cto.rs:749:1080  x.owner,data:x.data.clone(),key:x.key}},sharing_config:a.sharing_config.to_account_info(),   e.g. @0x4258 ldxdw a,[b+0x18] ; stxdw [fp],a ; stxdw [fp],c ; stxdw [c+0x0],d
+   5  admin_cto.rs:560:30  token_frozen(a.coin_creator_vault_ata.as_ref())?;   e.g. @0x5c80 jeq a,0x2,@ ; ja @ ; mov64 b,1 ; stxdw [fp],b
+   5  admin_cto.rs:575:6  }   e.g. @0x6830 add64 a,k ; stxdw [b+0x8],a ; ldxdw b,[fp] ; xor64 b,1
+   4  admin_cto.rs:556:193  a.current_creator.owner!=&anchor_lang::system_program::ID{msg!("Creator is not a system-ow   e.g. @0x1d18 mov64 a,k ; call fn ; mov64 b,0 ; jne c,0x0,@
+   4  admin_cto.rs:0:7     e.g. @0x2130 mov64 a,0 ; mov64 b,k ; jeq c,0x0,@ ; mov64 d,fp
+   4  admin_cto.rs:0:0     e.g. @0x25e0 ldxdw a,[fp] ; ja @ ; ldxb b,[c+0xd1] ; jeq b,0x0,@
+   4  admin_cto.rs:661:0  else if !a.coin_creator_vault_ata.data_is_empty(){crate::pump_amm::cpi::transfer_creator   e.g. @0x2770 stxdw [fp],a ; ldxb a,[b+0x2a] ; stxdw [fp],a ; ldxdw b,[b+0x20]
+   4  admin_cto.rs:661:1219  x.key,data:a.creator_vault_quote_token_account.data.clone(),owner:a.creator_vault_quote_to   e.g. @0x31d0 ldxdw a,[fp] ; ldxdw a,[fp] ; ldxdw a,[fp] ; ldxdw a,[b+0x48]
+   4  admin_cto.rs:661:1366  x.rent_epoch,is_signer:x.is_signer,is_writable:x.is_writable,executable:x.executable}},eve   e.g. @0x3278 stxdw [fp],a ; ldxdw b,[b+0x20] ; stxdw [fp],b ; ldxdw a,[c+0x0]
+   4  admin_cto.rs:749:3  crate::pump_fees::cpi::admin_cto_sharing_config(CpiContext::new_with_signer(a.pump_fees.to   e.g. @0x4a40 ja @ ; ldxdw a,[fp] ; ldxdw b,[fp] ; and64 b,a
+   4  admin_cto.rs:753:87  curve.creator_fee_bps;   e.g. @0x4af8 ldxdw a,[a+0x70] ; stxdw [fp],a ; ldxdw b,[fp] ; and64 b,0x1
+   4  admin_cto.rs:663:80  a.creator_vault.lamports().saturating_sub(min);   e.g. @0x59b8 call fn ; mov64 a,1 ; mov64 b,c ; sub64 b,d
+   4  admin_cto.rs:664:147  crate::collect_v2::transfer_native(a.system_program.as_ref(),&a.creator_vault,&a.holder_cr   e.g. @0x5ab0 mov64 a,b ; ldxdw c,[fp] ; call fn ; mov64 a,d
+   3  admin_cto.rs:339:265  a.sharing_config.data_is_empty();let holder_key;let hk=Pubkey::find_program_address(&[b"ho   e.g. @0x180 mov64 a,b ; call fn ; mov64 c,d ; xor64 c,1
+   3  admin_cto.rs:339:721  a.bonding_curve.creator,max_fee:a.global.max_configurable_creator_fee_bps,mayhem:a.bonding   e.g. @0x418 stxdw [fp],a ; ldxdw a,[b+0x8] ; stxdw [fp],a ; ldxdw c,[d+0x430]
+   3  admin_cto.rs:0:5     e.g. @0x5a0 stxdw [fp],a ; ldxdw a,[fp] ; stxdw [fp],b ; add64 c,1
+   3  admin_cto.rs:334:113  error!(PumpError::CreatorFeeNotConfigurable));}   e.g. @0x1748 ldxdw a,[fp] ; ja @ ; ldxb b,[fp] ; ldxw b,[fp]
+   3  admin_cto.rs:339:1246  shared{if holder{sharing_update=Some(None);(false,false)}else{sharing_update=Some(args.0);   e.g. @0x17a0 ldxdw a,[fp] ; jne a,0x0,@ ; ja @ ; mov64 b,c
+   3  admin_cto.rs:0:1256     e.g. @0x1818 mov64 a,b ; add64 a,k ; mov64 c,d ; ldxdw d,[c+0x18]
+   3  admin_cto.rs:339:1328  args.0);target=a.bonding_curve.creator;(false,true)}}else{(!st.holder_reward&&st.creator!=   e.g. @0x1858 stxdw [fp],a ; ldxdw a,[b+0x0] ; stxdw [fp],a ; ldxw a,[c+0x0]
+   3  admin_cto.rs:664:312  token_frozen(a.creator_vault_quote_token_account.as_ref())?;let amount=token_raw_amount(a.   e.g. @0x20b0 ja @ ; stxdw [fp],a ; ldxdw a,[fp] ; add64 b,k
+   3  admin_cto.rs:661:1657  x.rent_epoch,is_signer:x.is_signer,is_writable:x.is_writable,executable:x.executable}}}))?   e.g. @0x3450 ldxdw a,[a+0x20] ; stxdw [fp],a ; ldxdw a,[fp] ; stxb [fp],a
+   3  admin_cto.rs:745:32  [&[b"pool-authority",mint.as_ref(),&[ctx.bumps.pool_authority]]];   e.g. @0x3cd8 stdw [fp],k ; ldxdw a,[fp] ; stxdw [fp],a ; and64 a,0xff
+   3  admin_cto.rs:746:8  sharing_update{Some(val)=>{   e.g. @0x3cf0 and64 a,0xff ; jne a,0x2,@ ; ja @ ; ldxdw a,[fp]
+   3  admin_cto.rs:749:1302  a.pump_fees_event_authority.key,owner:a.pump_fees_event_authority.owner,rent_epoch:a.pump_   e.g. @0x4518 stxdw [a+0x0],b ; jne c,0x1,@ ; ja @ ; ldxdw c,[d+0x98]
+   3  admin_cto.rs:761:9  a.bonding_curve.creator_fee_bps;let pool_updated=!a.pool.data_is_empty() && a.pool.owner==   e.g. @0x4b78 ldxdw a,[b+0x38] ; ldxdw c,[a+0x70] ; ldxdw a,[b+0x70] ; call fn
+   3  admin_cto.rs:761:59  a.pool.data_is_empty() && a.pool.owner==&AMM;let pargs=(target,a.bonding_curve.is_holder_r   e.g. @0x4b90 call fn ; jne a,0x0,@ ; ldxdw b,[c+0x70] ; ldxdw b,[b+0x18]
+   3  admin_cto.rs:762:5  pool_updated{   e.g. @0x4c00 call fn ; mov64 a,0 ; ja @ ; ldxdw b,[a+0x38]
+   3  admin_cto.rs:767:107  mint,bonding_curve:a.bonding_curve.key(),old_creator,new_creator:a.bonding_curve.creator,i   e.g. @0x4ed0 ldxdw a,[fp] ; stxdw [fp],a ; ldxdw b,[fp] ; and64 b,0xff
+   3  admin_cto.rs:767:172  a.bonding_curve.creator,is_holder_reward:a.bonding_curve.is_holder_reward,is_cashback_coin   e.g. @0x4f88 stxdw [fp],a ; ldxdw a,[b+0x20] ; stxdw [fp],a ; ldxb a,[b+0xa5]
+   3  admin_cto.rs:663:44  rent.minimum_balance(0)};let amount=a.creator_vault.lamports().saturating_sub(min);   e.g. @0x5990 mov64 a,0 ; call fn ; mov64 b,c ; add64 d,k
+   3  admin_cto.rs:559:39  a.creator_vault_quote_token_account.data_is_empty()&&!token_frozen(a.creator_vault_quote_t   e.g. @0x5c10 call fn ; mov64 a,0 ; stxdw [fp],a ; mov64 b,0
+   3  admin_cto.rs:0:6     e.g. @0x5e58 mov64 a,0 ; mov64 b,k ; mov64 c,d ; jeq d,0x0,@
+   2  admin_cto.rs:339:407  hk.0;let quote_locked={let q=a.bonding_curve.quote_mint;q==Pubkey::default()||q==anchor_sp   e.g. @0x258 ldxdw a,[fp] ; stxdw [fp],a ; ldxdw b,[c+0x38] ; ldxdw a,[b+0x40]
+   2  admin_cto.rs:339:679  a.global.creator_fee_configurable,creator:a.bonding_curve.creator,max_fee:a.global.max_con   e.g. @0x3e0 ldxdw a,[b+0x8] ; ldxb c,[a+0x43e] ; ldxdw d,[e+0x20] ; stxdw [fp],d
+   2  admin_cto.rs:339:950  a.global.is_holder_reward_enabled};let hopt=holder;let holder=hopt==Some(true);let cashbac   e.g. @0x438 ldxb a,[b+0x43f] ; stxdw [fp],c ; and64 c,0x1 ; ldxb d,[e+0xa2]
+   2  admin_cto.rs:326:2  match fee{Some(f)=>{if st.quote_locked{return Err(error!(PumpError::CreatorFeeNotConfigura   e.g. @0xaa0 ldxdw a,[fp] ; jeq a,0x0,@ ; ldxdw a,[fp] ; and64 a,0x1
+   2  admin_cto.rs:0:1343     e.g. @0x18e0 ldxdw a,[fp] ; mov64 b,0 ; mov64 a,c ; mov64 d,k
+   2  admin_cto.rs:648:144  error!(anchor_lang::error::ErrorCode::ConstraintSeeds).with_pubkeys((a.holder_creator_vaul   e.g. @0x2468 ldxdw a,[fp] ; ldxdw b,[fp] ; ja @ ; ldxdw c,[d+0x88]
+   2  admin_cto.rs:556:425  token_frozen(a.current_creator_quote_token_account.as_ref())?{msg!("Creator quote token ac   e.g. @0x2688 jeq a,0x0,@ ; mov64 b,0 ; ldxdw c,[d+0x0] ; ldxdw e,[d+0x18]
+   2  admin_cto.rs:661:924  x.key,data:x.data.clone(),owner:x.owner,rent_epoch:x.rent_epoch,is_signer:x.is_signer,is_w   e.g. @0x2fe0 stxdw [fp],a ; ldxdw b,[fp] ; ldxdw b,[fp] ; ldxdw b,[c+0xd8]
+   2  admin_cto.rs:661:1590  x.owner,lamports:x.lamports.clone(),data:x.data.clone(),rent_epoch:x.rent_epoch,is_signer:   e.g. @0x33a8 stxdw [fp],a ; ldxdw b,[c+0x18] ; stxdw [fp],b ; ldxdw a,[c+0x0]
+   2  admin_cto.rs:661:1578  x.key,owner:x.owner,lamports:x.lamports.clone(),data:x.data.clone(),rent_epoch:x.rent_epoc   e.g. @0x3428 jne a,0x1,@ ; ja @ ; ldxb b,[c+0x28] ; ldxb a,[c+0x29]
+   2  admin_cto.rs:749:376  x.key,executable:x.executable}},authority:{let x:&AccountInfo=a.admin_set_creator_authorit   e.g. @0x3f58 stxdw [fp],a ; ldxdw a,[b+0x0] ; stxdw [fp],a ; ldxb a,[b+0x29]
+   2  admin_cto.rs:749:311  x.rent_epoch,is_signer:x.is_signer,is_writable:x.is_writable,key:x.key,executable:x.execut   e.g. @0x3f88 stxdw [fp],a ; ldxdw b,[c+0x20] ; ldxdw c,[d+0x20] ; stxdw [fp],c
+   2  admin_cto.rs:749:549  x.is_signer,rent_epoch:x.rent_epoch,lamports:x.lamports.clone(),data:x.data.clone(),owner:   e.g. @0x3fa0 stxdw [fp],a ; ldxb a,[b+0x28] ; stxdw [fp],a ; ldxb a,[b+0x2a]
+   2  admin_cto.rs:749:639  x.owner,key:x.key}},global:{let x:&AccountInfo= a.global.as_ref().as_ref();AccountInfo{is_   e.g. @0x40a0 stxdw [fp],a ; ldxdw a,[b+0x18] ; ldxdw b,[c+0x20] ; stxdw [fp],b
+   2  admin_cto.rs:749:786  x.is_signer,rent_epoch:x.rent_epoch,lamports:x.lamports.clone(),data:x.data.clone(),owner:   e.g. @0x40b8 stxdw [fp],a ; ldxb a,[b+0x28] ; stxdw [fp],a ; ldxb a,[b+0x2a]
+   2  admin_cto.rs:749:876  x.owner,key:x.key}},mint:{let x:&AccountInfo= a.mint.as_ref();AccountInfo{rent_epoch:x.ren   e.g. @0x41a8 stxdw [fp],a ; ldxdw b,[b+0x18] ; stxdw [fp],b ; ldxb b,[c+0x2a]
+   2  admin_cto.rs:749:1385  a.pump_fees_event_authority.rent_epoch,is_signer:a.pump_fees_event_authority.is_signer,is_   e.g. @0x44f8 stxdw [fp],a ; ldxdw b,[c+0x20] ; ldxdw a,[c+0x18] ; ldxdw d,[c+0x0]
+   2  admin_cto.rs:756:3  curve.is_cashback_coin=cashback;   e.g. @0x4b28 ldxdw a,[b+0x38] ; stxb [a+0xa3],c ; ldxdw a,[fp] ; jeq a,0x1,@
+   2  admin_cto.rs:757:10  Some(f)=fee{curve.creator_fee_bps=f;}   e.g. @0x4b38 ldxdw a,[fp] ; jeq a,0x1,@ ; ja @ ; ldxdw a,[b+0x38]
+   2  admin_cto.rs:758:3  curve.can_edit_creator_fee=false;   e.g. @0x4b68 ldxdw a,[b+0x38] ; stb [a+0xa4],0 ; ldxdw a,[b+0x38] ; ldxdw c,[a+0x70]
+   2  admin_cto.rs:761:122  a.bonding_curve.is_holder_reward,fee);   e.g. @0x4c18 ldxdw a,[b+0x38] ; ldxb c,[a+0xa5] ; ldxdw d,[b+0x58] ; mov64 a,fp
+   2  admin_cto.rs:765:3  crate::pump_amm::cpi::admin_cto_pool(CpiContext::new_with_signer(a.pump_amm.to_account_inf   e.g. @0x4de0 mov64 a,fp ; mov64 b,c ; call fn ; mov64 d,1
+   2  admin_cto.rs:767:32  Clock::get()?.unix_timestamp,authority:a.admin_set_creator_authority.key(),mint,bonding_cu   e.g. @0x4e40 ldxdw a,[fp] ; ldxdw b,[fp] ; ldxdw c,[b+0x0] ; ldxdw c,[c+0x0]
+   2  admin_cto.rs:559:18  collection_native||(!a.creator_vault_quote_token_account.data_is_empty()&&!token_frozen(a.   e.g. @0x5c00 ldxdw a,[fp] ; ldxdw a,[a+0x48] ; call fn ; mov64 a,0
+   2  admin_cto.rs:562:6  do_collect{   e.g. @0x5e40 and64 a,0x1 ; jne a,0x0,@ ; ja @ ; mov64 b,0
+   2  admin_cto.rs:719:84  anchor_spl::associated_token::create_idempotent(CpiContext::new(a.associated_token_program   e.g. @0x5ff0 ldxdw a,[fp] ; jne a,0x2,@ ; ldxdw b,[fp] ; mov64 a,b
+   2  admin_cto.rs:664:17  crate::legacy_buy::native_payments::ensure_rent_exempt(&a.system_program,&a.admin_set_crea   e.g. @0x62f0 mov64 a,b ; ldxdw b,[fp] ; ja @ ; ldxdw b,[fp]
+   2  admin_cto.rs:578:6  coin_present&do_coin{   e.g. @0x6858 and64 a,b ; ldxdw b,[fp] ; jne a,0x0,@ ; ja @

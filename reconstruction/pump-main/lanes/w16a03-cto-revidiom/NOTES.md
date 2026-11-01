@@ -12,6 +12,8 @@ table below, a line-table source map of the whole original program, and two mech
   (tag + 7/8/8/8/1 from the validated target), but it moves the frame by 8 B in two regions (0.54993).
 - The `args=&(new,)` tuple in main works because it loads `new`'s tag early, as the original does (orig 0x4d8). Every
   `Some(new)`-without-args form collapses for that reason alone.
+- A map of where main makes instruction shapes that the original program never makes (`alien.py`): 416 4-grams. 100 of
+  them come from the two CPI statements built from manual `AccountInfo{..}` literals.
 
 ## 1. Method and tools (`tools/`, experiment only, pure Python after one build)
 
@@ -39,6 +41,19 @@ table below, a line-table source map of the whole original program, and two mech
   - `ircmp.py`: post-opt alloca and call diff of two oracle runs.
 - `tools/ir/cap.sh <name> <edits.py> <slot>` is the raw-IR capture plus opt/llc oracle (w15a23's t118 tools, repointed).
   On 9bd38c7 it reproduces main exactly (`eq_main: true`, 0.67376 / 3,124).
+
+Usage. The tools expect `$OUT=~/.cache/pumpfun-reconstruction/lanes/w16a03-cto-revidiom` (edit `OUT` in `shape.py`,
+`srcmap.py` and `tools/ir/*` for another lane).
+
+```bash
+llvm-objdump -d --no-show-raw-insn evidence/original/pump/deployed.so > $OUT/dis/orig.dis   # and $BASE/unstripped.so > main.dis
+python3 tools/ir/caplines.py <crate copy> $OUT/work1 $OUT/lines/cap    # one build slot; writes lines.s
+python3 tools/asmlines.py                                              # -> $OUT/lines/asm.pkl
+python3 tools/runs.py                                                  # orig-only runs vs main (true LCS, rfj)
+python3 tools/revidiom.py range 0x3d20 0x3d88 --n 4 --top 5            # who else has this shape, and from which source line
+python3 tools/srcmap.py 0x351f8                                        # any original address -> source
+bash tools/ir/cap.sh <name> e/<name>.py <slot>; python3 tools/binlcs.py <name>; python3 tools/fdelta.py <name>
+```
 
 Data (`data/`): `classes-revidiom.txt` (the query classes below), `runs-revidiom.txt` (all 61 orig-only runs of at least
 2 instructions), `q1-*.txt`, `q2-7byte-pieces.txt`, `call-sequence-orig-vs-main.txt`.
@@ -123,9 +138,51 @@ It also keeps the structure: rfj is only -45 vs main, and its frame bottom is `-
   has these exactly. In all, 360 matched frame accesses are off, against main's 121 (`fdelta.py`, per-slot table in the
   ledger row).
 
+Bound: with the frame masked (`fj`), valmap is 2457 against main's 2581. With registers masked (`rj`), it is 2448
+against 2722. So a perfect frame partner alone would still leave valmap 124 matched tokens short on registers.
+
 Control: dropping main's `Ok::<_,Error>((target,sharing_update,cashback))?` round trip alone (`m_nt`) gives 0.55019, the
 same level. That round trip is worth +0.12 on main through the frame. With valmap it does nothing (`vm_nt` 0.55022). So a
 usable valmap needs its own frame-shaping partner. Section 5 lists the order and arity variants screened.
+
+Frame-partner screen on valmap (raw-IR oracle, all at 27,352 B):
+
+| variant | change on top of valmap | ratio | exact / rfj |
+| --- | --- | --- | --- |
+| vmr_stc, vmr_cts, vmr_cst, vmr_sct, vmr_tcs | the Ok round-trip tuple in each other field order | 0.54993 | 1949 / 2940 |
+| vmr_ts | round trip of `(target,sharing_update)` only | 0.54993 | 1949 / 2939 |
+| vmr_t | round trip of `target` only | 0.55172 | 1952 / 2939 |
+| vm_nt | no round trip | 0.55022 | 1948 / 2939 |
+
+rustc lays the tuple out the same way whatever the field order, and once the payload is on the Result grid the round trip
+no longer moves the frame. None of these is a partner.
+
+### 4.3 Both Q2 classes at once
+
+The original's entry pieces (Q2b) are reproduced by "validate reads `args.0`" (w13a41 t1 found the 7/8/8/9 entry loads at
+0x655/0x658/0x900/0x660/0x668). On 9bd38c7 that form alone (`mA`) is 0.43917 @27,584, which is +184 B and rfj 2413.
+Joined with valmap (`vmA`) it is 0.4494 @27,824, rfj 2420. Each of the two Q2 classes can now be produced by an ordinary
+spelling, but neither survives on today's skeleton. The original produces both because its validate is threaded per
+arm. In the non-holder shared path the target pieces are then `new`'s entry SSA values (val[8..16) = `[-0x900]`, the
+entry def at 0x510).
+
+### 4.4 Where main makes shapes the original never makes (`tools/alien.py`, `data/alien-shapes-main.txt`)
+
+416 of main's 3,334 4-grams occur neither in the original admin_cto nor in any matched window. They are mapped to
+main's own source lines through the same line-table build. By line of `admin_cto.rs`:
+
+| line | alien 4-grams | construct |
+| ---: | ---: | --- |
+| 339 | 96 | the execute head: PDA call before the stack-argument loads, CtoState literal, shared non-holder arm (`target=a.bonding_curve.creator`) |
+| 749 | 59 | sharing CPI built from manual `AccountInfo{..}` literals (field-order permutations) |
+| 661 | 41 | TCF CPI built from manual `AccountInfo{..}` literals |
+| 307 | 24 | `with_pubkeys((t,Pubkey::default()))` with `to_string` inlined (class D) |
+| 664 | 21 | sweep native/token arm (`token_frozen` before `token_raw_amount`) |
+| 289 | 10 | holder test (`hopt==Some(true)` basin) |
+
+The two CPI statements built from manual AccountInfo literals (lines 661 and 749) account for 100 of these shapes, mostly at the literal fields. They
+earn main's ratio through RA, but they are the least faithful construct left after the two placeholders. A later lane that
+rewrites the clone runs as `to_account_info()` (s1, w15a34) should measure against this count as well as the ratio.
 
 ## 5. Next ideas
 

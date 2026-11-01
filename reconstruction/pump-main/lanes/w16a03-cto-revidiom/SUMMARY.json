@@ -1,0 +1,141 @@
+{
+ "lane": "w16a03-cto-revidiom",
+ "wave": 16,
+ "target": {
+  "window": "0x22a10",
+  "function": "admin_cto::execute",
+  "file": "programs/pump/src/creator/admin_cto.rs",
+  "pinned_bytes": 27400
+ },
+ "base": {
+  "main": "9bd38c7d5",
+  "admin_cto": {
+   "ratio": 0.67376,
+   "slots_diff": 3124,
+   "bytes": 27400
+  },
+  "normalized": 1034,
+  "raw": 1034
+ },
+ "result": "notes only; no source change landed",
+ "best_zero_loss": {
+  "ratio": 0.67376,
+  "slots_diff": 3124,
+  "bytes": 27400,
+  "note": "main itself; no probe beat it"
+ },
+ "pr": 3866,
+ "ledger": {
+  "approach": "revidiom",
+  "key_prefix": "0x22a10-w16-9bd38c7-revidiom-"
+ },
+ "deliverables": [
+  "tools/ir/caplines.py + asmlines.py + srcmap.py: line-table build of the identity recipe and an original-address -> source map (innermost .loc and nearest programs/ call site); 668/716 crate functions mnemonic-identical to the original windows, the rest difflib-aligned",
+  "tools/revidiom.py: shape n-gram index over all 1,034 matched windows (alpha-renamed registers, masked r10 offsets/immediates, kept field offsets); range and runs lookups with source lines",
+  "data/: Q1 clone census, Q2 7-byte piece census, Q3/Q4 class lookups, all 61 orig-only runs, orig-vs-main call sequence",
+  "tools/binlcs.py, fdelta.py, ircmp.py, queue.sh: masked true-LCS, per-slot frame deltas over matched pairs, post-opt alloca diff, two-slot oracle queue",
+  "tools/alien.py + data/alien-shapes-main.txt: main-only shapes absent from the whole original program, mapped to admin_cto.rs line:col"
+ ],
+ "findings": [
+  "Q1: the original reloads the accounts pointer before 10/19 AccountInfo clones (main 3/19). No matched window comes close: holder_distribution (loop) 5/13, every other multi-clone CPI build holds the pointer. RA pressure only, no idiom.",
+  "Q2: all 46 matched 7/8/8/8/1 piece copies are Ok payloads of Result<Pubkey,E> (core result.rs:1952 Try::branch or Ok(..)); the Err payload at 8..24 splits SROA on the 8-byte grid. The admin_cto entry load of new on that grid (orig 0x4d8-0x538) appears nowhere else.",
+  "Shape uniqueness: 43% of the 4-grams covering admin_cto's orig-only runs occur in no matched window (19% for the whole original function).",
+  "Some(new) without the args tuple collapses (0.48104) only because new's tag is then loaded inside the sharing arm; main's args tuple loads it early, at the original's position (orig 0x4d8). Same 281 blocks and alloca set; rfj LCS 2985 -> 2414.",
+  "sharing_update=Some(args.0.map(|_|target)) reproduces the original sharing-CPI val copy shape (tag + 7/8/8/8/1 from the validated target), rfj only -45 vs main and the original's frame bottom -0xc38, but spill slots move (360 frame accesses off vs 121): 0.54993 @27,352. match/if spellings are byte-identical.",
+  "Dropping main's Ok::<_,Error>((target,sharing_update,cashback))? round trip costs 0.12 (m_nt 0.55019): it is a frame-order construct; it does nothing for valmap (vm_nt 0.55022).",
+  "Q4: the sibling create_v2::execute writes the same fee checks followed by fee=creator_fee_bps.0 in the OK path, i.e. a validated-fee local; this confirms w15a29's fee-tag phi reading of the original OK block (priced below main by w15a29/w15a15).",
+  "Both Q2 classes are reproducible by ordinary spellings (entry pieces: validate reads args.0, w13a41; val copy: Some(args.0.map(|_|target))), but neither survives on today's skeleton (mA 0.43917 @27584, vmA 0.4494 @27824); the original gets both from its per-arm threaded validate.",
+  "alien.py: 416 of main's 3,334 4-grams occur neither in the original admin_cto nor in any matched window; by admin_cto.rs line: 339 (execute head) 96, 749 (sharing CPI manual AccountInfo literals) 59, 661 (TCF manual literals) 41, 307 (to_string inlined) 24, 664 (sweep token arm) 21."
+ ],
+ "attempts": [
+  {
+   "name": "u_none",
+   "edit": "args removed, Some(new)",
+   "ratio": 0.48104,
+   "bytes": 27376
+  },
+  {
+   "name": "valmap",
+   "edit": "Some(args.0.map(|_|target))",
+   "ratio": 0.54993,
+   "bytes": 27352
+  },
+  {
+   "name": "vm_m",
+   "edit": "Some(match args.0{Some(_)=>Some(target),None=>None})",
+   "ratio": 0.54993,
+   "bytes": 27352
+  },
+  {
+   "name": "vm_i",
+   "edit": "Some(if args.0.is_some(){Some(target)}else{None})",
+   "ratio": 0.54993,
+   "bytes": 27352
+  },
+  {
+   "name": "valand",
+   "edit": "Some(args.0.and(Some(target)))",
+   "ratio": 0.37751,
+   "bytes": 27352
+  },
+  {
+   "name": "vm_nt",
+   "edit": "valmap without the Ok tuple round trip",
+   "ratio": 0.55022,
+   "bytes": 27352
+  },
+  {
+   "name": "m_nt",
+   "edit": "main without the Ok tuple round trip",
+   "ratio": 0.55019,
+   "bytes": 27384
+  },
+  {
+   "name": "vmr_stc/cts/cst/sct/tcs",
+   "edit": "valmap + Ok round-trip tuple in other field orders",
+   "ratio": 0.54993,
+   "bytes": 27352
+  },
+  {
+   "name": "vmr_ts",
+   "edit": "valmap + round trip of (target,sharing_update) only",
+   "ratio": 0.54993,
+   "bytes": 27352
+  },
+  {
+   "name": "vmr_t",
+   "edit": "valmap + round trip of target only",
+   "ratio": 0.55172,
+   "bytes": 27352
+  },
+  {
+   "name": "mA",
+   "edit": "validate reads args.0 (Q2b entry-piece form) on 9bd38c7",
+   "ratio": 0.43917,
+   "bytes": 27584
+  },
+  {
+   "name": "vmA",
+   "edit": "valmap + validate reads args.0 (both Q2 classes)",
+   "ratio": 0.4494,
+   "bytes": 27824
+  }
+ ],
+ "rejected_mechanisms": [
+  "clone-run reload idiom from sibling windows (none exists)",
+  "Some(new) without an early tag read",
+  "Option::and payload form",
+  "valmap alone and without the Ok round trip",
+  "valmap round-trip order/arity partners",
+  "validate reads args.0 on 9bd38c7 (alone and with valmap)"
+ ],
+ "unresolved_residuals": [
+  "valmap frame: the sharing payload becomes three 7B/9B pairs and two validate-exit SSA spills; the original uses new's entry piece [-0x900] and the per-arm phi [-0x948], which needs the per-arm threaded validate (class F) that collapses today",
+  "entry load of new on the Result grid (Q2b) has no matched-corpus precedent"
+ ],
+ "next_ideas": [
+  "valmap plus a frame partner: screen round-trip tuple orders/arity and size knobs with fdelta.py; a partner must put the accounts pointer back at -0x8d8 and ctx at -0x938",
+  "use revidiom.py/srcmap.py before any sibling-idiom trial: it answers in seconds whether a shape exists anywhere in the matched corpus and which source line made it",
+  "combine valmap with the per-arm threading forms (ov1-ov4) only once their sharing-arm IR position is pinned (w15a11 section 4)"
+ ]
+}
