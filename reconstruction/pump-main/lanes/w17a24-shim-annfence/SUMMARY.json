@@ -1,0 +1,52 @@
+{
+  "lane": "w17a24-shim-annfence",
+  "wave": 17,
+  "track": "shim",
+  "target": {"window": "0x22a10", "function": "admin_cto::execute", "file": "programs/pump/src/creator/admin_cto.rs", "pinned_bytes": 27400},
+  "result": "notes only, no gain: llvm.annotation / llvm.ptr.annotation calibrated byte-identical, fold table written, four beams and all combination screens at or below main",
+  "bases": {
+    "4d09af488": {"ratio": 0.68514, "M": 2287, "oracle_sig": "85d273bcd66a"},
+    "aab087f32": {"ratio": 0.68724, "M": 2294, "oracle_sig": "60f85431781c"},
+    "53ec7fb53": {"ratio": 0.68754, "M": 2295, "oracle_sig": "61dcfe87f489", "note": "later mains to e0c7eba85 change only programs/pump/recovered/"},
+    "w17a16 WXvp on 53ec7fb": {"M": 2300, "bytes": 27328, "oracle_sig": "28877df3c8b1"}
+  },
+  "best": {"ratio": 0.68754, "slots_diff": 3096, "bytes": 27400, "note": "= main 53ec7fb; no zero-loss improvement found"},
+  "calibration": {
+    "cal0": "five declarations on line 8: identical (no declaration emitted for an unused extern)",
+    "cal2": "plus ann1 on the quote_locked copy in the CtoState literal: measure.sh 0.68514, 3092 slots, 27400 B, 1034/1034, zero losses, masked admin_cto sig 85d273bcd66a = main 4d09af488"
+  },
+  "attempts": [
+    {"name": "beam1 (4d09af4)", "singles": 3270, "families": {"ai": 646, "ap": 871, "ax": 11, "au": 1517, "se": 225}, "changed": 1248, "best_at_27400": 0, "best_offsize": "+1 @-8 B (312 compare i1; accounts pointer of CtoState mayhem/holder_reward; unused ann on execute holder)"},
+    {"name": "passthrough twins of 618 changed ai/ap/ax cells", "cgp_isel_only": 236, "opt_level_same_as_pt": 247, "both": 135, "best_cgp_only": "0 M @+8 B"},
+    {"name": "post-opt llc-only beam (4d09af4)", "edits": 1736, "changed": 146, "best": "-1 M"},
+    {"name": "400 size-neutral additive combos (4d09af4)", "best": 2287},
+    {"name": "early &curve.creator (orig 0x22d68) GEP + ptr.annotation, 4 placements (aab087f)", "result": "M 1701 @27552, RA renames from instruction 1"},
+    {"name": "beam2 (aab087f) + 1159 pt/weight/volatile-field singles", "best_at_27400": 0, "greedy_with_repay": 2294, "offsize_x_repay_pairs": "45, all 2294"},
+    {"name": "beam3 (53ec7fb)", "singles": 3270, "best_at_27400": 0, "neutral_pairs": "105, max 2295", "shrink_x_grow_pairs": "50, max 2295", "triples": "90, max 2295"},
+    {"name": "positional slots tie-break (53ec7fb)", "candidates": 179, "slots": "3095-3108 vs base 3095"},
+    {"name": "outline base WXvp repay prices", "singles": 412, "best": "ai:wallet:31109 +1 @+8 B (collection_native byte; conflicts with cnat); wallet token_frozen ? residual tag -1 @+24 B (no source spelling); error-code anns -3..-10 @+8 B"},
+    {"name": "w17a16 es_vst lifetime lead re-check", "result": "2302 only on v_st (needs the unsafe early END of st); 1910-1918 on every valid base"}
+  ],
+  "rejected_mechanisms": [
+    "annotation CGP/ISel fold class as a single lever (flat on admin_cto)",
+    "early &curve.creator via ptr.annotation (RA collapse)",
+    "annotation repay of the outline base (every +8 B costs >= 3 M except one conflicting cell)",
+    "slots tie-break at M 2295",
+    "sharing_update.sroa.6 early lifetime start (only on an invalid base)"
+  ],
+  "unresolved_residuals": [
+    "orig address-in-register shapes: PDA-first memcmp arg (0x22bc8), early &curve.creator (0x22d68), new payload pointer of the 7/9 piece copy (0x23620): all need the original RA basin",
+    "outline base 72 B repay at <= 4 M"
+  ],
+  "next_ideas": [
+    "outline repay: give ai:wallet:31109 (+1 @+8 B on WXvp) its compare and find a different 64 B repay than cnat",
+    "a source spelling for the wallet token_frozen(..)? Result-tag cells (-1 @+24 B on WXvp, +8..+24 B at >= 0 M in w17a06/w17a16 beams), e.g. a manual match whose tag word goes through ann",
+    "error-code annotations need a manual error! expansion on the same line; they are base-dependent size knobs (free on aab087f at 306/307/312)"
+  ],
+  "ledger_keys": [
+    "0x22a10-w17-4d09af4-annfence-cal2-v1", "0x22a10-w17-4d09af4-annfence-cal2-correction-v1", "0x22a10-w17-4d09af4-annfence-beam1-v1",
+    "0x22a10-w17-aab087f-annfence-creatoraddr-early-v1", "0x22a10-w17-aab087f-annfence-beam2-v1", "0x22a10-w17-53ec7fb-annfence-beam3-v1",
+    "0x22a10-w17-53ec7fb-annfence-wxvp-repay-v1", "0x22a10-w17-53ec7fb-annfence-tieslots-v1", "0x22a10-w17-53ec7fb-annfence-vst-earlystart-check-v1"
+  ],
+  "data": "/Users/shawwalters/.cache/pumpfun-reconstruction/lanes/w17a24-shim-annfence/res/ (ann_singles, ann2_singles, ann3_singles, annW_singles, mix2_singles, post_singles, pt_singles1, combo/pairs/trip outputs, tie3_slots)"
+}

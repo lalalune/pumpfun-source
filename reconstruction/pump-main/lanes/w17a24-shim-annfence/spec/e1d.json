@@ -1,0 +1,2 @@
+{"after":{"28767":["  %crp = call ptr @llvm.ptr.annotation.p0.p0(ptr %_325, ptr null, ptr null, i32 9001, ptr null)","  %cra = getelementptr inbounds i8, ptr %crp, i64 8"]},
+ "replace":{"28839":["ptr align 8 %64,","ptr align 8 %cra,"]},"decl":["declare ptr @llvm.ptr.annotation.p0.p0(ptr, ptr, ptr, i32, ptr)"]}
