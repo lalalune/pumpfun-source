@@ -13,6 +13,7 @@ All figures are `relay/tools/measure.sh` on the Mac route unless marked Linux: n
 | merge C4's handler move | `afe1b2869` | 550 | 795,888 | 537 | 22,643 / 16 | none |
 | bridge handlers into their instruction modules, modules reordered | `ddba01c1e` | 550 | 795,888 | 537 | 23,042 / 10 | none |
 | event and state modules reordered | `36f255cac` | 550 | 795,888 | 538 | 23,074 / 4 | none |
+| `#[access_control]` on the nine relayer handlers | see below | 550 | 795,888 | 538 | 23,074 / 4 | none |
 
 `.rodata` target size is 23,104 B. "Common" and "edits" come from `difflib.SequenceMatcher` over the two sections, without autojunk.
 
@@ -69,13 +70,34 @@ So `lib.rs` now declares `relayer_only { close_donation_epoch; distribute {..}; 
 
 The errors keep literal lines through `bridge_error!`, so the placement in the file is not pinned by these two functions. Nothing in either function has a `Location`, so the handler signature (free function or inherent) is not pinned by the bytes either.
 
+## `#[access_control]` on the relayer handlers
+
+The target's `#[program]` handlers are not in program order, although `__global` is:
+
+```
+0x8f3e0 donate_v1, pubkey_config_id, native, native_pubkey_config_id, with_payer
+0x933a0 recover_bridge_payment_v1
+0x93ff8 entrypoint, then __rust_alloc .. custom_panic
+0x94610 distribute_exact_after, exact_non_swap, non_swap, after, just_swap, swap_then, close, 0x99d70 admit
+0x9aa78 try_accounts
+```
+
+The handlers without a relayer check stay in source order. Those with `check_relayer` come after the `entrypoint!` output, in reverse source order. `upsert_mint_whitelist_v1` is inlined, so it does not show. That is the layout of an attribute macro on those handlers, and Anchor's `#[access_control]` expands to the same `check_relayer(..)?;` first statement. Replacing the statement with the attribute on all nine handlers:
+
+```rust
+#[access_control(check_relayer(&ctx.accounts.signer))]
+pub fn admit_bridge_payment_v1(..)
+```
+
+gives exactly this sequence with the same spacing from `recover` through `try_accounts`, with no change to any function body and no losses. `order.py` goes from 503 to 511 functions in order. The reason for the reversal is my reading of rustc's macro expansion (invocations that cannot be resolved yet are retried from the end of the queue), not something measured. The sequence itself is measured.
+
 ## What `.rodata` still differs in
 
 Four edits, none tied to this cluster:
 
 - `programs/contracts/src/tools/distribution/shared.rs`, in the candidate only, from three `Location`s at `91:45`, `118:54` and `134:13`. Those are the only `Location` difference left against the target (C1, C2).
-- `\r\0\0\0` at target `0xce4`, one `ErrorCode` constant. C4's notes tie code 13 to the open `0x24ec0` (C2). Not checked by a build here.
-- `Unexpected length of input`, at `0x3fe5` in the target and later here. `borsh::de::unexpected_eof_to_unexpected_length_of_input` is also out of order, and it is a symbol-sorted upstream instance, so this is probably the host hash. See the Linux result below.
+- `\r\0\0\0` at target `0xce4`, one `ErrorCode` constant. In the target only `0x24ec0` references it (C2), so it should follow that function. Not checked by a build here.
+- `Unexpected length of input`, at `0x3fe5` in the target and later here. In the target only `0xbb2a8`, `borsh::de::unexpected_eof_to_unexpected_length_of_input`, references it. That function is also out of order here and is upstream code, so this is probably the host hash. See the Linux result below.
 
 ## Mac and Linux
 
