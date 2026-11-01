@@ -9,7 +9,7 @@ use anchor_lang::prelude::*;
 pub fn native_program_supported(program:&Pubkey)->bool {
  program.to_bytes()==crate::codec::constants::TOKEN || program.to_bytes()==crate::codec::constants::TOKEN2022
 }
-fn native_mint_for_program(program:&Pubkey)->Result<Pubkey> {
+pub fn native_mint_for_program(program:&Pubkey)->Result<Pubkey> {
  if program.to_bytes()==crate::codec::constants::TOKEN {Ok(Pubkey::new_from_array(crate::codec::constants::NATIVE))}
  else if program.to_bytes()==crate::codec::constants::TOKEN2022 {Ok(Pubkey::new_from_array(crate::codec::constants::NATIVE2022))}
  else {Err(crate::business_error_codes::ErrorCode::InvalidTokenProgram.into())}
