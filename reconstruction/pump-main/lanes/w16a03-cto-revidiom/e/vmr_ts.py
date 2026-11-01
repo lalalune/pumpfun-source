@@ -1,0 +1,1 @@
+EDITS=[('sharing_update=Some(args.0);', 'sharing_update=Some(args.0.map(|_|target));'),('let (target,sharing_update,cashback)=Ok::<_,anchor_lang::error::Error>((target,sharing_update,cashback))?;','let (target,sharing_update)=Ok::<_,anchor_lang::error::Error>((target,sharing_update))?;')]
