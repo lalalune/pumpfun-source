@@ -88,6 +88,12 @@ faithful tail spellings were re-priced on the landed base:
 | nfa / nfad | `let nf` moved behind the gate / + evd | 2,259 / 2,258 | 27,416 / 27,408 | |
 | evdnv | evd + volatile n1 | 2,248 | 27,368 | |
 | arm2 / arm2p | second accounts reload at the CPI arm head / + `pargs` built in the arm | 2,136 | 27,472 | collapse |
+| pH | volatile accounts reload before the gate (shadows `a` to the end), one pool pointer for both tests | 2,102 | 27,336 | |
+
+Repay screens (single IR edits, w17a06 `gen.py`/`screen.py`):
+- evd (2,268 @27,392), all 893 edits: best at 27,400 is 2,269 (`vl:execute:29683` / `vl:execute:30020`, +8 B). The pairs
+  `bf:wallet:31113` + either give 2,270 @27,400, a tie with main, so not landable as a gain.
+- m2n (n1, 2,266 @27,376), 592 of 893 edits: nothing at 27,400 above 2,259. No +24 B repay for n1 was found.
 
 Weight and fence screen on the faithful tail m2hdn (360 edits): the layout comes back with
 `sw2:execute:29844` (2000 on the sharing CPI `?` Err case) at 2,258 @27,352 and with `sw1:execute:29986` (2000 on
