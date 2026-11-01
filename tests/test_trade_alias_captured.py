@@ -335,6 +335,16 @@ class TradeAliasCapturedTests(unittest.TestCase):
         answers = self.run_cases(cases)
         self.assertGreater(sum(a == 'error:1' for a in answers), 60)
 
+    def test_unknown_trade_op_is_rejected(self):
+        # A misspelt op must stop the driver instead of running another trade.
+        fields = host_line(case('buy')).split(',')
+        for op in ('sel', 'exact22', 'sell3', 'BUY'):
+            line = ','.join([op if i == 1 else f for i, f in enumerate(fields)])
+            result = subprocess.run([str(self.host)], input=line + '\n', capture_output=True, text=True)
+            self.assertNotEqual(result.returncode, 0, op)
+            self.assertEqual(result.stdout, '', op)
+            self.assertIn(f'unknown op {op}', result.stderr, op)
+
     def test_checker_rejects_a_changed_movement(self):
         # Negative control: moving one lamport between two keys must be caught.
         item = case('buy', 'user', 'vault')
