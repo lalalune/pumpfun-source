@@ -38,7 +38,7 @@ SCHEMA = "pump-admin-cto-guided-campaign-v1"
 PRODUCERS = (
     HERE / "case_model.py", HERE / "executor.py", HERE / "reducer.py",
     HERE / "corpus.py", HERE / "behavior.py", HERE / "campaign.py",
-    HERE / "verify_report.py", HERE / "guided_campaign.py",
+    HERE / "verify_report.py", HERE / "guided_campaign.py", HERE / "verify_guided.py",
     ROOT / "reconstruction/verification/pump-admin-cto-stateful/lifecycle.py",
     E.L.IDL_PATH, E.L.CONFIG_PATH, ROOT / "scripts/pump_differential_output.py",
 )
