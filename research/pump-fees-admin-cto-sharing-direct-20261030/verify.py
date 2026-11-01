@@ -21,6 +21,16 @@ HERE = pathlib.Path(__file__).resolve().parent
 def verify_manifest():
     """The packet pins every file it ships; check them before the producer runs."""
     manifest = json.loads((HERE / 'MANIFEST.json').read_text())
+    paths = [entry['path'] for entry in manifest['files']]
+    if len(set(paths)) != len(paths):
+        raise SystemExit('duplicate packet manifest path')
+    entries = list(HERE.rglob('*'))
+    if any(path.is_symlink() or path.suffix in ('.pyc', '.pyo') for path in entries):
+        raise SystemExit('packet contains a symlink or cached bytecode')
+    present = {path.relative_to(HERE).as_posix() for path in entries
+               if path.is_file() and path != HERE / 'MANIFEST.json'}
+    if set(paths) != present:
+        raise SystemExit('packet file set differs from MANIFEST.json')
     for entry in manifest['files']:
         path = HERE / entry['path']
         data = path.read_bytes() if path.is_file() else None

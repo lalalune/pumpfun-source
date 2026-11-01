@@ -82,5 +82,18 @@ class PairSourceOverlapTests(unittest.TestCase):
         self.assert_sources_unchanged()
 
 
+    def case_alias_output(self, repo):
+        alias = repo.with_name(repo.name.upper())
+        if not alias.exists() or not alias.samefile(repo):
+            self.skipTest("requires a case-insensitive filesystem")
+        return alias / "programs/pump/new-evidence"
+
+    def test_case_alias_output_inside_base_source_is_rejected_before_writes(self):
+        self.rejected(self.case_alias_output(self.repos[0]))
+
+    def test_case_alias_output_inside_candidate_source_is_rejected_before_writes(self):
+        self.rejected(self.case_alias_output(self.repos[1]))
+
+
 if __name__ == '__main__':
     unittest.main()

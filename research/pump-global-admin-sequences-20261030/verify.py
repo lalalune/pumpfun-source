@@ -3,6 +3,8 @@
 
 Uses only the packet files and the two Pump program images:
 - MANIFEST.json lists every packet file except itself with matching sha256/bytes.
+  No manifest path is listed twice and no packet member is a symlink or
+  cached bytecode.
 - runtime/report.json.gz part entries match the receipt part files (sha256, bytes, count).
 - Both images hash to the values recorded in the report.
 - Every stored receipt transaction parses and all signatures verify.
@@ -44,9 +46,16 @@ def main():
     images = json.loads(ap.parse_args().images)
 
     manifest = json.loads((HERE / 'MANIFEST.json').read_text())
-    listed = {e['path'] for e in manifest['files']}
-    present = {str(p.relative_to(HERE)) for p in HERE.rglob('*')
-               if p.is_file() and p.name != 'MANIFEST.json' and '__pycache__' not in p.parts}
+    paths = [e['path'] for e in manifest['files']]
+    if len(set(paths)) != len(paths):
+        fail('duplicate packet manifest path')
+    entries = list(HERE.rglob('*'))
+    # Python -B still reads cached bytecode; it must not bypass source admission.
+    if any(p.is_symlink() or p.suffix in ('.pyc', '.pyo') for p in entries):
+        fail('packet contains a symlink or cached Python bytecode')
+    listed = set(paths)
+    present = {p.relative_to(HERE).as_posix() for p in entries
+               if p.is_file() and p != HERE / 'MANIFEST.json'}
     if listed != present:
         fail(f'manifest set differs: missing {sorted(present - listed)} extra {sorted(listed - present)}')
     for e in manifest['files']:

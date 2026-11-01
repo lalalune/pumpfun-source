@@ -1,0 +1,125 @@
+{
+  "runs": {
+    "before": 41282982928,
+    "after": 41283174088
+  },
+  "tested_revisions": {
+    "before": "d14536ff3a54f3387757c672570f957f81ecfde9",
+    "after": "650756326928eb8fdedb8161fc632075bf95059b"
+  },
+  "rows": {
+    "before": {
+      "base-case-alias": {
+        "returncode": 2,
+        "output_exists": true,
+        "scoring_original_exists": true,
+        "source_unchanged": {
+          "base": false,
+          "candidate": true
+        }
+      },
+      "candidate-case-alias": {
+        "returncode": 2,
+        "output_exists": true,
+        "scoring_original_exists": true,
+        "source_unchanged": {
+          "base": true,
+          "candidate": false
+        }
+      },
+      "lexical-control": {
+        "returncode": 2,
+        "output_exists": false,
+        "scoring_original_exists": false,
+        "source_unchanged": {
+          "base": true,
+          "candidate": true
+        }
+      },
+      "symlink-control": {
+        "returncode": 2,
+        "output_exists": false,
+        "scoring_original_exists": false,
+        "source_unchanged": {
+          "base": true,
+          "candidate": true
+        }
+      },
+      "ancestor-control": {
+        "returncode": 2,
+        "output_exists": true,
+        "scoring_original_exists": false,
+        "source_unchanged": {
+          "base": true,
+          "candidate": true
+        }
+      },
+      "disjoint-control": {
+        "returncode": 2,
+        "output_exists": true,
+        "scoring_original_exists": true,
+        "source_unchanged": {
+          "base": true,
+          "candidate": true
+        }
+      }
+    },
+    "after": {
+      "base-case-alias": {
+        "returncode": 2,
+        "output_exists": false,
+        "scoring_original_exists": false,
+        "source_unchanged": {
+          "base": true,
+          "candidate": true
+        }
+      },
+      "candidate-case-alias": {
+        "returncode": 2,
+        "output_exists": false,
+        "scoring_original_exists": false,
+        "source_unchanged": {
+          "base": true,
+          "candidate": true
+        }
+      },
+      "lexical-control": {
+        "returncode": 2,
+        "output_exists": false,
+        "scoring_original_exists": false,
+        "source_unchanged": {
+          "base": true,
+          "candidate": true
+        }
+      },
+      "symlink-control": {
+        "returncode": 2,
+        "output_exists": false,
+        "scoring_original_exists": false,
+        "source_unchanged": {
+          "base": true,
+          "candidate": true
+        }
+      },
+      "ancestor-control": {
+        "returncode": 2,
+        "output_exists": true,
+        "scoring_original_exists": false,
+        "source_unchanged": {
+          "base": true,
+          "candidate": true
+        }
+      },
+      "disjoint-control": {
+        "returncode": 2,
+        "output_exists": true,
+        "scoring_original_exists": true,
+        "source_unchanged": {
+          "base": true,
+          "candidate": true
+        }
+      }
+    }
+  },
+  "limits": "Real paired-build source-admission/output-preflight observations on Mac with actual current Pump source copies. SDK arguments deliberately absent; no compilation/scoring/VM or binary-equivalence claim."
+}

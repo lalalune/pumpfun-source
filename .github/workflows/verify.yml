@@ -453,6 +453,9 @@ jobs:
               python -B research/tooling-indirect-call-decoding-20261030/test_verify.py
               python -B tests/test_checkpoint_manifest_paths.py
               python -B tests/test_packet_manifest_census.py
+              python -B tests/test_v3_buy_crossing_section_audit.py
+              python -B tests/test_checkpoint_runtime_reuse_binding.py
+              python -B research/pair-case-output/verify.py
               python -B tests/test_verifier_module_imports.py
               python -B tests/test_reconstruction_packet_manifests.py
               python -B tests/test_borrowed_selection_packet_files.py

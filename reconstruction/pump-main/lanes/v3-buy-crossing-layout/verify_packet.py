@@ -21,6 +21,15 @@ def read(name):
     return json.loads(gzip.decompress(data) if name.endswith('.gz') else data)
 
 
+def manifest_pairs(pairs):
+    """A repeated path is ambiguous even when its final digest is correct."""
+    rows = {}
+    for name, digest in pairs:
+        require(name not in rows, 'duplicate packet manifest path: ' + name)
+        rows[name] = digest
+    return rows
+
+
 SECTIONS = ('.rodata', '.data.rel.ro')
 
 
@@ -40,7 +49,18 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--signatures', action='store_true', help='Requires solders==0.27.1')
     args = parser.parse_args()
-    for name, digest in read('manifest.json').items():
+    # Hashing only the listed names leaves every other file in the folder
+    # unread: a packet that gained a file the manifest never lists still
+    # verified, and that file is exactly what a reader would not check.
+    entries = list(HERE.rglob('*'))
+    require(not any(p.is_symlink() or p.suffix in ('.pyc', '.pyo') for p in entries),
+            'packet holds a symlink or cached bytecode')
+    rows = json.loads((HERE / 'manifest.json').read_bytes(), object_pairs_hook=manifest_pairs)
+    require(isinstance(rows, dict), 'packet manifest must be a path mapping')
+    shipped = {p.relative_to(HERE).as_posix() for p in entries
+               if p.is_file() and p != HERE / 'manifest.json'}
+    require(set(rows) == shipped, 'packet file set differs from manifest.json')
+    for name, digest in rows.items():
         require(hashlib.sha256((HERE / name).read_bytes()).hexdigest() == digest, name)
     summary = read('SUMMARY.json')
     scores = {k: read(k + '-score.json.gz')['windows'] for k in ('control', 'candidate', 'experimental')}
