@@ -1,0 +1,88 @@
+# orig tokens (true LCS, rfj mask) matched by S3n but not B3 ('-') or by B3 but not S3n ('+'); orig offset, orig op, S3n/B3 offsets
+## orig 0x800-0x1c00 (validate + post-validate tree)
++   ac0 stxdw [r10-0x530], r1                    ref@      cand@  a28
++   ae0 stxdw [r10-0x520], r1                    ref@      cand@  aa0
++   c08 mov64 r1, r7                             ref@      cand@  ba8
++   c10 add64 r1, 24                             ref@      cand@  bd8
++   c18 add64 r7, 1                              ref@      cand@  be0
++   c20 ldxw r2, [r7+0x3]                        ref@      cand@  be8
++   c28 stxw [r10-0x4b5], r2                     ref@      cand@  bf0
++   c30 ldxw r2, [r7+0x0]                        ref@      cand@  c00
++   c38 stxw [r10-0x4b8], r2                     ref@      cand@  c08
+-   c40 ldxdw r2, [r1+0x0]                       ref@  ba0 cand@     
++  13f0 ldxdw r1, [r10-0x4a0]                    ref@      cand@ 13d0
+-  13f8 stxdw [r10-0x2b8], r1                    ref@ 1380 cand@     
++  1400 ldxdw r1, [r10-0x4a8]                    ref@      cand@ 13f8
++  1410 ldxdw r1, [r10-0x4b0]                    ref@      cand@ 1408
++  1490 ldxdw r1, [r10-0x4b0]                    ref@      cand@ 14a0
++  14a8 ldxdw r1, [r10-0x4a8]                    ref@      cand@ 14b0
++  14c0 ldxdw r1, [r10-0x4a0]                    ref@      cand@ 14e0
++  14d0 stxdw [r10-0x520], r1                    ref@      cand@ 14f8
++  14e0 stxdw [r10-0x950], r1                    ref@      cand@ 1568
+-  14f8 mov64 r7, 0                              ref@ 1470 cand@     
++  1530 ldxdw r7, [r10-0x900]                    ref@      cand@ 15d8
++  1538 ldxdw r3, [r10-0x948]                    ref@      cand@ 15e0
+-  1548 jne r1, 0, b40                           ref@ 14a8 cand@     
++  1550 mov64 r6, 0                              ref@      cand@ 1608
+-  1800 stxdw [r10-0x918], r4                    ref@ 1770 cand@     
+-  1808 stxdw [r10-0x948], r3                    ref@ 17a0 cand@     
+-  1818 ldxdw r1, [r10-0x920]                    ref@ 17b8 cand@     
+-  1820 jne r1, 0, 1830                          ref@ 17c0 cand@     
+-  1828 ja r0, 18b0                              ref@ 17c8 cand@     
+-  1840 jeq r8, 0, 1850                          ref@ 1818 cand@     
+-  1848 ja r0, 1138                              ref@ 1820 cand@     
++  1868 ldxw r1, [r10-0x658]                     ref@      cand@ 1908
+-  1878 ldxdw r1, [r10-0x668]                    ref@ 18d8 cand@     
+-  1880 stxdw [r10-0x548], r1                    ref@ 18e0 cand@     
++  1898 mov64 r3, 1                              ref@      cand@ 1938
+-  18a8 ja r0, 1990                              ref@ 18f0 cand@     
++  18b0 stxdw [r10-0x950], r6                    ref@      cand@ 1958
+-  18d0 mov64 r1, 2                              ref@ 1910 cand@     
+-  18e8 jeq r1, 0, 18f8                          ref@ 1930 cand@     
+-  18f0 ja r0, 1990                              ref@ 1938 cand@     
+-  1958 mov64 r3, 1                              ref@ 19b0 cand@     
++  1960 mov64 r6, 1                              ref@      cand@ 1a40
++  1980 stxdw [r10-0x8f8], r1                    ref@      cand@ 1a58
+-  1988 ldxdw r2, [r10-0x910]                    ref@ 19c8 cand@     
+-  19a0 ldxdw r1, [r10-0x520]                    ref@ 19d0 cand@     
+-  1a10 ldxdw r1, [r10-0x918]                    ref@ 1a18 cand@     
+-  1a18 stxdw [r10-0x580], r1                    ref@ 1a20 cand@     
+-  1a78 stxdw [r10-0x908], r3                    ref@ 1a90 cand@     
+-  1a98 jeq r7, 2, 1aa8                          ref@ 1ab0 cand@     
+-  1aa0 ja r0, 1b88                              ref@ 1ab8 cand@     
+## B3_3000
+-  3048 stxdw [r10-0xb50], r4                    ref@ 3050 cand@     
++  30b0 ldxdw r3, [r10-0x9b0]                    ref@      cand@ 3168
++  30b8 ldxdw r3, [r10-0x978]                    ref@      cand@ 3170
++  30c0 ldxdw r3, [r10-0x8e0]                    ref@      cand@ 3178
+-  30e0 stxdw [r10-0xb80], r4                    ref@ 30d0 cand@     
+-  3128 ldxdw r4, [r10-0x8d8]                    ref@ 3118 cand@     
+-  31e8 ldxdw r5, [r10-0x9a8]                    ref@ 31d8 cand@     
+-  31f0 ldxdw r5, [r10-0x9a0]                    ref@ 31e0 cand@     
+-  31f8 ldxdw r5, [r10-0x990]                    ref@ 31e8 cand@     
+-  3310 stxdw [r5+0x0], r1                       ref@ 3310 cand@     
+-  3330 ldxdw r1, [r10-0x8d8]                    ref@ 3330 cand@     
+## B3_3c00
++  3d28 ldxw r1, [r10-0x550]                     ref@      cand@ 3dd0
++  3d30 stxw [r10-0x650], r1                     ref@      cand@ 3dd8
++  3d38 ldxw r1, [r10-0x54d]                     ref@      cand@ 3de0
++  3d40 stxw [r10-0x64d], r1                     ref@      cand@ 3de8
++  3d78 ldxb r1, [r10-0x558]                     ref@      cand@ 3e20
++  3d80 stxb [r10-0x631], r1                     ref@      cand@ 3e28
+-  3f38 ldxdw r1, [r10-0x8d8]                    ref@ 3f20 cand@     
++  3f40 ldxdw r1, [r1+0x0]                       ref@      cand@ 3fe0
+## B3_5800
+-  59d8 add64 r8, 216                            ref@ 59b8 cand@     
++  5a00 mov64 r3, r6                             ref@      cand@ 5a78
+-  5a40 ldxdw r1, [r10-0x950]                    ref@ 5a18 cand@     
+-  5a68 ldxdw r2, [r10-0x908]                    ref@ 5a48 cand@     
+-  5a70 ldxdw r3, [r10-0x8d8]                    ref@ 5a50 cand@     
+-  5aa0 ldxdw r2, [r1+0x0]                       ref@ 5a80 cand@     
+-  5ae0 mov64 r3, r8                             ref@ 5ac0 cand@     
+-  5af0 call 0xca18                              ref@ 5ad0 cand@     
+-  5b30 ldxdw r1, [r10-0x950]                    ref@ 5b28 cand@     
+-  5bf8 stxdw [r10-0x918], r0                    ref@ 5bf0 cand@     
+-  5c50 ldxdw r1, [r10-0x918]                    ref@ 5c50 cand@     
+-  5f10 ldxdw r2, [r10-0x8e0]                    ref@ 5f08 cand@     
+-  60b0 mov64 r3, r8                             ref@ 60b0 cand@     
+-  6108 ldxdw r1, [r10-0x918]                    ref@ 6118 cand@     
