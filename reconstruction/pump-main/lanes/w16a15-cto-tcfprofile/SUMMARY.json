@@ -1,0 +1,420 @@
+{
+ "lane": "w16a15-cto-tcfprofile",
+ "wave": 16,
+ "target": "0x22a10 admin_cto::execute",
+ "file": "programs/pump/src/creator/admin_cto.rs",
+ "base": {
+  "main": "599891304 (admin_cto = 1f4e396b5)",
+  "ratio": 0.67436,
+  "slots_diff": 3141,
+  "bytes": 27400,
+  "M": 2251,
+  "normalized": 1034,
+  "raw": 1034
+ },
+ "best": {
+  "ratio": 0.67436,
+  "slots_diff": 3141,
+  "bytes": 27400,
+  "note": "main; no zero-loss improvement found"
+ },
+ "landed": false,
+ "pr": 3881,
+ "result": "kill (notes): no composite fixes >=6 abort jumps without losing M; c2 marker absent in all captured spellings",
+ "captures": 110,
+ "compile_errors": 1,
+ "abort_profile_main": {
+  "jumps": 41,
+  "right": 11,
+  "tcf_right": 7,
+  "sharing_right": 4,
+  "cum": [
+   8,
+   8,
+   8,
+   0,
+   0,
+   -8,
+   -8,
+   0,
+   0,
+   -8,
+   -8,
+   0,
+   0,
+   8,
+   8,
+   0,
+   32,
+   32,
+   8,
+   16,
+   32,
+   32,
+   24,
+   40,
+   40,
+   0,
+   0,
+   0,
+   0,
+   40,
+   40,
+   24,
+   24,
+   16,
+   24,
+   -56,
+   -64,
+   -80,
+   -80,
+   -104,
+   -40
+  ]
+ },
+ "joint_search": {
+  "method": "beam 5000 over one spelling per literal group, additive model (= splice, = real captures for 6 composites)",
+  "best_predicted": {
+   "predM": 2251,
+   "bytes": 27400,
+   "good": 11,
+   "gt": 7,
+   "set": []
+  },
+  "levels": {
+   "11": {
+    "predM": 2251,
+    "bytes": 27400,
+    "good": 11,
+    "gt": 7,
+    "set": []
+   },
+   "10": {
+    "predM": 2250,
+    "bytes": 27400,
+    "good": 10,
+    "gt": 6,
+    "set": [
+     "qKLD"
+    ]
+   },
+   "12": {
+    "predM": 2248,
+    "bytes": 27400,
+    "good": 12,
+    "gt": 8,
+    "set": [
+     "pdoKL"
+    ]
+   },
+   "9": {
+    "predM": 2244,
+    "bytes": 27400,
+    "good": 9,
+    "gt": 5,
+    "set": [
+     "t3O"
+    ]
+   },
+   "8": {
+    "predM": 2243,
+    "bytes": 27400,
+    "good": 8,
+    "gt": 4,
+    "set": [
+     "qKLD",
+     "t3O"
+    ]
+   },
+   "7": {
+    "predM": 2239,
+    "bytes": 27392,
+    "good": 7,
+    "gt": 7,
+    "set": [
+     "x02_pKdOL"
+    ]
+   },
+   "6": {
+    "predM": 2238,
+    "bytes": 27392,
+    "good": 6,
+    "gt": 6,
+    "set": [
+     "x02_pKdOL",
+     "qKLD"
+    ]
+   },
+   "5": {
+    "predM": 2232,
+    "bytes": 27392,
+    "good": 5,
+    "gt": 5,
+    "set": [
+     "x02_pKdOL",
+     "t3O"
+    ]
+   },
+   "4": {
+    "predM": 2231,
+    "bytes": 27392,
+    "good": 4,
+    "gt": 4,
+    "set": [
+     "x02_pKdOL",
+     "qKLD",
+     "t3O"
+    ]
+   },
+   "2": {
+    "predM": 2225,
+    "bytes": 27408,
+    "good": 2,
+    "gt": 2,
+    "set": [
+     "x03_hOKld",
+     "t4O"
+    ]
+   },
+   "3": {
+    "predM": 2224,
+    "bytes": 27400,
+    "good": 3,
+    "gt": 3,
+    "set": [
+     "qRSWE",
+     "t6O"
+    ]
+   },
+   "0": {
+    "predM": 2216,
+    "bytes": 27408,
+    "good": 0,
+    "gt": 0,
+    "set": [
+     "x03_hOKld",
+     "t2O",
+     "t4O"
+    ]
+   },
+   "1": {
+    "predM": 2204,
+    "bytes": 27400,
+    "good": 1,
+    "gt": 1,
+    "set": [
+     "qRSWE",
+     "t0O",
+     "t6O"
+    ]
+   },
+   "13": {
+    "predM": 2197,
+    "bytes": 27376,
+    "good": 13,
+    "gt": 10,
+    "set": [
+     "gOLK",
+     "pKRSWE"
+    ]
+   },
+   "14": {
+    "predM": 2196,
+    "bytes": 27376,
+    "good": 14,
+    "gt": 11,
+    "set": [
+     "gKLD",
+     "pKRSWE"
+    ]
+   },
+   "15": {
+    "predM": 2195,
+    "bytes": 27376,
+    "good": 15,
+    "gt": 12,
+    "set": [
+     "gKLD",
+     "pKRSWE",
+     "t10L"
+    ]
+   },
+   "17": {
+    "predM": 1976,
+    "bytes": 27376,
+    "good": 17,
+    "gt": 14,
+    "set": [
+     "gOLK",
+     "pKRSWE",
+     "t5L"
+    ]
+   },
+   "18": {
+    "predM": 1975,
+    "bytes": 27376,
+    "good": 18,
+    "gt": 15,
+    "set": [
+     "gKLD",
+     "pKRSWE",
+     "t5L"
+    ]
+   },
+   "16": {
+    "predM": 1974,
+    "bytes": 27376,
+    "good": 16,
+    "gt": 13,
+    "set": [
+     "gOLK",
+     "pKRSWE",
+     "t5O"
+    ]
+   }
+  }
+ },
+ "mechanisms": [
+  "The 0x26e0 abort block is the target of 41 jumps (25 TCF + 16 sharing-CPI clone checks); main has 11 right.",
+  "All non-Rc instructions in the TCF run are greedy spill code; the +-8 per-clone rhythm is single spills of held values.",
+  "13 of 18 wrong TCF jumps have odd drift (8 B units); every cheap literal lever is an even (+-16) move, so it cannot fix them.",
+  "Odd moves come only with whole-run RA reshuffles (H:KLDORSWE, T5, T8, T*:LKDORSWE, P:KRSWELDO) costing 50-220 M, or -8 B re-read removals that lose the 4 sharing jumps.",
+  "c2 tax: r6 over the run is held by %1726 = accounts+264 (&holder_creator_vault) region-split piece; the bump %2048 holds r9; so accounts+232 takes r0 (orig r6) and the flag temps lose r0. Upstream head fact bounded by w15a07 (#3651)."
+ ],
+ "rejected": [
+  "c2 c2 M 2218",
+  "pLK P:LKDORSWE M 2236",
+  "pKO P:KOLDRSWE M 2220",
+  "pOK P:OKLDRSWE M 2220",
+  "pLDK P:LDKORSWE M 2211",
+  "pKLO P:KLODRSWE M 2237",
+  "c2b5 c2+b5:10234567 M 2218",
+  "c2T8 c2+T8:KLDORSWE M 2110",
+  "c2T10 c2+T10:KLDORSWE M 2218",
+  "c2G P:KLDORSWE+G:KLDORSWE M 2212",
+  "pLKO P:LKODRSWE M 2235",
+  "pRSWE P:RSWEKOLD M 2032",
+  "pKLDRo P:KLDRSWEO M 2216",
+  "c2Q P:KLDORSWE+Q:KLDORSWE M 2217",
+  "c2T8L c2+T8:LDKORSWE M 2113",
+  "pKoLD P:KoLDRSWE M 2220",
+  "pKLDo P:KLDoRSWE M 2216",
+  "c2GL P:KLDORSWE+G:LKDORSWE M 2206",
+  "c2H P:KLDORSWE+H:KLDORSWE M 2177",
+  "pLDO P:LDORSWEK M 2215",
+  "pKRSWE P:KRSWELDO M 2200",
+  "c2T10L c2+T10:LKDORSWE M 2218",
+  "pLOK P:LOKDRSWE M 2235",
+  "t0O T0:OKLDRSWE M 2233",
+  "t2O T2:OKLDRSWE M 2244",
+  "t3O T3:OKLDRSWE M 2244",
+  "t4O T4:OKLDRSWE M 2249",
+  "t5O T5:OKLDRSWE M 2027",
+  "t6O T6:OKLDRSWE M 2246",
+  "t8O T8:OKLDRSWE M 2053",
+  "t10O T10:OKLDRSWE M 2222",
+  "t0d T0:KLDORSWE M 2251",
+  "t5L T5:LKDORSWE M 2029",
+  "t8L T8:LKDORSWE M 2024",
+  "t10L T10:LKDORSWE M 2249",
+  "hKLD H:KLDORSWE M 2171",
+  "gKLD G:KLDORSWE M 2245",
+  "qKLD Q:KLDORSWE M 2250",
+  "gOKLD G:OKLDRSWE M 2248",
+  "qOKLD Q:OKLDRSWE M 2243",
+  "qKOL Q:KOLDRSWE M 2243",
+  "qLDK Q:LDKORSWE M 2246",
+  "qLKO Q:LKODRSWE M 2244",
+  "qLDO Q:LDOKRSWE M 2231",
+  "qRSWE Q:RSWELKDO M 2231",
+  "qLKDRo Q:LKDRSWEO M 2238",
+  "qOLK Q:OLKDRSWE M 2244",
+  "qLOK Q:LOKDRSWE M 2244",
+  "t8RSWE T8:RSWEKOLD M 2053",
+  "t8KOL T8:KOLDRSWE M 2053",
+  "t8LDK T8:LDKORSWE M 2053",
+  "gLKD G:LKDORSWE M 2238",
+  "gOLK G:OLKDRSWE M 2247",
+  "gKLDRo G:KLDRSWEO M 2245",
+  "gRSWE G:RSWEKOLD M 2112",
+  "hLKD H:LKDORSWE M 2123",
+  "hKOL H:KOLDRSWE M 2242",
+  "hOLD H:OLKDRSWE M 2169",
+  "pDKOL P:DKOLRSWE M 2236",
+  "pKOdL P:KOdLRSWE M 2222",
+  "pdoKL P:doKLRSWE M 2248",
+  "hOKLDr H:OKLDRWSE M 2061",
+  "J_qKLD_t4O Q:KLDORSWE+T4:OKLDRSWE M 2248",
+  "J_qKLD_t10L Q:KLDORSWE+T10:LKDORSWE M 2248",
+  "J_t10L_t4O T10:LKDORSWE+T4:OKLDRSWE M 2247",
+  "J_gOKLD_qKLD G:OKLDRSWE+Q:KLDORSWE M 2247",
+  "J_pKRSWE_t10L P:KRSWELDO+T10:LKDORSWE M 2200",
+  "J_gKLD_pKRSWE_t10L G:KLDORSWE+P:KRSWELDO+T10:LKDORSWE M 2194",
+  "t2_LKDORSWE T2:LKDORSWE M 2053",
+  "t2_KOLDRSWE T2:KOLDRSWE M 2244",
+  "t4_LKDORSWE T4:LKDORSWE M 2130",
+  "t4_KOLDRSWE T4:KOLDRSWE M 2249",
+  "t6_LKDORSWE T6:LKDORSWE M 2081",
+  "t6_KOLDRSWE T6:KOLDRSWE M 2246",
+  "t10_LKDORSWE T10:LKDORSWE M 2249",
+  "t10_KOLDRSWE T10:KOLDRSWE M 2222",
+  "t0_LKDORSWE T0:LKDORSWE M 2100",
+  "t0_KOLDRSWE T0:KOLDRSWE M 2233",
+  "t3_LKDORSWE T3:LKDORSWE M 2130",
+  "t3_KOLDRSWE T3:KOLDRSWE M 2244",
+  "t2_KLODRSWE T2:KLODRSWE M 2139",
+  "t4_KLODRSWE T4:KLODRSWE M 2132",
+  "t6_KLODRSWE T6:KLODRSWE M 2249",
+  "t10_KLODRSWE T10:KLODRSWE M 2107",
+  "x02_pKdOL P:KdOLRSWE M 2239",
+  "x01_pKDOL P:KDOLRSWE M 2239",
+  "x03_hOKld H:OKldRSWE M 2229",
+  "x04_hokLD H:okLDRSWE M 2242",
+  "x05_hOKLD H:OKLDRSWE M 2242",
+  "x06_gKOld G:KOldRSWE M 2238",
+  "x07_gkoLD G:koLDRSWE M 2251",
+  "x08_qLkD Q:LkDORSWE M 2117",
+  "x09_qlkdo Q:lkdoRSWE M 2096",
+  "x10_qLKd Q:LKdORSWE M 2117",
+  "x11_hOKLDr H:OKLDRWSE M 2061",
+  "x12_gKLOD G:KLODRSWE M 2238",
+  "x13_gLKOD G:LKODRSWE M 2239",
+  "r0b_KlDOR T0:KlDORSWE M 2251",
+  "r0a_KLDoR T0:KLDoRSWE M 1978",
+  "r2a_KLDoR T2:KLDoRSWE M 2202",
+  "r2b_KlDOR T2:KlDORSWE M 2251",
+  "r3a_KLDoR T3:KLDoRSWE M 2234",
+  "r3b_KlDOR T3:KlDORSWE M 2251",
+  "r4a_KLDoR T4:KLDoRSWE M 2194",
+  "r4b_KlDOR T4:KlDORSWE M 2251",
+  "r6a_KLDoR T6:KLDoRSWE M 2111",
+  "r6b_KlDOR T6:KlDORSWE M 2251",
+  "r10a_KLDoR T10:KLDoRSWE M 2100",
+  "r10b_KlDOR T10:KlDORSWE M 2251"
+ ],
+ "unresolved": [
+  "the original spill-at-def of &holder_creator_vault and the bump (head fact)",
+  "sharing-run drift (seg29 +40, seg35 -80, seg40 +64) from global/authority flag-copy placement"
+ ],
+ "next_ideas": [
+  "a sweep-head source form whose greedy order spills accounts+264 and the bump at definition (frees r6/r9 for the run); w15a07 bounded the IR re-derivations, not greedy-order levers",
+  "sharing-run profile: b2/b3 literal joint search with the same beam tool (seg29/35/40 dominate the 12 wrong sharing jumps)",
+  "use case-unique capture names on macOS (rx/ and ir/ collide case-insensitively)"
+ ],
+ "tools": [
+  "tools/prof.py",
+  "tools/census.py",
+  "tools/mk.py",
+  "tools/beam.py",
+  "tools/genes_tp.py",
+  "tools/tcfsplice.py",
+  "tools/scanprof.py",
+  "tools/scane8.py",
+  "tools/mktable.py",
+  "tools/dbgocc.py"
+ ],
+ "ledger": {
+  "approach": "tcfprofile",
+  "keys": "0x22a10-w16-1f4e396-tcfprofile-<cell>-v1"
+ }
+}

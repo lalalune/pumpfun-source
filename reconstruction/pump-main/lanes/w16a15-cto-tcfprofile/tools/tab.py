@@ -5,6 +5,7 @@ import sys,os,json,glob
 T=os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0,T)
 sys.path.insert(0,'/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/w16a15-cto-tcfprofile/reconstruction/pump-main/lanes/w16a15-cto-tcfprofile/tools')
 import mk, splice as S
+EXCL={'hOKLD','hOKld','hokLD','pKDOL','pKdOL','pKDoL','gKOld','gkoLD','qLkD','qlkd','qLKd','qlKD'}  # case-insensitive rx/ collisions (macOS): superseded by x01..x13
 OUT=os.path.expanduser('~/.cache/pumpfun-reconstruction/lanes/w16a15-cto-tcfprofile')
 MAIN=open(OUT+'/an/main.bin','rb').read(); B=S.parse(MAIN)
 off=[0]
@@ -15,6 +16,7 @@ rows=[]
 for f in sorted(glob.glob(OUT+'/res-*.jsonl')):
     for l in open(f):
         r=json.loads(l)
+        if r['name'] in EXCL: continue
         if 'error' in r: rows.append((r['name'],r.get('genes'),None,r['error'][:80])); continue
         fb=f'{OUT}/rx/{r["name"]}/fn.bin'
         if not os.path.exists(fb): continue
