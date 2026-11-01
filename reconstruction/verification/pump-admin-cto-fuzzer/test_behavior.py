@@ -23,6 +23,10 @@ class BehaviorFingerprintTests(unittest.TestCase):
         cls.observation = B.observe_case(cls.case, ORIGINAL)
         if cls.observation["classification"] != "observed_behavior":
             raise AssertionError(cls.observation)
+        cls.cpi_case = C.generate_case(20261101, 47)
+        cls.cpi_observation = B.observe_case(cls.cpi_case, ORIGINAL)
+        if cls.cpi_observation["classification"] != "observed_behavior":
+            raise AssertionError(cls.cpi_observation)
 
     def test_encoding_is_stable_and_versioned(self):
         first = B.behavior_fingerprint(self.case, self.observation["original"])
@@ -54,6 +58,13 @@ class BehaviorFingerprintTests(unittest.TestCase):
             self.assertIn(step["stage"], ("success", "failed_before_cpi", "failed_after_cpi"))
             self.assertIsInstance(step["state_transitions"], list)
             self.assertIsInstance(step["token_program_path"], list)
+
+    def test_litesvm_nested_cpi_encoding_is_canonicalized(self):
+        steps = self.cpi_observation["fingerprint"]["payload"]["steps"]
+        self.assertTrue(steps[0]["inner_cpi_sequence"])
+        self.assertIn("spl_token_2022", steps[0]["token_program_path"])
+        for row in steps[0]["inner_cpi_sequence"]:
+            self.assertEqual(set(row), {"program", "account_indices", "data_sha256", "stack_height"})
 
     def test_boundary_detection_excludes_boolean_integer_aliases(self):
         case = copy.deepcopy(self.case)

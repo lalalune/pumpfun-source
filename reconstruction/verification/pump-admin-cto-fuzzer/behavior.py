@@ -133,22 +133,29 @@ def _inner_sequence(receipt: dict) -> tuple[list[dict], list[str]]:
     keys = _transaction_keys(receipt)
     sequence, token_path = [], []
     for group in receipt.get("inner_instructions") or []:
-        if not isinstance(group, dict):
-            continue
-        for instruction in group.get("instructions") or []:
+        if isinstance(group, dict):
+            entries = group.get("instructions") or []
+        elif isinstance(group, list):
+            entries = group
+        else:
+            entries = []
+        for entry in entries:
+            if not isinstance(entry, dict):
+                continue
+            instruction = entry.get("instruction", entry)
             if not isinstance(instruction, dict):
                 continue
-            index = instruction.get("program_id_index")
+            index = instruction.get("program_id_index", instruction.get("programIdIndex"))
             program = keys[index] if type(index) is int and 0 <= index < len(keys) else None
             program_class = _owner_class(program)
             data = instruction.get("data")
-            entry = {
+            row = {
                 "program": program_class,
                 "account_indices": instruction.get("accounts"),
-                "data_sha256": hashlib.sha256(str(data).encode("utf-8")).hexdigest(),
-                "stack_height": instruction.get("stack_height"),
+                "data_sha256": digest(data),
+                "stack_height": entry.get("stack_height", entry.get("stackHeight")),
             }
-            sequence.append(entry)
+            sequence.append(row)
             if program_class in ("spl_token", "spl_token_2022", "associated_token"):
                 token_path.append(program_class)
     return sequence, token_path

@@ -74,7 +74,7 @@ not canonical repository inputs.
 The fixed Admin CTO differential was rerun against the same candidate: 388
 cases, zero mismatches. The existing stateful package passed ten tests,
 including a genuine 20-transaction receipt-admission control. The complete
-fuzzer package now passes 96 tests. Adversarial tests independently detect
+fuzzer package now passes 97 tests. Adversarial tests independently detect
 forged fingerprints, corrupt outcomes/events, omitted cases, duplicate IDs,
 altered ranks, false passing totals, invalid signatures and missing evidence
 after outer receipt hashes are recomputed.
