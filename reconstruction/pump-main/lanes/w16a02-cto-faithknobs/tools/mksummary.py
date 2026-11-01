@@ -4,7 +4,8 @@ import json,os
 O=os.path.expanduser('~/.cache/pumpfun-reconstruction/lanes/w16a02-cto-faithknobs')
 L=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 rows=[]
-for f in ('res-9bd38c7.jsonl','res-1f4e396.jsonl'):
+for f in ('res-9bd38c7.jsonl','res-1f4e396.jsonl','res-5998913.jsonl'):
+    if not os.path.exists(f'{O}/{f}'): continue
     for l in open(f'{O}/{f}'):
         r=json.loads(l); r['base']=f[4:11]; rows.append(r)
 att={r['name']:{'base':r['base'],'genes':r.get('genes'),'bytes':r.get('bytes'),'M':r.get('M'),'ratio':r.get('ratio'),'error':r.get('error','')[:80] or None} for r in rows}

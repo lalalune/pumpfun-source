@@ -1,0 +1,726 @@
+{
+ "base": {
+  "main": "1f4e396/5998913 (ev6+A6)",
+  "M": 2251,
+  "ratio": 0.67436,
+  "bytes": 27400
+ },
+ "knobs": [
+  {
+   "name": "E1_shif",
+   "genes": "E1+sh_iflet",
+   "bytes": 27392,
+   "delta_bytes": -8,
+   "M": 2245,
+   "dM": -6,
+   "identical_to_base": false,
+   "by_region": {
+    "SC sharing-CPI build": -8
+   },
+   "with_sh_iflet": null,
+   "edit": [
+    {
+     "old": "emit!(e);emit_cpi!(e);Ok(())",
+     "new": "emit!(e);let event_signers:[&[&[u8]];1];{let authority_info=ctx.accounts.event_authority.to_account_info();let authority_bump=ctx.bumps.event_authority;let disc=anchor_lang::event::EVENT_IX_TAG_LE;let inner_data=anchor_lang::Event::data(&e);let ix_data:Vec<u8>=disc.into_iter().map(|b|*b).chain(inner_data.into_iter()).collect();let ix=anchor_lang::solana_program::instruction::Instruction::new_with_bytes(crate::ID,&ix_data,vec![anchor_lang::solana_program::instruction::AccountMeta::new_readonly(*authority_info.key,true)]);let event_infos=[authority_info];({let event_inner:&[&[u8]]=&[b\"__event_authority\",&[authority_bump]];event_signers=[event_inner];anchor_lang::solana_program::program::invoke_signed(&ix,&event_infos,&event_signers)}).map_err(anchor_lang::error::Error::from)?;}Ok(())"
+    },
+    {
+     "old": " match sharing_update{Some(val)=>{\n",
+     "new": " if let Some(val)=sharing_update{{\n"
+    },
+    {
+     "old": "signer_seeds),val)?;\n\n }None=>{}}\n",
+     "new": "signer_seeds),val)?;\n\n }}\n"
+    }
+   ],
+   "rfj_lcs": 3001,
+   "jumps_aligned": 263,
+   "jumps_bad": 119,
+   "drift_med": {
+    "entry": -22,
+    "validate_tail": -21,
+    "sharecpi": -13,
+    "event_err": -7
+   }
+  },
+  {
+   "name": "E3_shif",
+   "genes": "E3+sh_iflet",
+   "bytes": 27392,
+   "delta_bytes": -8,
+   "M": 2245,
+   "dM": -6,
+   "identical_to_base": false,
+   "by_region": {
+    "SC sharing-CPI build": -8
+   },
+   "with_sh_iflet": null,
+   "edit": [
+    {
+     "old": "emit!(e);emit_cpi!(e);Ok(())",
+     "new": "emit!(e);{let authority_info=ctx.accounts.event_authority.to_account_info();let authority_bump=ctx.bumps.event_authority;let disc=anchor_lang::event::EVENT_IX_TAG_LE;let inner_data=anchor_lang::Event::data(&e);let ix_data:Vec<u8>=disc.into_iter().map(|b|*b).chain(inner_data.into_iter()).collect();let ix=anchor_lang::solana_program::instruction::Instruction::new_with_bytes(crate::ID,&ix_data,vec![anchor_lang::solana_program::instruction::AccountMeta::new_readonly(*authority_info.key,true)]);let event_infos=[authority_info];anchor_lang::solana_program::program::invoke_signed(&ix,&event_infos,&[&[b\"__event_authority\",&[authority_bump]]]).map_err(anchor_lang::error::Error::from)?;}Ok(())"
+    },
+    {
+     "old": " match sharing_update{Some(val)=>{\n",
+     "new": " if let Some(val)=sharing_update{{\n"
+    },
+    {
+     "old": "signer_seeds),val)?;\n\n }None=>{}}\n",
+     "new": "signer_seeds),val)?;\n\n }}\n"
+    }
+   ],
+   "rfj_lcs": 3001,
+   "jumps_aligned": 263,
+   "jumps_bad": 119,
+   "drift_med": {
+    "entry": -22,
+    "validate_tail": -21,
+    "sharecpi": -13,
+    "event_err": -7
+   }
+  },
+  {
+   "name": "k_rkn307",
+   "genes": "k_rkn307",
+   "bytes": 27400,
+   "delta_bytes": 0,
+   "M": 2251,
+   "dM": 0,
+   "identical_to_base": true,
+   "by_region": {},
+   "with_sh_iflet": {
+    "bytes": 27392,
+    "M": 2245
+   },
+   "edit": [
+    {
+     "old": "if t==Pubkey::default(){return Err(error!(PumpError::CreatorShouldNotBeZero).with_pubkeys((t,Pubkey::default())));}",
+     "new": "require_keys_neq!(t,Pubkey::default(),PumpError::CreatorShouldNotBeZero);"
+    }
+   ],
+   "rfj_lcs": 3001,
+   "jumps_aligned": 262,
+   "jumps_bad": 112,
+   "drift_med": {
+    "entry": -22,
+    "validate_tail": -21,
+    "sharecpi": -13,
+    "event_err": -6
+   }
+  },
+  {
+   "name": "main1f",
+   "genes": "-",
+   "bytes": 27400,
+   "delta_bytes": 0,
+   "M": 2251,
+   "dM": 0,
+   "identical_to_base": true,
+   "by_region": {},
+   "with_sh_iflet": {
+    "bytes": 27392,
+    "M": 2245
+   },
+   "edit": [],
+   "rfj_lcs": 3001,
+   "jumps_aligned": 262,
+   "jumps_bad": 112,
+   "drift_med": {
+    "entry": -22,
+    "validate_tail": -21,
+    "sharecpi": -13,
+    "event_err": -6
+   }
+  },
+  {
+   "name": "k_req312",
+   "genes": "k_req312",
+   "bytes": 27400,
+   "delta_bytes": 0,
+   "M": 2144,
+   "dM": -107,
+   "identical_to_base": false,
+   "by_region": {
+    "V validate+tree": 0
+   },
+   "with_sh_iflet": {
+    "bytes": 27392,
+    "M": 2138
+   },
+   "edit": [
+    {
+     "old": "if t==*sharing||t==*holder_key{return Err(error!(PumpError::InvalidCreator));}",
+     "new": "require!(t!=*sharing&&t!=*holder_key,PumpError::InvalidCreator);"
+    }
+   ],
+   "rfj_lcs": 2959,
+   "jumps_aligned": 260,
+   "jumps_bad": 111,
+   "drift_med": {
+    "entry": -22,
+    "validate_tail": -62,
+    "sharecpi": -13,
+    "event_err": -6
+   }
+  },
+  {
+   "name": "k_req326",
+   "genes": "k_req326",
+   "bytes": 27400,
+   "delta_bytes": 0,
+   "M": 2251,
+   "dM": 0,
+   "identical_to_base": true,
+   "by_region": {},
+   "with_sh_iflet": {
+    "bytes": 27392,
+    "M": 2245
+   },
+   "edit": [
+    {
+     "old": "if st.quote_locked{return Err(error!(PumpError::CreatorFeeNotConfigurableForQuote));}",
+     "new": "require!(!st.quote_locked,PumpError::CreatorFeeNotConfigurableForQuote);"
+    }
+   ],
+   "rfj_lcs": 3001,
+   "jumps_aligned": 262,
+   "jumps_bad": 112,
+   "drift_med": {
+    "entry": -22,
+    "validate_tail": -21,
+    "sharecpi": -13,
+    "event_err": -6
+   }
+  },
+  {
+   "name": "k_req330",
+   "genes": "k_req330",
+   "bytes": 27400,
+   "delta_bytes": 0,
+   "M": 2251,
+   "dM": 0,
+   "identical_to_base": true,
+   "by_region": {},
+   "with_sh_iflet": {
+    "bytes": 27392,
+    "M": 2245
+   },
+   "edit": [
+    {
+     "old": "if cashback{return Err(error!(PumpError::CreatorFeeNotAllowedForCashbackCoin));}",
+     "new": "require!(!cashback,PumpError::CreatorFeeNotAllowedForCashbackCoin);"
+    }
+   ],
+   "rfj_lcs": 3001,
+   "jumps_aligned": 262,
+   "jumps_bad": 112,
+   "drift_med": {
+    "entry": -22,
+    "validate_tail": -21,
+    "sharecpi": -13,
+    "event_err": -6
+   }
+  },
+  {
+   "name": "k_req334",
+   "genes": "k_req334",
+   "bytes": 27400,
+   "delta_bytes": 0,
+   "M": 2251,
+   "dM": 0,
+   "identical_to_base": true,
+   "by_region": {},
+   "with_sh_iflet": {
+    "bytes": 27392,
+    "M": 2245
+   },
+   "edit": [
+    {
+     "old": "if !st.fee_configurable{return Err(error!(PumpError::CreatorFeeNotConfigurable));}",
+     "new": "require!(st.fee_configurable,PumpError::CreatorFeeNotConfigurable);"
+    }
+   ],
+   "rfj_lcs": 3001,
+   "jumps_aligned": 262,
+   "jumps_bad": 112,
+   "drift_med": {
+    "entry": -22,
+    "validate_tail": -21,
+    "sharecpi": -13,
+    "event_err": -6
+   }
+  },
+  {
+   "name": "k_req338",
+   "genes": "k_req338",
+   "bytes": 27400,
+   "delta_bytes": 0,
+   "M": 2251,
+   "dM": 0,
+   "identical_to_base": true,
+   "by_region": {},
+   "with_sh_iflet": {
+    "bytes": 27392,
+    "M": 2245
+   },
+   "edit": [
+    {
+     "old": "if f==0||f>st.max_fee{return Err(error!(PumpError::CreatorFeeBpsOutOfRange));}",
+     "new": "require!(f>0&&f<=st.max_fee,PumpError::CreatorFeeBpsOutOfRange);"
+    }
+   ],
+   "rfj_lcs": 3001,
+   "jumps_aligned": 262,
+   "jumps_bad": 112,
+   "drift_med": {
+    "entry": -22,
+    "validate_tail": -21,
+    "sharecpi": -13,
+    "event_err": -6
+   }
+  },
+  {
+   "name": "k_iflet326",
+   "genes": "k_iflet326",
+   "bytes": 27408,
+   "delta_bytes": 8,
+   "M": 2162,
+   "dM": -89,
+   "identical_to_base": false,
+   "by_region": {
+    "V validate+tree": 16,
+    "PC post-CPI pool/event": -8
+   },
+   "with_sh_iflet": {
+    "bytes": 27400,
+    "M": 2163
+   },
+   "edit": [
+    {
+     "old": "match fee{Some(f)=>{if st.quote_locked{",
+     "new": "if let Some(f)=fee{{if st.quote_locked{"
+    },
+    {
+     "old": "unsafe{core::ptr::read_volatile(holder_key as *const Pubkey as *const u8)};}None=>{}}",
+     "new": "unsafe{core::ptr::read_volatile(holder_key as *const Pubkey as *const u8)};}}"
+    }
+   ],
+   "rfj_lcs": 2999,
+   "jumps_aligned": 260,
+   "jumps_bad": 117,
+   "drift_med": {
+    "entry": -22,
+    "validate_tail": -20,
+    "sharecpi": -11,
+    "event_err": -4
+   }
+  },
+  {
+   "name": "k_okor306",
+   "genes": "k_okor306",
+   "bytes": 27328,
+   "delta_bytes": -72,
+   "M": 2105,
+   "dM": -146,
+   "identical_to_base": false,
+   "by_region": {
+    "E entry": 0,
+    "V validate+tree": 72,
+    "SH sweep head": -32,
+    "TC TCF clones/call/Rent": -24,
+    "ER error blocks": -24,
+    "NA sweep native arm": -32,
+    "WA wallet": -40,
+    "TL tail": 8
+   },
+   "with_sh_iflet": {
+    "bytes": 27320,
+    "M": 2103
+   },
+   "edit": [
+    {
+     "old": "let t=if let Some(t)=new{t}else{return Err(error!(PumpError::CtoNewCreatorRequired));};",
+     "new": "let t=new.ok_or_else(||error!(PumpError::CtoNewCreatorRequired))?;"
+    }
+   ],
+   "rfj_lcs": 2994,
+   "jumps_aligned": 257,
+   "jumps_bad": 120,
+   "drift_med": {
+    "entry": -23,
+    "validate_tail": -10,
+    "sharecpi": -11,
+    "event_err": -8
+   }
+  },
+  {
+   "name": "k_cbif",
+   "genes": "k_cbif",
+   "bytes": 27400,
+   "delta_bytes": 0,
+   "M": 2251,
+   "dM": 0,
+   "identical_to_base": true,
+   "by_region": {},
+   "with_sh_iflet": {
+    "bytes": 27392,
+    "M": 2245
+   },
+   "edit": [
+    {
+     "old": "let cashback=!holder&&st.cashback;",
+     "new": "let cashback=if holder{false}else{st.cashback};"
+    }
+   ],
+   "rfj_lcs": 3001,
+   "jumps_aligned": 262,
+   "jumps_bad": 112,
+   "drift_med": {
+    "entry": -22,
+    "validate_tail": -21,
+    "sharecpi": -13,
+    "event_err": -6
+   }
+  },
+  {
+   "name": "k_rentdirect",
+   "genes": "k_rentdirect",
+   "bytes": 27400,
+   "delta_bytes": 0,
+   "M": 2251,
+   "dM": 0,
+   "identical_to_base": true,
+   "by_region": {},
+   "with_sh_iflet": {
+    "bytes": 27392,
+    "M": 2245
+   },
+   "edit": [
+    {
+     "old": "let min={let rent=Rent::get()?;rent.minimum_balance(0)};",
+     "new": "let min=Rent::get()?.minimum_balance(0);"
+    }
+   ],
+   "rfj_lcs": 3001,
+   "jumps_aligned": 262,
+   "jumps_bad": 112,
+   "drift_med": {
+    "entry": -22,
+    "validate_tail": -21,
+    "sharecpi": -13,
+    "event_err": -6
+   }
+  },
+  {
+   "name": "k_oldfee_after",
+   "genes": "k_oldfee_after",
+   "bytes": 27400,
+   "delta_bytes": 0,
+   "M": 2250,
+   "dM": -1,
+   "identical_to_base": false,
+   "by_region": {},
+   "with_sh_iflet": {
+    "bytes": 27392,
+    "M": 2244
+   },
+   "edit": [
+    {
+     "old": "let curve=&mut ctx.accounts.bonding_curve;let old_creator=curve.creator;let old_fee=curve.creator_fee_bps;",
+     "new": "let curve=&mut ctx.accounts.bonding_curve;let old_creator=curve.creator;"
+    },
+    {
+     "old": "curve.is_cashback_coin=cashback;",
+     "new": "curve.is_cashback_coin=cashback;let old_fee=curve.creator_fee_bps;"
+    }
+   ],
+   "rfj_lcs": 2998,
+   "jumps_aligned": 262,
+   "jumps_bad": 112,
+   "drift_med": {
+    "entry": -22,
+    "validate_tail": -21,
+    "sharecpi": -13,
+    "event_err": -5
+   }
+  },
+  {
+   "name": "k_amutstar",
+   "genes": "k_amutstar",
+   "bytes": 27400,
+   "delta_bytes": 0,
+   "M": 2251,
+   "dM": 0,
+   "identical_to_base": true,
+   "by_region": {},
+   "with_sh_iflet": {
+    "bytes": 27392,
+    "M": 2245
+   },
+   "edit": [
+    {
+     "old": "let curve=&mut ctx.accounts.bonding_curve;let old_creator=",
+     "new": "let a=&mut *ctx.accounts;let curve=&mut a.bonding_curve;let old_creator="
+    }
+   ],
+   "rfj_lcs": 3001,
+   "jumps_aligned": 262,
+   "jumps_bad": 112,
+   "drift_med": {
+    "entry": -22,
+    "validate_tail": -21,
+    "sharecpi": -13,
+    "event_err": -6
+   }
+  },
+  {
+   "name": "k_wl_early",
+   "genes": "k_wl_early",
+   "bytes": 27400,
+   "delta_bytes": 0,
+   "M": 2251,
+   "dM": 0,
+   "identical_to_base": true,
+   "by_region": {},
+   "with_sh_iflet": {
+    "bytes": 27392,
+    "M": 2245
+   },
+   "edit": [
+    {
+     "old": "if a.current_creator.executable{msg!(\"Creator is a program; fees left in the vaults\");}else if a.current_creator.owner!=&anchor_lang::system_program::ID{msg!(\"Creator is not a system-owned wallet; fees left in the vaults\");}else{",
+     "new": "if a.current_creator.executable{msg!(\"Creator is a program; fees left in the vaults\");return Ok(());}if a.current_creator.owner!=&anchor_lang::system_program::ID{msg!(\"Creator is not a system-owned wallet; fees left in the vaults\");return Ok(());}{"
+    }
+   ],
+   "rfj_lcs": 3001,
+   "jumps_aligned": 262,
+   "jumps_bad": 112,
+   "drift_med": {
+    "entry": -22,
+    "validate_tail": -21,
+    "sharecpi": -13,
+    "event_err": -6
+   }
+  },
+  {
+   "name": "k_wl_early2",
+   "genes": "k_wl_early2",
+   "bytes": 27400,
+   "delta_bytes": 0,
+   "M": 2251,
+   "dM": 0,
+   "identical_to_base": true,
+   "by_region": {},
+   "with_sh_iflet": {
+    "bytes": 27392,
+    "M": 2245
+   },
+   "edit": [
+    {
+     "old": "if token_frozen(a.current_creator_quote_token_account.as_ref())?{msg!(\"Creator quote token account is frozen; fees left in the vaults\");}else{",
+     "new": "if token_frozen(a.current_creator_quote_token_account.as_ref())?{msg!(\"Creator quote token account is frozen; fees left in the vaults\");return Ok(());}{"
+    }
+   ],
+   "rfj_lcs": 3001,
+   "jumps_aligned": 262,
+   "jumps_bad": 112,
+   "drift_med": {
+    "entry": -22,
+    "validate_tail": -21,
+    "sharecpi": -13,
+    "event_err": -6
+   }
+  },
+  {
+   "name": "k_inl_wallet",
+   "genes": "k_inl_wallet",
+   "bytes": 27400,
+   "delta_bytes": 0,
+   "M": 2251,
+   "dM": 0,
+   "identical_to_base": true,
+   "by_region": {},
+   "with_sh_iflet": {
+    "bytes": 27392,
+    "M": 2245
+   },
+   "edit": [
+    {
+     "old": "fn wallet(ctx:&Context<AdminCto>)->Result<()>{",
+     "new": "#[inline]fn wallet(ctx:&Context<AdminCto>)->Result<()>{"
+    }
+   ],
+   "rfj_lcs": 3001,
+   "jumps_aligned": 262,
+   "jumps_bad": 112,
+   "drift_med": {
+    "entry": -22,
+    "validate_tail": -21,
+    "sharecpi": -13,
+    "event_err": -6
+   }
+  },
+  {
+   "name": "k_inl_sweep",
+   "genes": "k_inl_sweep",
+   "bytes": 27400,
+   "delta_bytes": 0,
+   "M": 2251,
+   "dM": 0,
+   "identical_to_base": true,
+   "by_region": {},
+   "with_sh_iflet": {
+    "bytes": 27392,
+    "M": 2245
+   },
+   "edit": [
+    {
+     "old": "fn sweep(ctx:&Context<AdminCto>,holder_key:&Pubkey)->Result<u64>{",
+     "new": "#[inline]fn sweep(ctx:&Context<AdminCto>,holder_key:&Pubkey)->Result<u64>{"
+    }
+   ],
+   "rfj_lcs": 3001,
+   "jumps_aligned": 262,
+   "jumps_bad": 112,
+   "drift_med": {
+    "entry": -22,
+    "validate_tail": -21,
+    "sharecpi": -13,
+    "event_err": -6
+   }
+  },
+  {
+   "name": "k_inl_validate",
+   "genes": "k_inl_validate",
+   "bytes": 27400,
+   "delta_bytes": 0,
+   "M": 2251,
+   "dM": 0,
+   "identical_to_base": true,
+   "by_region": {},
+   "with_sh_iflet": {
+    "bytes": 27392,
+    "M": 2245
+   },
+   "edit": [
+    {
+     "old": "fn validate(st:&CtoState,",
+     "new": "#[inline]fn validate(st:&CtoState,"
+    }
+   ],
+   "rfj_lcs": 3001,
+   "jumps_aligned": 262,
+   "jumps_bad": 112,
+   "drift_med": {
+    "entry": -22,
+    "validate_tail": -21,
+    "sharecpi": -13,
+    "event_err": -6
+   }
+  },
+  {
+   "name": "k_dpid",
+   "genes": "d_progid",
+   "bytes": 27496,
+   "delta_bytes": 96,
+   "M": 2243,
+   "dM": -8,
+   "identical_to_base": false,
+   "by_region": {
+    "SH sweep head": 96
+   },
+   "with_sh_iflet": {
+    "bytes": 27488,
+    "M": 2241
+   },
+   "edit": [
+    {
+     "old": "let dest=Pubkey::find_program_address(&[b\"creator-vault\",holder_key.as_ref()],&crate::ID).0;if a.holder_creator_vault.key()!=dest{return Err(error!(anchor_lang::error::ErrorCode::ConstraintSeeds).with_pubkeys((a.holder_creator_vault.key(),dest)));}",
+     "new": "let dest=Pubkey::find_program_address(&[b\"creator-vault\",holder_key.as_ref()],&crate::id()).0;if a.holder_creator_vault.key()!=dest{return Err(error!(anchor_lang::error::ErrorCode::ConstraintSeeds).with_pubkeys((a.holder_creator_vault.key(),dest)));}"
+    }
+   ],
+   "rfj_lcs": 3000,
+   "jumps_aligned": 262,
+   "jumps_bad": 116,
+   "drift_med": {
+    "entry": -22,
+    "validate_tail": -21,
+    "sharecpi": -4,
+    "event_err": 3
+   }
+  },
+  {
+   "name": "T_ts_shif",
+   "genes": "t_tslocal+sh_iflet",
+   "bytes": 27384,
+   "delta_bytes": -16,
+   "M": 2198,
+   "dM": -53,
+   "identical_to_base": false,
+   "by_region": {
+    "SC sharing-CPI build": -8,
+    "PC post-CPI pool/event": -8
+   },
+   "with_sh_iflet": null,
+   "edit": [
+    {
+     "old": "let e=AdminCtoEvent{is_holder_reward:a.bonding_curve.is_holder_reward,timestamp:Clock::get()?.unix_timestamp,",
+     "new": "let ts=Clock::get()?.unix_timestamp;let e=AdminCtoEvent{is_holder_reward:a.bonding_curve.is_holder_reward,timestamp:ts,"
+    },
+    {
+     "old": " match sharing_update{Some(val)=>{\n",
+     "new": " if let Some(val)=sharing_update{{\n"
+    },
+    {
+     "old": "signer_seeds),val)?;\n\n }None=>{}}\n",
+     "new": "signer_seeds),val)?;\n\n }}\n"
+    }
+   ],
+   "rfj_lcs": 2997,
+   "jumps_aligned": 263,
+   "jumps_bad": 120,
+   "drift_med": {
+    "entry": -22,
+    "validate_tail": -21,
+    "sharecpi": -13,
+    "event_err": -7
+   }
+  },
+  {
+   "name": "T_clock_shif",
+   "genes": "t_clocklocal+sh_iflet",
+   "bytes": 27384,
+   "delta_bytes": -16,
+   "M": 2198,
+   "dM": -53,
+   "identical_to_base": false,
+   "by_region": {
+    "SC sharing-CPI build": -8,
+    "PC post-CPI pool/event": -8
+   },
+   "with_sh_iflet": null,
+   "edit": [
+    {
+     "old": "let e=AdminCtoEvent{is_holder_reward:a.bonding_curve.is_holder_reward,timestamp:Clock::get()?.unix_timestamp,",
+     "new": "let clock=Clock::get()?;let e=AdminCtoEvent{is_holder_reward:a.bonding_curve.is_holder_reward,timestamp:clock.unix_timestamp,"
+    },
+    {
+     "old": " match sharing_update{Some(val)=>{\n",
+     "new": " if let Some(val)=sharing_update{{\n"
+    },
+    {
+     "old": "signer_seeds),val)?;\n\n }None=>{}}\n",
+     "new": "signer_seeds),val)?;\n\n }}\n"
+    }
+   ],
+   "rfj_lcs": 2997,
+   "jumps_aligned": 263,
+   "jumps_bad": 120,
+   "drift_med": {
+    "entry": -22,
+    "validate_tail": -21,
+    "sharecpi": -13,
+    "event_err": -7
+   }
+  }
+ ]
+}

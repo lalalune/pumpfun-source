@@ -2,8 +2,9 @@
 
 Target `0x22a10` `admin_cto::execute` (`programs/pump/src/creator/admin_cto.rs`), pinned at 27,400 B.
 Base: main 9bd38c7 (admin_cto source unchanged since 86e2a6b/9120883): 0.67376, M 2,249, 3,124 slots. Main moved to
-1f4e396 during the lane (#3859, w16a07's A6 + ev6: 0.67436, M 2,251, 3,141 slots); the branch is merged up to it.
-Ledger approach `faithknob`, keys `0x22a10-w16-<main7>-faithknob-<name>-v1` (main7 = 9bd38c7, then 1f4e396).
+1f4e396 during the lane (#3859, w16a07's A6 + ev6: 0.67436, M 2,251, 3,141 slots) and then to 5998913 (#3870, no
+admin_cto change); the branch is merged up to it. Ledger approach `faithknob`, keys
+`0x22a10-w16-<main7>-faithknob-<name>-v1` (main7 = 9bd38c7, 1f4e396, 5998913).
 
 **Result: notes and tools, no landing of my own.** The exhaustive splice screen of every cached source capture
 (section 5) ranks **w15a30 `ev:6012345789abc` + w16a07 `m_A6`** first. I built it as `H_ev6_A6` (27,400 B, M 2,251,
@@ -106,6 +107,7 @@ dropped) and tags them (section 7). Screens exclude devol and O/tf_g3 bases as t
 | zero-sum triples, items with dM >= -8 and 8 <= abs(dB) <= 128 (v1) | 1,251 | 2,249 |
 | ev6+A6 (H_ev6_A6) + every 0 B capture and every zero-sum pair (v2) | 2,170 | 2,251 (neutral 0 B knobs: hk_copy, hkl3, q5, the CtoState df_/dl_ orders, lfb5) |
 | ev6+A6 + sh_iflet + each +8 B capture | | 2,250 (cu_unwrapcur, wl_writ_eq); p_colnat 2,249; m_T2 2,247 |
+| ev6+A6 + crl3 / g1 / t1n (v2) | | 27,472 / 2,252; 27,520 / 2,253; 27,376 / 2,250 (the size leads keep their +1 / +2 / -1 on the new main; crl3 + t1n 27,448 / 2,251) |
 | T1 + every -8 B capture (v1) | 26 | 2,246 |
 | ST1 + every 0 B capture and zero-sum pair (v1) | 557 | 2,245 |
 
@@ -130,7 +132,17 @@ Double moves (`ev:6701234589abc`, `ev:7601234589abc`) collapse with A6 (+48 B, M
 So on 1f4e396 the remaining polarity fix pays only with +8 B of real code in those error paths, ideally the original's
 `mov64 r9,r1` at 0x54b8 (+2). Tried: execute's `emit_cpi!(e)` hand-expanded in the wallet's form (`event_infos`
 binding with and without the deferred `event_signers`, E1/E3/E4) is byte-identical to the macro (+ sh_iflet: 27,392,
-M 2,245). `let clock=Clock::get()?` locals were priced on older mains at about -10 M (w14a73 ev_ts_clockvar).
+M 2,245). Hoisting the clock out of the literal (`let ts=Clock::get()?.unix_timestamp;` or `let clock=Clock::get()?;`)
+with sh_iflet on 1f4e396 is -16 B and M 2,198 (both spellings identical); on older mains `ev_ts_clockvar` was about -10 M.
+
+`insmapn.py` on main 1f4e396 itself (ev6+A6, M 2,251): one junk 8 B slot gives 2,252 only at cand 0x180-0x1a0 (entry,
+as on 9bd38c7), 2,251 in the rest of the entry and in parts of validate, and 2,242-2,250 elsewhere. So on the new
+main a +8 B knob pays only in the entry, and a -8 B knob needs its own +8 B partner in the entry or in the event Err
+paths above (with sh_iflet). `tools/delmap.py` (delete one 8 B instruction) on 1f4e396: 2,252 only at cand 0x428 (a
+store of the entry's 32 B key copy, which the original copies in the opposite order), 2,251 for most entry deletions.
+`tools/insdel.py` (+8 B at 0x180 and -8 B at each q): 2,252 at 107 positions, mostly deletions inside the entry
+(0x0-0x1f0), and 2,253 at 0x428. So a 0 B reshuffle inside the entry that adds one instruction near 0x180 and drops one
+earlier is worth +1; the entry is where main is 22 tokens short of the original (PDA-first, w15a35's lane).
 
 ## 7. The size-knob catalog (`data/sizeknobs-w16.json`)
 
@@ -163,7 +175,33 @@ Sibling-idiom knobs built here (`tools/genes_fk.py` k_*; on 9bd38c7 unless marke
 | k_req296 `if holder&&!st.holder_reward{require!(st.holder_enabled,..)}` | create_v2 nesting | 27,432 | 1,423 | collapses |
 | k_hkproj `let holder_key=find_program_address(..).0` (and `let (holder_key,_)=`) | create_v2 `.0`, admin_cto_pool `let (x,_)=` | 27,400 | 1,869 | the deferred-init `holder_key` is load-bearing |
 | k_hkpid `&crate::id()` for the holder PDA | | 27,512 | 2,171 | |
-| k_rkn307 `require_keys_neq!(t,Pubkey::default(),..)` (on 1f4e396) | create_v2 | 27,400 | 2,251 | byte-identical to main |
+
+Rows marked "on 1f4e396" were built on 1f4e396/5998913 (ev6+A6, M 2,251; admin_cto identical); `data/knobs-5998913.json`
+has them with drift metrics and the splice with sh_iflet. `#[inline]` on wallet/sweep/validate, the early-return
+`msg!` wallet, `Rent::get()?` direct, `&mut *ctx.accounts` and the plain `require!(!flag)` / `require_keys_neq!`
+respellings are byte-identical to main. The rest are not: k_req289 (nested `if`) and k_req298 (`new.is_none()`) are
+M-neutral, k_req312 (`&&` of two key tests) is -107, k_req296 (nested) collapses.
+
+| knob | sibling idiom | bytes | M | note |
+| --- | --- | ---: | ---: | --- |
+| k_rkn307 (on 1f4e396) | create_v2 `require_keys_neq!` | 27,400 | 2,251 | byte-identical to main |
+| k_req312 (on 1f4e396) | `require!` | 27,400 | 2,144 | {'V validate+tree': 0} |
+| k_req326 (on 1f4e396) | admin_cto_pool `require!(!..)` | 27,400 | 2,251 | byte-identical to main |
+| k_req330 (on 1f4e396) | admin_cto_pool `require!(!..)` | 27,400 | 2,251 | byte-identical to main |
+| k_req334 (on 1f4e396) | create_v2 `require!` | 27,400 | 2,251 | byte-identical to main |
+| k_req338 (on 1f4e396) | admin_cto_pool `require!(a>0&&a<=max)` | 27,400 | 2,251 | byte-identical to main |
+| k_iflet326 (on 1f4e396) | admin_cto_pool `if let Some(..)` | 27,408 | 2,162 | {'V validate+tree': 16, 'PC post-CPI pool/event': -8} |
+| k_okor306 (on 1f4e396) | distribute_creator_fee_v2 `ok_or_else` | 27,328 | 2,105 | {'E entry': 0, 'V validate+tree': 72, 'SH sweep head': -32, 'TC TCF clones/call/Rent': -24, 'ER error blocks': -24, 'NA sweep native arm': -32, 'WA wallet': -40, 'TL tail': 8} |
+| k_cbif (on 1f4e396) | admin_cto_pool `if holder{false}else{..}` | 27,400 | 2,251 | byte-identical to main |
+| k_rentdirect (on 1f4e396) | sweep_fees `Rent::get()?.minimum_balance(0)` | 27,400 | 2,251 | byte-identical to main |
+| k_oldfee_after (on 1f4e396) | admin_cto_pool old fee read after the stores | 27,400 | 2,250 | {} |
+| k_amutstar (on 1f4e396) | sweep_fees `&mut *ctx.accounts` | 27,400 | 2,251 | byte-identical to main |
+| k_wl_early (on 1f4e396) | collect_creator_fee early-return `msg!` | 27,400 | 2,251 | byte-identical to main |
+| k_wl_early2 (on 1f4e396) | collect_creator_fee early-return `msg!` | 27,400 | 2,251 | byte-identical to main |
+| k_inl_wallet (on 1f4e396) | collect_creator_fee `#[inline]` helper | 27,400 | 2,251 | byte-identical to main |
+| k_inl_sweep (on 1f4e396) | `#[inline]` helper | 27,400 | 2,251 | byte-identical to main |
+| k_inl_validate (on 1f4e396) | `#[inline]` helper | 27,400 | 2,251 | byte-identical to main |
+| k_dpid (on 1f4e396) | `crate::id()` | 27,496 | 2,243 | {'SH sweep head': 96} |
 
 ## Tools (`tools/`, experiment only)
 
@@ -182,5 +220,10 @@ Sibling-idiom knobs built here (`tools/genes_fk.py` k_*; on 9bd38c7 unless marke
    register from r8 to r9 would likely make that instruction appear.
 2. Use `tools/splice.py` before building: every cached capture on the current source composes exactly with every other
    (88/89 built composites byte-identical). Rebuild `catalog.py` over new lanes' res files to extend the library.
-3. ST1 (sh_iflet + a1 + tsplit) is the most faithful token-arm skeleton at 27,400 B (+4 rfj, M -4 on 9bd38c7); its
+3. The entry's 32 B key copy into the `CtoState` literal (cand 0x3f0-0x428 on 1f4e396) is lowered descending
+   (`[r7+0x20]` first) where the original copies ascending (`[r9+0]` -> `[r10-0x38]` first) after three of the bool
+   fields; the deletion map's only +1 slot (0x428) is in it. The brief's memcpy rule (two adjacent 32 B memcpys lower
+   descending then ascending; an intervening lifetime.start flips the second) suggests a CtoState/creator spelling
+   that makes this copy the second of a pair.
+4. ST1 (sh_iflet + a1 + tsplit) is the most faithful token-arm skeleton at 27,400 B (+4 rfj, M -4 on 9bd38c7); its
    residual is the token-arm r6/r8 naming (w14a70 bound +5).

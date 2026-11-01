@@ -107,3 +107,8 @@ G['E0']=[(_EC,'emit!(e);{'+_X1+'anchor_lang::solana_program::program::invoke_sig
 G['E1']=[(_EC,'emit!(e);let event_signers:[&[&[u8]];1];{'+_X1+'let event_infos=[authority_info];({let event_inner:&[&[u8]]=&[b"__event_authority",&[authority_bump]];event_signers=[event_inner];anchor_lang::solana_program::program::invoke_signed(&ix,&event_infos,&event_signers)}).map_err(anchor_lang::error::Error::from)?;}Ok(())')]
 G['E3']=[(_EC,'emit!(e);{'+_X1+'let event_infos=[authority_info];anchor_lang::solana_program::program::invoke_signed(&ix,&event_infos,&[&[b"__event_authority",&[authority_bump]]]).map_err(anchor_lang::error::Error::from)?;}Ok(())')]
 G['E4']=[(_EC,'emit!(e);{'+_X1+'let event_infos=[authority_info];let event_inner:&[&[u8]]=&[b"__event_authority",&[authority_bump]];let event_signers=[event_inner];anchor_lang::solana_program::program::invoke_signed(&ix,&event_infos,&event_signers).map_err(anchor_lang::error::Error::from)?;}Ok(())')]
+# ---------------- the event's Clock::get()? on main 1f4e396 (sh_iflet's pay band holds its Err path) ----------------
+_EV1='let e=AdminCtoEvent{is_holder_reward:a.bonding_curve.is_holder_reward,timestamp:Clock::get()?.unix_timestamp,'
+G['t_tslocal']=[(_EV1,'let ts=Clock::get()?.unix_timestamp;let e=AdminCtoEvent{is_holder_reward:a.bonding_curve.is_holder_reward,timestamp:ts,')]
+G['t_clocklocal']=[(_EV1,'let clock=Clock::get()?;let e=AdminCtoEvent{is_holder_reward:a.bonding_curve.is_holder_reward,timestamp:clock.unix_timestamp,')]
+G['t_tsmap']=[(_EV1,'let e=AdminCtoEvent{is_holder_reward:a.bonding_curve.is_holder_reward,timestamp:Clock::get().map(|c|c.unix_timestamp)?,')]
