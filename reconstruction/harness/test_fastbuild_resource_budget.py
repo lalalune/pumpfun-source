@@ -36,8 +36,11 @@ class FastbuildResourceTests(unittest.TestCase):
         self.config = R.DiskBudgetConfig(100, check_interval=.01)
 
     def test_enough_space_preserves_default_build_result_and_adds_receipt(self):
+        def completed(_src, _work, out, **_kwargs):
+            out.mkdir(parents=True); (out / 'build.log').write_text('complete\n')
+            return {'ok': True, 'marker': 'complete'}
         with patch.object(R, 'available_bytes', return_value=1000), \
-             patch.object(F, '_build_locked', return_value={'ok': True, 'marker': 'complete'}):
+             patch.object(F, '_build_locked', side_effect=completed):
             result = F.build(self.source, self.work, self.out, recipe='identity',
                              resource_budget=self.config)
         self.assertTrue(result['ok']); self.assertEqual(result['marker'], 'complete')
@@ -46,6 +49,7 @@ class FastbuildResourceTests(unittest.TestCase):
         verified = R.verify_receipt(receipt)
         self.assertTrue(verified['accepted'])
         self.assertEqual(receipt['outcome'], 'success')
+        self.assertEqual(receipt['retained_logs'], [str(self.out / 'build.log')])
 
     def test_insufficient_initial_space_rejects_before_lock_or_staging(self):
         self.out.mkdir(); sentinel = self.out / 'candidate.so'; sentinel.write_bytes(b'prior')

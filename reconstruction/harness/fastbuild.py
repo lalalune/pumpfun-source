@@ -376,7 +376,7 @@ def build(src: Path, work: Path, out: Path, quiet=False, recipe=None, timeout=No
                                'compiler_failure')
                     result = dict(result, failure_classification=failure)
                 outcome = 'success' if result.get('ok') else 'infrastructure_failure'
-                logs = [Path(result['log'])] if result.get('log') else []
+                logs = [out / 'build.log'] if (out / 'build.log').is_file() else []
                 receipt = _write_resource_receipt(
                     budget, resource_path, outcome=outcome, failure=failure,
                     published=bool(result.get('ok')), identity=identity, logs=logs,
