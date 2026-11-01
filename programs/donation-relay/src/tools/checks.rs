@@ -23,13 +23,14 @@ pub fn check_message(message:&str)->Result<()> {
 // Preserve the independently observed call boundary; original annotation unknown.
 #[inline(never)]
 pub(crate) fn check_relayer(signer:&Signer<'_>) -> Result<()> {
-    if signer.key()!=Pubkey::new_from_array(crate::codec::constants::RELAYER) {
+    let key=signer.key;
+    if *key!=Pubkey::new_from_array(crate::codec::constants::RELAYER) {
         return Err(anchor_lang::error::Error::from(anchor_lang::error::AnchorError {
             error_name:crate::business_error_codes::ErrorCode::SignerIsNotRelayer.name(),error_code_number:crate::business_error_codes::ErrorCode::SignerIsNotRelayer.into(),error_msg:crate::business_error_codes::ErrorCode::SignerIsNotRelayer.to_string(),
             error_origin:Some(anchor_lang::error::ErrorOrigin::Source(anchor_lang::error::Source {
                 filename:"programs/contracts/src/tools/checks.rs",line:80})),
             compared_values:None,
-        }).with_pubkeys((signer.key(),Pubkey::new_from_array(crate::codec::constants::RELAYER))));
+        }).with_pubkeys((*key,Pubkey::new_from_array(crate::codec::constants::RELAYER))));
     }
     Ok(())
 }

@@ -11,7 +11,7 @@
 | added, against the old source rebuilt on v1.54 | 112 | 222,976 |
 | removed: old source functions on v1.54 with no partner | 6 | 24,280 |
 | new functions identical to a function of the old deployed ELF (v1.48) | 105 of 571 | |
-| matched by the current skeleton (`swarm/w20-relay-scout`) | 542 of 571 | 769,080 of 851,888 |
+| matched by the current skeleton (`swarm/w20-relay-scout`) | 544 of 571 | 773,224 of 851,888 |
 
 `identical` means same length and same bytes after masking internal call immediates and relocated lddw values, the same normalization the scorer uses. Most of the difference from the old deployed ELF is the compiler (v1.48 to v1.54), not the source.
 
@@ -27,15 +27,14 @@
 | C1-distribute-bps | `0x1d2d0` | 2488 | added | distribute_non_swap finish: reload, burn_and_close (shared with exact) | 0 |
 | C1-distribute-bps | `0x24578` | 2376 | added | tools::distribution::shared::distribute | 0 |
 | C1-distribute-bps | `0x25f00` | 4424 | added | tools::distribution::shared transfer worker (bps) | 0 |
-| C2-bridge-handlers | `0x20580` | 4232 | added | admit_bridge_payment handler body | 0 |
-| C2-bridge-handlers | `0x21608` | 4328 | added | recover_bridge_payment handler body | 0 |
-| C2-bridge-handlers | `0x933a0` | 3160 | added | #[program] recover_bridge_payment_v1 wrapper | 0 |
-| C2-bridge-handlers | `0x99d70` | 3336 | modified | #[program] admit_bridge_payment_v1 wrapper | 0.655 |
-| C3-distribute-exact | `0x8eb0` | 528 | added | drop_in_place of the 4 AccountInfo clones in distribution CPIs | 0 |
-| C3-distribute-exact | `0x19c80` | 2648 | added | distribute_exact_after_just_swapping_v1 handler | 0 |
-| C3-distribute-exact | `0x1c878` | 2648 | added | distribute_exact_non_swap_output_mint_v1 handler | 0 |
-| C3-distribute-exact | `0x24ec0` | 4160 | added | tools::distribution::shared exact distribution | 0 |
-| C3-distribute-exact | `0x27048` | 4336 | added | tools::distribution::shared exact transfer worker | 0 |
+| C2-distribute-exact | `0x8eb0` | 528 | added | drop_in_place of the 4 AccountInfo clones in distribution CPIs | 0 |
+| C2-distribute-exact | `0x19c80` | 2648 | added | distribute_exact_after_just_swapping_v1 handler | 0 |
+| C2-distribute-exact | `0x1c878` | 2648 | added | distribute_exact_non_swap_output_mint_v1 handler | 0 |
+| C2-distribute-exact | `0x24ec0` | 4160 | added | tools::distribution::shared exact distribution | 0 |
+| C2-distribute-exact | `0x27048` | 4336 | added | tools::distribution::shared exact transfer worker | 0 |
+| C3-bridge-handlers | `0x20580` | 4232 | added | admit_bridge_payment handler body | 0 |
+| C3-bridge-handlers | `0x21608` | 4328 | added | recover_bridge_payment handler body | 0 |
+| C3-bridge-handlers | `0x933a0` | 3160 | added | #[program] recover_bridge_payment_v1 wrapper | 0 |
 | C4-jupiter-swap | `0x11668` | 2328 | modified | cpi::jupiter::invoke_jupiter | 0.859 |
 | C4-jupiter-swap | `0x11f80` | 2832 | modified | cpi::jupiter::swap_observed | 0.509 |
 | C4-jupiter-swap | `0x1ec18` | 5960 | modified | swap_then_distribute_v1 handler | 0.899 |
@@ -43,7 +42,6 @@
 | C5-donate | `0x29ca8` | 5272 | added | tools::donate::shared signed transfer core (called by donate_shared and admit) | 0 |
 | C6-checks | `0x227e8` | 912 | modified | tools::checks native mint for program | 0.595 |
 | C6-checks | `0x22b78` | 432 | added | tools::checks::native_mint_pair | 0 |
-| C6-checks | `0x22f08` | 808 | modified | tools::checks::check_relayer | 0.759 |
 | C6-checks | `0x23230` | 4448 | modified | tools::checks::typed_mint_safe | 0.69 |
 | C7-framework-layout | `0x1590` | 1992 | added | anchor_lang::error::Error::with_values, third instance (14 try_accounts closures call it) | 0 |
 | C7-framework-layout | `0xb3278` | 408 | added | alloc::raw_vec::RawVec<T,A>::grow_one (spl_token::instruction::transfer_checked) | 0 |
@@ -183,7 +181,7 @@
 | `0x227e8` | 912 | modified | OPEN | tools::checks native mint for program |
 | `0x22b78` | 432 | added | OPEN | tools::checks::native_mint_pair |
 | `0x22d28` | 480 | modified | yes | donation_relay_source_proposal::tools::checks::check_message |
-| `0x22f08` | 808 | modified | OPEN | tools::checks::check_relayer |
+| `0x22f08` | 808 | modified | yes | donation_relay_source_proposal::tools::checks::check_relayer |
 | `0x23230` | 4448 | modified | OPEN | tools::checks::typed_mint_safe |
 | `0x24390` | 488 | modified | yes | donation_relay_source_proposal::tools::checks::check_bps |
 | `0x24578` | 2376 | added | OPEN | tools::distribution::shared::distribute |
@@ -316,7 +314,7 @@
 | `0x97750` | 3208 | added | yes | donation_relay_source_proposal::anchor_framework::relay_anchor_idl_reconstruction_probe::just_swap_v1 |
 | `0x983d8` | 3256 | identical | yes | donation_relay_source_proposal::anchor_framework::relay_anchor_idl_reconstruction_probe::swap_then_distribute_v1 |
 | `0x99090` | 3296 | modified | yes | donation_relay_source_proposal::anchor_framework::relay_anchor_idl_reconstruction_probe::close_donation_epoch_v1 |
-| `0x99d70` | 3336 | modified | OPEN | #[program] admit_bridge_payment_v1 wrapper |
+| `0x99d70` | 3336 | modified | yes | donation_relay_source_proposal::anchor_framework::relay_anchor_idl_reconstruction_probe::admit_bridge_payment_v1 |
 | `0x9aa78` | 3576 | identical | yes | <donation_relay_source_proposal::anchor_framework::__private::__idl::IdlCloseAccount as anchor_lang::Accounts<donation_r |
 | `0x9b870` | 960 | identical | yes | <donation_relay_source_proposal::anchor_framework::__private::__idl::IdlCloseAccount as anchor_lang::AccountsExit>::exit |
 | `0x9bc30` | 2736 | identical | yes | <donation_relay_source_proposal::anchor_framework::__private::__idl::IdlSetBuffer as anchor_lang::Accounts<donation_rela |

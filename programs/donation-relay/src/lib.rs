@@ -68,7 +68,7 @@ pub mod anchor_framework {
         }
         pub fn admit_bridge_payment_v1(ctx:Context<AdmitBridgePaymentV1>,source_id:[u8;32],source_commitment:[u8;32],payment_id:[u8;32],config_id:[u8;32],amount:u64,minimum_amount:u64,tip_bps:u16)->Result<BridgeDonationAdmittedV1Event> {
             check_relayer(&ctx.accounts.signer)?;
-            let event=crate::bridge_handlers::admit_bridge_payment(ctx.accounts,crate::bridge_handlers::AdmitArgs {source_id,source_commitment,payment_id,config_id,amount,minimum_amount,tip_bps},ctx.bumps.receiver,ctx.bumps.epoch_tracker,ctx.bumps.debouncer)?;
+            let event=crate::bridge_handlers::admit_bridge_payment(ctx.accounts,source_id,source_commitment,payment_id,config_id,amount,minimum_amount,tip_bps,ctx.bumps.receiver,ctx.bumps.epoch_tracker,ctx.bumps.debouncer)?;
             emit!(event);emit_cpi!(event);Ok(event)
         }
         pub fn recover_bridge_payment_v1(ctx:Context<RecoverBridgePaymentV1>,source_id:[u8;32],source_commitment:[u8;32],payment_id:[u8;32],amount:u64)->Result<BridgePaymentRecoveredV1Event> {

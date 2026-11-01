@@ -16,8 +16,8 @@
 "identical_to_old_binary_v148": 105,
 "old_binary_functions": 492,
 "old_binary_functions_without_identical_partner": 387,
-"skeleton_matched": 542,
-"skeleton_matched_bytes": 769080
+"skeleton_matched": 544,
+"skeleton_matched_bytes": 773224
 },
 "clusters": {
 "C1-distribute-bps": {
@@ -33,16 +33,7 @@
 "0x25f00"
 ]
 },
-"C2-bridge-handlers": {
-"bytes": 15056,
-"functions": [
-"0x20580",
-"0x21608",
-"0x933a0",
-"0x99d70"
-]
-},
-"C3-distribute-exact": {
+"C2-distribute-exact": {
 "bytes": 14320,
 "functions": [
 "0x8eb0",
@@ -50,6 +41,14 @@
 "0x1c878",
 "0x24ec0",
 "0x27048"
+]
+},
+"C3-bridge-handlers": {
+"bytes": 11720,
+"functions": [
+"0x20580",
+"0x21608",
+"0x933a0"
 ]
 },
 "C4-jupiter-swap": {
@@ -68,11 +67,10 @@
 ]
 },
 "C6-checks": {
-"bytes": 6600,
+"bytes": 5792,
 "functions": [
 "0x227e8",
 "0x22b78",
-"0x22f08",
 "0x23230"
 ]
 },
@@ -858,7 +856,7 @@
 "status": "added",
 "name": "drop_in_place of the 4 AccountInfo clones in distribution CPIs",
 "skeleton_match": false,
-"cluster": "C3-distribute-exact",
+"cluster": "C2-distribute-exact",
 "old_v154_symbol": null,
 "similarity": 0,
 "identical_to_old_binary": null,
@@ -1607,7 +1605,7 @@
 "status": "added",
 "name": "distribute_exact_after_just_swapping_v1 handler",
 "skeleton_match": false,
-"cluster": "C3-distribute-exact",
+"cluster": "C2-distribute-exact",
 "old_v154_symbol": null,
 "similarity": 0,
 "identical_to_old_binary": null,
@@ -1679,7 +1677,7 @@
 "status": "added",
 "name": "distribute_exact_non_swap_output_mint_v1 handler",
 "skeleton_match": false,
-"cluster": "C3-distribute-exact",
+"cluster": "C2-distribute-exact",
 "old_v154_symbol": null,
 "similarity": 0,
 "identical_to_old_binary": null,
@@ -1769,7 +1767,7 @@
 "status": "added",
 "name": "admit_bridge_payment handler body",
 "skeleton_match": false,
-"cluster": "C2-bridge-handlers",
+"cluster": "C3-bridge-handlers",
 "old_v154_symbol": null,
 "similarity": 0,
 "identical_to_old_binary": null,
@@ -1789,7 +1787,7 @@
 "status": "added",
 "name": "recover_bridge_payment handler body",
 "skeleton_match": false,
-"cluster": "C2-bridge-handlers",
+"cluster": "C3-bridge-handlers",
 "old_v154_symbol": null,
 "similarity": 0,
 "identical_to_old_binary": null,
@@ -1866,9 +1864,9 @@
 "addr": "0x22f08",
 "size": 808,
 "status": "modified",
-"name": "tools::checks::check_relayer",
-"skeleton_match": false,
-"cluster": "C6-checks",
+"name": "donation_relay_source_proposal::tools::checks::check_relayer",
+"skeleton_match": true,
+"cluster": null,
 "old_v154_symbol": "donation_relay_source_proposal::tools::checks::check_relayer",
 "similarity": 0.759,
 "identical_to_old_binary": null,
@@ -1933,7 +1931,7 @@
 "status": "added",
 "name": "tools::distribution::shared exact distribution",
 "skeleton_match": false,
-"cluster": "C3-distribute-exact",
+"cluster": "C2-distribute-exact",
 "old_v154_symbol": null,
 "similarity": 0,
 "identical_to_old_binary": null,
@@ -1969,7 +1967,7 @@
 "status": "added",
 "name": "tools::distribution::shared exact transfer worker",
 "skeleton_match": false,
-"cluster": "C3-distribute-exact",
+"cluster": "C2-distribute-exact",
 "old_v154_symbol": null,
 "similarity": 0,
 "identical_to_old_binary": null,
@@ -3921,7 +3919,7 @@
 "status": "added",
 "name": "#[program] recover_bridge_payment_v1 wrapper",
 "skeleton_match": false,
-"cluster": "C2-bridge-handlers",
+"cluster": "C3-bridge-handlers",
 "old_v154_symbol": null,
 "similarity": 0,
 "identical_to_old_binary": null,
@@ -4154,9 +4152,9 @@
 "addr": "0x99d70",
 "size": 3336,
 "status": "modified",
-"name": "#[program] admit_bridge_payment_v1 wrapper",
-"skeleton_match": false,
-"cluster": "C2-bridge-handlers",
+"name": "donation_relay_source_proposal::anchor_framework::relay_anchor_idl_reconstruction_probe::admit_bridge_payment_v1",
+"skeleton_match": true,
+"cluster": null,
 "old_v154_symbol": "donation_relay_source_proposal::anchor_framework::relay_anchor_idl_reconstruction_probe::close_donation_epoch_v1",
 "similarity": 0.655,
 "identical_to_old_binary": null,
