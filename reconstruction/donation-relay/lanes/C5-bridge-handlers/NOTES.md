@@ -13,7 +13,8 @@ All figures are `relay/tools/measure.sh` on the Mac route unless marked Linux: n
 | merge C4's handler move | `afe1b2869` | 550 | 795,888 | 537 | 22,643 / 16 | none |
 | bridge handlers into their instruction modules, modules reordered | `ddba01c1e` | 550 | 795,888 | 537 | 23,042 / 10 | none |
 | event and state modules reordered | `36f255cac` | 550 | 795,888 | 538 | 23,074 / 4 | none |
-| `#[access_control]` on the nine relayer handlers | see below | 550 | 795,888 | 538 | 23,074 / 4 | none |
+| same source, Linux | `36f255cac` | 552 | 796,608 | 530 | 23,074 / 4 | none |
+| `#[access_control]` on the nine relayer handlers | `69a547cd2` | 550 | 795,888 | 538 | 23,074 / 4 | none |
 
 `.rodata` target size is 23,104 B. "Common" and "edits" come from `difflib.SequenceMatcher` over the two sections, without autojunk.
 
@@ -97,15 +98,21 @@ Four edits, none tied to this cluster:
 
 - `programs/contracts/src/tools/distribution/shared.rs`, in the candidate only, from three `Location`s at `91:45`, `118:54` and `134:13`. Those are the only `Location` difference left against the target (C1, C2).
 - `\r\0\0\0` at target `0xce4`, one `ErrorCode` constant. In the target only `0x24ec0` references it (C2), so it should follow that function. Not checked by a build here.
-- `Unexpected length of input`, at `0x3fe5` in the target and later here. In the target only `0xbb2a8`, `borsh::de::unexpected_eof_to_unexpected_length_of_input`, references it. That function is also out of order here and is upstream code, so this is probably the host hash. See the Linux result below.
+- `Unexpected length of input`, at `0x3fe5` in the target and later here. In the target only `0xbb2a8`, `borsh::de::unexpected_eof_to_unexpected_length_of_input`, references it. Linux has the same edit, so it is not the host hash. C7's notes explain it as crate link order, from when `borsh` is loaded.
 
 ## Mac and Linux
 
-On the Mac, recover reports `strict: false`, `call 0x4ea0->0x5120`. That is not a source difference. The two `Account<T>::reload` instances (classic and interface `TokenAccount`) have equal bodies, and their order follows the symbol hash, which depends on the host. Recover calls the classic one, as the target does: the callee's own `try_deserialize_unchecked` pairs with the target's `0xa21c8`. On Linux the pairs line up, and `0x4ea0`, `0x5120`, `0x20580` and `0x21608` are all `strict: true`.
+On the Mac, recover reports `strict: false`, `call 0x4ea0->0x5120`. That is not a source difference. The two `Account<T>::reload` instances (classic and interface `TokenAccount`) have equal bodies, and their order follows the symbol hash, which depends on the host. Recover calls the classic one, as the target does: the callee's own `try_deserialize_unchecked` pairs with the target's `0xa21c8`. On Linux (`1faf3dca8` and `36f255cac`) the pairs line up, and `0x4ea0`, `0x5120`, `0x20580` and `0x21608` are all `strict: true`. `0xb3278` and `0xbcac0` also match there, as the brief expects, and `.rodata` has the same four edits as the Mac.
 
 ## Merging
 
-`swarm/w20-relay-C3-jupiter-swap` and `swarm/w20-relay-C7-framework-layout` edit one line of `bridge_handlers.rs`, the same `with_values`. Merging them gives a modify/delete conflict: keep the deletion, because the edit is already in `admit_bridge_payment.rs`. Dry-run merges against C1, C4 and C6 are clean.
+`swarm/w20-relay-C3-jupiter-swap` and `swarm/w20-relay-C7-framework-layout` edit one line of `bridge_handlers.rs`, the same `with_values`. Merging them gives a modify/delete conflict: keep the deletion, because the edit is already in `admit_bridge_payment.rs`. Merges with C1, C4 and C6 are clean. C2 had no branch when this was written.
+
+Trial merge, not pushed: `69a547cd2` with C4 `230627eb5`, C6 `9aa875159`, C1 `c0e7d2635`, C3 `1d28dda70` and C7 `06d3ddbfc` gave 564 of 571, 832,952 B, ratio 0.97777, strict 545, `same_address` 51, zero losses, `.rodata` 23,074 / 4 edits on the Mac route. Left open: the five C2 functions and the two Linux-only ones (`0xb3278`, `0xbcac0`).
+
+## Raw bytes
+
+On the Mac route, every instruction slot of both functions is identical except address operands: admit differs in 16 `lddw` and 13 `call` immediates, recover in 25 `lddw` and 29 `call`. So neither is raw-identical in place yet. That needs the rest of `.text` and `.rodata` at the target's addresses. `whole_elf_equal` is false on every build above.
 
 ## Tried and not kept
 
