@@ -105,6 +105,22 @@ same fields in a different slot order (the table lists every store). The token-a
 original calls `token_raw_amount` before `token_frozen` (0x20c8 then 0x2110, call targets 0x6ce0 then 0x6b08); main
 calls `token_frozen` first. That is w14a70's a1, -24 B / M 2,242 alone on this main.
 
+## Landed
+
+PR #3859, merged by land.py as `7e5ba44a7` (zero losses, closer: admin_cto, runtime 388/0). New main: 0.67436, 3,141
+slots, M 2,251.
+
+## After landing: binary polarity oracle on 7e5ba44 (`tools/flipall.py`, `tools/flippairs.py`)
+
+`qflip` generalised: every `jCC a,b,+1; ja +X` can become `jNCC a,b,+X` (-8 B), and every lone conditional jump can
+become `jNCC +1; ja` (+8 B), with jumps re-fixed and registers/frame assumed unchanged (exact for A6 and sh_iflet).
+- Singles (69 minus, 74 plus, `data/flipall_main7e5ba44.json`): none above 2,251. The best minus flips reach 2,250
+  (0x1000, 0x1288, 0x1800); 9 plus flips keep 2,251 at +8 B.
+- All 5,106 minus x plus pairs at 27,400 B (`data/flippairs_main7e5ba44_top60.json`): the best is **2,252 (+1)**, for
+  example sh_iflet's site 0x4a30 with a plus flip at 0x5520 or 0x5558. Those plus sites are Rc drop-glue `jne` tests
+  (strong-count decrement), which no source spelling controls, so the +1 is alignment, not shape. The polarity
+  dimension is exhausted on the new main: at most +1 M, and not source-reachable.
+
 ## Next ideas
 
 - A6 is a faithful -8 B step at the sweep head. Its insertion map is wide (602 main+1 slots), so any faithful +8 B

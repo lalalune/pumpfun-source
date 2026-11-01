@@ -1,0 +1,80 @@
+{
+ "lane": "w16a07-cto-sweeptuple",
+ "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27,400 B",
+ "base": {
+  "main": "9bd38c7d5",
+  "ratio": 0.67376,
+  "slots_diff": 3124,
+  "bytes": 27400,
+  "M": 2249,
+  "Mperm": 2292
+ },
+ "best": {
+  "ratio": 0.67436,
+  "slots_diff": 3141,
+  "bytes": 27400,
+  "M": 2251,
+  "normalized": 1034,
+  "raw": 1034,
+  "losses": [],
+  "raw_losses": [],
+  "differential": "388 cases, 0 mismatches",
+  "unstripped_sha": "a8a70a59c345af69"
+ },
+ "landed": {
+  "pr": 3859,
+  "merge_commit": "7e5ba44a7",
+  "by": "land.py"
+ },
+ "change": [
+  "A6: sweep AMM guard as match (amm_present,amm_frozen){(_,false)=>if !empty{TCF CPI?},(true,true)=>{require!(..660)},(false,true)=>{}}; the line-660 token_raw_amount ? Ok block becomes IR-next, so ISel emits the original's single jne r7,2 (orig 0x2528) instead of jeq+ja; -8 B, otherwise byte-identical (M 2244 @27392)",
+  "ev6: AdminCtoEvent literal with is_holder_reward first (w15a30 ev:6012345789abc, +8 B repay; not faithful, the original loads it late)"
+ ],
+ "mechanism": "rustc first-reference block order + BPF ISel branch-polarity choice from IR order (no re-inversion after placement). The tuple decision tree with the TCF arm first puts bb63.i (660 Ok) right after bb13.i118 (660 call); an IR oracle moving only that block reproduces A6 exactly.",
+ "attempts": {
+  "raw_ir_oracle_variants": 19,
+  "ir_block_move_oracle": 141,
+  "binary_flip_singles": 143,
+  "binary_flip_pairs": 5106,
+  "binary_A6_compositions": 214,
+  "binary_A6_sh_iflet_compositions": 180,
+  "measure_builds": 1
+ },
+ "price_table": {
+  "m_A1=m_A2 (match amm_frozen as i32)": "27392 M2243 (flips the AMM token_frozen ? to jne, wrong site)",
+  "m_A3 / m_A7 (tuple dropping the 2nd data_is_empty)": "27320 M1732",
+  "m_A5 (sweep_fees arm order)": "27384 M2141 (TCF re-laid to 0x1f88)",
+  "m_A6": "27392 M2244 (660 ? = original)",
+  "m_A6c (match amm_frozen{false=>,true=>}) / m_A6e (if !amm_frozen)": "byte-identical to main",
+  "m_N1 / m_N2 (match native as i32)": "27480 M1583 / 27456 M1582 (sweep re-laid)",
+  "m_T1 (token tuple)": "byte-identical to main",
+  "m_T2 (match frozen as i32)": "27408 M2246 (and_then ? to jeq+ja)",
+  "m_t1 / m_t1A6": "27408 M2243 / 27400 M2246",
+  "s_A6 (sh_iflet + A6)": "27384 M2244",
+  "s_t1A6": "27392 M2242",
+  "t_0 / t_A6 (tai)": "27416 M2170 / 27408 M2171; lamports Rc stays r5 (marker 0/5)"
+ },
+ "rejected_mechanisms": [
+  "as-i32 and tuple respellings of the native/token split (re-lay the whole sweep, -666 M)",
+  "tuple forms that drop the second data_is_empty call (A3, A7: -80 B, -517 M)",
+  "token-arm tuple/as-i32 forms (fold to main or flip the and_then ? the wrong way)",
+  "tuple forms on the tai TCF base: the clone-run registers never move (lamports Rc stays r5)",
+  "single post-opt IR polarity moves in the sweep (40): none above main",
+  "A6 + every captured +8 B variant of w15/w16 lanes except ev6: ties at best (cu_unwrapcur, e0u, rr7O, wl_writ_eq, ev7)",
+  "A6 + sh_iflet + every captured +16 B source variant: best 2244",
+  "binary polarity flip pairs on 7e5ba44: best +1 M, only via Rc drop-glue sites (not source-reachable)"
+ ],
+ "unresolved_residuals": [
+  "sweep head RA: original spills &holder_creator_vault at its def ([0x8e0]) and bump/native after the 648 test; main keeps hcv in r6 and bump in r9 through the TCF clone run (data/spillmap-*.txt)",
+  "skip gate in a spill slot in the original vs r9 in main; [0x950] reloaded into r1 before every sweep-exit tag test in the original",
+  "token arm calls token_raw_amount before token_frozen in the original (a1 is -24 B / M 2242 alone)",
+  "648/660 tail-dup tag-test copies (ldxdw r1,[0x950]; jne r7,2) present only in the original"
+ ],
+ "next_ideas": [
+  "A6 + sh_iflet is 27,384 B at M 2,244 with both flips faithful; a faithful +16 B pair (or two +8 B) in cand 0x3f08-0x4bd8 / 0x4e18-0x5578 would make it pay (A6 insmap: 602 main+1 slots)",
+  "replace the ev6 repay with a faithful +8 B construct when one appears; compose candidates first with tools/qflip.py / qcompl.py (no build needed)",
+  "the first-reference/IR-next polarity lever is general: any `?` whose Ok block should be IR-next can be tested with tools/irmv.py before searching for a source spelling"
+ ],
+ "tools": "reconstruction/pump-main/lanes/w16a07-cto-sweeptuple/tools/ (gen.py, scr.py, marker.py, irmv.py, polscan.py, qflip.py, qcompl.py, flipall.py, flippairs.py, spillmap.py, mdiff.py)",
+ "ledger": "approach sweeptuple, keys 0x22a10-w16-9bd38c7-sweeptuple-<variant>-v1"
+}
