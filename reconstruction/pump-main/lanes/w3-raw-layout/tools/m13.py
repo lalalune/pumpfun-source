@@ -1,5 +1,5 @@
 import sys,json
-sys.path.insert(0,'/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/w3-raw-layout/reconstruction/pump-main/lanes/layout-order-census/tools')
+sys.path.insert(0,'./worktrees/w3-raw-layout/reconstruction/pump-main/lanes/layout-order-census/tools')
 import census as C
 for k in (0x6cd78,0x77940,0x14f4e0,0x4c158): C.UNMATCHED_NAMES.pop(k,None)
 import fastmodel as F

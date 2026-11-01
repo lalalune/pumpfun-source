@@ -6,7 +6,7 @@ from pathlib import Path
 LANE = Path(__file__).resolve().parent.parent
 OUT = LANE / 'src'
 OUT.mkdir(exist_ok=True)
-REPO = Path('/Users/shawwalters/Documents/Codex/2026-10-24/pumpfun-source')
+REPO = Path('.')
 H = Path.home() / '.codex/worktrees/pump-swap-remaining-20261028/pumpfun-source'
 REL = 'programs/pump-amm/src/instructions/swap/sell.rs'
 
@@ -28,7 +28,7 @@ def add(b, origin):
         manifest[h].append(origin)
 
 
-roots = [H, REPO / 'research', Path('/Users/shawwalters/Documents/Codex/2026-10-24')]
+roots = [H, REPO / 'research', Path('$HOME/Documents/Codex/2026-10-24')]
 seen_files = set()
 for root in roots:
     for dp, dn, fn in os.walk(root):

@@ -7,7 +7,7 @@ Masks call immediates and lddw values (relocations); checks callee-name sequence
 import difflib, json, struct, subprocess, sys, re
 from pathlib import Path
 
-SW = Path('/Users/shawwalters/Documents/Codex/2026-10-24/amm-sell-swarm')
+SW = Path('$HOME/Documents/Codex/2026-10-24/amm-sell-swarm')
 sys.path.insert(0, str(SW / 'harness'))
 import elf_reader, sell_score  # noqa
 B = SW / 'infra/sdk-native/rust/lib/rustlib/aarch64-apple-darwin/bin'

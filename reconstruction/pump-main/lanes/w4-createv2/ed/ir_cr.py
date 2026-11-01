@@ -1,4 +1,4 @@
-import os,sys; sys.path.insert(0,'/Users/shawwalters/.cache/pumpfun-reconstruction/lanes/w4-createv2/scripts'); import ren
+import os,sys; sys.path.insert(0,'$HOME/.cache/pumpfun-reconstruction/lanes/w4-createv2/scripts'); import ren
 M=os.environ.get('CM','gep+late')
 def edit(t):
     t=ren.ren(t)

@@ -2,8 +2,8 @@
 # trial.sh NAME file.rs [score]
 set -e
 OUT=~/.cache/pumpfun-reconstruction/lanes/w6r1-sweep-ir
-T=/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/w6r1-sweep-ir/reconstruction/harness
-BASEJ=/private/tmp/claude-501/-Users-shawwalters-Documents-Codex-2026-10-24-pumpfun-source/9ebf44b6-961d-4889-839c-f928372efc77/scratchpad/w6/base/score.json
+T=./worktrees/w6r1-sweep-ir/reconstruction/harness
+BASEJ=./9ebf44b6-961d-4889-839c-f928372efc77/scratchpad/w6/base/score.json
 N=$1; F=$2
 export PUMP_BUILD_SLOTS=10
 mkdir -p $OUT/srcs; rm -rf $OUT/srcs/$N; rsync -a --exclude target $OUT/src0/ $OUT/srcs/$N/

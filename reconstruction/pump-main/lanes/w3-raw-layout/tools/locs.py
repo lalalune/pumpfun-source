@@ -1,5 +1,5 @@
 # locs.py cand.so refined.json 0xORIG... : print panic Locations (file,line,col) referenced by original window and by paired cand fn
-import sys,struct; sys.path.insert(0,'/Users/shawwalters/.cache/pumpfun-reconstruction/lanes/w3-raw-layout/scripts')
+import sys,struct; sys.path.insert(0,'$HOME/.cache/pumpfun-reconstruction/lanes/w3-raw-layout/scripts')
 from m13 import *
 M=model(sys.argv[1],sys.argv[2]); cand=open(sys.argv[1],'rb').read(); orig=(C.BASE/'original.so').read_bytes()
 def rd(blob,secs,va,n):

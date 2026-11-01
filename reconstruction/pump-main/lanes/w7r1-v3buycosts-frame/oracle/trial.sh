@@ -1,7 +1,7 @@
 #!/bin/bash
 # trial.sh <name> <patch.py> <workslot>  (diagnostic source trial; patch.py edits <crate>/src/trade_v3.rs text via edit(s))
 set -e
-W=/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/w7r1-v3buycosts-frame
+W=./worktrees/w7r1-v3buycosts-frame
 OUT=~/.cache/pumpfun-reconstruction/lanes/w7r1-v3buycosts-frame
 N=$1; P=$2; S=${3:-a}
 export PUMP_BUILD_SLOTS=10

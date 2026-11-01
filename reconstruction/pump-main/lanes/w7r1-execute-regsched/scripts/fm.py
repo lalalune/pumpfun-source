@@ -1,6 +1,6 @@
 import re,sys,difflib
 # fm.py name... : full-mask (regs, stack offsets, add64 imm on r10 copies, jump offsets) diff line count vs orig
-B='/Users/shawwalters/.cache/pumpfun-reconstruction/lanes/w7r1-execute-regsched/'
+B='$HOME/.cache/pumpfun-reconstruction/lanes/w7r1-execute-regsched/'
 def M(L):
     out=[]
     for x in L:

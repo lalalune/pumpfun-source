@@ -2,8 +2,8 @@
 # t.sh <trial> <edits.py> [cap]  : make variant, build (fastbuild), score, metric; cap=1 also captures IR + oracle compare
 export PUMP_BUILD_SLOTS=10
 O=~/.cache/pumpfun-reconstruction/lanes/w3-sellv3-oracle
-TOOLS=/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/w3-sellv3-oracle/reconstruction
-BASEJ=/private/tmp/claude-501/-Users-shawwalters-Documents-Codex-2026-10-24-pumpfun-source/4381c718-211a-406c-9278-6119c4649998/scratchpad/w3/base/out/score.json
+TOOLS=./worktrees/w3-sellv3-oracle/reconstruction
+BASEJ=./4381c718-211a-406c-9278-6119c4649998/scratchpad/w3/base/out/score.json
 T=$1; E=$2
 python3 $O/tools/mkvar.py $T $E >/dev/null || exit 1
 S=$O/src/$T

@@ -1,8 +1,8 @@
 # dataoff.py cand.so : per normalized window, does SOME matching candidate symbol have every .rodata/.data.rel.ro lddw at the original in-section offset?
 import sys,struct,hashlib
-sys.path.insert(0,'/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/w6r2-layout-rodata/reconstruction/harness')
+sys.path.insert(0,'./worktrees/w6r2-layout-rodata/reconstruction/harness')
 from score import candidate_functions, body, original_windows, normalize, sections
-orig=open('/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/w6r2-layout-rodata/reconstruction/base/original.so','rb').read()
+orig=open('./worktrees/w6r2-layout-rodata/reconstruction/base/original.so','rb').read()
 os_=sections(orig); cand=open(sys.argv[1],'rb').read(); cs=sections(cand)
 def refs(raw,S):
     out=[];i=0

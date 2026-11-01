@@ -1,6 +1,6 @@
-diff -ruN pump/src/multi_hop_curve_swap.rs /Users/shawwalters/.Trash/research/goal-pump-main-swarm-20261029/lanes/sellv3-runtime-differential/source/src/multi_hop_curve_swap.rs
+diff -ruN pump/src/multi_hop_curve_swap.rs $HOME/.Trash/research/goal-pump-main-swarm-20261029/lanes/sellv3-runtime-differential/source/src/multi_hop_curve_swap.rs
 --- pump/src/multi_hop_curve_swap.rs	2026-10-29 02:38:10
-+++ /Users/shawwalters/.Trash/research/goal-pump-main-swarm-20261029/lanes/sellv3-runtime-differential/source/src/multi_hop_curve_swap.rs	2026-10-28 21:55:46
++++ $HOME/.Trash/research/goal-pump-main-swarm-20261029/lanes/sellv3-runtime-differential/source/src/multi_hop_curve_swap.rs	2026-10-28 21:55:46
 @@ -762,7 +762,7 @@
              move_lamports(&h.bonding_curve.to_account_info(),&a.user.to_account_info(),output)?;
          }
@@ -46,9 +46,9 @@ diff -ruN pump/src/multi_hop_curve_swap.rs /Users/shawwalters/.Trash/research/go
          creator_fee_unclaimed:curve.creator_fee,
          unparsed_trailing_field,
      }
-diff -ruN pump/src/trade_v3.rs /Users/shawwalters/.Trash/research/goal-pump-main-swarm-20261029/lanes/sellv3-runtime-differential/source/src/trade_v3.rs
+diff -ruN pump/src/trade_v3.rs $HOME/.Trash/research/goal-pump-main-swarm-20261029/lanes/sellv3-runtime-differential/source/src/trade_v3.rs
 --- pump/src/trade_v3.rs	2026-10-29 02:38:10
-+++ /Users/shawwalters/.Trash/research/goal-pump-main-swarm-20261029/lanes/sellv3-runtime-differential/source/src/trade_v3.rs	2026-10-29 02:58:55
++++ $HOME/.Trash/research/goal-pump-main-swarm-20261029/lanes/sellv3-runtime-differential/source/src/trade_v3.rs	2026-10-29 02:58:55
 @@ -363,17 +363,17 @@
  
  #[inline(never)]

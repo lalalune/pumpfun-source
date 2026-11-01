@@ -3,7 +3,7 @@
   "target": "0x1e7c0 pump_recovered::create_v2::execute",
   "angle": "inlining boundary and callee-multiset census",
   "base": {"commit": "2b8582135", "ratio": 0.96854, "bytes": 15584, "official": "1027/276"},
-  "best": {"build": "d1", "ratio": 0.99892, "slots_diff": 4, "bytes": 15576, "calls": "125/125", "official": "1027/276, 0 normalized losses, 0 raw losses (scored against a 2b85821 build)", "unstripped_sha256": "e17cc2c011cb21fe2e3cb86e63c26ab99e53366a0ad43e2c2387b14d84d1d92c", "pr": "https://github.com/lalalune/pumpfun-source/pull/2293"},
+  "best": {"build": "d1", "ratio": 0.99892, "slots_diff": 4, "bytes": 15576, "calls": "125/125", "official": "1027/276, 0 normalized losses, 0 raw losses (scored against a 2b85821 build)", "unstripped_sha256": "e17cc2c011cb21fe2e3cb86e63c26ab99e53366a0ad43e2c2387b14d84d1d92c", "pr": "PR #2293"},
   "accepted_mechanisms": [
     "census: 125/125 direct calls, identical callee sequence; no syscalls; every inline/outline decision already matched",
     "t1: init_curve creator store after token_total_supply (SSA &mut BondingCurve pointer keeps memcpy order) 0.96854->0.97284",

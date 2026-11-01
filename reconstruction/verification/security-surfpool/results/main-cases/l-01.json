@@ -1,0 +1,144 @@
+{
+  "finding": "L-01",
+  "case": {
+    "name": "paused",
+    "op": "migrate_bonding_curve_creator",
+    "status": 0,
+    "curve_patches": [
+      [
+        49,
+        "a118043359e7cb45ea8bb201e7c8b943f13456c0a4d1b11d4343a7828089fbba"
+      ]
+    ]
+  },
+  "surfpool": {
+    "signature": "64zbpAXH4KvKsiTmkVa1M5jGFEyRJWrB5M4E3gLAQBDL7Xnw1LDHGA8DigZ2oQLWHaRYrPqjAiH8aRVQBHZhfcCs",
+    "error": null,
+    "logs": [
+      "Program ComputeBudget111111111111111111111111111111 invoke [1]",
+      "Program ComputeBudget111111111111111111111111111111 success",
+      "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P invoke [1]",
+      "Program log: Instruction: MigrateBondingCurveCreator",
+      "Program data: m6do3NVs8wN0yuRqAAAAAD09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09zFgJM4PD9196vwGWk7zXSGdUx7J1ol73isYd+EfSb9CGmFWxxFqZ+YMH9iHRjIngjQBJF1gXc2FmW3zGwb7A+6EYBDNZ58tF6ouyAefIuUPxNFbApNGxHUNDp4KAifu6hphVscRamfmDB/Yh0YyJ4I0ASRdYF3NhZlt8xsG+wPs=",
+      "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P invoke [2]",
+      "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P consumed 2170 of 1386255 compute units",
+      "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P success",
+      "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P consumed 17081 of 1399850 compute units",
+      "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P success"
+    ],
+    "return_data": null,
+    "simulation": {
+      "err": null,
+      "logs": [
+        "Program ComputeBudget111111111111111111111111111111 invoke [1]",
+        "Program ComputeBudget111111111111111111111111111111 success",
+        "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P invoke [1]",
+        "Program log: Instruction: MigrateBondingCurveCreator",
+        "Program data: m6do3NVs8wN0yuRqAAAAAD09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09zFgJM4PD9196vwGWk7zXSGdUx7J1ol73isYd+EfSb9CGmFWxxFqZ+YMH9iHRjIngjQBJF1gXc2FmW3zGwb7A+6EYBDNZ58tF6ouyAefIuUPxNFbApNGxHUNDp4KAifu6hphVscRamfmDB/Yh0YyJ4I0ASRdYF3NhZlt8xsG+wPs=",
+        "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P invoke [2]",
+        "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P consumed 2170 of 1386255 compute units",
+        "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P success",
+        "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P consumed 17081 of 1399850 compute units",
+        "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P success"
+      ],
+      "accounts": null,
+      "unitsConsumed": 17231,
+      "loadedAccountsDataSize": 1936576,
+      "returnData": null,
+      "innerInstructions": [
+        {
+          "index": 1,
+          "instructions": [
+            {
+              "programId": "6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P",
+              "accounts": [
+                "Ce6TQqeHC9p8KetsN6JsjHK7UTZk7nasjjnr7XxXp9F1"
+              ],
+              "data": "3nwpZHrCmZ4vPRy5THmWuKEzrZEQ24dJDhzBzcJRwhNEUtJdq42MHGV62tkFKsacWxxhBzWPNW5caNFPDDiyhmiGV1Qzq5jAwMAttrjTcv2FsYB4oSr4UuKHeq68UE2op3DPZYGsWGAYH6nyuVxTA89uTBxgEhF6Vm34rkaoRGigrZa3JLAMcJtq3ds34ozXQuvS19x8aztYU6dSofL1EYxtPCxJyc66vgheHdB9Qirc8irVmZe7jz1Zz1X8",
+              "stackHeight": 2
+            }
+          ]
+        }
+      ],
+      "replacementBlockhash": null,
+      "fee": null,
+      "preBalances": null,
+      "postBalances": null,
+      "preTokenBalances": null,
+      "postTokenBalances": null,
+      "loadedAddresses": null
+    },
+    "signature_verification": true,
+    "loaded_programs": {
+      "6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P": {
+        "path": "/Users/shawwalters/Documents/Codex/2026-10-24/pumpfun-source/evidence/original/pump/deployed.so",
+        "sha256": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d"
+      },
+      "pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA": {
+        "path": "/Users/shawwalters/Documents/Codex/2026-10-24/pumpfun-source/evidence/original/pump_amm/deployed.so",
+        "sha256": "6a7ad34596d83b4c435b32f458a56e718e9f82eb4ad38e4316616d15d24d8ff7"
+      },
+      "pfeeUxB6jkeY1Hxd7CsFCAjcbHA9rWtchMGdZ6VojVZ": {
+        "path": "/Users/shawwalters/Documents/Codex/2026-10-24/pumpfun-source/evidence/original/pump_fees/deployed.so",
+        "sha256": "4f2955d0f6b40cc9ff7daa18ccad7d19119ba1249759f4e7e3bb691beee6b35e"
+      },
+      "MAyhSmzXzV1pTf7LsNkrNwkWKTo4ougAJ1PPg47MD4e": {
+        "path": "/Users/shawwalters/Documents/Codex/2026-10-24/pumpfun-source/evidence/original/mayhem/deployed.so",
+        "sha256": "a87fa9f866272514e6acb852b668c4a08aeb173d56c883039991d114d1199bdb"
+      },
+      "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA": {
+        "path": "/Users/shawwalters/Documents/Codex/2026-10-24/pumpfun-source/evidence/dependencies/spl_token/deployed.so",
+        "sha256": "8190d3f7ceb6cb7a7a8d8924bff89f9f611e15ce1f806f2b6237f3311a98f697"
+      },
+      "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb": {
+        "path": "/Users/shawwalters/Documents/Codex/2026-10-24/pumpfun-source/evidence/dependencies/spl_token_2022/deployed.so",
+        "sha256": "15a2e615a42e20f31714bbaaee43002ae6f1cda2e8d7118243117ab3c1342e2d"
+      },
+      "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL": {
+        "path": "/Users/shawwalters/Documents/Codex/2026-10-24/pumpfun-source/evidence/dependencies/associated_token/deployed.so",
+        "sha256": "6804554e69fd3a58caa191dc4a58f4c67223d30ca28ab8987f39fc18d2f7374d"
+      },
+      "metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s": {
+        "path": "/Users/shawwalters/Documents/Codex/2026-10-24/pumpfun-source/evidence/dependencies/token_metadata/deployed.so",
+        "sha256": "31f0a627dba051a938de650464e55cc5397a4be0fd496929c1f9cf02fe5e9011"
+      }
+    },
+    "account_deltas": {
+      "Dcoofcyv2ySgPPsWXqRYatNN1B2zUqxNaSnk5dLfgB2F": {
+        "before": {
+          "lamports": 1000000000000,
+          "owner": "11111111111111111111111111111111",
+          "executable": false,
+          "data": "",
+          "data_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "after": {
+          "lamports": 999999995000,
+          "owner": "11111111111111111111111111111111",
+          "executable": false,
+          "data": "",
+          "data_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "Ekg2jAqnSXkb4bnJWgohVHjhrdtbn8SR6SwbyQoU5YWK": {
+        "before": {
+          "lamports": 1000000000,
+          "owner": "6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P",
+          "executable": false,
+          "data": "17b7f83760d8ac6000000000000000000000000000000000e8030000000000000000000000000000000000000000000000a118043359e7cb45ea8bb201e7c8b943f13456c0a4d1b11d4343a7828089fbba0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+          "data_sha256": "9621078be1e09d8f4e7da3488d9f949622574a246f241514858bc5cb05d39be0"
+        },
+        "after": {
+          "lamports": 1000000000,
+          "owner": "6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P",
+          "executable": false,
+          "data": "17b7f83760d8ac6000000000000000000000000000000000e8030000000000000000000000000000000000000000000000869855b1c45a99f98307f621d18c89e08d00491758177361665b7cc6c1bec0fb0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+          "data_sha256": "3a46c9f7bc6a0a012d4ba32d514461aeb25beb55021db4b17911033f56809fda"
+        }
+      }
+    },
+    "transaction_base64": "Af2HS4XT65EzhVHWxyIcIBcFskDQ3yk4tFXoVjqOCis9SIWWHG8Mf+v0SeBl4XxgRLGeShYzQro4KzU1Tc8vQwwBAAUIu3h+WQGsOBaKizc3FfVx7fdVxRj6ydxz4zkSbOT1LwihGAQzWefLReqLsgHnyLlD8TRWwKTRsR1DQ6eCgIn7usxYCTODw/dfer8BlpO810hnVMeydaJe94rGHfhH0m/QAVbg9pNmWs9E2xVovxdbqlGJy5f10v87ZV0rtv1tGLADBkZv5SEXMv/srbpyw5vnvIzlu8X3EmssQ5s6QAAAAD09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09hphVscRamfmDB/Yh0YyJ4I0ASRdYF3NhZlt8xsG+wPus8TbrAfwcTog9I8i1hEq1mjf2at1XxemsO1PgWdNcZAaGhZ04yAqXIUgYQWkX4L+PyhV+Rk+YzP0P+p34R9vaAgQABQLAXBUAAwYFAgYHAwEIV3w0vzQm1ug=",
+    "fixture_clock_unix_timestamp": null,
+    "litesvm_error": null
+  }
+}

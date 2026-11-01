@@ -1,7 +1,7 @@
 {
  "meta": {
   "schema": "pump-main-coordinate-linemaps-v1",
-  "candidate": "/Users/shawwalters/.cache/pumpfun-reconstruction/lanes/coordinate-archaeology/out/sell-panic-line-76/unstripped.so",
+  "candidate": "$HOME/.cache/pumpfun-reconstruction/lanes/coordinate-archaeology/out/sell-panic-line-76/unstripped.so",
   "original": "reconstruction/base/original.so",
   "pairing": "exact (kind,path,code|col,line) first, then (kind,path,code|col)",
   "extraction": "Source sites: coords.py pattern with the LINE taken from the nearest stw [r10+X+8] in the same straight-line run (coords.py takes the first in +-30 insns, which mislabels sites that reuse a stack slot); error code = stw [r10+X+136]. Panic sites: lddw of a .data.rel.ro core::panic::Location {ptr<<32,len,line,col}.",

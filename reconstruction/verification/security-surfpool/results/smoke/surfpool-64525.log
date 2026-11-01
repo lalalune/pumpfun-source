@@ -1,0 +1,4 @@
+
+thread 'simnet' panicked at crates/core/src/surfnet/svm.rs:908:53:
+called `Option::unwrap()` on a `None` value
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace

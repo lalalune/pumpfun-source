@@ -1,6 +1,6 @@
-diff -ruN pump/src/multi_hop_curve_swap.rs /Users/shawwalters/.Trash/research/goal-pump-main-swarm-20261029/lanes/hop-reordering/source/src/multi_hop_curve_swap.rs
+diff -ruN pump/src/multi_hop_curve_swap.rs $HOME/.Trash/research/goal-pump-main-swarm-20261029/lanes/hop-reordering/source/src/multi_hop_curve_swap.rs
 --- pump/src/multi_hop_curve_swap.rs	2026-10-29 02:38:10
-+++ /Users/shawwalters/.Trash/research/goal-pump-main-swarm-20261029/lanes/hop-reordering/source/src/multi_hop_curve_swap.rs	2026-10-29 03:21:11
++++ $HOME/.Trash/research/goal-pump-main-swarm-20261029/lanes/hop-reordering/source/src/multi_hop_curve_swap.rs	2026-10-29 03:21:11
 @@ -484,8 +484,8 @@
          require!(!h.bonding_curve.is_mayhem_mode,PumpError::MultiHopMayhemCurveNotSupported);
          let native = h.bonding_curve.quote_mint == Pubkey::default(); let quote_fee = if native { None } else { crate::transfer_fee_recovered::get_transfer_fee(&h.quote_mint.to_account_info())? }; let base_token_program = token_program_for(&a.token_program, &a.token_2022_program, h.base_mint.as_ref().as_ref())?; let quote_token_program = token_program_for(&a.token_program, &a.token_2022_program, h.quote_mint.as_ref().as_ref())?; admit_vaults(h,a,&base_token_program,&quote_token_program,native,require_ata)?;
@@ -286,9 +286,9 @@ diff -ruN pump/src/multi_hop_curve_swap.rs /Users/shawwalters/.Trash/research/go
  pub struct HopOutput<'info> { mint: Pubkey, amount: u64, buyback_fee: u64, vault: AccountInfo<'info> }
  struct PostCompleteFill {
      base: u64,
-diff -ruN pump/src/trade_v3.rs /Users/shawwalters/.Trash/research/goal-pump-main-swarm-20261029/lanes/hop-reordering/source/src/trade_v3.rs
+diff -ruN pump/src/trade_v3.rs $HOME/.Trash/research/goal-pump-main-swarm-20261029/lanes/hop-reordering/source/src/trade_v3.rs
 --- pump/src/trade_v3.rs	2026-10-29 02:38:10
-+++ /Users/shawwalters/.Trash/research/goal-pump-main-swarm-20261029/lanes/hop-reordering/source/src/trade_v3.rs	2026-10-29 02:55:16
++++ $HOME/.Trash/research/goal-pump-main-swarm-20261029/lanes/hop-reordering/source/src/trade_v3.rs	2026-10-29 02:55:16
 @@ -291,7 +291,7 @@
  
  

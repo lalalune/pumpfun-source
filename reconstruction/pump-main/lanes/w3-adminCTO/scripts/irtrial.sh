@@ -1,6 +1,6 @@
 #!/bin/zsh
 # irtrial.sh <name>: capture IR of current worktree source, dump execute frame objects
-WT=/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/w3-adminCTO
+WT=./worktrees/w3-adminCTO
 OUT=~/.cache/pumpfun-reconstruction/lanes/w3-adminCTO
 SDK=~/.cache/solana/v1.44/platform-tools
 export PUMP_BUILD_SLOTS=10

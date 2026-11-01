@@ -1,6 +1,6 @@
 # compare .data.rel.ro slot by slot: decode relocated pointers (u32 target in upper half per sBPF) to (section, offset)
 import sys,struct
-sys.path.insert(0,'/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/restore/reconstruction/harness')
+sys.path.insert(0,'./worktrees/restore/reconstruction/harness')
 from score import sections
 def load(p):
     b=open(p,'rb').read(); S=sections(b); return b,S
@@ -15,7 +15,7 @@ def slots(b,S):
         t=sec_of(S,hi) if lo==0 and hi else None
         out.append(('P',)+t if t else ('V',raw[i:i+8]))
     return out
-ob,OS=load('/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/restore/reconstruction/base/original.so')
+ob,OS=load('./worktrees/restore/reconstruction/base/original.so')
 cb,CS=load(sys.argv[1])
 o=slots(ob,OS); c=slots(cb,CS)
 diff=[i for i,(x,y) in enumerate(zip(o,c)) if x!=y]

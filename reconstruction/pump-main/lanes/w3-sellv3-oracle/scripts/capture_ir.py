@@ -2,7 +2,7 @@
 """capture_ir.py <src crate> <out dir>: build with --emit=link,llvm-ir on the root crate (experiment only)."""
 import subprocess,sys,shutil
 from pathlib import Path
-sys.path.insert(0,'/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/restore/reconstruction/harness')
+sys.path.insert(0,'./worktrees/restore/reconstruction/harness')
 import fastbuild
 real=subprocess.run
 def emit(cmd,*a,**k):

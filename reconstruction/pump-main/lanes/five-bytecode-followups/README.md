@@ -20,7 +20,7 @@ is pinned in `MEASUREMENTS.json` as `candidate_commit` (`9b216213`).
 | swap hop `0x5b3b0` | 18,584 | 18,584 | 0.85352 | 1,023 positional slots differ |
 
 Current main preserves every historical normalized/raw membership and adds ten
-raw memberships already landed through [#2403](https://github.com/lalalune/pumpfun-source/pull/2403).
+raw memberships already landed through #2403.
 Those are upstream gains, not gains from this PR. The call-target audit retains
 all 1,032 normalized windows on both builds and reports no hidden mismatch;
 its unmatched-target pairings remain assumptions. Neither the scorer's masked
@@ -134,21 +134,21 @@ retain every checked case and input hashes; published provenance paths use
 
 ## Coordination and credit
 
-- Merged [#2403](https://github.com/lalalune/pumpfun-source/pull/2403) and
-  [#2412](https://github.com/lalalune/pumpfun-source/pull/2412) supply the accepted
+- Merged #2403 and
+  #2412 supply the accepted
   swap/Admin CTO combination now measured on main. No duplicate source is proposed.
-- [#2416](https://github.com/lalalune/pumpfun-source/pull/2416) merged as research
+- #2416 merged as research
   only. Its rejected source is a recorded experiment, not the published source.
-- Open [#2387](https://github.com/lalalune/pumpfun-source/pull/2387),
-  [#2368](https://github.com/lalalune/pumpfun-source/pull/2368), and
-  [#2366](https://github.com/lalalune/pumpfun-source/pull/2366) cover related swap
+- Open #2387,
+  #2368, and
+  #2366 cover related swap
   mechanisms. This packet changes neither their shared production file nor their
   branches. No full-branch integration is claimed.
-- [#2370](https://github.com/lalalune/pumpfun-source/pull/2370) supplies precursor
-  Admin CTO research; [#2293](https://github.com/lalalune/pumpfun-source/pull/2293)
-  and [#2375](https://github.com/lalalune/pumpfun-source/pull/2375) informed the
+- #2370 supplies precursor
+  Admin CTO research; #2293
+  and #2375 informed the
   create-v2/SROA search. Shared research does not establish a conflict or dependency.
-- Merged [#2413](https://github.com/lalalune/pumpfun-source/pull/2413) supplies the
+- Merged #2413 supplies the
   120 swap fixtures reused by the compiled-candidate wrapper.
 
 Prepared as Oz-0s using Codex desktop, OpenAI / GPT-6 Astra (operator-reported).

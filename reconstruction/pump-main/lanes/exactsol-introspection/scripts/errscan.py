@@ -1,5 +1,5 @@
 import re,subprocess,sys,os
-TOOLS='/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/restore/reconstruction'
+TOOLS='./worktrees/restore/reconstruction'
 SDK=os.path.expanduser('~/.cache/solana/v1.44/platform-tools')
 cand_so=sys.argv[1]
 W=[l.split() for l in subprocess.run(['python3',TOOLS+'/harness/win.py','list','--cand',cand_so],capture_output=True,text=True).stdout.splitlines() if l.startswith('0x')]

@@ -3,7 +3,7 @@
 Usage: sdist.py OUT_DIR [OUT_DIR...]"""
 import sys, difflib
 from pathlib import Path
-sys.path.insert(0, '/Users/shawwalters/Documents/Codex/2026-10-24/amm-sell-swarm/harness')
+sys.path.insert(0, '$HOME/Documents/Codex/2026-10-24/amm-sell-swarm/harness')
 import sell_score as S
 import elf_reader
 

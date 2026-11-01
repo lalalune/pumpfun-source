@@ -4,7 +4,7 @@ import sys, os, shutil, re, json
 from pathlib import Path
 L='w7r1-execute-hillclimb-cv2'
 OUT=Path.home()/f'.cache/pumpfun-reconstruction/lanes/{L}'
-H=Path(f'/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/{L}/reconstruction/harness')
+H=Path(f'./worktrees/{L}/reconstruction/harness')
 sys.path.insert(0,str(H)); os.environ['PUMP_BUILD_SLOTS']='10'
 import fastbuild
 f,out=sys.argv[1],Path(sys.argv[2]); llvm=sys.argv[3:]; out.mkdir(parents=True,exist_ok=True)

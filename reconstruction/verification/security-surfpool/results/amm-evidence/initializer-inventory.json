@@ -1,0 +1,26 @@
+{
+  "idl_path": "/Users/shawwalters/Documents/Codex/2026-10-24/pumpfun-source/evidence/upstream/pump_amm.json",
+  "idl_sha256": "b7d8c57a4d9c4dd0109a9ab893052352333252d4eedced10ac091d4d66cab89b",
+  "global_volume_account": {
+    "name": "GlobalVolumeAccumulator",
+    "discriminator": [
+      202,
+      42,
+      246,
+      43,
+      142,
+      190,
+      30,
+      255
+    ]
+  },
+  "initializer_like_instructions": [
+    "admin_update_token_incentives",
+    "create_config",
+    "create_pool",
+    "init_boost",
+    "init_user_volume_accumulator"
+  ],
+  "global_volume_initializer_candidates": [],
+  "live_deployment_account_state": "not queried; offline Surfpool fixtures only"
+}

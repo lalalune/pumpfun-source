@@ -1,0 +1,109 @@
+Task: Map second imported report findings
+
+
+Worked for 7m 52s
+Merge recommendation
+Consolidate the second pass into SECURITY_REPORT.md as follows:
+
+
+Second-pass item	Disposition
+S2-M01, Main cashback-counter DoS	Add as a new MEDIUM finding; current source remains vulnerable.
+S2-H01, Relay predictable-ATA blockers	Merge into existing C-01, adding two related settlement sites; do not create another Relay finding or downgrade C-01.
+Conditional PermanentDelegate quote risk	Add as a conditional HIGH issuer-trust finding, with the administrative precondition and scope made explicit.
+Imported remediation, test-count, and build-status claims	Do not import as current Pump facts. They describe another Lalalune working tree and were not revalidated here.
+For a second-pass-only merge, this changes the summary from 38 to 40 findings: LOW 14, MEDIUM 15, HIGH 9, CRITICAL 2.
+S2-M01: new Main MEDIUM finding
+Suggested title:
+M-15 — Permissionless foreign-mint claims can poison Main’s shared cashback counter
+The vulnerability is present in the current Pump source:
+programs/pump/src/token_incentives/claim_token_incentives.rs:130-142
+user is an AccountInfo, not a signer.
+The accumulator PDA is derived from that nonsigning user.
+The caller supplies the quote mint and token program.
+programs/pump/src/token_incentives/claim_token_incentives.rs:304-347
+Nonnative claims accept either SPL Token or Token-2022.
+The source ATA is derived for the supplied mint, with no recognized-reward-mint restriction.
+The entire token balance is transferred to a token account whose decoded owner must equal the victim.
+Line 347 then records the raw amount in shared cashback statistics.
+programs/pump/src/token_incentives/volume_accumulator.rs:180-195
+Every nonnative mint shares total_stable_cashback_claimed.
+Lines 188-192 use checked_add(amount).expect(...); overflow aborts the claim.
+Native claims use the separate counter at lines 181-186 and are not poisoned by this path.
+The attack is therefore valid against current source: an attacker funds the victim-accumulator ATA for an attacker-created mint with u64::MAX - C raw units, invokes the permissionless claim using a victim-owned receiving account, and drives the shared counter to u64::MAX. Subsequent positive nonnative claims panic and roll back, including their token transfer. This is targeted availability loss, not theft.
+The victim can close and recreate the accumulator:
+programs/pump/src/token_incentives/claim_token_incentives.rs:353-356 requires the user’s signature for closure.
+programs/pump/src/token_incentives/init_user_volume_accumulator.rs:9-19 permits reinitialization.
+That recovery resets accounting and can forfeit pending incentive rights, supporting MEDIUM, not HIGH or CRITICAL.
+Recommended wording should request per-mint counters and nonblocking informational statistics. Saturating arithmetic alone prevents the DoS but leaves aggregate raw-unit statistics economically meaningless across unrelated mints.
+Current status: vulnerable by source inspection. The imported claim that record_cashback_claim now saturates is false for this working tree.
+Related omitted AMM issue
+S2-M01 references first-pass AMM M-16, but that finding is also absent from the current SECURITY_REPORT.md. The current AMM source independently exhibits the same class:
+Nonsigning user and caller-selected mint: programs/pump-amm/src/instructions/token_incentives/claim.rs:147-177
+Shared checked counter: programs/pump-amm/src/instructions/token_incentives/claim.rs:210-228
+Counter field: programs/pump-amm/src/state/volume_accumulator.rs:26-36
+If the consolidation also covers the imported first pass, restore this as a separate AMM MEDIUM rather than treating Main S2-M01 as covering both programs. That would produce 41 total findings, with 16 MEDIUM.
+S2-H01: fold into C-01 without duplication
+C-01 already covers the epoch-close ATA pre-creation blocker and has stronger current evidence than the second pass: a targeted LiteSVM transaction validation. Retain C-01’s CRITICAL severity and existing scoped impact, rather than importing S2-H01’s HIGH assessment. C-01 does not claim an unbounded protocol-wide freeze; it describes repeated denial against targeted configuration/mint epochs.
+The current source still has the original vulnerable declaration:
+programs/donation-relay/src/instructions/v1/relayer_only/close_donation_epoch.rs:17-20
+Both the distribution PDA and its canonical ATA use init, not init_if_needed.
+Fold these additional source locations into C-01 as related settlement-time pre-creation denial points:
+programs/donation-relay/src/instructions/v1/relayer_only/distribute/just_swap.rs:32-37
+programs/donation-relay/src/instructions/v1/relayer_only/distribute/swap_then_distribute.rs:9-14
+Both output ATAs still use init. These two sites concern swap settlement after epoch closure; they should not be described as additional epoch-close paths or independent permanent-freeze findings.
+Also fold in the useful regression requirements: absent and already-valid ATAs, incorrect mint/authority/token-program rejection, pre-existing balances, duplicate-account behavior, epoch advancement, and the complete distribution/closure lifecycle.
+Current status: all three imported init_if_needed remediation claims are absent from this working tree.
+Conditional PermanentDelegate quote-mint risk
+Confirmed mint-policy behavior
+TLV extension type 12 is PermanentDelegate. Both parsers admit it when extension-enabled policy is selected:
+Pump parser: programs/pump/pump-token-ext/src/lib.rs:20-27
+Kind 12 is accepted when allow_token_extensions is true.
+No permanent-delegate authority validation follows.
+PumpSwap parser: crates/native-transfer-fee/src/lib.rs:107-113
+Kind 12 is likewise accepted only when allow_extensions is true.
+Pump acceptance paths and prerequisites
+create_v2 validates the selected quote at programs/pump/src/create_v2.rs:196-262; external Token-2022 mints other than the special PUMP quote pass through the extension parser at lines 243-246 and 526-529.
+An external quote must reach creation through one of these paths:
+Global quote whitelist
+Admission check: programs/pump/src/create_v2.rs:221-223
+Only Global.authority can call add_quote_mint: programs/pump/src/lib.rs:157-158,2789-2793
+List mutation: programs/pump/src/lib.rs:1949-1971
+QuoteControl list
+Admission check: programs/pump/src/create_v2.rs:224-227
+Only the QuoteControl admin or global authority can add a mint: programs/pump/src/quote_control/update_quote_control_mints.rs:9-21,59-65
+The global authority appoints the QuoteControl admin: programs/pump/src/quote_control/set_quote_control.rs:7-15,27-30
+Nested ancestry
+Fallback: programs/pump/src/create_v2.rs:228-231,384-390
+The first ancestor is derived as the existing bonding curve for the proposed quote token: programs/pump/src/create_v2.rs:435-449.
+Thus this path reuses an existing Pump-issued curve token; it is not a fresh arbitrary-external-mint approval path. Pump-created Token-2022 base mints have the fixed creation shape at programs/pump/src/create_v2.rs:28-38, not caller-selected PermanentDelegate extensions.
+The special PUMP quote bypass at programs/pump/src/create_v2.rs:244 should be documented as a trusted-asset exception, not characterized as a public external-quote approval bypass.
+PumpSwap acceptance path
+Base mints always use allow_extensions = false: programs/pump-amm/src/instructions/create_pool.rs:201.
+Only canonical pools use extension-enabled quote policy; ordinary noncanonical pools reject PermanentDelegate: programs/pump-amm/src/instructions/create_pool.rs:161-163,214-215.
+Canonical creation requires the Pump pool-authority identity, so the practical external-quote precondition is inherited from Pump’s administrative quote admission followed by canonical migration/creation. PumpSwap does not provide a separate public approval route.
+The special PUMP mint bypass is at programs/pump-amm/src/utils/token.rs:184,336-343.
+No public external-quote approval bypass or substitution of an arbitrary PermanentDelegate mint into Pump-issued nested ancestry was established in these paths.
+Affected assets and impact
+A permanent delegate’s authority belongs to the token mint, not to the Pump or pool PDA. After administrative approval and pool creation, the delegate can transfer that quote mint from token accounts without the ATA owner’s signature.
+Affected holdings include:
+Pump bonding-curve quote ATAs and other accounts holding the approved quote mint.
+Canonical PumpSwap pool quote ATAs, including quote liquidity and accrued quote-denominated fees. The vaults are created at programs/pump-amm/src/instructions/create_pool.rs:41-44 and used for reserve and fee transfers, for example programs/pump-amm/src/instructions/swap/sell.rs:206-253.
+The paired base asset is not directly transferable by the quote mint’s delegate, and PumpSwap’s ordinary base-mint policy rejects this extension. However, the delegate or collaborators can use seized quote value in AMM trades to extract paired base inventory, so impact is not confined to the issuer’s own token. LP withdrawals also depend on both pool vaults at programs/pump-amm/src/instructions/liquidity/withdraw.rs:116-138.
+Recommended finding and severity
+Suggested title:
+H-09 — Conditional HIGH: approved external quote mints may retain PermanentDelegate custody over Pump and canonical PumpSwap quote assets
+State explicitly:
+A Pump global authority or QuoteControl admin must first approve the external mint, followed by curve/pool creation.
+The stealing delegate need not control that administrator.
+This is an administrator-gated issuer-trust hazard, not a confirmed permissionless CRITICAL exploit.
+Direct quote seizure is possible; paired-base loss is indirect through pool economics.
+No direct base-mint seizure, arbitrary public quote substitution, or protocol-wide impact is claimed.
+This differs from Relay C-02: the Relay whitelist bypasses an explicit PermanentDelegate safety rejection, whereas these Pump/PumpSwap parsers deliberately include the extension in their extension-enabled policy.
+Recommended mitigation is to reject type 12 for external quotes, or split “technically supported extensions” from an explicit, documented issuer-trust policy. Reassess already approved mints and existing curves/pools: removing a mint from an admission list does not revoke its delegate or change existing curve/pool quote assignments.
+Other content to fold or exclude
+Fold the additional Relay regression matrix and the per-mint/nonblocking-counter guidance.
+Existing coverage notes already subsume most second-pass negative results; no additional findings are supported by those negative checks.
+Do not import the “19 checks,” separate AMM test results, 45-error build claim, external evidence paths, or release/remediation assessment without rerunning them against this tree.
+Do not import Main/Mayhem bootstrap or Fees remediation assertions as current Pump facts.
+Preserve the current report’s C-01 runtime evidence and limitations; helper-level tests in the imported report are not substitutes for complete program or transaction validation.
+No files were modified.

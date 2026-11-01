@@ -1,7 +1,7 @@
 # Signed verification of the merged V3 Sell recovery
 
 This packet independently rebuilds and replays the V3 Sell recovery merged in
-[#1283](https://github.com/lalalune/pumpfun-source/pull/1283). **That PR receives
+#1283. **That PR receives
 all source-recovery credit. This contribution changes no program source.**
 It adds exact parent/merge build cohorts, signed differential receipts, an
 immediate-callee audit, and portable verification in CI.

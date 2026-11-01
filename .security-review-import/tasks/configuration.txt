@@ -1,0 +1,158 @@
+Task: Review configuration hardening commits
+
+
+Worked for 6m 51s
+Upstream commit security review
+Scope. Read-only review of bb48706, 04fd060, and f3e9bb1 in .security-review-import/lalalune-source, cross-checked against the finding IDs in SECURITY_REPORT.md. These are source-level remediation commits in the imported upstream history; they are not evidence that fixes exist in current Pump source or deployed Pump bytecode. Tests were not rerun.
+1. bb48706ab17015f58d150a89f690d8b0edd36f0d
+Title: Validate Mayhem setup and invalidate builds when CPI interfaces change
+Runtime contract fix — Mayhem per-mint initialization
+Files
+programs/mayhem/src/state.rs
+programs/mayhem/src/lib.rs
+Mechanism
+Adds initialization_window, called before initializing each per-mint MayhemState.
+Rejects initialization while global Mayhem state is paused.
+Rejects zero duration (field_6 == 0) and an unset/default trader with new error MayhemError::NotConfigured.
+Converts the start timestamp with checked i128-independent u64::try_from, checks duration/end-timestamp arithmetic, and replaces the prior Clock::get().unwrap() in this path with Clock::get()?.
+Removes the unnecessary MaybeUninit mint-key construction.
+Prevents creating a per-mint state whose end timestamp equals its creation time and cannot subsequently be repaired by changing global duration.
+Finding mapping
+This is a new, unnumbered deployment-follow-up MEDIUM issue documented in the later AMM/Mayhem deployment review; it has no ID in the baseline SECURITY_REPORT.md.
+It is not H-03: this commit does not change Mayhem global initialization or its administrator binding.
+It does not fix Mayhem accounting findings M-08 or H-07, trade-sizing finding L-09, or rotation finding L-10. Relevant accounting/panic/rotation changes were already introduced by ancestor 147e122; they must not be attributed to bb48706.
+Residual limitations
+It checks duration, trader, pause state, and timestamp arithmetic only. It does not establish safe risk limits, canonical AMM-pool eligibility, quote-mint exposure accounting, or fee-aware AMM quoting.
+At the f3e9bb1 snapshot, H-06 and H-07 remain visible: Mayhem still accepts a typed but otherwise noncanonical pool, non-native quote exposure remains aggregated across mints, sells can drive counters negative, and negative counters bypass buy-limit checks.
+Validation/build gates — not runtime fixes
+CPI input invalidation
+Files: tools/interface-gen/track_idls.rs, tools/interface-gen/README.md, and the Cargo manifests for Main, AMM, Fees, Mayhem, and mayhem/curve-accounts.
+Adds a shared Cargo build script emitting cargo:rerun-if-changed for the repository IDL directory. This invalidates cached declare_program! macro expansions when local IDL JSON changes.
+It does not prove that the IDL matches Rust, that CPI execution succeeds, or that either interface matches deployed bytecode.
+SBF diagnostic gate
+File: security/build_programs.sh.
+Replaces rg with grep -Ein for stack/error diagnostics and handles grep exit statuses explicitly: matches fail the build, no matches are accepted, and grep errors propagate.
+This is a build-validation improvement, not a runtime stack fix.
+Initializer interface preparation
+Files: idls/amm_cpi.json, idls/lalalune_amm.json, security/interface-metadata/lalalune_amm.rs.
+Adds amm_program and program_data to the expected create_config interface. The corresponding runtime authorization arrives only in f3e9bb1.
+Test dependency changes
+Files: programs/lalalune-amm/security-tests/Cargo.toml and Cargo.lock.
+Adds anchor-spl and its pinned transitive test dependencies. These changes affect the focused test crate, not the AMM runtime dependency set.
+Intermediate regression
+At bb48706 alone, the metadata test supplies amm_program and program_data fields that do not yet exist in Rust CreateConfig; the IDLs likewise advertise two accounts the initializer does not yet accept. Thus the AMM metadata test cannot compile at this commit. f3e9bb1 resolves the mismatch, but the commits should not be described as individually green.
+2. 04fd060e03dbcae090fd57b447a4b9aa270be5b8
+Title: Reject unsafe launch reserves and immutable reward configurations
+Runtime contract fix — launch reserve and supply validation
+Files
+programs/lalalune/src/create_v2.rs
+programs/lalalune/src/lib.rs
+programs/lalalune/src/quote_control/state.rs
+programs/lalalune/src/quote_control/update_quote_control_mints.rs
+Mechanism
+set_virtual_quote_reserves, quote-control mint addition, and quote-control reserve updates now reject zero.
+init_curve becomes fallible and validates the selected native, global non-native, or controlled override quote reserve before writing curve state.
+Shared Global::validate_curve_initial_reserves requires:
+selected quote reserves greater than zero;
+real token reserves greater than zero;
+virtual token reserves strictly greater than real token reserves;
+total token supply strictly greater than real token reserves.
+Both legacy create and v2 creation invoke the shared validation. Legacy creation therefore can no longer run successfully with incomplete default zero reserve/supply configuration.
+Adds InvalidInitialReserves; existing QuoteReservesOutOfRange is reused.
+Finding mapping
+The deployment review classifies zero non-native quote reserves as new unnumbered MEDIUM and incomplete legacy configuration as new unnumbered LOW.
+Neither has a baseline report ID.
+This is unrelated to H-01 and H-04, which concern migration liquidity accounting and Token-2022 transfer-fee handling, not initial virtual launch reserves.
+Residual limitations
+Protection is forward-looking: previously created malformed curves are not repaired.
+Administrative setters can still store some incomplete parameter combinations, but subsequent creation rejects them.
+Positive and ordered reserves do not guarantee economically sensible pricing, adequate liquidity, or safe deployment configuration.
+Runtime contract fix — Main incentive-mint admission
+Files
+programs/lalalune/src/incentives.rs
+programs/lalalune/src/token_incentives/incentive_mint.rs — new
+programs/lalalune/src/token_incentives/mod.rs
+programs/lalalune/src/lib.rs — new UnsupportedIncentiveMint error
+Mechanism
+Binds the mint to the supplied token program and requires actual mint ownership by legacy SPL Token or Token-2022.
+Requires no mint freeze authority.
+Token-2022 mints permit only metadata/group extensions: MetadataPointer, TokenMetadata, GroupPointer, TokenGroup, GroupMemberPointer, and TokenGroupMember.
+Rejects transfer fees, hooks, permanent delegates, nontransferability, default frozen state, mint-close authority, confidentiality, and unknown/other extensions.
+Requires the canonical reward vault to be owned by the same token program and to be in Initialized, not Frozen, state. This covers accounts frozen before freeze-authority renunciation.
+Runs both checks before schedule replacement or mutation.
+Finding mapping
+This is a new unnumbered MEDIUM deployment-follow-up issue, not a baseline finding.
+It does not itself fix M-02 incentive-volume recording.
+It is unrelated to Donation Relay findings C-02, H-08, and M-14; those concern Relay donation vaults and mint policy, not Main reward-denomination admission.
+Residual limitations
+Existing immutable campaigns with an incompatible mint or frozen vault are not repaired; historical claim behavior remains unchanged.
+Mint authority is intentionally allowed for emissions/funding. Reward solvency, issuer economics, and sufficient funding for announced and archived liabilities remain operational responsibilities.
+The conservative allowlist intentionally prevents scheduling with otherwise potentially benign extensions outside the six admitted types.
+Validation and documentation
+Production helper tests were added in create_v2.rs, quote_control/state.rs, and incentive_mint.rs.
+security/main/README.md, new security/main/deployment-review.md, and security/main/production-tests.log document the remediation and record 31 passing Main host tests.
+These tests exercise production helpers and real token layouts, but the log is committed evidence rather than independent validation from this review.
+3. f3e9bb181da188db04fbfa3bc25a7e5982107059
+Title: Bind AMM bootstrap authority and restrict reward token admission
+Runtime contract fix — AMM bootstrap authorization
+Files
+programs/lalalune-amm/src/bootstrap_authority.rs — new
+programs/lalalune-amm/src/instructions/admin/create_config.rs
+programs/lalalune-amm/src/lib.rs
+Mechanism
+Removes the hardcoded, unrelated FIXED_ADMIN.
+Requires the executable AMM program, its canonical loader-owned ProgramData, and a signature from the ProgramData.upgrade_authority_address.
+validate_initial_authority independently binds the program to crate::ID, checks the ProgramData address, and checks current upgrade-authority equality.
+Anchor Program and Account<ProgramData> validation additionally enforce executable/loader ownership properties.
+Stores the authenticated upgrade authority as GlobalConfig.admin; init still prevents reinitialization after proper setup.
+Finding mapping
+This is a new unnumbered HIGH deployment-follow-up issue. No baseline AMM-bootstrap finding exists.
+It is not H-03 (Mayhem initialization) or H-05 (Main initialization).
+No rotation fix belongs to this commit. AMM incoming-admin signer and nonzero-admin checks came from ancestor e27913d. Baseline L-08 concerns Fees and L-10 concerns Mayhem; neither is changed here. AMM and Mayhem use same-transaction incoming signatures, not a two-step pending-authority process.
+Residual limitations
+Initialization must occur before upgrade authority is renounced. An uninitialized deployment with no upgrade authority cannot bootstrap through this instruction.
+Existing initialized configurations are not rotated or repaired by this change.
+create_config now requires two additional readonly accounts before event-CPI accounts. This is an intentional breaking ABI change; clients and CPI callers must use the regenerated interface.
+Runtime contract fix — AMM incentive-mint admission
+Files
+programs/lalalune-amm/src/reward_mint.rs — new
+programs/lalalune-amm/src/instructions/admin/admin_update_token_incentives.rs
+programs/lalalune-amm/src/errors.rs
+programs/lalalune-amm/src/lib.rs
+Mechanism
+Implements the Main-equivalent mint/token-program ownership, no-freeze-authority, six-extension allowlist, and initialized/unfrozen reward-vault checks.
+Uses explicit legacy SPL decoding for SPL mints and StateWithExtensions for Token-2022.
+Adds UnsupportedIncentiveMint = 94.
+Executes validation before loading/replacing a campaign or updating the schedule.
+Finding mapping and limitations
+New unnumbered MEDIUM deployment-follow-up issue; not M-03, M-06, or any Donation Relay mint finding.
+M-06 initialization support came from earlier e27913d; this commit only boxes the already-init_if_needed account and adds admission checks.
+Existing bad reward configurations and underfunded reward liabilities are not repaired.
+Runtime contract fix — removal of pool-mint exemption
+File
+programs/lalalune-amm/src/utils/token.rs
+Mechanism
+Deletes the hardcoded LALALUNE_MINT early return from supported_mint.
+Every base/quote mint now passes through native_transfer_fee::supported_mint_data, including the formerly exempt address.
+Tests cover that address and an ordinary address with forbidden NonTransferable, plus supported plain mints.
+Mapping and residual scope
+New unnumbered MEDIUM conditional issuer-risk follow-up.
+The predicate is used during pool creation, so this restricts new pools; it does not retroactively alter existing pools or certify ordinary pool issuers as safe.
+Runtime availability fix — SBF stack usage
+File
+programs/lalalune-amm/src/instructions/admin/admin_update_token_incentives.rs
+Mechanism
+Boxes GlobalConfig and GlobalVolumeAccumulator, moving large account deserialization/storage off the limited SBF stack.
+This is the runtime counterpart to the stack-diagnostic build gate in bb48706.
+Mapping
+New unnumbered HIGH availability follow-up; no baseline ID.
+Validation and documentation
+Files: security-tests/src/lib.rs, README.md, REWARD_LIFECYCLE.md, and new DEPLOYMENT_REVIEW.md.
+Adds loader-state, mint-layout, vault-state, metadata, and special-mint tests.
+Documentation records 29 focused AMM tests, 11 full-program host tests, five stack-clean SBF builds, and eight actual-SBF runtime cases, including wrong/correct bootstrap authority and reward lifecycle coverage. These results were not rerun in this review.
+Consolidated regression and assurance assessment
+Confirmed intermediate regression: bb48706 has an AMM Rust/IDL/metadata mismatch; resolved by f3e9bb1.
+Intentional final compatibility changes: two new AMM initializer accounts; rejection of zero/incomplete launch parameters; rejection of non-allowlisted reward mints and the former pool-mint exemption.
+No additional final-tree runtime security regression was confirmed by this static, read-only review.
+Local interface parity, host tests, build logs, and reported SBF fixtures improve assurance but do not establish deployed-bytecode equivalence, deployed key control, complete CPI/economic safety, or production readiness.
+Suggested next step: assign distinct deployment-follow-up IDs before merging this material into the report, rather than closing similarly named baseline findings.

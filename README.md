@@ -1,26 +1,19 @@
 # pumpfun-source
 
-This repository has one goal: exact bytecode reconstruction of pump.fun's
-on-chain Solana programs — Pump Main, PumpSwap/AMM, Fees, Mayhem and the
-Donation Relay. Each program is rebuilt from source with a pinned toolchain
-and scored instruction-by-instruction against the captured deployed binary.
+pump.fun on-chain Solana program source and validation tooling, released to the community for educational use.
 
-**Scope.** Only the program bytecode publicly deployed on-chain is
-reconstructed. This project does not reconstruct, capture or reproduce
-pump.fun's website, apps, backend services, APIs, SDKs, branding or any other
-off-chain material. Pull requests for frontend, backend, SDK or off-chain
-capture work are closed without review. See [CONTRIBUTING.md](CONTRIBUTING.md).
+The project covers Pump Main, PumpSwap/AMM, Fees, Mayhem and Donation Relay. It does not include pump.fun's website, apps, backend services, APIs or other off-chain material.
 
-Everything here serves building, scoring, verifying or differential-testing
-those programs. There is no frontend, backend, SDK or off-chain service code.
+**Contribution focus: complete byte-for-byte reconstruction.** The sole objective for agents and contributors is to reverse engineer the on-chain code and recover source that rebuilds the target binaries byte for byte. All work must hillclimb toward completion by resolving remaining byte differences and preserving existing matches. Only PRs and submissions that demonstrate progress toward this goal will be accepted.
 
-- `programs/` — reconstructed program sources and per-program status
-- `reconstruction/` — toolchain recipes, build harness and scoring
-- `evidence/` — captured original binaries and analysis inputs
-- `scripts/` — build, scoring, verification and differential-test tooling
-- `crates/`, `binaries/` — supporting crates and experimental build outputs
-- `research/` — retained investigation packets with their own verifiers
-- `tests/` — unit tests for the tooling
+Tooling, build infrastructure and surrounding architecture may be changed only when a concrete blocker prevents reverse-engineering progress. Keep such changes to the smallest necessary fix and provide reproducible evidence of the blocker and the reconstruction progress enabled by removing it.
+
+Window dressing, cosmetic cleanup, speculative refactoring, documentation churn and other inconsequential PRs and submissions will be closed. See [CONTRIBUTING.md](CONTRIBUTING.md) for the acceptance and evidence requirements and [AGENTS.md](AGENTS.md) for agent instructions.
+
+- `programs/` — program source and per-program status
+- `reconstruction/` — pinned toolchains, build harness and validation
+- `scripts/` — build, verification and test tooling
+- `tests/` — tests for the tooling
 
 **Verified checkpoint progress — 2026-10-30**
 
@@ -34,29 +27,11 @@ those programs. There is no frontend, backend, SDK or off-chain service code.
 | **Total** |**3,336/3,338**|**99.94%**|**3,336**|**0**|**2**|**4/5**|
 
 Matched windows cover **5,167,144/5,213,128 code bytes (99.12%)**.
-A fresh identity build of current Pump Main, including #2686, preserves all
-1,033 normalized and raw matches with zero losses against the previous
-checkpoint. Its swap window improves from 98.91% to 99.91% similarity, with
-18 differing instruction slots remaining. All 408 targeted synthetic swap
-cases pass. This partial gain does not raise the completion percentages;
-Pump Main's meaningful ELF is not yet equal.
 
-AMM, Fees, Mayhem and Donation Relay retain their exact meaningful-ELF
-checkpoints. No native Fees or Mayhem compiler was rerun in this pass. See the
-[latest scores and validation](reconstruction/pump-main/checkpoints/completion-pass7-20261030/README.md),
-[other-program checkpoint provenance](reconstruction/pump-main/checkpoints/completion-20261030/other-programs.json)
-and [Fees Linux rebuild packet](research/fees-linux-fresh-rebuild-20261030/README.md).
+Raw equality compares complete instruction bytes. Normalized windows mask specified call/address operands and do not prove whole-program identity. Whole meaningful ELF equality excludes documented zero loader-allocation padding.
 
-Raw equality compares complete instruction bytes. Normalized windows mask
-specified call/address operands and do not prove whole-program identity.
-Whole meaningful ELF equality excludes documented zero loader-allocation padding.
-These counts describe the selected maintained recipes; they are not a
-percentage of engineering work completed.
-
-The [reconstruction toolchain](reconstruction/README.md) rebuilds `programs/pump` and
-scores it against the captured original in `evidence/original/`.
+See the [validation documentation](reconstruction/README.md) and [contribution guide](CONTRIBUTING.md) for build and test instructions.
 
 ## License
 
-Repository code and documentation are [MIT licensed](LICENSE). Third-party
-sources and artifacts retain their original licenses and ownership.
+Repository code and documentation are [MIT licensed](LICENSE). Third-party sources and artifacts retain their original licenses and ownership.

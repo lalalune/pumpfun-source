@@ -2,7 +2,7 @@
 """Lane-local capture: --emit link,llvm-ir (+extra rustc flags). Never used for proposals."""
 import sys, json, shutil
 from pathlib import Path
-T=Path('/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/w6r1-layout-rodata/reconstruction/harness')
+T=Path('./worktrees/w6r1-layout-rodata/reconstruction/harness')
 sys.path.insert(0,str(T)); import fastbuild
 src,work,out=map(Path,sys.argv[1:4]); extra=sys.argv[4:]
 real=fastbuild.run_compiler

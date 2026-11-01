@@ -9,5 +9,5 @@
   "attempts": ["s01 inline emit_cpi only (rejected)", "s02 helper by-value event (rejected)", "s03 wrapper + helper (identical)", "s04 wrapper + inline emit_cpi (partial, best)", "IR oracle: tail chunk permutations, phi order, alloca order, scheduler flags, prologue IR edits"],
   "unresolved": "prologue -0x358 sret lea for prepare_bonding_curve scheduled after the arg GEPs; IR-level fix = explicit sret alloca with lifetime.start at entry",
   "next_ideas": ["find a source form whose prepare_bonding_curve result slot is an explicit memory local live from function entry without changing the 0x3cd50 callee", "apply the wrapper + inline-emit idea to buy_exact_quote (same lea residual) and buy_v3", "pre-opt IR oracle (capture_pre.py + opt default<O3>) reproduces fastbuild exactly; use it for source-shaped IR edits"],
-  "pr": "https://github.com/lalalune/pumpfun-source/pull/1436"
+  "pr": "PR #1436"
 }

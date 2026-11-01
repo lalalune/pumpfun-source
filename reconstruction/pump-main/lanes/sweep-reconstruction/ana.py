@@ -12,7 +12,7 @@ candidate symbols); candidate targets through the candidate symbol table.
 import argparse, json, re, subprocess, sys
 from pathlib import Path
 
-TOOLS = Path('/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/restore/reconstruction')
+TOOLS = Path('./worktrees/restore/reconstruction')
 sys.path.insert(0, str(TOOLS / 'harness'))
 from score import sections, candidate_functions, original_windows, BASE  # noqa
 from win import demangle  # noqa

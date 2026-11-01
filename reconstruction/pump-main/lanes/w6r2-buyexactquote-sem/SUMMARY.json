@@ -5,7 +5,7 @@
   "best": {"trial": "r6", "ratio": 0.9895, "bytes": 7856, "insns": "952/952", "calls": "66/66", "slots_diff": 10,
            "normalized": 1027, "raw": 293, "main": "e3f3be8bb", "losses": [], "raw_losses": [],
            "unstripped_sha256": "5d8296db26c8fb335301481448bde6b93efd0b9ff5f586d1406f50536b4468e0"},
-  "pr": "https://github.com/lalalune/pumpfun-source/pull/2287",
+  "pr": "PR #2287",
   "mechanisms_landed": [
     "plain non-leaf wrappers net_quote(&fees) and net_costs(&net_fees): the locals stay address-taken until LLVM inlining, so LLVM SROA splits them after the MIR-SROA fragments (0.851 -> 0.956)",
     "cost_total(&costs) for both add(costs.0,costs.1) sites (-> 0.965)",

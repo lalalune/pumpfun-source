@@ -1,4 +1,4 @@
-import sys; sys.path.insert(0,'/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/w6r1-layout-rodata/reconstruction/harness')
+import sys; sys.path.insert(0,'./worktrees/w6r1-layout-rodata/reconstruction/harness')
 from score import sections
 a=open(sys.argv[1],'rb').read(); b=open(sys.argv[2],'rb').read(); A=sections(a); Bs=sections(b)
 for n in ['.text','.rodata','.data.rel.ro']:

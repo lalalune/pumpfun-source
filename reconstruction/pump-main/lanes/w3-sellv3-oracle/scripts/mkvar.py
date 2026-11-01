@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # mkvar.py <trial> <edits.py>   edits.py defines EDITS=[(old,new),...] applied to src/trade_v3.rs (or FILE->list via FILES dict)
 import sys,shutil,os,runpy
-WT=os.environ.get("BASESRC","/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/w3-sellv3-oracle/programs/pump")
+WT=os.environ.get("BASESRC","./worktrees/w3-sellv3-oracle/programs/pump")
 OUT=os.path.expanduser("~/.cache/pumpfun-reconstruction/lanes/w3-sellv3-oracle")
 t=sys.argv[1]; d=f"{OUT}/src/{t}"
 if os.path.exists(d): shutil.rmtree(d)

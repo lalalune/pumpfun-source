@@ -1,7 +1,7 @@
 import sys,struct,re
-sys.path.insert(0,'/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/w6r2-layout-rodata/reconstruction/harness')
+sys.path.insert(0,'./worktrees/w6r2-layout-rodata/reconstruction/harness')
 from score import candidate_functions, sections
-orig=open('/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/w6r2-layout-rodata/reconstruction/base/original.so','rb').read()
+orig=open('./worktrees/w6r2-layout-rodata/reconstruction/base/original.so','rb').read()
 def scan(img,st,l,sec,off):
     S=sections(img); t=S['.text']; o=st-t['addr']+t['offset']; code=img[o:o+l]; res=[]; i=0
     while i<l:

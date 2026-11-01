@@ -1,5 +1,5 @@
 import json,sys,re,bisect
-sys.path.insert(0,'/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/restore/reconstruction/harness')
+sys.path.insert(0,'./worktrees/restore/reconstruction/harness')
 from win import demangle
 from score import original_windows, candidate_functions
 cand=sys.argv[1]; ref=sys.argv[2]

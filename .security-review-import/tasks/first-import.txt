@@ -1,0 +1,99 @@
+Task: Map first imported report findings
+
+
+Worked for 4m 2s
+Consolidation result
+All 30 imported findings map cleanly: 23 are already represented in the current report, 4 broaden existing findings, and 3 are genuinely new. No files were modified.
+Complete deduplication map
+
+
+Imported	Current	Disposition
+L-01	L-01	Duplicate: Main inactive sharing-config migration.
+L-02	L-02 + M-05	Broaden L-02 to AMM. M-05 already notes AMM’s unbounded maximum.
+L-03	L-03	Broaden L-03 to AMM.
+L-04	L-04	Duplicate: AMM inactive sharing-config migration.
+L-05	L-05	Duplicate: unverified/empty metadata creator list.
+L-06	L-06	Duplicate: closing AMM accumulator forfeits rights.
+L-07	L-07	Duplicate: empty fee-tier indexing panic.
+L-08	L-08	Duplicate: Fees one-step authority rotation.
+L-09	L-09	Duplicate: Mayhem sizing panic paths.
+L-10	L-10	Broaden L-10 from Mayhem to Main and AMM.
+L-11	L-11	Duplicate: Relay lacks independent minimum output.
+L-12	L-12	Duplicate: inconsistent unsolicited-credit handling.
+L-13	H-01	Same migration-donation defect; imported version corrects the economic impact and supports downgrading H-01.
+L-14	None	New: Fees readonly funding-account metadata.
+M-01	M-01	Duplicate: Main completion fallback overcharge.
+M-02	M-02	Duplicate: Main volume not recorded.
+M-03	M-03	Duplicate: AMM volume not recorded.
+M-06	M-06	Broaden M-06 to Main.
+M-07	M-07	Duplicate: invisible stable-fee updates on legacy layout.
+M-08	M-08	Duplicate: Mayhem mixes ATA rent with proceeds.
+M-09	M-09	Duplicate: donation-tip intermediate overflow.
+M-10	M-10	Duplicate: wrong Main bonding-curve-v2 PDA derivation.
+M-11	M-11	Duplicate: omitted AMM pool-v2 account.
+M-12	M-12	Duplicate: Token-2022 quote donations cannot be cranked.
+M-13	H-08	Duplicate: pausable Token-2022 mints pass Relay checks; only severity differs.
+M-14	None	New: creator-fee distribution intermediate u64 overflow.
+M-15	M-14	Duplicate: whitelisted transfer-fee tokens underfund Relay settlement.
+M-16	None	New: permissionless foreign-mint AMM cashback-counter poisoning.
+H-03	H-03	Duplicate: Mayhem permissionless global initialization.
+H-05	H-05	Duplicate: Main permissionless Global initialization.
+Validated broadened findings
+L-02 — Add AMM to the creator-fee-maximum finding
+Evidence
+Main setter remains unbounded: programs/pump/src/lib.rs:153-155.
+AMM setter directly stores any u64: programs/pump-amm/src/instructions/admin/update_creator_fee_config.rs:3-10.
+AMM CTO checks only creator_fee_bps <= global_config.max_configurable_creator_fee_bps, with no independent 10,000-bps cap: programs/pump-amm/src/instructions/admin/admin_cto_pool.rs:96-115.
+Failure statement
+An AMM administrator can configure a maximum above 10,000 bps and then assign a creator fee above 100%. This enables privileged misconfiguration leading to disproportionate fees or trade failure; it is not an unprivileged exploit. Fold this into current L-02 and cross-reference M-05 rather than creating another AMM-only finding.
+L-03 — Add AMM to the nonpositive-scheduler finding
+Evidence
+AMM stores seconds_in_a_day before conditional time-range validation: programs/pump-amm/src/state/volume_accumulator.rs:365-378.
+Zero makes day_index return None; negative values reach usize::try_from(...).expect(...): programs/pump-amm/src/state/volume_accumulator.rs:148-178,383-399.
+Main has the same unconditional store: programs/pump/src/token_incentives/volume_accumulator.rs:252-280,435-450.
+Failure statement
+With zero start_time and end_time, the AMM global authority can store a zero or negative day length without running time-range checks. Subsequent incentive accounting silently stops or panics. The fresh-deployment precondition is already covered by broadened M-06.
+L-10 — Add Main and AMM authority rotation
+Evidence
+Main accepts an arbitrary nonsigning new_authority, explicitly including zero: programs/pump/src/global_init.rs:10-15; it writes the key immediately at programs/pump/src/lib.rs:2986-2989.
+AMM likewise accepts only the new account’s key: programs/pump-amm/src/instructions/admin/mod.rs:47-52; immediate assignment occurs at programs/pump-amm/src/instructions/admin/update_admin.rs:3-7.
+Failure statement
+A current Main or AMM administrator can accidentally transfer control to an inaccessible or default key without acceptance by the incoming authority, permanently disabling privileged recovery and administration. Existing-admin authorization makes this an operational lockout risk, not privilege escalation.
+M-06 — Add Main’s missing global-volume initializer
+Evidence
+Main requires an already initialized Account<GlobalVolumeAccumulator>; only its incentive ATA uses init_if_needed: programs/pump/src/incentives.rs:12-30.
+The exposed incentive instructions include admin update, claims, and user-accumulator initialization, but no global-volume initializer: programs/pump/src/lib.rs:1072-1076.
+Legacy buy requires the global account: programs/pump/src/lib.rs:2889-2890.
+V2 buy also requires it: programs/pump/src/buy_v2.rs:159-161.
+Failure statement
+On a fresh Main deployment lacking the historical PDA, the admin cannot bootstrap incentive state, and legacy/v2 buys requiring that account fail validation. This does not establish that every newer Main trade endpoint is blocked.
+Validated new findings
+L-14 — Fees funding accounts are readonly in generated metadata
+Evidence
+ExtendFeeConfig.user is a Signer without mut: programs/pump-fees/src/contexts.rs:8-15, yet extension transfers rent from it at programs/pump-fees/src/instructions/admin/extend_fee_config.rs:65-76.
+ClaimSocialFeePdaV2.social_claim_authority is also readonly: programs/pump-fees/src/social.rs:119-132.
+The token-claim branch passes that signer as the ATA-creation payer: programs/pump-fees/src/social.rs:21-29; the payer funds the associated-token instruction at programs/pump-fees/src/instructions/fee_sharing/mod.rs:259-292.
+Failure statement
+Default generated instruction metadata omits writability needed when extension requires additional rent or a social-fee claim must create the recipient ATA. Those otherwise valid operations can fail writable-privilege checks. Manually marking the payer writable avoids the defect; this is integration availability impact, not an authorization bypass.
+M-14 — Creator-fee distribution overflows before division
+Evidence
+Native distribution computes available.checked_mul(share_bps)? / 10000: programs/pump/src/creator/distribute_creator_fees.rs:121-168, especially line 165.
+Token distribution performs the same u64 intermediate multiplication using the entire source balance: programs/pump/src/creator/distribute_creator_fee_v2.rs:145-176, especially line 168.
+Failure statement
+A balance above u64::MAX / share_bps reverts even when the mathematically correct payout fits in u64. For a 10,000-bps recipient, 10^18 base units should pay out 10^18, but the intermediate multiplication overflows. High-decimal token vaults can reach this through ordinary accumulation or unsolicited transfers, leaving distributions unavailable through the affected instruction.
+M-16 — Permissionless foreign-mint claims poison AMM cashback counters
+Evidence
+ClaimCashback.user does not sign, and quote_mint has no recognized-cashback-mint constraint: programs/pump-amm/src/instructions/token_incentives/claim.rs:147-177.
+The entire selected accumulator ATA balance is transferred and added to shared total_cashback_claimed with checked addition: programs/pump-amm/src/instructions/token_incentives/claim.rs:210-228.
+The counter is a single u64, not per mint: programs/pump-amm/src/state/volume_accumulator.rs:26-36.
+Anyone can initialize the victim’s accumulator: programs/pump-amm/src/instructions/token_incentives/init_user_volume_accumulator.rs:9-22.
+Failure statement
+For victim counter C, an attacker can mint u64::MAX - C units of a worthless token, fund the victim accumulator’s ATA for that mint, and permissionlessly claim it to a victim-owned token account. The shared counter becomes u64::MAX; every later positive genuine cashback claim overflows and reverts. Closing and recreating the accumulator resets the counter but can forfeit pending incentive rights under L-06. This is repeatable targeted griefing, not cashback theft.
+Imported L-13 versus current H-01
+Yes—current H-01 should be downgraded to LOW and rewritten using imported L-13’s bounded impact. It should not be added as a separate finding.
+The accounting defect is confirmed:
+Legacy migration reads the entire post-transfer base ATA balance and seeds with it: programs/pump/src/migrate.rs:250-284.
+V2 does the same for base while measuring quote by received delta: programs/pump/src/migrate_v2.rs:249-327.
+However, the current HIGH attack path does not establish a profitable donor round trip. In the fee-free constant-product model with fair initial reserves (B,Q) and donation D, let s = sqrt(1 + D/B). A donor who also performs the arbitrage that restores the original price has net value change:
+-2Q(s - 1) < 0, before fees.
+An independent arbitrageur can profit, but the donation subsidizes that arbitrage and the pool; it does not give the donor a demonstrated profitable extraction path. The supported impact is therefore initial-price disturbance and violation of exact-seed accounting, not HIGH-severity theft or drainage.

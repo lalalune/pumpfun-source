@@ -401,7 +401,7 @@
         "coordinate_only_candidate_bytes": 0,
         "unmatched_normalized_windows": 16,
         "windows_without_extracted_original_sites": 1,
-        "path": "/Users/shawwalters/Documents/Codex/2026-10-24/pumpfun-source/research/goal-pump-main-swarm-20261029/lanes/raw-layout-relocation/analysis/unmatched-coords.json",
+        "path": "./research/goal-pump-main-swarm-20261029/lanes/raw-layout-relocation/analysis/unmatched-coords.json",
         "sha256": "a87cb4c9130dabdf48af4d7339ab9c3f285a33402220a97d59fa5d98f506f38d"
       },
       "contract": "Observed coordinate records come only from tools/harness/coords.py::sites. An empty list means this extractor found no supported pattern, not that no source coordinate exists. Coordinate equality is not historical source-spelling or function-identity evidence. Candidate rows inherit the census's normalized-equivalence assignment and its ambiguity limits."

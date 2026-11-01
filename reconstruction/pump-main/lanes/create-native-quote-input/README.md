@@ -21,7 +21,7 @@ compiler settings and linker inputs stay unchanged.
 Previously the only differences were the destination registers of two zero moves
 at offsets `0x490`/`0x498` and `0x2310`/`0x2318`: candidate r7/r2 versus original
 r2/r7. All four slots now match. This follows the SROA lead in
-[#2375](https://github.com/lalalune/pumpfun-source/pull/2375): copying a caller-owned
+#2375: copying a caller-owned
 key gives optimization a different intermediate form than constructing a zero
 key inside both callee branches. The final match is measured; the detailed
 intermediate-pass explanation is an inference from that prior diagnostic work,
@@ -72,12 +72,12 @@ rehash-checked before publishing the report. No chain or external service is use
 The open-PR file scan found no other open PR changing `programs/pump/src/create_v2.rs`
 at publication preparation. Related work:
 
-- [#2293](https://github.com/lalalune/pumpfun-source/pull/2293) and
-  [#2386](https://github.com/lalalune/pumpfun-source/pull/2386): prior source work
+- #2293 and
+  #2386: prior source work
   leading to the four-slot residual; this change starts from accepted main.
-- [#2375](https://github.com/lalalune/pumpfun-source/pull/2375): SROA/zero-store
+- #2375: SROA/zero-store
   investigation directly informing this source hypothesis.
-- [#2497](https://github.com/lalalune/pumpfun-source/pull/2497): our earlier
+- #2497: our earlier
   checkpoint and negative experiments. Its pinned 1,032/347 measurement remains
   historical; this new source gain is measured separately. No shared files.
 

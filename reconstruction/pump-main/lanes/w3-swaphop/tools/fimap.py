@@ -1,6 +1,6 @@
 # fimap.py cand.so|cand.o.bin sh.mir : per our frame object, the orig object base it maps to (via opregs alignment)
 import sys,difflib,collections,re
-sys.path.insert(0,'/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/restore/reconstruction/harness')
+sys.path.insert(0,'./worktrees/restore/reconstruction/harness')
 a=sys.argv[1:]; sys.argv=sys.argv[:1]
 import score
 from pathlib import Path

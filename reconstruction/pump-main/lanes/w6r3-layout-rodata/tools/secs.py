@@ -1,5 +1,5 @@
 import sys
-H='/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/w6r3-layout-rodata/reconstruction'
+H='./worktrees/w6r3-layout-rodata/reconstruction'
 sys.path.insert(0,H+'/harness'); from score import sections
 o=open(H+'/base/original.so','rb').read(); c=open(sys.argv[1],'rb').read(); A=sections(o); C=sections(c)
 for n in A:

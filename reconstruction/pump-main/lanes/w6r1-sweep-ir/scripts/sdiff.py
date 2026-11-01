@@ -8,7 +8,7 @@ def L(p):
         x=re.sub(r'r10 - 0x[0-9a-f]+','r10-S',re.sub(r'\br[0-9]\b','r',x))
         out.append((off,x)); off+=16 if s.startswith('lddw') else 8
     return out
-o=L('/Users/shawwalters/.cache/pumpfun-reconstruction/lanes/w6r1-sweep-ir/orig-norm.txt'); c=L(sys.argv[1])
+o=L('$HOME/.cache/pumpfun-reconstruction/lanes/w6r1-sweep-ir/orig-norm.txt'); c=L(sys.argv[1])
 sm=difflib.SequenceMatcher(None,[x for _,x in o],[x for _,x in c],autojunk=False)
 for tag,i1,i2,j1,j2 in sm.get_opcodes():
     if tag=='equal': continue

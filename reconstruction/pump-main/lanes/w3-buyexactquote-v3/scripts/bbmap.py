@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """bbmap.py <cand.so|orig> [sym]: basic-block map with call names and error-line immediates."""
 import sys,re,json,struct,os
-sys.path.insert(0,'/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/w3-buyexactquote-v3/reconstruction/harness')
+sys.path.insert(0,'./worktrees/w3-buyexactquote-v3/reconstruction/harness')
 from win import Cand, demangle, objdump_text, BASE
 from score import original_windows
 sc=json.load(open(os.path.expanduser('~/.cache/pumpfun-reconstruction/baseline-main-d2cb88d/score.json')))['windows']

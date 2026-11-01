@@ -1,0 +1,125 @@
+{
+  "target": {
+    "program": "Pump Main",
+    "binary": "evidence/original/pump/deployed.so",
+    "sha256": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
+    "runtime": "Surfpool 1.6.1 (pinned local tools/surfpool), offline",
+    "command": "uv run --with-requirements requirements.txt python reconstruction/verification/security-surfpool/main.py",
+    "signature_verification": true,
+    "scope_note": "Synthetic local account fixtures executing retained original Pump and original dependency binaries. No production signer, live victim, current Devnet deployment, profitable extraction, or aggregate loss is asserted. Every artifact contains loaded binary hashes, signatures, errors, logs, and state deltas."
+  },
+  "counts": {
+    "CONFIRMED": 12,
+    "REJECTED": 2,
+    "INCONCLUSIVE": 0,
+    "BLOCKED": 0
+  },
+  "findings": [
+    {
+      "id": "L-01",
+      "status": "CONFIRMED",
+      "scope": "Pump Main creator migration with synthetic paused sharing state; exceptional state admission only.",
+      "evidence": "Signed migrate_bonding_curve_creator succeeded with SharingConfig status=0 and matching creator/admin, changing the curve creator without an Active-status check. Signature 64zbpAXH4KvKsiTmkVa1M5jGFEyRJWrB5M4E3gLAQBDL7Xnw1LDHGA8DigZ2oQLWHaRYrPqjAiH8aRVQBHZhfcCs.",
+      "artifacts": ["reconstruction/verification/security-surfpool/results/main-cases/l-01.json"]
+    },
+    {
+      "id": "L-06",
+      "status": "CONFIRMED",
+      "scope": "Pump Main user-signed accumulator closure with pending incentive rights and native/token cashback.",
+      "evidence": "Close succeeded despite pending_unclaimed=123, deleted the accumulator, refunded all 2,844,400 lamports (rent plus 1,000,000 excess) to the user, and left the token-cashback ATA unchanged. This confirms rights erasure and native/token recoverability, not external close authority. Signature 3S2BSJA9ALZsaWGK2TmRs1UcHMMcFLmk2YwMVvoT3Pj2iV5HxGt1e37GUby6jxWr1TXtH9R1x6ERg2apP8uPRbyp.",
+      "artifacts": ["reconstruction/verification/security-surfpool/results/main-cases/l-06.json"]
+    },
+    {
+      "id": "L-16",
+      "status": "CONFIRMED",
+      "scope": "Pump Main migrate_v2 with donated base in the intermediate ATA; pricing/liquidity effect only.",
+      "evidence": "A signed migration with the intermediate base ATA amount patched to u64::MAX succeeded and created the AMM position, demonstrating that the full post-transfer balance is used. No profitable donor extraction was tested or claimed. Signature 3SVgfK72SWTwXMk61HhMbvyP7oDyvzaf1oLCRKepMWRjuq9znFpm6RbbC17zdsjUGKUoNHZETBNsJh3rs7M7AXJu.",
+      "artifacts": ["reconstruction/verification/security-surfpool/results/main-cases/l-16.json"]
+    },
+    {
+      "id": "M-01",
+      "status": "CONFIRMED",
+      "scope": "Original AMM-signed CPI into Pump Main native multi-hop curve completion boundary; retained Fees dependency applies its default fee.",
+      "evidence": "With reserves [1000,100,100,0,1000] and budget 14, the signed route succeeded, real base moved 100->1, real quote moved 0->12, and curve lamports increased by the full 14 rather than an exact completion-only amount. Signature 4YvmeSLuTTrz1Jyvv8D2nLu5vn1YBHobtqhj1B43hoDReUw6nXvf6zagJWTPep3degp6BMLvNps4q7EhcXZ4HCHj.",
+      "artifacts": ["reconstruction/verification/security-surfpool/results/main-cases/m-01.json"]
+    },
+    {
+      "id": "M-02",
+      "status": "CONFIRMED",
+      "scope": "Pump Main ordinary signed buy_v2 with existing synthetic incentive accounts.",
+      "evidence": "The buy succeeded and changed curve, user, fee, and token balances, but the watched UserVolumeAccumulator was absent from all state deltas and retained identical bytes. This confirms no trade-volume write on this path; campaign intent and live activity remain separate. Signature cVwjbnsqoa5vjkeHQFdKM3XDm6pkVxXtWyvvioAJi3GxCuK6BcicuQasM6sS28FNes2J9dRhrYAN9P5MUDGeheH.",
+      "artifacts": ["reconstruction/verification/security-surfpool/results/main-cases/m-02.json"]
+    },
+    {
+      "id": "M-06",
+      "status": "CONFIRMED",
+      "scope": "Fresh Pump Main incentive scheduling without an existing GlobalVolumeAccumulator; not a current Devnet absence claim.",
+      "evidence": "Normally signed admin_update_token_incentives failed at target account admission with AccountNotInitialized custom 3012 for global_volume_accumulator; no schedule was written. Signature 3JCuFjZwdCEfEuWeRRpaBDh59svbWLzphB8BNssw9gf7bFkBJpfi92UeoWRR1MKF245GkXsf61GEGtxepVfhAyuu.",
+      "artifacts": ["reconstruction/verification/security-surfpool/results/main-cases/m-06.json"]
+    },
+    {
+      "id": "M-14",
+      "status": "CONFIRMED",
+      "scope": "Pump Main native creator-fee distribution at the raw-balance multiplication boundary.",
+      "evidence": "A signed distribution of a 10^18-lamport creator-vault balance at 10,000 bps failed with Overflow custom 6024 at distribute_creator_fees.rs:165, despite the final payout fitting u64. Signature 2v3jvhjfjpJW4EUReCNDehqaPmFmQdFdKLdGkXWNys76ci7JA7fDvbWnjYzVhR1yJChgt53d3Zqx69Mhy9B2PHcN.",
+      "artifacts": ["reconstruction/verification/security-surfpool/results/main-cases/m-14.json"]
+    },
+    {
+      "id": "M-15",
+      "status": "CONFIRMED",
+      "scope": "Pump Main only, as assigned; nonsigning user and foreign-mint cashback counter boundary. No AMM evidence or coordination.",
+      "evidence": "A payer-signed foreign-token claim starting at stable_claimed=42 succeeded and saturated the counter to u64::MAX. A separate positive claim at saturation panicked with 'Overflowing total stable cashback claimed'. A separate native claim at stable saturation succeeded, leaving that counter unchanged. Tokens still moved to the user in the successful saturation case.",
+      "artifacts": [
+        "reconstruction/verification/security-surfpool/results/main-cases/m-15-saturate.json",
+        "reconstruction/verification/security-surfpool/results/main-cases/m-15-positive-after-saturation.json",
+        "reconstruction/verification/security-surfpool/results/main-cases/m-15-native-after-saturation.json"
+      ]
+    },
+    {
+      "id": "M-16",
+      "status": "CONFIRMED",
+      "scope": "Pump Main nonnative create_v2 admission with zero virtual quote reserves; first/subsequent purchase pricing not exercised.",
+      "evidence": "A signed create_v2 with a Token-2022 quote and initial_virtual_quote_reserves patched to zero succeeded and created the curve, confirming the missing creation invariant on this configuration path. Signature 5jCK8F1RZtGrVXYoWKdA6ZWZzJq1uihKCW33JhTVDGSpW5Uz8F3Ezta175AqABZ8d5BwBdxGytzBfdRqk6ug2KfJ.",
+      "artifacts": ["reconstruction/verification/security-surfpool/results/main-cases/m-16.json"]
+    },
+    {
+      "id": "M-17",
+      "status": "CONFIRMED",
+      "scope": "Pump Main administrator reward scheduling with an actually encoded Token-2022 PermanentDelegate mint; admission only, not a live delegate seizure.",
+      "evidence": "The signed admin update succeeded with PermanentDelegate(type 12) and nonzero delegate authority present, writing the new GlobalVolumeAccumulator schedule. Signature 2ZuqXDmRHMWpAK2sf59imJEgfCmoYgvUzTX8NrM9W3P63uvqLagi1fopdUqscc5CJZxb4CCrxcZeBf93dw86tDKM.",
+      "artifacts": ["reconstruction/verification/security-surfpool/results/main-cases/m-17.json"]
+    },
+    {
+      "id": "H-01",
+      "status": "REJECTED",
+      "scope": "Corrected AMM WSOL-base buy -> native Pump Main buy route; rejected at retained AMM route/pool admission before Main execution.",
+      "evidence": "The signed two-hop A->WSOL->native-B route was rejected with MultiHopMixedDirection custom 6086 at multi_hop_swap.rs:295 (signature DkCmwBA8xdd2XdnsXgnPoT293EvFvfHMLq4yA37pgd3WF2AfuXpxxh7X9T2KU8J3FBEz2MMjwdyd68GVQpSjPCm). An isolated signed A->WSOL AMM buy with matching pool mints and vaults was rejected with OnlyPumpPools custom 6078 at trade_v2.rs:119 (signature 3L81nw679thVd7wY9V7mSz6mAgzGuAdUrT4bg1Ji2TnFPHUaYNrHZatDnRVpVRYXtwhD1zEKEoZhfEUzs5bFw54s). The unmodified signed AMM-buy -> Main-buy control succeeded (signature 4tAazA6veiMJgeb4Db9HRXktSxnduuty9Uw8w8Rq4YFUYAC8dohvdQsqSWAGwxBSN1dzvoaTn7u6pRZdf8iw8yL5). Thus the alleged mixed-direction route cannot reach Pump Main's claimed accounting path; the double-charge behavior is not asserted.",
+      "artifacts": [
+        "reconstruction/verification/security-surfpool/results/main-cases/h-01.json",
+        "reconstruction/verification/security-surfpool/results/main-cases/h-01-control-two-buy.json",
+        "reconstruction/verification/security-surfpool/results/main-cases/h-01-single-wsol-output.json"
+      ]
+    },
+    {
+      "id": "H-03",
+      "status": "REJECTED",
+      "scope": "Pump Main migrate_v2 with an actual Token-2022 1% transfer-fee quote and writable mint for withheld-fee harvest.",
+      "evidence": "The signed migration succeeded end-to-end, including AMM CreatePool and HarvestWithheldTokensToMint; the source quote ATA reduced from 85,005,359,063 to zero. This contradicts the claimed need to subtract withheld fees again from TokenAccount.amount. It does not assert all migrations are safe. Signature 5Kf8M9ZDXZpUSafemz1hJAsvvZLZsYeGH3tLgrQwcua8maUAfrkLcF87PRYd428rLBeC3ZbLfKK2tvj1JF7m6Tmd.",
+      "artifacts": ["reconstruction/verification/security-surfpool/results/main-cases/h-03.json"]
+    },
+    {
+      "id": "H-04",
+      "status": "CONFIRMED",
+      "scope": "Fresh Pump Main Global initialization by an arbitrary test-owned signer; deployment-window prerequisite only.",
+      "evidence": "Signed initialize succeeded with no expected-authority or ProgramData binding and created Global with the supplied user as authority. Existing initialized production state was not tested or claimed overwriteable. Signature 2YtGbFipkNLRhrgDKLc6cu3u4aynTWW3yUtwRcjrK58dreXCJmrsqRembUGDbLzftnmgRqj4SpfFDvRw6SNcxkdi.",
+      "artifacts": ["reconstruction/verification/security-surfpool/results/main-cases/h-04.json"]
+    },
+    {
+      "id": "H-08",
+      "status": "CONFIRMED",
+      "scope": "Pump Main approved external Token-2022 quote admission with PermanentDelegate; no live delegated transfer tested.",
+      "evidence": "Signed create_v2 succeeded with PermanentDelegate(type 12), nonzero delegate authority, and the quote whitelisted in synthetic Global state. This confirms admission, not current unsafe production approval or a vault drain. Signature 5jCK8F1RZtGrVXYoWKdA6ZWZzJq1uihKCW33JhTVDGSpW5Uz8F3Ezta175AqABZ8d5BwBdxGytzBfdRqk6ug2KfJ.",
+      "artifacts": ["reconstruction/verification/security-surfpool/results/main-cases/h-08.json"]
+    }
+  ]
+}

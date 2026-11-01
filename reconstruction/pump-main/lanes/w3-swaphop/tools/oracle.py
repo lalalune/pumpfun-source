@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # oracle.py BASE.ll NAME EDIT.py [--mir] : apply edit(t)->t, llc, report exactish/opregs/r10-offset agreement
 import sys,os,subprocess,difflib,pickle,runpy,collections
-B='/Users/shawwalters/Documents/Codex/2026-10-24/amm-sell-swarm/infra/sdk-native/rust/lib/rustlib/aarch64-apple-darwin/bin'
+B='$HOME/Documents/Codex/2026-10-24/amm-sell-swarm/infra/sdk-native/rust/lib/rustlib/aarch64-apple-darwin/bin'
 O=os.path.expanduser('~/.cache/pumpfun-reconstruction/lanes/w3-swaphop')
 base,name,ed=sys.argv[1:4]; mir='--mir' in sys.argv
 d=O+'/orc/'+name; os.makedirs(d,exist_ok=True)
@@ -18,7 +18,7 @@ subprocess.run([B+'/llvm-objcopy','-O','binary','--only-section='+sec,d+'/m.o',d
 raw=open(d+'/m.bin','rb').read()
 P=O+'/ir/orig_raw.bin'
 if not os.path.exists(P):
-    sys.path.insert(0,'/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/restore/reconstruction/harness'); av=sys.argv; sys.argv=av[:1]
+    sys.path.insert(0,'./worktrees/restore/reconstruction/harness'); av=sys.argv; sys.argv=av[:1]
     import score; W={x['start']:x for x in score.original_windows()}; open(P,'wb').write(W[0x5b3b0]['raw']); sys.argv=av
 oraw=open(P,'rb').read()
 def toks(raw):

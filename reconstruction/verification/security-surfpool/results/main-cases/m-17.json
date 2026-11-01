@@ -1,0 +1,148 @@
+{
+  "finding": "M-17",
+  "case": {
+    "name": "permanent-delegate-reward-mint",
+    "token22": true,
+    "now": 1793378942,
+    "start": 1793378952,
+    "end": 1793378981,
+    "mutations": {
+      "mint": {
+        "patches": [
+          [
+            0,
+            "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010c0020000707070707070707070707070707070707070707070707070707070707070707"
+          ]
+        ]
+      }
+    }
+  },
+  "surfpool": {
+    "signature": "2ZuqXDmRHMWpAK2sf59imJEgfCmoYgvUzTX8NrM9W3P63uvqLagi1fopdUqscc5CJZxb4CCrxcZeBf93dw86tDKM",
+    "error": null,
+    "logs": [
+      "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P invoke [1]",
+      "Program log: Instruction: AdminUpdateTokenIncentives",
+      "Program data: k/psePcdQ96IyuRqAAAAAKXK5GoAAAAAAAAAAAAAAADoAwAAAAAAAOHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHhAQAAAAAAAAB+yuRqAAAAAA==",
+      "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P invoke [2]",
+      "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P consumed 2170 of 179026 compute units",
+      "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P success",
+      "Program log: GlobalVolumeAccumulator=Account { account: GlobalVolumeAccumulator { start_time: 1793378952, end_time: 1793378981, seconds_in_a_day: 1, mint: GCkWCknJ46pyPNHC9DPjTxedvjLHYJUVioxe7X5o6xa4, total_token_supply: [1000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], sol_volumes: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] }, info: AccountInfo { key: Hq2wp8uJ9jCPsYgNHex8RtqdvMPfVGoYwjvF1ATiwn2Y, owner: 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P, is_signer: false, is_writable: true, executable: false, rent_epoch: 18446744073709551615, lamports: 100000000, data.len: 600, data: ca2af62b8ebe1eff000000000000000000000000000000000000000000000000e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1, .. } }",
+      "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P consumed 91289 of 200000 compute units",
+      "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P success"
+    ],
+    "return_data": null,
+    "simulation": {
+      "err": null,
+      "logs": [
+        "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P invoke [1]",
+        "Program log: Instruction: AdminUpdateTokenIncentives",
+        "Program data: k/psePcdQ96IyuRqAAAAAKXK5GoAAAAAAAAAAAAAAADoAwAAAAAAAOHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHhAQAAAAAAAAB+yuRqAAAAAA==",
+        "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P invoke [2]",
+        "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P consumed 2170 of 179026 compute units",
+        "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P success",
+        "Program log: GlobalVolumeAccumulator=Account { account: GlobalVolumeAccumulator { start_time: 1793378952, end_time: 1793378981, seconds_in_a_day: 1, mint: GCkWCknJ46pyPNHC9DPjTxedvjLHYJUVioxe7X5o6xa4, total_token_supply: [1000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], sol_volumes: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] }, info: AccountInfo { key: Hq2wp8uJ9jCPsYgNHex8RtqdvMPfVGoYwjvF1ATiwn2Y, owner: 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P, is_signer: false, is_writable: true, executable: false, rent_epoch: 18446744073709551615, lamports: 100000000, data.len: 600, data: ca2af62b8ebe1eff000000000000000000000000000000000000000000000000e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1, .. } }",
+        "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P consumed 91289 of 200000 compute units",
+        "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P success"
+      ],
+      "accounts": null,
+      "unitsConsumed": 91289,
+      "loadedAccountsDataSize": 2653604,
+      "returnData": null,
+      "innerInstructions": [
+        {
+          "index": 0,
+          "instructions": [
+            {
+              "programId": "6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P",
+              "accounts": [
+                "Ce6TQqeHC9p8KetsN6JsjHK7UTZk7nasjjnr7XxXp9F1"
+              ],
+              "data": "2Mdmj2S19dqYrxPtHYH8rAPZxLc3cKkU9nR6KnGJ7Qxkq8A1hDX7WxyAkKwGvzmf22RxUwfLPZDSsQ2ywLvX5cjKCMrKY5RYjcarjmdcb9WwEC1NaSgZGFndj8iWvFFpwKFm",
+              "stackHeight": 2
+            }
+          ]
+        }
+      ],
+      "replacementBlockhash": null,
+      "fee": null,
+      "preBalances": null,
+      "postBalances": null,
+      "preTokenBalances": null,
+      "postTokenBalances": null,
+      "loadedAddresses": null
+    },
+    "signature_verification": true,
+    "loaded_programs": {
+      "6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P": {
+        "path": "/Users/shawwalters/Documents/Codex/2026-10-24/pumpfun-source/evidence/original/pump/deployed.so",
+        "sha256": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d"
+      },
+      "pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA": {
+        "path": "/Users/shawwalters/Documents/Codex/2026-10-24/pumpfun-source/evidence/original/pump_amm/deployed.so",
+        "sha256": "6a7ad34596d83b4c435b32f458a56e718e9f82eb4ad38e4316616d15d24d8ff7"
+      },
+      "pfeeUxB6jkeY1Hxd7CsFCAjcbHA9rWtchMGdZ6VojVZ": {
+        "path": "/Users/shawwalters/Documents/Codex/2026-10-24/pumpfun-source/evidence/original/pump_fees/deployed.so",
+        "sha256": "4f2955d0f6b40cc9ff7daa18ccad7d19119ba1249759f4e7e3bb691beee6b35e"
+      },
+      "MAyhSmzXzV1pTf7LsNkrNwkWKTo4ougAJ1PPg47MD4e": {
+        "path": "/Users/shawwalters/Documents/Codex/2026-10-24/pumpfun-source/evidence/original/mayhem/deployed.so",
+        "sha256": "a87fa9f866272514e6acb852b668c4a08aeb173d56c883039991d114d1199bdb"
+      },
+      "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA": {
+        "path": "/Users/shawwalters/Documents/Codex/2026-10-24/pumpfun-source/evidence/dependencies/spl_token/deployed.so",
+        "sha256": "8190d3f7ceb6cb7a7a8d8924bff89f9f611e15ce1f806f2b6237f3311a98f697"
+      },
+      "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb": {
+        "path": "/Users/shawwalters/Documents/Codex/2026-10-24/pumpfun-source/evidence/dependencies/spl_token_2022/deployed.so",
+        "sha256": "15a2e615a42e20f31714bbaaee43002ae6f1cda2e8d7118243117ab3c1342e2d"
+      },
+      "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL": {
+        "path": "/Users/shawwalters/Documents/Codex/2026-10-24/pumpfun-source/evidence/dependencies/associated_token/deployed.so",
+        "sha256": "6804554e69fd3a58caa191dc4a58f4c67223d30ca28ab8987f39fc18d2f7374d"
+      },
+      "metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s": {
+        "path": "/Users/shawwalters/Documents/Codex/2026-10-24/pumpfun-source/evidence/dependencies/token_metadata/deployed.so",
+        "sha256": "31f0a627dba051a938de650464e55cc5397a4be0fd496929c1f9cf02fe5e9011"
+      }
+    },
+    "account_deltas": {
+      "BED5UxWkyrNrknLNE1JzzzcoTNZhmM4zXFvpLVFS2xV7": {
+        "before": {
+          "lamports": 1000000000000,
+          "owner": "11111111111111111111111111111111",
+          "executable": false,
+          "data": "",
+          "data_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "after": {
+          "lamports": 999999990000,
+          "owner": "11111111111111111111111111111111",
+          "executable": false,
+          "data": "",
+          "data_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "Hq2wp8uJ9jCPsYgNHex8RtqdvMPfVGoYwjvF1ATiwn2Y": {
+        "before": {
+          "lamports": 100000000,
+          "owner": "6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P",
+          "executable": false,
+          "data": "ca2af62b8ebe1eff000000000000000000000000000000000000000000000000e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+          "data_sha256": "82fe4437bd46645364ac97ec1e244e9db44945e9c752d356b11ac065825bd5f9"
+        },
+        "after": {
+          "lamports": 100000000,
+          "owner": "6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P",
+          "executable": false,
+          "data": "ca2af62b8ebe1eff88cae46a00000000a5cae46a000000000100000000000000e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e1e803000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+          "data_sha256": "c44213f9f7e4373ba609dbd23ae48b2519f3a91b1db64839319de00f6b41214d"
+        }
+      }
+    },
+    "transaction_base64": "Ak5l7r9n9mqCleNC5ogoOMBWo/1OqackWMp11PG5RvNzHlcx4ftH7XhEM5iyRhGmTvN8XLFp2jaOopf1Y1TJ5gAFp3lx6IvTRUTL9kuOJTfOUwwwhIW+QmKi2ip7Uf9htaFKmZlFb2rJxEpVNFiyV4drAOCGpOzeSx//AJLJ2loIAgAHC5f3E1qaJpDnO+smVW8csWO+olMq/6HneCQwvpjA5WgSjUq+B0/vkinTtEHf6k+Y+AWxorOgauZFgQ7+znf9UERmltL0ODkQokh2XT5xUcO6mApGi2OfOcvDTWObwg8MVfoJEaVIY0EtYx9OB4cDKWwDXw0TM6DZyIONc7cQ/m4tAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABVuD2k2Zaz0TbFWi/F1uqUYnLl/XS/ztlXSu2/W0YsAbd9uHudY/eGEJdvORszdq2GvxNg7kNJ/69+SjYoYv8OoZeae4PVIDKvPZjV+TcLxjVjUXB6nSJ+zcj2Xk8cqaMlyWPTiSJ8bs9ECkUjg2DC1oTmdr/EIQEjnvY2+n4WazxNusB/BxOiD0jyLWESrWaN/Zq3VfF6aw7U+BZ01xk4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eEGhoWdOMgKlyFIGEFpF+C/j8oVfkZPmMz9D/qd+Efb2gEFCgEHAwoCCAQGCQUw0QtzV9UXfMyIyuRqAAAAAKXK5GoAAAAAAQAAAAAAAAAAAAAAAAAAAOgDAAAAAAAA",
+    "fixture_clock_unix_timestamp": null,
+    "litesvm_error": null
+  }
+}

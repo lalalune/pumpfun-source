@@ -1,0 +1,115 @@
+{
+  "finding": "M-06",
+  "case": {
+    "name": "fresh",
+    "existing": false,
+    "ata_existing": false,
+    "now": 1793378936,
+    "start": 1793378946,
+    "end": 1793378975
+  },
+  "surfpool": {
+    "signature": "3JCuFjZwdCEfEuWeRRpaBDh59svbWLzphB8BNssw9gf7bFkBJpfi92UeoWRR1MKF245GkXsf61GEGtxepVfhAyuu",
+    "error": {
+      "InstructionError": [
+        0,
+        {
+          "Custom": 3012
+        }
+      ]
+    },
+    "logs": [
+      "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P invoke [1]",
+      "Program log: Instruction: AdminUpdateTokenIncentives",
+      "Program log: AnchorError caused by account: global_volume_accumulator. Error Code: AccountNotInitialized. Error Number: 3012. Error Message: The program expected this account to be already initialized.",
+      "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P consumed 6553 of 200000 compute units",
+      "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P failed: custom program error: 0xbc4"
+    ],
+    "return_data": null,
+    "simulation": {
+      "err": {
+        "InstructionError": [
+          0,
+          {
+            "Custom": 3012
+          }
+        ]
+      },
+      "logs": [
+        "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P invoke [1]",
+        "Program log: Instruction: AdminUpdateTokenIncentives",
+        "Program log: AnchorError caused by account: global_volume_accumulator. Error Code: AccountNotInitialized. Error Number: 3012. Error Message: The program expected this account to be already initialized.",
+        "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P consumed 6553 of 200000 compute units",
+        "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P failed: custom program error: 0xbc4"
+      ],
+      "accounts": null,
+      "unitsConsumed": 6553,
+      "loadedAccountsDataSize": 2150135,
+      "returnData": null,
+      "innerInstructions": [],
+      "replacementBlockhash": null,
+      "fee": null,
+      "preBalances": null,
+      "postBalances": null,
+      "preTokenBalances": null,
+      "postTokenBalances": null,
+      "loadedAddresses": null
+    },
+    "signature_verification": true,
+    "loaded_programs": {
+      "6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P": {
+        "path": "/Users/shawwalters/Documents/Codex/2026-10-24/pumpfun-source/evidence/original/pump/deployed.so",
+        "sha256": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d"
+      },
+      "pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA": {
+        "path": "/Users/shawwalters/Documents/Codex/2026-10-24/pumpfun-source/evidence/original/pump_amm/deployed.so",
+        "sha256": "6a7ad34596d83b4c435b32f458a56e718e9f82eb4ad38e4316616d15d24d8ff7"
+      },
+      "pfeeUxB6jkeY1Hxd7CsFCAjcbHA9rWtchMGdZ6VojVZ": {
+        "path": "/Users/shawwalters/Documents/Codex/2026-10-24/pumpfun-source/evidence/original/pump_fees/deployed.so",
+        "sha256": "4f2955d0f6b40cc9ff7daa18ccad7d19119ba1249759f4e7e3bb691beee6b35e"
+      },
+      "MAyhSmzXzV1pTf7LsNkrNwkWKTo4ougAJ1PPg47MD4e": {
+        "path": "/Users/shawwalters/Documents/Codex/2026-10-24/pumpfun-source/evidence/original/mayhem/deployed.so",
+        "sha256": "a87fa9f866272514e6acb852b668c4a08aeb173d56c883039991d114d1199bdb"
+      },
+      "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA": {
+        "path": "/Users/shawwalters/Documents/Codex/2026-10-24/pumpfun-source/evidence/dependencies/spl_token/deployed.so",
+        "sha256": "8190d3f7ceb6cb7a7a8d8924bff89f9f611e15ce1f806f2b6237f3311a98f697"
+      },
+      "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb": {
+        "path": "/Users/shawwalters/Documents/Codex/2026-10-24/pumpfun-source/evidence/dependencies/spl_token_2022/deployed.so",
+        "sha256": "15a2e615a42e20f31714bbaaee43002ae6f1cda2e8d7118243117ab3c1342e2d"
+      },
+      "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL": {
+        "path": "/Users/shawwalters/Documents/Codex/2026-10-24/pumpfun-source/evidence/dependencies/associated_token/deployed.so",
+        "sha256": "6804554e69fd3a58caa191dc4a58f4c67223d30ca28ab8987f39fc18d2f7374d"
+      },
+      "metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s": {
+        "path": "/Users/shawwalters/Documents/Codex/2026-10-24/pumpfun-source/evidence/dependencies/token_metadata/deployed.so",
+        "sha256": "31f0a627dba051a938de650464e55cc5397a4be0fd496929c1f9cf02fe5e9011"
+      }
+    },
+    "account_deltas": {
+      "BED5UxWkyrNrknLNE1JzzzcoTNZhmM4zXFvpLVFS2xV7": {
+        "before": {
+          "lamports": 1000000000000,
+          "owner": "11111111111111111111111111111111",
+          "executable": false,
+          "data": "",
+          "data_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "after": {
+          "lamports": 999999990000,
+          "owner": "11111111111111111111111111111111",
+          "executable": false,
+          "data": "",
+          "data_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      }
+    },
+    "transaction_base64": "AnLfAEr6U6IQeje8IqTYCU5VWOmtivRFjPmn0pBF5LVnQqTp5+ba0Un26d7zDTU//2odWheXzaPY/y/hzRqtYwQpJKRGpyaLGIWxGxNR3F8aJjDbLMy1nITTlV2iQGnvsHDApJXiHGOadzawJoxI3JwlRGRH2qOAD7QEoKWh9dwMAgAHC5f3E1qaJpDnO+smVW8csWO+olMq/6HneCQwvpjA5WgSjUq+B0/vkinTtEHf6k+Y+AWxorOgauZFgQ7+znf9UEQR8rBLOFhd7gqtoazM7jHmxwwQ5MPr/mRooeme43gIFvoJEaVIY0EtYx9OB4cDKWwDXw0TM6DZyIONc7cQ/m4tAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABVuD2k2Zaz0TbFWi/F1uqUYnLl/XS/ztlXSu2/W0YsAbd9uHXZaGT2cvhRs7reawctIXtX1s3kTqM9YV+/wCpOoZeae4PVIDKvPZjV+TcLxjVjUXB6nSJ+zcj2Xk8cqaMlyWPTiSJ8bs9ECkUjg2DC1oTmdr/EIQEjnvY2+n4WazxNusB/BxOiD0jyLWESrWaN/Zq3VfF6aw7U+BZ01xk4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eEGhoWdOMgKlyFIGEFpF+C/j8oVfkZPmMz9D/qd+Efb2wEFCgEHAwoCCAQGCQUw0QtzV9UXfMyCyuRqAAAAAJ/K5GoAAAAAAQAAAAAAAAAAAAAAAAAAAOgDAAAAAAAA",
+    "fixture_clock_unix_timestamp": null,
+    "litesvm_error": "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(3012))))"
+  }
+}

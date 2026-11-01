@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """runq.py APPROACH QUEUEFILE : lines 'file<TAB>hypothesis'; runs 2 parallel builds (slots 0/1); appends summary to gen/results.log"""
 import json,subprocess,sys,threading,queue
-SW='/Users/shawwalters/Documents/Codex/2026-10-24/amm-sell-swarm'
+SW='$HOME/Documents/Codex/2026-10-24/amm-sell-swarm'
 appr,qf=sys.argv[1:3]
 items=[l.rstrip('\n').split('\t',1) for l in open(qf) if l.strip()]
 q=queue.Queue(); [q.put(i) for i in items]

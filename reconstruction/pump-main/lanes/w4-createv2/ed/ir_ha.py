@@ -1,4 +1,4 @@
-import sys; sys.path.insert(0,'/Users/shawwalters/.cache/pumpfun-reconstruction/lanes/w4-createv2/scripts'); import ren
+import sys; sys.path.insert(0,'$HOME/.cache/pumpfun-reconstruction/lanes/w4-createv2/scripts'); import ren
 def edit(t):
     t=ren.ren(t)
     a='  %v307 = zext i1 %is_holder_reward to i8\n'

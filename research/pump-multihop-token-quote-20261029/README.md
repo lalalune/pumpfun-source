@@ -18,7 +18,7 @@ The slot metric uses the unchanged normalizer and SequenceMatcher alignment. Blo
 
 ## Current source and compiler inputs
 
-The selected D037 public recipe contains 66 compiler-workspace inputs. Current main 040c2822643b4f41f3bc62f5a61f637b41efcf56 differs in four Rust files plus three workspace Cargo files. Merged[#1110](https://github.com/lalalune/pumpfun-source/pull/1110) already supplied those four Rust changes, including the single multi-hop Clock snapshot. That timestamp change was detected before a duplicate probe was built.
+The selected D037 public recipe contains 66 compiler-workspace inputs. Current main 040c2822643b4f41f3bc62f5a61f637b41efcf56 differs in four Rust files plus three workspace Cargo files. Merged#1110 already supplied those four Rust changes, including the single multi-hop Clock snapshot. That timestamp change was detected before a duplicate probe was built.
 
 The parent here applies only those four maintained Rust changes to the authenticated D037 66-input workspace. The three Cargo inputs remain the retained recipe. Thus this is a specifically mapped Linux source control, not a checkout-wide main build or a claim to reproduce #1110's native macOS outputs. Its 183 raw windows must not be conflated with the native 188 count. The complete mapping, original D037 archive and current-parent patch are in `provenance/` and `control-source.patch`. The candidate changes only `multi_hop_curve_swap.rs` lines 581, 582, 589; its patch is `source.patch`.
 

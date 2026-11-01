@@ -83,29 +83,29 @@ source spelling, exhaustive behavior, or security qualification.
 
 ## Related work and overlap
 
-- [#1539](https://github.com/lalalune/pumpfun-source/pull/1539) supplies the exact
+- #1539 supplies the exact
   execute-buy source; it supersedes #1479's earlier partial source. That prior
   packet remains under `execute-payment-result`, explicitly historical.
-- [#1565](https://github.com/lalalune/pumpfun-source/pull/1565) supplies the exact
-  sell-v2 source; [#1558](https://github.com/lalalune/pumpfun-source/pull/1558)
+- #1565 supplies the exact
+  sell-v2 source; #1558
   supplies its credited earlier work. These are tested source dependencies here,
   not independent discoveries or extra match credit beyond the composition.
-- [#1554](https://github.com/lalalune/pumpfun-source/pull/1554) also composes #1539,
+- #1554 also composes #1539,
   with a swap change for a different local compiler baseline. That combination
   is not included or tested here; this lane uses the documented macOS/Linux
   identity recipe and pairs two fully matched functions.
-- [#1669](https://github.com/lalalune/pumpfun-source/pull/1669),
-  [#1518](https://github.com/lalalune/pumpfun-source/pull/1518),
-  [#1419](https://github.com/lalalune/pumpfun-source/pull/1419), and
-  [#1400](https://github.com/lalalune/pumpfun-source/pull/1400) concern other
+- #1669,
+  #1518,
+  #1419, and
+  #1400 concern other
   functions in shared `trade_v3.rs`. Their pending changes are not included.
 - Earlier execute work: #1421, #1243, #1189; same-file #1420 and #1436 are in
   current main. #1368 retains independent historical sell validation. Fixture
   provenance remains #1292. Shared-file overlap is not a confirmed conflict.
 
 The final file-overlap scan covered 521 open PRs. It additionally found
-[#1384](https://github.com/lalalune/pumpfun-source/pull/1384) in `sell_v2.rs`
+#1384 in `sell_v2.rs`
 (the safe zero-only rent helper) and
-[#1164](https://github.com/lalalune/pumpfun-source/pull/1164) in `trade_v3.rs`
+#1164 in `trade_v3.rs`
 (quote/sell fee helpers). Neither pending patch is integrated or tested here.
 Nine capture checks and ten tooling tests pass; this is not full legacy CI.

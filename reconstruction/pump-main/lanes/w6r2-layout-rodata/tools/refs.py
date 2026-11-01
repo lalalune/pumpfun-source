@@ -1,10 +1,10 @@
 # refs.py cand.so OFFLO OFFHI [section]  -> who references section offsets in [lo,hi) in orig and cand
 import sys,struct
-sys.path.insert(0,'/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/w6r2-layout-rodata/reconstruction/harness')
+sys.path.insert(0,'./worktrees/w6r2-layout-rodata/reconstruction/harness')
 from score import candidate_functions, sections, original_windows
 from original_input import resolve_original
 from pathlib import Path
-orig=resolve_original(Path('/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/w6r2-layout-rodata/reconstruction/base/original.so')).read_bytes()
+orig=resolve_original(Path('./worktrees/w6r2-layout-rodata/reconstruction/base/original.so')).read_bytes()
 cand=open(sys.argv[1],'rb').read(); lo=int(sys.argv[2],16); hi=int(sys.argv[3],16); sec=sys.argv[4] if len(sys.argv)>4 else '.rodata'
 def scan(img, fns):
     S=sections(img); t=S['.text']; base=S[sec]['addr']; out=[]

@@ -2,7 +2,7 @@
 """rec.py PREFIX BASESHA BASERATIO DESC: record all results.jsonl rows with name PREFIX-* into the ledger (once)."""
 import sys,json,subprocess,os
 OUT=os.path.expanduser('~/.cache/pumpfun-reconstruction/lanes/w7r1-execute-hillclimb-cv2')
-WT='/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/w7r1-execute-hillclimb-cv2'
+WT='./worktrees/w7r1-execute-hillclimb-cv2'
 L=WT+'/reconstruction/pump-main/log_attempt.py'
 prefix,bsha,bratio,desc=sys.argv[1:5]; bratio=float(bratio)
 done=set(open(OUT+'/recorded.txt').read().split()) if os.path.exists(OUT+'/recorded.txt') else set()

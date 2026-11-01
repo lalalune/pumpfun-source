@@ -9,7 +9,7 @@ is_cashback_coin=true the original REJECTS with CashbackCoinNotSupported (6094) 
 programs/pump/src/trade_v3.rs:150, on BOTH the SOL and the USDC/Token-2022 quote
 paths, for buy_v3, sell_v3 and buy_exact_quote_in_v3. The cashback-ACCEPT accrual
 is a v2/legacy feature (buy_v2/sell_v2/legacy_buy/legacy_sell), already implemented
-and consistent with claim_cashback; the decompiled helper at 0x6cd78 (errors
+and consistent with claim_cashback; the analyzed helper at 0x6cd78 (errors
 6072/6073/6076) carries "programs/pump/src/sell_v2.rs" / "sell.rs" strings, i.e. it
 belongs to the v2 path, not v3.
 

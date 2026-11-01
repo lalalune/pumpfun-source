@@ -1,5 +1,5 @@
 import sys,re,json
-sys.path.insert(0,'/Users/shawwalters/.cache/pumpfun-reconstruction/lanes/w3-raw-layout/scripts')
+sys.path.insert(0,'$HOME/.cache/pumpfun-reconstruction/lanes/w3-raw-layout/scripts')
 from fnloc import locate
 def find_nth(path,name,after):
     L=open(path).read().split('\n')

@@ -30,7 +30,7 @@ Official memberships are **1,023 normalized / 276 raw in both builds**, with zer
 
 Reproduce using the commands below, substituting main `04be15f61e66d27282e2af3d581de984389eac90` for the historical control revision and this tested source revision for the candidate. Keep the stripped `candidate.so` beside each `unstripped.so`. The verifier acceptance checks have not been relaxed.
 
-Related PRs: merged [#1412](https://github.com/lalalune/pumpfun-source/pull/1412) changes the same handlers and is included in this measured control/composition. [#1384](https://github.com/lalalune/pumpfun-source/pull/1384) offers a safe zero-only replacement for its rent invariant and touches the same `buy_v2.rs`; that separate combined source build is not tested here. [#1383](https://github.com/lalalune/pumpfun-source/pull/1383)'s competing dual helper is not included. [#1368](https://github.com/lalalune/pumpfun-source/pull/1368) is historical V3 evidence, not part of this patch's gains. No new full-window match, whole-original ELF identity, runtime equivalence or security qualification is claimed.
+Related PRs: merged #1412 changes the same handlers and is included in this measured control/composition. #1384 offers a safe zero-only replacement for its rent invariant and touches the same `buy_v2.rs`; that separate combined source build is not tested here. #1383's competing dual helper is not included. #1368 is historical V3 evidence, not part of this patch's gains. No new full-window match, whole-original ELF identity, runtime equivalence or security qualification is claimed.
 
 ## Historical pre-#1412 evidence
 

@@ -2,7 +2,7 @@
 (.text via the refined window pairing, data sections by section base) and compares .rel.dyn,
 .dynsym, .dynamic, .data.rel.ro. Usage: elfmap.py <unstripped.so> <refined.json>"""
 import sys,json,struct,bisect,collections
-H='/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/w6r3-layout-rodata/reconstruction'
+H='./worktrees/w6r3-layout-rodata/reconstruction'
 sys.path.insert(0,H+'/harness'); from score import sections
 ob=open(H+'/base/original.so','rb').read(); cb=open(sys.argv[1],'rb').read()
 OS=sections(ob); CS=sections(cb)

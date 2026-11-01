@@ -12,7 +12,7 @@ is run against both the captured original pump and a candidate pump; account sta
 errors, logs and the emitted event are compared byte-for-byte. Semantic recovery only;
 no whole-binary byte-identity claim.
 
-The formula (reverse-engineered empirically from the original and confirmed here):
+The formula (derived from observed behavior and confirmed here):
   if is_mayhem_mode:
     den = 2*token_total_supply - global.initial_real_token_reserves - mayhem_token_vault.amount   # underflow -> Overflow(6024)
     if real_quote_reserves >= 10_000_000:

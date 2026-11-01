@@ -1,8 +1,8 @@
 #!/bin/bash
 # prep.sh SLOT NAME : copy rcgu bc/o from build slot, name, reduce, verify reproduction
 set -e
-L=/Users/shawwalters/Documents/Codex/2026-10-24/amm-sell-swarm/lanes/llvm-ir-inverse
-B=/Users/shawwalters/Documents/Codex/2026-10-24/amm-sell-swarm/infra/sdk-native/rust/lib/rustlib/aarch64-apple-darwin/bin
+L=$HOME/Documents/Codex/2026-10-24/amm-sell-swarm/lanes/llvm-ir-inverse
+B=$HOME/Documents/Codex/2026-10-24/amm-sell-swarm/infra/sdk-native/rust/lib/rustlib/aarch64-apple-darwin/bin
 D=$L/build$1/target/sbpf-solana-solana/release/deps
 W=$L/work/$2; mkdir -p $W
 cp $D/pump_amm_recovered.pump_amm_recovered.*-cgu.0.rcgu.bc $W/opt.bc

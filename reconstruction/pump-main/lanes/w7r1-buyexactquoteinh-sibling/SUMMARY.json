@@ -2,7 +2,7 @@
   "lane": "w7r1-buyexactquoteinh-sibling",
   "target": "0x13f630 buy_v2::buy_exact_quote_in_handler",
   "base": "origin/main 6edd839",
-  "pr": "https://github.com/lalalune/pumpfun-source/pull/2240",
+  "pr": "PR #2240",
   "best": {"trial": "p1", "bytes": 20184, "orig_bytes": 20184, "ratio": 0.99959, "ratio_before": 0.99635, "normalized": 1027, "raw": 276, "losses": [], "raw_losses": [], "unstripped_sha256": "72ffe9d740f7e24e5fa2e3969bc45f1cdc93ee2269efbb6cb124c54a51926c29", "remaining": "mov r7,2 schedule at orig 0x1430d0 (shareholders phi order)"},
   "mechanism": "Transplant of PR #2225 (buy_handler): #[inline(never)] buy_exact_quote_in_v2 program fn + #[inline(always)] handler (LLVM-inlined body gives the CompleteEvent emit_cpi temporaries inliner lifetime markers and returns the Result with no retest) + inline Complete tail (emit_cpi!(ev);drop(ev); Complete-if; prepare?;Ok(())).",
   "follow_up": "PR #2269 (lane w7r1-buyexactquoteinh-regsched) adds partial:&bool on top of this branch for the normalized match (1028/276).",

@@ -92,8 +92,8 @@ if __name__ == '__main__':
 
 
 class Fn:
-    def __init__(self, path, head='/Users/shawwalters/Documents/Codex/2026-10-24/amm-sell-swarm/lanes/llvm-ir-inverse/work/base/red.head.ll',
-                 wd='/Users/shawwalters/Documents/Codex/2026-10-24/amm-sell-swarm/lanes/llvm-ir-inverse/work/runs'):
+    def __init__(self, path, head='$HOME/Documents/Codex/2026-10-24/amm-sell-swarm/lanes/llvm-ir-inverse/work/base/red.head.ll',
+                 wd='$HOME/Documents/Codex/2026-10-24/amm-sell-swarm/lanes/llvm-ir-inverse/work/runs'):
         self.head, blocks = parse(Path(path).read_text())
         self.blocks = dict(blocks)
         self.order0 = [n for n, _ in blocks]

@@ -1,8 +1,8 @@
 #!/bin/bash
 # t.sh NAME [src]
-N=$1; W=/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/w6r3-layout-rodata; SRC=${2:-$W/programs/pump}
+N=$1; W=./worktrees/w6r3-layout-rodata; SRC=${2:-$W/programs/pump}
 O=~/.cache/pumpfun-reconstruction/lanes/w6r3-layout-rodata; H=$W/reconstruction/harness
-BASEJ=/private/tmp/claude-501/-Users-shawwalters-Documents-Codex-2026-10-24-pumpfun-source/9ebf44b6-961d-4889-839c-f928372efc77/scratchpad/w6/verify-r2/score.json
+BASEJ=./9ebf44b6-961d-4889-839c-f928372efc77/scratchpad/w6/verify-r2/score.json
 export PUMP_BUILD_SLOTS=10
 python3 $H/fastbuild.py --src $SRC --work ${WORK:-$O/work} --out $O/out/$N > $O/out/$N.fb.json 2>&1 || { grep -E "^error" -A6 $O/out/$N/build.log | head -30; echo BUILD-FAIL; exit 1; }
 grep -o '"unstripped_sha256": "[0-9a-f]*"' $O/out/$N.fb.json

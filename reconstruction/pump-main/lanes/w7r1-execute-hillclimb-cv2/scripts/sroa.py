@@ -1,7 +1,7 @@
 """sroa.py [edit.py]: apply edit to pre-SROA module m1c.ll (execute body only), run LLVM18 opt sroa, print _84 phi order in the validate exit block."""
 import sys,subprocess,re,os,runpy
 D=os.path.expanduser('~/.cache/pumpfun-reconstruction/lanes/w7r1-execute-hillclimb-cv2/ir/presroa')
-OPT='/Users/shawwalters/.rustup/toolchains/solana/lib/rustlib/aarch64-apple-darwin/bin/opt'
+OPT='$HOME/.rustup/toolchains/solana/lib/rustlib/aarch64-apple-darwin/bin/opt'
 H='define hidden { i64, ptr } @_ZN14pump_recovered9create_v27execute'
 def get():
     t=open(D+'/m1c.ll').read(); i=t.index(H); j=t.index('\n}\n',i)+3; return t,i,j

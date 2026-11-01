@@ -1242,7 +1242,7 @@
         "build_ok": false,
         "candidate_built": false,
         "candidate_scored": false,
-        "error": "FileNotFoundError: /Users/shawwalters/.cache/solana/v1.44/platform-tools/rust/bin/cargo",
+        "error": "FileNotFoundError: $HOME/.cache/solana/v1.44/platform-tools/rust/bin/cargo",
         "evaluation_status": "blocked_before_cargo_launch",
         "hypothesis_attempt_id": "5059937915c841ea96d6f8db07c20eed",
         "note": "No source-compile conclusion, census delta, or target structural claim. No retry, environment modification, toolchain search, network access, or live execution performed.",
@@ -1256,7 +1256,7 @@
         "ok": false,
         "candidate_scored": false,
         "failure_stage": "blocked_before_cargo_launch",
-        "error": "FileNotFoundError: /Users/shawwalters/.cache/solana/v1.44/platform-tools/rust/bin/cargo",
+        "error": "FileNotFoundError: $HOME/.cache/solana/v1.44/platform-tools/rust/bin/cargo",
         "environment_modified": false,
         "toolchain_search_performed": false
       },
@@ -1371,6 +1371,6 @@
     "source_sha256": "b6b1ee3a12d0f1a91bc6f04a8868672d5be34866d0da2cfaceb0210e1adf6756",
     "state": "Source prepared and logged, but unevaluated because the prescribed Cargo executable was absent before process launch.",
     "prerequisite": "Restore the pre-existing prescribed build environment outside this lane; do not substitute or search toolchains. Then build once with recipe identity, score the full census, and reject any baseline losses.",
-    "error": "FileNotFoundError: /Users/shawwalters/.cache/solana/v1.44/platform-tools/rust/bin/cargo"
+    "error": "FileNotFoundError: $HOME/.cache/solana/v1.44/platform-tools/rust/bin/cargo"
   }
 }

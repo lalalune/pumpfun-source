@@ -68,7 +68,7 @@ blobs; no required test was removed or weakened.
 
 ## Scope and attribution
 
-Open PR [#2048](https://github.com/lalalune/pumpfun-source/pull/2048) owns the
+Open PR #2048 owns the
 separate source-recipe provenance packet and its missing selected-checkpoint
 finding. Its files are untouched. This packet supplies the before/after inputs
 needed for the containment regression, with no first-recovery claim for that

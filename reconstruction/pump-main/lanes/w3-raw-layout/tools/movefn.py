@@ -1,6 +1,6 @@
 # movefn.py <src file> <fn name> <reexport line or ''> [nth]  -> prints block to stdout, replaces lines with pads (first line = reexport if given)
 import sys,re
-sys.path.insert(0,'/Users/shawwalters/.cache/pumpfun-reconstruction/lanes/w3-raw-layout/scripts')
+sys.path.insert(0,'$HOME/.cache/pumpfun-reconstruction/lanes/w3-raw-layout/scripts')
 from fnloc import locate
 def move(path,name,reexp,nth=0,pad='// layout-pad'):
     i,j,L=locate(path,name,nth)

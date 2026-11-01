@@ -1,7 +1,7 @@
 {
   "lane": "sellv2-reconstruction",
   "approach": "semantic-reconstruction",
-  "pr": "https://github.com/lalalune/pumpfun-source/pull/1214",
+  "pr": "PR #1214",
   "targets": [{"window": "0x144508", "function": "sell_v2::execute", "original_bytes": 13976}],
   "baseline": {"cand_bytes": 14104, "ratio": 0.66202, "ordered_callees": "79/80", "normalized": 1019, "raw": 188},
   "best": {"trial": "t6_nw", "cand_bytes": 13944, "ratio": 0.93984, "ordered_callees": "80/80 equal", "normalized": 1019, "raw": 188, "gains": [], "losses": [],

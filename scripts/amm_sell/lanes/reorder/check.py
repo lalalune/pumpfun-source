@@ -1,5 +1,5 @@
 import sys,re
-P='/Users/shawwalters/Documents/Codex/2026-10-24/amm-sell-swarm/baselines/pristine-ws/programs/pump-amm/src/instructions/swap/sell.rs'
+P='$HOME/Documents/Codex/2026-10-24/amm-sell-swarm/baselines/pristine-ws/programs/pump-amm/src/instructions/swap/sell.rs'
 pat=re.compile(r'(error!|err!|require[a-z_]*!)')
 def sites(path):
     out=[]

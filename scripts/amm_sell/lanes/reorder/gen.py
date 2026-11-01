@@ -1,6 +1,6 @@
 import sys,os
 D=os.path.dirname(os.path.abspath(__file__))
-P='/Users/shawwalters/Documents/Codex/2026-10-24/amm-sell-swarm/baselines/pristine-ws/programs/pump-amm/src/instructions/swap/sell.rs'
+P='$HOME/Documents/Codex/2026-10-24/amm-sell-swarm/baselines/pristine-ws/programs/pump-amm/src/instructions/swap/sell.rs'
 def setl(lines,n,text): lines[n-1]=text
 V={}
 def v(name):

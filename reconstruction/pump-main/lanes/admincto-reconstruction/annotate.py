@@ -14,7 +14,7 @@ import argparse, hashlib, re, struct, sys
 from collections import defaultdict
 from pathlib import Path
 
-H = Path('/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/restore/reconstruction/harness')
+H = Path('./worktrees/restore/reconstruction/harness')
 sys.path.insert(0, str(H))
 from score import sections, normalize, body, candidate_functions, original_windows, BASE  # noqa
 from win import demangle  # noqa

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """var.py <name> <edits.py>: copy WT crate to OUT/src/<name>, apply EDITS=[(old,new),...] to create_v2.rs, keep line count."""
 import sys,shutil,os,runpy
-WT='/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/w3-createv2/programs/pump'
+WT='./worktrees/w3-createv2/programs/pump'
 L=os.path.expanduser('~/.cache/pumpfun-reconstruction/lanes/w4-createv2')
 name,ed=sys.argv[1],sys.argv[2]
 d=L+'/src/'+name

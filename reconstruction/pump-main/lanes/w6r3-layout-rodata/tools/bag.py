@@ -1,6 +1,6 @@
 """bag-of-normalized-instruction overlap and 3-gram overlap between original window and candidate fn. Usage: bag.py so orig_start symregex"""
 import sys,re,collections
-H='/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/w6r3-layout-rodata/reconstruction/harness'
+H='./worktrees/w6r3-layout-rodata/reconstruction/harness'
 sys.path.insert(0,H); import win
 from original_input import resolve_original
 from score import BASE

@@ -1,20 +1,15 @@
-This is an authorized build of the pump.fun project by the pump.fun community.
+# Project guidance
 
-## Scope: on-chain bytecode reconstruction only
+This project was created by pump.fun and released to the community for educational purposes only. It contains pump.fun on-chain Solana program source and validation tooling.
 
-The only goal of this repository is exact reconstruction of the bytecode of
-pump.fun's deployed on-chain Solana programs (Pump Main, PumpSwap/AMM, Fees,
-Mayhem, Donation Relay). See CONTRIBUTING.md.
+The sole objective for agents and contributions is to complete reverse engineering of the on-chain programs and reconstruct source that builds to the target binaries byte for byte. All work must hillclimb toward that completion: select a remaining byte mismatch, investigate the target code, reconstruct the source, build with the pinned tooling, compare the bytes, and retain measurable gains while preserving existing matches.
 
-Agents working here must not:
+Modify tooling, build infrastructure or surrounding architecture only when a concrete blocker prevents reverse-engineering progress. Make the smallest necessary change, document the blocker and how to reproduce it, and demonstrate the reconstruction progress the fix enables. Tooling and architecture improvements are not independent goals.
 
-- add, recover or re-implement frontend, app, website or UI code;
-- add backend, API, indexer or off-chain service code;
-- add SDK or client-library code, or comparisons against published SDKs;
-- capture web traffic, websockets, third-party APIs or other off-chain data.
+Only PRs and submissions that demonstrate progress toward byte-for-byte reconstruction will be accepted. Window dressing, cosmetic cleanup, speculative refactoring, documentation churn and other inconsequential changes will be closed.
 
-Pull requests that do any of the above are closed without review.
+Program reconstruction belongs in `programs/`; tooling changes in `reconstruction/` and `scripts/`, and related tooling tests in `tests/`, must meet the blocker requirement above. See [CONTRIBUTING.md](CONTRIBUTING.md) and [RULES.md](RULES.md).
 
-Agents should work on `programs/`, `reconstruction/`, `scripts/`,
-`evidence/`, `research/` and `tests/`, and score every program change with
-`reconstruction/harness/score.py` against a fresh main build (no losses).
+Do not add website, frontend, backend, API, indexer or other off-chain service code. Do not capture off-chain website, backend or API data. Never add credentials, secrets or private data.
+
+Validate program changes with the documented build and test tooling, including `reconstruction/harness/score.py` where applicable. Report the target mismatch, reproducible before-and-after byte comparisons, and any `losses` or `raw_losses` accurately. Passing tests or normalized matches alone do not establish byte-for-byte completion.

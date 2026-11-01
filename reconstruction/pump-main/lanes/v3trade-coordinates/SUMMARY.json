@@ -6,7 +6,7 @@
     "0x1489f8 trade::buy_exact_quote": {"original_bytes": 7856, "start": "7800 B ratio 0.303", "best": "7656 B ratio 0.313 (t01)"}
   },
   "official": {"normalized": 1020, "raw": 188, "gains_vs_main": [], "losses": []},
-  "prs": ["https://github.com/lalalune/pumpfun-source/pull/1210 (merged)", "https://github.com/lalalune/pumpfun-source/pull/1227"],
+  "prs": ["PR #1210 (merged)", "PR #1227"],
   "attempts": "about 75 builds, all recorded in the shared ledger under lane v3trade-coordinates",
   "key_findings": [
     "All Source line sites in the three windows already sit on their original lines; the residual is code shape.",

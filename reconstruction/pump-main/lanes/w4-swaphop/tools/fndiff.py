@@ -1,4 +1,4 @@
-import sys; sys.path.insert(0,'/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/restore/reconstruction/harness'); A=sys.argv[1:]; sys.argv=sys.argv[:1]
+import sys; sys.path.insert(0,'./worktrees/restore/reconstruction/harness'); A=sys.argv[1:]; sys.argv=sys.argv[:1]
 import score
 from pathlib import Path
 a=score.candidate_functions(Path(A[0])); b=score.candidate_functions(Path(A[1]))

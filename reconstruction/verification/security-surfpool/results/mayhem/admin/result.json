@@ -1,0 +1,280 @@
+{
+  "initialize": {
+    "signature": "4Q1oWcryQDFbEuu2cPdhnTgEijYVntejdrFpLQKtBCiJ2sKTNssQQcsSRQE5wTKP6oGJX54Hdnnt8tD4TKpT33ky",
+    "signature_verification": true,
+    "error": null,
+    "logs": [
+      "Program MAyhSmzXzV1pTf7LsNkrNwkWKTo4ougAJ1PPg47MD4e invoke [1]",
+      "Program log: Instruction: InitializeGlobalParams",
+      "Program 11111111111111111111111111111111 invoke [2]",
+      "Program 11111111111111111111111111111111 success",
+      "Program MAyhSmzXzV1pTf7LsNkrNwkWKTo4ougAJ1PPg47MD4e consumed 10808 of 200000 compute units",
+      "Program MAyhSmzXzV1pTf7LsNkrNwkWKTo4ougAJ1PPg47MD4e success"
+    ],
+    "state_deltas": {
+      "13ec7XdrjF3h3YcqBTFDSReRcUFwbCnJaAQspM4j6DDJ": {
+        "before_lamports": null,
+        "after_lamports": 2658720,
+        "lamports_delta": 2658720,
+        "before_data_sha256": null,
+        "after_data_sha256": "87a27774121b35d9541a239048e31f6ea4f803e41fe85a683afa17f411c63f90",
+        "before_owner": null,
+        "after_owner": "MAyhSmzXzV1pTf7LsNkrNwkWKTo4ougAJ1PPg47MD4e"
+      },
+      "AKnL4NNf3DGWZJS6cPknBuEGnVsV4A4m5tgebLHaRSZ9": {
+        "before_lamports": 10000000000,
+        "after_lamports": 9997336280,
+        "lamports_delta": -2663720,
+        "before_data_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "after_data_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "before_owner": "11111111111111111111111111111111",
+        "after_owner": "11111111111111111111111111111111"
+      }
+    },
+    "before": {
+      "AKnL4NNf3DGWZJS6cPknBuEGnVsV4A4m5tgebLHaRSZ9": {
+        "lamports": 10000000000,
+        "owner": "11111111111111111111111111111111",
+        "executable": false,
+        "data": "",
+        "data_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "13ec7XdrjF3h3YcqBTFDSReRcUFwbCnJaAQspM4j6DDJ": null
+    },
+    "after": {
+      "AKnL4NNf3DGWZJS6cPknBuEGnVsV4A4m5tgebLHaRSZ9": {
+        "lamports": 9997336280,
+        "owner": "11111111111111111111111111111111",
+        "executable": false,
+        "data": "",
+        "data_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "13ec7XdrjF3h3YcqBTFDSReRcUFwbCnJaAQspM4j6DDJ": {
+        "lamports": 2658720,
+        "owner": "MAyhSmzXzV1pTf7LsNkrNwkWKTo4ougAJ1PPg47MD4e",
+        "executable": false,
+        "data": "79c1f857c3384c0b00000000000000000000000000000000000000000000000000000000000000000000000000000000008a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+        "data_sha256": "87a27774121b35d9541a239048e31f6ea4f803e41fe85a683afa17f411c63f90"
+      }
+    },
+    "loaded_programs": {
+      "MAyhSmzXzV1pTf7LsNkrNwkWKTo4ougAJ1PPg47MD4e": {
+        "path": "/Users/shawwalters/Documents/Codex/2026-10-24/pumpfun-source/evidence/original/mayhem/deployed.so",
+        "sha256": "a87fa9f866272514e6acb852b668c4a08aeb173d56c883039991d114d1199bdb"
+      }
+    },
+    "stored_admin": "AKnL4NNf3DGWZJS6cPknBuEGnVsV4A4m5tgebLHaRSZ9"
+  },
+  "initialize_again": {
+    "signature": "2wyncoZtJqfsNXiSvy1Z1pquqiHWACbEad2hLWZdtfFqHmLCqZPon8Di9qrSQo78sVGojW3D8cXGyXECyNPJGHG2",
+    "signature_verification": true,
+    "error": {
+      "InstructionError": [
+        0,
+        {
+          "Custom": 0
+        }
+      ]
+    },
+    "logs": [
+      "Program MAyhSmzXzV1pTf7LsNkrNwkWKTo4ougAJ1PPg47MD4e invoke [1]",
+      "Program log: Instruction: InitializeGlobalParams",
+      "Program 11111111111111111111111111111111 invoke [2]",
+      "Allocate: account Address { address: 13ec7XdrjF3h3YcqBTFDSReRcUFwbCnJaAQspM4j6DDJ, base: None } already in use",
+      "Program 11111111111111111111111111111111 failed: custom program error: 0x0",
+      "Program MAyhSmzXzV1pTf7LsNkrNwkWKTo4ougAJ1PPg47MD4e consumed 7663 of 200000 compute units",
+      "Program MAyhSmzXzV1pTf7LsNkrNwkWKTo4ougAJ1PPg47MD4e failed: custom program error: 0x0"
+    ],
+    "state_deltas": {
+      "AKnL4NNf3DGWZJS6cPknBuEGnVsV4A4m5tgebLHaRSZ9": {
+        "before_lamports": 9997336280,
+        "after_lamports": 9997331280,
+        "lamports_delta": -5000,
+        "before_data_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "after_data_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "before_owner": "11111111111111111111111111111111",
+        "after_owner": "11111111111111111111111111111111"
+      }
+    },
+    "before": {
+      "AKnL4NNf3DGWZJS6cPknBuEGnVsV4A4m5tgebLHaRSZ9": {
+        "lamports": 9997336280,
+        "owner": "11111111111111111111111111111111",
+        "executable": false,
+        "data": "",
+        "data_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "13ec7XdrjF3h3YcqBTFDSReRcUFwbCnJaAQspM4j6DDJ": {
+        "lamports": 2658720,
+        "owner": "MAyhSmzXzV1pTf7LsNkrNwkWKTo4ougAJ1PPg47MD4e",
+        "executable": false,
+        "data": "79c1f857c3384c0b00000000000000000000000000000000000000000000000000000000000000000000000000000000008a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+        "data_sha256": "87a27774121b35d9541a239048e31f6ea4f803e41fe85a683afa17f411c63f90"
+      }
+    },
+    "after": {
+      "AKnL4NNf3DGWZJS6cPknBuEGnVsV4A4m5tgebLHaRSZ9": {
+        "lamports": 9997331280,
+        "owner": "11111111111111111111111111111111",
+        "executable": false,
+        "data": "",
+        "data_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "13ec7XdrjF3h3YcqBTFDSReRcUFwbCnJaAQspM4j6DDJ": {
+        "lamports": 2658720,
+        "owner": "MAyhSmzXzV1pTf7LsNkrNwkWKTo4ougAJ1PPg47MD4e",
+        "executable": false,
+        "data": "79c1f857c3384c0b00000000000000000000000000000000000000000000000000000000000000000000000000000000008a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+        "data_sha256": "87a27774121b35d9541a239048e31f6ea4f803e41fe85a683afa17f411c63f90"
+      }
+    },
+    "loaded_programs": {
+      "MAyhSmzXzV1pTf7LsNkrNwkWKTo4ougAJ1PPg47MD4e": {
+        "path": "/Users/shawwalters/Documents/Codex/2026-10-24/pumpfun-source/evidence/original/mayhem/deployed.so",
+        "sha256": "a87fa9f866272514e6acb852b668c4a08aeb173d56c883039991d114d1199bdb"
+      }
+    }
+  },
+  "update_trader": {
+    "signature": "3QAGDWctuTXFDYWVwZo7jq2enMgjQNZ9MtEHBgFyWXyCnPubbqqSK3Z1dR5uHqjzqu1yPEYuRWLzmnAozZUNQSra",
+    "signature_verification": true,
+    "error": null,
+    "logs": [
+      "Program MAyhSmzXzV1pTf7LsNkrNwkWKTo4ougAJ1PPg47MD4e invoke [1]",
+      "Program log: Instruction: UpdateTrader",
+      "Program MAyhSmzXzV1pTf7LsNkrNwkWKTo4ougAJ1PPg47MD4e consumed 14899 of 200000 compute units",
+      "Program MAyhSmzXzV1pTf7LsNkrNwkWKTo4ougAJ1PPg47MD4e success"
+    ],
+    "state_deltas": {
+      "13ec7XdrjF3h3YcqBTFDSReRcUFwbCnJaAQspM4j6DDJ": {
+        "before_lamports": 2658720,
+        "after_lamports": 2658720,
+        "lamports_delta": 0,
+        "before_data_sha256": "87a27774121b35d9541a239048e31f6ea4f803e41fe85a683afa17f411c63f90",
+        "after_data_sha256": "cd2073b760472fe17e3bd0b3da6e987ed1619fbadc452c7f440f6875a0e1db87",
+        "before_owner": "MAyhSmzXzV1pTf7LsNkrNwkWKTo4ougAJ1PPg47MD4e",
+        "after_owner": "MAyhSmzXzV1pTf7LsNkrNwkWKTo4ougAJ1PPg47MD4e"
+      }
+    },
+    "before": {
+      "13ec7XdrjF3h3YcqBTFDSReRcUFwbCnJaAQspM4j6DDJ": {
+        "lamports": 2658720,
+        "owner": "MAyhSmzXzV1pTf7LsNkrNwkWKTo4ougAJ1PPg47MD4e",
+        "executable": false,
+        "data": "79c1f857c3384c0b00000000000000000000000000000000000000000000000000000000000000000000000000000000008a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+        "data_sha256": "87a27774121b35d9541a239048e31f6ea4f803e41fe85a683afa17f411c63f90"
+      }
+    },
+    "after": {
+      "13ec7XdrjF3h3YcqBTFDSReRcUFwbCnJaAQspM4j6DDJ": {
+        "lamports": 2658720,
+        "owner": "MAyhSmzXzV1pTf7LsNkrNwkWKTo4ougAJ1PPg47MD4e",
+        "executable": false,
+        "data": "79c1f857c3384c0b00000000000000000000000000000000000000000000000000000000000000000000000000000000008a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5ced4928c628d1c2c6eae90338905995612959273a5c63f93636c14614ac8737d1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+        "data_sha256": "cd2073b760472fe17e3bd0b3da6e987ed1619fbadc452c7f440f6875a0e1db87"
+      }
+    },
+    "loaded_programs": {
+      "MAyhSmzXzV1pTf7LsNkrNwkWKTo4ougAJ1PPg47MD4e": {
+        "path": "/Users/shawwalters/Documents/Codex/2026-10-24/pumpfun-source/evidence/original/mayhem/deployed.so",
+        "sha256": "a87fa9f866272514e6acb852b668c4a08aeb173d56c883039991d114d1199bdb"
+      }
+    },
+    "stored_trader": "GyGKxMyg1p9SsHfm15MkNUu1u9TN2JtTspcdmrtGUdse"
+  },
+  "update_admin_nonsigner": {
+    "signature": "52FSQfBD1iuCVgNgpG415jJeoeXmhmyML6jJ7rXeSHvN5AwvuF5eArYvunjZ3YnRhsttcmLgY8MXQrSzbnoBb2gP",
+    "signature_verification": true,
+    "error": null,
+    "logs": [
+      "Program MAyhSmzXzV1pTf7LsNkrNwkWKTo4ougAJ1PPg47MD4e invoke [1]",
+      "Program log: Instruction: UpdateAdmin",
+      "Program MAyhSmzXzV1pTf7LsNkrNwkWKTo4ougAJ1PPg47MD4e consumed 14897 of 200000 compute units",
+      "Program MAyhSmzXzV1pTf7LsNkrNwkWKTo4ougAJ1PPg47MD4e success"
+    ],
+    "state_deltas": {
+      "13ec7XdrjF3h3YcqBTFDSReRcUFwbCnJaAQspM4j6DDJ": {
+        "before_lamports": 2658720,
+        "after_lamports": 2658720,
+        "lamports_delta": 0,
+        "before_data_sha256": "cd2073b760472fe17e3bd0b3da6e987ed1619fbadc452c7f440f6875a0e1db87",
+        "after_data_sha256": "694ce2be8c68b3f7e03870a0e2fe69b4e24be1a2e70f135348bf3f9b224d3063",
+        "before_owner": "MAyhSmzXzV1pTf7LsNkrNwkWKTo4ougAJ1PPg47MD4e",
+        "after_owner": "MAyhSmzXzV1pTf7LsNkrNwkWKTo4ougAJ1PPg47MD4e"
+      }
+    },
+    "before": {
+      "13ec7XdrjF3h3YcqBTFDSReRcUFwbCnJaAQspM4j6DDJ": {
+        "lamports": 2658720,
+        "owner": "MAyhSmzXzV1pTf7LsNkrNwkWKTo4ougAJ1PPg47MD4e",
+        "executable": false,
+        "data": "79c1f857c3384c0b00000000000000000000000000000000000000000000000000000000000000000000000000000000008a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5ced4928c628d1c2c6eae90338905995612959273a5c63f93636c14614ac8737d1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+        "data_sha256": "cd2073b760472fe17e3bd0b3da6e987ed1619fbadc452c7f440f6875a0e1db87"
+      }
+    },
+    "after": {
+      "13ec7XdrjF3h3YcqBTFDSReRcUFwbCnJaAQspM4j6DDJ": {
+        "lamports": 2658720,
+        "owner": "MAyhSmzXzV1pTf7LsNkrNwkWKTo4ougAJ1PPg47MD4e",
+        "executable": false,
+        "data": "79c1f857c3384c0b0000000000000000000000000000000000000000000000000000000000000000000000000000000000ed4928c628d1c2c6eae90338905995612959273a5c63f93636c14614ac8737d1ed4928c628d1c2c6eae90338905995612959273a5c63f93636c14614ac8737d1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+        "data_sha256": "694ce2be8c68b3f7e03870a0e2fe69b4e24be1a2e70f135348bf3f9b224d3063"
+      }
+    },
+    "loaded_programs": {
+      "MAyhSmzXzV1pTf7LsNkrNwkWKTo4ougAJ1PPg47MD4e": {
+        "path": "/Users/shawwalters/Documents/Codex/2026-10-24/pumpfun-source/evidence/original/mayhem/deployed.so",
+        "sha256": "a87fa9f866272514e6acb852b668c4a08aeb173d56c883039991d114d1199bdb"
+      }
+    },
+    "stored_admin": "GyGKxMyg1p9SsHfm15MkNUu1u9TN2JtTspcdmrtGUdse"
+  },
+  "old_admin_after_rotation": {
+    "signature": "44pPHG9b6WDW2EKiHufDneDbtgKDC6G4ufpHBwQNJJHr4nqEKi8wt4ssoWoS2VQnMjm2QFNnUDPCz7zhwr4QSitw",
+    "signature_verification": true,
+    "error": {
+      "InstructionError": [
+        0,
+        {
+          "Custom": 2001
+        }
+      ]
+    },
+    "logs": [
+      "Program MAyhSmzXzV1pTf7LsNkrNwkWKTo4ougAJ1PPg47MD4e invoke [1]",
+      "Program log: Instruction: UpdateAdmin",
+      "Program log: AnchorError caused by account: global_params. Error Code: ConstraintHasOne. Error Number: 2001. Error Message: A has one constraint was violated.",
+      "Program log: Left:",
+      "Program log: GyGKxMyg1p9SsHfm15MkNUu1u9TN2JtTspcdmrtGUdse",
+      "Program log: Right:",
+      "Program log: AKnL4NNf3DGWZJS6cPknBuEGnVsV4A4m5tgebLHaRSZ9",
+      "Program MAyhSmzXzV1pTf7LsNkrNwkWKTo4ougAJ1PPg47MD4e consumed 9391 of 200000 compute units",
+      "Program MAyhSmzXzV1pTf7LsNkrNwkWKTo4ougAJ1PPg47MD4e failed: custom program error: 0x7d1"
+    ],
+    "state_deltas": {},
+    "before": {
+      "13ec7XdrjF3h3YcqBTFDSReRcUFwbCnJaAQspM4j6DDJ": {
+        "lamports": 2658720,
+        "owner": "MAyhSmzXzV1pTf7LsNkrNwkWKTo4ougAJ1PPg47MD4e",
+        "executable": false,
+        "data": "79c1f857c3384c0b0000000000000000000000000000000000000000000000000000000000000000000000000000000000ed4928c628d1c2c6eae90338905995612959273a5c63f93636c14614ac8737d1ed4928c628d1c2c6eae90338905995612959273a5c63f93636c14614ac8737d1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+        "data_sha256": "694ce2be8c68b3f7e03870a0e2fe69b4e24be1a2e70f135348bf3f9b224d3063"
+      }
+    },
+    "after": {
+      "13ec7XdrjF3h3YcqBTFDSReRcUFwbCnJaAQspM4j6DDJ": {
+        "lamports": 2658720,
+        "owner": "MAyhSmzXzV1pTf7LsNkrNwkWKTo4ougAJ1PPg47MD4e",
+        "executable": false,
+        "data": "79c1f857c3384c0b0000000000000000000000000000000000000000000000000000000000000000000000000000000000ed4928c628d1c2c6eae90338905995612959273a5c63f93636c14614ac8737d1ed4928c628d1c2c6eae90338905995612959273a5c63f93636c14614ac8737d1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+        "data_sha256": "694ce2be8c68b3f7e03870a0e2fe69b4e24be1a2e70f135348bf3f9b224d3063"
+      }
+    },
+    "loaded_programs": {
+      "MAyhSmzXzV1pTf7LsNkrNwkWKTo4ougAJ1PPg47MD4e": {
+        "path": "/Users/shawwalters/Documents/Codex/2026-10-24/pumpfun-source/evidence/original/mayhem/deployed.so",
+        "sha256": "a87fa9f866272514e6acb852b668c4a08aeb173d56c883039991d114d1199bdb"
+      }
+    }
+  }
+}

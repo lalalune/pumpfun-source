@@ -2,7 +2,7 @@ import sys,re
 sys.argv=['x','../../../baseline-main-d2cb88d/unstripped.so','base-refined.json']
 src=open('predict.py').read()
 exec(src.split('# L at def granularity')[0].replace("run('S","(lambda *a,**k:0)('S"))
-sys.path.insert(0,'/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/restore/reconstruction/harness')
+sys.path.insert(0,'./worktrees/restore/reconstruction/harness')
 from win import demangle
 def module(a):
     n=demangle(names[a])

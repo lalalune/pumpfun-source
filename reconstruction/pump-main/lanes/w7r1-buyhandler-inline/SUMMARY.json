@@ -2,7 +2,7 @@
   "lane": "w7r1-buyhandler-inline",
   "targets": ["0x13b9b8"],
   "base": "origin/main 6edd839 (1027 normalized / 276 raw); buy_handler 15512 B ratio 0.97998 llc dist 42",
-  "best": {"trial": "qB1", "normalized_match": true, "bytes": 15480, "official_normalized": 1028, "official_raw": 276, "gains": ["0x13b9b8"], "losses": [], "raw_losses": [], "unstripped_sha256": "5a670388f726ef269c9f6b25e357c29f9fd3b87c6fbe7025169779f1f5cb234c", "pr": "https://github.com/lalalune/pumpfun-source/pull/2225"},
+  "best": {"trial": "qB1", "normalized_match": true, "bytes": 15480, "official_normalized": 1028, "official_raw": 276, "gains": ["0x13b9b8"], "losses": [], "raw_losses": [], "unstripped_sha256": "5a670388f726ef269c9f6b25e357c29f9fd3b87c6fbe7025169779f1f5cb234c", "pr": "PR #2225"},
   "mechanism": [
     "Program-fn form: #[inline(never)] buy_v2 #[program] fn with #[inline(always)] buy_handler (LLVM-inlined body)",
     "CompleteEvent emission and prepare_bonding_curve(..)? written inline in the handler, drop(ev) after emit_cpi!(ev) (complete_and_prepare helper no longer used by buy_handler)",

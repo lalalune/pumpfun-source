@@ -2,7 +2,7 @@
 """capture_pre.py <src> <out>: build with -C no-prepopulate-passes --emit=llvm-bc (experiment only), copy pre-opt bitcode."""
 import subprocess,sys,shutil
 from pathlib import Path
-sys.path.insert(0,'/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/w4-sellv3-phi/reconstruction/harness')
+sys.path.insert(0,'./worktrees/w4-sellv3-phi/reconstruction/harness')
 import fastbuild
 real=subprocess.run
 def emit(cmd,*a,**k):

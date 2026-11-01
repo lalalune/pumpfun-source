@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """mk.py <trial> <edit1> [edit2 ...]: copy worktree programs/pump to src/<trial>, apply x1 patch? no: edits are named functions in EDITS."""
 import sys, os, shutil, subprocess
-WT='/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/w10r1-swaphop-stitch'
+WT='./worktrees/w10r1-swaphop-stitch'
 OUT=os.path.expanduser('~/.cache/pumpfun-reconstruction/lanes/w10r1-swaphop-stitch')
 F='src/multi_hop_curve_swap.rs'
 def R(old,new,count=1):

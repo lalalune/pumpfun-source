@@ -4,7 +4,7 @@ B=Path('/mnt/c/Users/ahi20/Documents/ChatGPT/pumpfun-contribution-review/pump-le
 label=sys.argv[1];src=L/('source-'+label);out=L/label;out.mkdir();target=L/'target';target.mkdir(exist_ok=True)
 sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
 inventory=lambda p:{q.relative_to(p).as_posix():sha(q) for q in sorted(p.rglob('*')) if q.is_file()}
-inputs=inventory(src);receipt=json.loads((B/'build-comparison.json').read_text(encoding='utf-8-sig'));manifest=receipt['command'][receipt['command'].index('--manifest-path')+1];inside=manifest.removesuffix('/programs/pump/Cargo.toml');sdk='/Users/shawwalters/.cache/solana/v1.44/platform-tools';hybrid='/Users/shawwalters/Documents/Codex/2026-10-24/claude-pump-work/toolchains/hybrid144';ch='/Users/shawwalters/.cargo';ct=receipt['environment']['CARGO_TARGET_DIR']
+inputs=inventory(src);receipt=json.loads((B/'build-comparison.json').read_text(encoding='utf-8-sig'));manifest=receipt['command'][receipt['command'].index('--manifest-path')+1];inside=manifest.removesuffix('/programs/pump/Cargo.toml');sdk='$HOME/.cache/solana/v1.44/platform-tools';hybrid='$HOME/Documents/Codex/2026-10-24/claude-pump-work/toolchains/hybrid144';ch='$HOME/.cargo';ct=receipt['environment']['CARGO_TARGET_DIR']
 if label=='parent':
     expected=receipt['source_sha256'];assert len(inputs)==len(expected),(len(inputs),len(expected))
     for n,h in inputs.items():assert any(k.endswith('/'+n) and v==h for k,v in expected.items()),n

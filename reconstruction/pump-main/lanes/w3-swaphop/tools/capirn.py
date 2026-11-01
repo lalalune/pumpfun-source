@@ -2,7 +2,7 @@
 """Scratch-only: build crate copy with --emit=link,llvm-ir (no source change); copy module .ll to OUT."""
 import argparse, json, subprocess, sys, shutil
 from pathlib import Path
-TOOLS = Path('/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/restore/reconstruction')
+TOOLS = Path('./worktrees/restore/reconstruction')
 sys.path.insert(0, str(TOOLS / 'harness'))
 import fastbuild
 ap = argparse.ArgumentParser()

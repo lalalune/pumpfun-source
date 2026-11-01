@@ -8,7 +8,7 @@
      "start": {"base": "main d2cb88d", "bytes": 15424, "ratio": 0.66526},
      "best": {"base": "main 60bdd8a7 (hillclimb #1207, not this lane)", "bytes": 15464, "ratio": 0.94776}}
   ],
-  "prs": ["https://github.com/lalalune/pumpfun-source/pull/1218 (merged: exact-quote handler restore 0.694 -> 0.973)"],
+  "prs": ["PR #1218 (merged: exact-quote handler restore 0.694 -> 0.973)"],
   "official": {"normalized": 1020, "raw": 188, "gains": [], "losses": []},
   "attempts": ["8ed0a8a6 restore bbb925b7 eq handler (partial)", "40cfd39c compose snapshot buy_v2.rs (partial)", "dc8d8c16 pump-native-payments crate (compile-failed, out of bounds)", "f08bf076 drop(ev) after emit_cpi (rejected)", "7b8f072f drop(ev) before prepare (rejected)", "a3b03e53 negated mayhem if (byte-identical)", "004c3e14/3d77b725 shareholders after buyback (partial)", "bac1ba16/7a48bc8d quote_mint snapshot respellings (byte-identical)"],
   "rejected_mechanisms": [

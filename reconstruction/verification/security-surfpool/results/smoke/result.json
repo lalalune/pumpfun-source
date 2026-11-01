@@ -1,0 +1,65 @@
+{
+  "signature": "5MCuypDaMww6RTQemqQ2iyZU3abbJE5NVVn8PZYRMaBovXU5DHaQu67sZ7wtaQRqcJutV1chFRcKUo9DA8tN1Nxi",
+  "error": null,
+  "logs": [
+    "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P invoke [1]",
+    "Program log: Instruction: Initialize",
+    "Program 11111111111111111111111111111111 invoke [2]",
+    "Program 11111111111111111111111111111111 success",
+    "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P consumed 10818 of 200000 compute units",
+    "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P success"
+  ],
+  "return_data": null,
+  "simulation": {
+    "err": null,
+    "logs": [
+      "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P invoke [1]",
+      "Program log: Instruction: Initialize",
+      "Program 11111111111111111111111111111111 invoke [2]",
+      "Program 11111111111111111111111111111111 success",
+      "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P consumed 10818 of 200000 compute units",
+      "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P success"
+    ],
+    "accounts": null,
+    "unitsConsumed": 10818,
+    "loadedAccountsDataSize": 1935077,
+    "returnData": null,
+    "innerInstructions": [
+      {
+        "index": 0,
+        "instructions": [
+          {
+            "program": "system",
+            "programId": "11111111111111111111111111111111",
+            "parsed": {
+              "type": "createAccount",
+              "info": {
+                "source": "DXyM8yAHqpMzDtvwz5DXoEUQmPxjJPMKCASCPhLMKpEx",
+                "newAccount": "4wTV1YmiEkRvAtNtsSGPtUrqRYQMe5SKy2uB4Jjaxnjf",
+                "lamports": 8463360,
+                "space": 1088,
+                "owner": "6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P"
+              }
+            },
+            "stackHeight": 2
+          }
+        ]
+      }
+    ],
+    "replacementBlockhash": null,
+    "fee": null,
+    "preBalances": null,
+    "postBalances": null,
+    "preTokenBalances": null,
+    "postTokenBalances": null,
+    "loadedAddresses": null
+  },
+  "signature_verification": true,
+  "loaded_programs": {
+    "6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P": {
+      "path": "/Users/shawwalters/Documents/Codex/2026-10-24/pumpfun-source/evidence/original/pump/deployed.so",
+      "sha256": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d"
+    }
+  },
+  "litesvm_error": null
+}

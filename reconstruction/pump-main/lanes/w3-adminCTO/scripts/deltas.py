@@ -1,6 +1,6 @@
 import sys,re,difflib,collections
 sys.argv=[sys.argv[0]]+sys.argv[1:]
-exec(open('/Users/shawwalters/.cache/pumpfun-reconstruction/lanes/w3-adminCTO/scripts/offmap.py').read().split('o=load(sys.argv[1])')[0])
+exec(open('$HOME/.cache/pumpfun-reconstruction/lanes/w3-adminCTO/scripts/offmap.py').read().split('o=load(sys.argv[1])')[0])
 o=load(sys.argv[1]); c=load(sys.argv[2])
 sm=difflib.SequenceMatcher(None,[x[1] for x in o],[x[1] for x in c],autojunk=False)
 d=collections.Counter(); tot=0; eq=0

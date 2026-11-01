@@ -1,5 +1,5 @@
 import sys,re,bisect; sys.path.insert(0,sys.argv[1]+'/scripts')
-sys.path.insert(0,'/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/restore/reconstruction/harness')
+sys.path.insert(0,'./worktrees/restore/reconstruction/harness')
 from m13 import *
 import coords as CO
 M=model(sys.argv[2],sys.argv[3])

@@ -1,6 +1,6 @@
 # lines.py so symregex : list (offset,line) for path lddw followed by line immediates in the function
 import sys,re,struct
-sys.path.insert(0,'/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/w6r2-layout-rodata/reconstruction/harness')
+sys.path.insert(0,'./worktrees/w6r2-layout-rodata/reconstruction/harness')
 from score import candidate_functions, sections
 b=open(sys.argv[1],'rb').read(); S=sections(b); t=S['.text']
 for st,l,n in candidate_functions(sys.argv[1]):

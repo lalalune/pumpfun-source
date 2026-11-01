@@ -2,9 +2,9 @@
 """trial.py <name> <edits.py> [--noir]: copy WT programs/pump (or BASESRC), apply EDITS [(old,new)], capture build, score, oracle metrics."""
 import sys,os,shutil,subprocess,runpy,json,re
 OUT=os.path.expanduser('~/.cache/pumpfun-reconstruction/lanes/w6r1-buyexactquote-ir')
-WT='/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/w6r1-buyexactquote-ir'
+WT='./worktrees/w6r1-buyexactquote-ir'
 T=WT+'/reconstruction'
-BJ=os.environ.get('BJ','/private/tmp/claude-501/-Users-shawwalters-Documents-Codex-2026-10-24-pumpfun-source/9ebf44b6-961d-4889-839c-f928372efc77/scratchpad/w6/base/score.json')
+BJ=os.environ.get('BJ','./9ebf44b6-961d-4889-839c-f928372efc77/scratchpad/w6/base/score.json')
 name,ed=sys.argv[1],sys.argv[2]
 basesrc=os.environ.get('BASESRC',WT+'/programs/pump')
 dst=f'{OUT}/src/{name}'

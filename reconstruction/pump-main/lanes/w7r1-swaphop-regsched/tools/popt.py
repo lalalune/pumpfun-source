@@ -2,7 +2,7 @@
 """popt.py NAME EDIT.py [--base ir/noopt/module.ll]: edit pre-opt module, opt O3, extract swap_hop, llc oracle."""
 import sys, os, subprocess, runpy, argparse
 O = os.path.expanduser('~/.cache/pumpfun-reconstruction/lanes/w7r1-swaphop-regsched')
-B = '/Users/shawwalters/Documents/Codex/2026-10-24/amm-sell-swarm/infra/sdk-native/rust/lib/rustlib/aarch64-apple-darwin/bin'
+B = '$HOME/Documents/Codex/2026-10-24/amm-sell-swarm/infra/sdk-native/rust/lib/rustlib/aarch64-apple-darwin/bin'
 ap = argparse.ArgumentParser(); ap.add_argument('name'); ap.add_argument('edit'); ap.add_argument('--base', default=O + '/ir/noopt/module.ll')
 a = ap.parse_args()
 d = O + '/popt/' + a.name; os.makedirs(d, exist_ok=True)

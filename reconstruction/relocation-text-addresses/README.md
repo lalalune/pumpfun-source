@@ -1,7 +1,7 @@
 # Text relocation address translation
 
 This opt-in successor completes the `.text` side of the address-space correction
-in [PR #1241](https://github.com/lalalune/pumpfun-source/pull/1241).
+in PR #1241.
 The archived `analyze_relocations` uses section virtual addresses for data targets,
 but still classifies text with `elf.lo/hi` (file offsets), skips `.text` in its
 section loop, and reads relocated LDDW operands using the virtual address as a file

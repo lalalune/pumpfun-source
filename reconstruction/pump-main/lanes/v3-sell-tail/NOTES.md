@@ -79,7 +79,7 @@ The whole-body inline mechanism was also tested on `v3_buy_costs` (`0x80df8`): b
 
 ## Independent compatibility check with PR #1356
 
-The layout-order contribution at `f98d2a7fb2e7c2295698ae2a7dd0604bdb895f47` ([PR #1356](https://github.com/lalalune/pumpfun-source/pull/1356)) reports 88 new raw matches. Its source patch was reviewed and independently built on the same base/toolchain, first alone and then with this lane's retained sell change. The layout-only build exactly reproduces its published unstripped SHA-256 `37a078b8c743a0cc95c8aefc145d5b2e497a967fe39ae7e7f084ff513d5cb432`.
+The layout-order contribution at `f98d2a7fb2e7c2295698ae2a7dd0604bdb895f47` (PR #1356) reports 88 new raw matches. Its source patch was reviewed and independently built on the same base/toolchain, first alone and then with this lane's retained sell change. The layout-only build exactly reproduces its published unstripped SHA-256 `37a078b8c743a0cc95c8aefc145d5b2e497a967fe39ae7e7f084ff513d5cb432`.
 
 Both layout-only and combined builds score **1,020 normalized / 276 raw**, with the same 88 raw gains and no losses versus fresh main. Every membership is equal between those two builds. Combined sell remains 6,032 bytes with six differing normalized slots and all 47 ordered callee signatures equal to the original. Neither build reports stack warnings. The layout-only checkout also passes 10 tooling tests and nine capture checks; no VM run was performed.
 
@@ -91,7 +91,7 @@ Executed the existing 117 `sell_v3` cases from `scripts/pump_v3_configured_fee_d
 
 Compared account bytes/hashes, owners and lamports (excluding the deliberately replaced Pump executable), errors, raw event payloads, inner instructions, return data and ordered logs. Only exact runtime compute-meter lines are excluded from log equality; all other logs remain ordered. Every transaction signature is verified. Compute consumption equality and exhaustive execution-path equivalence are not claimed. The suite covers native SOL and synthetic SPL Token/Token-2022 quote accounts without transfer-fee extensions, creator-fee extremes, mode flags, zero creator and reserve boundaries. The expected failures are fee validation failures, not forced event-CPI failures.
 
-The historical fixture and replay approach are reused with attribution from [PR #1292](https://github.com/lalalune/pumpfun-source/pull/1292), pinned to `4a8336358fd5d2fd00257ef5523202222d6c8cc5`; case definitions and fixture bytes are unchanged. `replay.py` additionally fails on mismatches and compares control logs. These are new executions of this PR's candidate, not reused runtime results from that contribution. No public RPC, user wallet or live transaction is involved.
+The historical fixture and replay approach are reused with attribution from PR #1292, pinned to `4a8336358fd5d2fd00257ef5523202222d6c8cc5`; case definitions and fixture bytes are unchanged. `replay.py` additionally fails on mismatches and compares control logs. These are new executions of this PR's candidate, not reused runtime results from that contribution. No public RPC, user wallet or live transaction is involved.
 
 A fresh identity build from source revision `7175a27b894c6701e0f860e49ed000e3f922bb83` reproduced both tested candidate hashes exactly, without stack warnings. `runtime-manifest.json` binds fixture, receipts, runner, verifier, suite, all Rust/manifest/lock inputs, dependency images, base revision and tested binary hashes. Later commits only retain this evidence.
 

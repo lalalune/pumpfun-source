@@ -2,7 +2,7 @@
 """Build a crate copy while capturing create_token_account_v2 pass dumps (scratch only)."""
 import argparse, json, re, subprocess, sys
 from pathlib import Path
-TOOLS = Path('/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/restore/reconstruction')
+TOOLS = Path('./worktrees/restore/reconstruction')
 sys.path.insert(0, str(TOOLS / 'harness'))
 import fastbuild
 SYMBOL = "_ZN14pump_recovered10migrate_v223create_token_account_v217hebc7d3eb865ec10dE"

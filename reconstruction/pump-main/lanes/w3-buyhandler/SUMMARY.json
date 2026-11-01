@@ -5,7 +5,7 @@
   "side_effects": {"0x13f630 buy_exact_quote_in_handler": "0.97829 -> 0.99392 (llc dist 19)", "0x144508 sell_v2": "0.95152 -> 0.96294"},
   "official": {"normalized": 1022, "raw": 276, "gains": [], "losses": []},
   "unstripped_sha256": "23aa203f24583bb4d8de58e0bdcd50cc9e0c9b512b49f8e417968227b2a7310a",
-  "pr": "https://github.com/lalalune/pumpfun-source/pull/1412",
+  "pr": "PR #1412",
   "mechanisms_kept": [
     "let whitelisted=a.global.whitelist_pda==a.user.key(); bound before the fee tuple (f24ce58f)",
     "v2 ensure_rent_exempt: if _size != 0 { unsafe { core::hint::unreachable_unchecked() } } keeps _size live through DeadArgElim, so callers emit mov r2,0 as the original does (c948be9c). REVIEW: uses unsafe",

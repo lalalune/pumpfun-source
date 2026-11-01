@@ -1,6 +1,6 @@
 #!/bin/bash
 # rec.sh trial mechanism status "hypothesis" "notes"
-O=~/.cache/pumpfun-reconstruction/lanes/w4-swaphop; W=/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/w4-swaphop
+O=~/.cache/pumpfun-reconstruction/lanes/w4-swaphop; W=./worktrees/w4-swaphop
 L=$W/reconstruction/pump-main/log_attempt.py
 T=$1; K=0x5b3b0-main-630a074-$2-v1
 python3 $L check --dedupe-key $K | grep -q '"duplicate": true' && { echo DUP $K; }

@@ -1,6 +1,6 @@
 import re,subprocess,sys
 nl=open(sys.argv[1]).read()
-r=subprocess.run(['/Users/shawwalters/.rustup/toolchains/solana/lib/rustlib/aarch64-apple-darwin/bin/opt','-disable-output','-passes=print<block-freq>',sys.argv[1]],capture_output=True,text=True)
+r=subprocess.run(['$HOME/.rustup/toolchains/solana/lib/rustlib/aarch64-apple-darwin/bin/opt','-disable-output','-passes=print<block-freq>',sys.argv[1]],capture_output=True,text=True)
 freq={m.group(1):float(m.group(2)) for m in re.finditer(r' - (\S+): float = (\S+),',r.stderr)}
 cur=None; calls={}
 for l in nl.splitlines():

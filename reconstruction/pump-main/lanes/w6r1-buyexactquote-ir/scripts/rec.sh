@@ -1,6 +1,6 @@
 #!/bin/bash
 # rec.sh <trial> <mech> <status> <hypothesis> [notes]
-L=/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/w6r1-buyexactquote-ir/reconstruction/pump-main/log_attempt.py
+L=./worktrees/w6r1-buyexactquote-ir/reconstruction/pump-main/log_attempt.py
 t=$1; m=$2; st=$3; h=$4; n=${5:-}
 D=$(python3 - "$t" "$n" <<'PY'
 import json,sys,re,os

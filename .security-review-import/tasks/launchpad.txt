@@ -1,0 +1,121 @@
+Launchpad contract security audit and remediation
+
+**Date:** 2026-10-30
+**Release assessment: DEPLOYMENT STILL GATED.** All five programs now build for the real SBF target with no stack-frame diagnostics. Source-derived CPI interfaces, historical reward preservation, and additional deployment defects have been repaired. The current evidence includes 49 full-program host tests, 80 focused checks, and eight SVM lifecycle cases. This is bounded acceptance; the remaining address, setup, funding, trading-route and Relay/Jupiter gates below still prevent unconditional release approval.
+
+The review covered all five programs and local support crates in parallel: Main, AMM, Fees, Donation Relay, and Mayhem. The original baseline contains 227 Rust files / 40,543 lines. Reviews traced exported instructions, account ownership/PDA/signer constraints, initialization, authority changes, CPI boundaries, token extensions, arithmetic, trading, migration, donations, payouts and rewards. Unlinked models were distinguished from executable handlers.
+
+The original detailed findings are preserved in [the baseline report](audit/remediation-20261030/SECURITY_REPORT.baseline.md). Its original counts and statements that no code was patched are historical, superseded by this report. **“Patched” below means a source repair with the stated focused evidence; it does not mean a successful complete on-chain acceptance test.**
+
+## Highest-impact findings
+
+### C-01 — Permissionless pre-created ATAs can indefinitely block Relay principal settlement
+
+**CRITICAL impact; source-confirmed, underlying SPL behavior reproduced; complete Relay transaction verification still pending.**
+
+The original close-epoch instruction initialized a deterministic distribution ATA with non-idempotent creation. Anyone could create that valid ATA first without the distribution PDA's signature. Normal ATA creation then rejected it, so epoch closure rolled back and the tracker could not advance. Both swap instructions had the equivalent problem with the deterministic output ATA. The relevant state had no user-callable recovery route. A program upgrade was a possible remedy; this was a freeze of targeted buckets, not theft or an assertion that every asset was frozen automatically.
+
+**Patch:** the three token-account initializations accept existing valid ATAs while retaining authority, mint and token-program constraints. Program-owned distribution/receipt state still uses one-time initialization. Actual balance/delta accounting handles nonzero pre-existing balances.
+
+**Evidence:** the real SPL associated-token-account processor rejects ordinary Create on an existing valid ATA and accepts CreateIdempotent. Source account wiring is reviewed. See [Relay/Mayhem evidence](audit/remediation-20261030/relay-mayhem-summary.md).
+
+Sources: `programs/donation-relay/src/instructions/v1/relayer_only/close_donation_epoch.rs`, `.../distribute/just_swap.rs`, `.../distribute/swap_then_distribute.rs`.
+
+### C-02 — Unsolicited wrapped-native credits can freeze Relay swap settlement
+
+**CRITICAL impact; source-confirmed, underlying SPL behavior reproduced; complete Jupiter/Relay transaction verification still pending.**
+
+Originally, a swap had to spend exactly the recorded epoch total. Any unsolicited WSOL surplus remained afterward, and cleanup attempted to burn it. SPL Token rejects burning native accounts, reverting both swap settlement routes. Spending the surplus too instead violated the old exact-input invariant. No successful receipt existed for the alternative post-swap route, and direct non-swap settlement accepts only the fixed settlement mint. This froze that epoch's principal pending repair.
+
+**Patch:** sync native balances before snapshots, require actual funds to cover the recorded amount, swap the actual input balance, and distribute actual output balances to the same beneficiaries. Exact input-spend and positive output-delta checks remain. Surplus goes to beneficiaries; the relayer must refresh its quote when balances change. Old Token-2022 withheld balances are harvested before cleanup where applicable.
+
+**Evidence:** a real Token-2022 processor rejects native Burn and demonstrates SyncNative incorporating unsolicited lamports; production math tests validate balance coverage, received deltas and large amounts. Full swap-route execution remains an acceptance gate.
+
+Sources: `programs/donation-relay/src/settlement_handlers.rs`, `src/cpi/jupiter.rs`, `src/settlement_math.rs`, `src/settlement_tokens.rs`, `src/tools/distribution/shared.rs`.
+
+### H-03 / H-05 — First-caller takeover of Mayhem and Main administration
+
+**HIGH; patched at the source boundary.** Both initializers previously let any signer become singleton administrator before legitimate initialization. They now bind the executable program to its upgradeable-loader ProgramData and require the current upgrade authority's signature. No guessed bootstrap key was inserted. Initializers fail closed after upgrade authority has been renounced; deployment must initialize before renunciation.
+
+Main regression tests exercise actual Anchor Program, ProgramData and Signer wrappers: correct authority succeeds; attacker, nonsigner, mismatched ProgramData, forged owner, absent authority and nonexecutable program fail. Actual compiled SBF initialization now passes for Main and Mayhem. AMM initialization was hardened in the deployment review below and also has an actual SBF positive/negative authority check.
+
+## Finding disposition (LOW to CRITICAL)
+
+| ID | Severity | Issue | Current disposition |
+|---|---|---|---|
+| L-01 | LOW | Main migration accepts inactive sharing config | Patched: require Active |
+| L-02 | LOW | Main/AMM excessive creator fees | Patched: configuration/selection caps and final combined-fee checks |
+| L-03 | LOW | Nonpositive incentive day lengths | Patched: bounded schedules and recoverable arithmetic errors |
+| L-04 | LOW | AMM migration accepts inactive sharing config | Patched: require Active |
+| L-05 | LOW | AMM unverified/empty metadata creators | Patched: verified nonzero creator or existing curve fallback |
+| L-06 | LOW | User closes accumulator with incentive rights | Patched: reject pending volume/unclaimed tokens; applied in Main too |
+| L-07 | LOW | Empty Fees tiers panic | Patched: explicit NoFeeTiers error |
+| L-08 | LOW | Fees one-step authority lockout | Patched: incoming authority co-signs |
+| L-09 | LOW | Mayhem trade sizing panics | Patched: checked sizing and recoverable errors |
+| L-10 | LOW | Main/AMM/Mayhem authority lockout | Patched: incoming administrator co-signs |
+| L-11 | LOW | Relay lacks independent minimum-output argument | Open: fixed trusted relayer must supply/enforce slippage through route data |
+| L-12 | LOW | Relay unsolicited balances stranded/burned | Patched: include actual balances for same beneficiaries; see C-02 |
+| L-13 | LOW | Donated migration seed tokens alter initial AMM price | Open: no profitable donor drain established; a complete seed/residual policy is still needed |
+| L-14 | LOW | Fees rent payers readonly in generated metadata | Patched: required funding accounts mutable |
+| L-15 | LOW / dependency | Anchor 1.0.0 admits arbitrary executable System accounts (RUSTSEC-2026-0144) | Patched to Anchor 1.0.2 with matching macros; no contract-specific fund-loss path was established |
+| M-01 | MEDIUM | Main completion fallback spends excess budget | Contained: reject unrepresentable partial completion before payment; no generalized refund adapter |
+| M-02 | MEDIUM | Main incentive volume never recorded | Partial: opted-in legacy SOL buys record principal; v2/v3/multi-hop remain ineligible |
+| M-03 | MEDIUM | AMM incentive volume never recorded | Partial: opted-in legacy WSOL buys record principal; other paths remain ineligible |
+| M-06 | MEDIUM | Missing global-volume initialization | Patched: authenticated admin init_if_needed; preserve valid existing allocations |
+| M-07 | MEDIUM | Stable Fees writes invisible in legacy-sized state | Patched: allocate extended new state; reject undersized updates until extension |
+| M-08 | MEDIUM | Mayhem mixes ATA rent with trade proceeds | Patched: measure token balance deltas independently of rent refunds |
+| M-09 | MEDIUM | Relay tip intermediate multiplication overflows | Patched: widened multiplication |
+| M-10 | MEDIUM | Mayhem derives Main v2 PDA under wrong program | Patched: canonical foreign program derivation |
+| M-11 | MEDIUM | Mayhem AMM adapters omit pool-v2/remaining accounts | Interfaces repaired: source-derived generated CPI accounts/arguments and writable flags compile and pass metadata parity; full trading-route acceptance remains open |
+| M-12 | MEDIUM | Fees cannot crank Token-2022 donations | Patched: token-interface accounts with mint/program/ATA binding |
+| M-13 | MEDIUM | Relay admits pausable mints as safe | Patched: restrictive extension policy also applies to whitelisted mints |
+| M-14 | MEDIUM | Large creator-fee payout multiplication overflows | Patched: u128 intermediate with final checked narrowing |
+| M-16 | MEDIUM | Foreign-mint cashback counters block payouts | Patched in AMM and Main: informational counters saturate; entitlements stay checked |
+| M-15 | MEDIUM | Fee-on-transfer Relay epoch underfunding | Patched: actual received delta; reject new unsupported fee mints and harvest old withheld fees for closure |
+| M-17 | MEDIUM | Campaign replacement loses unrolled historical rewards | Patched: immutable finalized campaign archives, authenticated replacement, and permissionless settlement preserve delayed rights; real SBF/SPL and Token-2022 payouts verified |
+| H-03 | HIGH | Mayhem bootstrap takeover | Patched: authenticated program upgrade authority |
+| H-05 | HIGH | Main bootstrap takeover | Patched: authenticated program upgrade authority |
+| C-01 | CRITICAL impact | Pre-created ATA freezes Relay settlement | Patched; primitive processor proof, full transaction acceptance pending |
+| C-02 | CRITICAL impact | Native residual burn freezes Relay settlement | Patched; primitive processor proof, full swap acceptance pending |
+
+The 30 baseline findings retain their IDs; C-01/C-02, the explicit M-17 lifecycle gap, and L-15 dependency finding are added. Prior H-01, H-02, M-04 and M-05 reassessments remain in the baseline report; unproven reachability or attacker profit is not upgraded to a confirmed exploit.
+
+## Additional deployment review
+
+| ID | Severity | Finding and disposition |
+|---|---|---|
+| D-01 | HIGH | AMM initialization trusted an unrelated fixed key. Replaced with executable-program / loader-owned ProgramData / signed current upgrade-authority binding. The SBF test rejects an unrelated signer and accepts the deployer. |
+| D-02 | MEDIUM | Zero virtual quote reserves could price a non-native launch at a single quote unit. Setters reject zero; both creation paths now require positive selected reserves and valid token reserve/supply relationships. |
+| D-03 | MEDIUM | Immutable reward denomination could accept a frozen or transfer-altering mint/vault and permanently block payouts. Both programs now bind the token owner, require renounced freeze authority and an initialized vault, and admit only plain mints or six transfer-inert metadata/group extensions. |
+| D-04 | MEDIUM | Fresh Mayhem parameters could create immediately expired per-mint state. Initialization now rejects zero duration, absent trader, paused state and invalid/overflowing clock ranges before writing state. |
+| D-05 | MEDIUM, conditional issuer risk | AMM bypassed all supported-extension checks for one hardcoded mint. Removed the address exemption; the same policy now applies to every non-native mint. |
+| D-06 | MEDIUM availability / build blocker | AMM incentive admin and two Fees account contexts exceeded the SBF stack limit despite cargo exit success. Large wrappers are boxed; all final builds pass a gate that rejects frame-overflow and overwrite diagnostics. The AMM failure was also reproduced by normal lifecycle execution before the repair. |
+
+The deployment review found no additional confirmed critical fund-loss path. That statement is limited to this pass and is not proof of absence. See [Main deployment review](security/main/deployment-review.md) and [AMM/Mayhem review](programs/lalalune-amm/security-tests/DEPLOYMENT_REVIEW.md).
+
+## Compatibility and release gates
+
+- Regenerate clients from the committed source-derived CPI IDLs. All five complete SBF builds now pass; every generated instruction account list/discriminator is compared to compiled Anchor output. The generator deliberately omits automatic PDA-resolution hints; clients must supply real constrained accounts.
+- Main/Mayhem initialization needs executable-program and ProgramData accounts plus the actual upgrade authority. Authority rotations require incoming signatures. Fees config initialization now uses its canonical global authority. Legacy buy global-volume accounts must be writable; Mayhem account forwarding was updated; its generated CPI writable flags are regenerated and checked against compiled metadata. Actual Mayhem trade-route acceptance remains required.
+- Initialize valid incentive state through the authorized admin instruction before trading. Current reward accounting supports opted-in legacy native buys only. No arbitrary quote valuation policy was invented.
+- Historical campaigns now use permanent archive PDAs. After expiry, archive the old campaign before replacing its schedule; append that archive to the admin update. A delayed user calls the new settlement instruction before another campaign can accrue volume. Archives cannot be closed. Clients must fund archive rent and keep reward vaults funded across all outstanding campaigns. See the [Main recipe](security/main/README.md) and [AMM recipe](programs/lalalune-amm/security-tests/REWARD_LIFECYCLE.md).
+- Relay routes must quote actual synchronized input balances. Whitelisting no longer bypasses unsupported extension checks. Mint/freeze authority retained by an explicitly trusted whitelist issuer remains an issuer risk.
+- Complete first-run configuration before enabling public trading: nonzero Main native/quote reserves, fee tiers, buyback recipients, admitted reward mint/vault and global volume accounts. Mayhem also needs a trader, positive duration, funded vault and its expected fee-whitelist setup. See the linked deployment reviews.
+- Verify every hardcoded program ID, fixed Relay relayer key, quote mint and external integration against the intended new deployment. Ownership of those addresses was not established. Relay still binds whitelist initialization and every settlement to its compiled relayer key; ownership and an operational relayer must be established before accepting funds. No live authority, vault or chain state was changed. The original checkout’s concurrent cleanup edits were left untouched; security commits were isolated in a separate worktree and pushed to the private repository’s `main`.
+- Complete full instruction/SVM tests for initialization, unauthorized accounts, aliasing, all trading/liquidity routes, reward lifecycle, migration, fee distribution, native/token conservation, Token-2022 edge cases, and Jupiter settlement. Check compute and stack limits on final release binaries, then independently review the pinned deployable build.
+
+## Evidence and validation limits
+
+[Build evidence](security/build-evidence/artifacts.json) pins all five ELF hashes and the [production input hashes](security/build-evidence/production-inputs.json). [Source inventory](security/source-inventory.json) additionally records the final reviewed source commit. Full compiler/test logs are committed alongside the manifests.
+
+- **Five genuine SBF builds pass**, including a broad scan for compiler frame-overflow/overwrite diagnostics. [Reproduction script](security/build_programs.sh).
+- **49 full-program host tests pass:** Main 31, AMM 11, Fees 2, Mayhem 5. These include compiled instruction metadata/discriminator parity against the generated interfaces. Relay intentionally rejects host compilation; its real target is built and its helper/processor suite is separate.
+- **80 focused checks pass:** Main 22, AMM 29, Fees math 3, Fees harness 7, Relay 9, Mayhem arithmetic 6, Mayhem authority 4. These overlap some full-program helper tests and include program-ID tests. [Focused checks](security/run_checks.sh).
+- **Eight SVM cases pass:** Main/AMM immutable archive → two later campaigns → delayed settlement → actual SPL Token and plain Token-2022 payout/conservation/replay checks; Main/AMM bootstrap; Fees initialization/configuration/query; Mayhem initialization/admin rotation. Each instruction is capped at 200,000 compute units. The suite uses real compiled programs and token binaries, with synthetic initial account balances and modeled signer flags. [Runtime evidence and scope](security/lifecycle-runtime/README.md), [runtime log](security/build-evidence/runtime-tests.log).
+- [Dependency review](security/dependency-review.md) records known advisory coverage. A dependency scan does not replace source or runtime review.
+
+**Hosted CI has not run.** The [GitHub Actions run for `c36825e`](https://github.com/lalalune/lalalune-source/actions/runs/41066343228) was rejected before starting any jobs because the account exceeded its maximum queued-job count. The workflow passes local `actionlint`; this is an external queue-capacity blocker, not a failed contract test. Clear queue capacity and complete a hosted run before claiming hosted acceptance.
+
+Main and AMM agents independently cross-reviewed the lifecycle and deployment fixes. No on-chain deployment, live key rotation or funding occurred. Full trading/liquidity/migration and Jupiter/Relay transaction acceptance are not established by these checks. Runtime cases use known initial states; they do not constitute an exhaustive transaction-state search or prove control of deployment keys.
+
+Automatic safety review previously stopped an agent during deeper Relay transaction-test work, citing possible cybersecurity risk. That blocked work was not retried; no full Relay/SVM or Jupiter acceptance is claimed.

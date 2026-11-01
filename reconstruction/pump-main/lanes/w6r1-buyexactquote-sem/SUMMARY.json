@@ -5,7 +5,7 @@
   "best": {"trial": "r02", "ratio": 0.851, "bytes": 7872, "masked": 0.9675, "calls": "66/66", "normalized": 1027, "raw": 276, "losses": [], "raw_losses": [],
            "unstripped_sha256": "f875bee89a778ff0f97899adfffb170d4dc9c3c18f208b0282c1f3007622d296",
            "merged_on_main_6edd839": {"normalized": 1027, "raw": 276, "losses": [], "target_ratio": 0.851}},
-  "pr": "https://github.com/lalalune/pumpfun-source/pull/2170",
+  "pr": "PR #2170",
   "mechanisms_landed": [
     "carry the fees as a TradeFees value through the whitelist split, tuple (net_fees,tokens,net) (0.66033 -> 0.84304)",
     "#[inline] (not inline(always)) on buy_exact_quote_body (0.84409)",

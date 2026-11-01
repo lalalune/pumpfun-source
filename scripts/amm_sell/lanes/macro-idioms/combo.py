@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """combo.py NAME H T K : build src/NAME.rs from pristine+owner_ne with head H (467/468), tail T (479/480), key K (464)."""
 import sys
-P='/Users/shawwalters/Documents/Codex/2026-10-24/amm-sell-swarm/baselines/pristine-ws/programs/pump-amm/src/instructions/swap/sell.rs'
+P='$HOME/Documents/Codex/2026-10-24/amm-sell-swarm/baselines/pristine-ws/programs/pump-amm/src/instructions/swap/sell.rs'
 E='PumpAmmError::InvalidCashbackAccumulatorAta'; EA=f'return err!({E});'; I='    '
 H={
  'b2':  (f'{I}if ata.is_writable == false {{ {EA} }}', f'{I}if ata.data_is_empty() {{'),

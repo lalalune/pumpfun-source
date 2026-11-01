@@ -1,9 +1,9 @@
 import sys,difflib,re
-sys.path.insert(0,'/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/restore/reconstruction/harness')
+sys.path.insert(0,'./worktrees/restore/reconstruction/harness')
 from score import sections
 def ro(p,sec):
     b=open(p,'rb').read(); s=sections(b)[sec]; return b[s['offset']:s['offset']+s['size']]
-O=ro('/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/restore/reconstruction/base/original.so',sys.argv[2])
+O=ro('./worktrees/restore/reconstruction/base/original.so',sys.argv[2])
 C=ro(sys.argv[1],sys.argv[2])
 sm=difflib.SequenceMatcher(None,O,C,autojunk=False)
 ops=sm.get_opcodes()

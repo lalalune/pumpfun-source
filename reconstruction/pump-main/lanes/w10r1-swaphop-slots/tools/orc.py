@@ -3,7 +3,7 @@
 Edit file defines edit(text)->text applied to the extracted module."""
 import sys, os, subprocess, difflib, runpy, struct, argparse, re, json, pickle
 from pathlib import Path
-H = '/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/w10r1-swaphop-slots/reconstruction/harness'
+H = './worktrees/w10r1-swaphop-slots/reconstruction/harness'
 L = os.path.expanduser('~/.cache/solana/v1.44/platform-tools/llvm/bin')
 O = Path(os.path.expanduser('~/.cache/pumpfun-reconstruction/lanes/w10r1-swaphop-slots'))
 ap = argparse.ArgumentParser(); ap.add_argument('ll'); ap.add_argument('--edit'); ap.add_argument('--name', default='x')

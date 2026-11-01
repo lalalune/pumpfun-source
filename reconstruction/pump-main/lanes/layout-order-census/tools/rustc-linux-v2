@@ -1,6 +1,6 @@
 #!/bin/bash
 # experiment-only: speed-lane rustc shim v2 (3f4056d2d) adapted: Linux host in -vV and host --print=cfg; host cpufeatures gets libc.
-REAL=/Users/shawwalters/.cache/pumpfun-reconstruction/toolchains/hybrid144/rust/bin/rustc; HD="$(cd "$(dirname "$0")" && pwd)/hostdeps"
+REAL=$HOME/.cache/pumpfun-reconstruction/toolchains/hybrid144/rust/bin/rustc; HD="$(cd "$(dirname "$0")" && pwd)/hostdeps"
 if [ "$#" -eq 1 ] && [ "$1" = "-vV" ]; then
   out="$("$REAL" -vV)" || exit $?
   printf '%s\n' "$out" | sed 's/^host: .*/host: x86_64-unknown-linux-gnu/'; exit 0

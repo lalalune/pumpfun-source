@@ -3,7 +3,7 @@
 import json, subprocess, sys, threading, queue
 from pathlib import Path
 
-SWARM = Path('/Users/shawwalters/Documents/Codex/2026-10-24/amm-sell-swarm')
+SWARM = Path('$HOME/Documents/Codex/2026-10-24/amm-sell-swarm')
 qfile, rfile, approach = sys.argv[1], sys.argv[2], sys.argv[3]
 items = json.loads(Path(qfile).read_text())  # [{file, hypothesis}]
 done = set()

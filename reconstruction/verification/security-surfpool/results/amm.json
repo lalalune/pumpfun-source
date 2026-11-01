@@ -1,0 +1,107 @@
+{
+  "target": "evidence/original/pump_amm/deployed.so",
+  "target_sha256": "6a7ad34596d83b4c435b32f458a56e718e9f82eb4ad38e4316616d15d24d8ff7",
+  "surfpool_version": "1.6.1",
+  "signature_verification": true,
+  "simulation_sigverify_false_used": false,
+  "evidence_file": "results/amm-evidence/transactions.json",
+  "evidence_note": "The authoritative transaction signatures, errors, logs, before/after states and deltas are stored per case in evidence_file; case names below avoid stale duplicate signatures across reruns.",
+  "loaded_dependencies": {
+    "spl_token": "8190d3f7ceb6cb7a7a8d8924bff89f9f611e15ce1f806f2b6237f3311a98f697",
+    "spl_token_2022": "15a2e615a42e20f31714bbaaee43002ae6f1cda2e8d7118243117ab3c1342e2d",
+    "associated_token": "6804554e69fd3a58caa191dc4a58f4c67223d30ca28ab8987f39fc18d2f7374d",
+    "pump_fees": "4f2955d0f6b40cc9ff7daa18ccad7d19119ba1249759f4e7e3bb691beee6b35e",
+    "pump": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d"
+  },
+  "counts": {"CONFIRMED": 14, "REJECTED": 1, "INCONCLUSIVE": 1, "BLOCKED": 1},
+  "findings": [
+    {
+      "id": "L-02", "status": "CONFIRMED",
+      "outcome": "Signed local admin stored max_configurable_creator_fee_bps=10001; 10000 control also succeeded. Config maximum changed 300 to the selected value. Administrator-gated only.",
+      "transaction_cases": ["L-02_max_10001", "L-02_max_10000_control"]
+    },
+    {
+      "id": "L-03", "status": "CONFIRMED",
+      "outcome": "Zero and -1 day lengths persisted through the zero start/end and zero supply update branch; period changed from 1 in each committed global schedule. Later rollover and arbitrary-user writes were not tested.",
+      "transaction_cases": ["L-03_zero_period", "L-03_negative_period"]
+    },
+    {
+      "id": "L-04", "status": "CONFIRMED",
+      "outcome": "Paused status=0 synthetic sharing state migrated the pool creator. Confirms the absent active-status guard, not ordinary permissionless reachability.",
+      "transaction_cases": ["L-04_paused_migration"]
+    },
+    {
+      "id": "L-05", "status": "CONFIRMED",
+      "outcome": "Unverified normal metadata creator succeeded and committed; empty creator vector failed ProgramFailedToComplete and rolled back. Robustness confirmed; theft and verified-only patch unsupported.",
+      "transaction_cases": ["L-05_unverified_metadata", "L-05_empty_metadata"]
+    },
+    {
+      "id": "L-06", "status": "CONFIRMED",
+      "outcome": "User-signed close with unclaimed=5 deleted the accumulator and refunded lamports. No external close or cashback-asset forfeiture claimed.",
+      "transaction_cases": ["L-06_close_pending"]
+    },
+    {
+      "id": "L-10", "status": "CONFIRMED",
+      "outcome": "Current admin installed a nonsigning incoming admin. Operational lockout remains conditional on losing that key.",
+      "transaction_cases": ["L-10_nonsigner_new_admin"]
+    },
+    {
+      "id": "L-13", "status": "CONFIRMED",
+      "outcome": "Exact-input 337 succeeded and debited all 337 quote units under the fixture fee table; protocol recipient gained 2 and buyback recipient 1.",
+      "transaction_cases": ["L-13_exact_337"]
+    },
+    {
+      "id": "L-14", "status": "CONFIRMED",
+      "outcome": "Direct whitelisted buy paid no separate fee; routed buy paid 45926 units to buyback recipient for the same signer.",
+      "transaction_cases": ["L-14_direct_whitelist", "L-14_routed_whitelist"]
+    },
+    {
+      "id": "M-03", "status": "CONFIRMED",
+      "outcome": "Successful buy_v2 created the user accumulator with volume=0 and zero incentive counters. No active live campaign claimed.",
+      "transaction_cases": ["M-03_buy_volume"]
+    },
+    {
+      "id": "M-04", "status": "REJECTED",
+      "outcome": "Mixed-direction route rejected custom 6086 and rolled back. No admitted transfer-fee intermediate route; Main route not directly tested.",
+      "transaction_cases": ["M-04_mixed_direction"]
+    },
+    {
+      "id": "M-05", "status": "INCONCLUSIVE",
+      "outcome": "Fresh signed original Pump migrate_v2 control succeeded using the genuine Pump PDA through CPI. Injecting creator_fee_bps=10001 into the preexisting curve also succeeded and committed pool.creator_fee_bps=10001, proving the field reaches AMM once such state exists. No valid upstream Pump creation/CTO sequence was shown to produce that invalid state, so the upstream-bypass exploit remains inconclusive.",
+      "state_deltas": {"valid_control_pool_creator_fee_bps": 0, "injected_curve_case_pool_creator_fee_bps": 10001, "upstream_state_reachability": "not established"},
+      "transaction_cases": ["M-05_canonical_curve_mutation", "M-05_valid_canonical_control", "M-05_invalid_creator_fee_forwarded"]
+    },
+    {
+      "id": "M-06", "status": "CONFIRMED",
+      "outcome": "Complete original AMM IDL inventory exposes GlobalVolumeAccumulator and init_user_volume_accumulator but no global-volume initializer/bootstrap entrypoint. admin_update_token_incentives with the account absent failed custom 3012. Confirms the source/deployed-interface fresh-deployment gap only; live account state was not queried and no live absence is claimed.",
+      "inventory_evidence": "results/amm-evidence/initializer-inventory.json",
+      "transaction_cases": ["M-06_missing_global"]
+    },
+    {
+      "id": "M-15", "status": "CONFIRMED",
+      "outcome": "Foreign-mint claim saturated cashback_claimed from 13 to u64::MAX. Separate next one-unit claim failed AMM Overflow 6023 with unchanged state.",
+      "transaction_cases": ["M-15_saturate", "M-15_positive_after_saturation"]
+    },
+    {
+      "id": "M-17", "status": "CONFIRMED",
+      "outcome": "Signed admin scheduled rewards with a delegated reward vault. No live unsafe campaign or later delegate seizure tested.",
+      "transaction_cases": ["M-17_delegated_reward_vault"]
+    },
+    {
+      "id": "M-19", "status": "CONFIRMED",
+      "outcome": "Fixed PUMP mint carrying synthetic PermanentDelegate was accepted as pool base. Fixed-address admission branch only, not live exploit capability.",
+      "transaction_cases": ["M-19_fixed_mint_extension"]
+    },
+    {
+      "id": "H-08", "status": "CONFIRMED",
+      "outcome": "Fresh signed original Pump migrate_v2 admitted a canonical Token-2022 PermanentDelegate quote and created/funded the pool. Subsequent Token-2022 TransferChecked signed only by the independent delegate moved one unit from the canonical pool quote vault; pool owner did not sign. Canonical vault amount changed 67417750273 to 67417750272 and recipient 0 to 1. Ordinary noncanonical creation rejected the extension, and canonical Token-2022 control succeeded. Confirms synthetic canonical admission/custody, not a currently approved unsafe live mint.",
+      "state_deltas": {"canonical_pool_quote_vault_amount": {"before": 67417750273, "after": 67417750272}, "delegate_recipient_amount": {"before": 0, "after": 1}, "pool_owner_signature_on_delegate_transfer": false},
+      "transaction_cases": ["H-08_ordinary_delegate_rejected", "H-08_canonical_token22_control", "H-08_canonical_delegate_migration", "H-08_independent_delegate_transfer"]
+    },
+    {
+      "id": "H-09", "status": "BLOCKED",
+      "outcome": "Wrong signer rejected InvalidAdmin custom 6005. Fixed admin private key remains unavailable; no sigVerify=false or other bypass was used. Unchanged in the second pass.",
+      "transaction_cases": ["H-09_wrong_fixed_admin"]
+    }
+  ]
+}

@@ -1,10 +1,10 @@
 #!/bin/bash
 # ctrial.sh <trial> <patch.py> <slot> : copy base src, apply patch.py (edits src dir), capture build+IR, score, metric
 T=$1; P=$2; SLOT=${3:-a}
-TOOLS=/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/restore/reconstruction
-WT=/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/w4-v3costs
+TOOLS=./worktrees/restore/reconstruction
+WT=./worktrees/w4-v3costs
 O=$HOME/.cache/pumpfun-reconstruction/lanes/w4-v3costs
-B=/private/tmp/claude-501/-Users-shawwalters-Documents-Codex-2026-10-24-pumpfun-source/4381c718-211a-406c-9278-6119c4649998/scratchpad/w3/final/out
+B=./4381c718-211a-406c-9278-6119c4649998/scratchpad/w3/final/out
 S=$O/src/$T; rm -rf $S; mkdir -p $S; rsync -a --exclude target $WT/programs/pump/ $S/
 python3 $P $S || { echo PATCH-FAILED; exit 1; }
 diff -ru $WT/programs/pump/src $S/src > $O/src/$T.diff

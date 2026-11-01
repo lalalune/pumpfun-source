@@ -1,6 +1,6 @@
 import sys,struct,json,collections
 sys.argv_saved=list(sys.argv)
-exec(open('/Users/shawwalters/.cache/pumpfun-reconstruction/lanes/w6r2-layout-rodata/scripts/shiftraw.py').read().split("by={}")[0])
+exec(open('$HOME/.cache/pumpfun-reconstruction/lanes/w6r2-layout-rodata/scripts/shiftraw.py').read().split("by={}")[0])
 by={}
 for st,l,n in candidate_functions(sys.argv[1]):
     raw=body(cand,cs,st,l); by.setdefault((l,hashlib.sha256(normalize(raw,st,cs)).digest()),[]).append((st,n,raw))

@@ -2,8 +2,8 @@
 # trial.sh <name> [srcdir]
 set -e
 export PUMP_BUILD_SLOTS=10
-TOOLS=/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/restore/reconstruction
-WT=/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/multihop-reconstruction
+TOOLS=./worktrees/restore/reconstruction
+WT=./worktrees/multihop-reconstruction
 OUT=~/.cache/pumpfun-reconstruction/lanes/multihop-reconstruction
 BASE=~/.cache/pumpfun-reconstruction/baseline-main-d2cb88d
 N=$1; SRC=${2:-$WT/programs/pump}

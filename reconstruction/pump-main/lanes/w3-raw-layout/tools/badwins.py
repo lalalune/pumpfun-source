@@ -1,4 +1,4 @@
-import sys,re; sys.path.insert(0,'/Users/shawwalters/.cache/pumpfun-reconstruction/lanes/w3-raw-layout/scripts')
+import sys,re; sys.path.insert(0,'$HOME/.cache/pumpfun-reconstruction/lanes/w3-raw-layout/scripts')
 from m13 import *
 M=model(sys.argv[1],sys.argv[2]); cand=open(sys.argv[1],'rb').read(); o,c=M.osec,M.csec
 for st,a,calls,tl,hd in M.checks:

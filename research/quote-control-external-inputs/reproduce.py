@@ -17,7 +17,7 @@ FIXTURE = ROOT / 'research/imported-lab/analysis/pump_fun/config-snapshot.json'
 EXPECTED = '17b886a6b4aa7fdc89f2fca9a1b67b318d33998794da59fe4df1fe89ca70bd27'
 created = not FIXTURE.exists()
 if created:
-    url = ('https://api.github.com/repos/lalalune/pumpfun-source/contents/'
+    url = ('https://api.github.com/repos/pump.fun/pumpfun-source/contents/'
            'research/imported-lab/analysis/pump_fun/config-snapshot.json'
            '?ref=5dcef2992bccfc27c601a139ed9c898e7f943793')
     with urllib.request.urlopen(url, timeout=60) as response:

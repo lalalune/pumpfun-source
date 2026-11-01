@@ -11,7 +11,7 @@ def norm(i):
     return i
 orig = [(int(a, 16), norm(i)) for a, i in (l.split(None, 1) for l in open(O + '/orig.txt') if l.startswith('0x'))]
 if arg.endswith('.so'):
-    out = subprocess.run(['python3', '/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/w10r1-swaphop-slots/reconstruction/harness/win.py', 'show', '0x5b3b0', '--cand', arg, '--sym', 'multi_hop_curve::swap_hop$', '--full'], capture_output=True, text=True).stdout
+    out = subprocess.run(['python3', './worktrees/w10r1-swaphop-slots/reconstruction/harness/win.py', 'show', '0x5b3b0', '--cand', arg, '--sym', 'multi_hop_curve::swap_hop$', '--full'], capture_output=True, text=True).stdout
     cand = []
     for ln in out.splitlines():
         m = re.match(r'^([-+ ]) (0x[0-9a-f]+)? +(0x[0-9a-f]+)? +(.*)$', ln)

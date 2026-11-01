@@ -2,10 +2,10 @@
 # trial.sh <name> <edit.py>   edit.py receives crate dir as argv[1]
 set -e
 export PUMP_BUILD_SLOTS=10
-NAME=$1; EDIT=$2; BASESRC=${BASESRC:-/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/w4-sellv3-phi/programs/pump}
-TOOLS=/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/w4-sellv3-phi/reconstruction
+NAME=$1; EDIT=$2; BASESRC=${BASESRC:-./worktrees/w4-sellv3-phi/programs/pump}
+TOOLS=./worktrees/w4-sellv3-phi/reconstruction
 OUT=$HOME/.cache/pumpfun-reconstruction/lanes/w4-sellv3-phi
-BASEJ=/private/tmp/claude-501/-Users-shawwalters-Documents-Codex-2026-10-24-pumpfun-source/4381c718-211a-406c-9278-6119c4649998/scratchpad/w3/final/out/score.json
+BASEJ=./4381c718-211a-406c-9278-6119c4649998/scratchpad/w3/final/out/score.json
 SRC=$OUT/trials/$NAME
 rm -rf $SRC; mkdir -p $SRC; rsync -a --exclude target $BASESRC/ $SRC/
 python3 $EDIT $SRC

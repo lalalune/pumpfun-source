@@ -1,7 +1,7 @@
 #!/bin/sh
 # build.sh <name> [ir]: fastbuild OUT/src/<name> (or capture IR), score, target metric
-L=~/.cache/pumpfun-reconstruction/lanes/w4-createv2; T=/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/restore/reconstruction/harness
-B=/private/tmp/claude-501/-Users-shawwalters-Documents-Codex-2026-10-24-pumpfun-source/4381c718-211a-406c-9278-6119c4649998/scratchpad/w3/final/out
+L=~/.cache/pumpfun-reconstruction/lanes/w4-createv2; T=./worktrees/restore/reconstruction/harness
+B=./4381c718-211a-406c-9278-6119c4649998/scratchpad/w3/final/out
 export PUMP_BUILD_SLOTS=10; n=$1
 if [ "$2" = ir ]; then python3 $L/scripts/capmir.py $L/src/$n $L/work-$n $L/out/$n > $L/out/$n.log 2>&1
 else python3 $T/fastbuild.py --src $L/src/$n --work $L/work-$n --out $L/out/$n > $L/out/$n.log 2>&1; fi

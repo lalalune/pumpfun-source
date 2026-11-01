@@ -17,9 +17,9 @@ for n in names:
     else: decls.append(f'@{n} = external global i8')
 src='\n'.join(decls)+'\n'+f
 open(sys.argv[2],'w').write(src)
-r=subprocess.run(['/Users/shawwalters/.rustup/toolchains/solana/lib/rustlib/aarch64-apple-darwin/bin/opt','-S','-passes=instnamer',sys.argv[2],'-o',sys.argv[2]+'.n.ll'],capture_output=True,text=True)
+r=subprocess.run(['$HOME/.rustup/toolchains/solana/lib/rustlib/aarch64-apple-darwin/bin/opt','-S','-passes=instnamer',sys.argv[2],'-o',sys.argv[2]+'.n.ll'],capture_output=True,text=True)
 if r.returncode: print(r.stderr); sys.exit(1)
-r=subprocess.run(['/Users/shawwalters/.rustup/toolchains/solana/lib/rustlib/aarch64-apple-darwin/bin/opt','-disable-output','-passes=print<block-freq>',sys.argv[2]+'.n.ll'],capture_output=True,text=True)
+r=subprocess.run(['$HOME/.rustup/toolchains/solana/lib/rustlib/aarch64-apple-darwin/bin/opt','-disable-output','-passes=print<block-freq>',sys.argv[2]+'.n.ll'],capture_output=True,text=True)
 freq={}
 for l in r.stderr.splitlines():
     m=re.match(r' - (\S+): float = (\S+),',l)

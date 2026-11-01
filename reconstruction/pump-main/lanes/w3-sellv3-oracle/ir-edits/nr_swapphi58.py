@@ -1,5 +1,5 @@
 import runpy,re
-base=runpy.run_path('/Users/shawwalters/.cache/pumpfun-reconstruction/lanes/w3-sellv3-oracle/edits/ir_norecheck.py')['edit']
+base=runpy.run_path('$HOME/.cache/pumpfun-reconstruction/lanes/w3-sellv3-oracle/edits/ir_norecheck.py')['edit']
 def swapphis(f,a,b):
     L=f.split('\n')
     ia=next(i for i,l in enumerate(L) if l.lstrip().startswith(a+' = phi'))

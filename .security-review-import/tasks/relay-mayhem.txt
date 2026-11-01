@@ -1,0 +1,77 @@
+Task: Review Relay Mayhem fix commits
+
+
+Worked for 5m 50s
+Review result
+Reviewed both commits read-only in .security-review-import/lalalune-source. No files were edited and no tests were rerun; validation below distinguishes committed code, committed test evidence, and documentation claims.
+147e1228812a1ba120e3e9de2a3d8b18337a07f9
+Title: Repair Relay settlement freezes and harden Mayhem authority and accounting
+This is the substantive remediation commit. It changes Relay and Mayhem source, adds focused harnesses/logs, and pins dependencies.
+238a78381813e85ab2151269df65df583882eae7
+Title: Document security findings, remediation evidence and remaining release blockers
+This is documentation and evidence only. It changes no program source. Its report describes fixes from the broader upstream sequence, but those must not be attributed to this commit or treated as applied to the current Pump source.
+1. Donation Relay fixes in 147e122
+
+
+Current finding	Disposition and exact mechanism	Evidence and residual limitations
+C-01 — Pre-created distribution ATA blocks epoch closure	Actual source fix. Changed the epoch-close distribution ATA from init to init_if_needed, preserving canonical mint, distribution-authority, token-program, and address constraints. Also changed both swap output ATAs to init_if_needed, covering the other settlement-time pre-creation sites. Files: instructions/v1/relayer_only/close_donation_epoch.rs, distribute/just_swap.rs, distribute/swap_then_distribute.rs. Pre-existing balances are subsequently handled through actual-balance accounting.	Committed Relay harness invokes the real associated-token processor: ordinary Create fails on an existing valid PDA ATA and CreateIdempotent succeeds. This is a primitive-level test, not a full Relay close/swap transaction. No complete pre-funded ATA → close → settlement integration test is present.
+C-02 — Whitelisted permanent delegates drain vaults	Actual source fix. check_mint_for_donation no longer returns early for whitelisted mints. It calls typed_mint_safe_with_authority_override; whitelisting now exempts only ordinary mint/freeze authorities. PermanentDelegate remains unconditionally rejected, as do unsupported extensions. Files: tools/donate/shared.rs, tools/checks.rs.	The source mechanism directly addresses the current C-02. The nine-test harness does not contain an explicit whitelisted-PermanentDelegate regression; its extension tests focus on pausable and transfer-fee mints. No full donation/vault transaction test was completed.
+H-08 — Pausable Token-2022 mints admitted	Actual source fix. Mint parsing now recognizes PausableConfig and rejects either a remaining pause authority or an already-paused state, including for whitelisted mints. An extension allowlist rejects unknown/unsupported extensions. Files: tools/checks.rs, tools/donate/shared.rs.	Real packed Token-2022 extension data is used in host tests covering pause authority, paused state, and whitelist behavior. No donate → pause → close/settlement SVM test.
+M-14 — Whitelisted fee-on-transfer tokens underfund settlement	Actual source fix for newly closed epochs. Epoch close snapshots the distribution ATA before transfer, reloads afterward, and stores the received delta rather than the debouncer’s gross pre-transfer total. Positive or reconfigurable transfer fees are rejected even for whitelisted mints. Cleanup harvests legacy withheld fees before token-account close. Files: settlement_handlers.rs, settlement_math.rs, settlement_tokens.rs, tools/checks.rs, tools/donate/shared.rs, tools/distribution/shared.rs.	Math and mint-policy host tests pass, but there is no end-to-end fee-on-transfer donation/close/settlement test. Existing underfunded epochs are not repaired: actual >= recorded remains required, so they can still need an external top-up. Harvesting enables cleanup; it does not recover already charged fees.
+M-09 — Donation tip multiplication overflow	Actual source fix. New tip_amount computes received × tip_bps / 10_000 in u128, checks tip_bps <= 10_000, and checked-narrows the result to u64. Files: settlement_math.rs, tools/donate/shared.rs.	Boundary tests include u64::MAX and 10,000 bps.
+L-12 — Unsolicited balances stranded or burned	Substantial source remediation. Epoch close and settlement use actual vault balances, with actual amounts required to cover recorded principal. Direct token credits are distributed to the same beneficiaries instead of being left as close-blocking residuals. Native input ATAs are synchronized before accounting; output surplus is included in distributions. Files: settlement_handlers.rs, settlement_math.rs, settlement_tokens.rs, tools/distribution/shared.rs.	Late input credits can make a Jupiter quote stale, requiring an atomic failure and relayer requote. A possible remaining native-output gap is described below.
+L-11 — No independent minimum output	Not fixed. No protocol-level min_output_amount was added; only positive output delta and exact input spend remain.	Upstream explicitly leaves slippage enforcement to the trusted relayer’s Jupiter route data to avoid an instruction-ABI change.
+Additional Relay freeze fixed, but not separately present in the current report
+Upstream’s own C-02 is different from current C-02: it describes unsolicited WSOL residuals causing native Burn to fail and freeze swap settlement.
+147e122 addresses it by:
+calling SyncNative before input snapshots;
+swapping the actual spendable input balance rather than only recorded principal;
+retaining exact observed input-spend validation;
+distributing actual output balances;
+harvesting withheld fees before cleanup.
+Files: settlement_handlers.rs, settlement_tokens.rs, settlement_math.rs, tools/distribution/shared.rs.
+The real Token-2022 processor test confirms native Burn rejection and SyncNative’s incorporation of direct lamports, but full Jupiter/Relay execution remains pending.
+ID translation warning: upstream 238a783 uses C-02 for this native-residual freeze, M-13 for pausable mints (current H-08), and M-15 for fee-mint underfunding (current M-14). Its finding IDs are not interchangeable with the current report.
+2. Mayhem fixes in 147e122
+
+
+Current finding	Disposition and exact mechanism	Evidence and residual limitations
+H-03 — Permissionless global initialization takeover	Actual source fix. InitializeGlobalParams now requires the executing Mayhem Program and its actual ProgramData; constraints require the ProgramData address to match and upgrade_authority_address == Some(admin.key()). File: instructions/admin.rs.	Four host tests compile the real account contexts under Anchor 1.0.2 and exercise Program/ProgramData ownership and authority admission. No full fresh-deployment initialization transaction. Initialization now fails for immutable programs or after upgrade-authority renunciation. Full Mayhem build remained blocked by missing generated CPI IDLs.
+M-08 — Closed-ATA rent mixed with PumpSwap proceeds	Actual source fix. Native buy/sell paths snapshot mayhem_quote_vault.amount and compute quote/token deltas before closing the WSOL ATA. Rent refunds and pre-existing quote balances therefore no longer enter exposure accounting. Delta helpers now use checked subtraction. Files: instructions/buy_lalalune_swap.rs, sell_lalalune_swap.rs, lalalune_amm_interface.rs.	Six exact-source arithmetic tests include pre-existing balances, wrapped value, and below-rent trades. No full Mayhem → AMM CPI test.
+L-09 — Trade-sizing panic paths	Actual source fix across the reported sizing paths. retained_basis_points uses checked subtraction; reserve products, denominators, narrowing, and quote calculations return typed errors instead of unwrap; callers propagate Result. Files: state.rs, lalalune_interface.rs, lalalune_interface_v2.rs, buy_lalalune_swap.rs, sell_lalalune_swap.rs.	Six host arithmetic tests pass. This does not prove complete instruction compatibility. Other unrelated Clock::get().unwrap() calls remain elsewhere in state.rs, so the patch should not be characterized as eliminating every Mayhem panic path.
+L-10 — One-step administrator rotation	Actual source fix. New TransferAdmin context requires the current admin through has_one, requires the incoming admin account to sign, and matches its address to new_admin. Zero admin and zero trader keys are rejected. Files: instructions/admin.rs, lib.rs.	Host account-admission tests reject a wrong current authority and an unsigned incoming admin. No persisted layout change and no full on-chain rotation test.
+M-10 — Main bonding-curve-v2 PDA derived under wrong program	Actual source fix. Legacy buy/sell add seeds::program = LALALUNE_ID to bonding_curve_v2. Files: instructions/buy.rs, sell.rs.	Source derivation corrected; no downstream CPI integration test.
+M-11 — PumpSwap adapters omit pool-v2/account tails	Partial source fix. pool_v2 is now derived under AMM_ID. Buy/sell forward caller-supplied remaining accounts when present, allowing the exact AMM fee/cashback tail; empty input retains the old buyback-only list. Files: buy_lalalune_swap.rs, sell_lalalune_swap.rs.	The dedicated pool_v2 field is not automatically prepended; callers must supply the correct tail. Full generated-interface integration, writable CPI metadata, and nonzero-fee route tests remain acceptance gates.
+H-07 — Cross-mint negative netting defeats risk limits	Core issue not fixed. Only the positive-i128 truncation was repaired: comparisons now use overall_limit as i128 and coin_limit as i128 rather than casting exposure to u64. File: state.rs.	All non-native quotes still share stable_deployed, all quote assets for a coin still share field_56, sells can still drive counters negative, and nonnegative-only buy checks still skip negative exposure. The cross-mint attack mechanism remains.
+H-06 — Arbitrary ordinary AMM pools accepted	Not fixed. The commit adds no pool.is_mayhem_mode, canonical pool PDA, approved creator, or expected-quote constraint to the Mayhem AMM contexts.	Self-selected ordinary pools and trader-supplied reference pricing remain available to the configured trader. M-08/M-11 accounting changes do not remediate H-06.
+Additional Mayhem hardening without a distinct current finding ID
+Anchor RUSTSEC-2026-0144: programs/mayhem/Cargo.toml and curve-accounts/Cargo.toml pin anchor-lang/anchor-spl from 1.0.0 to 1.0.2; lockfiles pin matching macro crates. The patched dependency scan reports zero vulnerabilities, while retaining a bincode unmaintained warning. Full program compilation was still blocked.
+Fee sweep arithmetic: fee_recipients.rs replaces total + amount logic with amount.min(limit.saturating_sub(total)), avoiding overflow and enforcing available headroom.
+Rate-limit arithmetic: withdrawal, trade, and fee-sweep intervals use checked i64 conversion and checked_add.
+Administrative quote withdrawal: lib.rs switches to transfer_checked, supplying and validating the quote mint and decimals.
+curve-accounts/src/interface_definition.rs replaces an unresolved historical macro alias with the declared Anchor dependency; this is build repair, not an independent security fix.
+3. Committed remediation evidence
+147e122 adds:
+audit/remediation-20261030/relay-mayhem-summary.md
+Relay host harness importing production mint-policy, distribution, settlement-math, and token helpers: 9 passing tests
+Mayhem exact-source arithmetic harness: 6 passing tests
+Mayhem actual authority-context harness: 4 passing tests
+Successful Relay SBF build log; recorded artifact SHA-256:
+94c9388bf3096728723a8c06db8e96b7f06c8e46d22b2baf0cc64724aa819f1a
+Failed final Mayhem build evidence: missing idls directory and unresolved generated lalalune interface
+Dependency patching and audit logs
+Thus the direct committed evidence is 19 focused host tests plus one Relay SBF build, not full Relay/Mayhem transaction acceptance.
+4. What 238a783 actually adds
+No code remediation. It adds:
+rewritten SECURITY_REPORT.md;
+historical audit/remediation-20261030/SECURITY_REPORT.baseline.md;
+six dependency-scan JSON files;
+Fees build and test logs, including 3 Fees-math + 7 Fees-helper passing tests for earlier changes;
+security/dependency-review.md;
+security/run_checks.sh;
+security/source-inventory.json, pinning reviewed production source to 147e122.
+Its “59 tests” and Main/AMM/Fees remediation claims describe the broader upstream tree, not fixes introduced by 238a783.
+5. Newly visible residual issue
+Potential native-output credit diversion/incomplete L-12 remediation: swap paths synchronize the input native ATA but never call sync_native_if_needed on the output ATA. If the output mint is WSOL, direct lamports sent to the output ATA are not reflected in its token amount, so they are excluded from the actual-balance distribution. Closing that ATA can then refund those lamports to the relayer/signer rather than beneficiaries. This is source-visible and not covered by the committed tests; it warrants a targeted WSOL-output test before treating the unsolicited-asset policy as complete.
+Also, legacy programs/donation-relay/src/handlers.rs still contains the old donation and settlement logic, but lib.rs at 147e122 wires executable entrypoints through donation_handlers and settlement_handlers. That stale unlinked model should not be treated as a live residual path without separate reachability evidence.
+Bottom line: 147e122 is a meaningful but incompletely validated upstream patch; 238a783 only documents the wider effort. Current Relay C-01/C-02/M-14, Mayhem H-03/M-08/L-09/L-10, and M-10 have concrete source remediation; M-11 is partial, H-07 only loses its truncation subissue, and H-06 remains untouched. None of this establishes remediation of the current Pump source or deployed programs.

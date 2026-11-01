@@ -1,0 +1,85 @@
+{
+  "scope": ["L-09", "L-10", "M-08", "M-10", "M-11", "M-18", "H-02", "H-05", "H-06"],
+  "environment": {
+    "surfpool": "1.6.1",
+    "mode": "offline signed transactions with signature verification",
+    "command": "uv run --with-requirements requirements.txt python reconstruction/verification/security-surfpool/mayhem.py",
+    "signed_transactions": 17
+  },
+  "loaded_originals": {
+    "mayhem": "a87fa9f866272514e6acb852b668c4a08aeb173d56c883039991d114d1199bdb",
+    "pump": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d",
+    "pump_amm": "6a7ad34596d83b4c435b32f458a56e718e9f82eb4ad38e4316616d15d24d8ff7",
+    "pump_fees": "4f2955d0f6b40cc9ff7daa18ccad7d19119ba1249759f4e7e3bb691beee6b35e"
+  },
+  "summary": {"CONFIRMED": 6, "INCONCLUSIVE": 3, "BLOCKED": 0, "NOT_REPRODUCED": 0},
+  "findings": [
+    {
+      "id": "L-09",
+      "status": "CONFIRMED",
+      "outcome": "Both AMM sell and legacy buy revert with ProgramFailedToComplete for retained_bps=10001. Only fee-payer lamports change; Mayhem state rolls back.",
+      "signatures": [
+        "4Ddk2peWQdPvv7uQAYx4DXERLCECjYNouAqXxXb2nKu9HUD7Q9DH2d5jThf1wa23WKAn3Dib1DYLHtDgwNByK8Q9",
+        "5eAtFzhn1pFeFAVf81oWJpVFtbadCDAt8cSBqvdCKiZALNDae3Y9M92UyoGZhkB8sSry8rnZV88GRx6KCYkx4BRk"
+      ],
+      "artifacts": ["results/mayhem/l09-amm-sell-retained-10001/result.json", "results/mayhem/l09-legacy-buy-retained-10001/result.json"]
+    },
+    {
+      "id": "L-10",
+      "status": "CONFIRMED",
+      "scope_tested": "Mayhem",
+      "outcome": "Original initializer created test-owned admin state; original update_trader created test-owned trader state. update_admin stored an incoming nonsigner, after which the old admin failed with ConstraintHasOne (2001). Pump/AMM rotation was not separately tested.",
+      "artifacts": ["results/mayhem/admin/result.json"]
+    },
+    {
+      "id": "M-08",
+      "status": "CONFIRMED",
+      "outcome": "Native AMM sell succeeded. Gross AMM quote proceeds were 182494 lamports, while global and per-mint exposure changed by -2221774: the difference is exactly the 2039280-lamport ATA rent refund.",
+      "signature": "2o8BpcfFKNLroYPX9MAfanB7FAwsTyxdb9YaQikmrhXed8p9JA9TCwtC6PArT1bMzxi9CT68fYT3gdr3CtPLELd4",
+      "artifacts": ["results/mayhem/m08-native-sell-new-ata/result.json"]
+    },
+    {
+      "id": "M-10",
+      "status": "INCONCLUSIVE",
+      "outcome": "Legacy buy and sell with the Mayhem-derived wrong v2 PDA both succeeded under the captured fee-exempt route. Supplying only the Pump-canonical PDA fails earlier in Mayhem with ConstraintSeeds (2006). The positive-creator-fee/nonexempt Pump branch was not reached, so conditional trading unavailability is not dynamically confirmed.",
+      "artifacts": ["results/mayhem/m10-legacy-buy-wrong-v2/result.json", "results/mayhem/m10-legacy-buy-canonical-v2/result.json", "results/mayhem/m10-legacy-sell-wrong-v2/result.json"]
+    },
+    {
+      "id": "M-11",
+      "status": "INCONCLUSIVE",
+      "outcome": "Native ordinary-pool sell succeeded with the retained adapter tail, consistent with the zero-creator-fee bypass. A positive-creator-fee, noncashback canonical pool was not constructed; omission failure on that required branch is unconfirmed.",
+      "signature": "3FZwWdxQDxPxJyygtrL3W8Pvy4792LaE6SRtHsEac83xeKsQvb6UT1hGDh5SnyBM13NfezQVxXz4XFNypwx86wkX",
+      "artifacts": ["results/mayhem/m11-amm-native-sell/result.json"]
+    },
+    {
+      "id": "M-18",
+      "status": "CONFIRMED",
+      "outcome": "Genuine original Pump create_v2 invoked original Mayhem initialize_mayhem_state successfully with duration zero and with default zero trader. Zero-duration state was immediately expired; one-hour traderless state was also admitted. Paused-at-creation was not separately claimed.",
+      "artifacts": ["results/mayhem/m18-create-duration-zero/result.json", "results/mayhem/m18-create-traderless/result.json"]
+    },
+    {
+      "id": "H-02",
+      "status": "CONFIRMED",
+      "outcome": "An arbitrary test signer initialized canonical GlobalParams and became stored admin. Reinitialization failed with Custom(0). This confirms fresh-deployment first-caller control, not overwrite of existing administration.",
+      "signature": "4Q1oWcryQDFbEuu2cPdhnTgEijYVntejdrFpLQKtBCiJ2sKTNssQQcsSRQE5wTKP6oGJX54Hdnnt8tD4TKpT33ky",
+      "artifacts": ["results/mayhem/admin/result.json"]
+    },
+    {
+      "id": "H-05",
+      "status": "CONFIRMED",
+      "outcome": "The configured test-owned trader successfully sold through genuine ordinary non-Mayhem AMM pools using native WSOL and an external legacy-SPL quote. This confirms venue acceptance and state changes; no LP-withdrawal profit or unauthorized trader signature is claimed.",
+      "signatures": [
+        "2o8BpcfFKNLroYPX9MAfanB7FAwsTyxdb9YaQikmrhXed8p9JA9TCwtC6PArT1bMzxi9CT68fYT3gdr3CtPLELd4",
+        "5reWpj2ikdZaaPAsvfeSVCq6jDFDgUDcRKCrqu8irdcY2xWYsZxbbh2rpxcgTjJnkKqKmnPj5rMUjLxZQ5DFjhE1"
+      ],
+      "artifacts": ["results/mayhem/h05-ordinary-native-pool/result.json", "results/mayhem/h05-ordinary-external-quote-pool/result.json"]
+    },
+    {
+      "id": "H-06",
+      "status": "INCONCLUSIVE",
+      "outcome": "A valid external-quote sell succeeded with stable global/coin limits of 100 and produced stable_deployed=-182494 and per-mint exposure=-182494, confirming negative exposure admission. The required subsequent buy through a second quote mint was not constructed, so cross-mint limit bypass is not dynamically confirmed.",
+      "signature": "3VTdheX6g8a2g1eAQ3Fi6TEWHCKaTXiFHPyDZBkbcqBmsCdAUkUMbeFoxusK37E8siCZDU62xpqCcNkRv31cbovM",
+      "artifacts": ["results/mayhem/h06-negative-netting-sell/result.json"]
+    }
+  ]
+}

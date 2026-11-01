@@ -1,9 +1,9 @@
 #!/bin/zsh
 # trial.sh <name> : build current worktree, score, metric
-WT=/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/w3-adminCTO
+WT=./worktrees/w3-adminCTO
 OUT=~/.cache/pumpfun-reconstruction/lanes/w3-adminCTO
 T=$WT/reconstruction/harness
-B=/private/tmp/claude-501/-Users-shawwalters-Documents-Codex-2026-10-24-pumpfun-source/4381c718-211a-406c-9278-6119c4649998/scratchpad/w3/base/out
+B=./4381c718-211a-406c-9278-6119c4649998/scratchpad/w3/base/out
 export PUMP_BUILD_SLOTS=10
 n=$1; W=${2:-work}
 python3 $T/fastbuild.py --src $WT/programs/pump --work $OUT/$W --out $OUT/out/$n > $OUT/out/$n.log 2>&1 || { tail -30 $OUT/out/$n.log; exit 1; }

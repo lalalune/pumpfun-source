@@ -1,6 +1,6 @@
 # offmap.py obj : align orig vs ours on (op,regs), pair r10 offsets of matched insns
 import sys,difflib,collections,subprocess
-H='/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/restore/reconstruction/harness'
+H='./worktrees/restore/reconstruction/harness'
 sys.path.insert(0,H); a=sys.argv[1:]; sys.argv=sys.argv[:1]
 import score
 W={x['start']:x for x in score.original_windows()}

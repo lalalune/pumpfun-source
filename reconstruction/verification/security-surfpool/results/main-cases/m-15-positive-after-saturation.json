@@ -1,0 +1,149 @@
+{
+  "finding": "M-15-positive-after-saturation",
+  "case": {
+    "native": false,
+    "extra": 1000000,
+    "claimed": 7000,
+    "stable_claimed": 18446744073709551615,
+    "earned": 9000000,
+    "stable_earned": 10000000,
+    "uva_ata": 1,
+    "token_program": "token",
+    "mint_owner": "token",
+    "quote_user": "ok",
+    "quote_user_balance": 0
+  },
+  "surfpool": {
+    "signature": "5HwMUANrhPiWhrrFjpXZ8ULK6vgsJmeYU2krCRkgYLKNeX3vtA4JMuo7r5yF3YwpPxFhbghk7hv7hWqMVMbyL2F5",
+    "error": {
+      "InstructionError": [
+        0,
+        "ProgramFailedToComplete"
+      ]
+    },
+    "logs": [
+      "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P invoke [1]",
+      "Program log: Instruction: ClaimCashbackV2",
+      "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]",
+      "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 105 of 182069 compute units",
+      "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success",
+      "Program log: panicked at programs/pump/src/token_incentives/volume_accumulator.rs:192:22:\nOverflowing total stable cashback claimed",
+      "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P consumed 19381 of 200000 compute units",
+      "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P failed: SBF program panicked"
+    ],
+    "return_data": null,
+    "simulation": {
+      "err": {
+        "InstructionError": [
+          0,
+          "ProgramFailedToComplete"
+        ]
+      },
+      "logs": [
+        "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P invoke [1]",
+        "Program log: Instruction: ClaimCashbackV2",
+        "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]",
+        "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 105 of 182069 compute units",
+        "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success",
+        "Program log: panicked at programs/pump/src/token_incentives/volume_accumulator.rs:192:22:\nOverflowing total stable cashback claimed",
+        "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P consumed 19381 of 200000 compute units",
+        "Program 6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P failed: SBF program panicked"
+      ],
+      "accounts": null,
+      "unitsConsumed": 19381,
+      "loadedAccountsDataSize": 2149642,
+      "returnData": null,
+      "innerInstructions": [
+        {
+          "index": 0,
+          "instructions": [
+            {
+              "program": "spl-token",
+              "programId": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+              "parsed": {
+                "type": "transferChecked",
+                "info": {
+                  "source": "6Fg9zir1sViGuCEDBbaY7xvgnx551Xgj1zMs1ZQnsCS5",
+                  "mint": "2xea9jWJ9eca3dFiefTeSPP85c6qXqunCqL2h2JNffMW",
+                  "destination": "8esGAQTak4CeSqT92SpqzWp7fiqXv8q2tn13GRYtDD1Q",
+                  "tokenAmount": {
+                    "uiAmount": 1e-06,
+                    "decimals": 6,
+                    "amount": "1",
+                    "uiAmountString": "0.000001"
+                  },
+                  "authority": "EPg9dK5qqMhixVmQRMCUV6x35qg4ecVU5kzN7cUJtDky"
+                }
+              },
+              "stackHeight": 2
+            }
+          ]
+        }
+      ],
+      "replacementBlockhash": null,
+      "fee": null,
+      "preBalances": null,
+      "postBalances": null,
+      "preTokenBalances": null,
+      "postTokenBalances": null,
+      "loadedAddresses": null
+    },
+    "signature_verification": true,
+    "loaded_programs": {
+      "6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P": {
+        "path": "/Users/shawwalters/Documents/Codex/2026-10-24/pumpfun-source/evidence/original/pump/deployed.so",
+        "sha256": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d"
+      },
+      "pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA": {
+        "path": "/Users/shawwalters/Documents/Codex/2026-10-24/pumpfun-source/evidence/original/pump_amm/deployed.so",
+        "sha256": "6a7ad34596d83b4c435b32f458a56e718e9f82eb4ad38e4316616d15d24d8ff7"
+      },
+      "pfeeUxB6jkeY1Hxd7CsFCAjcbHA9rWtchMGdZ6VojVZ": {
+        "path": "/Users/shawwalters/Documents/Codex/2026-10-24/pumpfun-source/evidence/original/pump_fees/deployed.so",
+        "sha256": "4f2955d0f6b40cc9ff7daa18ccad7d19119ba1249759f4e7e3bb691beee6b35e"
+      },
+      "MAyhSmzXzV1pTf7LsNkrNwkWKTo4ougAJ1PPg47MD4e": {
+        "path": "/Users/shawwalters/Documents/Codex/2026-10-24/pumpfun-source/evidence/original/mayhem/deployed.so",
+        "sha256": "a87fa9f866272514e6acb852b668c4a08aeb173d56c883039991d114d1199bdb"
+      },
+      "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA": {
+        "path": "/Users/shawwalters/Documents/Codex/2026-10-24/pumpfun-source/evidence/dependencies/spl_token/deployed.so",
+        "sha256": "8190d3f7ceb6cb7a7a8d8924bff89f9f611e15ce1f806f2b6237f3311a98f697"
+      },
+      "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb": {
+        "path": "/Users/shawwalters/Documents/Codex/2026-10-24/pumpfun-source/evidence/dependencies/spl_token_2022/deployed.so",
+        "sha256": "15a2e615a42e20f31714bbaaee43002ae6f1cda2e8d7118243117ab3c1342e2d"
+      },
+      "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL": {
+        "path": "/Users/shawwalters/Documents/Codex/2026-10-24/pumpfun-source/evidence/dependencies/associated_token/deployed.so",
+        "sha256": "6804554e69fd3a58caa191dc4a58f4c67223d30ca28ab8987f39fc18d2f7374d"
+      },
+      "metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s": {
+        "path": "/Users/shawwalters/Documents/Codex/2026-10-24/pumpfun-source/evidence/dependencies/token_metadata/deployed.so",
+        "sha256": "31f0a627dba051a938de650464e55cc5397a4be0fd496929c1f9cf02fe5e9011"
+      }
+    },
+    "account_deltas": {
+      "GBWEkgNM3HAAy9JELbehebgGUwiDgVMn3cSZuAu5Tvrf": {
+        "before": {
+          "lamports": 1000000000000,
+          "owner": "11111111111111111111111111111111",
+          "executable": false,
+          "data": "",
+          "data_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "after": {
+          "lamports": 999999995000,
+          "owner": "11111111111111111111111111111111",
+          "executable": false,
+          "data": "",
+          "data_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      }
+    },
+    "transaction_base64": "AdashieuzcYE3mtRBI2bPY+Ig1yy6ZFWcUDzghrD9hfSrv2l5qT3EkMlLmDk+Wo5UFnR3ypltnMUPZXeQQyFBwwBAAYL4ZArpj3JSV38F2uAQkpjsX5YW2cTtYP7IGbMQARqVMQcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHE4M1rj2FSaMRSLlVZ7ZlGXQGDLi1sgoXaYGb2LoynU6cbUhEkH2QsBYw8zwcx8TYWSkoDFzpUw91yjqiovFQbfG9vkz0rW9sG6vi8zJqJibZNxkdZOK001EBzo5Qj3YTgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAVbg9pNmWs9E2xVovxdbqlGJy5f10v87ZV0rtv1tGLAG3fbh12Whk9nL4UbO63msHLSF7V9bN5E6jPWFfv8AqR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0djJclj04kifG7PRApFI4NgwtaE5na/xCEBI572Nvp+Fms8TbrAfwcTog9I8i1hEq1mjf2at1XxemsO1PgWdNcZAaGhZ04yAqXIUgYQWkX4L+PyhV+Rk+YzP0P+p34R9vaAQYKAQQIBwkCAwUKBgh688xBXnQdNw==",
+    "fixture_clock_unix_timestamp": 1700000000,
+    "litesvm_error": "panic",
+    "litesvm_tokens": null
+  }
+}

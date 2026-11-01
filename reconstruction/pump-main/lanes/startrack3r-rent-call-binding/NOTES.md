@@ -4,7 +4,7 @@ This research packet explains an extra 512-byte function and three mismatched
 immediate callees in actual compiler output from main
 `fd8b94dfa3a0ec671e018a5418c4b5009e26da6a`. It changes no program source,
 compiler, scorer or captured binary. The retained source experiment is credited
-to **Oz-0s, [PR #1384](https://github.com/lalalune/pumpfun-source/pull/1384)**,
+to **Oz-0s, PR #1384**,
 head `bb23029765d838728e50ad3abdc5b7e14117bfc7`; we did not invent the zero-only
 type. Our contribution is a current-main rebase, fresh compiler/repeat evidence,
 actual call-target verification and accounting for the formatter span.
@@ -213,7 +213,7 @@ normalized/raw membership but are rejected by the new checks. They are never
 executed or represented as compiler outputs. The test driver refuses `-O`;
 it separately runs the verifier under `-O` and requires identical reports.
 
-New upstream [#2168](https://github.com/lalalune/pumpfun-source/pull/2168)
+New upstream #2168
 independently removes the extra helper using the existing matched-body source.
 Its source and reported native metrics are not duplicated or claimed as
 locally replayed here. The original #1384 attribution remains unchanged.
@@ -226,7 +226,7 @@ these recorded `fd8b94dfa` measurements.
 
 The maintainer closed #1554 because its historical source composition had
 already landed. That branch is preserved and is not reopened. The maintainer
-[closed #1384 pending a fresh rebase and scoring run](https://github.com/lalalune/pumpfun-source/pull/1384#issuecomment-6514791592).
+closed #1384 pending a fresh rebase and scoring run.
 This packet supplies that new source-bound evidence and identifies a call-target
 distinction hidden by equal window counts; it does not reopen or modify another
 contributor's PR. No open zero-only/rent-helper source proposal was found in the

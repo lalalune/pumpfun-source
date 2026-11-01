@@ -1,5 +1,5 @@
 # whoref.py cand.so refined.json <orig rodata off hex> [<cand rodata off hex>]
-import sys; sys.path.insert(0,'/Users/shawwalters/.cache/pumpfun-reconstruction/lanes/w3-raw-layout/scripts')
+import sys; sys.path.insert(0,'$HOME/.cache/pumpfun-reconstruction/lanes/w3-raw-layout/scripts')
 from m13 import *
 M=model(sys.argv[1],sys.argv[2])
 cand=open(sys.argv[1],'rb').read()

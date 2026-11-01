@@ -64,7 +64,7 @@ Still not allowed, because the output would be copied rather than rebuilt:
 ## Working rules
 
 - One lane per agent, one git worktree per lane, branched from `origin/main`:
-  `git worktree add -b swarm/<lane> /Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/<lane> origin/main`
+  `git worktree add -b swarm/<lane> ./worktrees/<lane> origin/main`
 - Build outputs stay out of git, under `~/.cache/pumpfun-reconstruction/lanes/<lane>/`.
 - Before every trial, check the ledger for the mechanism; after every trial (including
   compile failures and byte-identical results), record it:

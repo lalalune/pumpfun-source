@@ -3,11 +3,11 @@
 set -e
 export PUMP_BUILD_SLOTS=10
 NAME=$1; EDIT=$2
-WT=/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/w4-buyv3
+WT=./worktrees/w4-buyv3
 BASESRC=${BASESRC:-$WT/programs/pump}
 T=$WT/reconstruction
 OUT=$HOME/.cache/pumpfun-reconstruction/lanes/w4-buyv3
-BASEJ=/private/tmp/claude-501/-Users-shawwalters-Documents-Codex-2026-10-24-pumpfun-source/4381c718-211a-406c-9278-6119c4649998/scratchpad/w3/final/out/score.json
+BASEJ=./4381c718-211a-406c-9278-6119c4649998/scratchpad/w3/final/out/score.json
 SRC=$OUT/trials/$NAME; O=$OUT/out/$NAME
 rm -rf $SRC $O; mkdir -p $SRC; rsync -a --exclude target $BASESRC/ $SRC/
 python3 $EDIT $SRC

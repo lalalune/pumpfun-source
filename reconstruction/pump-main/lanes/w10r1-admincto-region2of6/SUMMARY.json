@@ -8,7 +8,7 @@
     "best_ratio": {"set": "Cp3 (region2-cp3.patch)", "bytes": 27424, "ratio": 0.39467, "region2_frac": 0.5028, "raw_losses": 686},
     "nearest_size_high_ratio": {"set": "C (region2-c.patch)", "bytes": 27416, "ratio": 0.38904, "region2_frac": 0.5214, "raw_losses": 686}
   },
-  "best_before_2524": {"commit": "t30 on 917ee615f", "bytes": 27416, "ratio": 0.38634, "pr": "https://github.com/lalalune/pumpfun-source/pull/2515 (closed after main reached 27400 B)"},
+  "best_before_2524": {"commit": "t30 on 917ee615f", "bytes": 27416, "ratio": 0.38634, "pr": "PR #2515 (closed after main reached 27400 B)"},
   "attempts": 70,
   "kept_mechanisms": [
     "tree: sharing_update/collect_old/target override/skip from one if-shared tree of constants; sweep gated on !skip (reproduces the original's precomputed gate: mov r7,0; ldxdw [r10-0x8e0]; jne)",

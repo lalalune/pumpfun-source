@@ -3,7 +3,7 @@
 Writes oracle/OUTNAME.ll, runs llc, compares normalized cashback code with original. Prints difflines."""
 import sys,re,subprocess,os
 HERE=os.path.dirname(os.path.abspath(__file__)); OR=os.path.join(HERE,'..','oracle')
-B='/Users/shawwalters/Documents/Codex/2026-10-24/amm-sell-swarm/infra/sdk-native/rust/lib/rustlib/aarch64-apple-darwin/bin'
+B='$HOME/Documents/Codex/2026-10-24/amm-sell-swarm/infra/sdk-native/rust/lib/rustlib/aarch64-apple-darwin/bin'
 SYM='_ZN18pump_amm_recovered12instructions4swap4sell8cashback17hccb72da5245169afE'
 src=os.environ.get('BASE_LL',os.path.join(OR,'base.ll'))
 lines=open(src).read().split('\n')

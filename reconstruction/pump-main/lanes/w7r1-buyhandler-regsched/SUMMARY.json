@@ -3,7 +3,7 @@
   "base": "origin/main 6edd839 (1027 normalized / 276 raw)",
   "target": {"window": "0x13b9b8", "fn": "buy_v2::buy_handler", "orig_bytes": 15480},
   "best_own": {"trial": "A1", "ratio": 0.98209, "bytes": 15512, "llc_dist": 38, "normalized": 1027, "raw": 276, "gains": [], "losses": [],
-               "unstripped_sha256": "2ae74f243fdc83e691a7fa19d3f29fae5ad6a6cb4ad66162611bb7f5feb19cba", "pr": "https://github.com/lalalune/pumpfun-source/pull/2222"},
+               "unstripped_sha256": "2ae74f243fdc83e691a7fa19d3f29fae5ad6a6cb4ad66162611bb7f5feb19cba", "pr": "PR #2222"},
   "target_status": "normalized match reached by PR #2225 (w7r1-buyhandler-inline), which uses this lane's A1 + B1; independently verified here: 1028/276, gain 0x13b9b8, 0 losses, sha 5a670388f726",
   "mechanisms_found": [
     "is_sol select order: orig evaluates quote, virtual_quote_reserves, real_quote_reserves (llc perm 0,2,1). Writing virtual_token_reserves,virtual_sol_reserves before real_sol_reserves in the TradeEvent literal removes both spill-slot swaps (42->38)",

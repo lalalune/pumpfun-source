@@ -118,9 +118,9 @@ or authenticate additional unrecorded files.
 
 ## Build and provenance boundary
 
-The unmodified archive comes from [fork Actions run 41003848803](https://github.com/shawkkkkk/pumpfun-source/actions/runs/41003848803),
+The unmodified archive comes from Actions run 41003848803,
 artifact **12954757170**, controller commit
-[`2e208af56710ddfa404cd9dffacc2069580d27fb`](https://github.com/shawkkkkk/pumpfun-source/commit/2e208af56710ddfa404cd9dffacc2069580d27fb).
+`2e208af56710ddfa404cd9dffacc2069580d27fb`.
 Its controller is at
 `reconstruction/pump-main/lanes/current-native-control/pump_current_control.py`
 (SHA `e7ed2474df380c81d55b822515055c953f0947117d28ef5bb783355d4f415c2e`),

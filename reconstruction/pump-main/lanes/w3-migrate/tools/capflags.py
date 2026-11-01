@@ -2,7 +2,7 @@
 """capflags.py src work out [rustc flags...]: scratch build emitting llvm-ir with extra rustc flags; reduce module."""
 import sys, subprocess, json, shutil
 from pathlib import Path
-T=Path('/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/restore/reconstruction/harness')
+T=Path('./worktrees/restore/reconstruction/harness')
 sys.path.insert(0,str(T)); import fastbuild
 src,work,out=map(Path,sys.argv[1:4]); extra=sys.argv[4:]
 real=subprocess.run

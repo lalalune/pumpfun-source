@@ -12,7 +12,7 @@ At main `094a06f18df738d41e77070c1a009e135671ac1a`, three complete normalized ma
 
 The real source deltas total zero: −48 +56 −8 +8 −8 bytes. Actual `.text` remains 1,792,024 bytes; `.rodata` is unchanged. Two fresh generic builds produce identical complete stripped/symbol images. No emitted padding or ballast, emitted-byte editing, injected original code, compiler/scorer changes or extra emitted helpers.
 
-Source credit: #1539/#1565 (and #1558) to Shaw/lalalune + Claude Opus 5.5; #1479 integration to Oz-0s, retaining Jonas/SORC3r3r comparison evidence; #1669 full Buy to thegeronimo, crediting #1419 analysis; w4 Create/Sweep to Shaw + Claude. This PR contributes the qualified composition. Create is the one fixed inferred reconstruction: `76f7319` source plus the literal 16-assignment `ed/v13.py` permutation from `f339b9d`; its historical input binding was not recovered; the new actual build supplies its evidence. Sweep is #1548's s6. #1669's load-order and full-match patches are both included. Exact provenance is retained in `records/selected-audit.json.gz`.
+Source credit: #1539/#1565 (and #1558) to Shaw/pump.fun + Claude Opus 5.5; #1479 integration to Oz-0s, retaining Jonas/SORC3r3r comparison evidence; #1669 full Buy to thegeronimo, crediting #1419 analysis; w4 Create/Sweep to Shaw + Claude. This PR contributes the qualified composition. Create is the one fixed inferred reconstruction: `76f7319` source plus the literal 16-assignment `ed/v13.py` permutation from `f339b9d`; its historical input binding was not recovered; the new actual build supplies its evidence. Sweep is #1548's s6. #1669's load-order and full-match patches are both included. Exact provenance is retained in `records/selected-audit.json.gz`.
 
 ## Validation and limits
 

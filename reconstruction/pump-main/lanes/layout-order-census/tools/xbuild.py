@@ -4,7 +4,7 @@ xbuild.py --src DIR --work DIR --out DIR [--linuxvv] [--jobs N]
 """
 import argparse, os, sys, subprocess, shutil, tomllib, json, time
 from pathlib import Path
-TOOLS=Path('/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/restore/reconstruction')
+TOOLS=Path('./worktrees/restore/reconstruction')
 sys.path.insert(0,str(TOOLS/'harness'))
 import fastbuild as F
 ap=argparse.ArgumentParser(); ap.add_argument('--src',type=Path,required=True); ap.add_argument('--work',type=Path,required=True)

@@ -16,7 +16,7 @@ import argparse, difflib, json, re, struct, sys
 from collections import Counter
 from pathlib import Path
 
-TOOLS = Path('/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/restore/reconstruction')
+TOOLS = Path('./worktrees/restore/reconstruction')
 sys.path.insert(0, str(TOOLS / 'harness'))
 from score import sections, body, original_windows, candidate_functions, BASE, normalize, score  # noqa
 from coords import sites as source_sites  # noqa

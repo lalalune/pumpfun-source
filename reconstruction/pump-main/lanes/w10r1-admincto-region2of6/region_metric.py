@@ -1,6 +1,6 @@
 import sys,re,difflib,json
 sys.argv_save=sys.argv; sys.argv=[sys.argv[0]]
-sys.path.insert(0,'/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/w10r1-admincto-region2of6/reconstruction/harness')
+sys.path.insert(0,'./worktrees/w10r1-admincto-region2of6/reconstruction/harness')
 import win
 args=sys.argv_save[1:]
 so=args[0]; K=int(args[1]) if len(args)>1 else 2; NR=6

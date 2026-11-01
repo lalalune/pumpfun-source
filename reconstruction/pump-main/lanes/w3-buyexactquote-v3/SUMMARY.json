@@ -4,7 +4,7 @@
   "approach": "semantic reconstruction (callgraph census, then llc/opt IR oracles)",
   "base": {"commit": "665499915f9caedcd38921d415a90f0606686398", "normalized": 1022, "raw": 276},
   "targets": ["0x1489f8 trade::buy_exact_quote (v3), 7856 B"],
-  "pr": "https://github.com/lalalune/pumpfun-source/pull/1420",
+  "pr": "PR #1420",
   "best": {
     "trial": "h01",
     "target": {"cand_bytes": 7776, "ratio": 0.61352, "masked_ratio": 0.8532, "calls": "66/66", "normalized_equal": false},

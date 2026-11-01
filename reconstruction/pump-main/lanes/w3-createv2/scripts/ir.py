@@ -3,7 +3,7 @@
 import sys,subprocess,re,os,runpy,difflib
 L=os.path.expanduser('~/.cache/pumpfun-reconstruction/lanes/w3-createv2')
 SDK=os.path.expanduser('~/.cache/solana/v1.44/platform-tools/llvm/bin')
-ORIGSO='/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/restore/reconstruction/base/original.so'
+ORIGSO='./worktrees/restore/reconstruction/base/original.so'
 def norm(txt):
     out=[]
     for l in txt.splitlines():

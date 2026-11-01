@@ -1,0 +1,92 @@
+Task: Review latest upstream hardening commits
+
+
+Worked for 5m 26s
+Review basis
+Full diffs reviewed for 6badf20436956175f07859c45aa12a42b3912ea4 and its child c36825e05599d631c1699b11864b5732190cbf69.
+c36825e changes no production contract source; it adds validation, CI, evidence, and updated dispositions for earlier fixes.
+Committed logs were inspected, but tests/builds were not independently rerun.
+IDs marked “upstream-only” do not exist in the current 38-finding SECURITY_REPORT.md; no current-source remediation is implied.
+6badf20 — Align Fees reserve fields and keep account validation within SBF stack limits
+1. Canonical quote-reserve field alignment
+Files
+programs/lalalune-fees/src/donation.rs
+programs/lalalune-fees/src/instructions/fee_sharing/create_donation_fee_pda.rs
+programs/lalalune-fees/src/instructions/fee_sharing/create_fee_sharing_config.rs
+programs/lalalune-fees/src/sharing.rs
+programs/lalalune-fees/src/sharing_update.rs
+Mechanism
+Replaces obsolete real_sol_reserves / virtual_sol_reserves accesses with real_quote_reserves / virtual_quote_reserves in six graduation or creator-fee-routing conditions. This aligns Fees with the current Main BondingCurve interface for native and non-native quote assets. The affected paths include donation-PDA creation, sharing-config creation, and legacy/v2 creator-fee transfers.
+Finding mapping
+No exact finding ID in the current report.
+Related to Fees’ quote-generalized donation/creator-fee handling, but not itself the M-12 Token-2022 crank fix.
+Best recorded as an additional Fees interface/correctness fix rather than retroactively assigning an unrelated finding.
+Validation and limits
+No direct regression test was added for graduation classification or these donation/sharing paths.
+The subsequent Fees SBF build succeeds, but c36825e’s runtime Fees case covers only global/config initialization, tier update, and get_fees; it does not execute these changed paths.
+2. Fees SBF stack-frame hardening
+Files
+programs/lalalune-fees/src/instructions/fee_sharing/create_fee_sharing_config.rs
+programs/lalalune-fees/src/sharing_update.rs
+Mechanism
+Changes the foreign Main Global account wrappers in CreateFeeSharingConfig and UpdateFeeShares from Account to Box<Account>, moving large deserialized account storage off the limited SBF stack without changing the PDA constraints or handler logic.
+Finding mapping
+Upstream-only D-06 — Fees account contexts exceeding SBF stack limits.
+Validation and limits
+c36825e records a successful Fees SBF build with no frame-overflow/overwrite diagnostics.
+The build-diagnostic gate covers stack usage statically, but no runtime test directly invokes create_fee_sharing_config or update_fee_shares.
+c36825e — Verify deployment hardening with real SBF lifecycle tests and continuous build gates
+1. Continuous focused and SBF lifecycle gates
+Files
+.github/workflows/contract-builds.yml
+security/run_checks.sh
+security/run_runtime_checks.py
+security/lifecycle-runtime/{Cargo.toml,Cargo.lock,README.md,src/lib.rs}
+Mechanism
+Adds a focused-regressions CI job running security/run_checks.sh.
+Adds lifecycle-runtime, dependent on all five matrix SBF builds, which downloads binaries produced from the same commit, runs the lifecycle suite, and retains its log.
+Uses pinned Rust 1.95.0 and SHA-pinned GitHub Actions.
+The existing programs job already invoked security/build_programs.sh; that pre-existing script rejects SBF stack-overflow/overwrite diagnostics. This commit does not newly create that script gate.
+The runtime runner requires exactly one binary for each of Main, AMM, Fees, and Mayhem, uses a locked dependency graph, and checksum-pins the downloaded solana-program-test crate plus SPL Token 3.5.0 and Token-2022 8.0.0 fixtures.
+2. Eight real-SBF/Mollusk lifecycle cases
+Reward-history preservation — upstream-only M-17
+Four cases cover Main and AMM with legacy SPL Token and plain Token-2022:
+Premature archival is rejected.
+A finalized campaign is archived immutably.
+Two later campaign replacements execute through actual admin instructions.
+Three delayed users settle against the oldest archive.
+Exact outstanding rewards are paid, prior unclaimed entitlement is preserved, vault/user conservation is checked, and repeat settlement/claim is a no-op.
+The archive remains unchanged.
+This validates the earlier archive/replacement/settlement implementation; c36825e does not itself implement it.
+Bootstrap and administration
+H-05: Main initialization succeeds with the executable program’s matching upgrade authority.
+H-03: Mayhem initialization succeeds with the upgrade authority.
+D-01, upstream-only: AMM rejects an unrelated initializer signer and accepts the deployer.
+L-10: Mayhem rotates administration to an incoming signer.
+Negative Main/Mayhem bootstrap cases remain primarily in the focused host harness rather than these SBF cases.
+Fees bounded acceptance
+One case initializes Fees global/config accounts, verifies the extended 4,097-byte config allocation, updates normal tiers, and checks actual get_fees return data. This provides deployment/configuration evidence relevant to M-07, but does not exercise fee sharing, donation cranks, authority rotation, or empty-tier failures.
+Evidence claimed
+Runtime log: 8 passed, 0 failed.
+Five genuine SBF build logs complete without stack-frame diagnostics.
+Full-program host logs: 49 passed — Main 31, AMM 11, Fees 2, Mayhem 5.
+Focused logs: 80 passed — Main 22, AMM 29, Fees math 3, Fees harness 7, Relay 9, Mayhem arithmetic 6, Mayhem authority 4.
+Host and focused counts overlap; they are not 129 distinct tests.
+3. Build provenance and review-boundary hardening
+Files
+security/build-evidence/artifacts.json
+security/build-evidence/production-inputs.json
+security/build-evidence/*-{sbf,host-tests}.log
+security/build-evidence/{focused-tests,runtime-tests}.log
+security/source-inventory.json
+Mechanism
+Pins five ELF names, sizes, and SHA-256 hashes; records platform-tools v1.54 and the 260-file production-input hash manifest; updates the reviewed source inventory to commit 6badf20. This makes the evidence boundary explicit and separates compilation, host testing, and runtime acceptance.
+The report also updates earlier M-11 and M-17 dispositions and documents D-01–D-06. Those source repairs predate this commit and should not be double-attributed to c36825e.
+Residual limitations / regressions
+Deployment remains gated. Synthetic account fixtures and modeled signer flags do not prove live key possession, real signature verification, on-chain behavior, or deployment-key ownership.
+Full trading, liquidity, migration, Mayhem trade-route, fee-distribution, native/token conservation, broad Token-2022 extension, reward-solvency, and Jupiter/Relay transaction acceptance remain incomplete.
+Reward archives require correct operational sequencing, archive rent, and continued vault funding. Previously erased rights cannot be reconstructed; unsupported historical mint/vault configurations are not silently repaired.
+The local runtime runner logs production ELF hashes but does not compare them against artifacts.json; CI’s same-commit artifact dependency supplies the binding there.
+Removing --offline from security/main/run.py makes the focused Main harness less hermetic and potentially network-dependent, although the new runtime suite uses --locked.
+Compiler warnings remain preserved in the committed logs; the gate specifically rejects errors and stack-frame diagnostics.
+No production-code regression is introduced by c36825e itself.

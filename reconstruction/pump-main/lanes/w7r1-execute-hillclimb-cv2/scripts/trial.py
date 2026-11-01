@@ -4,7 +4,7 @@ import sys, os, json, subprocess, shutil, argparse, time, hashlib
 from pathlib import Path
 L='w7r1-execute-hillclimb-cv2'
 OUT = Path.home()/f'.cache/pumpfun-reconstruction/lanes/{L}'
-WT = Path(f'/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/{L}')
+WT = Path(f'./worktrees/{L}')
 H = WT/'reconstruction/harness'
 os.environ['PUMP_BUILD_SLOTS']='10'
 ap=argparse.ArgumentParser(); ap.add_argument('name'); ap.add_argument('file'); ap.add_argument('--slot',default='0'); ap.add_argument('--score',action='store_true')

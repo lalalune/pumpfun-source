@@ -1,6 +1,6 @@
 # relocate.py file fnname dest_line(1-based, first pad line) [nth]: move fn block (with attrs) into pad lines starting at dest
 import sys,re
-sys.path.insert(0,'/Users/shawwalters/.cache/pumpfun-reconstruction/lanes/w3-raw-layout/scripts')
+sys.path.insert(0,'$HOME/.cache/pumpfun-reconstruction/lanes/w3-raw-layout/scripts')
 from fnloc import locate
 def ispad(l): return l.strip()=='' or l.strip().startswith('// layout-pad')
 def relocate(path,name,dest,nth=0):

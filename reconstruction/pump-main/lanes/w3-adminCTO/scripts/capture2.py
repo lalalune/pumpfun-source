@@ -2,7 +2,7 @@
 """Lane-local capture: build a scratch crate copy with --emit llvm-ir/bc and optional llvm-args. Never used for proposals."""
 import sys, subprocess, json, shutil
 from pathlib import Path
-T=Path('/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/restore/reconstruction/harness')
+T=Path('./worktrees/restore/reconstruction/harness')
 sys.path.insert(0,str(T)); import fastbuild
 src,work,out=map(Path,sys.argv[1:4]); rf=[a for a in sys.argv[4:] if not a.startswith("LLVM:")]; llvm=[a[5:] for a in sys.argv[4:] if a.startswith("LLVM:")]
 real=subprocess.run

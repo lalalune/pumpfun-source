@@ -1,6 +1,6 @@
 #!/bin/zsh
 # rem.sh <name>: inline remarks for admin_cto lines (to_string + others)
-WT=/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/w3-adminCTO
+WT=./worktrees/w3-adminCTO
 OUT=~/.cache/pumpfun-reconstruction/lanes/w3-adminCTO
 export PUMP_BUILD_SLOTS=10
 rsync -a --delete $WT/programs/pump/ $OUT/src/rem/

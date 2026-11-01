@@ -1,6 +1,6 @@
-diff -ruN pump/src/buy_v2.rs /Users/shawwalters/.Trash/research/goal-pump-main-swarm-20261029/lanes/exactquote-reordering/source/src/buy_v2.rs
+diff -ruN pump/src/buy_v2.rs $HOME/.Trash/research/goal-pump-main-swarm-20261029/lanes/exactquote-reordering/source/src/buy_v2.rs
 --- pump/src/buy_v2.rs	2026-10-29 02:38:10
-+++ /Users/shawwalters/.Trash/research/goal-pump-main-swarm-20261029/lanes/exactquote-reordering/source/src/buy_v2.rs	2026-10-28 22:38:01
++++ $HOME/.Trash/research/goal-pump-main-swarm-20261029/lanes/exactquote-reordering/source/src/buy_v2.rs	2026-10-28 22:38:01
 @@ -177,7 +177,8 @@
  }
  #[inline(never)]
@@ -538,9 +538,9 @@ diff -ruN pump/src/buy_v2.rs /Users/shawwalters/.Trash/research/goal-pump-main-s
 +fn pay_from_user_owned<'info>(native:bool,system_program:&Program<'info,System>,user:&Signer<'info>,to:AccountInfo<'info>,amount:u64,token_program:&Interface<'info,TokenInterface>,mint:&InterfaceAccount<'info,Mint>,from:Option<&AccountInfo<'info>>,dst:Option<&AccountInfo<'info>>)->Result<()>{crate::user_quote_payments::transfer_from_user_owned(native,system_program.as_ref(),user,to,amount,token_program,mint.decimals,AsRef::<AccountInfo<'info>>::as_ref(mint),from,dst)}
 +fn pay_from_user_recipient<'info>(native:bool,system_program:&Program<'info,System>,user:&Signer<'info>,to:&&UncheckedAccount<'info>,amount:u64,token_program:&Interface<'info,TokenInterface>,mint:&InterfaceAccount<'info,Mint>,from:Option<&AccountInfo<'info>>,dst:Option<&AccountInfo<'info>>)->Result<()>{crate::user_quote_payments::transfer_from_user_recipient(native,system_program.as_ref(),user,to,amount,token_program,mint.decimals,AsRef::<AccountInfo<'info>>::as_ref(mint),from,dst)}
 +fn move_curve_tokens<'info>(token_program:&Interface<'info,TokenInterface>,source:&InterfaceAccount<'info,TokenAccount>,destination:&InterfaceAccount<'info,TokenAccount>,authority:&Account<'info,BondingCurve>,mint:&InterfaceAccount<'info,Mint>,amount:u64,signer_seeds:&[&[&[u8]];1])->Result<()>{token_transfers::transfer_curve_tokens(token_program,source,destination,authority,mint.decimals,AsRef::<AccountInfo<'info>>::as_ref(mint),amount,signer_seeds)}
-diff -ruN pump/src/legacy_native_payments.rs /Users/shawwalters/.Trash/research/goal-pump-main-swarm-20261029/lanes/exactquote-reordering/source/src/legacy_native_payments.rs
+diff -ruN pump/src/legacy_native_payments.rs $HOME/.Trash/research/goal-pump-main-swarm-20261029/lanes/exactquote-reordering/source/src/legacy_native_payments.rs
 --- pump/src/legacy_native_payments.rs	2026-10-29 02:38:10
-+++ /Users/shawwalters/.Trash/research/goal-pump-main-swarm-20261029/lanes/exactquote-reordering/source/src/legacy_native_payments.rs	2026-10-28 21:34:52
++++ $HOME/.Trash/research/goal-pump-main-swarm-20261029/lanes/exactquote-reordering/source/src/legacy_native_payments.rs	2026-10-28 21:34:52
 @@ -1,37 +1 @@
 -use anchor_lang::prelude::*;
 -
@@ -580,9 +580,9 @@ diff -ruN pump/src/legacy_native_payments.rs /Users/shawwalters/.Trash/research/
 -        )
 -}
 +pub use pump_native_payments::{ensure_rent_exempt,transfer};
-diff -ruN pump/src/v2_native_payments.rs /Users/shawwalters/.Trash/research/goal-pump-main-swarm-20261029/lanes/exactquote-reordering/source/src/v2_native_payments.rs
+diff -ruN pump/src/v2_native_payments.rs $HOME/.Trash/research/goal-pump-main-swarm-20261029/lanes/exactquote-reordering/source/src/v2_native_payments.rs
 --- pump/src/v2_native_payments.rs	2026-10-29 02:38:10
-+++ /Users/shawwalters/.Trash/research/goal-pump-main-swarm-20261029/lanes/exactquote-reordering/source/src/v2_native_payments.rs	2026-10-28 21:34:52
++++ $HOME/.Trash/research/goal-pump-main-swarm-20261029/lanes/exactquote-reordering/source/src/v2_native_payments.rs	2026-10-28 21:34:52
 @@ -1,16 +1 @@
 -use anchor_lang::prelude::*;
 -

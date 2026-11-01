@@ -1,5 +1,5 @@
 import runpy,os
-b=runpy.run_path('/Users/shawwalters/.cache/pumpfun-reconstruction/lanes/w3-sellv3-oracle/edits/nr_swapphi58.py')['edit']
+b=runpy.run_path('$HOME/.cache/pumpfun-reconstruction/lanes/w3-sellv3-oracle/edits/nr_swapphi58.py')['edit']
 def edit(f):
     os.environ['PAIRS']='%_0.sroa.25.0,%_0.sroa.0.0'
     f=b(f)

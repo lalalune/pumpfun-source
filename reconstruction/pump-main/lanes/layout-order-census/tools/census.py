@@ -6,7 +6,7 @@ census.py <unstripped.so> <out.json>
 import sys, json, hashlib, struct, re, bisect
 from pathlib import Path
 from collections import defaultdict, Counter
-TOOLS = Path('/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/restore/reconstruction')
+TOOLS = Path('./worktrees/restore/reconstruction')
 sys.path.insert(0, str(TOOLS / 'harness'))
 from score import sections, normalize, body, candidate_functions, original_windows, BASE  # noqa
 

@@ -7,7 +7,7 @@
   "normalized": 1027, "raw": 293, "raw_gains": 17, "normalized_losses": 0, "raw_losses": 0,
   "unstripped_sha256": "d7dca7cc2ece56e4505e71695239502f54ee996528161110d88b70f58e97e119",
   "candidate_sha256": "57f3c15a15ddb788e632941e506b6baeee9df0756b054e886e1ed8fdba5cf8e4",
-  "pr": "https://github.com/lalalune/pumpfun-source/pull/2251"
+  "pr": "PR #2251"
  },
  "mechanism": "programs/pump/link/ordered.ld (sibling recipe): U (root-CGU upstream-generic instances) and D (dependency code) in the original's order, L kept in rustc order by one glob; harness/link_order.py hooks only the root cdylib link, admits only input-section reordering, fastbuild fails if the hook did not run; tools/regen.sh reproduces the script",
  "sibling_findings": [

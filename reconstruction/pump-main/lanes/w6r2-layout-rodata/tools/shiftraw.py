@@ -1,11 +1,11 @@
 # raw count if candidate data sections were rebased to the original's addresses (i.e. .text total size equal)
 import sys, struct, json
-sys.path.insert(0,'/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/w6r2-layout-rodata/reconstruction/harness')
+sys.path.insert(0,'./worktrees/w6r2-layout-rodata/reconstruction/harness')
 from score import candidate_functions, body, original_windows, normalize, sections
 from original_input import resolve_original
 from pathlib import Path
 import hashlib
-orig=resolve_original(Path('/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/w6r2-layout-rodata/reconstruction/base/original.so')).read_bytes()
+orig=resolve_original(Path('./worktrees/w6r2-layout-rodata/reconstruction/base/original.so')).read_bytes()
 os_=sections(orig)
 cand=open(sys.argv[1],'rb').read(); cs=sections(cand)
 def rebase(raw):

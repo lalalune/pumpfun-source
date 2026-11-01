@@ -3,9 +3,8 @@
 The maintained `programs/mayhem/build_exact.py --stage-only` command needs sealed
 recipe files that were absent from the current tree. The restored 101 consumed files
 and their original eight-byte Git checkout policy are
-byte-for-byte public Git blobs from
-[`decb244ccf8a81b086e940568a2d03336309046f`](https://github.com/lalalune/pumpfun-source/commit/decb244ccf8a81b086e940568a2d03336309046f),
-the commit that introduced the maintained entrypoint. They retain their original
+byte-for-byte public Git blobs from commit
+`decb244ccf8a81b086e940568a2d03336309046f`, which introduced the maintained entrypoint. They retain their original
 paths so that the entrypoint, its sealed parent stager, hashes, scripts, host
 source archives and target-input inventories remain unchanged.
 

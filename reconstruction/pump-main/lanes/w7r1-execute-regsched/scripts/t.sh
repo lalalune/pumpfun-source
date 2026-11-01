@@ -1,7 +1,7 @@
 #!/bin/bash
 # t.sh NAME file.rs [score]   (build crate copy with sweep_fees.rs replaced; IR capture + llc oracle + target metric)
 OUT=~/.cache/pumpfun-reconstruction/lanes/w7r1-execute-regsched
-T=/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/w7r1-execute-regsched/reconstruction/harness
+T=./worktrees/w7r1-execute-regsched/reconstruction/harness
 N=$1; F=$2
 export PUMP_BUILD_SLOTS=10
 mkdir -p $OUT/srcs; rm -rf $OUT/srcs/$N; rsync -a --exclude target $OUT/src0/ $OUT/srcs/$N/

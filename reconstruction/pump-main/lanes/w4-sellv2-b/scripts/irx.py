@@ -3,7 +3,7 @@
 import sys,subprocess,re,os,runpy,difflib
 OUT=os.path.expanduser('~/.cache/pumpfun-reconstruction/lanes/w4-sellv2-b')
 SDK=os.path.expanduser('~/.cache/solana/v1.44/platform-tools')
-ORIG='/Users/shawwalters/Documents/Codex/2026-10-24/pump-main-swarm/worktrees/w4-sellv2-b/reconstruction/base/original.so'
+ORIG='./worktrees/w4-sellv2-b/reconstruction/base/original.so'
 SYM=os.environ.get('SYM','_ZN14pump_recovered14pump_recovered7sell_v217hfaf9221fd7330570E')
 def norm(s):
     s=re.sub(r'call -?0x[0-9a-f]+','call X',s); s=re.sub(r'lddw (r\d+), -?0x[0-9a-f]+',r'lddw \1, X',s); return s

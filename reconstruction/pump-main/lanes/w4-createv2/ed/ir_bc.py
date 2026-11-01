@@ -1,5 +1,5 @@
 import runpy
-ss=runpy.run_path('/Users/shawwalters/.cache/pumpfun-reconstruction/lanes/w4-createv2/ed/ir_sel_swap.py')['edit']
+ss=runpy.run_path('$HOME/.cache/pumpfun-reconstruction/lanes/w4-createv2/ed/ir_sel_swap.py')['edit']
 import os
 MODE=os.environ.get('BCMODE','early')
 def edit(t):

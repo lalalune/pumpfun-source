@@ -1,0 +1,136 @@
+{
+  "finding": "H-01",
+  "case": {
+    "route": "A -> WSOL (AMM buy) -> B (native Main buy)",
+    "input": 1000000
+  },
+  "surfpool": {
+    "signature": "DkCmwBA8xdd2XdnsXgnPoT293EvFvfHMLq4yA37pgd3WF2AfuXpxxh7X9T2KU8J3FBEz2MMjwdyd68GVQpSjPCm",
+    "error": {
+      "InstructionError": [
+        0,
+        {
+          "Custom": 6086
+        }
+      ]
+    },
+    "logs": [
+      "Program pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA invoke [1]",
+      "Program log: Instruction: MultiHopSwap",
+      "Program 11111111111111111111111111111111 invoke [2]",
+      "Program 11111111111111111111111111111111 success",
+      "Program log: AnchorError thrown in programs/pump-amm/src/instructions/swap/multi_hop_swap.rs:295. Error Code: MultiHopMixedDirection. Error Number: 6086. Error Message: multi-hop: every hop must trade in the same direction, all buys or all sells.",
+      "Program pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA consumed 28372 of 200000 compute units",
+      "Program pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA failed: custom program error: 0x17c6"
+    ],
+    "return_data": null,
+    "simulation": {
+      "err": {
+        "InstructionError": [
+          0,
+          {
+            "Custom": 6086
+          }
+        ]
+      },
+      "logs": [
+        "Program pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA invoke [1]",
+        "Program log: Instruction: MultiHopSwap",
+        "Program 11111111111111111111111111111111 invoke [2]",
+        "Program 11111111111111111111111111111111 success",
+        "Program log: AnchorError thrown in programs/pump-amm/src/instructions/swap/multi_hop_swap.rs:295. Error Code: MultiHopMixedDirection. Error Number: 6086. Error Message: multi-hop: every hop must trade in the same direction, all buys or all sells.",
+        "Program pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA consumed 28372 of 200000 compute units",
+        "Program pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA failed: custom program error: 0x17c6"
+      ],
+      "accounts": null,
+      "unitsConsumed": 28372,
+      "loadedAccountsDataSize": 3936474,
+      "returnData": null,
+      "innerInstructions": [
+        {
+          "index": 0,
+          "instructions": [
+            {
+              "program": "system",
+              "programId": "11111111111111111111111111111111",
+              "parsed": {
+                "type": "createAccount",
+                "info": {
+                  "source": "DXyM8yAHqpMzDtvwz5DXoEUQmPxjJPMKCASCPhLMKpEx",
+                  "newAccount": "8NyBnxo9mS5MsqY4qoKmrt7MS89d7MNV6rh5fu2YsQPT",
+                  "lamports": 1844400,
+                  "space": 137,
+                  "owner": "pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA"
+                }
+              },
+              "stackHeight": 2
+            }
+          ]
+        }
+      ],
+      "replacementBlockhash": null,
+      "fee": null,
+      "preBalances": null,
+      "postBalances": null,
+      "preTokenBalances": null,
+      "postTokenBalances": null,
+      "loadedAddresses": null
+    },
+    "signature_verification": true,
+    "loaded_programs": {
+      "6EF8rrecthR5Dkzon8Nwu78hRvfCKubJ14M5uBEwF6P": {
+        "path": "/Users/shawwalters/Documents/Codex/2026-10-24/pumpfun-source/evidence/original/pump/deployed.so",
+        "sha256": "7a19affaa2c6187e04a5fe0ea298cee81fa5eb8c24cfcc30d85f615e89f7b02d"
+      },
+      "pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA": {
+        "path": "/Users/shawwalters/Documents/Codex/2026-10-24/pumpfun-source/evidence/original/pump_amm/deployed.so",
+        "sha256": "6a7ad34596d83b4c435b32f458a56e718e9f82eb4ad38e4316616d15d24d8ff7"
+      },
+      "pfeeUxB6jkeY1Hxd7CsFCAjcbHA9rWtchMGdZ6VojVZ": {
+        "path": "/Users/shawwalters/Documents/Codex/2026-10-24/pumpfun-source/evidence/original/pump_fees/deployed.so",
+        "sha256": "4f2955d0f6b40cc9ff7daa18ccad7d19119ba1249759f4e7e3bb691beee6b35e"
+      },
+      "MAyhSmzXzV1pTf7LsNkrNwkWKTo4ougAJ1PPg47MD4e": {
+        "path": "/Users/shawwalters/Documents/Codex/2026-10-24/pumpfun-source/evidence/original/mayhem/deployed.so",
+        "sha256": "a87fa9f866272514e6acb852b668c4a08aeb173d56c883039991d114d1199bdb"
+      },
+      "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA": {
+        "path": "/Users/shawwalters/Documents/Codex/2026-10-24/pumpfun-source/evidence/dependencies/spl_token/deployed.so",
+        "sha256": "8190d3f7ceb6cb7a7a8d8924bff89f9f611e15ce1f806f2b6237f3311a98f697"
+      },
+      "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb": {
+        "path": "/Users/shawwalters/Documents/Codex/2026-10-24/pumpfun-source/evidence/dependencies/spl_token_2022/deployed.so",
+        "sha256": "15a2e615a42e20f31714bbaaee43002ae6f1cda2e8d7118243117ab3c1342e2d"
+      },
+      "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL": {
+        "path": "/Users/shawwalters/Documents/Codex/2026-10-24/pumpfun-source/evidence/dependencies/associated_token/deployed.so",
+        "sha256": "6804554e69fd3a58caa191dc4a58f4c67223d30ca28ab8987f39fc18d2f7374d"
+      },
+      "metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s": {
+        "path": "/Users/shawwalters/Documents/Codex/2026-10-24/pumpfun-source/evidence/dependencies/token_metadata/deployed.so",
+        "sha256": "31f0a627dba051a938de650464e55cc5397a4be0fd496929c1f9cf02fe5e9011"
+      }
+    },
+    "account_deltas": {
+      "DXyM8yAHqpMzDtvwz5DXoEUQmPxjJPMKCASCPhLMKpEx": {
+        "before": {
+          "lamports": 1000000000000,
+          "owner": "11111111111111111111111111111111",
+          "executable": false,
+          "data": "",
+          "data_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "after": {
+          "lamports": 999999995000,
+          "owner": "11111111111111111111111111111111",
+          "executable": false,
+          "data": "",
+          "data_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      }
+    },
+    "transaction_base64": "AQr9nolI7yuA9RsCwrIppe6FXtjTcRRtxzP2VDhnCIwz5pbB5ZgzWXDD30tXPzU0tCGn6SbiGKMSJve1UeltHAIBAA0YujthHiiCwbaqSyrj7HjqBzbjrZkjg1NFAXFQekufFbUtJFlBFgSKe1IXRRpk+TUyrpDLHA4HyoKUdC5OOh4DKUZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkZGRkivyw4jHfvw1slzjpBiCP4EBrmkqdbcjacHh8Ym0gFTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU1NTU22iiQe/1IbvtBE2y5S6bm+fEPIAhIAok+Kbx7MJ6u2ycv+IMRioyySUE5woIEe6BPqYFbZ7hvPWbPCYC+yYaUq5spn2yB9w4vkdYWi3rAYW3FWbYcLtEJiXd8X3N3MjRevYktVdPC15iw1zhRgrT/DHGK5bfqYkhwQsLZL7jQ9V+Jg5oct96VldzXfRwoXVanbI9St95C5PH3jagh9sStv7q2q5YBfH/OsIHpVhAV+n0PHN1iBXHK8vNHlO9L8CzAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAVbg9pNmWs9E2xVovxdbqlGJy5f10v87ZV0rtv1tGLAGm4hX/quBhPtof2NGGMA12sQ53BrrO1WYoPAAAAAAAQbd9uHXZaGT2cvhRs7reawctIXtX1s3kTqM9YV+/wCpBt324e51j94YQl285GzN2rYa/E2DuQ0n/r35KNihi/wMFN78gl7GdpQlCBi7ZUBl9CmNMVbVcbTU+AkMGOmoYzqGXmnuD1SAyrz2Y1fk3C8Y1Y1Fwep0ifs3I9l5PHKmQSRuzH14/oHkF3OkaWVBmTeSOgdkR5ffbz61FEJgEMteIWdmL76QXtJCnGuS+AjNV1e5wr//9+yt6obRwZai72+atKTxlY3AqclMP7csB5lYQ+2kheOiTxDGk5n4GZQPiQumRP4fVaoZ8RzS0uwU0yM7bgpL6u73K2mFjiHhcNas8TbrAfwcTog9I8i1hEq1mjf2at1XxemsO1PgWdNcZOVKcJUog59hwLm4YHmJHBOSFuR6cbYvtzvschaUWHReBoaFnTjICpchSBhBaRfgv4/KFX5GT5jM/Q/6nfhH29sBEBoAAgQVEgUJDg8LFxAMERQWDRMIAwENEwcGChgrZEkT6fZvlEBCDwAAAAAAAQAAAAAAAAA=",
+    "fixture_clock_unix_timestamp": 1234567890,
+    "litesvm_error": "TransactionErrorInstructionError((0, Tagged(InstructionErrorCustom(6086))))"
+  }
+}
