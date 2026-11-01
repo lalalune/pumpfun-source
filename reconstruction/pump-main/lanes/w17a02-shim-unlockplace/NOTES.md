@@ -65,3 +65,37 @@ reproduces main 599891304 exactly, M 2,251) and runs llc; `BASEW="i:a:b;..."` fi
 The Rc trap is the lever w17a04 landed (#3950) with a hand-written `rcinc`. With 3032 fixed at 20:12 the best pair is the
 4462 trap (M 2,258). Source builds of the mild weights on 599891304: `x312ah`/`x312bh` 0.67466 (gain), `v326h`
 byte-identical, `v326l` byte-identical, `v338h` 0.66177, `v338l` 0.65768 @27,392, `gateh` 0.67286.
+
+## 4. After the landing (#3934 merged as d4dfb04b0: 0.67645, 3,141 slots, M 2,258)
+
+- **Faster exact capture.** `tools/capopt.py <crate> <work> <out>` runs one identity build with `--emit=link,llvm-ir` and
+  saves rustc's post-optimization IR (`opt.ll`). `oracle.slim` plus llc reproduce main exactly (`eq_main`, M 2,258) with
+  no separate `opt -O3` (the raw-IR route takes about 2.5 min under load).
+- **llc weights are exhausted on d4dfb04b0.** 2,033 single runs (107 branches x 19 weights from 1:2000 to 2000:1) and
+  4,240 pair runs (the 6 best off-size singles fixed) give nothing above M 2,258 at 27,400 B. The best off-size cells are
+  the quote==default memcmp at 1:2000 or 1:100 (M 2,259 @27,392) and the mayhem / fee-tag / creator_fee==0 / sweep 495-508
+  weights (2,256 @27,408).
+- **Blanket error-edge weights collapse** (`tools/errw.py`, the w17a01 `vorder` construct). One weight toward the error
+  successor on all 17 error edges gives M 1,210 (1:2000) to 1,690 (1:2). On the 14 validate edges alone it gives
+  1,478-1,740. Only single, targeted weights are viable.
+- **Source weights on validate checks lose** on d4dfb04b0 (`expect_p` at 0.625 / 0.375; `n<site><h|l>` genes in
+  `tools/g.py`). They change opt, not only llc: holder tests 289/296 drop to 0.42, 330 drops to 0.63 (off-size), 334 to
+  0.661-0.667, and 284 to 0.67356 @27,392 or 0.495.
+- **Source weights on execute branches** on d4dfb04b0 either give main's bytes (`410` true, `shared` true, the shared
+  holder arm both ways, `298` true, `307` 0.375) or lose: 648 0.67356 @27,392 or 0.526; pool_updated 0.541 (9 calls
+  inlined back) or 0.636; shared 0.375 0.615; the wallet gate 0.668/0.642 @27,392; wallet `is_writable` 0.67455 @27,408 or
+  0.620; `410` 0.375 0.432 @29,168 (and one normalized loss).
+
+## 5. Next ideas
+
+1. The remaining weight levers need a structural change first: every single or pair llc weight is at or below main on
+   d4dfb04b0. Re-run `tools/bws.py` on a fresh `capopt.py` capture after any landed structural change. It costs one build
+   plus about 2 minutes.
+2. The w17a01 `vorder` proposal (expect on every validate error edge) collapses at llc. Validate's order needs the
+   original's CFG (w16a06: the tail order appears only on an outline base with 306 None at 2:1, which
+   `expect_p(new.is_none(),true,0.6667)` now gives from source: tfp67, M 2,225 @27,024 on tf_g3). That base still needs
+   376 B of faithful repay (w15a25 / w16a06).
+3. `rcinc`-style hand-written library paths (#3950) are the other way to place a weight where the library's own
+   `core::intrinsics::unlikely` is a no-op on this toolchain, for example the remaining Rc clones and `RefCell` borrow
+   checks. The llc sweep on d4dfb04b0 shows no single gain left among the Rc traps, so this needs a pair with a structural
+   change.
