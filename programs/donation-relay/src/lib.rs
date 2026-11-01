@@ -1,4 +1,4 @@
-//! Reconstructed Relay Rust; whole captured-byte identity remains unproven.
+//! Reconstructed Relay Rust. Builds to the program deployed at slot 462683179 byte for byte, with the recipe in README.md.
 pub mod codec;
 pub mod mint_policy; pub mod cpi { pub mod jupiter; }
 

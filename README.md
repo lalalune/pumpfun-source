@@ -10,6 +10,9 @@ Completed and archived community reconstruction of pump.fun's on-chain Solana pr
 | Mayhem | [programs/mayhem](programs/mayhem) |
 | Donation Relay | [programs/donation-relay](programs/donation-relay) |
 
+Donation Relay's source is the version deployed at slot 462,683,179. Its
+[recipe](programs/donation-relay/README.md) builds the deployed ELF byte for byte and says where the earlier version is.
+
 The project is finished. No further development or reconstruction work is needed.
 See [CONTRIBUTING.md](CONTRIBUTING.md) and [AGENTS.md](AGENTS.md).
 
