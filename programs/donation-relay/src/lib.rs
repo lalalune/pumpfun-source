@@ -66,8 +66,8 @@ pub mod anchor_framework {
             let event=crate::donation_handlers::donate_pubkey_config_id_with_payer_v1_handler(ctx.accounts,crate::codec::wire::DonatePubkeyConfigIdWithPayerV1 {amount,config_id,tip_bps,message,credited_to},epoch_tracker_bump,debouncer_bump)?;
             emit!(event);emit_cpi!(event);Ok(event)
         }
+        #[access_control(check_relayer(&ctx.accounts.signer))]
         pub fn admit_bridge_payment_v1(ctx:Context<AdmitBridgePaymentV1>,source_id:[u8;32],source_commitment:[u8;32],payment_id:[u8;32],config_id:[u8;32],amount:u64,minimum_amount:u64,tip_bps:u16)->Result<BridgeDonationAdmittedV1Event> {
-            check_relayer(&ctx.accounts.signer)?;
             let event=crate::bridge_handlers::admit_bridge_payment(ctx.accounts,source_id,source_commitment,payment_id,config_id,amount,minimum_amount,tip_bps,ctx.bumps.receiver,ctx.bumps.epoch_tracker,ctx.bumps.debouncer)?;
             emit!(event);emit_cpi!(event);Ok(event)
         }
@@ -75,45 +75,45 @@ pub mod anchor_framework {
             let event=crate::bridge_handlers::recover_bridge_payment(ctx.accounts,source_id,source_commitment,payment_id,amount,ctx.bumps.receiver)?;
             emit!(event);emit_cpi!(event);Ok(event)
         }
+        #[access_control(check_relayer(&ctx.accounts.signer))]
         pub fn close_donation_epoch_v1(ctx:Context<CloseDonationEpochV1>,config_id:[u8;32],epoch:u128)->Result<DonationEpochClosedV1Event> {
-            check_relayer(&ctx.accounts.signer)?;
             let distribution_bump=ctx.bumps.distribution;
             let event=crate::settlement_handlers::close_epoch(ctx.accounts,crate::codec::wire::CloseDonationEpochV1 {config_id,epoch},distribution_bump)?;
             emit!(event);emit_cpi!(event);Ok(event)
         }
+        #[access_control(check_relayer(&ctx.accounts.signer))]
         pub fn swap_then_distribute_v1<'info>(ctx:Context<'_, '_, 'info, 'info,SwapThenDistributeV1<'info>>,jupiter_swap_ix_data:Vec<u8>,shares:Vec<Share>)->Result<DonationEpochProcessedV1Event> {
-            check_relayer(&ctx.accounts.signer)?;
             let remaining=ctx.remaining_accounts;
             let event=crate::settlement_handlers::swap_then_distribute(ctx.accounts,crate::codec::wire::SwapThenDistributeV1 {jupiter_swap_ix_data,shares},remaining)?;
             emit!(event);emit_cpi!(event);Ok(event)
         }
+        #[access_control(check_relayer(&ctx.accounts.signer))]
         pub fn just_swap_v1<'info>(ctx:Context<'_, '_, '_, 'info,JustSwapV1<'info>>,swap_data:Vec<u8>)->Result<DonationEpochJustSwappedV1Event> {
-            check_relayer(&ctx.accounts.signer)?;
             let event=crate::settlement_handlers::just_swap(ctx.accounts,crate::codec::wire::JustSwapV1 {jupiter_swap_ix_data:swap_data},ctx.remaining_accounts,ctx.bumps.swap_receipt)?;
             emit!(event);emit_cpi!(event);Ok(event)
         }
+        #[access_control(check_relayer(&ctx.accounts.signer))]
         pub fn distribute_after_just_swapping_v1<'info>(ctx:Context<'_, '_, 'info, 'info,DistributeAfterJustSwappingV1<'info>>,shares:Vec<Share>)->Result<DonationEpochProcessedV1Event> {
-            check_relayer(&ctx.accounts.signer)?;
             let event=crate::settlement_handlers::distribute_after(ctx.accounts,crate::codec::wire::DistributeAfterJustSwappingV1 {shares},ctx.remaining_accounts)?;
             emit!(event);emit_cpi!(event);Ok(event)
         }
+        #[access_control(check_relayer(&ctx.accounts.signer))]
         pub fn distribute_non_swap_output_mint_v1<'info>(ctx:Context<'_, '_, 'info, 'info,DistributeNonSwapOutputMintV1<'info>>,shares:Vec<Share>)->Result<DonationEpochProcessedV1Event> {
-            check_relayer(&ctx.accounts.signer)?;
             let event=crate::settlement_handlers::distribute_non_swap(ctx.accounts,crate::codec::wire::DistributeNonSwapOutputMintV1 {shares},ctx.remaining_accounts)?;
             emit!(event);emit_cpi!(event);Ok(event)
         }
+        #[access_control(check_relayer(&ctx.accounts.signer))]
         pub fn distribute_exact_non_swap_output_mint_v1<'info>(ctx:Context<'_, '_, 'info, 'info,DistributeNonSwapOutputMintV1<'info>>,transfers:Vec<ExactTransfer>)->Result<DonationEpochProcessedExactV1Event> {
-            check_relayer(&ctx.accounts.signer)?;
             let event=crate::settlement_handlers::distribute_exact_non_swap(ctx.accounts,transfers,ctx.remaining_accounts)?;
             emit!(event);emit_cpi!(event);Ok(event)
         }
+        #[access_control(check_relayer(&ctx.accounts.signer))]
         pub fn distribute_exact_after_just_swapping_v1<'info>(ctx:Context<'_, '_, 'info, 'info,DistributeAfterJustSwappingV1<'info>>,transfers:Vec<ExactTransfer>)->Result<DonationEpochProcessedExactV1Event> {
-            check_relayer(&ctx.accounts.signer)?;
             let event=crate::settlement_handlers::distribute_exact_after(ctx.accounts,transfers,ctx.remaining_accounts)?;
             emit!(event);emit_cpi!(event);Ok(event)
         }
+        #[access_control(check_relayer(&ctx.accounts.signer))]
         pub fn upsert_mint_whitelist_v1(ctx: Context<UpsertMintWhitelistV1>, mints: Vec<Pubkey>) -> Result<()> {
-            check_relayer(&ctx.accounts.signer)?;
             upsert_whitelist(&mut ctx.accounts.mint_whitelist, mints, ctx.bumps.mint_whitelist)
         }
     }
