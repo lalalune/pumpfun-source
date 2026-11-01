@@ -7,6 +7,12 @@ retaining resolved-path checks for destinations that do not yet exist.
 
 `python reconstruction/harness/experiment_runner.py matrix.json --out /tmp/trials --max-trials 20`
 
+Add `--min-free-bytes N` to opt into admission and runtime disk protection.
+Work/output filesystems are monitored automatically; repeat `--disk-path` for
+additional volumes. Storage stops are infrastructure errors and never valid
+negative predicates. Configuration, receipt, recovery and limitation details
+are in [DISK_BUDGETS.md](DISK_BUDGETS.md).
+
 A matrix is a JSON array of objects with unique simple `name`, absolute `source` directory, `command` argv array, optional `inputs` file paths and `timeout` seconds (default 300, maximum 86400). Use `{source}`, `{work}` and `{out}` in arguments. Commands run sequentially in an isolated working directory, without a shell. Source is copied; `.git`, `__pycache__` and the source root's `target` directory are omitted. A regular file named `target` and nested `target` directories remain source inputs. Source symlinks and special files are refused. The output tree must be separate from the source.
 
 The command contract is exit 0 = predicate holds, 1 = valid experiment but predicate does not hold, other status/timeout = infrastructure error. A compiler failure must not be converted into exit 1. `match_oracle.py` implements this contract for one official raw/normalized Pump window, including stack-warning rejection and isolated original-window cache. Example command array:

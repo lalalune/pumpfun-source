@@ -63,6 +63,13 @@ jobs:
               python -B reconstruction/harness/test_build_publication_boundaries.py
               python -B reconstruction/harness/test_fastbuild_library_name.py
               python -B reconstruction/harness/test_physical_source_wrapper.py
+          - suite: disk-budget
+            commands: |
+              python -I -B reconstruction/harness/test_resource_budget.py
+              python -I -B reconstruction/harness/test_build_process_monitor.py
+              python -I -B reconstruction/harness/test_fastbuild_resource_budget.py
+              python -I -B reconstruction/harness/test_experiment_resource_budget.py
+              python -B reconstruction/harness/test_build_score_pair.py
           - suite: admin-cto-call-report
             commands: |
               python -B reconstruction/pump-main/lanes/w12b13-cto-callgraph/test_callseq.py
