@@ -15,7 +15,7 @@ union.
 
 | kill-test condition | verdict |
 | --- | --- |
-| no H x T restored joint within 40 M of 2,338 | **fails as written**: ftcT p2 is **2,342**, against main's 2,339 on the same pipeline. T on main's own head reaches **2,376** (19 forces), so the head form costs -34 there and the ceiling comes from T's RA headroom, which has no lever. g4 p2 2,303; h1T p1 2,291 / p2 (pass 2 still running at write-up) |
+| no H x T restored joint within 40 M of 2,338 | **fails as written**: ftcT p2 is **2,342**, against main's 2,339 on the same pipeline. T on main's own head reaches **2,376** (19 forces), so the head form costs -34 there and the ceiling comes from T's RA headroom, which has no lever. g4 p2 2,303; h1T p1 2,291 / p2 2,298 (17 forces; -78 vs T) |
 | no realisable cell beats 2,302 | **holds**: best H x T pin+ri9 is h1T 2,195 (main 2,305); best H x T as built is h1T, M 2,075 (main 2,251) |
 | LOO: every form loses inside the basin | **fails**: in the artifact-free stacked metric, the fee-tag phi (+145 / +130 / +18), holder form h1 (+30 / +81) and c2 (+18 / +11 / +65) help inside the basins while losing alone. rev_ff helps in two of the three. Per-arm cashback, s1 and po lose in both |
 
@@ -94,7 +94,7 @@ p2 2,339). An empty cell was not run.
 | m0 | - (main 1f4e396/5998913) | 27400 | 2251 | +0 | 2295 | 2302 | 2257 | 3006 | no | 2302 | 2294 | 2305 | 2353 | 2329 (7) | 2339 (9) |
 | T | s1+s_tai2+c2+n1+po+rev_ff | 27352 | 2094 | -157 | 2182 | 2219 | 2169 | 3038 | 1 outlier | 2219 | 2199 | 2250 | 2371 | 2321 (9) | 2376 (19) |
 | h1 | h1 | 27416 | 2207 | -44 | 2277 | 2284 | 2213 | 3007 | no | 2284 | 2247 | 2258 | 2323 |  |  |
-| h1T | h1+s1+s_tai2+c2+n1+po+rev_ff | 27360 | 2075 | -176 | 2187 | 2207 | 2137 | 3040 | no | 2207 | 2168 | 2195 | 2319 | 2291 (10) |  |
+| h1T | h1+s1+s_tai2+c2+n1+po+rev_ff | 27360 | 2075 | -176 | 2187 | 2207 | 2137 | 3040 | no | 2207 | 2168 | 2195 | 2319 | 2291 (10) | 2298 (17) |
 | h1b | h1b | 27416 | 2207 | -44 | 2277 | 2284 | 2213 | 3007 | no | 2284 |  |  |  |  |  |
 | h1bT | h1b+s1+s_tai2+c2+n1+po+rev_ff | 27360 | 2075 | -176 | 2187 | 2207 | 2137 | 3040 | no | 2207 |  |  |  |  |  |
 | h2p | h2p | 27400 | 1596 | -655 | 1695 | 1696 | 1623 | 2473 | SWAP | 1975 |  |  |  |  |  |
@@ -384,7 +384,7 @@ w15a33 #3829, w16a04 #3855).
    | T on main's head (plaintail's cell) | 2,094 | 2,219 | 2,250 | p1 2,321 / p2 **2,376** (19 forces, climb stopped at round 10) |
    | `ftcT` (= fttT) | 1,863 | 2,237 | | p1 2,286 (5) / p2 **2,342** (17) |
    | `g4` = ftt+c2+rev_ff | 1,920 | 2,238 | | p1 2,253 (1) / p2 2,303 (12) |
-   | `h1T` | 2,075 | 2,207 | 2,195 | p1 2,291 (10) / p2 (pass 2 still running at write-up) |
+   | `h1T` | 2,075 | 2,207 | 2,195 | p1 2,291 (10) / p2 2,298 (17 forces; -78 vs T) |
    | `h3cT` | 1,886 | 2,144 | 1,965 | p1 2,265 (12) |
    | `h2T` | 1,815 | 2,014 | 1,958 | p1 2,213 (10) |
    | `e1T` (IR) | 1,964 | 2,218 | 2,116 | not finished (stopped for CPU) |
@@ -465,7 +465,8 @@ w15a33 #3829, w16a04 #3855).
 
 1. **A frame-preserving carrier for the validated fee.** ftc (and its byte-identical take-and-restore spelling ftt)
    proves that the fee-tag phi with main's `Result<Pubkey>` layout is +71 M / +133 Mhc on h2T. It also makes T a gain
-   (+56 stacked on ftc, against -83 on main), and ftcT's joint p2 (2,342) passes main's (2,339). If the owner accepts
+   (+56 stacked on ftc, against -83 on main). ftcT's joint p2 (2,342) passes main's (2,339), but it stays below T's own
+   2,376 on main's head. If the owner accepts
    ftt's move-out/move-back, the next step is ftcT's as-built gap. That gap is spill colouring (M 1,863 vs Mperm 2,229)
    plus the 17 RA forces; their leave-one-out is in section 4. Otherwise keep looking for a carrier without a
    value-preserving write. The return-value spellings tried here break the
@@ -477,7 +478,8 @@ w15a33 #3829, w16a04 #3855).
 2. **Build on the core `ftt + c2 + rev_ff` (g4).** It is M 1,920 / Mhc 2,239 @27,352 B; joint: p1 2,253 / p2 2,303 (12 forces).
    - Adding h2 (per-arm holder and cashback) to ftc costs -92 Mhc and -21 joint (h3cT p1 2,265 vs ftcT p1 2,286).
    - Adding h1 alone does not pay on the ftc head: g1/g2 reach Mhc 2,221/2,227, against 2,237-2,239 for g3/g4/ftcT.
-   - Dropping s1, po and n1 from T costs nothing on the ftc head (g4 = ftcT in Mhc, +57 M).
+   - Dropping s1, po and n1 from T costs nothing on the ftc head as built (g4 = ftcT in Mhc, +57 M). It does cost -39
+     in the RA-forced joint (g4 p2 2,303 vs ftcT 2,342).
 3. The 6 KB tail swap is a post-RA layout flip that follows the holder argument's last use. Any lane that changes where
    `holder` (`%0`) dies must check dotmap chunks 0x2400-0x5000 (`aftab2.py`'s `6 KB swap` column). It must not trust
    fuev's single `swap` flag, which also fires on one-chunk outliers in the sharing-CPI clone run.
