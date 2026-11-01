@@ -27,3 +27,10 @@ Works for pair returns (`Result<()>`, `{i64,ptr}`) and sret returns (`Result<boo
 ## First gain: the sweep `?` carries the pin repay
 
 On e59b48eb1 (0.81611, M 2,725) the only repay is the 32 B `st` byte read at the holder_enabled test; without it the union is M 2,810 at 27,368 B. The sweep `?` residual cell repays the same 32 B in the cold error path: `vs:execute:29284` in the `.trq()` carrier (w17a35 form `w0`), M 2,813 at 27,400 B, real build 0.84247, 1,657 slots.
+
+## Second gain: the original's call slot at the 326 error
+
+Orig 0xb48 `add64 r1,-688`: `name()` writes the AnchorError `error_name` field directly, so the 3-word String copy (6 tokens, 48 B) that every other error block has is missing at 326. MemCpyOpt's call slot optimization has a block-local restriction (`-debug-only=memcpyopt`: "Call Slot: block local restriction"). An inlined `to_string` puts a branch between `name()` and the memcpy, so ordinary `error!` never forwards. BFI at the validate inliner: 326 is at 2.8 %, cold below 2 %.
+`e326()`, one custom MIR body, spells it: `Call(g.error_name=PumpError::name(X326),..)` into the field place, then `to_string`, then the remaining fields in `error!`'s order, then `From::from`. LLVM inlines it. -48 B, code equal to the original's block.
+
+Union on 1f7ca411c: e326 + native tail `if amount>0{..map(|()|amount)}else{Ok(0)}` + no fills: M 3,082 at 27,368 B, all3 3,265. Fill screen on that base (`tools/fillgen.py`, one volatile byte read at each of 221 block starts): `fl:validate:27574` (before the holder_reward test) M 3,104 at 27,400 B. Source form has the same signature `96745e98dee9`.

@@ -4,7 +4,7 @@ use crate::trade_types::BondingCurve;
 use anchor_lang::solana_program::{instruction::{Instruction,AccountMeta},program::invoke_signed};
 pub const AMM:Pubkey=anchor_lang::solana_program::pubkey!("pAMMBay6oceH9fJKBRHGP5D4bD4sWpmSwMn52FMfXEA");
 pub const FEES:Pubkey=crate::distribution::FEES;
-#[derive(Clone)]pub struct Amm; impl Id for Amm{fn id()->Pubkey{AMM}}
+#[derive(Clone)]pub struct Amm; impl Id for Amm{fn id()->Pubkey{AMM}}const X326:&PumpError=&PumpError::CreatorFeeNotConfigurableForQuote;#[custom_mir(dialect="runtime",phase="optimized")]fn e326()->anchor_lang::error::Error{use core::intrinsics::mir::*;mir!{let g:anchor_lang::error::AnchorError;let m:String;let s:anchor_lang::error::Source;let o:anchor_lang::error::ErrorOrigin;{Call(g.error_name=PumpError::name(X326),ReturnTo(bb1),UnwindUnreachable())}bb1={Call(m=<PumpError as ToString>::to_string(X326),ReturnTo(bb2),UnwindUnreachable())}bb2={g.error_msg=Move(m);g.error_code_number=6091_u32;s=anchor_lang::error::Source{filename:"programs/pump/src/creator/admin_cto.rs",line:326_u32};o=anchor_lang::error::ErrorOrigin::Source(Move(s));g.error_origin=Some(Move(o));g.compared_values=None;Call(RET=<anchor_lang::error::Error as From<anchor_lang::error::AnchorError>>::from(Move(g)),ReturnTo(bb3),UnwindUnreachable())}bb3={Return()}}}/*shim: error!(326) with name() writing the error_name field directly (the original's call slot)*/
 #[inline(always)]fn aic<'a>(x:&AccountInfo<'a>)->AccountInfo<'a>{AccountInfo{key:x.key,lamports:x.lamports.clone(),data:x.data.clone(),owner:x.owner,rent_epoch:x.rent_epoch,is_signer:x.is_signer,is_writable:x.is_writable,executable:x.executable}}extern "C"{#[link_name="llvm.trap"]fn trap()->!;#[link_name="llvm.assume"]fn assume(b:bool);#[link_name="llvm.expect.with.probability.i1"]fn expect_p(b:bool,v:bool,p:f64)->bool;}/*shim: llvm.expect.with.probability, assume and trap for rcw*/struct Wt<const D:u32>;impl<const D:u32> Wt<D>{const P:f64=1.0/(D as f64+1.0);}#[inline(always)]unsafe fn rcw<const D:u32,T>(r:&std::rc::Rc<T>)->std::rc::Rc<T>{let p=(*(r as *const std::rc::Rc<T> as *const core::ptr::NonNull<usize>)).as_ptr();let s=*p;assume(s!=0);let n=s.wrapping_add(1);*p=n;if expect_p(n==0,true,Wt::<D>::P){trap()}core::ptr::read(r)}/*shim: Rc::clone with an explicit 1:D overflow-trap weight*/#[inline(always)]fn aicd<'a,const D:u32>(x:&AccountInfo<'a>)->AccountInfo<'a>{AccountInfo{key:x.key,lamports:x.lamports.clone(),data:unsafe{rcw::<D,_>(&x.data)},owner:x.owner,rent_epoch:x.rent_epoch,is_signer:x.is_signer,is_writable:x.is_writable,executable:x.executable}}/*shim: AccountInfo clone, weighted data*/#[inline(always)]fn aicl<'a,const D:u32>(x:&AccountInfo<'a>)->AccountInfo<'a>{AccountInfo{key:x.key,lamports:unsafe{rcw::<D,_>(&x.lamports)},data:x.data.clone(),owner:x.owner,rent_epoch:x.rent_epoch,is_signer:x.is_signer,is_writable:x.is_writable,executable:x.executable}}/*shim: AccountInfo clone, weighted lamports*/#[inline(always)]fn aicb<'a,const P:u32,const D:u32>(x:&AccountInfo<'a>)->AccountInfo<'a>{AccountInfo{key:x.key,lamports:unsafe{rcw::<P,_>(&x.lamports)},data:unsafe{rcw::<D,_>(&x.data)},owner:x.owner,rent_epoch:x.rent_epoch,is_signer:x.is_signer,is_writable:x.is_writable,executable:x.executable}}/*shim: AccountInfo clone, both Rc weighted*/
 #[derive(Accounts)]
 pub struct AdminCto<'info>{
@@ -281,12 +281,12 @@ struct CtoState{mayhem:bool,holder_reward:bool,cashback:bool,creator:Pubkey,quot
 
 
 fn validate(st:&CtoState,shared:bool,holder:bool,fee:Option<u64>,new:Option<Pubkey>,sharing:Pubkey,holder_key:Pubkey,hkr:&Pubkey)->Result<Plan>{
- let ns=!shared;let mut sharing_update:Option<Option<Pubkey>>=None;unsafe{core::ptr::read_volatile(hkr as *const Pubkey as *const u8)}/*shim: holder_key byte read before the mayhem test, repays the pin*/;unsafe{core::ptr::read_volatile(hkr as *const Pubkey as *const u8)}/*shim: holder_key byte read before the mayhem test, repays the pin*/;if st.mayhem{return Err(error!(PumpError::CtoNotAllowedForMayhemCoin));}
+ let ns=!shared;let mut sharing_update:Option<Option<Pubkey>>=None;if st.mayhem{return Err(error!(PumpError::CtoNotAllowedForMayhemCoin));}
 // Reconstructed positions of the same deployed validations.
 
 
 
- if st.holder_reward{if !holder{return Err(error!(PumpError::HolderRewardCreatorImmutable));}}else if holder{
+ unsafe{core::ptr::read_volatile(hkr as *const Pubkey as *const u8)}/*shim: holder_key byte read before the holder_reward test, repays the pin*/;if st.holder_reward{if !holder{return Err(error!(PumpError::HolderRewardCreatorImmutable));}}else if holder{
 
 
 
@@ -323,7 +323,7 @@ fn validate(st:&CtoState,shared:bool,holder:bool,fee:Option<u64>,new:Option<Pubk
 
 
 
- let fee_bps=match fee{Some(f)=>{if st.quote_locked{return Err(error!(PumpError::CreatorFeeNotConfigurableForQuote));}
+ let fee_bps=match fee{Some(f)=>{if st.quote_locked{return Err(e326());}
 // layout-pad(3): aligns the next Source site with the original line
 
 
@@ -661,7 +661,7 @@ fn validate(st:&CtoState,shared:bool,holder:bool,fee:Option<u64>,new:Option<Pubk
 
   let vsigner:[&[&[u8]];1];let bump=ctx.bumps.creator_vault;let old=a.current_creator.key();let vaultseeds:&[&[u8]]=&[b"creator-vault",old.as_ref(),&[bump]];vsigner=[vaultseeds];
   if native{let min={let rent=Rent::get()?;rent.minimum_balance(0)};let amount=a.creator_vault.lamports().saturating_sub(min);
-   return (if amount>0{crate::legacy_buy::native_payments::ensure_rent_exempt(&a.system_program,&a.admin_set_creator_authority,&a.holder_creator_vault)?;let _=unsafe{core::ptr::read_volatile(holder_key as *const Pubkey as *const u8)};/*shim: holder_key byte read before transfer_native, repays the pin*/crate::collect_v2::transfer_native(a.system_program.as_ref(),&a.creator_vault,&a.holder_creator_vault,amount,&vsigner)}else{Ok(())}).map(|()|amount);}else{let amount=token_raw_amount(a.creator_vault_quote_token_account.as_ref())?;let frozen=token_frozen(a.creator_vault_quote_token_account.as_ref())?;
+   return if amount>0{crate::legacy_buy::native_payments::ensure_rent_exempt(&a.system_program,&a.admin_set_creator_authority,&a.holder_creator_vault)?;crate::collect_v2::transfer_native(a.system_program.as_ref(),&a.creator_vault,&a.holder_creator_vault,amount,&vsigner).map(|()|amount)}else{Ok(0)};}else{let amount=token_raw_amount(a.creator_vault_quote_token_account.as_ref())?;let frozen=token_frozen(a.creator_vault_quote_token_account.as_ref())?;
 
 
 
