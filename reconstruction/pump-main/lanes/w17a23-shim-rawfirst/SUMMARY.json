@@ -1,0 +1,55 @@
+{
+  "lane": "w17a23-shim-rawfirst",
+  "wave": 17,
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27,400 B",
+  "angle": "sweep token arm in the original's call order (token_raw_amount before token_frozen, line 664), made landable with marked shims",
+  "result": "notes only; kill condition met: no source-realisable combination brings raw-first to main's M at 27,400 B",
+  "bases": {
+    "4d09af488": {"main_M": 2287, "R": [2275, 27376], "RF1": [2281, 27384]},
+    "2f3597f99": {"main_M": 2291, "R1": [2279, 27376], "RF1b": [2285, 27384]},
+    "aab087f32": {"main_M": 2294, "R2": [2282, 27376], "RF2": [2288, 27384], "R2FV_ir": [2292, 27400]}
+  },
+  "best": {
+    "realisable": {"variant": "RF2 = raw-first + black_box(()) fence on the token-arm transfer Ok continuation (line 719)", "M": 2288, "bytes": 27384, "main_M": 2294},
+    "ir_cell": {"variant": "RF2 + vl:sweep:32941 (volatile load of the raw_amount Ok payload from the ? temp)", "M": 2292, "bytes": 27400, "main_M": 2294},
+    "ra_forced": {"variant": "RF2 + private RAPRIO llc FORCE 246=r6 STICKY (original token arm)", "M": 2295, "bytes": 27376, "note": "no source lever"}
+  },
+  "mechanism": "GEP %244 (accounts+72, r3 hint from the transfer arg => priority bit 30) is dequeued while %0 is whole in r8 and takes r6; the amount %246 (no physreg COPY, no hint) later takes the first free callee-saved r8, so tryHintsRecoloring cannot move %244 to r8. On frozen-first main the short frozen byte takes r9 and %244 is recoloured r6->r8.",
+  "attempts": [
+    "R (raw-first) on 3 bases: -12 at -24 B (jump offsets -9, registers -5, structure +2)",
+    "fence beam/pre-opt beam over R1: 1,648 of 2,311 cells (vl/rr/vs/bw/sw/bf/na/pt/pb); best fence +6 at +8 B",
+    "fence pairs (116) and triples (84) on R2: best 2,292 @27,400",
+    "post-opt token-arm branch weights (5 branches x 10 p): no RA change",
+    "RAPRIO force/hint/prio/nohint grid on R, R1, R2, R2F, R2FV",
+    "source forms: RFVA (match + volatile payload) 1,720; RFVC (let ar=..?; read_volatile(&ar)) 2,282 @27,400; RX1 (ptp transfer arg inside and_then) breaks closure inlining; RX2/RX2F (field address re-derived in the CPI arm) 2,273 @27,336 / 2,268 @27,360"
+  ],
+  "rejected_mechanisms": [
+    "branch weights on the token arm (cannot change a no-eviction first-free assignment)",
+    "re-deriving the transfer source arg (closure de-inlining or amount to r9)",
+    "volatile amount reads (filler store/reload, below the IR cell)",
+    "RAPRIO non-sticky / hint / nohint forms (collapse or amount to r9)"
+  ],
+  "unresolved_residuals": [
+    "token-arm RA: amount must be allocated before the field address (or the field address kept out of r6), worth about +7 M jump-masked on raw-first",
+    "original spills &holder_creator_vault at its definition (-0x8e0); main keeps it in r6 and spills it to -0x9b8 at the token arm",
+    "original stores a precomputed is_holder_reward bool from [r10-0x950] at the curve update (no and64 of the param byte)",
+    "sweep-exit join shape (payload in r9, tag in r7, sharing tag reloaded into r6) is w17a21's"
+  ],
+  "next_ideas": [
+    "union lanes that adopt raw-first (s1+n1po / s1+p2, w16a11) should add the line-719 fence: it is +6 on raw-first and -118 on frozen-first",
+    "a register-passed use of the amount (any physreg COPY) would give %246 priority bit 30 and size 2,192 > %244's 1,968, so it would be allocated first and take r6",
+    "the is_holder_reward store from a precomputed bool (orig [r10-0x950]) is an untried faithful respelling of line 755"
+  ],
+  "tools": "reconstruction/pump-main/lanes/w17a23-shim-rawfirst/tools/ (cap.sh, mk.py, variants.py, rapr.sh, apply1.py, occ.py, rc.py, mj.py, jdiff.py, slot.py)",
+  "ledger_keys": [
+    "0x22a10-w17-2f3597f-rawfirst-R1-v1",
+    "0x22a10-w17-2f3597f-rawfirst-RF1b-fence-v1",
+    "0x22a10-w17-2f3597f-rawfirst-raprio-price-v1",
+    "0x22a10-w17-aab087f-rawfirst-R2-RF2-v1",
+    "0x22a10-w17-aab087f-rawfirst-fencepairs-v1",
+    "0x22a10-w17-aab087f-rawfirst-vlsrc-v1",
+    "0x22a10-w17-aab087f-rawfirst-transferarg-v1",
+    "0x22a10-w17-aab087f-rawfirst-pwscan-v1"
+  ],
+  "landed": false
+}
