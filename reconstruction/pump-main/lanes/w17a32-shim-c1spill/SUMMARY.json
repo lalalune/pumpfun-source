@@ -1,0 +1,49 @@
+{
+  "lane": "w17a32-shim-c1spill",
+  "wave": 17,
+  "target": "0x22a10 admin_cto::execute (programs/pump/src/creator/admin_cto.rs), pinned 27400 B",
+  "base": {"main": "83bfb5c3e (admin_cto bytes = 8bee07558 = 53ec7fb53)", "ratio": 0.68754, "slots_diff": 3096, "bytes": 27400, "oracle_M": 2295},
+  "result": "KILL: bound below +10 M for C1, T1 and both, with and without sticky forces; bound table committed, no source change",
+  "best": {"ratio": 0.68754, "slots_diff": 3096, "bytes": 27400, "note": "main unchanged; no zero-loss variant above main"},
+  "bounds": {
+    "C1_force_1689_spill": {"M": 2282, "dM": -13, "bytes": 27480, "C1": 2, "C1_rfj": 5},
+    "C1_nodead_model": {"M": 2289, "dM": -6, "bytes": 27472, "C1": 7, "lcs_delta": 0},
+    "C1_1689_1692_spill": {"M": 2283, "dM": -12, "bytes": 27496},
+    "C1_spill_sticky_climb_vs_main_climb": {"c1": [2328, 27440], "main": [2336, 27384], "marginal": -8},
+    "C1_spill_plus_same_5_forces": {"c1": [2304, 27472], "main": [2318, 27392], "marginal": -14},
+    "T1_1688_spill": {"M": 2026, "dM": -269},
+    "T1_rbasin_forces": {"M_range": [2117, 2161], "note": "no separate T1 piece exists; every force that ends the W1..T1 r8 piece re-basins T1 -99..-137"},
+    "T1_mir_copy_split": {"M": 2157, "dM": -138, "bytes": 27392},
+    "both": {"M_range": [2023, 2158]},
+    "no_reread_plus_spill": {"M_range": [2240, 2282]}
+  },
+  "ledger_keys": [
+    "0x22a10-w17-83bfb5c-c1spill-bound-C1-v1",
+    "0x22a10-w17-83bfb5c-c1spill-bound-C1sticky-v1",
+    "0x22a10-w17-83bfb5c-c1spill-bound-T1-v1",
+    "0x22a10-w17-83bfb5c-c1spill-bound-both-v1",
+    "0x22a10-w17-83bfb5c-c1spill-bound-noreread-v1",
+    "0x22a10-w17-83bfb5c-c1spill-miroracle-v1",
+    "0x22a10-w17-83bfb5c-c1spill-bound-T1mircopy-v1"
+  ],
+  "rejected_mechanisms": [
+    "RAPRIO_FORCE spill of the C1 accounts piece (%1689, +%1692): reload structure matches (rfj +5) but naming and size cost more",
+    "C1 spill under symmetric sticky climbs: -8 vs climbed main",
+    "T1: spill of the W1..T1 r8 piece %1688 (-269); r8 forces / PRIO reorders / sticky blockers in the T1 tail (re-basin, -134..-178)",
+    "C1 spill plus removal of main's IR account-pointer re-reads (pool_authority rent_epoch, pump_fees_event_authority x3): -13..-55",
+    "MIR-level COPY split of accounts at the T1 creator_vault clone: coalesced back, but the slot gap re-basins RA (-138)"
+  ],
+  "mechanisms_found": [
+    "exact MIR oracle: -stop-after/-start-after=twoaddressinstruction reproduces main after rebasing 19 outgoing stack-arg stores (tools/mirfix.py); -stop-before=greedy does not (dense slot renumbering)",
+    "slot-index gaps of instructions deleted after Slot index numbering (coalesced COPYs) change interval sizes, so greedy priorities and weights: a zero-footprint RA lever distinct from IR folds",
+    "main's C1 re-reads of account pointers are IR-level (not RA remat) and load-bearing for the current allocation"
+  ],
+  "unresolved_residuals": [
+    "C1 allocation of the original: first clone key in r5 until 0x3f30 (spill -0x910), field temps in r6; not reproduced by any force set",
+    "T1: original r8 piece ends at 0x30e8, then a local accounts reload piece in r4 for the creator_vault fields"
+  ],
+  "next_ideas": [
+    "map the original's C1 interference (who holds r5/r1/r2 across C1) before any further C1 spill attempt; only a joint allocation pays",
+    "source constructs that leave a coalescable COPY at a chosen point (slot-gap lever), screened like passthrough cells"
+  ]
+}
