@@ -1,0 +1,200 @@
+{
+ "lane": "w16a13-cto-sutag306",
+ "wave": 16,
+ "target": {
+  "window": "0x22a10",
+  "function": "admin_cto::execute",
+  "file": "programs/pump/src/creator/admin_cto.rs",
+  "pinned_bytes": 27400
+ },
+ "base": {
+  "main": "599891304 (admin_cto.rs as on 7e5ba44a7/1f4e396b5)",
+  "ratio": 0.67436,
+  "slots_diff": 3141,
+  "bytes": 27400,
+  "M": 2251,
+  "Mperm": 2293,
+  "true_lcs_rfj": 3006
+ },
+ "result": "notes only, no landable change; kill test met",
+ "best_zero_loss": {
+  "ratio": 0.67436,
+  "slots_diff": 3141,
+  "bytes": 27400,
+  "note": "main unchanged"
+ },
+ "best_oracle_cell": {
+  "name": "tAn2 (= tB2 = tAn3 = tAn4 = tAn5)",
+  "bytes": 27040,
+  "M": 2219,
+  "Mperm": 2262,
+  "Mhc": 2272,
+  "lcs": 2233,
+  "true_lcs_rfj": 2962,
+  "lddw": 86,
+  "ratio": 0.66908,
+  "source": "tf_g3 creator binding + validate(&st,hopt,fee,new,&Some(new)|&args.0,&holder_key,&sk) with su:&Option<Option<Pubkey>> and line 306 `let t=match (*su,new){(Some(Some(_)),Some(t))=>t,_=>return Err(error!(PumpError::CtoNewCreatorRequired))};`",
+  "why_not_landed": "27040 B: needs +360 B (43 tokens) carrying >=33 matched tokens to reach M 2252; its true LCS rfj (2962) is 44 below main (validate chunk 0x800 -39); faithful repay pieces collapse it (Fa 1393) or lose (b01 1777); its su conjunct is redundant with new (F2 class)"
+ },
+ "mechanism": [
+  "At V (validate's inliner visit) an Option<Option<Pubkey>> received as a parameter is tested as niche tag==2 (50/50) then inner `and i8 tag,1` (50/50): P(Some(Some))=0.25 (0.125 with the double test). 307 and 312 to_string become cold call sites (0.0141/0.0144, or 0.0071/0.0072) and outline (threshold 45): lddw 86 = original.",
+  "Post-opt, the double-test form leaves exactly the original's 306 bit test `and i8 tag,1; icmp eq 0` (orig 0x730) next to the unmasked 298 test `icmp eq tag,0` (orig 0x908) on the same range-free copyload, which also feeds the sharing phi {tag,2,2,0} (orig slot [r10-0x8f8]). Single-test forms become switch i8 [2,0] (llc and 0xfd) because CVP sees tag!=2 first.",
+  "Non-redundant carriers collapse: su-first (the real sharing_update built before validate and read by it) and any form that reads the Pubkey from the copy keep the copy's entry pieces live (i64 [8,16) + ptr [16,24) + 7/9 B memcpys, the original's 0x4d8-0x538 shape and its unmerged 7/9 pieces). Greedy RA in the sweep CPI clone chunk changes (accounts pointer r6 instead of r8; orig 0x3000 chunk M 29 vs main 158) and on su-first forms the 660/post chain flips (w15a31 tail-merge mechanism).",
+  "An Option<Option<Pubkey>> built inside validate (decide-helper class) is folded before V (iw/in2: main's V)."
+ ],
+ "attempts": [
+  {
+   "key": "rw",
+   "form": "su-first, match *su{Some(Some(t))=>t,_=>E}",
+   "V307": 0.0141,
+   "lddw": 86,
+   "bytes": 27152,
+   "M": 1443,
+   "collapse": true
+  },
+  {
+   "key": "rle/rm3/rm3s/rne/rne2/vw/vm3",
+   "form": "su-first spellings (let-else, 3-arm, nested, by value)",
+   "V307": 0.0141,
+   "lddw": "86-90",
+   "bytes": "27152-27464",
+   "M": "1395-1431",
+   "collapse": true
+  },
+  {
+   "key": "trw/trle/tvw/trm3",
+   "form": "su-first on tf_g3",
+   "V307": 0.0141,
+   "lddw": "86-90",
+   "bytes": "27224-27464",
+   "M": "1381-1462",
+   "collapse": true
+  },
+  {
+   "key": "rw_eq/rw_and/trw_eq/trw_and",
+   "form": "IR: post-opt 306 switch -> icmp eq 0 / and 1",
+   "M": "1417-1421",
+   "note": "306 form is not the collapse cause"
+  },
+  {
+   "key": "trw blkrestore",
+   "form": "layout restore to vw/main",
+   "M": "1631/1616",
+   "skM": 2717
+  },
+  {
+   "key": "mA/mAv",
+   "form": "temporary &Some(new) read by validate, payload from it, main form",
+   "lddw": 86,
+   "bytes": 27208,
+   "M": 1525,
+   "collapse": true
+  },
+  {
+   "key": "tA/tAv",
+   "form": "same on tf_g3",
+   "lddw": 86,
+   "bytes": 27144,
+   "M": 1789,
+   "Mperm": 1930,
+   "rfj": 2962,
+   "note": "RA (accounts pointer r6), 660 placed"
+  },
+  {
+   "key": "tA_eq",
+   "form": "tA + IR 306 eq",
+   "bytes": 27168,
+   "M": 1828,
+   "rfj": 2981
+  },
+  {
+   "key": "tAn1",
+   "form": "temp, Some(Some(_))=>new.unwrap_or_default()",
+   "bytes": 27040,
+   "M": 1889
+  },
+  {
+   "key": "tAn2/tAn3/tAn4/tAn5/tB2/tB2v",
+   "form": "tf_g3 temp/args copy, double test, payload from new",
+   "V307": 0.0071,
+   "lddw": 86,
+   "bytes": 27040,
+   "M": 2219,
+   "collapse": false
+  },
+  {
+   "key": "tAn6/tAn7/tAn8",
+   "form": "double test with distinct 306 error blocks",
+   "lddw": "90-93",
+   "bytes": "27464-27744",
+   "M": "1955-1959",
+   "rfj_tAn6": 2989
+  },
+  {
+   "key": "trn1/trn2/trn3/rn2",
+   "form": "su-first + payload from new",
+   "bytes": "26920-26936",
+   "M": "1408-1409",
+   "collapse": true
+  },
+  {
+   "key": "mAn1/mAn2/mB2",
+   "form": "temp or args copy on main form",
+   "bytes": "26912-27008",
+   "M": "1972 (mAn2)",
+   "note": "half collapse; tf_g3 needed"
+  },
+  {
+   "key": "tB1",
+   "form": "args=&(Some(new),), single test, payload from copy",
+   "bytes": 27496,
+   "M": 1391,
+   "collapse": true
+  },
+  {
+   "key": "tAn2+Fa / +Fa+Fs / +b01 / +Fa+b01 / +ov1a",
+   "form": "repay pieces",
+   "bytes": "26976-27320",
+   "M": "1363-1777",
+   "note": "all lose or collapse"
+  },
+  {
+   "key": "iw/in2",
+   "form": "su local to validate",
+   "note": "folded before V; main's V"
+  },
+  {
+   "key": "tA+v01/+Gc/+G51/+b01/+b01+v01, tAs",
+   "form": "RA-basin screen on the faithful tA base",
+   "bytes": "27120-27256",
+   "M": "1419-1790",
+   "note": "no ordinary gene restores main's sweep RA"
+  }
+ ],
+ "rejected_mechanisms": [
+  "su-first (sharing_update=Some(new) before validate, read by validate's 306): collapses on main and tf_g3 (M 1381-1462)",
+  "payload t read from the Option<Option<Pubkey>> copy (faithful entry pieces): RA collapse (M 1391-1789)",
+  "Fa entry copy as repay on the outline carrier: collapse (1393)",
+  "b01 / ov1a on the outline carrier: lose / collapse",
+  "update built inside validate / decide helper: folded before V, no trigger",
+  "306 test form alone (IR switch->eq/and1): worth <= +39 M, not the collapse cause",
+  "faithful tA base + v01/G51/Gc/b01 RA perturbations: stays 1,419-1,790"
+ ],
+ "unresolved_residuals": [
+  "The faithful form (payload from the copy, tA: entry pieces + 7/9 split + outline + original 306/298 tests) loses on RA in the sweep CPI clone chunk: accounts pointer r6 vs original r8 plus spill slots; no source lever known (w16a08 accounts-pointer basin).",
+  "Original tail order 306 296 326 312 307: tAn2 gives 298 289 296 312 306 326 307 (post-opt and-1 is 37.5% err under BPI's zero heuristic).",
+  "Repay of the 360 B the outline frees: no faithful piece survives on the outline carrier."
+ ],
+ "next_ideas": [
+  "Price tA (faithful outline base, rfj 2962/2981) under a sticky RA force of the accounts-pointer live range in the sweep clone region (w15a24/w15a28 RAPRIO llc) to see whether the faithful base beats main once that one naming is fixed.",
+  "Look for a non-redundant reason the original tests the copy: e.g. the original's validate may take the CPI-side value (sharing payload) as its only `new` input with the Pubkey assembled from it (tB1 class) together with other original-side RA context (holder flag basin, w14a142 e1) that keeps r8 for the accounts pointer.",
+  "tAn6 (two 306 blocks) has the best outline skeleton (rfj 2989) at 27464 B; a form that keeps that skeleton with one 306 block could narrow the rfj gap."
+ ],
+ "ledger": {
+  "approach": "sutag306",
+  "key_pattern": "0x22a10-w16-1f4e396-sutag306-<form>-v1",
+  "rows": 47
+ },
+ "tools": "reconstruction/pump-main/lanes/w16a13-cto-sutag306/tools (capV.sh, sg.py genes, eo.py, rdiff.py, llcx.py, rst.sh, rec.py, ed/)",
+ "pr": 3883
+}

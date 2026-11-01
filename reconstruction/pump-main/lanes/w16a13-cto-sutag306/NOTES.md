@@ -5,7 +5,7 @@ Base: main 599891304 (admin_cto.rs unchanged since 7e5ba44a7/1f4e396b5): 0.67436
 true LCS rfj 3,006. Continues w16a06-cto-bonoutline next idea 1 (#3863). Ledger: approach `sutag306`, keys
 `0x22a10-w16-1f4e396-sutag306-<form>-v1`.
 
-**Result (in progress): no landable change yet; main stays the best zero-loss measurement (0.67436 / 3,141 slots / 27,400 B).**
+**Result: no landable change; main stays the best zero-loss measurement (0.67436 / 3,141 slots / 27,400 B). Kill test met.**
 - The 306 trigger has an ordinary-Rust form. A `match` on `Some(Some(_))` of an `Option<Option<Pubkey>>` that validate
   receives as a parameter outlines 307 and 312 at V (P(Some) 0.25, or 0.125 with the double test) without any
   forcing construct.
@@ -61,6 +61,10 @@ true LCS rfj 3,006. Continues w16a06-cto-bonoutline next idea 1 (#3863). Ledger:
 | **tAn2 / tAn3 / tAn4: tf_g3 + temp `&Some(new)` + `match (*su,new){(Some(Some(_)),Some(t))=>t,_=>E}`** | tag==2, and 1, new tag | **0.1320 / 0.0071C / 0.0072C** | **86** | **27,040** | **2,219** | **no collapse**; Mperm 2,262, Mhc 2,272, LCS 2,233, rfj 2,962 (main 3,006) |
 | tAn2 + Fa (validate reads `args.0`) / + Fs | | outlined | 86 | 27,280 | 1,393 | collapse |
 | tAn2 + b01 / + Fa + b01 | | outlined | 86 | 26,976 / 27,320 | 1,777 / 1,363 | loses / collapse |
+| tAn5: nested `match *su{Some(Some(_))=>match new{..},_=>E}` | | outlined | 86 | 27,040 | 2,219 | = tAn2 |
+| tAn6 / tAn7 / tAn8: forms whose 306 error blocks stay distinct (two or three survive) | | outlined | 90-93 | 27,464-27,744 | 1,955-1,959 | rfj 2,989 (tAn6) |
+| tAn2 + ov1a (w15a20 OV duplication) | | outlined | 86 | 27,112 | 1,404 | collapse |
+| tA + v01 / + Gc / + G51 / + b01 (+v01); tAs (temp `Some(args.0)`) | | outlined | 86 | 27,120-27,256 | 1,790 / 1,790 / 1,773 / 1,477; 1,419 | no RA basin recovers the faithful base |
 
 B form (the copy is the sharing payload itself: `let args=&(Some(new),)`, the shared non-holder arm takes
 `sharing_update=args.0`, validate reads `&args.0` or `args.0`):
@@ -71,6 +75,21 @@ B form (the copy is the sharing payload itself: `let args=&(Some(new),)`, the sh
 | mB2 (main form, double test) | 27,008 | 1,972 | = mAn2 |
 | tB1 (tf_g3, `match *su{Some(Some(t))=>t,_=>E}`, payload from the copy) | 27,496 | 1,391 | collapse |
 | iw / in2 (the update built inside validate: `let su=Some(new);match su{..}`) | V only | | folded before V: main's V (307/312 inlined) |
+
+True LCS (`lcschunk.py --mask rfj`, regs/frame/jumps masked; main 3,006):
+
+| build | rfj | per-chunk delta vs main |
+| --- | ---: | --- |
+| tAn2 / tB2 | 2,962 | 0x800 -39, 0x1000 -6 |
+| tA (payload from the copy) | 2,962 | 0x800 -54, 0x1000 +20 |
+| tA_eq (tA, post-opt 306 switch -> `icmp eq 0`) | 2,981 | 0x800 -36, 0x1000 +18 |
+| tAn6 (two 306 blocks) | 2,989 | 0x800 -25, 0x1000 +9 |
+| IR-forced tfg3n_vw1_2 (w16a06) | 2,971 | 0x800 -54, 0x1000 +18 |
+| rw / trw (su-first) | 2,451 / 2,452 | the 660/post-chain flip moves whole regions |
+
+- tA_eq differs from main in the sweep CPI clone chunk (orig 0x3000) almost only by the accounts pointer register (r6 in
+  tA_eq, r8 in main and the original) and a few spill slots. This is the w16a08 "accounts pointer" RA basin, now reached
+  from the faithful entry-copy side. A sticky RA force on that one live range (w15a24/w15a28 tooling) would bound tA.
 
 ## 4. Findings
 

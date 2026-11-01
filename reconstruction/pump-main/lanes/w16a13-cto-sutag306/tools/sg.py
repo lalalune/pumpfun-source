@@ -126,3 +126,15 @@ def _ov1a(s):
     s=_re.sub(r'validate\(([^;]*?),&sk\)\?',r'validate(\1,&sk,shared)?',s)
     return s
 G['ov1a']=[_ov1a]
+
+# ---- RA-basin screen on the faithful tA base (payload from the copy) ----
+def _ord(names):
+    def f(s):
+        m=_re.search(r'let (mut )?st=CtoState\{([^}]*)\}',s); assert m
+        fs=m.group(2).split(','); d={x.split(':')[0]:x for x in fs}; assert set(d)==set(names),(sorted(d),names)
+        return s[:m.start(2)]+','.join(d[n] for n in names)+s[m.end(2):]
+    return [f]
+G['G51']=_ord(['fee_configurable','cashback','creator','max_fee','mayhem','holder_reward','quote_locked','holder_enabled'])
+G['Gc']=_ord(['creator','fee_configurable','max_fee','mayhem','holder_reward','cashback','quote_locked','holder_enabled'])
+# 306 temp built from args.0 instead of new (Fs on tA)
+G['tAs']=_tmp("validate(&st,hopt,fee,new,&Some(args.0),&holder_key,&sk)",SIG_R,T306['w'],True)
