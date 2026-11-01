@@ -77,7 +77,9 @@ Notes on the rows:
   is re-attributed away from the other regions, and difflib M is -6.
 - **Climbs.** Genes are `rvote.py` votes on each base, priced as single sticky forces. The climb runs greedily over
   the gainful genes at any size (`climbb.py`). The two climbs are path-dependent and use different numbering after
-  vreg 1698, but the five-force row applies the same forces to both bases.
+  vreg 1698, but the five-force row applies the same forces to both bases. The main climb only replicates
+  w17a27-shim-forcereal's force family (its 2,332 @27,400) as the baseline for the marginal comparison. It is not a
+  new result: those forces belong to w17a27.
 - **Numbering.** T1 rows use main's numbering for the first force only. Later forced pieces are renumbered by the
   forces before them, so the multi-force T1 rows evict whatever the number names in that run, as the RAPRIO log
   shows.
