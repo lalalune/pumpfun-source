@@ -1,0 +1,26 @@
+# k = colour index (offset -2264-8k): ref count, first/last access (window offset), stores. orig | main m0n | S3n
+k=  0 -2264 n=34 first=0x0280 last=0x6878 stores=2             | k=  0 -2264 n=24 first=0x03d8 last=0x6878 stores=2             | k=  0 -2264 n=24 first=0x03d8 last=0x6888 stores=2
+k=  1 -2272 n=22 first=0x0150 last=0x5f10 stores=6             | k=  1 -2272 n=25 first=0x0110 last=0x6860 stores=9             | k=  1 -2272 n=25 first=0x0110 last=0x6870 stores=9
+k=  2 -2280 n= 7 first=0x0298 last=0x4dc8 stores=2             | k=  2 -2280 n= 3 first=0x0010 last=0x4b00 stores=1             | k=  2 -2280 n= 3 first=0x0010 last=0x4fc0 stores=1
+k=  3 -2288 n= 3 first=0x0018 last=0x5868 stores=1             | k=  3 -2288 n= 3 first=0x0018 last=0x5830 stores=1             | k=  3 -2288 n= 3 first=0x0018 last=0x5840 stores=1
+k=  4 -2296 n=15 first=0x04e0 last=0x60e0 stores=5             | k=  4 -2296 n= 5 first=0x0308 last=0x4fd8 stores=3             | k=  4 -2296 n= 5 first=0x0308 last=0x4fe8 stores=3
+k=  5 -2304 n=10 first=0x0510 last=0x4850 stores=2             | k=  5 -2304 n=12 first=0x04f8 last=0x5a68 stores=4             | k=  5 -2304 n= 5 first=0x04f8 last=0x4b20 stores=2
+k=  6 -2312 n=11 first=0x0420 last=0x5a98 stores=3             | k=  6 -2312 n= 8 first=0x04a0 last=0x4a48 stores=1             | k=  6 -2312 n= 8 first=0x04a0 last=0x4a60 stores=1
+k=  7 -2320 n=14 first=0x0350 last=0x6900 stores=4             | k=  7 -2320 n= 5 first=0x0008 last=0x4d88 stores=1             | k=  7 -2320 n= 5 first=0x0008 last=0x4d98 stores=1
+k=  8 -2328 n=18 first=0x0010 last=0x6730 stores=9             | k=  8 -2328 n=14 first=0x0440 last=0x6840 stores=5             | k=  8 -2328 n=12 first=0x0440 last=0x5a78 stores=4
+k=  9 -2336 n=13 first=0x01d8 last=0x66a8 stores=5             | k=  9 -2336 n=13 first=0x04a8 last=0x6900 stores=4             | k=  9 -2336 n=12 first=0x04a8 last=0x6850 stores=4
+k= 10 -2344 n=10 first=0x0008 last=0x4750 stores=3             | k= 10 -2344 n=13 first=0x01a0 last=0x6850 stores=7             | k= 10 -2344 n=14 first=0x01a0 last=0x6910 stores=5
+k= 11 -2352 n= 4 first=0x01f0 last=0x4dd8 stores=1             | k= 11 -2352 n= 4 first=0x0120 last=0x4d98 stores=1             | k= 11 -2352 n= 4 first=0x0120 last=0x4da8 stores=1
+k= 12 -2360 n= 6 first=0x0020 last=0x64f8 stores=1             | k= 12 -2360 n= 6 first=0x0020 last=0x64e0 stores=1             | k= 12 -2360 n= 6 first=0x0020 last=0x64f0 stores=1
+k= 13 -2368 n= 8 first=0x0600 last=0x4950 stores=3             | k= 13 -2368 n=12 first=0x05b0 last=0x6718 stores=4             | k= 13 -2368 n=15 first=0x05b0 last=0x6860 stores=7
+k= 14 -2376 n= 7 first=0x0c60 last=0x49a0 stores=4             | k= 14 -2376 n=10 first=0x05a0 last=0x6690 stores=4             | k= 14 -2376 n=10 first=0x05a0 last=0x6728 stores=4
+k= 15 -2384 n=26 first=0x0e40 last=0x6860 stores=8             | k= 15 -2384 n= 8 first=0x0598 last=0x48c0 stores=3             | k= 15 -2384 n=10 first=0x0598 last=0x66a0 stores=4
+k= 16 -2392 n= 7 first=0x0db8 last=0x4aa8 stores=4             | k= 16 -2392 n= 8 first=0x0ba8 last=0x47d0 stores=3             | k= 16 -2392 n= 8 first=0x0bb0 last=0x48d8 stores=3
+k= 17 -2400 n= 5 first=0x2a88 last=0x4990 stores=2             | k= 17 -2400 n= 6 first=0x2c68 last=0x4780 stores=2             | k= 17 -2400 n= 6 first=0x2b78 last=0x47e8 stores=2
+k= 18 -2408 n= 5 first=0x2b98 last=0x4980 stores=2             | k= 18 -2408 n= 5 first=0x2808 last=0x4ff0 stores=2             | k= 18 -2408 n= 6 first=0x2c80 last=0x4798 stores=2
+k= 19 -2416 n= 5 first=0x2830 last=0x4970 stores=2             | k= 19 -2416 n= 5 first=0x2920 last=0x4950 stores=2             | k= 19 -2416 n= 5 first=0x2820 last=0x5000 stores=2
+k= 20 -2424 n= 5 first=0x2838 last=0x4960 stores=2             | k= 20 -2424 n= 5 first=0x2d78 last=0x4940 stores=2             | k= 20 -2424 n= 5 first=0x2938 last=0x4968 stores=2
+k= 21 -2432 n= 5 first=0x2c98 last=0x4940 stores=2             | k= 21 -2432 n= 5 first=0x2a38 last=0x4930 stores=2             | k= 21 -2432 n= 5 first=0x2d90 last=0x4958 stores=2
+k= 22 -2440 n= 5 first=0x2950 last=0x4930 stores=2             | k= 22 -2440 n= 5 first=0x2a30 last=0x4920 stores=2             | k= 22 -2440 n= 5 first=0x2a50 last=0x4948 stores=2
+k= 23 -2448 n= 5 first=0x2958 last=0x4920 stores=2             | k= 23 -2448 n= 5 first=0x2c50 last=0x4910 stores=2             | k= 23 -2448 n= 5 first=0x2a48 last=0x4938 stores=2
+nslots 115                                                     | nslots 114                                                     | nslots 115

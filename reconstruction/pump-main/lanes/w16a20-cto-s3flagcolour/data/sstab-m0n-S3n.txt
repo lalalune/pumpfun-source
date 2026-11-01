@@ -1,0 +1,83 @@
+# main 5998913 (m0n): spill intervals by weight -> colour fi, final offset, original-offset vote (t2/sstab.py, w15a32)
+  0 SS#180  w=2.059949 [ 2856r, 68288r) fi#178 off=-2264 vote=-2264(13) nref=22 STD_V1 $r8, %stack.180, 0
+  1 SS#260  w=2.008047 [  640r, 12816r) fi#179 off=-2272 vote=-2384(6) nref=3 STD_V1 killed $r1, %stack.260, 0
+  2 SS#183  w=2.003945 [   48r, 64496B) fi#180 off=-2280 vote=-2328(1) nref=3 STD_V1 $r3, %stack.183, 0
+  3 SS#178  w=1.999999 [   80r, 71760B) fi#181 off=-2288 vote=-2288(3) nref=3 STD_V1 $r1, %stack.178, 0
+  4 SS#184  w=1.503945 [ 2016r, 64496B) fi#182 off=-2296 vote=-2272(2) nref=3 STD_V1 killed $r1, %stack.184, 0
+  5 SS#297  w=1.399546 [ 2896r, 16336B) fi#183 off=-2304 vote=-2312(4) nref=3 STD_V1 killed $r0, %stack.297, 0
+  6 SS#185  w=1.089222 [ 3280B, 64496B) fi#184 off=-2312 vote=None(0) nref=8 STD_V1 killed $r8, %stack.185, 0
+  7 SS#181  w=1.088262 [   32r, 66400r) fi#185 off=-2320 vote=-2344(2) nref=5 STD_V1 $r4, %stack.181, 0
+  8 SS#296  w=1.052236 [ 3064r, 16256r) fi#186 off=-2328 vote=-2328(4) nref=3 STD_V1 $r3, %stack.296, 0
+  9 SS#321  w=1.046327 [ 3304r, 19808B) fi#187 off=-2336 vote=-2320(4) nref=3 STD_V1 killed $r7, %stack.321, 0
+ 10 SS#234  w=1.039012 [ 1216B, 17712r) fi#188 off=-2344 vote=-2344(3) nref=2 STD_V1 killed $r6, %stack.234, 0
+ 11 SS#182  w=1.018053 [  656r, 66416r) fi#189 off=-2352 vote=-2352(3) nref=4 STD_V1 killed $r1, %stack.182, 0
+ 12 SS#179  w=1.010126 [   88r, 68400r) fi#190 off=-2360 vote=-2360(5) nref=6 STD_V1 $r2, %stack.179, 0
+ 13 SS#284  w=0.636465 [ 3744r, 19712r) fi#191 off=-2368 vote=-2368(3) nref=4 STD_V1 killed $r0, %stack.284, 0
+ 14 SS#298  w=0.390342 [ 3728r, 16912r) fi#192 off=-2376 vote=-2400(3) nref=2 STD_V1 killed $r1, %stack.298, 0
+ 15 SS#320  w=0.377515 [ 3720r, 13280r) fi#193 off=-2384 vote=-2416(2) nref=2 STD_V1 killed $r7, %stack.320, 0
+ 16 SS#186  w=0.062830 [17992r, 67280r) fi#179 off=-2272 vote=-2384(6) nref=22 STD_V1 killed $r2, %stack.186, 0
+ 17 SS#294  w=0.041006 [ 7752r, 13312B) fi#194 off=-2392 vote=-2408(3) nref=2 STD_V1 killed $r3, %stack.294, 0
+ 18 SS#187  w=0.039469 [19240r, 55216r) fi#183 off=-2304 vote=-2312(4) nref=4 STD_V1 $r3, %stack.187, 0
+ 19 SS#316  w=0.014630 [18264r, 18768B) fi#183 off=-2304 vote=-2312(4) nref=2 STD_V1 killed $r4, %stack.316, 0
+ 20 SS#317  w=0.014630 [18260r, 18768B) fi#186 off=-2328 vote=-2328(4) nref=2 STD_V1 killed $r5, %stack.317, 0
+ 21 SS#258  w=0.007889 [58424r, 63792r) fi#183 off=-2304 vote=-2312(4) nref=3 STD_V1 $r3, %stack.258, 0
+ 22 SS#278  w=0.007889 [59240r, 63664r) fi#186 off=-2328 vote=-2328(4) nref=3 STD_V1 $r3, %stack.278, 0
+ 23 SS#299  w=0.007889 [59992r, 63536r) fi#187 off=-2336 vote=-2320(4) nref=3 STD_V1 $r1, %stack.299, 0
+ 24 SS#230  w=0.007889 [57184r, 64064r) fi#188 off=-2344 vote=-2344(3) nref=3 STD_V1 killed $r4, %stack.230, 0
+ 25 SS#248  w=0.007889 [57936r, 63888r) fi#191 off=-2368 vote=-2368(3) nref=3 STD_V1 killed $r9, %stack.248, 0
+ 26 SS#319  w=0.007889 [60760r, 63408r) fi#192 off=-2376 vote=-2400(3) nref=3 STD_V1 $r1, %stack.319, 0
+ 27 SS#262  w=0.007889 [58672r, 63872r) fi#193 off=-2384 vote=-2416(2) nref=3 STD_V1 killed $r0, %stack.262, 0
+ 28 SS#302  w=0.007889 [60192r, 63632r) fi#194 off=-2392 vote=-2408(3) nref=3 STD_V1 killed $r2, %stack.302, 0
+ 29 SS#322  w=0.007889 [60944r, 63552r) fi#195 off=-2400 vote=-2432(3) nref=3 STD_V1 killed $r4, %stack.322, 0
+ 30 SS#189  w=0.006600 [55888B, 67856r) fi#196 off=-2408 vote=-2424(1) nref=2 STD_V1 killed $r3, %stack.189, 0
+ 31 SS#285  w=0.005285 [56672r, 67824r) fi#182 off=-2296 vote=-2272(2) nref=2 STD_V1 killed $r1, %stack.285, 0
+ 32 SS#243  w=0.005260 [57920r, 64016r) fi#197 off=-2416 vote=-2448(1) nref=2 STD_V1 killed $r1, %stack.243, 0
+ 33 SS#244  w=0.005260 [57904r, 64000r) fi#198 off=-2424 vote=-2456(3) nref=2 STD_V1 killed $r9, %stack.244, 0
+ 34 SS#245  w=0.005260 [57888r, 63984r) fi#199 off=-2432 vote=-2472(1) nref=2 STD_V1 killed $r9, %stack.245, 0
+ 35 SS#246  w=0.005260 [57872r, 63968r) fi#200 off=-2440 vote=-2440(1) nref=2 STD_V1 killed $r9, %stack.246, 0
+ 36 SS#247  w=0.005260 [57856r, 63952r) fi#201 off=-2448 vote=-2480(1) nref=2 STD_V1 killed $r9, %stack.247, 0
+ 37 SS#250  w=0.005260 [58248r, 63904r) fi#202 off=-2456 vote=-2432(2) nref=2 STD_V1 $r4, %stack.250, 0
+ 38 SS#259  w=0.005260 [58624r, 63936r) fi#203 off=-2464 vote=-2488(3) nref=2 STD_V1 killed $r9, %stack.259, 0
+ 39 SS#261  w=0.005260 [58608r, 63824r) fi#204 off=-2472 vote=-2480(1) nref=2 STD_V1 killed $r9, %stack.261, 0
+
+# S3n (w16a08 e/S3n.py on 5998913): SS#187 is the per-arm holder flag
+  0 SS#180  w=2.057714 [ 2856r, 68432r) fi#178 off=-2264 vote=-2264(13) nref=22 STD_V1 $r8, %stack.180, 0
+  1 SS#261  w=2.008047 [  640r, 12816r) fi#179 off=-2272 vote=-2384(6) nref=3 STD_V1 killed $r1, %stack.261, 0
+  2 SS#181  w=2.001341 [   48r, 67904r) fi#180 off=-2280 vote=-2328(1) nref=3 STD_V1 $r3, %stack.181, 0
+  3 SS#178  w=1.999999 [   80r, 71904B) fi#181 off=-2288 vote=-2288(3) nref=3 STD_V1 $r1, %stack.178, 0
+  4 SS#184  w=1.503945 [ 2016r, 64640B) fi#182 off=-2296 vote=-2272(2) nref=3 STD_V1 killed $r1, %stack.184, 0
+  5 SS#297  w=1.399546 [ 2896r, 16480B) fi#183 off=-2304 vote=-2368(1) nref=3 STD_V1 killed $r0, %stack.297, 0
+  6 SS#185  w=1.089222 [ 3280B, 64640B) fi#184 off=-2312 vote=None(0) nref=8 STD_V1 killed $r8, %stack.185, 0
+  7 SS#182  w=1.088262 [   32r, 66544r) fi#185 off=-2320 vote=-1200(2) nref=5 STD_V1 $r4, %stack.182, 0
+  8 SS#296  w=1.052236 [ 3064r, 16384r) fi#186 off=-2328 vote=-2312(5) nref=3 STD_V1 $r3, %stack.296, 0
+  9 SS#321  w=1.046327 [ 3304r, 19984B) fi#187 off=-2336 vote=-2328(4) nref=3 STD_V1 killed $r7, %stack.321, 0
+ 10 SS#232  w=1.039012 [ 1216B, 17888r) fi#188 off=-2344 vote=-2320(4) nref=2 STD_V1 killed $r6, %stack.232, 0
+ 11 SS#183  w=1.018053 [  656r, 66560r) fi#189 off=-2352 vote=-2352(3) nref=4 STD_V1 killed $r1, %stack.183, 0
+ 12 SS#179  w=1.010126 [   88r, 68544r) fi#190 off=-2360 vote=-2360(5) nref=6 STD_V1 $r2, %stack.179, 0
+ 13 SS#282  w=0.636465 [ 3744r, 19888r) fi#191 off=-2368 vote=-2344(3) nref=4 STD_V1 killed $r0, %stack.282, 0
+ 14 SS#298  w=0.390342 [ 3728r, 17056r) fi#192 off=-2376 vote=-2368(3) nref=2 STD_V1 killed $r1, %stack.298, 0
+ 15 SS#320  w=0.377515 [ 3720r, 13376r) fi#193 off=-2384 vote=-2400(3) nref=2 STD_V1 killed $r7, %stack.320, 0
+ 16 SS#186  w=0.062830 [18168r, 67392r) fi#179 off=-2272 vote=-2384(6) nref=22 STD_V1 killed $r2, %stack.186, 0
+ 17 SS#187  w=0.042957 [17696B, 64640B) fi#183 off=-2304 vote=-2368(1) nref=2 STD_V1 killed $r2, %stack.187, 0
+ 18 SS#284  w=0.041006 [ 7752r, 13408B) fi#194 off=-2392 vote=-2416(2) nref=2 STD_V1 killed $r3, %stack.284, 0
+ 19 SS#188  w=0.039469 [19416r, 55392r) fi#186 off=-2328 vote=-2312(5) nref=4 STD_V1 $r3, %stack.188, 0
+ 20 SS#316  w=0.014630 [18440r, 18944B) fi#186 off=-2328 vote=-2312(5) nref=2 STD_V1 killed $r5, %stack.316, 0
+ 21 SS#317  w=0.014630 [18436r, 18944B) fi#188 off=-2344 vote=-2320(4) nref=2 STD_V1 killed $r0, %stack.317, 0
+ 22 SS#259  w=0.007889 [58568r, 63936r) fi#186 off=-2328 vote=-2312(5) nref=3 STD_V1 $r3, %stack.259, 0
+ 23 SS#279  w=0.007889 [59384r, 63808r) fi#187 off=-2336 vote=-2328(4) nref=3 STD_V1 $r3, %stack.279, 0
+ 24 SS#300  w=0.007889 [60136r, 63680r) fi#188 off=-2344 vote=-2320(4) nref=3 STD_V1 $r1, %stack.300, 0
+ 25 SS#231  w=0.007889 [57328r, 64208r) fi#191 off=-2368 vote=-2344(3) nref=3 STD_V1 killed $r4, %stack.231, 0
+ 26 SS#249  w=0.007889 [58080r, 64032r) fi#192 off=-2376 vote=-2368(3) nref=3 STD_V1 killed $r9, %stack.249, 0
+ 27 SS#322  w=0.007889 [60904r, 63552r) fi#193 off=-2384 vote=-2400(3) nref=3 STD_V1 $r1, %stack.322, 0
+ 28 SS#263  w=0.007889 [58816r, 64016r) fi#194 off=-2392 vote=-2416(2) nref=3 STD_V1 killed $r0, %stack.263, 0
+ 29 SS#303  w=0.007889 [60336r, 63776r) fi#195 off=-2400 vote=-2408(3) nref=3 STD_V1 killed $r2, %stack.303, 0
+ 30 SS#323  w=0.007889 [61088r, 63696r) fi#196 off=-2408 vote=-2432(3) nref=3 STD_V1 killed $r4, %stack.323, 0
+ 31 SS#190  w=0.006600 [56064B, 68000r) fi#197 off=-2416 vote=-2424(1) nref=2 STD_V1 killed $r3, %stack.190, 0
+ 32 SS#287  w=0.005285 [56848r, 67968r) fi#182 off=-2296 vote=-2272(2) nref=2 STD_V1 killed $r1, %stack.287, 0
+ 33 SS#244  w=0.005260 [58064r, 64160r) fi#198 off=-2424 vote=-2448(1) nref=2 STD_V1 killed $r1, %stack.244, 0
+ 34 SS#245  w=0.005260 [58048r, 64144r) fi#199 off=-2432 vote=-2456(3) nref=2 STD_V1 killed $r9, %stack.245, 0
+ 35 SS#246  w=0.005260 [58032r, 64128r) fi#200 off=-2440 vote=-2472(1) nref=2 STD_V1 killed $r9, %stack.246, 0
+ 36 SS#247  w=0.005260 [58016r, 64112r) fi#201 off=-2448 vote=-2440(1) nref=2 STD_V1 killed $r9, %stack.247, 0
+ 37 SS#248  w=0.005260 [58000r, 64096r) fi#202 off=-2456 vote=-2480(1) nref=2 STD_V1 killed $r9, %stack.248, 0
+ 38 SS#251  w=0.005260 [58392r, 64048r) fi#203 off=-2464 vote=-2432(2) nref=2 STD_V1 $r4, %stack.251, 0
+ 39 SS#260  w=0.005260 [58768r, 64080r) fi#204 off=-2472 vote=-2488(3) nref=2 STD_V1 killed $r9, %stack.260, 0

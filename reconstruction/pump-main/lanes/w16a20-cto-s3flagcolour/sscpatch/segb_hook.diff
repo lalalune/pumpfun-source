@@ -1,0 +1,52 @@
+--- StackSlotColoring.cpp.v1	2026-10-31 18:55:12
++++ StackSlotColoring.cpp	2026-10-31 18:55:12
+@@ -43,6 +43,7 @@
+ #include <iterator>
+ #include <vector>
+ #include <cstdlib>
++#include <cstdio>
+ #include <string>
+ 
+ using namespace llvm;
+@@ -547,6 +548,41 @@
+   // Gather spill slot references
+   ScanForSpillSlotRefs(MF);
+   InitializeSlots();
++  // lane w16a20 experiment hook (private llc only): SSC_SEGB="ss:A:B,..." adds the slot-index range
++  // [start(bb.A), end(bb.B)) to spill interval SS#ss; SSC_SEGU="ss:o,..." adds all segments of SS#o to SS#ss.
++  // Only the overlap test of the colouring sees the change.
++  {
++    SlotIndexes *SIs = &getAnalysis<SlotIndexes>();
++    auto findLI = [&](int ss) -> LiveInterval * {
++      for (LiveInterval *li : SSIntervals)
++        if (Register::stackSlot2Index(li->reg()) == ss) return li;
++      return nullptr;
++    };
++    if (const char *E = getenv("SSC_SEGB")) {
++      std::string S(E); size_t p = 0;
++      while (p < S.size()) {
++        size_t c = S.find(',', p); if (c == std::string::npos) c = S.size();
++        std::string tok = S.substr(p, c - p); p = c + 1;
++        int ss, a, b; if (sscanf(tok.c_str(), "%d:%d:%d", &ss, &a, &b) != 3) continue;
++        LiveInterval *li = findLI(ss); if (!li || li->empty()) continue;
++        SlotIndex s0 = SIs->getMBBStartIdx(MF.getBlockNumbered(a)), s1 = SIs->getMBBEndIdx(MF.getBlockNumbered(b));
++        if (!(s0 < s1)) continue;
++        li->addSegment(LiveRange::Segment(s0, s1, li->getValNumInfo(0)));
++        LLVM_DEBUG(dbgs() << "SEGB SS#" << ss << " += [" << s0 << "," << s1 << ")\n");
++      }
++    }
++    if (const char *E = getenv("SSC_SEGU")) {
++      std::string S(E); size_t p = 0;
++      while (p < S.size()) {
++        size_t c = S.find(',', p); if (c == std::string::npos) c = S.size();
++        std::string tok = S.substr(p, c - p); p = c + 1;
++        int ss, o; if (sscanf(tok.c_str(), "%d:%d", &ss, &o) != 2) continue;
++        LiveInterval *li = findLI(ss), *lo = findLI(o); if (!li || !lo || li->empty()) continue;
++        for (const LiveRange::Segment &sg : lo->segments)
++          li->addSegment(LiveRange::Segment(sg.start, sg.end, li->getValNumInfo(0)));
++      }
++    }
++  }
+   Changed = ColorSlots(MF);
+ 
+   for (int &Next : NextColors)
