@@ -180,7 +180,14 @@ the same: restore (a no-op for both), permhc, then RA pass 1 and pass 2 with the
 - Size: the -16 B knobs of `sizeknobs-cto.json` (`g_rent_ref`, `g_rent_named`, `g_s7_rentlocal`, `g_s7_minvar`) no
   longer apply to the current source. Only `cu_fee_replace` (-8 B) still applies, so the repay has to come from w16a02's
   catalog.
-- Real build (`measure.sh $OUT/var/S3nb`): ok, admin_cto 0.59599 @ 27,416 (the oracle's exact value), normalized 1034 with
+- **The spill-numbering blocker in one number.** A one-slot relabel of S3n moves one shallow spill slot (any of
+  -2296..-2368) to the deepest position and closes the gap, so the 71 deeper slots get main's offsets back. That takes raw
+  M from 1,990 to **2,234** (-17 against main's 2,251, at +16 B; `relab.py` on `rx/S3n`). Moving a slot to the shallow
+  end instead gives at most 2,030.
+  - The head stores of -2296, -2304 and -2368 are the same as main's. The coloring differs later: -2368 holds 7 stores in
+    S3n against main's 4, and -2304 holds 2 against 4.
+  - So the target for a landing lane is a spelling whose extra spill slot is coloured or created last, not a moved value.
+- Real build (`measure.sh` on main + `e/S3n.py`, output `$OUT/t/S3n`): ok, admin_cto 0.59599 @ 27,416 (the oracle's exact value), normalized 1034 with
   0 losses, raw 347 (687 raw losses from the +16 B). `pump_admin_cto_differential.py`: 388 cases, 0 mismatches.
 
 ## Tools (`tools/`, experiment only; paths point at this lane's `$OUT`)

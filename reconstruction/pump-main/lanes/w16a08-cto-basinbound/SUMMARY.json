@@ -79,7 +79,8 @@
     "forces": "1739=r9,1691=r6,469=r2,1678=r7,1285=r2,2195=r6,2198=r5,1847=r5,1959=r5,1713=r4,1709=r3,1749=r3,2154=r9"
    }
   },
-  "equivalent_spellings": "S3b (flag writes at the head of each arm) and S3c (init true, only the non-holder arm writes false) fold to S3n byte for byte"
+  "equivalent_spellings": "S3b (flag writes at the head of each arm) and S3c (init true, only the non-holder arm writes false) fold to S3n byte for byte",
+  "spill_numbering_probe": "one-slot relabel on S3n: moving one shallow spill slot (-2296..-2368) to the deepest position (closing the gap, 71 deeper slots back to main offsets) gives raw M 2,234 (main 2,251) at +16 B; to the shallow end at most 2,030"
  },
  "killed": "threaded outline triggers (T289n, X1, Y2, Z2, B2), and-1 basins (v14, v21, v26) and ov1a: stacked ceilings 134-239 M below 2,338; true LCS rf- (perfect RA and frame) 34-124 tokens below main",
  "mechanisms": [
@@ -97,6 +98,7 @@
   "S3b / S3c spellings of the per-arm flag (fold to S3n; no lever on spill numbering)"
  ],
  "next_ideas": [
+  "make S3's extra spill slot the last-created/deepest (one-slot relabel on S3n gives raw M 2,234 vs main 2,251): look for a spelling that delays the flag/its coloured partner's spill, then add the RA levers (1739=r9, 1847=r5) and a -16 B repay",
   "S3 spill numbering: find an ordinary spelling whose greedy spill order gives the flag the original's [r10-0x950] slot (w15a08 J1 move) instead of inserting it mid-numbering; price with permhc and the restore-aware climb (tools/full.sh)",
   "ordinary levers for 1739=r9 (payload in r9 at the post-sweep joins) and 1847=r5 on S3",
   "then repay +16 B with a faithful -16 B knob (g_rent_ref / g_rent_named / g_s7_rentlocal) and run measure.sh + the differential",
