@@ -1,0 +1,322 @@
+{
+ "lane": "w16a21-cto-s3cashflag",
+ "wave": 16,
+ "target": {
+  "window": "0x22a10",
+  "function": "admin_cto::execute",
+  "file": "programs/pump/src/creator/admin_cto.rs",
+  "pinned_bytes": 27400
+ },
+ "base": {
+  "main": "599891304",
+  "ratio": 0.67436,
+  "slots": 3141,
+  "bytes": 27400,
+  "M": 2251,
+  "Mperm": 2295,
+  "Mhc": 2302,
+  "stacked_p2": 2339,
+  "S3n": {
+   "source": "w16a08-cto-basinbound e/S3n.py (#3876)",
+   "bytes": 27416,
+   "M": 1990,
+   "Mperm": 2289,
+   "Mhc": 2296,
+   "stacked_p1": 2308,
+   "stacked_p2": 2347
+  }
+ },
+ "result": "kill (notes only): every per-arm is_cashback_coin flag form on S3 is below S3n Mhc 2296 and stacked 2347; main stays best",
+ "best_zero_loss": {
+  "ratio": 0.67436,
+  "slots": 3141,
+  "bytes": 27400,
+  "note": "main 599891304 unchanged; no source change proposed"
+ },
+ "kill_test": {
+  "spellings": 35,
+  "distinct_binaries": 27,
+  "all_below_S3n_Mhc": true,
+  "all_stacked_below_S3n": true,
+  "best_Mhc": {
+   "c20": 2157,
+   "c5": 2150
+  },
+  "best_stacked": {
+   "c20": 2291,
+   "c5": 2289,
+   "c2": 2272,
+   "c14": 2248
+  }
+ },
+ "cells": {
+  "c1": {
+   "bytes": 27184,
+   "ratio_oracle": 0.59528,
+   "M": 1979,
+   "Mperm": 2140,
+   "Mhc": 2141
+  },
+  "c2": {
+   "bytes": 27184,
+   "ratio_oracle": 0.59588,
+   "M": 1981,
+   "Mperm": 2141,
+   "Mhc": 2142
+  },
+  "c3": {
+   "bytes": 27200,
+   "ratio_oracle": 0.51331,
+   "M": 1707,
+   "Mperm": 1981,
+   "Mhc": 1990
+  },
+  "c4": {
+   "bytes": 27200,
+   "ratio_oracle": 0.51391,
+   "M": 1709,
+   "Mperm": 1982,
+   "Mhc": 1991
+  },
+  "c5": {
+   "bytes": 27168,
+   "ratio_oracle": 0.59305,
+   "M": 1971,
+   "Mperm": 2150,
+   "Mhc": 2150
+  },
+  "c6": {
+   "bytes": 27176,
+   "ratio_oracle": 0.59116,
+   "M": 1965,
+   "Mperm": 2141,
+   "Mhc": 2142
+  },
+  "c9": {
+   "bytes": 27216,
+   "ratio_oracle": 0.56816,
+   "M": 1890,
+   "Mperm": 2131,
+   "Mhc": 2139
+  },
+  "c10": {
+   "bytes": 27240,
+   "ratio_oracle": 0.57001,
+   "M": 1897,
+   "Mperm": 2135,
+   "Mhc": 2140
+  },
+  "c14": {
+   "bytes": 27368,
+   "ratio_oracle": 0.56655,
+   "M": 1890,
+   "Mperm": 2138,
+   "Mhc": 2141
+  },
+  "c14e": {
+   "bytes": 27376,
+   "ratio_oracle": 0.56436,
+   "M": 1883,
+   "Mperm": 2131,
+   "Mhc": 2135
+  },
+  "c15": {
+   "bytes": 27176,
+   "ratio_oracle": 0.54603,
+   "M": 1815,
+   "Mperm": 2005,
+   "Mhc": 2005
+  },
+  "c15e": {
+   "bytes": 27336,
+   "ratio_oracle": 0.52699,
+   "M": 1757,
+   "Mperm": 1909,
+   "Mhc": 1913
+  },
+  "c16": {
+   "bytes": 27184,
+   "ratio_oracle": 0.35675,
+   "M": 1186,
+   "Mperm": 1406,
+   "Mhc": 1433
+  },
+  "c16e": {
+   "bytes": 27184,
+   "ratio_oracle": 0.35885,
+   "M": 1193,
+   "Mperm": 1409,
+   "Mhc": 1438
+  },
+  "c18": {
+   "bytes": 27344,
+   "ratio_oracle": 0.49363,
+   "M": 1646,
+   "Mperm": 1754,
+   "Mhc": 1761
+  },
+  "c18e": {
+   "bytes": 27256,
+   "ratio_oracle": 0.51787,
+   "M": 1724,
+   "Mperm": 1831,
+   "Mhc": 1837
+  },
+  "c19": {
+   "bytes": 27544,
+   "ratio_oracle": 0.58679,
+   "M": 1964,
+   "Mperm": 2121,
+   "Mhc": 2131
+  },
+  "c19e": {
+   "bytes": 27552,
+   "ratio_oracle": 0.58491,
+   "M": 1958,
+   "Mperm": 2112,
+   "Mhc": 2122
+  },
+  "c20": {
+   "bytes": 27304,
+   "ratio_oracle": 0.59214,
+   "M": 1973,
+   "Mperm": 2139,
+   "Mhc": 2157
+  },
+  "c20e": {
+   "bytes": 27312,
+   "ratio_oracle": 0.59055,
+   "M": 1968,
+   "Mperm": 2134,
+   "Mhc": 2152
+  },
+  "c5m": {
+   "bytes": 27176,
+   "ratio_oracle": 0.55776,
+   "M": 1854,
+   "Mperm": 2126,
+   "Mhc": 2138
+  },
+  "c5g": {
+   "bytes": 27192,
+   "ratio_oracle": 0.59218,
+   "M": 1969,
+   "Mperm": 2126,
+   "Mhc": 2136
+  },
+  "c5F": {
+   "bytes": 27528,
+   "ratio_oracle": 0.52421,
+   "M": 1754,
+   "Mperm": 1971,
+   "Mhc": 1975
+  },
+  "c5gF": {
+   "bytes": 27648,
+   "ratio_oracle": 0.52214,
+   "M": 1751,
+   "Mperm": 1973,
+   "Mhc": 1976
+  },
+  "c20g": {
+   "bytes": 27368,
+   "ratio_oracle": 0.58633,
+   "M": 1956,
+   "Mperm": 2139,
+   "Mhc": 2156
+  },
+  "c20F": {
+   "bytes": 27672,
+   "ratio_oracle": 0.45097,
+   "M": 1513,
+   "Mperm": 1613,
+   "Mhc": 1620
+  },
+  "c20gF": {
+   "bytes": 27768,
+   "ratio_oracle": 0.44987,
+   "M": 1512,
+   "Mperm": 1611,
+   "Mhc": 1617
+  }
+ },
+ "stacked": {
+  "c2": {
+   "p1": 2210,
+   "p1_forces": "1660=r7,1707=r7,463=r2,1278=r2,352=r7,2185=r8",
+   "p2": 2272,
+   "p2_forces": "1660=r7,1707=r7,463=r2,1278=r2,352=r7,2185=r8,1950=r5,2034=r6,1680=r3,1619=r3,1078=r3,1706=r6,1752=r6,1662=r4"
+  },
+  "c5": {
+   "p1": 2270,
+   "p1_forces": "1668=r7,1667=r9,1283=r2,355=r7,464=r2,239=r5,1089=r5,1905=r6",
+   "p2": 2289,
+   "p2_forces": "1668=r7,1667=r9,1283=r2,355=r7,464=r2,239=r5,1089=r5,1905=r6,2198=r8,468=r3,1698=r6,1724=r4,1625=r2,1762=r6"
+  },
+  "c14": {
+   "p1": 2234,
+   "p1_forces": "1674=r7,1591=r6,1673=r9,1923=r9,467=r2",
+   "p2": 2248,
+   "p2_forces": "1674=r7,1591=r6,1673=r9,1923=r9,467=r2,1725=r6,240=r5,1734=r4,1770=r6,2248=r3"
+  },
+  "c20": {
+   "p1": 2257,
+   "p1_forces": "1734=r9,239=r5,1937=r9,1688=r6,1681=r7,464=r2,1088=r5,1715=r6,1710=r4,1678=r8,2013=r7,1669=r4",
+   "p2": 2291,
+   "p2_forces": "1734=r9,239=r5,1937=r9,1688=r6,1681=r7,464=r2,1088=r5,1715=r6,1710=r4,1678=r8,2013=r7,1669=r4,1973=r5,2164=r8,2181=r5,2056=r7,468=r3,1904=r3"
+  }
+ },
+ "spelling_folds": {
+  "c1": [
+   "c7",
+   "t1",
+   "t3",
+   "c11"
+  ],
+  "c2": [
+   "c8",
+   "t2",
+   "t4",
+   "c12"
+  ],
+  "c9": [
+   "c13"
+  ],
+  "c10": [
+   "c13e"
+  ]
+ },
+ "mechanisms": [
+  "Any per-arm cashback flag deletes the head let cashback=!holder&&st.cashback (no remaining use): -200..-232 B, the two head-to-tail spills (!holder -0x908, st.cashback -0x8f8 on S3n) and their curve-store reloads vanish; greedy renames from the entry (mov64 r6,r5 = original; c5 also r8 for ctx.accounts) but net register naming loses ~150 M (Mperm/Mhc), skeleton within Lrfj -12..-2 of main.",
+  "Flag IR type decides the curve-store shape: out-param writes in the arms are an i8 phi (no and-1); i1 SSA incoming values (c5 end-of-validate *cf=cashback select; c14/c19/c20 execute-arm tuple) reproduce the original ldxdw+and64 1 at 0x4aa8. c20 also has the original four flag writers.",
+  "No 6 KB tail swap in any form (S3 event read keeps %0 live); fuev swap flag = one aliasing chunk (orig 0x4000 sharing-CPI clone run vs TCF clone run).",
+  "Stacked: forced c5/c14/c20 gain +7..+10 rfj in validate arms (orig 0x1000-0x1c00) and lose -4..-10 in the post-sweep tail (0x5800-0x6400) and the sweep (0x3000).",
+  "LOO: c5m (flag on main, no S3) Mhc 2138 (-164 vs main); c5 on S3 2150 (-146 vs S3n); interaction +18.",
+  "Repay with g1 (+24 B) or Fa (+360 B, collapse) does not lift c5/c20."
+ ],
+ "rejected": [
+  "cf out-param in arms (c1-c4)",
+  "cf at end of validate (c5/c6)",
+  "cf before fee checks (c18)",
+  "derived from hf (c9/c10/c13)",
+  "per-arm tuple in execute arms (c14, c19 four arms, c20 head reuse)",
+  "st.cashback cleared in holder arm (c15)",
+  "Result<(Pubkey,bool)> (c16)",
+  "event reads flag (all e variants)",
+  "repay g1/Fa on c5/c20"
+ ],
+ "unresolved": [
+  "what the original spends the ~230 B on that the flag frees",
+  "post-sweep tail skeleton loss of the flag forms (orig 0x5800-0x6400)"
+ ],
+ "next": [
+  "duplicated non-shared arm (#3435) as the repay of the freed bytes",
+  "per-piece entry copy of new without routing validate through args.0",
+  "per-arm cashback combined with the and-1 holder test basin (orig 0x610)"
+ ],
+ "ledger": {
+  "approach": "s3cashflag",
+  "keys": "0x22a10-w16-5998913-s3cashflag-<cell>-v1, -<cell>-stacked-v1 (c2,c5,c14,c20), -kill-v1"
+ },
+ "tools": "w16a08 t2/t84 pipeline copied to $OUT (cap.sh, rx.py, mp.sh, stack.sh, full.sh, rpipe.sh, rpass2.sh), w16a12 livecs.py, w16a09 fuev.py, tools/mk.py tab.py rec.py pairdiff.py"
+}

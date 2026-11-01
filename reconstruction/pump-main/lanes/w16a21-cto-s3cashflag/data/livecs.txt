@@ -1,0 +1,178 @@
+== m0
+== w_frz (1094 bb.81): live callee-saved ['r6', 'r9']
+   r6 <- tail@1011 bb.73: $r6 = LDD_V1 $r10, -2264
+   r9 <- head@852 bb.59: $r9 = MOV_ri 0
+   r9 <- head@858 bb.60: $r9 = MOV_ri 1
+   r9 <- head@881 bb.61: $r9 = MOV_ri 0
+   r9 <- tail@941 bb.65: $r9 = MOV_ri 0
+== w_ata (1221 bb.95): live callee-saved ['r6', 'r9']
+   r6 <- tail@1141 bb.86: $r6 = MOV_ri 0
+   r6 <- tail@1144 bb.87: $r6 = MOV_ri 1
+   r6 <- tail@1158 bb.89: $r6 = MOV_ri 1
+   r6 <- tail@1161 bb.90: $r6 = MOV_ri 0
+   r9 <- head@852 bb.59: $r9 = MOV_ri 0
+   r9 <- head@858 bb.60: $r9 = MOV_ri 1
+   r9 <- head@881 bb.61: $r9 = MOV_ri 0
+   r9 <- tail@941 bb.65: $r9 = MOV_ri 0
+== collect (1269 bb.103): live callee-saved ['r9']
+   r9 <- head@852 bb.59: $r9 = MOV_ri 0
+   r9 <- head@858 bb.60: $r9 = MOV_ri 1
+   r9 <- head@881 bb.61: $r9 = MOV_ri 0
+   r9 <- tail@941 bb.65: $r9 = MOV_ri 0
+== sweep (1574 bb.124): live callee-saved ['r7', 'r8', 'r9']
+   r7 <- tail@1560 bb.124: $r7 = COPY $r0
+   r8 <- tail@1543 bb.124: $r8 = LDD_V1 $r10, -2264
+   r9 <- tail@1542 bb.124: $r9 = LDB_V1 killed $r1, 35 :: (dereferenceable load (s8) from %ir.308)
+== tcf (2403 bb.237): live callee-saved []
+== shcpi (3200 bb.336): live callee-saved []
+== poolgate (3213 bb.338): live callee-saved ['r6', 'r9']
+   r6 <- tail@2736 bb.271: $r6 = LDD_V1 $r10, -2264
+   r9 <- tail@3211 bb.338: $r9 = LDD_V1 killed $r1, 112 :: (load (s64) from %ir.704)
+== pool (3289 bb.341): live callee-saved ['r9']
+   r9 <- tail@3211 bb.338: $r9 = LDD_V1 killed $r1, 112 :: (load (s64) from %ir.704)
+== S3n
+== w_frz (1099 bb.81): live callee-saved ['r6', 'r9']
+   r6 <- tail@1016 bb.73: $r6 = LDD_V1 $r10, -2264
+   r9 <- head@857 bb.59: $r9 = MOV_ri 0
+   r9 <- head@863 bb.60: $r9 = MOV_ri 1
+   r9 <- head@886 bb.61: $r9 = MOV_ri 0
+   r9 <- tail@946 bb.65: $r9 = MOV_ri 0
+== w_ata (1226 bb.95): live callee-saved ['r6', 'r9']
+   r6 <- tail@1146 bb.86: $r6 = MOV_ri 0
+   r6 <- tail@1149 bb.87: $r6 = MOV_ri 1
+   r6 <- tail@1163 bb.89: $r6 = MOV_ri 1
+   r6 <- tail@1166 bb.90: $r6 = MOV_ri 0
+   r9 <- head@857 bb.59: $r9 = MOV_ri 0
+   r9 <- head@863 bb.60: $r9 = MOV_ri 1
+   r9 <- head@886 bb.61: $r9 = MOV_ri 0
+   r9 <- tail@946 bb.65: $r9 = MOV_ri 0
+== collect (1274 bb.103): live callee-saved ['r9']
+   r9 <- head@857 bb.59: $r9 = MOV_ri 0
+   r9 <- head@863 bb.60: $r9 = MOV_ri 1
+   r9 <- head@886 bb.61: $r9 = MOV_ri 0
+   r9 <- tail@946 bb.65: $r9 = MOV_ri 0
+== sweep (1579 bb.124): live callee-saved ['r7', 'r8', 'r9']
+   r7 <- tail@1565 bb.124: $r7 = COPY $r0
+   r8 <- tail@1548 bb.124: $r8 = LDD_V1 $r10, -2264
+   r9 <- tail@1547 bb.124: $r9 = LDB_V1 killed $r1, 35 :: (dereferenceable load (s8) from %ir.308)
+== tcf (2408 bb.237): live callee-saved []
+== shcpi (3204 bb.336): live callee-saved []
+== poolgate (3217 bb.338): live callee-saved ['r6', 'r9']
+   r6 <- tail@2741 bb.271: $r6 = LDD_V1 $r10, -2264
+   r9 <- tail@3215 bb.338: $r9 = LDD_V1 killed $r1, 112 :: (load (s64) from %ir.703)
+== pool (3293 bb.341): live callee-saved ['r9']
+   r9 <- tail@3215 bb.338: $r9 = LDD_V1 killed $r1, 112 :: (load (s64) from %ir.703)
+== c1
+== w_frz (1089 bb.77): live callee-saved []
+== w_ata (1215 bb.91): live callee-saved ['r6']
+   r6 <- tail@1135 bb.82: $r6 = MOV_ri 0
+   r6 <- tail@1138 bb.83: $r6 = MOV_ri 1
+   r6 <- tail@1152 bb.85: $r6 = MOV_ri 1
+   r6 <- tail@1155 bb.86: $r6 = MOV_ri 0
+== collect (1262 bb.99): live callee-saved []
+== sweep (1563 bb.120): live callee-saved ['r6', 'r7', 'r9']
+   r6 <- tail@1532 bb.120: $r6 = LDD_V1 $r10, -2344
+   r7 <- tail@1531 bb.120: $r7 = LDB_V1 killed $r1, 35 :: (dereferenceable load (s8) from %ir.307)
+   r9 <- tail@1549 bb.120: $r9 = COPY $r0
+== tcf (2390 bb.233): live callee-saved []
+== shcpi (3173 bb.332): live callee-saved []
+== poolgate (3186 bb.334): live callee-saved ['r7', 'r8']
+   r7 <- tail@2710 bb.267: $r7 = LDD_V1 $r10, -2344
+   r8 <- tail@3184 bb.334: $r8 = LDD_V1 killed $r1, 112 :: (load (s64) from %ir.702)
+== pool (3262 bb.337): live callee-saved ['r8']
+   r8 <- tail@3184 bb.334: $r8 = LDD_V1 killed $r1, 112 :: (load (s64) from %ir.702)
+== c5
+== w_frz (1087 bb.79): live callee-saved ['r8']
+   r8 <- head@850 bb.57: $r8 = MOV_ri 0
+   r8 <- head@853 bb.58: $r8 = MOV_ri 1
+   r8 <- head@874 bb.59: $r8 = MOV_ri 0
+   r8 <- tail@934 bb.63: $r8 = MOV_ri 0
+== w_ata (1213 bb.93): live callee-saved ['r6', 'r8']
+   r6 <- tail@1133 bb.84: $r6 = MOV_ri 0
+   r6 <- tail@1136 bb.85: $r6 = MOV_ri 1
+   r6 <- tail@1150 bb.87: $r6 = MOV_ri 1
+   r6 <- tail@1153 bb.88: $r6 = MOV_ri 0
+   r8 <- head@850 bb.57: $r8 = MOV_ri 0
+   r8 <- head@853 bb.58: $r8 = MOV_ri 1
+   r8 <- head@874 bb.59: $r8 = MOV_ri 0
+   r8 <- tail@934 bb.63: $r8 = MOV_ri 0
+== collect (1260 bb.101): live callee-saved ['r8']
+   r8 <- head@850 bb.57: $r8 = MOV_ri 0
+   r8 <- head@853 bb.58: $r8 = MOV_ri 1
+   r8 <- head@874 bb.59: $r8 = MOV_ri 0
+   r8 <- tail@934 bb.63: $r8 = MOV_ri 0
+== sweep (1563 bb.122): live callee-saved ['r6', 'r7', 'r9']
+   r6 <- tail@1532 bb.122: $r6 = LDD_V1 $r10, -2352
+   r7 <- tail@1531 bb.122: $r7 = LDB_V1 killed $r1, 35 :: (dereferenceable load (s8) from %ir.308)
+   r9 <- tail@1549 bb.122: $r9 = COPY $r0
+== tcf (2390 bb.235): live callee-saved []
+== shcpi (3174 bb.334): live callee-saved []
+== poolgate (3187 bb.336): live callee-saved ['r6', 'r8']
+   r6 <- tail@2712 bb.269: $r6 = LDD_V1 $r10, -2352
+   r8 <- tail@3185 bb.336: $r8 = LDD_V1 killed $r1, 112 :: (load (s64) from %ir.703)
+== pool (3263 bb.339): live callee-saved ['r8']
+   r8 <- tail@3185 bb.336: $r8 = LDD_V1 killed $r1, 112 :: (load (s64) from %ir.703)
+== c14
+== w_frz (1107 bb.84): live callee-saved ['r8']
+   r8 <- head@847 bb.55: $r8 = LDD_V1 $r10, -2264
+   r8 <- head@857 bb.56: $r8 = LDD_V1 $r10, -2264
+   r8 <- head@879 bb.59: $r8 = LDD_V1 $r10, -2264
+== w_ata (1234 bb.98): live callee-saved ['r6']
+   r6 <- tail@1154 bb.89: $r6 = MOV_ri 0
+   r6 <- tail@1157 bb.90: $r6 = MOV_ri 1
+   r6 <- tail@1171 bb.92: $r6 = MOV_ri 1
+   r6 <- tail@1174 bb.93: $r6 = MOV_ri 0
+== collect (1283 bb.106): live callee-saved []
+== sweep (1586 bb.127): live callee-saved ['r7', 'r8', 'r9']
+   r7 <- tail@1555 bb.127: $r7 = LDB_V1 killed $r1, 35 :: (dereferenceable load (s8) from %ir.309)
+   r8 <- head@847 bb.55: $r8 = LDD_V1 $r10, -2264
+   r8 <- head@857 bb.56: $r8 = LDD_V1 $r10, -2264
+   r8 <- head@879 bb.59: $r8 = LDD_V1 $r10, -2264
+   r8 <- tail@1256 bb.105: $r8 = LDD_V1 $r10, -2264
+   r8 <- ... 6 defs
+   r9 <- tail@1572 bb.127: $r9 = COPY $r0
+== tcf (2415 bb.240): live callee-saved []
+== shcpi (3197 bb.339): live callee-saved []
+== poolgate (3210 bb.341): live callee-saved ['r6', 'r8']
+   r6 <- tail@2738 bb.274: $r6 = LDD_V1 $r10, -2264
+   r8 <- tail@3208 bb.341: $r8 = LDD_V1 killed $r1, 112 :: (load (s64) from %ir.704)
+== pool (3286 bb.344): live callee-saved ['r8']
+   r8 <- tail@3208 bb.341: $r8 = LDD_V1 killed $r1, 112 :: (load (s64) from %ir.704)
+== c20
+== w_frz (1093 bb.81): live callee-saved ['r6', 'r9']
+   r6 <- head@853 bb.59: $r6 = LDD_V1 $r10, -2312
+   r6 <- head@863 bb.60: $r6 = LDD_V1 $r10, -2312
+   r6 <- head@884 bb.63: $r6 = LDD_V1 $r10, -2312
+   r9 <- head@852 bb.59: $r9 = MOV_ri 0
+   r9 <- head@856 bb.60: $r9 = MOV_ri 1
+   r9 <- head@879 bb.61: $r9 = MOV_ri 0
+   r9 <- tail@939 bb.65: $r9 = MOV_ri 0
+== w_ata (1220 bb.95): live callee-saved ['r6', 'r9']
+   r6 <- tail@1140 bb.86: $r6 = MOV_ri 0
+   r6 <- tail@1143 bb.87: $r6 = MOV_ri 1
+   r6 <- tail@1157 bb.89: $r6 = MOV_ri 1
+   r6 <- tail@1160 bb.90: $r6 = MOV_ri 0
+   r9 <- head@852 bb.59: $r9 = MOV_ri 0
+   r9 <- head@856 bb.60: $r9 = MOV_ri 1
+   r9 <- head@879 bb.61: $r9 = MOV_ri 0
+   r9 <- tail@939 bb.65: $r9 = MOV_ri 0
+== collect (1269 bb.103): live callee-saved ['r9']
+   r9 <- head@852 bb.59: $r9 = MOV_ri 0
+   r9 <- head@856 bb.60: $r9 = MOV_ri 1
+   r9 <- head@879 bb.61: $r9 = MOV_ri 0
+   r9 <- tail@939 bb.65: $r9 = MOV_ri 0
+== sweep (1574 bb.124): live callee-saved ['r6', 'r7', 'r9']
+   r6 <- head@853 bb.59: $r6 = LDD_V1 $r10, -2312
+   r6 <- head@863 bb.60: $r6 = LDD_V1 $r10, -2312
+   r6 <- head@884 bb.63: $r6 = LDD_V1 $r10, -2312
+   r6 <- tail@1242 bb.102: $r6 = LDD_V1 $r10, -2312
+   r6 <- ... 6 defs
+   r7 <- tail@1560 bb.124: $r7 = COPY $r0
+   r9 <- tail@1543 bb.124: $r9 = LDB_V1 killed $r1, 35 :: (dereferenceable load (s8) from %ir.308)
+== tcf (2406 bb.237): live callee-saved []
+== shcpi (3194 bb.336): live callee-saved []
+== poolgate (3207 bb.338): live callee-saved ['r6', 'r9']
+   r6 <- tail@2735 bb.271: $r6 = LDD_V1 $r10, -2312
+   r9 <- tail@3205 bb.338: $r9 = LDD_V1 killed $r1, 112 :: (load (s64) from %ir.703)
+== pool (3283 bb.341): live callee-saved ['r9']
+   r9 <- tail@3205 bb.338: $r9 = LDD_V1 killed $r1, 112 :: (load (s64) from %ir.703)
