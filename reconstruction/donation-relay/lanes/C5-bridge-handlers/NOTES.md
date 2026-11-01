@@ -15,6 +15,7 @@ All figures are `relay/tools/measure.sh` on the Mac route unless marked Linux: n
 | event and state modules reordered | `36f255cac` | 550 | 795,888 | 538 | 23,074 / 4 | none |
 | same source, Linux | `36f255cac` | 552 | 796,608 | 530 | 23,074 / 4 | none |
 | `#[access_control]` on the nine relayer handlers | `69a547cd2` | 550 | 795,888 | 538 | 23,074 / 4 | none |
+| same source, Linux | `3ffa4cbbc` | 552 | 796,608 | 530 | 23,074 / 4 | none |
 
 `.rodata` target size is 23,104 B. "Common" and "edits" come from `difflib.SequenceMatcher` over the two sections, without autojunk.
 
@@ -90,7 +91,7 @@ The handlers without a relayer check stay in source order. Those with `check_rel
 pub fn admit_bridge_payment_v1(..)
 ```
 
-gives exactly this sequence with the same spacing from `recover` through `try_accounts`, with no change to any function body and no losses. `order.py` goes from 503 to 511 functions in order. The reason for the reversal is my reading of rustc's macro expansion (invocations that cannot be resolved yet are retried from the end of the queue), not something measured. The sequence itself is measured.
+gives exactly this sequence with the same spacing from `recover` through `try_accounts`, with no change to any function body and no losses. `order.py` goes from 503 to 511 functions in order on the Mac, and reports 515 of 552 on Linux. The reason for the reversal is my reading of rustc's macro expansion (invocations that cannot be resolved yet are retried from the end of the queue), not something measured. The sequence itself is measured.
 
 ## What `.rodata` still differs in
 
@@ -102,7 +103,7 @@ Four edits, none tied to this cluster:
 
 ## Mac and Linux
 
-On the Mac, recover reports `strict: false`, `call 0x4ea0->0x5120`. That is not a source difference. The two `Account<T>::reload` instances (classic and interface `TokenAccount`) have equal bodies, and their order follows the symbol hash, which depends on the host. Recover calls the classic one, as the target does: the callee's own `try_deserialize_unchecked` pairs with the target's `0xa21c8`. On Linux (`1faf3dca8` and `36f255cac`) the pairs line up, and `0x4ea0`, `0x5120`, `0x20580` and `0x21608` are all `strict: true`. `0xb3278` and `0xbcac0` also match there, as the brief expects, and `.rodata` has the same four edits as the Mac.
+On the Mac, recover reports `strict: false`, `call 0x4ea0->0x5120`. That is not a source difference. The two `Account<T>::reload` instances (classic and interface `TokenAccount`) have equal bodies, and their order follows the symbol hash, which depends on the host. Recover calls the classic one, as the target does: the callee's own `try_deserialize_unchecked` pairs with the target's `0xa21c8`. On Linux (`1faf3dca8`, `36f255cac` and `3ffa4cbbc`) the pairs line up, and `0x4ea0`, `0x5120`, `0x20580` and `0x21608` are all `strict: true`. `0xb3278` and `0xbcac0` also match there, as the brief expects, and `.rodata` has the same four edits as the Mac.
 
 ## Merging
 
@@ -112,7 +113,7 @@ Trial merge, not pushed: `69a547cd2` with C4 `230627eb5`, C6 `9aa875159`, C1 `c0
 
 ## Raw bytes
 
-On the Mac route, every instruction slot of both functions is identical except address operands: admit differs in 16 `lddw` and 13 `call` immediates, recover in 25 `lddw` and 29 `call`. So neither is raw-identical in place yet. That needs the rest of `.text` and `.rodata` at the target's addresses. `whole_elf_equal` is false on every build above.
+On both routes, every instruction slot of both functions is identical except address operands: admit differs in 16 `lddw` and 13 `call` immediates, recover in 25 `lddw` and 29 `call`. So neither is raw-identical in place yet. That needs the rest of `.text` and `.rodata` at the target's addresses. `whole_elf_equal` is false on every build above.
 
 ## Tried and not kept
 
