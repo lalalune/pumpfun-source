@@ -1,8 +1,8 @@
 # Behavior-guided corpus qualification — 2026-11-01
 
-The behavior-guidance implementation was executed from commit
-`4a104816662c7fdfb9110b2bf0a358eb8ab2b823` on fresh upstream
-`1e5e58d27200aba794079374590ec897a9c1d60e`. It changes no program source,
+The behavior-guidance implementation was executed from integration commit
+`603fce64452248bcba1b17c8cd2aabc3523e084e` on fresh upstream
+`0881307b0f678a1116aa5322d53f1dd098a64589`. It changes no program source,
 captured image, signer rule, strict comparison field, reducer property or score
 normalization.
 
@@ -54,14 +54,14 @@ Control report identities:
 - artifact manifest:
   `73189d520d17cc04666940876bdce2b125a8f80591d67e21594ba1b6ada8e7eb`;
 - summary:
-  `60a3c5568ffbe1766a5698bbd704bd0d1a96920b2a49cc40cf0d76cd0fb1c538`.
+  `b4fb843bde3ae115cce301ae056768b2acf3838fa81a88f2d90d1b5442aa6978`.
 
 Candidate report identities:
 
 - artifact manifest:
   `3ca85effffb40dbcd44db1069392c7fb41d1aa9cb805f2fa1d52c1dbc144b772`;
 - summary:
-  `8e7fc861854227d1f8a4784ec97141eb42637b01ed701d8a66922329bb11a66d`.
+  `17458b12f7ef2f2b8e1f09486c43b2d47deac3e0450bbbf5c19d646f5e3858f6`.
 
 `verify_guided.py --reexecute` independently admitted all 64 original
 observations and all 16 differential receipts for each report, then reexecuted
