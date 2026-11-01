@@ -1,0 +1,37 @@
+{
+  "schema": "mayhem-v2-pumpswap-qualification-v1",
+  "upstream_commit": "e89d79aa8d0ad61cefa99b614390eca13500a743",
+  "original_sha256": "a87fa9f866272514e6acb852b668c4a08aeb173d56c883039991d114d1199bdb",
+  "candidate_sha256": "9af9e3b1cbc9d89340af4d9d46e4c88d3dc2fc67e0090f9370047d97532ff09d",
+  "campaigns": {
+    "original_vs_original": {
+      "cases": 14,
+      "signed_transactions": 28,
+      "successful_original_transitions": 12,
+      "failed_original_transitions": 2,
+      "equal_observed_behavior": 14,
+      "different_behavior": 0
+    },
+    "original_vs_candidate": {
+      "cases": 14,
+      "signed_transactions": 28,
+      "successful_original_transitions": 12,
+      "failed_original_transitions": 2,
+      "equal_observed_behavior": 14,
+      "different_behavior": 0
+    }
+  },
+  "unsupported_selected_cases": 0,
+  "infrastructure_failures": 0,
+  "negative_controls_detected": 10,
+  "negative_controls_total": 10,
+  "package_tests_passed": 21,
+  "existing_stateful_tests_passed": 14,
+  "existing_report_publication_tests_passed": 8,
+  "limitations": [
+    "synthetic preinitialized fixture; no Mayhem initializer claim",
+    "native wrapped-SOL quote only for persistent cases",
+    "zero-fee recipient configuration; nonzero fee accrual not claimed",
+    "finite LiteSVM evidence, not exhaustive semantic or security equivalence"
+  ]
+}
